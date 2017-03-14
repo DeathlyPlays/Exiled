@@ -1,0 +1,1933 @@
+body {
+    background: #000 url(http://i.imgur.com/RCwF324.jpg) no-repeat;
+    background-position: center
+}
+
+.maintabbarbottom {
+    background: #610B0B;
+    border: solid 1px #000;
+    height: 6px
+}
+
+.fa-user {
+    display: none
+}
+
+.header {
+    background: #000;
+}
+
+.header .logo {
+    float: left;
+    margin: 8px 0px 0px -148px;
+    padding-right: 150px;
+    padding-bottom: 0px;
+    background: url(http://i.imgur.com/scO1OGO.png) no-repeat scroll 108% 50% transparent;
+}
+
+.highlighted {
+    background: #9A2EFE;
+    color: #FFF
+}
+
+.chat-log {
+    background: #000;
+    color: #FFF
+}
+
+.chat-log-add {
+    background: #610B0B
+}
+
+.userlist {
+    background: #610B0B;
+    color: #FFF
+}
+
+.userlist li button:hover {
+    background: #3B0B0B
+}
+
+.mainmenu .menugroup:nth-child(1) .button,
+.mainmenu .menugroup:nth-child(2) p:nth-child(1) .button,
+.mainmenu .menugroup:nth-child(2) p:nth-child(2) .button,
+.mainmenu .menugroup:nth-child(2) p:nth-child(3) .button,
+.mainmenu .menugroup:nth-child(3) p:nth-child(1) .button,
+.mainmenu .menugroup:nth-child(3) p:nth-child(2) .button,
+.button.mainmenu4.onlineonly,
+button.mainmenu5.onlineonly {
+    background: #610B0B;
+    box-shadow: 0px 0px 5px #171616;
+    color: #FFF;
+    border: none;
+    text-shadow: 0px -1px 0px #000
+}
+
+.mainmenu .menugroup:nth-child(1) .button:hover,
+.mainmenu .menugroup:nth-child(2) p:nth-child(1) .button:hover,
+.mainmenu .menugroup:nth-child(2) p:nth-child(2) .button:hover,
+.mainmenu .menugroup:nth-child(2) p:nth-child(3) .button:hover,
+.mainmenu .menugroup:nth-child(3) p:nth-child(1) .button:hover,
+.mainmenu .menugroup:nth-child(3) p:nth-child(2) .button:hover,
+.button.mainmenu4.onlineonly:hover,
+button.mainmenu5.onlineonly:hover {
+    border: none;
+    background: #3B0B0B;
+    color: #FFF;
+    font-size: 22px
+}
+
+.tabbar a.button {
+    background: #610B0B;
+    color: #FFF;
+    border: solid 1px #000;
+    text-shadow: none
+}
+
+.tabbar a.button:hover {
+    background: #3B0B0B;
+    color: #FFF;
+    border: solid 1px #000;
+    text-shadow: none
+}
+
+.tabbar a.button.notifying {
+    background: #9A2EFE;
+    border-color: #8000FF;
+    color: #FFF;
+    text-shadow: none
+}
+
+.tabbar a.button.notifying:hover {
+    background: #8000FF;
+    border-color: #7401DF;
+    color: #FFF;
+    text-shadow: none
+}
+
+.ps-popup {
+    background: #610B0B;
+    border-radius: 2px;
+    border: solid 1px #FFF;
+    color: #FFF;
+    padding: 2px 10px;
+    box-shadow: inset 1px 1px 0 #000000, inset -1px -1px 0 #000000, 2px 2px 3px rgba(0, 0, 0, .2);
+    z-index: 20;
+}
+
+.ps-room-light.scrollable {
+    background: #000 url(http://i.imgur.com/8lqpK3I.png) center left no-repeat;
+    color: #FFF
+}
+
+.roomlist h2 {
+    color: #FFF;
+    text-shadow: none
+}
+
+.roomcounters button {
+    background: #610B0B;
+    border-color: #FFF;
+    color: #FFF;
+    text-shadow: none
+}
+
+.roomcounters button:hover {
+    background: #3B0B0B;
+    border-color: #FFF;
+    color: #FFF;
+    text-shadow: none
+}
+
+.roomlist a.ilink {
+    background: #610B0B;
+    border: double 2px #FFF;
+    color: #FFF;
+    padding: 5px 10px;
+    text-shadow: none;
+}
+
+.roomlist a.ilink:hover {
+    background: #3B0B0B;
+    border: double 2px #FFF;
+    color: #FFF;
+    padding: 5px 10px;
+    text-shadow: none;
+}
+
+.pm-log {
+    background: #610B0B;
+    border: #000;
+    color: #FFF
+}
+
+.pm-log-add {
+    background: #3B0B0B;
+    border: #000
+}
+
+.pm-window.focused h3,
+.pm-window.focused h3:hover {
+    background: #3B0B0B;
+    border: #000;
+    color: #FFF
+}
+
+.pm-window h3 {
+    background: #3B0B0B;
+    border: #0B4C5F;
+    color: #FFF
+}
+
+.pm-window h3.pm-notifying,
+.pm-window h3.pm-notifying:hover {
+    background: #9A2EFE;
+    border: #000
+}
+
+.battle {
+    position: absolute;
+    text-align: left;
+    top: 25px;
+    left: -1px;
+    border: 0px solid #AAAAAA;
+    background-image: url("http://i.imgur.com/WpQsQmG.png");
+    width: 640px;
+    height: 360px;
+    overflow: hidden;
+    padding-top: 15px;
+    padding-bottom: 200px;
+    font-family: Verdana, sans-serif;
+    font-size: 10pt;
+}
+
+.backdrop {
+    width: 640px;
+    height: 360px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+    z-index: 0;
+    background-size: 640px 320px !important;
+    background-image: url(http://i.imgur.com/KXYj116.png);
+    opacity: 1 !important;
+}
+
+.backdrop[style*="bg-beach.png"] {
+    background-image: url(http://i.imgur.com/KR5Xcgy.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-beachshore.png"] {
+    background-image: url(http://i.imgur.com/kuVq9Gb.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-city.png"] {
+    background-image: url(http://i.imgur.com/AqMv0Vr.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-dampcave.png"] {
+    background-image: url(http://i.imgur.com/te4lJOc.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-deepsea.png"] {
+    background-image: url(http://i.imgur.com/Kou1vu5.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-desert.png"] {
+    background-image: url(http://i.imgur.com/4EwQDTS.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-earthycave.png"] {
+    background-image: url(http://i.imgur.com/Ffd9WMk.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-forest.png"] {
+    background-image: url(http://i.imgur.com/ux0Qk2g.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-icecave.png"] {
+    background-image: url(http://i.imgur.com/jm7L77m.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-meadow.png"] {
+    background-image: url(http://i.imgur.com/S1UT6wM.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-mountain.png"] {
+    background-image: url(http://i.imgur.com/vSMRAXr.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-river.png"] {
+    background-image: url(http://i.imgur.com/0EQhNGM.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-route.png"] {
+    background-image: url(http://i.imgur.com/7GGWeJ1.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-thunderplains.png"] {
+    background-image: url(http://i.imgur.com/nRPiAi7.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-volcanocave.png"] {
+    background-image: url(http://i.imgur.com/UA2v1nN.png) !important;
+    z-index: 0;
+}
+
+.backdrop[style*="bg-gen1.png"] {
+    background-image: url(http://i.imgur.com/FjWc5ma.png) !important;
+    z-index: 0;
+}
+
+.backdrop:after {
+    display: block;
+    content: "";
+    background: url(http://i.imgur.com/uUyHBub.png);
+    z-index: 0;
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 640px;
+    height: 398px
+}
+
+.turn {
+    position: absolute;
+    top: -46px;
+    left: 290px !important;
+    width: 61px;
+    height: 50px;
+    font-family: "bebas neue" !important;
+    font-size: 15pt;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+    padding-top: 48px;
+    border: 0;
+    border-radius: 0;
+    opacity: 1 !important;
+    background: none;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 1px #707070, 1px 1px 0 #707070, 1px 0px #707070;
+}
+
+
+/* 3rd team icon fix */
+
+.teamicons:last-child {
+    visibility: hidden
+}
+
+.rightbar {
+    position: absolute;
+    top: 85px;
+    right: 23px;
+    height: 375px;
+    width: 35px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 0px solid rgba(215, 215, 215, 0.5);
+    color: #777777;
+}
+
+.rightbar .trainer {
+    margin-top: 0px;
+    text-align: right;
+}
+
+.rightbar .trainersprite {
+    position: absolute;
+    right: -34px;
+    opacity: 1 !important;
+    top: 278px;
+}
+
+.rightbar .trainer strong {
+    width: 260px;
+    z-index: 1;
+    transform: rotate(90deg) translate(85px, 84px);
+    display: block;
+    font-size: 20px;
+    font-family: "bebas neue" !important;
+    text-align: left !important;
+    font-weight: normal;
+    overflow: visible;
+    margin-top: 45px;
+    margin-left: -57px;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.rightbar .trainer .teamicons {
+    float: left;
+    position: relative;
+    opacity: 1;
+    top: -74px;
+    left: 6px;
+}
+
+.leftbar {
+    position: absolute;
+    top: 12px;
+    left: 23px;
+    height: 375px;
+    width: 35px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 0px solid rgba(215, 215, 215, 0.5);
+    color: #777777;
+    background-image: url(http://i.imgur.com/OxHfKb3.png);
+    background-repeat: no-repeat;
+    text-align: right!important;
+}
+
+.leftbar .trainer {
+    margin-top: 0px;
+    text-align: right;
+}
+
+.leftbar .trainersprite {
+    position: absolute;
+    right: -20px;
+    opacity: 1 !important;
+    top: 446px;
+}
+
+.leftbar .trainer strong {
+    width: 260px;
+    z-index: 1;
+    transform: rotate(-90deg) translate(-55px, -105px);
+    display: block;
+    font-size: 20px;
+    font-family: "bebas neue" !important;
+    text-align: left !important;
+    font-weight: normal;
+    overflow: visible;
+    margin-top: 270px;
+    padding-left: 50px;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.trainer div.teamicons {
+    width: 50px;
+    height: 48px;
+    bottom: 132px;
+    margin-right: 1px;
+}
+
+.teamicons span {
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 62px;
+}
+
+.leftbar .trainer .teamicons {
+    float: right;
+    position: relative;
+    opacity: 1;
+    left: 17px;
+}
+
+.leftbar:before {
+    display: block;
+    content: "";
+    background: url(http://i.imgur.com/7ORTMv9.png);
+    position: absolute;
+    left: -23px;
+    top: -16px;
+    width: 650px;
+    height: 565px;
+}
+
+.ps-room .battle-log {
+    position: absolute;
+    top: 0;
+    left: 640px;
+    right: 0;
+    bottom: 40px;
+    height: auto;
+    width: auto;
+    color: #AAAAAA;
+    border-color: #c2221f;
+    background: #282828;
+    border-width: 2px;
+    word-wrap: break-word;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+    z-index: 2 !important;
+}
+
+.ps-room .battle-log-add {
+    position: absolute;
+    bottom: 0;
+    left: 640px;
+    right: 0;
+    top: auto;
+    min-height: 37px;
+    height: auto;
+    width: auto;
+    padding: 3px 4px 0 4px;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.ps-room .battle {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    top: 0;
+    left: 0;
+}
+
+.battle-log-add {
+    position: absolute;
+    text-align: left;
+    border-top: 2px solid #131313;
+    border-left: 2px solid #c2221f;
+    border-right: 1px solid #c2221f;
+    background: #4b4b4b;
+    background-image: url("http://i.imgur.com/tlYXiOz.png");
+    background-repeat: repeat-x;
+    color: black;
+    top: 370px;
+    left: 640px;
+    right: 0px;
+    z-index: 1 !important;
+    font-family: Verdana, sans-serif;
+    font-size: 10pt;
+}
+
+.battle-log {
+    position: absolute;
+    text-align: left;
+    border: 1px solid #AAAAAA;
+    background: #282828;
+    color: #AAAAAA;
+    top: 9px;
+    left: 640px;
+    right: -1px;
+    height: 360px;
+    font-family: Verdana, sans-serif;
+    font-size: 10pt;
+    overflow: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+.battle-log .inner {
+    padding: 4px 8px 0px 8px;
+}
+
+.battle-log .inner-preempt {
+    padding: 0 8px 4px 8px;
+}
+
+.battle-log .inner-after {
+    margin-top: 0.5em;
+}
+
+.battle-log h2 {
+    margin: 0.5em -8px;
+    padding: 4px 8px;
+    border: 0px solid #AAAAAA;
+    color: white;
+    background: url("http://i.imgur.com/592kyTJ.png");
+    background-repeat: no-repeat;
+    height: 27px;
+    border-left: 0;
+    border-right: 0;
+    font-family: Verdana, sans-serif;
+    font-size: 14pt;
+}
+
+.battle-log .chat {
+    vertical-align: middle;
+    padding: 4px 0 2px 0;
+    color: #aaa;
+    font-size: 8pt;
+    /* background: #F6FAFF; */
+}
+
+.battle-log .chat strong {
+    color: #fff;
+}
+
+.battle-log .chat em {
+    padding: 1px 4px 1px 3px;
+    color: #c9c9c9;
+    font-style: normal;
+}
+
+.battle-log .chat em.mine {
+    color: #555555;
+}
+
+.spoiler {
+    color: #E2E2E2;
+    background: #E2E2E2;
+    border: 1px solid #777777;
+    padding: 0px 3px;
+}
+
+.spoiler:hover,
+.spoiler:active,
+.spoiler-shown {
+    color: #000000;
+    background: #E2E2E2;
+    border: 0px solid #AAAAAA;
+    padding: 1px 4px;
+}
+
+.spoiler a {
+    color: #E2E2E2;
+}
+
+.spoiler:hover a,
+.spoiler:active a,
+.spoiler-shown a {
+    color: #2288CC;
+}
+
+.battle-log .rated {
+    padding: 3px 4px;
+}
+
+.battle-log .rated strong {
+    color: white;
+    background: #89A;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+.ps-room .battle-controls {
+    position: absolute;
+    top: 350px;
+    left: 00px;
+    width: 640px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.whatdo {
+    position: relative;
+    color: #fbfbfb!important;
+    opacity: 1;
+    font-family: "bebas neue" !important;
+    font-size: 20pt !important;
+    right: 0px;
+    bottom: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+}
+
+.whatdo strong {
+    font-weight: normal;
+}
+
+.battle-controls p {
+    margin: 2px 0 8px 0;
+    padding: 0 1px;
+}
+
+.battle-controls .whatdo {
+    margin-top: -2px;
+    padding: 0 0px;
+    font-size: 9pt;
+    color: #555555;
+}
+
+.battle-controls .whatdo small {
+    display: none;
+}
+
+.battle-controls .whatdo small.weak {
+    color: #AAAA22;
+    border-color: #AAAA22;
+}
+
+.battle-controls .whatdo small.critical {
+    color: #EE4433;
+    border-color: #EE4433;
+}
+
+@media (max-width:750px) {
+    .battle-log,
+    .battle-log-add {
+        display: none;
+    }
+}
+
+.ps-room .battle-controls {
+    background: none;
+}
+
+
+/*Mega Evolution*/
+
+.movemenu label {
+    position: relative;
+    color: #fbfbfb!important;
+    opacity: 1;
+    font-size: 30pt !important;
+    right: 0px;
+    margin-bottom: 0px;
+    text-shadow: 2px 1px #707070, 1px 1px 0 #707070, 1px 0px #707070;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    background: none;
+    border: none;
+}
+
+.megaevo {
+    width: inherit;
+}
+
+.movemenu label:hover {
+    position: relative;
+    color: #fbfbfb!important;
+    opacity: 1;
+    font-size: 30pt !important;
+    text-shadow: 2px 1px #707070, 1px 1px 0 #707070, 1px 0px #707070;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    background: none;
+    border: none;
+}
+
+.movemenu input {
+    width: 15px;
+    color: #b4b4b4;
+    position: relative;
+    -webkit-transform: scale(2);
+    left: -10px;
+    top: -5px;
+}
+
+.shiftselect button,
+.moveselect button,
+.switchselect button {
+    background: transparent;
+    border: 0;
+    font-weight: bold;
+    font-style: italic;
+    color: #555555;
+    font-size: 12pt;
+    display: block;
+    margin: 0;
+    padding: 9px 7px 1px 7px;
+}
+
+.shiftselect button {
+    cursor: pointer;
+    color: #fbfbfb!important;
+    opacity: 1;
+    text-shadow: 2px 1px #707070, 1px 1px 0 #707070, 1px 0px #707070;
+    text-transform: uppercase;
+    font-style: none !important;
+    margin-top: 20px;
+    margin-bottom: -23px;
+    margin-left: 295px;
+    text-decoration: none;
+}
+
+.shiftselect button:hover {
+    cursor: pointer;
+    color: #adadad!important;
+}
+
+.moveselect button {
+    color: #884422;
+    cursor: default;
+    display: none;
+}
+
+.switchselect button {
+    color: #445588;
+    cursor: default;
+    display: none;
+}
+
+
+/*HP BAR*/
+
+.statbar {
+    position: absolute;
+    display: none;
+    width: 154px;
+    min-height: 40px;
+    padding: 2px 4px;
+    transform: skewx(-20deg);
+}
+
+.statbar strong {
+    display: block;
+    text-align: left;
+    font-family: "bebas neue" !important;
+    color: #222222;
+    text-shadow: #FFFFFF 1px 1px 0, #FFFFFF 1px -1px 0, #FFFFFF -1px 1px 0, #FFFFFF -1px -1px 0;
+    transform: skewx(20deg) translate(15px, 2px) scaleX(1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+}
+
+.statbar strong small {
+    font-weight: normal;
+    font-size: 10px;
+}
+
+.statbar .hpbar {
+    position: relative;
+    border: 1px solid #ff66;
+    background: #FCFEFF;
+    padding: 1px;
+    height: 6px;
+    border: solid 1px black;
+    margin: 0 0 0 0;
+    width: 151px;
+    border-radius: 0px;
+}
+
+
+/* The declaration order of these hp* classes is significant. */
+
+.statbar .hpbar .hp {
+    height: 2px;
+    border-top: 2px solid #00dd60;
+    background: #00bb51;
+    border-bottom: 2px solid #007734;
+    border-right: 1px solid #007734;
+    border-radius: 0px;
+}
+
+.statbar .hpbar .hp-yellow {
+    border-top-color: #f8e379;
+    background-color: #f5d538;
+    border-bottom-color: #be9f0a;
+    border-right-color: #be9f0a;
+}
+
+.statbar .hpbar .hp-red {
+    border-top-color: #f37f67;
+    background-color: #ee4928;
+    border-bottom-color: #a3260d;
+    border-right-color: #a3260d;
+}
+
+
+/* The declaration order of these prevhp* classes is significant. */
+
+.statbar .hpbar .prevhp {
+    background: #BBEECC;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.statbar .hpbar .prevhp-yellow {
+    background-color: #fcf4ca;
+}
+
+.statbar .hpbar .prevhp-red {
+    background-color: #facec5;
+}
+
+
+/****************/
+
+.statbar .hpbar .hptext {
+    position: absolute;
+    background: #777777;
+    color: #222;
+    text-shadow: #000000 0 1px 0;
+    text-stroke: 1px #222;
+    font-size: 10px;
+    width: 32px;
+    height: 12px;
+    top: -12px;
+    text-align: center;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    transform: skewx(20deg) scaleY(0.7);
+    font-family: "russo" !important;
+}
+
+.statbar .hpbar .hptextborder {
+    position: absolute;
+    background: transparent;
+    border-top: 0px solid #777777;
+    border-bottom: 0px solid #777777;
+    width: 0px;
+    top: -1px;
+    height: 10px;
+}
+
+.rstatbar .hpbar .hptext {
+    right: 5px;
+    border-radius: 0 0px 0px 0;
+    text-align: right;
+    background: none;
+}
+
+.lstatbar .hpbar .hptext {
+    left: 118px;
+    border-radius: 4px 0 0 4px;
+    text-align: right;
+    background: none;
+}
+
+.rstatbar .hpbar .hptextborder {
+    right: -3px;
+}
+
+.lstatbar .hpbar .hptextborder {
+    left: -3px;
+}
+
+.statbar .status {
+    min-height: 10px;
+    font-size: 7pt;
+    transform: skewx(20deg);
+    margin-top: 3px;
+}
+
+.statbar span {
+    padding: 0px 1px;
+    border: 1px solid #FF4400;
+    border-radius: 0px;
+}
+
+.statbar span.brn,
+.statbar span.psn,
+.statbar span.slp,
+.statbar span.par,
+.statbar span.frz {
+    padding: 1px 2px;
+    border: 0;
+    border-radius: 3px;
+}
+
+.statbar span.brn {
+    background: none;
+    color: #EE5533;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 12px;
+}
+
+.statbar span.psn {
+    background: none;
+    color: #A4009A;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 12px;
+}
+
+.statbar span.par {
+    background: none;
+    color: #9AA400;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 12px;
+}
+
+.statbar span.slp {
+    background: none;
+    color: #AA77AA;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 12px;
+}
+
+.statbar span.frz {
+    background: none;
+    color: #009AA4;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 12px;
+}
+
+.statbar span.bad {
+    background: none;
+    color: #d23c3c;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 12px;
+}
+
+.statbar span.good {
+    background: none;
+    color: #048720;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 12px;
+}
+
+.statbar span.neutral {
+    background: #F0F0F0;
+    color: #555555;
+    border-color: #555555;
+}
+
+
+/*MODIFY SWITCH MENU BG COLOUR*/
+
+.switchmenu button {
+    border: solid 0px #c2221f;
+    border-right: none;
+    position: relative;
+    display: block;
+    float: left;
+    background: rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0), inset 0 -1px 2px rgba(255, 255, 255, 0);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0), inset 0 -1px 2px rgba(255, 255, 255, 0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0), inset 0 -1px 2px rgba(255, 255, 255, 0);
+    border-radius: 0px;
+    width: 100px;
+    left: 21px;
+    top: 10px;
+    margin-right: 0px;
+    font: 8pt "Bank Gothic", sans-serif;
+    color: white;
+    padding: 0px 5px 5px 0;
+    white-space: pre;
+    font-weight: normal;
+    overflow: show;
+    width: 96px;
+    transform: skewX(-20deg);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0);
+    text-align: right !important;
+}
+
+.switchmenu button .picon {
+    float: left;
+    margin: 0px 0;
+    opacity: 1;
+    transform: skewX(20deg) scale(2) !important;
+}
+
+.switchmenu button .hpbar {
+    position: absolute;
+    display: block;
+    border-top: 0px solid #AAA;
+    border-bottom: 1px solid #AAA;
+    background: #EEE;
+    height: 1px;
+    bottom: 5px;
+    left: 0px;
+    border-radius: 0px;
+    opacity: 1;
+    transform: scale(0.5, 3) translate(45px, 0px);
+}
+
+
+/* The declaration order of these three hpbar* classes is significant. */
+
+.switchmenu button .hpbar span {
+    display: block;
+    height: 1px;
+    background: #0A6;
+    border-top: 1px solid #3C0;
+    border-radius: 0px;
+}
+
+.switchmenu button .hpbar-yellow span {
+    border-top-color: #a5aa53;
+    background-color: #a2a822;
+}
+
+.switchmenu button .hpbar-red span {
+    border-top-color: #faa;
+    background-color: #f55;
+}
+
+
+/****************/
+
+
+/*SWITCH MENU STATUS CONDITION BOX*/
+
+.switchmenu button .status {
+    position: absolute;
+    display: block;
+    right: 6px;
+    bottom: 10px;
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border-radius: 0px;
+    border: 0px solid #C2C2C2;
+    opacity: 1.0;
+    transform: skewX(20deg);
+}
+
+.status {
+    color: white;
+    border-radius: 3px;
+    padding: 0 2px;
+}
+
+.status.brn {
+    background: url("http://i.imgur.com/2RUWDik.png");
+}
+
+.status.psn,
+.status.tox {
+    background: url("http://i.imgur.com/cSD6KhH.png");
+}
+
+.status.par {
+    background: url("http://i.imgur.com/Xural3K.png");
+}
+
+.status.slp {
+    background: url("http://i.imgur.com/D9tj4cp.png");
+}
+
+.status.frz {
+    background: url("http://i.imgur.com/rYrxCVO.png");
+}
+
+
+/*SWITCH MENU*/
+
+.movemenu button {
+    top: 0px;
+    right: 100px;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0);
+    border-radius: 0px;
+    /* default colors */
+    color: white;
+    background: #ff66cc;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e3e3e3));
+    background: -moz-linear-gradient(top, #f6f6f6, #e3e3e3);
+    background: linear-gradient(top, #f6f6f6, #e3e3e3);
+}
+
+.switchmenu button:hover {
+    background: #cfcfcf;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(103, 103, 103, 0.4)), color-stop(100%, rgba(0, 0, 0, 0))) !important;
+    background: -moz-linear-gradient(top, #f2f2f2, #cfcfcf);
+    background: linear-gradient(top, #f2f2f2, #cfcfcf);
+    border-color: #606060;
+    border: none !important;
+    color: white!important;
+}
+
+.switchmenu button:active {
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(197, 197, 197, 0.4)), color-stop(100%, rgba(0, 0, 0, 0))) !important;
+    background: -moz-linear-gradient(top, #cfcfcf, #f2f2f2);
+    background: linear-gradient(top, #cfcfcf, #f2f2f2);
+    border: none !important;
+    color: white !important;
+}
+
+.switchmenu button .disabled,
+.switchmenu button:disabled,
+.movemenu button:disabled {
+    cursor: default;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0))) !important;
+    border-color: #860a07 !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    color: #777777 !important;
+}
+
+@media (max-height:571px) {
+    .controls {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        background: #ff66cc;
+        background: rgba(40, 40, 40, .85);
+        color: #FFFFFF;
+    }
+    .battle-controls .whatdo {
+        color: #FFFFFF;
+    }
+    .battle-controls .whatdo small.weak {
+        color: #DDDD55;
+        border-color: #DDDD55;
+    }
+    .battle-controls .whatdo small.critical {
+        color: #FF7766;
+        border-color: #FF7766;
+    }
+    .movemenu {
+        display: none;
+        padding: 0 0 0 0;
+    }
+    .switchmenu {
+        display: none;
+        padding: 0 70px 0 210px;
+    }
+    .moveselect {
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+    }
+    .switchselect {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+    }
+    .shiftselect {
+        position: absolute;
+        right: 150px;
+        bottom: 20px;
+    }
+    .moveselect button,
+    .switchselect button,
+    .shiftselect button {
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 6px;
+        background: #E5E5E5;
+    }
+    .battle-controls .whatdo {
+        padding-bottom: 50px;
+    }
+    .battle-controls .move-controls .whatdo,
+    .battle-controls .switch-controls .whatdo {
+        padding-bottom: 5px;
+    }
+    .move-controls .movemenu,
+    .switch-controls .switchmenu {
+        display: block;
+        margin-right: 0;
+    }
+    .move-controls .moveselect button,
+    .switch-controls .switchselect button,
+    .shiftselect button {
+        background: #BBBBBB;
+    }
+    .controls .timer {
+        float: right;
+        margin-top: -25px;
+    }
+}
+
+.messagebar {
+    position: absolute;
+    display: none;
+    bottom: 10px;
+    left: 110px;
+    right: 110px;
+    font-family: "bebas neue" !important;
+    font-size: 18px;
+    color: #CCCCCC;
+    background: #222222;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 6px;
+    padding: 4px 6px 0 6px;
+    overflow: hidden;
+}
+
+.message strong {
+    font-weight: normal;
+    color: #ffffff;
+    font-size: 14pt;
+}
+
+.message small {
+    font-size: 10pt;
+}
+
+.movemenu button {
+    float: left;
+    display: block;
+    width: 140px;
+    margin-right: 0px;
+    border-radius: 0px;
+    height: 50px;
+    font-family: "bebas neue" !important;
+    position: relative;
+    padding: 6px 4px 0 4px;
+    transform: skewX(-20deg);
+}
+
+.movemenu button {
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .4);
+    right: -30px;
+    border-radius: 0px;
+    margin-top: 0px;
+    padding-top: 13px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0), inset 0 -1px 2px rgba(255, 255, 255, 0);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0), inset 0 -1px 2px rgba(255, 255, 255, 0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0), inset 0 -1px 2px rgba(255, 255, 255, 0);
+    /* default colors */
+    color: white;
+    font-size: 16pt;
+    text-shadow: none;
+    border: solid 3px #AAAAAA;
+}
+
+.movemenu button small {
+    color: #777777;
+}
+
+.movemenu button small.type {
+    padding-top: 3px;
+    float: left;
+    font-size: 14pt;
+    transform: skewX(20deg) translate(15px, -57px);
+}
+
+.movemenu button small.pp {
+    padding-top: 3px;
+    font-weight: normal;
+    float: right;
+    font-size: 10pt;
+    transform: skewX(20deg) translate(20px, -55px);
+}
+
+.movemenu button.type-Fairy small {
+    color: #e56bb4;
+}
+
+.movemenu button.type-Fairy {
+    background: url(http://i.imgur.com/KO7jsVA.png);
+}
+
+.movemenu button.type-Fairy:hover {
+    background: url(http://i.imgur.com/KO7jsVA.png);
+    border-radius: 0px;
+    border: solid 3px #e56bb4;
+    color: #e56bb4;
+}
+
+.movemenu button.type-Fairy:active {
+    background: url(http://i.imgur.com/KO7jsVA.png);
+    border-radius: 0px;
+    border: solid 3px #e56bb4;
+    color: #e56bb4;
+}
+
+.movemenu button.type-Normal small {
+    color: #e1e1d0;
+}
+
+.movemenu button.type-Normal {
+    background: url(http://i.imgur.com/k6xMiBq.png);
+}
+
+.movemenu button.type-Normal:hover {
+    background: url(http://i.imgur.com/k6xMiBq.png);
+    color: #e1e1d0;
+    border-radius: 0px;
+    border: solid 3px #e1e1d0;
+}
+
+.movemenu button.type-Normal:active {
+    background: url(http://i.imgur.com/XTtTWjE.png);
+    color: #e1e1d0;
+    border-radius: 0px;
+    border: solid 3px #e1e1d0;
+}
+
+.movemenu button.type-Fire small {
+    color: #b42828;
+}
+
+.movemenu button.type-Fire {
+    background: url(http://i.imgur.com/V17hIbl.png);
+}
+
+.movemenu button.type-Fire:hover {
+    background: url(http://i.imgur.com/V17hIbl.png);
+    border-radius: 0px;
+    border: solid 3px #b42828;
+    color: #b42828;
+}
+
+.movemenu button.type-Fire:active {
+    background: url(http://i.imgur.com/V17hIbl.png);
+    border-radius: 0px;
+    border: solid 3px #b42828;
+    color: #b42828;
+}
+
+.movemenu button.type-Water small {
+    color: #3562b3;
+}
+
+.movemenu button.type-Water {
+    background: url(http://i.imgur.com/MkAr0Hg.png);
+}
+
+.movemenu button.type-Water:hover {
+    background: url(http://i.imgur.com/MkAr0Hg.png);
+    color: #3562b3;
+    border-radius: 0px;
+    border: solid 3px #3562b3;
+}
+
+.movemenu button.type-Water:active {
+    background: url(http://i.imgur.com/MkAr0Hg.png);
+    color: #3562b3;
+    border-radius: 0px;
+    border: solid 3px #3562b3;
+}
+
+.movemenu button.type-Electric small {
+    color: #d5c566;
+}
+
+.movemenu button.type-Electric {
+    background: url(http://i.imgur.com/vvbVoTm.png);
+}
+
+.movemenu button.type-Electric:hover {
+    background: url(http://i.imgur.com/vvbVoTm.png);
+    color: #d5c566;
+    border-radius: 0px;
+    border: solid 3px #d5c566;
+}
+
+.movemenu button.type-Electric:active {
+    background: url(http://i.imgur.com/vvbVoTm.png);
+    color: #d5c566;
+    border-radius: 0px;
+    border: solid 3px #d5c566;
+}
+
+.movemenu button.type-Grass small {
+    color: #37963c;
+}
+
+.movemenu button.type-Grass {
+    background: url(http://i.imgur.com/5tBJz7W.png);
+}
+
+.movemenu button.type-Grass:hover {
+    background: url(http://i.imgur.com/5tBJz7W.png);
+    color: #37963c;
+    border-radius: 0px;
+    border: solid 3px #37963c;
+}
+
+.movemenu button.type-Grass:active {
+    background: url(http://i.imgur.com/5tBJz7W.png);
+    color: #37963c;
+    border-radius: 0px;
+    border: solid 3px #37963c;
+}
+
+.movemenu button.type-Ice small {
+    color: #84d0f6;
+}
+
+.movemenu button.type-Ice {
+    color: #ffffff;
+    background: url(http://i.imgur.com/1ku0d0e.png);
+}
+
+.movemenu button.type-Ice:hover {
+    color: #84d0f6;
+    background: url(http://i.imgur.com/1ku0d0e.png);
+    border-radius: 0px;
+    border: solid 3px #84d0f6;
+}
+
+.movemenu button.type-Ice:active {
+    color: #84d0f6;
+    background: url(http://i.imgur.com/1ku0d0e.png);
+    border-radius: 0px;
+    border: solid 3px #84d0f6;
+}
+
+.movemenu button.type-Fighting small {
+    color: #a44318;
+}
+
+.movemenu button.type-Fighting {
+    background: url(http://i.imgur.com/TzIvAgq.png);
+}
+
+.movemenu button.type-Fighting:hover {
+    background: url(http://i.imgur.com/TzIvAgq.png);
+    border-radius: 0px;
+    border: solid 3px #a44318;
+    color: #a44318;
+}
+
+.movemenu button.type-Fighting:active {
+    background: url(http://i.imgur.com/TzIvAgq.png);
+    color: #a44318;
+    border-radius: 0px;
+    border: solid 3px #a44318;
+}
+
+.movemenu button.type-Poison small {
+    color: #a52db2;
+}
+
+.movemenu button.type-Poison {
+    background: url(http://i.imgur.com/Pi8dIfk.png);
+}
+
+.movemenu button.type-Poison:hover {
+    background: url(http://i.imgur.com/Pi8dIfk.png);
+    border-radius: 0px;
+    border: solid 3px #a52db2;
+    color: #a52db2;
+}
+
+.movemenu button.type-Poison:active {
+    background: url(http://i.imgur.com/Pi8dIfk.png);
+    border-radius: 0px;
+    border: solid 3px #a52db2;
+    color: #a52db2;
+}
+
+.movemenu button.type-Ground small {
+    color: #ac6928;
+}
+
+.movemenu button.type-Ground {
+    color: white;
+    background: url(http://i.imgur.com/ikulTpX.png);
+}
+
+.movemenu button.type-Ground:hover {
+    color: #ac6928;
+    background: url(http://i.imgur.com/ikulTpX.png);
+    border-radius: 0px;
+    border: solid 3px #ac6928;
+}
+
+.movemenu button.type-Ground:active {
+    color: #ac6928;
+    background: url(http://i.imgur.com/ikulTpX.png);
+    border-radius: 0px;
+    border: solid 3px #ac6928;
+}
+
+.movemenu button.type-Flying small {
+    color: #a05de7;
+}
+
+.movemenu button.type-Flying {
+    background: url(http://i.imgur.com/Ce6QQOO.png);
+}
+
+.movemenu button.type-Flying:hover {
+    background: url(http://i.imgur.com/Ce6QQOO.png);
+    color: #a05de7;
+    border-radius: 0px;
+    border: solid 3px #a05de7;
+}
+
+.movemenu button.type-Flying:active {
+    background: url(http://i.imgur.com/Ce6QQOO.png);
+    color: #a05de7;
+    border-radius: 0px;
+    border: solid 3px #a05de7;
+}
+
+.movemenu button.type-Psychic small {
+    color: #be4baf;
+}
+
+.movemenu button.type-Psychic {
+    background: url(http://i.imgur.com/Uboh4v2.png);
+}
+
+.movemenu button.type-Psychic:hover {
+    background: url(http://i.imgur.com/Uboh4v2.png);
+    border-radius: 0px;
+    border: solid 3px #be4baf;
+    color: #be4baf;
+}
+
+.movemenu button.type-Psychic:active {
+    background: url(http://i.imgur.com/Uboh4v2.png);
+    border-radius: 0px;
+    border: solid 3px #be4baf;
+    color: #be4baf;
+}
+
+.movemenu button.type-Bug {
+    background: url(http://i.imgur.com/rmZccf3.png);
+}
+
+.movemenu button.type-Bug:hover {
+    background: url(http://i.imgur.com/rmZccf3.png);
+    color: #8c953c;
+    border-radius: 0px;
+    border: solid 3px #8c953c;
+}
+
+.movemenu button.type-Bug:active {
+    background: url(http://i.imgur.com/rmZccf3.png);
+    color: #8c953c;
+    border-radius: 0px;
+    border: solid 3px #8c953c;
+}
+
+.movemenu button.type-Rock small {
+    color: #884e27;
+}
+
+.movemenu button.type-Rock {
+    background: url(http://i.imgur.com/gSt4rdp.png);
+    color: white;
+}
+
+.movemenu button.type-Rock:hover {
+    background: url(http://i.imgur.com/gSt4rdp.png);
+    color: #884e27;
+    border-radius: 0px;
+    border: solid 3px #884e27;
+}
+
+.movemenu button.type-Rock:active {
+    background: url(http://i.imgur.com/gSt4rdp.png);
+    color: #884e27;
+    border-radius: 0px;
+    border: solid 3px #884e27;
+}
+
+.movemenu button.type-Ghost small {
+    color: #6b507e;
+}
+
+.movemenu button.type-Ghost {
+    background: url(http://i.imgur.com/Td7cSPG.png);
+}
+
+.movemenu button.type-Ghost:hover {
+    background: url(http://i.imgur.com/Td7cSPG.png);
+    color: #6b507e;
+    border-radius: 0px;
+    border: solid 3px #6b507e;
+}
+
+.movemenu button.type-Ghost:active {
+    background: url(http://i.imgur.com/Td7cSPG.png);
+    color: #63527f;
+    border-radius: 0px;
+    border: solid 3px #6b507e;
+}
+
+.movemenu button.type-Dragon small {
+    color: #594095;
+}
+
+.movemenu button.type-Dragon {
+    background: url(http://i.imgur.com/PaIlmWT.png);
+}
+
+.movemenu button.type-Dragon:hover {
+    background: url(http://i.imgur.com/PaIlmWT.png);
+    color: #594095;
+    border-radius: 0px;
+    border: solid 3px #594095;
+}
+
+.movemenu button.type-Dragon:active {
+    background: url(http://i.imgur.com/PaIlmWT.png);
+    color: #594095;
+    border-radius: 0px;
+    border: solid 3px #594095;
+}
+
+.movemenu button.type-Dark small {
+    color: #624b4b;
+}
+
+.movemenu button.type-Dark {
+    background: url(http://i.imgur.com/0AVXD8A.png);
+}
+
+.movemenu button.type-Dark:hover {
+    background: url(http://i.imgur.com/0AVXD8A.png);
+    color: #624b4b;
+    border-radius: 0px;
+    border: solid 3px #624b4b;
+}
+
+.movemenu button.type-Dark:active {
+    background: url(http://i.imgur.com/0AVXD8A.png);
+    color: #624b4b;
+    border-radius: 0px;
+    border: solid 3px #624b4b;
+}
+
+.movemenu button.type-Steel small {
+    color: #a5a5a5;
+}
+
+.movemenu button.type-Steel {
+    background: url(http://i.imgur.com/YAo8nzj.png);
+}
+
+.movemenu button.type-Steel:hover {
+    background: url(http://i.imgur.com/YAo8nzj.png);
+    color: #a5a5a5;
+    border-radius: 0px;
+    border: solid 3px #a5a5a5;
+}
+
+.movemenu button.type-Steel:active {
+    background: url(http://i.imgur.com/YAo8nzj.png);
+    color: #a5a5a5;
+    border-radius: 0px;
+    border: solid 3px #a5a5a5;
+}
+
+.battle .result {
+    display: none;
+    position: absolute;
+    width: 150px;
+    text-align: center;
+}
+
+.battle .result strong {
+    font-weight: bold;
+    padding: 1px 3px;
+    border-radius: 3px;
+}
+
+.battle .badresult strong {
+    background: none;
+    color: #d23c3c;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 15px;
+}
+
+.battle .goodresult strong {
+    background: none;
+    color: #048720;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 15px;
+}
+
+.battle .neutralresult strong {
+    background: none;
+    color: #fff;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #222 1px 1px 0, #222 1px -1px 0, #222 -1px 1px 0, #222 -1px -1px 0;
+    font-size: 15px;
+}
+
+.battle .brnresult strong {
+    background: none;
+    color: #EE5533;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 15px;
+}
+
+.battle .psnresult strong {
+    background: none;
+    color: #A4009A;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 15px;
+}
+
+.battle .slpresult strong {
+    background: none;
+    color: #AA77AA;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 15px;
+}
+
+.battle .parresult strong {
+    background: none;
+    color: #9AA400;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 15px;
+}
+
+.battle .frzresult strong {
+    background: none;
+    color: #009AA4;
+    border: none;
+    font-family: "bebas neue" !important;
+    text-shadow: #fff 1px 1px 0, #fff 1px -1px 0, #fff -1px 1px 0, #fff -1px -1px 0;
+    font-size: 15px;
+}
+
+.weather {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.weather em {
+    display: block;
+    margin: 20px 0 0 110px;
+    font-family: "bebas neue" !important;
+    font-size: 15pt;
+    font-style: normal;
+}
+
+.weather em small {
+    font-style: normal;
+}
+
+.sunweather,
+.sunnydayweather,
+.desolatelandweather {
+    background: #FFEEBB url(http://i.imgur.com/DNMtOWR.gif) no-repeat scroll left top;
+    color: #664411;
+    text-shadow: #FFFFFF 1px 1px 0, #FFFFFF 1px -1px 0, #FFFFFF -1px 1px 0, #FFFFFF -1px -1px 0;
+    background-size: cover;
+}
+
+.rainweather,
+.raindanceweather,
+.primordialseaweather {
+    background: #99BBFF url(http://i.imgur.com/NQqkU6j.gif) no-repeat scroll left top;
+    color: #0044BB;
+    text-shadow: #FFFFFF 1px 1px 0, #FFFFFF 1px -1px 0, #FFFFFF -1px 1px 0, #FFFFFF -1px -1px 0;
+}
+
+.sandstormweather {
+    background: #E6E0AC url(http://i.imgur.com/OEB3hum.gif) no-repeat scroll left top;
+    color: #554433;
+    text-shadow: #FFFFFF 1px 1px 0, #FFFFFF 1px -1px 0, #FFFFFF -1px 1px 0, #FFFFFF -1px -1px 0;
+}
+
+.hailweather {
+    background: #AADDEE url(http://i.imgur.com/PweinWm.gif) no-repeat scroll left top;
+    color: #114455;
+    text-shadow: #FFFFFF 1px 1px 0, #FFFFFF 1px -1px 0, #FFFFFF -1px 1px 0, #FFFFFF -1px -1px 0;
+}
+
+.deltastreamweather {
+    background: #AAAAAA url(http://play.pokemonshowdown.com/fx/weather-strongwind.png) no-repeat scroll left top;
+    color: #666666;
+    text-shadow: #FFFFFF 1px 1px 0, #FFFFFF 1px -1px 0, #FFFFFF -1px 1px 0, #FFFFFF -1px -1px 0;
+}
+
+.pseudoweather {
+    background: #DDAAEE url(http://play.pokemonshowdown.com/fx/weather-trickroom.png) no-repeat scroll left top;
+    color: #661155;
+    text-shadow: #FFFFFF 1px 1px 0, #FFFFFF 1px -1px 0, #FFFFFF -1px 1px 0, #FFFFFF -1px -1px 0;
+}
+
+
+/****************/
+
+#tooltipwrapper {
+    position: absolute;
+    top: 400px;
+    left: 100px;
+    text-align: left;
+    color: #fff;
+    font-family: Tahoma;
+}
+
+#tooltipwrapper .tooltipinner {
+    position: relative;
+}
+
+#tooltipwrapper .tooltip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 270px;
+    padding-left: 2px;
+    border: 2px solid #c2221f;
+    background: url("http://i.imgur.com/2kKpLRH.png");
+    border-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    transform: skewx(-20deg);
+    z-index: 5;
+}
+
+#tooltipwrapper .tooltip h2 {
+    padding: 2px 4px;
+    margin: 0;
+    border-bottom: 1px solid #888888;
+    font-size: 10pt;
+    transform: skewx(20deg);
+}
+
+#tooltipwrapper .tooltip h2 small {
+    font-weight: normal;
+    transform: skewx(20deg);
+}
+
+#tooltipwrapper .tooltip p {
+    padding: 2px 4px;
+    transform: skewx(20deg);
+    margin: 0;
+    font-size: 8pt;
+}
+
+#tooltipwrapper .tooltip p.section {
+    border-top: 1px solid #888888;
+    transform: skewx(20deg);
+}/* COLORS START */
+#lobby-userlist-user-deathlyplays strong em, #lobby-userlist-user-deathlyplays strong, #lobby-userlist-user-deathlyplays span, #staff-userlist-user-deathlyplays strong em, #staff-userlist-user-deathlyplays strong, #staff-userlist-user-deathlyplays span, #shadowbanroom-userlist-user-deathlyplays strong em, #shadowbanroom-userlist-user-deathlyplays strong, #shadowbanroom-userlist-user-deathlyplays span, #thecapproject-userlist-user-deathlyplays strong em, #thecapproject-userlist-user-deathlyplays strong, #thecapproject-userlist-user-deathlyplays span, #tournaments-userlist-user-deathlyplays strong em, #tournaments-userlist-user-deathlyplays strong, #tournaments-userlist-user-deathlyplays span, #events-userlist-user-deathlyplays strong em, #events-userlist-user-deathlyplays strong, #events-userlist-user-deathlyplays span, #casino-userlist-user-deathlyplays strong em, #casino-userlist-user-deathlyplays strong, #casino-userlist-user-deathlyplays span, #breeding-userlist-user-deathlyplays strong em, #breeding-userlist-user-deathlyplays strong, #breeding-userlist-user-deathlyplays span, #socialmedia-userlist-user-deathlyplays strong em, #socialmedia-userlist-user-deathlyplays strong, #socialmedia-userlist-user-deathlyplays span, #thehappyplace-userlist-user-deathlyplays strong em, #thehappyplace-userlist-user-deathlyplays strong, #thehappyplace-userlist-user-deathlyplays span, #roleplaying-userlist-user-deathlyplays strong em, #roleplaying-userlist-user-deathlyplays strong, #roleplaying-userlist-user-deathlyplays span, #development-userlist-user-deathlyplays strong em, #development-userlist-user-deathlyplays strong, #development-userlist-user-deathlyplays span, #gamecorner-userlist-user-deathlyplays strong em, #gamecorner-userlist-user-deathlyplays strong, #gamecorner-userlist-user-deathlyplays span, #botworld-userlist-user-deathlyplays strong em, #botworld-userlist-user-deathlyplays strong, #botworld-userlist-user-deathlyplays span, #spammerino-userlist-user-deathlyplays strong em, #spammerino-userlist-user-deathlyplays strong, #spammerino-userlist-user-deathlyplays span, #temporaltower-userlist-user-deathlyplays strong em, #temporaltower-userlist-user-deathlyplays strong, #temporaltower-userlist-user-deathlyplays span, #thesiestaleague-userlist-user-deathlyplays strong em, #thesiestaleague-userlist-user-deathlyplays strong, #thesiestaleague-userlist-user-deathlyplays span, #exiledmetas-userlist-user-deathlyplays strong em, #exiledmetas-userlist-user-deathlyplays strong, #exiledmetas-userlist-user-deathlyplays span, #upperstaff-userlist-user-deathlyplays strong em, #upperstaff-userlist-user-deathlyplays strong, #upperstaff-userlist-user-deathlyplays span, #breadsmash-userlist-user-deathlyplays strong em, #breadsmash-userlist-user-deathlyplays strong, #breadsmash-userlist-user-deathlyplays span, #nightclub-userlist-user-deathlyplays strong em, #nightclub-userlist-user-deathlyplays strong, #nightclub-userlist-user-deathlyplays span, #selfpity-userlist-user-deathlyplays strong em, #selfpity-userlist-user-deathlyplays strong, #selfpity-userlist-user-deathlyplays span, #themewthchallenge-userlist-user-deathlyplays strong em, #themewthchallenge-userlist-user-deathlyplays strong, #themewthchallenge-userlist-user-deathlyplays span{
+color: #C23793 !important;
+}
+.chat.chatmessage-deathlyplays strong {
+color: #C23793 !important;
+}
+/* COLORS END */
+/* COLORS START */
+#lobby-userlist-user-deathlyplays strong em, #lobby-userlist-user-deathlyplays strong, #lobby-userlist-user-deathlyplays span, #staff-userlist-user-deathlyplays strong em, #staff-userlist-user-deathlyplays strong, #staff-userlist-user-deathlyplays span, #shadowbanroom-userlist-user-deathlyplays strong em, #shadowbanroom-userlist-user-deathlyplays strong, #shadowbanroom-userlist-user-deathlyplays span, #thecapproject-userlist-user-deathlyplays strong em, #thecapproject-userlist-user-deathlyplays strong, #thecapproject-userlist-user-deathlyplays span, #tournaments-userlist-user-deathlyplays strong em, #tournaments-userlist-user-deathlyplays strong, #tournaments-userlist-user-deathlyplays span, #events-userlist-user-deathlyplays strong em, #events-userlist-user-deathlyplays strong, #events-userlist-user-deathlyplays span, #casino-userlist-user-deathlyplays strong em, #casino-userlist-user-deathlyplays strong, #casino-userlist-user-deathlyplays span, #breeding-userlist-user-deathlyplays strong em, #breeding-userlist-user-deathlyplays strong, #breeding-userlist-user-deathlyplays span, #socialmedia-userlist-user-deathlyplays strong em, #socialmedia-userlist-user-deathlyplays strong, #socialmedia-userlist-user-deathlyplays span, #thehappyplace-userlist-user-deathlyplays strong em, #thehappyplace-userlist-user-deathlyplays strong, #thehappyplace-userlist-user-deathlyplays span, #roleplaying-userlist-user-deathlyplays strong em, #roleplaying-userlist-user-deathlyplays strong, #roleplaying-userlist-user-deathlyplays span, #development-userlist-user-deathlyplays strong em, #development-userlist-user-deathlyplays strong, #development-userlist-user-deathlyplays span, #gamecorner-userlist-user-deathlyplays strong em, #gamecorner-userlist-user-deathlyplays strong, #gamecorner-userlist-user-deathlyplays span, #botworld-userlist-user-deathlyplays strong em, #botworld-userlist-user-deathlyplays strong, #botworld-userlist-user-deathlyplays span, #spammerino-userlist-user-deathlyplays strong em, #spammerino-userlist-user-deathlyplays strong, #spammerino-userlist-user-deathlyplays span, #temporaltower-userlist-user-deathlyplays strong em, #temporaltower-userlist-user-deathlyplays strong, #temporaltower-userlist-user-deathlyplays span, #thesiestaleague-userlist-user-deathlyplays strong em, #thesiestaleague-userlist-user-deathlyplays strong, #thesiestaleague-userlist-user-deathlyplays span, #exiledmetas-userlist-user-deathlyplays strong em, #exiledmetas-userlist-user-deathlyplays strong, #exiledmetas-userlist-user-deathlyplays span, #upperstaff-userlist-user-deathlyplays strong em, #upperstaff-userlist-user-deathlyplays strong, #upperstaff-userlist-user-deathlyplays span, #breadsmash-userlist-user-deathlyplays strong em, #breadsmash-userlist-user-deathlyplays strong, #breadsmash-userlist-user-deathlyplays span, #selfpity-userlist-user-deathlyplays strong em, #selfpity-userlist-user-deathlyplays strong, #selfpity-userlist-user-deathlyplays span, #themewthchallenge-userlist-user-deathlyplays strong em, #themewthchallenge-userlist-user-deathlyplays strong, #themewthchallenge-userlist-user-deathlyplays span, #galactic-userlist-user-deathlyplays strong em, #galactic-userlist-user-deathlyplays strong, #galactic-userlist-user-deathlyplays span, #help-userlist-user-deathlyplays strong em, #help-userlist-user-deathlyplays strong, #help-userlist-user-deathlyplays span, #fusion-userlist-user-deathlyplays strong em, #fusion-userlist-user-deathlyplays strong, #fusion-userlist-user-deathlyplays span{
+color: #33ccff !important;
+}
+.chat.chatmessage-deathlyplays strong {
+color: #33ccff !important;
+}
+/* COLORS END */

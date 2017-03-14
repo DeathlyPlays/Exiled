@@ -2,7 +2,7 @@
 
 // The server port - the port to run Pokemon Showdown under
 exports.port = 8080;
-//exports.serverid = (enter server name here);
+exports.serverid = 'exiled';
 
 // proxyip - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array
@@ -208,12 +208,12 @@ exports.punishmentautolock = true;
 // the room 'tournaments').
 // tourannouncements - announcements are only allowed in these rooms
 exports.tourroom = 'Lobby';
-exports.tourannouncements = [/*rooms*/];
+exports.tourannouncements = ['tournaments', 'sotascapfun', 'events', 'casino', 'lobby', 'gamecorner', 'exiledmetas', 'spammerino'];
 
 // appealurl - specify a URL containing information on how users can appeal
 // disciplinary actions on your section. You can also leave this blank, in
 // which case users won't be given any information on how to appeal.
-exports.appealurl = ' ';
+exports.appealurl = 'http://exiledps.boards.net/board/5/appeals';
 
 // replsocketprefix - the prefix for the repl sockets to be listening on
 // replsocketmode - the file mode bits to use for the repl sockets

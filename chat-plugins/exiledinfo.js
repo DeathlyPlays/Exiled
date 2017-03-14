@@ -1,6 +1,6 @@
 /*
 The following commands were coded specifically for Exiled
-Made by ReturningAvenger
+Made by Insist
 feelscool
 Basically just edits to main's info.js, and adds more, removes stuff, etc.
 */
@@ -39,7 +39,7 @@ exports.commands = {
         this.sendReplyBox(
             "Exiled's Github's:<br />" +
             "- Language: JavaScript (Node.js)<br />" +
-            "- <a href=\"https://github.com/ExiledPS/Team-Exiled\">Exiled Server Code</a><br />" +
+            "- <a href=\"https://github.com/ExiledPS/Exiled\">Exiled Server Code</a><br />" +
             "- <a href=\"https://github.com/ExiledPS\">Team Exiled Organization</a><br />" +
             "Note: We allow anyone to join the organization, seeing as though the reason Exiled exists is due to people practicing/learning code, and having fun ^~^<br />"
         );
@@ -47,16 +47,6 @@ exports.commands = {
     opensourcehelp: ["/opensource - Links to PS's source code repository.",
         "!opensource - Show everyone that information. Requires: + % @ * # & ~"
     ],
-
-    '!repo': true,
-    repo: function (target, room, user) {
-        if (!this.runBroadcast()) return;
-        this.sendReplyBox(
-            "Exiled Repo:<br />" +
-            "- Language: JavaScript (Node.js)<br />" +
-            "- <a href=\"https://ide.c9.io/returningavenger/exiled_server\">Exiled Repo</a>"
-        );
-    },
 
     '!forums': true,
     forums: function (target, room, user) {

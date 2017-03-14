@@ -413,7 +413,7 @@ exports.BattleScripts = {
 				ability: 'Swift Swim',
 				item: 'Leftovers',
 				gender: 'M',
-				moves: ['scald', 'iceeam', 'gigadrain'],
+				moves: ['scald', 'icebeam', 'gigadrain'],
 				baseSignatureMove: "scripting",
 				signatureMove: "Scripting",
 				evs: {

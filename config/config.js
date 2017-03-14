@@ -2,7 +2,6 @@
 
 // The server port - the port to run Pokemon Showdown under
 exports.port = 8080;
-exports.serverid = 'exiled';
 
 // proxyip - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array
@@ -208,12 +207,12 @@ exports.punishmentautolock = true;
 // the room 'tournaments').
 // tourannouncements - announcements are only allowed in these rooms
 exports.tourroom = 'Lobby';
-exports.tourannouncements = ['tournaments', 'sotascapfun', 'events', 'casino', 'lobby', 'gamecorner', 'exiledmetas', 'spammerino'];
+exports.tourannouncements = [*/rooms*/];
 
 // appealurl - specify a URL containing information on how users can appeal
 // disciplinary actions on your section. You can also leave this blank, in
 // which case users won't be given any information on how to appeal.
-exports.appealurl = 'http://exiledps.boards.net/board/5/appeals';
+exports.appealurl = ' ';
 
 // replsocketprefix - the prefix for the repl sockets to be listening on
 // replsocketmode - the file mode bits to use for the repl sockets
@@ -222,8 +221,8 @@ exports.replsocketmode = 0o600;
 
 //github repo config
 exports.github = {
-	secret: "exiledserver", // Your repo secret
-	port: "8080", // Desired port, must be unused and above 1000
+	secret: "", // Your repo secret
+	port: "", // Desired port, must be unused and above 1000
 	rooms: ["development"], // Desired rooms
 };
 

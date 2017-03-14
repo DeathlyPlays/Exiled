@@ -3,6 +3,7 @@
  *  Created By:                                          *
  *  Insist + Ashley the Pikachu + Stellation + AlfaStorm *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 'use strict';
 
 exports.BattleScripts = {
@@ -69,15 +70,25 @@ exports.BattleScripts = {
             "Agumon": {
                 species: "Agumon",
                 ability: "Vaccine",
-                moves: ['firetower', 'spitfire', 'redinferno', 'magmabomb', 'heatlaser', 'musclecharge', 'sonicjab', 'pepperbreath'],
-                signatureMove: "Protect",
+                moves: ['firetower', 'spitfire', 'redinferno', 'magmabomb', 'heatlaser', 'musclecharge', 'sonicjab', 'protect'],
+                baseSignatureMove: "pepperbreath",
+                signatureMove: "Pepper Breath",
                 nature: "Serious",
             },
             "Gabumon": {
                 species: "Gabumon",
                 ability: "Data",
-                moves: ['firetower', 'heatlaser', 'tremar', 'warcry', 'sonicjab', 'dynamitekick', 'megatonpunch', 'blueblaster'],
-                signatureMove: "Protect",
+                moves: ['firetower', 'heatlaser', 'tremar', 'warcry', 'sonicjab', 'dynamitekick', 'megatonpunch', 'protect'],
+                baseSignatureMove: "blueblaster",
+                signatureMove: "Blue Blaster",
+                nature: "Serious",
+            },
+            "Patamon": {
+                species: "Patamon",
+                ability: "Data",
+                moves: ['warcry', 'sonicjab', 'dynamitekick', 'busterdrive', 'spinningshot', 'windcutter', 'confusedstorm'],
+                baseSignatureMove: "boombubble",
+                signatureMove: "Boom Bubble",
                 nature: "Serious",
             },
         };
@@ -88,40 +99,6 @@ exports.BattleScripts = {
             let set = sets[name];
             set.level = 100;
             set.name = name;
-            if (!set.ivs) {
-                set.ivs = {
-                    hp: 31,
-                    atk: 31,
-                    def: 31,
-                    spa: 31,
-                    spd: 31,
-                    spe: 31,
-                };
-            }
-            else {
-                for (let iv in {
-                        hp: 31,
-                        atk: 31,
-                        def: 31,
-                        spa: 31,
-                        spd: 31,
-                        spe: 31,
-                    }) {
-                    set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
-                }
-            }
-            //Assume the hardcoded set evs are all legal.
-            if (!set.evs) {
-                set.evs = {
-                    hp: 31,
-                    atk: 31,
-                    def: 31,
-                    spa: 31,
-                    spd: 31,
-                    spe: 31,
-                };
-            }
-
             let sigItems = ['Small Recovery', 'Medium Recovery', 'Large Recovery', 'Super Recovery Floppy', 'MP Floppy', 'Medium MP Floppy', 'Large MP Floppy', 'Various', 'Protection', 'Omnipotent', 'Double Floppy', 'Restore Floppy', 'Super Restore Floppy', 'Offense Disk', 'Defense Disk', 'Hi Speed Disk', 'Super Defense Disk', 'Super Offense Disk', 'Super Speed Disk', 'Omnipotent Disk'];
             let choosenItems = [];
             for (let h = 0; h < 4; h++) {

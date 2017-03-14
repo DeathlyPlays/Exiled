@@ -1,8 +1,8 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *  Digimon Showdown                                     *
- *  Created By:                                          *
- *  Insist + Ashley the Pikachu + Stellation + AlfaStorm *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *  Digimon Showdown                                             *
+ *  Created By:                                                  *
+ *  Insist + Ashley the Pikachu + Stellation + AlfaStorm + Volco *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 'use strict';
 

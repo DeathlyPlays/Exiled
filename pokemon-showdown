@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+'use strict';
+
+const child_process = require('child_process');
+
+// Make sure we're Node 6+
+
+try {
+	eval('{ let [a] = [1]; }');
+} catch (e) {
+	console.log("We require Node.js v6 or later; you're using " + process.version);
+	process.exit();
+}
+
+// Make sure our dependencies are available, and install them if they
+// aren't
+
+try {
+	require.resolve('sockjs');
+} catch (e) {
+	console.log('Installing dependencies...');
+	child_process.spawnSync('npm', ['install', '--production'], {stdio: 'inherit'});
+}
+
+// Start the server
+
+let port;
+if (process.argv[2]) {
+	port = parseInt(process.argv[2]);
+}
+
+// Bootstrap manually to ensure any dependencies that were just installed can
+// be found when running on Windows
+
+require('module')._load('./app', module, true).listen(port);

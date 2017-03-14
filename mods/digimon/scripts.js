@@ -1,9 +1,8 @@
-/* * * * * * * * * * * * * * * * * * *
- *  Digimon Showdown                 *
- *  Created By:                      *
- *  Insist + Ashley the Pikachu      *
- * * * * * * * * * * * * * * * * * * */
-
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *  Digimon Showdown                                     *
+ *  Created By:                                          *
+ *  Insist + Ashley the Pikachu + Stellation + AlfaStorm *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 'use strict';
 
 exports.BattleScripts = {

@@ -1021,8 +1021,8 @@ exports.BattleMovedex = {
         },
 	onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Lock-on", source);
-			this.add('-anim', source, "Wake up Slap", source);
+			this.add('-anim', source, "Lock-On", source);
+			this.add('-anim', source, "Wake-Up Slap", source);
 	},
         boosts: {
             atk: -3,

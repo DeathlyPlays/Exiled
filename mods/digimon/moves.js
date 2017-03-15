@@ -827,7 +827,7 @@ exports.BattleMovedex = {
 	onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Moonlight", source);
-			this.add('-anim', source, "Swift", source);
+			this.add('-anim', source, "Power Gem", source);
 	},
         target: "allPokemon",
         type: "Ice",

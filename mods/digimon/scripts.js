@@ -135,7 +135,7 @@ exports.BattleScripts = {
             "Greymon": {
                 species: "Greymon",
                 ability: "Vaccine",
-                battleMovePool: ['firetower', 'promiencebeam', 'spitfire', 'redinferno', 'magmabomb', 'heatlaser', 'meltdown', 'musclecharge', 'dynamitekick', 'counter', 'spinningshot', 'megalospark'],
+                moves: ['firetower', 'promiencebeam', 'spitfire', 'redinferno', 'magmabomb', 'heatlaser', 'meltdown', 'musclecharge', 'dynamitekick', 'counter', 'spinningshot', 'megalospark'],
                 baseSignatureMove: "megaflame",
                 signatureMove: "Mega Flame",
                 nature: "Serious",

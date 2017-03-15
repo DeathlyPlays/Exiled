@@ -540,6 +540,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Poison Powder", source);
+	},
         target: "allPokemon",
         type: "Earth",
     },
@@ -557,6 +561,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Magnet Bomb", source);
+	},
         target: "any",
         type: "Earth",
     },
@@ -578,6 +586,10 @@ exports.BattleMovedex = {
         priority: 0,
         secondary: false,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Cotton Guard", source);
+	},
         target: "self",
         type: "Earth",
     },
@@ -591,6 +603,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Toxic", source);
+	},
         status: "psn",
         target: "any",
         type: "Earth",
@@ -606,6 +622,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Poison Gas", source);
+	},
         target: "allPokemon",
         type: "Earth",
     },
@@ -618,6 +638,10 @@ exports.BattleMovedex = {
         accuracy: 100,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Poison Jab", source);
+	},
         target: "normal",
         type: "Earth",
     },
@@ -633,6 +657,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Poison Sting", source);
+	},
         target: "normal",
         type: "Earth",
     },
@@ -645,6 +673,10 @@ exports.BattleMovedex = {
         volatileStatus: "flinch",
         category: "Physical",
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Grass Knot", source);
+	},
         secondary: false,
         priority: 0,
         target: "any",

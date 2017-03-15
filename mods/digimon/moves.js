@@ -397,6 +397,10 @@ exports.BattleMovedex = {
         priority: 0,
         secondary: false,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Thunder", source);
+	},
         volatileStatus: "flinch",
         type: "Air",
         target: "any",
@@ -410,6 +414,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Air Cutter", source);
+	},
         category: "Special",
         type: "Air",
         target: "allAdjacentFoes",
@@ -422,6 +430,10 @@ exports.BattleMovedex = {
         volatileStatus: "flinch",
         accuracy: true,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Thundershock", source);
+	},
         secondary: false,
         priority: 0,
         pp: 20,
@@ -438,6 +450,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Shock Wave", source);
+	},
         category: "Physical",
         target: "allAdjacentFoes",
         type: "Air",
@@ -452,6 +468,10 @@ exports.BattleMovedex = {
         volatileStatus: "flinch",
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Thunder Punch", source);
+	},
         category: "Physical",
         target: "normal",
         type: "Air",
@@ -465,6 +485,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Gust", source);
+	},
         pp: 15,
         target: "any",
         type: "Air",
@@ -479,6 +503,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Prismatic Laser", source);
+	},
         pp: 10,
         target: "allPokemon",
         type: "Air",
@@ -494,6 +522,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hurricane", source);
+	},
         target: "allPokemon",
         type: "Air",
     },

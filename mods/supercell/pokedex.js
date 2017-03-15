@@ -469,9 +469,9 @@ exports.BattlePokedex = {
         heightm: 1.6,
         weightkg: 6.4,
     },
-    golem: {
+    supercellgolem: {
         num: -225,
-        species: "Golem",
+        species: "Supercell Golem",
         types: ["Rock", "Ground"],
         baseStats: {
             hp: 150,
@@ -522,5 +522,95 @@ exports.BattlePokedex = {
         },
         heightm: 0.3,
         weightkg: 0.2,
+    },
+    guard: {
+        num: -227,
+        species: "Guard",
+        types: ["Steel", "Dark"],
+        baseStats: {
+            hp: 60,
+            atk: 85,
+            def: 65,
+            spa: 45,
+            spd: 65,
+            spe: 95
+        },
+        abilities: {
+            0: "Steel Enforced Shield"
+        },
+        heightm: 0.9,
+        weightkg: 0.6,
+    },
+    royalgiant: {
+        num: -228,
+        species: "Royal Giant",
+        types: ["Fighting"],
+        baseStats: {
+            hp: 115,
+            atk: 125,
+            def: 120,
+            spa: 45,
+            spd: 65,
+            spe: 55
+        },
+        abilities: {
+            0: "Cannonball"
+        },
+        heightm: 7.7,
+        weightkg: 128.9,
+    },
+    prince: {
+        num: -229,
+        species: "Prince",
+        types: ["Normal", "Fighting"],
+        baseStats: {
+            hp: 95,
+            atk: 145,
+            def: 90,
+            spa: 40,
+            spd: 65,
+            spe: 115
+        },
+        abilities: {
+            0: "Ye Royale Joust"
+        },
+        heightm: 1.3,
+        weightkg: 8.7,
+    },
+    wallbreaker: {
+        num: -230,
+        species: "Wallbreaker",
+        types: ["Ghost", "Dark"],
+        baseStats: {
+            hp: 35,
+            atk: 145,
+            def: 20,
+            spa: 10,
+            spd: 20,
+            spe: 155
+        },
+        abilities: {
+            0: "Allahu Akbar"
+        },
+        heightm: 0.6,
+        weightkg: 2.2,
+    },
+    valkyrie: {
+        num: -231,
+        species: "Valkyrie",
+        types: ["Fighting"],
+        baseStats: {
+            hp: 85,
+            atk: 95,
+            def: 90,
+            spa: 45,
+            spd: 85,
+            spe: 60
+        },
+        abilities: {
+            0: "Bravery"
+        },
+        heightm: 2.4,
+        weightkg: 8.7,
     },
 };

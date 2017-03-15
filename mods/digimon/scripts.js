@@ -166,7 +166,7 @@ exports.BattleScripts = {
                 }
                 if (h === 3 && choosenItems.length !== 4) h--;
             }
-            set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), 'Protect', set.protectingMove].concat(choosenItems);
+            set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), 'Protect', set.signatureMove].concat(choosenItems);
             team.push(set);
         }
         return team;

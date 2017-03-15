@@ -691,6 +691,10 @@ exports.BattleMovedex = {
         volatileStatus: "flinch",
         accuracy: 100,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Frost Breath", source);
+	},
         secondary: false,
         priority: 0,
         target: "allAdjacentFoes",
@@ -705,6 +709,10 @@ exports.BattleMovedex = {
         volatileStatus: "flinch",
         category: "Physical",
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Avalanche", source);
+	},
         secondary: false,
         priority: 0,
         target: "any",
@@ -721,6 +729,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Blizzard", source);
+	},
         target: "allPokemon",
         type: "Ice",
     },
@@ -733,6 +745,10 @@ exports.BattleMovedex = {
         category: "Physical",
         pp: 20,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Ice Shard", source);
+	},
         priority: 0,
         secondary: false,
         target: "any",
@@ -748,6 +764,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Aqua Ring", source);
+	},
         target: "normal",
         type: "Ice",
     },
@@ -768,6 +788,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Bubble", source);
+	},
         target: "self",
         type: "Ice",
     },
@@ -800,6 +824,11 @@ exports.BattleMovedex = {
             charge: 1,
             distance: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Moonlight", source);
+			this.add('-anim', source, "Swift", source);
+	},
         target: "allPokemon",
         type: "Ice",
     },
@@ -820,6 +849,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Water Pulse", source);
+	},
         target: "any",
         type: "Ice",
     },

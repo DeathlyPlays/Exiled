@@ -10,6 +10,10 @@ exports.BattleMovedex = {
         priority: 0,
         target: "any",
         pp: 40,
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Bubble');
+        },
         flags: {},
         accuracy: 100,
         type: "Ice",
@@ -166,13 +170,14 @@ exports.BattleMovedex = {
         basePower: 178,
         accuracy: 100,
         pp: 10,
-        target: "any",
+        target: "allPokemon",
         priority: 0,
         secondary: false,
         category: "Physical",
         flags: {
             protect: 1,
-            mirror: 1
+            mirror: 1,
+            distance: 1
         },
         type: "Battle",
     },
@@ -990,10 +995,7 @@ exports.BattleMovedex = {
         name: "Small Recovery",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 4],
         target: "self",
@@ -1013,10 +1015,7 @@ exports.BattleMovedex = {
         name: "Medium Recovery",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 3],
         target: "self",
@@ -1035,10 +1034,7 @@ exports.BattleMovedex = {
         name: "Large Recovery",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 2],
         target: "self",
@@ -1057,10 +1053,7 @@ exports.BattleMovedex = {
         name: "Super Recovery Floppy",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 1],
         target: "self",
@@ -1080,10 +1073,7 @@ exports.BattleMovedex = {
         name: "MP Floppy",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 10],
         target: "self",
@@ -1103,10 +1093,7 @@ exports.BattleMovedex = {
         name: "Medium MP Floppy",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 10],
         target: "self",
@@ -1126,10 +1113,7 @@ exports.BattleMovedex = {
         name: "Large MP Floppy",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 10],
         target: "self",
@@ -1172,9 +1156,7 @@ exports.BattleMovedex = {
         name: "Protection",
         pp: 0.625,
         priority: 0,
-        flags: {
-            snatch: 1
-        },
+        flags: {snatch: 1},
         boosts: {
             evasion: 1
         },
@@ -1197,10 +1179,7 @@ exports.BattleMovedex = {
         name: "Omnipotent",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 1],
         target: "self",
@@ -1219,10 +1198,7 @@ exports.BattleMovedex = {
         name: "Double Floppy",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 3],
         target: "self",
@@ -1241,10 +1217,7 @@ exports.BattleMovedex = {
         name: "Restore Floppy",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 10],
         target: "self",
@@ -1264,10 +1237,7 @@ exports.BattleMovedex = {
         name: "Super Restore Floppy",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [3, 4],
         target: "self",
@@ -1287,9 +1257,7 @@ exports.BattleMovedex = {
         name: "Offense Disk",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1
-        },
+        flags: {heal: 1},
         boosts: {
             atk: 1,
             spa: 1
@@ -1313,9 +1281,7 @@ exports.BattleMovedex = {
         name: "Defense Disk",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1
-        },
+        flags: {heal: 1},
         boosts: {
             spd: 1,
             def: 1
@@ -1338,9 +1304,7 @@ exports.BattleMovedex = {
         name: "Hi Speed Disk",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1
-        },
+        flags: {heal: 1},
         boosts: {
             spe: 1
         },
@@ -1363,10 +1327,7 @@ exports.BattleMovedex = {
         name: "Super Defense Disk",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1,
-            snatch: 1
-        },
+        flags: {heal: 1, snatch: 1},
         secondary: false,
         heal: [1, 10],
         target: "self",
@@ -1386,9 +1347,7 @@ exports.BattleMovedex = {
         name: "Super Offense Disk",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1
-        },
+        flags: {heal: 1},
         boosts: {
             spd: 1,
             def: 1
@@ -1412,9 +1371,7 @@ exports.BattleMovedex = {
         name: "Super Speed Disk",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1
-        },
+        flags: {heal: 1},
         boosts: {
             spe: 1
         },
@@ -1437,9 +1394,7 @@ exports.BattleMovedex = {
         name: "Omnipotent Disk",
         pp: 0.625,
         priority: 0,
-        flags: {
-            heal: 1
-        },
+        flags: {heal: 1},
         boosts: {
             atk: 1,
             def: 1,
@@ -1461,12 +1416,9 @@ exports.BattleMovedex = {
         basePower: 89,
         accuracy: 100,
         category: "Special",
-        pp: 1,
+        pp: 0.625,
         secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Pepper Breath');
@@ -1481,12 +1433,9 @@ exports.BattleMovedex = {
         basePower: 90,
         accuracy: 100,
         category: "Special",
-        pp: 1,
+        pp: 0.625,
         secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Blue Blaster');
@@ -1501,12 +1450,9 @@ exports.BattleMovedex = {
         basePower: 85,
         accuracy: 100,
         category: "Special",
-        pp: 1,
+        pp: 0.625,
         secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Boom Bubble');
@@ -1521,12 +1467,9 @@ exports.BattleMovedex = {
         basePower: 100,
         accuracy: 100,
         category: "Physical",
-        pp: 1,
+        pp: 0.625,
         secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Super Thunder Strike');
@@ -1541,12 +1484,9 @@ exports.BattleMovedex = {
         basePower: 91,
         accuracy: 100,
         category: "Special",
-        pp: 1,
+        pp: 0.625,
         secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Spiral Twister');
@@ -1561,12 +1501,9 @@ exports.BattleMovedex = {
         basePower: 94,
         accuracy: 100,
         category: "Special",
-        pp: 1,
+        pp: 0.625,
         secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Electric Thread');
@@ -1574,26 +1511,6 @@ exports.BattleMovedex = {
         priority: 0,
         target: "any",
         type: "Air",
-    },
-    "poisonivy": {
-        id: "poisonivy",
-        name: "Poison Ivy",
-        basePower: 104,
-        accuracy: 100,
-        category: "Physical",
-        pp: 1,
-        secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
-        onModifyMove: function (move, pokemon, target) {
-            move.type = '???';
-            this.add('-activate', pokemon, 'move: Poison Ivy');
-        },
-        priority: 0,
-        target: "any",
-        type: "Earth",
     },
     "electricshock": {
         id: "electricshock",
@@ -1603,10 +1520,7 @@ exports.BattleMovedex = {
         category: "Special",
         pp: 0.625,
         secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Electric Shock');
@@ -1623,11 +1537,7 @@ exports.BattleMovedex = {
         category: "Physical",
         pp: 0.625,
         secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1,
-            contact: 1
-        },
+        flags: {protect: 1, distance: 1, contact: 1},
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Super Slap');
@@ -1644,10 +1554,7 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Special",
         pp: 0.625,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         secondary: false,
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
@@ -1664,10 +1571,7 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Special",
         pp: 0.625,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         secondary: false,
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
@@ -1684,10 +1588,7 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Physical",
         pp: 0.625,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         secondary: false,
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
@@ -1704,10 +1605,7 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Special",
         pp: 0.625,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         secondary: false,
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
@@ -1724,10 +1622,7 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Physical",
         pp: 0.625,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         secondary: false,
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
@@ -1744,10 +1639,7 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Special",
         pp: 0.625,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+        flags: {protect: 1, distance: 1},
         secondary: false,
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
@@ -2113,5 +2005,279 @@ exports.BattleMovedex = {
         priority: 0,
         target: "any",
         type: "Battle",
+    },
+    //Ultimates
+    "gigablaster": {
+        id: "gigablaster",
+        name: "Giga Blaster",
+        basePower: 215,
+        accuracy: 100,
+        category: "Physical",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Giga Blaster');
+        },
+        priority: 0,
+        target: "any",
+        type: "Battle",
+    },
+    "darkshot": {
+        id: "darkshot",
+        name: "Dark Shot",
+        basePower: 200,
+        accuracy: 100,
+        category: "Physical",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Dark Shot');
+        },
+        priority: 0,
+        target: "any",
+        type: "Filth",
+    },
+    "deadlybomb": {
+        id: "deadlybomb",
+        name: "Deadly Bomb",
+        basePower: 260,
+        accuracy: 100,
+        category: "Physical",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Deadly Bomb');
+        },
+        priority: 0,
+        target: "any",
+        type: "Filth",
+    },
+    "highelectricshocker": {
+        id: "highelectricshocker",
+        name: "High Electric Shocker",
+        basePower: 218,
+        accuracy: 100,
+        category: "Special",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: High Electric Shocker');
+        },
+        priority: 0,
+        target: "any",
+        type: "Air",
+    },
+    "smileybomb": {
+        id: "smileybomb",
+        name: "Smiley Bomb",
+        basePower: 255,
+        accuracy: 100,
+        category: "Physical",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Smiley Bomb');
+        },
+        priority: 0,
+        target: "any",
+        type: "Battle",
+    },
+    "mailstorm": {
+        id: "mailstorm",
+        name: "Mail Storm",
+        basePower: 211,
+        accuracy: 100,
+        category: "Special",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Mail Storm');
+        },
+        priority: 0,
+        target: "any",
+        type: "Battle",
+    },
+    "abductionbeam": {
+        id: "abductionbeam",
+        name: "Abduction Beam",
+        basePower: 222,
+        accuracy: 100,
+        category: "Special",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Abduction Beam');
+        },
+        priority: 0,
+        target: "any",
+        type: "Mech",
+    },
+    "darknetwork": {
+        id: "darknetwork",
+        name: "Dark Network",
+        basePower: 202,
+        accuracy: 100,
+        category: "Special",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Dark Network');
+        },
+        priority: 0,
+        target: "any",
+        type: "Filth",
+    },
+    "spiralsword": {
+        id: "spiralsword",
+        name: "Spiral Sword",
+        basePower: 210,
+        accuracy: 100,
+        category: "Physical",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Spiral Sword');
+        },
+        priority: 0,
+        target: "any",
+        type: "Battle",
+    },
+    "genocideattack": {
+        id: "genocideattack",
+        name: "Genocide Attack",
+        basePower: 215,
+        accuracy: 100,
+        category: "Physical",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Genocide Attack');
+        },
+        priority: 0,
+        target: "any",
+        type: "Battle",
+    },
+    "crimsonflare": {
+        id: "crimsonflare",
+        name: "Crimson Flare",
+        basePower: 213,
+        accuracy: 100,
+        category: "Special",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Crimson Flare');
+        },
+        priority: 0,
+        target: "any",
+        type: "Fire",
+    },
+    "bitbomb": {
+        id: "bitbomb",
+        name: "Bit Bomb",
+        basePower: 232,
+        accuracy: 100,
+        category: "Physical",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Bit Bomb');
+        },
+        priority: 0,
+        target: "any",
+        type: "Battle",
+    },
+    "energybomb": {
+        id: "energybomb",
+        name: "Energy Bomb",
+        basePower: 214,
+        accuracy: 100,
+        category: "Physical",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Energy Bomb');
+        },
+        priority: 0,
+        target: "any",
+        type: "Earth",
+    },
+    "lovelyattack": {
+        id: "lovelyattack",
+        name: "Lovely Attack",
+        basePower: 230,
+        accuracy: 100,
+        category: "Special",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Lovely Attack');
+        },
+        priority: 0,
+        target: "any",
+        type: "Ice",
+    },
+    "nightmaresyndrome": {
+        id: "nightmaresyndrome",
+        name: "Nightmare Syndrome",
+        basePower: 222,
+        accuracy: 100,
+        category: "Special",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Nightmare Syndrome');
+        },
+        priority: 0,
+        target: "any",
+        type: "Filth",
+    },
+    //mega digimon
+    "infinitycannon": {
+        id: "infinitycannon",
+        name: "Infinity Cannon",
+        basePower: 777,
+        accuracy: 100,
+        category: "Special",
+        pp: 0.625,
+        secondary: false,
+        flags: {protect: 1, distance: 1},
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Infinity Cannon');
+        },
+        priority: 0,
+        target: "any",
+        type: "Mech",
     },
 };

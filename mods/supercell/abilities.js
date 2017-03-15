@@ -793,25 +793,21 @@ exports.BattleAbilities = {
             if (source && source !== target && move && move.flags['contact']) {
                 this.damage(source.maxhp / 8, source, target);
             }
-        },
-        onStart: function (source) {
-            this.setWeather('sandstorm');
-        },
-        onModifyDef: function (def) {
-            if (this.isWeather(['sandstorm'])) {
-                return this.chainModify(2);
-            }
-        },
-        onModifyDefPriority: 6,
-        onModifyDef: function (def) {
-            return this.chainModify(2);
-        },
-        onAfterDamage: function (damage, target, source, effect) {
             if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
                 this.boost({
                     def: 1
                 });
             }
+        },
+        onStart: function (source) {
+            this.setWeather('sandstorm');
+        },
+        onModifyDefPriority: 6,
+        onModifyDef: function (def) {
+            if (this.isWeather(['sandstorm'])) {
+                return this.chainModify(2);
+            }
+            return this.chainModify(2);
         },
         onBasePowerPriority: 8,
         onBasePower: function (basePower, attacker, defender, move) {
@@ -835,6 +831,9 @@ exports.BattleAbilities = {
         onModifySpA: function (atk, attacker, defender, move) {
             if (move.type === 'Fire' && attacker.hp <= attacker.maxhp / 3) {
                 this.debug('Inferno Blaze boost');
+                return this.chainModify(1.5);
+            }
+            if (this.isWeather(['sunnyday', 'desolateland'])) {
                 return this.chainModify(1.5);
             }
         },
@@ -861,12 +860,6 @@ exports.BattleAbilities = {
                 }
             }
             this.clearWeather();
-        },
-        onModifySpAPriority: 5,
-        onModifySpA: function (spa, pokemon) {
-            if (this.isWeather(['sunnyday', 'desolateland'])) {
-                return this.chainModify(1.5);
-            }
         },
         onWeather: function (target, source, effect) {
             if (effect.id === 'sunnyday' || effect.id === 'desolateland') {
@@ -919,15 +912,12 @@ exports.BattleAbilities = {
                 this.debug('Subzero Frost boost');
                 return this.chainModify(1.5);
             }
-        },
-        onStart: function (source) {
-            this.setWeather('hail');
-        },
-        onModifySpAPriority: 5,
-        onModifySpA: function (spa, pokemon) {
             if (this.isWeather(['hail'])) {
                 return this.chainModify(1.5);
             }
+        },
+        onStart: function (source) {
+            this.setWeather('hail');
         },
         onWeather: function (target, source, effect) {
             if (effect.id === 'hail') {
@@ -963,5 +953,183 @@ exports.BattleAbilities = {
                 });
             }
         },
+    },
+    "steelenforcedshield": {
+        id: "steelenforcedshield",
+        name: "Steel Enforced Shield",
+        onModifyMove: function (move) {
+            move.stab = 2;
+            move.ignoreAbility = true;
+        },
+        onBasePowerPriority: 8,
+        onBasePower: function (basePower, attacker, defender, move) {
+            if (move.type === 'Steel') {
+                this.debug('Steel Enforced Shield boost');
+                return this.chainModify(1.5);
+            }
+        },
+        isUnbreakable: true,
+        onCriticalHit: false,
+        onTryHit: function (pokemon, target, move) {
+            if (move.ohko) {
+                this.add('-immune', pokemon, '[msg]', '[from] ability: Steel Enforced Shield');
+                return null;
+            }
+        },
+        onDamagePriority: -100,
+        onDamage: function (damage, target, source, effect) {
+            if (target.hp === target.maxhp && damage >= target.hp && effect && effect.effectType === 'Move') {
+                this.add('-ability', target, 'Steel Enforced Shield');
+                return target.hp - 1;
+            }
+        },
+    },
+    "cannonball": {
+        id: "cannonball",
+        name: "Cannonball",
+        onAnyModifyBoost: function (boosts, target) {
+            let source = this.effectData.target;
+            if (source === target) return;
+            if (source === this.activePokemon && target === this.activeTarget) {
+                boosts['def'] = 0;
+                boosts['spd'] = 0;
+                boosts['evasion'] = 0;
+            }
+            if (target === this.activePokemon && source === this.activeTarget) {
+                boosts['atk'] = 0;
+                boosts['spa'] = 0;
+                boosts['accuracy'] = 0;
+            }
+        },
+        onAfterDamage: function (damage, target, source, effect) {
+            if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
+                this.boost({
+                    def: 1
+                });
+            }
+        },
+        onBoost: function (boost, target, source, effect) {
+            if (effect && effect.id === 'zpower') return;
+            for (let i in boost) {
+                boost[i] *= 2;
+            }
+        },
+        onModifyMove: function (move) {
+            move.ignoreAbility = true;
+            move.stab = 2;
+        },
+    },
+    "yeroyalejoust": {
+        id: "yeroyalejoust",
+        name: "Ye Royale Joust",
+        onModifyMove: function (move) {
+            move.stab = 2;
+        },
+        onAnyModifyBoost: function (boosts, target) {
+            let source = this.effectData.target;
+            if (source === target) return;
+            if (source === this.activePokemon && target === this.activeTarget) {
+                boosts['def'] = 0;
+                boosts['spd'] = 0;
+                boosts['evasion'] = 0;
+            }
+            if (target === this.activePokemon && source === this.activeTarget) {
+                boosts['atk'] = 0;
+                boosts['spa'] = 0;
+                boosts['accuracy'] = 0;
+            }
+        },
+        onSourceFaint: function (target, source, effect) {
+            if (effect && effect.effectType === 'Move') {
+                this.boost({
+                    atk: 1
+                }, source);
+            }
+        },
+    },
+    "allahuakbar": {
+        id: "allahuakbar",
+        name: "Allahu Akbar",
+        onAnyModifyBoost: function (boosts, target) {
+            let source = this.effectData.target;
+            if (source === target) return;
+            if (source === this.activePokemon && target === this.activeTarget) {
+                boosts['def'] = 0;
+                boosts['spd'] = 0;
+                boosts['evasion'] = 0;
+            }
+            if (target === this.activePokemon && source === this.activeTarget) {
+                boosts['atk'] = 0;
+                boosts['spa'] = 0;
+                boosts['accuracy'] = 0;
+            }
+        },
+        onAfterDamageOrder: 1,
+        onAfterDamage: function (damage, target, source, move) {
+            if (source && source !== target && !target.hp) {
+                this.damage(source.maxhp / 2, source, target);
+            }
+        },
+        onModifyAtkPriority: 5,
+        onModifyAtk: function (atk) {
+            return this.chainModify(2);
+        },
+        onModifySpePriority: 5,
+        onModifySpe: function (spe) {
+            return this.chainModify(2);
+        },
+        onResidualOrder: 26,
+        onResidualSubOrder: 1,
+        onResidual: function (pokemon) {
+            if (pokemon.activeTurns) {
+                this.boost({
+                    spe: 1
+                });
+            }
+        },
+    },
+    "bravery": {
+        id: "bravery",
+        name: "Bravery",
+        onAnyModifyBoost: function (boosts, target) {
+            let source = this.effectData.target;
+            if (source === target) return;
+            if (source === this.activePokemon && target === this.activeTarget) {
+                boosts['def'] = 0;
+                boosts['spd'] = 0;
+                boosts['evasion'] = 0;
+            }
+            if (target === this.activePokemon && source === this.activeTarget) {
+                boosts['atk'] = 0;
+                boosts['spa'] = 0;
+                boosts['accuracy'] = 0;
+            }
+        },
+        onAfterDamage: function (damage, target, source, effect) {
+            if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
+                this.boost({
+                    def: 1
+                });
+            }
+        },
+        onBoost: function (boost, target, source, effect) {
+            if (effect && effect.id === 'zpower') return;
+            for (let i in boost) {
+                boost[i] *= 2;
+            }
+        },
+        onModifyMove: function (move) {
+			delete move.flags['contact'];
+			move.stab = 2;
+			move.ignoreAbility = true;
+		},
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.flags['contact']) {
+				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+		isUnbreakable: true,
+		onCriticalHit: false,
     },
 };

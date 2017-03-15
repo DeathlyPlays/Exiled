@@ -33,6 +33,11 @@ exports.BattleMovedex = {
         flags: {
             protect: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Inferno", source);
+			this.add('-anim', source, "Precipice Blades", source);
+	},
         accuracy: 100,
         type: "Fire",
     },
@@ -50,6 +55,10 @@ exports.BattleMovedex = {
                 }
             },
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Flamethrower", source);
+	},
         priority: 0,
         target: "any",
         pp: 5,
@@ -71,6 +80,10 @@ exports.BattleMovedex = {
         flags: {
             protect: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Flamethrower", source);
+	},
         accuracy: 100,
         type: "Fire",
     },
@@ -86,6 +99,10 @@ exports.BattleMovedex = {
         flags: {
             protect: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Fire Blast", source);
+	},
         accuracy: 100,
         type: "Fire",
     },
@@ -104,6 +121,11 @@ exports.BattleMovedex = {
         flags: {
             protect: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Egg Bomb", source);
+			this.add('-anim', source, "Sunny Day", source);
+	},
         accuracy: 100,
         type: "Fire",
     },
@@ -125,6 +147,11 @@ exports.BattleMovedex = {
         flags: {
             protect: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Roar", source);
+			this.add('-anim', source, "Sunny Day", source);
+	},
         accuracy: 100,
         type: "Fire",
     },
@@ -144,6 +171,11 @@ exports.BattleMovedex = {
             protect: 1,
             mirror: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Inferno", source);
+			this.add('-anim', source, "Precipice Blades", source);
+	},
         type: "Fire",
     },
     "meltdown": {
@@ -162,6 +194,11 @@ exports.BattleMovedex = {
             protect: 1,
             mirror: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Sunny Day", source);
+			this.add('-anim', source, "Lava Plume", source);
+	},
         type: "Fire",
     },
     "tremar": {

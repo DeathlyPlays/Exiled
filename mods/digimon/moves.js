@@ -179,6 +179,10 @@ exports.BattleMovedex = {
             mirror: 1,
             distance: 1
         },
+        onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Ancient Power", source);
+        },
         type: "Battle",
     },
     "musclecharge": {
@@ -190,6 +194,10 @@ exports.BattleMovedex = {
         boosts: {
             atk: 2,
             spa: 2
+        },
+        onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Charge", source);
         },
         target: "self",
         priority: 0,
@@ -213,6 +221,10 @@ exports.BattleMovedex = {
             spd: 1,
             spe: 1
         },
+        onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dragon Dance", source);
+        },
         priority: 0,
         flags: {},
         target: "self",
@@ -227,6 +239,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+        onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dizzy Punch", source);
+        },
         pp: 15,
         target: "normal",
         type: "Battle",
@@ -242,6 +258,10 @@ exports.BattleMovedex = {
         secondary: false,
         priority: 0,
         flags: {},
+        onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Mega Kick", source);
+        },
         target: "normal",
         type: "Battle",
     },
@@ -259,6 +279,10 @@ exports.BattleMovedex = {
         pp: 20,
         priority: -5,
         flags: {},
+        onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Headbutt", source);
+        },
         beforeTurnCallback: function (pokemon) {
             pokemon.addVolatile('counter');
         },
@@ -300,6 +324,10 @@ exports.BattleMovedex = {
         volatileStatus: "flinch",
         secondary: false,
         flags: {},
+        onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dizzy Punch", source);
+        },
         priority: 0,
         target: "normal",
         type: "Battle",
@@ -314,6 +342,10 @@ exports.BattleMovedex = {
         accuracy: 100,
         secondary: false,
         flags: {},
+        onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Fire Punch", source);
+        },
         priority: 0,
         target: "any",
         type: "Battle",

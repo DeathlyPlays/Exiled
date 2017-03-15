@@ -1045,6 +1045,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Poison Gas", source);
+        },
         priority: 0,
         target: "any",
         type: "Filth",
@@ -1062,13 +1066,17 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Throw", source);
+        },
         priority: 0,
         target: "any",
         type: "Filth",
     },
     "bigpooptoss": {
-        id: "Poop Spd Toss",
-        name: "Poop Spd Toss",
+        id: "bigpooptoss",
+        name: "Big Poop Toss",
         basePower: 211,
         category: "Physical",
         pp: 15,
@@ -1078,6 +1086,10 @@ exports.BattleMovedex = {
         flags: {
             protect: 1,
             distance: 1
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Wrecker", source);
         },
         priority: 0,
         target: "any",
@@ -1096,6 +1108,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Tomb", source);
+        },
         priority: 0,
         target: "allAdjacentFoes",
         type: "Filth",
@@ -1112,6 +1128,10 @@ exports.BattleMovedex = {
         flags: {
             protect: 1,
             distance: 1
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Slide", source);
         },
         priority: 0,
         target: "allPokemon",
@@ -1130,6 +1150,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Blast", source);
+        },
         priority: 0,
         target: "any",
         type: "Filth",
@@ -1144,6 +1168,10 @@ exports.BattleMovedex = {
         secondary: false,
         flags: {
             protect: 1
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Poison Gas", source);
         },
         priority: 0,
         target: "normal",
@@ -1160,6 +1188,10 @@ exports.BattleMovedex = {
         flags: {
             protect: 1,
             distance: 1
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Stone Edge", source);
         },
         boosts: {
             atk: -3,

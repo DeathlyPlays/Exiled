@@ -403,7 +403,7 @@ exports.BattleMovedex = {
         id: "explode",
         name: "Explode",
         selfdestruct: "always",
-        breaksProtect: 1,
+        breaksProtect: true,
         basePower: 0,
         ohko: true,
         accuracy: true,
@@ -676,5 +676,150 @@ exports.BattleMovedex = {
         },
         type: "Ice",
         target: "allPokemon",
+    },
+    "guard": {
+        accuracy: true,
+        basePower: 0,
+        category: "Status",
+        id: "guard",
+        heal: [1, 2],
+        isViable: true,
+        name: "Guard",
+        pp: 10,
+        priority: 4,
+        flags: {},
+        stallingMove: true,
+        volatileStatus: 'kingsshield',
+        onTryHit: function (pokemon) {
+            return !!this.willAct() && this.runEvent('StallMove', pokemon);
+        },
+        onHit: function (pokemon) {
+            pokemon.addVolatile('stall');
+        },
+        effect: {
+            duration: 1,
+            onStart: function (target) {
+                this.add('-singleturn', target, 'Protect');
+            },
+            onSourcePrepareHit: function (source, target, effect) {
+                if (effect.effectType !== 'Move' || !effect.flags['protect'] || effect.category === 'Status') return;
+                if (effect.flags['contact']) {
+                    effect.ignoreImmunity = true;
+                }
+            },
+            onTryHitPriority: 3,
+            onTryHit: function (target, source, move) {
+                if (!move.flags['protect'] || move.category === 'Status') {
+                    if (move.isZ) move.zBrokeProtect = true;
+                    return;
+                }
+                this.add('-activate', target, 'move: Protect');
+                let lockedmove = source.getVolatile('lockedmove');
+                if (lockedmove) {
+                    // Outrage counter is reset
+                    if (source.volatiles['lockedmove'].duration === 2) {
+                        delete source.volatiles['lockedmove'];
+                    }
+                }
+                if (move.flags['contact']) {
+                    this.boost({
+                        atk: -2
+                    }, source, target, this.getMove("Guard"));
+                }
+                return null;
+            },
+        },
+        secondary: false,
+        target: "self",
+        type: "Steel",
+    },
+    "cannon": {
+        id: "cannon",
+        name: "Cannon",
+        basePower: 120,
+        accuracy: true,
+        category: "Physical",
+        defensiveCategory: "Special",
+        volatileStatus: "partiallytrapped",
+        pp: 15,
+        secondary: false,
+        priority: 0,
+        flags: {
+            protect: 1,
+            distance: 1,
+            mirror: 1
+        },
+        type: "Fighting",
+        target: "any",
+    },
+    "royaljoust": {
+        id: "royaljoust",
+        name: "Royal Joust",
+        basePower: 120,
+        accuracy: 95,
+        pp: 10,
+        category: "Physical",
+        secondary: false,
+        priority: 0,
+        self: {
+            boosts: {
+                atk: 1,
+                spe: 1
+            }
+        },
+        drain: [1, 2],
+        flags: {
+            protect: 1,
+            distance: 1,
+            mirror: 1,
+            contact: 1
+        },
+        type: "Normal",
+        target: "any",
+    },
+    "breakthewall": {
+        id: "breakthewall",
+        name: "Break the Wall",
+        selfdestruct: "ifHit",
+        accuracy: true,
+        ohko: true,
+        priority: 3,
+        flags: {
+            protect: 1,
+            contact: 1,
+            distance: 1
+        },
+        secondary: false,
+        pp: 5,
+        basePower: 0,
+        ignoreImmunity: true,
+        category: "Physical",
+        target: "any",
+        type: "Ghost",
+    },
+    "axehax": {
+        id: "axehax",
+        name: "Axe Hax",
+        basePower: 110,
+        accuracy: 100,
+        pp: 15,
+        priority: 0,
+        flags: {
+            protect: 1,
+            contact: 1
+        },
+        self: {
+            boosts: {
+                atk: 1
+            }
+        },
+        secondary: false,
+        category: "Physical",
+        drain: [1, 2],
+        target: "allAdjacentFoes",
+        ignoreImmunity: true,
+        ignoreDefensive: true,
+        ignoreAbility: true,
+        type: "Fighting",
     },
 };

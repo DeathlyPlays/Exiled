@@ -2,6 +2,8 @@
  *  Digimon Showdown                                             *
  *  Created By:                                                  *
  *  Insist + Ashley the Pikachu + Stellation + AlfaStorm + Volco *
+ *  Special Thanks to:                                           *
+ *  HoeenCoder (Assisted with Mechanics)                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 'use strict';
@@ -15,62 +17,54 @@ exports.BattleScripts = {
                 species: "Botamon",
                 ability: "Data",
                 moves: ['bubble'],
-                signatureMove: "Protect",
                 nature: "Serious",
             },
             "Poyomon": {
                 species: "Poyomon",
                 ability: "Data",
                 moves: ['bubble'],
-                signatureMove: "Protect",
                 nature: "Serious",
             },
             "Punimon": {
                 species: "Punimon",
                 ability: "Data",
                 moves: ['bubble'],
-                signatureMove: "Protect",
                 nature: "Serious",
             },
             "Yuramon": {
                 species: "Yuramon",
                 ability: "Data",
                 moves: ['bubble'],
-                signatureMove: "Protect",
                 nature: "Serious",
             },
             "Koromon": {
                 species: "Koromon",
                 ability: "Data",
                 moves: ['bubble'],
-                signatureMove: "Protect",
                 nature: "Serious",
             },
             "Tokomon": {
                 species: "Tokomon",
                 ability: "Data",
                 moves: ['bubble'],
-                signatureMove: "Protect",
                 nature: "Serious",
             },
             "Tsunomon": {
                 species: "Tsunomon",
                 ability: "Data",
                 moves: ['bubble'],
-                signatureMove: "Protect",
                 nature: "Serious",
             },
             "Tanemon": {
                 species: "Tanemon",
                 ability: "Data",
                 moves: ['bubble'],
-                signatureMove: "Protect",
                 nature: "Serious",
             },
             "Agumon": {
                 species: "Agumon",
                 ability: "Vaccine",
-                moves: ['firetower', 'spitfire', 'redinferno', 'magmabomb', 'heatlaser', 'musclecharge', 'sonicjab', 'protect'],
+                moves: ['firetower', 'spitfire', 'redinferno', 'magmabomb', 'heatlaser', 'musclecharge', 'sonicjab'],
                 baseSignatureMove: "pepperbreath",
                 signatureMove: "Pepper Breath",
                 nature: "Serious",
@@ -78,7 +72,7 @@ exports.BattleScripts = {
             "Gabumon": {
                 species: "Gabumon",
                 ability: "Data",
-                moves: ['firetower', 'heatlaser', 'tremar', 'warcry', 'sonicjab', 'dynamitekick', 'megatonpunch', 'protect'],
+                moves: ['firetower', 'heatlaser', 'tremar', 'warcry', 'sonicjab', 'dynamitekick', 'megatonpunch'],
                 baseSignatureMove: "blueblaster",
                 signatureMove: "Blue Blaster",
                 nature: "Serious",
@@ -89,6 +83,45 @@ exports.BattleScripts = {
                 moves: ['warcry', 'sonicjab', 'dynamitekick', 'busterdrive', 'spinningshot', 'windcutter', 'confusedstorm'],
                 baseSignatureMove: "boombubble",
                 signatureMove: "Boom Bubble",
+                nature: "Serious",
+            },
+            "Elecmon": {
+                species: "Elecmon",
+                ability: "Data",
+                moves: ['musclecharge', 'dynamitekick', 'counter', 'electriccloud', 'megalospark', 'staticelect', 'windcutter'],
+                baseSignatureMove: "superthunderstrike",
+                signatureMove: "Super Thunder Strike",
+                nature: "Serious",
+            },
+            "Biyomon": {
+                species: "Biyomon",
+                ability: "Vaccine",
+                moves: ['spitfire', 'heatlaser', 'spinningshot', 'electriccloud', 'windcutter', 'confusedstorm', 'hurricane'],
+                signatureMove: "Spiral Twister",
+                nature: "Serious",
+            },
+            "Kunemon": {
+                species: "Kunemon",
+                ability: "Virus",
+                moves: ['electriccloud', 'megalospark', 'staticelect', 'poisonpowder', 'massmorph', 'poisonclaw', 'dangersting'],
+                baseSignatureMove: "electricthread",
+                signatureMove: "Electric Thread",
+                nature: "Serious",
+            },
+            "Palmon": {
+                species: "Palmon",
+                ability: "Vaccine",
+                moves: ['poisonpowder', 'massmorph', 'charmperfume', 'poisonclaw', 'waterblit', 'aquamagic', 'teardrop'],
+                baseSignatureMove: "poisonivy",
+                signatureMove: "Poison Ivy",
+                nature: "Serious",
+            },
+            "Betamon": {
+                species: "Betamon",
+                ability: "Virus",
+                moves: ['electriccloud', 'staticelect', 'gigafreeze', 'winterblast', 'iceneedle', 'waterblit', 'aquamagic'],
+                baseSignatureMove: "electricshock",
+                signatureMove: "Electric Shock",
                 nature: "Serious",
             },
         };
@@ -117,7 +150,7 @@ exports.BattleScripts = {
                 }
                 if (h === 3 && choosenItems.length !== 4) h--;
             }
-            set.moves = set.moves.concat(choosenItems);
+            set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), 'Protect', set.protectingMove].concat(choosenItems);
             team.push(set);
         }
         return team;

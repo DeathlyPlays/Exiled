@@ -1001,8 +1001,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Medium Recovery
@@ -1021,7 +1020,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Large Recovery
@@ -1040,7 +1039,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Super Recovery Floppy
@@ -1059,8 +1058,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //MP Floppy
@@ -1079,8 +1077,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Medium MP Floppy
@@ -1099,8 +1096,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Large MP Floppy
@@ -1119,8 +1115,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Various
@@ -1138,7 +1133,7 @@ exports.BattleMovedex = {
         },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
         onHit: function (pokemon) {
             pokemon.cureStatus();
@@ -1165,8 +1160,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Omnipotent
@@ -1185,7 +1179,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Double Floppy
@@ -1204,7 +1198,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Restore Floppy
@@ -1223,8 +1217,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Super Restore Floppy
@@ -1243,7 +1236,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Stat Boosting Items
@@ -1267,8 +1260,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Defense Disk
@@ -1291,7 +1283,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Hi Speed Disk
@@ -1313,8 +1305,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Super Defense Disk
@@ -1333,8 +1324,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Super Offense Disk
@@ -1357,8 +1347,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Super Speed Disk
@@ -1380,8 +1369,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Ion Deluge", source);
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Omnipotent Disk
@@ -1406,7 +1394,7 @@ exports.BattleMovedex = {
         target: "self",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Geomancy", source);
+            this.add('-anim', source, "Recover", source);
         },
     },
     //Finishers

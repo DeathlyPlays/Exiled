@@ -869,6 +869,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Metal Claw", source);
+	},
         target: "any",
         type: "Mech",
     },
@@ -885,6 +889,11 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Gear Up", source);
+			this.add('-anim', source, "Hyper Beam", source);
+	},
         target: "allPokemon",
         type: "Mech",
     },
@@ -900,6 +909,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Metal Burst", source);
+	},
         priority: 0,
         target: "allPokemon",
         type: "Mech",
@@ -916,22 +929,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
-        priority: 0,
-        target: "any",
-        type: "Mech",
-    },
-    "pulselazer": {
-        id: "pulselazer",
-        name: "Pulse Lazer",
-        basePower: 389,
-        accuracy: 100,
-        category: "Special",
-        pp: 10,
-        secondary: false,
-        flags: {
-            protect: 1,
-            distance: 1
-        },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Flash Cannon", source);
+	},
         priority: 0,
         target: "any",
         type: "Mech",
@@ -948,6 +949,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Flash Cannon", source);
+	},
         boosts: {
             atk: -3,
             spa: -3
@@ -968,6 +973,11 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Moonlight", source);
+			this.add('-anim', source, "Sonic Boom", source);
+	},
         priority: 0,
         target: "any",
         type: "Mech",
@@ -988,6 +998,11 @@ exports.BattleMovedex = {
         },
         secondary: false,
         flags: {},
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Automize", source);
+			this.add('-anim', source, "Gear Grind", source);
+	},
         priority: 0,
         target: "self",
         type: "Mech",
@@ -1004,6 +1019,11 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+	onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Lock-on", source);
+			this.add('-anim', source, "Wake up Slap", source);
+	},
         boosts: {
             atk: -3,
             spa: -3

@@ -362,7 +362,7 @@ exports.BattleScripts = {
                 nature: "Adamant",
             },
             "Golem": {
-                species: "Golem",
+                species: "Supercell Golem",
                 ability: "Continental Crush",
                 item: "Leftovers",
                 moves: ['stealthrock', 'earthquake', 'recover'],
@@ -403,6 +403,76 @@ exports.BattleScripts = {
                 },
                 nature: "Timid",
             },
+            "Guard": {
+                species: "Guard",
+                ability: "Steel Enforced Shield",
+                item: "Leftovers",
+                moves: ['knockoff', 'swordsdance', 'shadowsneak'],
+                baseSignatureMove: "shield",
+                signatureMove: "Shield",
+                evs: {
+                    atk: 252,
+                    spe: 252,
+                    def: 4
+                },
+                nature: "Jolly",
+            },
+            "Royal Giant": {
+                species: "Royal Giant",
+                ability: "Cannonball",
+                item: "Leftovers",
+                moves: ['drainpunch', 'knockoff', 'recover'],
+                baseSignatureMove: "cannon",
+                signatureMove: "Cannon",
+                evs: {
+                    atk: 252,
+                    hp: 252,
+                    def: 4
+                },
+                nature: "Adamant",
+            },
+            "Prince": {
+                species: "Prince",
+                ability: "Ye Royale Joust",
+                item: "Choice Band",
+                moves: ['knockoff', 'playrough', 'closecombat'],
+                baseSignatureMove: "royaljoust",
+                signatureMove: "Royal Joust",
+                evs: {
+                    atk: 252,
+                    spe: 252,
+                    def: 4
+                },
+                nature: "Adamant",
+            },
+            "Wallbreaker": {
+                species: "Wallbreaker",
+                ability: "Allahu Akbar",
+                item: "Choice Scarf",
+                moves: ['explode', 'explosion', 'healingwish'],
+                baseSignatureMove: "breakthewall",
+                signatureMove: "Break the Wall",
+                evs: {
+                    atk: 252,
+                    spe: 252,
+                    def: 4
+                },
+                nature: "Jolly",
+            },
+            "Valkryie": {
+                species: "Valkryie",
+                ability: "Bravery",
+                item: "Leftovers",
+                moves: ['knockoff', 'recover', 'bulkup'],
+                baseSignatureMove: "axehax",
+                signatureMove: "Axe Hax",
+                evs: {
+                    atk: 252,
+                    hp: 252,
+                    def: 4
+                },
+                nature: "Adamant",
+            },
         };
 
         let pool = Object.keys(sets);
@@ -416,7 +486,7 @@ exports.BattleScripts = {
 
         let usermon = Object.keys(sets).filter(n => toId(n) === userid),
             self = null;
-        if (usermon && usermon.length) self = usermon[0]; // this is the user's pokemon. 
+        if (usermon && usermon.length) self = usermon[0]; // this is the user's pokemon.
         if (self && pool.indexOf(self) > 5) pool[4] = self;
 
         for (let i = 0; i < 6; i++) {

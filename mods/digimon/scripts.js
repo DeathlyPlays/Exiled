@@ -124,6 +124,22 @@ exports.BattleScripts = {
                 signatureMove: "Electric Shock",
                 nature: "Serious",
             },
+            "Penguinmon": {
+                species: "Penguinmon",
+                ability: "Data",
+                moves: ['charmperfume', 'poisonclaw', 'gigafreeze', 'winterblast', 'iceneedle', 'waterblit', 'aquamagic'],
+                baseSignatureMove: "superslap",
+                signatureMove: "Super Slap",
+                nature: "Serious",
+            },
+            "Greymon": {
+                species: "Greymon",
+                ability: "Vaccine",
+                battleMovePool: ['firetower', 'promiencebeam', 'spitfire', 'redinferno', 'magmabomb', 'heatlaser', 'meltdown', 'musclecharge', 'dynamitekick', 'counter', 'spinningshot', 'megalospark'],
+                baseSignatureMove: "megaflame",
+                signatureMove: "Mega Flame",
+                nature: "Serious",
+            },
         };
         //Generate the team randomly.
         let pool = Object.keys(sets);

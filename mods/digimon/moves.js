@@ -15,6 +15,10 @@ exports.BattleMovedex = {
             this.add('-activate', pokemon, 'move: Bubble');
         },
         flags: {},
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Bubble", source);
+        },
         accuracy: 100,
         type: "Ice",
     },

@@ -361,33 +361,20 @@ function parseEmoticons(message, room, user, pm) {
 
 	// **bold**
 	message = message.replace(/\*\*([^< ](?:[^<]*?[^< ])?)\*\*/g, '<b>$1</b>');
+
 	let group = user.getIdentity().charAt(0);
 	if (room && room.auth) group = room.auth[user.userid] || group;
 	if (pm && !user.hiding) group = user.group;
 
-	if (pm) return message;
+	if (pm) return "<div class='chat' style='display:inline'>" + "<em class='mine'>" + message + "</em></div>";
 
 	let style = "background:none;border:0;padding:0 5px 0 0;font-family:Verdana,Helvetica,Arial,sans-serif;font-size:9pt;cursor:pointer";
+	message = "<div class='chat'>" + "<small>" + group + "</small>" + "<button name='parseCommand' value='/user " + user.name + "' style='" + style + "'>" + "<b><font color='" + color(user.userid) + "'>" + user.name + ":</font></b>" + "</button><em class='mine'>" + message + "</em></div>";
 
-	let name = user.getIdentity(room).substr(0, 1) + user.name;
+	room.addRaw(message);
 
-	if (Users.ShadowBan.checkBanned(user)) {
-		user.sendTo(room, message = (`${(room.type === 'chat' ? '|c:|' + ~~(Date.now() / 1000) + '|' : '|c|') + name}|/html ${message}`));
-		Users.ShadowBan.addMessage(user, "To " + room, sbanmsg);
-		return true;
-	}
-	else {
-		message = room.add(`${(room.type === 'chat' ? '|c:|' + ~~(Date.now() / 1000) + '|' : '|c|') + name}|/html ${message}`).update();
-	}
-	for (let u in room.users) {
-		let targetUser = Users.get(u);
-		// in case the user is offline
-		if (!targetUser || !targetUser.connected) continue;
-		// if user is ignoring emotes
-		if (targetUser.blockEmoticons) {
-			targetUser.sendTo(room, "|c|" + group + user.name + "|" + originalMessage);
-		}
-	}
+	room.update();
+
 	return true;
 }
 

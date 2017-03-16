@@ -15,6 +15,10 @@ exports.BattleMovedex = {
             this.add('-activate', pokemon, 'move: Bubble');
         },
         flags: {},
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Bubble", source);
+        },
         accuracy: 100,
         type: "Ice",
     },
@@ -1000,7 +1004,7 @@ exports.BattleMovedex = {
         flags: {},
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
-            this.add('-anim', source, "Automize", source);
+            this.add('-anim', source, "Autotomize", source);
             this.add('-anim', source, "Gear Grind", source);
         },
         priority: 0,
@@ -1045,6 +1049,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Poison Gas", source);
+        },
         priority: 0,
         target: "any",
         type: "Filth",
@@ -1062,13 +1070,17 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Throw", source);
+        },
         priority: 0,
         target: "any",
         type: "Filth",
     },
     "bigpooptoss": {
-        id: "Poop Spd Toss",
-        name: "Poop Spd Toss",
+        id: "bigpooptoss",
+        name: "Big Poop Toss",
         basePower: 211,
         category: "Physical",
         pp: 15,
@@ -1078,6 +1090,10 @@ exports.BattleMovedex = {
         flags: {
             protect: 1,
             distance: 1
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Wrecker", source);
         },
         priority: 0,
         target: "any",
@@ -1096,6 +1112,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Tomb", source);
+        },
         priority: 0,
         target: "allAdjacentFoes",
         type: "Filth",
@@ -1112,6 +1132,10 @@ exports.BattleMovedex = {
         flags: {
             protect: 1,
             distance: 1
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Slide", source);
         },
         priority: 0,
         target: "allPokemon",
@@ -1130,6 +1154,10 @@ exports.BattleMovedex = {
             protect: 1,
             distance: 1
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Rock Blast", source);
+        },
         priority: 0,
         target: "any",
         type: "Filth",
@@ -1144,6 +1172,10 @@ exports.BattleMovedex = {
         secondary: false,
         flags: {
             protect: 1
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Poison Gas", source);
         },
         priority: 0,
         target: "normal",
@@ -1160,6 +1192,10 @@ exports.BattleMovedex = {
         flags: {
             protect: 1,
             distance: 1
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Stone Edge", source);
         },
         boosts: {
             atk: -3,
@@ -1650,6 +1686,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Pepper Breath');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Inferno Overdrive", source);
+        },
         priority: 0,
         target: "any",
         type: "Fire",
@@ -1669,6 +1709,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Blue Blaster');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Blue Flare", source);
         },
         priority: 0,
         target: "any",
@@ -1690,6 +1734,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Boom Bubble');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Aeroblast", source);
+        },
         priority: 0,
         target: "any",
         type: "Ice",
@@ -1709,6 +1757,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Super Thunder Strike');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Gigavolt Havoc", source);
         },
         priority: 0,
         target: "any",
@@ -1730,6 +1782,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Spiral Twister');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Fire Spin", source);
+        },
         priority: 0,
         target: "any",
         type: "Air",
@@ -1750,6 +1806,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Electric Thread');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Electroweb", source);
+        },
         priority: 0,
         target: "any",
         type: "Air",
@@ -1769,6 +1829,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Electric Shock');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Thunderbolt", source);
         },
         priority: 0,
         target: "any",
@@ -1791,6 +1855,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Super Slap');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Ice Punch", source);
+        },
         priority: 0,
         target: "any",
         type: "Battle",
@@ -1812,6 +1880,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Mega Flame');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Overheat", source);
+        },
         priority: 0,
         target: "any",
         type: "Fire",
@@ -1831,6 +1903,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Volcanic Strike');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Eruption", source);
         },
         priority: 0,
         target: "any",
@@ -1852,6 +1928,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Pummel Whack');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Wood Hammer", source);
+        },
         priority: 0,
         target: "any",
         type: "Battle",
@@ -1871,6 +1951,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Spinning Needle');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Whirlwind", source);
+            this.add('-anim', source, "Ice Shard", source);
         },
         priority: 0,
         target: "any",
@@ -1892,6 +1977,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Scissor Claw');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Smart Strike", source);
+        },
         priority: 0,
         target: "any",
         type: "Mech",
@@ -1911,6 +2000,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Blastin Spout');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Water Spout", source);
         },
         priority: 0,
         target: "any",
@@ -1932,6 +2025,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Sub Zero Ice Punch');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Ice Punch", source);
+        },
         priority: 0,
         target: "any",
         type: "Ice",
@@ -1951,6 +2049,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Party Time');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Continental Crush", source);
         },
         priority: 0,
         target: "any",
@@ -1972,6 +2074,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Fireball');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Fire Punch", source);
+        },
         priority: 0,
         target: "any",
         type: "Fire",
@@ -1992,6 +2099,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Drill Spin');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Drill Run", source);
+        },
         priority: 0,
         target: "any",
         type: "Mech",
@@ -2011,6 +2122,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Fist Of The Beast King');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Roar", source);
+            this.add('-anim', source, "Fire Punch", source);
         },
         priority: 0,
         target: "any",
@@ -2033,6 +2149,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Frozen Fire Shot');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Frost Breath", source);
+            this.add('-anim', source, "Stone Edge", source);
+        },
         priority: 0,
         target: "any",
         type: "Fire",
@@ -2052,6 +2173,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Sweet Breath');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Sweet Kiss", source);
         },
         priority: 0,
         target: "any",
@@ -2073,6 +2198,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Hydro Pressure');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Hydro Pump", source);
+        },
         priority: 0,
         target: "any",
         type: "Ice",
@@ -2092,6 +2221,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Bone Boomerang');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Bonemerang", source);
         },
         priority: 0,
         target: "any",
@@ -2113,6 +2246,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Meteor Wing');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Heat Wave", source);
+        },
         priority: 0,
         target: "any",
         type: "Mech",
@@ -2132,6 +2269,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Blaze Blast');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Overheat", source);
         },
         priority: 0,
         target: "any",
@@ -2153,6 +2294,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Hand Of Fate');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Zap Cannon", source);
+        },
         priority: 0,
         target: "any",
         type: "Battle",
@@ -2172,6 +2317,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Aerial Attack');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Supersonic Skystrike", source);
         },
         priority: 0,
         target: "any",
@@ -2193,6 +2342,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Iga School Throwing Knife');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Power Gem", source);
+        },
         priority: 0,
         target: "any",
         type: "Mech",
@@ -2212,6 +2366,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Variable Darts');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Ice Hammer", source);
         },
         priority: 0,
         target: "any",
@@ -2233,6 +2391,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Solar Ray');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Charge", source);
+            this.add('-anim', source, "Electro Ball", source);
+        },
         priority: 0,
         target: "any",
         type: "Earth",
@@ -2252,6 +2415,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Death Claw');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Hone Claws", source);
+            this.add('-anim', source, "Night Slash", source);
         },
         priority: 0,
         target: "any",
@@ -2273,6 +2441,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Dark Claw');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Hone Claws", source);
+            this.add('-anim', source, "Shadow Claw", source);
+        },
         priority: 0,
         target: "any",
         type: "Filth",
@@ -2292,6 +2465,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Electro Shocker');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Charge", source);
+            this.add('-anim', source, "Discharge", source);
         },
         priority: 0,
         target: "any",
@@ -2313,6 +2491,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Ice Blast');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Subzero Slammer", source);
+        },
         priority: 0,
         target: "any",
         type: "Ice",
@@ -2332,6 +2514,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Howling Blaster');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Sacred Fire", source);
         },
         priority: 0,
         target: "any",
@@ -2354,6 +2540,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Giga Blaster');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Sunsteel Strike", source);
+        },
         priority: 0,
         target: "any",
         type: "Battle",
@@ -2373,6 +2563,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Dark Shot');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Flare Blitz", source);
         },
         priority: 0,
         target: "any",
@@ -2394,6 +2589,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Deadly Bomb');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Egg Bomb", source);
+        },
         priority: 0,
         target: "any",
         type: "Filth",
@@ -2413,6 +2613,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: High Electric Shocker');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Charge", source);
+            this.add('-anim', source, "Discharge", source);
         },
         priority: 0,
         target: "any",
@@ -2434,6 +2639,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Smiley Bomb');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Inferno Overdrive", source);
+        },
         priority: 0,
         target: "any",
         type: "Battle",
@@ -2453,6 +2663,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Mail Storm');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Subzero Slammer", source);
         },
         priority: 0,
         target: "any",
@@ -2474,6 +2689,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Abduction Beam');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Signal Beam", source);
+        },
         priority: 0,
         target: "any",
         type: "Mech",
@@ -2493,6 +2712,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Dark Network');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Sing", source);
+            this.add('-anim', source, "Nightmare", source);
         },
         priority: 0,
         target: "any",
@@ -2514,6 +2738,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Spiral Sword');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Smart Strike", source);
+        },
         priority: 0,
         target: "any",
         type: "Battle",
@@ -2533,6 +2762,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Genocide Attack');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Never-Ending Nightmare", source);
         },
         priority: 0,
         target: "any",
@@ -2554,6 +2788,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Crimson Flare');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Roar", source);
+            this.add('-anim', source, "Fire Blast", source);
+        },
         priority: 0,
         target: "any",
         type: "Fire",
@@ -2573,6 +2812,11 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Bit Bomb');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Charge", source);
+            this.add('-anim', source, "Nightmare", source);
         },
         priority: 0,
         target: "any",
@@ -2594,6 +2838,11 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Energy Bomb');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Autotomize", source);
+            this.add('-anim', source, "Mach Punch", source);
+        },
         priority: 0,
         target: "any",
         type: "Earth",
@@ -2613,6 +2862,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Lovely Attack');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Lovely Kiss", source);
         },
         priority: 0,
         target: "any",
@@ -2634,6 +2887,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Nightmare Syndrome');
         },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Black Hole Eclipse", source);
+        },
         priority: 0,
         target: "any",
         type: "Filth",
@@ -2654,6 +2911,10 @@ exports.BattleMovedex = {
         onModifyMove: function (move, pokemon, target) {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Infinity Cannon');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Fleur Cannon", source);
         },
         priority: 0,
         target: "any",

@@ -4,7 +4,7 @@
 
 exports.BattlePokedex = {
 	botamon: {
-		num: 1,
+		num: -301,
 		species: "Botamon",
 		types: ["Fire"],
 		baseStats: {
@@ -20,11 +20,10 @@ exports.BattlePokedex = {
 		},
 		weightkg: 2.3,
 		color: "Black",
-		evos: ["Koromon", 'Sukamon'],
-		battleMovePool: ['Bubble'],
+		evos: ["Koromon", "Sukamon"],
 	},
 	poyomon: {
-		num: 2,
+		num: -302,
 		species: "Poyomon",
 		types: ["Air"],
 		baseStats: {
@@ -40,11 +39,10 @@ exports.BattlePokedex = {
 		},
 		weightkg: 2.3,
 		color: "White",
-		evos: ["Tokomon", 'Sukamon'],
-		battleMovePool: ['Bubble'],
+		evos: ["Tokomon", "Sukamon"],
 	},
 	punimon: {
-		num: 3,
+		num: -303,
 		species: "Punimon",
 		types: ["Air"],
 		baseStats: {
@@ -60,11 +58,10 @@ exports.BattlePokedex = {
 		},
 		weightkg: 2.3,
 		color: "Red",
-		evos: ["Tsunomon", 'Sukamon'],
-		battleMovePool: ['Bubble'],
+		evos: ["Tsunomon", "Sukamon"],
 	},
 	yuramon: {
-		num: 4,
+		num: -304,
 		species: "Yuramon",
 		types: ["Earth"],
 		baseStats: {
@@ -80,14 +77,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 2.3,
 		color: "White",
-		evos: ["Tanemon", 'Sukamon'],
-		battleMovePool: ['Bubble'],
-
-		//In-Training, 100% Ready/
-
+		evos: ["Tanemon", "Sukamon"],
 	},
+	//In-Training, 100% Ready/
 	koromon: {
-		num: 5,
+		num: -305,
 		species: "Koromon",
 		types: ["Fire", "Battle"],
 		baseStats: {
@@ -103,12 +97,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 4.5,
 		color: "Pink",
-		evos: ["Agumon", "Gabumon", "Kunemon", 'Sukamon'],
+		evos: ["Agumon", "Gabumon", "Kunemon", "Sukamon"],
 		prevo: ["Botamon"],
-		battleMovePool: ['Bubble'],
 	},
 	tokomon: {
-		num: 6,
+		num: -306,
 		species: "Tokomon",
 		types: ["Air", "Battle"],
 		baseStats: {
@@ -124,12 +117,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 4.5,
 		color: "White",
-		evos: ["Patamon", "Biyomon", "Kunemon", 'Sukamon'],
+		evos: ["Patamon", "Biyomon", "Kunemon", "Sukamon"],
 		prevos: ["Poyomon"],
-		battleMovePool: ['Bubble'],
 	},
 	tsunomon: {
-		num: 7,
+		num: -307,
 		species: "Tsunomon",
 		types: ["Air", "Ice"],
 		baseStats: {
@@ -145,12 +137,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 4.5,
 		color: "Brown",
-		evos: ["Elecmon", "Penguinmon", "Kunemon", 'Sukamon'],
+		evos: ["Elecmon", "Penguinmon", "Kunemon", "Sukamon"],
 		prevos: ["Punimon"],
-		battleMovePool: ['Bubble'],
 	},
 	tanemon: {
-		num: 8,
+		num: -308,
 		species: "Tanemon",
 		types: ["Earth", "Ice"],
 		baseStats: {
@@ -166,15 +157,12 @@ exports.BattlePokedex = {
 		},
 		weightkg: 4.5,
 		color: "Green",
-		evos: ["Palmon", "Betamon", "Kunemon", 'Sukamon'],
+		evos: ["Palmon", "Betamon", "Kunemon", "Sukamon"],
 		prevos: ["Yuramon"],
-		battleMovePool: ['Bubble'],
-
-		//Rookie, 100% ready/
-
 	},
+	//Rookie, 100% ready
 	agumon: {
-		num: 9,
+		num: -309,
 		species: "Agumon",
 		types: ["Fire", "Battle"],
 		baseStats: {
@@ -190,13 +178,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 6.8,
 		color: "Yellow",
-		evo: ['birdramon', 'centarumon', 'greymon', 'meramon', 'monochromon', 'tyrannomon', 'Nanimon', 'Numemon', 'Sukamon'],
-		prevo: ["koromon"],
-		battleMovePool: ['Fire Tower', 'Spit Fire', 'Red Inferno', 'Magma Bomb', 'Heat Laser', 'Muscle Charge', 'Sonic Jab'],
-		finisher: 'Pepper Breath'
+		evo: ["Birdramon", "Centarumon", "Greymon", "Meramon", "Monochromon", "Tyrannomon", "Nanimon", "Numemon", "Sukamon"],
+		prevo: ["Koromon"],
 	},
 	gabumon: {
-		num: 10,
+		num: -310,
 		species: "Gabumon",
 		types: ["Battle", "Fire"],
 		baseStats: {
@@ -212,13 +198,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 6.8,
 		color: "White",
-		evo: ['centarumon', 'drimogemon', 'garurumon', 'monochromon', 'ogremon', 'tyrannomon', 'Nanimon', 'Numemon', 'Sukamon'],
-		prevo: ["koromon"],
-		battleMovePool: ['Fire Tower', 'Heat Laser', 'Tremar', 'War Cry', 'Sonic Jab', 'Dynamite Kick', 'Megaton Punch'],
-		finisher: 'Blue Blaster'
+		evo: ["Centarumon", "Drimogemon", "Garurumon", "Monochromon", "Ogremon", "Tyrannomon", "Nanimon", "Numemon", "Sukamon"],
+		prevo: ["Koromon"],
 	},
 	patamon: {
-		num: 11,
+		num: -311,
 		species: "Patamon",
 		types: ["Battle", "Air"],
 		baseStats: {
@@ -234,13 +218,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 6.8,
 		color: "Brown",
-		evo: ['angemon', 'leomon', 'ogremon', 'unimon', 'ogremon', 'Nanimon', 'Numemon', 'Sukamon'],
-		prevo: ["tokomon"],
-		battleMovePool: ['War Cry', 'Sonic Jab', 'Dynamite Kick', 'Buster Drive', 'Spinning Shot', 'Wind Cutter', 'Confused Storm'],
-		finisher: 'Boom Bubble'
+		evo: ["Angemon", "Leomon", "Ogremon", "Unimon", "Ogremon", "Nanimon", "Numemon", "Sukamon"],
+		prevo: ["Tokomon"],
 	},
 	elecmon: {
-		num: 12,
+		num: -312,
 		species: "Elecmon",
 		types: ["Air", "Battle"],
 		baseStats: {
@@ -256,13 +238,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 6.8,
 		color: "Red",
-		evo: ['angemon', 'leomon', 'kokatorimon', 'Nanimon', 'Numemon', 'Sukamon'],
-		prevo: ["tsunomon"],
-		battleMovePool: ['Muscle Charge', 'Dynamite Kick', 'Counter', 'Electric Cloud', 'Megalo Spark', 'Static Elect', 'Wind Cutter'],
-		finisher: 'Super Thunder Strike'
+		evo: ["Angemon", "Leomon", "Kokatorimon", "Nanimon", "Numemon", "Sukamon"],
+		prevo: ["Tsunomon"],
 	},
 	biyomon: {
-		num: 13,
+		num: -313,
 		species: "Biyomon",
 		types: ["Air", "Fire"],
 		baseStats: {
@@ -278,13 +258,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 6.8,
 		color: "Pink",
-		evo: ['airdramon', 'birdramon', 'kabuterimon', 'kokatorimon', 'Unimon', 'Nanimon', 'Numemon', 'Sukamon'],
-		prevo: ["tokomon"],
-		battleMovePool: ['Spit Fire', 'Heat Laser', 'Spinning Shot', 'Electric Cloud', 'Wind Cutter', 'Confused Storm', 'Hurricane'],
-		finisher: 'Spiral Twister'
+		evo: ["Airdramon", "Birdramon", "Kabuterimon", "Kokatorimon", "Unimon", "Nanimon", "Numemon", "Sukamon"],
+		prevo: ["Tokomon"],
 	},
 	kunemon: {
-		num: 14,
+		num: -314,
 		species: "Kunemon",
 		types: ["Earth", "Air"],
 		baseStats: {
@@ -300,13 +278,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 6.8,
 		color: "Yellow",
-		evo: ['kabuterimon', 'kuwagamon', 'vegiemon'],
-		prevo: ["koromon", "tokomon", "tsunomon", "tanemon", 'Sukamon'],
-		battleMovePool: ['Electric Cloud', 'Megalo Spark', 'Static Elect', 'Poison Powder', 'Mass Morph', 'Poison Claw', 'Danger Sting'],
-		finisher: 'Electric Thread'
+		evo: ["Kabuterimon", "Kuwagamon", "Vegiemon"],
+		prevo: ["Koromon", "Tokomon", "Tsunomon", "Tanemon", "Sukamon"],
 	},
 	palmon: {
-		num: 15,
+		num: -315,
 		species: "Palmon",
 		types: ["Earth", "Ice"],
 		baseStats: {
@@ -322,13 +298,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 6.8,
 		color: "Green",
-		evo: ['coelamon', 'kuwagamon', 'ninjamon', 'vegiemon', 'whamon', 'Nanimon', 'Numemon', 'Sukamon'],
-		prevo: ["tanemon"],
-		battleMovePool: ['Poison Powder', 'Mass Morph', 'Charm Perfume', 'Poison Claw', 'Water Blit', 'Aqua Magic', 'Tear Drop'],
-		finisher: 'Poison Ivy'
+		evo: ["Coelamon", "Kuwagamon", "Ninjamon", "Vegiemon", "Whamon", "Nanimon", "Numemon", "Sukamon"],
+		prevo: ["Tanemon"],
 	},
 	betamon: {
-		num: 16,
+		num: -316,
 		species: "Betamon",
 		types: ["Ice", "Air"],
 		baseStats: {
@@ -344,13 +318,11 @@ exports.BattlePokedex = {
 		},
 		weightkg: 6.8,
 		color: "Green",
-		evo: ['coelamon', 'drimogemon', 'seadramon', 'shellmon', 'whamon', 'Nanimon', 'Numemon', 'Sukamon'],
-		prevo: ["tanemon"],
-		battleMovePool: ['Electric Cloud', 'Static Elect', 'Giga Freeze', 'Winter Blast', 'Ice Needle', 'Water Blit', 'Aqua Magic'],
-		finisher: 'Electric Shock'
+		evo: ["Coelamon", "Drimogemon", "Seadramon", "Shellmon", "Whamon", "Nanimon", "Numemon", "Sukamon"],
+		prevo: ["Tanemon"],
 	},
 	penguinmon: {
-		num: 17,
+		num: -317,
 		species: "Penguinmon",
 		types: ["Ice", "Earth"],
 		baseStats: {
@@ -366,218 +338,376 @@ exports.BattlePokedex = {
 		},
 		weightkg: 6.8,
 		color: "Blue",
-		evo: ['fridgimon', 'garurumon', 'mojaymon', 'shellmon', 'whamon', 'Nanimon', 'Numemon', 'Sukamon'],
-		prevo: ["tsunomon"],
-		battleMovePool: ['Charm Perfume', 'Poison Claw', 'Giga Freeze', 'Winter Blast', 'Ice Needle', 'Water Blit', 'Aqua Magic'],
-		finisher: 'Super Slap',
+		evo: ["Fridgimon", "Garurumon", "Mojaymon", "Shellmon", "Whamon", "Nanimon", "Numemon", "Sukamon"],
+		prevo: ["Tsunomon"],
 	},
 	//Champion/
 	greymon: {
-        num: 18,
-        species: "Greymon",
-        types: ["Fire", "Battle", "Air"],
-        baseStats: {hp: 1700, atk: 300, def: 100, spa: 300, spd: 100, spe: 250},
-        abilities: {0: "Vaccine"},
-        weightkg: 13.6,
-        color: "Brown",
-        evo: ['MetalGreymon', 'SkullGreymon', 'Vademon'],
-        prevo: ["Agumon"],
-        battleMovePool: ['Fire Tower', 'Promience Beam', 'Spit Fire', 'Red Inferno', 'Magma Bomb', 'Heat Laser', 'Meltdown', 'Muscle Charge', 'Dynamite Kick', 'Counter', 'Spinning Shot', 'Megalo Spark'],
-        finisher: 'Mega Flame'
+		num: -318,
+		species: "Greymon",
+		types: ["Fire", "Battle", "Air"],
+		baseStats: {
+			hp: 1700,
+			atk: 300,
+			def: 100,
+			spa: 300,
+			spd: 100,
+			spe: 250
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+		weightkg: 13.6,
+		color: "Brown",
+		evo: ["MetalGreymon", "SkullGreymon", "Vademon"],
+		prevo: ["Agumon"],
 	},
-	Monochromon: {
-        num: 19,
-        species: "Monochromon",
-        types: ["Fire", "Battle", "Earth"],
-        baseStats: {hp: 2200, atk: 300, def: 100, spa: 300, spd: 100, spe: 300},
-        abilities: {0: "Data"},
-        weightkg: 18.1,
-        color: "Gray",
-        evo: ['MetalGreymon', 'MetalMamemon', 'Vademon'],
-        prevo: ["Agumon", "Gabumon"],
-        battleMovePool: ['Promience Beam', 'Spit Fire', 'Red Inferno', 'Heat Laser', 'Meltdown', 'Tremar', 'Counter', 'Megaton Punch', 'Mass Morph', 'Insect Plauge', 'Green Trap'],
-        finisher: 'Volcanic Strike'
+	monochromon: {
+		num: -319,
+		species: "Monochromon",
+		types: ["Fire", "Battle", "Earth"],
+		baseStats: {
+			hp: 2200,
+			atk: 300,
+			def: 100,
+			spa: 300,
+			spd: 100,
+			spe: 300
+		},
+		abilities: {
+			0: "Data"
+		},
+		weightkg: 18.1,
+		color: "Gray",
+		evo: ["MetalGreymon", "MetalMamemon", "Vademon"],
+		prevo: ["Agumon", "Gabumon"],
 	},
 	ogremon: {
-        num: 20,
-        species: "Ogremon",
-        types: ["Battle", "Fire", "Earth"],
-        baseStats: {hp: 2000, atk: 300, def: 300, spa: 300, spd: 300, spe: 100},
-        abilities: {0: "Virus"},
-        weightkg: 13.6,
-        color: "Green",
-        evo: ['Andromon', 'Giromon', 'Vademon'],
-        prevo: ["Gabumon", "Patamon"],
-        battleMovePool: ['Spit Fire', 'Red Inferno', 'Magma Bomb', 'Tremar', 'Meltdown', 'Tremar', 'War Cry', 'Sonic Jab', 'Dynamite Kick', 'Megaton Punch', 'Spinning Shot', 'Buster Drive'],
-        finisher: 'Pummel Whack'
+		num: -320,
+		species: "Ogremon",
+		types: ["Battle", "Fire", "Earth"],
+		baseStats: {
+			hp: 2000,
+			atk: 300,
+			def: 300,
+			spa: 300,
+			spd: 300,
+			spe: 100
+		},
+		abilities: {
+			0: "Virus"
+		},
+		weightkg: 13.6,
+		color: "Green",
+		evo: ["Andromon", "Giromon", "Vademon"],
+		prevo: ["Gabumon", "Patamon"],
 	},
 	airdramon: {
-        num: 20,
-        species: "airdramon",
-        types: ["Air", "Fire"],
-        baseStats: {hp: 1700, atk: 200, def: 100, spa: 200, spd: 100, spe: 400},
-        abilities: {0: "Vaccine"},
-        weightkg: 13.6,
-        color: "Blue",
-        evo: ['Megadramon', 'Phoenixmon', 'Vademon'],
-        prevo: ["Biyomon"],
-        battleMovePool: ['Prominence Beam', 'Spit Fire', 'Heat Laser', 'Spinning Shot', 'Electric Cloud', 'Megalo Spark', 'Static Elect', 'Wind Cutter', 'Confused Storm', 'Hurricane'],
-        finisher: 'Spinning Needle'
+		num: -320,
+		species: "Airdramon",
+		types: ["Air", "Fire"],
+		baseStats: {
+			hp: 1700,
+			atk: 200,
+			def: 100,
+			spa: 200,
+			spd: 100,
+			spe: 400
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+		weightkg: 13.6,
+		color: "Blue",
+		evo: ["Megadramon", "Phoenixmon", "Vademon"],
+		prevo: ["Biyomon"],
 	},
 	kuwagamon: {
-        num: 21,
-        species: "Kuwagamon",
-        types: ["Earth", "Battle", "Air"],
-        baseStats: {hp: 2200, atk: 300, def: 100, spa: 300, spd: 100, spe: 100},
-        abilities: {0: "Virus"},
-        weightkg: 13.6,
-        color: "Red",
-        evo: ['HerculesKabuterimon', 'Piximon', 'Vademon'],
-        prevo: ["Kunemon", "Palmon"],
-        battleMovePool: ['Muscle Charge', 'Sonic Jab', 'Spinning Shot', 'Wind Cutter', 'Poison Powder', 'Mass Morph', 'Charm Perfume', 'Poison Claw', 'Danger Sting', 'Green Trap'],
-        finisher: 'Scissor Claw'
+		num: -321,
+		species: "Kuwagamon",
+		types: ["Earth", "Battle", "Air"],
+		baseStats: {
+			hp: 2200,
+			atk: 300,
+			def: 100,
+			spa: 300,
+			spd: 100,
+			spe: 100
+		},
+		abilities: {
+			0: "Virus"
+		},
+		weightkg: 13.6,
+		color: "Red",
+		evo: ["HerculesKabuterimon", "Piximon", "Vademon"],
+		prevo: ["Kunemon", "Palmon"],
 	},
 	whamon: {
-        num: 22,
-        species: "Whamon",
-        types: ["Ice", "Earth"],
-        baseStats: {hp: 2200, atk: 100, def: 100, spa: 100, spd: 100, spe: 300},
-        abilities: {0: "Vaccine"},
-        weightkg: 18.1,
-        color: "Blue",
-        evo: ['Mamemon', 'MegaSeadramon', 'Vademon'],
-        prevo: ["Betamon", "Palmon", "Penguinmon"],
-        battleMovePool: ['Poison Powder', 'Charm Perfume', 'Giga Freeze', 'Ice Statue', 'Winter Blast', 'Ice Needle', 'Water Blit', 'Aqua Magic', 'Aurora Freeze', 'Tear Drop'],
-        finisher: 'Blasting Spout'
+		num: -322,
+		species: "Whamon",
+		types: ["Ice", "Earth"],
+		baseStats: {
+			hp: 2200,
+			atk: 100,
+			def: 100,
+			spa: 100,
+			spd: 100,
+			spe: 300
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+		weightkg: 18.1,
+		color: "Blue",
+		evo: ["Mamemon", "MegaSeadramon", "Vademon"],
+		prevo: ["Betamon", "Palmon", "Penguinmon"],
 	},
 	frigimon: {
-        num: 23,
-        species: "Frigimon",
-        types: ["Ice", "Battle"],
-        baseStats: {hp: 2200, atk: 100, def: 300, spa: 100, spd: 300, spe: 100},
-        abilities: {0: "Vaccine"},
-        weightkg: 18.1,
-        color: "Blue",
-        evo: ['Mamemon', 'MetalMamemon', 'Vademon'],
-        prevo: ["Penguinmon"],
-        battleMovePool: ['Muscle Charge', 'Sonic Jab', 'Giga Freeze', 'Ice Statue', 'Winter Blast', 'Ice Needle', 'Water Blit', 'Aqua Magic', 'Aurora Freeze', 'Tear Drop'],
-        finisher: 'Sub Zero Ice Punch'
+		num: -323,
+		species: "Frigimon",
+		types: ["Ice", "Battle"],
+		baseStats: {
+			hp: 2200,
+			atk: 100,
+			def: 300,
+			spa: 100,
+			spd: 300,
+			spe: 100
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+		weightkg: 18.1,
+		color: "Blue",
+		evo: ["Mamemon", "MetalMamemon", "Vademon"],
+		prevo: ["Penguinmon"],
 	},
 	nanimon: {
-        num: 23,
-        species: "Nanimon",
-        types: ["Filth", "Battle"],
-        baseStats: {hp: 1500, atk: 100, def: 100, spa: 100, spd: 100, spe: 100},
-        abilities: {0: "Virus"},
-        weightkg: 2.3,
-        color: "Brown",
-        evo: ['Digitamamon', 'Vademon'],
-        prevo: ["Agumon", "Betamon", "Biyomon", "Elecmon", "Gabumon", "Kunemon", "Palmon", "Patamon", "Penguinmon"],
-        battleMovePool: ['Dynamite Kick', 'Counter', 'Megaton Punch', 'Order Spray', 'Poop Spd Toss', 'Big Poop Toss', 'Big Rnd Toss', 'Poop Rnd Toss', 'Rnd Spd Toss', 'Horizontal Kick'],
-        finisher: 'Party Time'
+		num: -323,
+		species: "Nanimon",
+		types: ["Filth", "Battle"],
+		baseStats: {
+			hp: 1500,
+			atk: 100,
+			def: 100,
+			spa: 100,
+			spd: 100,
+			spe: 100
+		},
+		abilities: {
+			0: "Virus"
+		},
+		weightkg: 2.3,
+		color: "Brown",
+		evo: ["Digitamamon", "Vademon"],
+		prevo: ["Agumon", "Betamon", "Biyomon", "Elecmon", "Gabumon", "Kunemon", "Palmon", "Patamon", "Penguinmon"],
 	},
 	meramon: {
-        num: 24,
-        species: "Meramon",
-        types: ["Fire", "Battle"],
-        baseStats: {hp: 1500, atk: 300, def: 100, spa: 300, spd: 100, spe: 160},
-        abilities: {0: "Data"},
-        weightkg: 9.1,
-        color: "Red",
-        evo: ['Andromon', 'MetalGreymon', 'Vademon'],
-        prevo: ["Agumon"],
-        battleMovePool: ['Fire Tower', 'Prominence Beam', 'Spit Fire', 'Red Inferno', 'Magma Bomb', 'Heat Laser', 'Infinity Burn', 'War Cry', 'Dynamite Kick', 'Counter'],
-        finisher: 'Fireball'
+		num: -324,
+		species: "Meramon",
+		types: ["Fire", "Battle"],
+		baseStats: {
+			hp: 1500,
+			atk: 300,
+			def: 100,
+			spa: 300,
+			spd: 100,
+			spe: 160
+		},
+		abilities: {
+			0: "Data"
+		},
+		weightkg: 9.1,
+		color: "Red",
+		evo: ["Andromon", "MetalGreymon", "Vademon"],
+		prevo: ["Agumon"],
 	},
 	drimogemon: {
-        num: 25,
-        species: "Drimogemon",
-        types: ["Battle", "Earth"],
-        baseStats: {hp: 1500, atk: 100, def: 300, spa: 100, spd: 300, spe: 300},
-        abilities: {0: "Data"},
-        weightkg: 18.1,
-        color: "Purple",
-        evo: ['MetalGreymon', 'Vademon'],
-        prevo: ["Betamon", "Gabumon"],
-        battleMovePool: ['Tremar', 'Muscle Charge', 'War Cry', 'Sonic Jab', 'Dynamite Kick', 'Counter', 'Megaton Punch', 'Buster Drive', 'Charm Perfume', 'Green Trap'],
-        finisher: 'Drill Spin'
+		num: -325,
+		species: "Drimogemon",
+		types: ["Battle", "Earth"],
+		baseStats: {
+			hp: 1500,
+			atk: 100,
+			def: 300,
+			spa: 100,
+			spd: 300,
+			spe: 300
+		},
+		abilities: {
+			0: "Data"
+		},
+		weightkg: 18.1,
+		color: "Purple",
+		evo: ["MetalGreymon", "Vademon"],
+		prevo: ["Betamon", "Gabumon"],
 	},
 	leomon: {
-        num: 26,
-        species: "Leomon",
-        types: ["Battle", "Air"],
-        baseStats: {hp: 1700, atk: 300, def: 100, spa: 300, spd: 100, spe: 300},
-        abilities: {0: "Vaccine"},
-        weightkg: 9.1,
-        color: "Yellow",
-        evo: ['Andromon', 'Mamemon', 'Vademon'],
-        prevo: ["Elecmon", "Patamon"],
-        battleMovePool: ['Tremar', 'Muscle Charge', 'War Cry', 'Sonic Jab', 'Dynamite Kick', 'Counter', 'Megaton Punch', 'Buster Drive', 'Megalo Spark', 'Static Elect'],
-        finisher: 'Fist of the Beast King'
+		num: -326,
+		species: "Leomon",
+		types: ["Battle", "Air"],
+		baseStats: {
+			hp: 1700,
+			atk: 300,
+			def: 100,
+			spa: 300,
+			spd: 100,
+			spe: 300
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+		weightkg: 9.1,
+		color: "Yellow",
+		evo: ["Andromon", "Mamemon", "Vademon"],
+		prevo: ["Elecmon", "Patamon"],
 	},
 	kokatorimon: {
-        num: 27,
-        species: "Kokatorimon",
-        types: ["Air", "Battle"],
-        baseStats: {hp: 1700, atk: 300, def: 100, spa: 300, spd: 100, spe: 300},
-        abilities: {0: "Vaccine"},
-        weightkg: 13.6,
-        color: "White",
-        evo: ['Andromon', 'Mamemon', 'Vademon'],
-        prevo: ["Elecmon", "Patamon"],
-        battleMovePool: ['Tremar', 'War Cry', 'Dynamite Kick', 'Spinning Shot', 'Electric Cloud', 'Megalo Spark', 'Static Elect', 'Wind Cutter', 'Confused Storm', 'Hurricane'],
-        finisher: 'Frozen Fire Shot'
-    },
+		num: -327,
+		species: "Kokatorimon",
+		types: ["Air", "Battle"],
+		baseStats: {
+			hp: 1700,
+			atk: 300,
+			def: 100,
+			spa: 300,
+			spd: 100,
+			spe: 300
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+		weightkg: 13.6,
+		color: "White",
+		evo: ["Andromon", "Mamemon", "Vademon"],
+		prevo: ["Elecmon", "Patamon"],
+	},
 	vegiemon: {
-        num: 28,
-        species: "Vegiemon",
-        types: ["Earth", "Ice"],
-        baseStats: {hp: 1500, atk: 300, def: 100, spa: 300, spd: 100, spe: 130},
-        abilities: {0: "Virus"},
-        weightkg: 4.5,
-        color: "Green",
-        evo: ['Piximon', 'Vademon'],
-        prevo: ["Kunemon", "Palmon"],
-        battleMovePool: ['Poison Powder', 'Mass Morph', 'Charm Perfume', 'Poison Claw', 'Danger Sting', 'Green Trap', 'Water Blit', 'Aqua Magic',],
-        finisher: 'Sweet Breath'
-    },
+		num: -328,
+		species: "Vegiemon",
+		types: ["Earth", "Ice"],
+		baseStats: {
+			hp: 1500,
+			atk: 300,
+			def: 100,
+			spa: 300,
+			spd: 100,
+			spe: 130
+		},
+		abilities: {
+			0: "Virus"
+		},
+		weightkg: 4.5,
+		color: "Green",
+		evo: ["Piximon", "Vademon"],
+		prevo: ["Kunemon", "Palmon"],
+	},
 	shellmon: {
-        num: 29,
-        species: "Shellmon",
-        types: ["Ice", "Earth"],
-        baseStats: {hp: 2200, atk: 100, def: 300, spa: 100, spd: 300, spe: 100},
-        abilities: {0: "Data"},
-        weightkg: 18.1,
-        color: "Pink",
-        evo: ['MegaSeadramon','HerculesKabuterimon', 'Vademon'],
-        prevo: ["Betamon", "Pengiunmon"],
-        battleMovePool: ['Poison Powder', 'Charm Perfume', 'Giga Freeze', 'Ice Statue', 'Winter Blast', 'Ice Needle', 'Water Blit', 'Aqua Magic', 'Aurora Freeze', 'Tear Drop'],
-        finisher: 'Hydro Pressure'
-    },
+		num: -329,
+		species: "Shellmon",
+		types: ["Ice", "Earth"],
+		baseStats: {
+			hp: 2200,
+			atk: 100,
+			def: 300,
+			spa: 100,
+			spd: 300,
+			spe: 100
+		},
+		abilities: {
+			0: "Data"
+		},
+		weightkg: 18.1,
+		color: "Pink",
+		evo: ["MegaSeadramon", "HerculesKabuterimon", "Vademon"],
+		prevo: ["Betamon", "Pengiunmon"],
+	},
 	mojyamon: {
-        num: 30,
-        species: "Mojyamon",
-        types: ["Ice", "Battle", "Earth"],
-        baseStats: {hp: 2000, atk: 100, def: 300, spa: 100, spd: 300, spe: 100},
-        abilities: {0: "Vaccine"},
-        weightkg: 9.1,
-        color: "White",
-        evo: ['Mamemon', 'SkullGreymon', 'Vademon'],
-        prevo: ["Penguinmon"],
-        battleMovePool: ['Dynamite Kick', 'Megaton Punch', 'Mass Morph', 'Green Trap', 'Giga Freeze', 'Winter Blast', 'Ice Needle', 'Water Blit', 'Aqua Magic', 'Aurora Freeze'],
-        finisher: 'Bone Boomerang'
+		num: -330,
+		species: "Mojyamon",
+		types: ["Ice", "Battle", "Earth"],
+		baseStats: {
+			hp: 2000,
+			atk: 100,
+			def: 300,
+			spa: 100,
+			spd: 300,
+			spe: 100
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+		weightkg: 9.1,
+		color: "White",
+		evo: ["Mamemon", "SkullGreymon", "Vademon"],
+		prevo: ["Penguinmon"],
 	},
 	birdramon: {
-        num: 31,
-        species: "Birdramon",
-        types: ["Fire", "Air"],
-        baseStats: {hp: 1500, atk: 300, def: 100, spa: 300, spd: 100, spe: 305},
-        abilities: {0: "Vaccine"},
-        weightkg: 9.1,
-        color: "Red",
-        evo: ['Phoenixmon', 'Vademon'],
-        prevo: ["Agumon", "Biyomon"],
-        battleMovePool: ['Fire Tower', 'Promience Beam', 'Spit Fire', 'Red Inferno', 'Magma Bomb', 'Heat Laser', 'Meltdown', 'Spinning Shot', 'Wind Cutter', 'Hurricane'],
-        finisher: 'Meteor Wing'
-	},    
+		num: -331,
+		species: "Birdramon",
+		types: ["Fire", "Air"],
+		baseStats: {
+			hp: 1500,
+			atk: 300,
+			def: 100,
+			spa: 300,
+			spd: 100,
+			spe: 305
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+		weightkg: 9.1,
+		color: "Red",
+		evo: ["Phoenixmon", "Vademon"],
+		prevo: ["Agumon", "Biyomon"],
+	},
+	tyrannomon: {
+		num: -332,
+		species: "Tyrannomon",
+		types: ["Fire", "Battle"],
+		baseStats: {
+			hp: 2000,
+			atk: 300,
+			def: 300,
+			spa: 300,
+			spd: 300,
+			spe: 300
+		},
+		abilities: {
+			0: "Data"
+		},
+	},
+	angemon: {
+		num: -333,
+		species: "Angemon",
+		types: ["Air", "Battle"],
+		baseStats: {
+			hp: 1700,
+			atk: 300,
+			def: 100,
+			spa: 300,
+			spd: 100,
+			spe: 300
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+	},
+	unimon: {
+		num: -334,
+		species: "Unimon",
+		types: ["Air", "Battle"],
+		baseStats: {
+			hp: 2000,
+			atk: 300,
+			def: 300,
+			spa: 300,
+			spd: 300,
+			spe: 300
+		},
+		abilities: {
+			0: "Vaccine"
+		},
+	},
 };

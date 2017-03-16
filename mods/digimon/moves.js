@@ -1814,6 +1814,30 @@ exports.BattleMovedex = {
         target: "any",
         type: "Air",
     },
+    "poisonivy": {
+        id: "poisonivy",
+        name: "Poison Ivy",
+        basePower: 101,
+        accuracy: 100,
+        category: "Physical",
+        pp: 0.625,
+        secondary: false,
+        flags: {
+            protect: 1,
+            distance: 1
+        },
+        onModifyMove: function (move, pokemon, target) {
+            move.type = '???';
+            this.add('-activate', pokemon, 'move: Poison Ivy');
+        },
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Toxic", source);
+        },
+        priority: 0,
+        target: "any",
+        type: "Earth",
+    },
     "electricshock": {
         id: "electricshock",
         name: "Electric Shock",

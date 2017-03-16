@@ -14,7 +14,10 @@ exports.BattleMovedex = {
             move.type = '???';
             this.add('-activate', pokemon, 'move: Bubble');
         },
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Bubble", source);
@@ -35,7 +38,8 @@ exports.BattleMovedex = {
         target: "any",
         pp: 20,
         flags: {
-            protect: 1
+            protect: 1,
+            distance: 1
         },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
@@ -67,7 +71,8 @@ exports.BattleMovedex = {
         target: "any",
         pp: 5,
         flags: {
-            protect: 1
+            protect: 1,
+            distance: 1
         },
         accuracy: 100,
         type: "Fire",
@@ -82,7 +87,8 @@ exports.BattleMovedex = {
         target: "any",
         pp: 25,
         flags: {
-            protect: 1
+            protect: 1,
+            distance: 1
         },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
@@ -98,10 +104,11 @@ exports.BattleMovedex = {
         category: "Special",
         secondary: false,
         priority: 0,
-        target: "any",
+        target: "allAdjacentFoes",
         pp: 15,
         flags: {
-            protect: 1
+            protect: 1,
+            distance: 1
         },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
@@ -123,7 +130,8 @@ exports.BattleMovedex = {
         target: "any",
         pp: 15,
         flags: {
-            protect: 1
+            protect: 1,
+            distance: 1
         },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
@@ -139,17 +147,18 @@ exports.BattleMovedex = {
         basePower: 84,
         category: "Special",
         secondary: {
-            chance: 10,
+            chance: 50,
             boosts: {
-                spa: -1,
-                atk: -1
+                spa: -3,
+                atk: -3
             }
         },
         priority: 0,
-        target: "any",
+        target: "allPokemon",
         pp: 30,
         flags: {
-            protect: 1
+            protect: 1,
+            distance: 1
         },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
@@ -168,12 +177,14 @@ exports.BattleMovedex = {
         target: "any",
         priority: 0,
         secondary: {
+            chance: 5,
             volatileStatus: "flinch",
         },
         category: "Physical",
         flags: {
             protect: 1,
-            mirror: 1
+            mirror: 1,
+            distance: 1
         },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
@@ -191,12 +202,14 @@ exports.BattleMovedex = {
         target: "all",
         priority: 0,
         secondary: {
+            chance: 10,
             volatileStatus: "flinch",
         },
         category: "Special",
         flags: {
             protect: 1,
-            mirror: 1
+            mirror: 1,
+            distance: 1
         },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
@@ -209,8 +222,8 @@ exports.BattleMovedex = {
         id: "tremar",
         name: "Tremar",
         basePower: 178,
-        accuracy: 100,
-        pp: 10,
+        accuracy: 90,
+        pp: 20,
         target: "allPokemon",
         priority: 0,
         secondary: false,
@@ -231,7 +244,7 @@ exports.BattleMovedex = {
         name: "Muscle Charge",
         basePower: 0,
         accuracy: 100,
-        pp: 10,
+        pp: 25,
         boosts: {
             atk: 2,
             spa: 2
@@ -244,7 +257,9 @@ exports.BattleMovedex = {
         priority: 0,
         secondary: false,
         category: "Status",
-        flags: {},
+        flags: {
+            snatch: 1
+        },
         type: "Battle",
     },
     "warcry": {
@@ -253,7 +268,7 @@ exports.BattleMovedex = {
         basePower: 0,
         secondary: false,
         category: "Status",
-        pp: 10,
+        pp: 30,
         accuracy: 100,
         boosts: {
             atk: 1,
@@ -267,7 +282,9 @@ exports.BattleMovedex = {
             this.add('-anim', source, "Dragon Dance", source);
         },
         priority: 0,
-        flags: {},
+        flags: {
+            snatch: 1
+        },
         target: "self",
         type: "Battle",
     },
@@ -279,12 +296,16 @@ exports.BattleMovedex = {
         accuracy: 100,
         secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            contact: 1,
+            punch: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Dizzy Punch", source);
         },
-        pp: 15,
+        pp: 40,
         target: "normal",
         type: "Battle",
     },
@@ -295,10 +316,15 @@ exports.BattleMovedex = {
         accuracy: 100,
         pp: 5,
         category: "Special",
-        volatileStatus: "flinch",
-        secondary: false,
+        secondary: {
+            chance: 20,
+            volatileStatus: "flinch",
+        },
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            contact: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Mega Kick", source);
@@ -310,8 +336,10 @@ exports.BattleMovedex = {
         id: "counter",
         name: "Counter",
         basePower: 285,
-        volatileStatus: "confusion",
-        category: "Physical",
+        secondary: {
+            chance: 30,
+            volatileStatus: "confusion",
+        },
         damageCallback: function (pokemon) {
             if (!pokemon.volatiles['counter']) return 0;
             return pokemon.volatiles['counter'].damage || 1;
@@ -319,7 +347,10 @@ exports.BattleMovedex = {
         category: "Physical",
         pp: 20,
         priority: -5,
-        flags: {},
+        flags: {
+            protect: 1,
+            contact: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Headbutt", source);
@@ -351,7 +382,6 @@ exports.BattleMovedex = {
                 }
             },
         },
-        secondary: false,
         target: "normal",
         type: "Battle",
     },
@@ -361,10 +391,16 @@ exports.BattleMovedex = {
         basePower: 320,
         category: "Physical",
         accuracy: 100,
-        pp: 5,
-        volatileStatus: "flinch",
-        secondary: false,
-        flags: {},
+        pp: 10,
+        secondary: {
+            chance: 15,
+            volatileStatus: "flinch",
+        },
+        flags: {
+            protect: 1,
+            contact: 1,
+            punch: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Dizzy Punch", source);
@@ -377,12 +413,19 @@ exports.BattleMovedex = {
         id: "busterdrive",
         name: "Buster Drive",
         basePower: 500,
-        volatileStatus: "confusion",
+        secondary: {
+            chance: 5,
+            volatileStatus: "confusion",
+        },
         category: "Physical",
         pp: 5,
         accuracy: 100,
-        secondary: false,
-        flags: {},
+        flags: {
+            protect: 1,
+            contact: 1,
+            distance: 1,
+            punch: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Fire Punch", source);
@@ -400,12 +443,18 @@ exports.BattleMovedex = {
         category: "Special",
         priority: 0,
         secondary: false,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Thunder", source);
         },
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 5,
+            volatileStatus: "flinch",
+        },
         type: "Air",
         target: "any",
     },
@@ -417,7 +466,10 @@ exports.BattleMovedex = {
         accuracy: 100,
         secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Air Cutter", source);
@@ -431,35 +483,45 @@ exports.BattleMovedex = {
         name: "Electric Cloud",
         basePower: 120,
         category: "Special",
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 40,
+            volatileStatus: "flinch",
+        },
         accuracy: true,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Thundershock", source);
         },
-        secondary: false,
         priority: 0,
         pp: 20,
         type: "Air",
-        target: "allAdjacentFoes",
+        target: "any",
     },
     "megalospark": {
         id: "megalospark",
         name: "Megalo Spark",
         basePower: 382,
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 15,
+            volatileStatus: "flinch",
+        },
         accuracy: 100,
-        pp: 10,
-        secondary: false,
+        pp: 15,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Shock Wave", source);
         },
         category: "Physical",
-        target: "allAdjacentFoes",
+        target: "any",
         type: "Air",
     },
     "staticelect": {
@@ -468,10 +530,14 @@ exports.BattleMovedex = {
         basePower: 85,
         accuracy: 100,
         pp: 40,
-        secondary: false,
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 50,
+            volatileStatus: "flinch",
+        },
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Thunder Punch", source);
@@ -488,7 +554,10 @@ exports.BattleMovedex = {
         category: "Special",
         secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Gust", source);
@@ -501,12 +570,18 @@ exports.BattleMovedex = {
         id: "confusedstorm",
         name: "Confused Storm",
         basePower: 225,
-        volatileStatus: "confusion",
+        secondary: {
+            self: {
+                volatileStatus: "confusion",
+            },
+        },
         accuracy: 100,
         category: "Special",
-        secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Prismatic Laser", source);
@@ -519,13 +594,18 @@ exports.BattleMovedex = {
         id: "hurricane",
         name: "Hurricane",
         basePower: 366,
-        volatileStatus: "confusion",
+        secondary: {
+            chance: 15,
+            volatileStatus: "confusion",
+        },
         category: "Special",
         pp: 10,
         accuracy: 100,
-        secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Hurricane", source);
@@ -543,7 +623,10 @@ exports.BattleMovedex = {
         accuracy: 100,
         secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Poison Powder", source);
@@ -556,15 +639,20 @@ exports.BattleMovedex = {
         name: "Bug",
         basePower: 500,
         accuracy: 100,
-        boosts: {
-            atk: -3,
-            spa: -3
+        secondary: {
+            chance: 5,
+            boosts: {
+                atk: -3,
+                spa: -3
+            },
         },
         category: "Physical",
         pp: 5,
-        secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Magnet Bomb", source);
@@ -586,10 +674,12 @@ exports.BattleMovedex = {
             accuracy: 1
         },
         accuracy: 100,
-        pp: 30,
+        pp: 40,
         priority: 0,
         secondary: false,
-        flags: {},
+        flags: {
+            snatch: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Cotton Guard", source);
@@ -604,14 +694,19 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Special",
         pp: 10,
-        secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Toxic", source);
         },
-        status: "psn",
+        secondary: {
+            chance: 40,
+            status: "psn",
+        },
         target: "any",
         type: "Earth",
     },
@@ -619,13 +714,18 @@ exports.BattleMovedex = {
         id: "charmperfume",
         name: "Charm Perfume",
         basePower: 180,
-        status: "psn",
+        secondary: {
+            chance: 40,
+            status: "psn",
+        },
         category: "Special",
         pp: 15,
         accuracy: 100,
-        secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Poison Gas", source);
@@ -634,14 +734,21 @@ exports.BattleMovedex = {
         type: "Earth",
     },
     "poisonclaw": {
+        id: "poisonclaw",
+        name: "Poison Claw",
         basePower: 62,
         category: "Physical",
-        status: "psn",
+        secondary: {
+            chance: 50,
+            status: "psn",
+        },
         pp: 40,
-        secondary: false,
         accuracy: 100,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            contact: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Poison Jab", source);
@@ -654,13 +761,18 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Physical",
         pp: 15,
-        boosts: {
-            atk: -3,
-            spa: -3
+        secondary: {
+            chance: 35,
+            boosts: {
+                atk: -3,
+                spa: -3
+            },
         },
-        secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            contact: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Poison Sting", source);
@@ -674,14 +786,20 @@ exports.BattleMovedex = {
         basePower: 310,
         accuracy: 100,
         pp: 10,
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 15,
+            volatileStatus: "flinch",
+        },
         category: "Physical",
-        flags: {},
+        flags: {
+            protect: 1,
+            contact: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Grass Knot", source);
         },
-        secondary: false,
         priority: 0,
         target: "any",
         type: "Earth",
@@ -692,14 +810,20 @@ exports.BattleMovedex = {
         basePower: 264,
         category: "Physical",
         pp: 10,
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 20,
+            volatileStatus: "flinch",
+        },
         accuracy: 100,
-        flags: {},
+        flags: {
+            protect: 1,
+            contact: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Frost Breath", source);
         },
-        secondary: false,
         priority: 0,
         target: "allAdjacentFoes",
         type: "Ice",
@@ -710,14 +834,19 @@ exports.BattleMovedex = {
         basePower: 424,
         accuracy: 100,
         pp: 10,
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 10,
+            volatileStatus: "flinch",
+        },
         category: "Physical",
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Avalanche", source);
         },
-        secondary: false,
         priority: 0,
         target: "any",
         type: "Ice",
@@ -727,12 +856,17 @@ exports.BattleMovedex = {
         name: "Winter Blast",
         basePower: 120,
         accuracy: 100,
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 30,
+            volatileStatus: "flinch",
+        },
         category: "Special",
         pp: 10,
-        secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Blizzard", source);
@@ -745,16 +879,21 @@ exports.BattleMovedex = {
         name: "Ice Needle",
         accuracy: 100,
         basePower: 126,
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 35,
+            volatileStatus: "flinch",
+        },
         category: "Physical",
         pp: 20,
-        flags: {},
+        flags: {
+            protect: 1,
+            distance: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Ice Shard", source);
         },
         priority: 0,
-        secondary: false,
         target: "any",
         type: "Ice",
     },
@@ -767,7 +906,9 @@ exports.BattleMovedex = {
         pp: 20,
         secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            protect: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Aqua Ring", source);
@@ -791,7 +932,9 @@ exports.BattleMovedex = {
         pp: 20,
         secondary: false,
         priority: 0,
-        flags: {},
+        flags: {
+            snatch: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Bubble", source);
@@ -805,9 +948,12 @@ exports.BattleMovedex = {
         basePower: 430,
         accuracy: 100,
         category: "Special",
-        boosts: {
-            atk: -3,
-            spa: -3
+        secondary: {
+            chance: 10,
+            boosts: {
+                atk: -3,
+                spa: -3
+            },
         },
         pp: 10,
         onTry: function (attacker, defender, move) {
@@ -822,9 +968,9 @@ exports.BattleMovedex = {
             attacker.addVolatile('twoturnmove', defender);
             return null;
         },
-        secondary: false,
         priority: 0,
         flags: {
+            protect: 1,
             charge: 1,
             distance: 1
         },
@@ -841,13 +987,15 @@ exports.BattleMovedex = {
         name: "Tear Drop",
         basePower: 60,
         accuracy: 90,
-        boosts: {
-            atk: -3,
-            spa: -3
+        secondary: {
+            chance: 50,
+            boosts: {
+                atk: -3,
+                spa: -3
+            },
         },
         pp: 40,
         category: "Special",
-        secondary: false,
         priority: 0,
         flags: {
             protect: 1,
@@ -948,7 +1096,6 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Special",
         pp: 10,
-        secondary: false,
         flags: {
             protect: 1,
             distance: 1
@@ -957,9 +1104,12 @@ exports.BattleMovedex = {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Flash Cannon", source);
         },
-        boosts: {
-            atk: -3,
-            spa: -3
+        secondary: {
+            chance: 10,
+            boosts: {
+                atk: -3,
+                spa: -3
+            },
         },
         priority: 0,
         target: "any",
@@ -1001,7 +1151,9 @@ exports.BattleMovedex = {
             spe: 2
         },
         secondary: false,
-        flags: {},
+        flags: {
+            snatch: 1
+        },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Autotomize", source);
@@ -1018,7 +1170,6 @@ exports.BattleMovedex = {
         accuracy: 100,
         category: "Special",
         pp: 5,
-        secondary: false,
         flags: {
             protect: 1,
             distance: 1
@@ -1028,9 +1179,12 @@ exports.BattleMovedex = {
             this.add('-anim', source, "Lock-On", source);
             this.add('-anim', source, "Wake-Up Slap", source);
         },
-        boosts: {
-            atk: -3,
-            spa: -3
+        secondary: {
+            chance: 20,
+            boosts: {
+                atk: -3,
+                spa: -3
+            },
         },
         priority: 0,
         target: "any",
@@ -1042,9 +1196,11 @@ exports.BattleMovedex = {
         basePower: 88,
         category: "Special",
         pp: 40,
-        volatileStatus: "flinch",
+        secondary: {
+            chance: 50,
+            volatileStatus: "flinch",
+        },
         accuracy: 100,
-        secondary: false,
         flags: {
             protect: 1,
             distance: 1
@@ -1063,9 +1219,11 @@ exports.BattleMovedex = {
         basePower: 122,
         category: "Physical",
         pp: 20,
-        status: "psn",
+        secondary: {
+            chance: 30,
+            status: "psn",
+        },
         accuracy: 100,
-        secondary: false,
         flags: {
             protect: 1,
             distance: 1
@@ -1084,9 +1242,11 @@ exports.BattleMovedex = {
         basePower: 211,
         category: "Physical",
         pp: 15,
-        volatileStatus: "confusion",
+        secondary: {
+            chance: 30,
+            volatileStatus: "confusion",
+        },
         accuracy: 100,
-        secondary: false,
         flags: {
             protect: 1,
             distance: 1
@@ -1105,9 +1265,11 @@ exports.BattleMovedex = {
         basePower: 211,
         category: "Physical",
         pp: 5,
-        volatileStatus: "confusion",
+        secondary: {
+            chance: 30,
+            volatileStatus: "confusion",
+        },
         accuracy: 100,
-        secondary: false,
         flags: {
             protect: 1,
             distance: 1
@@ -1126,9 +1288,11 @@ exports.BattleMovedex = {
         basePower: 75,
         category: "Physical",
         pp: 15,
-        status: "psn",
+        secondary: {
+            chance: 40,
+            status: "psn",
+        },
         accuracy: 100,
-        secondary: false,
         flags: {
             protect: 1,
             distance: 1
@@ -1147,9 +1311,11 @@ exports.BattleMovedex = {
         basePower: 122,
         category: "Physical",
         pp: 10,
-        status: "psn",
+        secondary: {
+            chance: 30,
+            status: "psn",
+        },
         accuracy: 100,
-        secondary: false,
         flags: {
             protect: 1,
             distance: 1
@@ -1188,7 +1354,6 @@ exports.BattleMovedex = {
         category: "Physical",
         pp: 5,
         accuracy: 100,
-        secondary: false,
         flags: {
             protect: 1,
             distance: 1
@@ -1197,9 +1362,12 @@ exports.BattleMovedex = {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Stone Edge", source);
         },
-        boosts: {
-            atk: -3,
-            spd: -3
+        secondary: {
+            chance: 10,
+            boosts: {
+                atk: -3,
+                spa: -3
+            },
         },
         priority: 0,
         target: "allPokemon",
@@ -1219,11 +1387,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
         heal: [1, 4],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1241,11 +1410,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
         heal: [1, 3],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1263,11 +1433,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
         heal: [1, 2],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1285,11 +1456,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
         heal: [1, 1],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1307,11 +1479,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
         heal: [1, 10],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1329,11 +1502,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
         heal: [1, 10],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1351,11 +1525,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
         heal: [1, 10],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1372,7 +1547,8 @@ exports.BattleMovedex = {
         pp: 0.625,
         priority: 0,
         flags: {
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
@@ -1382,7 +1558,7 @@ exports.BattleMovedex = {
             pokemon.cureStatus();
         },
         secondary: false,
-        target: "self",
+        target: "adjacentAllyOrSelf",
     },
     //Protection
     protection: {
@@ -1395,14 +1571,14 @@ exports.BattleMovedex = {
         pp: 0.625,
         priority: 0,
         flags: {
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         boosts: {
             evasion: 1
         },
         secondary: false,
-        heal: [1, 10],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1420,11 +1596,18 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
+        allyTeam: {
+            onHit: function (pokemon) {
+                pokemon.cureStatus();
+            },
+        },
+        //TODO: Restore PP (idea use a spinoff of Leppa Berry code)
         secondary: false,
         heal: [1, 1],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1442,11 +1625,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
         heal: [1, 3],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1464,11 +1648,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
-        heal: [1, 10],
-        target: "self",
+        heal: [1, 2],
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1486,11 +1671,12 @@ exports.BattleMovedex = {
         priority: 0,
         flags: {
             heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
-        heal: [3, 4],
-        target: "self",
+        heal: [1, 1],
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1508,15 +1694,15 @@ exports.BattleMovedex = {
         pp: 0.625,
         priority: 0,
         flags: {
-            heal: 1
+            snatch: 1,
+            distance: 1
         },
         boosts: {
             atk: 1,
             spa: 1
         },
         secondary: false,
-        heal: [1, 10],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1533,15 +1719,15 @@ exports.BattleMovedex = {
         pp: 0.625,
         priority: 0,
         flags: {
-            heal: 1
+            snatch: 1,
+            distance: 1
         },
         boosts: {
             spd: 1,
             def: 1
         },
         secondary: false,
-        heal: [1, 10],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1558,14 +1744,14 @@ exports.BattleMovedex = {
         pp: 0.625,
         priority: 0,
         flags: {
-            heal: 1
+            snatch: 1,
+            distance: 1
         },
         boosts: {
             spe: 1
         },
         secondary: false,
-        heal: [1, 10],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1582,12 +1768,11 @@ exports.BattleMovedex = {
         pp: 0.625,
         priority: 0,
         flags: {
-            heal: 1,
-            snatch: 1
+            snatch: 1,
+            distance: 1
         },
         secondary: false,
-        heal: [1, 10],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1604,15 +1789,15 @@ exports.BattleMovedex = {
         pp: 0.625,
         priority: 0,
         flags: {
-            heal: 1
+            snatch: 1,
+            distance: 1
         },
         boosts: {
             spd: 1,
             def: 1
         },
         secondary: false,
-        heal: [1, 5],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1629,14 +1814,14 @@ exports.BattleMovedex = {
         pp: 0.625,
         priority: 0,
         flags: {
-            heal: 1
+            snatch: 1,
+            distance: 1
         },
         boosts: {
             spe: 1
         },
         secondary: false,
-        heal: [1, 5],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);
@@ -1653,7 +1838,8 @@ exports.BattleMovedex = {
         pp: 0.625,
         priority: 0,
         flags: {
-            heal: 1
+            snatch: 1,
+            distance: 1
         },
         boosts: {
             atk: 1,
@@ -1662,8 +1848,7 @@ exports.BattleMovedex = {
             spd: 1
         },
         secondary: false,
-        heal: [1, 10],
-        target: "self",
+        target: "adjacentAllyOrSelf",
         onPrepareHit: function (target, source) {
             this.attrLastMove('[still]');
             this.add('-anim', source, "Recover", source);

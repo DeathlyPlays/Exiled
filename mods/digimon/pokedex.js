@@ -18,6 +18,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 2.3,
 		color: "Black",
 		evos: ["Koromon", "Sukamon"],
@@ -37,6 +38,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 2.3,
 		color: "White",
 		evos: ["Tokomon", "Sukamon"],
@@ -56,6 +58,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 2.3,
 		color: "Red",
 		evos: ["Tsunomon", "Sukamon"],
@@ -75,6 +78,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 2.3,
 		color: "White",
 		evos: ["Tanemon", "Sukamon"],
@@ -95,6 +99,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 4.5,
 		color: "Pink",
 		evos: ["Agumon", "Gabumon", "Kunemon", "Sukamon"],
@@ -115,6 +120,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 4.5,
 		color: "White",
 		evos: ["Patamon", "Biyomon", "Kunemon", "Sukamon"],
@@ -135,6 +141,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 4.5,
 		color: "Brown",
 		evos: ["Elecmon", "Penguinmon", "Kunemon", "Sukamon"],
@@ -155,6 +162,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 4.5,
 		color: "Green",
 		evos: ["Palmon", "Betamon", "Kunemon", "Sukamon"],
@@ -176,6 +184,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 6.8,
 		color: "Yellow",
 		evo: ["Birdramon", "Centarumon", "Greymon", "Meramon", "Monochromon", "Tyrannomon", "Nanimon", "Numemon", "Sukamon"],
@@ -196,6 +205,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 6.8,
 		color: "White",
 		evo: ["Centarumon", "Drimogemon", "Garurumon", "Monochromon", "Ogremon", "Tyrannomon", "Nanimon", "Numemon", "Sukamon"],
@@ -216,6 +226,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 6.8,
 		color: "Brown",
 		evo: ["Angemon", "Leomon", "Ogremon", "Unimon", "Ogremon", "Nanimon", "Numemon", "Sukamon"],
@@ -236,6 +247,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 6.8,
 		color: "Red",
 		evo: ["Angemon", "Leomon", "Kokatorimon", "Nanimon", "Numemon", "Sukamon"],
@@ -256,6 +268,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 6.8,
 		color: "Pink",
 		evo: ["Airdramon", "Birdramon", "Kabuterimon", "Kokatorimon", "Unimon", "Nanimon", "Numemon", "Sukamon"],
@@ -276,6 +289,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		weightkg: 6.8,
 		color: "Yellow",
 		evo: ["Kabuterimon", "Kuwagamon", "Vegiemon"],
@@ -296,6 +310,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 6.8,
 		color: "Green",
 		evo: ["Coelamon", "Kuwagamon", "Ninjamon", "Vegiemon", "Whamon", "Nanimon", "Numemon", "Sukamon"],
@@ -316,6 +331,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		weightkg: 6.8,
 		color: "Green",
 		evo: ["Coelamon", "Drimogemon", "Seadramon", "Shellmon", "Whamon", "Nanimon", "Numemon", "Sukamon"],
@@ -336,6 +352,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 6.8,
 		color: "Blue",
 		evo: ["Fridgimon", "Garurumon", "Mojaymon", "Shellmon", "Whamon", "Nanimon", "Numemon", "Sukamon"],
@@ -357,6 +374,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "Brown",
 		evo: ["MetalGreymon", "SkullGreymon", "Vademon"],
@@ -377,6 +395,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 18.1,
 		color: "Gray",
 		evo: ["MetalGreymon", "MetalMamemon", "Vademon"],
@@ -397,6 +416,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "Green",
 		evo: ["Andromon", "Giromon", "Vademon"],
@@ -417,6 +437,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "Blue",
 		evo: ["Megadramon", "Phoenixmon", "Vademon"],
@@ -437,6 +458,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "Red",
 		evo: ["HerculesKabuterimon", "Piximon", "Vademon"],
@@ -457,6 +479,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 18.1,
 		color: "Blue",
 		evo: ["Mamemon", "MegaSeadramon", "Vademon"],
@@ -477,6 +500,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 18.1,
 		color: "Blue",
 		evo: ["Mamemon", "MetalMamemon", "Vademon"],
@@ -497,6 +521,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		weightkg: 2.3,
 		color: "Brown",
 		evo: ["Digitamamon", "Vademon"],
@@ -517,6 +542,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 9.1,
 		color: "Red",
 		evo: ["Andromon", "MetalGreymon", "Vademon"],
@@ -537,6 +563,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 18.1,
 		color: "Purple",
 		evo: ["MetalGreymon", "Vademon"],
@@ -557,6 +584,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 9.1,
 		color: "Yellow",
 		evo: ["Andromon", "Mamemon", "Vademon"],
@@ -577,6 +605,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "White",
 		evo: ["Andromon", "Mamemon", "Vademon"],
@@ -597,6 +626,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		weightkg: 4.5,
 		color: "Green",
 		evo: ["Piximon", "Vademon"],
@@ -617,6 +647,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 18.1,
 		color: "Pink",
 		evo: ["MegaSeadramon", "HerculesKabuterimon", "Vademon"],
@@ -637,6 +668,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 9.1,
 		color: "White",
 		evo: ["Mamemon", "SkullGreymon", "Vademon"],
@@ -657,6 +689,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 9.1,
 		color: "Red",
 		evo: ["Phoenixmon", "Vademon"],
@@ -677,6 +710,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		color: "Red",
 		weightkg: 13.6,
 		prevo: ["Agumon", "Gabumon", "Patamon"],
@@ -697,6 +731,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 9.1,
 		color: "White",
 		prevo: ["Elecmon", "Patamon"],
@@ -717,6 +752,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "White",
 		prevo: ["Biyomon", "Patamon"],
@@ -737,6 +773,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 4.5,
 		color: "Red",
 		prevo: ["Palmon"],
@@ -757,6 +794,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "White",
 		prevo: ["Betamon", "Palmon"],
@@ -777,6 +815,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 2.3,
 		color: "Green",
 		prevo: ["Agumon", "Betamon", "Biyomon", "Elecmon", "Gabumon", "Kunemon", "Palmon", "Patamon", "Penguinmon"],
@@ -797,6 +836,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "Brown",
 		prevo: ["Agumon", "Gabumon"],
@@ -817,6 +857,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		weightkg: 9.1,
 		color: "Black",
 		prevo: ["Angemon"],
@@ -837,6 +878,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		weightkg: 9.1,
 		color: "White",
 		prevo: ["Agumon", "Betamon", "Biyomon", "Elecmon", "Gabumon", "Kunemon", "Palmon", "Patamon", "Penguinmon"],
@@ -857,6 +899,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "Blue",
 		prevo: ["Biyomon", "Kunemon"],
@@ -877,6 +920,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "Blue",
 		prevo: ["Betamon"],
@@ -897,6 +941,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		weightkg: 13.6,
 		color: "White",
 		prevo: ["Gabumon", "Penguinmon"],
@@ -917,6 +962,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		weightkg: 2.3,
 		color: "Yellow",
 		prevo: ["Agumon", "Betamon", "Biyomon", "Elecmon", "Gabumon", "Kunemon", "Palmon", "Patamon", "Penguinmon"],
@@ -938,6 +984,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		color: "Purple",
 		weightkg: 22.7,
 		prevos: ["Greymon", "Monochromon"],
@@ -957,6 +1004,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		color: "White",
 		weightkg: 13.6,
 		prevos: ["Bakemon", "Devimon", "Garurumon", "Greymon", "Mojyamon"],
@@ -976,6 +1024,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		color: "Purple",
 		weightkg: 2.3,
 		prevos: ["Bakemon", "Centarumon", "Ogremon", "Unimon"],
@@ -995,6 +1044,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		color: "Yellow",
 		weightkg: 18.1,
 		prevos: ["Kabuterimon", "Kuwagamon", "Shellmon"],
@@ -1014,6 +1064,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		color: "Gray",
 		weightkg: 2.3,
 		prevos: ["Frigimon", "Leomon", "Mojyamon", "Ninjamon", "Whamon"],
@@ -1033,6 +1084,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		color: "Red",
 		weightkg: 13.6,
 		prevos: ["Coelamon", "Garurumon", "Seadramon", "Shellmon", "Whamon"],
@@ -1052,6 +1104,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		color: "Pink",
 		weightkg: 2.3,
 		prevos: ["Airdramon", "Angemon", "Bakemon", "Birdramon", "Centarumon", "Coelamon", "Devimon", "Drimogemon", "Frigimon", "Garurumon", "Greymon", "Kabuterimon", "Kokatorimon", "Kuwagamon", "Leomon", "Meramon", "Mojyamon", "Monochromon", "Nanimon", "Numemon", "Ogremon", "Seadramon", "Shellmon", "Sukamon", "Tyrannomon", "Unimon", "Vegiemon", "Whamon"],
@@ -1071,6 +1124,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		color: "Brown",
 		weightkg: 6.8,
 		prevos: ["Sukamon"],
@@ -1090,6 +1144,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		color: "Gray",
 		weightkg: 18.1,
 		prevos: ["Angemon", "Centarumon", "Meramon", "Ogremon"],
@@ -1109,6 +1164,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		color: "Red",
 		weightkg: 24.9,
 		prevos: ["Airdramon", "Devimon", "Seadramon", "Tyrannomon"],
@@ -1128,6 +1184,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		color: "Yellow",
 		weightkg: 13.6,
 		prevos: ["Aidramon", "Angemon", "Birdramon", "Kokatorimon", "Unimon"],
@@ -1147,6 +1204,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		color: "Pink",
 		weightkg: 2.3,
 		prevos: ["Kokatorimon", "Kuwagamon", "Ninjamon", "Vegiemon"],
@@ -1166,6 +1224,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		color: "Gray",
 		weightkg: 4.6,
 		prevos: ["Frigimon", "Kabuterimon", "Monochromon", "Ninjamon"],
@@ -1185,6 +1244,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Vaccine",
 		},
+		inherit: true,
 		color: "Yellow",
 		weightkg: 18.1,
 		prevos: ["Numemon"],
@@ -1204,6 +1264,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Data",
 		},
+		inherit: true,
 		color: "White",
 		weightkg: 4.5,
 		prevos: ["Nanimon"],
@@ -1220,10 +1281,11 @@ exports.BattlePokedex = {
 			spa: 500,
 			spd: 500,
 			spe: 100,
-		},
+		},	
 		abilities: {
 			0: "Virus",
 		},
+		inherit: true,
 		color: "Gray",
 		weightkg: 36.3,
 	},

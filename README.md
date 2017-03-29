@@ -10,9 +10,10 @@ http://exiled-server-returningavenger.c9users.io-80.psim.us/ - Server Link<br>
 <br>
 <b>#Developers:</b><br>
 Insist - Main developer of Exiled files, Sysop.<br>
+HoeenCoder - Sysop, Bug fixes, Mechanic assistance.<br>
+AlfaStorm, Ashley the Pikachu, and Stellation - Development.<br>
+Zarel - The main workspace we used to begin Exiled off of.<br>
+<b>Retired Developers</b><br>
 Volco - Fixes errors, and implements features, Sysop.<br>
 Sukesha - Does CSS, HTML developments, Sysop.<br>
-HoennCoder - Sysop, Bug fixes, Mechanic assistance.<br>
-Alfastorm, Ashley the Pikachu, and Stellation - Work on the digimon project and other bits of coding help.<br>
-Zarel - The main workspace we used to begin Exiled off of.<br>
 <b>Thanks for reading!  Hope you enjoy these codes, that are possible thanks to the above listed.</b>

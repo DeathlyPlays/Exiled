@@ -875,52 +875,41 @@ exports.BattleMovedex = {
         type: "Fighting",
         isZ: "thekidz",
     },
-    //foreword
-    "teamplayer": {
-        id: "teamplayer",
-        name: "Team Player",
+    //Stellation
+	"teamplayer": {
+		accuracy: true,
+		category: "Status",
         priority: -1,
-        selfSwitch: 'copyvolatile',
-        self: {
-            boosts: {
-                spa: 1,
-                spe: 1
-            }
-        },
-        flags: {
-            protect: 1,
-            mirror: 1
-        },
-        category: "Status",
-        onPrepareHit: function (target, source) {
-            this.attrLastMove('[still]');
-            this.add('-anim', source, "Acupressure", target);
-        },
-        self: {
-            onHit: function (target) {
-                let stats = [];
-                for (let stat in target.boosts) {
-                    if (target.boosts[stat] < 6) {
-                        stats.push(stat);
-                    }
-                }
-                if (stats.length) {
-                    let randomStat = stats[this.random(stats.length)];
-                    let boost = {};
-                    boost[randomStat] = 6;
-                    this.boost(boost);
-                }
-                else {
-                    return false;
-                }
-            },
-        },
-        basePower: 0,
-        pp: 15,
-        accuracy: true,
-        target: "self",
-        type: "Bug",
-    },
+		id: "teamplayer",
+		isNonstandard: true,
+		name: "Team Player",
+		pp: 10,
+		target: "self",
+		selfSwitch: 'copyvolatile',
+		type: "Bug",
+		onHit: function (target) {
+			let stats = [];
+			for (let stat in target.boosts) {
+				if (target.boosts[stat] < 6) {
+					stats.push(stat);
+				}
+			}
+			if (stats.length) {
+				let randomStat = stats[this.random(stats.length)];
+				let boost = {};
+				boost[randomStat] = 6;
+				this.boost(boost);
+			} else {
+				return false;
+			}
+		},
+		secondary: false,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Acupressure", source);
+			this.add('-anim', source, "Baton Pass", source);
+		},
+	},
     //HoeenHero
     "scripting": {
         category: "Status",

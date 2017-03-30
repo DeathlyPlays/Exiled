@@ -1317,7 +1317,7 @@ exports.BattleMovedex = {
 					}
 				}
 			}
-			move.pp += 3;
+			move.pp += 5;
 			if (move.pp > move.maxpp) move.pp = move.maxpp;
 			this.add('-activate', pokemon, 'item: MP Floppy', move.move);
 			if (pokemon.move !== 'mpfloppy') {
@@ -1372,7 +1372,7 @@ exports.BattleMovedex = {
 					}
 				}
 			}
-			move.pp += 5;
+			move.pp += 10;
 			if (move.pp > move.maxpp) move.pp = move.maxpp;
 			this.add('-activate', pokemon, 'item: Medium MP Floppy', move.move);
 			if (pokemon.move !== 'mediummpfloppy') {
@@ -1427,7 +1427,7 @@ exports.BattleMovedex = {
 					}
 				}
 			}
-			move.pp += 10;
+			move.pp += 15;
 			if (move.pp > move.maxpp) move.pp = move.maxpp;
 			this.add('-activate', pokemon, 'item: Large MP Floppy', move.move);
 			if (pokemon.move !== 'largempfloppy') {
@@ -1472,20 +1472,51 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		id: "protection",
-		isNonstandard: true,
-		name: "Protection",
+		desc: "For 5 turns, the user and its party members cannot have major status conditions or confusion inflicted on them by other Pokemon. It is removed from the user's side if the user or an ally is successfully hit by Defog.",
+		shortDesc: "For 5 turns, protects user's party from status.",
 		pp: 0.625,
 		priority: 0,
-		flags: {snatch: 1, distance: 1},
-		boosts: {
-			evasion: 1,
+		flags: {snatch: 1},
+		//safeguard effects = same effect for the Protection "item" in Digimon
+		sideCondition: 'safeguard',
+		effect: {
+			duration: 5,
+			durationCallback: function (target, source, effect) {
+				if (source && source.hasAbility('persistent')) {
+					return 7;
+				}
+				return 5;
+			},
+			onSetStatus: function (status, target, source, effect) {
+				if (source && target !== source && effect && (!effect.infiltrates || target.side === source.side)) {
+					this.debug('interrupting setStatus');
+					if (effect.id === 'synchronize' || (effect.effectType === 'Move' && !effect.secondaries)) {
+						this.add('-activate', target, 'move: Protection');
+					}
+					return null;
+				}
+			},
+			onTryAddVolatile: function (status, target, source, effect) {
+				if ((status.id === 'confusion' || status.id === 'yawn') && source && target !== source && effect && (!effect.infiltrates || target.side === source.side)) {
+					if (!effect.secondaries) this.add('-activate', target, 'move: Protection');
+					return null;
+				}
+			},
+			onStart: function (side) {
+				this.add('-sidestart', side, 'Protection');
+			},
+			onResidualOrder: 21,
+			onResidualSubOrder: 2,
+			onEnd: function (side) {
+				this.add('-sideend', side, 'Protection');
+			},
 		},
 		secondary: false,
 		target: "adjacentAllyOrSelf",
+		type: "Battle",
 		onHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Recover", source);
+			this.add('-anim', source, "Safeguard", source);
 		},
 	},
 	//Omnipotent
@@ -1562,11 +1593,48 @@ exports.BattleMovedex = {
 		flags: {heal: 1, snatch: 1, distance: 1},
 		secondary: false,
 		heal: [1, 3],
-		target: "adjacentAllyOrSelf",
-		onHit: function (target, source) {
+		onUpdate: function (pokemon) {
+			if (!pokemon.hp) return;
+			let move = pokemon.getMoveData(pokemon.lastMove);
+			if (move && move.pp === 0) {
+				pokemon.addVolatile('leppaberry');
+				pokemon.volatiles['leppaberry'].move = move;
+			}
+		},
+		onHit: function (pokemon, target, source) {
+			let move;
+			if (pokemon.volatiles['leppaberry']) {
+				move = pokemon.volatiles['leppaberry'].move;
+				pokemon.removeVolatile('leppaberry');
+			} else {
+				let pp = 99;
+				for (let moveid in pokemon.moveset) {
+					if (pokemon.moveset[moveid].pp < pp) {
+						move = pokemon.moveset[moveid];
+						pp = move.pp;
+					}
+				}
+			}
+			move.pp += 10;
+			if (move.pp > move.maxpp) move.pp = move.maxpp;
+			this.add('-activate', pokemon, 'item: Double Floppy', move.move);
+			if (pokemon.move !== 'doublefloppy') {
+				let foeActive = pokemon.side.foe.active;
+				let foeIsStale = false;
+				for (let i = 0; i < foeActive.length; i++) {
+					if (foeActive[i].hp && foeActive[i].isStale >= 2) {
+						foeIsStale = true;
+						break;
+					}
+				}
+				if (!foeIsStale) return;
+			}
+			pokemon.isStale = 2;
+			pokemon.isStaleSource = 'useleppa';
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Recover", source);
 		},
+		target: "adjacentAllyOrSelf",
 	},
 	//Restore Floppy
 	restorefloppy: {

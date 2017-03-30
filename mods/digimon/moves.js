@@ -1459,10 +1459,8 @@ exports.BattleMovedex = {
 		pp: 0.625,
 		priority: 0,
 		flags: {snatch: 1, distance: 1},
-		secondary: {
-			onHit: function (pokemon, target, source) {
+		onHit: function (pokemon, target, source) {
 			pokemon.cureStatus();
-			},
 		},
 		onTryHit: function (pokemon, target, source) {
 			this.attrLastMove('[still]');

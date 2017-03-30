@@ -1293,14 +1293,50 @@ exports.BattleMovedex = {
 		name: "MP Floppy",
 		pp: 0.625,
 		priority: 0,
-		flags: {heal: 1, snatch: 1, distance: 1},
+		flags: {snatch: 1, distance: 1},
 		secondary: false,
-		heal: [1, 10],
-		target: "adjacentAllyOrSelf",
-		onHit: function (target, source) {
+		onUpdate: function (pokemon) {
+			if (!pokemon.hp) return;
+			let move = pokemon.getMoveData(pokemon.lastMove);
+			if (move && move.pp === 0) {
+				pokemon.addVolatile('leppaberry');
+				pokemon.volatiles['leppaberry'].move = move;
+			}
+		},
+		onHit: function (pokemon, target, source) {
+			let move;
+			if (pokemon.volatiles['leppaberry']) {
+				move = pokemon.volatiles['leppaberry'].move;
+				pokemon.removeVolatile('leppaberry');
+			} else {
+				let pp = 99;
+				for (let moveid in pokemon.moveset) {
+					if (pokemon.moveset[moveid].pp < pp) {
+						move = pokemon.moveset[moveid];
+						pp = move.pp;
+					}
+				}
+			}
+			move.pp += 3;
+			if (move.pp > move.maxpp) move.pp = move.maxpp;
+			this.add('-activate', pokemon, 'item: MP Floppy', move.move);
+			if (pokemon.move !== 'mpfloppy') {
+				let foeActive = pokemon.side.foe.active;
+				let foeIsStale = false;
+				for (let i = 0; i < foeActive.length; i++) {
+					if (foeActive[i].hp && foeActive[i].isStale >= 2) {
+						foeIsStale = true;
+						break;
+					}
+				}
+				if (!foeIsStale) return;
+			}
+			pokemon.isStale = 2;
+			pokemon.isStaleSource = 'useleppa';
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Recover", source);
 		},
+		target: "adjacentAllyOrSelf",
 	},
 	//Medium MP Floppy
 	mediummpfloppy: {
@@ -1312,14 +1348,50 @@ exports.BattleMovedex = {
 		name: "Medium MP Floppy",
 		pp: 0.625,
 		priority: 0,
-		flags: {heal: 1, snatch: 1, distance: 1},
+		flags: {snatch: 1, distance: 1},
 		secondary: false,
-		heal: [1, 10],
-		target: "adjacentAllyOrSelf",
-		onHit: function (target, source) {
+		onUpdate: function (pokemon) {
+			if (!pokemon.hp) return;
+			let move = pokemon.getMoveData(pokemon.lastMove);
+			if (move && move.pp === 0) {
+				pokemon.addVolatile('leppaberry');
+				pokemon.volatiles['leppaberry'].move = move;
+			}
+		},
+		onHit: function (pokemon, target, source) {
+			let move;
+			if (pokemon.volatiles['leppaberry']) {
+				move = pokemon.volatiles['leppaberry'].move;
+				pokemon.removeVolatile('leppaberry');
+			} else {
+				let pp = 99;
+				for (let moveid in pokemon.moveset) {
+					if (pokemon.moveset[moveid].pp < pp) {
+						move = pokemon.moveset[moveid];
+						pp = move.pp;
+					}
+				}
+			}
+			move.pp += 5;
+			if (move.pp > move.maxpp) move.pp = move.maxpp;
+			this.add('-activate', pokemon, 'item: Medium MP Floppy', move.move);
+			if (pokemon.move !== 'mediummpfloppy') {
+				let foeActive = pokemon.side.foe.active;
+				let foeIsStale = false;
+				for (let i = 0; i < foeActive.length; i++) {
+					if (foeActive[i].hp && foeActive[i].isStale >= 2) {
+						foeIsStale = true;
+						break;
+					}
+				}
+				if (!foeIsStale) return;
+			}
+			pokemon.isStale = 2;
+			pokemon.isStaleSource = 'useleppa';
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Recover", source);
 		},
+		target: "adjacentAllyOrSelf",
 	},
 	//Large MP Floppy
 	largempfloppy: {
@@ -1331,14 +1403,50 @@ exports.BattleMovedex = {
 		name: "Large MP Floppy",
 		pp: 0.625,
 		priority: 0,
-		flags: {heal: 1, snatch: 1, distance: 1},
+		flags: {snatch: 1, distance: 1},
 		secondary: false,
-		heal: [1, 10],
-		target: "adjacentAllyOrSelf",
-		onHit: function (target, source) {
+		onUpdate: function (pokemon) {
+			if (!pokemon.hp) return;
+			let move = pokemon.getMoveData(pokemon.lastMove);
+			if (move && move.pp === 0) {
+				pokemon.addVolatile('leppaberry');
+				pokemon.volatiles['leppaberry'].move = move;
+			}
+		},
+		onHit: function (pokemon, target, source) {
+			let move;
+			if (pokemon.volatiles['leppaberry']) {
+				move = pokemon.volatiles['leppaberry'].move;
+				pokemon.removeVolatile('leppaberry');
+			} else {
+				let pp = 99;
+				for (let moveid in pokemon.moveset) {
+					if (pokemon.moveset[moveid].pp < pp) {
+						move = pokemon.moveset[moveid];
+						pp = move.pp;
+					}
+				}
+			}
+			move.pp += 10;
+			if (move.pp > move.maxpp) move.pp = move.maxpp;
+			this.add('-activate', pokemon, 'item: Large MP Floppy', move.move);
+			if (pokemon.move !== 'largempfloppy') {
+				let foeActive = pokemon.side.foe.active;
+				let foeIsStale = false;
+				for (let i = 0; i < foeActive.length; i++) {
+					if (foeActive[i].hp && foeActive[i].isStale >= 2) {
+						foeIsStale = true;
+						break;
+					}
+				}
+				if (!foeIsStale) return;
+			}
+			pokemon.isStale = 2;
+			pokemon.isStaleSource = 'useleppa';
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Recover", source);
 		},
+		target: "adjacentAllyOrSelf",
 	},
 	//Various
 	various: {
@@ -1421,7 +1529,7 @@ exports.BattleMovedex = {
 			move.pp += 10;
 			if (move.pp > move.maxpp) move.pp = move.maxpp;
 			this.add('-activate', pokemon, 'item: Omnipotent', move.move);
-			if (pokemon.item !== 'omnipotent') {
+			if (pokemon.move !== 'omnipotent') {
 				let foeActive = pokemon.side.foe.active;
 				let foeIsStale = false;
 				for (let i = 0; i < foeActive.length; i++) {

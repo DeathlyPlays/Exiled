@@ -39,7 +39,7 @@ exports.commands = {
         this.sendReplyBox(
             "Exiled's Github's:<br />" +
             "- Language: JavaScript (Node.js)<br />" +
-            "- <a href=\"https://github.com/ExiledPS/Exiled\">Exiled Server Code</a><br />" +
+            "- <a href=\"https://github.com/DeathlyPlays/Exiled\">Exiled Server Code</a><br />" +
             "- <a href=\"https://github.com/ExiledPS\">Team Exiled Organization</a><br />" +
             "Note: We allow anyone to join the organization, seeing as though the reason Exiled exists is due to people practicing/learning code, and having fun ^~^<br />"
         );
@@ -102,10 +102,11 @@ exports.commands = {
         if (!this.runBroadcast()) return;
         this.sendReplyBox(
             "<center><b>Exiled Credits:</b></center>" +
-            "<b>~DeathlyPlays :3 </b> -Main Developer and Owner of Exiled<br />" +
-            "<b>~Ninetales >n< </b> -Co-Owns and helps Exiled stay up and running :D<br />" +
-            "<b>&Volco </b> -Developer, fixes errors.<br />" +
-            "<b>Other Exiled Auth </b> - Help making Exiled a good enviroment for the users."
+            "<b>~Insist</b> -Main Developer and Owner of Exiled<br />" +
+			"<b>HoeenHero</b> -Mechanics<br />" +
+			"<b>%Stellation</b> -Assistant Developer.<br />" +
+            "<b>Other Exiled Auth</b> - Help making Exiled a good enviroment for the users.<br />" +
+			"Special Thanks to users like you for making Exiled a great server."
         );
     },
 
@@ -114,8 +115,7 @@ exports.commands = {
         if (!this.runBroadcast()) return;
         if (room && room.battle) {
             this.sendReplyBox("<center><button name=\"saveReplay\"><i class=\"fa fa-upload\"></i> Save Replay</button> &mdash; <a href=\"https://www.smogon.com/forums/threads/3520646/\">Questions</a> &mdash; <a href=\"https://www.smogon.com/forums/threads/3469932/\">Bug Reports</a></center>");
-        }
-        else {
+        } else {
             this.sendReplyBox(
                 "Have a replay showcasing a bug on Exiled?<br />" +
                 "- <a href=\"http://exiledps.boards.net/thread/5/bug-reports/\">Bug Reports</a>"

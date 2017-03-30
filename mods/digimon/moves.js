@@ -2445,7 +2445,7 @@ exports.BattleMovedex = {
 	},
 	"darkclaw": {
 		id: "darkclaw",
-		name: "darkclaw",
+		name: "Dark Claw",
 		basePower: 143,
 		accuracy: 100,
 		category: "Physical",

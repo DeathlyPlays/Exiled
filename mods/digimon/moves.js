@@ -136,7 +136,7 @@ exports.BattleMovedex = {
 			},
 		},
 		priority: 0,
-		target: "allPokemon",
+		target: "allAdjacent",
 		pp: 30,
 		flags: {protect: 1, distance: 1},
 		onHit: function (target, source) {
@@ -174,7 +174,7 @@ exports.BattleMovedex = {
 		basePower: 400,
 		accuracy: 100,
 		pp: 5,
-		target: "allPokemon",
+		target: "allAdjacent",
 		priority: 0,
 		secondary: {
 			chance: 10,
@@ -195,7 +195,7 @@ exports.BattleMovedex = {
 		basePower: 178,
 		accuracy: 85,
 		pp: 20,
-		target: "allPokemon",
+		target: "allAdjacent",
 		priority: 0,
 		secondary: false,
 		category: "Physical",
@@ -413,7 +413,7 @@ exports.BattleMovedex = {
 		},
 		category: "Special",
 		type: "Air",
-		target: "allPokemon",
+		target: "allAdjacent",
 	},
 	"electriccloud": {
 		id: "electriccloud",
@@ -512,7 +512,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Prismatic Laser", source);
 		},
 		pp: 10,
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Air",
 	},
 	"hurricane": {
@@ -532,7 +532,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Hurricane", source);
 		},
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Air",
 	},
 	"poisonpowder": {
@@ -552,7 +552,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Poison Powder", source);
 		},
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Earth",
 	},
 	"bug": {
@@ -640,7 +640,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Poison Gas", source);
 		},
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Earth",
 	},
 	"poisonclaw": {
@@ -763,7 +763,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Blizzard", source);
 		},
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Ice",
 	},
 	"iceneedle": {
@@ -860,7 +860,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Moonlight", source);
 			this.add('-anim', source, "Power Gem", source);
 		},
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Ice",
 	},
 	"teardrop": {
@@ -918,7 +918,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Gear Up", source);
 			this.add('-anim', source, "Hyper Beam", source);
 		},
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Mech",
 	},
 	"metalsprinter": {
@@ -935,7 +935,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Metal Burst", source);
 		},
 		priority: 0,
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Mech",
 	},
 	"pulselazer": {
@@ -1142,7 +1142,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Rock Slide", source);
 		},
 		priority: 0,
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Filth",
 	},
 	"rndspdtoss": {
@@ -1162,7 +1162,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Rock Blast", source);
 		},
 		priority: 0,
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Filth",
 	},
 	"horizontalkick": {
@@ -1202,7 +1202,7 @@ exports.BattleMovedex = {
 			},
 		},
 		priority: 0,
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Filth",
 	},
 	//Health Items
@@ -1300,7 +1300,7 @@ exports.BattleMovedex = {
 		onTryHit: function (pokemon, target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Recover", source);
-		},	
+		},
 		secondary: false,
 		target: "adjacentAllyOrSelf",
 	},

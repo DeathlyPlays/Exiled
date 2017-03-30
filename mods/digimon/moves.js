@@ -1319,7 +1319,7 @@ exports.BattleMovedex = {
 			}
 			move.pp += 5;
 			if (move.pp > move.maxpp) move.pp = move.maxpp;
-			this.add('-activate', pokemon, 'item: MP Floppy', move.move);
+			this.add('-activate', pokemon, 'move: MP Floppy', move.move);
 			if (pokemon.move !== 'mpfloppy') {
 				let foeActive = pokemon.side.foe.active;
 				let foeIsStale = false;
@@ -1374,7 +1374,7 @@ exports.BattleMovedex = {
 			}
 			move.pp += 10;
 			if (move.pp > move.maxpp) move.pp = move.maxpp;
-			this.add('-activate', pokemon, 'item: Medium MP Floppy', move.move);
+			this.add('-activate', pokemon, 'move: Medium MP Floppy', move.move);
 			if (pokemon.move !== 'mediummpfloppy') {
 				let foeActive = pokemon.side.foe.active;
 				let foeIsStale = false;
@@ -1429,7 +1429,7 @@ exports.BattleMovedex = {
 			}
 			move.pp += 15;
 			if (move.pp > move.maxpp) move.pp = move.maxpp;
-			this.add('-activate', pokemon, 'item: Large MP Floppy', move.move);
+			this.add('-activate', pokemon, 'move: Large MP Floppy', move.move);
 			if (pokemon.move !== 'largempfloppy') {
 				let foeActive = pokemon.side.foe.active;
 				let foeIsStale = false;
@@ -1459,11 +1459,15 @@ exports.BattleMovedex = {
 		pp: 0.625,
 		priority: 0,
 		flags: {snatch: 1, distance: 1},
-		onHit: function (pokemon, target, source) {
+		secondary: {
+			onHit: function (pokemon, target, source) {
 			pokemon.cureStatus();
+			},
+		},
+		onTryHit: function (pokemon, target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Recover", source);
-		},
+		},	
 		secondary: false,
 		target: "adjacentAllyOrSelf",
 	},
@@ -1559,7 +1563,7 @@ exports.BattleMovedex = {
 			}
 			move.pp += 10;
 			if (move.pp > move.maxpp) move.pp = move.maxpp;
-			this.add('-activate', pokemon, 'item: Omnipotent', move.move);
+			this.add('-activate', pokemon, 'move: Omnipotent', move.move);
 			if (pokemon.move !== 'omnipotent') {
 				let foeActive = pokemon.side.foe.active;
 				let foeIsStale = false;

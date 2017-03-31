@@ -1271,76 +1271,18 @@ exports.Formats = [
 		debug: true,
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
+		/* * * * * * * * *
+		 * EXILED METAS: *
+		 * * * * * * * * */
 	{
-		/* * * * * * * * * * * * * * * * * *
-		 * EXILED METAS:                   *
-		 * CREDIT TO:                      *
-		 * Insist (main coder)			   *
-		 * * * * * * * * * * * * * * * * * */
-
 		name: "[Gen 7] NFE",
 		section: "Exiled's Custom Gamemodes",
 		ruleset: ['NFE', 'Team Preview', 'Pokemon', 'Species Clause', 'Swagger Clause', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod', 'Baton Pass Clause', 'OHKO Clause'],
 		desc: [
 			"NFE stands for Not Fully Evolved.",
+			"NFE threats: Zweilous, Dragonair, Grovyle, Dusclops, Fraxure.",
 		],
 		column: 5,
-	},
-	{
-		name: "[Gen 7] Exiled OU",
-		section: "Exiled's Custom Gamemodes",
-		ruleset: ['Team Preview', 'Exact HP Mod', 'Cancel Mod', 'Mega Rayquaza Clause', 'Species Clause'],
-		banlist: ['Allow CAP', 'Clefable + Unaware + Minimize', 'Rayquaza', 'Sheer Cold', 'Double Team', 'Mega-Mawile + Sucker Punch', 'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fairy', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Steel', 'Arceus-Water', 'Blaziken + Speed Boost', 'Shadow Tag', 'Greninja + Protean', 'Blazikenite', 'Darkrai', 'Deoxys', 'Deoxys-Attack', 'Deoxys-Speed', 'Dialga', 'Genesect', 'Genesect-Douse', 'Genesect-Chill', 'Genesect-Shock', 'Genesect-Burn', 'Gengarite', 'Giratina', 'Giratina-Origin', 'Groudon', 'Groudon-Primal', 'Ho-Oh', 'Kyogre', 'Kyogre-Primal', 'Kangaskanite', 'Kyurem-White', 'Lugia', 'Mewtwo', 'Mewtwonite X', 'Mewtwonite Y', 'Palkia', 'Salamencite', 'Xerneas', 'Yveltal', 'Zekrom'],
-		onBegin: function () {
-			this.add('message', "Information about this tier can be found in the Exiled OU room.");
-		},
-		desc: [
-			"Ever asked yourself why are these things Uber, and now that they're Uber, they are completely useless? Well, go ahead welcome then back. They are for sure in this metagame.",
-			"Credit to: Gyaratoast/Kairak (inspired by), Insist (coded it), and Vivid is a God (extra ideas)",
-		],
-	},
-	{
-		name: "[Gen 7] Exiled UU",
-		section: "Exiled's Custom Gamemodes",
-		ruleset: ['OU', 'Sleep Clause Mod', 'Baton Pass Clause', 'Swagger Clause', 'Team Preview', 'Pokemon', 'Standard', 'Cancel Mod', 'Species Clause', 'OHKO Clause'],
-		banlist: ['Clefable', 'Hippowdon', 'Scizor', 'Scizorite', 'Chansey', 'Gliscor', 'Tornadus-Therian', 'Landorus-Therian', 'Breloom', 'Diancite',
-			'Loppunite', 'Charizardite-X', 'Charizardite-Y', 'Bisharp', 'Azumarill', 'Dragonite', 'Excadrill', 'Ferrothorn', 'Garchomp', 'Gardevoirite',
-			'Heatran', 'Heracronite', 'Jirachi', 'Keldeo', 'Keldeo-Resolute', 'Klefki', 'Kyurem-Black', 'Latias', 'Latiasite', 'Latios', 'Latiosite', 'Magnezone', 'Manaphy',
-			'Manectricite', 'Medichamite', 'Metagrossite', 'Pinsirite', 'Raikou', 'Rotom-Wash', 'Sablenite', 'Serperior', 'Skarmory', 'Slowbro', 'Starmie',
-			'Talonflame', 'Tangrowth', 'Thundurus', 'Venusaurite', 'Volcanion', 'Weavile', 'Alakazite', 'Diggersby', 'Galladite', 'Gyaradosite', 'Pidgeotite',
-			'Thundurus-Therian', 'Togekiss', 'Garchompite', 'Volcarona', 'Slowbronite'
-		],
-		desc: [
-			"Credit to: Kairak (originally planned by), Insist (took over the project & coded it).",
-			"To be honest, just a few things got unbanned.",
-			"&bullet; <a href=\"http://www.pastebin.com/8zG58J1z\">Exiled UU Information</a>",
-		],
-	},
-	{
-		name: "[Gen 7] Exiled RU",
-		section: "Exiled's Custom Gamemodes",
-		ruleset: ['UU', 'Sleep Clause Mod', 'Swagger Clause', 'Team Preview', 'Pokemon', 'Standard', 'Species Clause'],
-		banlist: ['Aggronite', 'Absolite', 'Aerodactylite', 'Ampharosite', 'Arcanine', 'Azelf', 'Beedrillite', 'Blastoisinite', 'Blissey', 'Celebi',
-			'Chandelure', 'Chesnaught', 'Cloyster', 'Conkeldurr', 'Cresselia', 'Crobat', 'Darmanitan', 'Donphan', 'Doublade', 'Empoleon', 'Entei', 'Espeon',
-			'Feraligatr', 'Florges', 'Forretress', 'Galvantula', 'Gardevoir', 'Gligar', 'Goodra', 'Gyarados', 'Haxorus', 'Heracross', 'Hydreigon', 'Infernape',
-			'Krookodile', 'Lucario', 'Machamp', 'Mamoswine', 'Mandibuzz', 'Metagross', 'Mienshao', 'Milotic', 'Nidoking', 'Nidoqueen', 'Porygon2', 'Porygon-Z',
-			'Reunicles', 'Roserade', 'Rotom-Heat', 'Sableye', 'Sceptilite', 'Sharpedonite', 'Snorlax', 'Suicune', 'Swampert', 'Swampertite', 'Sylveon',
-			'Tornadus', 'Toxicroak', 'Umbreon', 'Vaporeon', 'Dragalge', 'Durant', 'Froslass', 'Houndoominite', 'Kyurem', 'Shaymin', 'Shuckle',
-			'Slurpuff', 'Tyrantrum'
-		],
-	},
-	{
-		name: "[Gen 7] Exiled Monotype",
-		section: "Exiled's Custom Gamemodes",
-		ruleset: ['Pokemon', 'Standard', 'Baton Pass Clause', 'Swagger Clause', 'Same Type Clause', 'Team Preview', 'Species Clause'],
-		banlist: ['Arceus', 'Blazikenite', 'Dark Void', 'Deoxys', 'Deoxys-Attack', 'Dialga', 'Giratina', 'Giratina-Origin', 'Greninja', 'Groudon',
-			'Ho-Oh', 'Kyogre', 'Kyurem-White', 'Lugia', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Geomancy', 'Yveltal', 'Zekrom',
-			'Damp Rock', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Smooth Rock', 'Soul Dew', 'Allow CAP'
-		],
-		desc: [
-			"Wish we could turn back time.... time... to the good ole days..... When Mega-Sableye wasn't banned in Monotype..... Oh wait, we did?!? Yes, we did :P",
-			"Credit to: marine bu/Life Orb Raichu (inspired by), and Insist (coded it)."
-		],
 	},
 	{
 		name: "[Gen 7] Clash of the Regions",
@@ -1348,7 +1290,8 @@ exports.Formats = [
 		mod: 'clashoftheregions',
 		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
 		desc: [
-			"Credit to: Insist (main coder and inspired by), EmilyTheCutie (side coder and set adviser), Alpha Hawk (extra ideas)",
+			"This metagame is about every rival/gym leader/",
+			"Credit to: Insist (main coder and inspired by), Vivid is a God (side coder and set adviser), Alpha Hawk (extra ideas)",
 			"&bullet; <a href=\"http://squadps.boards.net/post/51/thread\">Clash of the Regions Information</a>",
 		],
 		team: 'randomSeasonalMelee',
@@ -1361,7 +1304,6 @@ exports.Formats = [
 		desc: [
 			"Credit to: Insist (coded and inspired by), and Kairak (gave ideas for custom moves names).",
 			"Made for Gyaratoast, my (Insist) best friend.",
-			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
 		],
 		team: 'randomSeasonalMelee',
 	},
@@ -1371,6 +1313,9 @@ exports.Formats = [
 		mod: 'ashspokemon',
 		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
 		team: 'randomSeasonalMelee',
+		desc: [
+			"This metagame covers every Pok&eacute that Ash caught in the anime (since XY), some were evolved for viability etc.",
+		],
 	},
 	{
 		name: "[Gen 7] OP Metagame",
@@ -1380,7 +1325,7 @@ exports.Formats = [
 		team: 'randomSeasonalMelee',
 		desc: [
 			"Inspired by BAMD, coded and extra ideas from Insist.",
-			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
+			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pok&eacutemon</a>",
 		],
 		onSwitchIn: function (pokemon) {
 			var name = toId(pokemon.name);
@@ -1458,10 +1403,10 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'speckeldorft') {
-				this.add('c|%Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
+				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
 			}
 			if (name === 'abstarfox') {
-				this.add('c|+AB Starfox|Hello, just here to clean up');
+				this.add('c| AB Starfox|Hello, just here to clean up');
 			}
 			if (name === 'hoeenhero') {
 				this.add('c| HoeenHero|Do I have to? I\'m in the middle of programming.');
@@ -1501,10 +1446,10 @@ exports.Formats = [
 				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
 			}
 			if (name === 'speckeldorft') {
-				this.add('c|+Speckeldorft|fuck you');
+				this.add('c| Speckeldorft|fuck you');
 			}
 			if (name === 'abstarfox') {
-				this.add('c|+AB Starfox|Time for me to get a life');
+				this.add('c| AB Starfox|Time for me to get a life');
 			}
 			if (name === 'hoeenhero') {
 				this.add('c| HoeenHero|I can\'t battle now, I\'m too busy.');
@@ -1522,7 +1467,7 @@ exports.Formats = [
 				this.add('c|~Insist|>~Insist fainted.');
 				this.add('c|~Insist|That\'s obviously hax m8!');
 				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
-				this.add('c|~Insist|~~__**^^walks off......^^**__~~')
+				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -1546,7 +1491,6 @@ exports.Formats = [
 			"Mainly credit goes to: Kairak & Insist",
 			"We removed the possibility of Volt Switch/U-Turn/any thing that causes switches, from occuring",
 			"Also we made things like V-Create, Dragon Ascent, Diamond Storm possible to be used via Metronome.",
-			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
 		],
 	},
 	{
@@ -1724,6 +1668,11 @@ exports.Formats = [
 				allPokemon[i].hp = allPokemon[i].maxhp;
 			}
 		},
+		desc: [
+			"Pok&eacute Mystery Dungeon meets Pok&eacute Showdown.",
+			"Developed by SpacialGaze Developers/Exiled Developers contributed.",
+			"(Not originally Exiled's Project, SpacialGaze server (owned by HoeenHero and Mystifi) created it first, Exiled developers (Insist and Mewth) just edited and added stuff.",
+		],
 	},
 	{
 		name: "Supercell Games",
@@ -1748,44 +1697,45 @@ exports.Formats = [
 			this.add('raw', '<center><p><a title="Digimon Showdown Players Guide" href="https://1drv.ms/b/s!AvoD6RnUzzMvgmLcX1rqT8GTnEVK" target="_blank"><img src="https://yheeqg.bn1303.livefilestore.com/y4mcqvreFTM4wIjnVqqSI98LZXT-lFFCxPBYHyHGZtWJTIGuah-spBzqvXbLiWvyJgDnrjSRFziff59ZLLBEtm_t3ZHHeKv9AY6Ml-gQpdGMhNmzaeSt0TD8wmivpfEW81jh93LSBvdXb7-cZUH2YNJwzwiyOTsy4L2dViyJqkiOCFDZhJRIPwPEWgmD7MDJnfafmoq6SN6gEfsAXMiHh529w?width=124&amp;height=42&amp;cropmode=none" alt="" width="124" height="42" /></a></p></center>');
 		},
 		desc: [
-			"You may have thought this was Pokemon Showdown, but I must reassure you that you were mistaken, welcome to DIGIMON SHOWDOWN",
-			"Ahem, but in all seriousness, the following developers listed below created Digimon in Pokemon Showdown, so why not just try it out :D",
+			"You may have thought this was Pok&eacute;mon Showdown, but I must reassure you that you were mistaken, welcome to <b>DIGIMON SHOWDOWN!!!</b>",
+			"Ahem, but in all seriousness, the following developers listed below created Digimon in Pok&eacute;mon Showdown, so why not just try it out :D",
 			"Ashley the Pikachu (Head Researcher, Began the project, Attack Manual, Type Chart Manual, Music Selection and Music HTML, Sprite Selection), Insist (Head Developer), AlphaStorm (Animations), Stellation (Assisted other developers), HoeenHero (Assisted with Mechanics)",
+			"&bullet; <a href=\"https://1drv.ms/b/s!AvoD6RnUzzMvgmLcX1rqT8GTnEVK\">Digimon Manual</a>",
 		],
 	},
 	{
-	/*	name: "Advanced Wars (BETA)",
+		name: "Advanced Wars (BETA)",
 		section: "Exiled's Custom Gamemodes",
 		mod: "advancedwars",
 		team: "randomAdvancedWars",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
 		desc: [
 			"This metagame is about the game known as Advanced Wars, suggested by Back At My Day (and all information for this meta was supplied by him).",
-			"<b>Other Developers/Special Thanks to:</b>",
-			"Insist (Head Developer)",
+			"<b>Developers:</b> Insist.",
+			"&bullet; <a href=\"https://pastebin.com/Nr5wRnD5\">Advanced Wars Manual</a>",
 		],
 	},
 	{
-		name: "[Gen 7] Wrath of the Legends (BETA)",
-		section: "Exiled's Custom Gamemodes",
-		mod: "legends",
-		team: "randomLegendary",
-		ruleset: ['Cancel Mod', 'Sleep Clause Mod', 'HP Percentage Mod'],
-	},
-	{
-	*/
 		name: "Fakemons Random Battle",
 		section: "Exiled Fakemons",
 		column: 5,
 		mod: 'fakemons',
 		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		desc: [
+			"This is the Exiled Fakemons metagame, in which you use Exiled community created Pok&eacute.",
+			"Users may submit them via the form on <b>/fakemon<b>.",
+		],
 	},
 	{
 		name: "Fakemons",
 		mod: "fakemons",
 		section: "Exiled Fakemons",
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
+		desc: [
+			"This is the Exiled Fakemons metagame, in which you use Exiled community created Pok&eacute.",
+			"Users may submit them via the form on <b>/fakemon<b>.",
+		],
 	},
 	{
 		name: "[Gen 7] The Mewth Challenge",
@@ -1799,6 +1749,9 @@ exports.Formats = [
 		maxLevel: 100,
 		ruleset: ['Team Preview', 'Cancel Mod'],
 		banlist: ['Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Deoxys-Attack', 'Air Balloon'],
+		desc: [
+			"The first part of the series of challenges Mewth has created, can you complete them all and collect all the badges?",
+		],
 	},
 	{
 		name: "[Gen 7] The Mewth Spire",
@@ -1812,6 +1765,9 @@ exports.Formats = [
 		defaultLevel: 100,
 		ruleset: ['Team Preview', 'Cancel Mod'],
 		banlist: ['Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Deoxys-Attack', 'Air Balloon'],
+		desc: [
+			"The second stage of The Mewth Challenge, prepare for the wrath of the first region's Elite Four and the <b>CHAMPION!!!</b>",
+		],
 	},
 	{
 		name: "[Gen 7] LC Mix and Mega",
@@ -1822,7 +1778,7 @@ exports.Formats = [
 		mod: 'mixandmega',
 		defaultLevel: 5,
 		ruleset: ['Team Preview', 'Cancel Mod', 'Little Cup', 'Pokemon', 'Illegal', 'Sleep Clause Mod'],
-		banlist: ['Baton Pass', 'NFE', 'Cranidos'],
+		banlist: ['Baton Pass', 'NFE', 'Cranidos', 'Eevium Z'],
 		column: 6,
 		section: "The Mewth Challenge",
 		onValidateTeam: function (team) {
@@ -1871,113 +1827,6 @@ exports.Formats = [
 			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
 			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
 				this.add('-end', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
-			}
-		},
-	},
-	{
-		name: "[Gen 7] Draconic Super Staff Bros.",
-		section: "Draconic's Custom Gamemodes",
-		mod: 'dssb',
-		column: 6,
-		team: 'randomSeasonalMelee',
-		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		desc: [
-			"Credit to: Insist (head coder).",
-			"Thanks to all the auth whom cooperated in this process of making this.",
-			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
-		],
-		onBegin: function () {
-			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
-			this.add('message', "GET READY FOR THE NEXT BATTLE!");
-			// This variable saves the status of a spammy conversation to be played, so it's only played once.
-			this.convoPlayed = false;
-		},
-		// Edgy switch-in sentences go here.
-		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
-		onSwitchIn: function (pokemon) {
-			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
-
-			//Switch-in Quotes
-			if (name === 'insist') {
-				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
-			}
-			if (name === 'fiftynine') {
-				this.add('c|%FiftyNine|Let me see what you can do.');
-			}
-			if (name === 'earlofkarp') {
-				this.add('c|%earl of karp|Und der Cherub steht vor Gott.');
-			}
-			if (name === 'stormminority') {
-				this.add('c|+Storm Minority|Okay, now we are talking! I always do enjoy a good conversation.');
-			}
-			if (name === 'dragobot') {
-				this.add('c|*Drago Bot|Boop Glhf beep');
-			}
-			if (name === '59bot') {
-				this.add('c|%FiftyNine|Alrighty then, lets test this out.');
-			}
-			if (name === 'nitro62') {
-				this.add('c|%nitro62|Greetings and Salutations. You shall soon meet with defeat.');
-			}
-			// Add here special typings, done for flavor mainly. (and stat boosts)
-		},
-		//Switch-out Phrase
-		onSwitchOut: function (pokemon) {
-			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
-			//switchout
-			if (name === 'insist') {
-				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
-			}
-			if (name === 'fiftynine') {
-				this.add('c|%FiftyNine|OK! So Trial 1 is complete. Please wait until I return for Trial 2.');
-			}
-			if (name === 'earlofkarp') {
-				this.add('c|%earl of karp|Der Cherub wird zurückkehren.');
-			}
-			if (name === 'dragobot') {
-				this.add('c|*Drago Bot|/me disconnected. Will retry in 10 seconds');
-			}
-			if (name === '59bot') {
-				this.add('c|%FiftyNine|Hmmm... Well, I\'m gonna take it out for a bit and investigate what\'s going on.');
-			}
-		},
-		// Add here salty tears, that is, custom faint phrases.
-		onFaint: function (pokemon) {
-			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
-			//le faint
-			if (name === 'insist') {
-				this.add('c|~Insist|Death.... what a cool concept.');
-				this.add('c|~Insist|Wait wot!');
-				this.add('c|~Insist|>~Insist fainted.');
-				this.add('c|~Insist|That\'s obviously hax m8!');
-				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
-				this.add('c|~Insist|~~__**^^walks off......^^**__~~')
-			}
-			if (name === 'fiftynine') {
-				this.add('c|%FiftyNine|I\'ve gathered enough information, time to make a conclusion');
-			}
-			if (name === 'earlofkarp') {
-				this.add('c|%earl of karp|What\'s this?! How did you beat me?!');
-			}
-			if (name === 'stormminority') {
-				this.add('c|+Storm Minority|Always leave on a good note');
-			}
-			if (name == -'dragobot') {
-				this.add('c|*Drago Bot|beep. Fuck you. Boop!');
-			}
-			if (name === '59bot') {
-				this.add('c|%FiftyNine|/me sighs');
-				this.add('c|%FiftyNine|I\'m taking the bot down until I know what\'s wrong with it.');
-			}
-			if (name === 'nitro62') {
-				this.add('c|%nitro62|Welp. That could\'ve ended better.');
-				this.add('c|%nitro62|/me cries');
 			}
 		},
 	},

@@ -10,19 +10,19 @@ const DEFAULT_AMOUNT = 0;
 
 let shop = [
 
-	['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly). If you do pay the 1 buck, you will be refunded. PM DeathlyPlays :3 with your image for your avatar, and he\'ll set it for free.', 1],
-	['League Room', 'Purchases a room for league usage. Free, PM DeathlyPlays :3 and he\'ll set it for free, you will be refunded if you did pay the 1 buck.', 1],
+	['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly). If you do pay the 1 buck, you will be refunded. PM Insist with your image for your avatar, and he\'ll set it for free.', 1],
+	['League Room', 'Purchases a room for league usage. Free, PM Insist and he\'ll set it for free, you will be refunded if you did pay the 1 buck.', 1],
 	['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
 	['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 5],
-	['Room', 'Buys a chatroom for you to own. (within reason, can be refused). PM DeathlyPlays :3 for it to be made for free (will be free if you meet the requirements posted on the forums). Otherwise, if you haven\'t reached those requirements it will be 5 bucks.', 5],
+	['Room', 'Buys a chatroom for you to own. (within reason, can be refused). PM Insist for it to be made for free (will be free if you meet the requirements posted on the forums). Otherwise, if you haven\'t reached those requirements it will be 5 bucks.', 5],
 	['Custom Title', 'Buys a title to be added on your /profile (can be refused).', 10],
-	['Profile Team', 'Allows you to choose which Pokemon you want to be displayed on your /profile. PM DeathlyPlays :3, after purchasing it to have it set. (can be denied)', 20],
+	['Profile Team', 'Allows you to choose which Pokemon you want to be displayed on your /profile. PM Insist, after purchasing it to have it set. (can be denied)', 20],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 25],
 	['Custom Color', 'Changes the color of your name (can be denied)', 25],
 	['Trainer Card', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 40],
 	['Staff Help', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 50],
 	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 100],
-	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Exiled Super Staff Bros metagame. DeathlyPlays :3 will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 100],
+	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Exiled Super Staff Bros metagame. Insist will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 100],
 ];
 
 let shopDisplay = getShopDisplay(shop);
@@ -204,7 +204,7 @@ function handleBoughtItem(item, user, cost) {
 		Rooms.rooms.get("staff").add('|c|~Shop Alert|' + msg);
 		Rooms.rooms.get("staff").update();
 		Users.users.forEach(function (user) {
-			if (user.group === '~' || user.group === '&') {
+			if (user.group === '~' || user.group === '&' || user.group === '@') {
 				user.send('|pm|~Shop Alert|' + user.getIdentity() + '|' + msg);
 			}
 		});
@@ -395,68 +395,6 @@ exports.commands = {
 		});
 		display += "</tbody></table>";
 		this.sendReply("|raw|" + display);
-	},
-
-	dicegame: 'startdice',
-	dicestart: 'startdice',
-	startdice: function (target, room, user) {
-		if (!this.can('broadcast', null, room)) return false;
-		if (!target) return this.parse('/help startdice');
-		if (!this.canTalk()) return this.errorReply("You can not start dice games while unable to speak.");
-
-		let amount = isMoney(target);
-
-		if (typeof amount === 'string') return this.errorReply(amount);
-		if (!room.dice) room.dice = {};
-		if (room.dice.started) return this.errorReply("A dice game has already started in this room.");
-
-		room.dice.started = true;
-		room.dice.bet = amount;
-		// Prevent ending a dice game too early.
-		room.dice.startTime = Date.now();
-
-		room.addRaw("<div class='infobox'><h2><center><font color=#24678d>" + user.name + " has started a dice game for </font><font color=red>" + amount + "</font><font color=#24678d>" + moneyName(amount) + ".</font><br><button name='send' value='/joindice'>Click to join.</button></center></h2></div>");
-		this.parse('/joindice');
-	},
-	startdicehelp: ["/startdice [bet] - Start a dice game to gamble for money."],
-
-	joindice: function (target, room, user) {
-		if (!room.dice || (room.dice.p1 && room.dice.p2)) return this.errorReply("There is no dice game in it's signup phase in this room.");
-		if (!this.canTalk()) return this.errorReply("You may not join dice games while unable to speak.");
-		if (room.dice.p1 === user.userid) return this.errorReply("You already entered this dice game.");
-		if (Db('money').get(user.userid, 0) < room.dice.bet) return this.errorReply("You don't have enough bucks to join this game.");
-		Db('money').set(user.userid, Db('money').get(user.userid) - room.dice.bet);
-		if (!room.dice.p1) {
-			room.dice.p1 = user.userid;
-			room.addRaw("<b>" + user.name + " has joined the dice game.</b>");
-			return;
-		}
-		room.dice.p2 = user.userid;
-		room.addRaw("<b>" + user.name + " has joined the dice game.</b>");
-		let p1Number = Math.floor(6 * Math.random()) + 1;
-		let p2Number = Math.floor(6 * Math.random()) + 1;
-		let output = "<div class='infobox'>Game has two players, starting now.<br>Rolling the dice.<br>" + room.dice.p1 + " has rolled a " + p1Number + ".<br>" + room.dice.p2 + " has rolled a " + p2Number + ".<br>";
-		while (p1Number === p2Number) {
-			output += "Tie... rolling again.<br>";
-			p1Number = Math.floor(6 * Math.random()) + 1;
-			p2Number = Math.floor(6 * Math.random()) + 1;
-			output += room.dice.p1 + " has rolled a " + p1Number + ".<br>" + room.dice.p2 + " has rolled a " + p2Number + ".<br>";
-		}
-		let winner = room.dice[p1Number > p2Number ? 'p1' : 'p2'];
-		output += "<font color=#24678d><b>" + winner + "</b></font> has won <font color=#24678d><b>" + room.dice.bet + "</b></font>" + moneyName(room.dice.bet) + ".<br>Better luck next time " + room.dice[p1Number < p2Number ? 'p1' : 'p2'] + "!</div>";
-		room.addRaw(output);
-		Db('money').set(winner, Db('money').get(winner, 0) + room.dice.bet * 2);
-		delete room.dice;
-	},
-
-	enddice: function (target, room, user) {
-		if (!user.can('broadcast', null, room)) return false;
-		if (!room.dice) return this.errorReply("There is no dice game in this room.");
-		if ((Date.now() - room.dice.startTime) < 15000 && !user.can('broadcast', null, room)) return this.errorReply("Regular users may not end a dice game within the first minute of it starting.");
-		if (room.dice.p2) return this.errorReply("Dice game has already started.");
-		if (room.dice.p1) Db('money').set(room.dice.p1, Db('money').get(room.dice.p1, 0) + room.dice.bet);
-		room.addRaw("<b>" + user.name + " ended the dice game.</b>");
-		delete room.dice;
 	},
 
 	bucks: 'economystats',

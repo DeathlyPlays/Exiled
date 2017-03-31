@@ -1270,7 +1270,7 @@ exports.BattlePokedex = {
 		prevos: ["Nanimon"],
 	},
 	//Mega Digimon
-	machinedramon:{
+	machinedramon: {
 		num: 649,
 		species: "Machinedramon",
 		types: ["Mech", "Air", "Battle"],
@@ -1281,7 +1281,7 @@ exports.BattlePokedex = {
 			spa: 500,
 			spd: 500,
 			spe: 100,
-		},	
+		},
 		abilities: {
 			0: "Virus",
 		},

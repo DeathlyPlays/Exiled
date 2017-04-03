@@ -24,7 +24,7 @@ To reload chat commands:
 
 let Chat = module.exports;
 
-const MAX_MESSAGE_LENGTH = 99999999999999999999999999999999999999999999;
+const MAX_MESSAGE_LENGTH = 300;
 const BROADCAST_COOLDOWN = 20 * 1000;
 const MESSAGE_COOLDOWN = 5 * 60 * 1000;
 
@@ -169,7 +169,7 @@ class CommandContext {
 			return null;
 		}
 
-		// Output the message
+	// Output the message
 
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
@@ -177,19 +177,24 @@ class CommandContext {
 				if (parsedMsg) message = '/html ' + parsedMsg;
 				let buf = `|pm|${this.user.getIdentity()}|${this.pmTarget.getIdentity()}|${message}`;
 				this.user.send(buf);
+				if (this.pmTarget !== this.user) this.pmTarget.send(buf);
+
 				this.pmTarget.lastPM = this.user.userid;
 				this.user.lastPM = this.pmTarget.userid;
-			}
-			else {
+			} else {
 				if (Users.ShadowBan.checkBanned(this.user)) {
 					if (parseEmoticons(message, this.room, this.user)) return;
 					Users.ShadowBan.addMessage(this.user, `To ${this.room.id}`, message);
 					this.user.sendTo(this.room.id, `|c|${this.user.getIdentity(this.room.id)}|${message}`);
-				}
-				else {
-					if (parseEmoticons(message, this.room, this.user)) return;
-					this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`).update();
-					Exiled.addExp(this.user, this.room, 1);
+				} else {
+					if (Users.ShadowBan.checkBanned(this.user)) {
+						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
+						this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
+					} else {
+						if (parseEmoticons(message, this.room, this.user)) return;
+						this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`).update();
+						Exiled.addExp(this.user, this.room, 1);
+					}
 				}
 			}
 		}
@@ -199,6 +204,7 @@ class CommandContext {
 
 		return message;
 	}
+	
 	splitCommand(message = this.message, recursing) {
 		this.cmd = '';
 		this.cmdToken = '';

@@ -1655,7 +1655,26 @@ exports.Formats = [
 				this.add('c|Insist|Death.... what a cool concept.');
 			}
 		},
-	}, {
+	},
+	{
+		name: "[Gen 7] Super Staff Bros Free For All",
+		desc: ['Duke it out with other users custom made pokemon.',
+			'Make your own as well! Get started with <button class="button" name="send" value="/ssb edit">/ssb edit</button>.',
+			'Use <button class="button" name="send" value="/ssb">/ssb</button> for the commands you can use.',
+		],
+
+		mod: 'cssb',
+		team: 'randomCustomSSB',
+		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Freeze Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		onBegin: function () {
+			this.add("raw|<h2>Free for All!</h2>");
+			this.add("raw|<h3>3</h3>");
+			this.add("raw|<h3>2</h3>");
+			this.add("raw|<h3>1</h3>");
+			this.add("raw|<h1>BATTLE!</h1>");
+		},
+	},
+	{
 		name: "[Gen 7] Pokemon Mystery Dungeon",
 
 		mod: 'pmd',

@@ -1675,7 +1675,7 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "Supercell Games",
+		name: "[Gen 7] Supercell Games",
 		section: "Exiled's Custom Gamemodes",
 		mod: "supercell",
 		team: "randomSeasonalMelee",
@@ -1686,7 +1686,7 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "Digimon Showdown",
+		name: "[Gen 7] Digimon Showdown",
 		section: "Exiled's Custom Gamemodes",
 		mod: "digimon",
 		team: "randomDigimon",

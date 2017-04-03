@@ -6,6 +6,7 @@ const fs = require('fs');
 const moment = require('moment');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const Autolinker = require('autolinker');
+let request = require('request');
 
 let amCache = {
 	anime: {},
@@ -56,10 +57,26 @@ function showDailyRewardAni(userid) {
 		output += "<img src='https://www.mukuru.com/media/img/icons/new_order.png' width='16' height='16'> ";
 	}
 	return output;
+};
+
+let urbanCache;
+try {
+	urbanCache = JSON.parse(fs.readFileSync('../config/udcache.json', 'utf8'));
+}
+catch (e) {
+	urbanCache = {};
+}
+
+function cacheUrbanWord(word, definition) {
+	word = word.toLowerCase().replace(/ /g, '');
+	urbanCache[word] = {
+		"definition": definition,
+		"time": Date.now()
+	};
+	fs.writeFile('config/udcache.json', JSON.stringify(urbanCache));
 }
 
 exports.commands = {
-
 	youtube: function (target, room, user) {
 		let parts = target.split(', ');
 		if (!target) return this.parse("/help youtube");
@@ -397,44 +414,99 @@ exports.commands = {
 	sota: function (room, user) {
 		return this.parse('feelssota feelstini tinitini sotalove');
 	},
-	deauthall: function(target, room, user) {
-        if (!this.can('eval', null, room)) return false;
-        if (!room.auth) return this.errorReply("No Auth Present on server!");
-        if (!target) {
-            user.lastCommand = '/deauthall';
-            this.errorReply("THIS WILL REMOVE ALL THE GLOBAL AUTH! (Except ~).");
-            this.errorReply("To confirm, use: /deauthall confirm");
-            return;
-        }
-        if (user.lastCommand !== '/deauthall' || target !== 'confirm') {
-            return this.parse('/help deauthall');
-        }
-        let ranks = Object.keys(Config.groups);
-        let rankLists = {};
-        let count = 0;
-        for (let u in Users.usergroups) {
-            let rank = Users.usergroups[u].charAt(0);
-            if (rank === global) continue;
-            // In case the usergroups.csv file is not proper, we check for the server ranks.
-            if (ranks.indexOf(rank) >= 0) {
-                let name = Users.usergroups[u].substr(1);
-                delete rank[name];
-                count++;
-            }
-        }
-        if (!count) {
-            return this.sendReply("(Zero Auth In The Server!)");
-        }
-        if (room.chatRoomData) {
-            Rooms.global.writeChatRoomData();
-        }
-        this.addModCommand("All " + count + " Auth have been cleared by " + user.name + ".");
-    },
-    deauthallhelp: ["/deauthall - Remove all auth except ~ on the server. Requires:  ~"],
-	
+
     devs: function (target, room, user) {
         if (!this.runBroadcast()) return;
         this.sendReplyBox('<div style="background-color: red ; border: pink solid 2px ; height: 100px"><center><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="left"><img src="http://i.imgur.com/PgQAAI1.png" height="74" width="250"><img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="right"></center></div><table style="text-align: center ; background-color: Black ; border: Red solid 2px ; width: 100% ; border-collapse: collapse"><tbody><tr><td style="border: Red solid 2px ; color: White ; width: 22%"><img style="transform: scaleX(-1);" src="https://avatars2.githubusercontent.com/u/20971990?v=3&s=460" height="80" width="80"><br>Insist</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img src="http://i.imgur.com/C3bFaZT.png" height="80" width="80"><br>Ninetales >n<</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img style="transform: scaleX(-1);" src="https://files.graphiq.com/620/media/images/Volcanion_5208962.png" height="80" width="80"><br>Volco</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img src="http://i.imgur.com/IXS2qYX.png" height="80" width="80"><br>HoeenHero</td></tr></tbody></table>');
     },
     devshelp: ["/devs - Shows the coders of the server."],
+
+    def: 'define',
+	define: function (target, room, user) {
+		if (!target) return this.parse('/help define');
+		target = toId(target);
+		if (target > 50) return this.errorReply("Word can not be longer than 50 characters.");
+		if (!this.runBroadcast()) return;
+		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to speak.");
+
+		let options = {
+			url: 'http://api.wordnik.com:80/v4/word.json/' + target + '/definitions?limit=3&sourceDictionaries=all' +
+				'&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
+		};
+
+		let self = this;
+
+		function callback(error, response, body) {
+			if (!error && response.statusCode === 200) {
+				let page = JSON.parse(body);
+				let output = "<font color=#24678d><b>Definitions for " + target + ":</b></font><br />";
+				if (!page[0]) {
+					self.sendReplyBox("No results for <b>\"" + target + "\"</b>.");
+					return room.update();
+				}
+				else {
+					let count = 1;
+					for (let u in page) {
+						if (count > 3) break;
+						output += "(<b>" + count + "</b>) " + Chat.escapeHTML(page[u]['text']) + "<br />";
+						count++;
+					}
+					self.sendReplyBox(output);
+					return room.update();
+				}
+			}
+		}
+		request(options, callback);
+	},
+	definehelp: ["/define [word] - Shows the definition of a word."],
+
+	u: 'ud',
+	urbandefine: 'ud',
+	ud: function (target, room, user, connection, cmd) {
+		if (!target) return this.parse('/help ud');
+		if (target.toString().length > 50) return this.errorReply("Phrase cannot be longer than 50 characters.");
+		if (!this.runBroadcast()) return;
+		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to speak.");
+
+		let options = {
+			url: 'http://www.urbandictionary.com/iphone/search/define',
+			term: target,
+			headers: {
+				'Referer': 'http://m.urbandictionary.com',
+			},
+			qs: {
+				'term': target,
+			},
+		};
+
+		if (urbanCache[target.toLowerCase().replace(/ /g, '')] && Math.round(Math.abs((urbanCache[target.toLowerCase().replace(/ /g, '')].time - Date.now()) / (24 * 60 * 60 * 1000))) < 31) {
+			return this.sendReplyBox("<b>" + Chat.escapeHTML(target) + ":</b> " + urbanCache[target.toLowerCase().replace(/ /g, '')].definition.substr(0, 400));
+		}
+
+		let self = this;
+
+		function callback(error, response, body) {
+			if (!error && response.statusCode === 200) {
+				let page = JSON.parse(body);
+				let definitions = page['list'];
+				if (page['result_type'] === 'no_results') {
+					self.sendReplyBox("No results for <b>\"" + Chat.escapeHTML(target) + "\"</b>.");
+					return room.update();
+				}
+				else {
+					if (!definitions[0]['word'] || !definitions[0]['definition']) {
+						self.sendReplyBox("No results for <b>\"" + Chat.escapeHTML(target) + "\"</b>.");
+						return room.update();
+					}
+					let output = "<b>" + Chat.escapeHTML(definitions[0]['word']) + ":</b> " + Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
+					if (output.length > 400) output = output.slice(0, 400) + '...';
+					cacheUrbanWord(target, Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' '));
+					self.sendReplyBox(output);
+					return room.update();
+				}
+			}
+		}
+		request(options, callback);
+	},
+	udhelp: ["/urbandefine [phrase] - Shows the urban definition of the phrase. If you don't put in a phrase, it will show you a random phrase from urbandefine."],
 };

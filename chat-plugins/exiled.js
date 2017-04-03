@@ -397,4 +397,38 @@ exports.commands = {
 	sota: function (room, user) {
 		return this.parse('feelssota feelstini tinitini sotalove');
 	},
+	deauthall: function(target, room, user) {
+        if (!this.can('eval', null, room)) return false;
+        if (!room.auth) return this.errorReply("No Auth Present on server!");
+        if (!target) {
+            user.lastCommand = '/deauthall';
+            this.errorReply("THIS WILL REMOVE ALL THE GLOBAL AUTH! (Except ~).");
+            this.errorReply("To confirm, use: /deauthall confirm");
+            return;
+        }
+        if (user.lastCommand !== '/deauthall' || target !== 'confirm') {
+            return this.parse('/help deauthall');
+        }
+        let ranks = Object.keys(Config.groups);
+        let rankLists = {};
+        let count = 0;
+        for (let u in Users.usergroups) {
+            let rank = Users.usergroups[u].charAt(0);
+            if (rank === global) continue;
+            // In case the usergroups.csv file is not proper, we check for the server ranks.
+            if (ranks.indexOf(rank) >= 0) {
+                let name = Users.usergroups[u].substr(1);
+                delete rank[name];
+                count++;
+            }
+        }
+        if (!count) {
+            return this.sendReply("(Zero Auth In The Server!)");
+        }
+        if (room.chatRoomData) {
+            Rooms.global.writeChatRoomData();
+        }
+        this.addModCommand("All " + count + " Auth have been cleared by " + user.name + ".");
+    },
+    deauthallhelp: ["/deauthall - Remove all auth except ~ on the server. Requires:  ~"],
 };

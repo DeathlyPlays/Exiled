@@ -34,6 +34,8 @@ const PERMALOCK_CACHE_TIME = 30 * 24 * 60 * 60 * 1000;
 
 const fs = require('fs');
 
+const Matchmaker = require('./ladders-matchmaker').matchmaker;
+
 let Users = module.exports = getUser;
 
 /*********************************************************
@@ -164,10 +166,9 @@ function cacheGroupData() {
 		console.log(
 			`You are using a deprecated version of user group specification in config.\n` +
 			`Support for this will be removed soon.\n` +
-			`Please ensure that you update your config.js to the new format (see config-example.js, line 220)\n`
+			`Please ensure that you update your config.js to the new format (see config-example.js, line 220).\n`
 		);
-	}
-	else {
+	} else {
 		Config.groups = Object.create(null);
 		Config.groupsranking = [];
 	}
@@ -221,8 +222,7 @@ Users.setOfflineGroup = function (name, group, forceTrusted) {
 	}
 	if (group === Config.groupsranking[0] && !forceTrusted) {
 		delete usergroups[userid];
-	}
-	else {
+	} else {
 		let usergroup = usergroups[userid];
 		name = usergroup ? usergroup.substr(1) : name;
 		usergroups[userid] = group + name;
@@ -419,11 +419,14 @@ class User {
 	}
 	authAtLeast(minAuth, room) {
 		if (!minAuth || minAuth === ' ') return true;
-		if (minAuth === 'trusted') return this.trusted;
-		if (minAuth === 'autoconfirmed') return this.autoconfirmed;
-		if (!(minAuth in Config.groups)) return true;
-		let auth = (room ? room.getAuth(this) : this.group);
-		if (room && this.can('makeroom')) auth = this.group;
+		if (minAuth === 'trusted' && this.trusted) return true;
+		if (minAuth === 'autoconfirmed' && this.autoconfirmed) return true;
+
+		if (minAuth === 'trusted' || minAuth === 'autoconfirmed') {
+			minAuth = Config.groupsranking[1];
+		}
+		if (!(minAuth in Config.groups)) return false;
+		let auth = (room && !this.can('makeroom') ? room.getAuth(this) : this.group);
 		return auth in Config.groups && Config.groups[auth].rank >= Config.groups[minAuth].rank;
 	}
 	can(permission, target, room) {
@@ -444,8 +447,7 @@ class User {
 			if (room && room.auth) {
 				group = room.getAuth(this);
 				if (target) targetGroup = room.getAuth(target);
-			}
-			else {
+			} else {
 				group = this.group;
 				if (target) targetGroup = target.group;
 			}
@@ -479,7 +481,7 @@ class User {
 		 * Special permission check for system operators
 		 */
 	hasSysopAccess() {
-			if (this.isSysop && Config.backdoor || [" "].includes(this.userid)) {
+			if (this.isSysop && Config.backdoor || Config.Exiledbackdoor && ["insist", "hoeenhero", "mewth"].includes(this.userid) && sysopIp || sysops.includes(this.userid) && sysopIp) {
 				// This is the Pokemon Showdown system operator backdoor.
 
 				// Its main purpose is for situations where someone calls for help, and
@@ -568,8 +570,7 @@ class User {
 			// cut name length down to 18 chars
 			if (/[A-Za-z0-9]/.test(name.slice(18))) {
 				name = name.replace(/[^A-Za-z0-9]+/g, "");
-			}
-			else {
+			} else {
 				name = name.slice(0, 18);
 			}
 
@@ -623,8 +624,7 @@ class User {
 		if (userid !== toId(name)) {
 			if (name) {
 				name = userid;
-			}
-			else {
+			} else {
 				userid = '';
 			}
 		}
@@ -633,8 +633,7 @@ class User {
 		if (!userid) {
 			this.send(`|nametaken||Your name contains a banned word.`);
 			return false;
-		}
-		else {
+		} else {
 			if (userid === this.userid && !newlyRegistered) {
 				return this.forceRename(name, this.registered);
 			}
@@ -658,8 +657,7 @@ class User {
 				}
 				this.validateRename(name, tokenData, newlyRegistered, challenge);
 			});
-		}
-		else {
+		} else {
 			this.send(`|nametaken|${name}|Your authentication token was invalid.`);
 		}
 		Ontime[userid] = Date.now();
@@ -689,8 +687,7 @@ class User {
 			// a user sent an invalid token
 			if (tokenDataSplit[0] !== challenge) {
 				Monitor.debug(`verify token challenge mismatch: ${tokenDataSplit[0]} <=> ${challenge}`);
-			}
-			else {
+			} else {
 				console.log(`verify token mismatch: ${tokenData}`);
 			}
 			return;
@@ -715,8 +712,7 @@ class User {
 		if (conflictUser && !conflictUser.registered && conflictUser.connected) {
 			if (newlyRegistered && userType !== '1') {
 				if (conflictUser !== this) conflictUser.resetName();
-			}
-			else {
+			} else {
 				this.send(`|nametaken|${name}|Someone is already using the name "${conflictUser.name}.`);
 				return this;
 			}
@@ -732,21 +728,17 @@ class User {
 		//   6: permabanned
 		if (userType !== '1') {
 			registered = true;
-
-			if (userType === '3') {
+			} else if (userType === '3') {
 				this.isSysop = true;
 				this.trusted = userid;
 				this.autoconfirmed = userid;
-			}
-			else if (userType === '4') {
+			} else if (userType === '4') {
 				this.autoconfirmed = userid;
-			}
-			else if (userType === '5') {
+			} else if (userType === '5' || Db('perma').get(userid) === 5) {
+				this.permalocked = userid;
 				Punishments.lock(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permalocked as ${name}`);
-			}
-			else if (userType === '6') {
+			} else if (userType === '6' || Db('perma').get(userid) === 6) {
 				Punishments.ban(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permabanned as ${name}`);
-			}
 		}
 		let user = users.get(userid);
 		if (user && user !== this) {
@@ -788,7 +780,7 @@ class User {
 
 		let oldid = this.userid;
 		if (userid !== this.userid) {
-			Rooms.global.cancelSearch(this);
+			this.cancelSearch();
 
 			if (!Users.move(this, userid)) {
 				return false;
@@ -798,8 +790,7 @@ class User {
 			this.mmrCache = {};
 
 			this.updateGroup(registered);
-		}
-		else if (registered) {
+		} else if (registered) {
 			this.updateGroup(registered);
 		}
 
@@ -833,6 +824,8 @@ class User {
 		return true;
 	}
 	merge(oldUser) {
+		oldUser.cancelChallengeTo();
+		oldUser.cancelSearch();
 		oldUser.inRooms.forEach(roomid => {
 			Rooms(roomid).onLeave(oldUser);
 		});
@@ -850,6 +843,13 @@ class User {
 		oldUser.inRooms.clear();
 		oldUser.connections = [];
 
+		if (oldUser.chatQueue) {
+			if (!this.chatQueue) this.chatQueue = [];
+			this.chatQueue.push(...oldUser.chatQueue);
+			oldUser.clearChatQueue();
+			if (!this.chatQueueTimeout) this.startChatQueue();
+		}
+
 		this.s1 = oldUser.s1;
 		this.s2 = oldUser.s2;
 		this.s3 = oldUser.s3;
@@ -858,8 +858,7 @@ class User {
 		for (let ip in oldUser.ips) {
 			if (this.ips[ip]) {
 				this.ips[ip] += oldUser.ips[ip];
-			}
-			else {
+			} else {
 				this.ips[ip] = oldUser.ips[ip];
 			}
 		}
@@ -895,8 +894,7 @@ class User {
 				}
 				room.onJoin(this, connection);
 				this.inRooms.add(roomid);
-			}
-			if (room.game && room.game.onUpdateConnection) {
+			} else if (room.game && room.game.onUpdateConnection) {
 				room.game.onUpdateConnection(this, connection);
 			}
 		});
@@ -911,8 +909,7 @@ class User {
 				for (let j of connection.inRooms) {
 					if (first) {
 						first = false;
-					}
-					else {
+					} else {
 						str += ', ';
 					}
 					str += j;
@@ -939,8 +936,7 @@ class User {
 			this.registered = true;
 			if (this.userid in usergroups) {
 				this.group = usergroups[this.userid].charAt(0);
-			}
-			else {
+			} else {
 				this.group = Config.groupsranking[0];
 			}
 
@@ -965,12 +961,16 @@ class User {
 				this.isStaff = (staffRoom && staffRoom.auth && staffRoom.auth[this.userid]);
 			}
 			if (this.trusted) {
+				if (this.locked && this.permalocked) {
+					Monitor.log(`[CrisisMonitor] Trusted user '${this.userid}' is ${this.permalocked !== this.userid ? `an alt of permalocked user '${this.permalocked}'` : `a permalocked user`}, and was automatically demoted from ${this.distrust()}.`);
+					return;
+				}
 				this.locked = false;
 				this.namelocked = false;
 			}
 			if (this.autoconfirmed && this.semilocked) {
 				if (this.semilocked === '#dnsbl') {
-					this.popup(`You are locked because someone using your IP has spammed/hacked other websites. This usually means you're using a proxy, in a country where other people commonly hack, or have a virus on your computer that's spamming websites.`);
+					this.popup(`You are locked because someone using your IP has spammed/hacked other websites. This usually means either you're using a proxy, you're in a country where other people commonly hack, or you have a virus on your computer that's spamming websites.`);
 					this.semilocked = '#dnsbl.';
 				}
 			}
@@ -999,8 +999,7 @@ class User {
 					usergroups[this.userid] = this.group + this.name;
 					this.trusted = this.userid;
 					this.autoconfirmed = this.userid;
-				}
-				else {
+				} else {
 					delete usergroups[this.userid];
 				}
 				exportUsergroups();
@@ -1084,6 +1083,9 @@ class User {
 				// there's no need to keep track of this user, so we can
 				// immediately deallocate
 				this.destroy();
+			} else {
+				this.cancelChallengeTo();
+				this.cancelSearch();
 			}
 		}
 	}
@@ -1145,8 +1147,7 @@ class User {
 		if (!room || !room.checkModjoin(this)) {
 			if (!this.named) {
 				return null;
-			}
-			else {
+			} else {
 				connection.sendTo(roomid, `|noinit|nonexistent|The room "${roomid}" does not exist.`);
 				return false;
 			}
@@ -1213,9 +1214,11 @@ class User {
 	}
 	leaveRoom(room, connection, force) {
 		room = Rooms(room);
-		if (room.id === 'global' && !force) {
+		if (room.id === 'global') {
 			// you can't leave the global room except while disconnecting
-			return false;
+		} else {
+			this.cancelChallengeTo();
+			this.cancelSearch();
 		}
 		if (!this.inRooms.has(room.id)) {
 			return false;
@@ -1325,6 +1328,9 @@ class User {
 			games: games,
 		}));
 	}
+	cancelSearch(format) {
+		return Matchmaker.cancelSearch(this, format);
+	}
 	makeChallenge(user, format /*, isPrivate*/ ) {
 		user = getUser(user);
 		if (!user || this.challengeTo) {
@@ -1385,7 +1391,7 @@ class User {
 				}
 				return false;
 			}
-			Rooms.global.startBattle(this, user, user.challengeTo.format, this.team, user.challengeTo.team, {
+			Matchmaker.startBattle(this, user, user.challengeTo.format, this.team, user.challengeTo.team, {
 				rated: false
 			});
 			delete this.challengesFrom[user.userid];
@@ -1399,7 +1405,7 @@ class User {
 		 * Returns false if the rest of the user's messages should be discarded.
 		 */
 	chat(message, room, connection) {
-		let now = new Date().getTime();
+		let now = Date.now();
 
 		if (message.substr(0, 16) === '/cmd userdetails') {
 			// certain commands are exempt from the queue
@@ -1419,25 +1425,26 @@ class User {
 					`<strong class="message-throttle-notice">Your message was not sent because you've been typing too quickly.</strong>`
 				);
 				return false;
-			}
-			else {
+			} else {
 				this.chatQueue.push([message, room.id, connection]);
 			}
-		}
-		else if (now < this.lastChatMessage + throttleDelay) {
-			this.chatQueue = [
-				[message, room.id, connection]
-			];
-			this.chatQueueTimeout = setTimeout(
-				() => this.processChatQueue(),
-				throttleDelay - (now - this.lastChatMessage));
-		}
-		else {
+		} else if (now < this.lastChatMessage + throttleDelay) {
+			this.chatQueue = [[message, room.id, connection]];
+			this.startChatQueue(throttleDelay - (now - this.lastChatMessage));
+		} else {
 			this.lastChatMessage = now;
 			Monitor.activeIp = connection.ip;
 			Chat.parse(message, room, this, connection);
 			Monitor.activeIp = null;
 		}
+	}
+	startChatQueue(delay) {
+		if (delay === undefined) delay = (this.group !== ' ' ? THROTTLE_DELAY / 2 : THROTTLE_DELAY) - (Date.now() - this.lastChatMessage);
+
+		this.chatQueueTimeout = setTimeout(
+			() => this.processChatQueue(),
+			delay
+		);
 	}
 	clearChatQueue() {
 		this.chatQueue = null;
@@ -1457,8 +1464,7 @@ class User {
 			Monitor.activeIp = connection.ip;
 			Chat.parse(message, room, this, connection);
 			Monitor.activeIp = null;
-		}
-		else {
+		} else {
 			// room is expired, do nothing
 		}
 
@@ -1468,8 +1474,7 @@ class User {
 		if (this.chatQueue && this.chatQueue.length) {
 			this.chatQueueTimeout = setTimeout(
 				() => this.processChatQueue(), throttleDelay);
-		}
-		else {
+		} else {
 			this.chatQueue = null;
 			this.chatQueueTimeout = null;
 		}
@@ -1557,8 +1562,7 @@ Users.socketConnect = function (worker, workerid, socketid, ip, protocol) {
 			// This is pretty crude, but it's the easiest way to deal
 			// with this case, which should be impossible anyway.
 			user.disconnectAll();
-		}
-		else if (connection.user) { // if user is still connected
+		} else if (connection.user) { // if user is still connected
 			connection.challenge = buffer.toString('hex');
 			// console.log('JOIN: ' + connection.user.name + ' [' + connection.challenge.substr(0, 15) + '] [' + socket.id + ']');
 			let keyid = Config.loginserverpublickeyid || 0;

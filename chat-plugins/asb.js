@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * *
  *	Anime Style Battling	 *
- *	Created by:				 *
+ *	Created by:	     		 *
  *	Desokoro (Idea)			 *
  *	Insist (Coded)			 *
  * * * * * * * * * * * * * * */
@@ -23,5 +23,5 @@ exports.commands = {
 			"The Pokemon employs a substitute, and is able to take any hit this turn at the cost of 25% of its health.",
 		];
 		return this.sendReplyBox(results[Math.floor(10 * Math.random())]);
-	},	
+	},
 };

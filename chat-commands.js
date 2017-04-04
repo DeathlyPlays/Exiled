@@ -20,6 +20,7 @@
 const crypto = require('crypto');
 const fs = require('fs');
 
+const parseEmoticons = require('./chat-plugins/emoticons').parseEmoticons;
 const Matchmaker = require('./ladders-matchmaker').matchmaker;
 
 const MAX_REASON_LENGTH = 300;

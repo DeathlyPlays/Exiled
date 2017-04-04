@@ -22,18 +22,16 @@ const fs = require('fs');
 
 const parseEmoticons = require('./chat-plugins/emoticons').parseEmoticons;
 const Matchmaker = require('./ladders-matchmaker').matchmaker;
-
 const MAX_REASON_LENGTH = 300;
 const MUTE_LENGTH = 7 * 60 * 1000;
 const HOURMUTE_LENGTH = 60 * 60 * 1000;
 
 exports.commands = {
-
-	'!version': true,
-	version: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox("Server version: <b>" + Chat.package.version + "</b>");
-	},
+		'!version': true,
+		version: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			this.sendReplyBox("Server version: <b>" + Chat.package.version + "</b>");
+		},
 
 		'!authority': true,
 		auth: 'authority',
@@ -62,9 +60,9 @@ exports.commands = {
 
 			let buffer = Object.keys(rankLists).sort((a, b) =>
 				(Config.groups[b] || {
-					rank: 0
+					rank: 0,
 				}).rank - (Config.groups[a] || {
-					rank: 0
+					rank: 0,
 				}).rank
 			).map(r =>
 				(Config.groups[r] ? "**" + Config.groups[r].name + "s** (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
@@ -75,7 +73,7 @@ exports.commands = {
 		},
 		authhelp: ["/auth - Show global staff for the server.",
 			"/auth [room] - Show what roomauth a room has.",
-			"/auth [user] - Show what global and roomauth a user has."
+			"/auth [user] - Show what global and roomauth a user has.",
 		],
 
 		userlist: function (target, room, user) {
@@ -107,8 +105,7 @@ exports.commands = {
 				const uppercaseIdentity = user.getIdentity(room).toUpperCase();
 				if (room) {
 					this.add(`|c|${uppercaseIdentity}|${target}`);
-				}
-				else {
+				} else {
 					let msg = `|pm|${uppercaseIdentity}|${this.pmTarget.getIdentity()}|${target}`;
 					user.send(msg);
 					if (this.pmTarget !== user) this.pmTarget.send(msg);
@@ -353,8 +350,7 @@ exports.commands = {
 			};
 			if (avatarid in avatarTable) {
 				avatar = avatarTable[avatarid];
-			}
-			else {
+			} else {
 				avatar = parseInt(avatarid);
 			}
 			if (typeof avatar === 'number' && (!avatar || avatar > 294 || avatar < 1)) {
@@ -382,8 +378,7 @@ exports.commands = {
 		report: function (target, room, user) {
 			if (room.id === 'help') {
 				this.sendReply("Ask one of the Moderators (@) in the Help room.");
-			}
-			else {
+			} else {
 				this.parse('/join help');
 			}
 		},
@@ -468,7 +463,7 @@ exports.commands = {
 			return '/invite ' + targetRoom.id;
 		},
 		invitehelp: ["/invite [username] - Invites the player [username] to join the room you sent the command to.",
-			"(in a PM) /invite [roomname] - Invites the player you're PMing to join the room [roomname]."
+			"(in a PM) /invite [roomname] - Invites the player you're PMing to join the room [roomname].",
 		],
 
 		pminfobox: function (target, room, user, connection) {
@@ -558,8 +553,7 @@ exports.commands = {
 				let ratings = values.join('');
 				if (!ratings) {
 					buffer += '<tr><td colspan="8"><em>This user has not played any ladder games yet.</em></td></tr>';
-				}
-				else {
+				} else {
 					buffer += '<tr><th>Format</th><th><abbr title="Elo rating">Elo</abbr></th><th>W</th><th>L</th><th>Total</th>';
 					buffer += ratings;
 				}
@@ -595,8 +589,7 @@ exports.commands = {
 					Rooms.get('upperstaff').add('|raw|<div class="broadcast-green">Private chat room created: <b>' + Chat.escapeHTML(target) + '</b></div>').update();
 				}
 				this.sendReply("The private chat room '" + target + "' was created.");
-			}
-			else {
+			} else {
 				if (Rooms.get('staff')) {
 					Rooms.get('staff').add('|raw|<div class="broadcast-green">Public chat room created: <b>' + Chat.escapeHTML(target) + '</b></div>').update();
 				}
@@ -623,11 +616,9 @@ exports.commands = {
 			let title = targets[0].trim();
 			if (title.length >= 32) {
 				return this.errorReply("Title must be under 32 characters long.");
-			}
-			else if (!title) {
+			} else if (!title) {
 				title = ('' + Math.floor(Math.random() * 100000000));
-			}
-			else if (Config.chatfilter) {
+			} else if (Config.chatfilter) {
 				let filterResult = Config.chatfilter.call(this, title, user, null, connection);
 				if (!filterResult) return;
 				if (title !== filterResult) {
@@ -673,8 +664,7 @@ exports.commands = {
 			let titleHTML = '';
 			if (/^[0-9]+$/.test(title)) {
 				titleHTML = groupChatLink;
-			}
-			else {
+			} else {
 				titleHTML = Chat.escapeHTML(title) + ' <small style="font-weight:normal;font-size:9pt">' + groupChatLink + '</small>';
 			}
 			let targetRoom = Rooms.createChatRoom(roomid, '[G] ' + title, {
@@ -720,8 +710,7 @@ exports.commands = {
 			if (!targetRoom) return this.errorReply("The room '" + target + "' doesn't exist.");
 			if (room.isPersonal) {
 				if (!this.can('editroom', null, targetRoom)) return;
-			}
-			else {
+			} else {
 				if (!this.can('makeroom')) return;
 			}
 			target = targetRoom.title || targetRoom.id;
@@ -735,8 +724,7 @@ exports.commands = {
 					if (Rooms.get('upperstaff')) {
 						Rooms.get('upperstaff').add(`|raw|<div class="broadcast-red">Private chat room deleted by ${user.userid}: <b>${Chat.escapeHTML(target)}</b></div>`).update();
 					}
-				}
-				else {
+				} else {
 					if (Rooms.get('staff')) {
 						Rooms.get('staff').add('|raw|<div class="broadcast-red">Public chat room deleted: <b>' + Chat.escapeHTML(target) + '</b></div>').update();
 					}
@@ -762,8 +750,7 @@ exports.commands = {
 		privateroom: function (target, room, user, connection, cmd) {
 			if (room.battle || room.isPersonal) {
 				if (!this.can('editroom', null, room)) return;
-			}
-			else {
+			} else {
 				// registered chatrooms show up on the room list and so require
 				// higher permissions to modify privacy settings
 				if (!this.can('makeroom')) return;
@@ -813,8 +800,7 @@ exports.commands = {
 					delete room.chatRoomData.isPrivate;
 					Rooms.global.writeChatRoomData();
 				}
-			}
-			else {
+			} else {
 				const settingName = (setting === true ? 'secret' : setting);
 				if (room.isPrivate === setting) {
 					if (room.privacySetter && !room.privacySetter.has(user.userid)) {
@@ -834,7 +820,7 @@ exports.commands = {
 		},
 		privateroomhelp: ["/secretroom - Makes a room secret. Secret rooms are visible to & and up. Requires: & ~",
 			"/hiddenroom [on/off] - Makes a room hidden. Hidden rooms are visible to % and up, and inherit global ranks. Requires: ★ & ~",
-			"/publicroom - Makes a room public. Requires: ★ & ~"
+			"/publicroom - Makes a room public. Requires: ★ & ~",
 		],
 
 		officialchatroom: 'officialroom',
@@ -849,8 +835,7 @@ exports.commands = {
 				this.addModCommand(`${user.name} made this chat room unofficial.`);
 				delete room.chatRoomData.isOfficial;
 				Rooms.global.writeChatRoomData();
-			}
-			else {
+			} else {
 				if (room.isOfficial) return this.errorReply(`This chat room is already official.`);
 				room.isOfficial = true;
 				this.addModCommand(`${user.name} made this chat room official.`);
@@ -1106,10 +1091,7 @@ exports.commands = {
 				return this.errorReply("User '" + name + "' is unregistered, and so can't be promoted.");
 			}
 
-			let currentGroup = room.getAuth({
-				userid,
-				group: (Users.usergroups[userid] || ' ').charAt(0)
-			});
+			let currentGroup = room.getAuth({userid, group: (Users.usergroups[userid] || ' ').charAt(0)});
 			let nextGroup = target;
 			if (target === 'deauth') nextGroup = Config.groupsranking[0];
 			if (!nextGroup) {
@@ -1141,8 +1123,7 @@ exports.commands = {
 
 			if (nextGroup === ' ') {
 				delete room.auth[userid];
-			}
-			else {
+			} else {
 				room.auth[userid] = nextGroup;
 			}
 
@@ -1153,20 +1134,17 @@ exports.commands = {
 				const text = `${targetUser.name} was invited (and promoted to Room ${groupName}) by ${user.name}`;
 				room.add(`|c|${user.getIdentity(room)}|/log ${text}`).update();
 				room.modlog(text);
-			}
-			else if (nextGroup in Config.groups && currentGroup in Config.groups && Config.groups[nextGroup].rank < Config.groups[currentGroup].rank) {
+			} else if (nextGroup in Config.groups && currentGroup in Config.groups && Config.groups[nextGroup].rank < Config.groups[currentGroup].rank) {
 				if (targetUser && room.users[targetUser.userid] && !Config.groups[nextGroup].modlog) {
 					// if the user can't see the demotion message (i.e. rank < %), it is shown in the chat
 					targetUser.send(">" + room.id + "\n(You were demoted to Room " + groupName + " by " + user.name + ".)");
 				}
 				this.privateModCommand("(" + name + " was demoted to Room " + groupName + " by " + user.name + ".)");
 				if (needsPopup) targetUser.popup("You were demoted to Room " + groupName + " by " + user.name + " in " + room.id + ".");
-			}
-			else if (nextGroup === '#') {
+			} else if (nextGroup === '#') {
 				this.addModCommand("" + name + " was promoted to " + groupName + " by " + user.name + ".");
 				if (needsPopup) targetUser.popup("You were promoted to " + groupName + " by " + user.name + " in " + room.id + ".");
-			}
-			else {
+			} else {
 				this.addModCommand("" + name + " was promoted to Room " + groupName + " by " + user.name + ".");
 				if (needsPopup) targetUser.popup("You were promoted to Room " + groupName + " by " + user.name + " in " + room.id + ".");
 			}
@@ -1176,7 +1154,7 @@ exports.commands = {
 		},
 		roompromotehelp: ["/roompromote OR /roomdemote [username], [group symbol] - Promotes/demotes the user to the specified room rank. Requires: @ * # & ~",
 			"/room[group] [username] - Promotes/demotes the user to the specified room rank. Requires: @ * # & ~",
-			"/roomdeauth [username] - Removes all room rank from the user. Requires: @ * # & ~"
+			"/roomdeauth [username] - Removes all room rank from the user. Requires: @ * # & ~",
 		],
 
 		'!roomauth': true,
@@ -1198,9 +1176,9 @@ exports.commands = {
 
 			let buffer = Object.keys(rankLists).sort((a, b) =>
 				(Config.groups[b] || {
-					rank: 0
+					rank: 0,
 				}).rank - (Config.groups[a] || {
-					rank: 0
+					rank: 0,
 				}).rank
 			).map(r => {
 				let roomRankList = rankLists[r].sort();
@@ -1311,8 +1289,7 @@ exports.commands = {
 				let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
 				if (alts.length) {
 					this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "banned alts: " + alts.join(", ") + ")");
-				}
-				else if (acAccount) {
+				} else if (acAccount) {
 					this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
 				}
 			}
@@ -1339,8 +1316,7 @@ exports.commands = {
 				if (!room.isPrivate && room.chatRoomData) {
 					this.globalModlog("UNROOMBAN", name, " by " + user.name);
 				}
-			}
-			else {
+			} else {
 				this.errorReply("User '" + target + "' is not banned.");
 			}
 		},
@@ -1499,8 +1475,7 @@ exports.commands = {
 
 			if (successfullyUnmuted) {
 				this.addModCommand("" + (targetUser ? targetUser.name : successfullyUnmuted) + " was unmuted by " + user.name + ".");
-			}
-			else {
+			} else {
 				this.errorReply("" + (targetUser ? targetUser.name : this.targetUsername) + " is not muted.");
 			}
 		},
@@ -1532,12 +1507,10 @@ exports.commands = {
 					let from = targetUser.distrust();
 					Monitor.log("[CrisisMonitor] " + name + " was locked by " + user.name + " and demoted from " + from.join(", ") + ".");
 					this.globalModlog("CRISISDEMOTE", targetUser, " from " + from.join(", "));
-				}
-				else {
+				} else {
 					return this.sendReply("" + name + " is a trusted user. If you are sure you would like to lock them use /forcelock.");
 				}
-			}
-			else if (cmd === 'forcelock') {
+			} else if (cmd === 'forcelock') {
 				return this.errorReply("Use /lock; " + name + " is not a trusted user.");
 			}
 
@@ -1557,8 +1530,7 @@ exports.commands = {
 			let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
 			if (alts.length) {
 				this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "locked alts: " + alts.join(", ") + ")");
-			}
-			else if (acAccount) {
+			} else if (acAccount) {
 				this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
 			}
 			this.add('|unlink|hide|' + userid);
@@ -1594,12 +1566,10 @@ exports.commands = {
 					let from = targetUser.distrust();
 					Monitor.log("[CrisisMonitor] " + name + " was locked by " + user.name + " and demoted from " + from.join(", ") + ".");
 					this.globalModlog("CRISISDEMOTE", targetUser, " from " + from.join(", "));
-				}
-				else {
+				} else {
 					return this.sendReply("" + name + " is a trusted user. If you are sure you would like to lock them use /forcelock.");
 				}
-			}
-			else if (cmd === 'forcelock') {
+			} else if (cmd === 'forcelock') {
 				return this.errorReply("Use /lock; " + name + " is not a trusted user.");
 			}
 
@@ -1619,8 +1589,7 @@ exports.commands = {
 			let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
 			if (alts.length) {
 				this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "locked alts: " + alts.join(", ") + ")");
-			}
-			else if (acAccount) {
+			} else if (acAccount) {
 				this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
 			}
 			this.add('|unlink|hide|' + userid);
@@ -1652,8 +1621,7 @@ exports.commands = {
 					" unlocked by " + user.name + "." + reason);
 				if (!reason) this.globalModlog("UNLOCK", target, " by " + user.name);
 				if (targetUser) targetUser.popup("" + user.name + " has unlocked you.");
-			}
-			else {
+			} else {
 				this.errorReply("User '" + target + "' is not locked.");
 			}
 		},
@@ -1682,12 +1650,10 @@ exports.commands = {
 					let from = targetUser.distrust();
 					Monitor.log("[CrisisMonitor] " + name + " was globally banned by " + user.name + " and demoted from " + from.join(", ") + ".");
 					this.globalModlog("CRISISDEMOTE", targetUser, " from " + from.join(", "));
-				}
-				else {
+				} else {
 					return this.sendReply("" + name + " is a trusted user. If you are sure you would like to ban them use /forceglobalban.");
 				}
-			}
-			else if (cmd === 'forceglobalban') {
+			} else if (cmd === 'forceglobalban') {
 				return this.errorReply("Use /globalban; " + name + " is not a trusted user.");
 			}
 
@@ -1713,8 +1679,7 @@ exports.commands = {
 				for (let i = 0; i < alts.length; ++i) {
 					this.add('|unlink|' + toId(alts[i]));
 				}
-			}
-			else if (acAccount) {
+			} else if (acAccount) {
 				this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
 			}
 
@@ -1736,8 +1701,7 @@ exports.commands = {
 			if (name) {
 				this.addModCommand("" + name + " was globally unbanned by " + user.name + ".");
 				this.globalModlog("UNBAN", name, " by " + user.name);
-			}
-			else {
+			} else {
 				this.errorReply("User '" + target + "' is not globally banned.");
 			}
 		},
@@ -1918,8 +1882,7 @@ exports.commands = {
 			if (Config.groups[nextGroup].rank < Config.groups[currentGroup].rank) {
 				this.privateModCommand("(" + name + " was demoted to " + groupName + " by " + user.name + ".)");
 				if (targetUser) targetUser.popup("You were demoted to " + groupName + " by " + user.name + ".");
-			}
-			else {
+			} else {
 				this.addModCommand("" + name + " was promoted to " + groupName + " by " + user.name + ".");
 				if (targetUser) targetUser.popup("You were promoted to " + groupName + " by " + user.name + ".");
 			}
@@ -2117,8 +2080,7 @@ exports.commands = {
 				this.addModCommand(unlocked + " was unnamelocked by " + user.name + "." + reason);
 				if (!reason) this.globalModlog("UNNAMELOCK", target, " by " + user.name);
 				if (targetUser) targetUser.popup("" + user.name + " has unnamelocked you.");
-			}
-			else {
+			} else {
 				this.errorReply("User '" + target + "' is not namelocked.");
 			}
 		},
@@ -2137,8 +2099,7 @@ exports.commands = {
 
 			if (targetUser.locked || Punishments.isRoomBanned(user, room.id) || user.can('rangeban')) {
 				hidetype = 'hide|';
-			}
-			else {
+			} else {
 				return this.errorReply("User '" + name + "' is not banned from this room or locked.");
 			}
 
@@ -2192,8 +2153,7 @@ exports.commands = {
 				let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
 				if (alts.length) {
 					this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "blacklisted alts: " + alts.join(", ") + ")");
-				}
-				else if (acAccount) {
+				} else if (acAccount) {
 					this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
 				}
 			}
@@ -2256,8 +2216,7 @@ exports.commands = {
 				if (!room.isPrivate && room.chatRoomData) {
 					this.globalModlog("UNBLACKLIST", name, " by " + user.name);
 				}
-			}
-			else {
+			} else {
 				this.errorReply("User '" + target + "' is not blacklisted.");
 			}
 		},
@@ -2374,11 +2333,9 @@ exports.commands = {
 					for (let i = 0; i < fileList.length; ++i) {
 						filename += path.normalize(`${__dirname}/${logPath}${fileList[i]}`) + ' ';
 					}
-				}
-				else if (roomId.startsWith('battle-') || roomId.startsWith('groupchat-')) {
+				} else if (roomId.startsWith('battle-') || roomId.startsWith('groupchat-')) {
 					return this.errorReply("Battles and groupchats do not have modlogs.");
-				}
-				else {
+				} else {
 					if (!user.can('modlog') && !this.can('modlog', null, targetRoom)) return;
 					roomNames = "the room " + roomId;
 					filename = path.normalize(`${__dirname}/${logPath}modlog_${roomId}.txt`);
@@ -2387,8 +2344,7 @@ exports.commands = {
 				// Seek for all input rooms for the lines or text
 				if (isWin) {
 					command = `${path.normalize(__dirname + '/lib/winmodlog')} tail ${lines} ${filename}`;
-				}
-				else {
+				} else {
 					command = `tail -${lines} ${filename} | tac`;
 				}
 				let grepLimit = 100;
@@ -2399,14 +2355,11 @@ exports.commands = {
 
 					if (searchString.match(/^["'].+["']$/)) {
 						searchString = searchString.substring(1, searchString.length - 1);
-					}
-					else if (searchString.includes('_')) {
+					} else if (searchString.includes('_')) {
 						// do an exact search, the approximate search fails for underscores
-					}
-					else if (isWin) { // ID search with RegEx isn't implemented for windows yet (feel free to add it to winmodlog.cmd)
+					} else if (isWin) { // ID search with RegEx isn't implemented for windows yet (feel free to add it to winmodlog.cmd)
 						target = `"${target}"`; // add quotes to target so the caller knows they are getting a strict match
-					}
-					else {
+					} else {
 						// search for ID: allow any number of non-word characters (\W*) in between the letters we have to match.
 						// i.e. if searching for "myUsername", also match on "My User-Name".
 						// note that this doesn't really add a lot of unwanted results, since we use \b..\b
@@ -2418,12 +2371,10 @@ exports.commands = {
 					if (isWin) {
 						if (strictMatch) {
 							command = `${path.normalize(__dirname + '/lib/winmodlog')} ws ${grepLimit} "${searchString.replace(/%/g, "%%").replace(/([\^"&<>\|])/g, "^$1")}" ${filename}`;
-						}
-						else {
+						} else {
 							// doesn't happen. ID search with RegEx isn't implemented for windows yet (feel free to add it to winmodlog.cmd and call it from here)
 						}
-					}
-					else {
+					} else {
 						if (strictMatch) {
 							command = `awk '{print NR,$0}' ${filename} | sort -nr | cut -d' ' -f2- | grep -m${grepLimit} -i '${searchString.replace(/\\/g, '\\\\\\\\').replace(/["'`]/g, '\'\\$&\'').replace(/[\{\}\[\]\(\)\$\^\.\?\+\-\*]/g, '[$&]')}'`;
 				} else {

@@ -15,7 +15,10 @@
 		"Config": false, "Monitor": false, "toId": false, "Tools": false, "LoginServer": false,
 		"Users": false, "Punishments": false, "Rooms": false, "Verifier": false, "Chat": false,
 		"Tournaments": false, "Dnsbl": false, "Sockets": false, "TeamValidator": false, "Ladders": false,
-                "SG": false, "Tells": false, "Db": false, "Economy": false, "sqlite3": false, "currencyName": false, "currencyPlural": false, "writeSSB": false, "hashColorWithCustoms": false, "isDev": false, "isVIP": false
+                "SG": false, "Tells": false, "Db": false, "Economy": false, "sqlite3": false, "moneyName": false, "moneyPlural": false, "writeSSB": false,
+		"Exiled": false, "nightclub": false, "nightclubify": false, "Ontime": false, "rankLadder": false, "runDexSearch": false, "runMoveSearch": false,
+		"runItemSearch": false, "runLearn": false, "MD5": false, "autolinker": false, "nani": false, "moment": false, "https": false, "http": false, "amCache": false,
+		"colorCache": false, "isYouTube": false
 	},
 	"extends": "eslint:recommended",
 	"rules": {

@@ -14,7 +14,6 @@
 const TIMEOUT_EMPTY_DEALLOCATE = 10 * 60 * 1000;
 const TIMEOUT_INACTIVE_DEALLOCATE = 40 * 60 * 1000;
 const REPORT_USER_STATS_INTERVAL = 10 * 60 * 1000;
-const PERIODIC_MATCH_INTERVAL = 60 * 1000;
 
 const CRASH_REPORT_THROTTLE = 60 * 60 * 1000;
 
@@ -159,16 +158,24 @@ class Room {
 		return user.group;
 	}
 	checkModjoin(user) {
-		if (!this.modjoin) return true;
+		if (this.staffRoom && !user.isStaff && (!this.auth || (this.auth[user.userid] || ' ') === ' ')) return false;
 		if (user.userid in this.users) return true;
-		if (user.can('makeroom')) return true;
-		if (this.staffRoom && !user.isStaff) return false;
-		let userGroup = this.getAuth(user);
+		if (!this.modjoin) return true;
+		const userGroup = user.can('makeroom') ? user.group : this.getAuth(user);
+
 		let modjoinGroup = this.modjoin !== true ? this.modjoin : this.modchat;
-		if (Config.groupsranking.indexOf(userGroup) < Config.groupsranking.indexOf(modjoinGroup)) {
-			return false;
+		if (!modjoinGroup) return true;
+
+		if (modjoinGroup === 'trusted') {
+			if (user.trusted) return true;modjoinGroup = Config.groupsranking[1];
 		}
-		return true;
+		if (modjoinGroup === 'autoconfirmed') {
+			if (user.autoconfirmed) return true;
+			modjoinGroup = Config.groupsranking[1];
+		}
+		if (!(userGroup in Config.groups)) return false;
+		if (!(modjoinGroup in Config.groups)) throw new Error(`Invalid modjoin setting in ${this.id}: ${modjoinGroup}`);
+		return Config.groups[userGroup].rank >= Config.groups[modjoinGroup].rank;
 	}
 	mute(user, setTime) {
 		let userid = user.userid;
@@ -223,8 +230,7 @@ class Room {
 				if (i === 0) {
 					this.muteQueue.splice(0, 1);
 					this.runMuteTimer(true);
-				}
-				else {
+				} else {
 					this.muteQueue.splice(i, 1);
 				}
 				successUserid = entry.userid;
@@ -261,15 +267,6 @@ class GlobalRoom {
 
 		// init battle rooms
 		this.battleCount = 0;
-		this.searches = Object.create(null);
-
-		// Never do any other file IO synchronously
-		// but this is okay to prevent race conditions as we start up PS
-		this.lastBattle = 0;
-		try {
-			this.lastBattle = parseInt(fs.readFileSync('logs/lastbattle.txt', 'utf8')) || 0;
-		}
-		catch (e) {} // file doesn't exist [yet]
 
 		this.chatRoomData = [];
 		try {
@@ -320,29 +317,6 @@ class GlobalRoom {
 		}
 		Rooms.lobby = Rooms.rooms.get('lobby');
 
-		// this function is complex in order to avoid several race conditions
-		this.writeNumRooms = (() => {
-			let writing = false;
-			let lastBattle = -1; // last lastBattle to be written to file
-			return () => {
-				if (writing) return;
-
-				// batch writing lastbattle.txt for every 10 battles
-				if (lastBattle >= this.lastBattle) return;
-				lastBattle = this.lastBattle + 10;
-
-				writing = true;
-				fs.writeFile('logs/lastbattle.txt.0', '' + lastBattle, () => {
-					fs.rename('logs/lastbattle.txt.0', 'logs/lastbattle.txt', () => {
-						writing = false;
-						if (lastBattle < this.lastBattle) {
-							process.nextTick(() => this.writeNumRooms());
-						}
-					});
-				});
-			};
-		})();
-
 		this.writeChatRoomData = (() => {
 			let writing = false;
 			let writePending = false;
@@ -363,7 +337,7 @@ class GlobalRoom {
 						writing = false;
 						if (writePending) {
 							writePending = false;
-							process.nextTick(() => this.writeChatRoomData());
+							setImmediate(() => this.writeChatRoomData());
 						}
 					});
 				});
@@ -379,11 +353,6 @@ class GlobalRoom {
 		this.reportUserStatsInterval = setInterval(
 			() => this.reportUserStats(),
 			REPORT_USER_STATS_INTERVAL
-		);
-
-		this.periodicMatchInterval = setInterval(
-			() => this.periodicMatch(),
-			PERIODIC_MATCH_INTERVAL
 		);
 
 		// Create writestream for modlog
@@ -482,132 +451,6 @@ class GlobalRoom {
 		}
 		return roomsData;
 	}
-	cancelSearch(user, format) {
-		if (format && !user.searching[format]) return false;
-
-		let searchedFormats = Object.keys(user.searching);
-		if (!searchedFormats.length) return false;
-
-		for (let i = 0; i < searchedFormats.length; i++) {
-			if (format && searchedFormats[i] !== format) continue;
-			let formatSearches = this.searches[searchedFormats[i]];
-			for (let j = 0, len = formatSearches.length; j < len; j++) {
-				let search = formatSearches[j];
-				if (search.userid !== user.userid) continue;
-				formatSearches.splice(j, 1);
-				delete user.searching[searchedFormats[i]];
-				break;
-			}
-		}
-
-		user.updateSearch();
-		return true;
-	}
-	searchBattle(user, formatid) {
-		if (!user.connected) return;
-
-		formatid = Tools.getFormat(formatid).id;
-
-		user.prepBattle(formatid, 'search', null).then(result => this.finishSearchBattle(user, formatid, result));
-	}
-	finishSearchBattle(user, formatid, result) {
-		if (!result) return;
-
-		let newSearch = {
-			userid: '',
-			team: user.team,
-			rating: 1000,
-			time: new Date().getTime(),
-		};
-
-		// Get the user's rating before actually starting to search.
-		Ladders(formatid).getRating(user.userid).then(rating => {
-			newSearch.rating = rating;
-			newSearch.userid = user.userid;
-			this.addSearch(newSearch, user, formatid);
-		}, error => {
-			// Rejects iff we retrieved the rating but the user had changed their name;
-			// the search simply doesn't happen in this case.
-		});
-	}
-	matchmakingOK(search1, search2, user1, user2, formatid) {
-		// This should never happen.
-		if (!user1 || !user2) return void require('./crashlogger')(new Error("Matched user " + (user1 ? search2.userid : search1.userid) + " not found"), "The main process");
-
-		// users must be different
-		if (user1 === user2) return false;
-
-		// users must have different IPs
-		if (user1.latestIp === user2.latestIp) return false;
-
-		// users must not have been matched immediately previously
-		if (user1.lastMatch === user2.userid || user2.lastMatch === user1.userid) return false;
-
-		// search must be within range
-		let searchRange = 100,
-			elapsed = Date.now() - Math.min(search1.time, search2.time);
-		if (formatid === 'ou' || formatid === 'oucurrent' || formatid === 'randombattle') searchRange = 50;
-		searchRange += elapsed / 300; // +1 every .3 seconds
-		if (searchRange > 300) searchRange = 300 + (searchRange - 300) / 10; // +1 every 3 sec after 300
-		if (searchRange > 600) searchRange = 600;
-		if (Math.abs(search1.rating - search2.rating) > searchRange) return false;
-
-		user1.lastMatch = user2.userid;
-		user2.lastMatch = user1.userid;
-		return Math.min(search1.rating, search2.rating) || 1;
-	}
-	addSearch(newSearch, user, formatid) {
-		// Filter racing conditions
-		if (!user.connected || user !== Users.getExact(user.userid)) return;
-		if (user.searching[formatid]) return;
-
-		if (!this.searches[formatid]) this.searches[formatid] = [];
-		let formatSearches = this.searches[formatid];
-		// Prioritize players who have been searching for a match the longest.
-		for (let i = 0; i < formatSearches.length; i++) {
-			let search = formatSearches[i];
-			let searchUser = Users.getExact(search.userid);
-			let minRating = this.matchmakingOK(search, newSearch, searchUser, user, formatid);
-			if (minRating) {
-				delete user.searching[formatid];
-				delete searchUser.searching[formatid];
-				formatSearches.splice(i, 1);
-				this.startBattle(searchUser, user, formatid, search.team, newSearch.team, {
-					rated: minRating
-				});
-				return;
-			}
-		}
-		user.searching[formatid] = 1;
-		formatSearches.push(newSearch);
-		user.updateSearch();
-	}
-	periodicMatch() {
-		for (let formatid in this.searches) {
-			let formatSearches = this.searches[formatid];
-			if (formatSearches.length < 2) continue;
-
-			let longestSearch = formatSearches[0];
-			let longestSearcher = Users.getExact(longestSearch.userid);
-
-			// Prioritize players who have been searching for a match the longest.
-			for (let i = 1; i < formatSearches.length; i++) {
-				let search = formatSearches[i];
-				let searchUser = Users.getExact(search.userid);
-				let minRating = this.matchmakingOK(search, longestSearch, searchUser, longestSearcher, formatid);
-				if (minRating) {
-					delete longestSearcher.searching[formatid];
-					delete searchUser.searching[formatid];
-					formatSearches.splice(i, 1);
-					formatSearches.splice(0, 1);
-					this.startBattle(searchUser, longestSearcher, formatid, search.team, longestSearch.team, {
-						rated: minRating
-					});
-					return;
-				}
-			}
-		}
-	}
 	checkModjoin() {
 		return true;
 	}
@@ -618,8 +461,7 @@ class GlobalRoom {
 	send(message, user) {
 		if (user) {
 			user.sendTo(this, message);
-		}
-		else {
+		} else {
 			Sockets.channelBroadcast(this.id, message);
 		}
 	}
@@ -692,9 +534,12 @@ class GlobalRoom {
 	autojoinRooms(user, connection) {
 		// we only autojoin regular rooms if the client requests it with /autojoin
 		// note that this restriction doesn't apply to staffAutojoin
+		let includesLobby = false;
 		for (let i = 0; i < this.autojoin.length; i++) {
 			user.joinRoom(this.autojoin[i], connection);
+			if (this.autojoin[i] === 'lobby') includesLobby = true;
 		}
+		if (!includesLobby && Config.serverid !== 'showdown') user.send(`>lobby\n|deinit`);
 	}
 	checkAutojoin(user, connection) {
 		if (!user.named) return;
@@ -752,67 +597,6 @@ class GlobalRoom {
 		if (!user) return; // ...
 		delete this.users[user.userid];
 		--this.userCount;
-		user.cancelChallengeTo();
-		this.cancelSearch(user);
-	}
-	startBattle(p1, p2, format, p1team, p2team, options) {
-		p1 = Users.get(p1);
-		p2 = Users.get(p2);
-
-		if (!p1 || !p2) {
-			// most likely, a user was banned during the battle start procedure
-			this.cancelSearch(p1);
-			this.cancelSearch(p2);
-			return;
-		}
-		if (p1 === p2) {
-			this.cancelSearch(p1);
-			this.cancelSearch(p2);
-			p1.popup("You can't battle your own account. Please use something like Private Browsing to battle yourself.");
-			return;
-		}
-
-		if (this.lockdown === true) {
-			this.cancelSearch(p1);
-			this.cancelSearch(p2);
-			p1.popup("The server is restarting. Battles will be available again in a few minutes.");
-			p2.popup("The server is restarting. Battles will be available again in a few minutes.");
-			return;
-		}
-
-		//console.log('BATTLE START BETWEEN: ' + p1.userid + ' ' + p2.userid);
-		let i = this.lastBattle + 1;
-		let formaturlid = format.toLowerCase().replace(/[^a-z0-9]+/g, '');
-		while (Rooms.rooms.has('battle-' + formaturlid + '-' + i)) {
-			i++;
-		}
-		this.lastBattle = i;
-		this.writeNumRooms();
-
-		let newRoom = Rooms.createBattle('battle-' + formaturlid + '-' + i, format, p1, p2, options);
-		p1.joinRoom(newRoom);
-		p2.joinRoom(newRoom);
-		newRoom.battle.addPlayer(p1, p1team);
-		newRoom.battle.addPlayer(p2, p2team);
-		this.cancelSearch(p1);
-		this.cancelSearch(p2);
-		if (Config.reportbattles) {
-			let reportRoom = Rooms(Config.reportbattles === true ? 'lobby' : Config.reportbattles);
-			if (reportRoom) {
-				reportRoom.add('|b|' + newRoom.id + '|' + p1.getIdentity() + '|' + p2.getIdentity());
-				reportRoom.update();
-			}
-		}
-		if (Config.logladderip && options.rated) {
-			if (!this.ladderIpLog) {
-				this.ladderIpLog = fs.createWriteStream('logs/ladderip/ladderip.txt', {
-					flags: 'a'
-				});
-			}
-			this.ladderIpLog.write(p1.userid + ': ' + p1.latestIp + '\n');
-			this.ladderIpLog.write(p2.userid + ': ' + p2.latestIp + '\n');
-		}
-		return newRoom;
 	}
 	modlog(text) {
 		this.modlogStream.write('[' + (new Date().toJSON()) + '] ' + text + '\n');
@@ -828,12 +612,10 @@ class GlobalRoom {
 					curRoom.addRaw(`<div class="broadcast-red"><b>The server needs to restart because of a crash:</b> ${stack}<br />Please restart the server.</div>`);
 					curRoom.addRaw(`<div class="broadcast-red">You will not be able to start new battles until the server restarts.</div>`);
 					curRoom.update();
-				}
-				else {
+				} else {
 					curRoom.addRaw(`<div class="broadcast-red"><b>The server needs restart because of a crash.</b><br />No new battles can be started until the server is done restarting.</div>`).update();
 				}
-			}
-			else {
+			} else {
 				curRoom.addRaw(`<div class="broadcast-red"><b>The server is restarting soon.</b><br />Please finish your battles quickly. No new battles can be started until the server resets in a few minutes.</div>`).update();
 			}
 			if (!slow && curRoom.requestKickInactive && !curRoom.battle.ended) {
@@ -860,8 +642,7 @@ class GlobalRoom {
 		const devRoom = Rooms('development');
 		if (devRoom) {
 			devRoom.add(crashMessage).update();
-		}
-		else {
+		} else {
 			if (Rooms.lobby) Rooms.lobby.add(crashMessage).update();
 			const staffRoom = Rooms('staff');
 			if (staffRoom) staffRoom.add(crashMessage).update();
@@ -903,15 +684,13 @@ class BattleRoom extends Room {
 		let rated;
 		if (options.rated && Tools.getFormat(formatid).rated !== false) {
 			rated = options.rated;
-		}
-		else {
+		} else {
 			rated = false;
 		}
 
 		if (options.tour) {
 			this.tour = options.tour;
-		}
-		else {
+		} else {
 			this.tour = false;
 		}
 
@@ -934,8 +713,7 @@ class BattleRoom extends Room {
 	push(message) {
 		if (typeof message === 'string') {
 			this.log.push(message);
-		}
-		else {
+		} else {
 			this.log = this.log.concat(message);
 		}
 	}
@@ -952,8 +730,7 @@ class BattleRoom extends Room {
 
 				if (winnerid === p1.userid) {
 					p1score = 1;
-				}
-				else if (winnerid === p2.userid) {
+				} else if (winnerid === p2.userid) {
 					p1score = 0;
 				}
 
@@ -968,19 +745,16 @@ class BattleRoom extends Room {
 				}
 				// update rankings
 				Ladders(this.battle.format).updateRating(p1name, p2name, p1score, this);
-			}
-			else if (Config.logchallenges) {
+			} else if (Config.logchallenges) {
 				// Log challenges if the challenge logging config is enabled.
 				if (winnerid === this.p1.userid) {
 					p1score = 1;
-				}
-				else if (winnerid === this.p2.userid) {
+				} else if (winnerid === this.p2.userid) {
 					p1score = 0;
 				}
 				this.update();
 				this.logBattle(p1score);
-			}
-			else {
+			} else {
 				this.battle.logData = null;
 			}
 			if (Config.autosavereplays) {
@@ -1004,8 +778,7 @@ class BattleRoom extends Room {
 			if (line === '|split') {
 				log.push(this.log[i + logNum + 1]);
 				i += 4;
-			}
-			else {
+			} else {
 				log.push(line);
 			}
 		}
@@ -1031,8 +804,7 @@ class BattleRoom extends Room {
 		if (!hasUsers) {
 			if (this.expireTimer) clearTimeout(this.expireTimer);
 			this.expireTimer = setTimeout(() => this.tryExpire(), TIMEOUT_EMPTY_DEALLOCATE);
-		}
-		else {
+		} else {
 			if (this.expireTimer) clearTimeout(this.expireTimer);
 			this.expireTimer = setTimeout(() => this.tryExpire(), TIMEOUT_INACTIVE_DEALLOCATE);
 		}
@@ -1087,9 +859,16 @@ class BattleRoom extends Room {
 	getInactiveSide() {
 		let p1active = this.battle.p1 && this.battle.p1.active;
 		let p2active = this.battle.p2 && this.battle.p2.active;
+		if (p1active && this.battle.requests.p1) {
+			if (!this.battle.requests.p1[2]) p1active = false;
+		}
+		if (p2active && this.battle.requests.p2) {
+			if (!this.battle.requests.p2[2]) p2active = false;
+
+		}
 		if (p1active && !p2active) return 1;
 		if (p2active && !p1active) return 0;
-		return this.battle.inactiveSide;
+		return -1;
 	}
 	sendPlayer(num, message) {
 		let player = this.getPlayer(num);
@@ -1129,8 +908,7 @@ class BattleRoom extends Room {
 				if (inactiveTicksLeft % 3 === 0 || inactiveTicksLeft <= 4) {
 					this.send('|inactive|' + (inactiveUser ? inactiveUser.name : 'Player ' + (inactiveSide + 1)) + ' has ' + (inactiveTicksLeft * 10) + ' seconds left.');
 				}
-			}
-			else {
+			} else {
 				// both sides are inactive
 				let inactiveUser0 = this.getPlayer(0);
 				if (inactiveUser0 && (ticksLeft[0] % 3 === 0 || ticksLeft[0] <= 4)) {
@@ -1149,8 +927,7 @@ class BattleRoom extends Room {
 		if (inactiveSide < 0) {
 			if (ticksLeft[0]) {
 				inactiveSide = 1;
-			}
-			else if (ticksLeft[1]) {
+			} else if (ticksLeft[1]) {
 				inactiveSide = 0;
 			}
 		}
@@ -1167,8 +944,7 @@ class BattleRoom extends Room {
 			if (!force && !(user in this.game.players)) return false;
 			this.resetUser = user.userid;
 			this.send('|inactive|Battle timer is now ON: inactive players will automatically lose when time\'s up. (requested by ' + user.name + ')');
-		}
-		else if (user === false) {
+		} else if (user === false) {
 			this.resetUser = '~';
 			this.add('|inactive|Battle timer is ON: inactive players will automatically lose when time\'s up.');
 		}
@@ -1176,13 +952,12 @@ class BattleRoom extends Room {
 		// a tick is 10 seconds
 
 		let maxTicksLeft = 15; // 2 minutes 30 seconds
-		if (!this.battle.p1 || !this.battle.p2 || !this.battle.p1.active || !this.battle.p2.active) {
-			// if a player has left, don't wait longer than 6 ticks (1 minute)
-			maxTicksLeft = 6;
-		}
 		if (!this.rated && !this.tour) maxTicksLeft = 30;
 
 		this.sideTurnTicks = [maxTicksLeft, maxTicksLeft];
+		// if a player has left, don't wait longer than 6 ticks (1 minute)
+		if (!this.battle.p1 || !this.battle.p1.active) this.sideTurnTicks[0] = 6;
+		if (!this.battle.p2 || !this.battle.p2.active) this.sideTurnTicks[1] = 6;
 
 		let inactiveSide = this.getInactiveSide();
 		if (inactiveSide < 0) {
@@ -1242,8 +1017,7 @@ class BattleRoom extends Room {
 						this.disconnectTickDiff[0] = this.sideTurnTicks[0] - 7;
 						this.sideTurnTicks[0] = 7;
 						changed = true;
-					}
-					else if (p2inactive && inactiveSide === 1 && this.sideTurnTicks[1] > 7) {
+					} else if (p2inactive && inactiveSide === 1 && this.sideTurnTicks[1] > 7) {
 						this.disconnectTickDiff[1] = this.sideTurnTicks[1] - 7;
 						this.sideTurnTicks[1] = 7;
 						changed = true;
@@ -1254,8 +1028,7 @@ class BattleRoom extends Room {
 						return true;
 					}
 				}
-			}
-			else if (!p1inactive && !p2inactive) {
+			} else if (!p1inactive && !p2inactive) {
 				// Only one of the following conditions should happen, but do
 				// them both since you never know...
 				if (this.disconnectTickDiff[0]) {
@@ -1284,12 +1057,10 @@ class BattleRoom extends Room {
 		if (user === null) {
 			this.modchatUser = '';
 			return;
-		}
-		else if (user.can('modchat') || !this.modchatUser || this.modchatUser === user.userid) {
+		} else if (user.can('modchat') || !this.modchatUser || this.modchatUser === user.userid) {
 			this.modchatUser = user.userid;
 			return;
-		}
-		else {
+		} else {
 			return "Only the user who set modchat and global staff can change modchat levels in battle rooms";
 		}
 	}
@@ -1302,7 +1073,7 @@ class BattleRoom extends Room {
 		if (this.users[user.userid]) return user;
 
 		if (user.named) {
-			this.add((this.reportJoins ? '|j|' : '|J|') + user.name).update();
+			this.add((this.reportJoins && !user.locked ? '|j|' : '|J|') + user.name).update();
 		}
 
 		this.users[user.userid] = user;
@@ -1315,7 +1086,7 @@ class BattleRoom extends Room {
 	}
 	onRename(user, oldid, joining) {
 		if (joining) {
-			this.add((this.reportJoins ? '|j|' : '|J|') + user.name);
+			this.add((this.reportJoins && !user.locked ? '|j|' : '|J|') + user.name);
 		}
 		delete this.users[oldid];
 		this.users[user.userid] = user;
@@ -1331,7 +1102,7 @@ class BattleRoom extends Room {
 		}
 		delete this.users[user.userid];
 		this.userCount--;
-		this.add((this.reportJoins ? '|l|' : '|L|') + user.name);
+		this.add((this.reportJoins && !user.locked ? '|l|' : '|L|') + user.name);
 
 		if (this.game && this.game.onLeave) {
 			this.game.onLeave(user);
@@ -1427,8 +1198,7 @@ class ChatRoom extends Room {
 
 		if (this.isPersonal) {
 			this.modlogStream = Rooms.groupchatModlogStream;
-		}
-		else {
+		} else {
 			this.modlogStream = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_' + roomid + '.txt'), {
 				flags: 'a+'
 			});
@@ -1498,8 +1268,7 @@ class ChatRoom extends Room {
 			this.logEntry = function () {};
 			this.logFile.on('close', finalCallback);
 			this.logFile.destroySoon();
-		}
-		else {
+		} else {
 			finalCallback();
 		}
 	}
@@ -1518,8 +1287,7 @@ class ChatRoom extends Room {
 			}
 			if (this.auth && this.auth[user.userid] && this.auth[user.userid] in groups) {
 				++groups[this.auth[user.userid]];
-			}
-			else {
+			} else {
 				++groups[user.group];
 			}
 		}
@@ -1557,8 +1325,7 @@ class ChatRoom extends Room {
 			}
 
 			this.reportJoinsQueue.push(entry);
-		}
-		else {
+		} else {
 			this.send(entry);
 		}
 		this.logEntry(entry);
@@ -1606,7 +1373,6 @@ class ChatRoom extends Room {
 		let userList = this.userList ? this.userList : this.getUserList();
 		this.sendUser(connection, '|init|chat\n|title|' + this.title + '\n' + userList + '\n' + this.getLogSlice(-100).join('\n') + this.getIntroMessage(user));
 		if (this.poll) this.poll.onConnect(user, connection);
-		if (this.survey) this.survey.onConnect(user, connection);
 		if (this.game && this.game.onConnect) this.game.onConnect(user, connection);
 	}
 	onJoin(user, connection) {
@@ -1629,11 +1395,9 @@ class ChatRoom extends Room {
 			if (joining) {
 				this.reportJoin('j', user.getIdentity(this.id));
 				if (this.staffMessage && user.can('mute', null, this)) this.sendUser(user, '|raw|<div class="infobox">(Staff intro:)<br /><div>' + this.staffMessage.replace(/\n/g, '') + '</div></div>');
-			}
-			else if (!user.named) {
+			} else if (!user.named) {
 				this.reportJoin('l', oldid);
-			}
-			else {
+			} else {
 				this.reportJoin('n', user.getIdentity(this.id) + '|' + oldid);
 			}
 			if (this.poll && user.userid in this.poll.voters) this.poll.updateFor(user);

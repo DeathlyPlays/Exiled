@@ -12,7 +12,7 @@ let selectors;
 
 let amCache = {
 	anime: {},
-	manga: {}
+	manga: {},
 };
 
 let colorCache = {};
@@ -23,14 +23,6 @@ global.isYouTube = function (user) {
 	if (typeof user === 'Object') user = user.userid;
 	let youtube = Db('youtube').get(toId(user));
 	if (youtube === 1) return true;
-	return false;
-};
-
-global.isBot = function (user) {
-	if (!user) return;
-	if (typeof user === 'Object') user = user.userid;
-	let bot = Db('bot').get(toId(user));
-	if (bot === 1) return true;
 	return false;
 };
 
@@ -106,17 +98,17 @@ exports.commands = {
 
 		switch (toId(parts[0])) {
 		case 'give':
-			if (!this.can('hotpatch')) return false;
+			if (!this.can('lock')) return false;
 			if (parts[1] < 1) return false;
 			if (!parts[1]) return false;
 			if (isYouTube(username)) return this.errorReply(user.name + " is already a YouTuber.");
 			Db('youtube').set(username, 1);
-			user.send('|popup|' + toId(parts[1]) + " has recieved YouTube status from " + user.name + "");
+			user.send('|popup|' + toId(parts[1]) + " has received YouTube status from " + user.name + "");
 			this.sendReply(username + ' has been granted with YouTube status.');
 			break;
 
 		case 'take':
-			if (!this.can('hotpatch')) return false;
+			if (!this.can('lock')) return false;
 			if (!parts[1] < 1) return false;
 			if (!parts[1]) return false;
 			Db('youtube').delete(username);
@@ -125,7 +117,7 @@ exports.commands = {
 			break;
 
 		case 'list':
-			if (!this.can('declare')) return false;
+			if (!this.can('broadcast')) return false;
 			if (!Object.keys(Db('youtube').object()).length) return this.errorReply('There seems to be no user with YouTuber status.');
 			this.sendReplyBox('<center><b><u>YouTubers</u></b></center>' + '<br /><br />' + Object.keys(Db('youtube').object()).join('<br />'));
 			break;
@@ -134,21 +126,20 @@ exports.commands = {
 		default:
 			this.parse("/help youtube");
 		}
-
 	},
 	youtubehelp: ["Give: /youtube give, user - Gives user YouTuber status.",
 		"Take: /youtube take, user - Takes YouTuber status from user.",
-		"List: /youtube list - Lists all users with YouTuber status."
+		"List: /youtube list - Lists all users with YouTuber status.",
 	],
 
-	/* * * * * * * * * * * * * * * *
-	 * User of the Week            *
-	 * Created by Celestial        *
-	 * * * * * * * * *  * * * * *  */
+	/* * * * * * * * * * * * *
+	 * User of the Week      *
+	 * Created by Celestial  *
+	 * * * * * * * * * * * * */
 	useroftheweek: 'uotw',
 	uotw: function (target, room, user) {
 		if (toId(target.length) >= 19) return this.errorReply("Usernames have to be 18 characters or less");
-		if (!this.can('forcewin')) return false;
+		if (!this.can('lock')) return false;
 		if (!room.chatRoomData) return;
 		if (!target) {
 			if (!this.runBroadcast()) return;
@@ -157,7 +148,7 @@ exports.commands = {
 				"The current <strong>User of the Week</strong>  is: " + room.chatRoomData.user
 			);
 		}
-		if (!this.can('declare', null, room)) return false;
+		if (!this.can('lock', null, room)) return false;
 		if (target === 'off' || target === 'disable' || target === 'reset') {
 			if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
 			delete room.chatRoomData.user;
@@ -176,61 +167,14 @@ exports.commands = {
 	useroftheweekhelp: 'uotwhelp',
 	uotwhelp: [
 		"/uotw - View the current User of the Week",
-		"/uotw [user] - Set the User of the Week. Requires: & ~"
-	],
-	/* * * * * * * * * * * *
-	 * Bots List           *
-	 * by ReturningAvenger *
-	 * * * * * * * * * * * */
-
-	bot: function (target, room, user) {
-		let parts = target.split(', ');
-		if (!target) return this.parse("/help bot");
-		let username = toId(parts[1]);
-
-		switch (toId(parts[0])) {
-		case 'give':
-			if (!this.can('hotpatch')) return false;
-			if (parts[1] < 1) return false;
-			if (!parts[1]) return false;
-			if (isBot(username)) return this.errorReply(user.name + " is already a bot.");
-			Db('bot').set(username, 1);
-			user.send('|popup|' + toId(parts[1]) + " has recieved Bot status from " + user.name + "");
-			this.sendReply(username + ' has been granted with Bot status.');
-			break;
-
-		case 'take':
-			if (!this.can('hotpatch')) return false;
-			if (!parts[1] < 1) return false;
-			if (!parts[1]) return false;
-			Db('bot').delete(username);
-			user.send('|popup|' + toId(parts[1]) + " has taken Bot status from " + user.name + "");
-			this.sendReply(toId(parts[1]) + '\'s bot status has been taken.');
-			break;
-
-		case 'list':
-			if (!this.can('declare')) return false;
-			if (!Object.keys(Db('bot').object()).length) return this.errorReply('There seems to be no user with Bot status.');
-			this.sendReplyBox('<center><b><u>Bots</u></b></center>' + '<br /><br />' + Object.keys(Db('bot').object()).join('<br />'));
-			break;
-
-
-		default:
-			this.parse("/help bot");
-		}
-
-	},
-	bothelp: [
-		"Give: /bot give, user - Gives user Bot status.",
-		"Take: /bot take, user - Takes Bot status from user.",
-		"List: /bot list - Lists all users with Bot status."
+		"/uotw [user] - Set the User of the Week. Requires: % or higher.",
 	],
 
-/* * * * * * * *
- * Devs List   *
- * Created By: *
- * CateQuil    *
- * * * * * * * */
+	/* * * * * * * *
+	 * Devs List   *
+	 * Created By: *
+	 * CateQuil    *
+	 * * * * * * * */
 
 	dev: function (target, room, user) {
 		let parts = target.split(', ');
@@ -239,17 +183,17 @@ exports.commands = {
 
 		switch (toId(parts[0])) {
 		case 'give':
-			if (!this.can('hotpatch')) return false;
+			if (!this.can('lock')) return false;
 			if (parts[1] < 1) return false;
 			if (!parts[1]) return false;
 			if (isDev(username)) return this.errorReply(user.name + " is already a dev.");
 			Db('devs').set(username, 1);
-			user.send('|popup|' + toId(parts[1]) + " has recieved Developer status from " + user.name + "");
+			user.send('|popup|' + toId(parts[1]) + " has received Developer status from " + user.name + "");
 			this.sendReply(username + ' has been granted with dev status.');
 			break;
 
 		case 'take':
-			if (!this.can('hotpatch')) return false;
+			if (!this.can('lock')) return false;
 			if (!parts[1] < 1) return false;
 			if (!parts[1]) return false;
 			Db('devs').delete(username);
@@ -258,34 +202,32 @@ exports.commands = {
 			break;
 
 		case 'list':
-			if (!this.can('declare')) return false;
+			if (!this.can('broadcast')) return false;
 			if (!Object.keys(Db('devs').object()).length) return this.errorReply('There seems to be no user with dev status.');
 			this.sendReplyBox('<center><b><u>DEV Users</u></b></center>' + '<br /><br />' + Object.keys(Db('devs').object()).join('<br />'));
 			break;
 
-
 		default:
 			this.parse("/help dev");
 		}
-
 	},
 	devhelp: ["Give: /dev give, user - Gives user developer status.",
 		"Take: /dev take, user - Takes developer status from user.",
-		"List: /dev list - Lists all users with developer status."
+		"List: /dev list - Lists all users with developer status.",
 	],
 
 	/* * * * * * * * * * * * *
 	 *  Allow various games  *
 	 *  to be played in      *
 	 *  unspecified rooms    *
-	 *  by ReturningAvenger  *
+	 *  by Insist		     *
 	 * * * * * * * * * * * * */
 
 	registerquestionws: 'registertrivia',
 	registerqws: 'registertrivia',
 	registerquestionworkshop: 'registertrivia',
 	registertrivia: function (target, room, user) {
-		if (!user.can('declare')) return this.errorReply("/registertrivia - Access denied");
+		if (!user.can('lock')) return this.errorReply("/registertrivia - Access denied");
 		if (!target) return this.parse("/help registertrivia");
 		if (!Rooms(toId(target))) return this.errorReply("The specified room does not exist");
 		let targetRoom = Rooms(toId(target));
@@ -295,16 +237,15 @@ exports.commands = {
 			targetRoom.isQuestionWorkshop = true;
 			targetRoom.chatRoomData.isQuestionWorkshop = true;
 			Rooms.global.writeChatRoomData();
-		}
-		else {
+		} else {
 			this.errorReply("This room already is registered as a Trivia room.");
 		}
 	},
-	registertriviahelp: ["/registertrivia [room] - Adds Trivia to a room. Requires & ~"],
+	registertriviahelp: ["/registertrivia [room] - Adds Trivia to a room. Requires % or higher."],
 
 
 	deregistertrivia: function (target, room, user) {
-		if (!user.can('declare')) return this.errorReply("/deregistertrivia - Access denied");
+		if (!user.can('lock')) return this.errorReply("/deregistertrivia - Access denied");
 		if (!target) return this.parse("/help deregistertrivia");
 		if (!Rooms(toId(target))) return this.errorReply("The specified room does not exist");
 		let targetRoom = Rooms(toId(target));
@@ -314,16 +255,15 @@ exports.commands = {
 			delete targetRoom.chatRoomData.isQuestionWorkshop;
 			Rooms.global.writeChatRoomData();
 			this.sendReply("Trivia has been removed from this room.");
-		}
-		else {
+		} else {
 			this.errorReply("This room is not registered as a Trivia room.");
 		}
 	},
-	deregistertriviahelp: ["/deregistertrivia [room] - Removes Trivia from a room. Requires & ~"],
+	deregistertriviahelp: ["/deregistertrivia [room] - Removes Trivia from a room. Requires % or higher."],
 
 
 	registerscavenger: function (target, room, user) {
-		if (!user.can('declare')) return this.errorReply("/registerscavenger - Access denied");
+		if (!user.can('lock')) return this.errorReply("/registerscavenger - Access denied");
 		if (!target) return this.parse("/help registerscavenger");
 		if (!Rooms(toId(target))) return this.errorReply("The specified room does not exist");
 		let targetRoom = Rooms(toId(target));
@@ -333,15 +273,14 @@ exports.commands = {
 			targetRoom.isScavenger = true;
 			targetRoom.chatRoomData.isScavenger = true;
 			Rooms.global.writeChatRoomData();
-		}
-		else {
+		} else {
 			this.errorReply("This room already is registered as a Scavenger room.");
 		}
 	},
-	registerscavengerhelp: ["/registerscavenger [room] - Adds Scavenger to a room. Requires & ~"],
+	registerscavengerhelp: ["/registerscavenger [room] - Adds Scavenger to a room. Requires % or higher."],
 
 	deregisterscavenger: function (target, room, user) {
-		if (!user.can('declare')) return this.errorReply("/deregisterscavenger - Access denied");
+		if (!user.can('lock')) return this.errorReply("/deregisterscavenger - Access denied");
 		if (!target) return this.parse("/help deregisterscavenger");
 		if (!Rooms(toId(target))) return this.errorReply("The specified room does not exist");
 		let targetRoom = Rooms(toId(target));
@@ -351,12 +290,11 @@ exports.commands = {
 			delete targetRoom.chatRoomData.isScavenger;
 			Rooms.global.writeChatRoomData();
 			this.sendReply("Scavenger has been removed from this room.");
-		}
-		else {
+		} else {
 			this.errorReply("This room is not registered as a Scavenger room.");
 		}
 	},
-	deregisterscavengerhelp: ["/deregisterscavenger [room] - Removes Scavenger from a room. Requires & ~"],
+	deregisterscavengerhelp: ["/deregisterscavenger [room] - Removes Scavenger from a room. Requires % or higher."],
 
 	etour: function (target, room, user) {
 		if (!target) return this.parse("/help etour");
@@ -425,13 +363,13 @@ exports.commands = {
 		return this.parse('feelssota feelstini tinitini sotalove');
 	},
 
-    devs: function (target, room, user) {
-        if (!this.runBroadcast()) return;
-        this.sendReplyBox('<div style="background-color: red ; border: pink solid 2px ; height: 100px"><center><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="left"><img src="http://i.imgur.com/PgQAAI1.png" height="74" width="250"><img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="right"></center></div><table style="text-align: center ; background-color: Black ; border: Red solid 2px ; width: 100% ; border-collapse: collapse"><tbody><tr><td style="border: Red solid 2px ; color: White ; width: 22%"><img style="transform: scaleX(-1);" src="https://avatars2.githubusercontent.com/u/20971990?v=3&s=460" height="80" width="80"><br>Insist</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img src="http://i.imgur.com/C3bFaZT.png" height="80" width="80"><br>Ninetales >n<</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img style="transform: scaleX(-1);" src="https://files.graphiq.com/620/media/images/Volcanion_5208962.png" height="80" width="80"><br>Volco</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img src="http://i.imgur.com/IXS2qYX.png" height="80" width="80"><br>HoeenHero</td></tr></tbody></table>');
-    },
-    devshelp: ["/devs - Shows the coders of the server."],
+	devs: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		this.sendReplyBox('<div style="background-color: red ; border: pink solid 2px ; height: 100px"><center><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="left"><img src="http://i.imgur.com/PgQAAI1.png" height="74" width="250"><img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="right"></center></div><table style="text-align: center ; background-color: Black ; border: Red solid 2px ; width: 100% ; border-collapse: collapse"><tbody><tr><td style="border: Red solid 2px ; color: White ; width: 22%"><img style="transform: scaleX(-1);" src="https://avatars2.githubusercontent.com/u/20971990?v=3&s=460" height="80" width="80"><br>Insist</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img src="http://i.imgur.com/C3bFaZT.png" height="80" width="80"><br>Ninetales >n<</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img style="transform: scaleX(-1);" src="https://files.graphiq.com/620/media/images/Volcanion_5208962.png" height="80" width="80"><br>Volco</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img src="http://i.imgur.com/IXS2qYX.png" height="80" width="80"><br>HoeenHero</td></tr></tbody></table>');
+	},
+	devshelp: ["/devs - Shows the coders of the server."],
 
-    def: 'define',
+	def: 'define',
 	define: function (target, room, user) {
 		if (!target) return this.parse('/help define');
 		target = toId(target);
@@ -453,8 +391,7 @@ exports.commands = {
 				if (!page[0]) {
 					self.sendReplyBox("No results for <b>\"" + target + "\"</b>.");
 					return room.update();
-				}
-				else {
+				} else {
 					let count = 1;
 					for (let u in page) {
 						if (count > 3) break;
@@ -502,8 +439,7 @@ exports.commands = {
 				if (page['result_type'] === 'no_results') {
 					self.sendReplyBox("No results for <b>\"" + Chat.escapeHTML(target) + "\"</b>.");
 					return room.update();
-				}
-				else {
+				} else {
 					if (!definitions[0]['word'] || !definitions[0]['definition']) {
 						self.sendReplyBox("No results for <b>\"" + Chat.escapeHTML(target) + "\"</b>.");
 						return room.update();
@@ -608,6 +544,7 @@ exports.commands = {
 	},
 
 	roomleader: function (target, room, user) {
+
 		if (!room.chatRoomData) {
 			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
 		}
@@ -662,17 +599,17 @@ exports.commands = {
 		args.forEach(function (room) {
 			selectors += ', #' + toId(room) + '-userlist-user-' + username;
 		});
-		selectors += ' { \n' + '    ' + image +  '\n  }';
+		selectors += ' { \n' + '    ' + image + '\n  }';
 
 		logMoney(user.name + " has set an icon to " + username + ".");
 		this.privateModCommand("(" + user.name + " has set an icon to  " + username + ")");
-		Rooms('staff').add('|raw|' + user.name + " has set an icon to " + username +  ".").update();
+		Rooms('staff').add('|raw|' + user.name + " has set an icon to " + username + ".").update();
 		writeIconCSS();
 	},
 	seticonhelp: ["/seticon [username], [image], [room 1], [room 2], etc. - Sets an icon to a user in chosen rooms."],
 
 	light: 'thunder',
-	thunder: function(target, room, user) {
+	thunder: function (target, room, user) {
 		if (user.can('broadcast', null, room)) {
 			var colors = ['#ffff00'];
 			if (!target) return this.sendReply('/thunder message');
@@ -688,14 +625,13 @@ exports.commands = {
 				}
 			}
 			if (target.indexOf('/me') > -1) {
-				room.add('|raw|<small><i>' + user.group + '</small><b>' + userColor + '</b>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+				room.add('|raw|<small><i>' + user.group + '</small><b>' + userColor + '</b>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
 			} else {
 				room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
 			}
-		}
-		else return this.errorReply('You must be voiced to use this command.');
+		} else return this.errorReply('You must be voiced to use this command.');
 	},
-	flame: function(target, room, user) {
+	flame: function (target, room, user) {
 		if (user.can('broadcast', null, room)) {
 			var colors = ['#ff0000'];
 			if (!target) return this.sendReply('/flame message');
@@ -711,14 +647,13 @@ exports.commands = {
 				}
 			}
 			if (target.indexOf('/me') > -1) {
-				room.add('|raw|<small><i>' + user.group + '</small><b>' + userColor + '</b>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+				room.add('|raw|<small><i>' + user.group + '</small><b>' + userColor + '</b>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
 			} else {
 				room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
 			}
-		}
-		else return this.errorReply('You must be voiced to use this command.');
+		} else return this.errorReply('You must be voiced to use this command.');
 	},
-	rain: function(target, room, user) {
+	rain: function (target, room, user) {
 		if (user.can('broadcast', null, room)) {
 			var colors = ['#33ccff'];
 			if (!target) return this.sendReply('/rain message');
@@ -729,13 +664,12 @@ exports.commands = {
 				randomNumber = Math.floor(Math.random() * colors.length);
 				if (user.name.substring(x, x + 1) !== undefined) {
 					userColor += '<font color="' + colors[randomNumber] + '">' + user.name.substring(x, x + 1) + '</font>';
-				}
-				else {
+				} else {
 					userColor += '<font color="' + colors[randomNumber] + '">:</font>';
 				}
 			}
 			if (target.indexOf('/me') > -1) {
-				room.add('|raw|<small><i>' + user.group + '</small><b>' + userColor + '</b>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+				room.add('|raw|<small><i>' + user.group + '</small><b>' + userColor + '</b>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
 			} else {
 				room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
 			}
@@ -811,8 +745,8 @@ exports.commands = {
 						room.update();
 					});
 			})
-			.catch(error => {
-				return this.errorReply("Anime not found.");
-			});
+		.catch(error => {
+			return this.errorReply("Anime not found.");
+		});
 	},
 };

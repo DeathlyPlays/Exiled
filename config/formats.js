@@ -1347,12 +1347,12 @@ exports.Formats = [
 					spa: -6,
 					atk: -6,
 					def: -6,
-					spd: -6
+					spd: -6,
 				});
 			}
 			if (name === 'illuminati' && !pokemon.illusion) {
 				this.boost({
-					spe: 6
+					spe: 6,
 				});
 			}
 			if (name === 'michael' && !pokemon.illusion) {
@@ -1419,12 +1419,12 @@ exports.Formats = [
 			}
 			if (name === 'vividisagod' && !pokemon.illusion) {
 				this.boost({
-					spe: 1
+					spe: 1,
 				});
 			}
 			if (name === 'volco' && !pokemon.illusion) {
 				this.boost({
-					spe: 1
+					spe: 1,
 				});
 			}
 			if (name === 'wobbleleez' && !pokemon.illusion) {
@@ -1432,7 +1432,7 @@ exports.Formats = [
 				pokemon.types = ["Psychic", "Fairy"];
 				this.boost({
 					def: 1,
-					spd: 1
+					spd: 1,
 				});
 			}
 		},
@@ -1531,7 +1531,6 @@ exports.Formats = [
 		onBegin: function () {
 			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
 			this.add('message', "GET READY FOR THE NEXT BATTLE!");
-			this.add('message', "For more information on a user's staffmon, use /essb (authed user's name)!");
 			// This variable saves the status of a spammy conversation to be played, so it's only played once.
 			this.convoPlayed = false;
 		},
@@ -1723,7 +1722,7 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "Advanced Wars (BETA)",
+		name: "[Gen 7] Advanced Wars (BETA)",
 		section: "Exiled's Custom Gamemodes",
 		mod: "advancedwars",
 		team: "randomAdvancedWars",
@@ -1735,11 +1734,11 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "Fakemons Random Battle",
+		name: "[Gen 7] Fakemons Random Battle",
 		section: "Exiled Fakemons",
 		column: 5,
-		mod: 'fakemons',
-		team: 'random',
+		mod: "fakemons",
+		team: "random",
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		desc: [
 			"This is the Exiled Fakemons metagame, in which you use Exiled community created Pok&eacute.",
@@ -1747,7 +1746,7 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "Fakemons",
+		name: "[Gen 7] Fakemons",
 		mod: "fakemons",
 		section: "Exiled Fakemons",
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
@@ -1809,8 +1808,7 @@ exports.Formats = [
 					if (item.megaStone) return ["You are limited to two of each Mega Stone.", "(You have more than two " + this.getItem(item).name + ")"];
 					if (item.id === 'blueorb' || item.id === 'redorb') return ["You are limited to two of each Primal Orb.", "(You have more than two " + this.getItem(item).name + ")"];
 					itemTable[item]++;
-				}
-				else {
+				} else {
 					itemTable[item] = 1;
 				}
 			}

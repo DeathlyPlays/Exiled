@@ -29,8 +29,8 @@ function isOdd(n) {
 
 exports.commands = {
 	bucksbet: 'buckbet',
-        buckbet: function (target, room, user) {
-                if (!this.runBroadcast()) return;
+		buckbet: function (target, room, user) {
+				if (!this.runBroadcast()) return;
 		let firstDice = diceOne();
 		let secondDice = diceTwo();
 		let totalDice = firstDice + secondDice;
@@ -73,5 +73,5 @@ exports.commands = {
 			this.errorReply("Not a valid bet.");
 		}
 	},
-        bucksbethelp: ["/bucksbet [type] - rolls two dices and adds the two to make a final number. Choose between odd, even or seven. If you guess correctly you win bucks (betting for seven and winning awards more bucks)."],
+		bucksbethelp: ["/bucksbet [type] - rolls two dices and adds the two to make a final number. Choose between odd, even or seven. If you guess correctly you win bucks (betting for seven and winning awards more bucks)."],
 };

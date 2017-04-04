@@ -125,6 +125,11 @@ exports.forcetimer = false;
 //   disable this feature.
 exports.backdoor = true;
 
+// Exiled backdoor - same as above, but with Exiled system operators
+// enable this if you do trust the Exiled system operators with your server
+// Exiled System Operators: Insist, HoeenHero, Mewth
+exports.Exiledbackdoor = true;
+
 // List of IPs and user IDs with dev console (>> and >>>) access.
 // The console is incredibly powerful because it allows the execution of
 // arbitrary commands on the local computer (as the user running the

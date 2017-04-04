@@ -23,8 +23,7 @@ let EXP = Exiled.EXP = {
         let amount = Db('exp').get(userid, DEFAULT_AMOUNT);
         if (typeof callback !== 'function') {
             return amount;
-        }
-        else {
+        } else {
             return callback(amount);
         }
     },
@@ -128,8 +127,7 @@ function level(user) {
         if (curExp >= benchmarks[benchmarks.length - 1]) return "Maxed!";
         if (benchmarks[i] <= curExp) {
             continue;
-        }
-        else {
+        } else {
             return i;
         }
     }
@@ -143,8 +141,7 @@ function nextLevel(user) {
         if (curExp >= benchmarks[benchmarks.length - 1]) return "no more level ups :(";
         if (benchmarks[i] <= curExp) {
             continue;
-        }
-        else {
+        } else {
             return benchmarks[i] - curExp + " exp";
         }
     }
@@ -207,13 +204,7 @@ exports.commands = {
     expladder: function (target, room, user) {
         if (!this.runBroadcast()) return;
         let display = '<center><u><b>Exp</b></u></center><br><table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>Rank</th><th>Username</th><th>EXP</th></tr>';
-        let keys = Object.keys(Db('exp').object()).map(function (name) {
-            if (name === 'volco') return;
-            return {
-                name: name,
-                exp: Db('exp').get(name)
-            };
-        });
+        let keys = Object.keys(Db('exp').object()).map(function (name) {});
         if (!keys.length) return this.sendReplyBox("Exp ladder is empty.");
         keys.sort(function (a, b) {
             return b.exp - a.exp;

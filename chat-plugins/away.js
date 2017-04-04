@@ -1,8 +1,6 @@
 'use strict';
 
-let color = require('../config/color');
-
-let bubbleLetterMap = new Map([
+const bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
 	['n', '\u24DD'], ['o', '\u24DE'], ['p', '\u24DF'], ['q', '\u24E0'], ['r', '\u24E1'], ['s', '\u24E2'], ['t', '\u24E3'], ['u', '\u24E4'], ['v', '\u24E5'], ['w', '\u24E6'], ['x', '\u24E7'], ['y', '\u24E8'], ['z', '\u24E9'],
 	['A', '\u24B6'], ['B', '\u24B7'], ['C', '\u24B8'], ['D', '\u24B9'], ['E', '\u24BA'], ['F', '\u24BB'], ['G', '\u24BC'], ['H', '\u24BD'], ['I', '\u24BE'], ['J', '\u24BF'], ['K', '\u24C0'], ['L', '\u24C1'], ['M', '\u24C2'],
@@ -10,7 +8,7 @@ let bubbleLetterMap = new Map([
 	['1', '\u2460'], ['2', '\u2461'], ['3', '\u2462'], ['4', '\u2463'], ['5', '\u2464'], ['6', '\u2465'], ['7', '\u2466'], ['8', '\u2467'], ['9', '\u2468'], ['0', '\u24EA'],
 ]);
 
-let asciiMap = new Map([
+const asciiMap = new Map([
 	['\u24D0', 'a'], ['\u24D1', 'b'], ['\u24D2', 'c'], ['\u24D3', 'd'], ['\u24D4', 'e'], ['\u24D5', 'f'], ['\u24D6', 'g'], ['\u24D7', 'h'], ['\u24D8', 'i'], ['\u24D9', 'j'], ['\u24DA', 'k'], ['\u24DB', 'l'], ['\u24DC', 'm'],
 	['\u24DD', 'n'], ['\u24DE', 'o'], ['\u24DF', 'p'], ['\u24E0', 'q'], ['\u24E1', 'r'], ['\u24E2', 's'], ['\u24E3', 't'], ['\u24E4', 'u'], ['\u24E5', 'v'], ['\u24E6', 'w'], ['\u24E7', 'x'], ['\u24E8', 'y'], ['\u24E9', 'z'],
 	['\u24B6', 'A'], ['\u24B7', 'B'], ['\u24B8', 'C'], ['\u24B9', 'D'], ['\u24BA', 'E'], ['\u24BB', 'F'], ['\u24BC', 'G'], ['\u24BD', 'H'], ['\u24BE', 'I'], ['\u24BF', 'J'], ['\u24C0', 'K'], ['\u24C1', 'L'], ['\u24C2', 'M'],
@@ -20,25 +18,41 @@ let asciiMap = new Map([
 
 function parseStatus(text, encoding) {
 	if (encoding) {
-		text = text.split('').map(function (char) {
-			return bubbleLetterMap.get(char);
-		}).join('');
+		text = text
+			.split('')
+			.map(char => bubbleLetterMap.get(char))
+			.join('');
 	} else {
-		text = text.split('').map(function (char) {
-			return asciiMap.get(char);
-		}).join('');
+		text = text
+			.split('')
+			.map(char => asciiMap.get(char))
+			.join('');
 	}
 	return text;
 }
 
 exports.commands = {
-	away: function (target, room, user) {
-		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
-		if (!user.isAway && user.name.length > 30) return this.sendReply("Your username is too long for any kind of use of this command.");
+	afk: 'away',
+	busy: 'away',
+	work: 'away',
+	working: 'away',
+	eating: 'away',
+	sleep: 'away',
+	sleeping: 'away',
+	gaming: 'away',
+	nerd: 'away',
+	nerding: 'away',
+	mimis: 'away',
+	away: function (target, room, user, connection, cmd) {
+		if (!user.isAway && user.name.length > 19 && !user.can('lock')) return this.sendReply("Your username is too long for any kind of use of this command.");
+		if (!this.canTalk()) return false;
 
 		target = target ? target.replace(/[^a-zA-Z0-9]/g, '') : 'AWAY';
+		if (cmd !== 'away') target = cmd;
 		let newName = user.name;
 		let status = parseStatus(target, true);
+		let statusLen = status.length;
+		if (statusLen > 14) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
 
 		if (user.isAway) {
 			let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/);
@@ -47,7 +61,7 @@ exports.commands = {
 		}
 
 		newName += ' - ' + status;
-		if (newName.length > 30) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
+		if (newName.length > 18 && !user.can('lock')) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
 
 		// forcerename any possible impersonators
 		let targetUser = Users.getExact(user.userid + target);
@@ -56,12 +70,13 @@ exports.commands = {
 			targetUser.send("|nametaken||Your name conflicts with " + user.name + (user.name.substr(-1) === "s" ? "'" : "'s") + " new away status.");
 		}
 
-		if (user.can('lock', null, room)) this.add("|raw|-- <font color='" + color(user.userid) + "'><strong>" + Chat.escapeHTML(user.name) + "</strong></font> is now " + target.toLowerCase() + ".");
+		if (user.can('mute', null, room)) this.add("|raw|-- " + Exiled.nameColor(user.name, true) + " is now " + target.toLowerCase() + ".");
+		if (user.can('lock')) this.parse('/hide');
 		user.forceRename(newName, user.registered);
 		user.updateIdentity();
 		user.isAway = true;
-		this.parse("/hide ")
 	},
+	awayhelp: ["/away [message] - Sets a user's away status."],
 
 	back: function (target, room, user) {
 		if (!user.isAway) return this.sendReply("You are not set as away.");
@@ -71,7 +86,7 @@ exports.commands = {
 		let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/);
 		if (statusIdx < 0) {
 			user.isAway = false;
-			if (user.can('lock', null, room)) this.add("|raw|-- <font color='" + color(user.userid) + "'><strong>" + Chat.escapeHTML(user.name) + "</strong></font> is no longer away.");
+			if (user.can('mute', null, room)) this.add("|raw|-- " + Exiled.nameColor(user.userid, true) + " is no longer away.");
 			return false;
 		}
 
@@ -80,59 +95,8 @@ exports.commands = {
 		user.forceRename(newName, user.registered);
 		user.updateIdentity();
 		user.isAway = false;
-		this.parse("/show")
-		if (user.can('lock', null, room)) this.add("|raw|-- <font color='" + color(user.userid) + "'><strong>" + Chat.escapeHTML(newName) + "</strong></font> is no longer " + status.toLowerCase() + ".");
+		if (user.can('mute', null, room)) this.add("|raw|-- " + Exiled.nameColor(user.userid, true) + " is no longer " + status.toLowerCase() + ".");
+		if (user.can('lock')) this.parse('/show');
 	},
-
-	afk: function (target, room, user) {
-		this.parse('/away AFK');
-	},
-
-	busy: function (target, room, user) {
-		this.parse('/away BUSY');
-	},
-
-	work: function (target, room, user) {
-		this.parse('/away WORK');
-	},
-
-	working: function (target, room, user) {
-		this.parse('/away WORKING');
-	},
-
-	eating: function (target, room, user) {
-		this.parse('/away EATING');
-	},
-
-	gaming: function (target, room, user) {
-		this.parse('/away GAMING');
-	},
-
-	sleep: function (target, room, user) {
-		this.parse('/away SLEEP');
-	},
-
-	sleeping: function (target, room, user) {
-		this.parse('/away SLEEPING');
-	},
-
-	fap: function (target, room, user) {
-		this.parse('/away FAP');
-	},
-
-	fapping: function (target, room, user) {
-		this.parse('/away FAPPING');
-	},
-
-	nerd: function (target, room, user) {
-		this.parse('/away NERD');
-	},
-
-	nerding: function (target, room, user) {
-		this.parse('/away NERDING');
-	},
-
-	mimis: function (target, room, user) {
-		this.parse('/away MIMIS');
-	},
-};
+	backhelp: ["/back - Sets a users away status back to normal."],
+};	

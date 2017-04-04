@@ -28,11 +28,11 @@ const HOURMUTE_LENGTH = 60 * 60 * 1000;
 
 exports.commands = {
 
-		'!version': true,
-		version: function (target, room, user) {
-			if (!this.runBroadcast()) return;
-			this.sendReplyBox("Server version: <b>" + Chat.package.version + "</b>");
-		},
+	'!version': true,
+	version: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		this.sendReplyBox("Server version: <b>" + Chat.package.version + "</b>");
+	},
 
 		'!authority': true,
 		auth: 'authority',

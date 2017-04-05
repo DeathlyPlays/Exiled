@@ -284,7 +284,7 @@ exports.commands = {
 		let keys = Object.keys(Db('points').object()).map(function (name) {
 			return {
 				name: name,
-				points: getPointTotal(name)
+				points: getPointTotal(name),
 			};
 		});
 		if (!keys.length) return this.sendReplyBox("Card ladder is empty.");
@@ -372,8 +372,7 @@ exports.commands = {
 					if (parts.indexOf(m) > -1) {
 						// remove it
 						newParams.splice(newParams.indexOf(m), 1);
-					}
-					else {
+					} else {
 						newParams.push(m);
 					}
 
@@ -561,8 +560,7 @@ exports.commands = {
 		// decide which trade to display
 		if (target === "last") {
 			target = userTrades.length - 1;
-		}
-		else {
+		} else {
 			// when there is no target (initial use of command)
 			if (!target) target = 0;
 			target = parseInt(target);
@@ -608,8 +606,7 @@ exports.commands = {
 		let navigationButtons;
 		if (userTrades.length === 1) {
 			navigationButtons = '<center><button style="background-color:deepskyblue;height:30px;width:30px">1</button></center>';
-		}
-		else {
+		} else {
 			// build min and mas
 			let min = '<button style="background-color:lightblue;height:30px;width:30px" name="send" value="/viewcardtrades 0">1</button>&nbsp;&nbsp;&nbsp;';
 			let max = '&nbsp;&nbsp;&nbsp;<button style="background-color:lightblue;height:30px;width:30px" name="send" value="/viewcardtrades last">' + (userTrades.length) + '</button>';
@@ -632,8 +629,7 @@ exports.commands = {
 						let style = n === target ? "background-color:deepskyblue;height:30px;width:30px" : "background-color:aliceblue;height:30px;width:30px";
 						return '<button style="' + style + '" name="send" value="/viewcardtrades ' + n + '">' + (n + 1) + '</button>';
 					}).join("&nbsp;") + (displayRange[displayRange.length - 1] !== range.length ? " ..." : "");
-				}
-				else {
+				} else {
 					// just map the range
 					middle = range.map(n => {
 						n = parseInt(n);
@@ -678,8 +674,7 @@ exports.commands = {
 			if (trade.to === user.userid) {
 				accepter = "to";
 				otherTarget = "from";
-			}
-			else {
+			} else {
 				// user has no say in this trade
 				return user.popup(tradeError);
 			}
@@ -762,8 +757,7 @@ exports.commands = {
 				// check that the action is correct
 				if (trade.from === user.userid && action === "reject") action = "cancel";
 				if (trade.to === user.userid && action !== "reject" && action !== "forcecancel") action = "reject";
-			}
-			else {
+			} else {
 				return user.popup(tradeError);
 			}
 
@@ -776,8 +770,7 @@ exports.commands = {
 				targetUser = Users.get(trade.from);
 				if (targetUser) targetUser.popup("Your trade request with " + user.userid + " was rejected");
 				user.popup("|html|" + backButton + "You have rejected " + trade.from + "'s trade request.");
-			}
-			else {
+			} else {
 				user.popup("|html|" + backButton + popupText[action]);
 			}
 			break;

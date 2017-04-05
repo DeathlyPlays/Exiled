@@ -15,7 +15,7 @@
 
 global.Config = require('./config/config');
 
-global.Db = require('nef')(require('nef-fs')('config/db'));
+global.Db = require('origindb')('config/db');
 
 const ProcessManager = require('./process-manager');
 
@@ -279,14 +279,14 @@ class Battle {
 			break;
 		case 'caught':
 			lines[2] = lines[2].split('|');
-			let curTeam = Db.players.get(lines[2][0]);
+			let curTeam = Db('players').get(lines[2][0]);
 			let newSet = Users.get('sgserver').wildTeams[lines[2][0]];
 			newSet = Tools.fastUnpackTeam(newSet)[0];
 			newSet.pokeball = lines[2][1];
 			newSet.ot = toId(lines[2][0]);
 			if (curTeam.party.length < 6) {
 				curTeam.party.push(newSet);
-				Db.players.set(lines[2][0], curTeam);
+				Db('players').set(lines[2][0], curTeam);
 			} else {
 				newSet = Tools.packTeam(newSet);
 				let response = curTeam.boxPoke(newSet, 1);
@@ -301,7 +301,7 @@ class Battle {
 		case 'updateExp':
 			let data = lines[2].split(']');
 			let userid = data.shift();
-			let gameObj = Db.players.get(userid);
+			let gameObj = Db('players').get(userid);
 			for (let i = 0; i < data.length; i++) {
 				let cur = data[i].split('|');
 				cur[0] = Number(cur[0]);
@@ -315,7 +315,7 @@ class Battle {
 					j++;
 				}
 			}
-			Db.players.set(userid, gameObj);
+			Db('players').set(userid, gameObj);
 			break;
 		}
 		Monitor.activeIp = null;

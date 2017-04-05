@@ -661,7 +661,7 @@ class User {
 			this.send(`|nametaken|${name}|Your authentication token was invalid.`);
 		}
 		Ontime[userid] = Date.now();
-		Db('rooms').get(userid, []).forEach(function (room) {
+		Db.rooms.get(userid, []).forEach(function (room) {
 			if (!(room in this.inRooms)) this.tryJoinRoom(room, connection);
 		}.bind(this));
 		Exiled.giveDailyReward(userid, this);
@@ -734,10 +734,10 @@ class User {
 				this.autoconfirmed = userid;
 			} else if (userType === '4') {
 				this.autoconfirmed = userid;
-			} else if (userType === '5' || Db('perma').get(userid) === 5) {
+			} else if (userType === '5' || Db.perma.get(userid) === 5) {
 				this.permalocked = userid;
 				Punishments.lock(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permalocked as ${name}`);
-			} else if (userType === '6' || Db('perma').get(userid) === 6) {
+			} else if (userType === '6' || Db.perma.get(userid) === 6) {
 				Punishments.ban(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permabanned as ${name}`);
 		}
 		let user = users.get(userid);
@@ -1044,15 +1044,15 @@ class User {
 	onDisconnect(connection) {
 		let name = 'Guest ' + this.guestNum;
 		let userid = toId(name);
-		if (this.named) Db('seen').set(this.userid, Date.now());
+		if (this.named) Db.seen.set(this.userid, Date.now());
 		if (this.registered && this.userid !== userid) {
 			let rooms = [];
 			this.inRooms.forEach(function (room) {
 				if (['global', 'lobby', 'staff'].indexOf(room) === -1) rooms.push(room);
 			});
-			if (rooms.length) Db('rooms').set(this.userid, rooms);
+			if (rooms.length) Db.rooms.set(this.userid, rooms);
 			if (Ontime[this.userid]) {
-				Db('ontime').set(this.userid, Db('ontime').get(this.userid, 0) + (Date.now() - Ontime[this.userid]));
+				Db.ontime.set(this.userid, Db.ontime.get(this.userid, 0) + (Date.now() - Ontime[this.userid]));
 				delete Ontime[this.userid];
 			}
 		}
@@ -1253,6 +1253,19 @@ class User {
 			}
 			connection.popup(message);
 			return Promise.resolve(false);
+		}
+		if (Tools.getFormat(formatid).useSGgame) {
+			if (type === 'challenge' && Tools.getFormat(formatid).isWildEncounter) {
+				connection.popup('You cannot challenge users to this format.');
+				return Promise.resolve(false);
+			}
+			for (let key of this.inRooms) {
+				if (key.substr(0, 6) === 'battle' && Tools.getFormat(Rooms(key).format).isWildEncounter && this.games.has(key) && Tools.getFormat(formatid).isWildEncounter) {
+					connection.popup('Your already in a wild pokemon battle!');
+					return Promise.resolve(false);
+				}
+			}
+			this.team = Tools.packTeam(Db.players.get(this.userid).party);
 		}
 		let gameCount = this.games.size;
 		if (Monitor.countConcurrentBattle(gameCount, connection)) {
@@ -1518,11 +1531,13 @@ Users.pruneInactive = function (threshold) {
 	let now = Date.now();
 	users.forEach(user => {
 		if (user.connected) return;
+		if (user.userid === 'sgserver') return; // Dont delete the COM!
 		if ((now - user.lastConnected) > threshold) {
 			user.destroy();
 		}
 	});
 };
+
 Users.pruneInactiveTimer = setInterval(() => {
 	Users.pruneInactive(Config.inactiveuserthreshold || 1000 * 60 * 60);
 }, 1000 * 60 * 30);

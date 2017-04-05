@@ -1036,9 +1036,11 @@ class BattleDex {
 				buf += '|';
 			}
 
-			if (set.pokeball || set.hpType) {
+			if (set.pokeball || set.hpType || set.exp || set.ot) {
 				buf += ',' + set.hpType;
 				buf += ',' + toId(set.pokeball);
+				buf += ',' + set.exp || '0';
+				buf += ',' + set.ot || '';
 			}
 		}
 
@@ -1148,14 +1150,16 @@ class BattleDex {
 			j = buf.indexOf(']', i);
 			let misc;
 			if (j < 0) {
-				if (i < buf.length) misc = buf.substring(i).split(',', 3);
+				if (i < buf.length) misc = buf.substring(i).split(',', 5);
 			} else {
-				if (i !== j) misc = buf.substring(i, j).split(',', 3);
+				if (i !== j) misc = buf.substring(i, j).split(',', 5);
 			}
 			if (misc) {
-				set.happiness = (misc[0] ? Number(misc[0]) : 255);
+				set.happiness = Number(misc[0]);
 				set.hpType = misc[1];
 				set.pokeball = misc[2];
+				set.exp = Number(misc[3]);
+				set.ot = misc[4];
 			}
 			if (j < 0) break;
 			i = j + 1;

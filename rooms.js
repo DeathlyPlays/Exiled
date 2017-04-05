@@ -717,6 +717,43 @@ class BattleRoom extends Room {
 			this.log = this.log.concat(message);
 		}
 	}
+	addSearch(newSearch, user, formatid) {
+		// Filter racing conditions
+		if (!user.connected || user !== Users.getExact(user.userid)) return;
+		if (user.searching[formatid]) return;
+
+		if (!this.searches[formatid]) this.searches[formatid] = [];
+		let formatSearches = this.searches[formatid];
+
+		if (Tools.getFormat(formatid).isWildEncounter) {
+			delete user.searching[formatid];
+			if (!Users('sgserver')) {
+				SG.makeCOM();
+			}
+			let wildTeam = SG.makeWildPokemon();
+			Users('sgserver').wildTeams[user.userid] = wildTeam;
+			this.startBattle(Users('sgserver'), user, formatid, wildTeam, newSearch.team, {rated: false});
+			return;
+		}
+
+		// Prioritize players who have been searching for a match the longest.
+		for (let i = 0; i < formatSearches.length; i++) {
+			let search = formatSearches[i];
+			let searchUser = Users.getExact(search.userid);
+			let minRating = this.matchmakingOK(search, newSearch, searchUser, user, formatid);
+			if (minRating) {
+				delete user.searching[formatid];
+				delete searchUser.searching[formatid];
+				formatSearches.splice(i, 1);
+				this.startBattle(searchUser, user, formatid, search.team, newSearch.team, {rated: minRating});
+				return;
+			}
+		}
+		user.searching[formatid] = 1;
+		formatSearches.push(newSearch);
+		user.updateSearch();
+	}
+
 	win(winner) {
 			// Declare variables here in case we need them for non-rated battles logging.
 			let p1score = 0.5;
@@ -1364,11 +1401,6 @@ class ChatRoom extends Room {
 		if (this.modchat) {
 			message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '<div class="broadcast-red">' +
 				'Must be rank ' + this.modchat + ' or higher to talk right now.' +
-				'</div>';
-		}
-		if (this.slowchat && user.can('mute', null, this)) {
-			message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '<div class="broadcast-red">' +
-				'Messages must have at least ' + this.slowchat + ' seconds between them.' +
 				'</div>';
 		}
 		if (message) message += '</div>';

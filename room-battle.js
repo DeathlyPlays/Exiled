@@ -15,6 +15,8 @@
 
 global.Config = require('./config/config');
 
+global.Db = require('nef')(require('nef-fs')('config/db'));
+
 const ProcessManager = require('./process-manager');
 
 class SimulatorManager extends ProcessManager {
@@ -29,6 +31,9 @@ class SimulatorManager extends ProcessManager {
 			process.send('|eval|' + code);
 		}
 	}
+	//Add event listeners here, call with (process object for the battle ex: room.battle).send('event', 'data');
+	//TODO figure out points where we can call to other process.
+	//TODO figure out the proper point to call to a room-battle process.
 }
 
 const SimulatorProcess = new SimulatorManager({
@@ -116,21 +121,18 @@ class Battle {
 		this.p2 = null;
 
 		this.playerNames = [room.p1.name, room.p2.name];
-		/** {playerid: [rqid, request, isWait, choice]} */
-		this.requests = {
-			p1: [0, '', true, ''],
-			p2: [0, '', true, ''],
-		};
+		this.requests = {};
 
-		// data to be logged
+		// log information
 		this.logData = null;
 		this.endType = 'normal';
 
-		this.rqid = 1;
+		this.rqid = '';
+		this.inactiveQueued = false;
 
 		this.process = SimulatorProcess.acquire();
 		if (this.process.pendingTasks.has(room.id)) {
-			throw new Error(`Battle with ID ${room.id} already exists.`);
+			throw new Error("Battle with ID " + room.id + " already exists.");
 		}
 
 		this.send('init', this.format, rated ? '1' : '');
@@ -161,46 +163,23 @@ class Battle {
 		this.active = active;
 	}
 	choose(user, data) {
-		const player = this.players[user];
-		const [choice, rqid] = data.split('|', 2);
-		if (!player) return;
-		let request = this.requests[player.slot];
-		if ((this.requests.p1[2] && this.requests.p2[2]) || // too late
-			(rqid && rqid !== '' + request[0])) { // WAY too late
-			player.sendRoom(`|error|[Invalid choice] Sorry, too late to make a different move; the next turn has already started`);
-			return;
-		}
-		request[2] = true;
-		request[3] = choice;
-
-		this.sendFor(user, 'choose', choice);
+		this.sendFor(user, 'choose', data);
 	}
 	undo(user, data) {
-		const player = this.players[user];
-		const [, rqid] = data.split('|', 2);
-		if (!player) return;
-		let request = this.requests[player.slot];
-		if ((this.requests.p1[2] && this.requests.p2[2]) || // too late
-			(rqid && rqid !== '' + request[0])) { // WAY too late
-			player.sendRoom(`|error|[Invalid choice] Sorry, too late to cancel; the next turn has already started`);
-			return;
-		}
-		request[2] = false;
-
-		this.sendFor(user, 'undo');
+		this.sendFor(user, 'undo', data);
 	}
 	joinGame(user, team) {
 		if (this.playerCount >= 2) {
-			user.popup(`This battle already has two players.`);
+			user.popup("This battle already has two players.");
 			return false;
 		}
 		if (!user.can('joinbattle', null, this.room)) {
-			user.popup(`You must be a set as a player to join a battle you didn't start. Ask a player to use /addplayer on you to join this battle.`);
+			user.popup("You must be a set as a player to join a battle you didn't start. Ask a player to use /addplayer on you to join this battle.");
 			return false;
 		}
 
 		if (!this.addPlayer(user, team)) {
-			user.popup(`Failed to join battle.`);
+			user.popup("Failed to join battle.");
 			return false;
 		}
 		this.room.update();
@@ -210,11 +189,11 @@ class Battle {
 	leaveGame(user) {
 		if (!user) return false; // ...
 		if (this.room.rated || this.room.tour) {
-			user.popup(`Players can't be swapped out in a ${this.room.tour ? "tournament" : "rated"} battle.`);
+			user.popup("Players can't be swapped out in a " + (this.room.tour ? "tournament" : "rated") + " battle.");
 			return false;
 		}
 		if (!this.removePlayer(user)) {
-			user.popup(`Failed to leave battle.`);
+			user.popup("Failed to leave battle.");
 			return false;
 		}
 		this.room.auth[user.userid] = '+';
@@ -230,12 +209,16 @@ class Battle {
 			this.checkActive();
 			this.room.push(lines.slice(2));
 			this.room.update();
-			this.room.nextInactive();
+			if (this.inactiveQueued) {
+				this.room.nextInactive();
+				this.inactiveQueued = false;
+			}
 			break;
 
 		case 'winupdate':
 			this.room.push(lines.slice(3));
 			this.started = true;
+			this.inactiveSide = -1;
 			if (!this.ended) {
 				this.ended = true;
 				this.room.win(lines[2]);
@@ -248,25 +231,37 @@ class Battle {
 			let player = this[lines[2]];
 			if (player) {
 				player.sendRoom(lines[3]);
-				if (lines[3].startsWith(`|error|[Invalid choice]`)) {
-					let request = this.requests[player.slot];
-					request[2] = false;
-					request[3] = '';
-				}
 			}
 			break;
 		}
 
 		case 'request': {
 			let player = this[lines[2]];
+			let rqid = lines[3];
 
-			this.rqid++;
+			if (rqid !== this.rqid) {
+				this.rqid = rqid;
+				this.inactiveQueued = true;
+			}
 			if (player) {
-				let request = JSON.parse(lines[3]);
-				request.rqid = this.rqid;
-				const requestJSON = JSON.stringify(request);
-				this.requests[player.slot] = [this.rqid, requestJSON, request.wait, ''];
-				player.sendRoom(`|request|${requestJSON}`);
+				const isNewRequest = !this.requests[player.slot] || +this.requests[player.slot][0] < +rqid;
+				if (isNewRequest) {
+					player.choiceIndex = 0;
+				}
+				this.requests[player.slot] = [rqid, lines[4]];
+				player.sendRoom('|request|' + (player.choiceIndex ? player.choiceIndex + '|' + player.choiceData + '\n' : '') + lines[4]);
+			}
+			break;
+		}
+
+		case 'choice': {
+			let player = this[lines[2]];
+			let rqid = lines[3];
+			let choiceIndex = +lines[4];
+			let choiceData = lines[5];
+			if (rqid === this.rqid && player) {
+				player.choiceIndex = choiceIndex;
+				player.choiceData = choiceData;
 			}
 			break;
 		}
@@ -275,8 +270,52 @@ class Battle {
 			this.logData = JSON.parse(lines[2]);
 			break;
 
+		case 'inactiveside':
+			this.inactiveSide = parseInt(lines[2]);
+			break;
+
 		case 'score':
 			this.score = [parseInt(lines[2]), parseInt(lines[3])];
+			break;
+		case 'caught':
+			lines[2] = lines[2].split('|');
+			let curTeam = Db.players.get(lines[2][0]);
+			let newSet = Users.get('sgserver').wildTeams[lines[2][0]];
+			newSet = Tools.fastUnpackTeam(newSet)[0];
+			newSet.pokeball = lines[2][1];
+			newSet.ot = toId(lines[2][0]);
+			if (curTeam.party.length < 6) {
+				curTeam.party.push(newSet);
+				Db.players.set(lines[2][0], curTeam);
+			} else {
+				newSet = Tools.packTeam(newSet);
+				let response = curTeam.boxPoke(newSet, 1);
+				if (response) {
+					this.room.push((newSet.split('|')[0] || newSet.split('|')[1]) + ' was sent to box ' + response + '.');
+				} else {
+					this.room.push((newSet.split('|')[0] || newSet.split('|')[1]) + ' was released because your PC is full...');
+				}
+				this.room.update();
+			}
+			break;
+		case 'updateExp':
+			let data = lines[2].split(']');
+			let userid = data.shift();
+			let gameObj = Db.players.get(userid);
+			for (let i = 0; i < data.length; i++) {
+				let cur = data[i].split('|');
+				cur[0] = Number(cur[0]);
+				gameObj.party[cur[0]].exp += (isNaN(Number(cur[1])) ? 0 : Number(cur[1]));
+				gameObj.party[cur[0]].level += (isNaN(Number(cur[1])) ? 0 : Number(cur[2]));
+				let evs = cur[3].split(',');
+				if (!gameObj.party[cur[0]].evs) gameObj.party[cur[0]].evs = {hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0};
+				let j = 0;
+				for (let ev in gameObj.party[cur[0]].evs) {
+					gameObj.party[cur[0]].evs[ev] += Number(evs[j]);
+					j++;
+				}
+			}
+			Db.players.set(userid, gameObj);
 			break;
 		}
 		Monitor.activeIp = null;
@@ -286,14 +325,12 @@ class Battle {
 		// this handles joining a battle in which a user is a participant,
 		// where the user has already identified before attempting to join
 		// the battle
-		const player = this.players[user];
+		let player = this.players[user];
 		if (!player) return;
 		player.updateSubchannel(connection || user);
-		const request = this.requests[player.slot];
+		let request = this.requests[player.slot];
 		if (request) {
-			let data = `|request|${request[1]}`;
-			if (request[3]) data += `\n|sentchoice|${request[3]}`;
-			(connection || user).sendTo(this.id, data);
+			(connection || user).sendTo(this.id, '|request|' + (player.choiceIndex ? player.choiceIndex + '|' + player.choiceData + '\n' : '') + request[1]);
 		}
 	}
 	onUpdateConnection(user, connection) {
@@ -328,21 +365,20 @@ class Battle {
 		player.userid = user.userid;
 		player.name = user.name;
 		delete this.players[oldUserid];
-		player.simSend('join', user.name, user.avatar);
+		player.simSend('rename', user.name, user.avatar);
 	}
 	onJoin(user) {
 		let player = this.players[user];
 		if (player && !player.active) {
 			player.active = true;
-			this.room.add(`|player|${player.slot}|${user.name}|${user.avatar}`);
+			player.simSend('join', user.name, user.avatar);
 		}
 	}
 	onLeave(user) {
 		let player = this.players[user];
 		if (player && player.active) {
-			player.sendRoom(`|request|null`);
 			player.active = false;
-			this.room.add(`|player|${player.slot}|`);
+			player.simSend('leave');
 		}
 	}
 
@@ -417,12 +453,8 @@ class Battle {
 
 	removePlayer(user) {
 		if (!this.allowRenames) return false;
-		let player = this.players[user.userid];
-		if (!player) return false;
-		if (player.active) {
-			this.room.add(`|player|${player.slot}|`);
-		}
-		player.destroy();
+		if (!(user.userid in this.players)) return false;
+		this.players[user.userid].destroy();
 		delete this.players[user.userid];
 		this.playerCount--;
 		return true;
@@ -493,9 +525,7 @@ if (process.send && module === process.mainModule) {
 			const id = data[0];
 			if (!Battles.has(id)) {
 				try {
-					const battle = BattleEngine.construct(data[2], data[3], sendBattleMessage);
-					battle.id = id;
-					Battles.set(id, battle);
+					Battles.set(id, BattleEngine.construct(id, data[2], data[3], sendBattleMessage));
 				} catch (err) {
 					if (require('./crashlogger')(err, 'A battle', {
 						message: message,

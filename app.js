@@ -126,11 +126,11 @@ global.Tells = require('./tells');
 
 global.Ontime = {};
 
-global.SG = {};
+global.SG = require('./SG.js').SG;
 
 global.forever = {};
 
-global.Db = require('origindb')('config/db');
+global.Db = require('nef')(require('nef-fs')('config/db'));
 
 delete process.send; // in case we're a child process
 global.Verifier = require('./verifier');

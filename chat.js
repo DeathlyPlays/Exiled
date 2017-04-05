@@ -169,7 +169,7 @@ class CommandContext {
 			return null;
 		}
 
-	// Output the message
+		// Output the message
 
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
@@ -204,7 +204,6 @@ class CommandContext {
 
 		return message;
 	}
-	
 	splitCommand(message = this.message, recursing) {
 		this.cmd = '';
 		this.cmdToken = '';
@@ -904,12 +903,12 @@ Chat.loadCommands = function () {
 		Object.assign(commands, require('./game-cards/' + file).commands);
 	}
 	// Load games for Console
-	Exiled.gameList = {};
+	SG.gameList = {};
 	for (let file of fs.readdirSync(path.resolve(__dirname, 'game-cards'))) {
 		if (file.substr(-3) !== '.js') continue;
 		let obj = require('./game-cards/' + file).box;
 		if (obj && obj.name) obj.id = toId(obj.name);
-		Exiled.gameList[obj.id] = obj;
+		SG.gameList[obj.id] = obj;
 	}
 };
 

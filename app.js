@@ -128,6 +128,8 @@ global.Ontime = {};
 
 global.SG = require('./SG.js').SG;
 
+global.SG = {};
+
 global.forever = {};
 
 global.Db = require('nef')(require('nef-fs')('config/db'));

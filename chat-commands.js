@@ -12,7 +12,6 @@
  *
  * @license MIT license
  */
-You Here ? Miguel ?
 'use strict';
 
 /* eslint no-else-return: "error" */

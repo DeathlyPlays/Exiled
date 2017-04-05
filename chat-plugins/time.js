@@ -55,7 +55,7 @@ exports.commands = {
 		if (targetUser && targetUser.connected) return this.sendReplyBox('<b><font color="' + color(toId(targetUser.name)) + '">' + targetUser.name + '</font></b> is <b>currently online</b>.');
 		//if (targetUser.userid === 'username') return false;
 		target = Chat.escapeHTML(target);
-		let seen = Db.seen.get(toId(target));
+		let seen = Db('seen').get(toId(target));
 		if (!seen) return this.sendReplyBox('<b><font color="' + color(toId(target)) + '">' + target + '</b> has never been online on this server.');
 		this.sendReplyBox('<b><font color="' + color(toId(target)) + '">' + target + '</font></b> was last seen <b>' + moment(seen).fromNow() + '</b>.');
 	},
@@ -68,7 +68,7 @@ exports.commands = {
 
 		const userid = target ? toId(target) : user.userid;
 		const currentOntime = Ontime[userid] ? Date.now() - Ontime[userid] : 0;
-		const totalOntime = Db.ontime.get(userid, 0) + currentOntime;
+		const totalOntime = Db('ontime').get(userid, 0) + currentOntime;
 
 		if (!totalOntime) return this.sendReplyBox(userid + " has never been online on this server.");
 		const isConnected = Users.get(userid) && Users.get(userid).connected;
@@ -87,10 +87,10 @@ exports.commands = {
 	mostonline: 'ontimeladder',
 	ontimeladder: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		let keys = Object.keys(Db.ontime.object()).map(function (name) {
+		let keys = Object.keys(Db('ontime').object()).map(function (name) {
 			let currentOntime = 0;
 			if (Ontime[name]) currentOntime = Date.now() - Ontime[name];
-			const totalOntime = Db.ontime.get(name, 0) + currentOntime;
+			const totalOntime = Db('ontime').get(name, 0) + currentOntime;
 			return {
 				name: name,
 				time: totalOntime

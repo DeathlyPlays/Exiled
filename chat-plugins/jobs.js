@@ -7,11 +7,11 @@ let id = 0;
 function genJobTable(completionButton) {
 	let display = "<table border='1' cellspacing='0' cellpadding='5' width='100%'>" +
 		"<tbody><tr><th>Employer</th><th>Description</th><th>Reward</th>" + (completionButton ? "<th>Completed</th>" : "") + "</tr>";
-	for (let id in Db.jobs.object()) {
+	for (let id in Db('jobs').object()) {
 		display += "<tr>" +
-			"<td align='center'><button name='send' value='/user " + Db.jobs.get([id, "owner"]) + "'><b>" + Db.jobs.get([id, "owner"]) + "</b></button>" + "</td>" +
-			"<td align='center'>" + Db.jobs.get([id, "description"]) + "</td>" +
-			"<td align='center'>" + Db.jobs.get([id, "reward"]) + "</td>" +
+			"<td align='center'><button name='send' value='/user " + Db('jobs').get([id, "owner"]) + "'><b>" + Db('jobs').get([id, "owner"]) + "</b></button>" + "</td>" +
+			"<td align='center'>" + Db('jobs').get([id, "description"]) + "</td>" +
+			"<td align='center'>" + Db('jobs').get([id, "reward"]) + "</td>" +
 			(completionButton ? "<td align='center'><button name='send' value='/jobs delete " + id + "'>" + "Completed" + "</td>" : "") +
 			"</tr>";
 	}
@@ -24,7 +24,7 @@ let commands = {
 		// Driver and up only
 		if (!this.can('lock')) return false;
 		let args = target.split(",");
-		while (Db.jobs.get(id)) {
+		while (Db('jobs').get(id)) {
 			id++;
 		}
 		// allow a possibility of no reward.
@@ -34,7 +34,7 @@ let commands = {
 		// Do some checks
 		if (description.length > 200) return this.errorReply('Description must be 200 characters or less.');
 		// Create job in database
-		Db.jobs.set(id, {
+		Db('jobs').set(id, {
 			'description': description,
 			'reward': reward,
 			'owner': user.userid,
@@ -48,10 +48,10 @@ let commands = {
 		// Do some checks
 		let targets = target.trim();
 		if (!this.can('lock')) return false;
-		if (!Db.jobs.get(targets)) return this.errorReply('Job not found');
+		if (!Db('jobs').get(targets)) return this.errorReply('Job not found');
 
 		// Delete job and send reply back to user
-		Db.jobs.delete(targets);
+		Db('jobs').delete(targets);
 		this.sendReply("Job " + targets + " deleted.");
 	},
 	list: function (target, room, user) {

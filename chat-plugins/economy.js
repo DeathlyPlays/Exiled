@@ -1,23 +1,109 @@
 'use strict';
 
-const fs = require('fs');
+let color = require('../config/color');
+let fs = require('fs');
+let path = require('path');
 
 // This should be the default amount of money users have.
 // Ideally, this should be zero.
 const DEFAULT_AMOUNT = 0;
 
-global.currencyName = 'Buck';
-global.currencyPlural = 'Bucks';
+let shop = [
+
+	['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly). If you do pay the 1 buck, you will be refunded. PM Insist with your image for your avatar, and he\'ll set it for free.', 1],
+	['League Room', 'Purchases a room for league usage. Free, PM Insist and he\'ll set it for free, you will be refunded if you did pay the 1 buck.', 1],
+	['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
+	['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 5],
+	['Room', 'Buys a chatroom for you to own. (within reason, can be refused). PM Insist for it to be made for free (will be free if you meet the requirements posted on the forums). Otherwise, if you haven\'t reached those requirements it will be 5 bucks.', 5],
+	['Custom Title', 'Buys a title to be added on your /profile (can be refused).', 10],
+	['Profile Team', 'Allows you to choose which Pokemon you want to be displayed on your /profile. PM Insist, after purchasing it to have it set. (can be denied)', 20],
+	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 25],
+	['Custom Color', 'Changes the color of your name (can be denied)', 25],
+	['Trainer Card', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 40],
+	['Staff Help', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 50],
+	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 100],
+	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Exiled Super Staff Bros metagame. Insist will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 100],
+];
+
+let shopDisplay = getShopDisplay(shop);
+
+/**
+ * Gets an amount and returns the amount with the name of the money.
+ *
+ * @examples
+ * moneyName(0); // 0 bucks
+ * moneyName(1); // 1 buck
+ * moneyName(5); // 5 bucks
+ *
+ * @param {Number} amount
+ * @returns {String}
+ */
+function moneyName(amount) {
+	let name = " buck";
+	return amount === 1 ? name : name + "s";
+}
+
+/**
+ * Checks if the money input is actually money.
+ *
+ * @param {String} money
+ * @return {String|Number}
+ */
+function isMoney(money) {
+	let numMoney = Number(money);
+	if (isNaN(money)) return "Must be a number.";
+	if (String(money).includes('.')) return "Cannot contain a decimal.";
+	if (numMoney < 1) return "Cannot be less than one buck.";
+	return numMoney;
+}
+
+/**
+ * Log money to logs/money.txt file.
+ *
+ * @param {String} message
+ */
+function logMoney(message) {
+	if (!message) return;
+	let file = path.join(__dirname, '../logs/money.txt');
+	let date = "[" + new Date().toUTCString() + "] ";
+	let msg = message + "\n";
+	fs.appendFile(file, date + msg);
+}
+
+/**
+ * Displays the shop
+ *
+ * @param {Array} shop
+ * @return {String} display
+ */
+function getShopDisplay(shop) {
+	let display = "<center><img src=http://i.imgur.com/8KX56s2.gif><img src=http://i.imgur.com/BkeDY83.png width=250> <img src=http://i.imgur.com/bKJYns1.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #000; border-color: #DF0101; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
+		"<tbody><tr><th><font color=#DF0101 face=courier>Item</font></th><th><font color=#DF0101 face=courier>Description</font></th><th><font color=#DF0101 face=courier>Price</font></th></tr>";
+	let start = 0;
+	while (start < shop.length) {
+		display += "<tr>" +
+			"<td align='center'><button name='send' style='background: #000; border-radius: 5px; border: solid, 1px, #DF0101; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#DF0101 face=courier><b>" + shop[start][0] + "</b></font></button>" + "</td>" +
+			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][1] + "</font></td>" +
+			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][2] + "</font></td>" +
+			"</tr>";
+		start++;
+	}
+	display += "</tbody></table></div><br><center><font color=#000 face=courier>To buy an item from the shop, use /buy <em>Item</em>.</font></center>";
+	return display;
+}
+
+global.moneyName = 'Buck';
+global.moneyPlural = 'Bucks';
 
 let Economy = global.Economy = {
 	/**
- 	* Reads the specified user's money.
- 	* If they have no money, DEFAULT_AMOUNT is returned.
- 	*
- 	* @param {String} userid
- 	* @param {Function} callback
- 	* @return {Function} callback
- 	*/
+	 * Reads the specified user's money.
+	 * If they have no money, DEFAULT_AMOUNT is returned.
+	 *
+	 * @param {String} userid
+	 * @param {Function} callback
+	 * @return {Function} callback
+	 */
 	readMoney: function (userid, callback) {
 		if (typeof callback !== 'function') {
 			throw new Error("Economy.readMoney: Expected callback parameter to be a function, instead received " + typeof callback);
@@ -26,18 +112,18 @@ let Economy = global.Economy = {
 		// In case someone forgot to turn `userid` into an actual ID...
 		userid = toId(userid);
 
-		let amount = Db.money.get(userid, DEFAULT_AMOUNT);
+		let amount = Db('money').get(userid, DEFAULT_AMOUNT);
 		return callback(amount);
 	},
-	/**
- 	* Writes the specified amount of money to the user's "bank."
- 	* If a callback is specified, the amount is returned through the callback.
- 	*
- 	* @param {String} userid
- 	* @param {Number} amount
- 	* @param {Function} callback (optional)
- 	* @return {Function} callback (optional)
- 	*/
+
+
+	/* *
+	 * Find the item in the shop.
+	 *
+	 * @param {String} item
+	 * @param {Number} money
+	 * @return {Object}
+	 * */
 	writeMoney: function (userid, amount, callback) {
 		// In case someone forgot to turn `userid` into an actual ID...
 		userid = toId(userid);
@@ -48,9 +134,10 @@ let Economy = global.Economy = {
 			throw new Error("Economy.writeMoney: Expected amount parameter to be a Number, instead received " + typeof amount);
 		}
 
-		let curTotal = Db.money.get(userid, DEFAULT_AMOUNT);
-		Db.money.set(userid, curTotal + amount);
-		let newTotal = Db.money.get(userid);
+		let curTotal = Db('money').get(userid, DEFAULT_AMOUNT);
+		let newTotal = Db('money')
+			.set(userid, curTotal + amount)
+			.get(userid);
 
 		if (callback && typeof callback === 'function') {
 			// If a callback is specified, return `newTotal` through the callback.
@@ -74,213 +161,252 @@ let Economy = global.Economy = {
 	},
 };
 
+function findItem(item, money) {
+	let len = shop.length;
+	let price = 0;
+	let amount = 0;
+	while (len--) {
+		if (item.toLowerCase() !== shop[len][0].toLowerCase()) continue;
+		price = shop[len][2];
+		if (price > money) {
+			amount = price - money;
+			this.errorReply("You don't have you enough money for this. You need " + amount + moneyName(amount) + " more to buy " + item + ".");
+			return false;
+		}
+		return price;
+	}
+	this.errorReply(item + " not found in shop.");
+}
+
+/**
+ * Handling the bought item from the shop.
+ *
+ * @param {String} item
+ * @param {Object} user
+ * @param {Number} cost - for lottery
+ */
+function handleBoughtItem(item, user, cost) {
+	if (item === 'symbol') {
+		user.canCustomSymbol = true;
+		this.sendReply("You have purchased a custom symbol. You can use /customsymbol to get your custom symbol.");
+		this.sendReply("You will have this until you log off for more than an hour.");
+		this.sendReply("If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.");
+	}
+	else if (item === 'icon') {
+		this.sendReply('You purchased an icon, contact an administrator to obtain the article.');
+	}
+	else if (item === 'profileteam') {
+		Db('hasteam').set(user);
+		this.sendReply('You can now set your team!');
+	}
+	else {
+		let msg = '**' + user.name + " has bought " + item + ".**";
+		Rooms.rooms.get("staff").add('|c|~Shop Alert|' + msg);
+		Rooms.rooms.get("staff").update();
+		Users.users.forEach(function (user) {
+			if (user.group === '~' || user.group === '&' || user.group === '@') {
+				user.send('|pm|~Shop Alert|' + user.getIdentity() + '|' + msg);
+			}
+		});
+	}
+}
+
 exports.commands = {
-	'!wallet': true,
 	atm: 'wallet',
+	purse: 'wallet',
 	wallet: function (target, room, user) {
+		if (!this.runBroadcast()) return;
 		if (!target) target = user.name;
+
+		const amount = Db('money').get(toId(target), 0);
+		let group = user.getIdentity().charAt(0);
+		this.sendReplyBox("<font color=" + color(target) + "><b>" + Chat.escapeHTML(target) + "</b></font> has " + amount + moneyName(amount) + ".");
+	},
+	wallethelp: ["/wallet [user] - Shows the amount of money a user has."],
+
+	givebuck: 'givemoney',
+	givebucks: 'givemoney',
+	givemoney: function (target, room, user) {
+		if (!this.can('forcewin')) return false;
+		if (!target || target.indexOf(',') < 0) return this.parse('/help givemoney');
+
+		let parts = target.split(',');
+		let username = parts[0];
+		let amount = isMoney(parts[1]);
+
+		if (typeof amount === 'string') return this.errorReply(amount);
+
+		let total = Db('money').set(toId(username), Db('money').get(toId(username), 0) + amount).get(toId(username));
+		amount = amount + moneyName(amount);
+		total = total + moneyName(total);
+		this.sendReply(username + " was given " + amount + ". " + username + " now has " + total + ".");
+		if (Users.get(username)) Users(username).popup(user.name + " has given you " + amount + ". You now have " + total + ".");
+		logMoney(username + " was given " + amount + " by " + user.name + ". " + username + " now has " + total);
+	},
+	givemoneyhelp: ["/givemoney [user], [amount] - Give a user a certain amount of money."],
+
+	takebuck: 'takemoney',
+	takebucks: 'takemoney',
+	takemoney: function (target, room, user) {
+		if (!this.can('forcewin')) return false;
+		if (!target || target.indexOf(',') < 0) return this.parse('/help takemoney');
+
+		let parts = target.split(',');
+		let username = parts[0];
+		let amount = isMoney(parts[1]);
+
+		if (typeof amount === 'string') return this.errorReply(amount);
+
+		let total = Db('money').set(toId(username), Db('money').get(toId(username), 0) - amount).get(toId(username));
+		amount = amount + moneyName(amount);
+		total = total + moneyName(total);
+		this.sendReply(username + " losted " + amount + ". " + username + " now has " + total + ".");
+		if (Users.get(username)) Users(username).popup(user.name + " has taken " + amount + " from you. You now have " + total + ".");
+		logMoney(username + " had " + amount + " taken away by " + user.name + ". " + username + " now has " + total);
+	},
+	takemoneyhelp: ["/takemoney [user], [amount] - Take a certain amount of money from a user."],
+
+	resetbuck: 'resetmoney',
+	resetbucks: 'resetmoney',
+	resetmoney: function (target, room, user) {
+		if (!this.can('forcewin')) return false;
+		Db('money').set(toId(target), 0);
+		this.sendReply(target + " now has 0 bucks.");
+		logMoney(user.name + " reset the money of " + target + ".");
+	},
+	resetmoneyhelp: ["/resetmoney [user] - Reset user's money to zero."],
+
+	transfer: 'transfermoney',
+	transferbuck: 'transfermoney',
+	transferbucks: 'transfermoney',
+	transfermoney: function (target, room, user) {
+		if (!target || target.indexOf(',') < 0) return this.parse('/help transfermoney');
+
+		let parts = target.split(',');
+		let username = parts[0];
+		let uid = toId(username);
+		let amount = isMoney(parts[1]);
+
+		if (toId(username) === user.userid) return this.errorReply("You cannot transfer to yourself.");
+		if (username.length > 19) return this.errorReply("Username cannot be longer than 19 characters.");
+		if (typeof amount === 'string') return this.errorReply(amount);
+		if (amount > Db('money').get(user.userid, 0)) return this.errorReply("You cannot transfer more money than what you have.");
+
+		Db('money')
+			.set(user.userid, Db('money').get(user.userid) - amount)
+			.set(uid, Db('money').get(uid, 0) + amount);
+
+		let userTotal = Db('money').get(user.userid) + moneyName(Db('money').get(user.userid));
+		let targetTotal = Db('money').get(uid) + moneyName(Db('money').get(uid));
+		amount = amount + moneyName(amount);
+
+		this.sendReply("You have successfully transferred " + amount + ". You now have " + userTotal + ".");
+		if (Users.get(username)) Users(username).popup(user.name + " has transferred " + amount + ". You now have " + targetTotal + ".");
+		logMoney(user.name + " transferred " + amount + " to " + username + ". " + user.name + " now has " + userTotal + " and " + username + " now has " + targetTotal + ".");
+	},
+	transfermoneyhelp: ["/transfer [user], [amount] - Transfer a certain amount of money to a user."],
+
+	store: 'shop',
+	shop: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		let userid = toId(target);
-		if (userid.length < 1) return this.sendReply("/wallet - Please specify a user.");
-		if (userid.length > 19) return this.sendReply("/wallet - [user] can't be longer than 19 characters.");
-
-		Economy.readMoney(userid, money => {
-			this.sendReplyBox(Exiled.nameColor(target, true) + " has " + money + ((money === 1) ? " " + currencyName + "." : " " + currencyPlural + "."));
-			//if (this.broadcasting) room.update();
-		});
+		return this.sendReply("|raw|" + shopDisplay);
 	},
+	shophelp: ["/shop - Display items you can buy with money."],
 
-	gs: 'givecurrency', //You can change "gs" and "givestardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "ga" and "giveawesomebucks"
-	givestardust: 'givecurrency',
-	gc:'givecurrency',
-	givecurrency: function (target, room, user, connection, cmd) {
-		if (!this.can('forcewin')) return false;
-		if (!target) return this.sendReply("Usage: /" + cmd + " [user], [amount]");
-		let splitTarget = target.split(',');
-		if (!splitTarget[2]) return this.sendReply("Usage: /" + cmd + " [user], [amount], [reason]");
-		for (let u in splitTarget) splitTarget[u] = splitTarget[u].trim();
-
-		let targetUser = splitTarget[0];
-		if (toId(targetUser).length < 1) return this.sendReply("/" + cmd + " - [user] may not be blank.");
-		if (toId(targetUser).length > 19) return this.sendReply("/" + cmd + " - [user] can't be longer than 19 characters");
-
-		let amount = Math.round(Number(splitTarget[1]));
-		if (isNaN(amount)) return this.sendReply("/" + cmd + "- [amount] must be a number.");
-		if (amount > 1000) return this.sendReply("/" + cmd + " - You can't give more than 1000 " + currencyName + " at a time.");
-		if (amount < 1) return this.sendReply("/" + cmd + " - You can't give less than one " + currencyName + ".");
-
-		let reason = splitTarget[2];
-		if (reason.length > 100) return this.errorReply("Reason may not be longer than 100 characters.");
-		if (toId(reason).length < 1) return this.errorReply("Please specify a reason to give " + currencyName + ".");
-
-		Economy.writeMoney(targetUser, amount, () => {
-			Economy.readMoney(targetUser, newAmount => {
-				if (Users(targetUser) && Users(targetUser).connected) {
-					Users.get(targetUser).popup('|html|You have received ' + amount + ' ' + (amount === 1 ? currencyName : currencyPlural) +
-					' from ' + Exiled.nameColor(user.userid, true) + '.');
-				}
-				this.sendReply(targetUser + " has received " + amount + ((amount === 1) ? " " + currencyName + "." : " " + currencyPlural + "."));
-				Economy.logTransaction(user.name + " has given " + amount + ((amount === 1) ? " " + currencyName + " " : " " + currencyPlural + " ") + " to " + targetUser + ". (Reason: " + reason + ") They now have " + newAmount + (newAmount === 1 ? " " + currencyName + "." : " " + currencyPlural + "."));
-			});
-		});
+	buy: function (target, room, user) {
+		if (!target) return this.parse('/help buy');
+		let amount = Db('money').get(user.userid, 0);
+		let cost = findItem.call(this, target, amount);
+		if (!cost) return;
+		let total = Db('money').set(user.userid, amount - cost).get(user.userid);
+		this.sendReply("You have bought " + target + " for " + cost + moneyName(cost) + ". You now have " + total + moneyName(total) + " left.");
+		room.addRaw(user.name + " has bought <b>" + target + "</b> from the shop.");
+		logMoney(user.name + " has bought " + target + " from the shop. This user now has " + total + moneyName(total) + ".");
+		handleBoughtItem.call(this, target.toLowerCase(), user, cost);
 	},
-
-	ts: 'takecurrency', //You can change "ts" and "takestardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "ta" and "takeawesomebucks"
-	takestardust: 'takecurrency',
-	tc:'takecurrency',
-	takecurrency: function (target, room, user, connection, cmd) {
-		if (!this.can('forcewin')) return false;
-		if (!target) return this.sendReply("Usage: /" + cmd + " [user], [amount]");
-		let splitTarget = target.split(',');
-		if (!splitTarget[2]) return this.sendReply("Usage: /" + cmd + " [user], [amount], [reason]");
-		for (let u in splitTarget) splitTarget[u] = splitTarget[u].trim();
-
-		let targetUser = splitTarget[0];
-		if (toId(targetUser) === user.userid) return this.errorReply("You cannot transfer stardust to yourself.");
-		if (toId(targetUser).length < 1) return this.sendReply("/" + cmd + " - [user] may not be blank.");
-		if (toId(targetUser).length > 19) return this.sendReply("/" + cmd + " - [user] can't be longer than 19 characters");
-
-		let amount = Math.round(Number(splitTarget[1]));
-		if (isNaN(amount)) return this.sendReply("/" + cmd + "- [amount] must be a number.");
-		if (amount > 1000) return this.sendReply("/" + cmd + " - You can't take more than 1000 " + currencyName + " at a time.");
-		if (amount < 1) return this.sendReply("/" + cmd + " - You can't take less than one " + currencyName + ".");
-
-		let reason = splitTarget[2];
-		if (reason.length > 100) return this.errorReply("Reason may not be longer than 100 characters.");
-		if (toId(reason).length < 1) return this.errorReply("Please specify a reason to give " + currencyName + ".");
-
-		Economy.writeMoney(targetUser, -amount, () => {
-			Economy.readMoney(targetUser, newAmount => {
-				if (Users(targetUser) && Users(targetUser).connected) {
-					Users.get(targetUser).popup('|html|' + Exiled.nameColor(user.userid, true) + ' has removed ' + amount + ' ' + (amount === 1 ? currencyName : currencyPlural) +
-					' from you.<br />');
-				}
-				this.sendReply("You removed " + amount + ((amount === 1) ? " " + currencyName + " " : " " + currencyPlural + " ") + " from " + Chat.escapeHTML(targetUser));
-				Economy.logTransaction(user.name + " has taken " + amount + ((amount === 1) ? " " + currencyName + " " : " " + currencyPlural + " ") + " from " + targetUser + ". (Reason: " + reason + ") They now have " + newAmount + (newAmount === 1 ? " " + currencyName + "." : " " + currencyPlural + "."));
-			});
-		});
-	},
-
-	confirmtransferstardust: 'transfercurrency', //You can change "transferstardust" and "confirmtransferstardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "transferawesomebucks" and "confirmtransferawesomebucks"
-	transferstardust: 'transfercurrency',
-	confirmtransfercurrency: 'transfercurrency',
-	transfercurrency: function (target, room, user, connection, cmd) {
-		if (!target) return this.sendReply("Usage: /" + cmd + " [user], [amount]");
-		let splitTarget = target.split(',');
-		for (let u in splitTarget) splitTarget[u] = splitTarget[u].trim();
-		if (!splitTarget[1]) return this.sendReply("Usage: /" + cmd + " [user], [amount]");
-
-		let targetUser = (Users.getExact(splitTarget[0]) ? Users.getExact(splitTarget[0]).name : splitTarget[0]);
-		if (toId(targetUser).length < 1) return this.sendReply("/" + cmd + " - [user] may not be blank.");
-		if (toId(targetUser).length > 18) return this.sendReply("/" + cmd + " - [user] can't be longer than 18 characters.");
-
-		let amount = Math.round(Number(splitTarget[1]));
-		if (isNaN(amount)) return this.sendReply("/" + cmd + " - [amount] must be a number.");
-		if (amount > 1000) return this.sendReply("/" + cmd + " - You can't transfer more than 1000 " + currencyName + " at a time.");
-		if (amount < 1) return this.sendReply("/" + cmd + " - You can't transfer less than one " + currencyName + ".");
-		Economy.readMoney(user.userid, money => {
-			if (money < amount) return this.sendReply("/" + cmd + " - You can't transfer more " + currencyName + " than you have.");
-			if (cmd !== 'confirmtransfercurrency' && cmd !== 'confirmtransferstardust') {
-				return this.popupReply('|html|<center>' +
-					'<button class = "card-td button" name = "send" value = "/confirmtransfercurrency ' + toId(targetUser) + ', ' + amount + '"' +
-					'style = "outline: none; width: 200px; font-size: 11pt; padding: 10px; border-radius: 14px ; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4) inset; transition: all 0.2s;">' +
-					'Confirm transfer to <br><b style = "color:' + Exiled.hashColor(targetUser) + '; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">' + Chat.escapeHTML(targetUser) + '</b></button></center>'
-				);
-			}
-			Economy.writeMoney(user.userid, -amount, () => {
-				Economy.writeMoney(targetUser, amount, () => {
-					Economy.readMoney(targetUser, firstAmount => {
-						Economy.readMoney(user.userid, secondAmount => {
-							this.popupReply("You sent " + amount + ((amount === 1) ? " " + currencyPlural : " " + currencyPlural) + " to " + targetUser);
-							Economy.logTransaction(
-								user.name + " has transfered " + amount + ((amount === 1) ? " " + currencyPlural : " " + currencyPlural) + " to " + targetUser + "\n" +
-								user.name + " now has " + secondAmount + " " + (secondAmount === 1 ? " " + currencyPlural : " " + currencyPlural) + " " +
-								targetUser + " now has " + firstAmount + " " + (firstAmount === 1 ? " " + currencyPlural : " " + currencyPlural)
-							);
-							if (Users.getExact(targetUser) && Users.getExact(targetUser).connected) {
-								Users.getExact(targetUser).send('|popup||html|' + Exiled.nameColor(user.name, true) + " has sent you " + amount + ((amount === 1) ? " " + currencyPlural : " " + currencyPlural));
-							}
-						});
-					});
-				});
-			});
-		});
-	},
-	moneylog: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
-		if (!target) return this.sendReply("Usage: /moneylog [number] to view the last x lines OR /moneylog [text] to search for text.");
-		let word = false;
-		if (isNaN(Number(target))) word = true;
-		let lines = fs.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
-		let output = '';
-		let count = 0;
-		let regex = new RegExp(target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), "gi");
-
-		if (word) {
-			output += 'Displaying last 50 lines containing "' + target + '":\n';
-			for (let line in lines) {
-				if (count >= 50) break;
-				if (!~lines[line].search(regex)) continue;
-				output += lines[line] + '\n';
-				count++;
-			}
-		} else {
-			if (target > 100) target = 100;
-			output = lines.slice(0, (lines.length > target ? target : lines.length));
-			output.unshift("Displaying the last " + (lines.length > target ? target : lines.length) + " lines:");
-			output = output.join('\n');
-		}
-		user.popup("|wide|" + output);
-	},
-	'!richestuser': true,
-	richestusers: 'richestuser',
-	richestuser: function (target, room, user) {
-		if (!target) target = 10;
-		target = Number(target);
-		if (isNaN(target)) target = 10;
-		if (!this.runBroadcast()) return;
-		if (this.broadcasting && target > 10) target = 10; // limit to 10 while broadcasting
-		if (target > 500) target = 500;
-
-		let self = this;
-
-		function showResults(rows) {
-			let output = '<table border="1" cellspacing ="0" cellpadding="3"><tr><th>Rank</th><th>Name</th><th>' + currencyPlural + '</th></tr>';
-			let count = 1;
-			for (let u in rows) {
-				if (rows[u].amount < 1) continue;
-				output += '<tr><td>' + count + '</td><td>' + Exiled.nameColor(rows[u].name, true) + '</td><td>' + rows[u].amount + '</td></tr>';
-				count++;
-			}
-			self.sendReplyBox(output);
-			if (room) room.update();
-		}
-		let obj = Db.money.keys().map(function (name) {return {name: name, amount: Db.money.get(name)};});
-		let results = obj.sort(function (a, b) {
-			return b.amount - a.amount;
-		});
-		showResults(results.slice(0, target));
-	},
+	buyhelp: ["/buy [command] - Buys an item from the shop."],
 
 	customsymbol: function (target, room, user) {
-		let bannedSymbols = ['!', '|', '‽', '\u2030', '\u534D', '\u5350', '\u223C'];
-		for (let u in Config.groups) if (Config.groups[u].symbol) bannedSymbols.push(Config.groups[u].symbol);
-		if (!user.canCustomSymbol && !user.can('vip')) return this.sendReply('You need to buy this item from the shop to use.');
-		if (!target || target.length > 1) return this.sendReply('/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character');
-		if (target.match(/([a-zA-Z ^0-9])/g) || bannedSymbols.indexOf(target) >= 0) {
-			return this.sendReply('This symbol is banned.');
+		if (!user.canCustomSymbol && user.id !== user.userid) return this.errorReply("You need to buy this item from the shop.");
+		if (!target || target.length > 1) return this.parse('/help customsymbol');
+		if (target.match(/[A-Za-z\d]+/g) || '|?!+$%@★=&~#τ£ϝβΞΩΘΣ©'.indexOf(target) >= 0) {
+			return this.errorReply("Sorry, but you cannot change your symbol to this for safety/stability reasons.");
 		}
 		user.customSymbol = target;
 		user.updateIdentity();
 		user.canCustomSymbol = false;
-		this.sendReply('Your symbol is now ' + target + '. It will be saved until you log off for more than an hour, or the server restarts. You can remove it with /resetsymbol');
+		user.hasCustomSymbol = true;
+	},
+	customsymbolhelp: ["/customsymbol [symbol] - Get a custom symbol."],
+
+	resetcustomsymbol: 'resetsymbol',
+	resetsymbol: function (target, room, user) {
+		if (!user.hasCustomSymbol) return this.errorReply("You don't have a custom symbol.");
+		user.customSymbol = null;
+		user.updateIdentity();
+		user.hasCustomSymbol = false;
+		this.sendReply("Your symbol has been reset.");
+	},
+	resetsymbolhelp: ["/resetsymbol - Resets your custom symbol."],
+
+	moneylog: function (target, room, user, connection) {
+		if (!this.can('modlog')) return;
+		target = toId(target);
+		let numLines = 15;
+		let matching = true;
+		if (target.match(/\d/g) && !isNaN(target)) {
+			numLines = Number(target);
+			matching = false;
+		}
+		let topMsg = "Displaying the last " + numLines + " lines of transactions:\n";
+		let file = path.join(__dirname, '../logs/money.txt');
+		fs.exists(file, function (exists) {
+			if (!exists) return connection.popup("No transactions.");
+			fs.readFile(file, 'utf8', function (err, data) {
+				data = data.split('\n');
+				if (target && matching) {
+					data = data.filter(function (line) {
+						return line.toLowerCase().indexOf(target.toLowerCase()) >= 0;
+					});
+				}
+				connection.popup('|wide|' + topMsg + data.slice(-(numLines + 1)).join('\n'));
+			});
+		});
 	},
 
-	removesymbol: 'resetsymbol',
-	resetsymbol: function (target, room, user) {
-		if (!user.customSymbol) return this.sendReply("You don't have a custom symbol!");
-		delete user.customSymbol;
-		user.updateIdentity();
-		this.sendReply('Your symbol has been removed.');
+	moneyladder: 'richestuser',
+	richladder: 'richestuser',
+	richestusers: 'richestuser',
+	richestuser: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		let display = '<center><u><b>Richest Users</b></u></center><br><table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>Rank</th><th>Username</th><th>Money</th></tr>';
+		let keys = Object.keys(Db('money').object()).map(function (name) {
+			return {
+				name: name,
+				money: Db('money').get(name)
+			};
+		});
+		if (!keys.length) return this.sendReplyBox("Money ladder is empty.");
+		keys.sort(function (a, b) {
+			return b.money - a.money;
+		});
+		keys.slice(0, 10).forEach(function (user, index) {
+			display += "<tr><td>" + (index + 1) + "</td><td>" + user.name + "</td><td>" + user.money + "</td></tr>";
+		});
+		display += "</tbody></table>";
+		this.sendReply("|raw|" + display);
+	},
+
+	bucks: 'economystats',
+	economystats: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		const users = Object.keys(Db('money').object());
+		const total = users.reduce(function (acc, cur) {
+			return acc + Db('money').get(cur);
+		}, 0);
+		let average = Math.floor(total / users.length) || '0';
+		let output = "There " + (total > 1 ? "are " : "is ") + total + moneyName(total) + " circulating in the economy. ";
+		output += "The average user has " + average + moneyName(average) + ".";
+		this.sendReplyBox(output);
 	},
 };

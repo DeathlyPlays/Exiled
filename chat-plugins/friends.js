@@ -90,7 +90,7 @@ function getFriendsOutput() {
 exports.commands = {
 	friends: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		let data = Db.FriendsDB.get(toId(user));
+		let data = Db('FriendsDB').get(toId(user));
 		if (typeof data !== 'undefined' && data !== null) {
 			let rows = data.split(",");
 			let friends = [];
@@ -119,8 +119,8 @@ exports.commands = {
 		if (target.length < 3) return this.sendReply("Usernames are required to be greater than 2 characters long.");
 		let insertStatement = '';
 
-		Db.FriendsDB.set(toId(user),  Db.FriendsDB.get(toId(user)) + ',undefined,');
-		let data = Db.FriendsDB.get(toId(user));
+		Db('FriendsDB').set(toId(user),  Db('FriendsDB').get(toId(user)) + ',undefined,');
+		let data = Db('FriendsDB').get(toId(user));
 		let rows = data.split(",");
 		let friends = [];
 		for (let j = 0; j < rows.length; j++) {
@@ -136,7 +136,7 @@ exports.commands = {
 		for (let i = 0; i < uniqueFriends.length; i++) {
 			insertStatement += uniqueFriends[i] + ',';
 		}
-		Db.FriendsDB.set(toId(user),  insertStatement);
+		Db('FriendsDB').set(toId(user),  insertStatement);
 		this.sendReply(target + ' has been added to your friend list.');
 	},
 	unfriend: 'removefriend',
@@ -145,8 +145,8 @@ exports.commands = {
 		if (target.length < 3) return this.sendReply("Usernames are required to be greater than 2 characters long.");
 		let insertStatement = '';
 
-		Db.FriendsDB.set(toId(user),  Db.FriendsDB.get(toId(user)) + ',undefined,');
-		let data = Db.FriendsDB.get(toId(user));
+		Db('FriendsDB').set(toId(user),  Db('FriendsDB').get(toId(user)) + ',undefined,');
+		let data = Db('FriendsDB').get(toId(user));
 		let rows = data.split(",");
 		let friends = [];
 		for (let j = 0; j < rows.length; j++) {
@@ -164,7 +164,7 @@ exports.commands = {
 		for (let i = 0; i < uniqueFriends.length; i++) {
 			insertStatement += uniqueFriends[i] + ',';
 		}
-		Db.FriendsDB.set(toId(user),  insertStatement);
+		Db('FriendsDB').set(toId(user),  insertStatement);
 		this.sendReply(target + ' has been removed from your friend list.');
 	},
 

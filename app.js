@@ -132,7 +132,7 @@ global.SG = {};
 
 global.forever = {};
 
-global.Db = require('nef')(require('nef-fs')('config/db'));
+global.Db = require('nef')(require('nef-fs')('config/db')('origindb'));
 
 delete process.send; // in case we're a child process
 global.Verifier = require('./verifier');

@@ -331,7 +331,7 @@ Profile.prototype.seen = function (timeAgo) {
 
 Profile.prototype.dev = function (person) {
 	if (!Db('devs').has(person)) return '';
-	if (person === 'insist') return '<font color="#33CCFF"><b>(Owner)</b></font> <font color="#33CCFF"><b>(Developer)</b></font>';
+	if (person === 'deathlyplays') return '<font color="#33CCFF"><b>(Owner)</b></font> <font color="#33CCFF"><b>(Developer)</b></font>';
 	return '<font color="#000000"><b>(Developer)</b></font>';
 };
 
@@ -417,8 +417,8 @@ Profile.prototype.show = function (callback) {
 	return this.background(userid) + this.buttonAvatar() +
 		SPACE + this.name() + this.title(userid) + BR +
 		SPACE + this.group() + SPACE + this.dev(userid) + BR +
-		SPACE + this.money(Db.money.get(userid, 0)) + BR +
-		SPACE + this.seen(Db.seen.get(userid)) + BR +
+		SPACE + this.money(Db('money').get(userid, 0)) + BR +
+		SPACE + this.seen(Db('seen').get(userid)) + BR +
 		SPACE + this.pgo(userid) + BR +
 		SPACE + this.nature(userid) + BR +
 		SPACE + this.type(userid) + BR +
@@ -457,7 +457,7 @@ exports.commands = {
 
 	addmon: 'addteam',
 	addteam: function (target, room, user) {
-		if (!Db.hasteam.has(user.userid)) return this.errorReply('You dont have access to edit your team.');
+		if (!Db('hasteam').has(user.userid)) return this.errorReply('You dont have access to edit your team.');
 		if (!target) return this.parse('/teamhelp');
 		let parts = target.split(',');
 		let mon = parts[1].trim();
@@ -492,7 +492,7 @@ exports.commands = {
 		if (!this.can('broadcast')) return false;
 		if (!target) return this.errorReply('USAGE: /giveteam USER');
 		let person = target.toLowerCase().trim();
-		Db.hasteam.set(person, 1);
+		Db('hasteam').set(person, 1);
 		this.sendReply(person + ' has been given the ability to set their team.');
 		Users(person).popup('You have been given the ability to set your profile team.');
 	},
@@ -501,8 +501,8 @@ exports.commands = {
 		if (!this.can('broadcast')) return false;
 		if (!target) return this.errorReply('USAGE: /taketeam USER');
 		let person = target.toLowerCase().trim();
-		if (!Db.hasteam.has(person)) return this.errorReply('This user does not have the ability to set their team.');
-		Db.hasteam.delete(person);
+		if (!Db('hasteam').has(person)) return this.errorReply('This user does not have the ability to set their team.');
+		Db('hasteam').delete(person);
 		this.sendReply('this user has had their ability to change their team taken from them.');
 		Users(person).popup('You have been stripped of your ability to set your team.');
 	},

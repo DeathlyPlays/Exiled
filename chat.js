@@ -193,7 +193,6 @@ class CommandContext {
 					} else {
 						if (parseEmoticons(message, this.room, this.user)) return;
 						this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`).update();
-						Exiled.addExp(this.user, this.room, 1);
 					}
 				}
 			}

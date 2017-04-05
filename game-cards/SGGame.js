@@ -48,10 +48,10 @@ class SGgame extends Console.Console {
 		}
 		let targetParty = (box.split('|')[0] === 'party');
 		if (targetParty) box = box.split('|')[1];
-		if (!box || isNaN(Number(box)) || box < 0 || box > Db.players.get(this.userid).pc.length) box = 1;
+		if (!box || isNaN(Number(box)) || box < 0 || box > Db('players').get(this.userid).pc.length) box = 1;
 		box = Number(box);
 		slot = Number(slot);
-		let user = Db.players.get(this.userid);
+		let user = Db('players').get(this.userid);
 		let pokemon;
 		switch (action) {
 		case 'deposit':
@@ -59,7 +59,7 @@ class SGgame extends Console.Console {
 			pokemon = user.party[slot];
 			user.boxPoke([pokemon], box);
 			user.party.splice(slot, 1);
-			Db.players.set(this.userid, user);
+			Db('players').set(this.userid, user);
 			slot = null;
 			break;
 		case 'withdraw':
@@ -67,7 +67,7 @@ class SGgame extends Console.Console {
 			pokemon = user.pc[box - 1][slot];
 			user.unBoxPoke(box, slot);
 			user.party = user.party.concat(Tools.fastUnpackTeam(pokemon));
-			Db.players.set(this.userid, user);
+			Db('players').set(this.userid, user);
 			slot = null;
 			break;
 		case 'release':
@@ -77,11 +77,11 @@ class SGgame extends Console.Console {
 			if (targetParty) {
 				if (user.party.length <= 1) break;
 				user.party.splice(slot, 1);
-				Db.players.set(this.userid, user);
+				Db('players').set(this.userid, user);
 				slot = null;
 			} else {
 				user.pc[box - 1].splice(slot, 1);
-				Db.players.set(this.userid, user);
+				Db('players').set(this.userid, user);
 				slot = null;
 			}
 			break;
@@ -239,7 +239,7 @@ class Player {
 		// TODO
 		}
 		// Save data
-		//Db.players.set(this.userid, this); // Commented to prevent errors while in development
+		//Db('players').set(this.userid, this); // Commented to prevent errors while in development
 	}
 }
 
@@ -259,7 +259,7 @@ exports.commands = {
 		user.console = new SGgame(user, room, !!target);
 		if (cmd === 'playalpha') {
 			let htm = '<center>';
-			if (Db.players.has(user.userid)) htm += '<button name="send" value="/continuealpha" style="display: block; border: 5px solid #AAA; background: #FFF; font-family: monospace; border-radius: 5px; width: 90%; text-align: left;"><b>CONTINUE</b><br/><br/><span style="color: #4286f4">PLAYER ' + user.name + '<br/><br/>TIME ' + Math.floor(Math.abs(Date.now() - Db.players.get(user.userid).startedOn) / 86400000) + '<br/><br/>POKEDEX ' + Object.keys(Db.players.get(user.userid).pokedex).length + '</span></button>';
+			if (Db('players').has(user.userid)) htm += '<button name="send" value="/continuealpha" style="display: block; border: 5px solid #AAA; background: #FFF; font-family: monospace; border-radius: 5px; width: 90%; text-align: left;"><b>CONTINUE</b><br/><br/><span style="color: #4286f4">PLAYER ' + user.name + '<br/><br/>TIME ' + Math.floor(Math.abs(Date.now() - Db('players').get(user.userid).startedOn) / 86400000) + '<br/><br/>POKEDEX ' + Object.keys(Db('players').get(user.userid).pokedex).length + '</span></button>';
 			htm += '<button name="send" value="/confirmresetalpha" style="display: block; border: 5px solid #AAA; background: #FFF; font-family: monospace; border-radius: 5px; width: 90%; text-align: left;"><b>NEW GAME</b></button></center>';
 			user.console.init();
 			user.console.update('background-color: #6688AA;', htm, null);
@@ -287,13 +287,13 @@ exports.commands = {
 			this.parse('/sggame next');
 		} else {
 			// Continue
-			if (!Db.players.has(user.userid)) return this.parse('/confirmresetalpha');
+			if (!Db('players').has(user.userid)) return this.parse('/confirmresetalpha');
 			try {
-				Db.players.get(user.userid).test();
+				Db('players').get(user.userid).test();
 			} catch (e) {
 				let newObj = new Player(user.userid, Tools.fastUnpackTeam(SG.makeWildPokemon(false, {name: "ERROR!", species: "Mudkip", level: 10, ability: 0})));
-				Object.assign(newObj, Db.players.get(user.userid));
-				Db.players.set(user.userid, newObj);
+				Object.assign(newObj, Db('players').get(user.userid));
+				Db('players').set(user.userid, newObj);
 			}
 			user.console.curText = ['Welcome back to the alpha, tell me if you like the game or find any bugs!'];
 			user.console.defaultBottomHTML = '<center><!--mutebutton--><button name="send" value="/console sound" class="button">' + (user.console.muted ? 'Unmute' : 'Mute') + '</button><!--endmute--> <button name="send" value="/console shift" class="button">Shift</button> <button class="button disabled" name="send" value="/sggame pokemon">Pokemon</button> <button class="button disabled" name="send" value="/sggame bag">Bag</button> <button class="button" name="send" value="/sggame pc">PC Boxes</button> <button name="send" value="/search gen7wildpokemonalpha" class="button">Battle!</button> <button name="send" value="/resetalpha" class="button">Reset</button>';
@@ -335,11 +335,11 @@ exports.commands = {
 			let slot = target[1];
 			let box = (target[0].split('|')[0] === 'party' ? target[0].split('|')[1] : target[0]);
 			let orders = {};
-			if (target[0].split('|')[0] === 'party' && slot && Db.players.get(user.userid).party.length > 1 && !isNaN(Number(slot)) && Number(slot) > -1 && Number(slot) < 6 && !target[2]) {
+			if (target[0].split('|')[0] === 'party' && slot && Db('players').get(user.userid).party.length > 1 && !isNaN(Number(slot)) && Number(slot) > -1 && Number(slot) < 6 && !target[2]) {
 				orders = {deposit: true, release: true, back: true};
 			}
-			if (slot && !isNaN(Number(slot)) && Number(slot) > -1 && Number(slot) < 30 && Db.players.get(user.userid).pc[Number(box) - 1][Number(slot)] && !target[2] && target[0].split('|')[0] !== 'party') {
-				orders = {withdraw: (Db.players.get(user.userid).party.length < 6), release: true, back: true};
+			if (slot && !isNaN(Number(slot)) && Number(slot) > -1 && Number(slot) < 30 && Db('players').get(user.userid).pc[Number(box) - 1][Number(slot)] && !target[2] && target[0].split('|')[0] !== 'party') {
+				orders = {withdraw: (Db('players').get(user.userid).party.length < 6), release: true, back: true};
 			}
 			if (target[2] === 'release') orders.back = true;
 			if ((slot || Number(slot) === 0) && !target[2]) orders.back = true;
@@ -347,18 +347,18 @@ exports.commands = {
 			case 'withdraw':
 				if (target[0].split('|')[0] === 'party') {
 					target[2] = '';
-					orders = {deposit: (Db.players.get(user.userid).party.length > 1), release: (Db.players.get(user.userid).party.length > 1), back: true};
+					orders = {deposit: (Db('players').get(user.userid).party.length > 1), release: (Db('players').get(user.userid).party.length > 1), back: true};
 				}
 				break;
 			case 'deposit':
 				if (target[0].split('|')[0] !== 'party') {
 					target[2] = '';
-					orders = {withdraw: (Db.players.get(user.userid).party.length < 6), release: true, back: true};
+					orders = {withdraw: (Db('players').get(user.userid).party.length < 6), release: true, back: true};
 				}
 				break;
 			case 'release':
 			case 'confirmrelease':
-				if (target[0].split('|')[0] === 'party' && Db.players.get(user.userid).party.length <= 1) {
+				if (target[0].split('|')[0] === 'party' && Db('players').get(user.userid).party.length <= 1) {
 					target[2] = '';
 					orders = {back: true};
 				}
@@ -398,7 +398,7 @@ exports.commands = {
 			break;
 		case 'confirmpickstarter':
 			let obj = new Player(user, Tools.fastUnpackTeam(SG.makeWildPokemon(false, {species: target, level: 10, ability: 0, ot: user.userid})));
-			Db.players.set(user.userid, obj);
+			Db('players').set(user.userid, obj);
 			this.parse('/sggame next');
 		}
 	},

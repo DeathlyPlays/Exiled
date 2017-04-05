@@ -88,12 +88,12 @@ function addCard(name, card) {
 	newCard.points = cards[card].points;
 
 	let userid = toId(name);
-	Db('cards').set(userid, Db('cards').get(userid, []).concat([newCard]));
-	Db('points').set(userid, Db('points').get(userid, 0) + newCard.points);
+	Db.cards.set(userid, Db.cards.get(userid, []).concat([newCard]));
+	Db.points.set(userid, Db.points.get(userid, 0) + newCard.points);
 }
 
 function removeCard(cardTitle, userid) {
-	let userCards = Db('cards').get(userid, []);
+	let userCards = Db.cards.get(userid, []);
 	let idx = -1;
 	// search for index of the card
 	for (let i = 0; i < userCards.length; i++) {
@@ -107,12 +107,12 @@ function removeCard(cardTitle, userid) {
 	// remove it
 	userCards.splice(idx, 1);
 	// set it in db
-	Db('cards').set(userid, userCards);
+	Db.cards.set(userid, userCards);
 	return true;
 }
 
 function getPointTotal(userid) {
-	let totalCards = Db('cards').get(userid, []);
+	let totalCards = Db.cards.get(userid, []);
 	let total = 0;
 	for (let i = 0; i < totalCards.length; i++) {
 		total += totalCards[i].points;
@@ -256,7 +256,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		let userid = user.userid;
 		if (target) userid = toId(target);
-		const cards = Db('cards').get(userid, []);
+		const cards = Db.cards.get(userid, []);
 		if (!cards.length) return this.sendReplyBox(userid + " has no cards.");
 		const cardsMapping = cards.map(function (card) {
 			return '<button name="send" value="/card ' + card.title + '" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;" class="card-button"><img src="' + card.card + '" width="80" title="' + card.name + '"></button>';
@@ -281,7 +281,7 @@ exports.commands = {
 
 	cardladder: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		let keys = Object.keys(Db('points').object()).map(function (name) {
+		let keys = Object.keys(Db.points.object()).map(function (name) {
 			return {
 				name: name,
 				points: getPointTotal(name),
@@ -448,7 +448,7 @@ exports.commands = {
 			// collections
 			let cardCollection = '<b>Packs: </b>' + card.collection.join(", ") + "<br />";
 			// get users that have the card
-			let allCardUsers = Db('cards').object();
+			let allCardUsers = Db.cards.object();
 			let cardHolders = [];
 			// dont allow duplicates
 			for (let u in allCardUsers) {
@@ -495,7 +495,7 @@ exports.commands = {
 		// check for user's card
 		let forTrade = parts[0];
 		match = false;
-		let userCards = Db('cards').get(user.userid, []);
+		let userCards = Db.cards.get(user.userid, []);
 		for (let i = 0; i < userCards.length; i++) {
 			if (userCards[i].title === forTrade) {
 				match = true;
@@ -508,7 +508,7 @@ exports.commands = {
 		let targetUser = parts[1];
 		let targetTrade = parts[2];
 
-		let targetCards = Db('cards').get(targetUser, []);
+		let targetCards = Db.cards.get(targetUser, []);
 		match = false;
 		for (let i = 0; i < targetCards.length; i++) {
 			if (targetCards[i].title === targetTrade) {
@@ -529,7 +529,7 @@ exports.commands = {
 			id: tradeId,
 		};
 
-		Db('cardtrades').set(tradeId, newTrade);
+		Db.cardtrades.set(tradeId, newTrade);
 
 		// send messages
 		this.sendReply("Your trade has been taken submitted.");
@@ -543,7 +543,7 @@ exports.commands = {
 		const popup = "|html|<center><b><font color=\"blue\">Trade Manager</font></b></center><br />";
 
 		// get the user's trades
-		let allTrades = Db('cardtrades').object();
+		let allTrades = Db.cardtrades.object();
 		let userTrades = [];
 		for (let id in allTrades) {
 			let trade = allTrades[id];
@@ -666,7 +666,7 @@ exports.commands = {
 			}
 			// finalize trade
 			// get the trade
-			trade = Db('cardtrades').get(parts[0], null);
+			trade = Db.cardtrades.get(parts[0], null);
 			if (!trade) return user.popup(tradeError);
 
 			// check if the trade involves the user
@@ -683,7 +683,7 @@ exports.commands = {
 			// now double check that both users still have those cards
 			// check user first
 			match = false;
-			let userCards = Db('cards').get(user.userid, []);
+			let userCards = Db.cards.get(user.userid, []);
 			for (let i = 0; i < userCards.length; i++) {
 				if (userCards[i].title === trade[accepter + "Exchange"]) {
 					match = true;
@@ -695,7 +695,7 @@ exports.commands = {
 
 			// check target
 			match = false;
-			let targetCards = Db('cards').get(trade[otherTarget], []);
+			let targetCards = Db.cards.get(trade[otherTarget], []);
 			for (let i = 0; i < targetCards.length; i++) {
 				if (targetCards[i].title === trade[otherTarget + "Exchange"]) {
 					match = true;
@@ -714,11 +714,11 @@ exports.commands = {
 			removeCard(trade.toExchange, trade.to);
 
 			// update points
-			Db('points').set(trade.to, getPointTotal(trade.to));
-			Db('points').set(trade.from, getPointTotal(trade.from));
+			Db.points.set(trade.to, getPointTotal(trade.to));
+			Db.points.set(trade.from, getPointTotal(trade.from));
 
 			// remove the trade
-			Db('cardtrades').delete(parts[0]);
+			Db.cardtrades.delete(parts[0]);
 
 			// on trade success
 			// send popups to both user and target saying the trade with user was a success
@@ -742,7 +742,7 @@ exports.commands = {
 		case 'reject':
 			if (!parts[0]) return false;
 			// check for trade
-			trade = Db('cardtrades').get(parts[0], null);
+			trade = Db.cardtrades.get(parts[0], null);
 
 			if (!trade) return user.popup(tradeError);
 
@@ -762,7 +762,7 @@ exports.commands = {
 			}
 
 			// remove the trade
-			Db('cardtrades').delete(parts[0]);
+			Db.cardtrades.delete(parts[0]);
 
 			// letting the users involved know
 			let targetUser;
@@ -796,8 +796,8 @@ exports.commands = {
 		// complete transfer
 		addCard(targetUser, card);
 
-		Db('points').set(targetUser, getPointTotal(targetUser));
-		Db('points').set(user.userid, getPointTotal(user.userid));
+		Db.points.set(targetUser, getPointTotal(targetUser));
+		Db.points.set(user.userid, getPointTotal(user.userid));
 
 		// build transfer profile
 		let newTransfer = {
@@ -817,8 +817,8 @@ exports.commands = {
 		if (toId(target) === user) return this.errorReply("You cannot transfer cards to yourself.");
 		let targetUser = toId(target);
 		if (!targetUser) return this.errorReply("/transferallcards [user]");
-		let userCards = Db('cards').get(user.userid, []);
-		let targetCards = Db('cards').get(targetUser, []);
+		let userCards = Db.cards.get(user.userid, []);
+		let targetCards = Db.cards.get(targetUser, []);
 
 		if (!userCards.length) return this.errorReply("You don't have any cards.");
 
@@ -828,11 +828,11 @@ exports.commands = {
 		}
 
 		// now the real work
-		Db('cards').set(targetUser, targetCards.concat(userCards));
-		Db('cards').set(user.userid, []);
+		Db.cards.set(targetUser, targetCards.concat(userCards));
+		Db.cards.set(user.userid, []);
 
-		Db('points').set(targetUser, getPointTotal(targetUser));
-		Db('points').set(user.userid, getPointTotal(user.userid));
+		Db.points.set(targetUser, getPointTotal(targetUser));
+		Db.points.set(user.userid, getPointTotal(user.userid));
 
 		user.popup("You have transfered all your cards to " + targetUser + ".");
 

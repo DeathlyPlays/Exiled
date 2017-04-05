@@ -20,7 +20,7 @@ let EXP = Exiled.EXP = {
     readExp: function (userid, callback) {
         userid = toId(userid);
 
-        let amount = Db('exp').get(userid, DEFAULT_AMOUNT);
+        let amount = Db.exp.get(userid, DEFAULT_AMOUNT);
         if (typeof callback !== 'function') {
             return amount;
         } else {
@@ -37,9 +37,9 @@ let EXP = Exiled.EXP = {
         if (isNaN(amount)) {
             throw new Error("EXP.writeExp: Expected amount parameter to be a Number, instead received " + typeof amount);
         }
-        let curTotal = Db('exp').get(userid, DEFAULT_AMOUNT);
-        Db('exp').set(userid, curTotal + amount);
-        let newTotal = Db('exp').get(userid);
+        let curTotal = Db.exp.get(userid, DEFAULT_AMOUNT);
+        Db.exp.set(userid, curTotal + amount);
+        let newTotal = Db.exp.get(userid);
         if (callback && typeof callback === 'function') {
             // If a callback is specified, return `newTotal` through the callback.
             return callback(newTotal);
@@ -58,57 +58,57 @@ function addExp(user, room, amount) {
             //let reward;
             if (oldLevel < 3 && 3 <= level) {
                 //reward = '';
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 2);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 2);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (oldLevel < 5 && 5 <= level) {
                 //reward = '';
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 5);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 5);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (oldLevel < 8 && 8 <= level) {
                 //reward = '';
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 5);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 5);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (oldLevel < 10 && 10 <= level) {
                 //reward = '';
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 8);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 8);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (oldLevel < 12 && 12 <= level) {
                 //reward = '';
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 10);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 10);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (oldLevel < 13 && 13 <= level) {
                 //reward = '';
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 13);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 13);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (oldLevel < 17 && 17 <= level) {
                 //reward = '';
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 17);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 17);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (oldLevel < 20 && 20 <= level) {
                 //reward = '';
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 20);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 20);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (level > 20) {
                 //reward = '';
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 25);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 25);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (level === 2 || level === 4) {
                 //reward = "-3 Stardust";
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 2);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 2);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             if (level === 6 || level === 7 || level === 9 || level === 11 || level === 14 || level === 16 || level === 15 || level === 16 || level === 18 || level === 19) {
                 //reward = "-5 Stardust";
-                Db("money").set(user.userid, Db("money").get(user.userid, 0) + 5);
+                Db.money.set(user.userid, Db.money.get(user.userid, 0) + 5);
                 //user.sendTo(room, 'You have earned ' + reward + ' for level up!');
             }
             let newLevel = Exiled.level(user);
@@ -121,7 +121,7 @@ function addExp(user, room, amount) {
 Exiled.addExp = addExp;
 
 function level(user) {
-    let curExp = Db('exp').get(user, 0);
+    let curExp = Db.exp.get(user, 0);
     let benchmarks = [0, 40, 90, 165, 250, 400, 600, 810, 1250, 1740, 2450, 3300, 4400, 5550, 6740, 8120, 9630, 11370, 13290, 15520, 18050, 23000, 28000, 33720, 39900, 46440, 52690, 58000, 63600, 69250, 75070, 81170, 87470, 93970, 100810, 107890, 115270, 122960, 131080, 140000];
     for (let i = 0; i < benchmarks.length; i++) {
         if (curExp >= benchmarks[benchmarks.length - 1]) return "Maxed!";
@@ -135,7 +135,7 @@ function level(user) {
 Exiled.level = level;
 
 function nextLevel(user) {
-    let curExp = Db('exp').get(user, 0);
+    let curExp = Db.exp.get(user, 0);
     let benchmarks = [0, 40, 90, 165, 250, 400, 600, 810, 1250, 1740, 2450, 3300, 4400, 5550, 6740, 8120, 9630, 11370, 13290, 15520, 18050, 23000, 28000, 33720, 39900, 46440, 52690, 58000, 63600, 69250, 75070, 81170, 87470, 93970, 100810, 107890, 115270, 122960, 131080, 140000];
     for (let i = 0; i < benchmarks.length; i++) {
         if (curExp >= benchmarks[benchmarks.length - 1]) return "no more level ups :(";
@@ -193,7 +193,7 @@ exports.commands = {
         if (cmd !== 'confirmresetexp') {
             return this.popupReply('|html|<center><button name="send" value="/confirmresetexp ' + targetUser + '"style="background-color:red;height:300px;width:150px"><b><font color="white" size=3>Confirm XP reset of ' + Exiled.nameColor(targetUser, true) + '; this is only to be used in emergencies, cannot be undone!</font></b></button>');
         }
-        Db('exp').set(toId(target), 0);
+        Db.exp.set(toId(target), 0);
         if (Users.get(target)) Users.get(target).popup('Your XP was reset by an Administrator. This cannot be undone and nobody below the rank of Administrator can assist you or answer questions about this.');
         user.popup("|html|You have reset the XP of " + Exiled.nameColor(targetUser, true) + ".");
         Rooms('staff').add('|html|[EXP Monitor] ' + Exiled.nameColor(user.name, true) + ' has reset the XP of ' + Exiled.nameColor(target, true));
@@ -204,7 +204,7 @@ exports.commands = {
     expladder: function (target, room, user) {
         if (!this.runBroadcast()) return;
         let display = '<center><u><b>Exp</b></u></center><br><table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>Rank</th><th>Username</th><th>EXP</th></tr>';
-        let keys = Object.keys(Db('exp').object()).map(function (name) {});
+        let keys = Object.keys(Db.exp.object()).map(function (name) {});
         if (!keys.length) return this.sendReplyBox("Exp ladder is empty.");
         keys.sort(function (a, b) {
             return b.exp - a.exp;
@@ -218,7 +218,7 @@ exports.commands = {
 
     cleanexp: function (target, room, user) {
         if (!this.can('root')) return this.errorReply("/cleanexp - Access denied.");
-        Db('exp').keys().filter(key => Db('exp').get(key) < 1).forEach(key => Db('exp').remove(key));
+        Db.exp.keys().filter(key => Db.exp.get(key) < 1).forEach(key => Db.exp.remove(key));
         this.sendReply("All users who has less than 1 exp total are now removed from the database.");
     },
     cleanexphelp: ["/cleanexp - Cleans exp database by removing users with less than one exp."],
@@ -229,8 +229,8 @@ exports.commands = {
         if (cmd !== 'confirmclearexp') {
             return this.popupReply('|html|<center><button name="send" value="/confirmclearexp"style="background-color:red;height:300px;width:150px"><b><font color="white" size=3>Confirm GLOBAL EXP RESET? this is only to be used in emergencies, cannot be undone!</font></b></button>');
         }
-        Db('exp').keys().forEach(key => {
-            Db('exp').remove(key);
+        Db.exp.keys().forEach(key => {
+            Db.exp.remove(key);
         });
         user.popup("|html|You have reset the EXP of everyone.");
         Monitor.log('[EXP Monitor] ' + user.name + ' has reset all user EXP.');

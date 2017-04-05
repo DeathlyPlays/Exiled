@@ -91,7 +91,7 @@ exports.commands = {
 			let gang = toId(target);
 			if (user.gang !== '') return this.errorReply("You are already in a gang");
 			if (!gangs[gang]) return this.errorReply("This gang does not exist.");
-			Db('gangs').set(user.userid, gang);
+			Db.gangs.set(user.userid, gang);
 			user.gang = gang;
 			this.sendReply("You have joined the gang: " + gang);
 		},
@@ -99,8 +99,8 @@ exports.commands = {
 			if (!user.gang) return this.errorReply("You are not currently in a gang!");
 			if (user.gangrank === 'capo' || user.gangrank === 'godfather') return this.errorReply("You cannot leave a gang if you have a gang rank of godfather or capo");
 			if (!target || user.gang !== toId(target)) return this.errorReply("Please specify what gang you are leaving to confirm your choice.");
-			Db('gangs').delete(user.userid);
-			Db('gangranks').delete(user.userid);
+			Db.gangs.delete(user.userid);
+			Db.gangranks.delete(user.userid);
 			user.gang = "";
 			user.gangrank = "";
 			this.sendReply("You have left the gang " + toId(target) + ".");
@@ -111,7 +111,7 @@ exports.commands = {
 			if (!Users(targetUser)) return this.errorReply("User not found.");
 			if (user.gangrank !== 'godfather') return this.errorReply("/gang add - Access denied.");
 			if (!(targetUser.gang !== '')) return this.errorReply("User is already a member of a rival gang.");
-			Db('gangs').set(targetUser, user.gang);
+			Db.gangs.set(targetUser, user.gang);
 			targetUser.gang === user.gang;
 			this.sendReply(targetUser + " has been added to the gang: " + user.gang);
 			Users(target).popup("You have been added to the gang: " + user.gang + " by " + user + ".");
@@ -122,7 +122,7 @@ exports.commands = {
 			if (!Users(targetUser)) return this.errorReply("User not found.");
 			if (!(user.gangrank === 'capo' || user.gangrank === 'godfather')) return this.errorReply("/gang remove - Access denied.");
 			if (targetUser.gang !== user.gang && !this.can('lock')) return this.errorReply("User is not a member of your gang.");
-			Db('gangs').set(targetUser, '');
+			Db.gangs.set(targetUser, '');
 			Users(target).gang = '';
 			this.sendReply(targetUser + " has been removed from the gang: " + user.gang);
 			Users(targetUser).popup("You have been removed from the gang: " + user.gang + " by " + user + ".");
@@ -133,7 +133,7 @@ exports.commands = {
 			if (!Users(targetUser)) return this.errorReply("User not found.");
 			if (!(user.gangrank === 'capo' || user.gangrank === 'godfather') || user.gang === '' && !this.can('lock')) return this.errorReply("/gang promote - Access denied.");
 			if (targetUser.gang !== user.gang && !this.can('lock')) return this.errorReply("User is not a member of your gang.");
-			Db('gangranks').set(targetUser, 'capo');
+			Db.gangranks.set(targetUser, 'capo');
 			Users(target).gangrank = 'capo';
 			this.sendReply(targetUser + " has been promoted to capo in the gang: " + user.gang);
 			Users(target).popup("You have been promoted to capo in the gang: " + user.gang + " by " + user + ".");
@@ -144,7 +144,7 @@ exports.commands = {
 			if (!Users(targetUser)) return this.errorReply("User not found.");
 			if (user.gangrank !== 'godfather') return this.errorReply("/gang demote - Access denied.");
 			if (targetUser.gang !== user.gang && !this.can('lock')) return this.errorReply("User is not a member of your gang.");
-			Db('gangranks').set(targetUser, '');
+			Db.gangranks.set(targetUser, '');
 			Users(target).gangrank = '';
 			this.sendReply(targetUser + " has been demoted in the gang: " + user.gang);
 			Users(target).popup("You have been demoted in the gang: " + user.gang + " by " + user + ".");
@@ -158,8 +158,8 @@ exports.commands = {
 			if (!gangs[gang]) return this.errorReply("This gang does not exist.");
 			let targetUser = Users(toId(parts[0]));
 			if (!this.can('hotpatch')) return this.errorReply("/gang godfather - Access denied.");
-			Db('gangranks').set(targetUser, 'godfather');
-			Db('gangs').set(targetUser, gang);
+			Db.gangranks.set(targetUser, 'godfather');
+			Db.gangs.set(targetUser, gang);
 			user.gangrank = 'godfather';
 			user.gang = gang;
 			this.sendReply(targetUser + " has been promoted to godfather of the gang: " + gang);
@@ -167,10 +167,10 @@ exports.commands = {
 		},
 		ladder: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			let keys = Object.keys(Db('gangladder').object()).map(function (name) {
+			let keys = Object.keys(Db.gangladder.object()).map(function (name) {
 				return {
 					name: name,
-					gangladder: Db('gangladder').get(name)
+					gangladder: Db.gangladder.get(name)
 				};
 			});
 			if (!keys.length) return this.sendReplyBox("Turf ladder is empty.");
@@ -186,7 +186,7 @@ exports.commands = {
 			let gang = toId(parts[0]);
 			let amount = isMoney(parts[1]);
 			if (!gangs[gang]) return this.errorReply("Gang not found.");
-			Db('gangladder').set(gang, Db('gangladder').get(gang, 0) + amount).get(gang);
+			Db.gangladder.set(gang, Db.gangladder.get(gang, 0) + amount).get(gang);
 			this.sendReply(gang + " has been awarded " + amount + " points.");
 			room.addRaw("<h4>" + gang + "has been awarded " + amount + " points.</h4>");
 		},
@@ -197,16 +197,16 @@ exports.commands = {
 			let gang = toId(parts[0]);
 			let amount = isMoney(parts[1]);
 			if (!gangs[gang]) return this.errorReply("Gang not found.");
-			Db('gangladder').set(gang, Db('gangladder').get(gang, 0) - amount).get(gang);
+			Db.gangladder.set(gang, Db.gangladder.get(gang, 0) - amount).get(gang);
 			this.sendReply(gang + " has been deducted of " + amount + " points.");
 			room.addRaw("<h4>" + gang + "has been deducted of " + amount + " points.</h4>");
 		},
 		resetladder: function (target, room, user) {
 			if (!this.can('hotpatch')) return false;
-			let allGangs = Db('gangladder').object();
+			let allGangs = Db.gangladder.object();
 			Object.keys(allGangs)
 				.filter(function (gang) {
-					return Db('gangladder').get(gang);
+					return Db.gangladder.get(gang);
 				})
 				.forEach(function (gang) {
 					delete allGangs[gang];
@@ -218,8 +218,8 @@ exports.commands = {
 			if (!this.runBroadcast()) return false;
 			if ((target && !gangs.hasOwnProperty(toId(target))) || (!target && !gangs.hasOwnProperty(room.id))) return this.errorReply("You must specify a gang.");
 			let targetGang = target ? toId(target) : room.id;
-			let gangData = Db('gangs').object();
-			let gangRanks = Db('gangranks').object();
+			let gangData = Db.gangs.object();
+			let gangRanks = Db.gangranks.object();
 			let members = {
 				godfather: [],
 				capo: [],

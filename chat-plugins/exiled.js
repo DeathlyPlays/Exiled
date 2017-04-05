@@ -21,7 +21,7 @@ Exiled.customColors = {};
 global.isYouTube = function (user) {
 	if (!user) return;
 	if (typeof user === 'Object') user = user.userid;
-	let youtube = Db('youtube').get(toId(user));
+	let youtube = Db.youtube.get(toId(user));
 	if (youtube === 1) return true;
 	return false;
 };
@@ -30,22 +30,22 @@ global.isYouTube = function (user) {
 Exiled.giveDailyReward = function (userid, user) {
 	if (!user || !userid) return false;
 	userid = toId(userid);
-	if (!Db('DailyBonus').has(userid)) {
-		Db('DailyBonus').set(userid, [1, Date.now()]);
+	if (!Db.DailyBonus.has(userid)) {
+		Db.DailyBonus.set(userid, [1, Date.now()]);
 		return false;
 	}
-	let lastTime = Db('DailyBonus').get(userid)[1];
+	let lastTime = Db.DailyBonus.get(userid)[1];
 	if ((Date.now() - lastTime) < 86400000) return false;
-	if ((Date.now() - lastTime) >= 127800000) Db('DailyBonus').set(userid, [1, Date.now()]);
-	if (Db('DailyBonus').get(userid)[0] === 8) Db('DailyBonus').set(userid, [7, Date.now()]);
-	Economy.writeMoney(userid, Db('DailyBonus').get(userid)[0]);
-	user.send('|popup||wide||html| <center><u><b><font size="3">Exiled Daily Bonus</font></b></u><br>You have been awarded ' + Db('DailyBonus').get(userid)[0] + ' Buck.<br>' + showDailyRewardAni(userid) + '<br>Because you have connected to the server for the past ' + Db('DailyBonus').get(userid)[0] + ' Days.</center>');
-	Db('DailyBonus').set(userid, [(Db('DailyBonus').get(userid)[0] + 1), Date.now()]);
+	if ((Date.now() - lastTime) >= 127800000) Db.DailyBonus.set(userid, [1, Date.now()]);
+	if (Db.DailyBonus.get(userid)[0] === 8) Db.DailyBonus.set(userid, [7, Date.now()]);
+	Economy.writeMoney(userid, Db.DailyBonus.get(userid)[0]);
+	user.send('|popup||wide||html| <center><u><b><font size="3">Exiled Daily Bonus</font></b></u><br>You have been awarded ' + Db.DailyBonus.get(userid)[0] + ' Buck.<br>' + showDailyRewardAni(userid) + '<br>Because you have connected to the server for the past ' + Db.DailyBonus.get(userid)[0] + ' Days.</center>');
+	Db.DailyBonus.set(userid, [(Db.DailyBonus.get(userid)[0] + 1), Date.now()]);
 };
 
 function showDailyRewardAni(userid) {
 	userid = toId(userid);
-	let streak = Db('DailyBonus').get(userid)[0];
+	let streak = Db.DailyBonus.get(userid)[0];
 	let output = '';
 	for (let i = 1; i <= streak; i++) {
 		output += "<img src='https://www.mukuru.com/media/img/icons/new_order.png' width='16' height='16'> ";
@@ -73,7 +73,7 @@ function cacheUrbanWord(word, definition) {
 global.isDev = function (user) {
 	if (!user) return;
 	if (typeof user === 'Object') user = user.userid;
-	let dev = Db('devs').get(toId(user));
+	let dev = Db.devs.get(toId(user));
 	if (dev === 1) return true;
 	return false;
 };
@@ -102,7 +102,7 @@ exports.commands = {
 			if (parts[1] < 1) return false;
 			if (!parts[1]) return false;
 			if (isYouTube(username)) return this.errorReply(user.name + " is already a YouTuber.");
-			Db('youtube').set(username, 1);
+			Db.youtube.set(username, 1);
 			user.send('|popup|' + toId(parts[1]) + " has received YouTube status from " + user.name + "");
 			this.sendReply(username + ' has been granted with YouTube status.');
 			break;
@@ -111,15 +111,15 @@ exports.commands = {
 			if (!this.can('lock')) return false;
 			if (!parts[1] < 1) return false;
 			if (!parts[1]) return false;
-			Db('youtube').delete(username);
+			Db.youtube.delete(username);
 			user.send('|popup|' + toId(parts[1]) + " has taken YouTuber status from " + user.name + "");
 			this.sendReply(toId(parts[1]) + '\'s YouTuber status has been taken.');
 			break;
 
 		case 'list':
 			if (!this.can('broadcast')) return false;
-			if (!Object.keys(Db('youtube').object()).length) return this.errorReply('There seems to be no user with YouTuber status.');
-			this.sendReplyBox('<center><b><u>YouTubers</u></b></center>' + '<br /><br />' + Object.keys(Db('youtube').object()).join('<br />'));
+			if (!Object.keys(Db.youtube.object()).length) return this.errorReply('There seems to be no user with YouTuber status.');
+			this.sendReplyBox('<center><b><u>YouTubers</u></b></center>' + '<br /><br />' + Object.keys(Db.youtube.object()).join('<br />'));
 			break;
 
 
@@ -187,7 +187,7 @@ exports.commands = {
 			if (parts[1] < 1) return false;
 			if (!parts[1]) return false;
 			if (isDev(username)) return this.errorReply(user.name + " is already a dev.");
-			Db('devs').set(username, 1);
+			Db.devs.set(username, 1);
 			user.send('|popup|' + toId(parts[1]) + " has received Developer status from " + user.name + "");
 			this.sendReply(username + ' has been granted with dev status.');
 			break;
@@ -196,15 +196,15 @@ exports.commands = {
 			if (!this.can('lock')) return false;
 			if (!parts[1] < 1) return false;
 			if (!parts[1]) return false;
-			Db('devs').delete(username);
+			Db.devs.delete(username);
 			user.send('|popup|' + toId(parts[1]) + " has taken Developer status from " + user.name + "");
 			this.sendReply(toId(parts[1]) + '\'s dev status has been taken.');
 			break;
 
 		case 'list':
 			if (!this.can('broadcast')) return false;
-			if (!Object.keys(Db('devs').object()).length) return this.errorReply('There seems to be no user with dev status.');
-			this.sendReplyBox('<center><b><u>DEV Users</u></b></center>' + '<br /><br />' + Object.keys(Db('devs').object()).join('<br />'));
+			if (!Object.keys(Db.devs.object()).length) return this.errorReply('There seems to be no user with dev status.');
+			this.sendReplyBox('<center><b><u>DEV Users</u></b></center>' + '<br /><br />' + Object.keys(Db.devs.object()).join('<br />'));
 			break;
 
 		default:
@@ -243,7 +243,6 @@ exports.commands = {
 	},
 	registertriviahelp: ["/registertrivia [room] - Adds Trivia to a room. Requires % or higher."],
 
-
 	deregistertrivia: function (target, room, user) {
 		if (!user.can('lock')) return this.errorReply("/deregistertrivia - Access denied");
 		if (!target) return this.parse("/help deregistertrivia");
@@ -260,7 +259,6 @@ exports.commands = {
 		}
 	},
 	deregistertriviahelp: ["/deregistertrivia [room] - Removes Trivia from a room. Requires % or higher."],
-
 
 	registerscavenger: function (target, room, user) {
 		if (!user.can('lock')) return this.errorReply("/registerscavenger - Access denied");
@@ -355,9 +353,9 @@ exports.commands = {
 	bonus: 'dailybonus',
 	checkbonus: 'dailybonus',
 	dailybonus: function (target, room, user) {
-		let nextBonus = Date.now() - Db('DailyBonus').get(user.userid, [1, Date.now()])[1];
+		let nextBonus = Date.now() - Db.DailyBonus.get(user.userid, [1, Date.now()])[1];
 		if ((86400000 - nextBonus) <= 0) return Exiled.giveDailyReward(user.userid, user);
-		return this.sendReply('Your next bonus is ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db('DailyBonus').get(user.userid, [1, Date.now()])[0]) + ' ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural) + ' in ' + Chat.toDurationString(Math.abs(86400000 - nextBonus)));
+		return this.sendReply('Your next bonus is ' + (Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db.DailyBonus.get(user.userid, [1, Date.now()])[0]) + ' ' + (Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural) + ' in ' + Chat.toDurationString(Math.abs(86400000 - nextBonus)));
 	},
 	sota: function (room, user) {
 		return this.parse('feelssota feelstini tinitini sotalove');
@@ -764,9 +762,5 @@ exports.commands = {
 
 	hv: function (room, user, cmd) {
 		return this.parse('/hotpatch validator');
-	},
-	
-	hd: function (room, user, cmd) {
-		return this.parse('/hotpatch dnsbl');
 	},
 };

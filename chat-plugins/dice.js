@@ -64,7 +64,8 @@ class Dice {
 	}
 
 	play() {
-		let p1 = this.players[0], p2 = this.players[1];
+		let p1 = this.players[0],
+			p2 = this.players[1];
 		Economy.readMoney(p1.userid, money1 => {
 			Economy.readMoney(p2.userid, money2 => {
 				if (money1 < this.bet || money2 < this.bet) {
@@ -84,7 +85,8 @@ class Dice {
 					roll2 = Math.floor(Math.random() * 6);
 				} while (roll1 === roll2);
 				if (roll2 > roll1) this.players.reverse();
-				let winner = this.players[0], loser = this.players[1];
+				let winner = this.players[0],
+					loser = this.players[1];
 
 
 				let taxedAmt = Math.round(this.bet * TAX);

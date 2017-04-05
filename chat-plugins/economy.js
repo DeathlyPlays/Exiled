@@ -112,7 +112,7 @@ let Economy = global.Economy = {
 		// In case someone forgot to turn `userid` into an actual ID...
 		userid = toId(userid);
 
-		let amount = Db('money').get(userid, DEFAULT_AMOUNT);
+		let amount = Db.money.get(userid, DEFAULT_AMOUNT);
 		return callback(amount);
 	},
 
@@ -134,8 +134,8 @@ let Economy = global.Economy = {
 			throw new Error("Economy.writeMoney: Expected amount parameter to be a Number, instead received " + typeof amount);
 		}
 
-		let curTotal = Db('money').get(userid, DEFAULT_AMOUNT);
-		let newTotal = Db('money')
+		let curTotal = Db.money.get(userid, DEFAULT_AMOUNT);
+		let newTotal = Db.money
 			.set(userid, curTotal + amount)
 			.get(userid);
 
@@ -191,15 +191,12 @@ function handleBoughtItem(item, user, cost) {
 		this.sendReply("You have purchased a custom symbol. You can use /customsymbol to get your custom symbol.");
 		this.sendReply("You will have this until you log off for more than an hour.");
 		this.sendReply("If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.");
-	}
-	else if (item === 'icon') {
+	} else if (item === 'icon') {
 		this.sendReply('You purchased an icon, contact an administrator to obtain the article.');
-	}
-	else if (item === 'profileteam') {
-		Db('hasteam').set(user);
+	} else if (item === 'profileteam') {
+		Db.hasteam.set(user);
 		this.sendReply('You can now set your team!');
-	}
-	else {
+	} else {
 		let msg = '**' + user.name + " has bought " + item + ".**";
 		Rooms.rooms.get("staff").add('|c|~Shop Alert|' + msg);
 		Rooms.rooms.get("staff").update();
@@ -218,7 +215,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) target = user.name;
 
-		const amount = Db('money').get(toId(target), 0);
+		const amount = Db.money.get(toId(target), 0);
 		let group = user.getIdentity().charAt(0);
 		this.sendReplyBox("<font color=" + color(target) + "><b>" + Chat.escapeHTML(target) + "</b></font> has " + amount + moneyName(amount) + ".");
 	},
@@ -236,7 +233,7 @@ exports.commands = {
 
 		if (typeof amount === 'string') return this.errorReply(amount);
 
-		let total = Db('money').set(toId(username), Db('money').get(toId(username), 0) + amount).get(toId(username));
+		let total = Db.money.set(toId(username), Db.money.get(toId(username), 0) + amount).get(toId(username));
 		amount = amount + moneyName(amount);
 		total = total + moneyName(total);
 		this.sendReply(username + " was given " + amount + ". " + username + " now has " + total + ".");
@@ -257,7 +254,7 @@ exports.commands = {
 
 		if (typeof amount === 'string') return this.errorReply(amount);
 
-		let total = Db('money').set(toId(username), Db('money').get(toId(username), 0) - amount).get(toId(username));
+		let total = Db.money.set(toId(username), Db.money.get(toId(username), 0) - amount).get(toId(username));
 		amount = amount + moneyName(amount);
 		total = total + moneyName(total);
 		this.sendReply(username + " losted " + amount + ". " + username + " now has " + total + ".");
@@ -270,7 +267,7 @@ exports.commands = {
 	resetbucks: 'resetmoney',
 	resetmoney: function (target, room, user) {
 		if (!this.can('forcewin')) return false;
-		Db('money').set(toId(target), 0);
+		Db.money.set(toId(target), 0);
 		this.sendReply(target + " now has 0 bucks.");
 		logMoney(user.name + " reset the money of " + target + ".");
 	},
@@ -290,14 +287,14 @@ exports.commands = {
 		if (toId(username) === user.userid) return this.errorReply("You cannot transfer to yourself.");
 		if (username.length > 19) return this.errorReply("Username cannot be longer than 19 characters.");
 		if (typeof amount === 'string') return this.errorReply(amount);
-		if (amount > Db('money').get(user.userid, 0)) return this.errorReply("You cannot transfer more money than what you have.");
+		if (amount > Db.money.get(user.userid, 0)) return this.errorReply("You cannot transfer more money than what you have.");
 
-		Db('money')
-			.set(user.userid, Db('money').get(user.userid) - amount)
-			.set(uid, Db('money').get(uid, 0) + amount);
+		Db.money
+			.set(user.userid, Db.money.get(user.userid) - amount)
+			.set(uid, Db.money.get(uid, 0) + amount);
 
-		let userTotal = Db('money').get(user.userid) + moneyName(Db('money').get(user.userid));
-		let targetTotal = Db('money').get(uid) + moneyName(Db('money').get(uid));
+		let userTotal = Db.money.get(user.userid) + moneyName(Db.money.get(user.userid));
+		let targetTotal = Db.money.get(uid) + moneyName(Db.money.get(uid));
 		amount = amount + moneyName(amount);
 
 		this.sendReply("You have successfully transferred " + amount + ". You now have " + userTotal + ".");
@@ -315,10 +312,10 @@ exports.commands = {
 
 	buy: function (target, room, user) {
 		if (!target) return this.parse('/help buy');
-		let amount = Db('money').get(user.userid, 0);
+		let amount = Db.money.get(user.userid, 0);
 		let cost = findItem.call(this, target, amount);
 		if (!cost) return;
-		let total = Db('money').set(user.userid, amount - cost).get(user.userid);
+		let total = Db.money.set(user.userid, amount - cost).get(user.userid);
 		this.sendReply("You have bought " + target + " for " + cost + moneyName(cost) + ". You now have " + total + moneyName(total) + " left.");
 		room.addRaw(user.name + " has bought <b>" + target + "</b> from the shop.");
 		logMoney(user.name + " has bought " + target + " from the shop. This user now has " + total + moneyName(total) + ".");
@@ -380,10 +377,10 @@ exports.commands = {
 	richestuser: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let display = '<center><u><b>Richest Users</b></u></center><br><table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>Rank</th><th>Username</th><th>Money</th></tr>';
-		let keys = Object.keys(Db('money').object()).map(function (name) {
+		let keys = Object.keys(Db.money.object()).map(function (name) {
 			return {
 				name: name,
-				money: Db('money').get(name)
+				money: Db.money.get(name)
 			};
 		});
 		if (!keys.length) return this.sendReplyBox("Money ladder is empty.");
@@ -400,9 +397,9 @@ exports.commands = {
 	bucks: 'economystats',
 	economystats: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		const users = Object.keys(Db('money').object());
+		const users = Object.keys(Db.money.object());
 		const total = users.reduce(function (acc, cur) {
-			return acc + Db('money').get(cur);
+			return acc + Db.money.get(cur);
 		}, 0);
 		let average = Math.floor(total / users.length) || '0';
 		let output = "There " + (total > 1 ? "are " : "is ") + total + moneyName(total) + " circulating in the economy. ";

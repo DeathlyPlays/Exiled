@@ -144,9 +144,9 @@ Profile.prototype.money = function (amount) {
 
 Profile.prototype.pet = function (userid) {
 	let petcss = 'float:right;border:none;background:none;';
-	let first = Db.pets.get([userid, 'one']);
-	let second = Db.pets.get([userid, 'two'])
-	if (!Db.pets.has(userid)) return '';
+	let first = Db('pets').get([userid, 'one']);
+	let second = Db('pets').get([userid, 'two'])
+	if (!Db('pets').has(userid)) return '';
 
 	function petize(link) {
 		return '<button id="" name="send" value="" style="background:transparent;border:none;"><img src=http://play.pokemonshowdown.com/sprites/xyani/' + link + '.gif></button>';
@@ -154,10 +154,10 @@ Profile.prototype.pet = function (userid) {
 
 	let petBackground = '<center><div style="' + petcss + '">';
 
-	if (Db.pets.has([userid, 'one'])) {
+	if (Db('pets').has([userid, 'one'])) {
 		petBackground += petize(first);
 	}
-	if (Db.pets.has([userid, 'two'])) {
+	if (Db('pets').has([userid, 'two'])) {
 		petBackground += petize(second);
 	}
 	petBackground += '</div></center>';
@@ -169,45 +169,45 @@ Profile.prototype.team = function (person) {
 	let teamcss = 'float:center;border:none;background:none;';
 
 	let noSprite = '<img src=http://play.pokemonshowdown.com/sprites/bwicons/0.png>';
-	let one = Db.teams.get([person, 'one']);
-	let two = Db.teams.get([person, 'two']);
-	let three = Db.teams.get([person, 'three']);
-	let four = Db.teams.get([person, 'four']);
-	let five = Db.teams.get([person, 'five']);
-	let six = Db.teams.get([person, 'six']);
-	if (!Db.teams.has(person)) return '<div style="' + teamcss + '" >' + noSprite + noSprite + noSprite + noSprite + noSprite + noSprite + '</div>';
+	let one = Db('teams').get([person, 'one']);
+	let two = Db('teams').get([person, 'two']);
+	let three = Db('teams').get([person, 'three']);
+	let four = Db('teams').get([person, 'four']);
+	let five = Db('teams').get([person, 'five']);
+	let six = Db('teams').get([person, 'six']);
+	if (!Db('teams').has(person)) return '<div style="' + teamcss + '" >' + noSprite + noSprite + noSprite + noSprite + noSprite + noSprite + '</div>';
 
 	function iconize(link) {
 		return '<button id="kek" name="send" value="/dt ' + link + '" style="background:transparent;border:none;"><img src="http://www.serebii.net/pokedex-sm/icon/' + link + '.png"></button>';
 	}
 	//return '<div style="' + teamcss + '">' + '<br>' + iconize(one) + iconize(two) + iconize(three) + '<br>' + iconize(four) + iconize(five) + iconize(six) + '</div>';*/
 	let teamDisplay = '<center><div style="' + teamcss + '">';
-	if (Db.teams.has([person, 'one'])) {
+	if (Db('teams').has([person, 'one'])) {
 		teamDisplay += iconize(one);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'two'])) {
+	if (Db('teams').has([person, 'two'])) {
 		teamDisplay += iconize(two);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'three'])) {
+	if (Db('teams').has([person, 'three'])) {
 		teamDisplay += iconize(three);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'four'])) {
+	if (Db('teams').has([person, 'four'])) {
 		teamDisplay += iconize(four);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'five'])) {
+	if (Db('teams').has([person, 'five'])) {
 		teamDisplay += iconize(five);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'six'])) {
+	if (Db('teams').has([person, 'six'])) {
 		teamDisplay += iconize(six);
 	} else {
 		teamDisplay += noSprite;
@@ -218,8 +218,8 @@ Profile.prototype.team = function (person) {
 };
 
 Profile.prototype.pgo = function (kiddo) {
-	let team = Db.pgo.get(kiddo);
-	if (!Db.pgo.has(kiddo)) return label('Pokemon Go Team') + 'Not Set.';
+	let team = Db('pgo').get(kiddo);
+	if (!Db('pgo').has(kiddo)) return label('Pokemon Go Team') + 'Not Set.';
 	if (team === 'instinct') {
 		team = '<font color="#cccc00"><b><i>Instinct</i></b></font>';
 	}
@@ -239,8 +239,8 @@ Profile.prototype.pgo = function (kiddo) {
 };
 
 Profile.prototype.type = function (kiddo) {
-	let type = Db.type.get(kiddo);
-	if (!Db.type.has(kiddo)) return label('Type') + 'Not Set.';
+	let type = Db('type').get(kiddo);
+	if (!Db('type').has(kiddo)) return label('Type') + 'Not Set.';
 	if (type === 'Grass') {
 		type = '<font color="#008000"><b><i>Grass</i></b></font>';
 	}
@@ -299,7 +299,7 @@ Profile.prototype.type = function (kiddo) {
 };
 
 Profile.prototype.name = function () {
-	let colorz = Db.customcolors.get(this.username);
+	let colorz = Db('customcolors').get(this.username);
 
 	function getFlag() {
 		if (!this.isOnline) return false;
@@ -313,7 +313,7 @@ Profile.prototype.name = function () {
 			}
 		}
 	}
-	if (Db.customcolors.has(this.username)) {
+	if (Db('customcolors').has(this.username)) {
 		if (!getFlag.call(this)) return label('Name') + bold(font(colorz, this.username), this.username);
 		if (getFlag.call(this)) return label('Name') + bold(font(color(toId(this.username)), this.username)) + ' ' + getFlag.call(this);
 	}
@@ -330,63 +330,63 @@ Profile.prototype.seen = function (timeAgo) {
 };
 
 Profile.prototype.dev = function (person) {
-	if (!Db.devs.has(person)) return '';
-	if (person === 'insist') return '<font color="#ba44cc"><b>(Owner and YouTuber)</b></font> <font color="#ba44cc"><b>(Developer)</b></font>';
+	if (!Db('devs').has(person)) return '';
+	if (person === 'insist') return '<font color="#33CCFF"><b>(Owner)</b></font> <font color="#33CCFF"><b>(Developer)</b></font>';
 	return '<font color="#000000"><b>(Developer)</b></font>';
 };
 
 Profile.prototype.title = function (person) {
-	let title = Db.titles.get(person);
-	if (!Db.titles.has(person)) return '';
+	let title = Db('titles').get(person);
+	if (!Db('titles').has(person)) return '';
 	return SPACE + title;
 };
 
 Profile.prototype.quote = function (person) {
-	let quote = Db.quotes.get(person);
-	if (!Db.quotes.has(person)) return label('Quote') + 'This user does not have a quote set.';
+	let quote = Db('quotes').get(person);
+	if (!Db('quotes').has(person)) return label('Quote') + 'This user does not have a quote set.';
 	return label('Quote') + '<b><i>"' + quote + '"</i></b>';
 };
 
 Profile.prototype.nature = function (kiddo) {
-	let nature = Db.nature.get(kiddo);
-	if (!Db.nature.has(kiddo)) return label('Nature') + 'Not Set.';
+	let nature = Db('nature').get(kiddo);
+	if (!Db('nature').has(kiddo)) return label('Nature') + 'Not Set.';
 	return label('Nature') + '<font color="#ffffff">' + '<b><i>' + nature + '</i></b></font>';
 };
 
 Profile.prototype.pokemon = function (kiddo) {
-	let pkmn = Db.pokemon.get(kiddo);
-	if (!Db.pokemon.has(kiddo)) return label('Favorite Pokemon') + 'Not Set.';
+	let pkmn = Db('pokemon').get(kiddo);
+	if (!Db('pokemon').has(kiddo)) return label('Favorite Pokemon') + 'Not Set.';
 	return label('Favorite Pokemon') + '<b><i>' + pkmn + '</i></b>';
 }
 
 Profile.prototype.aboutme = function (person) {
-	let aboutme = Db.aboutme.get(person);
-	if (!Db.aboutme.has(person)) return label('About Me') + 'This user does not have a bio set.';
+	let aboutme = Db('aboutme').get(person);
+	if (!Db('aboutme').has(person)) return label('About Me') + 'This user does not have a bio set.';
 	return label('About Me') + '<b><i>"' + aboutme + '"</i></b>';
 };
 
 Profile.prototype.setfriendcode = function (person) {
-	let setfriendcode = Db.friendcode.get(person);
-	if (!Db.friendcode.has(person)) return label('Friend Code') + 'This user does not have a friend code set.';
+	let setfriendcode = Db('friendcode').get(person);
+	if (!Db('friendcode').has(person)) return label('Friend Code') + 'This user does not have a friend code set.';
 	return label('Friend Code') + '<b><i>"' + setfriendcode + '"</i></b>';
 };
 
 Profile.prototype.background = function (buddy) {
-	let bg = Db.backgrounds.get(buddy);
-	if (!Db.backgrounds.has(buddy)) return '<div>';
+	let bg = Db('backgrounds').get(buddy);
+	if (!Db('backgrounds').has(buddy)) return '<div>';
 	return '<div style="background:url(' + bg + ')">';
 };
 
 Profile.prototype.song = function (fren) {
-	let song = Db.music.get([fren, 'link']);
-	let title = Db.music.get([fren, 'title'])
-	if (!Db.music.has(fren)) return '';
+	let song = Db('music').get([fren, 'link']);
+	let title = Db('music').get([fren, 'title'])
+	if (!Db('music').has(fren)) return '';
 	return '<acronym title="' + title + '"><br><audio src="' + song + '" controls="" style="width:100%;"></audio></acronym>';
 };
 
 Profile.prototype.gang = function () {
-	let gang = Db.gangs.get(this.user.userid, '');
-	let gangrank = caps(Db.gangranks.get(this.user.userid, ''));
+	let gang = Db('gangs').get(this.user.userid, '');
+	let gangrank = caps(Db('gangranks').get(this.user.userid, ''));
 	let gangsymbol = '';
 	if (gang !== '') gangsymbol = '<img src= ' + turfwars.gangs[gang].icon + ' width="10" height="10"</img>';
 	gang = caps(gang);
@@ -397,14 +397,14 @@ Profile.prototype.gang = function () {
 
 Profile.prototype.badges = function (pal) {
 	let badgecss = ';border:none;background:none;';
-	let badges = Db.badges.get(pal);
-	if (!Db.badges.has(pal) && Db.music.has(pal)) return '<br>';
+	let badges = Db('badges').get(pal);
+	if (!Db('badges').has(pal) && Db('music').has(pal)) return '<br>';
 	let badgeDisplay = '<br><br><div style="' + badgecss + '"><center>';
-	if (!Db.badges.has(pal)) return '';
+	if (!Db('badges').has(pal)) return '';
 	for (let i = 0; i < badges.length; i++) {
-		let img = Db.badgelist.get([badges[i], 'img']);
-		let desc = Db.badgelist.get([badges[i], 'desc']);
-		let id = Db.badgelist.get([badges[i], 'name'])
+		let img = Db('badgelist').get([badges[i], 'img']);
+		let desc = Db('badgelist').get([badges[i], 'desc']);
+		let id = Db('badgelist').get([badges[i], 'name'])
 		badgeDisplay += '<button name="send" style="background:transparent;border:none;" value="/badge info, ' + id + '"><img src="' + img + '" title="' + id + ' : ' + desc + '"></button>';
 	}
 	badgeDisplay += '</center></div>';
@@ -466,7 +466,7 @@ exports.commands = {
 		let acceptable = ['one', 'two', 'three', 'four', 'five', 'six'];
 		if (!acceptable.includes(slot)) return this.parse('/teamhelp');
 		if (slot === 'one' || slot === 'two' || slot === 'three' || slot === 'four' || slot === 'five' || slot === 'six') {
-			Db.teams.set([user.userid, slot], mon);
+			Db('teams').set([user.userid, slot], mon);
 			this.sendReplyBox('You have added this pokemon to your team.');
 		} else {
 			return this.parse('/teamhelp');
@@ -483,7 +483,7 @@ exports.commands = {
 		if (!acceptable.includes(slot)) return this.errorReply('USAGE: /setpet target, slot (one or two), pokemon name');
 		if (!targets[2]) return this.errorReply('USAGE: /setpet target, slot (one or two), pokemon name');
 		if (slot === 'one' || slot === 'two') {
-			Db.pets.set([targetUser, slot], pets);
+			Db('pets').set([targetUser, slot], pets);
 			this.parse('/profile ' + targetUser);
 		}
 	},
@@ -522,7 +522,7 @@ exports.commands = {
 		if (!team) return this.errorReply('INCORRECT USAGE. CORRECT USAGE: /jointeam (team name)');
 		let teams = ['valor', 'mystic', 'instinct', 'harmony', 'none'];
 		if (!teams.includes(target)) return this.errorReply('This is not a valid team. Choose Either Team Valor, Mystic, Instinct, Harmony, or None');
-		Db.pgo.set(user.userid, team);
+		Db('pgo').set(user.userid, team);
 		this.sendReply('You have successfully joined ' + team);
 	},
 
@@ -544,14 +544,14 @@ exports.commands = {
 			if (!hex || !text) return this.errorReply("Ensure you have set a nature and hex");
 
 			let nature = '<font color = ' + hex + '><b>' + text + '</b></font>';
-			if (Db.nature.has(user)) return false;
-			Db.nature.set(user, nature);
+			if (Db('nature').has(user)) return false;
+			Db('nature').set(user, nature);
 			Users(user).send('|popup| You have recieved nature.');
 			this.sendReply('|html|You have set a nature.');
 			break;
 		case 'delete':
-			if (!Db.nature.has(user)) return false;
-			Db.nature.delete(user);
+			if (!Db('nature').has(user)) return false;
+			Db('nature').delete(user);
 			Users(user).send('|popup| Your nature has been removed.');
 			this.sendReply("You have removed " + user + "s' nature.");
 			break;
@@ -584,14 +584,14 @@ exports.commands = {
 			if (!hex || !text) return this.errorReply("Ensure you have set a Pokemon and hex");
 
 			let pokemon = '<font color = ' + hex + '><b>' + text + '</b></font>';
-			if (Db.pokemon.has(user)) return false;
-			Db.pokemon.set(user, pokemon);
+			if (Db('pokemon').has(user)) return false;
+			Db('pokemon').set(user, pokemon);
 			Users(user).send('|popup| You have recieved a Pokemon.');
 			this.sendReply('|html|You have set a Pokemon.');
 			break;
 		case 'delete':
-			if (!Db.pokemon.has(user)) return false;
-			Db.pokemon.delete(user);
+			if (!Db('pokemon').has(user)) return false;
+			Db('pokemon').delete(user);
 			Users(user).send('|popup| Your Pokemon has been removed.');
 			this.sendReply("You have removed " + user + "s' Pokemon.");
 			break;
@@ -621,14 +621,14 @@ exports.commands = {
 			if (!hex || !text) return this.errorReply("Ensure you have set a type and hex");
 
 			let type = '<font color = ' + hex + '><b>' + text + '</b></font>';
-			if (Db.type.has(user)) return false;
-			Db.type.set(user, type);
+			if (Db('type').has(user)) return false;
+			Db('type').set(user, type);
 			Users(user).send('|popup| You have recieved type.');
 			this.sendReply('|html|You have set a type.');
 			break;
 		case 'delete':
-			if (!Db.type.has(user)) return false;
-			Db.type.delete(user);
+			if (!Db('type').has(user)) return false;
+			Db('type').delete(user);
 			Users(user).send('|popup| Your type has been removed.');
 			this.sendReply("You have removed " + user + "s' type.");
 			break;
@@ -658,14 +658,14 @@ exports.commands = {
 			if (!hex || !text) return this.errorReply("Ensure you have set a title and hex");
 
 			let title = '<font color = ' + hex + '><b>(' + text + ')</b></font>';
-			if (Db.titles.has(user)) return false;
-			Db.titles.set(user, title);
+			if (Db('titles').has(user)) return false;
+			Db('titles').set(user, title);
 			Users(user).send('|popup| You have recieved a custom title');
 			this.sendReply('|html|You have set the custom title');
 			break;
 		case 'delete':
-			if (!Db.titles.has(user)) return false;
-			Db.titles.delete(user);
+			if (!Db('titles').has(user)) return false;
+			Db('titles').delete(user);
 			Users(user).send('|popup| Your custom title has been removed');
 			this.sendReply("You have removed " + user + "s' custom title");
 			break;
@@ -679,13 +679,13 @@ exports.commands = {
 
 	quote: function (target, room, user) {
 		if (!target) return this.errorReply('USAGE: /quote (quote)');
-		Db.quotes.set(user.userid, target);
+		Db('quotes').set(user.userid, target);
 		this.sendReply('|html|Your quote has been set to : <b><i>' + target + '</i></b>');
 	},
 
 	aboutme: function (target, room, user) {
 		if (!target) return this.errorReply('The correct usage of this command is: /aboutme (bio message)');
-		Db.aboutme.set(user.userid, target);
+		Db('aboutme').set(user.userid, target);
 		this.sendReply('|html|Your bio has been set to: <b><i>' + target + '</i></b>');
 	},
 
@@ -697,7 +697,7 @@ exports.commands = {
 		if (!parts[1]) return this.errorReply('USAGE: /setbackground (user), (link)');
 		let targ = parts[0].toLowerCase().trim();
 		let link = parts[1].trim();
-		Db.backgrounds.set(targ, link);
+		Db('backgrounds').set(targ, link);
 		this.sendReply('This users background has been set to : ');
 		this.parse('/profile ' + targ);
 	},
@@ -707,8 +707,8 @@ exports.commands = {
 		if (!this.can('broadcast')) return false;
 		let targ = target.toLowerCase();
 		if (!target) return this.errorReply('USAGE: /deletebackground (user)');
-		if (!Db.backgrounds.has(targ)) return this.errorReply('This user does not have a custom background.');
-		Db.backgrounds.delete(targ);
+		if (!Db('backgrounds').has(targ)) return this.errorReply('This user does not have a custom background.');
+		Db('backgrounds').delete(targ);
 		this.sendReply('This users background has deleted.');
 	},
 
@@ -719,8 +719,8 @@ exports.commands = {
 		if (!parts[2]) return this.errorReply('USAGE: /setmusic (user), (link), (title)');
 		let link = parts[1].trim();
 		let title = parts[2].trim();
-		Db.music.set([targ, 'link'], link);
-		Db.music.set([targ, 'title'], title);
+		Db('music').set([targ, 'link'], link);
+		Db('music').set([targ, 'title'], title);
 		this.sendReply(targ + '\'s song has been set to: ');
 		this.parse('/profile ' + targ);
 	},
@@ -736,62 +736,62 @@ exports.commands = {
 			let img = parts[2].trim();
 			let desc = parts[3].trim();
 			if (!parts[3]) return this.errorReply('USAGE: /badge add, (name), (img), Description.');
-			if (Db.badgelist.has(id)) return this.errorReply('There is a badge with this name already.');
-			Db.badgelist
+			if (Db('badgelist').has(id)) return this.errorReply('There is a badge with this name already.');
+			Db('badgelist')
 				.set([id, 'name'], name)
 				.set([id, 'img'], img)
 				.set([id, 'desc'], desc);
-			let total = Db.badgelist.get('all');
-			if (!Db.badgelist.has('all')) total = [];
+			let total = Db('badgelist').get('all');
+			if (!Db('badgelist').has('all')) total = [];
 			total.push(id);
-			Db.badgelist.set('all', total);
+			Db('badgelist').set('all', total);
 			this.sendReplyBox('This badge has been successfully added.');
 			break;
 		case 'delete':
 			let targbadge = parts[1].trim().toLowerCase();
 			if (parts[2]) return this.errorReply('USAGE: /badge delete, (name)');
-			if (!Db.badgelist.has(targbadge)) return this.errorReply('This badge does not exist.');
-			Db.badgelist.delete(targbadge);
-			let allbadgez = Db.badgelist.get('all');
+			if (!Db('badgelist').has(targbadge)) return this.errorReply('This badge does not exist.');
+			Db('badgelist').delete(targbadge);
+			let allbadgez = Db('badgelist').get('all');
 			allbadgez = allbadgez.filter(b => b !== targbadge);
 			Db('badgehlist').set('all', allbadgez);
 			this.errorReply('This badge has been deleted.');
-			let badgeUserObject = Db.userBadges.object();
+			let badgeUserObject = Db('userBadges').object();
 			let users = Object.keys(badgeUserObject);
-			users.forEach(u => Db.userBadges.set(u, (badgeUserObject[u].filter(b => b !== targbadge))));
+			users.forEach(u => Db('userBadges').set(u, (badgeUserObject[u].filter(b => b !== targbadge))));
 			break;
 		case 'set':
 			let targUser = parts[1].trim().toLowerCase();
 			let badge = parts[2].trim();
-			if (!Db.badgelist.has(badge)) return this.errorReply('This badge does not exist.');
+			if (!Db('badgelist').has(badge)) return this.errorReply('This badge does not exist.');
 			if (!parts[2]) return this.errorReply('USAGE: /badge set, (user), (badge name)');
-			let userBadges = Db.badges.get(targUser);
-			if (!Db.badges.has(targUser)) userBadges = [];
+			let userBadges = Db('badges').get(targUser);
+			if (!Db('badges').has(targUser)) userBadges = [];
 			userBadges.push(badge);
-			Db.badges.set(targUser, userBadges);
-			let kekbadge = Db.badgelist.get([badge, 'img']);
+			Db('badges').set(targUser, userBadges);
+			let kekbadge = Db('badgelist').get([badge, 'img']);
 			this.sendReply('This user has been succesfully given the ' + badge + ' badge.');
 			Users(targUser).popup('|html|You have been given the <img src="' + kekbadge + '"> Badge.');
 			break;
 		case 'take':
 			let usertarget = parts[1].trim().toLowerCase();
-			let hasbadges = Db.badges.get(usertarget);
+			let hasbadges = Db('badges').get(usertarget);
 			let deletebadge = parts[2].trim().toLowerCase();
-			let imgofbadge = Db.badgelist.get([deletebadge, 'img']);
+			let imgofbadge = Db('badgelist').get([deletebadge, 'img']);
 			if (!parts[2]) this.errorReply('USAGE: /badge take, (user), (badge name).');
 			hasbadges = hasbadges.filter(b => b !== deletebadge);
-			Db.badges.set(usertarget, hasbadges);
+			Db('badges').set(usertarget, hasbadges);
 			this.sendReply('This user has been stripped of the ' + deletebadge + ' badge.');
 			Users(usertarget).popup('|html|You have been stripped of the the ' + imgofbadge + ' Badge.');
 			break;
 		case 'list':
 			if (!this.runBroadcast()) return;
 			let BadgeList = '<table border="1" width="100%" cellpadding="5px" cellspacing="0"><th>Badge Img</th><th>Badge Name</th><th>Badge Description</th>';
-			let allbadges = Db.badgelist.get('all');
+			let allbadges = Db('badgelist').get('all');
 			for (let i = 0; i < allbadges.length; i++) {
-				let badgeimg = Db.badgelist.get([allbadges[i], 'img']);
-				let badgedesc = Db.badgelist.get([allbadges[i], 'desc']);
-				let badgename = Db.badgelist.get([allbadges[i], 'name']);
+				let badgeimg = Db('badgelist').get([allbadges[i], 'img']);
+				let badgedesc = Db('badgelist').get([allbadges[i], 'desc']);
+				let badgename = Db('badgelist').get([allbadges[i], 'name']);
 				BadgeList += '<tr>';
 				BadgeList += '<td><center><button style="background:transparent;border:none;" name="send" value="/badge info, ' + badgename + '"><img src="' + badgeimg + '" title="' + badgename + ' : ' + badgedesc + '"></button></center></td>';
 				BadgeList += '<td><b>' + badgename + '</b></td>';
@@ -804,11 +804,11 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			if (!parts[1]) return this.errorReply('USAGE: /badge info, (badge name)');
 			let infobadge = parts[1].trim().toLowerCase();
-			let all = Db.badgelist.get('all');
+			let all = Db('badgelist').get('all');
 			if (!all.includes(infobadge)) return this.errorReply('This badge does not exist.');
-			let imginfo = Db.badgelist.get([infobadge, 'img']);
-			let infodesc = Db.badgelist.get([infobadge, 'desc']);
-			let infoname = Db.badgelist.get([infobadge, 'name']);
+			let imginfo = Db('badgelist').get([infobadge, 'img']);
+			let infodesc = Db('badgelist').get([infobadge, 'desc']);
+			let infoname = Db('badgelist').get([infobadge, 'name']);
 			this.sendReplyBox('<img src="' + imginfo + '">' + SPACE + infoname + ' : ' + infodesc);
 			break;
 		}
@@ -828,7 +828,7 @@ exports.commands = {
 
 	setfriendcode: function (target, room, user) {
 		if (!target) return this.errorReply('USAGE: /setfriendcode (code)');
-		Db.friendcode.set(user.userid, target);
+		Db('friendcode').set(user.userid, target);
 		return this.sendReply('You have succesfully set your friend code to : ' + target);
 	},
 };

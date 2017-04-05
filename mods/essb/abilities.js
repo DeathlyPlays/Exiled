@@ -13,7 +13,7 @@ exports.BattleAbilities = {
 			if (this.getWeather().id === 'primordialsea' && !(weather.id in {
 					desolateland: 1,
 					primordialsea: 1,
-					deltastream: 1
+					deltastream: 1,
 				})) return false;
 		},
 		onEnd: function (pokemon) {
@@ -182,7 +182,7 @@ exports.BattleAbilities = {
 			if (this.getWeather().id === 'desolateland' && !(weather.id in {
 					desolateland: 1,
 					primordialsea: 1,
-					deltastream: 1
+					deltastream: 1,
 				})) return false;
 		},
 		onEnd: function (pokemon) {
@@ -376,7 +376,7 @@ exports.BattleAbilities = {
 			if (this.getWeather().id === 'deltastream' && !(weather.id in {
 					desolateland: 1,
 					primordialsea: 1,
-					deltastream: 1
+					deltastream: 1,
 				})) return false;
 		},
 		onEnd: function (pokemon) {
@@ -393,9 +393,28 @@ exports.BattleAbilities = {
 			}
 			this.clearWeather();
 		},
+		//multiscale
+		onSourceModifyDamage: function (damage, source, target, move) {
+			if (target.hp >= target.maxhp) {
+				this.debug('How to be OP 101 weaken');
+				return this.chainModify(0.5);
+			}
+		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
 			pokemon.heal(pokemon.maxhp / 3);
+			if (!pokemon.status) return;
+
+			// if pokemon.showCure is undefined, it was skipped because its ability
+			// is known
+			if (pokemon.showCure === undefined) pokemon.showCure = true;
+
+			if (pokemon.showCure) this.add('-curestatus', pokemon, pokemon.status, '[from] ability: How to be OP 101');
+			pokemon.setStatus('');
+
+			// only reset .showCure if it's false
+			// (once you know a Pokemon has Natural Cure, its cures are always known)
+			if (!pokemon.showCure) delete pokemon.showCure;
 		},
 		//roughskin
 		onAfterDamageOrder: 1,
@@ -453,8 +472,7 @@ exports.BattleAbilities = {
 				if (curPoke.hasAbility('naturalcure')) {
 					// this.add('-message', "" + curPoke + " confirmed: could be Natural Cure (and is)");
 					cureList.push(curPoke);
-				}
-				else {
+				} else {
 					// this.add('-message', "" + curPoke + " confirmed: could be Natural Cure (but isn't)");
 					noCureCount++;
 				}
@@ -465,8 +483,7 @@ exports.BattleAbilities = {
 				for (let i = 0; i < cureList.length; i++) {
 					cureList[i].showCure = true;
 				}
-			}
-			else {
+			} else {
 				// It's not possible to know what pokemon were cured
 
 				// Unlike a -hint, this is real information that battlers need, so we use a -message
@@ -475,27 +492,6 @@ exports.BattleAbilities = {
 				for (let i = 0; i < cureList.length; i++) {
 					cureList[i].showCure = false;
 				}
-			}
-		},
-		onSwitchOut: function (pokemon) {
-			if (!pokemon.status) return;
-
-			// if pokemon.showCure is undefined, it was skipped because its ability
-			// is known
-			if (pokemon.showCure === undefined) pokemon.showCure = true;
-
-			if (pokemon.showCure) this.add('-curestatus', pokemon, pokemon.status, '[from] ability: Natural Cure');
-			pokemon.setStatus('');
-
-			// only reset .showCure if it's false
-			// (once you know a Pokemon has Natural Cure, its cures are always known)
-			if (!pokemon.showCure) delete pokemon.showCure;
-		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('How to be OP 101 weaken');
-				return this.chainModify(0.5);
 			}
 		},
 	},
@@ -513,15 +509,14 @@ exports.BattleAbilities = {
 			for (let i = 0; i < foeactive.length; i++) {
 				if (!foeactive[i] || !this.isAdjacent(foeactive[i], pokemon)) continue;
 				if (!activated) {
-					this.add('-ability', pokemon, 'Intimidate', 'boost');
+					this.add('-ability', pokemon, 'Hiya!', 'boost');
 					activated = true;
 				}
 				if (foeactive[i].volatiles['substitute']) {
 					this.add('-immune', foeactive[i], '[msg]');
-				}
-				else {
+				} else {
 					this.boost({
-						atk: -1
+						atk: -1,
 					}, foeactive[i], pokemon);
 				}
 			}
@@ -530,7 +525,7 @@ exports.BattleAbilities = {
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (basePower <= 60) {
-				this.debug('Technician boost');
+				this.debug('Hiya! boost');
 				return this.chainModify(1.5);
 			}
 		},
@@ -548,10 +543,15 @@ exports.BattleAbilities = {
 	"encryption": {
 		id: "encryption",
 		name: "Encryption",
-		//sturdy
+		//sturdy and apart of overcoat
+		onTryHitPriority: 1,
 		onTryHit: function (pokemon, target, move) {
 			if (move.ohko) {
 				this.add('-immune', pokemon, '[msg]', '[from] ability: Encryption');
+				return null;
+			}
+			if (move.flags['powder'] && target !== source && this.getImmunity('powder', target)) {
+				this.add('-immune', target, '[msg]', '[from] ability: Encryption');
 				return null;
 			}
 		},
@@ -566,13 +566,6 @@ exports.BattleAbilities = {
 		onImmunity: function (type, pokemon) {
 			if (type === 'sandstorm' || type === 'hail' || type === 'powder') return false;
 		},
-		onTryHitPriority: 1,
-		onTryHit: function (target, source, move) {
-			if (move.flags['powder'] && target !== source && this.getImmunity('powder', target)) {
-				this.add('-immune', target, '[msg]', '[from] ability: Encryption');
-				return null;
-			}
-		},
 	},
 	"feelsflys": {
 		id: "feelsflys",
@@ -580,7 +573,7 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.useMove('magnetrise', pokemon);
 			this.boost({
-				spa: 2
+				spa: 2,
 			});
 		},
 		onSourceFaint: function (target, source, effect) {
@@ -594,7 +587,7 @@ exports.BattleAbilities = {
 					}
 				}
 				this.boost({
-					[stat]: 1
+					[stat]: 1,
 				}, source);
 			}
 		},

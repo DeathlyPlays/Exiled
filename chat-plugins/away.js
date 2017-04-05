@@ -99,4 +99,4 @@ exports.commands = {
 		if (user.can('lock')) this.parse('/show');
 	},
 	backhelp: ["/back - Sets a users away status back to normal."],
-};	
+};

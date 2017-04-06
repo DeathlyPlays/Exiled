@@ -21,37 +21,52 @@ exports.BattleScripts = {
 		var variant = (this.random(2) === 1);
 		var sets = {
 			//Admins
-			'~Insist': {
-				species: 'Ludicolo',
-				ability: 'Crippling Depression',
-				item: 'Playnium Z',
-				gender: 'M',
+			"~Insist": {
+				species: "Ludicolo",
+				ability: "Crippling Depression",
+				item: "Playnium Z",
+				gender: "M",
 				shiny: true,
 				moves: ['freezedry', 'gigadrain', 'focusblast'],
-				baseSignatureMove: 'aquasubscribe',
-				signatureMove: 'Aqua Subscribe',
+				baseSignatureMove: "aquasubscribe",
+				signatureMove: "Aqua Subscribe",
 				evs: {
 					spa: 252,
 					spe: 252,
 					hp: 4
 				},
-				nature: 'Timid',
+				nature: "Timid",
+			},
+			"~Volco": {
+				species: "Volcanion",
+				ability: "Volcanic Ash",
+				item: "Assault Vest",
+				gender: "M",
+				moves: ['steameruption', 'gigadrain', 'earthpower'],
+				baseSignatureMove: "volcanosrevenge",
+				signatureMove: "Volcano's Revenge",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4
+				},
+				nature: "Modest",
 			},
 			//Gods
-			'☥Sota Higurashi': {
-				species: 'Victini',
-				ability: 'Contrary',
-				item: 'Expert Belt',
-				gender: 'M',
+			"☥Sota Higurashi": {
+				species: "Victini",
+				ability: "Contrary",
+				item: "Expert Belt",
+				gender: "M",
 				moves: ['vcreate', 'boltstrike', 'uturn'],
-				baseSignatureMove: 'zencreate',
-				signatureMove: 'Zen Create',
+				baseSignatureMove: "zencreate",
+				signatureMove: "Zen Create",
 				evs: {
 					atk: 252,
 					spe: 252,
 					def: 4
 				},
-				nature: 'Adamant',
+				nature: "Adamant",
 			},
 			"☥Jigglykong": {
 				species: "Porygon2",
@@ -71,61 +86,61 @@ exports.BattleScripts = {
 				nature: "Bold",
 			},
 			//Leaders
-			'&Back At My Day': {
-				species: 'Groudon-Primal',
-				ability: 'Landlord',
-				item: "flarez",
-				gender: 'M',
+			"&Back At My Day": {
+				species: "Groudon-Primal",
+				ability: "Landlord",
+				item: "Flare Z",
+				gender: "M",
 				moves: ['earthquake', 'firepunch', 'solarslap'],
-				baseSignatureMove: 'megaflare',
-				signatureMove: 'Megaflare',
+				baseSignatureMove: "megaflare",
+				signatureMove: "Megaflare",
 				evs: {
 					atk: 252,
 					hp: 252,
 					def: 4
 				},
-				nature: 'Adamant',
+				nature: "Adamant",
 			},
-			'&Bronze0re': {
-				species: 'Volcarona',
-				ability: 'Brilliant Scale',
-				item: 'Weakness Policy',
-				gender: 'M',
+			"&Bronze0re": {
+				species: "Volcarona",
+				ability: "Brilliant Scale",
+				item: "Weakness Policy",
+				gender: "M",
 				moves: ['quiverdance', 'fierydance', 'oblivionwing'],
-				baseSignatureMove: 'dyingstar',
-				signatureMove: 'Dying Star',
+				baseSignatureMove: "dyingstar",
+				signatureMove: "Dying Star",
 				evs: {
 					spa: 252,
 					spe: 252,
 					hp: 4
 				},
-				nature: 'Timid',
+				nature: "Timid",
 			},
 			//Bots
-			'*Crystal Ludicolo': {
-				species: 'Ludicolo',
-				ability: 'Desolate Land',
-				item: 'Life Orb',
-				gender: 'M',
+			"*Crystal Ludicolo": {
+				species: "Ludicolo",
+				ability: "Desolate Land",
+				item: "Life Orb",
+				gender: "M",
 				shiny: true,
 				moves: ['freezedry', 'solarbeam', 'earthpower'],
-				baseSignatureMove: 'mymixtape',
-				signatureMove: 'My Mixtape',
+				baseSignatureMove: "mymixtape",
+				signatureMove: "My Mixtape",
 				evs: {
 					spa: 252,
 					spe: 252,
 					hp: 4
 				},
-				nature: 'Timid',
+				nature: "Timid",
 			},
 			//Moderators
-			'@Mewth': {
+			"@Mewth": {
 				species: "Glameow",
-				ability: 'Sniper',
-				item: 'Scope Lens',
+				ability: "Sniper",
+				item: "Scope Lens",
 				gender: "F",
 				moves: ['extremespeed', 'nightslash', 'psychocut'],
-				baseSignatureMove: 'roleplaying',
+				baseSignatureMove: "roleplaying",
 				signatureMove: "Roleplaying",
 				evs: {
 					atk: 252,
@@ -142,7 +157,7 @@ exports.BattleScripts = {
 				gender: "M",
 				moves: ['storedpower', 'chargebeam', 'drainingkiss'],
 				baseSignatureMove: "Crippling Kiss",
-				signatureMove: 'Crippling Kiss',
+				signatureMove: "Crippling Kiss",
 				evs: {
 					hp: 252,
 					spa: 220,
@@ -169,7 +184,7 @@ exports.BattleScripts = {
 			//Voices
 			"+C733937 123": {
 				species: "Gengar-Mega",
-				ability: 'Chaotic Armor',
+				ability: "Chaotic Armor",
 				item: "Aguave Berry",
 				gender: "M",
 				moves: ['shadowball', 'darkpulse', 'painsplit'],
@@ -183,9 +198,9 @@ exports.BattleScripts = {
 				nature: "Timid",
 			},
 			//Regs
-			'TheAquaPhoenix': {
+			"TheAquaPhoenix": {
 				species: "Articuno",
-				ability: 'How to be OP 101',
+				ability: "How to be OP 101",
 				item: "Leftovers",
 				gender: "M",
 				shiny: true,
@@ -243,11 +258,11 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			'HoeenHero': {
-				species: 'Ludicolo',
-				ability: 'Swift Swim',
-				item: 'Leftovers',
-				gender: 'M',
+			"HoeenHero": {
+				species: "Ludicolo",
+				ability: "Swift Swim",
+				item: "Leftovers",
+				gender: "M",
 				moves: ['scald', 'icebeam', 'gigadrain'],
 				baseSignatureMove: "scripting",
 				signatureMove: "Scripting",
@@ -256,7 +271,7 @@ exports.BattleScripts = {
 					spe: 252,
 					hp: 4,
 				},
-				nature: 'Modest',
+				nature: "Modest",
 			},
 			"Sukesha": {
 				species: "Ninetales-Alola",
@@ -273,79 +288,64 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			'Volco': {
-				species: 'Volcanion',
-				ability: 'Volcanic Ash',
-				item: 'Assault Vest',
-				gender: 'M',
-				moves: ['steameruption', 'gigadrain', 'earthpower'],
-				baseSignatureMove: 'volcanosrevenge',
-				signatureMove: 'Volcano\'s Revenge',
-				evs: {
-					spa: 252,
-					spe: 252,
-					spd: 4
-				},
-				nature: 'Modest',
-			},
-			'Kimisumi': {
-				species: 'Gallade-Mega',
-				ability: 'God Complex',
-				item: 'Life Orb',
-				gender: 'F',
+			"Kimisumi": {
+				species: "Gallade-Mega",
+				ability: "God Complex",
+				item: "Life Orb",
+				gender: "F",
 				moves: ['precipiceblades', 'closecombat', 'extremespeed'],
-				baseSignatureMove: 'strikeyoudown',
-				signatureMove: 'Strike You Down',
+				baseSignatureMove: "strikeyoudown",
+				signatureMove: "Strike You Down",
 				evs: {
 					atk: 252,
 					spe: 252,
 					hp: 4
 				},
-				nature: 'Jolly',
+				nature: "Jolly",
 			},
-			'CielTSnow': {
-				species: 'Lucario-Mega',
-				ability: 'Adaptability',
-				item: 'Life Orb',
-				gender: 'M',
+			"CielTSnow": {
+				species: "Lucario-Mega",
+				ability: "Adaptability",
+				item: "Life Orb",
+				gender: "M",
 				moves: ['flashcannon', 'flamethrower', 'icebeam'],
-				baseSignatureMove: 'pimpslap',
-				signatureMove: 'Pimp Slap',
+				baseSignatureMove: "pimpslap",
+				signatureMove: "Pimp Slap",
 				evs: {
 					spa: 252,
 					spe: 252,
 					hp: 4
 				},
-				nature: 'Timid',
+				nature: "Timid",
 			},
-			'EmoGuy3000': {
-				species: 'Mewtwo-Mega-Y',
-				ability: 'Contrary',
-				item: 'Choice Specs',
-				gender: 'M',
+			"EmoGuy3000": {
+				species: "Mewtwo-Mega-Y",
+				ability: "Contrary",
+				item: "Choice Specs",
+				gender: "M",
 				moves: ['vcreate', 'dracometeor'],
-				signatureMove: 'Psycho Boost',
+				signatureMove: "Psycho Boost",
 				evs: {
 					spa: 252,
 					spe: 252,
 					atk: 4
 				},
-				nature: 'Hasty',
+				nature: "Hasty",
 			},
-			'Vivid is a God': {
-				species: 'Latios',
-				ability: 'JetStream',
-				item: 'Life Orb',
-				gender: 'M',
+			"Vivid is a God": {
+				species: "Latios",
+				ability: "JetStream",
+				item: "Life Orb",
+				gender: "M",
 				moves: ['psychic', 'surf', 'fireblast'],
-				baseSignatureMove: 'jetblast',
-				signatureMove: 'Jet Blast',
+				baseSignatureMove: "jetblast",
+				signatureMove: "Jet Blast",
 				evs: {
 					spa: 252,
 					spe: 252,
 					hp: 4
 				},
-				nature: 'Timid',
+				nature: "Timid",
 			},
 			"AB Starfox": {
 				species: "Staraptor",
@@ -363,20 +363,20 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			'Kairak': {
-				species: 'Nidorina',
-				ability: 'gj squad',
-				item: 'Focus Sash',
-				gender: 'M',
+			"Kairak": {
+				species: "Nidorina",
+				ability: "gj squad",
+				item: "Focus Sash",
+				gender: "M",
 				moves: ['extremespeed', 'precipiceblades', 'knockoff'],
-				baseSignatureMove: 'bowingandblowing',
-				signatureMove: 'Bowing and Blowing',
+				baseSignatureMove: "bowingandblowing",
+				signatureMove: "Bowing and Blowing",
 				evs: {
 					atk: 252,
 					spe: 252,
 					hp: 4
 				},
-				nature: 'Jolly',
+				nature: "Jolly",
 			},
 			"Speckeldorft": {
 				species: "Jigglypuff",
@@ -427,7 +427,7 @@ exports.BattleScripts = {
 				species: "Gallade-Mega",
 				ability: "Demon's Blade",
 				item: "Leftovers",
-				gender: 'M',
+				gender: "M",
 				moves: ['drainpunch', 'psychocut', 'icepunch'],
 				baseSignatureMove: "heathcliffsrevenge",
 				signatureMove: "Heathcliff's Revenge",
@@ -451,7 +451,7 @@ exports.BattleScripts = {
 
 		let usermon = Object.keys(sets).filter(n => toId(n) === userid),
 			self = null;
-		if (usermon && usermon.length) self = usermon[0]; // this is the user's pokemon. 
+		if (usermon && usermon.length) self = usermon[0]; // this is the user's pokemon.
 		if (self && pool.indexOf(self) > 5) pool[4] = self;
 
 		for (let i = 0; i < 6; i++) {

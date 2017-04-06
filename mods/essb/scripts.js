@@ -167,7 +167,21 @@ exports.BattleScripts = {
 				nature: "Jolly",
 			},
 			//Voices
-
+			"+C733937 123": {
+				species: "Gengar-Mega",
+				ability: 'Chaotic Armor',
+				item: "Aguave Berry",
+				gender: "M",
+				moves: ['shadowball', 'darkpulse', 'painsplit'],
+				baseSignatureMove: "voodoomagic",
+				signatureMove: "Voodoo Magic",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4
+				},
+				nature: "Timid",
+			},
 			//Regs
 			'TheAquaPhoenix': {
 				species: "Articuno",

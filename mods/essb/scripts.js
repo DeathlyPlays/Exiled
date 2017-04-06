@@ -185,7 +185,7 @@ exports.BattleScripts = {
 			"+C733937 123": {
 				species: "Gengar-Mega",
 				ability: "Chaotic Armor",
-				item: "Aguave Berry",
+				item: "Aguav Berry",
 				gender: "M",
 				moves: ['shadowball', 'darkpulse', 'painsplit'],
 				baseSignatureMove: "voodoomagic",

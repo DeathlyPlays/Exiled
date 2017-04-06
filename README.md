@@ -8,11 +8,12 @@ Use "nvm install 6.6.0", after Node 6.6.0 is installed, then type "node app.js".
 After you install version 6.6.0, every other time you will have to do "nvm use 6.6.0", then "node app.js" as usual to startup your server.<br>
 <b>Developers:</b><br>
 Insist - Main developer of Exiled files, Sysop.<br>
+Volco - Fixes errors, implements features, Sysop.<br>
 HoeenCoder - Sysop, Bug fixes, Mechanic assistance.<br>
-Mewth - Developer, Sysop.<br>
-AlfaStorm, Ashley the Pikachu, and Stellation - Development.<br>
+Mewth - Developments, Sysop.<br>
+AlfaStorm & Ashley The Pikachu - Minor developments.<br>
 Zarel - The main workspace we used to begin Exiled off of.<br>
 <b>Retired Developers</b><br>
-Volco - Fixed errors, and implemented features, Former System Operator.<br>
-Sukesha - Former co-owner, HTML developments.<br>
+Sukesha - Former co-owner, HTML developments, and CSS creator.<br>
+Alpha Hawk - Former Developer.<br>
 <b>Thanks for reading!  Hope you enjoy these codes, that are possible thanks to the above listed.</b>

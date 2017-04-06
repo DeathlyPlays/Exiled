@@ -1001,8 +1001,6 @@ exports.BattleMovedex = {
 					this.damage(pokemon.maxhp / 4);
 				},
 			},
-			volatileStatus: "curse",
-		},
 		onStart: function (pokemn, source) {
 			this.add('-start', pokemon, 'Voodoo Magic');
 		},
@@ -1073,7 +1071,7 @@ exports.BattleMovedex = {
 				pokemon.side.removeSideCondition('auroraveil');
 			}
 		},
-		secondary: {
+		secondary: { chance: true,
 			volatileStatus: "taunt",
 			volatileStatus: "torment",
 			volatileStatus: "embargo",

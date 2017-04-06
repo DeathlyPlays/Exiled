@@ -243,8 +243,8 @@ exports.BattleAbilities = {
 				move.pranksterBoosted = true;
 			}
 		},
-			//Magic Bounce
-			onTryHitPriority: 1,
+		//Magic Bounce
+		onTryHitPriority: 1,
 		onTryHit: function (target, source, move) {
 			if (target === source || move.hasBounced || !move.flags['reflectable']) {
 				return;
@@ -267,7 +267,7 @@ exports.BattleAbilities = {
 		},
 		effect: {
 			duration: 1,
-		},
+			},
 		},
 	//happysong
 	"godcomplex": {

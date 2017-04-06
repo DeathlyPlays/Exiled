@@ -4,7 +4,11 @@ class Console {
 	constructor(user, room, css, html, bottom, muted, sound) {
 		this.userid = user.userid;
 		this.consoleId = user.consoleId + 1 || 1;
-		user.consoleId = this.consoleId;
+		if (!user.consoleId) {
+			user.consoleId = this.consoleId;
+		} else {
+			user.consoleId++;
+		}
 		this.room = room.id;
 		this.muted = !!muted;
 		this.sound = sound || null;
@@ -12,13 +16,13 @@ class Console {
 		this.prevScreen = [null, null, null];
 		this.screenCSS = css || 'background-color: #000; font-size: 12px';
 		let defaultInfo = '<div style="display: inline-block; color: white; font-family: monospace;">#####################<br/>## PS Game Console ##<br/>#####################<br/><br/>This is the default screen. You probably meant to launch a game.<br/>General Options:<br/><br/>';
-		for (let game in SG.gameList) {
-			if (!SG.gameList[game].startCommand) continue;
-			defaultInfo += '<button name="send" value="/console forcestart ' + game + '" style="border: none; background: none; color: #FFF; font-family: monospace;"><u>' + (SG.gameList[game].name ? SG.gameList[game].name : game) + '</u></button>';
+		for (let game in Exiled.gameList) {
+			if (!Exiled.gameList[game].startCommand) continue;
+			defaultInfo += '<button name="send" value="/console forcestart ' + game + '" style="border: none; background: none; color: #FFF; font-family: monospace;"><u>' + (Exiled.gameList[game].name ? Exiled.gameList[game].name : game) + '</u></button>';
 		}
 		defaultInfo += '<br/><button name="send" value="/console kill" style="border: none; background: none; color: #FFF; font-family: monospace;"><u>Shutdown</u></button></div>';
 		this.defaultHTML = html || defaultInfo;
-		this.defaultBottomHTML = bottom || '<center><!--mutebutton--><button name="send" value="/console sound" class="button">' + (this.muted ? 'Unmute' : 'Mute') + '</button><!--endmute--></center>';
+		this.defaultBottomHTML = bottom || '<center><!--mutebutton--><button name="send" value="/console sound" class="button">' + (this.muted ? 'Unmute' : 'Mute') + '</button><!--endmute--> <button name="send" value="/console shift" class="button">Shift</button></center>';
 	}
 	init() {
 		Users(this.userid).sendTo(this.room, '|uhtml|console' + this.userid + this.consoleId + '|' + this.buildConsole());
@@ -44,6 +48,13 @@ class Console {
 		}
 		this.update(this.curScreen[0], this.curScreen[1], this.curScreen[2]);
 	}
+	shift() {
+		let user = Users(this.userid);
+		user.sendTo(this.room, '|uhtmlchange|console' + this.userid + this.consoleId + '|');
+		user.consoleId++;
+		this.consoleId++;
+		user.sendTo(this.room, '|uhtml|console' + this.userid + this.consoleId + '|' + this.buildConsole(this.curScreen[0], this.curScreen[1], this.curScreen[2]));
+	}
 	// Overwrite these to use them.
 	up(data) {}
 	down(data) {}
@@ -54,37 +65,42 @@ class Console {
 
 exports.commands = {
 	console: {
-		up: function (target, room, user, connection, cmd, message) {
+		up: function (target, room, user) {
 			if (!user.console) return;
 			user.console.up(target);
 		},
-		down: function (target, room, user, connection, cmd, message) {
+		down: function (target, room, user) {
 			if (!user.console) return;
 			user.console.down(target);
 		},
-		left: function (target, room, user, connection, cmd, message) {
+		left: function (target, room, user) {
 			if (!user.console) return;
 			user.console.left(target);
 		},
-		right: function (target, room, user, connection, cmd, message) {
+		right: function (target, room, user) {
 			if (!user.console) return;
 			user.console.right(target);
 		},
-		sound: function (target, room, user, connection, cmd, message) {
+		sound: function (target, room, user) {
 			if (!user.console) return;
 			user.console.toggleSound();
 		},
+		shift: function (target, room, user) {
+			if (!user.console) return;
+			user.console.shift();
+		},
 		forcestart: 'start',
 		start: function (target, room, user, connection, cmd, message) {
+			if (room.battle) return this.errorReply('The game console is not designed to be used in battle rooms.');
 			if (user.console && cmd !== 'forcestart') return;
 			if (cmd === 'forcestart') this.parse('/console kill');
-			if (!target || Object.keys(SG.gameList).indexOf(toId(target)) === -1) {
+			if (!target || Object.keys(Exiled.gameList).indexOf(toId(target)) === -1) {
 				user.console = new Console(user, room);
 				return user.console.init();
 			}
-			return this.parse(SG.gameList[toId(target)].startCommand);
+			return this.parse(Exiled.gameList[toId(target)].startCommand);
 		},
-		kill: function (target, room, user, connection, cmd, message) {
+		kill: function (target, room, user) {
 			if (!user.console) return;
 			user.sendTo(user.console.room, '|uhtmlchange|console' + user.userid + user.consoleId + '|');
 			user.console.onKill();

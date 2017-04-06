@@ -1,6 +1,6 @@
 <h1>Exiled Server</h1><br>
 <i>A server filled with memes, and well a lot of chat-plugins and metagames.</i><br>
-http://exiled-server-returningavenger.c9users.io-80.psim.us/ - Server Link<br>
+http://exiled.psim.us/ - Server Link<br>
 <b>Node Version:</b><br>
 This server requires the Node Js Version 6.6.0 or higher<br>
 <b>To start:</b><br>

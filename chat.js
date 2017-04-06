@@ -308,8 +308,7 @@ class CommandContext {
 		let result;
 		try {
 			result = commandHandler.call(this, this.target, this.room, this.user, this.connection, this.cmd, this.message);
-		}
-		catch (err) {
+		} catch (err) {
 			require('./crashlogger')(err, 'A chat command', {
 				user: this.user.name,
 				room: this.room && this.room.id,

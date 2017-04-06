@@ -5,7 +5,7 @@ exports.BattleItems = {
 	blueorb: {
 		inherit: true,
 		onSwitchIn: function (pokemon) {
-			if (pokemon.isActive &amp;&amp; !pokemon.template.isPrimal) {
+			if (pokemon.isActive &amp&amp; !pokemon.template.isPrimal) {
 				this.insertQueue({pokemon: pokemon, choice: 'runPrimal'});
 			}
 		},

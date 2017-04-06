@@ -167,8 +167,7 @@ exports.BattleScripts = {
 				nature: "Jolly",
 			},
 			//Voices
-			
-			'C733937 123': {
+			"+C733937 123": {
 				species: "Gengar-Mega",
 				ability: 'Chaotic Armor',
 				item: "Aguave Berry",
@@ -183,7 +182,6 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-
 			//Regs
 			'TheAquaPhoenix': {
 				species: "Articuno",

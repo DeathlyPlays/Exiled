@@ -1,6 +1,6 @@
 <h1>Exiled Server</h1><br>
 <i>A server filled with memes, and well a lot of chat-plugins and metagames.</i><br>
-http://exiled-server-returningavenger.c9users.io-80.psim.us/ - Server Link<br>
+http://exiled.psim.us/ - Server Link<br>
 <b>Node Version:</b><br>
 This server requires the Node Js Version 6.6.0 or higher<br>
 <b>To start:</b><br>
@@ -11,6 +11,7 @@ Insist - Main developer of Exiled files, Sysop.<br>
 Volco - Fixes errors, implements features, Sysop.<br>
 HoeenCoder - Sysop, Bug fixes, Mechanic assistance.<br>
 Mewth - Developments, Sysop.<br>
+Stellation - Developments, Sysop.<br>
 AlfaStorm & Ashley The Pikachu - Minor developments.<br>
 Zarel - The main workspace we used to begin Exiled off of.<br>
 <b>Retired Developers</b><br>

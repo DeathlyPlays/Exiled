@@ -1856,7 +1856,7 @@ exports.Formats = [
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3587743/\">Sketchmons</a>",
 		],
 		column: 7,
-		Section: "Stella's Custom Metagames',
+		Section: "Stella's Custom Metagames",
 		mod: 'sketchmnm',
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause',  'Mega Rayquaza Clause', 'Team Preview', 'Sleep Clause Mod'],
 		banlist: ['Allow One Sketch', 'Baton Pass'],

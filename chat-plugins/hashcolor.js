@@ -27,8 +27,8 @@ load();
        if (!message) return;
        var file = path.join(__dirname, '../logs/money.txt');
        var date = "[" + new Date().toUTCString() + "] ";
-       var msg = message + "\n";
-       fs.appendFile(file, date + msg);
+       var mExiled = message + "\n";
+       fs.appendFile(file, date + mExiled);
 }*/
 
 let cssPath = 'exiled'; // This should be the server id if Config.serverid doesn't exist. Ex: 'serverid'
@@ -42,7 +42,7 @@ function getCSS() {
 	};
 	http.get(options);
 }
-SG.loadCSS = getCSS;
+Exiled.loadCSS = getCSS;
 
 function updateColor() {
 	fs.writeFileSync(FILE_PATH, JSON.stringify(customColors));
@@ -56,7 +56,7 @@ function updateColor() {
 	fs.writeFileSync('config/custom.css', file.join('\n') + newCss);
 	getCSS();
 }
-SG.updateColor = updateColor;
+Exiled.updateColor = updateColor;
 
 function generateCSS(name, color) {
 	let css = '';
@@ -171,11 +171,9 @@ function hashColor(name) {
 	let HLmod = (lum - 0.5) * -100; // -43 (yellow) to 45 (dark blue)
 	if (HLmod > 12) {
 		HLmod -= 12;
-	}
-	else if (HLmod < -10) {
+	} else if (HLmod < -10) {
 		HLmod = (HLmod + 10) * 2 / 3;
-	}
-	else {
+	} else {
 		HLmod = 0;
 	}
 
@@ -206,28 +204,23 @@ function hslToRgb(h, s, l) {
 		r = c;
 		g = x;
 		b = 0;
-	}
-	else if (h < 2) {
+	} else if (h < 2) {
 		r = x;
 		g = c;
 		b = 0;
-	}
-	else if (h < 3) {
+	} else if (h < 3) {
 		r = 0;
 		g = c;
 		b = x;
-	}
-	else if (h < 4) {
+	} else if (h < 4) {
 		r = 0;
 		g = x;
 		b = c;
-	}
-	else if (h < 5) {
+	} else if (h < 5) {
 		r = x;
 		g = 0;
 		b = c;
-	}
-	else {
+	} else {
 		r = c;
 		g = 0;
 		b = x;

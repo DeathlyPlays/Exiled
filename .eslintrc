@@ -18,7 +18,7 @@
                 "SG": false, "Tells": false, "Db": false, "Economy": false, "sqlite3": false, "moneyName": false, "moneyPlural": false, "writeSSB": false,
 		"Exiled": false, "nightclub": false, "nightclubify": false, "Ontime": false, "rankLadder": false, "runDexSearch": false, "runMoveSearch": false,
 		"runItemSearch": false, "runLearn": false, "MD5": false, "autolinker": false, "nani": false, "moment": false, "https": false, "http": false, "amCache": false,
-		"colorCache": false, "isYouTube": false
+		"colorCache": false, "isYouTube": false, "hashColorWithCustoms": false
 	},
 	"extends": "eslint:recommended",
 	"rules": {

@@ -13,7 +13,7 @@ function shuffle(string) {
     return parts.join('');
 }
 
-function currencyName (amount) {
+function moneyName (amount) {
 	var name = " buck";
 	return amount === 1 ? name : name + "s";
 }
@@ -144,13 +144,13 @@ exports.commands = {
 				
 				var _this = this;
 				var amount = 1;
-				currency.read('money', toId(user), function (err, initial) {
+				Economy.read('money', toId(user), function (err, initial) {
 					if (err) throw err;
 					if (!initial) initial = 0;
-						currency.write('money', initial + amount, toId(user), function (err, total) {
+						Economy.write('money', initial + amount, toId(user), function (err, total) {
 						if (err) throw err;
-						amount += currencyName(amount);
-						total += currencyName(total);
+						amount += moneyName(amount);
+						total += moneyName(total);
 						_this.sendReply(user + " was given " + amount + ". " + user + " now has " + total + ".");
 						if (Users.get(user)) Users.get(user).popup(user.name + " has given you " + amount + ". You now have " + total + ".");
 						logMoney(user + " has won " + amount + " from anagrams.");

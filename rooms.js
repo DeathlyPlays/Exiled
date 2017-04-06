@@ -725,17 +725,6 @@ class BattleRoom extends Room {
 		if (!this.searches[formatid]) this.searches[formatid] = [];
 		let formatSearches = this.searches[formatid];
 
-		if (Tools.getFormat(formatid).isWildEncounter) {
-			delete user.searching[formatid];
-			if (!Users('sgserver')) {
-				SG.makeCOM();
-			}
-			let wildTeam = SG.makeWildPokemon();
-			Users('sgserver').wildTeams[user.userid] = wildTeam;
-			this.startBattle(Users('sgserver'), user, formatid, wildTeam, newSearch.team, {rated: false});
-			return;
-		}
-
 		// Prioritize players who have been searching for a match the longest.
 		for (let i = 0; i < formatSearches.length; i++) {
 			let search = formatSearches[i];

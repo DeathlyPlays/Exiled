@@ -133,13 +133,11 @@ class CommandContext {
 
 		if (typeof commandHandler === 'function') {
 			message = this.run(commandHandler);
-		}
-		else {
+		} else {
 			if (commandHandler === '!') {
 				if (originalRoom === Rooms.global) {
 					return this.popupReply(`You tried use "${message}" as a global command, but it is not a global command.`);
-				}
-				else if (originalRoom) {
+				} else if (originalRoom) {
 					return this.popupReply(`You tried to send "${message}" to the room "${originalRoom.id}" but it failed because you were not in that room.`);
 				}
 				return this.errorReply(`The command "${this.cmdToken}${this.fullCmd}" is unavailable in private messages. To send a message starting with "${this.cmdToken}${this.fullCmd}", type "${this.cmdToken}${this.cmdToken}${this.fullCmd}".`);
@@ -150,12 +148,10 @@ class CommandContext {
 					if (/[a-z0-9]/.test(this.cmd.charAt(0))) {
 						return this.errorReply(`The command "${this.cmdToken}${this.fullCmd}" does not exist.`);
 					}
-				}
-				else {
+				} else {
 					return this.errorReply(`The command "${this.cmdToken}${this.fullCmd}" does not exist. To send a message starting with "${this.cmdToken}${this.fullCmd}", type "${this.cmdToken}${this.cmdToken}${this.fullCmd}".`);
 				}
-			}
-			else if (!VALID_COMMAND_TOKENS.includes(message.charAt(0)) && VALID_COMMAND_TOKENS.includes(message.trim().charAt(0))) {
+			} else if (!VALID_COMMAND_TOKENS.includes(message.charAt(0)) && VALID_COMMAND_TOKENS.includes(message.trim().charAt(0))) {
 				message = message.trim();
 				if (message.charAt(0) !== BROADCAST_TOKEN) {
 					message = message.charAt(0) + message;
@@ -193,6 +189,7 @@ class CommandContext {
 					} else {
 						if (parseEmoticons(message, this.room, this.user)) return;
 						this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`).update();
+						Exiled.addExp(this.user, this.room, 1);
 					}
 				}
 			}
@@ -212,14 +209,11 @@ class CommandContext {
 		// hardcoded commands
 		if (message.startsWith(`>> `)) {
 			message = `/eval ${message.slice(3)}`;
-		}
-		else if (message.startsWith(`>>> `)) {
+		} else if (message.startsWith(`>>> `)) {
 			message = `/evalbattle ${message.slice(4)}`;
-		}
-		else if (message.startsWith(`/me`) && /[^A-Za-z0-9 ]/.test(message.charAt(3))) {
+		} else if (message.startsWith(`/me`) && /[^A-Za-z0-9 ]/.test(message.charAt(3))) {
 			message = `/mee ${message.slice(3)}`;
-		}
-		else if (message.startsWith(`/ME`) && /[^A-Za-z0-9 ]/.test(message.charAt(3))) {
+		} else if (message.startsWith(`/ME`) && /[^A-Za-z0-9 ]/.test(message.charAt(3))) {
 			message = `/MEE ${message.slice(3)}`;
 		}
 
@@ -235,8 +229,7 @@ class CommandContext {
 		if (spaceIndex > 0) {
 			cmd = message.slice(1, spaceIndex).toLowerCase();
 			target = message.slice(spaceIndex + 1);
-		}
-		else {
+		} else {
 			cmd = message.slice(1).toLowerCase();
 			target = '';
 		}
@@ -248,15 +241,13 @@ class CommandContext {
 		do {
 			if (curCommands.hasOwnProperty(cmd)) {
 				commandHandler = curCommands[cmd];
-			}
-			else {
+			} else {
 				commandHandler = undefined;
 			}
 			if (typeof commandHandler === 'string') {
 				// in case someone messed up, don't loop
 				commandHandler = curCommands[commandHandler];
-			}
-			else if (Array.isArray(commandHandler) && !recursing) {
+			} else if (Array.isArray(commandHandler) && !recursing) {
 				return this.splitCommand(cmdToken + 'help ' + fullCmd.slice(0, -4), true);
 			}
 			if (commandHandler && typeof commandHandler === 'object') {
@@ -264,8 +255,7 @@ class CommandContext {
 				if (spaceIndex > 0) {
 					cmd = target.substr(0, spaceIndex).toLowerCase();
 					target = target.substr(spaceIndex + 1);
-				}
-				else {
+				} else {
 					cmd = target.toLowerCase();
 					target = '';
 				}
@@ -288,17 +278,13 @@ class CommandContext {
 				target = toId(target);
 				if (cmd === groupid) {
 					return this.splitCommand(`/promote ${target}, ${g}`, true);
-				}
-				else if (cmd === 'global' + groupid) {
+				} else if (cmd === 'global' + groupid) {
 					return this.splitCommand(`/globalpromote ${target}, ${g}`, true);
-				}
-				else if (cmd === 'de' + groupid || cmd === 'un' + groupid || cmd === 'globalde' + groupid || cmd === 'deglobal' + groupid) {
+				} else if (cmd === 'de' + groupid || cmd === 'un' + groupid || cmd === 'globalde' + groupid || cmd === 'deglobal' + groupid) {
 					return this.splitCommand(`/demote ${target}`, true);
-				}
-				else if (cmd === 'room' + groupid) {
+				} else if (cmd === 'room' + groupid) {
 					return this.splitCommand(`/roompromote ${target}, ${g}`, true);
-				}
-				else if (cmd === 'roomde' + groupid || cmd === 'deroom' + groupid || cmd === 'roomun' + groupid) {
+				} else if (cmd === 'roomde' + groupid || cmd === 'deroom' + groupid || cmd === 'roomun' + groupid) {
 					return this.splitCommand(`/roomdemote ${target}`, true);
 				}
 			}
@@ -373,8 +359,7 @@ class CommandContext {
 		if (!room.banwordRegex) {
 			if (room.banwords && room.banwords.length) {
 				room.banwordRegex = new RegExp('(?:\\b|(?!\\w))(?:' + room.banwords.join('|') + ')(?:\\b|\\B(?!\\w))', 'i');
-			}
-			else {
+			} else {
 				room.banwordRegex = true;
 			}
 		}
@@ -389,17 +374,13 @@ class CommandContext {
 		return message.split('\n').map(message => {
 			if (message.startsWith('||')) {
 				return prefix + '/text ' + message.slice(2);
-			}
-			else if (message.startsWith('|html|')) {
+			} else if (message.startsWith('|html|')) {
 				return prefix + '/raw ' + message.slice(6);
-			}
-			else if (message.startsWith('|raw|')) {
+			} else if (message.startsWith('|raw|')) {
 				return prefix + '/raw ' + message.slice(5);
-			}
-			else if (message.startsWith('|c~|')) {
+			} else if (message.startsWith('|c~|')) {
 				return prefix + message.slice(4);
-			}
-			else if (message.startsWith('|c|~|/')) {
+			} else if (message.startsWith('|c|~|/')) {
 				return prefix + message.slice(5);
 			}
 			return prefix + '/text ' + message;
@@ -412,18 +393,15 @@ class CommandContext {
 				data = this.pmTransform(data);
 				this.user.send(data);
 				if (this.pmTarget !== this.user) this.pmTarget.send(data);
-			}
-			else {
+			} else {
 				this.room.add(data);
 			}
-		}
-		else {
+		} else {
 			// not broadcasting
 			if (this.pmTarget) {
 				data = this.pmTransform(data);
 				this.connection.send(data);
-			}
-			else {
+			} else {
 				this.connection.sendTo(this.room, data);
 			}
 		}
@@ -432,8 +410,7 @@ class CommandContext {
 		if (this.pmTarget) {
 			let prefix = '|pm|' + this.user.getIdentity() + '|' + this.pmTarget.getIdentity() + '|/error ';
 			this.connection.send(prefix + message.replace(/\n/g, prefix));
-		}
-		else {
+		} else {
 			this.sendReply('|html|<div class="message-error">' + Chat.escapeHTML(message).replace(/\n/g, '<br />') + '</div>');
 		}
 	}
@@ -476,8 +453,7 @@ class CommandContext {
 		let buf = "(" + this.room.id + ") " + action + ": ";
 		if (typeof user === 'string') {
 			buf += "[" + toId(user) + "]";
-		}
-		else {
+		} else {
 			let userid = user.getLastId();
 			buf += "[" + userid + "]";
 			if (user.autoconfirmed && user.autoconfirmed !== userid) buf += " ac:[" + user.autoconfirmed + "]";
@@ -543,8 +519,7 @@ class CommandContext {
 
 		if (this.pmTarget) {
 			this.add('|c~|' + (suppressMessage || this.message));
-		}
-		else {
+		} else {
 			this.add('|c|' + this.user.getIdentity(this.room.id) + '|' + (suppressMessage || this.message));
 		}
 		if (!this.pmTarget) {
@@ -614,8 +589,7 @@ class CommandContext {
 				if (targetUser.ignorePMs && targetUser.ignorePMs !== user.group && !user.can('lock')) {
 					if (!targetUser.can('lock')) {
 						return this.errorReply(`This user is blocking private messages right now.`);
-					}
-					else if (targetUser.can('bypassall')) {
+					} else if (targetUser.can('bypassall')) {
 						return this.errorReply(`This admin is too busy to answer private messages right now. Please contact a different staff member.`);
 					}
 				}
@@ -685,8 +659,7 @@ class CommandContext {
 			if (/^[a-z]+\:\/\//.test(uri) || isRelative) {
 				return this.errorReply("URIs must begin with 'https://' or 'http://' or 'data:'");
 			}
-		}
-		else {
+		} else {
 			uri = uri.slice(7);
 		}
 		let slashIndex = uri.indexOf('/');
@@ -770,8 +743,7 @@ class CommandContext {
 						this.errorReply("Missing </" + tag.substr(2) + "> or it's in the wrong place.");
 						return false;
 					}
-				}
-				else {
+				} else {
 					stack.push(tag.substr(1));
 				}
 			}
@@ -849,7 +821,7 @@ Chat.parse = function (message, room, user, connection) {
 		message,
 		room,
 		user,
-		connection
+		connection,
 	});
 
 	return context.parse();
@@ -902,12 +874,12 @@ Chat.loadCommands = function () {
 		Object.assign(commands, require('./game-cards/' + file).commands);
 	}
 	// Load games for Console
-	SG.gameList = {};
+	Exiled.gameList = {};
 	for (let file of fs.readdirSync(path.resolve(__dirname, 'game-cards'))) {
 		if (file.substr(-3) !== '.js') continue;
 		let obj = require('./game-cards/' + file).box;
 		if (obj && obj.name) obj.id = toId(obj.name);
-		SG.gameList[obj.id] = obj;
+		Exiled.gameList[obj.id] = obj;
 	}
 };
 
@@ -952,11 +924,9 @@ Chat.html = function (strings, ...args) {
 Chat.plural = function (num, plural = 's', singular = '') {
 	if (num && typeof num.length === 'number') {
 		num = num.length;
-	}
-	else if (num && typeof num.size === 'number') {
+	} else if (num && typeof num.size === 'number') {
 		num = num.size;
-	}
-	else {
+	} else {
 		num = Number(num);
 	}
 	return (num !== 1 ? plural : singular);

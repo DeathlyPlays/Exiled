@@ -9,14 +9,6 @@ const moment = require('moment');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const Autolinker = require('autolinker');
 
-function load() {
-    fs.readFile(FILE_PATH, 'utf8', (err, file) => {
-        if (err) return;
-        customColors = JSON.parse(file);
-    });
-}
-load();
-
 /*function logMoney(message) {
        if (!message) return;
        var file = path.join(__dirname, '../logs/money.txt');

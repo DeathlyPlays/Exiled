@@ -5,10 +5,6 @@
 'use strict';
 /*eslint no-restricted-modules: [0]*/
 
-let fs = require('fs');
-let moment = require('moment');
-let request = require('request');
-let color = require('../config/color');
 
 let messages = [
 	"has vanished into nothingness!",
@@ -49,7 +45,6 @@ exports.commands = {
 	authlist: 'gal',
 	auth: 'gal',
 	gal: function (target, room, user, connection) {
-		let rankLists = {};
 		let ranks = Object.keys(Config.groups);
 		let persons = [];
 		for (let u in Users.usergroups) {
@@ -58,7 +53,7 @@ exports.commands = {
 				let name = Users.usergroups[u].substr(1);
 				persons.push({
 					name: name,
-					rank: rank
+					rank: rank,
 				});
 			}
 		}
@@ -69,7 +64,7 @@ exports.commands = {
 			"bots": [],
 			"mods": [],
 			"drivers": [],
-			"voices": []
+			"voices": [],
 		};
 		persons = persons.sort((a, b) => toId(a.name).localeCompare(toId(b.name))); // No need to return, arrow functions with single lines have an implicit return
 		function nameColor(name) {
@@ -225,7 +220,7 @@ exports.commands = {
 			return this.sendReply("The reason is too long. It cannot exceed 300 characters.");
 		}
 
-		let muteDuration = 30 * 24 * 60 * 60 * 1000;
+		let muteDuration = 30 * 24 * 60 * 60 * 1000;;
 		if (!this.can('mute', targetUser, room)) return false;
 		let canBeMutedFurther = ((room.getMuteTime(targetUser) || 0) <= (muteDuration * 5 / 6));
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
@@ -436,7 +431,7 @@ exports.commands = {
 		if (!this.canTalk()) return false;
 		if (!target) return this.sendReply('/forcelogout [username], [reason] OR /flogout [username], [reason] - You do not have to add a reason');
 		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
+		let targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User ' + this.targetUsername + ' not found.');
 		}

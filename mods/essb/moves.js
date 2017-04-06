@@ -971,4 +971,122 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Electric",
 	},
+	//C7
+	"voodoomagic": {
+		id: "voodoomagic",
+		name: "Voodoo Magic",
+		//added the description mainly so I can see what all he wanted since this is quite a lot
+		desc: "Voodoo Magic: ??? type, Priority 0(1), Status, 90% Acc, Goes through Substitutes, Ignores Abilities, Doesn't Bounce. Puts a curse on the opponent that does a hideous amount of bad effects. (User takes 1/4 HP damage then Taunts, Torments, Mean Looks, Embargos, Clears Stats, Heal Blocks, Removes ability, Spites, Flinches, and removes all shields. Taunt, Embargo, and Heal Block last for 10 turns, Stat Clear, Flinch, and Spite happen on turn move used, rest last till switch (haha lol no switching for you) Does not fail if user is less than 1/4 hp)",
+		basePower: 0,
+		category: "Status",
+		priority: 0,
+		accuracy: 90,
+		pp: 10,
+		flags: {
+			authentic: 1,
+			reflectable: 1,
+		},
+		ignoresAbility: true,
+		self: {
+			onHit: function (target, source) {
+				this.directDamage(source.maxhp / 4, source, source);
+			},
+			effect: {
+				duration: 10,
+				onStart: function (pokemon, source) {
+					this.add('-start', pokemon, 'Voodoo Magic', '[of] ' + source);
+				},
+				onResidualOrder: 10,
+				onResidual: function (pokemon) {
+					this.damage(pokemon.maxhp / 4);
+				},
+			},
+			volatileStatus: "curse",
+		},
+		onStart: function (pokemn, source) {
+			this.add('-start', pokemon, 'Voodoo Magic');
+		},
+		// Item suppression implemented in BattlePokemon.ignoringItem() within battle-engine.js
+		onResidualOrder: 18,
+		onEnd: function (pokemon) {
+			this.add('-end', pokemon, 'Voodoo Magic');
+		},
+		onHit: function (target, source, move) {
+			if (!target.addVolatile('trapped', source, move, 'trapper')) {
+				this.add('-fail', target);
+			}
+		},
+		onHitField: function () {
+			this.add('-clearallboost');
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					if (this.sides[i].active[j] && this.sides[i].active[j].isActive) this.sides[i].active[j].clearBoosts();
+				}
+			}
+		},
+		effect: {
+			duration: 10,
+			durationCallback: function (target, source, effect) {
+				if (source && source.hasAbility('persistent')) {
+					return 15;
+				}
+				return 10;
+			},
+			onStart: function (pokemon) {
+				this.add('-start', pokemon, 'move: Voodoo Magic');
+				this.add('-endability', pokemon);
+				this.singleEvent('End', this.getAbility(pokemon.ability), pokemon.abilityData, pokemon, pokemon, 'gastroacid');
+			},
+			onDisableMove: function (pokemon) {
+				for (let i = 0; i < pokemon.moveset.length; i++) {
+					if (this.getMove(pokemon.moveset[i].id).flags['heal']) {
+						pokemon.disableMove(pokemon.moveset[i].id);
+					}
+				}
+			},
+			onBeforeMovePriority: 6,
+			onBeforeMove: function (pokemon, target, move) {
+				if (move.flags['heal']) {
+					this.add('cant', pokemon, 'move: Voodoo Magic', move);
+					return false;
+				}
+			},
+			onResidualOrder: 17,
+			onEnd: function (pokemon) {
+				this.add('-end', pokemon, 'move: Voodoo Magic');
+			},
+			onTryHeal: false,
+			onAccuracyPriority: 6,
+			onAccuracy: function (accuracy, target, source, move) {
+				if (move && !pokemon.maxhp / 4) return true;
+			},
+		},
+		onTryHit: function (pokemon) {
+			let bannedAbilities = {comatose:1, multitype:1, schooling:1, stancechange:1};
+			if (bannedAbilities[pokemon.ability]) {
+				return false;
+			}
+			// will shatter screens through sub, before you hit
+			if (pokemon.runImmunity('Normal')) {
+				pokemon.side.removeSideCondition('reflect');
+				pokemon.side.removeSideCondition('lightscreen');
+				pokemon.side.removeSideCondition('auroraveil');
+			}
+		},
+		secondary: {
+			volatileStatus: "taunt",
+			volatileStatus: "torment",
+			volatileStatus: "embargo",
+			volatileStatus: "flinch",
+			volatileStatus: "healblock",
+			volatileStatus: "curse",
+			volatileStatus: "gastroacid",
+		},
+		onModifyMove: function (move, pokemon, target) {
+			move.type = '???';
+			this.add('-activate', pokemon, 'move: Voodoo Magic');
+		},
+		type: "Normal",
+		target: "normal",
+	},
 };

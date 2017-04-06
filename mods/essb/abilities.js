@@ -229,6 +229,46 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	//C7
+	"chatoicarmor": {
+		id: "chaoticarmor",
+		name: "Chaotic Armor",
+		//Prankster
+		if (move && move.category === 'Status') {
+				return priority + 1;
+			}
+		},
+		onModifyMove: function (move) {
+			if (move && move.category === 'Status') {
+				move.pranksterBoosted = true;
+			}
+		},
+			//Magic Bounce
+			onTryHitPriority: 1,
+		onTryHit: function (target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide: function (target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		effect: {
+			duration: 1,
+		},
+		},
 	//happysong
 	"godcomplex": {
 		id: "godcomplex",

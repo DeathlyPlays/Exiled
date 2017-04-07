@@ -664,6 +664,7 @@ class User {
 		Db('rooms').get(userid, []).forEach(function (room) {
 			if (!(room in this.inRooms)) this.tryJoinRoom(room, connection);
 		}.bind(this));
+		Exiled.showNews(userid, this);
 		Exiled.giveDailyReward(userid, this);
 		return false;
 	}
@@ -1572,7 +1573,6 @@ Users.socketConnect = function (worker, workerid, socketid, ip, protocol) {
 	});
 
 	user.joinRoom('global', connection);
-	Exiled.newsDisplay(user.name);
 };
 
 Users.socketDisconnect = function (worker, workerid, socketid) {

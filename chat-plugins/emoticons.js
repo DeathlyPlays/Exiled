@@ -1,14 +1,12 @@
 'use strict';
 
-const color = require('../config/color');
 let demFeels = function () {};
 demFeels.getEmotes = function () {
 	return {};
 };
 try {
 	demFeels = require('dem-feels');
-}
-catch (e) {
+} catch (e) {
 	console.error(e);
 }
 
@@ -208,7 +206,6 @@ if (typeof demFeels.extendEmotes === 'function') {
 		'happyface': 'http://imgur.com/krzCL3j.jpg',
 		'wynaut': 'http://i.imgur.com/3QriNT2.png',
 		'KappaPride': 'http://i.imgur.com/GMs8OxU.jpg',
-		'llamadance': 'http://i.imgur.com/Tl8xmiq.gif',
 		'llamahide': 'http://i.imgur.com/Z9GYSkZ.gif',
 		'feelstales': 'http://a.deviantart.net/avatars/l/u/lumeraz.gif',
 		'prfmcri': 'http://media.tumblr.com/tumblr_lidby6NOqp1qb8q4h.gif',
@@ -456,8 +453,7 @@ exports.commands = {
 		this.sendReply("Disallowing emoticons is set to " + room.disableEmoticons + " in this room.");
 		if (room.disableEmoticons) {
 			this.add("|raw|<div class=\"broadcast-red\"><b>Emoticons are disabled!</b><br />Emoticons will not work.</div>");
-		}
-		else {
+		} else {
 			this.add("|raw|<div class=\"broadcast-blue\"><b>Emoticons are enabled!</b><br />Emoticons will work now.</div>");
 		}
 	},

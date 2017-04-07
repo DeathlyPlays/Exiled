@@ -132,5 +132,8 @@ exports.BattlePokedex = {
 		},
 		heightm: 2,
 		weightkg: 0.5,
+		prevo: "Eevee",
+		color: "Purple",
+		eggGroups: ["Field, Amorphous"],
 	},
 };

@@ -128,9 +128,9 @@ exports.BattlePokedex = {
 		},
 		abilities: {
 			0: "Vengeful",
-			1: "Hatred",
+			H: "Hatred",
 		},
-		heightm: 1,
-		weightkg: 27,
+		heightm: 2,
+		weightkg: 0.5,
 	},
 };

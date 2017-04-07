@@ -167,7 +167,8 @@ class Room {
 		if (!modjoinGroup) return true;
 
 		if (modjoinGroup === 'trusted') {
-			if (user.trusted) return true;modjoinGroup = Config.groupsranking[1];
+			if (user.trusted) return true;
+			modjoinGroup = Config.groupsranking[1];
 		}
 		if (modjoinGroup === 'autoconfirmed') {
 			if (user.autoconfirmed) return true;
@@ -272,8 +273,7 @@ class GlobalRoom {
 		try {
 			this.chatRoomData = require('./config/chatrooms.json');
 			if (!Array.isArray(this.chatRoomData)) this.chatRoomData = [];
-		}
-		catch (e) {} // file doesn't exist [yet]
+		} catch (e) {} // file doesn't exist [yet]
 
 		if (!this.chatRoomData.length) {
 			this.chatRoomData = [{
@@ -357,7 +357,7 @@ class GlobalRoom {
 
 		// Create writestream for modlog
 		this.modlogStream = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_global.txt'), {
-			flags: 'a+'
+			flags: 'a+',
 		});
 	}
 
@@ -744,40 +744,40 @@ class BattleRoom extends Room {
 	}
 
 	win(winner) {
-			// Declare variables here in case we need them for non-rated battles logging.
-			let p1score = 0.5;
-			let winnerid = toId(winner);
+		// Declare variables here in case we need them for non-rated battles logging.
+		let p1score = 0.5;
+		let winnerid = toId(winner);
 
-			// Check if the battle was rated to update the ladder, return its response, and log the battle.
-			if (this.rated) {
-				this.rated = false;
-				let p1 = this.battle.p1;
-				let p2 = this.battle.p2;
+		// Check if the battle was rated to update the ladder, return its response, and log the battle.
+		if (this.rated) {
+			this.rated = false;
+			let p1 = this.battle.p1;
+			let p2 = this.battle.p2;
 
-				if (winnerid === p1.userid) {
-					p1score = 1;
-				} else if (winnerid === p2.userid) {
-					p1score = 0;
-				}
+			if (winnerid === p1.userid) {
+				p1score = 1;
+			} else if (winnerid === p2.userid) {
+				p1score = 0;
+			}
 
-				let p1name = p1.name;
-				let p2name = p2.name;
+			let p1name = p1.name;
+			let p2name = p2.name;
 
-				//update.updates.push('[DEBUG] uri: ' + Config.loginserver + 'action.php?act=ladderupdate&serverid=' + Config.serverid + '&p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2) + '&score=' + p1score + '&format=' + toId(rated.format) + '&servertoken=[token]');
+			//update.updates.push('[DEBUG] uri: ' + Config.loginserver + 'action.php?act=ladderupdate&serverid=' + Config.serverid + '&p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2) + '&score=' + p1score + '&format=' + toId(rated.format) + '&servertoken=[token]');
 
-				winner = Users.get(winnerid);
-				if (winner && !winner.registered) {
-					this.sendUser(winner, '|askreg|' + winner.userid);
-				}
-				// update rankings
-				Ladders(this.battle.format).updateRating(p1name, p2name, p1score, this);
-			} else if (Config.logchallenges) {
-				// Log challenges if the challenge logging config is enabled.
-				if (winnerid === this.p1.userid) {
-					p1score = 1;
-				} else if (winnerid === this.p2.userid) {
-					p1score = 0;
-				}
+			winner = Users.get(winnerid);
+			if (winner && !winner.registered) {
+				this.sendUser(winner, '|askreg|' + winner.userid);
+			}
+			// update rankings
+			Ladders(this.battle.format).updateRating(p1name, p2name, p1score, this);
+		} else if (Config.logchallenges) {
+			// Log challenges if the challenge logging config is enabled.
+			if (winnerid === this.p1.userid) {
+				p1score = 1;
+			} else if (winnerid === this.p2.userid) {
+				p1score = 0;
+			}
 				this.update();
 				this.logBattle(p1score);
 			} else {
@@ -890,7 +890,6 @@ class BattleRoom extends Room {
 		}
 		if (p2active && this.battle.requests.p2) {
 			if (!this.battle.requests.p2[2]) p2active = false;
-
 		}
 		if (p1active && !p2active) return 1;
 		if (p2active && !p1active) return 0;
@@ -1226,7 +1225,7 @@ class ChatRoom extends Room {
 			this.modlogStream = Rooms.groupchatModlogStream;
 		} else {
 			this.modlogStream = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_' + roomid + '.txt'), {
-				flags: 'a+'
+				flags: 'a+',
 			});
 		}
 	}
@@ -1246,8 +1245,7 @@ class ChatRoom extends Room {
 		let mkdir = sync ? (path, mode, callback) => {
 			try {
 				fs.mkdirSync(path, mode);
-			}
-			catch (e) {} // directory already exists
+			} catch (e) {} // directory already exists
 			callback();
 		} : fs.mkdir;
 		let date = new Date();
@@ -1262,7 +1260,7 @@ class ChatRoom extends Room {
 					this.logFilename = path;
 					if (this.logFile) this.logFile.destroySoon();
 					this.logFile = fs.createWriteStream(basepath + path, {
-						flags: 'a'
+						flags: 'a',
 					});
 					// Create a symlink to today's lobby log.
 					// These operations need to be synchronous, but it's okay
@@ -1270,16 +1268,13 @@ class ChatRoom extends Room {
 					let link0 = basepath + 'today.txt.0';
 					try {
 						fs.unlinkSync(link0);
-					}
-					catch (e) {} // file doesn't exist
+					} catch (e) {} // file doesn't exist
 					try {
 						fs.symlinkSync(path, link0); // `basepath` intentionally not included
 						try {
 							fs.renameSync(link0, basepath + 'today.txt');
-						}
-						catch (e) {} // OS doesn't support atomic rename
-					}
-					catch (e) {} // OS doesn't support symlinks
+						} catch (e) {} // OS doesn't support atomic rename
+					} catch (e) {} // OS doesn't support symlinks
 				}
 				let currentTime = date.getTime();
 				let nextHour = new Date(date.setMinutes(60)).setSeconds(1);
@@ -1416,19 +1411,19 @@ class ChatRoom extends Room {
 		return user;
 	}
 	onRename(user, oldid, joining) {
-			delete this.users[oldid];
-			this.users[user.userid] = user;
-			if (joining) {
-				this.reportJoin('j', user.getIdentity(this.id));
-				if (this.staffMessage && user.can('mute', null, this)) this.sendUser(user, '|raw|<div class="infobox">(Staff intro:)<br /><div>' + this.staffMessage.replace(/\n/g, '') + '</div></div>');
-			} else if (!user.named) {
-				this.reportJoin('l', oldid);
-			} else {
-				this.reportJoin('n', user.getIdentity(this.id) + '|' + oldid);
-			}
-			if (this.poll && user.userid in this.poll.voters) this.poll.updateFor(user);
-			return user;
+		delete this.users[oldid];
+		this.users[user.userid] = user;
+		if (joining) {
+			this.reportJoin('j', user.getIdentity(this.id));
+			if (this.staffMessage && user.can('mute', null, this)) this.sendUser(user, '|raw|<div class="infobox">(Staff intro:)<br /><div>' + this.staffMessage.replace(/\n/g, '') + '</div></div>');
+		} else if (!user.named) {
+			this.reportJoin('l', oldid);
+		} else {
+			this.reportJoin('n', user.getIdentity(this.id) + '|' + oldid);
 		}
+		if (this.poll && user.userid in this.poll.voters) this.poll.updateFor(user);
+		return user;
+	}
 		/**
 		 * onRename, but without a userid change
 		 */
@@ -1530,10 +1525,10 @@ Rooms.createChatRoom = function (roomid, title, data) {
 };
 
 Rooms.battleModlogStream = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_battle.txt'), {
-	flags: 'a+'
+	flags: 'a+',
 });
 Rooms.groupchatModlogStream = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_groupchat.txt'), {
-	flags: 'a+'
+	flags: 'a+',
 });
 
 Rooms.global = null;

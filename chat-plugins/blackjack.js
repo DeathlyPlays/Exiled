@@ -1,4 +1,4 @@
-'Use strict';
+'use strict';
 
 const color = require('../config/color');
 

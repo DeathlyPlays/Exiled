@@ -1,6 +1,6 @@
 'Use strict';
 
-var color = require('../config/color');
+const color = require('../config/color');
 
 /**
  * Checks if the money input is actually money.
@@ -9,7 +9,7 @@ var color = require('../config/color');
  * @return {String|Number}
  */
 function isMoney(money) {
-	var numMoney = Number(money);
+	let numMoney = Number(money);
 	if (isNaN(money)) return "Must be a number.";
 	if (String(money).includes('.')) return "Cannot contain a decimal.";
 	if (numMoney < 1) return "Cannot be less than one buck.";
@@ -90,7 +90,7 @@ function Deck() {
  * @return {Card}
  */
 Deck.prototype.drawCard = function () {
-	var randomNumber = Math.floor(Math.random() * this.cards.length);
+	let randomNumber = Math.floor(Math.random() * this.cards.length);
 	return this.cards.splice(randomNumber, 1)[0];
 };
 
@@ -103,13 +103,13 @@ Deck.prototype.toString = function () {
 	return this.cards.join(", ");
 };
 
-var BJView = {
+let BJView = {
 	busted: function (player) {
 		this.addRaw("<b>" + player.name + " has <i>busted</i>!");
 	},
 
 	create: function (creator, pot) {
-		var output = "<div class='infobox'><center><h2><b>Blackjack Game</b></h2>";
+		let output = "<div class='infobox'><center><h2><b>Blackjack Game</b></h2>";
 		output += "<span style='padding:20px'><b>Created by:</b> " + creator + "</span>";
 		output += "<span style='padding:20px'>Pot: <span style='color:red'>" + pot + "</span></span>";
 		output += "<br /><button name='send' value='/bj join' style='margin: 5px'>Join</button>";
@@ -118,7 +118,7 @@ var BJView = {
 	},
 
 	end: function (winner) {
-		var output = "<b>The blackjack game has ended. The winner is <font color='#24678d'>";
+		let output = "<b>The blackjack game has ended. The winner is <font color='#24678d'>";
 		output += winner.name + "</font> with " + winner.hand.join(", ") + " in hand!</b>";
 		this.addRaw(output);
 	},
@@ -136,7 +136,7 @@ var BJView = {
 	},
 
 	start: function (players, getPlayer) {
-		var output = "<div class='infobox'><center><b>The blackjack game has started!</b><br />";
+		let output = "<div class='infobox'><center><b>The blackjack game has started!</b><br />";
 		output += "<b>There are " + players.length + " players.</b><br />";
 		players.forEach(function (player) {
 			output += "<b><font color='" + color(player) + "'>" + player + ": </font></b> " + getPlayer[player].hand.join(", ") + "<br />";
@@ -147,7 +147,7 @@ var BJView = {
 
 	turn: function (player) {
 		this.addRaw("<b>It is " + player + "'s turn.</b>");
-	}
+	},
 };
 
 /**
@@ -207,7 +207,7 @@ Blackjack.prototype.startGame = function () {
 Blackjack.prototype.nextTurn = function () {
 	this.currentTurn = this.turns.shift();
 	if (!this.currentTurn) {
-		var winner = this.chooseWinner();
+		let winner = this.chooseWinner();
 		this.endGame(winner);
 	} else {
 		BJView.turn.call(this.room, this.currentTurn);
@@ -220,9 +220,9 @@ Blackjack.prototype.nextTurn = function () {
  * @return {Object} winner;
  */
 Blackjack.prototype.chooseWinner = function () {
-	var winner = Object.keys(this.players).reduce(function (acc, cur) {
-		var accP = this.players[acc];
-		var curP = this.players[cur];
+	let winner = Object.keys(this.players).reduce(function (acc, cur) {
+		let accP = this.players[acc];
+		let curP = this.players[cur];
 		if (!curP) return accP;
 		if (!accP) return curP;
 		return accP.total > curP.total ? accP : curP;
@@ -283,7 +283,7 @@ Blackjack.prototype.addPlayer = function (player) {
  * @param {Boolean} silence - Don't display to the room
  */
 Blackjack.prototype.hit = function (player, silence) {
-	var card = this.deck.drawCard();
+	let card = this.deck.drawCard();
 	this.players[player].hand.push(card);
 	this.players[player].total += Card.getValue(card);
 
@@ -298,7 +298,7 @@ Blackjack.prototype.hit = function (player, silence) {
  * @param {String} player
  */
 Blackjack.prototype.hasPlayerWinOrBust = function (player) {
-	var total = this.players[player].total;
+	let total = this.players[player].total;
 	if (total === 21) {
 		this.endGame(this.players[player]);
 	} else if (total > 21) {
@@ -316,20 +316,22 @@ Blackjack.prototype.hasPlayerWinOrBust = function (player) {
 };
 
 exports.commands = {
-        bjhelp: 'blackjackhelp',
-        blackjackhelp: function(target, room, user) {
-                       this.sendReplyBox("<center><b><u>Blackjack Commands</u></b><br /></center><b>/bj [new/create] [bucks]</b> - create game of blackjack for certian amount of bucks.<br /><b>/bj [end]</b> - end game of blackjack.<br /><b>/bj [start]</b> - start game of blackjack.<br /><b>/bjhelp</b> - shows blackjack commands.<br />");
-               },
+
+	bjhelp: 'blackjackhelp',
+	blackjackhelp: function(target, room, user) {
+		this.sendReplyBox("<center><b><u>Blackjack Commands</u></b><br /></center><b>/bj [new/create] [bucks]</b> - create game of blackjack for certian amount of bucks.<br /><b>/bj [end]</b> - end game of blackjack.<br /><b>/bj [start]</b> - start game of blackjack.<br /><b>/bjhelp</b> - shows blackjack commands.<br />");
+	},
+
 	bj: 'blackjack',
 	blackjack: {
 		new: 'create',
 		create: function (target, room, user) {
 			if (!this.can('broadcast', null, room)) return false;
-		        if (room.id !== 'casino') return this.sendReply('|html|You can only start a game of Blackjack in the <button name = "send" value = "/join casino">Casino</button>');
-	
+				if (room.id !== 'casino') return this.sendReply('|html|You can only start a game of Blackjack in the <button name = "send" value = "/join casino">Casino</button>');
+
 			if (room.bj) return this.sendReply("A blackjack game has already been created in this room.");
 
-			var amount = isMoney(target);
+			let amount = isMoney(target);
 			if (typeof amount === 'string') return this.sendReply(amount);
 
 			room.bj = new Blackjack(amount, room, user.name);
@@ -397,6 +399,6 @@ exports.commands = {
 
 			room.bj = null;
 			room.addRaw("<b>" + user.name + " ended the dice game.</b>");
-		}
-	}
+		},
+	},
 };

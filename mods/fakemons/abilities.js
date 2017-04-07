@@ -1,31 +1,3 @@
-/*
-Ratings and how they work:
--2: Extremely detrimental
-	  The sort of ability that relegates Pokemon with Uber-level BSTs into NU.
-	ex. Slow Start, Truant
--1: Detrimental
-	  An ability that does more harm than good.
-	ex. Defeatist, Normalize
- 0: Useless
-	  An ability with no net effect during a singles battle.
-	ex. Healer, Illuminate
- 1: Ineffective
-	  An ability that has a minimal effect. Should not be chosen over any other ability.
-	ex. Damp, Shell Armor
- 2: Situationally useful
-	  An ability that can be useful in certain situations.
-	ex. Blaze, Insomnia
- 3: Useful
-	  An ability that is generally useful.
-	ex. Infiltrator, Sturdy
- 4: Very useful
-	  One of the most popular abilities. The difference between 3 and 4 can be ambiguous.
-	ex. Protean, Regenerator
- 5: Essential
-	  The sort of ability that defines metagames.
-	ex. Desolate Land, Shadow Tag
-*/
-
 'use strict';
 
 exports.BattleAbilities = {
@@ -66,6 +38,31 @@ exports.BattleAbilities = {
 			if (this.effectData.target !== defender) return;
 			if (move.type === 'Electric') {
 				return this.chainModify(0.75);
+			}
+		},
+	},
+	"vengeful": {
+		id: "vengeful",
+		name: "Vengeful",
+		desc: "User is taken down the opponent, if its OK'ed by the opponent.",
+		rating: 4.5,
+		num: 9003,
+		onAfterDamageOrder: 1,
+		onAfterDamage: function (damage, target, source) {
+			if (source && source !== target && !target.hp) {
+				this.damage(source.maxhp / 1, source, target);
+			}
+		},
+	},
+	"hatred": {
+		id: "hatred",
+		name: "Hatred",
+		desc: "User gains a 1.5 boost in all stats, if its hit with a super effective move.",
+		num: 9004,
+		rating: 3,
+		onHit: function (target, source, move) {
+			if (target.hp && move.category !== 'Status' && !move.damage && !move.damageCallback && move.typeMod > 0 && target.useItem()) {
+				this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1});
 			}
 		},
 	},

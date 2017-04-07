@@ -168,7 +168,6 @@ exports.commands = {
 		if (packId !== 'xybase' && packId !== 'xyfuriousfists' && packId !== 'xyflashfire' && packId !== 'xyphantomforces' && packId !== 'xyroaringskies' && packId !== 'xyprimalclash' && packId !== 'xyancientorigins') return self.sendReply("This pack is not currently in circulation.  Please use /packshop to see the current packs.");
 		let cost = shop[shopIndex][2];
 		if (cost > amount) return self.sendReply("You need " + (cost - amount) + " more Charizardite X to buy this pack.");
-		let total = Db('money').set(user.userid, amount - cost).get(user.userid);
 		let pack = toId(target);
 		self.sendReply('|raw|You have bought ' + target + ' pack for ' + cost +
 			' Charizardite X. Use <button name="send" value="/openpack ' +

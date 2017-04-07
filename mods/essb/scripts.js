@@ -197,6 +197,21 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
+			"+AlfaStorm": {
+				species: "Hydreigon",
+				ability: "Attack Shield",
+				item: "Focus Sash",
+				gender: "M",
+				moves: ['crunch', 'dracometeor', 'darkpulse'],
+				baseSignatureMove: "darkstorm",
+				signatureMove: "Dark Storm",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4
+				},
+				nature: "Adamant",
+			},
 			//Regs
 			"TheAquaPhoenix": {
 				species: "Articuno",

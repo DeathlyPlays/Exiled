@@ -1089,4 +1089,32 @@ exports.BattleMovedex = {
 		type: "Normal",
 		target: "normal",
 	},
+	//alfastorm
+	"darkstorm": {
+		id: "darkstorm",
+		name: "Dark Storm",
+		basePower: 0,
+		accuracy: 100,
+		pp: 15,
+		secondary: false,
+		category: "Physical",
+		self: {
+			boosts: {
+				atk: 1,
+				spe: 1,
+				def: 1,
+			}
+		},
+		priority: 1,
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Dark Pulse', target);
+		},
+		flags: {
+			protect: 1,
+			contact: 1,
+		},
+		target: "normal",
+		type: "Dark",
+	},
 };

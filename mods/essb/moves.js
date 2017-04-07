@@ -1001,8 +1001,6 @@ exports.BattleMovedex = {
 					this.damage(pokemon.maxhp / 4);
 				},
 			},
-			volatileStatus: "curse",
-		},
 		onStart: function (pokemn, source) {
 			this.add('-start', pokemon, 'Voodoo Magic');
 		},
@@ -1073,15 +1071,29 @@ exports.BattleMovedex = {
 				pokemon.side.removeSideCondition('auroraveil');
 			}
 		},
-		secondary: {
-			volatileStatus: "taunt",
-			volatileStatus: "torment",
-			volatileStatus: "embargo",
-			volatileStatus: "flinch",
-			volatileStatus: "healblock",
-			volatileStatus: "curse",
-			volatileStatus: "gastroacid",
-		},
+		secondaries: [
+			{
+				chance: 100,
+				volatileStatus: "taunt",
+			}, {
+				chance: 100,
+				volatileStatus: "torment",
+			}, {
+				chance: 100,
+				volatileStatus: "embargo",
+			}, {
+				chance: 100,
+				volatileStatus: "flinch",
+			}, {
+				chance: 100,
+				volatileStatus: "healblock",
+			}, {
+				chance: 100,
+				volatileStatus: "curse",
+			}, {
+				volatileStatus: "gastroacid",
+			},
+		],
 		onModifyMove: function (move, pokemon, target) {
 			move.type = '???';
 			this.add('-activate', pokemon, 'move: Voodoo Magic');

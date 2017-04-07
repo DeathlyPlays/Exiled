@@ -833,7 +833,6 @@ exports.commands = {
 	},
 
 	profilehelp: function (target, room, user) {
-		if (this.runBroadcast()) return;
 		let display = '';
 		display += '<div class="infobox-limited"><center><b>Exiled Profiles Created by Insist, Volco, and Execute</b></center>';
 		display += '<b>/title set, user, hex, (title)</b> - Sets a user\'s title.<br>';

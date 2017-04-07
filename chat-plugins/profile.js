@@ -831,4 +831,21 @@ exports.commands = {
 		Db('friendcode').set(user.userid, target);
 		return this.sendReply('You have succesfully set your friend code to : ' + target);
 	},
+
+	profilehelp: function (target, room, user) {
+		if (this.runBroadcast()) return;
+		let display = '';
+		display += '<div class="infobox-limited"><center><b>Exiled Profiles Created by Insist, Volco, and Execute</b></center>';
+		display += '<b>/title set, user, hex, (title)</b> - Sets a user\'s title.<br>';
+		display += '<b>/pokemon set, user, hex, (pokemon name)</b> - Sets a user\'s favorite Pokemon.<br>';
+		display += '<b>/type set, user, hex</b> - Sets a user\'s type.<br>';
+		display += '<b>/jointeam (Pokemon Go Team)</b> - Join your Pokemon Go Team.<br>';
+		display += '<b>/setmusic (user), (link must be mp3 file), (title of song)</b> - Sets a music box on a user\'s profile.<br>';
+		display += '<b>/setpet (user), (spot 1 or 2), (Pokemon name)</b> - Sets a user\'s profile pet.<br>';
+		display += '<b>/setmusic (user), (link must be mp3 file), (title of song)</b> - Sets a music box on a user\'s profile.<br>';
+		display += '<b>/setpet (user), (spot 1 or 2), (Pokemon name)</b> - Sets a user\'s profile pet.<br>';
+		display += '<b>/setbg (user), (link)</b> - Sets a user\'s background.<br>';
+		display += '<b>/addmon (slot one-six), (dex number 3 digits)</b> - Sets a Pokemon on your profile team.';
+		this.sendReply('|html|' + display);
+	},
 };

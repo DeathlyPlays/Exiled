@@ -456,68 +456,78 @@ exports.commands = {
 
 	roomfounder: function (target, room, user) {
 		if (!room.chatRoomData) {
-			return this.sendReply("/roomfounder - This room isn\'t designed for per-room moderation to be added.");
+			return this.sendReply("/roomfounder - This room isn't designed for per-room moderation to be added");
 		}
+		if (!target) return this.parse('/help roomfounder');
 		target = this.splitTarget(target, true);
-		var targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' is not online.");
+		let targetUser = this.targetUser;
+		let name = this.targetUsername;
+		let userid = toId(name);
+
+		if (!Users.isUsernameKnown(userid)) {
+			return this.errorReply(`User '${this.targetUsername}' is offline and unrecognized, and so can't be promoted.`);
+		}
+
 		if (!this.can('makeroom')) return false;
+
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
-		if (!room.leagueauth) room.leagueauth = room.chatRoomData.leagueauth = {};
-		var name = targetUser.name;
-		room.auth[targetUser.userid] = '#';
-		room.founder = targetUser.userid;
-		this.addModCommand(name + ' was appointed to Room Founder by ' + user.name + '.');
-		room.onUpdateIdentity(targetUser);
-		room.chatRoomData.founder = room.founder;
+
+		room.auth[userid] = '#';
+		room.chatRoomData.founder = userid;
+		room.founder = userid;
+		this.addModCommand(`${name} was appointed Room Founder by ${user.name}.`);
+		if (targetUser) {
+			targetUser.popup(`|html|You were appointed Room Founder by ${SG.nameColor(user.name, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
 		Rooms.global.writeChatRoomData();
 	},
+	roomfounderhelp: ["/roomfounder [username] - Appoints [username] as a room founder. Requires: & ~"],
 
-	roomdefounder: 'deroomfounder',
-	deroomfounder: function (target, room, user) {
-		if (!room.auth) {
-			return this.sendReply("/roomdeowner - This room isn't designed for per-room moderation");
+	deroomfounder: 'roomdefounder',
+	roomdefounder: function (target, room, user) {
+		if (!room.chatRoomData) {
+			return this.sendReply("/roomdefounder - This room isn't designed for per-room moderation.");
 		}
-		target = this.splitTarget(target, true);
-		var targetUser = this.targetUser;
-		var name = this.targetUsername;
-		var userid = toId(name);
-		if (!userid || userid === '') return this.sendReply("User '" + name + "' does not exist.");
-
-		if (room.auth[userid] !== '#') return this.sendReply("User '" + name + "' is not a room founder.");
-		if (!this.can('makeroom', null, room)) return false;
-
-		delete room.auth[userid];
-		delete room.founder;
-		this.sendReply("(" + name + " is no longer Room Founder.)");
-		if (targetUser) targetUser.updateIdentity();
-		if (room.chatRoomData) {
-			Rooms.global.writeChatRoomData();
-		}
+		if (!target) return this.parse('/help roomdefounder');
+		if (!this.can('makeroom')) return false;
+		let targetUser = toId(target);
+		if (room.founder !== targetUser) return this.errorReply(targetUser + ' is not the room founder of ' + room.title + '.');
+		room.founder = false;
+		room.chatRoomData.founder = false;
+		return this.parse('/roomdeauth ' + target);
 	},
+	roomdefounderhelp: ["/roomdefounder [username] - Revoke [username]'s room founder position. Requires: &, ~"],
 
 	roomowner: function (target, room, user) {
 		if (!room.chatRoomData) {
 			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
 		}
+		if (!target) return this.parse('/help roomowner');
 		target = this.splitTarget(target, true);
-		var targetUser = this.targetUser;
+		let targetUser = this.targetUser;
+		let name = this.targetUsername;
+		let userid = toId(name);
 
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' is not online.");
+		if (!Users.isUsernameKnown(userid)) {
+			return this.errorReply(`User '${this.targetUsername}' is offline and unrecognized, and so can't be promoted.`);
+		}
 
-		if (!room.founder) return this.sendReply('The room needs a room founder before it can have a room owner.');
-		if (room.founder !== user.userid && !this.can('makeroom')) return this.sendReply('/roomowner - Access denied.');
+		if (!user.can('makeroom')) {
+			if (user.userid !== room.founder) return false;
+		}
 
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
 
-		var name = targetUser.name;
-
-		room.auth[targetUser.userid] = '#';
-		this.addModCommand("" + name + " was appointed Room Owner by " + user.name + ".");
-		room.onUpdateIdentity(targetUser);
+		room.auth[userid] = '#';
+		this.addModCommand(`${name} was appointed Room Owner by ${user.name}.`);
+		if (targetUser) {
+			targetUser.popup(`|html|You were appointed Room Owner by ${SG.nameColor(user.name, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
 		Rooms.global.writeChatRoomData();
 	},
-	roomownerhelp: ["/roomowner [username] - Appoints [username] as a room owner. Removes official status. Requires: ~"],
+	roomownerhelp: ["/roomowner [username] - Appoints [username] as a room owner. Requires: & ~"],
 
 	roomdeowner: 'deroomowner',
 	deroomowner: function (target, room, user) {
@@ -539,6 +549,29 @@ exports.commands = {
 		if (room.chatRoomData) {
 			Rooms.global.writeChatRoomData();
 		}
+	},
+
+	roomleader: function (target, room, user) {
+
+		if (!room.chatRoomData) {
+			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
+		}
+		target = this.splitTarget(target, true);
+		var targetUser = this.targetUser;
+
+		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' is not online.");
+
+		if (!room.founder) return this.sendReply('The room needs a room founder before it can have a room owner.');
+		if (room.founder !== user.userid && !this.can('makeroom')) return this.sendReply('/roomowner - Access denied.');
+
+		if (!room.auth) room.auth = room.chatRoomData.auth = {};
+
+		var name = targetUser.name;
+
+		room.auth[targetUser.userid] = '&';
+		this.addModCommand("" + name + " was appointed Room Leader by " + user.name + ".");
+		room.onUpdateIdentity(targetUser);
+		Rooms.global.writeChatRoomData();
 	},
 
 	roomleader: function (target, room, user) {

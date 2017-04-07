@@ -1,11 +1,7 @@
 'use strict';
 
-const MD5 = require('md5');
-const http = require('http');
 const fs = require('fs');
-const moment = require('moment');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
-const Autolinker = require('autolinker');
 let request = require('request');
 let path = require('path');
 let selectors;

@@ -677,16 +677,11 @@ exports.BattleMovedex = {
 		target: "allPokemon",
 	},
 	"shield": {
-		accuracy: true,
+		accuracy: 100,
 		basePower: 0,
 		category: "Status",
 		id: "shield",
 		heal: [1, 4],
-		isViable: true,
-		name: "Shield",
-		pp: 10,
-		priority: 4,
-		flags: {},
 		stallingMove: true,
 		volatileStatus: 'kingsshield',
 		onTryHit: function (pokemon) {
@@ -712,7 +707,7 @@ exports.BattleMovedex = {
 					if (move.isZ) move.zBrokeProtect = true;
 					return;
 				}
-				this.add('-activate', target, 'move: Shield');
+				this.add('-activate', target, 'move: Protect');
 				let lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
 					// Outrage counter is reset
@@ -721,13 +716,16 @@ exports.BattleMovedex = {
 					}
 				}
 				if (move.flags['contact']) {
-					this.boost({
-						atk: -2
-					}, source, target, this.getMove("King's Shield"));
+					this.boost({atk:-2}, source, target, this.getMove("King's Shield"));
 				}
 				return null;
 			},
 		},
+		isViable: true,
+		name: "Shield",
+		pp: 10,
+		priority: 4,
+		flags: {},
 		secondary: false,
 		target: "self",
 		type: "Steel",

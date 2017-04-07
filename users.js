@@ -526,9 +526,9 @@ class User {
 		 */
 	canPromote(sourceGroup, targetGroup) {
 		return this.can('promote', {
-			group: sourceGroup
+			group: sourceGroup,
 		}) && this.can('promote', {
-			group: targetGroup
+			group: targetGroup,
 		});
 	}
 	resetName() {
@@ -955,7 +955,7 @@ class User {
 				'@': 1,
 				'&': 1,
 				'☥': 1,
-				'~': 1
+				'~': 1,
 			});
 			if (!this.isStaff) {
 				let staffRoom = Rooms('staff');
@@ -988,7 +988,8 @@ class User {
 				'%': 1,
 				'@': 1,
 				'&': 1,
-				'~': 1
+				'☥': 1,
+				'~': 1,
 			});
 			if (!this.isStaff) {
 				let staffRoom = Rooms('staff');
@@ -1332,7 +1333,7 @@ class User {
 	cancelSearch(format) {
 		return Matchmaker.cancelSearch(this, format);
 	}
-	makeChallenge(user, format /*, isPrivate*/ ) {
+	makeChallenge(user, format/*, isPrivate*/) {
 		user = getUser(user);
 		if (!user || this.challengeTo) {
 			return false;
@@ -1393,7 +1394,7 @@ class User {
 				return false;
 			}
 			Matchmaker.startBattle(this, user, user.challengeTo.format, this.team, user.challengeTo.team, {
-				rated: false
+				rated: false,
 			});
 			delete this.challengesFrom[user.userid];
 			user.challengeTo = null;

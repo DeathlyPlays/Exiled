@@ -11,7 +11,6 @@ let amCache = {
 	manga: {},
 };
 
-let colorCache = {};
 Exiled.customColors = {};
 
 global.isYouTube = function (user) {

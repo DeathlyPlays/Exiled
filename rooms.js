@@ -437,7 +437,7 @@ class GlobalRoom {
 			official: [],
 			chat: [],
 			userCount: this.userCount,
-			battleCount: this.battleCount
+			battleCount: this.battleCount,
 		};
 		for (let i = 0; i < this.chatRooms.length; i++) {
 			let room = this.chatRooms[i];

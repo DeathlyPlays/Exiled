@@ -18,6 +18,11 @@ exports.BattleFormatsData = {
 		tier: "Fakemons",
 	},
 	octanko: {
-		randomBattleMoves: ["recover", "scald", "hurricane", "flashcannon"]
-	}
+		randomBattleMoves: ["recover", "scald", "hurricane", "flashcannon"],
+		tier: "Fakemons",
+	},
+	spectreon: {
+		randomBattleMoves: ["fakeout", "dazzlinggleam", "boomburst", "workup", "frostbreath", "shadowball", "darkpulse", "hypnosis", "knockoff", "shadowclaw", "frustration", "reversal", "suckerpunch", "willowisp", "focusblast", "sacredfire", "nastyplot"],
+		tier: "Fakemons",
+	},
 };

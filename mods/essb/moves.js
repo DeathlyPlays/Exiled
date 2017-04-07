@@ -1001,6 +1001,7 @@ exports.BattleMovedex = {
 					this.damage(pokemon.maxhp / 4);
 				},
 			},
+		},	
 		onStart: function (pokemn, source) {
 			this.add('-start', pokemon, 'Voodoo Magic');
 		},

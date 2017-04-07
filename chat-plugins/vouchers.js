@@ -7,7 +7,7 @@
 const fs = require('fs');
 let writeJSON = true;
 let shopItems = ['Custom Symbol', 'Custom Avatar', 'Custom Color', 'Custom Title', 'Custom Icon'];
-const eventLeaders = ['krakenmare', 'celestialtater'];
+const eventLeaders = ['insist', 'jigglykong'];
 const expiresIn = 5; //false = never, otherwise specify a number of days. Vouchers will expire this number of days from creation.
 
 class Voucher {
@@ -15,23 +15,23 @@ class Voucher {
 		this.userid = userid;
 		this.goodFor = voucher;
 		this.expires = (expires ? expires : (expiresIn !== false ? (expiresIn * 24 * 60 * 60 * 1000 + Date.now()) : null));
-		this.item = (item ? item : null); //item from shop / amount of currency
-		this.id = (id ? id : SG.vouchers.storageForVocuherIds);
-		if (!id) SG.vouchers.storageForVocuherIds++;
+		this.item = (item ? item : null); //item from shop / amount of money
+		this.id = (id ? id : Exiled.vouchers.storageForVocuherIds);
+		if (!id) Exiled.vouchers.storageForVocuherIds++;
 	}
 
 	redeem() {
 		if (!Users(this.userid)) return false;
 		if (this.expires !== null && this.expires <= Date.now()) return 'expired'; //Voucher is expired
 		switch (toId(this.goodFor)) {
-		case 'currency':
+		case 'money':
 			let self = this;
 			Economy.writeMoney(self.userid, self.item, () => {
 				Economy.readMoney(self.userid, newAmount => {
-					if (Users(self.userid).connected) Users(self.userid).popup('|html|You have redemed a voucher for ' + self.item + ' ' + (self.item > 1 ? global.currencyPlural : global.currencyName) + '.');
+					if (Users(self.userid).connected) Users(self.userid).popup('|html|You have redemed a voucher for ' + self.item + ' ' + (self.item > 1 ? global.moneyPlural : global.moneyName) + '.');
 				});
 			});
-			Economy.logTransaction(Chat.escapeHTML(Users(self.userid).name) + ' has redemed a voucher for ' + self.item + ' ' + (self.item === 1 ? global.currencyName : global.currencyPlural) + '.');
+			Economy.logTransaction(Chat.escapeHTML(Users(self.userid).name) + ' has redemed a voucher for ' + self.item + ' ' + (self.item === 1 ? global.moneyName : global.moneyPlural) + '.');
 			break;
 		case 'item':
 			let valid = false;
@@ -46,35 +46,35 @@ class Voucher {
 				break;
 			case 'customavatar':
 				Users(this.userid).popup('|html|You have purchased a Custom Avatar. Upper staff has been notified of your purchase and will contact you shortly.<br/>Inappropriate images may be denied; 80x80 is the optimal image resolution.<br/>');
-				SG.messageSeniorStaff(Users(this.userid).name + " has purchased a Custom Avatar. Please contact this user to setup their Custom Avatar.");
+				Exiled.messageSeniorStaff(Users(this.userid).name + " has purchased a Custom Avatar. Please contact this user to setup their Custom Avatar.");
 				break;
 			case 'customcolor':
 				Users(this.userid).popup('|html|You have purchased a Custom Name Color. Upper staff has been notified of your purchase and will contact you shortly.<br/>Colors must be easily visible on the website.<br/>');
-				SG.messageSeniorStaff(Users(this.userid).name + " has purchased a Custom Color. Please contact this user to setup their Custom Color.");
+				Exiled.messageSeniorStaff(Users(this.userid).name + " has purchased a Custom Color. Please contact this user to setup their Custom Color.");
 				break;
 			case 'customtitle':
 				Users(this.userid).popup('|html|You have purchased a Custom Title. Upper staff has been notified of your purchase and will contact you shortly.');
-				SG.messageSeniorStaff(Users(this.userid).name + " has purchased a Custom Title. Please contact this user to setup their Custom Color.");
+				Exiled.messageSeniorStaff(Users(this.userid).name + " has purchased a Custom Title. Please contact this user to setup their Custom Color.");
 				break;
 			case 'customicon':
 				Users(this.userid).popup('|html|You have purchased a Userlist Icon. Upper staff has been notified of your purchase and will contact you shortly.<br/>Inappropriate images may be denied; must be a 32x32 image.<br/>');
-				SG.messageSeniorStaff(Users(this.userid).name + " has purchased a Userlit Icon. Please contact this user to setup their Userlist Icon.");
+				Exiled.messageSeniorStaff(Users(this.userid).name + " has purchased a Userlit Icon. Please contact this user to setup their Userlist Icon.");
 				break;
 			}
 			break;
 		case 'boostuno':
 			if (Users(this.userid).unoBoost) return 'active';
-			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redemed a voucher for double Uno winnings.<br/>If you win your next Uno game you will receive DOUBLE ' + (this.item > 1 ? global.currencyPlural : global.currencyName) + '!<br/>Please note that redemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
+			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redemed a voucher for double Uno winnings.<br/>If you win your next Uno game you will receive DOUBLE ' + (this.item > 1 ? global.moneyPlural : global.moneyName) + '!<br/>Please note that redemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
 			Users(this.userid).unoBoost = true;
 			break;
 		case 'boosttour':
 			if (Users(this.userid).tourBoost) return 'active';
-			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redemed a voucher for double tournamnet winnings.<br/>If you win your next tournament you will receive DOUBLE ' + (this.item > 1 ? global.currencyPlural : global.currencyName) + '!<br/>Please note that redemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
+			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redemed a voucher for double tournamnet winnings.<br/>If you win your next tournament you will receive DOUBLE ' + (this.item > 1 ? global.moneyPlural : global.moneyName) + '!<br/>Please note that redemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
 			Users(this.userid).tourBoost = true;
 			break;
 		case 'boostgame':
 			if (Users(this.userid).gameBoost) return 'active';
-			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redemed a voucher for double Uno OR tournamnet winnings.<br/>If you win your next tournament OR game of Uno you will receive DOUBLE ' + (this.item > 1 ? global.currencyPlural : global.currencyName) + '!<br/>Please note that redemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
+			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redemed a voucher for double Uno OR tournamnet winnings.<br/>If you win your next tournament OR game of Uno you will receive DOUBLE ' + (this.item > 1 ? global.moneyPlural : global.moneyName) + '!<br/>Please note that redemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
 			Users(this.userid).gameBoost = true;
 			break;
 		default:
@@ -87,7 +87,7 @@ class Voucher {
 
 function writeFile() {
 	if (!writeJSON) return false; //Prevent corruptions
-	fs.writeFile('config/vouchers.json', JSON.stringify(SG.vouchers));
+	fs.writeFile('config/vouchers.json', JSON.stringify(Exiled.vouchers));
 }
 
 //load JSON
@@ -97,7 +97,7 @@ try {
 	fs.writeFile('config/vouchers.json', "{}", function (err) {
 		if (err) {
 			console.error('Error while loading vouchers: ' + err);
-			SG.vouchers = {
+			Exiled.vouchers = {
 				storageForVocuherIds: -1,
 			};
 			writeJSON = false;
@@ -110,22 +110,22 @@ try {
 //Load vouchers on server start / hotpatch chat
 try {
 	let raw = JSON.parse(fs.readFileSync('config/vouchers.json', 'utf8'));
-	SG.vouchers = {};
+	Exiled.vouchers = {};
 	for (let key in raw) {
 		if (key === 'storageForVocuherIds') {
-			SG.vouchers.storageForVocuherIds = raw[key];
+			Exiled.vouchers.storageForVocuherIds = raw[key];
 			continue;
 		}
-		SG.vouchers[key] = [];
+		Exiled.vouchers[key] = [];
 		for (let i = 0; i < raw[key].length; i++) {
 			let reVouch = new Voucher(raw[key][i].userid, raw[key][i].goodFor, raw[key][i].item, raw[key][i].expires, Number(raw[key][i].id));
-			SG.vouchers[key].push(reVouch);
+			Exiled.vouchers[key].push(reVouch);
 		}
 	}
-	if (!SG.vouchers.storageForVocuherIds) SG.vouchers.storageForVocuherIds = 1;
+	if (!Exiled.vouchers.storageForVocuherIds) Exiled.vouchers.storageForVocuherIds = 1;
 } catch (e) {
 	console.error('Error loading Vouchers: ' + e.stack);
-	SG.vouchers = {
+	Exiled.vouchers = {
 		storageForVocuherIds: -1,
 	};
 	writeJSON = false;
@@ -137,7 +137,7 @@ exports.commands = {
 	vouchers: 'voucher',
 	voucher: {
 		give: function (target, room, user, connection, cmd, message) {
-			if (SG.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
+			if (Exiled.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
 			if (!user.can('roomowner')) {
 				if (eventLeaders.indexOf(user.userid) === -1) return false;
 			}
@@ -145,8 +145,8 @@ exports.commands = {
 			if (!target[1]) return this.parse('/help voucher give');
 			let targetUser = Users(toId(target[0]));
 			if (!targetUser) return this.errorReply('User "' + target[0] + '" not found.');
-			if (!SG.vouchers[targetUser.userid]) SG.vouchers[targetUser.userid] = [];
-			let vouchers = ['currency', 'item', 'boostUno', 'boostTour', 'boostGame'];
+			if (!Exiled.vouchers[targetUser.userid]) Exiled.vouchers[targetUser.userid] = [];
+			let vouchers = ['money', 'item', 'boostUno', 'boostTour', 'boostGame'];
 			let index = -1;
 			for (let i = 0; i < vouchers.length; i++) {
 				if (toId(vouchers[i]) === toId(target[1])) {
@@ -158,14 +158,14 @@ exports.commands = {
 			if (index === 0 || index === 1) {
 				if (!target[2]) return this.parse('/help voucher give');
 				if (index === 0) {
-					if (isNaN(Number(target[2]))) return this.errorReply('You need to give a number for the amount of ' + global.currencyPlural + ' to give.');
-					if (Number(target[2]) < 1 || Number(target[2]) > 50) return this.errorReply('You cannot create a voucher for less than 1 ' + global.currencyName + ' or more than 50 ' + global.currencyPlural + '.');
+					if (isNaN(Number(target[2]))) return this.errorReply('You need to give a number for the amount of ' + global.moneyPlural + ' to give.');
+					if (Number(target[2]) < 1 || Number(target[2]) > 50) return this.errorReply('You cannot create a voucher for less than 1 ' + global.moneyName + ' or more than 50 ' + global.moneyPlural + '.');
 					let voucher = new Voucher(targetUser.userid, vouchers[index], Number(target[2]));
-					SG.vouchers[targetUser.userid].push(voucher);
-					targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? global.currencyName : global.currencyPlural) + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
+					Exiled.vouchers[targetUser.userid].push(voucher);
+					targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
 					writeFile();
-					Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? global.currencyName : global.currencyPlural) + '.');
-					this.sendReply('You gave ' + targetUser.name + ' a voucher for ' + target[2] + ' ' + (Number(target[2]) === 1 ? global.currencyName : global.currencyPlural) + '.');
+					Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.');
+					this.sendReply('You gave ' + targetUser.name + ' a voucher for ' + target[2] + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.');
 					return true;
 				} else {
 					let shopIndex = -1;
@@ -177,7 +177,7 @@ exports.commands = {
 					}
 					if (shopIndex === -1) return this.errorReply('Invalid item. Use /help voucher give for a list of valid items.');
 					let voucher = new Voucher(targetUser.userid, vouchers[index], shopItems[shopIndex]);
-					SG.vouchers[targetUser.userid].push(voucher);
+					Exiled.vouchers[targetUser.userid].push(voucher);
 					targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for a ' + shopItems[shopIndex] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
 					writeFile();
 					Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for a ' + shopItems[shopIndex] + '.');
@@ -186,7 +186,7 @@ exports.commands = {
 				}
 			} else {
 				let voucher = new Voucher(targetUser.userid, vouchers[index], null);
-				SG.vouchers[targetUser.userid].push(voucher);
+				Exiled.vouchers[targetUser.userid].push(voucher);
 				targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for a ' + vouchers[index] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
 				writeFile();
 				Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for a ' + vouchers[index] + '.');
@@ -194,10 +194,10 @@ exports.commands = {
 				return true;
 			}
 		},
-		givehelp: ['/voucher give [user], [voucher], (item/amount) - Give a user a voucher. Valid vouchers are: currency, item, boostUno, boostTour, and boostGame. Valid items are Custom Symbol, Custom Avatar, Custom Title, Custom Icon, and Custom Color. Requires Server Event Leader, &, or ~.'],
+		givehelp: ['/voucher give [user], [voucher], (item/amount) - Give a user a voucher. Valid vouchers are: money, item, boostUno, boostTour, and boostGame. Valid items are Custom Symbol, Custom Avatar, Custom Title, Custom Icon, and Custom Color. Requires Server Event Leader, &, or ~.'],
 
 		take: function (target, room, user, connection, cmd, message) {
-			if (SG.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
+			if (Exiled.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
 			if (!user.can('roomowner')) {
 				if (eventLeaders.indexOf(user.userid) === -1) return false;
 			}
@@ -205,12 +205,12 @@ exports.commands = {
 			if (!target[1]) return this.parse('/help voucher take');
 			let targetUser = Users(toId(target[0]));
 			if (!targetUser) return this.errorReply('User ' + target[0] + ' not found.');
-			if (!SG.vouchers[targetUser.userid] || SG.vouchers[targetUser.userid].length === 0) return this.errorReply(targetUser.name + ' has no vouchers.');
+			if (!Exiled.vouchers[targetUser.userid] || Exiled.vouchers[targetUser.userid].length === 0) return this.errorReply(targetUser.name + ' has no vouchers.');
 			if (isNaN(Number(target[1]))) return this.errorReply('Ids must be a number.');
-			for (let key in SG.vouchers[targetUser.userid]) {
-				if (SG.vouchers[targetUser.userid][key].id === Number(target[1])) {
-					delete SG.vouchers[targetUser.userid][key];
-					SG.vouchers[targetUser.userid].splice(key, 1);
+			for (let key in Exiled.vouchers[targetUser.userid]) {
+				if (Exiled.vouchers[targetUser.userid][key].id === Number(target[1])) {
+					delete Exiled.vouchers[targetUser.userid][key];
+					Exiled.vouchers[targetUser.userid].splice(key, 1);
 					writeFile();
 					Economy.logTransaction(Chat.escapeHTML(user.name) + ' has taken a voucher from ' + Chat.escapeHTML(targetUser.name) + ':');
 					return this.sendReply('You have taken voucher ID ' + target[1] + ' from ' + targetUser.name + '.');
@@ -221,7 +221,7 @@ exports.commands = {
 		takehelp: ['/voucher take [user], [id] - Take a user\'s voucher away. Requires Server Event Leader, &, or ~'],
 
 		list: function (target, room, user, connection, cmd, message) {
-			if (SG.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
+			if (Exiled.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
 			if (!target) target = user.userid;
 			if (user.userid === toId(target)) {
 				if (!this.runBroadcast()) return;
@@ -231,8 +231,8 @@ exports.commands = {
 			if (targetUser.userid !== user.userid && !user.can('roomowner')) {
 				if (eventLeaders.indexOf(user.userid) === -1) return this.errorReply('You can only view your own vouchers.');
 			}
-			if (!SG.vouchers[targetUser.userid] || SG.vouchers[targetUser.userid].length === 0) return this.errorReply(targetUser.name + ' has no vouchers.');
-			let list = SG.vouchers[targetUser.userid];
+			if (!Exiled.vouchers[targetUser.userid] || Exiled.vouchers[targetUser.userid].length === 0) return this.errorReply(targetUser.name + ' has no vouchers.');
+			let list = Exiled.vouchers[targetUser.userid];
 			let output = '<table style="border: 1px solid black"><tr><th colspan="5" style="border: 1px solid black">' + targetUser.name + '\'s Vouchers</th></tr>';
 			output += '<tr><th style="border: 1px solid black">ID</th><th style="border: 1px solid black">Good For</th><th style="border: 1px solid black">Item/Amount</th><th style="border: 1px solid black">Expires</th><th style="border: 1px solid black">Redeem</th></tr>';
 			for (let i = 0; i < list.length; i++) {
@@ -245,24 +245,24 @@ exports.commands = {
 		listhelp: ['/voucher list (user) - List the vouchers of a user, requires Server Event Leader, &, or ~ for viewing vouchers for other users.'],
 
 		redeem: function (target, room, user, connection, cmd, message) {
-			if (SG.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
+			if (Exiled.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
 			if (!target) return this.parse('/help voucher redeem');
 			target = Number(target);
 			if (isNaN(target)) return this.errorReply('Ids must be a number.');
-			if (!SG.vouchers[user.userid] || SG.vouchers[user.userid].length === 0) return this.errorReply('You have no vouchers.');
+			if (!Exiled.vouchers[user.userid] || Exiled.vouchers[user.userid].length === 0) return this.errorReply('You have no vouchers.');
 			let index = -1;
-			for (let i = 0; i < SG.vouchers[user.userid].length; i++) {
-				if (SG.vouchers[user.userid][i].id === target) {
+			for (let i = 0; i < Exiled.vouchers[user.userid].length; i++) {
+				if (Exiled.vouchers[user.userid][i].id === target) {
 					index = i;
 					break;
 				}
 			}
 			if (index === -1) return this.errorReply('You do not own voucher id ' + target + '.');
-			switch (SG.vouchers[user.userid][index].redeem()) {
+			switch (Exiled.vouchers[user.userid][index].redeem()) {
 			case true:
 				//Successfuly redeemed
-				delete SG.vouchers[user.userid][index];
-				SG.vouchers[user.userid].splice(index, 1);
+				delete Exiled.vouchers[user.userid][index];
+				Exiled.vouchers[user.userid].splice(index, 1);
 				writeFile();
 				return true;
 				//break;
@@ -271,13 +271,13 @@ exports.commands = {
 				return this.errorReply('An error occured while redeeming. Contact an Upper Staff member.');
 				//break;
 			case 'expired':
-				delete SG.vouchers[user.userid][index];
-				SG.vouchers[user.userid].splice(index, 1);
+				delete Exiled.vouchers[user.userid][index];
+				Exiled.vouchers[user.userid].splice(index, 1);
 				writeFile();
 				return this.errorReply('This voucher is expired.');
 				//break;
 			case 'active':
-				return this.sendReply('You already have an active ' + toId(SG.vouchers[user.userid][index].goodFor) + '.');
+				return this.sendReply('You already have an active ' + toId(Exiled.vouchers[user.userid][index].goodFor) + '.');
 				//break;
 			default:
 				return this.errorReply('Error.');
@@ -290,7 +290,7 @@ exports.commands = {
 		},
 	},
 	voucherhelp: ['/voucher - Accepts the following commands:',
-		'/voucher give [user], [voucher], (item/amount) - Give a user a voucher. Valid vouchers are: currency, item, boostUno, boostTour, and boostGame. Valid items are Custom Symbol, Custom Avatar, Custom Title, Custom Icon, and Custom Color. Requires Server Event Leader, &, or ~.',
+		'/voucher give [user], [voucher], (item/amount) - Give a user a voucher. Valid vouchers are: money, item, boostUno, boostTour, and boostGame. Valid items are Custom Symbol, Custom Avatar, Custom Title, Custom Icon, and Custom Color. Requires Server Event Leader, &, or ~.',
 		'/voucher take [user], [id] - Take a user\'s voucher away. Requires Server Event Leader, &, or ~',
 		'/voucher list (user) - List the vouchers of a user, requires Server Event Leader, &, or ~ for viewing vouchers for other users.',
 		'/voucher redeem [id] - Redeem a voucher. Use /voucher list for information on what you get from a voucher and for the ID to use for redeeming.',

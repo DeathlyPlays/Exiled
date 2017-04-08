@@ -63,7 +63,7 @@ class Ambush {
 		if (this.checkWinner()) return this.getWinner();
 		let survivors = this.getSurvivors();
 		if (this.lastRoundSurvivors === survivors.length) {
-						this.room.add('|html|<div class = "infobox"><center>This game of ambush has ended due to inactivity, with <b>' + survivors.length + '</b> survivors.</center></div>');
+			this.room.add('|html|<div class = "infobox"><center>This game of ambush has ended due to inactivity, with <b>' + survivors.length + '</b> survivors.</center></div>');
 			return this.end();
 		}
 		this.lastRoundSurvivors = survivors.length;

@@ -15,7 +15,7 @@ Exiled.customColors = {};
 
 global.isYouTube = function (user) {
 	if (!user) return;
-	if (typeof user === 'Object') user = user.userid;
+	if (typeof user === 'object') user = user.userid;
 	let youtube = Db('youtube').get(toId(user));
 	if (youtube === 1) return true;
 	return false;
@@ -66,7 +66,7 @@ function cacheUrbanWord(word, definition) {
 
 global.isDev = function (user) {
 	if (!user) return;
-	if (typeof user === 'Object') user = user.userid;
+	if (typeof user === 'object') user = user.userid;
 	let dev = Db('devs').get(toId(user));
 	if (dev === 1) return true;
 	return false;

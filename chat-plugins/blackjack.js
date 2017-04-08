@@ -316,9 +316,8 @@ Blackjack.prototype.hasPlayerWinOrBust = function (player) {
 };
 
 exports.commands = {
-
 	bjhelp: 'blackjackhelp',
-	blackjackhelp: function(target, room, user) {
+	blackjackhelp: function (target, room, user) {
 		this.sendReplyBox("<center><b><u>Blackjack Commands</u></b><br /></center><b>/bj [new/create] [bucks]</b> - create game of blackjack for certian amount of bucks.<br /><b>/bj [end]</b> - end game of blackjack.<br /><b>/bj [start]</b> - start game of blackjack.<br /><b>/bjhelp</b> - shows blackjack commands.<br />");
 	},
 
@@ -327,7 +326,7 @@ exports.commands = {
 		new: 'create',
 		create: function (target, room, user) {
 			if (!this.can('broadcast', null, room)) return false;
-				if (room.id !== 'casino') return this.sendReply('|html|You can only start a game of Blackjack in the <button name = "send" value = "/join casino">Casino</button>');
+			if (room.id !== 'casino') return this.sendReply('|html|You can only start a game of Blackjack in the <button name = "send" value = "/join casino">Casino</button>');
 
 			if (room.bj) return this.sendReply("A blackjack game has already been created in this room.");
 

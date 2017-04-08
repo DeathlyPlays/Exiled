@@ -1,703 +1,684 @@
-//
-//   UNO Game for PS
-//   by sparkychild
-//   edits by paul71
-//
+/**
+ * UNO
+ * Pokemon Showdown - http://pokemonshowdown.com/
+ *
+ * This plugin allows rooms to run games of scripted UNO
+ *
+ * @license MIT license
+ */
+
 'use strict';
-const deck = ["R1",
-    "R2",
-    "R3",
-    "R4",
-    "R5",
-    "R6",
-    "R7",
-    "R8",
-    "R9",
-    "RS",
-    "RR",
-    "R+2",
-    "Z+4",
-    "Y1",
-    "Y2",
-    "Y3",
-    "Y4",
-    "Y5",
-    "Y6",
-    "Y7",
-    "Y8",
-    "Y9",
-    "YS",
-    "YR",
-    "Y+2",
-    "Z+4",
-    "G1",
-    "G2",
-    "G3",
-    "G4",
-    "G5",
-    "G6",
-    "G7",
-    "G8",
-    "G9",
-    "GS",
-    "GR",
-    "G+2",
-    "Z+4",
-    "B1",
-    "B2",
-    "B3",
-    "B4",
-    "B5",
-    "B6",
-    "B7",
-    "B8",
-    "B9",
-    "BS",
-    "BR",
-    "B+2",
-    "Z+4",
-    "R1",
-    "R2",
-    "R3",
-    "R4",
-    "R5",
-    "R6",
-    "R7",
-    "R8",
-    "R9",
-    "RS",
-    "RR",
-    "R+2",
-    "ZW",
-    "R0",
-    "Y1",
-    "Y2",
-    "Y3",
-    "Y4",
-    "Y5",
-    "Y6",
-    "Y7",
-    "Y8",
-    "Y9",
-    "YS",
-    "YR",
-    "Y+2",
-    "ZW",
-    "Y0",
-    "G1",
-    "G2",
-    "G3",
-    "G4",
-    "G5",
-    "G6",
-    "G7",
-    "G8",
-    "G9",
-    "GS",
-    "GR",
-    "G+2",
-    "ZW",
-    "G0",
-    "B1",
-    "B2",
-    "B3",
-    "B4",
-    "B5",
-    "B6",
-    "B7",
-    "B8",
-    "B9",
-    "BS",
-    "BR",
-    "B+2",
-    "ZW",
-    "B0",
-];
-//declare html for DRAW and PASS button.
-const drawButton = '<center><button style="background: black; border: 2px solid rgba(33 , 68 , 72 , 0.59) ; width: 56px ; border-radius: 5px , auto" name="send" value="/uno draw"><font color="white">Draw</font></button></center>';
-const passButton = '<center><button style="background: red; border: 2px solid rgba(33 , 68 , 72 , 0.59) ; width: 56px ; border-radius: 5px , auto" name="send" value="/uno pass"><font color="white">PASS</font></button></center>';
 
-//get colour for html'd text and backgrounds
-function getColour(colour, background) {
-    if (!background && colour === "Y") return "orange";
-    let colourTable = {
-        "R": "red",
-        "Y": "yellow",
-        "B": "blue",
-        "G": "green",
-        "Z": "black",
-    };
-    return colourTable[colour];
+const maxTime = 60; // seconds
+
+const rgbGradients = {
+	'Green': "rgba(0, 122, 0, 1), rgba(0, 185, 0, 0.9)",
+	'Yellow': "rgba(255, 225, 0, 1), rgba(255, 255, 85, 0.9)",
+	'Blue': "rgba(40, 40, 255, 1), rgba(125, 125, 255, 0.9)",
+	'Red': "rgba(255, 0, 0, 1), rgba(255, 125, 125, 0.9)",
+	'Black': "rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.55)",
+};
+
+const textColors = {
+	'Green': "rgb(0, 128, 0)",
+	'Yellow': "rgb(175, 165, 40)",
+	'Blue': "rgb(75, 75, 255)",
+	'Red': "rgb(255, 0, 0)",
+	'Black': 'inherit',
+};
+
+const textShadow = 'text-shadow: 1px 0px black, -1px 0px black, 0px -1px black, 0px 1px black, 2px -2px black;';
+
+function cardHTML(card, fullsize) {
+	let surface = card.value.replace(/[^A-Z0-9\+]/g, "");
+	let background = rgbGradients[card.color];
+	if (surface === 'R') surface = '<i class="fa fa-refresh" aria-hidden="true"></i>';
+
+	return `<button class="button" style="font-size: 14px; font-weight: bold; color: white; ${textShadow} padding-bottom: 117px; text-align: left; height: 135px; width: ${fullsize ? '72' : '37'}px; border-radius: 10px 2px 2px 3px; color: white; background: ${card.color}; background: -webkit-linear-gradient(${background}); background: -o-linear-gradient(${background}); background: -moz-linear-gradient(${background}); background: linear-gradient(${background})" name=send value="/uno play ${card.name}">${surface}</button>`;
 }
 
-//build html button for the card
-function buildCard(id, notClickable) {
-    let colour = getColour(id.charAt(0), true);
-    let value = id.slice(1);
-    let fontColour = colour === "yellow" ? "black" : "white";
-    let command = "/uno play " + id;
-    let clickable = notClickable ? ">" : "name=\"send\" value=\"" + command + "\">";
-    let title = "title=\"" + getCardName(id) + "\"";
-    let buttonFace = value === "W" ? '<img src="https://www.script-tutorials.com/demos/317/thumb.png" height="27" width="27">' : '<font color="' + fontColour + "\" size=6>" + value + "</font>";
-    let button = "<button " + title + " style=\"background: " + colour + "; border: 2px solid rgba(33 , 68 , 72 , 0.59) ; height: 80px ; width: 56px ; border-radius: 5px , auto\"" + clickable + buttonFace + "</button>";
-    return button;
+function createDeck() {
+	const colors = ['Red', 'Blue', 'Green', 'Yellow'];
+	const values = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Reverse', 'Skip', '+2'];
+
+	let basic = [];
+
+	for (let i = 0; i < 4; i++) {
+		let color = colors[i];
+		basic.push(...values.map(v => {
+			return {value: v, color: color, name: color + " " + v};
+		}));
+	}
+
+	return [...basic, ...basic, // two copies of the basic stuff (total 96)
+		...[0, 1, 2, 3].map(v => ({color: colors[v], value: '0', name: colors[v] + ' 0'})), // the 4 0s
+		...[0, 1, 2, 3].map(v => ({color: 'Black', value: 'Wild', name: 'Wild'})), // wild cards
+		...[0, 1, 2, 3].map(v => ({color: 'Black', value: '+4', name: "Wild +4"})), // wild +4 cards
+	]; // 108 cards
 }
 
-//build an display of multiple cards
-function buildHand(array, notClickable) {
-    let hand = [];
-    array.sort().forEach(function (c) {
-        hand.push(buildCard(c, notClickable));
-    });
-    return hand.join("&nbsp;");
+class UNOgame extends Rooms.RoomGame {
+	constructor(room, cap, suppressMessages) {
+		super(room);
+
+		if (room.gameNumber) {
+			room.gameNumber++;
+		} else {
+			room.gameNumber = 1;
+		}
+
+		cap = parseInt(cap) || 6;
+		if (cap < 2) cap = 2;
+
+		this.playerCap = cap;
+		this.allowRenames = true;
+		this.maxTime = maxTime;
+
+		this.gameid = 'uno';
+		this.title = 'UNO';
+
+		this.state = 'signups';
+
+		this.currentPlayer = null;
+		this.deck = Tools.shuffle(createDeck());
+		this.discards = [];
+		this.topCard = null;
+
+		this.direction = 1;
+
+		this.suppressMessages = suppressMessages || false;
+		this.spectators = {};
+
+		this.sendToRoom(`|uhtml|uno-${this.room.gameNumber}|<div class="broadcast-green"><p style="font-size: 14pt; text-align: center">A new game of <strong>UNO</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/uno join">Join</button><br />Or use <strong>/uno join</strong> to join the game.</p>${(this.suppressMessages ? `<p style="font-size: 6pt; text-align: center">Game messages will be shown to only players.  If you would like to spectate the game, use <strong>/uno spectate</strong></p>` : '')}</div>`, true);
+	}
+
+	onStart() {
+		if (this.playerCount < 2) return false;
+		this.sendToRoom(`|uhtmlchange|uno-${this.room.gameNumber}|<div class="infobox">The game of UNO has started.</div>`, true);
+		this.state = 'play';
+
+		this.onNextPlayer();  // determines the first player
+
+		// give cards to the players
+		for (let i in this.players) {
+			this.players[i].hand.push(...this.drawCard(7));
+		}
+
+		// top card of the deck.
+		do {
+			this.topCard = this.drawCard(1)[0];
+			this.discards.unshift(this.topCard);
+		} while (this.topCard.color === 'Black');
+
+		this.sendToRoom(`|raw|The top card is <span style="color: ${textColors[this.topCard.color]}">${this.topCard.name}</span>.`);
+
+		this.onRunEffect(this.topCard.value, true);
+		this.nextTurn(true);
+	}
+
+	joinGame(user) {
+		if (this.state === 'signups' && this.addPlayer(user)) {
+			this.sendToRoom(`${user.name} has joined the game of UNO.`);
+			return true;
+		}
+		return false;
+	}
+
+	leaveGame(user) {
+		if (this.state === 'signups' && this.removePlayer(user)) {
+			this.sendToRoom(`${user.name} has left the game of UNO.`);
+			return true;
+		}
+		return false;
+	}
+
+	// overwrite the default makePlayer so it makes a UNOgamePlayer instead.
+	makePlayer(user) {
+		return new UNOgamePlayer(user, this);
+	}
+
+	onRename(user, oldUserid, isJoining, isForceRenamed) {
+		if (!(oldUserid in this.players) || user.userid === oldUserid) return false;
+		if (!user.named && !isForceRenamed) {
+			user.games.delete(this.id);
+			user.updateSearch();
+			return; // dont set users to their guest accounts.
+		}
+		this.players[user.userid] = this.players[oldUserid];
+		if (user.userid !== oldUserid) delete this.players[oldUserid]; // only run if it's a rename that involves a change of userid
+
+		// update the user's name information
+		this.players[user.userid].name = user.name;
+		this.players[user.userid].userid = user.userid;
+		if (this.awaitUno && this.awaitUno === oldUserid) this.awaitUno = user.userid;
+
+		if (this.currentPlayer && this.currentPlayer === oldUserid) this.currentPlayer = user.userid;
+	}
+
+	eliminate(userid) {
+		if (!(userid in this.players)) return false;
+
+		let name = this.players[userid].name;
+
+		if (this.playerCount === 2) {
+			this.removePlayer({userid: userid});
+			this.onWin(this.players[Object.keys(this.players)[0]]);
+			return name;
+		}
+
+		// handle current player...
+		if (userid === this.currentPlayer) {
+			clearTimeout(this.timer);
+			this.nextTurn();
+		}
+
+		// put that player's cards into the discard pile to prevent cards from being permanently lost
+		this.discards.push(...this.players[userid].hand);
+
+		this.removePlayer({userid: userid});
+		return name;
+	}
+
+	sendToRoom(msg, overrideSuppress) {
+		if (!this.suppressMessages || overrideSuppress) {
+			this.room.add(msg).update();
+		} else {
+			// send to the players first
+			for (let i in this.players) {
+				this.players[i].sendRoom(msg);
+			}
+
+			// send to spectators
+			for (let i in this.spectators) {
+				if (i in this.players) continue; // don't double send to users already in the game.
+				let user = Users.getExact(i);
+				if (user) user.sendTo(this.id, msg);
+			}
+		}
+	}
+
+	getPlayers(showCards) {
+		let playerList = Object.keys(this.players);
+		if (!showCards) {
+			return playerList.sort().map(id => Chat.escapeHTML(this.players[id].name));
+		}
+		if (this.direction === -1) playerList = playerList.reverse();
+		return playerList.map(id => `${(this.currentPlayer && this.currentPlayer === id ? '<strong>' : '')}${Chat.escapeHTML(this.players[id].name)} (${this.players[id].hand.length}) ${(this.currentPlayer && this.currentPlayer === id ? '</strong>' : "")}`);
+	}
+
+	nextTurn(starting) {
+		if (!starting) this.onNextPlayer();
+
+		if (this.awaitUno) {
+			this.unoId = Math.floor(Math.random() * 100).toString();
+			this.players[this.awaitUno].sendRoom(`|uhtml|uno-hand|<div style="text-align: center"><button name=send value="/uno uno ${this.unoId}" style="background-color: green; width: 80%; padding: 8px; border: 2px solid rgba(33 , 68 , 72 , 0.59); border-radius: 8px">UNO!</button></div>`);
+		}
+
+		clearTimeout(this.timer);
+		let player = this.players[this.currentPlayer];
+		this.sendToRoom(`|c|~|${player.name}'s turn.`);
+		this.state = 'play';
+		if (player.cardLock) delete player.cardLock;
+		player.sendDisplay();
+
+		this.timer = setTimeout(() => {
+			this.sendToRoom(`${player.name} has been automatically disqualified.`);
+			this.eliminate(this.currentPlayer);
+		}, this.maxTime * 1000);
+	}
+
+	onNextPlayer() {
+		// if none is set
+		if (!this.currentPlayer) {
+			let userList = Object.keys(this.players);
+			this.currentPlayer = userList[Math.floor(this.playerCount * Math.random())];
+		}
+
+		this.currentPlayer = this.getNextPlayer();
+	}
+
+	getNextPlayer() {
+		let userList = Object.keys(this.players);
+
+		let player = userList[(userList.indexOf(this.currentPlayer) + this.direction)];
+
+		if (!player) {
+			player = this.direction === 1 ? userList[0] : userList[this.playerCount - 1];
+		}
+		return player;
+	}
+
+	onDraw(user) {
+		if (this.currentPlayer !== user.userid || this.state !== 'play') return false;
+		if (this.players[user.userid].cardLock) return true;
+
+		this.onCheckUno();
+
+		this.sendToRoom(`${user.name} has drawn a card.`);
+		let player = this.players[user.userid];
+
+		let card = this.onDrawCard(user, 1, true);
+		player.sendDisplay();
+		player.cardLock = card[0].name;
+	}
+
+	onPlay(user, cardName) {
+		if (this.currentPlayer !== user.userid || this.state !== 'play') return false;
+		let player = this.players[user.userid];
+
+		let card = player.hasCard(cardName);
+		if (!card) return "You do not have that card.";
+
+		// check for legal play
+		if (player.cardLock && player.cardLock !== cardName) return `You can only play ${player.cardLock} after drawing.`;
+		if (card.color !== 'Black' && card.color !== (this.changedColor || this.topCard.color) && card.value !== this.topCard.value) return `You cannot play this card - you can only play: Wild cards, ${(this.changedColor ? 'and' : '')} ${(this.changedColor || this.topCard.color)} cards${this.changedColor ? "" : ` and ${this.topCard.value}'s`}.`;
+		if (card.value === '+4' && !player.canPlayWildFour()) return "You cannot play Wild +4 when you still have a card with the same color as the top card.";
+
+		clearTimeout(this.timer); // reset the autodq timer.
+
+		this.onCheckUno();
+
+		// update the game information.
+		this.topCard = card;
+		player.removeCard(cardName);
+		this.discards.unshift(card);
+		this.changedColor = null; // clear any previous colour changes
+
+		player.sendDisplay(); // update display without the card in it for purposes such as choosing colors
+
+		this.sendToRoom(`|raw|${Chat.escapeHTML(player.name)} has played a <span style="color: ${textColors[card.color]}">${card.name}</span>.`);
+
+		// handle hand size
+		if (!player.hand.length) {
+			this.onWin(player);
+			return;
+		}
+		if (player.hand.length === 1) this.awaitUno = user.userid;
+
+		// continue with effects and next player
+		this.onRunEffect(card.value);
+		if (this.state === 'play') this.nextTurn();
+	}
+
+	onRunEffect(value, initialize) {
+		const colorDisplay = `|uhtml|uno-hand|<table style="width: 100%; border: 1px solid black"><tr><td style="width: 50%"><button style="width: 100%; background-color: red; border: 2px solid rgba(0 , 0 , 0 , 0.59); border-radius: 5px; padding: 5px" name=send value="/uno color Red">Red</button></td><td style="width: 50%"><button style="width: 100%; background-color: blue; border: 2px solid rgba(0 , 0 , 0 , 0.59); border-radius: 5px; color: white; padding: 5px" name=send value="/uno color Blue">Blue</button></td></tr><tr><td style="width: 50%"><button style="width: 100%; background-color: green; border: 2px solid rgba(0 , 0 , 0 , 0.59); border-radius: 5px; padding: 5px" name=send value="/uno color Green">Green</button></td><td style="width: 50%"><button style="width: 100%; background-color: yellow; border: 2px solid rgba(0 , 0 , 0 , 0.59); border-radius: 5px; padding: 5px" name=send value="/uno color Yellow">Yellow</button></td></tr></table>`;
+
+		switch (value) {
+		case 'Reverse':
+			this.direction *= -1;
+			this.sendToRoom("The direction of the game has changed.");
+			if (!initialize && this.playerCount === 2) this.onNextPlayer(); // in 2 player games, reverse sends the turn back to the player.
+			break;
+		case 'Skip':
+			this.onNextPlayer();
+			this.sendToRoom(this.players[this.currentPlayer].name + "'s turn has been skipped.");
+			break;
+		case '+2':
+			this.onNextPlayer();
+			this.sendToRoom(this.players[this.currentPlayer].name + " has been forced to draw 2 cards.");
+			this.onDrawCard({userid: this.currentPlayer}, 2);
+			break;
+		case '+4':
+			this.players[this.currentPlayer].sendRoom(colorDisplay);
+			this.state = 'color';
+			// apply to the next in line, since the current player still has to choose the color
+			let next = this.getNextPlayer();
+			this.sendToRoom(this.players[next].name + " has been forced to draw 4 cards.");
+			this.onDrawCard({userid: next}, 4);
+			this.isPlusFour = true;
+			this.timer = setTimeout(() => {
+				this.sendToRoom(`${this.players[this.currentPlayer].name} has been automatically disqualified.`);
+				this.eliminate(this.currentPlayer);
+			}, this.maxTime * 1000);
+			break;
+		case 'Wild':
+			this.players[this.currentPlayer].sendRoom(colorDisplay);
+			this.state = 'color';
+			this.timer = setTimeout(() => {
+				this.sendToRoom(`${this.players[this.currentPlayer].name} has been automatically disqualified.`);
+				this.eliminate(this.currentPlayer);
+			}, this.maxTime * 1000);
+			break;
+		}
+		if (initialize) this.onNextPlayer();
+	}
+
+	onSelectcolor(user, color) {
+		if (!['Red', 'Blue', 'Green', 'Yellow'].includes(color) || user.userid !== this.currentPlayer || this.state !== 'color') return false;
+		this.changedColor = color;
+		this.sendToRoom(`The color has been changed to ${color}.`);
+		clearTimeout(this.timer);
+
+		if (this.isPlusFour) {
+			this.isPlusFour = false;
+			this.onNextPlayer(); // handle the skipping here.
+		}
+
+		this.nextTurn();
+	}
+
+	onDrawCard(user, count) {
+		if (!(user.userid in this.players)) return false;
+		let drawnCards = this.drawCard(count);
+
+		let player = this.players[user.userid];
+		player.hand.push(...drawnCards);
+		player.sendRoom(`|raw|You have drawn the following card${drawnCards.length > 1 ? 's' : ''}: ${drawnCards.map(card => `<span style="color: ${textColors[card.color]}">${card.name}</span>`).join(', ')}.`);
+		return drawnCards;
+	}
+
+	drawCard(count) {
+		count = parseInt(count);
+		if (!count || count < 1) count = 1;
+		let drawnCards = [];
+
+		for (let i = 0; i < count; i++) {
+			if (!this.deck.length) {
+				this.deck = this.discards.length ? Tools.shuffle(this.discards) : Tools.shuffle(createDeck()); // shuffle the cards back into the deck, or if there are no discards, add another deck into the game.
+				this.discards = []; // clear discard pile
+			}
+			drawnCards.push(this.deck.pop());
+		}
+		return drawnCards;
+	}
+
+	onUno(user, unoId) {
+		// uno id makes spamming /uno uno impossible
+		if (this.unoId !== unoId || user.userid !== this.awaitUno) return false;
+		this.sendToRoom(`|raw|<strong>UNO!</strong> ${user.name} is down to their last card!`);
+		delete this.awaitUno;
+		delete this.unoId;
+	}
+
+	onCheckUno() {
+		if (this.awaitUno) {
+			// if the previous player hasn't hit UNO before the next player plays something, they are forced to draw 2 cards;
+			if (this.awaitUno !== this.currentPlayer) {
+				this.sendToRoom(`${this.players[this.awaitUno].name} forgot to say UNO! and is forced to draw 2 cards.`);
+				this.onDrawCard({userid: this.awaitUno}, 2);
+			}
+			delete this.awaitUno;
+			delete this.unoId;
+		}
+	}
+
+	onSendHand(user) {
+		if (!(user.userid in this.players) || this.state === 'signups') return false;
+
+		this.players[user.userid].sendDisplay();
+	}
+
+	onWin(player) {
+		this.sendToRoom(`|raw|<div class="broadcast-green">Congratulations to ${player.name} for winning the game of UNO!</div>`, true);
+		this.destroy();
+	}
+
+	destroy() {
+		clearTimeout(this.timer);
+		this.sendToRoom(`|uhtmlchange|uno-${this.room.gameNumber}|<div class="infobox">The game of UNO has ended.</div>`, true);
+
+		// deallocate games for each player.
+		for (let i in this.players) {
+			this.players[i].destroy();
+		}
+		delete this.room.game;
+	}
 }
 
+class UNOgamePlayer extends Rooms.RoomGamePlayer {
+	constructor(user, game) {
+		super(user, game);
+		this.hand = [];
+	}
 
-function initDeck(playerCount) {
-    playerCount = Math.ceil(playerCount / 7);
-    let tDeck = [];
-    for (let i = 0; i < playerCount; i++) {
-        tDeck = tDeck.concat(deck);
-    }
-    return tDeck;
-}
+	canPlayWildFour() {
+		let color = (this.game.changedColor || this.game.topCard.color);
 
-function shuffleDeck(dArray) {
-    let tDeck = [];
-    let reiterations = dArray.length;
-    for (let i = 0; i < reiterations; i++) {
-        let rand = ~~(dArray.length * Math.random());
-        tDeck.push(dArray[rand]);
-        dArray.splice(rand, 1);
-    }
-    return tDeck;
-}
+		if (this.hand.some(c => c.color === color)) return false;
+		return true;
+	}
 
-function getCardName(id, colour) {
-    let type = {
-        "R": "Red",
-        "Y": "Yellow",
-        "B": "Blue",
-        "G": "Green",
-        "Z": "Wild",
-    };
-    let value = {
-        "1": " 1",
-        "2": " 2",
-        "3": " 3",
-        "4": " 4",
-        "5": " 5",
-        "6": " 6",
-        "7": " 7",
-        "8": " 8",
-        "9": " 9",
-        "0": " 0",
-        "R": " Reverse",
-        "S": " Skip",
-        "+2": " Draw Two",
-        "+4": " Draw Four",
-        "W": "card",
-    };
-    if (colour) return "<font color=\"" + type[id.charAt(0)].toLowerCase().replace("yellow", "orange") + "\">" + type[id.charAt(0)] + value[id.slice(1)] + "</font>";
-    return type[id.charAt(0)] + value[id.slice(1)];
-}
+	hasCard(cardName) {
+		return this.hand.find(c => c.name === cardName);
+	}
 
+	removeCard(cardName) {
+		for (let i = 0; i < this.hand.length; i++) {
+			if (this.hand[i].name === cardName) {
+				this.hand.splice(i, 1);
+				break;
+			}
+		}
+	}
 
-function buildGameScreen(uhtmlid, top, roomid, hand, message, change, pass) {
-    let html = (message ? "|uhtmlchange|" + uhtmlid : "|uhtml|" + uhtmlid) + "|";
-    //make top card not clickable
-    let topCard = "<center>" + buildCard(top, true) + "</center>";
-    if (change) {
-        topCard += "<br><center>Colour changed to: <font color=\"" + getColour(change) + "\">" + getColour(change, true) + "</font></center>";
-    }
-    let yourHand = buildHand(hand);
-    message = message ? "<font color=\"red\"><b>" + message + "</b></font>" : "";
-    return html + "<table border=1 style=\"border-collapse: collapse;\"><tr><td>&nbsp;<b>Top Card</b>&nbsp;</td><td>&nbsp;<b>Your Hand</b>&nbsp;</td></tr>" + "<tr><td>" + topCard + "</td><td>" + yourHand + "</td></tr><tr><td>" + (pass ? passButton : drawButton) + "</td><td>" + message + "</td></tr></table>";
-}
+	buildHand() {
+		return this.hand.sort((a, b) => a.color.localeCompare(b.color) || a.value.localeCompare(b.value))
+		.map((c, i) => cardHTML(c, i === this.hand.length - 1));
+	}
 
-//for wildcards that summon a colour change
-function getColourChange(buffer, hand, uhtmlid) {
-    return "|uhtmlchange|" + uhtmlid + "|<table border=1 style=\"border-collapse: collapse;\"><tr><td>Choose which colour to change to:<br>" + '<button style="background: red; border: 2px solid rgba(33 , 68 , 72 , 0.59) ; width: 80px ; border-radius: 5px , auto" name="send" value="' + buffer + ' R"><font color="white" size=4>Red</font></button></center>' + '<button style="background: yellow; border: 2px solid rgba(33 , 68 , 72 , 0.59) ; width: 80px ; border-radius: 5px , auto" name="send" value="' + buffer + ' Y"><font color="black" size=4>Yellow</font></button></center>' + '<button style="background: blue; border: 2px solid rgba(33 , 68 , 72 , 0.59) ; width: 80px ; border-radius: 5px , auto" name="send" value="' + buffer + ' B"><font color="white" size=4>Blue</font></button></center>' + '<button style="background: green; border: 2px solid rgba(33 , 68 , 72 , 0.59) ; width: 80px ; border-radius: 5px , auto" name="send" value="' + buffer + ' G"><font color="white" size=4>Green</font></button></td></tr>' + '<tr><td>Your Cards: <br>' + buildHand(hand, true) + '</td></tr></table>';
-}
+	sendDisplay() {
+		let hand = this.buildHand().join('');
+		let players = `<p><strong>Players (${this.game.playerCount}):</strong></p>${this.game.getPlayers(true).join('<br />')}`;
+		let draw = '<button class="button" style="width: 30%; background: rgba(0, 0, 255, 0.05)" name=send value="/uno draw">Draw a card!</button>';
+		let pass = '<button class="button" style=" width: 30%; background: rgba(255, 0, 0, 0.05)" name=send value="/uno pass">Pass!</button>';
 
-function getUserName(id) {
-    return Users(id) ? Users(id).name : id;
-}
+		let top = `<strong>Top Card: <span style="color: ${textColors[this.game.topCard.color]}">${this.game.topCard.name}</span></strong>`;
 
-class Game {
-    constructor(room, playerCap) {
-        if (!room.unoGameId) {
-            room.unoGameId = 0;
-        }
-        room.unoGameId++;
-        this.room = room;
-        this.id = 0;
-        this.top = null;
-        this.discard = [];
-        this.deck = null;
-        //for player order
-        this.list = [];
-        this.data = {};
-        this.joinedIps = {};
-        this.player = null;
-        this.gameid = "uno";
-        this.started = false;
-        this.timer = null;
-        this.lastDraw = null;
-        this.colourChange = null;
-        this.uhtmlChange = null;
-        this.playerCap = playerCap ? playerCap : null;
-    }
-
-    init() {
-        this.room.add("|uhtml|new" + this.room.unoGameId + "|<div class=\"broadcast-black\"><center><img src=\"http://www.theboardgamefamily.com/wp-content/uploads/2010/12/uno-mobile-game1.jpg\" height=150 width=160><br><font color=white><b>A new game of UNO is starting</b></font><br><br><button style=\"height: 25px ; width: 50px ;\" name=\"send\" value=\"/uno join\">Join</button></center></div>");
-    }
-
-    join(user) {
-        if (this.started) return false;
-        let ip = user.latestIp;
-        let userid = user.userid;
-
-        if (this.playerCap && this.list.length >= this.playerCap) {
-            return user.sendTo(this.room, "The game is already full.");
-        }
-
-        if (userid in this.data || ip in this.joinedIps) {
-            return user.sendTo(this.room, "You already have an alt joined.");
-        }
-
-        this.list.push(userid);
-        //init empty hand
-        this.data[userid] = [];
-        this.joinedIps[ip] = 1;
-        //make join messages clear away after game starts
-        this.room.add("|uhtml|init" + this.room.unoGameId + "|" + user.name + " has joined the game.");
-    }
-
-    start(user) {
-        if (this.started) return false;
-        if (this.list.length < 2) return user.sendTo(this.room, "There aren't enough players!");
-        this.started = true;
-        this.room.add("The game has started!");
-        //hide the start message
-        this.room.add("|uhtmlchange|new" + this.room.unoGameId + "|<div class=\"infobox\">The game has started.</div>");
-        //get first player
-        this.player = this.list[~~(Math.random() * this.list.length)];
-        this.room.add("The first player is: " + getUserName(this.player) + ".");
-
-        //create the deck
-        this.deck = shuffleDeck(initDeck(this.list.length));
-
-        //deal the cards
-        this.list.forEach(function (u) {
-            this.giveCard(u, 7);
-        }.bind(this));
-
-        //get the top card and put it into discard pile
-        while (!this.top || this.top.charAt(0) === "Z") {
-            this.top = this.deck.shift();
-            this.discard.push(this.top);
-        }
-        //declare the top card
-        this.room.add("|uhtml|" + this.room.unoGameId + "card" + this.id + "|" + "The top card is " + buildCard(this.top, true));
-        this.uhtmlChange = "|uhtmlchange|" + this.room.unoGameId + "card" + this.id + "|The top card is <b>" + getCardName(this.top, true) + "</b>.";
-
-        this.applyEffects();
-
-        this.initNextTurn();
-    }
-
-    giveCard(userid, number, display) {
-        if (!number) number = 1;
-        let newCards = [];
-        for (let i = 0; i < number; i++) {
-            let newCard = this.deck.shift();
-            this.data[userid].push(newCard);
-            newCards.push(newCard);
-            //shuffle deck if deck is empty
-            if (this.deck.length === 0) {
-                if (this.discard.length === 0) {
-                    //if no cards in discard pile, add a new deck.
-                    this.discard = initDeck(1);
-                }
-                //shuffle discard pile to create new deck for drawing
-                this.deck = shuffleDeck(this.discard);
-            }
-        }
-        if (display && Users(userid)) {
-            return Users(userid).sendTo(this.room, "|raw|You have drawn the following card(s): " + buildHand(newCards, true));
-        }
-        //only for draw 1
-        if (newCards.length === 1) return newCards[0];
-    }
-
-    getNextPlayer(number) {
-        //make list run over if it's at the last player
-        let playerList = this.list.concat(this.list);
-        //get index of current player
-        let index = playerList.indexOf(this.player);
-        //apply next player
-        this.player = playerList[index + (number || 1)];
-    }
-
-    applyEffects() {
-        let effect = this.top.slice(1);
-        switch (effect) {
-        case "R":
-            //reverse; turn the array of players upside down.
-            this.list = this.list.reverse();
-            this.room.add("The direction has been reversed!");
-            if (this.id === 0) {
-                this.getNextPlayer();
-                break;
-            }
-            else if (this.list.length === 2) {
-                //skip back to the player that played the card
-                this.getNextPlayer();
-            }
-            else {
-                //skip back two slots to the player before the user who played the card
-                this.getNextPlayer(2);
-            }
-            break;
-        case "S":
-            this.room.add(getUserName(this.player) + " has turn has been skipped!");
-            //skip the player and move on to the next;
-            this.getNextPlayer();
-            break;
-        case "+2":
-            this.room.add(getUserName(this.player) + " has turn has been skipped, and is forced to draw 2 cards!");
-            //give 2 cards
-            this.giveCard(this.player, 2, true);
-            //skip the player
-            this.getNextPlayer();
-            break;
-        case "+4":
-            this.room.add(getUserName(this.player) + " has turn has been skipped, and is forced to draw 4 cards!");
-            //give 4 cards
-            this.giveCard(this.player, 4, true);
-            //skip the player
-            this.getNextPlayer();
-            break;
-        }
-    }
-
-    validatePlay(user, card) {
-        //returning false means there are no issues;
-        //otherwise this will return a error message which will be displayed to the user when it builds the next control screen.
-        let hand = this.data[user.userid];
-        if (this.lastDraw && card !== this.lastDraw) {
-            return "You must play the last card you drew! (" + getCardName(this.lastDraw) + ")";
-        }
-        if (hand.indexOf(card) === -1) return "You do not have that card!";
-        let currentColour = this.colourChange || this.top.charAt(0);
-        let currentValue = this.top.slice(1);
-        //verify that the player has no cards of the same colour in their hand
-        if (card === "Z+4") {
-            for (let i = 0; i < hand.length; i++) {
-                if (hand[i].charAt(0) === currentColour) return "You cannot play this when you still have a card with the same colour as the top card.";
-            }
-            return false;
-        }
-        //wild cards can be played anytime
-        if (card === "ZW") return false;
-        //check if the card is either the same value or the same colour
-        if (card.charAt(0) === currentColour || card.slice(1) === currentValue) return false;
-        return "The card has to either match the top card's colour or face value.";
-    }
-
-    play(user, card, change) {
-        //check if it's that players turn
-        if (this.player !== user.userid) return;
-        //check validity of play and send error message
-        let issues = this.validatePlay(user, card);
-        if (issues) {
-            return this.sendGameScreen(user, issues);
-        }
-        this.colourChange = null;
-        this.clearTimer();
-        //shrink last turn's card
-        this.room.add(this.uhtmlChange);
-        this.clearGameScreen(user);
-
-        //clear last draw
-        this.lastDraw = null;
-
-        //announce the card and the change
-        this.room.add("|uhtml|" + this.room.unoGameId + "card" + this.id + "|" + user.name + " played " + buildCard(card, true));
-        this.uhtmlChange = "|uhtmlchange|" + this.room.unoGameId + "card" + this.id + "|" + user.name + " played <b>" + getCardName(card, true) + "</b>.";
-
-        //move card onto top and discard pile
-        this.top = card;
-        this.discard.push(card);
-
-        //remove the card from the players hand
-        this.data[user.userid].splice(this.data[user.userid].indexOf(card), 1);
-
-        //count cards
-        if (change) {
-            this.colourChange = change;
-            let fontColour = getColour(change);
-            this.room.add("|raw|<font color=\"" + fontColour + "\">The colour was changed to <b>" + getColour(change, true).toUpperCase() + "</b>.</font>");
-        }
-        //move to next player
-        this.getNextPlayer();
-        this.room.update();
-
-        //apply the effects of the current card to the next player in queue.
-        this.applyEffects();
-        if (this.data[user.userid].length === 1) {
-            //do a uno thing
-            this.uno = user.userid;
-            let userButton = "<center><button style=\"height: 75px ; width: 200px ;\" name=\"send\" value=\"/uno uno\">UNO!</button></center>";
-            user.sendTo(this.room.id, "|uhtml|" + this.room.unoGameId + "uno" + this.id + "|" + userButton);
-            //send individual button to all the other players
-            let opponentButton = "<center><button style=\"height: 75px ; width: 200px ;\" name=\"send\" value=\"/uno uno\">Make " + user.name + " draw 2 cards! </button></center>";
-            for (let u in this.data) {
-                if (!Users(u) || u === user.userid) continue;
-                Users(u).sendTo(this.room.id, "|uhtml|" + this.room.unoGameId + "uno" + this.id + "|" + opponentButton);
-            }
-            return;
-        }
-        else if (this.data[user.userid].length === 0) {
-            return this.end(user.name);
-        }
-        //start next turn
-        this.initNextTurn();
-    }
-
-    draw(user) {
-        if (this.player !== user.userid || this.lastDraw) return;
-        this.lastDraw = this.giveCard(user.userid, 1);
-        //clean up last display
-        this.clearGameScreen(user);
-        this.sendGameScreen(user, "You have drawn a " + getCardName(this.lastDraw) + ".");
-        this.room.add(user.name + " has drawn a card.");
-        this.room.update();
-    }
-
-    pass(user) {
-        if (this.player !== user.userid || !this.lastDraw) return;
-        this.room.add(user.name + " has passed.");
-        this.room.add(this.uhtmlChange);
-        this.clearGameScreen(user);
-        this.clearTimer();
-        this.getNextPlayer();
-        this.id++;
-        this.lastDraw = null;
-        this.initNextTurn();
-    }
-
-    sendGameScreen(user, message) {
-        let display = buildGameScreen(this.room.unoGameId + "display" + this.id, this.top, this.room.id, this.data[user.userid], message ? message : "", this.colourChange, this.lastDraw ? 1 : 0);
-        user.sendTo(this.room, display);
-    }
-
-    clearGameScreen(user) {
-        user.sendTo(this.room, "|uhtmlchange|" + this.room.unoGameId + "display" + this.id + "|");
-    }
-
-    clearTimer() {
-        clearTimeout(this.timer);
-    }
-
-    runDQ() {
-        //set a disqualification timer for 90 seconds
-        this.timer = setTimeout(function () {
-            this.disqualify(this.player);
-        }.bind(this), 90000);
-    }
-
-    initNextTurn() {
-        this.room.add(getUserName(this.player) + "'s turn.");
-        this.room.update();
-        this.id++;
-        let user = Users.get(this.player);
-        if (!user) this.disqualify(this.player);
-        this.sendGameScreen(user);
-        this.runDQ();
-    }
-
-    disqualify(userid) {
-        //if there are still players in the game.
-        if (this.list.length > 2) {
-            //if current player is the one being disqualify move on to next player.
-            if (!this.removePlayer(userid)) return true;
-            if (userid === this.player) {
-                if (Users.get(userid)) {
-                    this.clearGameScreen(Users.get(userid));
-                    this.room.add(this.uhtmlChange);
-                }
-                this.clearTimer();
-                this.room.add(getUserName(userid) + " has been disqualified.");
-                this.getNextPlayer();
-                this.initNextTurn();
-                return true;
-            }
-            this.room.add(getUserName(userid) + " has been disqualified.");
-            return true;
-        }
-        else {
-            if (this.removePlayer(userid)) {
-                this.room.add(getUserName(userid) + " has been disqualified.");
-                this.end(this.list[0]);
-                return false;
-            }
-        }
-    }
-
-    removePlayer(userid) {
-        if (this.list.indexOf(userid) === -1) return false;
-        this.list.splice(this.list.indexOf(userid), 1);
-        delete this.data[userid];
-        return true;
-    }
-
-    parseUNO(user) {
-        if (!this.uno) return false;
-        if (user.userid === this.uno) {
-            this.room.add("|raw|<b>UNO!</b>");
-            this.room.add("|uhtmlchange|" + this.room.unoGameId + "uno" + this.id + "|" + getUserName(this.uno) + " is safe!");
-            this.room.update();
-            this.uno = false;
-            this.initNextTurn();
-        }
-        else if (this.list.indexOf(user.userid) > -1) {
-            this.room.add("|raw|" + getUserName(this.uno) + "  was caught for not saying UNO and is forced to draw 2 cards!");
-            this.room.add("|uhtmlchange|" + this.room.unoGameId + "uno" + this.id + "|" + getUserName(this.uno) + " was caught!");
-            this.giveCard(this.uno, 2, true);
-            this.uno = false;
-            this.initNextTurn();
-        }
-    }
-
-    end(winner) {
-        //hide the start message
-        this.clearTimer();
-        if (this.player && Users.get(this.player)) {
-            this.clearGameScreen(Users.get(this.player));
-        }
-        if (this.uhtmlChange) this.room.add(this.uhtmlChange);
-        this.room.add("|uhtmlchange|new" + this.room.unoGameId + "|<div class=\"infobox\">The game has ended.</div>");
-        if (!winner) {
-            this.room.add("The game of UNO was forcibly ended.");
-        }
-        else {
-            this.room.add("Congratulations to " + getUserName(winner) + " for winning the game of UNO!");
-            Exiled.addExp(getUserName(winner), this.room, 8);
-            getUserName(winner).send("You won " + 8 + " exp for winning uno");
-        }
-        this.room.update();
-        delete this.room.game;
-    }
+		// clear previous display and show new display
+		this.sendRoom("|uhtmlchange|uno-hand|");
+		this.sendRoom(
+			`|uhtml|uno-hand|<div style="border: 1px solid skyblue; padding: 0 0 5px 0"><table style="width: 100%; table-layout: fixed; border-radius: 3px"><tr><td colspan=4 rowspan=2 style="padding: 5px"><div style="overflow-x: auto; white-space: nowrap; width: 100%">${hand}</div></td>${this.game.currentPlayer === this.userid ? `<td colspan=2 style="padding: 5px 5px 0 5px">${top}</td></tr>` : ""}` +
+			`<tr><td colspan=2 style="vertical-align: top; padding: 0px 5px 5px 5px"><div style="overflow-y: scroll">${players}</div></td></tr></table>` +
+			`${this.game.currentPlayer === this.userid ? `<div style="text-align: center">${draw}<span style="padding: 15px"></span>${pass}</div>` : ""}</div>`
+		);
+	}
 }
 
 exports.commands = {
-    uno: {
-        new: function (target, room, user) {
-            if (!this.can("announce", null, room)) return false;
-            if (room.unoDisabled) return this.errorReply("UNO is currently disabled in this room.");
-            let cap = target ? parseInt(target, 10) : null;
-            if (room.game) return this.errorReply("There is already a game in progress in this room.");
-            if (cap && cap < 2) return this.errorReply("The player cap has to be at least 2.");
+	uno: {
+		// roomowner commands
+		off: 'disable',
+		disable: function (target, room, user) {
+			if (!this.can('gamemanagement', null, room)) return;
+			if (room.unoDisabled) {
+				return this.errorReply("UNO is already disabled in this room.");
+			}
+			room.unoDisabled = true;
+			if (room.chatRoomData) {
+				room.chatRoomData.unoDisabled = true;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("UNO has been disabled for this room.");
+		},
 
-            room.game = new Game(room, cap);
-            //start message;
-            room.game.init();
-        },
-        join: function (target, room, user) {
-            if (room.game && room.game.gameid === "uno") room.game.join(user);
-        },
-        start: function (target, room, user) {
-            if (!this.can("announce", null, room)) return false;
-            if (room.game && room.game.gameid === "uno") room.game.start(user);
-        },
-        end: function (target, room, user) {
-            if (!this.can("announce", null, room)) return false;
-            if (room.game && room.game.gameid === "uno") room.game.end();
-        },
-        leave: function (target, room, user) {
-            if (room.game && room.game.gameid === "uno" && !room.game.started) {
-                let success = room.game.removePlayer(user.userid);
-                if (!success) return user.sendTo(this.room, "You have not signed up for the game.");
-                let ip = user.latestIp;
-                delete room.game.joinedIps[ip];
-                room.add("|uhtml|init" + room.unoGameId + "|" + user.name + " has left the game.");
-            }
-        },
-        play: function (target, room, user) {
-            if (!room.game || room.game.gameid !== "uno") return false;
-            if (!target) return this.parse("/help uno play");
-            let params = target.split(" ");
-            let card = params.shift();
-            let change = null;
-            if (card.charAt(0) === "Z" && ["R", "Y", "B", "G"].indexOf(params[0]) > -1) {
-                change = params[0];
-            }
-            else if (card.charAt(0) === "Z") {
-                let uhtmlid = room.unoGameId + "display" + room.game.id;
-                return user.sendTo(room, getColourChange("/uno play " + card, room.game.data[user.userid], uhtmlid));
-            }
-            room.game.play(user, card, change);
-        },
-        draw: function (target, room, user) {
-            if (room.game && room.game.gameid === "uno") room.game.draw(user);
-        },
-        pass: function (target, room, user) {
-            if (room.game && room.game.gameid === "uno") room.game.pass(user);
-        },
-        dq: function (target, room, user) {
-            if (!this.can("announce", null, room)) return false;
-            if (!target) return this.parse("/help uno dq");
-            if (room.game && room.game.gameid === "uno") room.game.disqualify(toId(target));
-        },
-        dqhelp: ["/uno dq [user] - disqualifies a user from the game."],
-        display: function (target, room, user) {
-            if (!room.game || room.game.gameid !== "uno" || user.userid !== room.game.player) return false;
-            room.game.clearGameScreen(user);
-            room.game.id++;
-            room.game.sendGameScreen(user);
-        },
-        uno: function (target, room, user) {
-            if (room.game && room.game.gameid === "uno" && room.game.started) {
-                room.game.parseUNO(user);
-            }
-        },
-        enable: function (target, room, user) {
-            if (!this.can('tournamentsmanagement', null, room)) return;
-            if (!room.unoDisabled) return this.errorReply("UNO is not disabled in this room.");
-            delete room.unoDisabled;
-            if (room.chatRoomData) {
-                delete room.chatRoomData.unoDisabled;
-                Rooms.global.writeChatRoomData();
-            }
-            return this.sendReply("UNO has been enabled for this room.");
-        },
-        disable: function (target, room, user) {
-            if (!this.can('tournamentsmanagement', null, room)) return;
-            if (room.unoDisabled) return this.errorReply("UNO is already disabled in this room.");
-            room.unoDisabled = true;
-            if (room.chatRoomData) {
-                room.chatRoomData.unoDisabled = true;
-                Rooms.global.writeChatRoomData();
-            }
-            return this.sendReply("UNO has been disabled for this room.");
-        },
-        "": function (target, room, user) {
-            if (!room.game || room.game.gameid !== "uno" || user.userid !== room.game.player) return this.parse("/help uno");
-            this.parse("/uno display");
-        },
-    },
-    unohelp: [
-        "/uno new (player cap) - starts a new uno game with an optional player cap.",
-        "/uno join - joins the current game of UNO.",
-        "/uno leave - leaves the current game of UNO.",
-        "/uno start - starts the current game of UNO",
-        "/uno play [card id] [change] - plays the uno card and specifies colour change if applicable.",
-        "/uno draw - draws a card.",
-        "/uno pass - pass after drawing a card.",
-        "/uno uno - call out \"UNO!\" or attempt to catch someone for not saying uno.",
-        "/uno enable - enables UNO in that room.",
-        "/uno disable - disables UNO in that room.",
-    ],
+		on: 'enable',
+		enable: function (target, room, user) {
+			if (!this.can('gamemanagement', null, room)) return;
+			if (!room.unoDisabled) {
+				return this.errorReply("UNO is already enabled in this room.");
+			}
+			delete room.unoDisabled;
+			if (room.chatRoomData) {
+				delete room.chatRoomData.unoDisabled;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("UNO has been enabled for this room.");
+		},
+
+		// moderation commands
+		new: 'create',
+		make: 'create',
+		createpublic: 'create',
+		makepublic: 'create',
+		createprivate: 'create',
+		makeprivate: 'create',
+		create: function (target, room, user, connection, cmd) {
+			if (!this.can('minigame', null, room)) return;
+			if (room.unoDisabled) return this.errorReply("UNO is currently disabled for this room.");
+			if (room.game) return this.errorReply("There is already a game in progress in this room.");
+
+			let suppressMessages = cmd.includes('private') || !(cmd.includes('public') || room.id === 'gamecorner');
+
+			room.game = new UNOgame(room, target, suppressMessages);
+			this.privateModCommand(`(A game of UNO was created by ${user.name}.)`);
+		},
+
+		start: function (target, room, user) {
+			if (!this.can('minigame', null, room)) return;
+			if (!room.game || room.game.gameid !== 'uno' || room.game.state !== 'signups') return this.errorReply("There is no UNO game in signups phase in this room.");
+			if (room.game.onStart()) this.privateModCommand(`(The game of UNO was started by ${user.name}.)`);
+		},
+
+		stop: 'end',
+		end: function (target, room, user) {
+			if (!this.can('minigame', null, room)) return;
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room.");
+			room.game.destroy();
+			room.add("The game of UNO was forcibly ended.").update();
+			this.privateModCommand(`(The game of UNO was ended by ${user.name}.)`);
+		},
+
+		timer: function (target, room, user) {
+			if (!this.can('minigame', null, room)) return;
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room.");
+			let amount = parseInt(target);
+			if (!amount || amount < 5 || amount > 300) return this.errorReply("The amount must be a number between 5 and 300.");
+
+			room.game.maxTime = amount;
+			if (room.game.timer) {
+				clearTimeout(room.game.timer);
+				room.game.timer = setTimeout(() => {
+					room.game.eliminate(room.game.currentPlayer);
+				}, amount * 1000);
+			}
+			this.addModCommand(`${user.name} has set the UNO automatic disqualification timer to ${amount} seconds.`);
+		},
+
+		dq: 'disqualify',
+		disqualify: function (target, room, user) {
+			if (!this.can('minigame', null, room)) return;
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+
+			let disqualified = room.game.eliminate(toId(target));
+			if (disqualified === false) return this.errorReply(`Unable to disqualify ${target}.`);
+			this.privateModCommand(`(${user.name} has disqualified ${disqualified} from the UNO game.)`);
+			room.add(`${target} has been disqualified from the UNO game.`).update();
+		},
+
+		// player/user commands
+		j: 'join',
+		join: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+			if (!this.canTalk()) return false;
+			if (!room.game.joinGame(user)) return this.errorReply("Unable to join the game.");
+
+			return this.sendReply("You have joined the game of UNO.");
+		},
+
+		l: 'leave',
+		leave: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+			if (!room.game.leaveGame(user)) return this.errorReply("Unable to leave the game.");
+			return this.sendReply("You have left the game of UNO.");
+		},
+
+		play: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+			let error = room.game.onPlay(user, target);
+			if (error) this.errorReply(error);
+		},
+
+		draw: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+			let error = room.game.onDraw(user);
+			if (error) return this.errorReply("You have already drawn a card this turn.");
+		},
+
+		pass: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+			if (room.game.currentPlayer !== user.userid) return this.errorReply("It is currently not your turn.");
+			if (!room.game.players[user.userid].cardLock) return this.errorReply("You cannot pass until you draw a card.");
+
+			room.game.sendToRoom(`${user.name} has passed.`);
+			room.game.nextTurn();
+		},
+
+		color: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return false;
+			room.game.onSelectcolor(user, target);
+		},
+
+		uno: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return false;
+			room.game.onUno(user, target);
+		},
+
+		// information commands
+		'': 'hand',
+		hand: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.parse("/help uno");
+			room.game.onSendHand(user);
+		},
+
+		players: 'getusers',
+		users: 'getusers',
+		getplayers: 'getusers',
+		getusers: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+			if (!this.runBroadcast()) return false;
+			this.sendReplyBox(`<strong>Players (${room.game.playerCount})</strong>:<br />${room.game.getPlayers().join(', ')}`);
+		},
+
+		help: function (target, room, user) {
+			this.parse('/help uno');
+		},
+
+		// suppression commands
+		suppress: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+			if (!this.can('minigame', null, room)) return;
+
+			target = toId(target);
+			let state = target === 'on' ? true : target === 'off' ? false : undefined;
+
+			if (state === undefined) return this.sendReply(`Suppression of UNO game messages is currently ${(room.game.suppressMessages ? 'on' : 'off')}.`);
+			if (state === room.game.suppressMessages) return this.errorReply(`Suppression of UNO game messages is already ${(room.game.suppressMessages ? 'on' : 'off')}.`);
+
+			room.game.suppressMessages = state;
+
+			this.addModCommand(`${user.name} has turned ${(state ? 'on' : 'off')} suppression of UNO game messages.`);
+		},
+
+		spectate: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+
+			if (!room.game.suppressMessages) return this.errorReply("The current UNO game is not suppressing messages.");
+			if (user.userid in room.game.spectators) return this.errorReply("You are already spectating this game.");
+
+			room.game.spectators[user.userid] = 1;
+			this.sendReply("You are now spectating this private UNO game.");
+		},
+
+		unspectate: function (target, room, user) {
+			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
+
+			if (!room.game.suppressMessages) return this.errorReply("The current UNO game is not suppressing messages.");
+			if (!(user.userid in room.game.spectators)) return this.errorReply("You are currently not spectating this game.");
+
+			delete room.game.spectators[user.userid];
+			this.sendReply("You are no longer spectating this private UNO game.");
+		},
+	},
+
+	unohelp: [
+		"/uno create [player cap] - creates a new UNO game with an optional player cap (default player cap at 6). Use the command `createpublic` to force a public game or `createprivate` to force a private game. Requires: % @ * # & ~",
+		"/uno timer [amount] - sets an auto disqualification timer for `amount` seconds. Requires: % @ * # & ~",
+		"/uno end - ends the current game of UNO. Requires: % @ * # & ~",
+		"/uno start - starts the current game of UNO. Requires: % @ * # & ~",
+		"/uno disqualify [player] - disqualifies the player from the game. Requires: % @ * # & ~",
+		"/uno hand - displays your own hand.",
+		"/uno getusers - displays the players still in the game.",
+		"/uno [spectate | unspectate] - spectate / unspectate the current private UNO game.",
+		"/uno suppress [on | off] - Toggles suppression of game messages.",
+	],
 };

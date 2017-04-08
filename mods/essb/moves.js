@@ -1090,8 +1090,6 @@ exports.BattleMovedex = {
 				volatileStatus: "healblock",
 			}, {
 				chance: 100,
-				volatileStatus: "curse",
-			}, {
 				volatileStatus: "gastroacid",
 			},
 		],

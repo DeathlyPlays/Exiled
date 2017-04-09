@@ -8,9 +8,6 @@
 
 const http = require('http');
 const fs = require('fs');
-const moment = require('moment');
-const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
-const Autolinker = require('autolinker');
 
 let customColors = {};
 const FILE_PATH = 'config/customcolors.json';
@@ -248,4 +245,4 @@ function toHex(N) {
 	N = Math.min(N, 255);
 	N = Math.round(N);
 	return "0123456789ABCDEF".charAt((N - N % 16) / 16) + "0123456789ABCDEF".charAt(N % 16);
-};
+}

@@ -7,7 +7,6 @@ Basically just edits to main's info.js, and adds more, removes stuff, etc.
 'use strict';
 
 exports.commands = {
-
 	/*********************************************************
 	 * Informational commands
 	 *********************************************************/
@@ -30,7 +29,6 @@ exports.commands = {
 		"!groups - Shows everyone that information. Requires: + % @ * # & ~",
 	],
 
-	opensource: true,
 	git: "opensource",
 	opensource: function (target, room, user) {
 		if (!this.runBroadcast()) return;

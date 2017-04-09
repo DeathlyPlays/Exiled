@@ -462,7 +462,7 @@ exports.commands = {
 	exiledpoll: function (target, room, user) {
 		if (room.battle) return false;
 		if (!this.can('broadcast', null, room)) return false;
-		this.parse('/poll new Tier for the next tournament?, Exiled SSB, Ash\'s Pokemon, OP Metagame, Exiled OU, Exiled UU, Exiled RU, Exiled Monotype, Clash of the Regions, NFE, SMASHING METAGAME, Metronome Battles, Holiday Metagame, Exiled Perfected Pokemon, CAP SSB, Pokemon Mystery Dungeon, Supercell Metagame, Digimon Showdown, Fakemons Randoms, Fakemons');
+		this.parse('/poll new Tier for the next tournament?, Exiled SSB, Ash\'s Pokemon, OP Metagame, Clash of the Regions, NFE, SMASHING METAGAME, Metronome Battles, Holiday Metagame, Exiled Perfected Pokemon, CAP SSB, Pokemon Mystery Dungeon, Supercell Metagame, Digimon Showdown, Fakemons Randoms, Fakemons');
 	},
 	pr: 'pollremind',
 	pollremind: function (target, room, user) {

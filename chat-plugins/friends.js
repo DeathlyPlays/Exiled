@@ -9,7 +9,6 @@ let offlineFriendListOutput = '';
 let numOnline = 0;
 let numOffline = 0;
 
-
 /**
  * Friends constructor.
  *
@@ -59,7 +58,6 @@ Friends.prototype.name = function () {
 };
 
 Friends.prototype.addFriendToOutput = function (callback) {
-
 	if (this.isOnline) {
 		onlineFriendListOutput += this.name() + '<br />';
 		++numOnline;

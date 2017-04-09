@@ -778,25 +778,25 @@ class BattleRoom extends Room {
 			} else if (winnerid === this.p2.userid) {
 				p1score = 0;
 			}
-				this.update();
-				this.logBattle(p1score);
-			} else {
-				this.battle.logData = null;
-			}
-			if (Config.autosavereplays) {
-				let uploader = Users.get(winnerid);
-				if (uploader && uploader.connections[0]) {
-					Chat.parse('/savereplay', this, uploader, uploader.connections[0]);
-				}
-			}
-			if (this.tour) {
-				this.tour.onBattleWin(this, winnerid);
-			}
 			this.update();
+			this.logBattle(p1score);
+		} else {
+			this.battle.logData = null;
 		}
-		// logNum = 0    : spectator log (no exact HP)
-		// logNum = 1, 2 : player log (exact HP for that player)
-		// logNum = 3    : debug log (exact HP for all players)
+		if (Config.autosavereplays) {
+			let uploader = Users.get(winnerid);
+			if (uploader && uploader.connections[0]) {
+				Chat.parse('/savereplay', this, uploader, uploader.connections[0]);
+			}
+		}
+		if (this.tour) {
+			this.tour.onBattleWin(this, winnerid);
+		}
+		this.update();
+	}
+	// logNum = 0    : spectator log (no exact HP)
+	// logNum = 1, 2 : player log (exact HP for that player)
+	// logNum = 3    : debug log (exact HP for all players)
 	getLog(logNum) {
 		let log = [];
 		for (let i = 0; i < this.log.length; ++i) {

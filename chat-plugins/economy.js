@@ -6,8 +6,8 @@ const fs = require('fs');
 // Ideally, this should be zero.
 const DEFAULT_AMOUNT = 0;
 
-global.moneyName = 'Stardust';
-global.moneyPlural = 'Stardust';
+global.moneyName = 'Buck';
+global.moneyPlural = 'Bucks';
 
 let Economy = global.Economy = {
 	/**
@@ -85,7 +85,7 @@ exports.commands = {
 		if (userid.length > 19) return this.sendReply("/wallet - [user] can't be longer than 19 characters.");
 
 		Economy.readMoney(userid, money => {
-			this.sendReplyBox(SG.nameColor(target, true) + " has " + money + ((money === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
+			this.sendReplyBox(Exiled.nameColor(target, true) + " has " + money + ((money === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
 			//if (this.broadcasting) room.update();
 		});
 	},
@@ -117,7 +117,7 @@ exports.commands = {
 			Economy.readMoney(targetUser, newAmount => {
 				if (Users(targetUser) && Users(targetUser).connected) {
 					Users.get(targetUser).popup('|html|You have received ' + amount + ' ' + (amount === 1 ? moneyName : moneyPlural) +
-					' from ' + SG.nameColor(user.userid, true) + '.');
+					' from ' + Exiled.nameColor(user.userid, true) + '.');
 				}
 				this.sendReply(targetUser + " has received " + amount + ((amount === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
 				Economy.logTransaction(user.name + " has given " + amount + ((amount === 1) ? " " + moneyName + " " : " " + moneyPlural + " ") + " to " + targetUser + ". (Reason: " + reason + ") They now have " + newAmount + (newAmount === 1 ? " " + moneyName + "." : " " + moneyPlural + "."));
@@ -152,7 +152,7 @@ exports.commands = {
 		Economy.writeMoney(targetUser, -amount, () => {
 			Economy.readMoney(targetUser, newAmount => {
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users.get(targetUser).popup('|html|' + SG.nameColor(user.userid, true) + ' has removed ' + amount + ' ' + (amount === 1 ? moneyName : moneyPlural) +
+					Users.get(targetUser).popup('|html|' + Exiled.nameColor(user.userid, true) + ' has removed ' + amount + ' ' + (amount === 1 ? moneyName : moneyPlural) +
 					' from you.<br />');
 				}
 				this.sendReply("You removed " + amount + ((amount === 1) ? " " + moneyName + " " : " " + moneyPlural + " ") + " from " + Chat.escapeHTML(targetUser));
@@ -184,7 +184,7 @@ exports.commands = {
 				return this.popupReply('|html|<center>' +
 					'<button class = "card-td button" name = "send" value = "/confirmtransfermoney ' + toId(targetUser) + ', ' + amount + '"' +
 					'style = "outline: none; width: 200px; font-size: 11pt; padding: 10px; border-radius: 14px ; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4) inset; transition: all 0.2s;">' +
-					'Confirm transfer to <br><b style = "color:' + SG.hashColor(targetUser) + '; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">' + Chat.escapeHTML(targetUser) + '</b></button></center>'
+					'Confirm transfer to <br><b style = "color:' + Exiled.hashColor(targetUser) + '; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">' + Chat.escapeHTML(targetUser) + '</b></button></center>'
 				);
 			}
 			Economy.writeMoney(user.userid, -amount, () => {
@@ -198,7 +198,7 @@ exports.commands = {
 								targetUser + " now has " + firstAmount + " " + (firstAmount === 1 ? " " + moneyPlural : " " + moneyPlural)
 							);
 							if (Users.getExact(targetUser) && Users.getExact(targetUser).connected) {
-								Users.getExact(targetUser).send('|popup||html|' + SG.nameColor(user.name, true) + " has sent you " + amount + ((amount === 1) ? " " + moneyPlural : " " + moneyPlural));
+								Users.getExact(targetUser).send('|popup||html|' + Exiled.nameColor(user.name, true) + " has sent you " + amount + ((amount === 1) ? " " + moneyPlural : " " + moneyPlural));
 							}
 						});
 					});
@@ -249,7 +249,7 @@ exports.commands = {
 			let count = 1;
 			for (let u in rows) {
 				if (rows[u].amount < 1) continue;
-				output += '<tr><td>' + count + '</td><td>' + SG.nameColor(rows[u].name, true) + '</td><td>' + rows[u].amount + '</td></tr>';
+				output += '<tr><td>' + count + '</td><td>' + Exiled.nameColor(rows[u].name, true) + '</td><td>' + rows[u].amount + '</td></tr>';
 				count++;
 			}
 			self.sendReplyBox(output);

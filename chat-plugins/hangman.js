@@ -13,8 +13,7 @@ class Hangman extends Rooms.RoomGame {
 
 		if (room.gameNumber) {
 			room.gameNumber++;
-		}
-		else {
+		} else {
 			room.gameNumber = 1;
 		}
 
@@ -33,8 +32,7 @@ class Hangman extends Rooms.RoomGame {
 		for (let i = 0; i < word.length; i++) {
 			if (/[a-zA-Z]/.test(word[i])) {
 				this.wordSoFar.push('_');
-			}
-			else {
+			} else {
 				this.wordSoFar.push(word[i]);
 			}
 		}
@@ -55,12 +53,10 @@ class Hangman extends Rooms.RoomGame {
 		if (sanitized.length > 1) {
 			if (!this.guessWord(sanitized, user.name)) {
 				user.sendTo(this.room, "Invalid guess");
-			}
-			else {
+			} else {
 				this.room.send(user.name + " guessed \"" + sanitized + "\"!");
 			}
-		}
-		else {
+		} else {
 			if (!this.guessLetter(sanitized, user.name)) {
 				user.sendTo(this.room, "Invalid guess");
 			}
@@ -86,8 +82,7 @@ class Hangman extends Rooms.RoomGame {
 				return true;
 			}
 			this.letterGuesses.push(letter + '1');
-		}
-		else {
+		} else {
 			this.incorrectGuesses++;
 			this.letterGuesses.push(letter + '0');
 		}
@@ -112,8 +107,7 @@ class Hangman extends Rooms.RoomGame {
 			this.lastGuesser = guesser;
 			this.finish();
 			return true;
-		}
-		else if (ourWord.length === guessedWord.length) {
+		} else if (ourWord.length === guessedWord.length) {
 			this.incorrectGuesses++;
 			this.guesses.push(word);
 			this.lastGuesser = guesser;
@@ -132,8 +126,7 @@ class Hangman extends Rooms.RoomGame {
 
 		if (this.incorrectGuesses === maxMistakes) {
 			result = 1;
-		}
-		else if (!this.wordSoFar.includes('_')) {
+		} else if (!this.wordSoFar.includes('_')) {
 			result = 2;
 		}
 
@@ -159,12 +152,10 @@ class Hangman extends Rooms.RoomGame {
 			}
 			if (result === 2) {
 				output += '<br />Winner: ' + Chat.escapeHTML(this.lastGuesser);
-			}
-			else if (this.guesses[this.guesses.length - 1].length === 1) {
+			} else if (this.guesses[this.guesses.length - 1].length === 1) {
 				// last guess was a letter
 				output += ' <small>&ndash; ' + Chat.escapeHTML(this.lastGuesser) + '</small>';
-			}
-			else {
+			} else {
 				output += '<br />Guessed: ' + this.guesses[this.guesses.length - 1] + ' <small>&ndash; ' + Chat.escapeHTML(this.lastGuesser) + '</small>';
 			}
 		}
@@ -177,8 +168,7 @@ class Hangman extends Rooms.RoomGame {
 	display(user, broadcast) {
 		if (broadcast) {
 			this.room.add('|uhtml|hangman' + this.room.gameNumber + '|' + this.generateWindow());
-		}
-		else {
+		} else {
 			user.sendTo(this.room, '|uhtml|hangman' + this.room.gameNumber + '|' + this.generateWindow());
 		}
 	}
@@ -239,7 +229,7 @@ exports.commands = {
 			room.game.guess(target, user);
 		},
 		guesshelp: ["/hangman guess [letter] - Makes a guess for the letter entered.",
-			"/hangman guess [word] - Same as a letter, but guesses an entire word."
+			"/hangman guess [word] - Same as a letter, but guesses an entire word.",
 		],
 
 		stop: 'end',
@@ -299,7 +289,7 @@ exports.commands = {
 		"/hangman guess [word] - Same as a letter, but guesses an entire word.",
 		"/hangman display - Displays the game.",
 		"/hangman end - Ends the game of hangman before the man is hanged or word is guessed. Requires: % @ * # & ~",
-		"/hangman [enable/disable] - Enables or disables hangman from being started in a room. Requires: # & ~"
+		"/hangman [enable/disable] - Enables or disables hangman from being started in a room. Requires: # & ~",
 	],
 
 	guess: function (target, room, user) {
@@ -310,6 +300,6 @@ exports.commands = {
 		room.game.guess(target, user);
 	},
 	guesshelp: ["/guess - Shortcut for /hangman guess.", "/hangman guess [letter] - Makes a guess for the letter entered.",
-		"/hangman guess [word] - Same as a letter, but guesses an entire word."
+		"/hangman guess [word] - Same as a letter, but guesses an entire word.",
 	],
 };

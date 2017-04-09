@@ -9,8 +9,7 @@ class Poll {
 	constructor(room, questionData, options) {
 		if (room.pollNumber) {
 			room.pollNumber++;
-		}
-		else {
+		} else {
 			room.pollNumber = 1;
 		}
 		this.room = room;
@@ -55,8 +54,7 @@ class Poll {
 
 		if (userid in this.voters || ip in this.voterIps) {
 			user.sendTo(this.room, "You're already looking at the results.");
-		}
-		else {
+		} else {
 			this.voters[userid] = 0;
 			this.voterIps[ip] = 0;
 		}
@@ -128,11 +126,9 @@ class Poll {
 			let user = this.room.users[i];
 			if (user.userid in this.voters) {
 				user.sendTo(this.room, '|uhtmlchange|poll' + this.room.pollNumber + '|' + results[this.voters[user.userid]]);
-			}
-			else if (user.latestIp in this.voterIps) {
+			} else if (user.latestIp in this.voterIps) {
 				user.sendTo(this.room, '|uhtmlchange|poll' + this.room.pollNumber + '|' + results[this.voterIps[user.latestIp]]);
-			}
-			else if (force) {
+			} else if (force) {
 				user.sendTo(this.room, '|uhtmlchange|poll' + this.room.pollNumber + '|' + this.generateVotes());
 			}
 		}
@@ -142,11 +138,9 @@ class Poll {
 		if (!connection) connection = user;
 		if (user.userid in this.voters) {
 			connection.sendTo(this.room, '|uhtmlchange|poll' + this.room.pollNumber + '|' + this.generateResults(false, this.voters[user.userid]));
-		}
-		else if (user.latestIp in this.voterIps) {
+		} else if (user.latestIp in this.voterIps) {
 			connection.sendTo(this.room, '|uhtmlchange|poll' + this.room.pollNumber + '|' + this.generateResults(false, this.voterIps[user.latestIp]));
-		}
-		else {
+		} else {
 			connection.sendTo(this.room, '|uhtmlchange|poll' + this.room.pollNumber + '|' + this.generateVotes());
 		}
 	}
@@ -170,11 +164,9 @@ class Poll {
 			let thisUser = this.room.users[i];
 			if (thisUser.userid in this.voters) {
 				thisUser.sendTo(this.room, '|uhtml|poll' + this.room.pollNumber + '|' + results[this.voters[thisUser.userid]]);
-			}
-			else if (thisUser.latestIp in this.voterIps) {
+			} else if (thisUser.latestIp in this.voterIps) {
 				thisUser.sendTo(this.room, '|uhtml|poll' + this.room.pollNumber + '|' + results[this.voterIps[thisUser.latestIp]]);
-			}
-			else {
+			} else {
 				thisUser.sendTo(this.room, '|uhtml|poll' + this.room.pollNumber + '|' + votes);
 			}
 		}
@@ -184,11 +176,9 @@ class Poll {
 		if (!connection) connection = user;
 		if (user.userid in this.voters) {
 			connection.sendTo(this.room, '|uhtml|poll' + this.room.pollNumber + '|' + this.generateResults(false, this.voters[user.userid]));
-		}
-		else if (user.latestIp in this.voterIps) {
+		} else if (user.latestIp in this.voterIps) {
 			connection.sendTo(this.room, '|uhtml|poll' + this.room.pollNumber + '|' + this.generateResults(false, this.voterIps[user.latestIp]));
-		}
-		else {
+		} else {
 			connection.sendTo(this.room, '|uhtml|poll' + this.room.pollNumber + '|' + this.generateVotes());
 		}
 	}
@@ -219,14 +209,11 @@ exports.commands = {
 			let separator = '';
 			if (target.includes('\n')) {
 				separator = '\n';
-			}
-			else if (target.includes('|')) {
+			} else if (target.includes('|')) {
 				separator = '|';
-			}
-			else if (target.includes(',')) {
+			} else if (target.includes(',')) {
 				separator = ',';
-			}
-			else {
+			} else {
 				return this.errorReply("Not enough arguments for /poll new.");
 			}
 
@@ -385,13 +372,11 @@ exports.commands = {
 				}, (timeout * 60000));
 				room.add("The poll timer was turned on: the poll will end in " + timeout + " minute(s).");
 				return this.privateModCommand("(The poll timer was set to " + timeout + " minute(s) by " + user.name + ".)");
-			}
-			else {
+			} else {
 				if (!this.runBroadcast()) return;
 				if (room.poll.timeout) {
 					return this.sendReply("The poll timer is on and will end in " + room.poll.timeoutMins + " minute(s).");
-				}
-				else {
+				} else {
 					return this.sendReply("The poll timer is off.");
 				}
 			}
@@ -427,8 +412,7 @@ exports.commands = {
 
 			if (this.broadcasting) {
 				room.poll.display();
-			}
-			else {
+			} else {
 				room.poll.displayTo(user, connection);
 			}
 		},
@@ -462,7 +446,7 @@ exports.commands = {
 	exiledpoll: function (target, room, user) {
 		if (room.battle) return false;
 		if (!this.can('broadcast', null, room)) return false;
-		this.parse('/poll new Tier for the next tournament?, Exiled SSB, Ash\'s Pokemon, OP Metagame, Clash of the Regions, NFE, SMASHING METAGAME, Metronome Battles, Holiday Metagame, Exiled Perfected Pokemon, CAP SSB, Pokemon Mystery Dungeon, Supercell Metagame, Digimon Showdown, Fakemons Randoms, Fakemons');
+		this.parse('/poll new Tier for the next tournament?, Exiled SSB, Ash\'s Pokemon, OP Metagame, Clash of the Regions, NFE, SMASHING METAGAME, Metronome Battles, Holiday Metagame, Exiled Perfected Pokemon, CAP SSB, Pokemon Mystery Dungeon, Supercell Games, Digimon Showdown, Fakemons Randoms, Fakemons, DSSB');
 	},
 	pr: 'pollremind',
 	pollremind: function (target, room, user) {
@@ -472,8 +456,7 @@ exports.commands = {
 		if (this.broadcasting) {
 			room.update();
 			room.poll.display(user, this.broadcasting);
-		}
-		else {
+		} else {
 			this.parse('/poll display');
 		}
 	},

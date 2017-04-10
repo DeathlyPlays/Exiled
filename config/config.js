@@ -401,4 +401,5 @@ exports.grouplist = [{
 }, {
 	symbol: ' ',
 	ip: 's',
-}, ];
+},
+];

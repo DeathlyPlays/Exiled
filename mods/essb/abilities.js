@@ -543,7 +543,7 @@ exports.BattleAbilities = {
 	"encryption": {
 		id: "encryption",
 		name: "Encryption",
-		//scrappie to help get rid of endless battles
+		//scrappy to help get rid of endless battles
 		onModifyMovePriority: -5,
 		onModifyMove: function (move) {
 			if (!move.ignoreImmunity) move.ignoreImmunity = {};

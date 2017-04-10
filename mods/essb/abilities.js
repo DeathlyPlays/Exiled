@@ -543,6 +543,15 @@ exports.BattleAbilities = {
 	"encryption": {
 		id: "encryption",
 		name: "Encryption",
+		//scrappie to help get rid of endless battles
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Fighting'] = true;
+				move.ignoreImmunity['Normal'] = true;
+			}
+		},
 		//sturdy and apart of overcoat
 		onTryHitPriority: 1,
 		onTryHit: function (pokemon, target, move) {

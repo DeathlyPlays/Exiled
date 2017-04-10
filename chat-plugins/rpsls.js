@@ -1,7 +1,7 @@
-/* * * * * * * * * * * * * * * * * * *
- * Rock/Paper/Scissors/Lizard/Spock	 *
- * by Insist (sparky's rps as a base *
- * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * *
+ * Rock/Paper/Scissors/Lizard/Spock    *
+ * by Insist (sparky's rps as a base)  *
+ * * * * * * * * * * * * * * * * * * * */
 
 'use strict';
 
@@ -11,7 +11,7 @@ if (!Rooms.global.RPSLS) {
 		games: {},
 		gameId: 0,
 	};
-};
+}
 
 let choiceNames = {
 	"R": "Rock",
@@ -33,6 +33,7 @@ class RPSLSGame {
 
 		// set inactivity timer
 		this.timer = setTimeout(function() {
+
 			this.onEnd(true);
 		}.bind(this), 60000);
 		this.onInit();
@@ -239,6 +240,7 @@ function updateSearches() {
 exports.commands = {
 	rpsls: {
 		search: function(target, room, user) {
+
 			if (user.RPSLSgame) return this.errorReply("You are already have a game/searching for a game of Rock/Paper/Scissors/Lizard/Spock!");
 			updateSearches();
 			let gameType = "ladder";
@@ -256,6 +258,7 @@ exports.commands = {
 		},
 
 		endsearch: function(target, room, user) {
+
 			if (!user.RPSLSgame || user.RPSLSgame !== "searching") return this.errorReply("You are not searching for a game of Rock/Paper/Scissors/Lizard/Spock!");
 			updateSearches();
 			if (Rooms.global.RPSLS.searches[user.userid] === "bucks") {
@@ -267,6 +270,7 @@ exports.commands = {
 		},
 
 		choose: function(target, room, user) {
+
 			if (!target || !user.RPSLSgame) return false;
 			let parts = target.split(" ");
 			if (parts.length !== 2) return false;
@@ -280,6 +284,7 @@ exports.commands = {
 		},
 
 		rank: function(target, room, user) {
+
 			if (!this.runBroadcast()) return false;
 			target = (toId(target) ? (Users.get(target) ? Users.get(target).name : target) : user.name);
 			let userRank = Db('rpslsrank').get(toId(target), 1000);
@@ -287,6 +292,7 @@ exports.commands = {
 		},
 
 		ladder: function(target, room, user) {
+
 			if (!this.runBroadcast()) return false;
 			let html = '<center><b><font size="2">Rock/Paper/Scissors/Lizard/Spock Ladder</font><b></center><br><div style="max-height: 310px; overflow-y: scroll">';
 			let index = 1;
@@ -302,6 +308,7 @@ exports.commands = {
 
 		"": "help",
 		"help": function(target, room, user) {
+
 			this.parse("/help rpsls");
 		},
 	},

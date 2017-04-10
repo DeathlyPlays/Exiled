@@ -119,7 +119,7 @@ class TilePuzzle {
 		this.resetTimer();
 		if (!this.isFinished()) this.update();
 		else this.end(true);
-	};
+	}
 	rotateTile() {
 		if (isNaN(this.selection)) return this.update('You haven\'t selected a tile to rotate yet.');
 		let selected = this.tiles[this.selection];
@@ -128,7 +128,7 @@ class TilePuzzle {
 		console.log(selected.angle);
 		this.display[this.selection] = this.getTile(this.selection, '1px solid red');
 		this.update();
-	};
+	}
 	end(status) {
 		if (status === 'inactive') this.user.popup('The game of Tile Puzzle has been ended due to inactivity.');
 		else if (status) this.update('You finished the puzzle in ' + getTime(this.startTime) + '! Good job!');

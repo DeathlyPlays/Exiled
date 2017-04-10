@@ -1,15 +1,14 @@
 'use strict';
 /********************
- * Cards
- * Exiled's Card System: Credit to Naten, nineage, fender, and everyone who added cards/
+ * PSGO
+ * Card system originally from EOS: Credit to Naten, nineage, fender, and everyone who added cards/
  * All cards should be retrieved here http://www.pokemon.com/us/pokemon-tcg/pokemon-cards/
  * Cards are organized alphabetically and use a point system
  * publicids are dex numbers and any unique identifiers (if they're not a Pokemon, do a shorthand version of the card name)
  * Dex Number, (for multiple pokemon: DEX[lowercase letter, a, b, c, d])
- ********************/
+********************/
 const uuid = require('uuid');
 const cards = require('../config/card-data.js');
-let color = require('../config/color');
 
 const colors = {
 	Mythic: '#D82A2A',
@@ -17,34 +16,35 @@ const colors = {
 	Epic: '#73DF14',
 	Rare: '#2DD1B6',
 	Uncommon: '#2D3ED1',
-	Common: '#000',
+	Common: '#696969',
 };
 
 const shop = [
-	['XY-Base', 'Get three cards from the first pack released in the Pokemon XY set.', 4],
-	['XY-Flashfire', 'Get three cards from the Flashfire pack released in the Pokemon XY set.', 4],
-	['XY-Furious Fists', 'Get three cards from the Furious Fists pack released in the Pokemon XY set.', 4],
-	['XY-Phantom Forces', 'Get three cards from the Phantom Forces pack released in the Pokemon XY set.', 4],
-	['XY-Primal Clash', 'Get three cards from the Primal Clash pack released in the Pokemon XY set.', 4],
-	['XY-Roaring Skies', 'Get three cards from the Roaring Skies pack released in the Pokemon XY set.', 4],
-	['XY-Ancient Origins', 'Get three cards from the Ancient Origins pack released in the Pokemon XY set.', 4],
+	['XY-Base', 'Get three cards from the first pack released in the Pokemon XY set.', 10],
+	['XY-Flashfire', 'Get three cards from the Flashfire pack released in the Pokemon XY set.', 10],
+	['XY-Furious Fists', 'Get three cards from the Furious Fists pack released in the Pokemon XY set.', 10],
+	['XY-Phantom Forces', 'Get three cards from the Phantom Forces pack released in the Pokemon XY set.', 10],
+	['XY-Primal Clash', 'Get three cards from the Primal Clash pack released in the Pokemon XY set.', 10],
+	['XY-Roaring Skies', 'Get three cards from the Roaring Skies pack released in the Pokemon XY set.', 10],
+	['XY-Ancient Origins', 'Get three cards from the Ancient Origins pack released in the Pokemon XY set.', 10],
+	['XY-Promo', 'Get three cards from the Promo pack released in the Pokemon XY set.', 20],
 ];
-let packShop = ['XY-Base', 'XY-Flashfire', 'XY-Furious Fists', 'XY-Phantom Forces', 'XY-Primal Clash', 'XY-Roaring Skies', 'XY-Ancient Origins', 'Double Crisis', 'Water', 'Fire', 'Fighting', 'Fairy', 'Dragon', 'Colorless', 'Psychic', 'Lightning', 'Darkness', 'Grass', 'OU-Pack', 'UU-Pack', 'Uber-Pack', 'PU-Pack', 'NU-Pack', 'RU-Pack', 'LC-Pack', 'BL-Pack', 'BL2-Pack', 'BL3-Pack', 'Gen1', 'Gen2', 'Gen3', 'Gen4', 'Gen5', 'Gen6', 'Metal', 'Trainer', 'Supporter', 'Item', 'Stadium', 'EX-Pack', 'Legendary', 'Full', 'Event'];
+let packShop = ['XY-Base', 'XY-Flashfire', 'XY-Furious Fists', 'XY-Phantom Forces', 'XY-Primal Clash', 'XY-Roaring Skies', 'XY-Ancient Origins', 'XY-Promo', 'Double Crisis', 'Water', 'Fire', 'Fighting', 'Fairy', 'Dragon', 'Colorless', 'Psychic', 'Lightning', 'Darkness', 'Grass', 'OU-Pack', 'UU-Pack', 'Uber-Pack', 'PU-Pack', 'NU-Pack', 'RU-Pack', 'LC-Pack', 'BL-Pack', 'BL2-Pack', 'BL3-Pack', 'Gen1', 'Gen2', 'Gen3', 'Gen4', 'Gen5', 'Gen6', 'Metal', 'Trainer', 'Supporter', 'Item', 'Stadium', 'EX-Pack', 'Legendary', 'Full', 'Event'];
 const tourCardRarity = ['No Card', 'Common', 'Uncommon', 'Rare', 'Epic', 'Epic', 'Legendary', 'Legendary', 'Mythic'];
 const cardRarity = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic'];
 let cleanShop = [];
 let cleanCard = [];
-let rareCache = []; //Used to cache cards for tours
-let cardCache = []; //Used to cache cards in packs
-let userPacks = {}; //Used to store users unopened packs
+let rareCache = []; // Used to cache cards for tours
+let cardCache = []; // Used to cache cards in packs
+let userPacks = {}; // Used to store users unopened packs
 
 function cachePacks() {
 	for (let i = 0; i < packShop.length; i++) {
 		cardCache.push([]);
 		for (let key in cards) {
-			if (cards.hasOwnProperty(key)) {
+			if (cards[key]) {
 				let obj = cards[key];
-				if (obj.hasOwnProperty('collection') && obj.collection.indexOf(packShop[i]) > -1) cardCache[i].push(key);
+				if (obj['collection'] && obj.collection.indexOf(packShop[i]) > -1) cardCache[i].push(key);
 			}
 		}
 	}
@@ -57,9 +57,9 @@ function cacheRarity() {
 	for (let i = 0; i < cardRarity.length; i++) {
 		rareCache.push([]);
 		for (let key in cards) {
-			if (cards.hasOwnProperty(key)) {
+			if (cards[key]) {
 				let obj = cards[key];
-				if (obj.hasOwnProperty('rarity') && obj.rarity.indexOf(cardRarity[i]) > -1) rareCache[i].push(key);
+				if (obj['rarity'] && obj.rarity.indexOf(cardRarity[i]) > -1) rareCache[i].push(key);
 			}
 		}
 	}
@@ -68,10 +68,11 @@ function cacheRarity() {
 	}
 }
 
-global.tourCard = function (tourSize, userid) {
+Exiled.tourCard = function (tourSize, userid) {
 	if (tourSize > 32) tourSize = 32;
-	let tourRarity = tourCardRarity[Math.floor(tourSize / 2)];
+	let tourRarity = tourCardRarity[Math.floor(tourSize / 3)];
 	let cacheValue = rareCache[cleanCard.indexOf(toId(tourRarity))];
+	if (!cacheValue || !cacheValue.length) return false;
 	let card = cacheValue[Math.round(Math.random() * (cacheValue.length - 1))];
 	if (tourRarity === 'No Card') return;
 	addCard(userid, card);
@@ -135,6 +136,45 @@ function getShopDisplay(shop) {
 	return display;
 }
 
+function rankLadder(title, type, array, prop, group) { //Will clean up someday (tm)
+	let groupHeader = group || 'Username';
+	const ladderTitle = '<center><h4><u>' + title + '</u></h4></center>';
+	const thStyle = 'class="rankladder-headers default-td" style="background: -moz-linear-gradient(#576468, #323A3C); background: -webkit-linear-gradient(#576468, #323A3C); background: -o-linear-gradient(#576468, #323A3C); background: linear-gradient(#576468, #323A3C); box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	const tableTop = '<div style="max-height: 310px; overflow-y: scroll;">' +
+		'<table style="width: 100%; border-collapse: collapse;">' +
+		'<tr>' +
+			'<th ' + thStyle + '>Rank</th>' +
+			'<th ' + thStyle + '>' + groupHeader + '</th>' +
+			'<th ' + thStyle + '>' + type + '</th>' +
+		'</tr>';
+	const tableBottom = '</table></div>';
+	const tdStyle = 'class="rankladder-tds default-td" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	const first = 'class="first default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	const second = 'class="second default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	const third = 'class="third default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	let midColumn;
+	const length = array.length;
+
+	let tableRows = '';
+
+	for (let i = 0; i < length; i++) {
+		if (i === 0) {
+			midColumn = '</td><td ' + first + '>';
+			tableRows += '<tr><td ' + first + '>' + (i + 1) + midColumn + array[i].name + midColumn + array[i][prop] + '</td></tr>';
+		} else if (i === 1) {
+			midColumn = '</td><td ' + second + '>';
+			tableRows += '<tr><td ' + second + '>' + (i + 1) + midColumn + array[i].name + midColumn + array[i][prop] + '</td></tr>';
+		} else if (i === 2) {
+			midColumn = '</td><td ' + third + '>';
+			tableRows += '<tr><td ' + third + '>' + (i + 1) + midColumn + array[i].name + midColumn + array[i][prop] + '</td></tr>';
+		} else {
+			midColumn = '</td><td ' + tdStyle + '>';
+			tableRows += '<tr><td ' + tdStyle + '>' + (i + 1) + midColumn + array[i].name + midColumn + array[i][prop] + '</td></tr>';
+		}
+	}
+	return ladderTitle + tableTop + tableRows + tableBottom;
+}
+
 function toTitleCase(str) {
 	return str.replace(/(\w\S*)/g, function (txt) {
 		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -162,21 +202,18 @@ exports.commands = {
 		if (!target) return this.sendReply("/buypack - Buys a pack from the pack shop. Alias: /buypacks");
 		let self = this;
 		let packId = toId(target);
-		let amount = Db('money').get(user.userid, 0);
+		let amount = Db('money').get(user.name);
 		if (cleanShop.indexOf(packId) < 0) return self.sendReply("This is not a valid pack. Use /packshop to see all packs.");
 		let shopIndex = cleanShop.indexOf(toId(target));
-		if (packId !== 'xybase' && packId !== 'xyfuriousfists' && packId !== 'xyflashfire' && packId !== 'xyphantomforces' && packId !== 'xyroaringskies' && packId !== 'xyprimalclash' && packId !== 'xyancientorigins') return self.sendReply("This pack is not currently in circulation.  Please use /packshop to see the current packs.");
+		if (packId !== 'xybase' && packId !== 'xyfuriousfists' && packId !== 'xyflashfire' && packId !== 'xyphantomforces' && packId !== 'xyroaringskies' && packId !== 'xyprimalclash' && packId !== 'xyancientorigins' && packId !== 'xygenerations' && packId !== 'xypromo') return self.sendReply("This pack is not currently in circulation.  Please use /packshop to see the current packs.");
 		let cost = shop[shopIndex][2];
-		if (cost > amount) return self.sendReply("You need " + (cost - amount) + " more Charizardite X to buy this pack.");
+		if (cost > amount) return self.sendReply("You need " + (cost - amount) + " more bucks to buy this pack.");
+		Economy.writeMoney(user.userid, Number(-cost));
 		let pack = toId(target);
-		self.sendReply('|raw|You have bought ' + target + ' pack for ' + cost +
-			' Charizardite X. Use <button name="send" value="/openpack ' +
-			pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
+		self.sendReply('|raw|You have bought ' + target + ' pack for ' + cost + ' bucks. Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
 		self.sendReply("You have until the server restarts to open your pack.");
 		if (!userPacks[user.userid]) userPacks[user.userid] = [];
 		userPacks[user.userid].push(pack);
-		if (room.id !== 'lobby' && room.id !== 'casino') room.addRaw(user.name + ' has bought <b>' + target + ' pack </b> from the shop.');
-		room.update();
 	},
 
 	packshop: function (target, room, user) {
@@ -203,9 +240,9 @@ exports.commands = {
 			addCard(user.userid, card);
 			let cardName = cards[card].name;
 			let packName = packShop[cleanShop.indexOf(toId(target))];
-			this.sendReplyBox(user.name + ' got <font color="' + colors[cards[card].rarity] + '">' + cards[card].rarity + '</font>' +
-				'<button name="send" value="/card ' + card + '"><b>' + cardName + '</b></button> from a' +
-				'<button name="send" value="/buypack ' + packName + '">' + packName + ' Pack</button>.');
+			this.sendReplyBox(Exiled.nameColor(user.name, true) + ' got <font color="' + colors[cards[card].rarity] + '">' + cards[card].rarity + '</font> ' +
+			'<button name="send" value="/card ' + card + '"><b>' + cardName + '</b></button> from a ' +
+			'<button name="send" value="/buypack ' + packName + '">' + packName + ' Pack</button>.');
 		}
 		let usrIndex = userPacks[user.userid].indexOf(newPack);
 		userPacks[user.userid].splice(usrIndex, 1);
@@ -213,13 +250,12 @@ exports.commands = {
 
 	givepacks: 'givepack',
 	givepack: function (target, room, user) {
-		if (!user.can('declare')) return this.errorReply("/givepack - Access denied.");
+		if (!user.can('pban')) return this.errorReply("/givepack - Access denied.");
 		if (!target) return this.sendReply("/givepack [user], [pack] - Give a user a pack.");
 		let parts = target.split(',');
 		this.splitTarget(parts[0]);
 		if (!parts[1]) return this.sendReply("/givepack [user], [pack] - Give a user a pack.");
 		let pack = toId(parts[1]);
-		let userid = toId(this.targetUsername);
 		if (cleanShop.indexOf(pack) < 0) return this.sendReply("This pack does not exist.");
 		if (!this.targetUser) return this.sendReply("User '" + this.targetUsername + "' not found.");
 		if (!userPacks[userid]) userPacks[userid] = [];
@@ -232,7 +268,7 @@ exports.commands = {
 
 	takepacks: 'takepack',
 	takepack: function (target, room, user) {
-		if (!user.can('takepack')) return this.errorReply("/takepack - Access denied.");
+		if (!user.can('pban')) return this.errorReply("/takepack - Access denied.");
 		if (!target) return this.sendReply("/takepack [user], [pack] - Take a pack from a user.");
 		let parts = target.split(',');
 		this.splitTarget(parts[0]);
@@ -256,24 +292,24 @@ exports.commands = {
 		let userid = user.userid;
 		if (target) userid = toId(target);
 		const cards = Db('cards').get(userid, []);
-		if (!cards.length) return this.sendReplyBox(userid + " has no cards.");
+		if (!cards.length || userid === "constructor") return this.sendReplyBox(Exiled.nameColor(userid, false) + " has no cards.");
 		const cardsMapping = cards.map(function (card) {
 			return '<button name="send" value="/card ' + card.title + '" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;" class="card-button"><img src="' + card.card + '" width="80" title="' + card.name + '"></button>';
 		});
-		this.sendReplyBox('<div style="max-height: 300px; overflow-y: scroll;">' + cardsMapping.join('') + '</div><br><center><b><font color="' + color(userid) + '">' + userid + '</font> has ' + cards.length + ' cards and ' + getPointTotal(userid) + ' points.</b></center>');
+		this.sendReplyBox('<div style="max-height: 300px; overflow-y: scroll;">' + cardsMapping.join('') + '</div><br><center><b>' + Exiled.nameColor(userid, false) + ' has ' + cards.length + ' cards and ' + getPointTotal(userid) + ' points.</b></center>');
 	},
 
 	card: function (target, room, user) {
 		if (!target) return this.sendReply("/card [name] - Shows information about a card.");
 		if (!this.runBroadcast()) return;
 		let cardName = toId(target);
-		if (!cards.hasOwnProperty(cardName)) return this.sendReply(target + ": card not found.");
+		if (!cards[cardName]) return this.sendReply(target + ": card not found.");
 		let card = cards[cardName];
 		let html = '<div class="card-div card-td" style="box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);"><img src="' + card.card + '" height="220" title="' + card.name + '" align="right">' +
-			'<span class="card-name" style="border-bottom-right-radius: 2px; border-bottom-left-radius: 2px; background-image: -moz-linear-gradient(center top , #EBF3FC, #DCE9F9);  box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px 0px 2px rgba(0, 0, 0, 0.2);">' + card.title + '</span>' +
+			'<h1>' + card.name + '</h1>' +
 			'<br /><br /><h1><font color="' + colors[card.rarity] + '">' + card.rarity + '</font></h1>' +
 			'<br /><br /><font color="#AAA"><i>Points:</i></font> ' + card.points +
-			'<br /><br /><font color="#AAA"><i>Found in Packs:</i></font>' + card.collection.join(', ') +
+			'<br /><br /><font color="#AAA"><i>Found in Packs:</i></font> ' + card.collection.join(', ') +
 			'<br clear="all">';
 		this.sendReply('|raw|' + html);
 	},
@@ -281,15 +317,10 @@ exports.commands = {
 	cardladder: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let keys = Object.keys(Db('points').object()).map(function (name) {
-			return {
-				name: name,
-				points: getPointTotal(name),
-			};
+			return {name: Exiled.nameColor(name, false), points: getPointTotal(name)};
 		});
 		if (!keys.length) return this.sendReplyBox("Card ladder is empty.");
-		keys.sort(function (a, b) {
-			return b.points - a.points;
-		});
+		keys.sort(function (a, b) { return b.points - a.points; });
 		this.sendReplyBox(rankLadder('Card Ladder', 'Points', keys.slice(0, 100), 'points'));
 	},
 
@@ -299,7 +330,7 @@ exports.commands = {
 		const letters = "abcdefghijklmnopqrstuvwxyz".split("");
 		const categories = {
 			Rarity: ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic'], // rarities
-			Packs: ['XY-Promo', 'XY-Base', 'XY-Flashfire', 'XY-Furious Fists', 'XY-Phantom Forces', 'XY-Primal Clash', 'XY-Roaring Skies', 'XY-Ancient Origins', 'Double Crisis'],
+			Packs: ['XY-Promo', 'XY-Base', 'XY-Flashfire', 'XY-Furious Fists', 'XY-Phantom Forces', 'XY-Primal Clash', 'XY-Roaring Skies', 'XY-Ancient Origins', 'Double Crisis', 'XY-RadiantCollection', 'XY-Promo'],
 			Types: ['Water', 'Fire', 'Fighting', 'Fairy', 'Dragon', 'Colorless', 'Psychic', 'Lightning', 'Darkness', 'Grass', 'Metal'],
 			Tiers: ['OU-Pack', 'UU-Pack', 'Uber-Pack', 'PU-Pack', 'NU-Pack', 'RU-Pack', 'LC-Pack', 'BL-Pack', 'BL2-Pack', 'BL3-Pack'],
 			Generation: ['Gen1', 'Gen2', 'Gen3', 'Gen4', 'Gen5', 'Gen6'],
@@ -430,7 +461,7 @@ exports.commands = {
 			break;
 		case 'card':
 			let backButton = '<button name="send" value="/cardsearch ' + user.lastCardSearch + '" style="background-color:aliceblue;height:30px;width:35">&lt;&nbsp;Back</button><br /><br />';
-			if (!parts[0] || !(toId(parts[0]) in cards)) {
+			if (!parts[0] || !(toId(parts[0]) in cards) || toId(parts[0]) === "constructor") {
 				return user.popup(definePopup + backButton + '<center><font color="red"><b>Invalid Card</b></font></center>');
 			}
 
@@ -532,8 +563,8 @@ exports.commands = {
 
 		// send messages
 		this.sendReply("Your trade has been taken submitted.");
-		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~ExiledCardTradeClient|" + targetUser + "|/html <div class=\"broadcast-green\">" + Chat.escapeHTML(user.name) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
-		user.send("|pm|~ExiledCardTradeClient|" + user.userid + "|/html <div class=\"broadcast-green\">Your trade with " + Chat.escapeHTML(targetUser) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
+		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~Card Shop [Do not Reply]|" + targetUser + "|/raw <div class=\"broadcast-green\">" + Exiled.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
+		user.send("|pm|~Card Shop [Do not Reply]|" + user.userid + "|/raw <div class=\"broadcast-green\">Your trade with " + Exiled.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
 	},
 
 	trades: 'viewcardtrades',
@@ -581,7 +612,7 @@ exports.commands = {
 		let cardImage = '<img src="' + card.card + '" height=250>';
 		// rarity display
 		let cardRarityPoints = '(<font color="' + colors[card.rarity] + '">' + card.rarity + '</font> - ' + card.points + ')<br />';
-		let userSideDisplay = '<center>' + user.userid + '<br />' + cardImage + "<br />" + cardRarityPoints + '</center>';
+		let userSideDisplay = '<center>' + Exiled.nameColor(user.userid, true) + '<br />' + cardImage + "<br />" + cardRarityPoints + '</center>';
 
 		// now build the target's side
 		card = cards[(displayTrade.from !== user.userid ? displayTrade.fromExchange : displayTrade.toExchange)];
@@ -589,7 +620,7 @@ exports.commands = {
 		cardImage = '<img src="' + card.card + '" height=250>';
 		// rarity display
 		cardRarityPoints = '(<font color="' + colors[card.rarity] + '">' + card.rarity + '</font> - ' + card.points + ')<br />';
-		let targetSideDisplay = "<center>" + (displayTrade.from !== user.userid ? displayTrade.from : displayTrade.to) + '<br />' + cardImage + "<br />" + cardRarityPoints + "</center>";
+		let targetSideDisplay = "<center>" + (displayTrade.from !== user.userid ? Exiled.nameColor(displayTrade.from, true) : Exiled.nameColor(displayTrade.to, true)) + '<br />' + cardImage + "<br />" + cardRarityPoints + "</center>";
 
 		// now build the entire popup
 		let tradeScreen = popup + // base popup
@@ -661,7 +692,7 @@ exports.commands = {
 				// make the user confirm the decision
 				// build a back button
 				return user.popup("|html|" + backButton + // back button
-					'<center><button name="send" value="/tradeaction confirmaccept, ' + parts[0] + '" style="background-color:red;height:65px;width:150px"><b>Confirm Trade</b></button></center>');
+				'<center><button name="send" value="/tradeaction confirmaccept, ' + parts[0] + '" style="background-color:red;height:65px;width:150px"><b>Confirm Trade</b></button></center>');
 			}
 			// finalize trade
 			// get the trade
@@ -724,12 +755,12 @@ exports.commands = {
 			// and a button to view the card they just received
 			let targetUsers = [Users.get(trade.to), Users.get(trade.from)];
 			if (targetUsers[0]) {
-				targetUsers[0].popup("|html|" + backButton + "<center>Your trade with " + trade.from + " has gone through." +
-					"<br /><button name=\"send\" value=\"/cs card, " + trade.fromExchange + "\">View Traded Card</button></center>"); // show card
+				targetUsers[0].popup("|html|" + backButton + "<center>Your trade with " + Exiled.nameColor(trade.from, true) + " has gone through." +
+				"<br /><button name=\"send\" value=\"/cs card, " + trade.fromExchange + "\">View Traded Card</button></center>"); // show card
 			}
 			if (targetUsers[1]) {
-				targetUsers[1].popup("|html|<center>Your trade with " + trade.to + " has gone through." +
-					"<br /><button name=\"send\" value=\"/cs card, " + trade.toExchange + "\">View Traded Card</button></center>");
+				targetUsers[1].popup("|html|<center>Your trade with " + Exiled.nameColor(trade.to, true) + " has gone through." +
+				"<br /><button name=\"send\" value=\"/cs card, " + trade.toExchange + "\">View Traded Card</button></center>");
 			}
 
 			// log trades and delete the data from list of trades.
@@ -846,10 +877,9 @@ exports.commands = {
 	},
 
 	psgo: 'cardshelp',
-	Exiledcg: 'cardshelp',
 	cardshelp: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		return this.sendReplyBox("<center><b><u>Exiled Trading Card Game:</u></b></center><br>" +
+		return this.sendReplyBox("<center><b><u>PSGO Help:</u></b></center><br>" +
 			"<b>/buypack</b> - Buys a pack from the pack shop.<br>" +
 			"<b>/packshop</b> - Shows the shop for buying packs.<br>" +
 			"<b>/openpack</b> - Opens a pack that has been purchased from the shop.<br>" +
@@ -867,14 +897,14 @@ exports.commands = {
 
 	givecard: 'spawncard',
 	spawncard: function (target, room, user, connection, cmd) {
-		if (!this.can('declare')) return false;
+		if (!this.can('pban')) return false;
 		if (!target) return this.errorReply("/givecard [user], [card ID]");
 		let parts = target.split(",").map(p => toId(p));
 		// find targetUser and the card being given.
 		let targetUser = parts.shift();
 		let card = parts[0].trim();
 		if (!targetUser || !card) return this.errorReply("/givecard [user], [card ID]");
-		if (!cards.hasOwnProperty(card)) return this.sendReply(target + ": card not found.");
+		if (!cards[card]) return this.sendReply(target + ": card not found.");
 		//Give the card to the user.
 		card = cards[card];
 		addCard(targetUser, card.title);
@@ -883,14 +913,14 @@ exports.commands = {
 	},
 
 	takecard: function (target, room, user, connection, cmd) {
-		if (!this.can('declare')) return false;
+		if (!this.can('pban')) return false;
 		if (!target) return this.errorReply("/takecard [user], [card ID]");
 		let parts = target.split(",").map(p => toId(p));
 		// find targetUser and the card being taken.
 		let targetUser = parts.shift();
 		let card = parts[0].trim();
 		if (!targetUser || !card) return this.errorReply("/takecard [user], [card ID]");
-		if (!cards.hasOwnProperty(card)) return this.sendReply(target + ": card not found.");
+		if (!cards[card]) return this.sendReply(target + ": card not found.");
 		//Take the card from the user.
 		card = cards[card];
 		removeCard(card.title, targetUser);

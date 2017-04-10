@@ -70,7 +70,7 @@ function cacheRarity() {
 
 Exiled.tourCard = function (tourSize, userid) {
 	if (tourSize > 32) tourSize = 32;
-	let tourRarity = tourCardRarity[Math.floor(tourSize / 3)];
+	let tourRarity = tourCardRarity[Math.floor(tourSize / 2)];
 	let cacheValue = rareCache[cleanCard.indexOf(toId(tourRarity))];
 	if (!cacheValue || !cacheValue.length) return false;
 	let card = cacheValue[Math.round(Math.random() * (cacheValue.length - 1))];
@@ -258,9 +258,9 @@ exports.commands = {
 		let pack = toId(parts[1]);
 		if (cleanShop.indexOf(pack) < 0) return this.sendReply("This pack does not exist.");
 		if (!this.targetUser) return this.sendReply("User '" + this.targetUsername + "' not found.");
-		if (!userPacks[userid]) userPacks[userid] = [];
-		userPacks[userid].push(pack);
-		this.sendReply(this.targetUsername + " was given " + pack + " pack. This user now has " + userPacks[userid].length + " pack(s).");
+		if (!userPacks[user.name]) userPacks[user.name] = [];
+		userPacks[user.name].push(pack);
+		this.sendReply(this.targetUsername + " was given " + pack + " pack. This user now has " + userPacks[user.name].length + " pack(s).");
 		Users.get(this.targetUsername).connections[0].sendTo(room.id,
 			'|raw|' + user.name + ' has given you ' + pack + ' pack. You have until the server restarts to open your pack.' +
 			'Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');

@@ -254,7 +254,7 @@ exports.commands = {
 		if (!this.can('forcewin')) return false;
 		Db('money').set(toId(target), 0);
 		this.sendReply(target + " now has 0 bucks.");
-		logMoney(user.name + " reset the money of " + target + ".");
+		Economy.logTransaction(user.name + " reset the money of " + target + ".");
 	},
 	resetmoneyhelp: ["/resetmoney [user] - Reset user's money to zero."],
 

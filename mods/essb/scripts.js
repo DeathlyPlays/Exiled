@@ -168,7 +168,7 @@ exports.BattleScripts = {
 			},
 			"%Stellation": {
 				species: "Shedinja",
-				ability: "Encryption",
+				ability: "I\'M NOT HACKING!!!",
 				item: "Lum Berry",
 				gender: "M",
 				moves: ['finalgambit', 'stealthrock', 'endeavor'],

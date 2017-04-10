@@ -1328,7 +1328,7 @@ exports.Formats = [
 			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pok&eacutemon</a>",
 		],
 		onSwitchIn: function (pokemon) {
-			var name = toId(pokemon.name);
+			let name = toId(pokemon.name);
 
 			if (name === 'reddragon' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire/Dragon');
@@ -1392,7 +1392,7 @@ exports.Formats = [
 		// Edgy switch-in sentences go here.
 		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
 		onSwitchIn: function (pokemon) {
-			var name = toId(pokemon.name);
+			let name = toId(pokemon.name);
 
 			//Switch-in Quotes
 			if (name === 'insist') {
@@ -1434,7 +1434,7 @@ exports.Formats = [
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {
-			var name = toId(pokemon.name);
+			let name = toId(pokemon.name);
 			//switchout
 			if (name === 'insist') {
 				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
@@ -1451,7 +1451,7 @@ exports.Formats = [
 		},
 		// Add here salty tears, that is, custom faint phrases.
 		onFaint: function (pokemon) {
-			var name = toId(pokemon.name);
+			let name = toId(pokemon.name);
 			//le faint
 			if (name === 'insist') {
 				this.add('c|~Insist|Death.... what a cool concept.');
@@ -1516,7 +1516,7 @@ exports.Formats = [
 		// Edgy switch-in sentences go here.
 		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
 		onSwitchIn: function (pokemon) {
-			var name = toId(pokemon.name);
+			let name = toId(pokemon.name);
 
 			//Switch-in Quotes
 			if (name === 'exclaimer') {
@@ -1562,7 +1562,7 @@ exports.Formats = [
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {
-			var name = toId(pokemon.name);
+			let name = toId(pokemon.name);
 
 			if (name === 'exclaimer') {
 				this.add('c|%Exclaimer|/me has been kicked from CAP Project.');
@@ -1591,7 +1591,7 @@ exports.Formats = [
 		},
 		// Add here salty tears, that is, custom faint phrases.
 		onFaint: function (pokemon) {
-			var name = toId(pokemon.name);
+			let name = toId(pokemon.name);
 
 			if (name === 'exclaimer') {
 				this.add('c|%Exclaimer|If you can\'t accept me, you\'re a TRphobe and need to check your privileges.');

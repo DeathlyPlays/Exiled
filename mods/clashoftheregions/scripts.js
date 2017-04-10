@@ -1,7 +1,7 @@
 'use strict';
 
 exports.BattleScripts = {
-	randomSeasonalMeleeTeam: function(side) {
+	randomSeasonalMeleeTeam: function (side) {
 		let team = [];
 		let sets = {
 			//gen1

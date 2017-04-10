@@ -160,10 +160,6 @@ class CommandContext {
 
 			message = this.canTalk(message);
 		}
-		if (this.room && nightclub[this.room.id] && message) {
-			this.room.add('|raw|<div style="background: #000;"><font size="3"><small>' + nightclubify((this.room.auth ? (this.room.auth[this.user.userid] || this.user.group) : this.user.group)) + "</small><b>" + nightclubify(Chat.escapeHTML(this.user.name) + ":") + "</b> " + nightclubify((message)) + '</font></div>').update();
-			return null;
-		}
 
 		// Output the message
 
@@ -189,7 +185,6 @@ class CommandContext {
 					} else {
 						if (parseEmoticons(message, this.room, this.user)) return;
 						this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`).update();
-						Exiled.addExp(this.user, this.room, 1);
 					}
 				}
 			}

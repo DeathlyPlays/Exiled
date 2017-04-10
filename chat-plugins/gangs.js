@@ -41,7 +41,7 @@ const gangs = {
 	skull: {
 		icon: 'http://i.imgur.com/Bdrtvh5.png',
 		name: 'Skull',
-		godfather: ' ',
+		godfather: 'Mewth',
 	},
 };
 
@@ -170,7 +170,7 @@ exports.commands = {
 			let keys = Object.keys(Db('gangladder').object()).map(function (name) {
 				return {
 					name: name,
-					gangladder: Db('gangladder').get(name)
+					gangladder: Db('gangladder').get(name),
 				};
 			});
 			if (!keys.length) return this.sendReplyBox("Turf ladder is empty.");

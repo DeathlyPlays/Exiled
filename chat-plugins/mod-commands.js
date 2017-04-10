@@ -250,12 +250,12 @@ exports.commands = {
 	hide: 'hideauth',
 	hideauth: function (target, room, user) {
 		if (!this.can('lock')) return false;
-		var tar = ' ';
+		let tar = ' ';
 		if (target) {
 			target = target.trim();
 			if (Config.groupsranking.indexOf(target) > -1 && target !== '#') {
 				if (Config.groupsranking.indexOf(target) <= Config.groupsranking.indexOf(user.group)) {
-				tar = target;
+					tar = target;
 				} else {
 					this.sendReply('The group symbol you have tried to use is of a higher authority than you have access to. Defaulting to \'' + tar + 'instead.');
 				}
@@ -277,7 +277,7 @@ exports.commands = {
 		user.updateIdentity();
 		return this.sendReply("You are now showing your authority!");
 	},
-	
+
 	roomlist: function (target, room, user) {
 		if (!this.can('declare')) return;
 

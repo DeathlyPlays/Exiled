@@ -540,9 +540,9 @@ exports.BattleAbilities = {
 			move.stab = 2;
 		},
 	},
-	"encryption": {
-		id: "encryption",
-		name: "Encryption",
+	"imnothacking": {
+		id: "imnothacking",
+		name: "imnothacking",
 		//scrappy to help get rid of endless battles
 		onModifyMovePriority: -5,
 		onModifyMove: function (move) {

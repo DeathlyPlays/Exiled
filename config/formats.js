@@ -1329,8 +1329,6 @@ exports.Formats = [
 		],
 		onSwitchIn: function (pokemon) {
 			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
 
 			if (name === 'reddragon' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire/Dragon');
@@ -1395,8 +1393,6 @@ exports.Formats = [
 		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
 		onSwitchIn: function (pokemon) {
 			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
 
 			//Switch-in Quotes
 			if (name === 'insist') {
@@ -1439,8 +1435,6 @@ exports.Formats = [
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {
 			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
 			//switchout
 			if (name === 'insist') {
 				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
@@ -1458,8 +1452,6 @@ exports.Formats = [
 		// Add here salty tears, that is, custom faint phrases.
 		onFaint: function (pokemon) {
 			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
 			//le faint
 			if (name === 'insist') {
 				this.add('c|~Insist|Death.... what a cool concept.');
@@ -1506,19 +1498,6 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "[Gen 7] Exiled Perfected Pokemon",
-		section: "Exiled's Custom Gamemodes",
-		mod: "exiledmeta",
-		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod", "Team Preview"],
-		banlist: ['Allow CAP'],
-		desc: [
-			"Exiled Perfected Pokemon is a metagame created by Insist and Back At My Day.",
-			"Basically, we nerf, and buff Pokemon's BSTs, moves, abilities, and items.",
-			"For more information on this tier, read the below document.",
-			"&bullet; <a href=\"https://docs.google.com/document/d/1Ac9nz-1JWXAF52Ekv2BICPe5s3qLXK2HK5yxnsqc4Ho/\">Information on Exiled Perfected Pokemon</a>",
-		],
-	},
-	{
 		name: "[Gen 7] CAP Super Staff Bros.",
 		section: "Exiled's Custom Gamemodes",
 		mod: 'cssb',
@@ -1538,8 +1517,6 @@ exports.Formats = [
 		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
 		onSwitchIn: function (pokemon) {
 			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
 
 			//Switch-in Quotes
 			if (name === 'exclaimer') {
@@ -1586,8 +1563,6 @@ exports.Formats = [
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {
 			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
 
 			if (name === 'exclaimer') {
 				this.add('c|%Exclaimer|/me has been kicked from CAP Project.');
@@ -1617,8 +1592,6 @@ exports.Formats = [
 		// Add here salty tears, that is, custom faint phrases.
 		onFaint: function (pokemon) {
 			var name = toId(pokemon.name);
-			var sentences = [];
-			var sentence = '';
 
 			if (name === 'exclaimer') {
 				this.add('c|%Exclaimer|If you can\'t accept me, you\'re a TRphobe and need to check your privileges.');

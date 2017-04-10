@@ -7,7 +7,7 @@ const INACTIVE_KICK_TIME = 3 * 60 * 1000; //3 minutes
 if (!global.TilePuzzles) global.TilePuzzles = new Map();
 let TilePuzzles = global.TilePuzzles;
 
-function getTime (ms) {
+function getTime(ms) {
 	let total = [];
 	let time = Date.now() - ms;
 	let secs = Math.floor(time / 1000);
@@ -23,33 +23,33 @@ let tiles = [
 		'http://i.imgur.com/aOWDjKB.png', 'http://i.imgur.com/f3pdEFj.png', 'http://i.imgur.com/PQACa4o.png', 'http://i.imgur.com/cilSfXs.png',
 		'http://i.imgur.com/RQAspHT.png', 'http://i.imgur.com/mdJOumj.png', 'http://i.imgur.com/l4dHZ4c.png', 'http://i.imgur.com/HJIrJu3.png',
 		'http://i.imgur.com/5ZIx1Ku.png', 'http://i.imgur.com/t2hMBJn.png', 'http://i.imgur.com/1JZkruP.png', 'http://i.imgur.com/AKkFUgV.png',
-		'http://i.imgur.com/3U1A9uz.png', 'http://i.imgur.com/BYsVznB.png', 'http://i.imgur.com/6h88DRj.png', 'http://i.imgur.com/zEBK5yf.png'
+		'http://i.imgur.com/3U1A9uz.png', 'http://i.imgur.com/BYsVznB.png', 'http://i.imgur.com/6h88DRj.png', 'http://i.imgur.com/zEBK5yf.png',
 	],
 	//mega ampharos
 	[
 		'http://i.imgur.com/BUOfuWb.png', 'http://i.imgur.com/GEWEHVI.png', 'http://i.imgur.com/7k8xZev.png', 'http://i.imgur.com/EYePYvD.png',
 		'http://i.imgur.com/Ayjoojw.png', 'http://i.imgur.com/zImILQg.png', 'http://i.imgur.com/G2qxSXl.png', 'http://i.imgur.com/6iYbTPr.png',
 		'http://i.imgur.com/WeOXhwS.png', 'http://i.imgur.com/pwdOJdo.png', 'http://i.imgur.com/hpRSMJy.png', 'http://i.imgur.com/itCpjGW.png',
-		'http://i.imgur.com/ZHKnYYE.png', 'http://i.imgur.com/HkzF7Zf.png', 'http://i.imgur.com/mgA1Jgc.png', 'http://i.imgur.com/k0SHvwc.png'
+		'http://i.imgur.com/ZHKnYYE.png', 'http://i.imgur.com/HkzF7Zf.png', 'http://i.imgur.com/mgA1Jgc.png', 'http://i.imgur.com/k0SHvwc.png',
 	],
 	//mega gardevoir
 	[
 		'http://i.imgur.com/FnKhIuw.png', 'http://i.imgur.com/CAhJS9Y.png', 'http://i.imgur.com/vhZcokf.png', 'http://i.imgur.com/Wh6jslP.png',
 		'http://i.imgur.com/q6e7d4r.png', 'http://i.imgur.com/ZO8quaM.png', 'http://i.imgur.com/S9XhOVt.png', 'http://i.imgur.com/G656j7T.png',
 		'http://i.imgur.com/jvk2WMJ.png', 'http://i.imgur.com/EDYkFTx.png', 'http://i.imgur.com/3HprrDX.png', 'http://i.imgur.com/QbArTOc.png',
-		'http://i.imgur.com/pdkBHiy.png', 'http://i.imgur.com/agegAYh.png', 'http://i.imgur.com/N8ylGLP.png', 'http://i.imgur.com/80Xgi0t.png'
-	]
+		'http://i.imgur.com/pdkBHiy.png', 'http://i.imgur.com/agegAYh.png', 'http://i.imgur.com/N8ylGLP.png', 'http://i.imgur.com/80Xgi0t.png',
+	],
 ].map((tileSet) => {
 	return tileSet.map((tile) => {
 		return {
 			'tile': tile,
-			'angle': 0
-		}
+			'angle': 0,
+		};
 	});
 });
 
 class TilePuzzle {
-	constructor (user) {
+	constructor(user) {
 		this.user = user;
 		this.answer = tiles[Math.floor(Math.random() * tiles.length)];
 		this.tiles = this.answer.slice(0);
@@ -79,28 +79,28 @@ class TilePuzzle {
 	}
 	update(message) {
 		let help = '<br><button name = "send" value = "/tilepuzzle help"><small>How to Play</small></button> <button name = "send" value = "/tilepuzzle end"><small>Leave Game</small></button>';
-		this.user.popup('|html|<center><div style = "width: 220px;"><b>Tile Puzzle!<b><br>' + 
+		this.user.popup('|html|<center><div style = "width: 220px;"><b>Tile Puzzle!<b><br>' +
 			this.display.join('') + '</div>' + (message ? '<br>' + message : '') + help + '</center>' +
 			'<button name = "send" value = "/tilepuzzle rotate" style = "float: right" ' + (isNaN(this.selection) ? 'disabled' : '') + '>Rotate Tile</button>'
 		);
-	};
+	}
 	resetTimer() {
 		clearTimeout(this.timer);
 		this.timer = setTimeout(this.end.bind(this, 'inactive'), INACTIVE_KICK_TIME);
-	};
+	}
 	isFinished() {
 		for (let i = 0; i < this.answer.length; i++) {
 			if (this.answer[i].tile !== this.tiles[i].tile || this.tiles[i].angle !== 0) return false;
 		}
 		return true;
 	}
-	getTile (num, border) {
+	getTile(num, border) {
 		return '<div style = "display: inline-block; width: 50px; height: 50px; border-top: 1px solid #fff; border-left: 1px solid #fff;' +
 			'border-right: 2px solid rgba(0, 0, 0, 0.4); border-bottom: 2px solid rgba(0, 0, 0, 0.3); ' + (border ? 'border: ' + border : '') + '">' +
 			'<button name = "send" value = "/tilepuzzle select ' + (num + 1) + '" style = "width: inherit; height: inherit;' +
 			'border: none; background: url(' + this.tiles[num].tile + '); transform: rotate(' + this.tiles[num].angle + 'deg);"></button></div>';
-	};
-	selectTile (tileNumber) {
+	}
+	selectTile(tileNumber) {
 		if (!isNaN(this.selection) && (tileNumber === this.selection)) {
 			this.display[tileNumber] = this.getTile(tileNumber);
 			delete this.selection;
@@ -135,8 +135,8 @@ class TilePuzzle {
 		else this.user.popup('You have decided to leave the game midway.');
 		clearTimeout(this.timer);
 		global.TilePuzzles.delete(this.user);
-	};
-};
+	}
+}
 
 let cmds = {
 	'': 'start',
@@ -175,11 +175,11 @@ let cmds = {
 		if (!Game) return this.errorReply("You aren't playing a game of Tile Puzzle right now.");
 
 		Game.end();
-	}
+	},
 };
 
 exports.commands = {
 	tilepuzzle: cmds,
 	selecttile: cmds.select,
-	endpuzzle: cmds.end
-}
+	endpuzzle: cmds.end,
+};

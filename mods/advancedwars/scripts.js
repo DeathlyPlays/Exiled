@@ -3,7 +3,6 @@
 exports.BattleScripts = {
 	randomAdvancedWarsTeam: function (side) {
 		let team = [];
-		let variant = (this.random(2) === 1);
 		let sets = {
 			"Infantry": {
 				species: "Infantry",

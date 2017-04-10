@@ -28,151 +28,6 @@ function bold(text) {
 	return '<b>' + text + '</b>';
 }
 
-let bubbleLetterMap = new Map([
-	['a', 'ⓐ'],
-	['b', 'ⓑ'],
-	['c', 'ⓒ'],
-	['d', 'ⓓ'],
-	['e', 'ⓔ'],
-	['f', 'ⓕ'],
-	['g', 'ⓖ'],
-	['h', 'ⓗ'],
-	['i', 'ⓘ'],
-	['j', 'ⓙ'],
-	['k', 'ⓚ'],
-	['l', 'ⓛ'],
-	['m', 'ⓜ'],
-	['n', 'ⓝ'],
-	['o', 'ⓞ'],
-	['p', 'ⓟ'],
-	['q', 'ⓠ'],
-	['r', 'ⓡ'],
-	['s', 'ⓢ'],
-	['t', 'ⓣ'],
-	['u', 'ⓤ'],
-	['v', 'ⓥ'],
-	['w', 'ⓦ'],
-	['x', 'ⓧ'],
-	['y', 'ⓨ'],
-	['z', 'ⓩ'],
-	['A', 'Ⓐ'],
-	['B', 'Ⓑ'],
-	['C', 'Ⓒ'],
-	['D', 'Ⓓ'],
-	['E', 'Ⓔ'],
-	['F', 'Ⓕ'],
-	['G', 'Ⓖ'],
-	['H', 'Ⓗ'],
-	['I', 'Ⓘ'],
-	['J', 'Ⓙ'],
-	['K', 'Ⓚ'],
-	['L', 'Ⓛ'],
-	['M', 'Ⓜ'],
-	['N', 'Ⓝ'],
-	['O', 'Ⓞ'],
-	['P', 'Ⓟ'],
-	['Q', 'Ⓠ'],
-	['R', 'Ⓡ'],
-	['S', 'Ⓢ'],
-	['T', 'Ⓣ'],
-	['U', 'Ⓤ'],
-	['V', 'Ⓥ'],
-	['W', 'Ⓦ'],
-	['X', 'Ⓧ'],
-	['Y', 'Ⓨ'],
-	['Z', 'Ⓩ'],
-	['1', '①'],
-	['2', '②'],
-	['3', '③'],
-	['4', '④'],
-	['5', '⑤'],
-	['6', '⑥'],
-	['7', '⑦'],
-	['8', '⑧'],
-	['9', '⑨'],
-	['0', '⓪'],
-]);
-
-let asciiMap = new Map([
-	['ⓐ', 'a'],
-	['ⓑ', 'b'],
-	['ⓒ', 'c'],
-	['ⓓ', 'd'],
-	['ⓔ', 'e'],
-	['ⓕ', 'f'],
-	['ⓖ', 'g'],
-	['ⓗ', 'h'],
-	['ⓘ', 'i'],
-	['ⓙ', 'j'],
-	['ⓚ', 'k'],
-	['ⓛ', 'l'],
-	['ⓜ', 'm'],
-	['ⓝ', 'n'],
-	['ⓞ', 'o'],
-	['ⓟ', 'p'],
-	['ⓠ', 'q'],
-	['ⓡ', 'r'],
-	['ⓢ', 's'],
-	['ⓣ', 't'],
-	['ⓤ', 'u'],
-	['ⓥ', 'v'],
-	['ⓦ', 'w'],
-	['ⓧ', 'x'],
-	['ⓨ', 'y'],
-	['ⓩ', 'z'],
-	['Ⓐ', 'A'],
-	['Ⓑ', 'B'],
-	['Ⓒ', 'C'],
-	['Ⓓ', 'D'],
-	['Ⓔ', 'E'],
-	['Ⓕ', 'F'],
-	['Ⓖ', 'G'],
-	['Ⓗ', 'H'],
-	['Ⓘ', 'I'],
-	['Ⓙ', 'J'],
-	['Ⓚ', 'K'],
-	['Ⓛ', 'L'],
-	['Ⓜ', 'M'],
-	['Ⓝ', 'N'],
-	['Ⓞ', 'O'],
-	['Ⓟ', 'P'],
-	['Ⓠ', 'Q'],
-	['Ⓡ', 'R'],
-	['Ⓢ', 'S'],
-	['Ⓣ', 'T'],
-	['Ⓤ', 'U'],
-	['Ⓥ', 'V'],
-	['Ⓦ', 'W'],
-	['Ⓧ', 'X'],
-	['Ⓨ', 'Y'],
-	['Ⓩ', 'Z'],
-	['①', '1'],
-	['②', '2'],
-	['③', '3'],
-	['④', '4'],
-
-	['⑤', '5'],
-	['⑥', '6'],
-	['⑦', '7'],
-	['⑧', '8'],
-	['⑨', '9'],
-	['⓪', '0'],
-]);
-
-function parseStatus(text, encoding) {
-	if (encoding) {
-		text = text.split('').map(function (char) {
-			return bubbleLetterMap.get(char);
-		}).join('');
-	}
-	else {
-		text = text.split('').map(function (char) {
-			return asciiMap.get(char);
-		}).join('');
-	}
-	return text;
-}
-
 exports.commands = {
 	chatcolour: 'chatcolor',
 	chatcolor: function (target, room, user) {
@@ -231,20 +86,15 @@ exports.commands = {
 		if (/shiny/i.test(target)) shinyPoke = "-shiny";
 		if (/kanto/i.test(target) || /gen 1/i.test(target)) {
 			x = Math.floor(Math.random() * (174 - 1));
-		}
-		else if (/johto/i.test(target) || /gen 2/i.test(target)) {
+		} else if (/johto/i.test(target) || /gen 2/i.test(target)) {
 			x = Math.floor(Math.random() * (281 - 173)) + 172;
-		}
-		else if (/hoenn/i.test(target) || /gen 3/i.test(target)) {
+		} else if (/hoenn/i.test(target) || /gen 3/i.test(target)) {
 			x = Math.floor(Math.random() * (444 - 280)) + 279;
-		}
-		else if (/sinnoh/i.test(target) || /gen 4/i.test(target)) {
+		} else if (/sinnoh/i.test(target) || /gen 4/i.test(target)) {
 			x = Math.floor(Math.random() * (584 - 443)) + 442;
-		}
-		else if (/kalos/i.test(target) || /gen 5/i.test(target)) {
+		} else if (/kalos/i.test(target) || /gen 5/i.test(target)) {
 			x = Math.floor(Math.random() * (755 - 583)) + 582;
-		}
-		else if (/unova/i.test(target) || /gen 6/i.test(target)) {
+		} else if (/unova/i.test(target) || /gen 6/i.test(target)) {
 			x = Math.floor(Math.random() * (834 - 752)) + 751;
 		}
 		x = x || Math.floor(Math.random() * (856 - 1));
@@ -346,8 +196,7 @@ exports.commands = {
 			if (!this.can('declare')) return this.errorReply("/displayimage [link] - Can only be used by roommods or higher, except in private rooms.");
 			if (!target) return this.sendReply('Usage: /displayimage [link]');
 			this.add('|raw|' + imgdisplay);
-		}
-		else {
+		} else {
 			if (!this.runBroadcast()) return;
 			if (!target) return this.sendReply('Usage: /displayimage [link]');
 			this.add('|raw|' + imgdisplay);

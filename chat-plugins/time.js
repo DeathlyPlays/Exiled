@@ -39,8 +39,7 @@ exports.commands = {
 			let regdate = body.split('<small>')[1].split('</small>')[0].replace(/(<em>|<\/em>)/g, '');
 			if (regdate === '(Unregistered)') {
 				this.sendReplyBox('<b><font color="' + color(target) + '">' + Chat.escapeHTML(target) + '</font></b> is not registered.');
-			}
-			else {
+			} else {
 				this.sendReplyBox('<b><font color="' + color(target) + '">' + Chat.escapeHTML(target) + '</font></b> was registered on ' + regdate.slice(7) + '.');
 			}
 			room.update();
@@ -78,8 +77,7 @@ exports.commands = {
 
 		if (isConnected) {
 			this.sendReplyBox('<b><font color="' + color(userid) + '">' + userid + '</font></b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Current ontime: <b>' + displayTime(convertTime((currentOntime))) + '</b>.');
-		}
-		else {
+		} else {
 			this.sendReplyBox('<b><font color="' + color(userid) + '">' + userid + '</font></b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Currently not online.');
 		}
 	},
@@ -93,7 +91,7 @@ exports.commands = {
 			const totalOntime = Db('ontime').get(name, 0) + currentOntime;
 			return {
 				name: name,
-				time: totalOntime
+				time: totalOntime,
 			};
 		});
 		if (!keys.length) return this.sendReplyBox("Ontime ladder is empty.");
@@ -103,7 +101,7 @@ exports.commands = {
 		keys = keys.slice(0, 100).map(function (user) {
 			return {
 				name: user.name,
-				time: displayTime(convertTime(user.time))
+				time: displayTime(convertTime(user.time)),
 			};
 		});
 		this.sendReplyBox(rankLadder('Ontime Ladder', 'Total Ontime', keys, 'time'));

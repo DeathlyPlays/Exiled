@@ -13,7 +13,7 @@
 const ProcessManager = require('./../process-manager');
 
 const MAX_PROCESSES = 1;
-const RESULTS_MAX_LENGTH = 10;
+const RESULTS_MAX_LENGTH = 1000;
 
 function escapeHTML(str) {
 	if (!str) return '';

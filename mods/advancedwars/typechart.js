@@ -1,7 +1,7 @@
 'use strict';
 
 exports.BattleTypeChart = {
-    "INF": {
+	"INF": {
 		damageTaken: {
 			"INF": 1,
 			"MECH": 1,

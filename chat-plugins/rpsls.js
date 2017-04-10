@@ -290,10 +290,10 @@ exports.commands = {
 			if (!this.runBroadcast()) return false;
 			let html = '<center><b><font size="2">Rock/Paper/Scissors/Lizard/Spock Ladder</font><b></center><br><div style="max-height: 310px; overflow-y: scroll">';
 			let index = 1;
-			let table = Object.keys(Db("rpsrank").object()).sort(function(a, b) {
+			let table = Object.keys(Db("rpsrank").object()).sort(function (a, b) {
 				if (Db('rpslsrank').get(a, 1000) > Db('rpslsrank').get(b, 1000)) return -1;
 				return 1;
-			}).slice(0, 100).map(function(u) {
+			}).slice(0, 100).map(function (u) {
 				return '<tr><td>&nbsp;' + index++ + '&nbsp;</td><td>&nbsp;' + u + '&nbsp;</td><td>&nbsp;' + Db('rpslsrank').get(u, 1000) + "&nbsp;</td></tr>";
 			}).join("");
 			if (!table.length) return this.sendReplyBox("The ladder is empty!");
@@ -301,7 +301,7 @@ exports.commands = {
 		},
 
 		"": "help",
-		"help": function(target, room, user) {
+		"help": function (target, room, user) {
 			this.parse("/help rpsls");
 		},
 	},

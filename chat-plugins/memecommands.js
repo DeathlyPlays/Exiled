@@ -3,7 +3,7 @@
  *    Volco,
  *    Gyaratoast,
  *    and
- *    ReturningAvenger (aka DeathlyPlays)
+ *    ReturningAvenger (aka DeathlyPlays/Insist)
  */
 
 
@@ -32,27 +32,9 @@ exports.commands = {
 		room.add(User + ' has just told  ' + target + ' to get the fuck outta here!');
 		targetUser.popup("GET THE FUCK OUTTA HERE BOI!");
 	},
-	shrug: function (target, room, user) {
-		var targets = target.split(','),
-			length = targets.length;
-		while (length--)
-			targets[length] = targets[length].trim();
-		if (room.id === 'lobby' && this.can('broadcast', null, room)) {
-			if (!target) return '¯\\_(ツ)_/¯';
-			if (targets[0] && !targets[1]) return '¯\\_(ツ)_/¯ ' + targets[0];
-			if (targets[0] == 'pm' && targets[1] && !targets[2]) return this.parse('/pm ' + targets[1] + ', ¯\\_(ツ)_/¯');
-		}
-		if (room.id === 'lobby' && !this.can('broadcast', null, room)) return this.errorReply('You must be voiced to use this command in this room.');
-		else if (room.id !== 'lobby') {
-			if (!target) return '¯\\_(ツ)_/¯';
-			if (targets[0] && !targets[1]) return '¯\\_(ツ)_/¯ ' + targets[0];
-			if (targets[0] == 'pm' && targets[1] && !targets[2]) return this.parse('/pm ' + targets[1] + ', ¯\\_(ツ)_/¯');
-		}
-	},
 	hid: function (target, room, User) {
 		if (!target) return this.sendReply('/hid needs a target.');
 		if (!this.can('broadcast', null, room)) return this.errorReply('Access Denied');
-		let targetUser = Users.get(target);
 		room.add(User + ' has hid behind ' + target + '.');
 	},
 	idgaf: function (target, room, User) {
@@ -365,7 +347,7 @@ exports.commands = {
 			"<img src='http://i.imgur.com/JIVEfPy.jpg' height='500' width='500'",
 			"<img src='http://i.imgur.com/SxwnMnp.jpg' height='500' width='500'",
 			"<img src='http://i.imgur.com/3O6RKJ5.jpg' height='500' width='500'", //40
-			"<img src='https://eus1-api.asm.skype.com/v1/objects/0-eus-d2-8e96e141d7ba2ee7c1577a673d36086b/views/imgpsh_fullsize' height='500' width='500'"
+			"<img src='https://eus1-api.asm.skype.com/v1/objects/0-eus-d2-8e96e141d7ba2ee7c1577a673d36086b/views/imgpsh_fullsize' height='500' width='500'",
 		];
 		return this.sendReplyBox(results[Math.floor(41 * Math.random())]);
 	},

@@ -1009,11 +1009,11 @@ class Tournament {
 				Db('gangladder').set(gang, Db('gangladder').get(gang, 0) + reward);
 				this.room.addRaw("<b><font color='" + color + "'>" + Chat.escapeHTML(winner) + "</font> has also earned " + "<font color='" + color + "'>" + reward + "</font> points for The " + turfwars.gangs[gang].name + " Gang! <img src=" + turfwars.gangs[gang].icon + " width='40' height='40'</img></b>");
 			}
-			/*if ((tourSize >= 2) && this.room.isOfficial) {
-				let tourRarity = tourCard(tourSize, toId(winner));
-				this.room.addRaw("<b><font color='" + Exiled.hashColor(winner) + "'>" + Chat.escapeHTML(winner) + "</font> has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
-			}*/
-
+			
+			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
+				let tourRarity = Exiled.tourCard(tourSize, toId(winner));
+				if (tourRarity) this.room.addRaw("<b>" + Chat.escapeHTML(winner) + " has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
+			}
 			if (runnerUp) {
 				Economy.writeMoney(rid, secondMoney, () => {
 					Economy.readMoney(rid, newAmount => {

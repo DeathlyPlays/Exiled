@@ -5,13 +5,13 @@ exports.BattleAbilities = {
 		id: "mlgsunglasses",
 		name: "MLG Sunglasses",
 		//prankster
-		onModifyPriority: function(priority, pokemon, target, move) {
+		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Status') {
 				return priority + 1;
 			}
 		},
 		//unaware
-		onAnyModifyBoost: function(boosts, target) {
+		onAnyModifyBoost: function (boosts, target) {
 			let source = this.effectData.target;
 			if (source === target) return;
 			if (source === this.activePokemon && target === this.activeTarget) {
@@ -26,7 +26,7 @@ exports.BattleAbilities = {
 			}
 		},
 		//filter
-		onSourceModifyDamage: function(damage, source, target, move) {
+		onSourceModifyDamage: function (damage, source, target, move) {
 			if (move.typeMod > 0) {
 				this.debug('Filter neutralize');
 				return this.chainModify(0.75);
@@ -34,7 +34,7 @@ exports.BattleAbilities = {
 		},
 		//ironbarbs and aftermath effects
 		onAfterDamageOrder: 1,
-		onAfterDamage: function(damage, target, source, move) {
+		onAfterDamage: function (damage, target, source, move) {
 			if (source && source !== target && move && move.flags['contact']) {
 				this.damage(source.maxhp / 8, source, target, null, true);
 			}
@@ -45,7 +45,7 @@ exports.BattleAbilities = {
 	},
 	//gday
 	"gdaygday": {
-		onBoost: function(boost) {
+		onBoost: function (boost) {
 			for (var i in boost) {
 				boost[i] *= 2;
 			}
@@ -60,22 +60,22 @@ exports.BattleAbilities = {
 		//speed boost
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
-		onResidual: function(pokemon) {
+		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1
+					spe: 1,
 				});
 			}
 		},
 		//no guard
-		onAnyAccuracy: function(accuracy, target, source, move) {
+		onAnyAccuracy: function (accuracy, target, source, move) {
 			if (move && (source === this.effectData.target || target === this.effectData.target)) {
 				return true;
 			}
 			return accuracy;
 		},
 		//sheer force
-		onModifyMove: function(move, pokemon) {
+		onModifyMove: function (move, pokemon) {
 			if (move.secondaries) {
 				delete move.secondaries;
 				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
@@ -85,7 +85,7 @@ exports.BattleAbilities = {
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
-			onBasePower: function(basePower, pokemon, target, move) {
+			onBasePower: function (basePower, pokemon, target, move) {
 				return this.chainModify([0x14CD, 0x1000]);
 			},
 		},
@@ -94,7 +94,7 @@ exports.BattleAbilities = {
 	"amityabsorb": {
 		id: "amityabsorb",
 		name: "Amity Absorb",
-		onTryHit: function(target, source, move) {
+		onTryHit: function (target, source, move) {
 			if (target !== source && move.type === 'Fairy') {
 				if (!this.heal(target.maxhp / 4)) {
 					this.add('-immune', target, '[msg]', '[from] ability: Amity Absorb');
@@ -108,17 +108,17 @@ exports.BattleAbilities = {
 		id: "danksunlord",
 		name: "Dank Sunlord",
 		//desolate land
-		onStart: function(source) {
+		onStart: function (source) {
 			this.setWeather('desolateland');
 		},
-		onAnySetWeather: function(target, source, weather) {
+		onAnySetWeather: function (target, source, weather) {
 			if (this.getWeather().id === 'desolateland' && !(weather.id in {
 					desolateland: 1,
 					primordialsea: 1,
-					deltastream: 1
+					deltastream: 1,
 				})) return false;
 		},
-		onEnd: function(pokemon) {
+		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
 			for (let i = 0; i < this.sides.length; i++) {
 				for (let j = 0; j < this.sides[i].active.length; j++) {
@@ -134,7 +134,7 @@ exports.BattleAbilities = {
 		},
 		//special attack huge power
 		onModifySpAPriority: 6,
-		onModifySpA: function(spa) {
+		onModifySpA: function (spa) {
 			return this.chainModify(2);
 		},
 	},
@@ -144,11 +144,11 @@ exports.BattleAbilities = {
 		name: "Fluffy",
 		//furcoat
 		onModifyDefPriority: 6,
-		onModifyDef: function(def) {
+		onModifyDef: function (def) {
 			return this.chainModify(2);
 		},
 		//stickyhold
-		onTakeItem: function(item, pokemon, source) {
+		onTakeItem: function (item, pokemon, source) {
 			if (this.suppressingAttackEvents() && pokemon !== this.activePokemon || !pokemon.hp || pokemon.item === 'stickybarb') return;
 			if ((source && source !== pokemon) || this.activeMove.id === 'knockoff') {
 				this.add('-activate', pokemon, 'ability: Sticky Hold');
@@ -161,16 +161,16 @@ exports.BattleAbilities = {
 		id: "prepareformayhem",
 		name: "Prepare for Mayhem",
 		//adaptability
-		onModifyMove: function(move) {
+		onModifyMove: function (move) {
 			move.stab = 2;
 		},
 		//speed boost
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
-		onResidual: function(pokemon) {
+		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1
+					spe: 1,
 				});
 			}
 		},

@@ -2,7 +2,7 @@
 
 Array.prototype.randomize = function() {
 	let arr = this.slice(0);
-	var i = arr.length,
+	let i = arr.length,
 		j, x;
 	while (i) {
 		j = (Math.random() * i) | 0;
@@ -18,8 +18,7 @@ const replaceAlts = {};
 exports.BattleScripts = {
 	randomSeasonalMeleeTeam: function(side) {
 		let team = [];
-		var variant = (this.random(2) === 1);
-		var sets = {
+		let sets = {
 			//Room Owners
 			'#HealNDeal': {
 				species: 'Magmar',
@@ -32,9 +31,24 @@ exports.BattleScripts = {
 				evs: {
 					hp: 248,
 					spa: 92,
-					spe: 168
+					spe: 168,
 				},
 				nature: "Modest",
+			},
+			'#cbrevan': {
+				species: "Revenankh",
+				ability: "Speed Boost",
+				item: "Choice Band",
+				gender: "M",
+				moves: ['closecombat', 'diamondstorm', 'meteormash'],
+				baseSignatureMove: "randsalad",
+				signatureMove: "randsalad",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Adamant",
 			},
 			//Mods
 			'@Deck Knight': {
@@ -48,7 +62,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					def: 144,
-					spd: 112
+					spd: 112,
 				},
 				nature: 'Bold',
 			},
@@ -63,39 +77,9 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spe: 252,
-					spa: 4
+					spa: 4,
 				},
 				nature: "Serious",
-			},
-			'@gday': {
-				species: "Jigglypuff",
-				ability: "gday gday",
-				item: "Eviolite",
-				gender: "M",
-				moves: ['recover', 'storedpower', 'moonblast'],
-				baseSignatureMove: "feelsjig",
-				signatureMove: "feelsjig",
-				evs: {
-					spa: 252,
-					spe: 252,
-					hp: 4
-				},
-				nature: "Modest",
-			},
-			'@cbrevan': {
-				species: "Revenankh",
-				ability: "Speed Boost",
-				item: "Choice Band",
-				gender: "M",
-				moves: ['closecombat', 'diamondstorm', 'meteormash'],
-				baseSignatureMove: "randsalad",
-				signatureMove: "randsalad",
-				evs: {
-					atk: 252,
-					spe: 252,
-					hp: 4
-				},
-				nature: "Adamant",
 			},
 			//Drivers
 			'%Exclaimer': {
@@ -109,7 +93,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					hp: 252,
-					def: 4
+					def: 4,
 				},
 				nature: 'Quiet',
 			},
@@ -123,7 +107,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Modest",
 			},
@@ -138,7 +122,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4
+					def: 4,
 				},
 				nature: "Jolly",
 			},
@@ -153,7 +137,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 248,
 					spd: 252,
-					def: 8
+					def: 8,
 				},
 				nature: 'Calm',
 			},
@@ -169,7 +153,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					def: 252,
-					spa: 4
+					spa: 4,
 				},
 				nature: 'Bold',
 			},
@@ -184,7 +168,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Timid",
 			},
@@ -198,7 +182,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 136,
-					hp: 120
+					hp: 120,
 				},
 				nature: "Adamant",
 			},
@@ -213,7 +197,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Adamant",
 			},
@@ -228,7 +212,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Timid",
 			},
@@ -243,7 +227,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Timid",
 			},
@@ -257,7 +241,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					def: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Bold",
 			},
@@ -272,7 +256,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					hp: 252,
-					spe: 4
+					spe: 4,
 				},
 				nature: "Modest",
 			},
@@ -287,9 +271,24 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Timid",
+			},
+			'+gday': {
+				species: "Jigglypuff",
+				ability: "gday gday",
+				item: "Eviolite",
+				gender: "M",
+				moves: ['recover', 'storedpower', 'moonblast'],
+				baseSignatureMove: "feelsjig",
+				signatureMove: "feelsjig",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Modest",
 			},
 			//Regs
 			"Insist": {
@@ -304,7 +303,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Timid",
 			},
@@ -336,30 +335,31 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31
+					spe: 31,
 				};
-			}
-			else {
+			} else {
 				for (let iv in {
 						hp: 31,
 						atk: 31,
 						def: 31,
 						spa: 31,
 						spd: 31,
-						spe: 31
+						spe: 31,
 					}) {
 					set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
 				}
 			}
 			// Assuming the hardcoded set evs are all legal.
-			if (!set.evs) set.evs = {
-				hp: 84,
-				atk: 84,
-				def: 84,
-				spa: 84,
-				spd: 84,
-				spe: 84
-			};
+			if (!set.evs) {
+				set.evs = {
+					hp: 84,
+					atk: 84,
+					def: 84,
+					spa: 84,
+					spd: 84,
+					spe: 84,
+				};
+			}
 			set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves)].concat(set.signatureMove);
 			team.push(set);
 		}

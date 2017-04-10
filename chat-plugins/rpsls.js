@@ -32,8 +32,7 @@ class RPSLSGame {
 		this.gameType = gameType;
 
 		// set inactivity timer
-		this.timer = setTimeout(function() {
-
+		this.timer = setTimeout(function () {
 			this.onEnd(true);
 		}.bind(this), 60000);
 		this.onInit();
@@ -239,8 +238,7 @@ function updateSearches() {
 
 exports.commands = {
 	rpsls: {
-		search: function(target, room, user) {
-
+		search: function (target, room, user) {
 			if (user.RPSLSgame) return this.errorReply("You are already have a game/searching for a game of Rock/Paper/Scissors/Lizard/Spock!");
 			updateSearches();
 			let gameType = "ladder";
@@ -257,8 +255,7 @@ exports.commands = {
 			this.sendReply("You are now searching for a game of Rock/Paper/Scissors/Lizard/Spock (" + gameType + ").");
 		},
 
-		endsearch: function(target, room, user) {
-
+		endsearch: function (target, room, user) {
 			if (!user.RPSLSgame || user.RPSLSgame !== "searching") return this.errorReply("You are not searching for a game of Rock/Paper/Scissors/Lizard/Spock!");
 			updateSearches();
 			if (Rooms.global.RPSLS.searches[user.userid] === "bucks") {
@@ -269,8 +266,7 @@ exports.commands = {
 			this.sendReply("You have cancelled your search for a game of Rock/Paper/Scissors/Lizard/Spock.");
 		},
 
-		choose: function(target, room, user) {
-
+		choose: function (target, room, user) {
 			if (!target || !user.RPSLSgame) return false;
 			let parts = target.split(" ");
 			if (parts.length !== 2) return false;
@@ -283,16 +279,14 @@ exports.commands = {
 			}
 		},
 
-		rank: function(target, room, user) {
-
+		rank: function (target, room, user) {
 			if (!this.runBroadcast()) return false;
 			target = (toId(target) ? (Users.get(target) ? Users.get(target).name : target) : user.name);
 			let userRank = Db('rpslsrank').get(toId(target), 1000);
 			this.sendReplyBox("Rank - <b>" + target + "</b>: " + userRank);
 		},
 
-		ladder: function(target, room, user) {
-
+		ladder: function (target, room, user) {
 			if (!this.runBroadcast()) return false;
 			let html = '<center><b><font size="2">Rock/Paper/Scissors/Lizard/Spock Ladder</font><b></center><br><div style="max-height: 310px; overflow-y: scroll">';
 			let index = 1;
@@ -308,7 +302,6 @@ exports.commands = {
 
 		"": "help",
 		"help": function(target, room, user) {
-
 			this.parse("/help rpsls");
 		},
 	},

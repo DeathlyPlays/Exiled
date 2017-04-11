@@ -1,22 +1,7 @@
 'use strict';
 
-Array.prototype.randomize = function() {
-	let arr = this.slice(0);
-	let i = arr.length,
-		j, x;
-	while (i) {
-		j = (Math.random() * i) | 0;
-		x = arr[--i];
-		arr[i] = arr[j];
-		arr[j] = x;
-	}
-	return arr;
-};
-
-const replaceAlts = {};
-
 exports.BattleScripts = {
-	randomSeasonalMeleeTeam: function(side) {
+	randomSeasonalMeleeTeam: function (side) {
 		let team = [];
 		let sets = {
 			//Room Owners
@@ -311,18 +296,6 @@ exports.BattleScripts = {
 
 		let pool = Object.keys(sets);
 
-		// Generate the team randomly.
-		pool = Object.keys(sets).randomize();
-
-		// replace the user into the 4th slot
-		let userid = toId(side.name);
-		if (replaceAlts[userid]) userid = replaceAlts[userid];
-
-		let usermon = Object.keys(sets).filter(n => toId(n) === userid),
-			self = null;
-		if (usermon && usermon.length) self = usermon[0]; // this is the user's pokemon. 
-		if (self && pool.indexOf(self) > 5) pool[4] = self;
-
 		for (let i = 0; i < 6; i++) {
 			let name = pool[i];
 			let set = sets[name];
@@ -339,13 +312,13 @@ exports.BattleScripts = {
 				};
 			} else {
 				for (let iv in {
-						hp: 31,
-						atk: 31,
-						def: 31,
-						spa: 31,
-						spd: 31,
-						spe: 31,
-					}) {
+					hp: 31,
+					atk: 31,
+					def: 31,
+					spa: 31,
+					spd: 31,
+					spe: 31,
+				}) {
 					set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
 				}
 			}

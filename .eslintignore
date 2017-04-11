@@ -2,3 +2,8 @@ tournaments/lib/
 logs/
 config/color.js
 mods/opmetagame
+chat-plugins/tilepuzzle.js
+chat-plugins/profile.js
+chat-plugins/gangs.js
+chat-plugins/emoticons.js
+chat-plugins/ttt.js

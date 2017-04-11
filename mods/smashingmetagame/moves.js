@@ -201,7 +201,7 @@ exports.BattleMovedex = {
 			chance: 20,
 			volatileStatus: 'flinch',
 		},
-		onHit: function() {
+		onHit: function () {
 			this.add('c|~Gyaratoast|FUCKING SMASHING!');
 		},
 		onPrepareHit: function (target, source, move) {

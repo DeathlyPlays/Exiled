@@ -1,4 +1,4 @@
-			spd: 85,'use strict';
+'use strict';
 
 exports.BattlePokedex = {
 	barbarian: {

@@ -11,10 +11,10 @@ exports.BattleAbilities = {
 		},
 		onAnySetWeather: function (target, source, weather) {
 			if (this.getWeather().id === 'primordialsea' && !(weather.id in {
-					desolateland: 1,
-					primordialsea: 1,
-					deltastream: 1,
-				})) return false;
+				desolateland: 1,
+				primordialsea: 1,
+				deltastream: 1,
+			})) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -180,10 +180,10 @@ exports.BattleAbilities = {
 		},
 		onAnySetWeather: function (target, source, weather) {
 			if (this.getWeather().id === 'desolateland' && !(weather.id in {
-					desolateland: 1,
-					primordialsea: 1,
-					deltastream: 1,
-				})) return false;
+				desolateland: 1,
+				primordialsea: 1,
+				deltastream: 1,
+			})) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -374,10 +374,10 @@ exports.BattleAbilities = {
 		},
 		onAnySetWeather: function (target, source, weather) {
 			if (this.getWeather().id === 'deltastream' && !(weather.id in {
-					desolateland: 1,
-					primordialsea: 1,
-					deltastream: 1,
-				})) return false;
+				desolateland: 1,
+				primordialsea: 1,
+				deltastream: 1,
+			})) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -554,7 +554,7 @@ exports.BattleAbilities = {
 		},
 		//sturdy and apart of overcoat
 		onTryHitPriority: 1,
-		onTryHit: function (pokemon, target, move) {
+		onTryHit: function (pokemon, target, move, source) {
 			if (move.ohko) {
 				this.add('-immune', pokemon, '[msg]', '[from] ability: I\'M NOT HACKING!!!');
 				return null;
@@ -607,7 +607,7 @@ exports.BattleAbilities = {
 		name: "Chaotic Armor",
 		//Prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
-		if (move && move.category === 'Status') {
+			if (move && move.category === 'Status') {
 				return priority + 1;
 			}
 		},
@@ -640,27 +640,6 @@ exports.BattleAbilities = {
 		},
 		effect: {
 			duration: 1,
-		},
-	},
-	//alfastorm
-	"attackshield": {
-		id: "attackshield",
-		name: "Attack Shield",
-		//Magic Bounce
-		onTryHitPriority: 1,
-		onTryHit: function (target, source, move) {
-			if (target === source || move.hasBounced || !move.flags['reflectable']) {
-				return;
-			}
-			let newMove = this.getMoveCopy(move.id);
-			newMove.hasBounced = true;
-			newMove.pranksterBoosted = false;
-			this.useMove(newMove, target, source);
-			return null;
-		},
-		//overcoat
-		onImmunity: function (type, pokemon) {
-			if (type === 'sandstorm' || type === 'hail' || type === 'powder') return false;
 		},
 	},
 };

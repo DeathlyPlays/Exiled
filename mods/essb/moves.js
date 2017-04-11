@@ -10,7 +10,7 @@ exports.BattleMovedex = {
 			boosts: {
 				spa: 1,
 				spe: 1,
-			}
+			},
 		},
 		flags: {
 			protect: 1,
@@ -57,7 +57,7 @@ exports.BattleMovedex = {
 				spe: 1,
 				accuracy: 1,
 				evasion: 1,
-			}
+			},
 		},
 		shortDesc: "Like so amazing mannnnn, like look at dem boosts boi",
 		onHit: function (target, source, move) {
@@ -109,7 +109,7 @@ exports.BattleMovedex = {
 			boosts: {
 				spa: 1,
 				spe: 1,
-			}
+			},
 		},
 		secondary: false,
 		category: "Special",
@@ -138,7 +138,7 @@ exports.BattleMovedex = {
 				def: 2,
 				spd: 2,
 				accuracy: 2,
-			}
+			},
 		},
 		basePower: 120,
 		accuracy: 100,
@@ -221,7 +221,7 @@ exports.BattleMovedex = {
 			boosts: {
 				spa: 1,
 				spe: 1,
-			}
+			},
 		},
 		flags: {
 			protect: 1,
@@ -415,7 +415,7 @@ exports.BattleMovedex = {
 			boosts: {
 				spa: 1,
 				spe: 1,
-			}
+			},
 		},
 		status: "frz",
 		category: "Special",
@@ -567,7 +567,7 @@ exports.BattleMovedex = {
 			boosts: {
 				spa: 1,
 				spe: 1,
-			}
+			},
 		},
 		category: "Special",
 		priority: 0,
@@ -648,7 +648,7 @@ exports.BattleMovedex = {
 				spd: 2,
 				spe: 2,
 				accuracy: 2,
-			}
+			},
 		},
 		secondary: {
 			volatileStatus: 'confusion',
@@ -711,7 +711,7 @@ exports.BattleMovedex = {
 			reflectable: 1,
 		},
 		onHit: function (target, source, move) {
-			this.attrLastMove('[still]')
+			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Leech Seed', target);
 			this.add('-anim', source, 'Attract', target);
 			this.add('-anim', source, 'Confuse Ray', target);
@@ -766,7 +766,7 @@ exports.BattleMovedex = {
 			boosts: {
 				atk: 1,
 				spe: 1,
-			}
+			},
 		},
 		priority: 1,
 		onHit: function (target, source) {
@@ -1001,8 +1001,8 @@ exports.BattleMovedex = {
 					this.damage(pokemon.maxhp / 4);
 				},
 			},
-		},	
-		onStart: function (pokemn, source) {
+		},
+		onStart: function (pokemon, source) {
 			this.add('-start', pokemon, 'Voodoo Magic');
 		},
 		// Item suppression implemented in BattlePokemon.ignoringItem() within battle-engine.js
@@ -1056,7 +1056,7 @@ exports.BattleMovedex = {
 			},
 			onTryHeal: false,
 			onAccuracyPriority: 6,
-			onAccuracy: function (accuracy, target, source, move) {
+			onAccuracy: function (accuracy, target, source, move, pokemon) {
 				if (move && !pokemon.maxhp / 4) return true;
 			},
 		},
@@ -1114,7 +1114,7 @@ exports.BattleMovedex = {
 				atk: 1,
 				spe: 1,
 				def: 1,
-			}
+			},
 		},
 		priority: 1,
 		onHit: function (target, source) {

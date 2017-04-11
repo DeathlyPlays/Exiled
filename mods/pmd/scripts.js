@@ -517,16 +517,15 @@ exports.BattleScripts = {
 					spd: 31,
 					spe: 31,
 				};
-			}
-			else {
+			} else {
 				for (let iv in {
-						hp: 31,
-						atk: 31,
-						def: 31,
-						spa: 31,
-						spd: 31,
-						spe: 31,
-					}) {
+					hp: 31,
+					atk: 31,
+					def: 31,
+					spa: 31,
+					spd: 31,
+					spe: 31,
+				}) {
 					set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
 				}
 			}
@@ -557,7 +556,7 @@ exports.BattleScripts = {
 					if (set.moves[j] === 'Defog' && itemChoosen === 'TrapBust Orb') rejected = true;
 					if (set.moves[j] === 'Thunder Wave' && itemChoosen === 'Stun Seed') rejected = true;
 					if (set.moves[j] === 'Roar' && itemChoosen === 'Warp Orb') rejected = true;
-					if (set.moves[j] === 'Covet' && itemChoosen === 'Mug Orb') rejected = true;
+					if (set.moves[j] === 'Snatch' && itemChoosen === 'Mug Orb') rejected = true;
 				}
 				if (choosenItems.length !== 0) {
 					for (let k = 0; k < choosenItems.length; k++) {
@@ -567,15 +566,13 @@ exports.BattleScripts = {
 				if (itemChoosen === 'Awakening') {
 					if (awakened) {
 						rejected = true;
-					}
-					else {
+					} else {
 						awakened = true;
 					}
 				}
 				if (!rejected) {
 					choosenItems.push(itemChoosen);
-				}
-				else {
+				} else {
 					h--;
 				}
 				if (h === 3 && choosenItems.length !== 4) h--;

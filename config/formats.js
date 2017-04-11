@@ -1613,7 +1613,7 @@ exports.Formats = [
 			'Use <button class="button" name="send" value="/ssb">/ssb</button> for the commands you can use.',
 		],
 
-		mod: 'cssb',
+		mod: 'ssbffa',
 		team: 'randomCustomSSB',
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Freeze Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		onBegin: function () {

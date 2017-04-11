@@ -272,7 +272,7 @@ exports.BattleScripts = {
 					spd: 31,
 					spe: 31,
 				}) {
-				set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
+					set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
 				}
 			}
 			// Assuming the hardcoded set evs are all legal.

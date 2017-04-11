@@ -12,12 +12,12 @@ exports.BattleMovedex = {
             chance: 20,
             boosts: {
                 spd: -1,
-            }
+            },
         },
         flags: {
             protect: 1,
             mirror: 1,
-            nonsky: 1
+            nonsky: 1,
         },
         pp: 15,
         onHit: function(target, source, move) {
@@ -33,7 +33,7 @@ exports.BattleMovedex = {
         target: "normal",
         type: "Ground",
     },
-    //returningavenger
+    //insist
     "borkthecode": {
         id: "borkthecode",
         name: "Bork the Code",
@@ -42,7 +42,7 @@ exports.BattleMovedex = {
         pp: 15,
         category: "Special",
         onHit: function(target, source, move) {
-            this.add('c|ReturningAvenger|Uh oh..... I need assistance....');
+            this.add('c| Insist|Uh oh..... I need assistance....');
         },
         secondary: {
             chance: 40,
@@ -50,7 +50,7 @@ exports.BattleMovedex = {
         },
         flags: {
             protect: 1,
-            mirror: 1
+            mirror: 1,
         },
         onPrepareHit: function(target, source) {
             this.attrLastMove('-still');
@@ -66,7 +66,7 @@ exports.BattleMovedex = {
         pp: 10,
         priority: 0,
         flags: {
-            snatch: 1
+            snatch: 1,
         },
         volatileStatus: 'powertrick',
         effect: {
@@ -94,6 +94,8 @@ exports.BattleMovedex = {
                 pokemon.removeVolatile('Trick Power');
             },
         },
+        category: "Status",
+        basePower: 0,
         secondary: false,
         target: "self",
         type: "Dark",
@@ -106,7 +108,7 @@ exports.BattleMovedex = {
         target: "normal",
         accuracy: 100,
         flags: {
-            snatch: 1
+            snatch: 1,
         },
         secondary: {
             onTryHit: function(pokemon) {
@@ -128,6 +130,8 @@ exports.BattleMovedex = {
                 this.boost(stolenBoosts, pokemon);
             },
         },
+        basePower: 0,
+        category: "Status",
         type: "Dark",
     },
     //jigglykongisfum16
@@ -150,7 +154,7 @@ exports.BattleMovedex = {
             accuracy: 2,
         },
         flags: {
-            snatch: 1
+            snatch: 1,
         },
         onPrepareHit: function(target, source) {
             this.attrLastMove('-still');
@@ -163,7 +167,9 @@ exports.BattleMovedex = {
     "empoweredendeavor": {
         id: "empoweredendeavor",
         name: "Empowered Endeavor",
-        basePower: 9000,
+        onHit: function (target, pokemon) {
+            this.add('-sethp', target, 1);
+        },
         accuracy: 50,
         noFaint: true,
         category: "Special",
@@ -171,7 +177,7 @@ exports.BattleMovedex = {
         secondary: false,
         flags: {
             protect: 1,
-            mirror: 1
+            mirror: 1,
         },
         onPrepareHit: function(target, source) {
             this.attrLastMove('-still');
@@ -201,7 +207,7 @@ exports.BattleMovedex = {
         },
         flags: {
             protect: 1,
-            mirror: 1
+            mirror: 1,
         },
         onHit: function(target, source, move) {
             this.add('c|+vulpix mayhem|Time to cause some mayhem!');
@@ -228,7 +234,7 @@ exports.BattleMovedex = {
             protect: 1,
             mirror: 1,
             distance: 1,
-            heal: 1
+            heal: 1,
         },
         drain: [1, 2],
         onHit: function(target, source, move) {
@@ -254,7 +260,7 @@ exports.BattleMovedex = {
         flags: {
             protect: 1,
             mirror: 1,
-            contact: 1
+            contact: 1,
         },
         secondary: {
             chance: 50,
@@ -267,7 +273,7 @@ exports.BattleMovedex = {
             this.attrLastMove('-still');
             this.add('-anim', source, "Phantom Force");
         },
-        target: "Normal",
+        target: "normal",
         type: "Ghost",
     },
     //gday
@@ -280,7 +286,7 @@ exports.BattleMovedex = {
         pp: 10,
         priority: 0,
         flags: {
-            snatch: 1
+            snatch: 1,
         },
         boosts: {
             atk: 1,
@@ -317,7 +323,7 @@ exports.BattleMovedex = {
         secondary: false,
         flags: {
             protect: 1,
-            mirror: 1
+            mirror: 1,
         },
         onPrepareHit: function(target, source) {
             this.attrLastMove('-still');
@@ -341,7 +347,7 @@ exports.BattleMovedex = {
         secondary: false,
         flags: {
             protect: 1,
-            mirror: 1
+            mirror: 1,
         },
         chance: 10,
         boosts: {
@@ -372,7 +378,7 @@ exports.BattleMovedex = {
         flags: {
             protect: 1,
             mirror: 1,
-            contact: 1
+            contact: 1,
         },
         type: "Steel",
     },
@@ -389,7 +395,7 @@ exports.BattleMovedex = {
             protect: 1,
             mirror: 1,
             reflectable: 1,
-            powder: 1
+            powder: 1,
         },
         secondary: false,
         sideCondition: "stickyweb",
@@ -407,7 +413,7 @@ exports.BattleMovedex = {
         target: "normal",
         type: "Grass",
     },
-    //khosro	
+    //khosro
     "choke": {
         accuracy: 100,
         basePower: 100,
@@ -419,13 +425,17 @@ exports.BattleMovedex = {
         flags: {
             protect: 1,
             mirror: 1,
-            contact: 1
+            contact: 1,
+        },
+        onPrepareHit: function(target, source) {
+            this.attrLastMove('-still');
+            this.add('-anim', source, "Dragon Claw");
         },
         secondary: false,
         target: "normal",
         type: "Dragon",
     },
-    //snobalt   
+    //snobalt
     "capbust": {
         id: "capbust",
         name: "CAP Bust",
@@ -465,7 +475,7 @@ exports.BattleMovedex = {
         volatileStatus: 'partiallytrapped',
         flags: {
             protect: 1,
-            mirror: 1
+            mirror: 1,
         },
         onPrepareHit: function(target, source) {
             this.attrLastMove('-still');

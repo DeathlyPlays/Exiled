@@ -523,8 +523,8 @@ exports.BattleScripts = {
 						def: 31,
 						spa: 31,
 						spd: 31,
-						spe: 31
-					}) {
+						spe: 31,
+				}) {
 					set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
 				}
 			}

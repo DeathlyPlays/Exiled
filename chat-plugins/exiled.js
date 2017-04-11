@@ -3,8 +3,6 @@
 const fs = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 let request = require('request');
-let path = require('path');
-let selectors;
 
 let amCache = {
 	anime: {},

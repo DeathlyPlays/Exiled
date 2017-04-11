@@ -19,7 +19,7 @@ exports.BattleMovedex = {
 		category: "Physical",
 		flags: {
 			protect: 1,
-			contact: 1
+			contact: 1,
 		},
 		target: "normal",
 		type: "Normal",
@@ -143,7 +143,7 @@ exports.BattleMovedex = {
 						pokemon.removeVolatile('partiallytrapped');
 					}
 				},
-			}
+			},
 		},
 		priority: 0,
 		target: "normal",

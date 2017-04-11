@@ -1,25 +1,10 @@
 'use strict';
 
-Array.prototype.randomize = function () {
-	let arr = this.slice(0);
-	var i = arr.length,
-		j, x;
-	while (i) {
-		j = (Math.random() * i) | 0;
-		x = arr[--i];
-		arr[i] = arr[j];
-		arr[j] = x;
-	}
-	return arr;
-};
-
-const replaceAlts = {};
-
 exports.BattleScripts = {
 	randomSeasonalMeleeTeam: function (side) {
 		let team = [];
-		var variant = (this.random(2) === 1);
-		var sets = {
+		let variant = (this.random(2) === 1);
+		let sets = {
 			//Admins
 			"~Insist": {
 				species: "Ludicolo",
@@ -64,7 +49,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4
+					def: 4,
 				},
 				nature: "Adamant",
 			},
@@ -81,7 +66,7 @@ exports.BattleScripts = {
 					hp: 252,
 					def: 100,
 					spa: 60,
-					spd: 92
+					spd: 92,
 				},
 				nature: "Bold",
 			},
@@ -97,7 +82,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4
+					def: 4,
 				},
 				nature: "Adamant",
 			},
@@ -112,7 +97,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Timid",
 			},
@@ -129,7 +114,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Timid",
 			},
@@ -145,7 +130,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Jolly",
 			},
@@ -162,13 +147,13 @@ exports.BattleScripts = {
 					hp: 252,
 					spa: 220,
 					spd: 16,
-					def: 16
+					def: 16,
 				},
 				nature: "Modest",
 			},
 			"%Stellation": {
 				species: "Shedinja",
-				ability: "I\'M NOT HACKING!!!",
+				ability: "I'M NOT HACKING!!!",
 				item: "Lum Berry",
 				gender: "M",
 				moves: ['finalgambit', 'stealthrock', 'endeavor'],
@@ -177,7 +162,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Jolly",
 			},
@@ -193,7 +178,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Timid",
 			},
@@ -208,7 +193,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Adamant",
 			},
@@ -224,7 +209,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spd: 252,
-					spa: 4
+					spa: 4,
 				},
 				nature: "Calm",
 			},
@@ -239,7 +224,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Adamant",
 			},
@@ -254,7 +239,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 248,
 					def: 252,
-					spa: 8
+					spa: 8,
 				},
 				nature: "Impish",
 			},
@@ -269,7 +254,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Timid",
 			},
@@ -299,7 +284,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Timid",
 			},
@@ -314,7 +299,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Jolly",
 			},
@@ -329,7 +314,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Timid",
 			},
@@ -343,7 +328,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					atk: 4
+					atk: 4,
 				},
 				nature: "Hasty",
 			},
@@ -358,7 +343,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Timid",
 			},
@@ -374,7 +359,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4
+					def: 4,
 				},
 				nature: "Adamant",
 			},
@@ -389,7 +374,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Jolly",
 			},
@@ -404,7 +389,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Timid",
 			},
@@ -419,7 +404,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				nature: "Timid",
 			},
@@ -434,7 +419,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Modest",
 			},
@@ -449,25 +434,13 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					spd: 4
+					spd: 4,
 				},
 				nature: "Jolly",
 			},
 		};
 
 		let pool = Object.keys(sets);
-
-		// Generate the team randomly.
-		pool = Object.keys(sets).randomize();
-
-		// replace the user into the 4th slot
-		let userid = toId(side.name);
-		if (replaceAlts[userid]) userid = replaceAlts[userid];
-
-		let usermon = Object.keys(sets).filter(n => toId(n) === userid),
-			self = null;
-		if (usermon && usermon.length) self = usermon[0]; // this is the user's pokemon.
-		if (self && pool.indexOf(self) > 5) pool[4] = self;
 
 		for (let i = 0; i < 6; i++) {
 			let name = pool[i];
@@ -481,7 +454,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31
+					spe: 31,
 				};
 			} else {
 				for (let iv in {
@@ -490,7 +463,7 @@ exports.BattleScripts = {
 						def: 31,
 						spa: 31,
 						spd: 31,
-						spe: 31
+						spe: 31,
 					}) {
 					set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
 				}
@@ -502,7 +475,7 @@ exports.BattleScripts = {
 				def: 84,
 				spa: 84,
 				spd: 84,
-				spe: 84
+				spe: 84,
 			};
 			set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves)].concat(set.signatureMove);
 			team.push(set);

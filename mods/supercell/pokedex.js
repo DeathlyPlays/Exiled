@@ -68,7 +68,7 @@ exports.BattlePokedex = {
 			spe: 5,
 		},
 		abilities: {
-			0: "Meatshield"
+			0: "Meatshield",
 		},
 		heightm: 5.7,
 		weightkg: 120.0,

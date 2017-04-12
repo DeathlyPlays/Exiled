@@ -1045,7 +1045,7 @@ function createTournamentGenerator(generator, args, output) {
 		return;
 	}
 	args.unshift(null);
-	return new(Generator.bind.apply(Generator, args))();
+	return new (Generator.bind.apply(Generator, args))();
 }
 
 function createTournament(room, format, generator, playerCap, isRated, args, output) {

@@ -554,7 +554,7 @@ exports.BattleAbilities = {
 				this.add('-immune', target, '[msg]', '[from] ability: Connecticut Yankee');
 				return null;
 			}
-		},
+		}
 		//Dazzling
 		onFoeTryMove: function (target, source, effect) {
 			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {

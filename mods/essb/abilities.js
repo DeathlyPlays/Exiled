@@ -545,16 +545,16 @@ exports.BattleAbilities = {
 		name: "Connecticut Yankee",
 		//Sets TR when out
 		onStart: function (source) {
-		this.setPseudoWeather('trickroom');
+			this.setPseudoWeather('trickroom');
 		},
 		//Fire absorb
 		onTryHit: function (target, source, move) {
-		if (target !== source && move.type === 'Fire') {
-			if (!this.heal(target.maxhp / 4)) {
+			if (target !== source && move.type === 'Fire') {
+				if (!this.heal(target.maxhp / 4)) {
 				this.add('-immune', target, '[msg]', '[from] ability: Connecticut Yankee');
-				}
-				return null;
 			}
+			return null;
+		}
 		},
 		//Dazzling
 		onFoeTryMove: function (target, source, effect) {

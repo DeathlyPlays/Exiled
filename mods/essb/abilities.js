@@ -564,6 +564,7 @@ exports.BattleAbilities = {
 				return null;
 			}
 		},
+	},
 	"feelsflys": {
 		id: "feelsflys",
 		name: "feelsflys",

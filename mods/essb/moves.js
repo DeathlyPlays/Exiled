@@ -884,40 +884,28 @@ exports.BattleMovedex = {
 		isZ: "thekidz",
 	},
 	//Stellation
-	"teamplayer": {
-		accuracy: true,
-		category: "Status",
-		priority: -1,
-		id: "teamplayer",
-		isNonstandard: true,
-		name: "Team Player",
-		pp: 10,
-		target: "self",
-		selfSwitch: 'copyvolatile',
-		type: "Bug",
-		onHit: function (target) {
-			let stats = [];
-			for (let stat in target.boosts) {
-				if (target.boosts[stat] < 6) {
-					stats.push(stat);
-				}
-			}
-			if (stats.length) {
-				let randomStat = stats[this.random(stats.length)];
-				let boost = {};
-				boost[randomStat] = 6;
-				this.boost(boost);
-			} else {
-				return false;
+	"joust": {
+		id: "joust",
+		name: "Joust",
+		accuracy: 95,
+		basePower: 80,
+		category: "physical",
+		pp: 1.875,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, contact: 1},
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, pokemon, target) {
+			if (this.willMove(target)) {
+				return this.chainModify(2);
 			}
 		},
 		secondary: false,
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Acupressure", source);
-			this.add('-anim', source, "Baton Pass", source);
-		},
+		target: "normal",
+		type: "Steel",
+		zMovePower: 120,
+		contestType: "Tough",
 	},
+
 	//HoeenHero
 	"scripting": {
 		category: "Status",

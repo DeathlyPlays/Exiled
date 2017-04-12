@@ -1,6 +1,32 @@
 'use strict';
 
 exports.BattleItems = {
+	"hard armor": {
+		id: "hard armor",
+		name: "Hard Armor",
+		fling: {
+			basePower: 150,
+		},
+		onModifySpePriority: 2,
+		onModifySpe: function (spe, pokemon) {
+			if (pokemon.baseTemplate.baseSpecies === 'Escavalier') {
+				return this.chainModify(0.5);
+			}
+		},
+		onModifyDefPriority: 2,
+		onModifyDef: function (def, pokemon) {
+			if (pokemon.baseTemplate.baseSpecies === 'Escavalier') {
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpDPriority: 2,
+		onModifySpD: function (spd, pokemon) {
+			if (pokemon.baseTemplate.baseSpecies === 'Escavalier') {
+				return this.chainModify(1.5);
+			}
+		},
+	},
+
 	"playniumz": {
 		spritenum: 656,
 		onTakeItem: false,

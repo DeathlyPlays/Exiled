@@ -67,7 +67,7 @@ exports.BattleItems = {
 	},
 	"evilarmor": {
  		id: "evilarmor",
- 		name: "evilarmor",
+ 		name: "Evil Armor",
  		gen: -1,
  		num: -5,
  		fling: {

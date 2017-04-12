@@ -150,20 +150,20 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			"%Stellation": {
-				species: "Shedinja",
-				ability: "I'M NOT HACKING!!!",
-				item: "Lum Berry",
+			"Stellation": {
+				species: "Escavalier",
+				ability: "Connecticut Yankee",
+				item: "Hard Armor",
 				gender: "M",
-				moves: ['finalgambit', 'stealthrock', 'endeavor'],
-				baseSignatureMove: "teamplayer",
-				signatureMove: "Team Player",
+				moves: ['megahorn', ['drillrun', 'swords dance'][this.random(2)],'sacredsword'],
+				baseSignatureMove: "joust",
+				signatureMove: "Joust",
 				evs: {
 					atk: 252,
-					spe: 252,
+					hp: 252,
 					spd: 4,
 				},
-				nature: "Jolly",
+				nature: "brave",
 			},
 			//Voices
 			"+C733937 123": {

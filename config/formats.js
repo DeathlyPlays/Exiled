@@ -1366,7 +1366,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'stellation') {
-				this.add('c|%Stellation|Oh hey there! :3');
+				this.add('c|@Stellation|Oh hey there! :3');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1410,7 +1410,7 @@ exports.Formats = [
 				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
 			}
 			if (name === 'stellation') {
-				this.add('c|%Stellation|Gotta go, I\'ll be back when I get to the hospital.');
+				this.add('c|@Stellation|Gotta go, I\'ll be back when I get to the hospital.');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|fuck you');
@@ -1435,7 +1435,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'stellation') {
-				this.add('c|%Stellation|If I\'m dead, I\'m taking the whole server down with me.');
+				this.add('c|@Stellation|If I\'m dead, I\'m taking the whole server down with me.');
 				this.add("raw|<div class=\"broadcast-red\"><b>Oh my God the server crashed!</b><br />Please finish your battles so we can fix this error. No new battles can be started until the server resets or gets fixed. Good job, Stellation, you ruined the server.</div>");
 			}
 			if (name === 'speckeldorft') {

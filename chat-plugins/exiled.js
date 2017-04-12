@@ -13,14 +13,6 @@ let Reports = {};
 
 Exiled.customColors = {};
 
-global.isYouTube = function (user) {
-	if (!user) return;
-	if (typeof user === 'object') user = user.userid;
-	let youtube = Db('youtube').get(toId(user));
-	if (youtube === 1) return true;
-	return false;
-};
-
 //Daily Rewards System for SpacialGaze by Lord Haji
 Exiled.giveDailyReward = function (userid, user) {
 	if (!user || !userid) return false;
@@ -77,59 +69,20 @@ function saveReports() {
 	fs.writeFile('config/reports.json', JSON.stringify(Reports));
 }
 
-global.isDev = function (user) {
+function devCheck(user) {
+	if (isDev(user)) return '<font color="#009320">(<b>Developer</b>)</font>';
+	return '';
+}
+
+function isDev(user) {
 	if (!user) return;
 	if (typeof user === 'object') user = user.userid;
 	let dev = Db('devs').get(toId(user));
 	if (dev === 1) return true;
 	return false;
-};
+}
 
 exports.commands = {
-	youtube: function (target, room, user) {
-		let parts = target.split(', ');
-		if (!target) return this.parse("/help youtube");
-		let username = toId(parts[1]);
-
-		switch (toId(parts[0])) {
-		case 'give':
-			if (!this.can('lock')) return false;
-			if (parts[1] < 1) return false;
-			if (!parts[1]) return false;
-			if (isYouTube(username)) return this.errorReply(user.name + " is already a YouTuber.");
-			Db('youtube').set(username, 1);
-			user.send('|popup|' + toId(parts[1]) + " has received YouTube status from " + user.name + "");
-			this.sendReply(username + ' has been granted with YouTube status.');
-			break;
-
-		case 'take':
-			if (!this.can('lock')) return false;
-			if (!parts[1] < 1) return false;
-			if (!parts[1]) return false;
-			Db('youtube').delete(username);
-			user.send('|popup|' + toId(parts[1]) + " has taken YouTuber status from " + user.name + "");
-			this.sendReply(toId(parts[1]) + '\'s YouTuber status has been taken.');
-			break;
-
-		case 'list':
-			if (!this.can('broadcast')) return false;
-			if (!Object.keys(Db('youtube').object()).length) return this.errorReply('There seems to be no user with YouTuber status.');
-			this.sendReplyBox('<center><b><u>YouTubers</u></b></center>' + '<br /><br />' + Object.keys(Db('youtube').object()).join('<br />'));
-			break;
-
-		default:
-			this.parse("/help youtube");
-		}
-	},
-	youtubehelp: ["Give: /youtube give, user - Gives user YouTuber status.",
-		"Take: /youtube take, user - Takes YouTuber status from user.",
-		"List: /youtube list - Lists all users with YouTuber status.",
-	],
-
-	/* * * * * * * * * * * * *
-	 * User of the Week      *
-	 * Created by Celestial  *
-	 * * * * * * * * * * * * */
 	useroftheweek: 'uotw',
 	uotw: function (target, room, user) {
 		if (toId(target.length) >= 19) return this.errorReply("Usernames have to be 18 characters or less");
@@ -162,52 +115,6 @@ exports.commands = {
 	uotwhelp: [
 		"/uotw - View the current User of the Week",
 		"/uotw [user] - Set the User of the Week. Requires: % or higher.",
-	],
-
-	/* * * * * * * *
-	 * Devs List   *
-	 * Created By: *
-	 * CateQuil    *
-	 * * * * * * * */
-
-	dev: function (target, room, user) {
-		let parts = target.split(', ');
-		if (!target) return this.parse("/help dev");
-		let username = toId(parts[1]);
-
-		switch (toId(parts[0])) {
-		case 'give':
-			if (!this.can('lock')) return false;
-			if (parts[1] < 1) return false;
-			if (!parts[1]) return false;
-			if (isDev(username)) return this.errorReply(user.name + " is already a dev.");
-			Db('devs').set(username, 1);
-			user.send('|popup|' + toId(parts[1]) + " has received Developer status from " + user.name + "");
-			this.sendReply(username + ' has been granted with dev status.');
-			break;
-
-		case 'take':
-			if (!this.can('lock')) return false;
-			if (!parts[1] < 1) return false;
-			if (!parts[1]) return false;
-			Db('devs').delete(username);
-			user.send('|popup|' + toId(parts[1]) + " has taken Developer status from " + user.name + "");
-			this.sendReply(toId(parts[1]) + '\'s dev status has been taken.');
-			break;
-
-		case 'list':
-			if (!this.can('broadcast')) return false;
-			if (!Object.keys(Db('devs').object()).length) return this.errorReply('There seems to be no user with dev status.');
-			this.sendReplyBox('<center><b><u>DEV Users</u></b></center>' + '<br /><br />' + Object.keys(Db('devs').object()).join('<br />'));
-			break;
-
-		default:
-			this.parse("/help dev");
-		}
-	},
-	devhelp: ["Give: /dev give, user - Gives user developer status.",
-		"Take: /dev take, user - Takes developer status from user.",
-		"List: /dev list - Lists all users with developer status.",
 	],
 
 	/* * * * * * * * * * * * *
@@ -783,5 +690,50 @@ exports.commands = {
 		default:
 			this.parse('/reports help');
 		}
+	},
+	dev: {
+		give: function (target, room, user) {
+			if (!this.can('declare')) return false;
+			if (!target) return this.parse('/help', true);
+			let devUsername = toId(target);
+			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
+			if (isDev(devUsername)) return this.errorReply(devUsername + " is already a DEV user.");
+			Db('devs').set(devUsername, 1);
+			this.sendReply('|html|' + Exiled.nameColor(devUsername, true) + " has been given DEV status.");
+			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Exiled.nameColor(user.name, true) + ".");
+		},
+		take: function (target, room, user) {
+			if (!this.can('declare')) return false;
+			if (!target) return this.parse('/help', true);
+			let devUsername = toId(target);
+			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
+			if (!isDev(devUsername)) return this.errorReply(devUsername + " isn't a DEV user.");
+			Db('devs').delete(devUsername);
+			this.sendReply("|html|" + Exiled.nameColor(devUsername, true) + " has been demoted from DEV status.");
+			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been demoted from DEV status by " + Exiled.nameColor(user.name, true) + ".");
+		},
+		users: 'list',
+		list: function (target, room, user) {
+			if (!Db('devs').keys().length) return this.errorReply('There seems to be no user with DEV status.');
+			let display = [];
+			Db('devs').keys().forEach(devUser => {
+				display.push(Exiled.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
+			});
+			this.popupReply('|html|<b><u><font size="3"><center>DEV Users:</center></font></u></b>' + display.join(','));
+		},
+		'': 'help',
+		help: function (target, room, user) {
+			this.sendReplyBox(
+				'<div style="padding: 3px 5px;"><center>' +
+				'<code>/dev</code> commands.<br />These commands are nestled under the namespace <code>dev</code>.</center>' +
+				'<hr width="100%">' +
+				'<code>give [username]</code>: Gives <code>username</code> DEV status. Requires: & ~' +
+				'<br />' +
+				'<code>take [username]</code>: Takes <code>username</code>\'s DEV status. Requires: & ~' +
+				'<br />' +
+				'<code>list</code>: Shows list of users with DEV Status' +
+				'</div>'
+			);
+		},
 	},
 };

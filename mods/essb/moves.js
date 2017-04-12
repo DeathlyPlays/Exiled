@@ -890,7 +890,7 @@ exports.BattleMovedex = {
 		accuracy: 95,
 		basePower: 80,
 		category: "physical",
-		pp: 1.875,
+		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1, contact: 1},
 		onBasePowerPriority: 8,

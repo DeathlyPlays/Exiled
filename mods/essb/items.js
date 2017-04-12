@@ -65,4 +65,23 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "Holder's Speed & Special Attack is 1.5x, but it can only select the first move it executes.",
 	},
+	"evilarmor": {
+ 		id: "evilarmor",
+ 		name: "evilarmor",
+ 		gen: -1,
+ 		num: -5,
+ 		fling: {
+ 			basePower: 150,
+ 		},
+ 		onModifySpe: function (spe) {
+			return this.chainModify(0.5);
+		},
+		onModifySpD: function (spd) {
+			return this.chainModify(0.5);
+		},
+		onModifyDef: function (def) {
+			return this.chainModify(0.5);
+		},
+ 		desc: "The holder's Speed, Defense, and Special Defense is halved.",
+ 	},
 };

@@ -1,8 +1,8 @@
 'use strict';
 
 exports.BattleItems = {
-	"hard armor": {
-		id: "hard armor",
+	"hardarmor": {
+		id: "hardarmor",
 		name: "Hard Armor",
 		fling: {
 			basePower: 150,

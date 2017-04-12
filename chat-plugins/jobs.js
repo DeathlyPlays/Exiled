@@ -9,7 +9,7 @@ function genJobTable(completionButton) {
 		"<tbody><tr><th>Employer</th><th>Description</th><th>Reward</th>" + (completionButton ? "<th>Completed</th>" : "") + "</tr>";
 	for (let id in Db('jobs').object()) {
 		display += "<tr>" +
-			"<td align='center'><button name='send' value='/user " + Db('jobs').get([id, "owner"]) + "'><b>" + Db('jobs').get([id, "owner"]) + "</b></button>" + "</td>" +
+			"<td align='center'><button name='send' value='/profile " + Db('jobs').get([id, "owner"]) + "'><b>" + Db('jobs').get([id, "owner"]) + "</b></button>" + "</td>" +
 			"<td align='center'>" + Db('jobs').get([id, "description"]) + "</td>" +
 			"<td align='center'>" + Db('jobs').get([id, "reward"]) + "</td>" +
 			(completionButton ? "<td align='center'><button name='send' value='/jobs delete " + id + "'>" + "Completed" + "</td>" : "") +

@@ -133,6 +133,21 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			"@Stellation": {
+				species: "Escavalier",
+				ability: "Connecticut Yankee",
+				item: "Hard Armor",
+				gender: "M",
+				moves: ['megahorn', 'drillrun', 'sacredsword'],
+				baseSignatureMove: "joust",
+				signatureMove: "Joust",
+				evs: {
+					atk: 252,
+					hp: 252,
+					spd: 4,
+				},
+				nature: "brave",
+			},
 			//Drivers
 			"%Wobbleleez": {
 				species: "Musharna",
@@ -149,21 +164,6 @@ exports.BattleScripts = {
 					def: 16,
 				},
 				nature: "Modest",
-			},
-			"%Stellation": {
-				species: "Shedinja",
-				ability: "I'M NOT HACKING!!!",
-				item: "Lum Berry",
-				gender: "M",
-				moves: ['finalgambit', 'stealthrock', 'endeavor'],
-				baseSignatureMove: "teamplayer",
-				signatureMove: "Team Player",
-				evs: {
-					atk: 252,
-					spe: 252,
-					spd: 4,
-				},
-				nature: "Jolly",
 			},
 			//Voices
 			"+C733937 123": {

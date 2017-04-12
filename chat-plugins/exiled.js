@@ -777,7 +777,7 @@ exports.commands = {
 				"/reports view - Views all current reports<br />" +
 				"/reports accept [id] - Accepts a report<br />" +
 				"/reports delete [id] - Deletes a report<br />" +
-				"/reports deny [id] - Denies a report",
+				"/reports deny [id] - Denies a report"
 			);
 			break;
 		default:

@@ -540,42 +540,33 @@ exports.BattleAbilities = {
 			move.stab = 2;
 		},
 	},
-	"imnothacking": {
-		id: "imnothacking",
-		name: "I\'M NOT HACKING!!!",
-		//scrappy to help get rid of endless battles
-		onModifyMovePriority: -5,
-		onModifyMove: function (move) {
-			if (!move.ignoreImmunity) move.ignoreImmunity = {};
-			if (move.ignoreImmunity !== true) {
-				move.ignoreImmunity['Fighting'] = true;
-				move.ignoreImmunity['Normal'] = true;
-			}
+	"connecticutyankee": {
+		id: "connecticutyankee",
+		name: "Connecticut Yankee",
+		//Sets TR when out
+		onStart: function (source) {
+		this.setPseudoWeather('trickroom');
 		},
-		//sturdy and apart of overcoat
-		onTryHitPriority: 1,
-		onTryHit: function (pokemon, target, move, source) {
-			if (move.ohko) {
-				this.add('-immune', pokemon, '[msg]', '[from] ability: I\'M NOT HACKING!!!');
-				return null;
-			}
-			if (move.flags['powder'] && target !== source && this.getImmunity('powder', target)) {
-				this.add('-immune', target, '[msg]', '[from] ability: I\'M NOT HACKING!!!');
+		//Fire absorb
+		onTryHit: function (target, source, move) {
+		if (target !== source && move.type === 'Fire') {
+			if (!this.heal(target.maxhp / 4)) {
+				this.add('-immune', target, '[msg]', '[from] ability: Connecticut Yankee');
+				}
 				return null;
 			}
 		},
-		onDamagePriority: -100,
-		onDamage: function (damage, target, source, effect) {
-			if (target.hp === target.maxhp && damage >= target.hp && effect && effect.effectType === 'Move') {
-				this.add('-ability', target, 'I\'M NOT HACKING!!!');
-				return target.hp - 1;
+		//Dazzling
+		onFoeTryMove: function (target, source, effect) {
+			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
+				this.attrLastMove('[still]');
+				this.add('cant', this.effectData.target, 'ability: Connecticut Yankee', effect, '[of] ' + target);
+				return false;
 			}
-		},
-		//overcoat
-		onImmunity: function (type, pokemon) {
-			if (type === 'sandstorm' || type === 'hail' || type === 'powder') return false;
 		},
 	},
+
+
 	"feelsflys": {
 		id: "feelsflys",
 		name: "feelsflys",

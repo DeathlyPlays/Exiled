@@ -1,4 +1,5 @@
 <h1>Exiled Server</h1><br>
+[![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg?branch=master)](https://travis-ci.org/DeathlyPlays/Exiled)
 <i>A server filled with memes, and well a lot of chat-plugins and metagames.</i><br>
 http://exiled.psim.us/ - Server Link<br>
 <b>Node Version:</b><br>
@@ -12,6 +13,7 @@ Volco - Fixes errors, implements features, Sysop.<br>
 HoeenCoder - Sysop, Bug fixes, Mechanic assistance.<br>
 Mewth - Developments, Sysop.<br>
 Stellation - Developments.<br>
+Mystifi - Assistance, Developments.
 AlfaStorm & Ashley The Pikachu - Minor developments.<br>
 Zarel - The main workspace we used to begin Exiled off of.<br>
 <b>Retired Developers</b><br>

@@ -1,5 +1,4 @@
 <h1>Exiled Server</h1><br>
-[![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg?branch=master)](https://travis-ci.org/DeathlyPlays/Exiled)
 <i>A server filled with memes, and well a lot of chat-plugins and metagames.</i><br>
 http://exiled.psim.us/ - Server Link<br>
 <b>Node Version:</b><br>

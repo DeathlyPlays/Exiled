@@ -136,7 +136,7 @@ exports.BattleScripts = {
 			"@Stellation": {
 				species: "Escavalier",
 				ability: "Connecticut Yankee",
-				item: "Hard Armor",
+				item: "Macho Brace",
 				gender: "M",
 				moves: ['megahorn', 'drillrun', 'sacredsword'],
 				baseSignatureMove: "joust",

@@ -69,11 +69,6 @@ function saveReports() {
 	fs.writeFile('config/reports.json', JSON.stringify(Reports));
 }
 
-function devCheck(user) {
-	if (isDev(user)) return '<font color="#009320">(<b>Developer</b>)</font>';
-	return '';
-}
-
 function isDev(user) {
 	if (!user) return;
 	if (typeof user === 'object') user = user.userid;

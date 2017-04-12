@@ -53,7 +53,7 @@ exports.commands = {
 	ca: 'customavatar',
 	customavatar: {
 		set: function (target, room, user) {
-			if (!this.can('roomowner')) return false;
+			if (!this.can('broadcast')) return false;
 			let parts = target.split(',').map(param => param.trim());
 			if (parts.length < 2) return this.parse('/help customavatar');
 
@@ -75,7 +75,7 @@ exports.commands = {
 
 		remove: 'delete',
 		delete: function (target, room, user) {
-			if (!this.can('roomowner')) return false;
+			if (!this.can('broadcast')) return false;
 
 			let userid = toId(target);
 			let image = Config.customavatars[userid];

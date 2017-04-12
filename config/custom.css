@@ -1,0 +1,424 @@
+/* * * * * * * * *
+ *  CSS          *
+ *  by Amber     *
+ * * * * * * * * */
+ /* General CSS */
+
+body {
+    background: url(http://i.imgur.com/AAQSfwW.jpg) center
+}
+
+button {
+    background: #F5F6CE;
+    border: solid 1px #A37D49;
+    color: #A37D49
+}
+
+.menugroup {
+    background: rgba(196, 247, 255, 0.5);
+    color: #C741C6;
+    border: 1px solid #0174DF;
+    text-shadow: none
+}
+
+.teamselect:disabled strong {
+    color: #C741C6
+}
+
+.menugroup .select:disabled {
+	background: #F09AEF !important;
+    color: #C741C6 !important;
+    border: #C741C6 solid 1px !important;
+	text-shadow: none;
+    box-shadow: none !important
+}
+
+.menugroup .select:disabled:hover {
+    background: #A9E2F3 !important;
+    color: #0174DF !important;
+    border: #0174DF solid 1px !important;
+	text-shadow: none
+}
+
+.menugroup button, .select, .menugroup .button.mainmenu2, .menugroup .button.mainmenu4 {
+	background: #F09AEF;
+    color: #C741C6 !important;
+    border: #C741C6 solid 1px !important;
+	text-shadow: none;
+    box-shadow: none !important
+}
+
+.menugroup button:hover, .select:hover, .menugroup .button.mainmenu2:hover, .menugroup .button.mainmenu4:hover {
+    background: #A9E2F3 !important;
+    color: #0174DF !important;
+    border: #0174DF solid 1px !important;
+	text-shadow: none
+}
+
+.menugroup .button.mainmenu1, .menugroup .button.mainmenu3, .menugroup .button.mainmenu5 {
+ 	background: #EA8AE8;
+    color: #C741C6 !important;
+	border: solid 1px #C741C6 !important;
+    text-shadow: none;
+    box-shadow: none !important
+}
+
+.menugroup .button.mainmenu1:hover, .menugroup .button.mainmenu3:hover, .menugroup .button.mainmenu5:hover {
+    background: #7BCEE8 !important;
+    color: #0174DF !important;
+    border: #0174DF solid 1px !important;
+	text-shadow: none
+}
+
+.userlist {
+    background: rgba(196, 247, 255, 0.5);
+    color: #0174DF;
+    border-color: #0174DF
+}
+
+.userlist li button:hover {
+    background: rgba(151, 227, 238, 0.5)
+}
+
+.userlist li em.group {
+    color: #0174DF
+}
+
+.userlist li {
+    border: none
+}
+
+.chat.mine {
+    background: none
+}
+
+.infobox {
+    border: solid 1px #0174DF
+}
+
+.chat-log {
+    background: rgba(151, 227, 238, 0.2)
+}
+
+.chat-log .chat small {
+    color: #0174DF
+}
+
+.chat-log-add .textbox {
+    border-color: #0174DF
+}
+
+.chat-log-add {
+    background: rgba(196, 247, 255, 0.5);
+    border-color: #0174DF
+}
+
+.highlighted {
+    background: #F5F6CE
+}
+
+/* Header CSS */
+
+.fa-user {
+    display: none
+}
+
+.maintabbarbottom {
+    background: #A9E2F3;
+    border: #58ACFA solid 1px
+}
+
+.header {
+     background:rgba(169, 226, 243, 0.6)
+}
+
+.header .logo {
+    background: url(http://i.imgur.com/ygmDYmj.png) no-repeat scroll 98% 50% transparent;
+    float: left;
+    margin: 8px 0px 0px -148px;
+    padding-right: 151px;
+    padding-bottom: 0px;
+
+}
+
+.tabbar a.button {
+	background: #F09AEF !important;
+    color: #C741C6 !important;
+    border: #C741C6 solid 1px !important;
+	text-shadow: none
+}
+
+.tabbar a.button:hover {
+	background: #EA8AE8 !important;
+    color: #C741C6 !important;
+	border: solid 1px #C741C6 !important;
+    text-shadow: none
+}
+
+.tabbar a.button.cur {
+	background: #EA8AE8 !important;
+    color: #C741C6 !important;
+	border: solid 1px #C741C6 !important;
+    text-shadow: none
+}
+
+.tabbar a.button.subtle-notifying {
+    color: #0174DF
+}
+
+
+.tabbar a.button.notifying {
+    background: #A9E2F3 !important;
+    color: #0174DF !important;
+    border: #0174DF solid 1px !important;
+	text-shadow: none
+}
+
+.tabbar a.button.notifying:hover {
+    background: #7BCEE8 !important;
+    color: #0174DF !important;
+    border: #0174DF solid 1px !important;
+	text-shadow: none
+}
+
+.tabbar .closebutton {
+    color: #D94DD2
+}
+
+.tabbar .closebutton:hover {
+    color: #C741C6
+}
+
+.userbar button {
+	background: #F09AEF !important;
+    color: #C741C6 !important;
+    border: #C741C6 solid 1px !important;
+	text-shadow: none;
+    box-shadow: none !important
+}
+
+.userbar button:hover {
+	background: #EA8AE8 !important;
+    color: #C741C6 !important;
+	border: solid 1px #C741C6 !important;
+    text-shadow: none;
+    box-shadow: none !important
+}
+
+/* Pm Box CSS */
+
+.pm-window h3 small {
+    color: #0174DF
+}
+
+.pm-window.focused h3, .pm-window.focused h3:hover {
+    background: #C4F7FF url(https://pldh.net/media/pokecons_action/488.gif) no-repeat;
+    background-position: 220px -9px;
+    border-color: #0174DF;
+    color: #0174DF
+}
+
+.pm-window h3 {
+    background: #C4F7FF url(https://pldh.net/media/pokecons_action/488.gif) no-repeat;
+    background-position: 220px -9px;
+    border-color: #0174DF;
+    color: #0174DF
+}
+
+.pm-window h3:hover {
+    background: #A9E2F3 url(https://pldh.net/media/pokecons_action/488.gif) no-repeat;
+    background-position: 220px -9px;
+    border-color: #0174DF;
+    color: #0174DF
+}
+
+.pm-window h3.pm-notifying {
+	background: #F09AEF url(https://pldh.net/media/pokecons_action/488.gif) no-repeat;
+    background-position: 220px -9px;
+    color: #C741C6 !important;
+    border: #C741C6 solid 1px !important
+}
+
+.pm-window h3.pm-notifying:hover {
+ 	background: #EA8AE8 url(https://pldh.net/media/pokecons_action/488.gif) no-repeat;
+    background-position: 220px -9px;
+    color: #C741C6 !important;
+	border: solid 1px #C741C6 !important
+}
+
+.pm-window h3.pm-notifying small {
+    color: #C741C6
+}
+
+.message-pm {
+    color: #0174DF
+}
+
+.pm-window h3:hover .minimizebutton, .pm-window h3 .closebutton, .pm-window h3 .minimizebutton {
+    color: #0174DF
+}
+
+.pm-window h3 .closebutton:hover + .minimizebutton {
+    color: #0064C1 !important
+}
+
+.pm-window h3 .closebutton:hover {
+    color: #0064C1
+}
+
+.pm-window h3 .minimizebutton:hover {
+    color: #0064C1
+}
+
+.pm-window.focused .pm-log-add {
+    background: #C4F7FF;
+    border-color: #0174DF
+}
+
+.pm-log {
+    background: #E2FBFF
+}
+.pm-log-add {
+    background: #C4F7FF;
+    border-color: #0174DF
+}
+
+.pm-log-add .textbox {
+    border-color: #0174DF
+}
+
+/* Roomlist CSS */
+
+.ps-room-light.scrollable {
+    background:rgba(169, 226, 243, 0.6);
+    color: #685A84
+}
+
+.ps-room.ps-room-light.scrollable .button {
+	background: #F09AEF !important;
+    color: #C741C6 !important;
+    border: #C741C6 solid 1px !important;
+	text-shadow: none;
+    text-align: center;
+    box-shadow: none
+}
+
+.ps-room.ps-room-light.scrollable .button:hover {
+	background: #EA8AE8 !important;
+    color: #C741C6 !important;
+	border: solid 1px #C741C6 !important;
+    text-shadow: none;
+    box-shadow: none
+}
+
+.roomlist h2 {
+	color: #C741C6
+}
+
+.roomlist a.ilink {
+	background: #F09AEF !important;
+    color: #C741C6 !important;
+    border: #C741C6 solid 1px !important;
+	text-shadow: none;
+    text-align: center
+}
+
+.roomlist a.ilink:hover {
+	background: #EA8AE8 !important;
+    color: #C741C6 !important;
+	border: solid 1px #C741C6 !important;
+    text-shadow: none;
+    text-align: center
+}
+
+/* Popup CSS */
+
+.ps-popup {
+    background: url(http://i.imgur.com/bH9aXjx.jpg);
+    background-size: contain;
+    border-color: #A37D49;
+    color: #A37D49
+}
+
+.avatarlist button {
+    border-color: #A37D49
+}
+
+.avatarlist button:hover {
+    background-color: #F5F6CE;
+    border-color: #A37D49
+}
+
+.effect-volume em, .music-volume em {
+    color: #A37D49
+}
+
+.popupmenu h3 {
+    color: #A37D49
+}
+
+.ps-popup a, .credits h2, .credits ul {
+    color: #A37D49
+}
+
+.ps-popup hr {
+    border-color: #A37D49
+}
+
+/* Teambuilder CSS */
+
+.teamlist .team {
+	background: #F09AEF !important;
+    color: #C741C6 !important;
+    border: #C741C6 solid 1px !important;
+	text-shadow: none;
+    box-shadow: none
+}
+
+.teamlist .team:hover {
+ 	background: #EA8AE8 !important;
+    color: #C741C6 !important;
+	border: solid 1px #C741C6 !important;
+    text-shadow: none;
+    box-shadow: none
+}
+
+.teamchartbox {
+    border: none
+}
+
+/* Battle CSS */
+
+.challenge {
+    background: #F09AEF;
+    border-color: #C741C6;
+    color: #C741C6
+}
+
+.challenge .select {
+    background: #F09AEF;
+    border-color: #C741C6;
+    color: #C741C6
+}
+
+.challenge .buttonbar button {
+    background: #F09AEF;
+    border-color: #C741C6;
+    color: #C741C6
+}
+
+.challenge .buttonbar button:hover {
+    background: #EA8AE8
+}
+
+.pm-window-servernews .chatbox {
+    display: none;
+}
+/* COLORS START */
+#lobby-userlist-user-insist strong em, #lobby-userlist-user-insist strong, #lobby-userlist-user-insist span, #staff-userlist-user-insist strong em, #staff-userlist-user-insist strong, #staff-userlist-user-insist span, #shadowbanroom-userlist-user-insist strong em, #shadowbanroom-userlist-user-insist strong, #shadowbanroom-userlist-user-insist span, #tournaments-userlist-user-insist strong em, #tournaments-userlist-user-insist strong, #tournaments-userlist-user-insist span, #events-userlist-user-insist strong em, #events-userlist-user-insist strong, #events-userlist-user-insist span, #casino-userlist-user-insist strong em, #casino-userlist-user-insist strong, #casino-userlist-user-insist span, #breeding-userlist-user-insist strong em, #breeding-userlist-user-insist strong, #breeding-userlist-user-insist span, #socialmedia-userlist-user-insist strong em, #socialmedia-userlist-user-insist strong, #socialmedia-userlist-user-insist span, #thehappyplace-userlist-user-insist strong em, #thehappyplace-userlist-user-insist strong, #thehappyplace-userlist-user-insist span, #roleplaying-userlist-user-insist strong em, #roleplaying-userlist-user-insist strong, #roleplaying-userlist-user-insist span, #development-userlist-user-insist strong em, #development-userlist-user-insist strong, #development-userlist-user-insist span, #gamecorner-userlist-user-insist strong em, #gamecorner-userlist-user-insist strong, #gamecorner-userlist-user-insist span, #botworld-userlist-user-insist strong em, #botworld-userlist-user-insist strong, #botworld-userlist-user-insist span, #spammerino-userlist-user-insist strong em, #spammerino-userlist-user-insist strong, #spammerino-userlist-user-insist span, #temporaltower-userlist-user-insist strong em, #temporaltower-userlist-user-insist strong, #temporaltower-userlist-user-insist span, #thesiestaleague-userlist-user-insist strong em, #thesiestaleague-userlist-user-insist strong, #thesiestaleague-userlist-user-insist span, #exiledmetas-userlist-user-insist strong em, #exiledmetas-userlist-user-insist strong, #exiledmetas-userlist-user-insist span, #upperstaff-userlist-user-insist strong em, #upperstaff-userlist-user-insist strong, #upperstaff-userlist-user-insist span, #breadsmash-userlist-user-insist strong em, #breadsmash-userlist-user-insist strong, #breadsmash-userlist-user-insist span, #selfpity-userlist-user-insist strong em, #selfpity-userlist-user-insist strong, #selfpity-userlist-user-insist span, #themewthchallenge-userlist-user-insist strong em, #themewthchallenge-userlist-user-insist strong, #themewthchallenge-userlist-user-insist span, #galactic-userlist-user-insist strong em, #galactic-userlist-user-insist strong, #galactic-userlist-user-insist span, #help-userlist-user-insist strong em, #help-userlist-user-insist strong, #help-userlist-user-insist span, #fusion-userlist-user-insist strong em, #fusion-userlist-user-insist strong, #fusion-userlist-user-insist span, #sotascapfun-userlist-user-insist strong em, #sotascapfun-userlist-user-insist strong, #sotascapfun-userlist-user-insist span, #anime-userlist-user-insist strong em, #anime-userlist-user-insist strong, #anime-userlist-user-insist span, #drama-userlist-user-insist strong em, #drama-userlist-user-insist strong, #drama-userlist-user-insist span, #bronzeshome-userlist-user-insist strong em, #bronzeshome-userlist-user-insist strong, #bronzeshome-userlist-user-insist span, #onestarmemers-userlist-user-insist strong em, #onestarmemers-userlist-user-insist strong, #onestarmemers-userlist-user-insist span, #nightclub-userlist-user-insist strong em, #nightclub-userlist-user-insist strong, #nightclub-userlist-user-insist span, #minglemore-userlist-user-insist strong em, #minglemore-userlist-user-insist strong, #minglemore-userlist-user-insist span, #magma-userlist-user-insist strong em, #magma-userlist-user-insist strong, #magma-userlist-user-insist span, #plasma-userlist-user-insist strong em, #plasma-userlist-user-insist strong, #plasma-userlist-user-insist span, #rocket-userlist-user-insist strong em, #rocket-userlist-user-insist strong, #rocket-userlist-user-insist span, #aqua-userlist-user-insist strong em, #aqua-userlist-user-insist strong, #aqua-userlist-user-insist span, #skull-userlist-user-insist strong em, #skull-userlist-user-insist strong, #skull-userlist-user-insist span, #fakemons-userlist-user-insist strong em, #fakemons-userlist-user-insist strong, #fakemons-userlist-user-insist span, #wigglewithmiggle-userlist-user-insist strong em, #wigglewithmiggle-userlist-user-insist strong, #wigglewithmiggle-userlist-user-insist span, #digimon-userlist-user-insist strong em, #digimon-userlist-user-insist strong, #digimon-userlist-user-insist span{
+color: #33ccff !important;
+}
+.chat.chatmessage-insist strong {
+color: #33ccff !important;
+}
+/* COLORS END */

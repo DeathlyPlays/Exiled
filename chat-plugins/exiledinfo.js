@@ -7,6 +7,7 @@ Basically just edits to main's info.js, and adds more, removes stuff, etc.
 'use strict';
 
 exports.commands = {
+
 	/*********************************************************
 	 * Informational commands
 	 *********************************************************/
@@ -25,7 +26,8 @@ exports.commands = {
 			"~ <b>Administrator</b> - They can do anything, like change what this message says."
 		);
 	},
-	groupshelp: ["/groups - Explains what the + % @ # & next to people's names mean.",
+	groupshelp: [
+		"/groups - Explains what the + % @ # & next to people's names mean.",
 		"!groups - Shows everyone that information. Requires: + % @ * # & ~",
 	],
 
@@ -36,11 +38,11 @@ exports.commands = {
 			"Exiled's Github's:<br />" +
 			"- Language: JavaScript (Node.js)<br />" +
 			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">Exiled Server Code</a><br />" +
-			"- <a href=\"https://github.com/ExiledPS\">Team Exiled Organization</a><br />" +
-			"Note: We allow anyone to join the organization, seeing as though the reason Exiled exists is due to people practicing/learning code, and having fun ^~^<br />"
+			"- <a href=\"https://github.com/ExiledPS\">Team Exiled Organization</a><br />"
 		);
 	},
-	opensourcehelp: ["/opensource - Links to PS's source code repository.",
+	opensourcehelp: [
+		"/opensource - Links to Exiled's source code repository.",
 		"!opensource - Show everyone that information. Requires: + % @ * # & ~",
 	],
 
@@ -72,7 +74,7 @@ exports.commands = {
 	'!skype': true,
 	skype: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://join.skype.com/yKgbwohZWdHl\">The Official Skype Group</a>");
+		this.sendReplyBox("<a href=\"https://join.skype.com/Eo5DCq8nCh1j\">The Official Skype Group</a>");
 	},
 
 	'!discord': true,
@@ -91,19 +93,6 @@ exports.commands = {
 	facebook: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox("<a href=\"https://www.facebook.com/exiledserver/\">The Official Exiled Facebook Page</a>");
-	},
-
-	'!credits': true,
-	credits: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox(
-			"<center><b>Exiled Credits:</b></center>" +
-			"<b>~Insist</b> -Main Developer and Owner of Exiled<br />" +
-			"<b>HoeenHero</b> -Mechanics<br />" +
-			"<b>%Stellation</b> -Assistant Developer.<br />" +
-			"<b>Other Exiled Auth</b> - Help making Exiled a good enviroment for the users.<br />" +
-			"Special Thanks to users like you for making Exiled a great server."
-		);
 	},
 
 	'!bugs': true,
@@ -197,8 +186,31 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 		}
 	},
-	ruleshelp: ["/rules - Show links to room rules and global rules.",
+	ruleshelp: [
+		"/rules - Show links to room rules and global rules.",
 		"!rules - Show everyone links to room rules and global rules. Requires: + % @ * # & ~",
 		"/rules [url] - Change the room rules URL. Requires: # & ~",
 	],
+
+	servercredits: 'credits',
+	credits: function (target, room, user) {
+		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Exiled Credits</b></u></font><br />" +
+			"<br />" +
+			"<u><b>Server Maintainers:</u></b><br />" +
+			"- " + Exiled.nameColor('Insist', true) + " (Owner, Sysadmin, Development)<br />" +
+			"- " + Exiled.nameColor('Volco', true) + " (Owner, Sysadmin, Development)<br />" +
+			"<br />" +
+			"<u><b>Major Contributors:</b></u><br />" +
+			"- " + Exiled.nameColor('Stellation', true) + " (Developments)<br />" +
+			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developments)<br />" +
+			"<br />" +
+			"<u><b>Retired Staff:</b></u><br />" +
+			"- " + Exiled.nameColor('Sukesha', true) + " (Former Owner, Development, CSS Developments)<br />" +
+			"- " + Exiled.nameColor('Alpha Hawk', true) + " (Developments)<br />" +
+			"<br />" +
+			"<u><b>Special Thanks:</b></u><br />" +
+			"- Our Staff Members<br />" +
+			"- Our Regular Users<br />";
+		user.popup(popup);
+	},
 };

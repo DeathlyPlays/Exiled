@@ -50,7 +50,7 @@ class Room {
 	send(message, errorArgument) {
 		if (errorArgument) throw new Error("Use Room#sendUser");
 		if (this.id !== 'lobby') message = '>' + this.id + '\n' + message;
-		Sockets.channelBroadcast(this.id, message);
+		if (this.userCount) Sockets.channelBroadcast(this.id, message);
 	}
 	sendAuth(message) {
 		for (let i in this.users) {
@@ -168,6 +168,7 @@ class Room {
 
 		if (modjoinGroup === 'trusted') {
 			if (user.trusted) return true;
+
 			modjoinGroup = Config.groupsranking[1];
 		}
 		if (modjoinGroup === 'autoconfirmed') {
@@ -461,7 +462,7 @@ class GlobalRoom {
 	send(message, user) {
 		if (user) {
 			user.sendTo(this, message);
-		} else {
+		} else if (this.userCount) {
 			Sockets.channelBroadcast(this.id, message);
 		}
 	}
@@ -817,7 +818,9 @@ class BattleRoom extends Room {
 	update(excludeUser) {
 		if (this.log.length <= this.lastUpdate) return;
 
-		Sockets.subchannelBroadcast(this.id, '>' + this.id + '\n\n' + this.log.slice(this.lastUpdate).join('\n'));
+		if (this.userCount) {
+			Sockets.subchannelBroadcast(this.id, '>' + this.id + '\n\n' + this.log.slice(this.lastUpdate).join('\n'));
+		}
 
 		this.lastUpdate = this.log.length;
 
@@ -873,7 +876,7 @@ class BattleRoom extends Room {
 			fs.mkdir(curpath, '0755', () => {
 				curpath += '/' + logsubfolder;
 				fs.mkdir(curpath, '0755', () => {
-					fs.writeFile(curpath + '/' + this.id + '.log.json', JSON.stringify(logData));
+					fs.writeFile(curpath + '/' + this.id + '.log.json', JSON.stringify(logData), () => {});
 				});
 			});
 		}); // asychronicity
@@ -885,12 +888,14 @@ class BattleRoom extends Room {
 	getInactiveSide() {
 		let p1active = this.battle.p1 && this.battle.p1.active;
 		let p2active = this.battle.p2 && this.battle.p2.active;
+
 		if (p1active && this.battle.requests.p1) {
 			if (!this.battle.requests.p1[2]) p1active = false;
 		}
 		if (p2active && this.battle.requests.p2) {
 			if (!this.battle.requests.p2[2]) p2active = false;
 		}
+
 		if (p1active && !p2active) return 1;
 		if (p2active && !p1active) return 0;
 		return -1;
@@ -1462,6 +1467,10 @@ class ChatRoom extends Room {
 			for (let i = 0; i < this.aliases.length; i++) {
 				Rooms.aliases.delete(this.aliases[i]);
 			}
+		}
+
+		if (this.game) {
+			this.game.destroy();
 		}
 
 		// Clear any active timers for the room

@@ -190,7 +190,6 @@ class CommandContext {
 			}
 		}
 
-
 		this.update();
 
 		return message;
@@ -621,6 +620,10 @@ class CommandContext {
 				return false;
 			}
 
+			if (!this.checkBanwords(room, user.name)) {
+				this.errorReply(`Your username contains a phrase banned by this room.`);
+				return false;
+			}
 			if (!this.checkBanwords(room, message) && !user.can('mute', null, room)) {
 				this.errorReply("Your message contained banned words.");
 				return false;
@@ -723,7 +726,7 @@ class CommandContext {
 		}
 
 		// check for mismatched tags
-		let tags = html.toLowerCase().match(/<\/?(div|a|button|b|strong|em|i|u|center|font|marquee|blink|details|summary|code)\b/g);
+		let tags = html.toLowerCase().match(/<\/?(div|a|button|b|strong|em|i|u|center|font|marquee|blink|details|summary|code|table|td|tr)\b/g);
 		if (tags) {
 			let stack = [];
 			for (let i = 0; i < tags.length; i++) {
@@ -788,7 +791,7 @@ Chat.CommandContext = CommandContext;
  * Usage:
  *   Chat.parse(message, room, user, connection)
  *
- * Parses the message. If it's a command, the commnad is executed, if
+ * Parses the message. If it's a command, the command is executed, if
  * not, it's displayed directly in the room.
  *
  * Examples:

@@ -547,26 +547,23 @@ exports.BattleAbilities = {
 		onStart: function (source) {
 			this.setPseudoWeather('trickroom');
 		},
-		//Fire absorb
-		onTryHit: function (target, source, move) {
-			if (target !== source && move.type === 'Fire') {
-				if (!this.heal(target.maxhp / 4)) {
-				this.add('-immune', target, '[msg]', '[from] ability: Connecticut Yankee');
-				return null;
-			}
-		}
 		//Dazzling
 		onFoeTryMove: function (target, source, effect) {
 			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
 				this.attrLastMove('[still]');
 				this.add('cant', this.effectData.target, 'ability: Connecticut Yankee', effect, '[of] ' + target);
-					}
 				return false;
 			}
 		},
-	},
-
-
+		//Fire absorb
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Fire') {
+				if (!this.heal(target.maxhp / 4)) {
+					this.add('-immune', target, '[msg]', '[from] ability: Connecticut Yankee');
+				}
+				return null;
+			}
+		},
 	"feelsflys": {
 		id: "feelsflys",
 		name: "feelsflys",

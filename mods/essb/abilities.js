@@ -1,7 +1,7 @@
 'use strict';
 
 exports.BattleAbilities = {
-	//DeathlyPlays :3
+	//Insist
 	"cripplingdepression": {
 		id: "cripplingdepression",
 		name: "Crippling Depression",
@@ -544,8 +544,8 @@ exports.BattleAbilities = {
 		id: "connecticutyankee",
 		name: "Connecticut Yankee",
 		//Sets TR when out
-		onStart: function (source) {
-			this.setPseudoWeather('trickroom');
+		onStart: function (pokemon) {
+			this.useMove('trickroom', pokemon);
 		},
 		//Dazzling
 		onFoeTryMove: function (target, source, effect) {

@@ -65,32 +65,4 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "Holder's Speed & Special Attack is 1.5x, but it can only select the first move it executes.",
 	},
-	"hardarmor": {
-		id: "hardarmor",
-		name: "Hard Armor",
-		gen: -1,
-		num: -5,
-		fling: {
-			basePower: 150,
-		},
-		onModifySpePriority: 2,
-		onModifySpe: function (spe, pokemon) {
-			if (pokemon.baseTemplate.baseSpecies === 'Escavalier') {
-				return this.chainModify(0.5);
-			}
-		},
-		onModifyDefPriority: 2,
-		onModifyDef: function (def, pokemon) {
-			if (pokemon.baseTemplate.baseSpecies === 'Escavalier') {
-				return this.chainModify(1.5);
-			}
-		},
-		onModifySpDPriority: 2,
-		onModifySpD: function (spd, pokemon) {
-			if (pokemon.baseTemplate.baseSpecies === 'Escavalier') {
-				return this.chainModify(1.5);
-			}
-		},
-		desc: "If the holder is Escavalier, it's Speed is halved, Defense is boosted by 1.5x, Special Defense is boosted by 1.5x",
-	},
 };

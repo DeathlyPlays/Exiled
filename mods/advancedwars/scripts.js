@@ -34,6 +34,48 @@ exports.BattleScripts = {
 				moves: ['neocannon', 'neogun'],
 				nature: "Serious",
 			},
+			"Artillery": {
+				species: "Artillery",
+				ability: "Lucky",
+				moves: ['artilleryception'],
+				nature: "Serious",
+			},
+			"Rocket": {
+				species: "Rocket",
+				ability: "Lucky",
+				moves: ['rocketception'],
+				nature: "Serious",
+			},
+			"Missile": {
+				species: "Missile",
+				ability: "Lucky",
+				moves: ['missileception'],
+				nature: "Serious",
+			},
+			"Anti-Air": {
+				species: "Anti-Air",
+				ability: "Lucky",
+				moves: ['vulcan'],
+				nature: "Serious",
+			},
+			"Cruiser": {
+				species: "Cruiser",
+				ability: "Lucky",
+				moves: ['cmissiles'],
+				nature: "Serious",
+			},
+			"Battleship": {
+				species: "Battleship",
+				ability: "Lucky",
+				moves: ['battleception'],
+				nature: "Serious",
+			},
+			"Submarine": {
+				species: "Submarine",
+				ability: "Lucky",
+				moves: ['torps'],
+				nature: "Serious",
+			},
 			"Battle Copter": {
 				species: "Battle Copter",
 				ability: "Lucky",

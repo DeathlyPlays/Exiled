@@ -888,7 +888,7 @@ exports.BattleMovedex = {
 		id: "joust",
 		name: "Joust",
 		accuracy: 95,
-		basePower: 80,
+		basePower: 90,
 		category: "physical",
 		pp: 5,
 		priority: 0,
@@ -898,6 +898,10 @@ exports.BattleMovedex = {
 			if (this.willMove(target)) {
 				return this.chainModify(2);
 			}
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Giga Impact", target);
 		},
 		secondary: false,
 		target: "normal",

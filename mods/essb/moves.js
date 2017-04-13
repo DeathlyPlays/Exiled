@@ -891,7 +891,7 @@ exports.BattleMovedex = {
 		id: "electrofryer",
 		name: "Electro-Fryer",
 		pp: 10,
-		priority: 0,
+		priority: 1,
 		flags: {protect: 1, mirror: 1},
 		onBasePowerPriority: 4,
 		onBasePower: function (basePower, source, target, move) {
@@ -920,9 +920,13 @@ exports.BattleMovedex = {
 				}
 			},
 		},
+		onEffectiveness: function (typeMod, type, move) {
+			return typeMod + this.getEffectiveness('Fire', type);
+		},
+		ignoreImmunity: {'Electric': true},
 		target: "normal",
 		type: "electric",
-		zMovePower: 160,
+		zMovePower: 200,
 		contestType: "Cool",
 	},
 	//HoeenHero

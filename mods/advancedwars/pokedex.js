@@ -241,4 +241,20 @@ exports.BattlePokedex = {
 			0: "Lucky",
 		},
 	},
+	recon: {
+		num: -315,
+		species: "Recon",
+		types: ["Recon"],
+		baseStats: {
+			hp: 100,
+			atk: 50,
+			def: 50,
+			spa: 50,
+			spd: 50,
+			spe: 200,
+		},
+		abilities: {
+			0: "Lucky",
+		},
+	},
 };

@@ -167,15 +167,12 @@ function handleBoughtItem(item, user, cost) {
 		this.sendReply("You have purchased a custom symbol. You can use /customsymbol to get your custom symbol.");
 		this.sendReply("You will have this until you log off for more than an hour.");
 		this.sendReply("If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.");
-	}
-	else if (item === 'icon') {
+	} else if (item === 'icon') {
 		this.sendReply('You purchased an icon, contact an administrator to obtain the article.');
-	}
-	else if (item === 'profileteam') {
+	} else if (item === 'profileteam') {
 		Db('hasteam').set(user);
 		this.sendReply('You can now set your team!');
-	}
-	else {
+	} else {
 		let msg = '**' + user.name + " has bought " + item + ".**";
 		Rooms.rooms.get("staff").add('|c|~Exiled Server|' + msg);
 		Rooms.rooms.get("staff").update();

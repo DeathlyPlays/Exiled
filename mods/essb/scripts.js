@@ -75,7 +75,7 @@ exports.BattleScripts = {
 				ability: "Landlord",
 				item: "Flare Z",
 				gender: "M",
-				moves: ['earthquake', 'firepunch', 'solarslap'],
+				moves: ['earthquake', 'firepunch', 'solarblade'],
 				baseSignatureMove: "megaflare",
 				signatureMove: "Megaflare",
 				evs: {

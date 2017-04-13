@@ -438,6 +438,21 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			"TheGodOfPie": {
+				species: "Mawile-Mega",
+				ability: "Mad Tings",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['suckerpunch', 'extremespeed', 'bulletpunch'],
+				baseSignatureMove: "thepowerofpi",
+				signatureMove: "The Power of Pi",
+				evs: {
+					atk: 252,
+					hp: 252,
+					def: 4,
+				},
+				nature: "Adamant",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Tools.shuffle(Object.keys(sets));

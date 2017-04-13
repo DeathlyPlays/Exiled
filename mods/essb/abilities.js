@@ -631,4 +631,33 @@ exports.BattleAbilities = {
 			duration: 1,
 		},
 	},
+	//TheGodOfPie
+	"madtings": {
+		id: "madtings",
+		name: "Mad Tings",
+		//huge power
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (atk) {
+			return this.chainModify(2);
+		},
+		//pixilate
+		onModifyMovePriority: -1,
+		onModifyMove: function (move, pokemon) {
+			if (move.type === 'Normal' && move.id !== 'naturalgift' && !move.isZ) {
+				move.type = 'Fairy';
+				if (move.category !== 'Status') pokemon.addVolatile('pixilate');
+			}
+		},
+		effect: {
+			duration: 1,
+			onBasePowerPriority: 8,
+			onBasePower: function (basePower, pokemon, target, move) {
+				return this.chainModify([0x1333, 0x1000]);
+			},
+		},
+		//uses topsy turvy upon entry
+		onStart: function (pokemon) {
+			this.useMove('topsyturvy', pokemon);
+		},
+	},
 };

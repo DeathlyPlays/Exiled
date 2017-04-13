@@ -1120,4 +1120,37 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Dark",
 	},
+	"thepowerofpi": {
+		id: "thepowerofpi",
+		name: "The Power of Pi",
+		basePower: 100,
+		pp: 0.625,
+		priority: 1,
+		category: "Physical",
+		secondary: {
+			volatileStatus: "flinch",
+		},
+		volatileStatus: "trapped",
+		drain: [1, 1],
+		self: {
+			boosts: {
+				atk: 1,
+			},
+		},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Power Trick', target);
+			this.add('c| TheGodOfPie|Oh... I\'m actually not The God of Pie....');
+			this.add('c| TheGodOfPie|That was a typo....');
+			this.add('c| TheGodOfPie|I\'m actually The God of Pi');
+			this.add('c| TheGodOfPie|3.141592654');
+			this.add('c| TheGodOfPie|**THE POWER OF PI**');
+		},
+		flags: {
+			protect: 1,
+			contact: 1,
+		},
+		target: "normal",
+		type: "Steel",
+	},
 };

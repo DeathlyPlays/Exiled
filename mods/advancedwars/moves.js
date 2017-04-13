@@ -154,6 +154,154 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "INF",
 	},
+	"artilleryception": {
+		id: "artilleryception",
+		name: "Artilleryception",
+		basePower: 100,
+		pp: 6,
+		accuracy: true,
+		category: "Special",
+		secondary: false,
+		priority: false,
+		flags: {protect: 1},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Seed Bomb", target);
+			this.add('-anim', source, "Egg Bomb", target);
+			this.add('-anim', source, "Magnet Bomb", target);
+		},
+		target: "normal",
+		type: "AC",
+	},
+	"missileception": {
+		id: "missileception",
+		name: "Missileception",
+		basePower: 150,
+		pp: 6,
+		accuracy: true,
+		category: "Special",
+		secondary: false,
+		priority: false,
+		flags: {protect: 1},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Seed Bomb", target);
+			this.add('-anim', source, "Egg Bomb", target);
+			this.add('-anim', source, "Magnet Bomb", target);
+		},
+		target: "normal",
+		type: "MC",
+	},
+	"rocketception": {
+		id: "rocketception",
+		name: "Rocketception",
+		basePower: 150,
+		pp: 6,
+		accuracy: true,
+		category: "Special",
+		secondary: false,
+		priority: false,
+		flags: {protect: 1},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Seed Bomb", target);
+			this.add('-anim', source, "Egg Bomb", target);
+			this.add('-anim', source, "Magnet Bomb", target);
+		},
+		target: "normal",
+		type: "RC",
+	},
+	"battleception": {
+		id: "battleception",
+		name: "Battleception",
+		basePower: 200,
+		pp: 9,
+		accuracy: true,
+		category: "Special",
+		secondary: false,
+		priority: false,
+		flags: {protect: 1},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Seed Bomb", target);
+			this.add('-anim', source, "Egg Bomb", target);
+			this.add('-anim', source, "Magnet Bomb", target);
+		},
+		target: "normal",
+		type: "BC",
+	},
+	"torps": {
+		id: "torps",
+		name: "Torps",
+		basePower: 200,
+		pp: 9,
+		accuracy: true,
+		category: "Special",
+		secondary: false,
+		priority: false,
+		flags: {protect: 1},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Fire Blast", target);
+		},
+		target: "normal",
+		type: "BC",
+	},
+	"cmissiles": {
+		id: "cmissiles",
+		name: "CMissiles",
+		basePower: 150,
+		pp: 9,
+		accuracy: true,
+		category: "Special",
+		secondary: false,
+		priority: false,
+		flags: {protect: 1},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Seed Bomb", target);
+			this.add('-anim', source, "Egg Bomb", target);
+			this.add('-anim', source, "Magnet Bomb", target);
+		},
+		target: "normal",
+		type: "CM",
+	},
+	"a-airgun": {
+		id: "a-airgun",
+		name: "A-Air Gun",
+		basePower: 150,
+		pp: 99,
+		accuracy: true,
+		category: "Special",
+		secondary: false,
+		priority: false,
+		flags: {protect: 1},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Seed Bomb", target);
+			this.add('-anim', source, "Egg Bomb", target);
+			this.add('-anim', source, "Magnet Bomb", target);
+		},
+		target: "normal",
+		type: "AAG",
+	},
+	"vulcan": {
+		id: "vulcan",
+		name: "Vulcan",
+		basePower: 150,
+		pp: 9,
+		accuracy: true,
+		category: "Special",
+		secondary: false,
+		priority: false,
+		flags: {protect: 1},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Incinerate", target);
+		},
+		target: "normal",
+		type: "VUL",
+	},
 	"bmissile": {
 		id: "bmissile",
 		name: "BMissile",
@@ -219,6 +367,8 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Egg Bomb", target);
 			this.add('-anim', source, "Magnet Bomb", target);
+			this.add('-anim', source, "Seed Bomb", target);
+			this.add('-anim', source, "Sinister Arrow Raid", target);
 		},
 		target: "normal",
 		type: "Bomber",

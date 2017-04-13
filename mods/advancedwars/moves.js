@@ -245,7 +245,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Fire Blast", target);
 		},
 		target: "normal",
-		type: "BC",
+		type: "ST",
 	},
 	"cmissiles": {
 		id: "cmissiles",
@@ -317,7 +317,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Sinister Arrow Raid", target);
 		},
 		target: "normal",
-		type: "BCopter",
+		type: "BM",
 	},
 	"bcoptergun": {
 		id: "bcoptergun",
@@ -334,7 +334,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Smart Strike", target);
 		},
 		target: "normal",
-		type: "BCopter",
+		type: "BCGun",
 	},
 	"fmissiles": {
 		id: "fmissiles",

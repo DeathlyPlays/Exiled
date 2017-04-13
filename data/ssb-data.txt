@@ -233,7 +233,9 @@ Rank: B.
 
 Back At My Day
 (Groudon-Primal)
-@None
+@ Flare Z
+	- If the user has Megaflare, it can use Teraflare, Z Move.
+		- Megaflare: Z-Move, 120 BP, Ignores Defensive, Never misses, Contact, breaks Light Screen/Reflect, Contact, Normal.
 EVs: 252 Atk / 252 HP / 4 Def
 Adamant Nature
 Ability: Landlord

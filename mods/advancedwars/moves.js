@@ -52,6 +52,23 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "INF",
 	},
+	"mgun": {
+		id: "mgun",
+		name: "M Gun",
+		basePower: 65,
+		pp: 99,
+		accuracy: true,
+		category: "Special",
+		secondary: false,
+		priority: false,
+		flags: {protect: 1},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Foresight", target);
+		},
+		target: "normal",
+		type: "RM",
+	},
 	"lcannon": {
 		id: "lcannon",
 		name: "lcannon",

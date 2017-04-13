@@ -36,6 +36,16 @@ function shopDisplay() {
 	return output;
 }
 
+Exiled.messageSeniorStaff = function (message, pmName, from) {
+	pmName = (pmName ? pmName : '~Exiled Server');
+	from = (from ? ' (PM from ' + from + ')' : '');
+	Users.users.forEach(curUser => {
+		if (curUser.group === '~' || curUser.group === '&') {
+			curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message + from);
+		}
+	});
+};
+
 function toToken(item) {
 	switch (item) {
 	case 'customavatar':

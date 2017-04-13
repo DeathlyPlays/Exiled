@@ -90,14 +90,111 @@ exports.BattlePokedex = {
 			atk: 100,
 			def: 100,
 			spa: 100,
-			spd: 75,
+			spd: 100,
+			spe: 75,
 		},
 		abilities: {
 			0: "Lucky",
 		},
 	},
-	battlecopter: {
+	rocket: {
 		num: -306,
+		species: "Rocket",
+		types: ["Rocket"],
+		baseStats: {
+			hp: 100,
+			atk: 150,
+			def: 100,
+			spa: 150,
+			spd: 100,
+			spe: 75,
+		},
+		abilities: {
+			0: "Lucky",
+		},
+	},
+	antiair: {
+		num: -307,
+		species: "Anti-Air",
+		types: ["Anti-Air"],
+		baseStats: {
+			hp: 100,
+			atk: 200,
+			def: 50,
+			spa: 200,
+			spd: 50,
+			spe: 100,
+		},
+		abilities: {
+			0: "Lucky",
+		},
+	},
+	cruiser: {
+		num: -308,
+		species: "Cruiser",
+		types: ["Cruiser"],
+		baseStats: {
+			hp: 100,
+			atk: 150,
+			def: 150,
+			spa: 150,
+			spd: 150,
+			spe: 100,
+		},
+		abilities: {
+			0: "Lucky",
+		},
+	},
+	submarine: {
+		num: -309,
+		species: "Submarine",
+		types: ["Submarine"],
+		baseStats: {
+			hp: 100,
+			atk: 200,
+			def: 200,
+			spa: 200,
+			spd: 200,
+			spe: 75,
+		},
+		abilities: {
+			0: "Lucky",
+		},
+	},
+	battleship: {
+		num: -310,
+		species: "Battleship",
+		types: ["Battleship"],
+		baseStats: {
+			hp: 100,
+			atk: 200,
+			def: 200,
+			spa: 200,
+			spd: 200,
+			spe: 75,
+		},
+		abilities: {
+			0: "Lucky",
+		},
+	},
+	missile: {
+		num: 311,
+		species: "Missile",
+		types: ["Missile"],
+		baseStats: {
+			hp: 100,
+			atk: 150,
+			def: 100,
+			spa: 150,
+			spd: 100,
+			spe: 75,
+		},
+		abilities: {
+			0: "Lucky"m
+		},
+	},
+	battlecopter: {
+		num: -312,
 		species: "Battle Copter",
 		types: ["BCopter"],
 		baseStats: {
@@ -113,7 +210,7 @@ exports.BattlePokedex = {
 		},
 	},
 	fighter: {
-		num: -307,
+		num: -313,
 		species: "Fighter",
 		types: ["Fighter"],
 		baseStats: {
@@ -129,7 +226,7 @@ exports.BattlePokedex = {
 		},
 	},
 	bomber: {
-		num: -308,
+		num: -314,
 		species: "Bomber",
 		types: ["Bomber"],
 		baseStats: {

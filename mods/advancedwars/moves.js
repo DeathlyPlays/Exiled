@@ -188,7 +188,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Magnet Bomb", target);
 		},
 		target: "normal",
-		type: "AC",
+		type: "Artillery",
 	},
 	"missileception": {
 		id: "missileception",
@@ -207,7 +207,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Magnet Bomb", target);
 		},
 		target: "normal",
-		type: "MC",
+		type: "Missile",
 	},
 	"rocketception": {
 		id: "rocketception",
@@ -226,7 +226,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Magnet Bomb", target);
 		},
 		target: "normal",
-		type: "RC",
+		type: "Rocket",
 	},
 	"battleception": {
 		id: "battleception",
@@ -245,7 +245,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Magnet Bomb", target);
 		},
 		target: "normal",
-		type: "BC",
+		type: "Battleship",
 	},
 	"torps": {
 		id: "torps",
@@ -262,7 +262,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Fire Blast", target);
 		},
 		target: "normal",
-		type: "ST",
+		type: "Submarine",
 	},
 	"cmissiles": {
 		id: "cmissiles",
@@ -281,7 +281,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Magnet Bomb", target);
 		},
 		target: "normal",
-		type: "CM",
+		type: "Cruiser",
 	},
 	"aairgun": {
 		id: "aairgun",
@@ -334,7 +334,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Sinister Arrow Raid", target);
 		},
 		target: "normal",
-		type: "BM",
+		type: "BC",
 	},
 	"bcoptergun": {
 		id: "bcoptergun",

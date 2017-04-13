@@ -78,7 +78,7 @@ function font(color, text) {
  * @return {String}
  */
 function img(link) {
-	return '<img src="' + link + '" height="85.5" width="80">';
+	return '<img src="' + link + '" height="80" width="80">';
 }
 
 /**

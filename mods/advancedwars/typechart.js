@@ -20,6 +20,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 1,
 			"ST": 3,
+			"RM": 1,
 		},
 	},
 	"MECH": {
@@ -41,6 +42,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 1,
 			"ST": 3,
+			"RM": 1.
 		},
 	},
 	"LTank": {
@@ -62,6 +64,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 2,
 			"ST": 3,
+			"RM": 2,
 		},
 	},
 	"MDTank": {
@@ -83,6 +86,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 2,
 			"ST": 3,
+			"RM": 2,
 		},
 	},
 	"Neotank": {
@@ -104,6 +108,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 2,
 			"ST": 3,
+			"RM": 2,
 		},
 	},
 	"Artillery": {
@@ -126,6 +131,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 1,
 			"ST": 3,
+			"RM": 1,
 		},
 	},
 	"Rocket": {
@@ -147,6 +153,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 1,
 			"ST": 3,
+			"RM": 1,
 		},
 	},
 	"Battleship": {
@@ -168,6 +175,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 3,
 			"ST": 1,
+			"RM": 3,
 		},
 	},
 	"Cruiser": {
@@ -189,6 +197,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 3,
 			"ST": 2,
+			"RM": 3,
 		},
 	},
 	"Submarine": {
@@ -210,6 +219,7 @@ exports.BattleTypeChart = {
 			"CM": 1,
 			"VUL": 3,
 			"ST": 1,
+			"RM": 3,
 		},
 	},
 	"Anti-Air": {
@@ -231,6 +241,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 1,
 			"ST": 3,
+			"RM": 2,
 		},
 	},
 	"BCopter": {
@@ -252,6 +263,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 1,
 			"ST": 3,
+			"RM": 2,
 		},
 	},
 	"Fighter": {
@@ -273,6 +285,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 1,
 			"ST": 3,
+			"RM": 3,
 		},
 	},
 	"Bomber": {
@@ -294,6 +307,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 1,
 			"ST": 3,
+			"RM": 3,
 		},
 	},
 };

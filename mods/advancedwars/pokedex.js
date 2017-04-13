@@ -95,7 +95,7 @@ exports.BattlePokedex = {
 		abilities: {
 			0: "Lucky",
 		},
-	},		
+	},	
 	battlecopter: {
 		num: -306,
 		species: "Battle Copter",

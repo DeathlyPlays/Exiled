@@ -42,7 +42,7 @@ exports.BattleTypeChart = {
 			"CM": 3,
 			"VUL": 1,
 			"ST": 3,
-			"RM": 1.
+			"RM": 1,
 		},
 	},
 	"LTank": {

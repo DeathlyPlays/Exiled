@@ -283,8 +283,8 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "CM",
 	},
-	"a-airgun": {
-		id: "a-airgun",
+	"aairgun": {
+		id: "aairgun",
 		name: "A-Air Gun",
 		basePower: 150,
 		pp: 99,
@@ -317,7 +317,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Incinerate", target);
 		},
 		target: "normal",
-		type: "VUL",
+		type: "AAG",
 	},
 	"bmissile": {
 		id: "bmissile",

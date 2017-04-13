@@ -20,24 +20,21 @@ function getMonData(target) {
 }
 
 exports.commands = {
-	essb: 'ssb',
-	ssb: function (target, room, user) {
+	essb: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
-		if (!target || target === 'help') return this.parse('/help sssb');
-		if (target === 'credits') return this.parse('/ssbcredits');
+		if (!target || target === 'help') return this.parse('/help esssb');
+		if (target === 'credits') return this.parse('/essbcredits');
 		let targetData = getMonData(toId(target));
 		if (!targetData) return this.errorReply("The staffmon '" + toId(target) + "' could not be found.");
 		return this.sendReplyBox(targetData);
 	},
 
-	essbhelp: 'ssbhelp',
-	ssbhelp: function (target, room, user) {
+	essbhelp: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		return this.sendReplyBox("/ssb [staff member\'s name] - displays data for a staffmon\'s movepool, custom move, and custom ability.");
+		return this.sendReplyBox("/essb [staff member\'s name] - displays data for a staffmon\'s movepool, custom move, and custom ability.");
 	},
 
-	essbcredits: 'ssbcredits',
-	ssbcredits: function (target, room, user) {
+	essbcredits: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
 		this.sendReplyBox(
 			"<center><b>Exiled Super Staff Bros Credits:</b></center>" +

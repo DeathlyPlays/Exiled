@@ -18,7 +18,6 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 1,
 			"ST": 3,
 			"RM": 1,
 		},
@@ -40,7 +39,6 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 1,
 			"ST": 3,
 			"RM": 1,
 		},
@@ -62,7 +60,6 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 2,
 			"ST": 3,
 			"RM": 2,
 		},
@@ -84,7 +81,6 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 2,
 			"ST": 3,
 			"RM": 2,
 		},
@@ -106,12 +102,11 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 2,
 			"ST": 3,
 			"RM": 2,
 		},
 	},
-	"Artillery": {
+	"AC": {
 		damageTaken: {
 			"INF": 2,
 			"MECH": 1,
@@ -129,12 +124,11 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 1,
 			"ST": 3,
 			"RM": 1,
 		},
 	},
-	"Rocket": {
+	"RM": {
 		damageTaken: {
 			"INF": 2,
 			"MECH": 1,
@@ -151,12 +145,11 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 1,
 			"ST": 3,
 			"RM": 1,
 		},
 	},
-	"Battleship": {
+	"BC": {
 		damageTaken: {
 			"INF": 3,
 			"MECH": 3,
@@ -173,12 +166,11 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 3,
 			"ST": 1,
 			"RM": 3,
 		},
 	},
-	"Cruiser": {
+	"CM": {
 		damageTaken: {
 			"INF": 3,
 			"MECH": 3,
@@ -195,12 +187,11 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 3,
 			"ST": 2,
 			"RM": 3,
 		},
 	},
-	"Submarine": {
+	"ST": {
 		damageTaken: {
 			"INF": 3,
 			"MECH": 3,
@@ -217,12 +208,11 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 1,
-			"VUL": 3,
 			"ST": 1,
 			"RM": 3,
 		},
 	},
-	"Anti-Air": {
+	"AAG": {
 		damageTaken: {
 			"INF": 2,
 			"MECH": 1,
@@ -239,12 +229,11 @@ exports.BattleTypeChart = {
 			"BC": 1,
 			"AAG": 3,
 			"CM": 3,
-			"VUL": 1,
 			"ST": 3,
 			"RM": 2,
 		},
 	},
-	"BCopter": {
+	"BC": {
 		damageTaken: {
 			"INF": 2,
 			"MECH": 2,
@@ -261,7 +250,6 @@ exports.BattleTypeChart = {
 			"BC": 3,
 			"AAG": 1,
 			"CM": 3,
-			"VUL": 1,
 			"ST": 3,
 			"RM": 2,
 		},
@@ -283,7 +271,6 @@ exports.BattleTypeChart = {
 			"BC": 3,
 			"AAG": 1,
 			"CM": 3,
-			"VUL": 1,
 			"ST": 3,
 			"RM": 3,
 		},
@@ -305,7 +292,6 @@ exports.BattleTypeChart = {
 			"BC": 3,
 			"AAG": 1,
 			"CM": 3,
-			"VUL": 1,
 			"ST": 3,
 			"RM": 3,
 		},

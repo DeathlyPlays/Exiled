@@ -1356,8 +1356,8 @@ exports.Formats = [
 			if (name === 'insist') {
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
-			if (name === 'stellation') {
-				this.add('c|@Stellation|Oh hey there! :3');
+			if (name === 'eelek') {
+				this.add('c|@Eelek|Oh hey there! :3');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1392,6 +1392,10 @@ exports.Formats = [
 					spd: 1,
 				});
 			}
+			if (name === 'eelek' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Electric/Bug');
+				pokemon.types = ["Electric", "Bug"];
+			}
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {
@@ -1400,8 +1404,8 @@ exports.Formats = [
 			if (name === 'insist') {
 				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
 			}
-			if (name === 'stellation') {
-				this.add('c|@Stellation|Gotta go, I\'ll be back when I get to the hospital.');
+			if (name === 'eelek') {
+				this.add('c|@eelek|Gotta go, I\'ll be back when I get to the hospital.');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|fuck you');
@@ -1425,8 +1429,8 @@ exports.Formats = [
 				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
-			if (name === 'stellation') {
-				this.add('c|@Stellation|If I\'m dead, I\'m taking the whole server down with me.');
+			if (name === 'eelek') {
+				this.add('c|@Eelek|If I\'m dead, I\'m taking the whole server down with me.');
 				this.add("raw|<div class=\"broadcast-red\"><b>Oh my God the server crashed!</b><br />Please finish your battles so we can fix this error. No new battles can be started until the server resets or gets fixed. Good job, Stellation, you ruined the server.</div>");
 			}
 			if (name === 'speckeldorft') {

@@ -884,32 +884,47 @@ exports.BattleMovedex = {
 		isZ: "thekidz",
 	},
 	//Stellation
-	"joust": {
-		id: "joust",
-		name: "Joust",
-		accuracy: 95,
-		basePower: 90,
-		category: "physical",
-		pp: 5,
+	"electrofryer": {
+		accuracy: 100,
+		basePower: 100,
+		category: "Special",
+		id: "electrofryer",
+		name: "Electro-Fryer",
+		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, contact: 1},
-		onBasePowerPriority: 8,
-		onBasePower: function (basePower, pokemon, target) {
-			if (this.willMove(target)) {
+		flags: {protect: 1, mirror: 1},
+		onBasePowerPriority: 4,
+		onBasePower: function (basePower, source, target, move) {
+			let item = target.getItem();
+			if (!this.singleEvent('TakeItem', item, target.itemData, target, source, move, item)) return;
+			if (item.id) {
 				return this.chainModify(2);
 			}
 		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Giga Impact", target);
+		onAfterHit: function (target, source) {
+			if (source.hp) {
+				let item = target.takeItem();
+				if (item) {
+					this.add('-message', 'The high voltage burned the item to a crisp!');
+				}
+			}
 		},
-		secondary: false,
+		secondary: {
+			chance: 40,
+			onHit: function (target, source) {
+				let result = this.random(2);
+				if (result === 0) {
+					target.trySetStatus('brn', source);
+				} else  {
+					target.trySetStatus('par', source);
+				}
+			},
+		},
 		target: "normal",
-		type: "Steel",
-		zMovePower: 120,
-		contestType: "Tough",
+		type: "electric",
+		zMovePower: 160,
+		contestType: "Cool",
 	},
-
 	//HoeenHero
 	"scripting": {
 		category: "Status",

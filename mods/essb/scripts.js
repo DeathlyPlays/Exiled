@@ -134,20 +134,20 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
-			"@Stellation": {
-				species: "Escavalier",
-				ability: "Connecticut Yankee",
-				item: "Evil Armor",
+			"@Eelek": {
+				species: "Eelektross",
+				ability: "Ace in the Hole",
+				item: "Leftovers",
 				gender: "M",
-				moves: ['megahorn', 'drillrun', 'sacredsword'],
-				baseSignatureMove: "joust",
-				signatureMove: "Joust",
+				moves: ['Bug Buzz', 'Glaciate', 'Hydro Pump'],
+				baseSignatureMove: "electrofryer",
+				signatureMove: "Electro-Fryer",
 				evs: {
-					atk: 252,
-					hp: 252,
+					spa: 252,
+					spe: 252,
 					spd: 4,
 				},
-				nature: "Brave",
+				nature: "Timid",
 			},
 			//Drivers
 			"%Wobbleleez": {

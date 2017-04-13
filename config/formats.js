@@ -1245,6 +1245,7 @@ exports.Formats = [
 		name: "[Gen 7] Clash of the Regions",
 		section: "Exiled's Custom Gamemodes",
 		mod: 'clashoftheregions',
+		column: 5,
 		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
 		desc: [
 			"This metagame is about every rival/gym leader/",

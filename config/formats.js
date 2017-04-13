@@ -1242,16 +1242,6 @@ exports.Formats = [
 		 * EXILED METAS: *
 		 * * * * * * * * */
 	{
-		name: "[Gen 7] NFE",
-		section: "Exiled's Custom Gamemodes",
-		ruleset: ['NFE', 'Team Preview', 'Pokemon', 'Species Clause', 'Swagger Clause', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod', 'Baton Pass Clause', 'OHKO Clause'],
-		desc: [
-			"NFE stands for Not Fully Evolved.",
-			"NFE threats: Zweilous, Dragonair, Grovyle, Dusclops, Fraxure.",
-		],
-		column: 5,
-	},
-	{
 		name: "[Gen 7] Clash of the Regions",
 		section: "Exiled's Custom Gamemodes",
 		mod: 'clashoftheregions',
@@ -1352,7 +1342,7 @@ exports.Formats = [
 		onBegin: function () {
 			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
 			this.add('message', "GET READY FOR THE NEXT BATTLE!");
-			this.add('message', "For more information on a user's staffmon, use /ssb (authed user's name)!");
+			this.add('message', "For more information on a user's staffmon, use /essb (authed user's name)!");
 			// This variable saves the status of a spammy conversation to be played, so it's only played once.
 			this.convoPlayed = false;
 		},

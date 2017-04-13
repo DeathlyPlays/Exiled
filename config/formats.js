@@ -1405,7 +1405,7 @@ exports.Formats = [
 				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
 			}
 			if (name === 'eelek') {
-				this.add('c|@eelek|Gotta go, I\'ll be back when I get to the hospital.');
+				this.add('c|@Eelek|Gotta go, I\'ll be back when I get to the hospital.');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|fuck you');

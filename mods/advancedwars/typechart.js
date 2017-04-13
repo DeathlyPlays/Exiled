@@ -149,10 +149,10 @@ exports.BattleTypeChart = {
 			"RM": 1,
 		},
 	},
-	"BC": {
+	"BCGun": {
 		damageTaken: {
-			"INF": 3,
-			"MECH": 3,
+			"INF": 1,
+			"MECH": 1,
 			"LTank": 2,
 			"MDTank": 2,
 			"Neotank": 2,

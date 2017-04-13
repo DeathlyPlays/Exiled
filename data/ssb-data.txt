@@ -395,3 +395,16 @@ Moves: U-Turn, Air Slash, Roost
 Special Move #2: Repel
     -Status, Typeless, Ignore Immunity, 100% accuracy, Paralyzes and Confuses target.
 Notes: Freaking annoyance.
+
+TheGodOfPie
+(Mawile-Mega)
+@Life Orb
+EVs: 252 Atk / 252 HP / 4 Def
+Adamant Nature
+Ability: Mad Tings
+    - Huge Power + Pixilate + Uses Topsy-Turvy upon switch-in
+Moves: Sucker Punch, Bullet Punch, Extreme Speed
+Special Move: The Power Of Pi
+    - Steel Type, Physical, 100 BP, +1 Priority, 100% flinch, 100% boost Atk by 1, Opponent is trapped
+    - Triggers an effect where this staffmon heals 100% of damage done
+    - Can only be used once

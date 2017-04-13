@@ -1,6 +1,8 @@
-DeathlyPlays :3
+Insist
 (Ludicolo)
-@ Life Orb
+@ Playnium Z
+	- Allows user to use Exiled From All Others
+		- Exiled From All Others: Water type, Special, Z-Move, Boosts all stats by 1 stage, Special, 140 BP.
 EVs: 4 HP / 252 SpA / 252 Spe
 Timid Nature
 Ability: Crippling Depression
@@ -22,7 +24,7 @@ Moves: Pluck, Roost, Swords Dance
 Special Move: Fast as Fucc
 	-Normal, Physical, 100% accuracy, 30% chance to boost own Speed by one stage, supereffective against Steel types, and has +1 priority.
 Notes: Strong moves, that take advantage of the No Guard effects, and gets Speed Boosts every turn, and then having priority as well makes it extremely useful.
-Rank: A. 
+Rank: A.
 
 TheAquaPhoenix
 (Articuno)
@@ -50,7 +52,7 @@ Rank: B.
 
 Wobbleleez
 (Musharna)
-@Leftovers
+@ Leftovers
 Psychic and Fairy Type
 EVs: 252 HP / 224 SpA / 16 SpD / 16 Def
 Modest Nature
@@ -104,20 +106,20 @@ Prince JLP
 (Pyroar)
 @Choice Scarf
 EVs: 252 SpA / 252 Spe / 4 SpD
-Ability: Headphones	
+Ability: Headphones
 	-Boosts sound moves by 1.3x.
 Timid Nature
 Moves: Boomburst, Giga Drain, Thunderbolt
 Special Move: Lion's Roar
 	-Fire, Special, 130 BP, 100% accuracy, Sound move, ignores Substitute.
-Notes: Scarfed Special Sweeper.	
+Notes: Scarfed Special Sweeper.
 Rank: C.
 
 Vivid is a God
 (Latios)
 @Life Orb
 EVs: 252 SpA / 252 Spe / 4 SpD
-Ability: JetStream 
+Ability: JetStream
 	-Multiscale and +1 speed upon entry.
 Timid Nature
 Moves: Psychic, Surf, Fire Blast
@@ -187,7 +189,7 @@ Ability: 3Bawlky5U
     -Prankster + Regenerator + Magic Bounce + Magic Guard + Natural Cure
 Moves: Hex, Recover, Toxic
 Special Move: Plasma Blast
-    -Normal type + Electric Effectiveness + 20% chance to burn, freeze, or paralyze + 120 BP + 100% accuracy. 
+    -Normal type + Electric Effectiveness + 20% chance to burn, freeze, or paralyze + 120 BP + 100% accuracy.
 Notes: MLG Wall m8.
 Rank: A.
 
@@ -203,7 +205,7 @@ Special Move: Analyze Intents
 Notes: Physical Sweeper.
 Rank: A.
 
-Alola Ludicolo
+Crystal Ludicolo
 (Ludicolo)
 @Life Orb
 Fire & Grass type
@@ -236,10 +238,8 @@ EVs: 252 Atk / 252 HP / 4 Def
 Adamant Nature
 Ability: Landlord
     -Absorbs Fire + Thick Fat
-Moves: Earthquake, Fire Punch
-Special Move #1: Solar Slap
-    -Physical Solar Beam.
-Special Move #2: Megaflare
+Moves: Earthquake, Fire Punch, Solar Blade
+Special Move: Megaflare
     -Normal, Physical, 60 BP, Ignores immunity, and Defense boosts, Never misses.
 Notes: Bulky Physical Attacker.
 Rank: A.
@@ -257,13 +257,13 @@ Special Move: Strike You Down
 Notes: Fast Physical Sweeper.
 Rank: A.
 
-Ninetales >n<
+Sukesha
 (Ninetales-Alola)
 @Life Orb
 EVs: 252 SpA / 252 Spe / 4 SpD
 Timid Nature
 Ability: prfmlmao
-    -Pixilate + Permanent Hail + Snow Boosts SpA by 1.3x + Fairy Aura + Ice Body + Slush Rush + Snow version of Solar Power.
+    -Pixilate + Hail + Snow Boosts SpA by 1.3x + Fairy Aura + Ice Body + Slush Rush + Snow version of Solar Power.
 Moves: Earth Power, Boomburst, Psychic
 Special Move: prfmador
     -Ice, Special, 60 BP, infatuates target, Raises own Special Attack and Speed by one stage, 100% accuracy, +1 priority, 20% chance to freeze target.

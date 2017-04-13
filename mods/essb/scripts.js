@@ -147,7 +147,7 @@ exports.BattleScripts = {
 					hp: 252,
 					spd: 4,
 				},
-				nature: "Brave",
+				nature: "brave",
 			},
 			//Drivers
 			"%Wobbleleez": {

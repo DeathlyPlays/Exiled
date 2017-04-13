@@ -190,7 +190,7 @@ exports.BattlePokedex = {
 			spe: 75,
 		},
 		abilities: {
-			0: "Lucky"m
+			0: "Lucky",
 		},
 	},
 	battlecopter: {

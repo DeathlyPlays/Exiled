@@ -421,6 +421,6 @@ Moves: Glaciate + Bug Buzz + Hydro Pump
 Special Move: Electro-Fryer
     - Electric Type, Special, 120 BP, Uses Fire Type in calculation, 10 PP
     - Knocks off the opponents item
-    - 40% chance to either burn or paralyze the opponent (or do nothing (BUG))
+    - 45% chance to either burn or paralyze the opponent (or do nothing (BUG))
     - Hits Ground Types
 Notes: Great counter to any pokemon that uses Priority 

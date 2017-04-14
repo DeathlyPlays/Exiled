@@ -65,23 +65,29 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "Holder's Speed & Special Attack is 1.5x, but it can only select the first move it executes.",
 	},
-	"evilarmor": {
-		id: "evilarmor",
-		name: "Evil Armor",
+	"powercurrent": {
+		id: "powercurrent",
+		name: "Power Current",
 		gen: -1,
 		num: -5,
 		fling: {
-			basePower: 150,
+			basePower: 100,
 		},
 		onModifySpe: function (spe) {
-			return this.chainModify(0.5);
+			return this.chainModify(1.5);
 		},
 		onModifySpD: function (spd) {
-			return this.chainModify(0.5);
+			return this.chainModify(1.5);
 		},
 		onModifyDef: function (def) {
-			return this.chainModify(0.5);
+			return this.chainModify(1.5);
 		},
-		desc: "The holder's Speed, Defense, and Special Defense is halved.",
+		onModifyAtk: function (spe) {
+			return this.chainModify(1.5);
+		},
+		onModifySpA: function (spe) {
+			return this.chainModify(1.5);
+		},
+		desc: "All of the holder's stats are boosted by one stage.",
 	},
 };

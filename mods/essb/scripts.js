@@ -137,7 +137,7 @@ exports.BattleScripts = {
 			"@Eelek": {
 				species: "Eelektross",
 				ability: "Ace in the Hole",
-				item: "Leftovers",
+				item: "Power Current",
 				gender: "M",
 				moves: ['Bug Buzz', 'Glaciate', 'Hydro Pump'],
 				baseSignatureMove: "electrofryer",

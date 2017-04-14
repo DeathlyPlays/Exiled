@@ -543,12 +543,17 @@ exports.BattleAbilities = {
 	"aceinthehole": {
 		id: "aceinthehole",
 		name: "Ace in the Hole",
+		//makes sure all parts of the ability work
 		onStart: function (pokemon) {
-			this.add('-message', 'Someone\'s feeling daring!');
+			this.add('-ability', pokemon, 'Ace in the Hole');
 		},
+		//Kills weather
+		suppressWeather: true,
+		//Kills Ability
 		onModifyMove: function (move) {
 			move.ignoreAbility = true;
 		},
+		//Kills prority
 		onFoeTryMove: function (target, source, effect) {
 			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
 				this.attrLastMove('[still]');
@@ -556,7 +561,6 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-		suppressWeather: true,
 	},
 	"feelsflys": {
 		id: "feelsflys",

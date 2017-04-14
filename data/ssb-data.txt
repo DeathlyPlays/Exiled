@@ -411,7 +411,7 @@ Special Move: The Power Of Pi
     
 Eelek
 (Eelektross)
-@ Power Current: Boosts all stats by 1 stage
+@ Power Current: All of the holder's defenses are boosted by two stages. All of the holder's offenses and speed are boosted by one stage.
 Electric & Bug type
 EVs: 252 SpA / 252 Spe / 4 SpD
 Timid Nature

@@ -411,15 +411,16 @@ Special Move: The Power Of Pi
     
 Eelek
 (Eelektross)
-@Leftovers
+@ Power Current
 Electric & Bug type
 EVs: 252 SpA / 252 Spe / 4 SpD
 Timid Nature
 Ability: Ace in the Hole
-    - Air Lock + Mold Breaker
+    - Air Lock + Mold Breaker + Dazzling
 Moves: Glaciate + Bug Buzz + Hydro Pump
 Special Move: Electro-Fryer
-    - Electric Type, Special, 100 BP, +1 Priority, Uses Fire Type in calculation, 10 PP
+    - Electric Type, Special, 120 BP, Uses Fire Type in calculation, 10 PP
     - Knocks off the opponents item
-    - 40% chance to either burn or paralyze the opponent
+    - 40% chance to either burn or paralyze the opponent (or do nothing (BUG))
     - Hits Ground Types
+Notes: Great counter to any pokemon that uses Priority 

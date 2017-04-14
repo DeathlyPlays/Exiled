@@ -886,48 +886,45 @@ exports.BattleMovedex = {
 	//Stellation
 	"electrofryer": {
 		accuracy: 100,
-		basePower: 100,
+		basePower: 120,
 		category: "Special",
 		id: "electrofryer",
 		name: "Electro-Fryer",
 		pp: 10,
-		priority: 1,
+		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		onBasePowerPriority: 4,
-		onBasePower: function (basePower, source, target, move) {
-			let item = target.getItem();
-			if (!this.singleEvent('TakeItem', item, target.itemData, target, source, move, item)) return;
-			if (item.id) {
-				return this.chainModify(2);
-			}
+		onEffectiveness: function (typeMod, type, move) {
+			return typeMod + this.getEffectiveness('Fire', type);
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Discharge", target);
+			this.add('-anim', target, "Sacred Fire", target);
 		},
 		onAfterHit: function (target, source) {
 			if (source.hp) {
 				let item = target.takeItem();
 				if (item) {
-					this.add('-message', 'The high voltage burned the item to a crisp!');
+					this.add('-enditem', target, item.name, '[from] move: Electro-Fryer', '[of] ' + source);
 				}
 			}
 		},
 		secondary: {
-			chance: 40,
+			chance: 45,
 			onHit: function (target, source) {
-				let result = this.random(2);
+				let result = this.random(3);
 				if (result === 0) {
 					target.trySetStatus('brn', source);
-				} else  {
+				} else if (result === 1) {
 					target.trySetStatus('par', source);
+				} else {
+					return false;
 				}
 			},
 		},
-		onEffectiveness: function (typeMod, type, move) {
-			return typeMod + this.getEffectiveness('Fire', type);
-		},
+		target: "Normal",
+		type: "Electric",
 		ignoreImmunity: {'Electric': true},
-		target: "normal",
-		type: "electric",
-		zMovePower: 200,
-		contestType: "Cool",
 	},
 	//HoeenHero
 	"scripting": {

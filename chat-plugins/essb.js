@@ -22,7 +22,7 @@ function getMonData(target) {
 exports.commands = {
 	essb: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
-		if (!target || target === 'help') return this.parse('/help esssb');
+		if (!target || target === 'help') return this.parse('/help essb');
 		if (target === 'credits') return this.parse('/essbcredits');
 		let targetData = getMonData(toId(target));
 		if (!targetData) return this.errorReply("The staffmon '" + toId(target) + "' could not be found.");

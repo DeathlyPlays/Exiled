@@ -77,17 +77,17 @@ exports.BattleItems = {
 			return this.chainModify(1.5);
 		},
 		onModifySpD: function (spd) {
-			return this.chainModify(1.5);
+			return this.chainModify(2);
 		},
 		onModifyDef: function (def) {
+			return this.chainModify(2);
+		},
+		onModifyAtk: function (atk) {
 			return this.chainModify(1.5);
 		},
-		onModifyAtk: function (spe) {
+		onModifySpA: function (spa) {
 			return this.chainModify(1.5);
 		},
-		onModifySpA: function (spe) {
-			return this.chainModify(1.5);
-		},
-		desc: "All of the holder's stats are boosted by one stage.",
+		desc: "All of the holder's defenses are boosted by two stages. All of the holder's offenses and speed are boosted by one stage.",
 	},
 };

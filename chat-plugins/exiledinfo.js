@@ -201,7 +201,7 @@ exports.commands = {
 			"- " + Exiled.nameColor('Volco', true) + " (Owner, Sysadmin, Development)<br />" +
 			"<br />" +
 			"<u><b>Major Contributors:</b></u><br />" +
-			"- " + Exiled.nameColor('Stellation', true) + " (Developments)<br />" +
+			"- " + Exiled.nameColor('Eelek', true) + " (Developments)<br />" +
 			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developments)<br />" +
 			"<br />" +
 			"<u><b>Retired Staff:</b></u><br />" +

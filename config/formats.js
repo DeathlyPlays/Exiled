@@ -1459,6 +1459,9 @@ exports.Formats = [
 				if (name === 'thegodofpie') {
 					this.add('c| TheGodOfPie|lmao dora fights better than you');
 				}
+				if (name === 'insist') {
+					this.add('c|~Insist|**FOH, THIS IS MY HOUSE!!!**');
+				}
 			}
 		},
 	},

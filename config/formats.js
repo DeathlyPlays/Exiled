@@ -1368,6 +1368,9 @@ exports.Formats = [
 			if (name === 'hoeenhero') {
 				this.add('c| HoeenHero|Do I have to? I\'m in the middle of programming.');
 			}
+			if (name === 'thegodofpie') {
+				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
+			}
 
 			// Add here special typings, done for flavor mainly. (and stat boosts)
 			if (name === 'crystalludicolo' && !pokemon.illusion) {
@@ -1416,6 +1419,9 @@ exports.Formats = [
 			if (name === 'hoeenhero') {
 				this.add('c| HoeenHero|I can\'t battle now, I\'m too busy.');
 			}
+			if (name === 'thegodofpie') {
+				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
+			}
 		},
 		// Add here salty tears, that is, custom faint phrases.
 		onFaint: function (pokemon) {
@@ -1441,6 +1447,18 @@ exports.Formats = [
 			}
 			if (name === 'hoeenhero') {
 				this.add('c| HoeenHero|Hey! Thats more hax than I get to use >:(');
+			}
+			if (name === 'thegodofpie') {
+				this.add('c| TheGodOfPie|ur mom');
+			}
+		},
+		onHit: function (pokemon, target) {
+			if (pokemon.hp <= 0 || pokemon.fainted) {
+			//When a staffmon knocks out an enemy
+				let name = toId(target.name);
+				if (name === 'thegodofpie') {
+					this.add('c| TheGodOfPie|lmao dora fights better than you');
+				}
 			}
 		},
 	},

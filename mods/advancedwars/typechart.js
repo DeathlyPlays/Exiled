@@ -64,6 +64,27 @@ exports.BattleTypeChart = {
 			"RM": 2,
 		},
 	},
+	"RC": {
+		damageTaken: {
+			"INF": 2,
+			"MECH": 2,
+			"LTank": 2,
+			"MDTank": 1,
+			"Neotank": 1,
+			"BM": 0,
+			"BCGun": 2,
+			"Fighter": 3,
+			"Bomber": 1,
+			"RC": 1,
+			"MC": 3,
+			"AC": 1,
+			"BC": 1,
+			"AAG": 3,
+			"CM": 3,
+			"ST": 3,
+			"RM": 2,
+		},
+	},
 	"MDTank": {
 		damageTaken: {
 			"INF": 2,

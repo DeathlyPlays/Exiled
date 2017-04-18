@@ -9,6 +9,7 @@
 
 exports.BattleScripts = {
 	randomSeasonalMeleeTeam: function (side) {
+		let userid = toId(side.name);
 		let team = [];
 		let sets = {
 			"Barbarian": {
@@ -499,50 +500,72 @@ exports.BattleScripts = {
 				nature: "Modest",
 			},
 		};
-
-		let pool = Object.keys(sets);
-
+		// Generate the team randomly.
+		let pool = Tools.shuffle(Object.keys(sets));
 		for (let i = 0; i < 6; i++) {
-			let name = pool[i];
-			let set = sets[name];
-			set.name = name;
-			set.level = 100;
-			if (!set.ivs) {
-				set.ivs = {
-					hp: 31,
-					atk: 31,
-					def: 31,
-					spa: 31,
-					spd: 31,
-					spe: 31,
-				};
-			} else {
-				for (let iv in {
-					hp: 31,
-					atk: 31,
-					def: 31,
-					spa: 31,
-					spd: 31,
-					spe: 31,
-				}) {
-					set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
+			if (i === 1) {
+				let monIds = pool.slice(0, 6).map(function (p) {
+					return toId(p);
+				});
+				let monName;
+				for (let mon in sets) {
+					if (toId(mon) === userid) {
+						monName = mon;
+						break;
+					}
+				}
+				if (monIds.indexOf(userid) === -1 && monName) {
+					pool[2] = monName;
 				}
 			}
-			// Assuming the hardcoded set evs are all legal.
-			if (!set.evs) {
-				set.evs = {
-					hp: 84,
-					atk: 84,
-					def: 84,
-					spa: 84,
-					spd: 84,
-					spe: 84,
-				};
+			let set = sets[pool[i]];
+			set.name = pool[i];
+			set.level = 100;
+			if (!set.ivs) {
+				set.ivs = {hp:31, atk:31, def:31, spa:31, spd:31, spe:31};
+			} else {
+				for (let iv in {hp:31, atk:31, def:31, spa:31, spd:31, spe:31}) {
+					set.ivs[iv] = set.ivs[iv] ? set.ivs[iv] : 31;
+				}
 			}
+			// Assuming the hardcoded set evs are all legal. LOLOLOLOLOL
+			if (!set.evs) set.evs = {hp:84, atk:84, def:84, spa:84, spd:84, spe:84};
 			set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves)].concat(set.signatureMove);
 			team.push(set);
 		}
-
 		return team;
+	},
+	canMegaEvo: function (pokemon) {
+		let altForme = pokemon.baseTemplate.otherFormes && this.getTemplate(pokemon.baseTemplate.otherFormes[0]);
+		if (altForme && altForme.isMega && altForme.requiredMove && pokemon.moves.indexOf(toId(altForme.requiredMove)) >= 0) return altForme.species;
+		let item = pokemon.getItem('');
+		if (item.megaEvolves !== pokemon.baseTemplate.baseSpecies || item.megaStone === pokemon.species) return false;
+		return item.megaStone;
+	},
+	runMegaEvo: function (pokemon) {
+		let template = this.getTemplate(pokemon.canMegaEvo);
+		let side = pokemon.side;
+
+		// Pokémon affected by Sky Drop cannot mega evolve. Enforce it here for now.
+		let foeActive = side.foe.active;
+		for (let i = 0; i < foeActive.length; i++) {
+			if (foeActive[i].volatiles['skydrop'] && foeActive[i].volatiles['skydrop'].source === pokemon) {
+				return false;
+			}
+		}
+
+		pokemon.formeChange(template);
+		pokemon.baseTemplate = template; // mega evolution is permanent
+		pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+		this.add('detailschange', pokemon, pokemon.details);
+		this.add('-mega', pokemon, template.baseSpecies, template.requiredItem);
+		pokemon.setAbility(template.abilities['0']);
+		pokemon.baseAbility = pokemon.ability;
+
+		// Limit one mega evolution
+		for (let i = 0; i < side.pokemon.length; i++) {
+			side.pokemon[i].canMegaEvo = false;
+		}
+		return true;
 	},
 };

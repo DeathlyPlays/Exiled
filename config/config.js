@@ -125,11 +125,6 @@ exports.forcetimer = false;
 //   disable this feature.
 exports.backdoor = true;
 
-// Exiled backdoor - same as above, but with Exiled system operators
-// enable this if you do trust the Exiled system operators with your server
-// Exiled System Operators: Insist, HoeenHero, Mewth
-exports.Exiledbackdoor = false;
-
 // List of IPs and user IDs with dev console (>> and >>>) access.
 // The console is incredibly powerful because it allows the execution of
 // arbitrary commands on the local computer (as the user running the
@@ -175,7 +170,6 @@ exports.inactiveuserthreshold = 1000 * 60 * 60 * 24 * 7;
 // By default, 7 days
 exports.tellsexpiryage = 1000 * 60 * 60 * 24 * 7;
 
-
 // tellrank - the rank that offline messaging is available to. By default, available to voices
 // and above. Set to ' ' to allow all users to use offline messaging and `false` to disable
 // offline messaging completely. Set to `'autoconfirmed'` to allow only autoconfirmed users
@@ -198,7 +192,7 @@ exports.customavatars = {
 //   Setting this to a number greater than zero will notify staff for everyone with
 //   the required amount of room punishments.
 //   Set this to 0 to turn the monitor off.
-exports.monitorminpunishments = 3;
+exports.monitorminpunishments = 0;
 
 // allow punishmentmonitor to lock users with multiple roombans.
 //	 When set to `true`, this feature will automatically lock any users with three or more

@@ -8,6 +8,7 @@ exports.BattleMovedex = {
 		priority: 1,
 		self: {
 			boosts: {
+				chance: 30,
 				spa: 1,
 				spe: 1,
 			},

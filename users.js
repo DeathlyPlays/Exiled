@@ -480,12 +480,8 @@ class User {
 	/**
 	 * Special permission check for system operators
 	 */
-	// Put sysops for your server here. NOT on in the array 4 lines down from here, that one is for Exiled sysops so we can help you incase of an emergency.
 	hasSysopAccess() {
-		const sysops = [];
-		// Your IP must be on the whitelist as well as your name.
-		let sysopIp = Config.consoleips.includes(this.latestIp);
-		if (this.isSysop && Config.backdoor || Config.Exiledbackdoor && ['insist', 'volco', 'stellation'].includes(this.userid) && sysopIp || sysops.includes(this.userid) && sysopIp) {
+		if (this.isSysop && Config.backdoor ['yournamehere'].includes(this.userid)) {
 			// This is the Pokemon Showdown system operator backdoor.
 
 			// Its main purpose is for situations where someone calls for help, and

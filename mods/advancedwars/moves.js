@@ -71,7 +71,7 @@ exports.BattleMovedex = {
 	},
 	"lcannon": {
 		id: "lcannon",
-		name: "lcannon",
+		name: "LCannon",
 		basePower: 100,
 		pp: 9,
 		accuracy: true,

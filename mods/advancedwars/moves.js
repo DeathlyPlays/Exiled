@@ -390,4 +390,4 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Bomber",
 	},
-};
+},

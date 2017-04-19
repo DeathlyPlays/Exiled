@@ -1,6 +1,6 @@
 'use strict';
 const fs = require('fs');
-let adWhitelist = ['tsunami'];
+let adWhitelist = ['exiled'];
 let adRegex = new RegExp("(play.pokemonshowdown.com\\/~~)(?!(" + adWhitelist.join('|') + "))", "g");
 Config.chatfilter = function (message, user, room, connection, targetUser) {
 	user.lastActiveTime = Date.now();

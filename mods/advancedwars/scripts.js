@@ -61,7 +61,7 @@ exports.BattleScripts = {
 			"Cruiser": {
 				species: "Cruiser",
 				ability: "Lucky",
-				moves: ['cmissiles'],
+				moves: ['cmissiles', 'aairgun'],
 				nature: "Serious",
 			},
 			"Battleship": {

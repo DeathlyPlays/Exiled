@@ -317,7 +317,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Incinerate", target);
 		},
 		target: "normal",
-		type: "AAG",
+		type: "VUL",
 	},
 	"bmissile": {
 		id: "bmissile",
@@ -382,9 +382,9 @@ exports.BattleMovedex = {
 		flags: {protect: 1},
 		onHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Egg Bomb", target);
-			this.add('-anim', source, "Magnet Bomb", target);
 			this.add('-anim', source, "Seed Bomb", target);
+			this.add('-anim', source, "Egg Bomb", target);
+			this.add('-anim', source, "Magnet", target);
 			this.add('-anim', source, "Sinister Arrow Raid", target);
 		},
 		target: "normal",

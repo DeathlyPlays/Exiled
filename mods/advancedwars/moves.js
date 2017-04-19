@@ -317,7 +317,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Incinerate", target);
 		},
 		target: "normal",
-		type: "VUL",
+		type: "Vul",
 	},
 	"bmissile": {
 		id: "bmissile",

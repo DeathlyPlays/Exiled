@@ -19,8 +19,8 @@ Config.chatfilter = function (message, user, room, connection, targetUser) {
 			return false;
 		}
 		Monitor.log("[AdMonitor] " + user.name + " has attempted to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + targetUser.name + ".") + " **Message:** " + message);
-		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and Tsunami global authorities have been notified.' + '<br />Further attempts to advertise in a chat OR PMs will result in being locked.</strong>');
-		connection.user.popup("|modal|Advertising detected, your message has not been sent and Tsunami global authorities have been notified.\n" + "Further attempts to advertise in a chat OR in PMs will result in being locked.");
+		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and Exiled global authorities have been notified.' + '<br />Further attempts to advertise in a chat OR PMs will result in being locked.</strong>');
+		connection.user.popup("|modal|Advertising detected, your message has not been sent and Exiled global authorities have been notified.\n" + "Further attempts to advertise in a chat OR in PMs will result in being locked.");
 		return false;
 	}
 	return message;

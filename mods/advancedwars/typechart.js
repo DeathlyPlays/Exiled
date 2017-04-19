@@ -742,4 +742,4 @@ exports.BattleTypeChart = {
 			"Recon": 0,
 		},
 	},
-},
+};

@@ -217,7 +217,7 @@ exports.BattleTypeChart = {
 			"Submarine": 0,
 			"Recon": 0,
 		},
-	},	
+	},
 	"MECH": {
 		damageTaken: {
 			"INF": 1,
@@ -396,7 +396,6 @@ exports.BattleTypeChart = {
 			"RM": 1,
 			"Rocket": 0,
 			"Anti-Air": 0,
-			"BCopter": 0,
 			"Missile": 0,
 			"Battleship": 0,
 			"Artillery": 0,

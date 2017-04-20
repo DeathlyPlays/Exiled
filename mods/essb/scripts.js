@@ -197,6 +197,22 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			"+Perison": {
+				species: "Xerneas",
+				ability: "Simple",
+				item: "Power Herb",
+				gender: "M",
+				moves: ['psystrike', 'moonblast', 'hyper voice'],
+				shiny: "true",
+				baseSignatureMove: "ooga",
+				signatureMove: "Ooga",
+				evs: {
+					spa: 252,
+					hp: 252,
+					spe: 4,
+				},
+				nature: "Modest",
+			},
 			//Regs
 			"TheAquaPhoenix": {
 				species: "Articuno",

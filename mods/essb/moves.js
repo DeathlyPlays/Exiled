@@ -1171,4 +1171,44 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Steel",
 	},
+	//Perison
+	"ooga": {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "ooga",
+		name: "Ooga",
+		pp: 5,
+		priority: 0,
+		flags: {charge: 1, nonsky: 1},
+		onTry: function (attacker, defender, move) {
+			if (attacker.removeVolatile(move.id)) {
+				return;
+			}
+			this.add('-prepare', attacker, move.name, defender);
+			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+				this.add('-anim', attacker, move.name, defender);
+				attacker.removeVolatile(move.id);
+				return;
+			}
+			attacker.addVolatile('twoturnmove', defender);
+			return null;
+		},
+		boosts: {
+			spa: 2,
+			spd: 2,
+			spe: 2,
+			def: 2.5,
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Moonlight", target);
+		},
+		secondary: false,
+		target: "self",
+		type: "Fairy",
+		zMoveBoost: {spe: 6},
+		contestType: "Beautiful",
+	},
+
 };

@@ -206,6 +206,7 @@ class Validator {
 			template = tools.getTemplate(set.species);
 			if (ability.id === 'battlebond' && template.id === 'greninja') {
 				template = tools.getTemplate('greninjaash');
+				set.gender = 'M';
 			}
 		}
 		if (!template.exists) {
@@ -369,6 +370,7 @@ class Validator {
 					set.ivs = {hp: 30, atk: 30, def: 30, spa: 30, spd: 30, spe: 30};
 					for (let i in HPdvs) {
 						set.ivs[i] = HPdvs[i] * 2;
+
 					}
 				} else if (!canBottleCap) {
 					set.ivs = Validator.fillStats(tools.getType(set.hpType).HPivs, 31);

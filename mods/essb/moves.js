@@ -1210,5 +1210,27 @@ exports.BattleMovedex = {
 		zMoveBoost: {spe: 6},
 		contestType: "Beautiful",
 	},
-
+	//Lord Coldwraith
+	"shadowforceimpact": {
+		id: "shadowforceimpact",
+		name: "Shadowforce Impact",
+		basePower: 95,
+		secondary: {
+			chance: 30,
+			volatileStatus: "flinch",
+		},
+		accuracy: 100,
+		pp: 10,
+		category: "Special",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Shadow Force", target);
+		},
+		flags: {protect: 1, mirror: 1},
+		target: "normal",
+		priority: 0,
+		type: "Ghost",
+		zMovePower: 150,
+		contestType: "Cool",
+	},
 };

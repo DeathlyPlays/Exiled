@@ -657,4 +657,15 @@ exports.BattleAbilities = {
 			this.useMove('topsyturvy', pokemon);
 		},
 	},
+	"necropower": {
+		id: "necropower",
+		name: "Necropower",
+		onModifyMove: function (move) {
+			delete move.flags['charge'];
+		},
+		onModifySpAPriority: 5,
+		onModifySpA: function (spa) {
+			return this.chainModify(2);
+		},
+	},
 };

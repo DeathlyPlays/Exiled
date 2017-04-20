@@ -1542,17 +1542,35 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Metronome Battles",
-		section: "Exiled's Custom Gamemodes",
-		mod: "metronome",
-		ruleset: ["HP Percentage Mod", "Cancel Mod"],
-		team: "randomSeasonalMelee",
-		desc: [
-			"This tier was highly asked for, so we made it.",
-			"Mainly credit goes to: Kairak & Insist",
-			"We removed the possibility of Volt Switch/U-Turn/any thing that causes switches, from occuring",
-			"Also we made things like V-Create, Dragon Ascent, Diamond Storm possible to be used via Metronome.",
-		],
+		name: "[Gen 7] Random Metronome Battle",
+		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
+		ruleset: ['[Gen 7] OU'],
+		team: 'random',
+		mod: 'gen7',
+		onBegin: function () {
+			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
+			allPokemon.forEach(pokemon => {
+				pokemon.baseMoveset = [{
+					move: 'Metronome',
+					id: 'metronome',
+					pp: 16,
+					maxpp: 16,
+					target: 'self',
+					disabled: false,
+					disabledSource: '',
+					used: false,
+				}];
+				pokemon.moves = ['metronome'];
+				pokemon.moveset = pokemon.baseMoveset;
+				if (Tools.getFormat('[Gen 7] Metronome Battle').banlist.includes(this.getItem(pokemon.item).name)) {
+					pokemon.item = 'leppaberry';
+				}
+			});
+		},
+		onEffectiveness: function (typeMod, target, type, move) {
+			//change no effect to not very effective
+			if (move && !this.getImmunity(move, type)) return 2;
+		},
 	},
 	{
 		name: "[Gen 7] Holiday Metagame",

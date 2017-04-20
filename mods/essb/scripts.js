@@ -86,20 +86,20 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"&Bronze0re": {
-				species: "Volcarona",
-				ability: "Brilliant Scale",
-				item: "Weakness Policy",
+			"&Lord Coldwraith": {
+				species: "Froslass",
+				ability: "Necropower",
+				item: "Focus Sash",
 				gender: "M",
-				moves: ['quiverdance', 'fierydance', 'oblivionwing'],
-				baseSignatureMove: "dyingstar",
-				signatureMove: "Dying Star",
+				moves: ['quiverdance', 'iceburn', 'oblivionwing'],
+				baseSignatureMove: "shadowforceimpact",
+				signatureMove: "Shadowforce Impact",
 				evs: {
 					spa: 252,
 					spe: 252,
 					hp: 4,
 				},
-				nature: "Timid",
+				nature: "Modest",
 			},
 			//Bots
 			"*Crystal Ludicolo": {

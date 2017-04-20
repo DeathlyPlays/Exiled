@@ -1198,7 +1198,7 @@ exports.BattleMovedex = {
 			spa: 2,
 			spd: 2,
 			spe: 2,
-			def: 2.5,
+			def: 3,
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');

@@ -203,7 +203,7 @@ exports.BattleScripts = {
 				item: "Power Herb",
 				gender: "M",
 				moves: ['psystrike', 'moonblast', 'hypervoice'],
-				shiny: "true",
+				shiny: true,
 				baseSignatureMove: "ooga",
 				signatureMove: "Ooga",
 				evs: {

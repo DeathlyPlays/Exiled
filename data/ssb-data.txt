@@ -242,7 +242,6 @@ Ability: Time Traveler
 Moves: Slack Off, Dragon Force (Same as Curse except it increases both special stats instead. 15 PP.), Earth Power and Bump. (Dark Type, Special, 105 BP, 100% Accuracy and 10 PP.)
 Rank: Unown
 
-
 Kimisumi
 (Gallade-Mega)
 @Life Orb

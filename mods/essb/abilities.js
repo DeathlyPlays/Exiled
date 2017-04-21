@@ -200,6 +200,20 @@ exports.BattleAbilities = {
 			this.clearWeather();
 		},
 	},
+	//backatmyday
+	"timetraveler": {
+		id: "timetraveler",
+		name: "Time Traveler",
+		//trickroom
+		onStart: function (pokemon) {
+			this.useMove('trickroom', pokemon);
+		},
+		//pressure
+		onDeductPP: function (target, source) {
+			if (target.side === source.side) return;
+			return 1;
+		},
+	},
 	//astralwobz
 	"wobzdoezjobz": {
 		id: "wobzdoezjobz",

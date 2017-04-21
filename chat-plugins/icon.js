@@ -60,7 +60,7 @@ function generateCSS(name, icon) {
 exports.commands = {
 	customicon: 'icon',
 	icon: function (target, room, user) {
-		if (!this.can('pban')) return false;
+		if (!this.can('lock')) return false;
 		target = target.split(',');
 		for (let u in target) target[u] = target[u].trim();
 		if (!target[1]) return this.parse('/help icon');

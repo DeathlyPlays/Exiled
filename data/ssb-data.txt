@@ -64,18 +64,18 @@ Special Move: Crippling Kiss
 Notes: Bulky Attacker.
 Rank: A.
 
-Bronze0re
-(Volcarona)
-@Weakness Policy
+Lord Coldwraith
+(Froslass)
+@Focus Sash
 EVs: 252 SpA / 252 Spe / 4 HP
-Timid Nature
-Ability: Brilliant Scale
-	-Multiscale, Tinted Lens, and supereffective moves do half the damage they usually would.
-Moves: Oblivion Wing, Fiery Dance, Quiver Dance
-Special Move: Dying Star
-	-Fire type, Special, Explodes user, 200 BP, +1 priority.
+Modest Nature
+Ability: Necropower
+    -Special Pure Power and charge moves have no charge.
+Moves: Oblivion Wing, Ice Burn, Quiver Dance
+Special Move: Shadowforce Impact
+	-Ghost type, Special, 30% chance of flinching, 95 BP, 100% Accuracy, +1 priority.
 Notes: Fast Special Sweeper.
-Rank: A.
+Rank: you decide insist
 
 Kairak
 (Nidorina)
@@ -232,19 +232,16 @@ Notes: Fast Physical Sweeper.
 Rank: B.
 
 Back At My Day
-(Groudon-Primal)
-@ Flare Z
-	- If the user has Megaflare, it can use Teraflare, Z Move.
-		- Megaflare: Z-Move, 120 BP, Ignores Defensive, Never misses, Contact, breaks Light Screen/Reflect, Contact, Normal.
-EVs: 252 Atk / 252 HP / 4 Def
-Adamant Nature
-Ability: Landlord
-    -Absorbs Fire + Thick Fat
-Moves: Earthquake, Fire Punch, Solar Blade
-Special Move: Megaflare
-    -Normal, Physical, 60 BP, Ignores immunity, and Defense boosts, Never misses.
-Notes: Bulky Physical Attacker.
-Rank: A.
+(Dialga)
+@Rocky Helmet
+EVs: 48 Def / 252 SpA / 208 SpD
+IVs: 0 Attack / 0 Speed
+Quiet Nature
+Ability: Time Traveler
+    -Trick Room upon entry and Pressure.
+Moves: Slack Off, Dragon Force (Same as Curse except it increases both special stats instead. 15 PP.), Earth Power and Bump. (Dark Type, Special, 105 BP, 100% Accuracy and 10 PP.)
+Rank: Unown
+
 
 Kimisumi
 (Gallade-Mega)
@@ -423,4 +420,4 @@ Special Move: Electro-Fryer
     - Knocks off the opponents item
     - 45% chance to either burn or paralyze the opponent (or do nothing (BUG))
     - Hits Ground Types
-Notes: Great counter to any pokemon that uses Priority 
+Notes: Great counter to any pokemon that uses Priority.

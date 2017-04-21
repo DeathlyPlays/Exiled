@@ -164,6 +164,9 @@ Object.assign(Exiled, {
 		N = Math.round(N);
 		return "0123456789ABCDEF".charAt((N - N % 16) / 16) + "0123456789ABCDEF".charAt(N % 16);
 	},
+	randomString: function (length) {
+		return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+	},
 });
 
 exports.commands = {

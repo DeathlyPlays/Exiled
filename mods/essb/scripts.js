@@ -84,6 +84,14 @@ exports.BattleScripts = {
 					spa: 252,
 					spd: 208,
 				},
+				ivs: {
+					hp: 31,
+					atk: 0,
+					def: 31,
+					spa: 31,
+					spd: 31,
+					spe: 0,
+				},
 				nature: "Quiet",
 			},
 			"&Lord Coldwraith": {

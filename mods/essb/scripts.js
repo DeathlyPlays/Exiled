@@ -199,7 +199,7 @@ exports.BattleScripts = {
 			},
 			"+Perison": {
 				species: "Xerneas",
-				ability: "Simple",
+				ability: "Adaptability",
 				item: "Power Herb",
 				gender: "M",
 				moves: ['psystrike', 'moonblast', 'hypervoice'],

@@ -9,7 +9,7 @@ Ability: Crippling Depression
     -Primordial Sea effects + Rain Dish + Swift Swim
 Moves: Giga Drain, Freeze-Dry, Focus Blast
 Special Move: Aqua Subscribe
-	-90 BP, 100% Accuracy, Special, Water-type, +1 priority, +1 Spe & SpA to self after use.
+	-90 BP, 100% Accuracy, Special, Water-type, +1 priority, 30% chance to raise its SpA & Spe by one stage.
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
 
@@ -70,12 +70,12 @@ Lord Coldwraith
 EVs: 252 SpA / 252 Spe / 4 HP
 Modest Nature
 Ability: Necropower
-    -Special Pure Power and charge moves have no charge.
+    -Special Pure Power and charge moves have no charge required.
 Moves: Oblivion Wing, Ice Burn, Quiver Dance
 Special Move: Shadowforce Impact
 	-Ghost type, Special, 30% chance of flinching, 95 BP, 100% Accuracy, +1 priority.
 Notes: Fast Special Sweeper.
-Rank: you decide insist
+Rank: A.
 
 Kairak
 (Nidorina)
@@ -240,7 +240,8 @@ Quiet Nature
 Ability: Time Traveler
     -Trick Room upon entry and Pressure.
 Moves: Slack Off, Dragon Force (Same as Curse except it increases both special stats instead. 15 PP.), Earth Power and Bump. (Dark Type, Special, 105 BP, 100% Accuracy and 10 PP.)
-Rank: Unown
+Notes: Trick Room makes great antimeta in this meta and with the bulk Dialga has.
+Rank: A.
 
 Kimisumi
 (Gallade-Mega)
@@ -252,7 +253,7 @@ Ability: God Complex
 Moves: Close Combat, Precipice Blades, Extreme Speed
 Special Move: Strike You Down
     -Psychic, contact, Physical, 110 BP, 100% accuracy.
-Notes: Fast Physical Sweeper.
+Notes: Fast Physical Sweeper. Plus Topsy Turvy ruins a lot of Pokemon in this meta with their boost dependant sets.
 Rank: A.
 
 Sukesha

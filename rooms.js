@@ -288,6 +288,12 @@ class GlobalRoom {
 				staffAutojoin: true,
 				godAutojoin: true,
 			}, {
+				title: 'Upper Staff',
+				isPrivate: true,
+				leaderAutojoin: true,
+				godAutojoin: true,
+				adminAutojoin: true,
+			}, {
 				title: 'Development',
 				isPrivate: true,
 				devRoom: true,

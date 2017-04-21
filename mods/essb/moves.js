@@ -245,100 +245,51 @@ exports.BattleMovedex = {
 		type: "Fire",
 	},
 	//backatmyday
-	"megaflare": {
-		id: "megaflare",
-		name: "Megaflare",
-		basePower: 60,
-		accuracy: true,
+	"bump": {
+		id: "bump",
+		name: "Bump",
+		basePower: 105,
+		accuracy: 100,
 		pp: 10,
 		priority: 0,
 		secondary: false,
-		category: "Physical",
+		category: "Special",
 		onHit: function (target, source, move) {
-			this.add('c|@Back At My Day|Why isn\'t this a Fire type move....?');
+			this.add('c|&Back At My Day|Bump');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Seed Flare", target);
+			this.add('-anim', source, "Dark Pulse", target);
 		},
 		flags: {
 			protect: 1,
 			mirror: 1,
 		},
-		ignoreImmunity: true,
-		ignoreDefensive: true,
-		type: "Normal",
-		target: "allAdjacent",
+		type: "Dark",
+		target: "normal",
 	},
 	//backatmyday
-	"solarslap": {
-		id: "solarslap",
-		name: "Solar Slap",
+	"dragonforce": {
+		id: "dragonforce",
+		name: "Dragon Force",
+		basePower: 0,
 		accuracy: 100,
-		basePower: 120,
-		category: "Physical",
-		pp: 10,
+		pp: 15,
 		priority: 0,
-		flags: {
-			charge: 1,
-			protect: 1,
-			mirror: 1,
-		},
-		onTry: function (attacker, defender, move) {
-			if (attacker.removeVolatile(move.id)) {
-				return;
-			}
-			this.add('-prepare', attacker, move.name, defender);
-			if (this.isWeather(['sunnyday', 'desolateland']) || !this.runEvent('ChargeMove', attacker, defender, move)) {
-				this.add('-anim', attacker, move.name, defender);
-				return;
-			}
-			attacker.addVolatile('twoturnmove', defender);
-			return null;
-		},
-		onBasePowerPriority: 4,
-		onBasePower: function (basePower, pokemon, target) {
-			if (this.isWeather(['raindance', 'primordialsea', 'sandstorm', 'hail'])) {
-				this.debug('weakened by weather');
-				return this.chainModify(0.5);
-			}
-		},
+		secondary: false,
+		category: "Status",
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Solar Beam", target);
+			this.add('-anim', source, "Curse", target);
 		},
-		secondary: false,
-		target: "normal",
-		type: "Grass",
-	},
-	"teraflare": {
-		id: "teraflare",
-		name: "Teraflare",
-		basePower: 120,
-		accuracy: true,
-		ignoreDefensive: true,
-		pp: 1,
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Seed Flare", target);
+		boosts: {
+			spa: 1,
+			spd: 1,
+			spe: -1,
 		},
-		priority: 0,
-		flags: {
-			contact: 1,
-			protect: 1,
-			mirror: 1,
-		},
-		isZ: "flarez",
-		onTryHit: function (pokemon) {
-			// will shatter screens through sub, before you hit
-			if (pokemon.runImmunity('Normal')) {
-				pokemon.side.removeSideCondition('reflect');
-				pokemon.side.removeSideCondition('lightscreen');
-			}
-		},
-		secondary: false,
-		type: "Normal",
-		target: "foeactive",
+		flags: {authentic: 1},
+		type: "Dragon",
+		target: "self",
 	},
 	//mewth
 	"roleplaying": {

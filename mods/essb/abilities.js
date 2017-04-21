@@ -674,8 +674,9 @@ exports.BattleAbilities = {
 	"necropower": {
 		id: "necropower",
 		name: "Necropower",
-		onModifyMove: function (move) {
-			delete move.flags['charge'];
+		onChargeMove: function (pokemon, target, move) {
+			this.debug('Delete charge for ' + move.id);
+			return false; // skip charge turn
 		},
 		onModifySpAPriority: 5,
 		onModifySpA: function (spa) {

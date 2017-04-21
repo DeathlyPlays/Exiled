@@ -203,6 +203,8 @@ exports.commands = {
 			"<u><b>Major Contributors:</b></u><br />" +
 			"- " + Exiled.nameColor('Eelek', true) + " (Developments)<br />" +
 			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developments)<br />" +
+			"- " + Exiled.nameColor('Mewth', true) + " (Developments)<br />" +
+			"- " + Exiled.nameColor('Back At My Day', true) + " (Developments)<br />" +
 			"<br />" +
 			"<u><b>Retired Staff:</b></u><br />" +
 			"- " + Exiled.nameColor('Sukesha', true) + " (Former Owner, Development, CSS Developments)<br />" +

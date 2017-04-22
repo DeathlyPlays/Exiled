@@ -128,6 +128,8 @@ global.Ontime = {};
 
 global.SG = {};
 
+global.sqlite3 = require('sqlite3');
+
 global.forever = {};
 
 global.Db = require('origindb')('config/db');

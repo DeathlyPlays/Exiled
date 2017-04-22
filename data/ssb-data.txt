@@ -435,3 +435,15 @@ Moves: Dragon Dance, Dragon Claw, Earthquake
 Special Move: H-Axe
     - Steel Type, Physical, 70 BP, 100% Accuracy, Hits 2 times, 10 PP
 Notes: Fast Multihitter Sweeper. Great counter against Sturdy/Focus Sash. Annoying Boost Stealer.
+
+Beeky
+(Mawile-Mega)
+@Choice Scarf
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+Ability: No Hax
+    - Shield Dust + No guard (but only effects moves under 100 BP).
+Moves: Play Rough, Knock Off, Ice Punch
+Special Move: Double Jaw Tackle
+    - Steel Type, Physical, 99 BP, 100% Accuracy, 10 PP
+Notes: Attacker that can nullify secondary effects.

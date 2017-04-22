@@ -2,7 +2,7 @@ Insist
 (Ludicolo)
 @ Playnium Z
 	- Allows user to use Exiled From All Others
-		- Exiled From All Others: Water type, Special, Z-Move, Boosts all stats by 1 stage, Special, 140 BP.
+		- Exiled From All Others: Water type, Special, Z-Move, Boosts all stats by 1 stage, 140 BP.
 EVs: 4 HP / 252 SpA / 252 Spe
 Timid Nature
 Ability: Crippling Depression
@@ -408,7 +408,7 @@ Special Move: The Power Of Pi
     
 Eelek
 (Eelektross)
-@ Power Current: Holder's defenses are boosted by two stages, while the holder's offenses and speed are boosted by one stage
+@Power Current: Holder's defenses are boosted by two stages, while the holder's offenses and speed are boosted by one stage
 Electric & Bug type
 EVs: 252 SpA / 252 Spe / 4 SpD
 Timid Nature
@@ -421,3 +421,17 @@ Special Move: Electro-Fryer
     - 45% chance to either burn or paralyze the opponent (or do nothing (BUG))
     - Hits Ground Types
 Notes: Great counter to any pokemon that uses Priority.
+Rank: A
+
+Hax Orus 04
+(Haxorus)
+@Haxium Z
+	-Allows user to use Too Much Hax
+		-Too Much Hax: Dragon Type, Physical, Z-Move, Increases Speed after use, Spectral Thief, 100 BP.
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+Ability: Prism Armor
+Moves: Dragon Dance, Dragon Claw, Earthquake
+Special Move: H-Axe
+    - Steel Type, Physical, 70 BP, 100% Accuracy, Hits 2 times, 10 PP
+Notes: Fast Multihitter Sweeper. Great counter against Sturdy/Focus Sash. Annoying Boost Stealer.

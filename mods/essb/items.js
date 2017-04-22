@@ -90,4 +90,16 @@ exports.BattleItems = {
 		},
 		desc: "All of the holder's defenses are boosted by two stages. All of the holder's offenses and speed are boosted by one stage.",
 	},
+	"haxiumz": {
+		spritenum: 656,
+		onTakeItem: false,
+		id: "haxiumz",
+		name: "Haxium Z",
+		zMove: "Too Much Hax",
+		zMoveFrom: "H-Axe",
+		zMoveUser: ["Haxorus"],
+		num: -1,
+		gen: -6,
+		desc: "If holder is a Haxorus with H-Axe, it can use Too Much Hax.",
+	},
 };

@@ -477,6 +477,21 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			"Haxorus04": {
+				species: "Haxorus",
+				ability: "Prism Armor",
+				item: "Haxium Z",
+				moves: ['dragondance', 'dragonclaw', 'earthquake'],
+				gender: "M",
+				baseSignatureMove: "haxe",
+				signatureMove: "H-Axe",
+				evs: {
+					atk: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Adamant",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Tools.shuffle(Object.keys(sets));

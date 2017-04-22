@@ -1475,6 +1475,11 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Electric/Bug');
 				pokemon.types = ["Electric", "Bug"];
 			}
+			if (name === 'haxorus04' && !pokemon.illusion) {
+				this.boost({
+					evasion: 1,
+				});
+			}
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {

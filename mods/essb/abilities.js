@@ -698,4 +698,24 @@ exports.BattleAbilities = {
 			return secondaries.filter(effect => !!(effect.self || effect.dustproof));
 		},
 	},
+	"conflictofinterest": {
+		id: "conflictofinterest",
+		name: "Conflict of Interest",
+		//Since levitate cant be coded in
+		onStart: function (pokemon) {
+			this.useMove('magnetrise', pokemon);
+		},
+		//HeatProof and fliter other types
+		onBasePowerPriority: 7,
+		onSourceBasePower: function (basePower, attacker, defender, move) {
+			if (move.type === 'Fire' || move.type === 'Ghost' || move.type === 'Dark') {
+				return this.chainModify(0.5);
+			}
+		},
+		onDamage: function (damage, target, source, effect) {
+			if (effect && effect.id === 'brn') {
+				return damage / 2;
+			}
+		},
+	},
 };

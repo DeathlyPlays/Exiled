@@ -1239,4 +1239,35 @@ exports.BattleMovedex = {
 		zMovePower: 200,
 		contestType: "Tough",
 	},
+	"momentofinertia": {
+		accuracy: 100,
+		basePower: 0,
+		basePowerCallback: function (pokemon, target) {
+			let power = (Math.floor(25 * target.getStat('spe') / pokemon.getStat('spe')) || 1);
+			if (power > 150) power = 150;
+			this.debug('' + power + ' bp');
+			return power;
+		},
+		onHit: function (target) {
+			target.clearBoosts();
+			this.add('-clearboost', target);
+		},
+		effect: {
+			duration: 1,
+			onAfterMoveSecondarySelf: function (pokemon, target, move) {
+				if (target.clearBoosts) this.boost({def: 1, spd: 1, spe: -1}, pokemon, pokemon, move);
+			},
+			category: "Physical",
+			name: "Moment of Inertia",
+			id: "momentofinertia",
+			pp: 10,
+			priority: 0,
+			flags: {contact: 1, protect: 1, mirror: 1},
+			secondary: false,
+			target: "normal",
+			type: "Steel",
+			zMovePower: 160,
+			contestType: "Cool",
+		},
+	},
 };

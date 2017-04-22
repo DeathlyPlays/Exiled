@@ -508,6 +508,21 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			"Almighty Bronzong": {
+				species: "Bronzong",
+				ability: "Conflict of Interest",
+				item: "Leftovers",
+				moves: ['recover', 'toxic', 'earthquake'],
+				gender: "N",
+				baseSignatureMove: "momentofinertia",
+				signatureMove: "Moment of Inertia",
+				evs: {
+					hp: 252,
+					def: 88,
+					spd: 168,
+				},
+				nature: "Relaxed",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Tools.shuffle(Object.keys(sets));

@@ -844,7 +844,7 @@ exports.BattleMovedex = {
 		name: "Electro-Fryer",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, defrost: 1},
 		onEffectiveness: function (typeMod, type, move) {
 			return typeMod + this.getEffectiveness('Fire', type);
 		},
@@ -1186,13 +1186,12 @@ exports.BattleMovedex = {
 	},
 	//Haxorus04
 	"haxe": {
-		num: 530,
 		accuracy: 100,
 		basePower: 70,
 		category: "Physical",
 		id: "haxe",
 		name: "H-Axe",
-		pp: 5,
+		pp: 10,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		multihit: 2,
@@ -1224,5 +1223,20 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Dragon",
 		isZ: "haxiumz",
+	},
+	"doublejawtackle": {
+		accuracy: 100,
+		basePower: 99,
+		category: "Physical",
+		id: "doublejawtackle",
+		name: "Double Jaw Tackle",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: false,
+		target: "normal",
+		type: "Steel",
+		zMovePower: 200,
+		contestType: "Tough",
 	},
 };

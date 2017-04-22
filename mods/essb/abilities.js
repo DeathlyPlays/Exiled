@@ -683,4 +683,19 @@ exports.BattleAbilities = {
 			return this.chainModify(2);
 		},
 	},
+	"nohax": {
+		id: "nohax",
+		name: "No Hax",
+		//No Guard
+		onAnyAccuracy: function (accuracy, target, source, move, basePower) {
+			if (basePower <= 100 && move && (source === this.effectData.target || target === this.effectData.target)) {
+				return true;
+			}
+			return accuracy;
+		},
+		//Shield Dust
+		onModifySecondaries: function (secondaries) {
+			return secondaries.filter(effect => !!(effect.self || effect.dustproof));
+		},
+	},
 };

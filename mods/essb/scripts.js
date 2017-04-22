@@ -221,6 +221,22 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
+			"+Beeky": {
+				species: "Mawile-Mega",
+				ability: "No Hax",
+				item: "Choice Scarf",
+				gender: "F",
+				moves: ['knockoff', 'playrough', 'icepunch'],
+				shiny: true,
+				baseSignatureMove: "doublejawtackle",
+				signatureMove: "Double Jaw Tackle",
+				evs: {
+					atk: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Adamant",
+			},
 			//Regs
 			"TheAquaPhoenix": {
 				species: "Articuno",

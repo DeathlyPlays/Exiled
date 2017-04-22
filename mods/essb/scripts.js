@@ -493,7 +493,7 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"Haxorus04": {
+			"Hax Orus 04": {
 				species: "Haxorus",
 				ability: "Prism Armor",
 				item: "Haxium Z",

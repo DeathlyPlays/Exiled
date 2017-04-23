@@ -561,8 +561,12 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.useMove('Thunderbolt', pokemon);
 		},
-		onModifyPriority: function (priority) {
-			return Math.round(priority) + 1;
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual: function (pokemon) {
+			if (pokemon.activeTurns) {
+				this.boost({spe:1});
+			}
 		},
 		onFoeTryMove: function (target, source, effect) {
 			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {

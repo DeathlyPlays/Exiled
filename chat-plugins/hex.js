@@ -4,6 +4,7 @@ let MD5 = require('MD5');
 let colorCache = {};
 
 const http = require('http');
+const Autolinker = require('autolinker');
 
 /*function logMoney(message) {
 	   if (!message) return;

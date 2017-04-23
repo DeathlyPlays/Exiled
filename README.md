@@ -12,7 +12,7 @@ Volco - Fixes errors, implements features, Sysop.<br>
 HoeenCoder - Sysop, Bug fixes, Mechanic assistance.<br>
 Mewth - Developments, Sysop.<br>
 Stellation - Developments.<br>
-Mystifi - Assistance, Developments.
+Mystifi - Assistance, Developments.<br>
 AlfaStorm & Ashley The Pikachu - Minor developments.<br>
 Zarel - The main workspace we used to begin Exiled off of.<br>
 <b>Retired Developers</b><br>

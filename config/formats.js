@@ -1474,6 +1474,7 @@ exports.Formats = [
 			if (name === 'eelek' && !pokemon.illusion) {
 				this.boost({
 					spa: 1,
+					spe: 1,
 				});
 			}
 			if (name === 'haxorus04' && !pokemon.illusion) {

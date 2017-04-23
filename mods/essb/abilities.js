@@ -564,6 +564,13 @@ exports.BattleAbilities = {
 		onModifyPriority: function (priority) {
 			return Math.round(priority) + 1;
 		},
+		onFoeTryMove: function (target, source, effect) {
+			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
+				this.attrLastMove('[still]');
+				this.add('cant', this.effectData.target, 'ability: Turbo Mode', effect, '[of] ' + target);
+				return false;
+			}
+		},
 		//no guard on my side
 		onAnyAccuracy: function (accuracy, target, source, move) {
 			if (move && (source === this.effectData.target)) {

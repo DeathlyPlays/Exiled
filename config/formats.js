@@ -1472,8 +1472,9 @@ exports.Formats = [
 				});
 			}
 			if (name === 'eelek' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Electric/Bug');
-				pokemon.types = ["Electric", "Bug"];
+				this.boost({
+					spa: 1,
+				});
 			}
 			if (name === 'haxorus04' && !pokemon.illusion) {
 				this.boost({

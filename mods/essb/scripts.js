@@ -143,13 +143,13 @@ exports.BattleScripts = {
 				nature: "Jolly",
 			},
 			"@Eelek": {
-				species: "Eelektross",
-				ability: "Ace in the Hole",
-				item: "Power Current",
+				species: "Rotom-frost",
+				ability: "Turbo Mode",
+				item: "Marvelium Z",
 				gender: "M",
-				moves: ['Bug Buzz', 'Glaciate', 'Hydro Pump'],
-				baseSignatureMove: "electrofryer",
-				signatureMove: "Electro-Fryer",
+				moves: ['hurricane', 'thunder', 'voltswitch'],
+				baseSignatureMove: "hailstorm",
+				signatureMove: "Hail Storm",
 				evs: {
 					spa: 252,
 					spe: 252,
@@ -522,6 +522,21 @@ exports.BattleScripts = {
 					spd: 168,
 				},
 				nature: "Relaxed",
+			},
+			"Chesnaught90000": {
+				species: "Chesnaught",
+				ability: "Nice 0u0",
+				item: "Life Orb",
+				moves: ['doubleedge', 'drainpunch', 'woodhammer'],
+				gender: "F",
+				baseSignatureMove: "cookieshower",
+				signatureMove: "Cookie Shower",
+				evs: {
+					atk: 252,
+					spd: 4,
+					spe: 252,
+				},
+				nature: "Jolly",
 			},
 		};
 		// Generate the team randomly.

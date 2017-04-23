@@ -65,30 +65,17 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "Holder's Speed & Special Attack is 1.5x, but it can only select the first move it executes.",
 	},
-	"powercurrent": {
-		id: "powercurrent",
-		name: "Power Current",
-		gen: -1,
+	"marveliumz": {
+		spritenum: 656,
+		onTakeItem: false,
+		id: "marveliumz",
+		name: "Marvelium Z",
+		zMove: "Hyper Viper Beam",
+		zMoveFrom: "Hail Storm",
+		zMoveUser: ["Rotom-Frost"],
 		num: -5,
-		fling: {
-			basePower: 100,
-		},
-		onModifySpe: function (spe) {
-			return this.chainModify(1.5);
-		},
-		onModifySpD: function (spd) {
-			return this.chainModify(2);
-		},
-		onModifyDef: function (def) {
-			return this.chainModify(2);
-		},
-		onModifyAtk: function (atk) {
-			return this.chainModify(1.5);
-		},
-		onModifySpA: function (spa) {
-			return this.chainModify(1.5);
-		},
-		desc: "All of the holder's defenses are boosted by two stages. All of the holder's offenses and speed are boosted by one stage.",
+		gen: -1,
+		desc: "If holder is a Rotom-Frost with Hail Storm, it can use Hyper Viper Beam.",
 	},
 	"haxiumz": {
 		spritenum: 656,

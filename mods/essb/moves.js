@@ -836,48 +836,44 @@ exports.BattleMovedex = {
 		isZ: "thekidz",
 	},
 	//Stellation
-	"electrofryer": {
-		accuracy: 100,
-		basePower: 120,
+	"hailstorm": {
+		accuracy: 50,
+		basePower: 200,
 		category: "Special",
-		id: "electrofryer",
-		name: "Electro-Fryer",
+		id: "hailstorm",
+		name: "Hail Storm",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, defrost: 1},
-		onEffectiveness: function (typeMod, type, move) {
-			return typeMod + this.getEffectiveness('Fire', type);
-		},
+		flags: {protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Discharge", target);
-			this.add('-anim', target, "Sacred Fire", target);
-		},
-		onAfterHit: function (target, source) {
-			if (source.hp) {
-				let item = target.takeItem();
-				if (item) {
-					this.add('-enditem', target, item.name, '[from] move: Electro-Fryer', '[of] ' + source);
-				}
-			}
+			this.add('-anim', source, "Blizzard", target);
+			this.add('-anim', source, "Blizzard", target);
 		},
 		secondary: {
 			chance: 45,
-			onHit: function (target, source) {
-				let result = this.random(3);
-				if (result === 0) {
-					target.trySetStatus('brn', source);
-				} else if (result === 1) {
-					target.trySetStatus('par', source);
-				//This is a bug. I dont know how to make sure only 2 events happen. if someone can fix it ill be really happe ~Eelek
-				} else {
-					return false;
-				}
-			},
+			selfSwitch: true,
 		},
 		target: "Normal",
+		type: "Ice",
+	},
+	"hyperviperbeam": {
+		accuracy: 100,
+		basePower: 225,
+		category: "Special",
+		id: "hyperviperbeam",
+		name: "Hyper Viper Beam",
+		pp: 1,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Prismatic Laser", target);
+		},
+		multihit: [2, 5],
+		target: "Normal",
 		type: "Electric",
-		ignoreImmunity: {'Electric': true},
+		isZ: "marveliumz",
 	},
 	//HoeenHero
 	"scripting": {
@@ -1269,5 +1265,22 @@ exports.BattleMovedex = {
 			zMovePower: 160,
 			contestType: "Cool",
 		},
+	},
+	//ches
+	"cookiestorm": {
+		accuracy: 100,
+		basePower: 180,
+		category: "Physical",
+		id: "cookiestorm",
+		name: "Cookie Storm",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		recoil: [70, 100],
+		secondary: false,
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 190,
+		contestType: "Cute",
 	},
 };

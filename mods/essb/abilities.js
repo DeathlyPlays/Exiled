@@ -554,26 +554,22 @@ exports.BattleAbilities = {
 			move.stab = 2;
 		},
 	},
-	"aceinthehole": {
-		id: "aceinthehole",
-		name: "Ace in the Hole",
-		//makes sure all parts of the ability work
+	"turbomode": {
+		id: "turbomode",
+		name: "Turbo Mode",
+		//attack switch in
 		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Ace in the Hole');
+			this.useMove('Thunderbolt', pokemon);
 		},
-		//Kills weather
-		suppressWeather: true,
-		//Kills Ability
-		onModifyMove: function (move) {
-			move.ignoreAbility = true;
+		onModifyPriority: function (priority) {
+			return Math.round(priority) + 1;
 		},
-		//Kills prority
-		onFoeTryMove: function (target, source, effect) {
-			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
-				this.attrLastMove('[still]');
-				this.add('cant', this.effectData.target, 'ability: Ace in the Hole', effect, '[of] ' + target);
-				return false;
+		//no guard on my side
+		onAnyAccuracy: function (accuracy, target, source, move) {
+			if (move && (source === this.effectData.target)) {
+				return true;
 			}
+			return accuracy;
 		},
 	},
 	"feelsflys": {
@@ -715,6 +711,22 @@ exports.BattleAbilities = {
 		onDamage: function (damage, target, source, effect) {
 			if (effect && effect.id === 'brn') {
 				return damage / 2;
+			}
+		},
+	},
+	"nice0u0": {
+		id: "nice0u0",
+		name: "Nice 0u0",
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.recoil || move.hasCustomRecoil) {
+				this.debug('Reckless boost');
+				return this.chainModify([0x1333, 0x1000]);
+			}
+		},
+		onDamage: function (damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				return false;
 			}
 		},
 	},

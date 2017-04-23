@@ -405,6 +405,8 @@ Special Move: The Power Of Pi
     - Steel Type, Physical, 100 BP, +1 Priority, 100% flinch, 100% boost Atk by 1, Opponent is trapped
     - Triggers an effect where this staffmon heals 100% of damage done
     - Can only be used once
+Notes: Bulky Physical Sweeper. Another one of the topsy-turvers.
+Rank: A
     
 Eelek
 (Eelektross)

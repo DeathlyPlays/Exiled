@@ -844,15 +844,11 @@ exports.BattleMovedex = {
 		name: "Hail Storm",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Blizzard", target);
 			this.add('-anim', source, "Blizzard", target);
-		},
-		secondary: {
-			chance: 45,
-			selfSwitch: true,
 		},
 		target: "Normal",
 		type: "Ice",

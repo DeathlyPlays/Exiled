@@ -295,7 +295,7 @@ exports.BattleScripts = {
 			},
 			'Gliscor': {
 				species: 'Gliscor',
-				ability: 'Toxic Heal',
+				ability: 'Poison Heal',
 				item: 'Toxic Orb',
 				moves: ['earthquake', 'toxic', 'roost'],
 				signatureMove: 'Protect',
@@ -347,7 +347,7 @@ exports.BattleScripts = {
 			},
 			'Greninja': {
 				species: 'Greninja',
-				ability: 'Protean',
+				ability: 'Battle Bond',
 				item: 'Life Orb',
 				moves: ['scald', 'uturn', 'icebeam'],
 				signatureMove: 'Dark Pulse',

@@ -89,4 +89,20 @@ exports.BattleItems = {
 		gen: -6,
 		desc: "If holder is a Haxorus with H-Axe, it can use Too Much Hax.",
 	},
+	"generalannoyance": {
+		id: "generalannoyance",
+		name: "General Annoyance",
+		spritenum: 242,
+		fling: {
+			basePower: 10,
+		},
+		onResidualOrder: 5,
+		onResidualSubOrder: 2,
+		onResidual: function (pokemon) {
+			this.heal(pokemon.maxhp / 4);
+		},
+		num: -7,
+		gen: -2,
+		desc: "At the end of every turn, holder restores 1/4 of its max HP.",
+	},
 };

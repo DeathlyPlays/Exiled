@@ -1279,4 +1279,34 @@ exports.BattleMovedex = {
 		zMovePower: 190,
 		contestType: "Cute",
 	},
+	"hinderance": {
+		accuracy: 100,
+		basePower: 0,
+		damageCallback: function (pokemon, target) {
+			return this.clampIntRange(Math.floor(target.hp / 2), 1);
+		},
+		category: "Special",
+		id: "hinderance",
+		name: "Hinderance",
+		pp: 10,
+		priority: 1,
+		flags: {protect: 1, mirror: 1},
+		self: {
+			boosts: {
+				spe: 1,
+				atk: 1,
+				def: 1,
+				spd: 1,
+				spa: 1,
+			},
+		},
+		secondary: {
+			chance: 30,
+			volatileStatus: "flinch",
+		},
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 100,
+		contestType: "Tough",
+	},
 };

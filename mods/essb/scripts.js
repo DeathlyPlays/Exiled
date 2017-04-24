@@ -471,6 +471,21 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			" UniversalCraftr": {
+				species: "Pykumuku",
+				ability: "Trade-Off",
+				item: "General Annoyance",
+				moves: ['batonpass', 'shoreup', 'substitue'],
+				gender: "M",
+				baseSignatureMove: "hinderance",
+				signatureMove: "Hinderance",
+				evs: {
+					hp: 252,
+					def: 4,
+					spd: 252,
+				},
+				nature: "Bold",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Tools.shuffle(Object.keys(sets));

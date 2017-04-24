@@ -1482,6 +1482,17 @@ exports.Formats = [
 					evasion: 1,
 				});
 			}
+			if (name === 'universalcraftr' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dark/Ghost');
+				pokemon.types = ["Dark", "Ghost"];
+				this.boost({
+					spa: -2,
+					spd: -2,
+					atk: -2,
+					spe: -2,
+					def: -2,
+				});
+			}
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {
@@ -1520,7 +1531,7 @@ exports.Formats = [
 			}
 			if (name === 'eelek') {
 				this.add('c|@Eelek|If I\'m dead, I\'m taking the whole server down with me.');
-				this.add("raw|<div class=\"broadcast-red\"><b>Oh my God the server crashed!</b><br />Please finish your battles so we can fix this error. No new battles can be started until the server resets or gets fixed. Good job, Stellation, you ruined the server.</div>");
+				this.add("raw|<div class=\"broadcast-red\"><b>Oh my God the server crashed!</b><br />Please finish your battles so we can fix this error. No new battles can be started until the server resets or gets fixed. Good job, Eelek, you ruined the server.</div>");
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');

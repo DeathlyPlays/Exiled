@@ -1232,6 +1232,8 @@ exports.BattleMovedex = {
 		contestType: "Tough",
 	},
 	"momentofinertia": {
+		id: "momentofinertia",
+		name: "Moment of Inertia",
 		accuracy: 100,
 		basePower: 0,
 		basePowerCallback: function (pokemon, target) {
@@ -1240,6 +1242,7 @@ exports.BattleMovedex = {
 			this.debug('' + power + ' bp');
 			return power;
 		},
+		pp: 10,
 		onHit: function (target) {
 			target.clearBoosts();
 			this.add('-clearboost', target);
@@ -1251,9 +1254,6 @@ exports.BattleMovedex = {
 			},
 		},
 		category: "Physical",
-		name: "Moment of Inertia",
-		id: "momentofinertia",
-		pp: 10,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		secondary: false,

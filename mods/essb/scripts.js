@@ -521,6 +521,14 @@ exports.BattleScripts = {
 					def: 88,
 					spd: 168,
 				},
+				ivs: {
+					hp: 31,
+					atk: 31,
+					def: 31,
+					spa: 31,
+					spd: 31,
+					spe: 0,
+				},
 				nature: "Relaxed",
 			},
 			"Chesnaught90000": {

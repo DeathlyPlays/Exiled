@@ -406,8 +406,8 @@ Special Move: The Power Of Pi
     - Triggers an effect where this staffmon heals 100% of damage done
     - Can only be used once
 Notes: Bulky Physical Sweeper. Another one of the topsy-turvers.
-Rank: A
-    
+Rank: A.
+
 Eelek
 (Eelektross)
 @Power Current: Holder's defenses are boosted by two stages, while the holder's offenses and speed are boosted by one stage
@@ -422,8 +422,8 @@ Special Move: Electro-Fryer
     - Knocks off the opponents item
     - 45% chance to either burn or paralyze the opponent (or do nothing (BUG))
     - Hits Ground Types
-Notes: Great counter to any pokemon that uses Priority.
-Rank: A
+Notes: Great counter to any pokemon that uses priority.
+Rank: A.
 
 Hax Orus 04
 (Haxorus)
@@ -461,3 +461,18 @@ Ability: Conflict of Interest
 Moves: Recover, Earthquake, Toxic
 Special Move: Moment of Inertia
     - Steel Type, Physical, Gyro Ball, 100% Accuracy, 10 PP, Eliminates stat changes and increases defense, special defense by 1 stage and decreases speed by 1 stage if the opponent had stat changes.
+Notes: Slow Gyro Baller.
+Rank: N/A
+
+Chesnaught90000
+(Chesnaught)
+@Life Orb
+EVs: 252 Atk / 4 SpD / 252 Spe
+Jolly Nature
+Ability: Nice 0u0
+    -Reckless and Rock Head.
+Moves: Double Edge, Drain Punch, Wood Hammer.
+Special Move: Cookie Storm
+    - Fairy Type, Physical, 100 BP, 100% Accuracy, 10 PP.
+Notes: High power moves that are boosted by its Reckless effects obliterate teams.
+Rank: A

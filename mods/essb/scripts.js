@@ -462,8 +462,8 @@ exports.BattleScripts = {
 				item: "Life Orb",
 				moves: ['doubleedge', 'drainpunch', 'woodhammer'],
 				gender: "F",
-				baseSignatureMove: "cookieshower",
-				signatureMove: "Cookie Shower",
+				baseSignatureMove: "cookiestorm",
+				signatureMove: "Cookie Storm",
 				evs: {
 					atk: 252,
 					spd: 4,

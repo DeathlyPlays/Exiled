@@ -238,7 +238,7 @@ exports.BattleScripts = {
 				nature: "Adamant",
 			},
 			//Regs
-			"TheAquaPhoenix": {
+			" TheAquaPhoenix": {
 				species: "Articuno",
 				ability: "How to be OP 101",
 				item: "Leftovers",
@@ -253,7 +253,7 @@ exports.BattleScripts = {
 				},
 				nature: "Calm",
 			},
-			"Nightcraven": {
+			" Nightcraven": {
 				species: "Missingno.",
 				ability: "Derp",
 				item: "Focus Sash",
@@ -268,7 +268,7 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"HoeenHero": {
+			" HoeenHero": {
 				species: "Ludicolo",
 				ability: "Swift Swim",
 				item: "Leftovers",
@@ -283,7 +283,7 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			"Sukesha": {
+			" Sukesha": {
 				species: "Ninetales-Alola",
 				ability: "prfmlmao",
 				item: "Life Orb",
@@ -298,7 +298,7 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"Kimisumi": {
+			" Kimisumi": {
 				species: "Gallade-Mega",
 				ability: "God Complex",
 				item: "Life Orb",
@@ -313,7 +313,7 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
-			"CielTSnow": {
+			" CielTSnow": {
 				species: "Lucario-Mega",
 				ability: "Adaptability",
 				item: "Life Orb",
@@ -328,7 +328,7 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"EmoGuy3000": {
+			" EmoGuy3000": {
 				species: "Mewtwo-Mega-Y",
 				ability: "Contrary",
 				item: "Choice Specs",
@@ -342,7 +342,7 @@ exports.BattleScripts = {
 				},
 				nature: "Hasty",
 			},
-			"Vivid is a God": {
+			" Vivid is a God": {
 				species: "Latios",
 				ability: "JetStream",
 				item: "Life Orb",
@@ -357,7 +357,7 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"AB Starfox": {
+			" AB Starfox": {
 				species: "Staraptor",
 				ability: "Hiya",
 				item: "Life Orb",
@@ -373,7 +373,7 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"Speckeldorft": {
+			" Speckeldorft": {
 				species: "Jigglypuff",
 				ability: "The Cute Charm",
 				item: "Eviolite",
@@ -388,7 +388,7 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"UB-03 Xurkitree": {
+			" UB-03 Xurkitree": {
 				species: "Xurkitree",
 				ability: "feelsfly",
 				item: "Relic of Choiceness",
@@ -403,7 +403,7 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			"TheGodOfPie": {
+			" TheGodOfPie": {
 				species: "Mawile-Mega",
 				ability: "Mad Tings",
 				item: "Life Orb",
@@ -418,7 +418,7 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"Hax Orus 04": {
+			" Hax Orus 04": {
 				species: "Haxorus",
 				ability: "Prism Armor",
 				item: "Haxium Z",
@@ -433,7 +433,7 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"Almighty Bronzong": {
+			" Almighty Bronzong": {
 				species: "Bronzong",
 				ability: "Conflict of Interest",
 				item: "Leftovers",
@@ -456,7 +456,7 @@ exports.BattleScripts = {
 				},
 				nature: "Relaxed",
 			},
-			"Chesnaught90000": {
+			" Chesnaught90000": {
 				species: "Chesnaught",
 				ability: "Nice 0u0",
 				item: "Life Orb",

@@ -475,7 +475,7 @@ exports.BattleScripts = {
 				species: "Pykumuku",
 				ability: "Trade-Off",
 				item: "General Annoyance",
-				moves: ['batonpass', 'shoreup', 'substitue'],
+				moves: ['batonpass', 'shoreup', 'substitute'],
 				gender: "M",
 				baseSignatureMove: "hinderance",
 				signatureMove: "Hinderance",

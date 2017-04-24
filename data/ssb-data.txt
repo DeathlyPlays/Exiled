@@ -437,6 +437,7 @@ Moves: Dragon Dance, Dragon Claw, Earthquake
 Special Move: H-Axe
     - Steel Type, Physical, 70 BP, 100% Accuracy, Hits 2 times, 10 PP
 Notes: Fast Multihitter Sweeper. Great counter against Sturdy/Focus Sash. Annoying Boost Stealer.
+Rank: A
 
 Beeky
 (Mawile-Mega)
@@ -449,6 +450,7 @@ Moves: Play Rough, Knock Off, Ice Punch
 Special Move: Double Jaw Tackle
     - Steel Type, Physical, 99 BP, 100% Accuracy, 10 PP
 Notes: Attacker that can nullify secondary effects.
+Rank: B.
 
 Almighty Bronzong
 (Bronzong)
@@ -461,8 +463,8 @@ Ability: Conflict of Interest
 Moves: Recover, Earthquake, Toxic
 Special Move: Moment of Inertia
     - Steel Type, Physical, Gyro Ball, 100% Accuracy, 10 PP, Eliminates stat changes and increases defense, special defense by 1 stage and decreases speed by 1 stage if the opponent had stat changes.
-Notes: Slow Gyro Baller.
-Rank: N/A
+Notes: Slow Gyro Baller, one of the few walls in the meta.
+Rank: B.
 
 Chesnaught90000
 (Chesnaught)
@@ -476,3 +478,17 @@ Special Move: Cookie Storm
     - Fairy Type, Physical, 100 BP, 100% Accuracy, 10 PP.
 Notes: High power moves that are boosted by its Reckless effects obliterate teams.
 Rank: A
+
+UB-03 Xurkitree
+(Xurkitree)
+@Relic of Choiceness
+    - Choice Specs and Choice Scarf.
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+Ability: feelsfly
+    - Magnet Rise and +2 SpA upon entry and Beast Boost.
+Moves: Energy Ball, Fire Blast, Ice Beam
+Special Move: Super Flys Laser
+    - Electric Type, Special, 120 BP, 95% Accuracy, 15 PP, 30% chance of confusion.
+Notes: Fast Choiced Special Sweeper.
+Rank: B.

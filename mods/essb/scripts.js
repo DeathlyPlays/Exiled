@@ -174,8 +174,7 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			//Voices
-			"+C733937 123": {
+			"%C733937 123": {
 				species: "Gengar-Mega",
 				ability: "Chaotic Armor",
 				item: "Aguav Berry",
@@ -190,7 +189,7 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"+AlfaStorm": {
+			"%AlfaStorm": {
 				species: "Hydreigon",
 				ability: "Attack Shield",
 				item: "Focus Sash",
@@ -205,6 +204,7 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			//Voices
 			"+Perison": {
 				species: "Xerneas",
 				ability: "Adaptability",
@@ -221,7 +221,7 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			"+Beeky": {
+			"+beeky": {
 				species: "Mawile-Mega",
 				ability: "No Hax",
 				item: "Choice Scarf",
@@ -267,36 +267,6 @@ exports.BattleScripts = {
 					hp: 4,
 				},
 				nature: "Adamant",
-			},
-			"PaxAxeBrichu": {
-				species: "Golbat",
-				ability: "RIP You",
-				item: "Eviolite",
-				gender: "M",
-				moves: ['roost', 'airslash', 'uturn'],
-				baseSignatureMove: "repel",
-				signatureMove: "Repel",
-				evs: {
-					hp: 248,
-					def: 252,
-					spa: 8,
-				},
-				nature: "Impish",
-			},
-			"THEMEMES69": {
-				species: "Mewtwo",
-				ability: "Speed Boost",
-				item: "thekidz",
-				gender: "M",
-				moves: ['psystrike', 'aurasphere', 'icebeam'],
-				baseSignatureMove: "attitudeadjustment",
-				signatureMove: "Attitude Adjustment",
-				evs: {
-					spa: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Timid",
 			},
 			"HoeenHero": {
 				species: "Ludicolo",
@@ -403,21 +373,6 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"Kairak": {
-				species: "Nidorina",
-				ability: "gj squad",
-				item: "Focus Sash",
-				gender: "M",
-				moves: ['extremespeed', 'precipiceblades', 'knockoff'],
-				baseSignatureMove: "bowingandblowing",
-				signatureMove: "Bowing and Blowing",
-				evs: {
-					atk: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Jolly",
-			},
 			"Speckeldorft": {
 				species: "Jigglypuff",
 				ability: "The Cute Charm",
@@ -430,21 +385,6 @@ exports.BattleScripts = {
 					spa: 252,
 					spe: 252,
 					spd: 4,
-				},
-				nature: "Timid",
-			},
-			"Yoshonic": {
-				species: "Zoroark",
-				ability: "Too Fast",
-				item: "Life Orb",
-				gender: "M",
-				moves: ['aurasphere', 'psystrike', 'sludgewave'],
-				baseSignatureMove: "downb",
-				signatureMove: "Down B",
-				evs: {
-					spa: 252,
-					spe: 252,
-					hp: 4,
 				},
 				nature: "Timid",
 			},
@@ -462,21 +402,6 @@ exports.BattleScripts = {
 					spd: 4,
 				},
 				nature: "Modest",
-			},
-			"Philmiester": {
-				species: "Gallade-Mega",
-				ability: "Demon's Blade",
-				item: "Leftovers",
-				gender: "M",
-				moves: ['drainpunch', 'psychocut', 'icepunch'],
-				baseSignatureMove: "heathcliffsrevenge",
-				signatureMove: "Heathcliff's Revenge",
-				evs: {
-					atk: 252,
-					spe: 252,
-					spd: 4,
-				},
-				nature: "Jolly",
 			},
 			"TheGodOfPie": {
 				species: "Mawile-Mega",

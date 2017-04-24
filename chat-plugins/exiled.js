@@ -13,6 +13,22 @@ let Reports = {};
 
 Exiled.customColors = {};
 
+Exiled.img = function (link, height, width) {
+	if (!link) return '<font color="maroon">ERROR : You must supply a link.</font>';
+	return '<img src="' + link + '"' + (height ? ' height="' + height + '"' : '') + (width ? ' width="' + width + '"' : '') + '/>';
+};
+
+Exiled.font = function (text, color, bold) {
+	if (!text) return '<font color="maroon">ERROR : Please provide some text.</font>';
+	return '<font color="' + (color ? color : 'black') + '">' + (bold ? '<b>' : '') + text + (bold ? '</b>' : '') + '</font>';
+};
+
+Exiled.log = function (file, text) {
+	if (!file) return '<font color="maroon">ERROR : No file specified!</font>';
+	if (!text) return '<font color="maroon">ERROR : No text specified!</font>';
+	fs.appendFile(file, text);
+};
+
 //Daily Rewards System for SpacialGaze by Lord Haji
 Exiled.giveDailyReward = function (userid, user) {
 	if (!user || !userid) return false;

@@ -235,7 +235,7 @@ Back At My Day
 (Dialga)
 @Rocky Helmet
 EVs: 48 Def / 252 SpA / 208 SpD
-IVs: 0 Attack / 0 Speed
+IVs: 0 Atk / 0 Spe
 Quiet Nature
 Ability: Time Traveler
     -Trick Room upon entry and Pressure.
@@ -449,3 +449,15 @@ Moves: Play Rough, Knock Off, Ice Punch
 Special Move: Double Jaw Tackle
     - Steel Type, Physical, 99 BP, 100% Accuracy, 10 PP
 Notes: Attacker that can nullify secondary effects.
+
+Almighty Bronzong
+(Bronzong)
+@Leftovers
+EVs: 252 HP / 88 Def / 168 SpD
+IVs: 0 Spe
+Relaxed Nature
+Ability: Conflict of Interest
+    - Magnet Rise + Heatproof + -50% damage from Ghost and Dark type moves.
+Moves: Recover, Earthquake, Toxic
+Special Move: Moment of Inertia
+    - Steel Type, Physical, Gyro Ball, 100% Accuracy, 10 PP, Eliminates stat changes and increases defense, special defense by 1 stage and decreases speed by 1 stage if the opponent had stat changes.

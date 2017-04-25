@@ -202,7 +202,7 @@ exports.BattleScripts = {
 					spe: 252,
 					spd: 4,
 				},
-				nature: "Adamant",
+				nature: "Hasty",
 			},
 			//Voices
 			"+Perison": {

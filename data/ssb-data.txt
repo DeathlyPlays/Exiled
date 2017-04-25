@@ -340,7 +340,7 @@ Moves: Extreme Speed, Night Slash, Shadow Claw
 Special Move: Roleplaying
     -Physical, 90 BP, Normal Type, Contact, Raises user's Attack and Speed by one stage, +1 priority, Guaranteed Critical Hit, and has Focus Energy effects.
 Notes: Fast Physical Sweeper.
-Rank: B.
+Rank:A.
 
 Speckeldorft
 (Jigglypuff)
@@ -437,7 +437,7 @@ Moves: Dragon Dance, Dragon Claw, Earthquake
 Special Move: H-Axe
     - Steel Type, Physical, 70 BP, 100% Accuracy, Hits 2 times, 10 PP
 Notes: Fast Multihitter Sweeper. Great counter against Sturdy/Focus Sash. Annoying Boost Stealer.
-Rank: A
+Rank: A.
 
 Beeky
 (Mawile-Mega)
@@ -477,7 +477,7 @@ Moves: Double Edge, Drain Punch, Wood Hammer.
 Special Move: Cookie Storm
     - Fairy Type, Physical, 100 BP, 100% Accuracy, 10 PP.
 Notes: High power moves that are boosted by its Reckless effects obliterate teams.
-Rank: A
+Rank: A.
 
 UB-03 Xurkitree
 (Xurkitree)
@@ -492,3 +492,27 @@ Special Move: Super Flys Laser
     - Electric Type, Special, 120 BP, 95% Accuracy, 15 PP, 30% chance of confusion.
 Notes: Fast Choiced Special Sweeper.
 Rank: B.
+
+Perison
+(Xerneas)
+@Power Herb
+EVs: 252 HP / 252 SpA / 4 Spe
+Modest Nature
+Ability: Adaptability
+Moves: Psystrike, Moonblast, Hyper Voice
+Special Move: Ooga
+    - Fairy Type, Status, 5 PP, Boosts Special Attack, Special Defense and Speed by 2 and Boosts Defense by 3.
+Notes: Just a better xerneas.
+Rank: B.
+
+HoeenHero
+(Ludicolo)
+@Leftovers
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+Ability: Swift Swim
+Moves: Scald, Ice Beam, Giga Drain
+Special Move: Scripting
+    - Psychic Type, Status, 10 PP, Boosts Special Attack by 2 and Boosts Speed by 1, 100% chance of confusion.
+Notes: Lame.
+Rank: C.

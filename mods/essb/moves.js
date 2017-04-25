@@ -1249,15 +1249,10 @@ exports.BattleMovedex = {
 			return power;
 		},
 		pp: 10,
-		onHit: function (target) {
+		onHit: function (target, pokemon, move) {
 			target.clearBoosts();
 			this.add('-clearboost', target);
-		},
-		effect: {
-			duration: 1,
-			onAfterMoveSecondarySelf: function (pokemon, target, move) {
-				if (target.clearBoosts) this.boost({def: 1, spd: 1, spe: -1}, pokemon, pokemon, move);
-			},
+			if (target.clearBoosts) this.boost({def: 1, spd: 1, spe: -1}, pokemon, pokemon, move);
 		},
 		category: "Physical",
 		priority: 0,

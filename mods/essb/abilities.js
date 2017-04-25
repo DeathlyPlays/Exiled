@@ -247,8 +247,8 @@ exports.BattleAbilities = {
 	"godcomplex": {
 		id: "godcomplex",
 		name: "God Complex",
-		onStart: function (source) {
-			this.useMove('topsyturvy', source);
+		onStart: function (pokemon) {
+			this.useMove('topsyturvy', pokemon);
 		},
 		//rough skin
 		onAfterDamageOrder: 1,
@@ -554,33 +554,26 @@ exports.BattleAbilities = {
 			move.stab = 2;
 		},
 	},
-	"turbomode": {
-		id: "turbomode",
-		name: "Turbo Mode",
-		//attack switch in
+	"cartoonphysics": {
+		id: "cartoonphysics",
+		name: "Cartoon Physics",
 		onStart: function (pokemon) {
-			this.useMove('Thunderbolt', pokemon);
+			this.add('-ability', pokemon, 'Cartoon Physics');
 		},
-		onResidualOrder: 26,
-		onResidualSubOrder: 1,
-		onResidual: function (pokemon) {
-			if (pokemon.activeTurns) {
-				this.boost({spe:1});
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
+		},
+		onSourceModifyDamage: function (damage, source, target, move) {
+			if (this.random(10) < 5) {
+				return this.chainModify(false);
 			}
 		},
 		onFoeTryMove: function (target, source, effect) {
 			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
 				this.attrLastMove('[still]');
-				this.add('cant', this.effectData.target, 'ability: Turbo Mode', effect, '[of] ' + target);
+				this.add('cant', this.effectData.target, 'ability: Cartoon Physics', effect, '[of] ' + target);
 				return false;
 			}
-		},
-		//no guard on my side
-		onAnyAccuracy: function (accuracy, target, source, move) {
-			if (move && (source === this.effectData.target)) {
-				return true;
-			}
-			return accuracy;
 		},
 	},
 	"feelsflys": {
@@ -674,7 +667,7 @@ exports.BattleAbilities = {
 			},
 		},
 		//uses topsy turvy upon entry
-		onStart: function (pokemon) {
+			onStart: function (pokemon) {
 			this.useMove('topsyturvy', pokemon);
 		},
 	},
@@ -742,8 +735,15 @@ exports.BattleAbilities = {
 		},
 	},
 	"tradeoff": {
+		id: "tradeoff",
+		name: "Trade-Off",
 		onStart: function (pokemon) {
 			this.useMove('heartswap', pokemon);
+		},
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.category === 'Status') {
+				return priority + 1;
+			}
 		},
 		onCheckShow: function (pokemon) {
 			// This is complicated
@@ -824,7 +824,16 @@ exports.BattleAbilities = {
 			// (once you know a Pokemon has Natural Cure, its cures are always known)
 			if (!pokemon.showCure) delete pokemon.showCure;
 		},
-		id: "tradeoff",
-		name: "Trade-Off",
+	},
+	"catchmeintheball": {
+		id: "catchmeintheball",
+		name: "Catch me in the Ball",
+		//attack switch in
+		onStart: function (pokemon) {
+			this.useMove('hydropump', pokemon);
+		},
+		onModifyMove: function (move) {
+			move.stab = 2;
+		},
 	},
 };

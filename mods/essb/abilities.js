@@ -745,19 +745,6 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.useMove('heartswap', pokemon);
 		},
-		onModifyDefPriority: 6,
-		onModifyDef: function (def) {
-			return this.chainModify(2);
-		},
-		onModifySpdPriority: 6,
-		onModifySpd: function (spd) {
-			return this.chainModify(2);
-		},
-		onModifyPriority: function (priority, pokemon, target, move) {
-			if (move && move.category === 'Status') {
-				return priority + 1;
-			}
-		},
 		onCheckShow: function (pokemon) {
 			// This is complicated
 			// For the most part, in-game, it's obvious whether or not Natural Cure activated,
@@ -836,13 +823,6 @@ exports.BattleAbilities = {
 			// only reset .showCure if it's false
 			// (once you know a Pokemon has Natural Cure, its cures are always known)
 			if (!pokemon.showCure) delete pokemon.showCure;
-		},
-		onFoeTryMove: function (target, source, effect) {
-			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
-				this.attrLastMove('[still]');
-				this.add('cant', this.effectData.target, 'ability: Trade-Off', effect, '[of] ' + target);
-				return false;
-			}
 		},
 		id: "tradeoff",
 		name: "Trade-Off",

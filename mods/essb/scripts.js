@@ -132,7 +132,7 @@ exports.BattleScripts = {
 				ability: "Sniper",
 				item: "Scope Lens",
 				gender: "F",
-				moves: ['extremespeed', 'nightslash', 'psychocut'],
+				moves: ['extremespeed', 'nightslash', 'shadowclaw'],
 				baseSignatureMove: "roleplaying",
 				signatureMove: "Roleplaying",
 				evs: {
@@ -140,22 +140,22 @@ exports.BattleScripts = {
 					spe: 252,
 					hp: 4,
 				},
-				nature: "Jolly",
+				nature: "Adamant",
 			},
 			"%Eelek": {
-				species: "Rotom-frost",
-				ability: "Turbo Mode",
-				item: "Marvelium Z",
+				species: "Giratina",
+				ability: "Cartoon Physics",
+				item: "Leftovers",
 				gender: "M",
-				moves: ['hurricane', 'thunder', 'voltswitch'],
-				baseSignatureMove: "hailstorm",
-				signatureMove: "Hail Storm",
+				moves: ['icebeam', 'hypnosis', 'secretsword'],
+				baseSignatureMove: "inksplotch",
+				signatureMove: "Ink Splotch",
 				evs: {
-					spa: 252,
-					spe: 252,
+					hp: 252,
+					def: 252,
 					spd: 4,
 				},
-				nature: "Timid",
+				nature: "Modest",
 			},
 			//Drivers
 			"%Wobbleleez": {
@@ -472,7 +472,7 @@ exports.BattleScripts = {
 				nature: "Jolly",
 			},
 			" UniversalCraftr": {
-				species: "Pykumuku",
+				species: "Pyukumuku",
 				ability: "Trade-Off",
 				item: "General Annoyance",
 				moves: ['batonpass', 'shoreup', 'substitute'],
@@ -485,6 +485,21 @@ exports.BattleScripts = {
 					spd: 252,
 				},
 				nature: "Bold",
+			},
+			" Failures": {
+				species: "Greninja-Ash",
+				ability: "Catch me in the Ball",
+				item: "Bag of Ls",
+				moves: ['hydropump', 'blueflare', 'moongeistbeam'],
+				gender: "M",
+				baseSignatureMove: "imdepressed",
+				signatureMove: "Im Depressed",
+				evs: {
+					spa: 252,
+					def: 4,
+					spe: 252,
+				},
+				nature: "Modest",
 			},
 		};
 		// Generate the team randomly.

@@ -9,7 +9,7 @@ Ability: Crippling Depression
     -Primordial Sea effects + Rain Dish + Swift Swim
 Moves: Giga Drain, Freeze-Dry, Focus Blast
 Special Move: Aqua Subscribe
-	-90 BP, 100% Accuracy, Special, Water-type, +1 priority, 30% chance to raise its SpA & Spe by one stage.
+	-90 BP, 100% Accuracy, Special, Water-type, +1 priority, raises its SpA & Spe by one stage.
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
 
@@ -331,12 +331,12 @@ Notes: Special Sweeper, with great bulk.
 Rank: A.
 
 Mewth
-(Glameow)
+(Furret-Mega)
 @Scope Lens
 EVs: 252 Atk / 252 Spe / 4 HP
 Jolly Nature
 Ability: Sniper
-Moves: Extreme Speed, Night Slash, Psycho Cut
+Moves: Extreme Speed, Night Slash, Shadow Claw
 Special Move: Roleplaying
     -Physical, 90 BP, Normal Type, Contact, Raises user's Attack and Speed by one stage, +1 priority, Guaranteed Critical Hit, and has Focus Energy effects.
 Notes: Fast Physical Sweeper.

@@ -665,12 +665,12 @@ exports.BattleMovedex = {
 			if (target.status === 'psn' || target.status === 'tox') {
 				return this.boost({atk:-1, spa:-1, spe:-1}, target, source, move);
 			}
-			return false;
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Leech Seed', target);
 			this.add('-anim', source, 'Attract', target);
 			this.add('-anim', source, 'Confuse Ray', target);
 			this.add('-anim', source, "String Shot", target);
+			return false;
 		},
 		secondary: {
 			volatileStatus: "confusion",

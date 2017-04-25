@@ -836,4 +836,25 @@ exports.BattleAbilities = {
 			move.stab = 2;
 		},
 	},
+	//alfastorm
+	"attackshield": {
+		id: "attackshield",
+		name: "Attack Shield",
+		//Magic Bounce
+		onTryHitPriority: 1,
+		onTryHit: function (target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		//overcoat
+		onImmunity: function (type, pokemon) {
+			if (type === 'sandstorm' || type === 'hail' || type === 'powder') return false;
+		},
+	},
 };

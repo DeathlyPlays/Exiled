@@ -667,7 +667,7 @@ exports.BattleAbilities = {
 			},
 		},
 		//uses topsy turvy upon entry
-			onStart: function (pokemon) {
+		onStart: function (pokemon) {
 			this.useMove('topsyturvy', pokemon);
 		},
 	},

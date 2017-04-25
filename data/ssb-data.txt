@@ -490,3 +490,16 @@ Special Move: Dark Storm
     - Dark Type, Physical, 100% Accuracy, 15 PP, Boosts Attack, Defense and Speed by 1 stage.
 Notes: Fast mixed attacker that doesn't fare well in this meta.
 Rank: C.
+
+Chandie
+(Chandelure)
+@ Life Orb
+EVs: 252 SpA / 252 Spe / 4 HP
+Modest Nature
+Ability: Magma Overdrive
+Desolate Land + Adaptability + Tinted Lens; Fire Moves are 2x stronger; If hit by a Fire Move, it Special Attack raises by 1 stage.
+Moves: Fiery Dance, Moongeist Beam, Energy Ball
+Special Move: Solar Eruption
+	- Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage. The User has to recharge after using.
+Notes: Fast Special Sweeper.
+Rank: N/A.

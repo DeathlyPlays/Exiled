@@ -1063,7 +1063,7 @@ exports.BattleMovedex = {
 	"darkstorm": {
 		id: "darkstorm",
 		name: "Dark Storm",
-		basePower: 0,
+		basePower: 60,
 		accuracy: 100,
 		pp: 15,
 		secondary: false,
@@ -1340,6 +1340,33 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Water",
 		zMovePower: 140,
+		contestType: "Cool",
+	},
+	"solareruption": {
+		id: "solareruption",
+		name: "Solar Eruption",
+		basePower: 110,
+		accuracy: 100,
+		desc: "Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage. The User has to recharge after using.",
+		category: "Special",
+		flags: {
+			protect: 1,
+			mirror: 1,
+			recharge: 1,
+			defrost: 1,
+		},
+		critRatio: 3,
+		self: {
+			boosts: {
+				spe: 2,
+				spa: 1,
+			},
+		},
+		status: "brn",
+		pp: 10,
+		target: "normal",
+		type: "Fire",
+		zMovePower: 190,
 		contestType: "Cool",
 	},
 };

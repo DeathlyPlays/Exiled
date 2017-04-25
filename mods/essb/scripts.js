@@ -142,12 +142,28 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			"@C733937 123": {
+				species: "Gengar-Mega",
+				ability: "Chaotic Armor",
+				item: "Aguav Berry",
+				gender: "M",
+				moves: ['shadowball', 'darkpulse', 'painsplit'],
+				baseSignatureMove: "voodoomagic",
+				signatureMove: "Voodoo Magic",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Timid",
+			},
+			//Drivers
 			"%Eelek": {
-				species: "Giratina",
+				species: "Cobalion",
 				ability: "Cartoon Physics",
 				item: "Leftovers",
 				gender: "M",
-				moves: ['icebeam', 'hypnosis', 'secretsword'],
+				moves: ['sunsteelstrike', 'hypnosis', 'secretsword'],
 				baseSignatureMove: "inksplotch",
 				signatureMove: "Ink Splotch",
 				evs: {
@@ -157,7 +173,6 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			//Drivers
 			"%Wobbleleez": {
 				species: "Musharna",
 				ability: "WobzDoezJobz",
@@ -173,21 +188,6 @@ exports.BattleScripts = {
 					def: 16,
 				},
 				nature: "Modest",
-			},
-			"@C733937 123": {
-				species: "Gengar-Mega",
-				ability: "Chaotic Armor",
-				item: "Aguav Berry",
-				gender: "M",
-				moves: ['shadowball', 'darkpulse', 'painsplit'],
-				baseSignatureMove: "voodoomagic",
-				signatureMove: "Voodoo Magic",
-				evs: {
-					spa: 252,
-					spe: 252,
-					spd: 4,
-				},
-				nature: "Timid",
 			},
 			"%AlfaStorm": {
 				species: "Hydreigon",
@@ -236,6 +236,21 @@ exports.BattleScripts = {
 					spd: 4,
 				},
 				nature: "Adamant",
+			},
+			"+Chandie": {
+				species: "Chandelure",
+				ability: "Magma Overdrive",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['fierydance', 'moongeistbeam', 'energyball'],
+				baseSignatureMove: "solareruption",
+				signatureMove: "Solar Eruption",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Modest",
 			},
 			//Regs
 			" TheAquaPhoenix": {
@@ -504,7 +519,7 @@ exports.BattleScripts = {
 		};
 		// Generate the team randomly.
 		let pool = Tools.shuffle(Object.keys(sets));
-		let levels = {'~':99, '☥':98, '&':97, '@':96, '%':95, '+':95, ' ': 94};
+		let levels = {'~':99, '☥':98, '&':97, '*': 96, '@':96, '%':95, '+':95, ' ': 94};
 		for (let i = 0; i < 6; i++) {
 			if (i === 1) {
 				let monIds = pool.slice(0, 6).map(function (p) {

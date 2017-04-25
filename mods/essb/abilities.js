@@ -857,4 +857,61 @@ exports.BattleAbilities = {
 			if (type === 'sandstorm' || type === 'hail' || type === 'powder') return false;
 		},
 	},
+	"magmaoverdrive": {
+		id: "magmaoverdrive",
+		name: "Magma Overdrive",
+		rating: 4.5,
+		desc: "Desolate Land + Adaptability + Tinted Lens; Fire Moves are 2x stronger; If hit by a Fire Move, it Special Attack raises by 1 stage.",
+		onModifySpAPriority: 5,
+		onModifySpA: function (atk, attacker, defender, move) {
+			if (move.type === 'Fire') {
+				this.debug('Magma Overdrive boost');
+				return this.chainModify(2);
+			}
+		},
+		onModifyMove: function (move) {
+			move.stab = 2;
+		},
+		onModifyDamage: function (damage, source, target, move) {
+			if (move.typeMod < 0) {
+				this.debug('Magma Overdrive boost');
+				return this.chainModify(2);
+			}
+		},
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Fire') {
+				move.accuracy = true;
+				if (!target.addVolatile('flashfire')) {
+					this.add('-immune', target, '[msg]', '[from] ability: Magma Overdrive');
+				}
+				return null;
+			}
+		},
+		onEnd: function (pokemon) {
+			pokemon.removeVolatile('flashfire');
+		},
+		effect: {
+			noCopy: true, // doesn't get copied by Baton Pass
+			onStart: function (target) {
+				this.add('-start', target, 'ability: Magma Overdrive');
+			},
+			onModifyAtkPriority: 5,
+			onModifyAtk: function (atk, attacker, defender, move) {
+				if (move.type === 'Fire') {
+					this.debug('Magma Overdrive boost');
+					return this.chainModify(1.5);
+				}
+			},
+			onModifySpAPriority: 5,
+			onModifySpA: function (atk, attacker, defender, move) {
+				if (move.type === 'Fire') {
+					this.debug('Magma Overdrive boost');
+					return this.chainModify(1.5);
+				}
+			},
+			onEnd: function (target) {
+				this.add('-end', target, 'ability: Magma Overdrive', '[silent]');
+			},
+		},
+	},
 };

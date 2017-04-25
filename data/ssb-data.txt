@@ -241,7 +241,7 @@ Ability: Time Traveler
     -Trick Room upon entry and Pressure.
 Moves: Slack Off, Dragon Force (Same as Curse except it increases both special stats instead. 15 PP.), Earth Power and Bump. (Dark Type, Special, 105 BP, 100% Accuracy and 10 PP.)
 Notes: Trick Room makes great antimeta in this meta and with the bulk Dialga has.
-Rank: A.
+Rank: B.
 
 Kimisumi
 (Gallade-Mega)
@@ -353,7 +353,7 @@ Moves: Stored Power, Boomburst, Recover
 Special Move: FUCKING NORMIES
     -Fairy type, Special, 70 BP, Never misses, 1/2 of damage given to target heals user, Boosts user's Special Attack, Special Defense, Speed, Accuracy by two stage, Confuses target.
 Notes: Fast Special Attacker.
-Rank: B.
+Rank: A.
 
 Yoshonic
 (Zoroark)
@@ -406,23 +406,6 @@ Special Move: The Power Of Pi
     - Triggers an effect where this staffmon heals 100% of damage done
     - Can only be used once
 Notes: Bulky Physical Sweeper. Another one of the topsy-turvers.
-Rank: A.
-
-Eelek
-(Eelektross)
-@Power Current: Holder's defenses are boosted by two stages, while the holder's offenses and speed are boosted by one stage
-Electric & Bug type
-EVs: 252 SpA / 252 Spe / 4 SpD
-Timid Nature
-Ability: Ace in the Hole
-    - Air Lock + Mold Breaker + Dazzling
-Moves: Glaciate + Bug Buzz + Hydro Pump
-Special Move: Electro-Fryer
-    - Electric Type, Special, 120 BP, Uses Fire Type in calculation, 10 PP
-    - Knocks off the opponents item
-    - 45% chance to either burn or paralyze the opponent (or do nothing (BUG))
-    - Hits Ground Types
-Notes: Great counter to any pokemon that uses priority.
 Rank: A.
 
 Hax Orus 04
@@ -489,7 +472,7 @@ Ability: feelsfly
     - Magnet Rise and +2 SpA upon entry and Beast Boost.
 Moves: Energy Ball, Fire Blast, Ice Beam
 Special Move: Super Flys Laser
-    - Electric Type, Special, 120 BP, 95% Accuracy, 15 PP, 30% chance of confusion.
+    - Electric Type, Special, 120 BP, 95% Accuracy, 15 PP, 30% chance of Confusion.
 Notes: Fast Choiced Special Sweeper.
 Rank: B.
 
@@ -501,8 +484,8 @@ Modest Nature
 Ability: Adaptability
 Moves: Psystrike, Moonblast, Hyper Voice
 Special Move: Ooga
-    - Fairy Type, Status, 5 PP, Boosts Special Attack, Special Defense and Speed by 2 and Boosts Defense by 3.
-Notes: Just a better xerneas.
+    - Fairy Type, Status, 5 PP, Boosts Special Attack, Special Defense and Speed by 2 stages and Boosts Defense by 3 stages.
+Notes: Just a better Xerneas.
 Rank: B.
 
 HoeenHero
@@ -513,6 +496,20 @@ Modest Nature
 Ability: Swift Swim
 Moves: Scald, Ice Beam, Giga Drain
 Special Move: Scripting
-    - Psychic Type, Status, 10 PP, Boosts Special Attack by 2 and Boosts Speed by 1, 100% chance of confusion.
+    - Psychic Type, Status, 10 PP, Boosts Special Attack by 2 stages and Boosts Speed by 1 stage, 100% chance of Confusion.
 Notes: Lame.
 Rank: C.
+
+UniversalCraftr
+(Pykumuku)
+@General Annoyance
+    - Holder restores 1/4th of its Max HP.
+EVs: 252 HP / 4 Def / 252 SpD
+Bold Nature
+Ability: Trade-Off
+    - 0.5x stats and uses Heart Swap upon entry and Natural Cure.
+Moves: Baton Pass, Shore Up, Substitute
+Special Move: Hinderance
+    - Fairy Type, Special, 100% Accuracy, 10 PP, 30% chance to Flinch, Boosts all Stats by 1 stage.
+Notes: A literal General Annoyance. An asshole trader.
+Rank: A.

@@ -477,3 +477,16 @@ Special Move: Im Depressed
     - Water Type, Special, 120 BP, 100% Accuracy, 15 PP, Boosts Special Attack by 2 stages.
 Notes: Fast Annoying Switch In Sweeper.
 Rank: N/A.
+
+AlfaStorm
+(Hydreigon)
+@Focus Sash
+EVs: 252 SpA / 4 SpD / 252 Spe
+Hasty Nature
+Ability: Attack Shield
+    - Magic Bounce and Overcoat.
+Moves: Crunch, Draco Meteor, Dark Pulse
+Special Move: Dark Storm
+    - Dark Type, Physical, 100% Accuracy, 15 PP, Boosts Attack, Defense and Speed by 1 stage.
+Notes: Fast mixed attacker that doesn't fare well in this meta.
+Rank: C.

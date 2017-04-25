@@ -35,12 +35,14 @@ exports.commands = {
 	},
 
 	essbcredits: function (target, room, user) {
-		if (!this.runBroadcast()) return false;
-		this.sendReplyBox(
-			"<center><b>Exiled Super Staff Bros Credits:</b></center>" +
-			"<b>Insist</b> -Programming, Testing, Concepts, Organizing, Balancing.<br />" +
-			"<b>Stellation</b> - Bug fixes, programming.<br />",
-			"<b>Exiled Server Auth</b> - Participation and support in helping to complete CSSB."
-		);
+		let popup = "|html|" + "<font size=5 color=#000080><u><b>ESSB Credits</b></u></font><br />" +
+			"<br />" +
+			"<u><b>Programmers:</u></b><br />" +
+			"- " + Exiled.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
+			"- " + Exiled.nameColor('Eelek', true) + " (Assistant Developer)<br />" +
+			"- " + Exiled.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
+			"<u><b>Special Thanks:</b></u><br />" +
+			"- Our Staff Members for their cooperation in making this.<br />";
+		user.popup(popup);
 	},
 };

@@ -523,7 +523,7 @@ exports.BattleMovedex = {
 		category: "Special",
 		priority: 0,
 		onHit: function (target, source, move) {
-			this.add('c| Volco|SEE YOU ALL IN HELL!!!!!!!!');
+			this.add('c|~Volco|SEE YOU ALL IN HELL!!!!!!!!');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -662,6 +662,10 @@ exports.BattleMovedex = {
 			reflectable: 1,
 		},
 		onHit: function (target, source, move) {
+			if (target.status === 'psn' || target.status === 'tox') {
+				return this.boost({atk:-1, spa:-1, spe:-1}, target, source, move);
+			}
+			return false;
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Leech Seed', target);
 			this.add('-anim', source, 'Attract', target);

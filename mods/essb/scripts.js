@@ -128,7 +128,7 @@ exports.BattleScripts = {
 			},
 			//Moderators
 			"@Mewth": {
-				species: "Glameow",
+				species: "Furret-Mega",
 				ability: "Sniper",
 				item: "Scope Lens",
 				gender: "F",
@@ -142,7 +142,7 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
-			"@Eelek": {
+			"%Eelek": {
 				species: "Rotom-frost",
 				ability: "Turbo Mode",
 				item: "Marvelium Z",
@@ -174,7 +174,7 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			"%C733937 123": {
+			"@C733937 123": {
 				species: "Gengar-Mega",
 				ability: "Chaotic Armor",
 				item: "Aguav Berry",

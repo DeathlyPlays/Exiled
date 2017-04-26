@@ -283,13 +283,12 @@ Mewth
 (Furret-Mega)
 @Scope Lens
 EVs: 252 Atk / 252 Spe / 4 HP
-Jolly Nature
-Ability: Sniper
-Moves: Extreme Speed, Night Slash, Shadow Claw
-Special Move: Roleplaying
-    -Physical, 90 BP, Normal Type, Contact, Raises user's Attack and Speed by one stage, +1 priority, Guaranteed Critical Hit, and has Focus Energy effects.
+Adamant Nature
+Ability: Roarplaying
+	- Uses Roar on its foe and Focus Energy on itself upon entry
+Moves: Shadow Claw, Night Slash, Return, Oblivion Banisher
 Notes: Fast Physical Sweeper.
-Rank:A.
+Rank: A.
 
 Speckeldorft
 (Jigglypuff)

@@ -320,36 +320,6 @@ exports.commands = {
 	kickhelp: ["/kick - Kick a user out of a room. Requires: % @ # & ~"],
 
 
-	masspm: 'pmall',
-	pmall: function (target, room, user) {
-		if (!this.can('pmall')) return false;
-		if (!target) return this.parse('/help pmall');
-
-		let pmName = '~Server PM [Do not reply]';
-
-		Users.users.forEach(function (user) {
-			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
-			user.send(message);
-		});
-	},
-	pmallhelp: ["/pmall [message] - PM all users in the server."],
-
-	authoritypm: 'pmallauthority',
-	pmauthority: 'pmallauthority',
-	pmallauthority: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
-		if (!target) return this.parse('/help pmallauthority');
-
-		let pmName = '~authority PM [Do not reply]';
-
-		Users.users.forEach(function (user) {
-			if (!user.isauthority) return;
-			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
-			user.send(message);
-		});
-	},
-	pmallauthorityhelp: ["/pmallauthority [message] - Sends a PM to every authority member online."],
-
 	d: 'poof',
 	cpoof: 'poof',
 	poof: function (target, room, user) {

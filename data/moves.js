@@ -19071,7 +19071,7 @@ exports.BattleMovedex = {
 		secondary: {
 			chance: 100,
 			self: {
-			volatileStatus: 'mustrecharge',
+				volatileStatus: 'mustrecharge',
 				boosts: {
 					atk: 1,
 					def: 1,

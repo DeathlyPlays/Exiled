@@ -3533,7 +3533,7 @@ exports.BattlePokedex = {
 		evoLevel: 31,
 		eggGroups: ["Bug"],
 	},
-		forretressmega: {
+	forretressmega: {
 		num: 205,
 		species: "Forretress-Mega",
 		baseSpecies: "Forretress",

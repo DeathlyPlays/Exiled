@@ -129,12 +129,12 @@ exports.BattleScripts = {
 			//Moderators
 			"@Mewth": {
 				species: "Furret-Mega",
-				ability: "Sniper",
+				ability: "Roarplaying",
 				item: "Scope Lens",
 				gender: "F",
-				moves: ['extremespeed', 'nightslash', 'shadowclaw'],
-				baseSignatureMove: "roleplaying",
-				signatureMove: "Roleplaying",
+				moves: ['nightslash', 'shadowclaw', 'return'],
+				baseSignatureMove: "oblivionbanisher",
+				signatureMove: "Oblivion Banisher",
 				evs: {
 					atk: 252,
 					spe: 252,

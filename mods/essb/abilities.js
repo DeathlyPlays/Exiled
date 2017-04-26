@@ -914,4 +914,13 @@ exports.BattleAbilities = {
 			},
 		},
 	},
+	"roarplaying": {
+		id: "roarplaying",
+		name: "Roarplaying",
+		onStart: function (pokemon, source) {
+			this.useMove('roar', pokemon);
+			this.useMove('focusenergy', pokemon);
+			this.add('c|@Mewth|LEMME HEAR YOU ROARRRRRRRRRRRR');
+		},
+	},
 };

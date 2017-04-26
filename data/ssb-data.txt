@@ -380,7 +380,7 @@ Ability: No Hax
     - Shield Dust + No guard (but only effects moves under 100 BP).
 Moves: Play Rough, Knock Off, Ice Punch
 Special Move: Double Jaw Tackle
-    - Steel Type, Physical, 99 BP, 100% Accuracy, 10 PP
+    - Steel Type, Physical, 99 BP, 100% Accuracy, 10 PP, Hits twice, Always crits.
 Notes: Attacker that can nullify secondary effects.
 Rank: B.
 
@@ -473,7 +473,7 @@ Ability: Catch me in the Ball
     - Uses Hydro Pump upon entry and Adaptability.
 Moves: Hydro Pump, Blue Flare, Moongeist Beam
 Special Move: Im Depressed
-    - Water Type, Special, 120 BP, 100% Accuracy, 15 PP, Boosts Special Attack by 2 stages.
+    - Dark Type, Special, 120 BP, 100% Accuracy, 15 PP, Boosts Special Attack by 2 stages.
 Notes: Fast Annoying Switch In Sweeper.
 Rank: N/A.
 
@@ -501,4 +501,18 @@ Moves: Fiery Dance, Moongeist Beam, Energy Ball
 Special Move: Solar Eruption
 	- Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage. The User has to recharge after using.
 Notes: Fast Special Sweeper.
+Rank: N/A.
+
+Eelek
+(Spiky-Eared Pichu)
+@ Faustian Bargain
+    - If the user can evolve, it boosts the holders defense and special defense by 1 stage. Takes away 25% of the user's health regardless of stage.
+EVs: 252 Atk / 252 Spe / 4 Def
+Jolly Nature
+Ability: Sys-OP
+Protean + Wonder Guard + Raises speed by 1 on switch in.
+Moves: Bolt Strike, Icicle Crash, Sacred Sword
+Special Move: Pichu Power (better name tbd)
+	- Typeless, status, heals the user 25% HP, boosts user's attack by 2, 10 Priority, 10 PP, Chance of failing on consecutive use. 
+Notes: Fast, Annoying, Physical Attacker.
 Rank: N/A.

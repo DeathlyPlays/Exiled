@@ -877,6 +877,34 @@ exports.BattleMovedex = {
 		type: "Electric",
 		isZ: "marveliumz",
 	},
+	"pichupower": {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "pichupower",
+		name: "Pichu Power",
+		pp: 10,
+		priority: 10,
+		flags: {snatch: 1, heal: 1, authentic: 1},
+		onModifyMove: function (move, pokemon, target) {
+			move.type = '???';
+		},
+		boosts: {
+			atk: 2,
+		},
+		heal: [1, 4],
+		onPrepareHit: function (pokemon) {
+			return !!this.willAct() && this.runEvent('StallMove', pokemon);
+		},
+		onHit: function (pokemon) {
+			pokemon.addVolatile('stall');
+		},
+		secondary: false,
+		target: "self",
+		type: "Normal",
+		zMoveEffect: 'clearnegativeboost',
+		contestType: "Beautiful",
+	},
 	//HoeenHero
 	"scripting": {
 		category: "Status",

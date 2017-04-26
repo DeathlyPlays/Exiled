@@ -121,4 +121,31 @@ exports.BattleItems = {
 		gen: -4,
 		desc: "The accuracy of attacks by the holder is 1.1x.",
 	},
+	"faustianbargain": {
+		id: "faustianbargain",
+		name: "Faustian Bargain",
+		spritenum: 476,
+		fling: {
+			basePower: 80,
+		},
+		onModifyDefPriority: 2,
+		onModifyDef: function (def, pokemon) {
+			if (pokemon.baseTemplate.nfe) {
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpDPriority: 2,
+		onModifySpD: function (spd, pokemon) {
+			if (pokemon.baseTemplate.nfe) {
+				return this.chainModify(1.5);
+			}
+		},
+		onResidualOrder: 26,
+		onResidualSubOrder: 2,
+		onResidual: function (pokemon) {
+			this.damage(pokemon.maxhp / 4);
+		},
+		num: -288,
+		gen: -1,
+	},
 };

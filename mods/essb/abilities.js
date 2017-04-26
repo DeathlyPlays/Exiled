@@ -554,25 +554,23 @@ exports.BattleAbilities = {
 			move.stab = 2;
 		},
 	},
-	"cartoonphysics": {
-		id: "cartoonphysics",
-		name: "Cartoon Physics",
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Cartoon Physics');
-		},
-		onModifyMove: function (move) {
-			move.ignoreAbility = true;
-		},
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (this.random(10) < 5) {
-				return this.chainModify(false);
+	"sysop": {
+		id: "sysop",
+		name: "Sys-OP",
+		onPrepareHit: function (source, target, move) {
+			if (move.hasBounced) return;
+			let type = move.type;
+			if (type && source.getTypes().join() !== type) {
+				if (!source.setType(type)) return;
+				this.add('-start', source, 'typechange', type, '[from] Sys-OP');
 			}
 		},
-		onFoeTryMove: function (target, source, effect) {
-			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
-				this.attrLastMove('[still]');
-				this.add('cant', this.effectData.target, 'ability: Cartoon Physics', effect, '[of] ' + target);
-				return false;
+		onTryHit: function (target, source, move) {
+			if (target === source || move.category === 'Status' || move.type === '???' || move.id === 'struggle') return;
+			this.debug('Wonder Guard immunity: ' + move.id);
+			if (target.runEffectiveness(move) <= 0) {
+				this.add('-immune', target, '[msg]', '[from] ability: Sys-OP');
+				return null;
 			}
 		},
 	},

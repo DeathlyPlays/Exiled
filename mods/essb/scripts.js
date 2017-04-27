@@ -159,7 +159,7 @@ exports.BattleScripts = {
 			},
 			//Drivers
 			"%Eelek": {
-				species: "Pichu-Spiky-eared",
+				species: "Pikachu",
 				ability: "Sys-OP",
 				item: "Faustian Bargain",
 				gender: "M",

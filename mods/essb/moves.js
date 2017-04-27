@@ -877,12 +877,12 @@ exports.BattleMovedex = {
 		type: "Electric",
 		isZ: "marveliumz",
 	},
-	"pichupower": {
+	"hotpatch": {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		id: "pichupower",
-		name: "Pichu Power",
+		id: "hotpatch",
+		name: "Hotpatch",
 		pp: 10,
 		priority: 10,
 		flags: {snatch: 1, heal: 1, authentic: 1},
@@ -892,7 +892,6 @@ exports.BattleMovedex = {
 		boosts: {
 			atk: 2,
 		},
-		heal: [1, 4],
 		onPrepareHit: function (pokemon) {
 			return !!this.willAct() && this.runEvent('StallMove', pokemon);
 		},

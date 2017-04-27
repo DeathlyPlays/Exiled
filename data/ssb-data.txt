@@ -504,15 +504,15 @@ Notes: Fast Special Sweeper.
 Rank: N/A.
 
 Eelek
-(Spiky-Eared Pichu)
+(Pikachu)
 @ Faustian Bargain
     - If the user can evolve, it boosts the holders defense and special defense by 1 stage. Takes away 25% of the user's health regardless of stage.
 EVs: 252 Atk / 252 Spe / 4 Def
 Jolly Nature
 Ability: Sys-OP
-Protean + Wonder Guard + Raises speed by 1 on switch in.
+Protean + Wonder Guard + Raises speed and attck by 1 on switch in.
 Moves: Bolt Strike, Icicle Crash, Sacred Sword
 Special Move: Pichu Power (better name tbd)
-	- Typeless, status, heals the user 25% HP, boosts user's attack by 2, 10 Priority, 10 PP, Chance of failing on consecutive use. 
+	- Typeless, status, boosts user's attack by 2, 10 Priority, 10 PP, Chance of failing on consecutive use.
 Notes: Fast, Annoying, Physical Attacker.
 Rank: N/A.

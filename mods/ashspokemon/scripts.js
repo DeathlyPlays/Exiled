@@ -306,8 +306,8 @@ exports.BattleScripts = {
 				},
 				nature: 'Impish',
 			},
-			'Fletchinder': {
-				species: 'Fletchinder',
+			'Talonflame': {
+				species: 'Talonflame',
 				ability: 'Gale Wings',
 				moves: ['acrobatics', 'roost', 'swordsdance'],
 				signatureMove: 'Will-O-Wisp',
@@ -631,6 +631,45 @@ exports.BattleScripts = {
 					hp: 4,
 				},
 				nature: 'Jolly',
+			},
+			'Decidueye': {
+				species: 'Decidueye',
+				ability: 'Long Reach',
+				item: 'Decidium Z',
+				moves: ['suckerpunch', 'leafblade', 'roost'],
+				signatureMove: 'Spirit Shackle',
+				evs: {
+					atk: 252,
+					hp: 252,
+					def: 4
+				},
+				nature: 'Adamant',
+			},
+			"Incineroar": {
+				species: "Incineroar",
+				ability: "Intimidate",
+				item: "Incinium Z",
+				moves: ['fakeout', 'flareblitz', 'uturn'],
+				signatureMove: "Darkest Lariat",
+				evs: {
+					atk: 252,
+					hp: 252,
+					spd: 4,
+				},
+				nature: "Adamant",
+			},
+			"Lycanroc": {
+				species: "Lycanroc",
+				ability: "Sand Rush",
+				item: "Life Orb",
+				moves: ['swordsdance', 'stoneedge', 'firefang'],
+				signatureMove: "accelerock",
+				evs: {
+					atk: 252,
+					spe: 252,
+					def: 4,
+				},
+				nature: "Jolly",
 			},
 		};
 

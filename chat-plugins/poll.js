@@ -460,6 +460,30 @@ exports.commands = {
 			this.parse('/poll display');
 		}
 	},
+	tpoll: 'tierpoll',
+	tierpoll: function (target, room, user, connection, cmd, message) {
+		if (!this.can('minigame', null, room)) return false;
+		if (room.poll) return this.errorReply("There is already a poll in progress in this room.");
+		let options = [];
+		for (let key in Tools.data.Formats) {
+			if (!Tools.data.Formats[key].mod) continue;
+			if (!Tools.data.Formats[key].searchShow) continue;
+			if (toId(target) !== 'all') {
+				let commonMods = ['gen7', 'essb', 'pmd', 'cssb', 'metronome', 'ashspokemon', 'clashoftheregions', 'advancedwars', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame'];
+				if (commonMods.indexOf(Tools.data.Formats[key].mod) === -1) continue;
+			}
+			options.push(Tools.data.Formats[key].name);
+		}
+		room.poll = new Poll(room, {
+			source: 'What should the next tournament tier be?',
+			supportHTML: false,
+			username: user.name,
+		}, options);
+		room.poll.display();
+		this.logEntry("" + user.name + " used " + message);
+		return this.privateModCommand("(A tier poll was started by " + user.name + ".)");
+	},
+	tierpollhelp: ["/tierpoll - (all) Creates a poll with all the common formats as options. All all to use all formats Requires: % @ * # & ~"],
 };
 
 process.nextTick(() => {

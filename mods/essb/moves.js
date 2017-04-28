@@ -898,6 +898,7 @@ exports.BattleMovedex = {
 		onHit: function (pokemon) {
 			pokemon.addVolatile('stall');
 		},
+		heal: [1, 4],
 		secondary: false,
 		target: "self",
 		type: "Normal",

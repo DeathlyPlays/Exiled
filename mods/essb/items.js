@@ -148,4 +148,27 @@ exports.BattleItems = {
 		num: -288,
 		gen: -1,
 	},
+	"armorvest": {
+		id: "armorvest",
+		name: "Armor Vest",
+		spritenum: 581,
+		fling: {
+			basePower: 80,
+		},
+		onModifyDefPriority: 1,
+		onModifyDef: function (def) {
+			return this.chainModify(2);
+		},
+		onDisableMove: function (pokemon) {
+			let moves = pokemon.moveset;
+			for (let i = 0; i < moves.length; i++) {
+				if (this.getMove(moves[i].move).category === 'Status') {
+					pokemon.disableMove(moves[i].id);
+				}
+			}
+		},
+		num: -640,
+		gen: -6,
+		desc: "Holder's Sp. Def is 1.5x, but it can only select damaging moves.",
+	},
 };

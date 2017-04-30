@@ -7,7 +7,7 @@ exports.BattleScripts = {
 		let sets = {
 			//Admins
 			"~Insist": {
-				species: "Ludicolo",
+				species: "Ludicolo-Mega",
 				ability: "Crippling Depression",
 				item: "Playnium Z",
 				gender: "M",
@@ -158,14 +158,14 @@ exports.BattleScripts = {
 				nature: "Timid",
 			},
 			//Drivers
-			"%Eelek": {
+			"@VXN": {
 				species: "Pikachu",
 				ability: "Sys-OP",
 				item: "Faustian Bargain",
 				gender: "M",
 				moves: ['boltstrike', 'iciclecrash', 'sacredsword'],
-				baseSignatureMove: "pichupower",
-				signatureMove: "Pichu Power",
+				baseSignatureMove: "hotpatch",
+				signatureMove: "Hotpatch",
 				evs: {
 					spe: 252,
 					atk: 252,
@@ -251,6 +251,21 @@ exports.BattleScripts = {
 					hp: 4,
 				},
 				nature: "Modest",
+			},
+			"+Noviex": {
+				species: "Tyranitar",
+				ability: "Phat Ass",
+				item: "Armor Vest",
+				gender: "M",
+				moves: ['stoneedge', 'crunch', 'earthquake'],
+				baseSignatureMove: "methmemesandedgyteens",
+				signatureMove: "Meth, Memes, and Edgy Teens",
+				evs: {
+					atk: 252,
+					hp: 248,
+					def: 8,
+				},
+				nature: "Jolly",
 			},
 			//Regs
 			" TheAquaPhoenix": {

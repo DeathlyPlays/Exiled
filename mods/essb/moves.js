@@ -158,6 +158,30 @@ exports.BattleMovedex = {
 		type: "Water",
 		target: "normal",
 	},
+	"methmemesandedgyteens": {
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		id: "methmemesandedgyteens",
+		name: "Meth, Memes, and Edgy Teens",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 50,
+			self: {
+				boosts: {
+					atk: 1,
+					def: 1,
+					spd: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Rock",
+		zMovePower: 120,
+		contestType: "Tough",
+	},
 	//vividisagod
 	"jetblast": {
 		id: "jetblast",

@@ -1432,8 +1432,8 @@ exports.Formats = [
 			if (name === 'insist') {
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
-			if (name === 'eelek') {
-				this.add('c|@Eelek|Oh hey there! :3');
+			if (name === 'VXN') {
+				this.add('c|@VXN|Oh hey there! :3');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1471,11 +1471,6 @@ exports.Formats = [
 					spd: 1,
 				});
 			}
-			if (name === 'eelek' && !pokemon.illusion) {
-				this.boost({
-					spe: 1,
-				});
-			}
 			if (name === 'haxorus04' && !pokemon.illusion) {
 				this.boost({
 					evasion: 1,
@@ -1492,6 +1487,11 @@ exports.Formats = [
 					def: -2,
 				});
 			}
+			if (name === 'failures' && !pokemon.illusion) {
+				this.boost({
+					spe: 1,
+				});
+			}
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {
@@ -1500,8 +1500,8 @@ exports.Formats = [
 			if (name === 'insist') {
 				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
 			}
-			if (name === 'eelek') {
-				this.add('c|@Eelek|Gotta go, I\'ll be back when I get to the hospital.');
+			if (name === 'VXN') {
+				this.add('c|@VXN|Gotta go, I\'ll be back when I get to the hospital.');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|fuck you');
@@ -1528,9 +1528,9 @@ exports.Formats = [
 				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
-			if (name === 'eelek') {
-				this.add('c|@Eelek|If I\'m dead, I\'m taking the whole server down with me.');
-				this.add("raw|<div class=\"broadcast-red\"><b>Oh my God the server crashed!</b><br />Please finish your battles so we can fix this error. No new battles can be started until the server resets or gets fixed. Good job, Eelek, you ruined the server.</div>");
+			if (name === 'VXN') {
+				this.add('c|@VXN|If I\'m dead, I\'m taking the whole server down with me.');
+				this.add("raw|<div class=\"broadcast-red\"><b>Oh my God the server crashed!</b><br />Please finish your battles so we can fix this error. No new battles can be started until the server resets or gets fixed. Good job, VXN, you ruined the server.</div>");
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -1555,6 +1555,12 @@ exports.Formats = [
 				if (name === 'insist') {
 					this.add('c|~Insist|**FOH, THIS IS MY HOUSE!!!**');
 				}
+			}
+		},
+		runMegaEvo: function (pokemon) {
+			let name = toId(pokemon.name);
+			if (name === 'volco') {
+				this.add('c|~Volco|PREPARE FOR A HELL UNLIKE ANY OTHER!');
 			}
 		},
 	},
@@ -1810,7 +1816,7 @@ exports.Formats = [
 		desc: [
 			"You may have thought this was Pok&eacute;mon Showdown, but I must reassure you that you were mistaken, welcome to <b>DIGIMON SHOWDOWN!!!</b>",
 			"Ahem, but in all seriousness, the following developers listed below created Digimon in Pok&eacute;mon Showdown, so why not just try it out :D",
-			"Ashley the Pikachu (Head Researcher, Began the project, Attack Manual, Type Chart Manual, Music Selection and Music HTML, Sprite Selection), Insist (Head Developer), AlphaStorm (Animations), Stellation (Assisted other developers), HoeenHero (Assisted with Mechanics)",
+			"Ashley the Pikachu (Head Researcher, Began the project, Attack Manual, Type Chart Manual, Music Selection and Music HTML, Sprite Selection), Insist (Head Developer), AlfaaStorm (Animations), VXN (Assisted other developers), HoeenHero (Assisted with Mechanics)",
 			"&bullet; <a href=\"https://1drv.ms/b/s!AvoD6RnUzzMvgmLcX1rqT8GTnEVK\">Digimon Manual</a>",
 		],
 	},

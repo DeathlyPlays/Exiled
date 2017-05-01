@@ -469,7 +469,7 @@ exports.commands = {
 			if (!Tools.data.Formats[key].mod) continue;
 			if (!Tools.data.Formats[key].searchShow) continue;
 			if (toId(target) !== 'all') {
-				let commonMods = ['gen7', 'essb', 'pmd', 'cssb', 'metronome', 'ashspokemon', 'clashoftheregions', 'advancedwars', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame'];
+				let commonMods = ['gen7', 'essb', 'pmd', 'cssb', 'metronome', 'ashspokemon', 'clashoftheregions', 'advancedwars', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame', 'fakemons', 'mixandmega'];
 				if (commonMods.indexOf(Tools.data.Formats[key].mod) === -1) continue;
 			}
 			options.push(Tools.data.Formats[key].name);

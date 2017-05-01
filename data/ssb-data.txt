@@ -542,4 +542,16 @@ Moves: Stone Edge, Crunch, Earthquake
 Special Move: Meth, Memes and Edgy Teens
     - Rock Type, Physical, 90 BP, 100% Accuracy, 16 PP, 50% chance to boost SpD, Atk and Def by 1 Stage.
 Notes: Bulky Unaware Attacker.
+Rank: B.
+
+cyt0pl4sm
+(Zygarde-10%)
+	- Becomes Dark/Fairy type
+Item: Choice Band
+EVs: 252 Atk / 252 Spe / 4 HP
+Jolly Nature
+Ability: Energy Overflow
+    -Speed Boost + Adaptability
+Moves: Play Rough, Crunch, Thousand Arrows, Extreme Speed
+Notes: Fast Physical Sweeper, with a Choice Band allowing it to hit even harder.
 Rank: N/A.

@@ -953,4 +953,20 @@ exports.BattleAbilities = {
 			this.add('c|@Mewth|LEMME HEAR YOU ROARRRRRRRRRRRR');
 		},
 	},
+	"energyoverflow": {
+		id: "energyoverflow",
+		name: "Energy Overflow",
+		//adaptability
+		onModifyMove: function (move) {
+			move.stab = 2;
+		},
+		//speed boost
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual: function (pokemon) {
+			if (pokemon.activeTurns) {
+				this.boost({spe:1});
+			}
+		},
+	},
 };

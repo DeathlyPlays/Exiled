@@ -531,6 +531,20 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
+			" cyt0pl4sm": {
+				species: "Zygarde-10%",
+				ability: "Energy Flow",
+				item: "Choice Band",
+				gender: "M",
+				moves: ['extremespeed', 'playrough', 'crunch'],
+				signatureMove: "Thousand Arrows",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Jolly",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Tools.shuffle(Object.keys(sets));

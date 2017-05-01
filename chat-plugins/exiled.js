@@ -42,8 +42,13 @@ Exiled.giveDailyReward = function (userid, user) {
 	let alts = Object.keys(user.prevNames).map(a => {return toId(a);});
 	let longestWait = 0;
 	for (let i = 0; i < alts.length; i++) {
-		let cur = Db('DailyBonus').get(alts[i])[1];
-		if ((Date.now() - cur) < 86400000 && cur > longestWait) longestWait = cur;
+		let cur = Db.DailyBonus.get(alts[i])
+		if (!cur) {
+			alts.splice(i, 1);
+			i--;
+			continue;
+		}
+		if ((Date.now() - cur[1]) < 86400000 && cur[1] > longestWait) longestWait = cur[1];
 	}
 	if (longestWait > lastTime) lastTime = longestWait;
 	alts.push(userid);
@@ -58,14 +63,13 @@ Exiled.giveDailyReward = function (userid, user) {
 		if (Db('DailyBonus').get(alts[i])[0] === 8) Db('DailyBonus').set(alts[i], [7, Date.now()]);
 		Db('DailyBonus').set(userid, [(Db('DailyBonus').get(alts[i])[0] + 1), Date.now()]);
 	}
+	let reward = Db('DailyBonus').get(userid)[0];
 	Economy.writeMoney(userid, Db('DailyBonus').get(userid)[0]);
 	user.send('|popup||wide||html| <center><u><b><font size="3">Exiled Daily Bonus</font></b></u><br>You have been awarded ' + Db('DailyBonus').get(userid)[0] + ' Buck.<br>' + showDailyRewardAni(userid) + '<br>Because you have connected to the server for the past ' + Db('DailyBonus').get(userid)[0] + ' Days.</center>');
 	Db('DailyBonus').set(userid, [(Db('DailyBonus').get(userid)[0] + 1), Date.now()]);
 };
 
-function showDailyRewardAni(userid) {
-	userid = toId(userid);
-	let streak = Db('DailyBonus').get(userid)[0];
+function showDailyRewardAni(streak) {
 	let output = '';
 	for (let i = 1; i <= streak; i++) {
 		output += "<img src='https://www.mukuru.com/media/img/icons/new_order.png' width='16' height='16'> ";

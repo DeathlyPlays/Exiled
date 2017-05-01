@@ -114,7 +114,7 @@ exports.BattleItems = {
 		},
 		onSourceModifyAccuracy: function (accuracy) {
 			if (typeof accuracy === 'number') {
-				return accuracy * 1.5;
+				return accuracy * 1.1;
 			}
 		},
 		num: -22,

@@ -862,10 +862,6 @@ exports.BattleAbilities = {
 	"catchmeintheball": {
 		id: "catchmeintheball",
 		name: "Catch me in the Ball",
-		//attack switch in
-		onStart: function (pokemon) {
-			this.useMove('hydropump', pokemon);
-		},
 		onModifyMove: function (move) {
 			move.stab = 2;
 		},

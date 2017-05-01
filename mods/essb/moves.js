@@ -1412,6 +1412,7 @@ exports.BattleMovedex = {
 				spe: 2,
 				spa: 1,
 			},
+			volatileStatus: 'mustrecharge',
 		},
 		status: "brn",
 		pp: 10,

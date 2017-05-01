@@ -503,7 +503,7 @@ Special Move: Solar Eruption
 Notes: Fast Special Sweeper.
 Rank: N/A.
 
-Eelek
+VXN
 (Pikachu)
 @ Faustian Bargain
     - If the user can evolve, it boosts the holders defense and special defense by 1 stage. Takes away 25% of the user's health regardless of stage.
@@ -512,7 +512,34 @@ Jolly Nature
 Ability: Sys-OP
 Protean + Wonder Guard + Raises speed and attck by 1 on switch in.
 Moves: Bolt Strike, Icicle Crash, Sacred Sword
-Special Move: Pichu Power (better name tbd)
-	- Typeless, status, boosts user's attack by 2, 10 Priority, 10 PP, Chance of failing on consecutive use.
+Special Move: Hotpatch
+    - Typeless, status, boosts user's attack by 2, 10 Priority, 10 PP, Chance of failing on consecutive use.
 Notes: Fast, Annoying, Physical Attacker.
+Rank: A.
+
+C733937 123
+(Gengar-Mega)
+Item: Aguav Berry
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+Ability: Chaotic Armor
+    - Prankster and Magic Bounce.
+Moves: Shadow Ball, Dark Pulse, Pain Split
+Special Move: Voodoo Magic
+    - Normal Type, Status, 90% Accuracy, 10 PP, Goes through Substitute, Ignores Abilities, Doesn't Bounce. Puts a curse on the opponent that does a hideous amount of bad effects. (User takes 1/4 HP damage then Taunts, Torments, Mean Looks, Embargos, Clears Stats, Heal Blocks, Removes ability, Spites, Flinches, and removes all shields. Taunt, Embargo, and Heal Block last for 10 turns, Stat Clear, Flinch, and Spite happen on turn move used, rest last till switch (haha lol no switching for you) Does not fail if user is less than 1/4 hp).
+Notes: Fast Status Inflicting Sweeper.
+Rank: B.
+
+Noviex
+(Tyranitar)
+Item: Armor Vest
+    - 2x Defense, only attacks.
+EVs: 248 HP / 252 Atk / 8 Def
+Jolly Nature
+Ability: Phat Ass
+    - Unaware, Sand Stream, Regenerator and Sand Force.
+Moves: Stone Edge, Crunch, Earthquake
+Special Move: Meth, Memes and Edgy Teens
+    - Rock Type, Physical, 90 BP, 100% Accuracy, 16 PP, 50% chance to boost SpD, Atk and Def by 1 Stage.
+Notes: Bulky Unaware Attacker.
 Rank: N/A.

@@ -614,15 +614,14 @@ exports.BattleMovedex = {
 		accuracy: true,
 		pp: 15,
 		category: "Special",
-		drain: [1, 2],
 		priority: 0,
+		drain: [1, 2],
 		self: {
 			boosts: {
-				def: 2,
-				spa: 2,
-				spd: 2,
-				spe: 2,
-				accuracy: 2,
+				def: 1,
+				spa: 1,
+				spd: 1,
+				spe: 1,
 			},
 		},
 		secondary: {

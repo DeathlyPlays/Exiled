@@ -1471,11 +1471,6 @@ exports.Formats = [
 					spd: 1,
 				});
 			}
-			if (name === 'haxorus04' && !pokemon.illusion) {
-				this.boost({
-					evasion: 1,
-				});
-			}
 			if (name === 'universalcraftr' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Dark/Ghost');
 				pokemon.types = ["Dark", "Ghost"];

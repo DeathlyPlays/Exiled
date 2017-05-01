@@ -27,14 +27,36 @@ const textColors = {
 	'Black': 'inherit',
 };
 
+const cardImages = {
+	'Green': {},
+	'Yellow': {
+		'+2': ['http://i.imgur.com/xTf5XmZ.png', 'http://i.imgur.com/v4cuEdg.png'],
+	},
+	'Blue': {},
+	'Red': {},
+	'Black': {
+		'Wild': null,
+		'+4': null,
+	},
+};
+
 const textShadow = 'text-shadow: 1px 0px black, -1px 0px black, 0px -1px black, 0px 1px black, 2px -2px black;';
 
+function cardImg(card, fullsize) {
+	let img = cardImages[card.color][card.value];
+	if (!img) return null;
+	img = img[(fullsize ? 1 : 0)];
+	if (!img) return null;
+	return img;
+}
+
 function cardHTML(card, fullsize) {
+	let img = cardImg(card, fullsize);
 	let surface = card.value.replace(/[^A-Z0-9\+]/g, "");
 	let background = rgbGradients[card.color];
 	if (surface === 'R') surface = '<i class="fa fa-refresh" aria-hidden="true"></i>';
 
-	return `<button class="button" style="font-size: 14px; font-weight: bold; color: white; ${textShadow} padding-bottom: 117px; text-align: left; height: 135px; width: ${fullsize ? '72' : '37'}px; border-radius: 10px 2px 2px 3px; color: white; background: ${card.color}; background: -webkit-linear-gradient(${background}); background: -o-linear-gradient(${background}); background: -moz-linear-gradient(${background}); background: linear-gradient(${background})" name=send value="/uno play ${card.name}">${surface}</button>`;
+	return `<button class="button" style="font-size: 14px; font-weight: bold; color: white; ${textShadow} padding-bottom: 117px; text-align: left; height: 135px; width: ${fullsize ? '72' : '37'}px; border-radius: 10px 2px 2px 3px; color: white; background: ${card.color}; background: -webkit-linear-gradient(${background}); background: -o-linear-gradient(${background}); background: -moz-linear-gradient(${background}); background: linear-gradient(${background})${img ? `background-image: url("${img}"); background-size: cover; background-position: center, center;` : ``}" name=send value="/uno play ${card.name}">${surface}</button>`;
 }
 
 function createDeck() {
@@ -118,7 +140,7 @@ class UNOgame extends Rooms.RoomGame {
 
 	joinGame(user) {
 		if (this.state === 'signups' && this.addPlayer(user)) {
-			this.sendToRoom(`${user.name} has joined the game of UNO.`);
+			this.sendToRoom(`|html|${Exiled.nameColor(user.name, true, true)} has joined the game of UNO.`);
 			return true;
 		}
 		return false;
@@ -179,20 +201,20 @@ class UNOgame extends Rooms.RoomGame {
 		return name;
 	}
 
-	sendToRoom(msg, overrideSuppress) {
+	sendToRoom(mExiled, overrideSuppress) {
 		if (!this.suppressMessages || overrideSuppress) {
-			this.room.add(msg).update();
+			this.room.add(mExiled).update();
 		} else {
 			// send to the players first
 			for (let i in this.players) {
-				this.players[i].sendRoom(msg);
+				this.players[i].sendRoom(mExiled);
 			}
 
 			// send to spectators
 			for (let i in this.spectators) {
 				if (i in this.players) continue; // don't double send to users already in the game.
 				let user = Users.getExact(i);
-				if (user) user.sendTo(this.id, msg);
+				if (user) user.sendTo(this.id, mExiled);
 			}
 		}
 	}
@@ -419,9 +441,9 @@ class UNOgame extends Rooms.RoomGame {
 		if (this.room.isOfficial) {
 			Economy.writeMoney(targetUserid, prize, newAmount => {
 				if (Users(targetUserid) && Users(targetUserid).connected) {
-					Users.get(targetUserid).popup('You have received ' + prize + ' ' + (prize === 1 ? global.moneyName : global.moneyPlural) + ' from winning the game of UNO.');
+					Users.get(targetUserid).popup('You have received ' + prize + ' ' + (prize === 1 ? global.currencyName : global.currencyPlural) + ' from winning the game of UNO.');
 				}
-				Economy.logTransaction(player.name + ' has won ' + prize + ' ' + (prize === 1 ? global.moneyName : global.moneyPlural) + ' from a game of UNO.');
+				Economy.logTransaction(player.name + ' has won ' + prize + ' ' + (prize === 1 ? global.currencyName : global.currencyPlural) + ' from a game of UNO.');
 			});
 			for (let i = 0; i < this.players.length; i++) {
 				if (Users(this.players[i].unoBoost)) Users(this.players[i]).unoBoost = false;
@@ -569,7 +591,7 @@ exports.commands = {
 					room.game.eliminate(room.game.currentPlayer);
 				}, amount * 1000);
 			}
-			this.addModCommand(`${Exiled.nameColor(user.name, true, true)} has set the UNO automatic disqualification timer to ${amount} seconds.`);
+			this.addModCommand(`${user.name} has set the UNO automatic disqualification timer to ${amount} seconds.`);
 		},
 
 		dq: 'disqualify',
@@ -589,7 +611,6 @@ exports.commands = {
 			if (!room.game || room.game.gameid !== 'uno') return this.errorReply("There is no UNO game going on in this room right now.");
 			if (!this.canTalk()) return false;
 			if (!room.game.joinGame(user)) return this.errorReply("Unable to join the game.");
-			room.addRaw(Exiled.nameColor(user.name, true, true) + " has joined the game of UNO.");
 			return this.sendReply("You have joined the game of UNO.");
 		},
 

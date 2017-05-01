@@ -1409,10 +1409,14 @@ exports.BattleMovedex = {
 		critRatio: 3,
 		self: {
 			boosts: {
-				spe: 2,
 				spa: 1,
+				spe: 1,
 			},
-			volatileStatus: 'mustrecharge',
+		},
+		secondary: {
+			self: {
+				volatileStatus: "mustrecharge",
+			},
 		},
 		status: "brn",
 		pp: 10,

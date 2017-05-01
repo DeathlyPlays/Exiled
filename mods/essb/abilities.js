@@ -917,9 +917,6 @@ exports.BattleAbilities = {
 				return null;
 			}
 		},
-		onEnd: function (pokemon) {
-			pokemon.removeVolatile('flashfire');
-		},
 		effect: {
 			noCopy: true, // doesn't get copied by Baton Pass
 			onStart: function (target) {
@@ -942,6 +939,27 @@ exports.BattleAbilities = {
 			onEnd: function (target) {
 				this.add('-end', target, 'ability: Magma Overdrive', '[silent]');
 			},
+		},
+		onStart: function (source) {
+			this.setWeather('desolateland');
+		},
+		onAnySetWeather: function (target, source, weather) {
+			if (this.getWeather().id === 'desolateland' && !(weather.id in {desolateland:1, primordialsea:1, deltastream:1})) return false;
+		},
+		onEnd: function (pokemon) {
+			if (this.weatherData.source !== pokemon) return;
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					let target = this.sides[i].active[j];
+					if (target === pokemon) continue;
+					if (target && target.hp && target.hasAbility('desolateland')) {
+						this.weatherData.source = target;
+						return;
+					}
+				}
+			}
+			this.clearWeather();
+			pokemon.removeVolatile('flashfire');
 		},
 	},
 	"roarplaying": {

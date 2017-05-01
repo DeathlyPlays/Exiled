@@ -55,8 +55,6 @@ exports.BattleMovedex = {
 				spa: 1,
 				spd: 1,
 				spe: 1,
-				accuracy: 1,
-				evasion: 1,
 			},
 		},
 		shortDesc: "Like so amazing mannnnn, like look at dem boosts boi",

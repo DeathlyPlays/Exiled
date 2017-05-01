@@ -94,6 +94,21 @@ exports.BattleScripts = {
 				},
 				nature: "Quiet",
 			},
+			"&Mewth": {
+				species: "Furret-Mega",
+				ability: "Roarplaying",
+				item: "Scope Lens",
+				gender: "F",
+				moves: ['nightslash', 'shadowclaw', 'return'],
+				baseSignatureMove: "oblivionbanisher",
+				signatureMove: "Oblivion Banisher",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Adamant",
+			},
 			"&Lord Coldwraith": {
 				species: "Froslass",
 				ability: "Necropower",
@@ -126,22 +141,22 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			//Moderators
-			"@Mewth": {
-				species: "Furret-Mega",
-				ability: "Roarplaying",
-				item: "Scope Lens",
+			"*Princess Teddiursa": {
+				species: "Ninetales-Alola",
+				ability: "prfmlmao",
+				item: "Life Orb",
 				gender: "F",
-				moves: ['nightslash', 'shadowclaw', 'return'],
-				baseSignatureMove: "oblivionbanisher",
-				signatureMove: "Oblivion Banisher",
+				moves: ['boomburst', 'psychic', 'earthpower'],
+				baseSignatureMove: "prfmador",
+				signatureMove: "prfmador",
 				evs: {
-					atk: 252,
+					spa: 252,
 					spe: 252,
-					hp: 4,
+					spd: 4,
 				},
-				nature: "Adamant",
+				nature: "Timid",
 			},
+			//Moderators
 			"@C733937 123": {
 				species: "Gengar-Mega",
 				ability: "Chaotic Armor",
@@ -157,7 +172,6 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			//Drivers
 			"@VXN": {
 				species: "Pikachu",
 				ability: "Sys-OP",
@@ -173,6 +187,23 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			"@Perison": {
+				species: "Xerneas",
+				ability: "Adaptability",
+				item: "Power Herb",
+				gender: "M",
+				moves: ['psystrike', 'moonblast', 'hypervoice'],
+				shiny: true,
+				baseSignatureMove: "ooga",
+				signatureMove: "Ooga",
+				evs: {
+					spa: 252,
+					hp: 252,
+					spe: 4,
+				},
+				nature: "Modest",
+			},
+			//Drivers
 			"%Wobbleleez": {
 				species: "Musharna",
 				ability: "WobzDoezJobz",
@@ -204,24 +235,23 @@ exports.BattleScripts = {
 				},
 				nature: "Hasty",
 			},
-			//Voices
-			"+Perison": {
-				species: "Xerneas",
-				ability: "Adaptability",
-				item: "Power Herb",
+			"%Chandie": {
+				species: "Chandelure",
+				ability: "Magma Overdrive",
+				item: "Life Orb",
 				gender: "M",
-				moves: ['psystrike', 'moonblast', 'hypervoice'],
-				shiny: true,
-				baseSignatureMove: "ooga",
-				signatureMove: "Ooga",
+				moves: ['fierydance', 'moongeistbeam', 'energyball'],
+				baseSignatureMove: "solareruption",
+				signatureMove: "Solar Eruption",
 				evs: {
 					spa: 252,
-					hp: 252,
-					spe: 4,
+					spe: 252,
+					hp: 4,
 				},
 				nature: "Modest",
 			},
-			"+beeky": {
+			//Voices
+			"+UB-01 Symbi0nt": {
 				species: "Mawile-Mega",
 				ability: "No Hax",
 				item: "Choice Scarf",
@@ -236,21 +266,6 @@ exports.BattleScripts = {
 					spd: 4,
 				},
 				nature: "Adamant",
-			},
-			"+Chandie": {
-				species: "Chandelure",
-				ability: "Magma Overdrive",
-				item: "Life Orb",
-				gender: "M",
-				moves: ['fierydance', 'moongeistbeam', 'energyball'],
-				baseSignatureMove: "solareruption",
-				signatureMove: "Solar Eruption",
-				evs: {
-					spa: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Modest",
 			},
 			"+Noviex": {
 				species: "Tyranitar",
@@ -312,21 +327,6 @@ exports.BattleScripts = {
 					hp: 4,
 				},
 				nature: "Modest",
-			},
-			" Sukesha": {
-				species: "Ninetales-Alola",
-				ability: "prfmlmao",
-				item: "Life Orb",
-				gender: "F",
-				moves: ['boomburst', 'psychic', 'earthpower'],
-				baseSignatureMove: "prfmador",
-				signatureMove: "prfmador",
-				evs: {
-					spa: 252,
-					spe: 252,
-					spd: 4,
-				},
-				nature: "Timid",
 			},
 			" Kimisumi": {
 				species: "Gallade-Mega",

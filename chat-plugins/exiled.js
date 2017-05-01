@@ -65,7 +65,7 @@ Exiled.giveDailyReward = function (userid, user) {
 	let reward = Db('DailyBonus').get(userid)[0];
 	Economy.writeMoney(userid, reward);
 	for (let i = 0; i < alts.length; i++) Db('DailyBonus').set(alts[i], [(Db('DailyBonus').get(alts[i])[0] + 1), Date.now()]);
-	user.send('|popup||wide||html| <center><u><b><font size="3">SpacialGaze Daily Bonus</font></b></u><br>You have been awarded ' + reward + ' Bucks.<br>' + showDailyRewardAni(reward) + '<br>Because you have connected to the server for the past ' + reward + ' Days.</center>');
+	user.send('|popup||wide||html| <center><u><b><font size="3">Exiled Daily Bonus</font></b></u><br>You have been awarded ' + reward + ' Bucks.<br>' + showDailyRewardAni(reward) + '<br>Because you have connected to the server for the past ' + reward + ' Days.</center>');
 };
 
 function showDailyRewardAni(streak) {

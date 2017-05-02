@@ -249,6 +249,13 @@ exports.BattleAbilities = {
 			if (target.side === source.side) return;
 			return 1;
 		},
+		//roughskin
+		onAfterDamageOrder: 1,
+		onAfterDamage: function (damage, target, source, move) {
+			if (source && source !== target && move && move.flags['contact']) {
+				this.damage(source.maxhp / 8, source, target);
+			}
+		},
 	},
 	//astralwobz
 	"wobzdoezjobz": {

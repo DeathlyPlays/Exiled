@@ -533,7 +533,7 @@ exports.BattleScripts = {
 			},
 			" cyt0pl4sm": {
 				species: "Zygarde-10%",
-				ability: "Energy Flow",
+				ability: "Energy Overflow",
 				item: "Choice Band",
 				gender: "M",
 				moves: ['extremespeed', 'playrough', 'crunch'],

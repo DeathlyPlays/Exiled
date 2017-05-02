@@ -210,10 +210,10 @@ Alрhа Hawk
 EVs: 252 Atk / 252 Spe / 4 SpD
 Jolly Nature
 Ability: Eyes of the Hawk
-    -Intimidate + Reckless
+    - Intimidate + Reckless
 Moves: Double-Edge, Shadow Strike, Head Smash
 Special Move: Cyclone Sphere
-    -Physical, Flying type, 120 BP, 100% accuracy, 33% recoil, 20% chance to boost Speed by one stage.
+    - Physical, Flying type, 120 BP, 100% accuracy, 33% recoil, 20% chance to boost Speed by one stage.
 Notes: Fast Physical Sweeper.
 Rank: B.
 
@@ -224,8 +224,10 @@ EVs: 48 Def / 252 SpA / 208 SpD
 IVs: 0 Atk / 0 Spe
 Quiet Nature
 Ability: Time Traveler
-    -Trick Room upon entry and Pressure.
-Moves: Slack Off, Dragon Force (Same as Curse except it increases both special stats instead. 15 PP.), Earth Power and Bump. (Dark Type, Special, 105 BP, 100% Accuracy and 10 PP.)
+    -Trick Room upon entry and Pressure and Rough Skin.
+Moves: Water Spout, Clanging Scales, Earth Power
+Special Move: Roar
+    - Steel Type, Special, 120 BP, 100% Accuracy, 10 PP, 
 Notes: Trick Room makes great antimeta in this meta and with the bulk Dialga has.
 Rank: B.
 

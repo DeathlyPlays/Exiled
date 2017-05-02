@@ -266,51 +266,28 @@ exports.BattleMovedex = {
 		type: "Fire",
 	},
 	//backatmyday
-	"bump": {
-		id: "bump",
-		name: "Bump",
-		basePower: 105,
+	"roar": {
+		id: "roar",
+		name: "ROAR",
+		basePower: 120,
 		accuracy: 100,
 		pp: 10,
 		priority: 0,
 		secondary: false,
 		category: "Special",
 		onHit: function (target, source, move) {
-			this.add('c|&Back At My Day|Bump');
+			this.add('c|&Back At My Day|ROARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR!');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Dark Pulse", target);
+			this.add('-anim', source, "Roar of Time", target);
 		},
 		flags: {
 			protect: 1,
 			mirror: 1,
 		},
-		type: "Dark",
+		type: "Steel",
 		target: "normal",
-	},
-	//backatmyday
-	"dragonforce": {
-		id: "dragonforce",
-		name: "Dragon Force",
-		basePower: 0,
-		accuracy: 100,
-		pp: 15,
-		priority: 0,
-		secondary: false,
-		category: "Status",
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Curse", target);
-		},
-		boosts: {
-			spa: 1,
-			spd: 1,
-			spe: -1,
-		},
-		flags: {authentic: 1},
-		type: "Dragon",
-		target: "self",
 	},
 	//mewth
 	"roleplaying": {

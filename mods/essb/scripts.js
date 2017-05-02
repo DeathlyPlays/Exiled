@@ -76,7 +76,7 @@ exports.BattleScripts = {
 				ability: "Time Traveler",
 				item: "Rocky Helmet",
 				gender: "M",
-				moves: ['slackoff', 'dragonforce', 'earthpower'],
+				moves: ['clangingscales', 'waterspout', 'earthpower'],
 				baseSignatureMove: "bump",
 				signatureMove: "Bump",
 				evs: {

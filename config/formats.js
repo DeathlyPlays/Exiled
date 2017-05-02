@@ -1572,13 +1572,12 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Monotype Ubers",
 		desc: [
-			"All the Pok&eacute;mon on a team must share a type, but it is in Ubers",
+			"All the Pok&eacute;mon on a team must share a type, but it is in the Ubers format.",
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3587204/\">Monotype</a>",
-			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3589809/\">Monotype Viability Ranking</a>",
 		],
 
 		mod: 'gen7',
-		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Clause', 'Same Type Clause'],
+		ruleset: ['[Gen 7] Ubers', 'Same Type Clause'],
 	},
 	{
 		name: "[Gen 7] Metronome Battle",

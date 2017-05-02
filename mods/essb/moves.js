@@ -266,9 +266,9 @@ exports.BattleMovedex = {
 		type: "Fire",
 	},
 	//backatmyday
-	"roar": {
-		id: "roar",
-		name: "ROAR",
+	"roleplaying": {
+		id: "roleplaying",
+		name: "Roleplaying",
 		basePower: 120,
 		accuracy: 100,
 		pp: 10,
@@ -276,7 +276,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		category: "Special",
 		onHit: function (target, source, move) {
-			this.add('c|&Back At My Day|ROARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR!');
+			this.add('c|&Back At My Day|Am I the only one who roleplays?');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');

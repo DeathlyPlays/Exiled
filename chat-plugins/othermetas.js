@@ -153,7 +153,7 @@ exports.commands = {
 	},
 	fakemonslisthelp: ["/fakemonslist - Shows the list of Fakemons."],
 
-	learnfakemons: function(target, room, user) {
+	learnfakemons: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let learnfakemons = Tools.mod('fakemons').data.Learnsets, movefakemons = Tools.mod('fakemons').data.Movedex, dexfakemons = Tools.mod('fakemons').data.Pokedex;
 		if (!target || toId(target) === '') return this.sendReply("/learnfakemons: Shows the whether a Pokemon can learn a move, including Pokemon and Moves from fakemons.");

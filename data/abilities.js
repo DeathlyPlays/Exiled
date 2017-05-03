@@ -47,7 +47,7 @@ exports.BattleAbilities = {
 		},
 		id: "adaptability",
 		name: "Adaptability",
-		rating: 3.5,
+		rating: 4,
 		num: 91,
 	},
 	"aftermath": {
@@ -101,8 +101,18 @@ exports.BattleAbilities = {
 		desc: "The power of this Pokemon's move is multiplied by 1.3 if it is the last to move in a turn. Does not affect Doom Desire and Future Sight.",
 		shortDesc: "This Pokemon's attacks have 1.3x power if it is the last to move in a turn.",
 		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
-			if (!this.willMove(defender)) {
+		onBasePower: function (basePower, pokemon) {
+			let boosted = true;
+			let allActives = pokemon.side.active.concat(pokemon.side.foe.active);
+			for (let i = 0; i < allActives.length; i++) {
+				let target = allActives[i];
+				if (target === pokemon) continue;
+				if (this.willMove(target)) {
+					boosted = false;
+					break;
+				}
+			}
+			if (boosted) {
 				this.debug('Analytic boost');
 				return this.chainModify([0x14CD, 0x1000]);
 			}
@@ -246,12 +256,12 @@ exports.BattleAbilities = {
 		num: 4,
 	},
 	"battlebond": {
-		desc: "If this Pokemon is a Greninja, it transforms into Ash-Greninja after knocking out a Pokemon. As Ash-Greninja, its Water Shuriken has 20 base power and always hits 3 times.",
-		shortDesc: "After KOing a Pokemon: becomes Ash-Greninja, Water Shuriken: 20 power, hits 3x.",
+		desc: "If this Pokemon is a Greninja or Pikachu, it transforms into Ash-Greninja or Ash-Pikachu after knocking out a Pokemon. As Ash-Greninja, its Water Shuriken has 20 base power and always hits 3 times.",
+		shortDesc: "After KOing a Pokemon: becomes Ash-Greninja or Ash-Pikachu, Water Shuriken: 20 power, hits 3x.",
 		onSourceFaint: function (target, source, effect) {
-			if (effect && effect.effectType === 'Move' && source.template.speciesid === 'greninja' && source.hp && !source.transformed && source.side.foe.pokemonLeft) {
+			if (effect && effect.effectType === 'Move' && source.template.speciesid === 'greninja', 'pikachu' && source.hp && !source.transformed && source.side.foe.pokemonLeft) {
 				this.add('-activate', source, 'ability: Battle Bond');
-				let template = this.getTemplate('Greninja-Ash');
+				let template = this.getTemplate('Greninja-Ash', 'Pikachu-Ash');
 				source.formeChange(template);
 				source.baseTemplate = template;
 				source.details = template.species + (source.level === 100 ? '' : ', L' + source.level) + (source.gender === '' ? '' : ', ' + source.gender) + (source.set.shiny ? ', shiny' : '');
@@ -4198,8 +4208,8 @@ exports.BattleAbilities = {
 		id: "luster",
 		name: "Luster",
 		onStart: function (pokemon, source) {
-			this.useMove ('Reflect', pokemon);
-			this.useMove ('Light Screen', pokemon);
+			this.useMove('Reflect', pokemon);
+			this.useMove('Light Screen', pokemon);
 		},
 	},
 };

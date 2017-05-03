@@ -1363,4 +1363,28 @@ exports.BattleMovedex = {
 		zMovePower: 190,
 		contestType: "Cool",
 	},
+	"outripper": {
+		accuracy: 100,
+		basePower: 150,
+		category: "Physical",
+		id: "outripper",
+		isViable: true,
+		name: "Outripper",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		self: {
+			volatileStatus: 'lockedmove',
+		},
+		onAfterMove: function (pokemon) {
+			if (pokemon.volatiles['lockedmove'] && pokemon.volatiles['lockedmove'].duration === 1) {
+				pokemon.removeVolatile('lockedmove');
+			}
+		},
+		secondary: false,
+		target: "randomNormal",
+		type: "Dragon",
+		zMovePower: 190,
+		contestType: "Cool",
+	},
 };

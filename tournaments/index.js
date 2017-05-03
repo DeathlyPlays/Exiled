@@ -1,12 +1,13 @@
 'use strict';
 
+const Matchmaker = require('../ladders-matchmaker').matchmaker;
+
 const BRACKET_MINIMUM_UPDATE_INTERVAL = 2 * 1000;
 const AUTO_DISQUALIFY_WARNING_TIMEOUT = 30 * 1000;
 const AUTO_START_MINIMUM_TIMEOUT = 30 * 1000;
 const MAX_REASON_LENGTH = 300;
 const TOURBAN_DURATION = 14 * 24 * 60 * 60 * 1000;
 const turfwars = require("../chat-plugins/gangs");
-const Matchmaker = require('../ladders-matchmaker').matchmaker;
 
 Punishments.roomPunishmentTypes.set('TOURBAN', 'banned from tournaments');
 
@@ -14,6 +15,7 @@ let TournamentGenerators = Object.create(null);
 let generatorFiles = {
 	'roundrobin': 'generator-round-robin',
 	'elimination': 'generator-elimination',
+	'doubleelimination': 'generator-elimination',
 };
 for (let type in generatorFiles) {
 	TournamentGenerators[type] = require('./' + generatorFiles[type]);
@@ -79,6 +81,7 @@ class Tournament {
 		}));
 		this.update();
 	}
+	destroy() {}
 
 	setGenerator(generator, output) {
 		if (this.isTournamentStarted) {
@@ -541,7 +544,7 @@ class Tournament {
 		this.availableMatches.forEach((availableMatches, user) => {
 			if (oldAvailableMatches.get(user)) return;
 
-			if (availableMatches.size && !this.autoDisqualifyWarnings.has(user)) this.lastActionTimes.set(user, now);
+			if (availableMatches.size) this.lastActionTimes.set(user, now);
 		});
 
 		return {
@@ -964,7 +967,7 @@ class Tournament {
 		//
 
 		let color = '#088cc7';
-		let sizeRequiredToEarn = 2;
+		let sizeRequiredToEarn = 4;
 		let data = this.generator.getResults().map(usersToNames).toString();
 		let winner, runnerUp;
 
@@ -981,7 +984,7 @@ class Tournament {
 		let tourSize = this.generator.users.size;
 
 		if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
-			let firstMoney = Math.round(tourSize / 2);
+			let firstMoney = Math.round(tourSize / 4);
 			if (firstMoney < 2) firstMoney = 2;
 			if (Db('userBadges').has(wid) && Db('userBadges').get(wid).indexOf('Tournament Champion') > -1) firstMoney = Math.ceil(firstMoney * 1.5);
 			if (Users(wid).tourBoost) firstMoney *= 2;
@@ -1003,7 +1006,7 @@ class Tournament {
 			});
 			this.room.addRaw("<b><font color='" + color + "'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='" + color + "'>" + firstMoney + " </font>" + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + " for winning the tournament!</b>");
 
-			if (this.room.isOfficial && tourSize >= 2 && Db('gangs').get(wid, '') !== '') {
+			if (this.room.isOfficial && tourSize >= 4 && Db('gangs').get(wid, '') !== '') {
 				let reward = 10;
 				let gang = Db('gangs').get(wid);
 				Db('gangladder').set(gang, Db('gangladder').get(gang, 0) + reward);
@@ -1016,7 +1019,6 @@ class Tournament {
 				let tourRarity = Exiled.tourCard(tourSize, toId(winner));
 				if (tourRarity) this.room.addRaw("<b>" + Chat.escapeHTML(winner) + " has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
 			}
-
 			if (runnerUp) {
 				Economy.writeMoney(rid, secondMoney, () => {
 					Economy.readMoney(rid, newAmount => {

@@ -4194,4 +4194,12 @@ exports.BattleAbilities = {
 		rating: 3,
 		num: 0,
 	},
+	"luster": {
+		id: "luster",
+		name: "Luster",
+		onStart: function (pokemon, source) {
+			this.useMove ('Reflect', pokemon);
+			this.useMove ('Light Screen', pokemon);
+		},
+	},
 };

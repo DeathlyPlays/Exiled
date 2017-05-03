@@ -6722,7 +6722,7 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Gliscor, this item allows it to Mega Evolve in battle.",
 	},
-		"torterrite": {
+	"torterrite": {
 		id: "torterrite",
 		name: "Torterrite",
 		spritenum: -243,

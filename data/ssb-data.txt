@@ -557,4 +557,17 @@ Ability: Energy Overflow
     -Speed Boost + Adaptability
 Moves: Play Rough, Crunch, Thousand Arrows, Extreme Speed
 Notes: Fast Physical Sweeper, with a Choice Band allowing it to hit even harder.
+Rank: B.
+
+Renfur
+(Flygon)
+Item: Focus Sash
+EVs: 252 Atk / 252 Spe / 4 SpD
+Jolly Nature
+Ability: DesertDragon
+    - If this Pokemon KO's its target, its Attack and Speed is boosted by two stages.
+Moves: Dragon Claw, Earthquake, Stone Edge
+Special Move: Outripper
+    - Essentially a 150 BP Outrage
+Notes: Fast Sashed Physical Sweeper.
 Rank: N/A.

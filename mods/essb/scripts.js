@@ -77,8 +77,8 @@ exports.BattleScripts = {
 				item: "Rocky Helmet",
 				gender: "M",
 				moves: ['clangingscales', 'waterspout', 'earthpower'],
-				baseSignatureMove: "bump",
-				signatureMove: "Bump",
+				baseSignatureMove: "roleplaying",
+				signatureMove: "Roleplaying",
 				evs: {
 					def: 48,
 					spa: 252,

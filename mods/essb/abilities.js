@@ -994,4 +994,13 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"desertdragon": {
+		id: "desertdragon",
+		name: "DesertDragon",
+		onSourceFaint: function (target, source, effect) {
+			if (effect && effect.effectType === 'Move') {
+				this.boost({atk:2, spe: 2}, source);
+			}
+		},
+	},
 };

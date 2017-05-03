@@ -3720,4 +3720,5 @@ module.exports = {
 'kingdracrystalaqp': {title: 'kingdracrystalaqp', name: 'Kingdra', card: 'http://pkmncards.com/wp-content/uploads/kingdra-aquapolis-aq-148.jpg', rarity: 'Mythic', collection: ['Colorless', 'BL2-Pack', 'Crystal Type', 'GSC-Aquapolis', 'Gen2'], points: 20},
 'lugiacrystalaqp': {title: 'lugiacrystalaqp', name: 'Lugia', card: 'http://pkmncards.com/wp-content/uploads/lugia-aquapolis-aq-149.jpg', rarity: 'Mythic', collection: ['Colorless', 'Uber-Pack', 'Legendary', 'Crystal Type', 'GSC-Aquapolis', 'Gen2'], points: 20},
 'nidokingcrystalaqp': {title: 'nidokingcrystalaqp', name: 'Nidoking', card: 'http://pkmncards.com/wp-content/uploads/nidoking-aquapolis-aq-150.jpg', rarity: 'Mythic', collection: ['Colorless', 'UU-Pack', 'Crystal Type', 'GSC-Aquapolis', 'Gen1'], points: 20},
+'rivalrytrainer': {title: 'rivalry', name: 'Rivalry', card: 'http://i.imgur.com/uxDv4YB.png', rarity: 'Epic', collection: ['Trainer', 'Gen1'], points: 10},
 };

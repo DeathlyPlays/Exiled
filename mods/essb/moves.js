@@ -289,45 +289,6 @@ exports.BattleMovedex = {
 		type: "Steel",
 		target: "normal",
 	},
-	//mewth
-	"roleplaying": {
-		id: "roleplaying",
-		name: "Roleplaying",
-		category: "Physical",
-		basePower: 120,
-		accuracy: true,
-		priority: 1,
-		pp: 20,
-		type: "Ghost",
-		secondary: false,
-		self: {
-			boosts: {
-				atk: 1,
-				spe: 1,
-			},
-			volatileStatus: 'focusenergy',
-			effect: {
-				onStart: function (pokemon) {
-					this.add('-start', pokemon, 'move: Focus Energy');
-				},
-				onModifyCritRatio: function (critRatio) {
-					return critRatio + 3;
-				},
-			},
-		},
-		flags: {
-			protect: 1,
-			mirror: 1,
-			contact: 1,
-		},
-		isCrit: true,
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Focus Energy", target);
-			this.add('-anim', source, "Extreme Speed", target);
-		},
-		target: "normal",
-	},
 	//happysong
 	"strikeyoudown": {
 		id: "strikeyoudown",

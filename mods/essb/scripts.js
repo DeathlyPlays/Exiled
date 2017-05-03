@@ -25,7 +25,7 @@ exports.BattleScripts = {
 			"~Volco": {
 				species: "Volcanion",
 				ability: "Volcanic Ash",
-				item: "Assault Vest",
+				item: "Volcanionite",
 				gender: "M",
 				moves: ['steameruption', 'gigadrain', 'earthpower'],
 				baseSignatureMove: "volcanosrevenge",
@@ -279,6 +279,20 @@ exports.BattleScripts = {
 					atk: 252,
 					hp: 248,
 					def: 8,
+				},
+				nature: "Jolly",
+			},
+			"+Renfur": {
+				species: "Flygon",
+				ability: "DesertDragon",
+				item: "Focus Sash",
+				moves: ['earthquake', 'dragonclaw', 'stoneedge'],
+				baseSignatureMove: "outripper",
+				signatureMove: "Outripper",
+				evs: {
+					atk: 252,
+					spe: 252,
+					spd: 4,
 				},
 				nature: "Jolly",
 			},
@@ -602,13 +616,23 @@ exports.BattleScripts = {
 			}
 		}
 
-		pokemon.formeChange(template);
-		pokemon.baseTemplate = template; // mega evolution is permanent
-		pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
-		this.add('detailschange', pokemon, pokemon.details);
-		this.add('-mega', pokemon, template.baseSpecies, template.requiredItem);
-		pokemon.setAbility(template.abilities['0']);
-		pokemon.baseAbility = pokemon.ability;
+		if (pokemon.species === 'Volcanion') {
+			this.add('c|~Volco| GO MEGA EVOLUTION IT\'S TIME FOR MY REAL POWER!');
+			pokemon.baseTemplate = template; // mega evolution is permanent
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			this.add('-mega', pokemon, template.baseSpecies, template.requiredItem);
+			this.add('detailschange', pokemon, pokemon.details);
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+		} else {
+			pokemon.formeChange(template);
+			pokemon.baseTemplate = template; // mega evolution is permanent
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			this.add('detailschange', pokemon, pokemon.details);
+			this.add('-mega', pokemon, template.baseSpecies, template.requiredItem);
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+		}
 
 		// Limit one mega evolution
 		for (let i = 0; i < side.pokemon.length; i++) {

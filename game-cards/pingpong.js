@@ -10,8 +10,6 @@
 class PingPong extends Console.Console {
 	constructor(user, room, muted, rounds, kickTime) {
 		super(user, room, "background:url('https://media.giphy.com/media/l41lO5QYsXKGi911C/giphy.gif'); color: black; font-weight: bold;", null, null, muted, null);
-		// OK so what I have setup, the game class extends the existing console class from console.js
-		// We run a super() to get thesetup from console.js and then we add whatever setup we need for this game
 		this.user = user;
 		this.game = 'Ping Pong';
 		this.hasBall = 'PLAYER';
@@ -75,6 +73,7 @@ class PingPong extends Console.Console {
 	}
 	runAutoDQ() {
 		this.timer = setTimeout(function () {
+			if (!this || !this.endRound) return;
 			return this.endRound(false, true);
 		}, this.kickTime);
 	}

@@ -6,10 +6,10 @@ Insist
 EVs: 4 HP / 252 SpA / 252 Spe
 Timid Nature
 Ability: Crippling Depression
-    -Primordial Sea effects + Rain Dish + Swift Swim
+    - Primordial Sea effects + Rain Dish + Swift Swim
 Moves: Giga Drain, Freeze-Dry, Focus Blast
 Special Move: Aqua Subscribe
-	-90 BP, 100% Accuracy, Special, Water-type, +1 priority, raises its SpA & Spe by one stage.
+	- 90 BP, 100% Accuracy, Special, Water-type, +1 priority, raises its SpA & Spe by one stage.
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
 
@@ -22,7 +22,7 @@ Ability: Hiya
 	-Intimidate + Technician + Adaptability + Magic Guard
 Moves: Pluck, Roost, Swords Dance
 Special Move: Fast as Fucc
-	-Normal, Physical, 100% accuracy, 30% chance to boost own Speed by one stage, supereffective against Steel types, and has +1 priority.
+	- Normal, Physical, 100% accuracy, 30% chance to boost own Speed by one stage, supereffective against Steel types, and has +1 priority.
 Notes: Strong moves, that take advantage of the No Guard effects, and gets Speed Boosts every turn, and then having priority as well makes it extremely useful.
 Rank: A.
 
@@ -32,7 +32,7 @@ TheAquaPhoenix
 EVs: 4 SpA / 252 HP / 252 SpD
 Calm Nature
 Ability: How to be OP 101
-	-Special Fur Coat, Regenerator, Natural Cure, Rough Skin, Multiscale, and Delta Stream.
+	- Special Fur Coat, Regenerator, Natural Cure, Rough Skin, Multiscale, and Delta Stream.
 Moves: Scald, Roost, Oblivion Wing, Freeze-Dry
 Special Move: None
 Notes: A great Special Defensive wall, which this tier lacks severely.
@@ -46,7 +46,7 @@ Adamant Nature
 Ability: Contrary
 Moves: V-Create, U-turn, Bolt Strike
 Special Move: Zen-Create
-	-Psychic type V-Create, 180 BP, 95% accuracy, Contact.
+	- Psychic type V-Create, 180 BP, 95% accuracy, Contact.
 Notes: Physical sweeper.
 Rank: B.
 
@@ -57,10 +57,10 @@ Psychic and Fairy Type
 EVs: 252 HP / 224 SpA / 16 SpD / 16 Def
 Modest Nature
 Ability: WobzDoezJobz
-	-Simple + Technician + Serene Grace & gets +1 defense and special defense upon entry (which becomes +2 due to Simple).
+	- Simple + Technician + Serene Grace & gets +1 defense and special defense upon entry (which becomes +2 due to Simple).
 Moves: Stored Power, Draining Kiss, Charge Beam
 Special Move: Crippling Kiss
-    -Fairy + Status + 100% accuracy + Leech Seeds target + confuses target + heals self by a fourth of maximum HP + badly poisons target + and lowers target's speed by two stages + Venom Drench effects.
+    - Fairy + Status + 100% accuracy + Leech Seeds target + confuses target + heals self by a fourth of maximum HP + badly poisons target + and lowers target's speed by two stages + Venom Drench effects.
 Notes: Bulky Attacker.
 Rank: A.
 
@@ -162,7 +162,7 @@ Ability: GAWD
     -Adaptability + Huge Power effects.
 Moves: Flail, Splash, Precipice Blades
 Special Move: FUCKING SPLASHING
-    -Water, Physical, 120 BP, 100% accuracy, Boosts Attack, Defense, Special Defense, Accuracy, and Speed by two stages.
+    - Water, Physical, 120 BP, 100% accuracy, Boosts Attack, Defense, Special Defense, Accuracy, and Speed by two stages.
 Notes: Physical Sweeper.
 Rank: A.
 
@@ -187,7 +187,7 @@ Jolly Nature
 Ability: Tough Claws
 Moves: Flare Blitz, Roost, Protect
 Special Move: Analyze Intents
-    -Physical, 90 BP, 95% accuracy, Contact, Boosts attack and speed by one stage, Dragon type.
+    - Physical, 90 BP, 95% accuracy, Contact, Boosts attack and speed by one stage, Dragon type.
 Notes: Physical Sweeper.
 Rank: A.
 
@@ -200,7 +200,7 @@ Timid Nature
 Ability: Desolate Land
 Moves: Solar Beam, Freeze-Dry, Earth Power
 Special Move: My Mixtape
-    -Fire, Special, 90 BP, 100% accuracy, boosts SpA and Spe by one stage, +1 priority, sound move, ignores Substitute.
+    - Fire, Special, 90 BP, 100% accuracy, boosts SpA and Spe by one stage, +1 priority, sound move, ignores Substitute.
 Notes: Fast Special Sweeper, with priority.
 Rank: B.
 
@@ -210,10 +210,10 @@ Alрhа Hawk
 EVs: 252 Atk / 252 Spe / 4 SpD
 Jolly Nature
 Ability: Eyes of the Hawk
-    - Intimidate + Reckless
+    -Intimidate + Reckless
 Moves: Double-Edge, Shadow Strike, Head Smash
 Special Move: Cyclone Sphere
-    - Physical, Flying type, 120 BP, 100% accuracy, 33% recoil, 20% chance to boost Speed by one stage.
+    -Physical, Flying type, 120 BP, 100% accuracy, 33% recoil, 20% chance to boost Speed by one stage.
 Notes: Fast Physical Sweeper.
 Rank: B.
 
@@ -224,12 +224,12 @@ EVs: 48 Def / 252 SpA / 208 SpD
 IVs: 0 Atk / 0 Spe
 Quiet Nature
 Ability: Time Traveler
-    -Trick Room upon entry and Pressure and Rough Skin.
-Moves: Water Spout, Clanging Scales, Earth Power
+    - Trick Room upon entry + Pressure + Rough Skin.
+Moves: Spacial Rend, Earth Power, Steam Eruption
 Special Move: Roleplaying
-    - Steel Type, Special, 120 BP, 100% Accuracy, 10 PP, 
+    - Special, 120 BP, Steel, 100% accuracy, 10 PP.
 Notes: Trick Room makes great antimeta in this meta and with the bulk Dialga has.
-Rank: B.
+Rank: A.
 
 Kimisumi
 (Gallade-Mega)
@@ -237,10 +237,10 @@ Kimisumi
 EVs: 252 Atk / 252 Spe / 4 HP
 Jolly Nature
 Ability: God Complex
-    -Rough Skin effects + Topsy Turvy upon entry.
+    - Rough Skin effects + Topsy Turvy upon entry.
 Moves: Close Combat, Precipice Blades, Extreme Speed
 Special Move: Strike You Down
-    -Psychic, contact, Physical, 110 BP, 100% accuracy.
+    - Psychic, contact, Physical, 110 BP, 100% accuracy.
 Notes: Fast Physical Sweeper. Plus Topsy Turvy ruins a lot of Pokemon in this meta with their boost dependant sets.
 Rank: A.
 
@@ -250,10 +250,10 @@ Princess Teddiursa
 EVs: 252 SpA / 252 Spe / 4 SpD
 Timid Nature
 Ability: prfmlmao
-    -Pixilate + Hail + Snow Boosts SpA by 1.3x + Fairy Aura + Ice Body + Slush Rush + Snow version of Solar Power.
+    - Pixilate + Hail + Snow Boosts SpA by 1.3x + Fairy Aura + Ice Body + Slush Rush + Snow version of Solar Power.
 Moves: Earth Power, Boomburst, Psychic
 Special Move: prfmador
-    -Ice, Special, 60 BP, infatuates target, Raises own Special Attack and Speed by one stage, 100% accuracy, +1 priority, 20% chance to freeze target.
+    - Ice, Special, 60 BP, infatuates target, Raises own Special Attack and Speed by one stage, 100% accuracy, +1 priority, 20% chance to freeze target.
 Notes: Fast Special Sweeper.
 Rank: A.
 
@@ -270,14 +270,15 @@ Rank: A.
 
 Volco
 (Volcanion)
-@Assault Vest
+@Volcanionite
+    - Allows the user to mega evolve to become Mega Volcanion
 EVs: 252 SpA / 252 Spe / 4 SpD
 Modest Nature
 Ability: Volcanic Ash
     -Magic Guard + Magic Bounce + Adaptability effects + Boosts Speed by one stage upon entry.
 Moves: Steam Eruption, Giga Drain, Earth Power
 Special Move: Volcano's Revenge
-    -Fire type, Special, Hits opponent's Physical Defense rather than Special Defense, 20% chance to confuse target, 20% chance to boost own Special Attack and Speed by one stage, 120 BP, 100% accuracy.
+    - Fire type, Special, Hits opponent's Physical Defense rather than Special Defense, 20% chance to confuse target, 20% chance to boost own Special Attack and Speed by one stage, 120 BP, 100% accuracy.
 Notes: Special Sweeper, with great bulk.
 Rank: A.
 
@@ -488,7 +489,7 @@ Ability: Attack Shield
     - Magic Bounce and Overcoat.
 Moves: Crunch, Draco Meteor, Dark Pulse
 Special Move: Dark Storm
-    - Dark Type, Physical, 100% Accuracy, 15 PP, Boosts Attack, Defense and Speed by 1 stage.
+    - Dark Type, Physical, 100% Accuracy, 15 PP, Boosts Attack, Defense and Speed by 1 stage, 60 BP.
 Notes: Fast mixed attacker that doesn't fare well in this meta.
 Rank: C.
 

@@ -1,3 +1,21 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @DeathlyPlays
+ Sign out
+ Watch 164
+  Star 1,144
+ Fork 1,144 Zarel/Pokemon-Showdown
+ Code  Issues 34  Pull requests 25  Projects 1  Pulse  Graphs
+Branch: master Find file Copy pathPokemon-Showdown/chat-plugins/datasearch.js
+3716f36  19 hours ago
+@Zarel Zarel TypeScript!
+16 contributors @Zarel @Slayer95 @panpawn @urkerab @bumbadadabum @asgdf @Spandamn @sirDonovan @SolarisFox @Vacate @taylor1791 @sparkychildcharlie @Morfent @CheeseMuffin @Nineage @HoeenCoder
+RawBlameHistory
+1467 lines (1345 sloc)  52.3 KB
 /**
  * Data searching commands.
  * Pokemon Showdown - http://pokemonshowdown.com/
@@ -13,7 +31,7 @@
 const ProcessManager = require('./../process-manager');
 
 const MAX_PROCESSES = 1;
-const RESULTS_MAX_LENGTH = 1000;
+const RESULTS_MAX_LENGTH = 10;
 
 function escapeHTML(str) {
 	if (!str) return '';
@@ -192,7 +210,7 @@ exports.commands = {
 	},
 	movesearchhelp: [
 		"/movesearch [parameter], [parameter], [parameter], ... - Searches for moves that fulfill the selected criteria.",
-		"Search categories are: type, category, contest condition, gen, flag, status inflicted, type boosted, and numeric range for base power, pp, and accuracy.",
+		"Search categories are: type, category, gen, contest condition, flag, status inflicted, type boosted, and numeric range for base power, pp, and accuracy.",
 		"Types must be followed by ' type', e.g., 'dragon type'.",
 		"Stat boosts must be preceded with 'boosts ', e.g., 'boosts attack' searches for moves that boost the attack stat.",
 		"Inequality ranges use the characters '>' and '<' though they behave as '≥' and '≤', e.g., 'bp > 100' searches for all moves equal to and greater than 100 base power.",
@@ -565,6 +583,7 @@ function runDexsearch(target, cmd, canAll, message) {
 	const accumulateKeyCount = (count, searchData) => count + (typeof searchData === 'object' ? Object.keys(searchData).length : 0);
 	searches.sort((a, b) => Object.values(a).reduce(accumulateKeyCount, 0) - Object.values(b).reduce(accumulateKeyCount, 0));
 
+	let lsetData = {};
 	for (let group = 0; group < searches.length; group++) {
 		let alts = searches[group];
 		if (alts.skip) continue;
@@ -591,7 +610,7 @@ function runDexsearch(target, cmd, canAll, message) {
 				if (alts.tiers[dex[mon].tier]) continue;
 				if (Object.values(alts.tiers).includes(false) && alts.tiers[dex[mon].tier] !== false) continue;
 				// some LC Pokemon are also in other tiers and need to be handled separately
-				if (alts.tiers.LC && !dex[mon].prevo && dex[mon].nfe && dex[mon].tier !== 'LC Uber' && !Tools.data.Formats.lc.banlist.includes(dex[mon].species)) continue;
+				if (alts.tiers.LC && !dex[mon].prevo && dex[mon].nfe && dex[mon].tier !== 'LC Uber' && !Tools.formats.lc.banlist.includes(dex[mon].species)) continue;
 			}
 
 			for (let type in alts.types) {
@@ -655,8 +674,8 @@ function runDexsearch(target, cmd, canAll, message) {
 			if (matched) continue;
 
 			for (let move in alts.moves) {
-				let lsetData = {fastCheck: true, set: {}};
-				if (!TeamValidator('gen7ou').checkLearnset(move, mon, lsetData) === alts.moves[move]) {
+				if (!lsetData[mon]) lsetData[mon] = {fastCheck: true, set: {}};
+				if (!TeamValidator('gen7ou').checkLearnset(move, mon, lsetData[mon]) === alts.moves[move]) {
 					matched = true;
 					break;
 				}

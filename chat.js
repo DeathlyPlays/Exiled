@@ -161,12 +161,16 @@ class CommandContext {
 			message = this.canTalk(message);
 		}
 
+		if (this.room) {
+			if (parseEmoticons(message, this.room, this.user)) return null;
+		} else {
+			message = parseEmoticons(message, this.room, this.user, true) || message;
+		}
+
 		// Output the message
 
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
-				const parsedMsg = parseEmoticons(message, this.room, this.user, true);
-				if (parsedMsg) message = '/html ' + parsedMsg;
 				let buf = `|pm|${this.user.getIdentity()}|${this.pmTarget.getIdentity()}|${message}`;
 				this.user.send(buf);
 				if (this.pmTarget !== this.user) this.pmTarget.send(buf);
@@ -175,7 +179,6 @@ class CommandContext {
 				this.user.lastPM = this.pmTarget.userid;
 			} else {
 				if (Users.ShadowBan.checkBanned(this.user)) {
-					if (parseEmoticons(message, this.room, this.user)) return;
 					Users.ShadowBan.addMessage(this.user, `To ${this.room.id}`, message);
 					this.user.sendTo(this.room.id, `|c|${this.user.getIdentity(this.room.id)}|${message}`);
 				} else {
@@ -183,7 +186,6 @@ class CommandContext {
 						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
 						this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 					} else {
-						if (parseEmoticons(message, this.room, this.user)) return;
 						this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`).update();
 					}
 				}
@@ -320,6 +322,7 @@ class CommandContext {
 	checkFormat(room, user, message) {
 		if (!room) return true;
 		if (!room.filterStretching && !room.filterCaps) return true;
+		if (user.can('bypassall')) return true;
 
 		if (room.filterStretching && user.name.match(/(.+?)\1{5,}/i)) {
 			return this.errorReply(`Your username contains too much stretching, which this room doesn't allow.`);
@@ -330,10 +333,10 @@ class CommandContext {
 		// Removes extra spaces and null characters
 		message = message.trim().replace(/[ \u0000\u200B-\u200F]+/g, ' ');
 
-		if (room.filterStretching && message.match(/(.+?)\1{7,}/i) && !user.can('mute', null, room)) {
+		if (room.filterStretching && message.match(/(.+?)\1{7,}/i)) {
 			return this.errorReply(`Your message contains too much stretching, which this room doesn't allow.`);
 		}
-		if (room.filterCaps && message.match(/[A-Z\s]{18,}/) && !user.can('mute', null, room)) {
+		if (room.filterCaps && message.match(/[A-Z\s]{18,}/)) {
 			return this.errorReply(`Your message contains too many capital letters, which this room doesn't allow.`);
 		}
 
@@ -620,7 +623,7 @@ class CommandContext {
 				return false;
 			}
 
-			if (!this.checkBanwords(room, user.name)) {
+			if (!this.checkBanwords(room, user.name) && !user.can('bypassall')) {
 				this.errorReply(`Your username contains a phrase banned by this room.`);
 				return false;
 			}

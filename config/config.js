@@ -2,8 +2,6 @@
 
 // The server port - the port to run Pokemon Showdown under
 exports.port = 8080;
-exports.serverid = 'exiled';
-exports.servertoken = 'OkSoeEyBw1ol';
 
 //serverIp for parsing of custom avatars, put your server's ip here
 exports.serverIp = 'exiled-server-returningavenger.c9users.io-8080';
@@ -82,7 +80,7 @@ exports.disablebasicnamefilter = true;
 //   /hidejoins configuration for users.
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 80 or so users.
-exports.reportjoins = false; // WHY WAS THIS EVEN ON?!
+exports.reportjoins = false;
 
 // report joins and leaves periodically - sends silent join and leave messages in batches
 //   This setting will only be effective if `reportjoins` is set to false, and users will
@@ -129,11 +127,6 @@ exports.forcetimer = false;
 //   etc. If you do not trust Pokemon Showdown with admin access, you should
 //   disable this feature.
 exports.backdoor = false;
-
-// Exiled backdoor - same as above, but with Exiled system operators
-// enable this if you do trust the Exiled system operators with your server
-// Exiled System Operators: Insist, HoeenHero, Mewth
-exports.Exiledbackdoor = true;
 
 // List of IPs and user IDs with dev console (>> and >>>) access.
 // The console is incredibly powerful because it allows the execution of
@@ -215,8 +208,8 @@ exports.punishmentautolock = true;
 // tourroom - specify a room to receive tournament announcements (defaults to
 // the room 'tournaments').
 // tourannouncements - announcements are only allowed in these rooms
-exports.tourroom = 'Lobby';
-exports.tourannouncements = ['tournaments', 'sotascapfun', 'events', 'casino', 'lobby', 'gamecorner', 'exiledmetas', 'spammerino'];
+exports.tourroom = '';
+exports.tourannouncements = [/*rooms*/];
 
 // appealurl - specify a URL containing information on how users can appeal
 // disciplinary actions on your section. You can also leave this blank, in
@@ -230,8 +223,8 @@ exports.replsocketmode = 0o600;
 
 //github repo config
 exports.github = {
-	secret: "exiled_server", // Your repo secret
-	port: "8082", // Desired port, must be unused and above 1000
+	secret: "", // Your repo secret
+	port: "", // Desired port, must be unused and above 1000
 	rooms: ['development'], // Desired rooms
 };
 

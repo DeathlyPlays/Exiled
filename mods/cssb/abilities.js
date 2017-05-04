@@ -46,7 +46,7 @@ exports.BattleAbilities = {
 	//gday
 	"gdaygday": {
 		onBoost: function (boost) {
-			for (let i in boost) {
+			for (var i in boost) {
 				boost[i] *= 2;
 			}
 		},
@@ -113,10 +113,10 @@ exports.BattleAbilities = {
 		},
 		onAnySetWeather: function (target, source, weather) {
 			if (this.getWeather().id === 'desolateland' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+					desolateland: 1,
+					primordialsea: 1,
+					deltastream: 1,
+				})) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;

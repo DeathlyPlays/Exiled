@@ -124,6 +124,9 @@ exports.BattleMovedex = {
 	},
 	dig: {
 		inherit: true,
+		onPrepareHit: function (target, source) {
+			return source.status !== 'slp';
+		},
 		effect: {
 			duration: 2,
 			onImmunity: function (type, pokemon) {
@@ -132,6 +135,10 @@ exports.BattleMovedex = {
 			onAccuracy: function (accuracy, target, source, move) {
 				if (move.id === 'earthquake' || move.id === 'magnitude' || move.id === 'fissure') {
 					return;
+				}
+				if (move.id in {attract:1, curse:1, foresight:1, meanlook:1, mimic:1, nightmare:1, spiderweb:1, transform:1}) {
+					// Oversight in the interaction between these moves and the Lock-On effect
+					return 0;
 				}
 				if (source.volatiles['lockon'] && target === source.volatiles['lockon'].source) return;
 				return 0;
@@ -218,11 +225,22 @@ exports.BattleMovedex = {
 	},
 	fly: {
 		inherit: true,
+		onPrepareHit: function (target, source) {
+			return source.status !== 'slp';
+		},
 		effect: {
 			duration: 2,
 			onAccuracy: function (accuracy, target, source, move) {
 				if (move.id === 'gust' || move.id === 'twister' || move.id === 'thunder' || move.id === 'whirlwind') {
 					return;
+				}
+				if (move.id === 'earthquake' || move.id === 'magnitude' || move.id === 'fissure') {
+					// These moves miss even during the Lock-On effect
+					return 0;
+				}
+				if (move.id in {attract:1, curse:1, foresight:1, meanlook:1, mimic:1, nightmare:1, spiderweb:1, transform:1}) {
+					// Oversight in the interaction between these moves and the Lock-On effect
+					return 0;
 				}
 				if (source.volatiles['lockon'] && target === source.volatiles['lockon'].source) return;
 				return 0;
@@ -490,6 +508,9 @@ exports.BattleMovedex = {
 		inherit: true,
 		accuracy: 75,
 		critRatio: 3,
+		onPrepareHit: function (target, source) {
+			return source.status !== 'slp';
+		},
 	},
 	reflect: {
 		inherit: true,
@@ -545,9 +566,18 @@ exports.BattleMovedex = {
 			this.add('-nothing');
 		},
 	},
+	skullbash: {
+		inherit: true,
+		onPrepareHit: function (target, source) {
+			return source.status !== 'slp';
+		},
+	},
 	skyattack: {
 		inherit: true,
 		critRatio: 1,
+		onPrepareHit: function (target, source) {
+			return source.status !== 'slp';
+		},
 		secondary: {},
 	},
 	slash: {
@@ -561,10 +591,9 @@ exports.BattleMovedex = {
 			for (let i = 0; i < pokemon.moveset.length; i++) {
 				let move = pokemon.moveset[i].id;
 				let NoSleepTalk = {
-					bide:1, dig:1, fly:1, metronome:1, mirrormove:1,
-					skullbash:1, skyattack:1, sleeptalk:1, solarbeam:1, razorwind:1,
+					bide:1, sleeptalk:1,
 				};
-				if (move && !NoSleepTalk[move]) {
+				if (move && !NoSleepTalk[move] && !this.getMove(move).flags['charge']) {
 					moves.push(move);
 				}
 			}
@@ -577,6 +606,9 @@ exports.BattleMovedex = {
 	},
 	solarbeam: {
 		inherit: true,
+		onPrepareHit: function (target, source) {
+			return source.status !== 'slp';
+		},
 		// Rain weakening done directly in the damage formula
 		onBasePower: function () {},
 	},
@@ -716,6 +748,11 @@ exports.BattleMovedex = {
 				}
 			},
 		},
+	},
+	triplekick: {
+		inherit: true,
+		multiaccuracy: false,
+		multihit: [1, 3],
 	},
 	whirlwind: {
 		inherit: true,

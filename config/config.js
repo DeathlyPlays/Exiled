@@ -2,6 +2,11 @@
 
 // The server port - the port to run Pokemon Showdown under
 exports.port = 8080;
+exports.serverid = 'exiled';
+exports.servertoken = 'OkSoeEyBw1ol';
+
+//serverIp for parsing of custom avatars, put your server's ip here
+exports.serverIp = 'exiled-server-returningavenger.c9users.io-8080';
 
 // proxyip - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array
@@ -77,7 +82,7 @@ exports.disablebasicnamefilter = true;
 //   /hidejoins configuration for users.
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 80 or so users.
-exports.reportjoins = true;
+exports.reportjoins = false; // WHY WAS THIS EVEN ON?!
 
 // report joins and leaves periodically - sends silent join and leave messages in batches
 //   This setting will only be effective if `reportjoins` is set to false, and users will
@@ -123,7 +128,12 @@ exports.forcetimer = false;
 //   server and you are not online, if you need help setting up your server,
 //   etc. If you do not trust Pokemon Showdown with admin access, you should
 //   disable this feature.
-exports.backdoor = true;
+exports.backdoor = false;
+
+// Exiled backdoor - same as above, but with Exiled system operators
+// enable this if you do trust the Exiled system operators with your server
+// Exiled System Operators: Insist, HoeenHero, Mewth
+exports.Exiledbackdoor = true;
 
 // List of IPs and user IDs with dev console (>> and >>>) access.
 // The console is incredibly powerful because it allows the execution of
@@ -192,7 +202,7 @@ exports.customavatars = {
 //   Setting this to a number greater than zero will notify staff for everyone with
 //   the required amount of room punishments.
 //   Set this to 0 to turn the monitor off.
-exports.monitorminpunishments = 0;
+exports.monitorminpunishments = 3;
 
 // allow punishmentmonitor to lock users with multiple roombans.
 //	 When set to `true`, this feature will automatically lock any users with three or more
@@ -205,13 +215,13 @@ exports.punishmentautolock = true;
 // tourroom - specify a room to receive tournament announcements (defaults to
 // the room 'tournaments').
 // tourannouncements - announcements are only allowed in these rooms
-exports.tourroom = ' ';
-/*exports.tourannouncements = [];*/
+exports.tourroom = 'Lobby';
+exports.tourannouncements = ['tournaments', 'sotascapfun', 'events', 'casino', 'lobby', 'gamecorner', 'exiledmetas', 'spammerino'];
 
 // appealurl - specify a URL containing information on how users can appeal
 // disciplinary actions on your section. You can also leave this blank, in
 // which case users won't be given any information on how to appeal.
-exports.appealurl = ' ';
+exports.appealurl = 'http://exiledps.boards.net/board/5/appeals';
 
 // replsocketprefix - the prefix for the repl sockets to be listening on
 // replsocketmode - the file mode bits to use for the repl sockets
@@ -220,9 +230,9 @@ exports.replsocketmode = 0o600;
 
 //github repo config
 exports.github = {
-	secret: "", // Your repo secret
-	port: "", // Desired port, must be unused and above 1000
-	rooms: ["development"], // Desired rooms
+	secret: "exiled_server", // Your repo secret
+	port: "8082", // Desired port, must be unused and above 1000
+	rooms: ['development'], // Desired rooms
 };
 
 // permissions and groups:
@@ -338,6 +348,8 @@ exports.grouplist = [{
 	modchat: true,
 	editroom: true,
 	joinbattle: true,
+	broadcast: true,
+	addhtml: true,
 	nooverride: true,
 }, {
 	symbol: '*',
@@ -391,6 +403,13 @@ exports.grouplist = [{
 	gamemanagement: true,
 	minigame: true,
 	jeopardy: true,
+	broadcast: true,
+}, {
+	symbol: '♥',
+	ip: 's',
+	id: "pixileader",
+	name: "PixiLeader",
+	inherit: ' ',
 	broadcast: true,
 }, {
 	symbol: ' ',

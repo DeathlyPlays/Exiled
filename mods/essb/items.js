@@ -8,7 +8,7 @@ exports.BattleItems = {
 		name: "Playnium Z",
 		zMove: "Exiled From All Others",
 		zMoveFrom: "Aqua Subscribe",
-		zMoveUser: ["Ludicolo"],
+		zMoveUser: ["Ludicolo-Mega"],
 		num: -1,
 		gen: -1,
 		desc: "If holder is a Ludicolo with Aqua Subscribe, it can use Exiled From All Others.",
@@ -128,16 +128,34 @@ exports.BattleItems = {
 		fling: {
 			basePower: 80,
 		},
-		onModifyDefPriority: 2,
-		onModifyDef: function (def, pokemon) {
+		onModifySpAPriority: 2,
+		onModifySpA: function (spa, pokemon) {
 			if (pokemon.baseTemplate.nfe) {
-				return this.chainModify(1.5);
+				return this.chainModify(2);
+			}
+		},
+		onModifySpePriority: 2,
+		onModifySpe: function (spe, pokemon) {
+			if (pokemon.baseTemplate.nfe) {
+				return this.chainModify(2);
+			}
+		},
+		onModifyAtkPriority: 2,
+		onModifyAtk: function (atk, pokemon) {
+			if (pokemon.baseTemplate.nfe) {
+				return this.chainModify(2);
 			}
 		},
 		onModifySpDPriority: 2,
 		onModifySpD: function (spd, pokemon) {
 			if (pokemon.baseTemplate.nfe) {
-				return this.chainModify(1.5);
+				return this.chainModify(2);
+			}
+		},
+		onModifyDefPriority: 2,
+		onModifyDef: function (def, pokemon) {
+			if (pokemon.baseTemplate.nfe) {
+				return this.chainModify(2);
 			}
 		},
 		onResidualOrder: 26,

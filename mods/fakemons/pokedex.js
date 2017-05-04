@@ -128,12 +128,9 @@ exports.BattlePokedex = {
 		},
 		abilities: {
 			0: "Vengeful",
-			H: "Hatred",
+			1: "Hatred",
 		},
-		heightm: 2,
-		weightkg: 0.5,
-		prevo: "Eevee",
-		color: "Purple",
-		eggGroups: ["Field, Amorphous"],
+		heightm: 1,
+		weightkg: 27,
 	},
 };

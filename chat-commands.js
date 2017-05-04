@@ -1262,6 +1262,7 @@ exports.commands = {
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
+		if (targetUser.can('root')) return this.errorReply("PISS OFF!!!!!");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
@@ -1655,6 +1656,7 @@ exports.commands = {
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
+		if (targetUser.can('root')) return this.errorReply("PISS OFF!");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
@@ -3185,21 +3187,34 @@ exports.commands = {
 
 	timer: function (target, room, user) {
 		target = toId(target);
-		if (room.requestKickInactive) {
-			if (target === 'off' || target === 'false' || target === 'stop') {
-				let canForceTimer = user.can('timer', null, room);
-				if (room.resetTimer) {
-					room.stopKickInactive(user, canForceTimer);
-					if (canForceTimer) room.send('|inactiveoff|Timer was turned off by staff. Please do not turn it back on until our staff say it\'s okay');
-				}
-			} else if (target === 'on' || target === 'true' || !target) {
-				if (toId(room.battle.format) === 'gen7wildpokemonalpha') return this.errorReply('You can\'t start the timer during a Wild Pokemon Encounter.');
-				room.requestKickInactive(user, user.can('timer'));
-			} else {
-				this.errorReply("'" + target + "' is not a recognized timer state.");
+		if (!room.game || !room.game.timer) {
+			return this.errorReply(`You can only set the timer from inside a battle room.`);
+		}
+		const timer = room.game.timer;
+		if (!timer.timerRequesters) {
+			return this.sendReply(`This game's timer is managed by a different command.`);
+		}
+		if (!target) {
+			if (!timer.timerRequesters.size) {
+				return this.sendReply(`The game timer is OFF`);
 			}
+			return this.sendReply(`The game timer is ON (requested by ${[...timer.timerRequesters].join(', ')})`);
+		}
+		const force = user.can('timer', null, room);
+		if (!force && !room.game.players[user]) {
+			return this.errorReply(`Access denied`);
+		}
+		if (target === 'off' || target === 'false' || target === 'stop') {
+			if (timer.timerRequesters.size) {
+				timer.stop(force ? undefined : user);
+				if (force) room.send(`|inactiveoff|Timer was turned off by staff. Please do not turn it back on until our staff say it's okay.`);
+			} else {
+				this.errorReply(`The timer is already off`);
+			}
+		} else if (target === 'on' || target === 'true') {
+			timer.start(user);
 		} else {
-			this.errorReply("You can only set the timer from inside a battle room.");
+			this.errorReply(`"${target}" is not a recognized timer state.`);
 		}
 	},
 

@@ -174,6 +174,10 @@ exports.BattleScripts = {
 			}
 
 			if (moveData.boosts && !target.fainted) {
+				if (pokemon.volatiles['lockon'] && target === pokemon.volatiles['lockon'].source && target.isSemiInvulnerable() && !isSelf) {
+					if (!isSecondary) this.add('-fail', target);
+					return false;
+				}
 				hitResult = this.boost(moveData.boosts, target, pokemon, move);
 				didSomething = didSomething || hitResult;
 			}
@@ -634,7 +638,7 @@ exports.BattleScripts = {
 		};
 		// Moves which boost Special Attack:
 		let SpecialSetup = {
-			amnesia:1, growth:1,
+			growth:1,
 		};
 
 		do {

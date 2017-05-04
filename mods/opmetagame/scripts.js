@@ -2,9 +2,10 @@
 
 exports.BattleScripts = {
 	randomSeasonalMeleeTeam: function (side) {
+		let userid = toId(side.name);
 		let team = [];
-		let letiant = (this.random(2) === 1);
-		let sets = {
+		var variant = (this.random(2) === 1);
+		var sets = {
 			'Blissey': {
 				species: 'Blissey',
 				item: 'Choice Scarf',
@@ -15,7 +16,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -23,7 +24,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Timid',
 			},
@@ -36,7 +37,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -44,7 +45,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Hasty',
 			},
@@ -65,7 +66,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Adamant',
 			},
@@ -79,7 +80,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -87,7 +88,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Timid',
 			},
@@ -100,7 +101,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -108,7 +109,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Jolly',
 			},
@@ -121,7 +122,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -129,7 +130,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Hasty',
 			},
@@ -143,7 +144,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -151,7 +152,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Timid',
 			},
@@ -164,7 +165,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 248,
 					def: 252,
-					spd: 8,
+					spd: 8
 				},
 				ivs: {
 					hp: 31,
@@ -172,7 +173,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Bold',
 			},
@@ -185,7 +186,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -193,7 +194,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Jolly',
 			},
@@ -206,7 +207,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 248,
 					def: 252,
-					spd: 8,
+					spd: 8
 				},
 				ivs: {
 					hp: 31,
@@ -214,7 +215,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Bold',
 			},
@@ -227,7 +228,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -235,7 +236,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Jolly',
 			},
@@ -248,7 +249,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -256,7 +257,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Jolly',
 			},
@@ -269,7 +270,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spd: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -277,7 +278,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 0,
+					spe: 0
 				},
 				nature: 'Sassy',
 			},
@@ -290,7 +291,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -298,7 +299,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Jolly',
 			},
@@ -311,7 +312,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -319,7 +320,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Jolly',
 			},
@@ -332,7 +333,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -340,7 +341,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Timid',
 			},
@@ -354,7 +355,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -362,7 +363,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Timid',
 			},
@@ -375,7 +376,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spd: 252,
-					spa: 4,
+					spa: 4
 				},
 				ivs: {
 					hp: 31,
@@ -383,7 +384,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Calm',
 			},
@@ -396,7 +397,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spd: 252,
-					spa: 4,
+					spa: 4
 				},
 				ivs: {
 					hp: 31,
@@ -404,7 +405,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Calm',
 			},
@@ -417,7 +418,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -425,7 +426,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Adamant',
 			},
@@ -438,7 +439,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -446,7 +447,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Jolly',
 			},
@@ -459,7 +460,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -467,7 +468,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Timid',
 			},
@@ -480,7 +481,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -488,7 +489,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Timid',
 			},
@@ -501,7 +502,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 244,
 					spa: 252,
-					spd: 14,
+					spd: 14
 				},
 				ivs: {
 					hp: 31,
@@ -509,7 +510,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Modest',
 			},
@@ -522,7 +523,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -530,7 +531,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Timid',
 			},
@@ -543,7 +544,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					atk: 4,
+					atk: 4
 				},
 				ivs: {
 					hp: 31,
@@ -551,7 +552,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Hasty',
 			},
@@ -565,7 +566,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					hp: 252,
-					atk: 4,
+					atk: 4
 				},
 				ivs: {
 					hp: 31,
@@ -573,7 +574,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Modest',
 			},
@@ -586,7 +587,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -594,7 +595,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: 'Timid',
 			},
@@ -609,7 +610,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -617,7 +618,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -632,7 +633,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -640,7 +641,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Jolly",
 			},
@@ -655,7 +656,7 @@ exports.BattleScripts = {
 				evs: {
 					spe: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -663,7 +664,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Jolly",
 			},
@@ -677,7 +678,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -685,7 +686,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -699,7 +700,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -707,7 +708,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -720,7 +721,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -728,7 +729,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Jolly",
 			},
@@ -741,7 +742,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -749,7 +750,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -763,7 +764,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -771,7 +772,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Jolly",
 			},
@@ -785,7 +786,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -793,7 +794,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -807,7 +808,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -815,7 +816,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -830,7 +831,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					def: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -838,7 +839,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Impish",
 			},
@@ -852,7 +853,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					def: 252,
-					atk: 4,
+					atk: 4
 				},
 				ivs: {
 					hp: 31,
@@ -860,7 +861,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 0,
+					spe: 0
 				},
 				nature: "Relaxed",
 			},
@@ -874,7 +875,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -882,7 +883,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Jolly",
 			},
@@ -896,7 +897,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -904,7 +905,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -919,7 +920,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -927,7 +928,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -941,7 +942,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -949,7 +950,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -965,7 +966,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -973,7 +974,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -988,7 +989,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -996,7 +997,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -1011,7 +1012,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1019,7 +1020,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -1032,7 +1033,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1040,7 +1041,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Modest",
 			},
@@ -1054,7 +1055,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1062,7 +1063,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Modest",
 			},
@@ -1076,7 +1077,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					def: 252,
-					atk: 4,
+					atk: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1084,7 +1085,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Impish",
 			},
@@ -1098,7 +1099,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1106,7 +1107,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Modest",
 			},
@@ -1120,7 +1121,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1128,7 +1129,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -1142,7 +1143,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spd: 252,
-					spa: 4,
+					spa: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1150,7 +1151,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Calm",
 			},
@@ -1164,7 +1165,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1172,7 +1173,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Modest",
 			},
@@ -1187,7 +1188,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					hp: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1195,7 +1196,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 0,
+					spe: 0
 				},
 				nature: "Quiet",
 			},
@@ -1209,7 +1210,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1217,7 +1218,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -1232,7 +1233,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1240,7 +1241,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -1254,7 +1255,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1262,7 +1263,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Jolly",
 			},
@@ -1276,7 +1277,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					atk: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1284,7 +1285,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -1300,7 +1301,7 @@ exports.BattleScripts = {
 					hp: 252,
 					def: 252,
 					spd: 252,
-					atk: 252,
+					atk: 252
 				},
 				ivs: {
 					hp: 31,
@@ -1308,7 +1309,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -1322,7 +1323,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					def: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1330,7 +1331,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Bold",
 			},
@@ -1344,7 +1345,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1352,7 +1353,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -1366,7 +1367,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					hp: 252,
-					spd: 252,
+					spd: 252
 				},
 				ivs: {
 					hp: 31,
@@ -1374,7 +1375,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Modest",
 			},
@@ -1388,7 +1389,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					hp: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1396,7 +1397,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 0,
+					spe: 0
 				},
 				nature: "Quiet",
 			},
@@ -1410,7 +1411,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1418,7 +1419,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -1432,7 +1433,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1440,7 +1441,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -1455,7 +1456,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1463,7 +1464,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -1477,7 +1478,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					atk: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1485,7 +1486,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -1499,7 +1500,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1507,7 +1508,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -1521,7 +1522,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					hp: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1529,7 +1530,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Modest",
 			},
@@ -1543,7 +1544,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1551,7 +1552,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -1565,7 +1566,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1573,7 +1574,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -1587,7 +1588,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1595,7 +1596,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Jolly",
 			},
@@ -1609,7 +1610,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 252,
@@ -1631,7 +1632,7 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spa: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1639,7 +1640,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Modest",
 			},
@@ -1653,7 +1654,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					spd: 4,
+					spd: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1661,7 +1662,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Jolly",
 			},
@@ -1675,7 +1676,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1683,7 +1684,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},
@@ -1697,7 +1698,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1705,7 +1706,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Timid",
 			},
@@ -1719,7 +1720,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				ivs: {
 					hp: 31,
@@ -1727,7 +1728,7 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 0,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				},
 				nature: "Adamant",
 			},

@@ -1,9 +1,11 @@
 'use strict';
 
 exports.BattleScripts = {
-	randomSeasonalMeleeTeam: function (side) {
+	randomSeasonalMeleeTeam: function(side) {
+		let userid = toId(side.name);
 		let team = [];
-		let sets = {
+		var variant = (this.random(2) === 1);
+		var sets = {
 			'Scrafty': {
 				species: 'Scrafty',
 				ability: 'Rock Head',
@@ -15,7 +17,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 248,
-					def: 8,
+					def: 8
 				},
 				nature: 'Adamant',
 			},
@@ -30,7 +32,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				nature: 'Adamant',
 			},
@@ -45,7 +47,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				nature: 'Adamant',
 			},
@@ -59,7 +61,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				nature: 'Jolly',
 			},
@@ -74,7 +76,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				nature: 'Jolly',
 			},
@@ -89,7 +91,7 @@ exports.BattleScripts = {
 				evs: {
 					spa: 252,
 					hp: 252,
-					atk: 4,
+					atk: 4
 				},
 				nature: 'Quiet',
 			},
@@ -104,7 +106,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				nature: 'Jolly',
 			},
@@ -120,7 +122,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				nature: 'Jolly',
 			},
@@ -134,7 +136,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				nature: 'Jolly',
 			},
@@ -148,7 +150,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4,
+					hp: 4
 				},
 				nature: 'Jolly',
 			},
@@ -163,7 +165,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 248,
-					def: 8,
+					def: 8
 				},
 				nature: 'Adamant',
 			},
@@ -178,7 +180,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					hp: 252,
-					def: 4,
+					def: 4
 				},
 				nature: 'Adamant',
 			},
@@ -193,7 +195,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				nature: 'Jolly',
 			},
@@ -206,7 +208,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					def: 4,
+					def: 4
 				},
 				nature: 'Jolly',
 			},
@@ -225,31 +227,30 @@ exports.BattleScripts = {
 					def: 31,
 					spa: 31,
 					spd: 31,
-					spe: 31,
+					spe: 31
 				};
-			} else {
+			}
+			else {
 				for (let iv in {
-					hp: 31,
-					atk: 31,
-					def: 31,
-					spa: 31,
-					spd: 31,
-					spe: 31,
-				}) {
+						hp: 31,
+						atk: 31,
+						def: 31,
+						spa: 31,
+						spd: 31,
+						spe: 31
+					}) {
 					set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
 				}
 			}
 			// Assuming the hardcoded set evs are all legal.
-			if (!set.evs) {
-				set.evs = {
-					hp: 84,
-					atk: 84,
-					def: 84,
-					spa: 84,
-					spd: 84,
-					spe: 84,
-				};
-			}
+			if (!set.evs) set.evs = {
+				hp: 84,
+				atk: 84,
+				def: 84,
+				spa: 84,
+				spd: 84,
+				spe: 84
+			};
 			set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves)].concat(set.signatureMove);
 			team.push(set);
 		}

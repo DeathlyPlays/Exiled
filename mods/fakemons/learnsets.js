@@ -39,7 +39,7 @@ exports.BattleLearnsets = {
 			snarl: ["7M"],
 			confide: ["7M"],
 			drinkbleach: ["7L70"],
-		},
+		}
 	},
 	musteltank: {
 		learnset: {
@@ -68,7 +68,7 @@ exports.BattleLearnsets = {
 			metalclaw: ["7L21"],
 			suckerpunch: ["7L29"],
 			trickroom: ["7M"],
-		},
+		}
 	},
 	pence: {
 		learnset: {
@@ -93,23 +93,25 @@ exports.BattleLearnsets = {
 			strugglebug: ["7L1"],
 			aquaring: ["7L1"],
 			powdersnow: ["7L8"],
-			bugbite: ["7L10", "7E"],
+			bugbite: ["7L10"],
 			iceshard: ["7L16"],
 			bugbuzz: ["7L22"],
 			mirrorcoat: ["7L34"],
-			hail: ["7L39", "7M"],
+			hail: ["7L39"],
 			quiverdance: ["7L45"],
 			aurorabeam: ["7L48"],
 			iciclecrash: ["7L51"],
 			iciclespear: ["7L51"],
-			blizzard: ["7L56", "7M"],
-			swordsdance: ["7L63", "7M"],
+			blizzard: ["7L56"],
+			swordsdance: ["7L63"],
 			workup: ["7M"],
 			calmmind: ["7M"],
 			toxic: ["7M"],
+			hail: ["7M"],
 			hiddenpower: ["7M"],
 			taunt: ["7M"],
 			icebeam: ["7M"],
+			blizzard: ["7M"],
 			hyperbeam: ["7M"],
 			lightscreen: ["7M"],
 			protect: ["7M"],
@@ -133,6 +135,7 @@ exports.BattleLearnsets = {
 			acrobatics: ["7M"],
 			gigaimpact: ["7M"],
 			auroraveil: ["7M"],
+			swordsdance: ["7M"],
 			fly: ["7M"],
 			psychup: ["7M"],
 			frostbreath: ["7M"],
@@ -156,6 +159,7 @@ exports.BattleLearnsets = {
 			spikes: ["7E"],
 			snore: ["7T"],
 			waterpulse: ["7T"],
+			bugbite: ["7T"],
 			signalbeam: ["7T"],
 			icepunch: ["7T"],
 			knockoff: ["7T"],
@@ -249,7 +253,7 @@ exports.BattleLearnsets = {
 			waterpulse: ["6T", "4M", "3M"],
 			whirlpool: ["4M"],
 			wringout: ["7L28", "6L28", "5L36", "4L36"],
-		},
+		}
 	},
 	spectreon: {
 		learnset: {
@@ -270,6 +274,6 @@ exports.BattleLearnsets = {
 			focusblast: ["7M"],
 			sacredfire: ["7M"],
 			nastyplot: ["7M"],
-		},
+		}
 	},
 };

@@ -32,6 +32,8 @@ exports.BattleAbilities = {
 				move.ignoreImmunity['Fighting'] = true;
 				move.ignoreImmunity['Normal'] = true;
 			}
+		},
+		onModifyMove: function (move) {
 			move.stab = 2;
 		},
 		onResidualOrder: 26,
@@ -39,7 +41,7 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1,
+					spe: 1
 				});
 			}
 		},
@@ -63,7 +65,7 @@ exports.BattleAbilities = {
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
-					atk: 1,
+					atk: 1
 				}, source);
 			}
 		},
@@ -89,7 +91,7 @@ exports.BattleAbilities = {
 		onAfterDamage: function (damage, target, source, effect) {
 			if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
 				this.boost({
-					def: 1,
+					def: 1
 				});
 			}
 		},
@@ -126,7 +128,7 @@ exports.BattleAbilities = {
 					}
 				}
 				this.boost({
-					[stat]: 1,
+					[stat]: 1
 				}, source);
 			}
 		},
@@ -150,13 +152,15 @@ exports.BattleAbilities = {
 			}
 		},
 		onAfterDamageOrder: 1,
-		onAfterDamage: function (damage, target, source, move, effect) {
+		onAfterDamage: function (damage, target, source, move) {
 			if (source && source !== target && !target.hp) {
 				this.damage(source.maxhp / 2, source, target);
 			}
+		},
+		onAfterDamage: function (damage, target, source, effect) {
 			if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
 				this.boost({
-					def: 1,
+					def: 1
 				});
 			}
 		},
@@ -173,7 +177,7 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1,
+					spe: 1
 				});
 			}
 		},
@@ -207,7 +211,7 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1,
+					spe: 1
 				});
 			}
 		},
@@ -292,7 +296,7 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1,
+					spe: 1
 				});
 			}
 		},
@@ -328,7 +332,7 @@ exports.BattleAbilities = {
 					}
 				}
 				this.boost({
-					[stat]: 1,
+					[stat]: 1
 				}, source);
 			}
 		},
@@ -337,7 +341,7 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					atk: 1,
+					atk: 1
 				});
 			}
 		},
@@ -370,9 +374,9 @@ exports.BattleAbilities = {
 		name: "Parental Guidance",
 		onPrepareHit: function (source, target, move) {
 			if (move.id in {
-				iceball: 1,
-				rollout: 1,
-			}) return;
+					iceball: 1,
+					rollout: 1
+				}) return;
 			if (move.category !== 'Status' && !move.selfdestruct && !move.multihit && !move.flags['charge'] && !move.spreadHit && !move.isZ) {
 				move.multihit = 2;
 				source.addVolatile('parentalbond');
@@ -385,10 +389,12 @@ exports.BattleAbilities = {
 				if (this.effectData.hit) {
 					this.effectData.hit++;
 					return this.chainModify(0.25);
-				} else {
+				}
+				else {
 					this.effectData.hit = 1;
 				}
 			},
+
 			onSourceModifySecondaries: function (secondaries, target, source, move) {
 				if (move.id === 'secretpower' && this.effectData.hit < 2) {
 					// hack to prevent accidentally suppressing King's Rock/Razor Fang
@@ -403,7 +409,8 @@ exports.BattleAbilities = {
 					pokemon.formeChange('Dragon');
 					this.add('-formechange', pokemon, 'Dragon', '[from] ability: Parental Guidance');
 				}
-			} else {
+			}
+			else {
 				if (pokemon.template.speciesid === 'dragon') {
 					pokemon.formeChange('Baby Dragon');
 					this.add('-formechange', pokemon, 'Baby Dragon', '[from] ability: Parental Guidance');
@@ -419,7 +426,8 @@ exports.BattleAbilities = {
 					pokemon.formeChange('Dragon');
 					this.add('-formechange', pokemon, 'Dragon', '[from] ability: Parental Guidance');
 				}
-			} else {
+			}
+			else {
 				if (pokemon.template.speciesid === 'dragon') {
 					pokemon.formeChange('Baby Dragon');
 					this.add('-formechange', pokemon, 'Baby Dragon', '[from] ability: Parental Guidance');
@@ -493,7 +501,7 @@ exports.BattleAbilities = {
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
-					atk: 1,
+					atk: 1
 				}, source);
 			}
 		},
@@ -539,6 +547,8 @@ exports.BattleAbilities = {
 			if (effect.effectType !== 'Move') {
 				return false;
 			}
+		},
+		onDamage: function (damage, target, source, effect) {
 			if (effect && effect.id === 'stealthrock') {
 				return false;
 			}
@@ -606,17 +616,22 @@ exports.BattleAbilities = {
 		name: "Knightly Honor",
 		onModifyMove: function (move) {
 			move.stab = 2;
-			move.infiltrates = true;
 		},
 		onModifyAtkPriority: 5,
 		onModifyAtk: function (atk) {
 			return this.chainModify(2);
+		},
+		onModifyMove: function (move) {
+			move.infiltrates = true;
 		},
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.flags['contact']) {
 				return this.chainModify([0x14CD, 0x1000]);
 			}
+		},
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
 			if (basePower <= 60) {
 				this.debug('Knightly Honor boost');
 				return this.chainModify(1.5);
@@ -650,6 +665,10 @@ exports.BattleAbilities = {
 		onModifyDef: function (pokemon) {
 			if (this.isTerrain('grassyterrain')) return this.chainModify(1.5);
 		},
+		onModifyDefPriority: 6,
+		onModifyDef: function (def) {
+			return this.chainModify(2);
+		},
 	},
 	"zapwizardry": {
 		id: "zapwizardry",
@@ -659,7 +678,7 @@ exports.BattleAbilities = {
 		},
 		onAnyFaint: function () {
 			this.boost({
-				spa: 1,
+				spa: 1
 			}, this.effectData.target);
 		},
 		onModifyMove: function (move) {
@@ -693,14 +712,14 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1,
+					spe: 1
 				});
 			}
 		},
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
-					atk: 1,
+					atk: 1
 				}, source);
 			}
 		},
@@ -714,7 +733,7 @@ exports.BattleAbilities = {
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
-					atk: 1,
+					atk: 1
 				}, source);
 			}
 		},
@@ -746,13 +765,13 @@ exports.BattleAbilities = {
 			}
 		},
 		onAfterDamageOrder: 1,
-		onAfterDamage: function (damage, target, source, move, effect) {
+		onAfterDamage: function (damage, target, source, move) {
 			if (source && source !== target && move && move.flags['contact']) {
 				this.damage(source.maxhp / 8, source, target);
 			}
 			if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
 				this.boost({
-					def: 1,
+					def: 1
 				});
 			}
 		},
@@ -799,10 +818,10 @@ exports.BattleAbilities = {
 		},
 		onAnySetWeather: function (target, source, weather) {
 			if (this.getWeather().id === 'desolateland' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+					desolateland: 1,
+					primordialsea: 1,
+					deltastream: 1
+				})) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -828,7 +847,7 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1,
+					spe: 1
 				});
 			}
 		},
@@ -848,7 +867,7 @@ exports.BattleAbilities = {
 			if (move.category === 'Physical') {
 				this.boost({
 					def: -1,
-					spe: 2,
+					spe: 2
 				});
 			}
 		},
@@ -886,7 +905,7 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1,
+					spe: 1
 				});
 			}
 		},
@@ -906,7 +925,7 @@ exports.BattleAbilities = {
 			if (move.category === 'Physical') {
 				this.boost({
 					def: -1,
-					spe: 2,
+					spe: 2
 				});
 			}
 		},
@@ -946,7 +965,7 @@ exports.BattleAbilities = {
 		onAfterDamage: function (damage, target, source, effect) {
 			if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
 				this.boost({
-					def: 1,
+					def: 1
 				});
 			}
 		},
@@ -984,7 +1003,7 @@ exports.BattleAbilities = {
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
-					atk: 1,
+					atk: 1
 				}, source);
 			}
 		},
@@ -1025,7 +1044,7 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1,
+					spe: 1
 				});
 			}
 		},
@@ -1050,7 +1069,7 @@ exports.BattleAbilities = {
 		onAfterDamage: function (damage, target, source, effect) {
 			if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
 				this.boost({
-					def: 1,
+					def: 1
 				});
 			}
 		},
@@ -1088,7 +1107,7 @@ exports.BattleAbilities = {
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
 				this.boost({
-					spe: 1,
+					spe: 1
 				});
 			}
 		},
@@ -1106,7 +1125,7 @@ exports.BattleAbilities = {
 		},
 		onAnyFaint: function () {
 			this.boost({
-				spa: 1,
+				spa: 1
 			}, this.effectData.target);
 		},
 		onSwitchOut: function (pokemon) {
@@ -1129,7 +1148,7 @@ exports.BattleAbilities = {
 		onAfterDamage: function (damage, target, source, effect) {
 			if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
 				this.boost({
-					def: 1,
+					def: 1
 				});
 			}
 		},
@@ -1160,7 +1179,7 @@ exports.BattleAbilities = {
 		},
 		onAnyFaint: function () {
 			this.boost({
-				spa: 1,
+				spa: 1
 			}, this.effectData.target);
 		},
 		onStart: function (source) {

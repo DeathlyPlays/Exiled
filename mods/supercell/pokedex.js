@@ -11,10 +11,10 @@ exports.BattlePokedex = {
 			def: 80,
 			spa: 50,
 			spd: 80,
-			spe: 90,
+			spe: 90
 		},
 		abilities: {
-			0: "Adaptability",
+			0: "Adaptability"
 		},
 		heightm: 1.2,
 		weightkg: 38,
@@ -29,10 +29,10 @@ exports.BattlePokedex = {
 			def: 50,
 			spa: 105,
 			spd: 50,
-			spe: 110,
+			spe: 110
 		},
 		abilities: {
-			0: "Sharpshooter",
+			0: "Sharpshooter"
 		},
 		heightm: 1.2,
 		weightkg: 6.3,
@@ -47,10 +47,10 @@ exports.BattlePokedex = {
 			def: 20,
 			spa: 40,
 			spd: 20,
-			spe: 145,
+			spe: 145
 		},
 		abilities: {
-			0: "Theft",
+			0: "Theft"
 		},
 		heightm: 0.6,
 		weightkg: 4.2,
@@ -65,10 +65,10 @@ exports.BattlePokedex = {
 			def: 80,
 			spa: 40,
 			spd: 80,
-			spe: 5,
+			spe: 5
 		},
 		abilities: {
-			0: "Meatshield",
+			0: "Meatshield"
 		},
 		heightm: 5.7,
 		weightkg: 120.0,
@@ -83,10 +83,10 @@ exports.BattlePokedex = {
 			def: 60,
 			spa: 125,
 			spd: 100,
-			spe: 135,
+			spe: 135
 		},
 		abilities: {
-			0: "Wizardry",
+			0: "Wizardry"
 		},
 		heightm: 1.6,
 		weightkg: 6.4,
@@ -101,10 +101,10 @@ exports.BattlePokedex = {
 			def: 80,
 			spa: 60,
 			spd: 80,
-			spe: 25,
+			spe: 25
 		},
 		abilities: {
-			0: "I Gotz a Bomb",
+			0: "I Gotz a Bomb"
 		},
 		heightm: 4.8,
 		weightkg: 0.8,
@@ -119,10 +119,10 @@ exports.BattlePokedex = {
 			def: 50,
 			spa: 105,
 			spd: 50,
-			spe: 145,
+			spe: 145
 		},
 		abilities: {
-			0: "Mayhem",
+			0: "Mayhem"
 		},
 		heightm: 0.8,
 		weightkg: 1.2,
@@ -137,10 +137,10 @@ exports.BattlePokedex = {
 			def: 80,
 			spa: 40,
 			spd: 60,
-			spe: 130,
+			spe: 130
 		},
 		abilities: {
-			0: "HOG RIDDAH",
+			0: "HOG RIDDAH"
 		},
 		heightm: 3.7,
 		weightkg: 32.6,
@@ -155,10 +155,10 @@ exports.BattlePokedex = {
 			def: 60,
 			spa: 70,
 			spd: 110,
-			spe: 45,
+			spe: 45
 		},
 		abilities: {
-			0: "Witchcraft",
+			0: "Witchcraft"
 		},
 		heightm: 2.2,
 		weightkg: 8.7,
@@ -173,10 +173,10 @@ exports.BattlePokedex = {
 			def: 95,
 			spa: 80,
 			spd: 95,
-			spe: 40,
+			spe: 40
 		},
 		abilities: {
-			0: "Burnout",
+			0: "Burnout"
 		},
 		heightm: 4.8,
 		weightkg: 46.8,
@@ -191,10 +191,10 @@ exports.BattlePokedex = {
 			def: 20,
 			spa: 60,
 			spd: 20,
-			spe: 105,
+			spe: 105
 		},
 		abilities: {
-			0: "Burnout",
+			0: "Burnout"
 		},
 		heightm: 0.2,
 		weightkg: 0.1,
@@ -209,10 +209,10 @@ exports.BattlePokedex = {
 			def: 120,
 			spa: 40,
 			spd: 60,
-			spe: 5,
+			spe: 5
 		},
 		abilities: {
-			0: "Masked Warrior",
+			0: "Masked Warrior"
 		},
 		heightm: 6.7,
 		weightkg: 253.8,
@@ -227,10 +227,10 @@ exports.BattlePokedex = {
 			def: 110,
 			spa: 45,
 			spd: 110,
-			spe: 50,
+			spe: 50
 		},
 		abilities: {
-			0: "Pixie Aroma",
+			0: "Pixie Aroma"
 		},
 		heightm: 2.8,
 		weightkg: 6.6,
@@ -245,10 +245,10 @@ exports.BattlePokedex = {
 			def: 80,
 			spa: 135,
 			spd: 80,
-			spe: 120,
+			spe: 120
 		},
 		abilities: {
-			0: "Parental Guidance",
+			0: "Parental Guidance"
 		},
 		heightm: 8.9,
 		weightkg: 40.5,
@@ -263,10 +263,10 @@ exports.BattlePokedex = {
 			def: 90,
 			spa: 90,
 			spd: 90,
-			spe: 60,
+			spe: 60
 		},
 		abilities: {
-			0: "Parental Guidance",
+			0: "Parental Guidance"
 		},
 		heightm: 4.5,
 		weightkg: 20.3,
@@ -281,10 +281,10 @@ exports.BattlePokedex = {
 			def: 45,
 			spa: 125,
 			spd: 45,
-			spe: 120,
+			spe: 120
 		},
 		abilities: {
-			0: "Ranged Sniper",
+			0: "Ranged Sniper"
 		},
 		heightm: 0.7,
 		weightkg: 0.7,
@@ -299,10 +299,10 @@ exports.BattlePokedex = {
 			def: 85,
 			spa: 45,
 			spd: 85,
-			spe: 45,
+			spe: 45
 		},
 		abilities: {
-			0: "Giant Bomb",
+			0: "Giant Bomb"
 		},
 		heightm: 7.6,
 		weightkg: 137.6,
@@ -317,10 +317,10 @@ exports.BattlePokedex = {
 			def: 60,
 			spa: 40,
 			spd: 60,
-			spe: 145,
+			spe: 145
 		},
 		abilities: {
-			0: "Spear Link",
+			0: "Spear Link"
 		},
 		heightm: 1.2,
 		weightkg: 8.2,
@@ -335,10 +335,10 @@ exports.BattlePokedex = {
 			def: 95,
 			spa: 45,
 			spd: 85,
-			spe: 95,
+			spe: 95
 		},
 		abilities: {
-			0: "Minefield",
+			0: "Minefield"
 		},
 		heightm: 1.7,
 		weightkg: 23.8,
@@ -353,10 +353,10 @@ exports.BattlePokedex = {
 			def: 95,
 			spa: 150,
 			spd: 90,
-			spe: 5,
+			spe: 5
 		},
 		abilities: {
-			0: "Power Cooldown",
+			0: "Power Cooldown"
 		},
 		heightm: 2.6,
 		weightkg: 163.5,
@@ -371,10 +371,10 @@ exports.BattlePokedex = {
 			def: 75,
 			spa: 135,
 			spd: 85,
-			spe: 125,
+			spe: 125
 		},
 		abilities: {
-			0: "Glacier Wizardry",
+			0: "Glacier Wizardry"
 		},
 		heightm: 1.6,
 		weightkg: 6.4,
@@ -389,10 +389,10 @@ exports.BattlePokedex = {
 			def: 65,
 			spa: 30,
 			spd: 55,
-			spe: 60,
+			spe: 60
 		},
 		abilities: {
-			0: "Knightly Honor",
+			0: "Knightly Honor"
 		},
 		heightm: 1.6,
 		weightkg: 6.8,
@@ -407,10 +407,10 @@ exports.BattlePokedex = {
 			def: 95,
 			spa: 45,
 			spd: 50,
-			spe: 45,
+			spe: 45
 		},
 		abilities: {
-			0: "Timber",
+			0: "Timber"
 		},
 		heightm: 4.7,
 		weightkg: 17.4,
@@ -425,10 +425,10 @@ exports.BattlePokedex = {
 			def: 95,
 			spa: 125,
 			spd: 115,
-			spe: 135,
+			spe: 135
 		},
 		abilities: {
-			0: "Zap Wizardry",
+			0: "Zap Wizardry"
 		},
 		heightm: 2.5,
 		weightkg: 6.6,
@@ -443,10 +443,10 @@ exports.BattlePokedex = {
 			def: 20,
 			spa: 40,
 			spd: 20,
-			spe: 105,
+			spe: 105
 		},
 		abilities: {
-			0: "Graveyard",
+			0: "Graveyard"
 		},
 		heightm: 0.2,
 		weightkg: 0.1,
@@ -461,10 +461,10 @@ exports.BattlePokedex = {
 			def: 65,
 			spa: 40,
 			spd: 65,
-			spe: 45,
+			spe: 45
 		},
 		abilities: {
-			0: "Fatality",
+			0: "Fatality"
 		},
 		heightm: 1.6,
 		weightkg: 6.4,
@@ -479,10 +479,10 @@ exports.BattlePokedex = {
 			def: 140,
 			spa: 40,
 			spd: 80,
-			spe: 5,
+			spe: 5
 		},
 		abilities: {
-			0: "Continental Rock",
+			0: "Continental Rock"
 		},
 		heightm: 6.8,
 		weightkg: 227.9,
@@ -497,10 +497,10 @@ exports.BattlePokedex = {
 			def: 10,
 			spa: 80,
 			spd: 10,
-			spe: 155,
+			spe: 155
 		},
 		abilities: {
-			0: "Inferno Blaze",
+			0: "Inferno Blaze"
 		},
 		heightm: 0.3,
 		weightkg: 0.2,
@@ -515,10 +515,10 @@ exports.BattlePokedex = {
 			def: 10,
 			spa: 80,
 			spd: 10,
-			spe: 155,
+			spe: 155
 		},
 		abilities: {
-			0: "Subzero Frost",
+			0: "Subzero Frost"
 		},
 		heightm: 0.3,
 		weightkg: 0.2,
@@ -533,10 +533,10 @@ exports.BattlePokedex = {
 			def: 65,
 			spa: 45,
 			spd: 65,
-			spe: 95,
+			spe: 95
 		},
 		abilities: {
-			0: "Steel Enforced Shield",
+			0: "Steel Enforced Shield"
 		},
 		heightm: 0.9,
 		weightkg: 0.6,
@@ -551,10 +551,10 @@ exports.BattlePokedex = {
 			def: 120,
 			spa: 45,
 			spd: 65,
-			spe: 55,
+			spe: 55
 		},
 		abilities: {
-			0: "Cannonball",
+			0: "Cannonball"
 		},
 		heightm: 7.7,
 		weightkg: 128.9,
@@ -569,10 +569,10 @@ exports.BattlePokedex = {
 			def: 90,
 			spa: 40,
 			spd: 65,
-			spe: 115,
+			spe: 115
 		},
 		abilities: {
-			0: "Ye Royale Joust",
+			0: "Ye Royale Joust"
 		},
 		heightm: 1.3,
 		weightkg: 8.7,
@@ -587,10 +587,10 @@ exports.BattlePokedex = {
 			def: 20,
 			spa: 10,
 			spd: 20,
-			spe: 155,
+			spe: 155
 		},
 		abilities: {
-			0: "Allahu Akbar",
+			0: "Allahu Akbar"
 		},
 		heightm: 0.6,
 		weightkg: 2.2,
@@ -605,10 +605,10 @@ exports.BattlePokedex = {
 			def: 90,
 			spa: 45,
 			spd: 85,
-			spe: 60,
+			spe: 60
 		},
 		abilities: {
-			0: "Bravery",
+			0: "Bravery"
 		},
 		heightm: 2.4,
 		weightkg: 8.7,
@@ -623,10 +623,10 @@ exports.BattlePokedex = {
 			def: 60,
 			spa: 120,
 			spd: 60,
-			spe: 90,
+			spe: 90
 		},
 		abilities: {
-			0: "Master Detonator",
+			0: "Master Detonator"
 		},
 		heightm: 1.7,
 		weightkg: 8.8,
@@ -641,10 +641,10 @@ exports.BattlePokedex = {
 			def: 110,
 			spa: 135,
 			spd: 110,
-			spe: 55,
+			spe: 55
 		},
 		abilities: {
-			0: "Champion Bowler",
+			0: "Champion Bowler"
 		},
 		heightm: 8.5,
 		weightkg: 127.6,
@@ -659,10 +659,10 @@ exports.BattlePokedex = {
 			def: 80,
 			spa: 135,
 			spd: 80,
-			spe: 75,
+			spe: 75
 		},
 		abilities: {
-			0: "Top Tier Musketeer",
+			0: "Top Tier Musketeer"
 		},
 		heightm: 2.5,
 		weightkg: 13.3,

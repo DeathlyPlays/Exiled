@@ -33,6 +33,7 @@ exports.BattleAbilities = {
 				return this.chainModify(1.2);
 			}
 		},
+		onBasePowerPriority: 7,
 		onFoeBasePower: function (basePower, attacker, defender, move) {
 			if (this.effectData.target !== defender) return;
 			if (move.type === 'Electric') {

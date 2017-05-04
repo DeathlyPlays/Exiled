@@ -187,6 +187,7 @@ class CommandContext {
 						this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 					} else {
 						this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`).update();
+						Exiled.addExp(this.user, this.room, 1);
 					}
 				}
 			}

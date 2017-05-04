@@ -571,3 +571,15 @@ Special Move: Outripper
     - Essentially a 150 BP Outrage
 Notes: Fast Sashed Physical Sweeper.
 Rank: N/A.
+
+Kevso
+(Deoxys-D)
+Item: Leftovers
+EVs: 252 Hp / 252 def / 4 SpD
+Bold Nature
+Ability: Defense
+    - Unaware, magic bounce, at the end of the turn gain 1 stage in Def & spD
+Moves: Roar, Stored Power, recover
+Special Move: Crippling Hazards
+    - sets up stealth rocks + 3 x spikes + 2 x toxic spikes
+Notes: Bulky unaware Hazard setter.

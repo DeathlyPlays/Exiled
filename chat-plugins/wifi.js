@@ -1,7 +1,7 @@
 /**
 * Wi-Fi chat-plugin. Only works in a room with id 'wifi'
-* Handles giveaways in the formats: question, lottery
-* Credits: Codelegend, SilverTactic, DanielCranham, bumbadadabum
+* Handles giveaways in the formats: question, lottery, gts
+* Written by bumbadadabum, based on the original plugin as written by Codelegend, SilverTactic, DanielCranham
 **/
 
 'use strict';
@@ -42,7 +42,7 @@ const linkRegex = new RegExp(
 		')?' +
 		'|[a-z0-9.]+\\b@' + domainRegex + '[.][a-z]{2,3}' +
 	')' +
-	'(?![^(?:&lt;)]*&gt;)',
+	'(?!.*&gt;)',
 	'ig'
 );
 const hyperlinkRegex = new RegExp(`(.+)&lt;(.+)&gt;`, 'i');
@@ -56,7 +56,6 @@ const formattingResolvers = [
 	{token: "\\", resolver: str => `<sub>${str}</sub>`},
 	{token: "&lt;&lt;", endToken: "&gt;&gt;", resolver: str => str.replace(/[a-z0-9-]/g, '').length ? false : `&laquo;<a href="${str}" target="_blank">${str}</a>&raquo;`},
 	{token: "[[", endToken: "]]", resolver: str => {
-		console.log(str);
 		let hl = hyperlinkRegex.exec(str);
 		if (hl) return `<a href="${hl[2].trim().replace(/^([a-z]*[^a-z:])/g, 'http://$1')}">${hl[1].trim()}</a>`;
 
@@ -509,6 +508,8 @@ class GtsGiveaway {
 		this.lookfor = lookfor;
 
 		this.sprite = Giveaway.getSprite(this.summary);
+		this.sent = [];
+		this.noDeposits = false;
 
 		this.timer = setInterval(() => this.send(this.generateWindow()), 1000 * 60 * 5);
 		this.send(this.generateWindow());
@@ -532,16 +533,37 @@ class GtsGiveaway {
 	}
 
 	generateWindow() {
+		let sentModifier = this.sent.length ? 5 : 0;
+		let rightSide = this.noDeposits ? `<strong>More Pokémon have been deposited than there are prizes in this giveaway and new deposits will not be accepted. If you have already deposited a Pokémon, please be patient, and do not withdraw your Pokémon.</strong>` : `To participate, deposit <strong>${this.deposit}</strong> into the GTS and look for <strong>${Chat.escapeHTML(this.lookfor)}</strong>`;
 		return `<p style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:2px;">There is a GTS giveaway going on!</p>` +
 			`<p style="text-align:center;font-size:10pt;margin-top:0px;">Hosted by: ${Chat.escapeHTML(this.giver.name)} | Left: <b>${this.left}</b></p>` +
-			`<table style="margin-left:auto;margin-right:auto;"><tr><td style="text-align:center;width:15%">${this.sprite}</td><td style="text-align:center;width:40%">${Giveaway.parseText(this.summary)}</td>` +
-			`<td style="text-align:center;width:35%">To participate, deposit <strong>${this.deposit}</strong> into the GTS and look for <strong>${Chat.escapeHTML(this.lookfor)}</strong></td></tr></table>`;
+			`<table style="margin-left:auto;margin-right:auto;"><tr>` +
+			(sentModifier ? `<td style="text-align:center;width:10%"><b>Last winners:</b><br/>${this.sent.join('<br/>')}</td>` : '') +
+			`<td style="text-align:center;width:15%">${this.sprite}</td><td style="text-align:center;width:${40 - sentModifier}%">${Giveaway.parseText(this.summary)}</td>` +
+			`<td style="text-align:center;width:${35 - sentModifier}%">${rightSide}</td></tr></table>`;
 	}
 
 	updateLeft(number) {
 		this.left = number;
 		if (this.left < 1) return this.end();
 
+		this.changeUhtml(this.generateWindow());
+	}
+
+	updateSent(ign) {
+		this.left--;
+		if (this.left < 1) return this.end();
+
+		this.sent.push(Chat.escapeHTML(ign));
+		if (this.sent.length > 5) this.sent.shift();
+
+		this.changeUhtml(this.generateWindow());
+	}
+
+	stopDeposits() {
+		this.noDeposits = true;
+
+		this.room.send(`<p style="text-align:center;font-size:11pt">More Pokémon have been deposited than there are prizes in this giveaway and new deposits will not be accepted. If you have already deposited a Pokémon, please be patient, and do not withdraw your Pokémon.</p>`);
 		this.changeUhtml(this.generateWindow());
 	}
 
@@ -554,7 +576,7 @@ class GtsGiveaway {
 			this.clearTimer();
 			this.changeUhtml(`<p style="text-align:center;font-size:13pt;font-weight:bold;">The GTS giveaway has finished.</p>`);
 			this.room.modlog(`${this.giver.name} has finished their GTS giveaway for "${this.summary}"`);
-			this.send(`<p style="text-align:center;font-size:13pt;font-weight:bold;">The GTS giveaway for a "${this.summary}" has finished.</p>`);
+			this.send(`<p style="text-align:center;font-size:11pt">The GTS giveaway for a "<strong>${Chat.escapeHTML(this.summary)}</strong>" has finished.</p>`);
 		}
 		delete this.room.gtsga;
 	}
@@ -687,49 +709,72 @@ let commands = {
 			break;
 		}
 	},
-	gts: function (target, room, user) {
-		if (room.id !== 'wifi' || !target) return false;
-		if (room.gtsga) return this.errorReply("There is already a GTS giveaway going on!");
+	// gts commands
+	gts: {
+		new: 'start',
+		start: function (target, room, user) {
+			if (room.id !== 'wifi' || !target) return false;
+			if (room.gtsga) return this.errorReply("There is already a GTS giveaway going on!");
 
-		let [giver, amount, summary, deposit, lookfor] = target.split(target.includes('|') ? '|' : ',').map(param => param.trim());
-		if (!(giver && amount && summary && deposit && lookfor)) return this.errorReply("Invalid arguments specified - /gts giver, amount, summary, deposit, lookfor");
-		amount = parseInt(amount);
-		if (!amount || amount < 30 || amount > 100) return this.errorReply("Please enter a valid amount. For a GTS giveaway, you need to give away at least 30 mons, and no more than 100.");
-		let targetUser = Users(giver);
-		if (!targetUser || !targetUser.connected) return this.errorReply(`User '${giver}' is not online.`);
-		if (!this.can('warn', null, room)) return this.errorReply("Permission denied.");
-		if (!targetUser.autoconfirmed) return this.errorReply(`User '${targetUser.name}' needs to be autoconfirmed to host a giveaway.`);
-		if (Giveaway.checkBanned(room, targetUser)) return this.errorReply(`User '${targetUser.name}' is giveaway banned.`);
+			let [giver, amount, summary, deposit, lookfor] = target.split(target.includes('|') ? '|' : ',').map(param => param.trim());
+			if (!(giver && amount && summary && deposit && lookfor)) return this.errorReply("Invalid arguments specified - /gts start giver, amount, summary, deposit, lookfor");
+			amount = parseInt(amount);
+			if (!amount || amount < 30 || amount > 100) return this.errorReply("Please enter a valid amount. For a GTS giveaway, you need to give away at least 30 mons, and no more than 100.");
+			let targetUser = Users(giver);
+			if (!targetUser || !targetUser.connected) return this.errorReply(`User '${giver}' is not online.`);
+			if (!this.can('warn', null, room)) return this.errorReply("Permission denied.");
+			if (!targetUser.autoconfirmed) return this.errorReply(`User '${targetUser.name}' needs to be autoconfirmed to host a giveaway.`);
+			if (Giveaway.checkBanned(room, targetUser)) return this.errorReply(`User '${targetUser.name}' is giveaway banned.`);
 
-		room.gtsga = new GtsGiveaway(room, targetUser, amount, summary, deposit, lookfor);
+			room.gtsga = new GtsGiveaway(room, targetUser, amount, summary, deposit, lookfor);
 
-		this.privateModCommand(`(${user.name} started a GTS giveaway for ${targetUser.name})`);
-	},
-	left: function (target, room, user) {
-		if (room.id !== 'wifi') return false;
-		if (!room.gtsga) return this.errorReply("There is no GTS giveaway going on!");
-		if (!user.can('warn', null, room) && user !== room.gtsga.giver) return this.errorReply("Only the host or a staff member can update GTS giveaways.");
-		if (!target) {
-			if (!this.runBroadcast()) return;
-			return this.sendReply(`The GTS giveaway from ${room.gtsga.giver} has ${room.gtsga.left} Pokémon remaining!`);
-		}
-		let newamount = parseInt(target);
-		if (isNaN(newamount)) return this.errorReply("Please enter a valid amount.");
-		if (newamount > room.gtsga.left) return this.errorReply("The new amount must be lower than the old amount.");
+			this.privateModCommand(`(${user.name} started a GTS giveaway for ${targetUser.name})`);
+		},
+		left: function (target, room, user) {
+			if (room.id !== 'wifi') return false;
+			if (!room.gtsga) return this.errorReply("There is no GTS giveaway going on!");
+			if (!user.can('warn', null, room) && user !== room.gtsga.giver) return this.errorReply("Only the host or a staff member can update GTS giveaways.");
+			if (!target) {
+				if (!this.runBroadcast()) return;
+				let output = `The GTS giveaway from ${room.gtsga.giver} has ${room.gtsga.left} Pokémon remaining!`;
+				if (room.gtsga.sent.length) output += `Last winners: ${room.gtsga.sent.join(', ')}`;
+				return this.sendReply(output);
+			}
+			let newamount = parseInt(target);
+			if (isNaN(newamount)) return this.errorReply("Please enter a valid amount.");
+			if (newamount > room.gtsga.left) return this.errorReply("The new amount must be lower than the old amount.");
 
-		room.gtsga.updateLeft(newamount);
-	},
-	endgts: function (target, room, user) {
-		if (room.id !== 'wifi') return this.errorReply("This command can only be used in the Wi-Fi room.");
-		if (!room.gtsga) return this.errorReply("There is no GTS giveaway going on at the moment.");
-		if (!this.can('warn', null, room)) return false;
+			room.gtsga.updateLeft(newamount);
+		},
+		sent: function (target, room, user) {
+			if (room.id !== 'wifi') return false;
+			if (!room.gtsga) return this.errorReply("There is no GTS giveaway going on!");
+			if (!user.can('warn', null, room) && user !== room.gtsga.giver) return this.errorReply("Only the host or a staff member can update GTS giveaways.");
 
-		if (target && target.length > 300) {
-			return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
-		}
-		room.gtsga.end(true);
-		if (target) target = `: ${target}`;
-		this.privateModCommand(`(The giveaway was forcibly ended by ${user.name}${target})`);
+			if (!target || target.length > 12) return this.errorReply("Please enter a valid IGN.");
+
+			room.gtsga.updateSent(target);
+		},
+		full: function (target, room, user) {
+			if (room.id !== 'wifi') return false;
+			if (!room.gtsga) return this.errorReply("There is no GTS giveaway going on!");
+			if (!user.can('warn', null, room) && user !== room.gtsga.giver) return this.errorReply("Only the host or a staff member can update GTS giveaways.");
+			if (room.gtsga.noDeposits) return this.errorReply("The GTS giveaway was already set to not accept deposits.");
+
+			room.gtsga.stopDeposits();
+		},
+		end: function (target, room, user) {
+			if (room.id !== 'wifi') return this.errorReply("This command can only be used in the Wi-Fi room.");
+			if (!room.gtsga) return this.errorReply("There is no GTS giveaway going on at the moment.");
+			if (!this.can('warn', null, room)) return false;
+
+			if (target && target.length > 300) {
+				return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
+			}
+			room.gtsga.end(true);
+			if (target) target = `: ${target}`;
+			this.privateModCommand(`(The giveaway was forcibly ended by ${user.name}${target})`);
+		},
 	},
 	// general.
 	ban: function (target, room, user) {
@@ -800,13 +845,20 @@ let commands = {
 			reply = '<strong>Staff commands:</strong><br />' +
 			        '- question or qg <em>User | OT | TID | Friend Code | Prize | Question | Answer[ | Answer2 | Answer3]</em> - Start a new question giveaway (voices can only host for themselves, staff can for all users) (Requires: + % @ * # & ~)<br />' +
 			        '- lottery or lg <em>User | OT | TID | Friend Code | Prize[| Number of Winners]</em> - Starts a lottery giveaway (voices can only host for themselves, staff can for all users) (Requires: + % @ * # & ~)<br />' +
-			        '- gts <em>User | Amount | Summary of given mon | What to deposit | What to look for</em> - Starts a gts giveaway (voices can only host for themselves, staff can for all users) (Requires: + % @ * # & ~)<br />' +
 			        '- changequestion - Changes the question of a question giveaway (Requires: giveaway host)<br />' +
 			        '- changeanswer - Changes the answer of a question giveaway (Requires: giveaway host)<br />' +
 					'- viewanswer - Shows the answer in a question giveaway (only to giveaway host/giver)<br />' +
-					'- left <em>Amount</em> - Updates the amount left for the current GTS giveaway.<br />' +
 					'- ban - Temporarily bans a user from entering giveaways (Requires: % @ * # & ~)<br />' +
 			        '- end - Forcibly ends the current giveaway (Requires: % @ * # & ~)<br />';
+			break;
+		case 'gts':
+			if (!this.can('broadcast', null, room)) return;
+			reply = '<strong>GTS giveaway commands:</strong><br />' +
+			        '- gts start <em>User | Amount | Summary of given mon | What to deposit | What to look for</em> - Starts a gts giveaway (Requires: % @ * # & ~)<br />' +
+					'- gts left <em>Amount</em> - Updates the amount left for the current GTS giveaway. Without an amount specified, shows how many Pokémon are left, and who the latest winners are.<br />' +
+					'- gts sent <em>IGN</em> - Adds an ign to the list of latest winners, and updates left count accordingly.<br />' +
+					'- gts full - Signifies enough mons have been received, and will update the GTS giveaway to reflect that.<br />' +
+			        '- gts end - Forcibly ends the current gts giveaway (Requires: % @ * # & ~)<br />';
 			break;
 		case 'game':
 		case 'giveaway':
@@ -823,7 +875,8 @@ let commands = {
 			if (!this.runBroadcast()) return;
 			reply = '<b>Wi-Fi room Giveaway help and info</b><br />' +
 			'- help user - shows list of participation commands<br />' +
-			'- help staff - shows giveaway staff commands (Requires: + % @ * # & ~)';
+			'- help staff - shows giveaway staff commands (Requires: + % @ * # & ~)' +
+			'- help gts - shows gts giveaway commands (Requires: + % @ * # & ~)';
 		}
 		this.sendReplyBox(reply);
 	},
@@ -837,4 +890,5 @@ exports.commands = {
 	'lg': commands.lottery,
 	'gts': commands.gts,
 	'left': commands.left,
+	'sent': commands.sent,
 };

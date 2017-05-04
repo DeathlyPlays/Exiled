@@ -1,21 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @DeathlyPlays
- Sign out
- Watch 164
-  Star 1,144
- Fork 1,144 Zarel/Pokemon-Showdown
- Code  Issues 34  Pull requests 25  Projects 1  Pulse  Graphs
-Branch: master Find file Copy pathPokemon-Showdown/chat-plugins/datasearch.js
-3716f36  19 hours ago
-@Zarel Zarel TypeScript!
-16 contributors @Zarel @Slayer95 @panpawn @urkerab @bumbadadabum @asgdf @Spandamn @sirDonovan @SolarisFox @Vacate @taylor1791 @sparkychildcharlie @Morfent @CheeseMuffin @Nineage @HoeenCoder
-RawBlameHistory
-1467 lines (1345 sloc)  52.3 KB
 /**
  * Data searching commands.
  * Pokemon Showdown - http://pokemonshowdown.com/

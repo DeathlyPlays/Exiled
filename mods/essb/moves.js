@@ -1387,4 +1387,31 @@ exports.BattleMovedex = {
 		zMovePower: 190,
 		contestType: "Cool",
 	},
+	"cripplinghazards": {
+		id: "cripplinghazards",
+		name: "Crippling Hazards",
+		basePower: 0,
+		accuracy: 100,
+		pp: 5,
+		priority: 0,
+		category: "Status",
+		flags: {reflectable: 1},
+		onHit: function (target, pokemon, move) {
+			this.useMove('Stealth Rock', target);
+			this.useMove('Spikes', target);
+			this.useMove('Spikes', target);
+			this.useMove('Spikes', target);
+			this.useMove('Toxic Spikes', target);
+			this.useMove('Toxic Spikes', target);
+		},
+		secondary: false,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Toxic", target);
+		},
+		isViable: true,
+		target: "normal",
+		ignoreImmunity: true,
+		type: "Psychic",
+	},
 };

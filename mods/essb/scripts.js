@@ -296,6 +296,21 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			"+Kevso": {
+				species: "Deoxys-Defense",
+				ability: "Defense",
+				item: "Leftovers",
+				gender: "M",
+				moves: ['roar', 'storedpower', 'recover'],
+				baseSignatureMove: "cripplinghazards",
+				signatureMove: "Crippling Hazards",
+				evs: {
+					hp: 252,
+					def: 252,
+					spd: 4,
+				},
+				nature: "Bold",
+			},
 			//Regs
 			" TheAquaPhoenix": {
 				species: "Articuno",
@@ -558,21 +573,6 @@ exports.BattleScripts = {
 					hp: 4,
 				},
 				nature: "Jolly",
-			},
-			" Kevso": {
-				species: "Deoxys-Defense",
-				ability: "Defense",
-				item: "Leftovers",
-				gender: "M",
-				moves: ['roar', 'storedpower', 'recover'],
-				baseSignatureMove: "cripplinghazards",
-				signatureMove: "Crippling Hazards",
-				evs: {
-					hp: 252,
-					def: 252,
-					spd: 4,
-				},
-				nature: "Bold",
 			},
 		};
 		// Generate the team randomly.

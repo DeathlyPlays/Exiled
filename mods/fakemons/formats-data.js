@@ -25,4 +25,8 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["fakeout", "dazzlinggleam", "boomburst", "workup", "frostbreath", "shadowball", "darkpulse", "hypnosis", "knockoff", "shadowclaw", "frustration", "reversal", "suckerpunch", "willowisp", "focusblast", "sacredfire", "nastyplot"],
 		tier: "Fakemons",
 	},
+	hydring: {
+		randomBattleMoves: ["scald", "magnetbomb", "thunderbolt", "grassknot", "ironhead"],
+		tier: "Fakemons",
+	},
 };

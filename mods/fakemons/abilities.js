@@ -66,4 +66,16 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"jewelcrack": {
+		id: "jewelcrack",
+		name: "Jewel Crack",
+		num: 9005,
+		onModifyAccuracyPriority: 10,
+		onModifyAccuracy: function (accuracy, target, source, move) {
+			if (move.category === 'Physical' && !target.hasType('Rock', 'Steel')) {
+				this.debug('Jewel Crack makes this move 3x more accurate');
+				return this.chainModify(3);
+			}
+		},
+	},
 };

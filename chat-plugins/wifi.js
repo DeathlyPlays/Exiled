@@ -891,8 +891,4 @@ exports.commands = {
 	'gts': commands.gts,
 	'left': commands.left,
 	'sent': commands.sent,
-<<<<<<< 24c2bcbc0ae278a375d10653556c3c77fe6496d8
 };
-=======
-};
->>>>>>> Update

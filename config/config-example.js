@@ -4,7 +4,7 @@
 exports.port = 8080;
 
 //serverIp for parsing of custom avatars, put your server's ip here
-exports.serverIp = 'exiled-server-returningavenger.c9users.io-8080';
+exports.serverIp = '';
 
 // proxyip - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array

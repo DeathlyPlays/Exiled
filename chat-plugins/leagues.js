@@ -66,7 +66,7 @@ function leaguePM(message, league) {
 	if (!leagues[leagueid]) return;
 	for (let u in leagues[leagueid].users) {
 		if (!Users(leagues[leagueid].users[u]) || !Users(leagues[leagueid].users[u]).connected) continue;
-		Users(leagues[leagueid].users[u]).send("|pm|~" + leagues[leagueid].name + "|~|/raw " + message);
+		Users(leagues[leagueid].users[u]).send("|pm|~Exiled Server|/raw " + message);
 	}
 }
 

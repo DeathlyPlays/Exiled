@@ -1,7 +1,7 @@
 'use strict';
 
 exports.BattleScripts = {
-	randomSeasonalMeleeTeam: function(side) {
+	randomSeasonalMeleeTeam: function (side) {
 		let team = [];
 		let sets = {
 			"New Years": {
@@ -157,10 +157,12 @@ exports.BattleScripts = {
 		};
 
 		let pool = Object.keys(sets);
+
 		for (let i = 0; i < 6; i++) {
-			let name = this.sampleNoReplace(pool);
+			let name = pool[i];
 			let set = sets[name];
 			set.name = name;
+			set.level = 100;
 			if (!set.ivs) {
 				set.ivs = {
 					hp: 31,
@@ -172,13 +174,13 @@ exports.BattleScripts = {
 				};
 			} else {
 				for (let iv in {
-						hp: 31,
-						atk: 31,
-						def: 31,
-						spa: 31,
-						spd: 31,
-						spe: 31,
-					}) {
+					hp: 31,
+					atk: 31,
+					def: 31,
+					spa: 31,
+					spd: 31,
+					spe: 31,
+				}) {
 					set.ivs[iv] = iv in set.ivs ? set.ivs[iv] : 31;
 				}
 			}

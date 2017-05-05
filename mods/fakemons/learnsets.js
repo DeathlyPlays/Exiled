@@ -287,6 +287,6 @@ exports.BattleLearnsets = {
 			raindance: ["7M"],
 			icebeam: ["7M"],
 			blizzard: ["7M"],
-		}
+		},
 	},
 };

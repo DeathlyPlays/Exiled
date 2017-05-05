@@ -1293,7 +1293,7 @@ let commands = {
 					offlineUsers.push(targetUser.userid);
 					continue;
 				} else {
-					let pmName = ' Tour Remind [Do not reply]';
+					let pmName = '~Exiled Server';
 					let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + 'You have a tournament battle in the room "' + tournament.room.title + '". If you do not start soon you may be disqualified.';
 					targetUser.send(message);
 				}

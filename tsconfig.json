@@ -1,18 +1,14 @@
 {
-    "compilerOptions": {
-        "lib": ["es2017"],
-        "noEmit": true,
-        "target": "ESNext",
-        "strictNullChecks": true,
-        "allowJs": true,
-        "checkJs": true
-    },
-    "types": ["node"],
-    "include": [
-        "./tools.js"
-    ]
-<<<<<<< 9bc57061731e7f389582cf2448720c8bc9c8d0cb
+	"compilerOptions": {
+		"lib": ["es2017"],
+		"noEmit": true,
+		"target": "ESNext",
+		"strictNullChecks": true,
+		"allowJs": true,
+		"checkJs": true
+	},
+	"types": ["node"],
+	"include": [
+		"./tools.js"
+	]
 }
-=======
-}
->>>>>>> ,

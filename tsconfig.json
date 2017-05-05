@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"compilerOptions": {
 		"lib": ["es2017"],
 		"noEmit": true,
@@ -11,4 +12,18 @@
 	"include": [
 		"./tools.js"
 	]
+=======
+    "compilerOptions": {
+        "lib": ["es2017"],
+        "noEmit": true,
+        "target": "ESNext",
+        "strictNullChecks": true,
+        "allowJs": true,
+        "checkJs": true
+    },
+    "types": ["node"],
+    "include": [
+        "./tools.js"
+    ]
+>>>>>>> 7e13a41eea6b059cfa9c8489952f90e048ecd641
 }

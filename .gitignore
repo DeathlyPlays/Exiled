@@ -2,7 +2,9 @@
 /logs/*
 /node_modules
 /eslint-cache
-/chat-plugins/exp.js
+/chat-plugins/private.js
+/chat-plugins/filter.js
+/chat-plugins/shop.js
 npm-debug.log
 .eslintcache
 
@@ -17,6 +19,7 @@ npm-debug.log
 
 tmp/**/*
 *.lock
+*.DS_Store
 *.swp
 *.out
 *.pyc

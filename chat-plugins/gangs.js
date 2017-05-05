@@ -21,7 +21,11 @@ const gangs = {
 	aqua: {
 		icon: 'http://i.imgur.com/n9sKSKj.png',
 		name: 'Aqua',
+<<<<<<< HEAD
 		godfather: 'Vxn',
+=======
+		godfather: 'VXN',
+>>>>>>> 7e13a41eea6b059cfa9c8489952f90e048ecd641
 	},
 	galactic: {
 		icon: 'http://i.imgur.com/qmsDFHx.png',
@@ -36,7 +40,7 @@ const gangs = {
 	flare: {
 		icon: 'http://i.imgur.com/X6g6fbc.png',
 		name: 'Flare',
-		godfather: ' ',
+		godfather: 'Placeholder',
 	},
 	skull: {
 		icon: 'http://i.imgur.com/Bdrtvh5.png',

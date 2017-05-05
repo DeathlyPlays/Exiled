@@ -1869,7 +1869,6 @@ exports.Formats = [
 	{
 		name: "[Gen 7] The Mewth Challenge",
 		section: "The Mewth Challenge",
-		mod: 'mewth',
 		column: 6,
 		searchShow: false,
 		canUseRandomTeam: true,
@@ -1885,7 +1884,6 @@ exports.Formats = [
 	{
 		name: "[Gen 7] The Mewth Spire",
 		section: "The Mewth Challenge",
-		mod: 'mewth',
 		searchShow: false,
 		column: 6,
 		canUseRandomTeam: true,

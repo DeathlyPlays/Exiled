@@ -39,7 +39,7 @@ exports.BattleLearnsets = {
 			snarl: ["7M"],
 			confide: ["7M"],
 			drinkbleach: ["7L70"],
-		}
+		},
 	},
 	musteltank: {
 		learnset: {
@@ -68,7 +68,7 @@ exports.BattleLearnsets = {
 			metalclaw: ["7L21"],
 			suckerpunch: ["7L29"],
 			trickroom: ["7M"],
-		}
+		},
 	},
 	pence: {
 		learnset: {
@@ -93,17 +93,17 @@ exports.BattleLearnsets = {
 			strugglebug: ["7L1"],
 			aquaring: ["7L1"],
 			powdersnow: ["7L8"],
-			bugbite: ["7L10"],
+			bugbite: ["7L10", "7E"],
 			iceshard: ["7L16"],
 			bugbuzz: ["7L22"],
 			mirrorcoat: ["7L34"],
-			hail: ["7L39"],
+			hail: ["7L39", "7M"],
 			quiverdance: ["7L45"],
 			aurorabeam: ["7L48"],
 			iciclecrash: ["7L51"],
 			iciclespear: ["7L51"],
-			blizzard: ["7L56"],
-			swordsdance: ["7L63"],
+			blizzard: ["7L56", "7M"],
+			swordsdance: ["7L63", "7M"],
 			workup: ["7M"],
 			calmmind: ["7M"],
 			toxic: ["7M"],
@@ -249,7 +249,7 @@ exports.BattleLearnsets = {
 			waterpulse: ["6T", "4M", "3M"],
 			whirlpool: ["4M"],
 			wringout: ["7L28", "6L28", "5L36", "4L36"],
-		}
+		},
 	},
 	spectreon: {
 		learnset: {
@@ -270,7 +270,7 @@ exports.BattleLearnsets = {
 			focusblast: ["7M"],
 			sacredfire: ["7M"],
 			nastyplot: ["7M"],
-		}
+		},
 	},
 	hydring: {
 		learnset: {

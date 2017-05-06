@@ -121,47 +121,26 @@ exports.BattleItems = {
 		gen: -4,
 		desc: "The accuracy of attacks by the holder is 1.1x.",
 	},
-	"faustianbargain": {
-		id: "faustianbargain",
-		name: "Faustian Bargain",
+	"psychogenerator": {
+		id: "psychogenerator",
+		name: "Psycho Generator",
 		spritenum: 476,
-		fling: {
-			basePower: 80,
-		},
-		onModifySpAPriority: 2,
-		onModifySpA: function (spa, pokemon) {
-			if (pokemon.baseTemplate.nfe) {
-				return this.chainModify(2);
-			}
-		},
-		onModifySpePriority: 2,
-		onModifySpe: function (spe, pokemon) {
-			if (pokemon.baseTemplate.nfe) {
-				return this.chainModify(2);
-			}
-		},
-		onModifyAtkPriority: 2,
-		onModifyAtk: function (atk, pokemon) {
-			if (pokemon.baseTemplate.nfe) {
-				return this.chainModify(2);
-			}
-		},
-		onModifySpDPriority: 2,
-		onModifySpD: function (spd, pokemon) {
-			if (pokemon.baseTemplate.nfe) {
-				return this.chainModify(2);
-			}
-		},
-		onModifyDefPriority: 2,
-		onModifyDef: function (def, pokemon) {
-			if (pokemon.baseTemplate.nfe) {
-				return this.chainModify(2);
-			}
-		},
-		onResidualOrder: 26,
+		onResidualOrder: 5,
 		onResidualSubOrder: 2,
 		onResidual: function (pokemon) {
-			this.damage(pokemon.maxhp / 4);
+			this.heal(pokemon.maxhp / 16);
+			let stats = [];
+			for (let stat in pokemon.boosts) {
+				if (stat !== 'accuracy' && stat !== 'evasion' && pokemon.boosts[stat] < 6) {
+					stats.push(stat);
+				}
+			}
+			if (stats.length) {
+				let randomStat = stats[this.random(stats.length)];
+				let boost = {};
+				boost[randomStat] = 1;
+				this.boost(boost);
+			}
 		},
 		num: -288,
 		gen: -1,

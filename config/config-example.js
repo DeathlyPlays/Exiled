@@ -1,7 +1,8 @@
 'use strict';
 
 // The server port - the port to run Pokemon Showdown under
-exports.port = 8080;
+//   The default port is 8000. If you are hosting the server under c9, change the port number to 8080.
+exports.port = 8000;
 
 //serverIp for parsing of custom avatars, put your server's ip here
 exports.serverIp = '';

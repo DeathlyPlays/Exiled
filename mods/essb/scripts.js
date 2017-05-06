@@ -173,17 +173,17 @@ exports.BattleScripts = {
 				nature: "Timid",
 			},
 			"@VXN": {
-				species: "Pikachu",
-				ability: "Sys-OP",
-				item: "Faustian Bargain",
+				species: "Scizor-Mega",
+				ability: "Psycho Power",
+				item: "Psycho Generator",
 				gender: "M",
-				moves: ['boltstrike', 'iciclecrash', 'sacredsword'],
-				baseSignatureMove: "hotpatch",
-				signatureMove: "Hotpatch",
+				moves: ['bounce', 'jumpkick', 'knockoff'],
+				baseSignatureMove: "psychocrusher",
+				signatureMove: "Psycho Crusher",
 				evs: {
 					spe: 252,
 					atk: 252,
-					def: 4,
+					spd: 4,
 				},
 				nature: "Jolly",
 			},
@@ -251,6 +251,20 @@ exports.BattleScripts = {
 				nature: "Modest",
 			},
 			//Voices
+			"+cyt0pl4sm": {
+				species: "Zygarde-10%",
+				ability: "Energy Overflow",
+				item: "Choice Band",
+				gender: "M",
+				moves: ['extremespeed', 'playrough', 'crunch'],
+				signatureMove: "Thousand Arrows",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Jolly",
+			},
 			"+UB-01 Symbi0nt": {
 				species: "Mawile-Mega",
 				ability: "No Hax",
@@ -559,20 +573,6 @@ exports.BattleScripts = {
 					spe: 252,
 				},
 				nature: "Modest",
-			},
-			" cyt0pl4sm": {
-				species: "Zygarde-10%",
-				ability: "Energy Overflow",
-				item: "Choice Band",
-				gender: "M",
-				moves: ['extremespeed', 'playrough', 'crunch'],
-				signatureMove: "Thousand Arrows",
-				evs: {
-					atk: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Jolly",
 			},
 		};
 		// Generate the team randomly.

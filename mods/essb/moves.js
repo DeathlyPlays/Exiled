@@ -798,71 +798,27 @@ exports.BattleMovedex = {
 		isZ: "thekidz",
 	},
 	//Stellation
-	"inksplotch": {
+	"psychocrusher": {
 		accuracy: 100,
 		basePower: 120,
-		category: "Special",
-		id: "inksplotch",
-		name: "Ink Splotch",
+		category: "Physical",
+		id: "psychocrusher",
+		name: "Psycho Crusher",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		secondary: {
-			chance: 25,
-			boosts: {
-				accuracy: -2,
-			},
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onEffectiveness: function (typeMod) {
+			return -typeMod;
 		},
-		target: "normal",
-		type: "Poison",
-		zMovePower: 100,
-		contestType: "Cute",
-	},
-	"hyperviperbeam": {
-		accuracy: 100,
-		basePower: 225,
-		category: "Special",
-		id: "hyperviperbeam",
-		name: "Hyper Viper Beam",
-		pp: 1,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Prismatic Laser", target);
+			this.add('-anim', source, "Darkest Lariat", target);
 		},
-		multihit: [2, 5],
-		target: "Normal",
-		type: "Electric",
-		isZ: "marveliumz",
-	},
-	"hotpatch": {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		id: "hotpatch",
-		name: "Hotpatch",
-		pp: 10,
-		priority: 10,
-		flags: {snatch: 1, heal: 1, authentic: 1},
-		onModifyMove: function (move, pokemon, target) {
-			move.type = '???';
-		},
-		boosts: {
-			atk: 2,
-		},
-		onPrepareHit: function (pokemon) {
-			return !!this.willAct() && this.runEvent('StallMove', pokemon);
-		},
-		onHit: function (pokemon) {
-			pokemon.addVolatile('stall');
-		},
-		heal: [1, 4],
+		ignoreEvasion: true,
+		ignoreDefensive: true,
 		secondary: false,
-		target: "self",
-		type: "Normal",
-		zMoveEffect: 'clearnegativeboost',
-		contestType: "Beautiful",
+		target: "normal",
+		type: "Psychic",
 	},
 	//HoeenHero
 	"scripting": {

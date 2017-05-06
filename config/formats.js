@@ -1499,6 +1499,10 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Dark/Fairy');
 				pokemon.types = ["Dark", "Fairy"];
 			}
+			if (name === 'vxn' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Psychic');
+				pokemon.types = ["Psychic"];
+			}
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {

@@ -597,23 +597,26 @@ exports.BattleAbilities = {
 			move.stab = 2;
 		},
 	},
-	"sysop": {
-		id: "sysop",
-		name: "Sys-OP",
-		onPrepareHit: function (source, target, move) {
-			if (move.hasBounced) return;
-			let type = move.type;
-			if (type && source.getTypes().join() !== type) {
-				if (!source.setType(type)) return;
-				this.add('-start', source, 'typechange', type, '[from] Sys-OP');
+	"psychopower": {
+		id: "psychopower",
+		name: "Psycho Power",
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Psychic') {
+				if (!this.heal(target.maxhp / 4)) {
+					this.add('-immune', target, '[msg]', '[from] ability: Psycho Power');
+				}
+				return null;
 			}
 		},
-		onTryHit: function (target, source, move) {
-			if (target === source || move.category === 'Status' || move.type === '???' || move.id === 'struggle') return;
-			this.debug('Wonder Guard immunity: ' + move.id);
-			if (target.runEffectiveness(move) <= 0) {
-				this.add('-immune', target, '[msg]', '[from] ability: Sys-OP');
-				return null;
+		onSourceModifyDamage: function (damage, source, target, move) {
+			if (move.typeMod > 0) {
+				this.debug('Filter neutralize');
+				return this.chainModify(0.75);
+			}
+		},
+		onDamage: function (damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				return false;
 			}
 		},
 	},

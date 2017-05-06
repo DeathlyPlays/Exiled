@@ -166,10 +166,8 @@ exports.commands = {
 		if (!target) {
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox("Please follow the rules:<br />" +
-				(room && room.rulesLink ? "- <a href=\"http://exiledps.boards.net/thread/4/exiled-rules-regulations\"" + Chat.escapeHTML(room.rulesLink) + "\">" + Chat.escapeHTML(room.title) + " room rules</a><br />" : "") +
-				"- <a href=\"
-			this.sendReplyBox("Please follow the rules:<br />" +
-				(room && room.rulesLink ? "- <a href=\"http://exiledps.boards.net/thread/4/exiled-rules-regulations\">" + (room && room.rulesLink ? "Global rules" : "Rules") + "</a>");
+				(room && room.rulesLink ? "- <a href=\"" + Chat.escapeHTML(room.rulesLink) + "\">" + Chat.escapeHTML(room.title) + " room rules</a><br />" : "") +
+				"- <a href=\"hhttp://exiledps.boards.net/thread/4/exiled-rules-regulations\">" + (room && room.rulesLink ? "Global rules" : "Rules") + "</a>");
 			return;
 		}
 		if (!room) {
@@ -188,11 +186,9 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 		}
 	},
-	ruleshelp: [
-		"/rules - Show links to room rules and global rules.",
+	ruleshelp: ["/rules - Show links to room rules and global rules.",
 		"!rules - Show everyone links to room rules and global rules. Requires: + % @ * # & ~",
-		"/rules [url] - Change the room rules URL. Requires: # & ~",
-	],
+		"/rules [url] - Change the room rules URL. Requires: # & ~"],
 
 	servercredits: 'credits',
 	credits: function (target, room, user) {

@@ -115,8 +115,4 @@ exports.commands = {
 	'Mew: 24 bucks' + '\n' +
 	'Mewtwo: 27 bucks' + '\n' +
 	'Use "/slots spin" to play the game.'],
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 77666452fdaa3ea1d2dae39583dcba63c2f459ff

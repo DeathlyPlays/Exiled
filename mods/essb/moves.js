@@ -816,6 +816,7 @@ exports.BattleMovedex = {
 		},
 		ignoreEvasion: true,
 		ignoreDefensive: true,
+		ignoreImmunity: {'Psychic': true},
 		secondary: false,
 		target: "normal",
 		type: "Psychic",
@@ -1347,7 +1348,7 @@ exports.BattleMovedex = {
 		id: "cripplinghazards",
 		name: "Crippling Hazards",
 		basePower: 0,
-		accuracy: 100,
+		accuracy: true,
 		pp: 5,
 		priority: 0,
 		category: "Status",
@@ -1365,9 +1366,8 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Toxic", target);
 		},
-		isViable: true,
+		ignoreImmunity: {'Psychic': true},
 		target: "normal",
-		ignoreImmunity: true,
 		type: "Psychic",
 	},
 };

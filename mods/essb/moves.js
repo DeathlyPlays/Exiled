@@ -817,6 +817,7 @@ exports.BattleMovedex = {
 		ignoreEvasion: true,
 		ignoreDefensive: true,
 		secondary: false,
+		ignoreImmunity: {'Psychic': true},
 		target: "normal",
 		type: "Psychic",
 	},

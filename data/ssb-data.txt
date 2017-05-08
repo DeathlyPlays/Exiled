@@ -581,7 +581,7 @@ Ability: Defense
     - Unaware, magic bounce, at the end of the turn gain 1 stage in Def & spD
 Moves: Roar, Stored Power, recover
 Special Move: Crippling Hazards
-    - sets up stealth rocks + 3 x spikes + 2 x toxic spikes + Sticky web
+    - Sets up stealth rocks + 3 x spikes + 2 x toxic spikes + Sticky web, Rock type, Status, Reflectable
 Notes: Bulky unaware Hazard setter.
 Rank: A.
 

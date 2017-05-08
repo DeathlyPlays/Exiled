@@ -1367,9 +1367,8 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Toxic", target);
 		},
-		ignoreImmunity: {'Psychic': true},
 		target: "normal",
-		type: "Psychic",
+		type: "Rock",
 	},
 	"punchyfury": {
 		id: "punchyfury",

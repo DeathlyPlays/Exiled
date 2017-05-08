@@ -514,7 +514,7 @@ exports.BattleScripts = {
 				item: '',
 				level: 15,
 				gender: 'F',
-				moves: ['Psybeam', 'Heal Bell', 'Ominous Wind', 'Future Sight'],
+				moves: ['Psybeam', 'Wish', 'Ominous Wind', 'Future Sight'],
 				weather: null,
 				evs: {
 					hp: 248,

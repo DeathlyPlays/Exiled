@@ -4616,7 +4616,7 @@ exports.BattlePokedex = {
 		evoLevel: 14,
 		eggGroups: ["Field", "Grass"],
 	},
-	shitrymega: {
+	shiftrymega: {
 		num: 275,
 		species: "Shiftry-Mega",
 		baseSpecies: "Shiftry",

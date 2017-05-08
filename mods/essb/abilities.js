@@ -1058,4 +1058,25 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"handsburn": {
+		id: "handsburn",
+		name: "handsBurn",
+		//immune to freezing
+		onUpdate: function (pokemon) {
+			if (pokemon.status === 'frz') {
+				this.add('-activate', pokemon, 'ability: handsBurn');
+				pokemon.cureStatus();
+			}
+		},
+		onImmunity: function (type, pokemon) {
+			if (type === 'frz') return false;
+		},
+		//3x Attack Guts
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (atk, pokemon) {
+			if (pokemon.status) {
+				return this.chainModify(3);
+			}
+		},
+	},
 };

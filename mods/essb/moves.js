@@ -39,7 +39,7 @@ exports.BattleMovedex = {
 		name: "Exiled From All Others",
 		basePower: 140,
 		accuracy: 100,
-		pp: 1,
+		pp: 0.625,
 		secondary: false,
 		category: "Special",
 		isViable: true,
@@ -786,7 +786,7 @@ exports.BattleMovedex = {
 			this.add('c| THEMEMES69|GET MEMED OR DIE TRYING!');
 		},
 		ohko: true,
-		pp: 1,
+		pp: 0.625,
 		secondary: false,
 		flags: {
 			protect: 1,
@@ -797,7 +797,7 @@ exports.BattleMovedex = {
 		type: "Fighting",
 		isZ: "thekidz",
 	},
-	//Stellation
+	//VXN
 	"psychocrusher": {
 		accuracy: 100,
 		basePower: 120,
@@ -818,7 +818,6 @@ exports.BattleMovedex = {
 		ignoreDefensive: true,
 		ignoreImmunity: {'Psychic': true},
 		secondary: false,
-		ignoreImmunity: {'Psychic': true},
 		target: "normal",
 		type: "Psychic",
 	},
@@ -1150,7 +1149,7 @@ exports.BattleMovedex = {
 		basePower: 100,
 		accuracy: 100,
 		category: "Physical",
-		pp: 1,
+		pp: 0.625,
 		secondary: false,
 		flags: {
 			protect: 1,
@@ -1361,6 +1360,7 @@ exports.BattleMovedex = {
 			this.useMove('Spikes', target);
 			this.useMove('Toxic Spikes', target);
 			this.useMove('Toxic Spikes', target);
+			this.useMove('Sticky Web', target);
 		},
 		secondary: false,
 		onPrepareHit: function (target, source) {
@@ -1370,5 +1370,46 @@ exports.BattleMovedex = {
 		ignoreImmunity: {'Psychic': true},
 		target: "normal",
 		type: "Psychic",
+	},
+	"punchyfury": {
+		id: "punchyfury",
+		name: "Punchy Fury",
+		basePower: 30,
+		category: "Physical",
+		accuracy: 100,
+		multihit: [1, 5],
+		priority: 0,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Drain Punch", target);
+			this.add('-anim', source, "Barrage", target);
+		},
+		flags: {protect: 1, contact: 1, mirror: 1},
+		secondary: false,
+		pp: 15,
+		target: "normal",
+		type: "Fighting",
+	},
+	"punchyrumassacrez": {
+		id: "punchyrumassacrez",
+		name: "Punchyru Massacre Z",
+		basePower: 50,
+		accuracy: 100,
+		pp: 0.625,
+		secondary: false,
+		category: "Physical",
+		isViable: true,
+		isZ: "douglasiniumz",
+		priority: 0,
+		flags: {
+			protect: 1,
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Close Combat", target);
+		},
+		multihit: [1, 3],
+		target: "normal",
+		type: "Fighting",
 	},
 };

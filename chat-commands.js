@@ -1648,6 +1648,7 @@ exports.commands = {
 	},
 	unlockhelp: ["/unlock [username] - Unlocks the user. Requires: % @ * & ~"],
 
+	exile: 'globalban',
 	forceglobalban: 'globalban',
 	gban: 'globalban',
 	globalban: function (target, room, user, connection, cmd) {

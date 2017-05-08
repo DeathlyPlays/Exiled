@@ -265,22 +265,6 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
-			"+UB-01 Symbi0nt": {
-				species: "Mawile-Mega",
-				ability: "No Hax",
-				item: "Choice Scarf",
-				gender: "F",
-				moves: ['knockoff', 'playrough', 'icepunch'],
-				shiny: true,
-				baseSignatureMove: "doublejawtackle",
-				signatureMove: "Double Jaw Tackle",
-				evs: {
-					atk: 252,
-					spe: 252,
-					spd: 4,
-				},
-				nature: "Adamant",
-			},
 			"+Noviex": {
 				species: "Tyranitar",
 				ability: "Phat Ass",
@@ -326,6 +310,22 @@ exports.BattleScripts = {
 				nature: "Bold",
 			},
 			//Regs
+			" UB-01 Symbi0nt": {
+				species: "Mawile-Mega",
+				ability: "No Hax",
+				item: "Choice Scarf",
+				gender: "F",
+				moves: ['knockoff', 'playrough', 'icepunch'],
+				shiny: true,
+				baseSignatureMove: "doublejawtackle",
+				signatureMove: "Double Jaw Tackle",
+				evs: {
+					atk: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Adamant",
+			},
 			" TheAquaPhoenix": {
 				species: "Articuno",
 				ability: "How to be OP 101",

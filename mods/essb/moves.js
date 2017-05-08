@@ -1411,4 +1411,32 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fighting",
 	},
+	"smh": {
+		id: "smh",
+		name: "smh",
+		basePower: 60,
+		category: "Special",
+		accuracy: 100,
+		priority: 0,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hidden Power", target);
+		},
+		onEffectiveness: function (typeMod) {
+			return 1;
+		},
+		flags: {protect: 1, mirror: 1},
+		secondary: false,
+		pp: 15,
+		target: "normal",
+		type: "???",
+	},
+	"judgment": {
+		inherit: true,
+		onModifyMove: function (move, pokemon) {
+			let type = pokemon.types[0];
+			if (type === "Bird") type = "???";
+			move.type = type;
+		},
+	},
 };

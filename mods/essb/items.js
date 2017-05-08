@@ -85,8 +85,8 @@ exports.BattleItems = {
 		zMove: "Too Much Hax",
 		zMoveFrom: "H-Axe",
 		zMoveUser: ["Haxorus"],
-		num: -6,
-		gen: -1,
+		num: -1,
+		gen: -6,
 		desc: "If holder is a Haxorus with H-Axe, it can use Too Much Hax.",
 	},
 	"generalannoyance": {
@@ -102,7 +102,7 @@ exports.BattleItems = {
 			this.heal(pokemon.maxhp / 4);
 		},
 		num: -7,
-		gen: -1,
+		gen: -2,
 		desc: "At the end of every turn, holder restores 1/4 of its max HP.",
 	},
 	"bagofls": {
@@ -117,8 +117,8 @@ exports.BattleItems = {
 				return accuracy * 1.1;
 			}
 		},
-		num: -8,
-		gen: -1,
+		num: -22,
+		gen: -4,
 		desc: "The accuracy of attacks by the holder is 1.1x.",
 	},
 	"psychogenerator": {
@@ -142,7 +142,7 @@ exports.BattleItems = {
 				this.boost(boost);
 			}
 		},
-		num: -9,
+		num: -288,
 		gen: -1,
 	},
 	"armorvest": {
@@ -164,9 +164,9 @@ exports.BattleItems = {
 				}
 			}
 		},
-		num: -10,
-		gen: -1,
-		desc: "Holder's Defense is 1.5x, but it can only select damaging moves.",
+		num: -640,
+		gen: -6,
+		desc: "Holder's Sp. Def is 1.5x, but it can only select damaging moves.",
 	},
 	"douglasiniumz": {
 		spritenum: 656,
@@ -176,8 +176,28 @@ exports.BattleItems = {
 		zMove: "Punchyru Massacre Z",
 		zMoveFrom: "Punchy Fury",
 		zMoveUser: ["Conkeldurr"],
-		num: -1,
+		num: -99,
 		gen: -1,
-		desc: "If holder is a Conkeldurr Punchy Fury, it can use Punchyru Massacre Z.",
+		desc: "If holder is a Conkeldurr with Punchy Fury, it can use Punchyru Massacre Z.",
+	},
+	"amazingplate": {
+		id: "amazingplate",
+		name: "Amazing Plate",
+		spritenum: 572,
+		onBasePowerPriority: 6,
+		onBasePower: function (basePower, user, target, move) {
+			if (move && move.stab || move.type === '???') {
+				return this.chainModify([0x1333, 0x1000]);
+			}
+		},
+		onTakeItem: false,
+		onResidualOrder: 5,
+		onResidualSubOrder: 2,
+		onResidual: function (pokemon, target, source) {
+			this.heal(pokemon.maxhp / 8);
+		},
+		num: -305,
+		gen: -4,
+		desc: "7.8/10 too much code.",
 	},
 };

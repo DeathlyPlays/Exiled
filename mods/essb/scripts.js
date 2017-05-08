@@ -589,6 +589,21 @@ exports.BattleScripts = {
 				},
 				nature: "Careful",
 			},
+			" Almighty Judgment": {
+				species: "Arceus",
+				ability: "Almighty Presence",
+				item: "Amazing Plate",
+				gender: "M",
+				moves: ['judgment', 'substitute', 'quiverdance'],
+				baseSignatureMove: "smh",
+				signatureMove: "smh",
+				evs: {
+					spa: 252,
+					spe: 252,
+					def: 4,
+				},
+				nature: "Timid",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Tools.shuffle(Object.keys(sets));

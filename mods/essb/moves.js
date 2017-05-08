@@ -1367,7 +1367,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Toxic", target);
 		},
-		target: "foeSide",
+		target: "normal",
 		type: "Rock",
 	},
 	"punchyfury": {

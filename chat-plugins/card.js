@@ -202,7 +202,7 @@ exports.commands = {
 		if (!target) return this.sendReply("/buypack - Buys a pack from the pack shop. Alias: /buypacks");
 		let self = this;
 		let packId = toId(target);
-		let amount = Db('money').get(user.name);
+		let amount = Db('money').get(user.userid, 0);
 		if (cleanShop.indexOf(packId) < 0) return self.sendReply("This is not a valid pack. Use /packshop to see all packs.");
 		let shopIndex = cleanShop.indexOf(toId(target));
 		if (packId !== 'xybase' && packId !== 'xyfuriousfists' && packId !== 'xyflashfire' && packId !== 'xyphantomforces' && packId !== 'xyroaringskies' && packId !== 'xyprimalclash' && packId !== 'xyancientorigins' && packId !== 'xygenerations' && packId !== 'xypromo') return self.sendReply("This pack is not currently in circulation.  Please use /packshop to see the current packs.");

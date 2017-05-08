@@ -574,6 +574,21 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
+			" GuiltasBR": {
+				species: "Conkeldurr",
+				ability: "handsBurn",
+				item: "Douglasinium Z",
+				gender: "M",
+				moves: ['drainpunch', 'poisonjab', 'thunderpunch'],
+				baseSignatureMove: "punchyfury",
+				signatureMove: "Punchy Fury",
+				evs: {
+					atk: 252,
+					spd: 252,
+					spe: 4,
+				},
+				nature: "Careful",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Tools.shuffle(Object.keys(sets));

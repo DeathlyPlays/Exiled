@@ -18,7 +18,7 @@ This server requires the Node Js Version 6.6.0 or higher<br>
 * **Volco** - Fixes errors, implements features, Sysop.
 * **HoeenCoder** - Sysop, Bug fixes, Mechanic assistance.
 * **Mewth** - Developments, Sysop.
-* **Eelek** - Developments, Sysop.
+* **VXN** - Developments, Sysop.
 * **Back At My Day** - Developments.
 * **Mystifi** - Assistance, Developments.
 * **AlfaStorm** & Ashley The Pikachu - Minor developments.

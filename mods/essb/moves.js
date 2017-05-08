@@ -1414,7 +1414,7 @@ exports.BattleMovedex = {
 	"smh": {
 		id: "smh",
 		name: "smh",
-		basePower: 60,
+		basePower: 80,
 		category: "Special",
 		accuracy: 100,
 		priority: 0,

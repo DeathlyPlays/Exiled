@@ -5,7 +5,6 @@
 /logs/*
 /node_modules
 /eslint-cache
-/chat-plugins/
 /chat-plugins/private.js
 /chat-plugins/exp.js
 npm-debug.log

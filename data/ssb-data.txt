@@ -448,7 +448,7 @@ Modest Nature
 Ability: Swift Swim
 Moves: Scald, Ice Beam, Giga Drain
 Special Move: Scripting
-    - Psychic Type, Status, 10 PP, Boosts Special Attack by 2 stages and Boosts Speed by 1 stage, 100% chance of Confusion.
+    - Psychic Type, Special, 60 BP, 10 PP, Boosts Special Attack by 2 stages and Boosts Speed by 1 stage, 100% chance of Confusion.
 Notes: Weak Special Attacker within this meta unfortunately.
 Rank: C.
 

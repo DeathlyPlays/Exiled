@@ -1023,6 +1023,7 @@ exports.BattleMovedex = {
 		},
 		flags: {
 			protect: 1,
+			contact: 1,
 		},
 		target: "normal",
 		type: "Dark",

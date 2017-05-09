@@ -600,3 +600,17 @@ Special Move: Punchy Fury
 	- 30 BP, Fighting, Physical, Hits 1-5 times.
 Notes: Hard hitting revenge attacker.
 Rank: N/A.
+
+Almighty Judgment
+(Arceus)
+Item: Rainbow Plate
+    - Can't be knocked off, heals user by 1/8th and boosts moves that are STAB.
+EVs: 4 Def / 252 SpA / 252 SpD
+Timid Nature
+Ability: Almighty Presence
+    - Adaptability + changes Type every Turn.
+Moves: Judgment, Substitute, Quiver Dance
+Special Move: Holy Dance
+    - Normal Type, Special, 80 BP, 100% Accuracy, 15 PP.
+Notes: N/A.
+Rank: N/A.

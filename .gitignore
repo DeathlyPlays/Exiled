@@ -9,6 +9,7 @@
 /chat-plugins/exp.js
 npm-debug.log
 .eslintcache
+/users.js
 
 # boilerplate #
 ###############

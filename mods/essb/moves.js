@@ -807,9 +807,6 @@ exports.BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
-		onEffectiveness: function (typeMod) {
-			return -typeMod;
-		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Darkest Lariat", target);
@@ -1011,12 +1008,12 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		pp: 15,
 		secondary: false,
-		category: "Physical",
+		category: "Special",
 		self: {
 			boosts: {
-				atk: 1,
+				spa: 1,
 				spe: 1,
-				def: 1,
+				spd: 1,
 			},
 		},
 		priority: 1,
@@ -1026,7 +1023,6 @@ exports.BattleMovedex = {
 		},
 		flags: {
 			protect: 1,
-			contact: 1,
 		},
 		target: "normal",
 		type: "Dark",
@@ -1411,9 +1407,9 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fighting",
 	},
-	"smh": {
-		id: "smh",
-		name: "smh",
+	"holydance": {
+		id: "holydance",
+		name: "Holy Dance",
 		basePower: 80,
 		category: "Special",
 		accuracy: 100,

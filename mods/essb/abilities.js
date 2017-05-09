@@ -141,9 +141,9 @@ exports.BattleAbilities = {
 		},
 	},
 	//jigglykongisfum16
-	"mlgsunglasses": {
-		id: "mlgsunglasses",
-		name: "MLG Sunglasses",
+	"3bawlky5u": {
+		id: "3bawlky5u",
+		name: "3Bawlky5U",
 		//prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Status') {
@@ -165,21 +165,114 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//filter
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (move.typeMod > 0) {
-				this.debug('Bawlky neutralize');
-				return this.chainModify(0.75);
+		//Parts of Natural Cure + Regenerator
+		onSwitchOut: function (pokemon) {
+			pokemon.heal(pokemon.maxhp / 3);
+			if (!pokemon.status) return;
+
+			// if pokemon.showCure is undefined, it was skipped because its ability
+			// is known
+			if (pokemon.showCure === undefined) pokemon.showCure = true;
+
+			if (pokemon.showCure) this.add('-curestatus', pokemon, pokemon.status, '[from] ability: 3Bawlky5U');
+			pokemon.setStatus('');
+
+			// only reset .showCure if it's false
+			// (once you know a Pokemon has Natural Cure, its cures are always known)
+			if (!pokemon.showCure) delete pokemon.showCure;
+		},
+		onCheckShow: function (pokemon) {
+			// This is complicated
+			// For the most part, in-game, it's obvious whether or not Natural Cure activated,
+			// since you can see how many of your opponent's pokemon are statused.
+			// The only ambiguous situation happens in Doubles/Triples, where multiple pokemon
+			// that could have Natural Cure switch out, but only some of them get cured.
+			if (pokemon.side.active.length === 1) return;
+			if (pokemon.showCure === true || pokemon.showCure === false) return;
+
+			let active = pokemon.side.active;
+			let cureList = [];
+			let noCureCount = 0;
+			for (let i = 0; i < active.length; i++) {
+				let curPoke = active[i];
+				// pokemon not statused
+				if (!curPoke || !curPoke.status) {
+					// this.add('-message', "" + curPoke + " skipped: not statused or doesn't exist");
+					continue;
+				}
+				if (curPoke.showCure) {
+					// this.add('-message', "" + curPoke + " skipped: Natural Cure already known");
+					continue;
+				}
+				let template = Tools.getTemplate(curPoke.species);
+				// pokemon can't get Natural Cure
+				if (Object.values(template.abilities).indexOf('Natural Cure') < 0) {
+					// this.add('-message', "" + curPoke + " skipped: no Natural Cure");
+					continue;
+				}
+				// pokemon's ability is known to be Natural Cure
+				if (!template.abilities['1'] && !template.abilities['H']) {
+					// this.add('-message', "" + curPoke + " skipped: only one ability");
+					continue;
+				}
+				// pokemon isn't switching this turn
+				if (curPoke !== pokemon && !this.willSwitch(curPoke)) {
+					// this.add('-message', "" + curPoke + " skipped: not switching");
+					continue;
+				}
+
+				if (curPoke.hasAbility('naturalcure')) {
+					// this.add('-message', "" + curPoke + " confirmed: could be Natural Cure (and is)");
+					cureList.push(curPoke);
+				} else {
+					// this.add('-message', "" + curPoke + " confirmed: could be Natural Cure (but isn't)");
+					noCureCount++;
+				}
+			}
+
+			if (!cureList.length || !noCureCount) {
+				// It's possible to know what pokemon were cured
+				for (let i = 0; i < cureList.length; i++) {
+					cureList[i].showCure = true;
+				}
+			} else {
+				// It's not possible to know what pokemon were cured
+
+				// Unlike a -hint, this is real information that battlers need, so we use a -message
+				this.add('-message', "(" + cureList.length + " of " + pokemon.side.name + "'s pokemon " + (cureList.length === 1 ? "was" : "were") + " cured by Natural Cure.)");
+
+				for (let i = 0; i < cureList.length; i++) {
+					cureList[i].showCure = false;
+				}
 			}
 		},
-		//ironbarbs and aftermath effects
-		onAfterDamageOrder: 1,
-		onAfterDamage: function (damage, target, source, move) {
-			if (source && source !== target && move && move.flags['contact']) {
-				this.damage(source.maxhp / 8, source, target, null, true);
+		//magicbounce
+		onTryHitPriority: 1,
+		onTryHit: function (target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
 			}
-			if (source && source !== target && move && move.flags['contact'] && !target.hp) {
-				this.damage(source.maxhp / 4, source, target, null, true);
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide: function (target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		effect: {
+			duration: 1,
+		},
+		//magicguard
+		onDamage: function (damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				return false;
 			}
 		},
 	},
@@ -896,6 +989,10 @@ exports.BattleAbilities = {
 		onImmunity: function (type, pokemon) {
 			if (type === 'sandstorm' || type === 'hail' || type === 'powder') return false;
 		},
+		//Adaptability
+		onModifyMove: function (move) {
+			move.stab = 2;
+		},
 	},
 	"magmaoverdrive": {
 		id: "magmaoverdrive",
@@ -1079,7 +1176,6 @@ exports.BattleAbilities = {
 			}
 		},
 	},
-
 	"almightypresence": {
 		onModifyMove: function (move) {
 			move.stab = 2;

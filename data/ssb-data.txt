@@ -172,10 +172,10 @@ Jigglykong
 EVs: 252 HP / 100 Def / 60 SpA / 96 SpD
 Bold Nature
 Ability: 3Bawlky5U
-    -Prankster + Regenerator + Magic Bounce + Magic Guard + Natural Cure
+    - Prankster + Regenerator + Magic Bounce + Magic Guard + Natural Cure + Unaware
 Moves: Hex, Recover, Toxic
 Special Move: Plasma Blast
-    -Normal type + Electric Effectiveness + 20% chance to burn, freeze, or paralyze + 120 BP + 100% accuracy.
+    - Normal type + Electric Effectiveness + 20% chance to burn, freeze, or paralyze + 120 BP + 100% accuracy.
 Notes: MLG Wall m8.
 Rank: A.
 
@@ -412,7 +412,7 @@ Moves: Double Edge, Drain Punch, Wood Hammer.
 Special Move: Cookie Storm
     - Fairy Type, Physical, 100 BP, 100% Accuracy, 10 PP.
 Notes: High power moves that are boosted by its Reckless effects obliterate teams.
-Rank: A.
+Rank: B.
 
 UB-03 Xurkitree
 (Xurkitree)
@@ -438,7 +438,7 @@ Moves: Psystrike, Moonblast, Hyper Voice
 Special Move: Ooga
     - Fairy Type, Status, 5 PP, Boosts Special Attack, Special Defense and Speed by 2 stages and Boosts Defense by 3 stages.
 Notes: Just a better Xerneas.
-Rank: B.
+Rank: A.
 
 HoeenHero
 (Ludicolo)
@@ -449,7 +449,7 @@ Ability: Swift Swim
 Moves: Scald, Ice Beam, Giga Drain
 Special Move: Scripting
     - Psychic Type, Status, 10 PP, Boosts Special Attack by 2 stages and Boosts Speed by 1 stage, 100% chance of Confusion.
-Notes: Lame.
+Notes: Weak Special Attacker within this meta unfortunately.
 Rank: C.
 
 UniversalCraftr
@@ -484,14 +484,14 @@ AlfaStorm
 (Hydreigon)
 @Focus Sash
 EVs: 252 SpA / 4 SpD / 252 Spe
-Hasty Nature
+Timid Nature
 Ability: Attack Shield
-    - Magic Bounce and Overcoat.
-Moves: Crunch, Draco Meteor, Dark Pulse
+    - Magic Bounce and Overcoat and Adaptability.
+Moves: Flash Cannon, Draco Meteor, Dragon Pulse
 Special Move: Dark Storm
-    - Dark Type, Physical, 100% Accuracy, 15 PP, Boosts Attack, Defense and Speed by 1 stage, 60 BP.
-Notes: Fast mixed attacker that doesn't fare well in this meta.
-Rank: C.
+    - Dark Type, Special, 100% Accuracy, 15 PP, Boosts Special Attack, Special Defense, and Speed by 1 stage, 60 BP, +1 Priority.
+Notes: Fast special attacker.
+Rank: B.
 
 Chandie
 (Chandelure)
@@ -504,20 +504,21 @@ Moves: Fiery Dance, Moongeist Beam, Energy Ball
 Special Move: Solar Eruption
 	- Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage. The User has to recharge after using.
 Notes: Fast Special Sweeper.
-Rank: N/A.
+Rank: B.
 
 VXN
-(Pikachu)
-@ Faustian Bargain
-    - If the user can evolve, it boosts the holders defense and special defense by 1 stage. Takes away 25% of the user's health regardless of stage.
-EVs: 252 Atk / 252 Spe / 4 Def
+(Scizor)
+Psychic Type
+@ Psycho Generator
+    - The user recovers 1/16 of its health every turn, and gets a boost in a random stat (except accuracy and evasion).
+EVs: 252 Atk / 252 Spe / 4 SpD
 Jolly Nature
-Ability: Sys-OP
-Protean + Wonder Guard + Raises speed and attck by 1 on switch in.
-Moves: Bolt Strike, Icicle Crash, Sacred Sword
-Special Move: Hotpatch
-    - Typeless, status, boosts user's attack by 2, 10 Priority, 10 PP, Chance of failing on consecutive use.
-Notes: Fast, Annoying, Physical Attacker.
+Ability: Psycho Power
+	- Psychic type moves get absorbed and heal the user by 1/4 of their max HP, Rock Head, and Filter
+Moves: Jump Kick, Bounce, Knock Off
+Special Move: Psycho Crusher
+    - 120 BP, Physical, Psychic, Makes Contact, Ignores Evasion, Ignores Defense boosts, Ignores immunities.
+Notes: Physical Attacker that gets boosts every turn.
 Rank: A.
 
 C733937 123
@@ -536,9 +537,9 @@ Rank: B.
 Noviex
 (Tyranitar)
 Item: Armor Vest
-    - 2x Defense, only attacks.
+    - 2x Defense and 2x SpD, can only use damaging moves.
 EVs: 248 HP / 252 Atk / 8 Def
-Jolly Nature
+Adamant Nature
 Ability: Phat Ass
     - Unaware, Sand Stream, Regenerator and Sand Force.
 Moves: Stone Edge, Crunch, Earthquake

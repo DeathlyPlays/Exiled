@@ -497,7 +497,7 @@ exports.commands = {
 		if (!target) return this.errorReply('USAGE: /taketeam USER');
 		let person = target.toLowerCase().trim();
 		if (!Db('hasteam').has(person)) return this.errorReply('This user does not have the ability to set their team.');
-		Db.hasteam.delete(person);
+		Db('hasteam').delete(person);
 		this.sendReply('this user has had their ability to change their team taken from them.');
 		Users(person).popup('You have been stripped of your ability to set your team.');
 	},

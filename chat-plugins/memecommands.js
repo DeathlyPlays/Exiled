@@ -10,6 +10,9 @@
 'use strict';
 
 exports.commands = {
+	shrug: function (target, room, user) {
+		this.parse("¯\\_(ツ)_\/¯");
+	},
 	murder: function (target, room, User) {
 		if (!target) return this.sendReply('/murder needs a target.');
 		if (!this.can('broadcast', null, room)) return this.errorReply('Access Denied');

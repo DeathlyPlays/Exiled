@@ -70,7 +70,7 @@ function cacheRarity() {
 
 Exiled.tourCard = function (tourSize, userid) {
 	if (tourSize > 32) tourSize = 32;
-	let tourRarity = tourCardRarity[Math.floor(tourSize / 2)];
+	let tourRarity = tourCardRarity[Math.floor(tourSize / 4)];
 	let cacheValue = rareCache[cleanCard.indexOf(toId(tourRarity))];
 	if (!cacheValue || !cacheValue.length) return false;
 	let card = cacheValue[Math.round(Math.random() * (cacheValue.length - 1))];
@@ -927,4 +927,10 @@ exports.commands = {
 		user.popup("You have successfully taken " + card.name + " from " + targetUser + ".");
 		this.logModCommand(user.name + " took the card '" + card.name + "' from " + targetUser + ".");
 	},
+	resetcards: function (target, room, user) {
+		if (!this.can('forcewin')) return false;
+		Db('cards').set(toId(target), 0);
+		this.sendReply(target + " has had their cards reset.");
+	},
+	resetcardshelp: ["/resetcards [user] - Reset user's card collection."],
 };

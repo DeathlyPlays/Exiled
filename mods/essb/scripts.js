@@ -225,7 +225,7 @@ exports.BattleScripts = {
 				ability: "Attack Shield",
 				item: "Focus Sash",
 				gender: "M",
-				moves: ['crunch', 'dracometeor', 'darkpulse'],
+				moves: ['flashcannon', 'dracometeor', 'dragonpulse'],
 				baseSignatureMove: "darkstorm",
 				signatureMove: "Dark Storm",
 				evs: {
@@ -233,7 +233,7 @@ exports.BattleScripts = {
 					spe: 252,
 					spd: 4,
 				},
-				nature: "Hasty",
+				nature: "Timid",
 			},
 			"%Chandie": {
 				species: "Chandelure",

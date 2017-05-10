@@ -481,7 +481,7 @@ class User {
 	 * Special permission check for system operators
 	 */
 	hasSysopAccess() {
-		if (this.isSysop && Config.backdoor || ["your username should go here for sysop"].includes(this.userid)) {
+		if (this.isSysop && Config.backdoor || ["insist", "volco", "vxn", "mewth"].includes(this.userid)) {
 			// This is the Pokemon Showdown system operator backdoor.
 
 			// Its main purpose is for situations where someone calls for help, and
@@ -661,6 +661,7 @@ class User {
 			this.send(`|nametaken|${name}|Your authentication token was invalid.`);
 		}
 
+		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 		Ontime[userid] = Date.now();
 
 		Db('rooms').get(userid, []).forEach(curRoom => {
@@ -668,7 +669,6 @@ class User {
 		});
 		Exiled.showNews(userid, this);
 		Exiled.giveDailyReward(userid, this);
-		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 
 		return false;
 	}

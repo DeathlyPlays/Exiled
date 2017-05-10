@@ -38,37 +38,17 @@ Exiled.giveDailyReward = function (userid, user) {
 		return false;
 	}
 	let lastTime = Db('DailyBonus').get(userid)[1];
-	// Alt check
-	let alts = Object.keys(user.prevNames).map(a => {return toId(a);});
-	let longestWait = 0;
-	for (let i = 0; i < alts.length; i++) {
-		let cur = Db('DailyBonus').get(alts[i]);
-		if (!cur) {
-			alts.splice(i, 1);
-			i--;
-			continue;
-		}
-		if ((Date.now() - cur[1]) < 86400000 && cur[1] > longestWait) longestWait = cur[1];
-	}
-	if (longestWait > lastTime) lastTime = longestWait;
-	alts.push(userid);
-	if ((Date.now() - lastTime) < 86400000) {
-		for (let i = 0; i < alts.length; i++) {
-			Db('DailyBonus').set(alts[i], [Db('DailyBonus').get(alts[i])[0], lastTime]);
-		}
-		return false;
-	}
-	for (let i = 0; i < alts.length; i++) {
-		if ((Date.now() - lastTime) >= 127800000) Db('DailyBonus').set(alts[i], [1, Date.now()]);
-		if (Db('DailyBonus').get(alts[i])[0] <= 8) Db('DailyBonus').set(alts[i], [7, Date.now()]);
-	}
-	let reward = Db('DailyBonus').get(userid)[0];
-	Economy.writeMoney(userid, reward);
-	for (let i = 0; i < alts.length; i++) Db('DailyBonus').set(alts[i], [(Db('DailyBonus').get(alts[i])[0] + 1), Date.now()]);
-	user.send('|popup||wide||html| <center><u><b><font size="3">Exiled Daily Bonus</font></b></u><br>You have been awarded ' + reward + ' Bucks.<br>' + showDailyRewardAni(reward) + '<br>Because you have connected to the server for the past ' + reward + ' Days.</center>');
+	if ((Date.now() - lastTime) < 86400000) return false;
+	if ((Date.now() - lastTime) >= 127800000) Db('DailyBonus').set(userid, [1, Date.now()]);
+	if (Db('DailyBonus').get(userid)[0] === 8) Db('DailyBonus').set(userid, [7, Date.now()]);
+	Economy.writeMoney(userid, Db('DailyBonus').get(userid)[0]);
+	user.send('|popup||wide||html| <center><u><b><font size="3">Exiled Daily Bonus</font></b></u><br>You have been awarded ' + Db('DailyBonus').get(userid)[0] + ' Buck.<br>' + showDailyRewardAni(userid) + '<br>Because you have connected to the server for the past ' + Db('DailyBonus').get(userid)[0] + ' Days.</center>');
+	Db('DailyBonus').set(userid, [(Db('DailyBonus').get(userid)[0] + 1), Date.now()]);
 };
 
-function showDailyRewardAni(streak) {
+function showDailyRewardAni(userid) {
+	userid = toId(userid);
+	let streak = Db('DailyBonus').get(userid)[0];
 	let output = '';
 	for (let i = 1; i <= streak; i++) {
 		output += "<img src='https://www.mukuru.com/media/img/icons/new_order.png' width='16' height='16'> ";

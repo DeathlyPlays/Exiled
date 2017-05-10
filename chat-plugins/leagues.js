@@ -162,11 +162,11 @@ function importTeam(text) {
 			let parenIndex = line.lastIndexOf(' (');
 			if (line.substr(line.length - 1) === ')' && parenIndex !== -1) {
 				line = line.substr(0, line.length - 1);
-				curSet.species = Tools.getTemplate(line.substr(parenIndex + 2)).species;
+				curSet.species = Dex.getTemplate(line.substr(parenIndex + 2)).species;
 				line = line.substr(0, parenIndex);
 				curSet.name = line;
 			} else {
-				curSet.species = Tools.getTemplate(line).species;
+				curSet.species = Dex.getTemplate(line).species;
 				curSet.name = '';
 			}
 		} else if (line.substr(0, 7) === 'Trait: ') {
@@ -261,7 +261,7 @@ function packTeam(team) {
 		buf += '|' + toId(set.item);
 
 		// ability
-		let template = Tools.getTemplate(set.species || set.name);
+		let template = Dex.getTemplate(set.species || set.name);
 		let abilities = template.abilities;
 		id = toId(set.ability);
 		if (abilities) {
@@ -590,8 +590,8 @@ function lvlDisplay(room) {
 			room.add("The following players have been removed from the League vs League due to not being online: " + notOnline.join(', '));
 		} else {
 			room.lvl.started = true;
-			Tools.shuffle(room.lvl.leagues[0].players);
-			Tools.shuffle(room.lvl.leagues[1].players);
+			Dex.shuffle(room.lvl.leagues[0].players);
+			Dex.shuffle(room.lvl.leagues[1].players);
 			room.add("The League vs League has started!");
 			room.lvl.status[0] = 2;
 		}
@@ -1181,7 +1181,7 @@ exports.commands = {
 				return this.popupReply("You're already challenging '" + user.challengeTo.to + "'. Cancel that challenge before challenging someone else.");
 			}
 			user.team = leagues[toId(league)].challengers[user.userid];
-			user.prepBattle(Tools.getFormat('ubers').id, 'challenge', connection).then(result => {
+			user.prepBattle(Dex.getFormat('ubers').id, 'challenge', connection).then(result => {
 				if (result) {
 					user.makeChallenge(targetUser, 'monotype');
 					targetUser.send('|pm|' + user.getIdentity() + '|~|/raw <div class="infobox">' + Exiled.nameColor(user.name, true) + ' is challenging your league.</div>');

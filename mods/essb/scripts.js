@@ -433,7 +433,7 @@ exports.BattleScripts = {
 			},
 		};
 		// Generate the team randomly.
-		let pool = Tools.shuffle(Object.keys(sets));
+		let pool = Dex.shuffle(Object.keys(sets));
 		let levels = {'~':99, '☥':98, '&':97, '*': 96, '@':96, '%':95, '+':95, ' ': 94};
 		for (let i = 0; i < 6; i++) {
 			if (i === 1) {

@@ -1418,7 +1418,7 @@ exports.Formats = [
 		section: "Exiled's Custom Gamemodes",
 		mod: 'essb',
 		team: 'randomSeasonalMelee',
-		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Freeze Clause Mod'],
 		desc: [
 			"Credit to: Insist (head coder).",
 			"Thanks to all the auth whom cooperated in this process of making this.",

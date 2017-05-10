@@ -13,9 +13,9 @@ global.moneyPlural = 'Bucks';
  * Gets an amount and returns the amount with the name of the money.
  *
  * @examples
- * moneyName(0); // 0 bucks
- * moneyName(1); // 1 buck
- * moneyName(5); // 5 bucks
+ * currencyName(0); // 0 bucks
+ * currencyName(1); // 1 buck
+ * currencyName(5); // 5 bucks
  *
  * @param {Number} amount
  * @returns {String}
@@ -154,7 +154,7 @@ function findItem(item, money) {
 		price = shop[len][2];
 		if (price > money) {
 			amount = price - money;
-			this.errorReply("You don't have you enough money for this. You need " + amount + moneyName(amount) + " more to buy " + item + ".");
+			this.errorReply("You don't have you enough money for this. You need " + amount + currencyName(amount) + " more to buy " + item + ".");
 			return false;
 		}
 		return price;
@@ -235,8 +235,8 @@ exports.commands = {
 		if (typeof amount === 'string') return this.errorReply(amount);
 
 		let total = Db('money').set(toId(username), Db('money').get(toId(username), 0) - amount).get(toId(username));
-		amount = amount + moneyName(amount);
-		total = total + moneyName(total);
+		amount = amount + curreNcyname(amount);
+		total = total + curreNcyname(total);
 		this.sendReply(username + " lost " + amount + ". " + username + " now has " + total + ".");
 		if (Users.get(username)) Users(username).popup(user.name + " has taken " + amount + " from you. You now have " + total + ".");
 		Economy.logTransaction(username + " had " + amount + " taken away by " + user.name + ". " + username + " now has " + total);

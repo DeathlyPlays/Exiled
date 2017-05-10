@@ -235,8 +235,8 @@ exports.commands = {
 		if (typeof amount === 'string') return this.errorReply(amount);
 
 		let total = Db('money').set(toId(username), Db('money').get(toId(username), 0) - amount).get(toId(username));
-		amount = amount + curreNcyname(amount);
-		total = total + curreNcyname(total);
+		amount = amount + currencyName(amount);
+		total = total + currencyName(total);
 		this.sendReply(username + " lost " + amount + ". " + username + " now has " + total + ".");
 		if (Users.get(username)) Users(username).popup(user.name + " has taken " + amount + " from you. You now have " + total + ".");
 		Economy.logTransaction(username + " had " + amount + " taken away by " + user.name + ". " + username + " now has " + total);

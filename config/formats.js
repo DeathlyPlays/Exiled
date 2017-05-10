@@ -1461,11 +1461,6 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Grass/Fire');
 				pokemon.types = ["Grass", "Fire"];
 			}
-			if (name === 'vividisagod' && !pokemon.illusion) {
-				this.boost({
-					spe: 1,
-				});
-			}
 			if (name === 'volco' && !pokemon.illusion) {
 				this.boost({
 					spe: 1,
@@ -1477,17 +1472,6 @@ exports.Formats = [
 				this.boost({
 					def: 1,
 					spd: 1,
-				});
-			}
-			if (name === 'universalcraftr' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dark/Ghost');
-				pokemon.types = ["Dark", "Ghost"];
-				this.boost({
-					spa: -2,
-					spd: -2,
-					atk: -2,
-					spe: -2,
-					def: -2,
 				});
 			}
 			if (name === 'failures' && !pokemon.illusion) {
@@ -1502,6 +1486,11 @@ exports.Formats = [
 			if (name === 'vxn' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Psychic');
 				pokemon.types = ["Psychic"];
+			}
+			if (name === 'chesnaught90000' && !pokemon.illusion) {
+				this.boost({
+					spe: 1,
+				});
 			}
 		},
 		//Switch-out Phrase

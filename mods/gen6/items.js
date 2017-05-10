@@ -172,7 +172,6 @@ exports.BattleItems = {
 		inherit: true,
 		isUnreleased: false,
 	},
-
 	micleberry: {
 		inherit: true,
 		isUnreleased: false,

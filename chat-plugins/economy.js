@@ -10,7 +10,6 @@ let fs = require('fs');
 let path = require('path');
 let writeJSON = true;
 let Shop = {};
-const INACTIVE_END_TIME = 1 * 60 * 1000; // 1 minute
 
 /**
  * Gets an amount and returns the amount with the name of the currency.

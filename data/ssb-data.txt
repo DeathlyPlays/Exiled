@@ -407,7 +407,7 @@ Chesnaught90000
 EVs: 252 Atk / 4 SpD / 252 Spe
 Jolly Nature
 Ability: Nice 0u0
-    -Reckless and Rock Head.
+    -Reckless, Magic Guard, and Rock Head + it gets a speed boost by one stage upon entry.
 Moves: Double Edge, Drain Punch, Wood Hammer.
 Special Move: Cookie Storm
     - Fairy Type, Physical, 100 BP, 100% Accuracy, 10 PP.
@@ -569,9 +569,9 @@ Ability: DesertDragon
     - If this Pokemon KO's its target, its Attack and Speed is boosted by two stages.
 Moves: Dragon Claw, Earthquake, Stone Edge
 Special Move: Outripper
-    - Essentially a 150 BP Outrage
+    - Essentially a 150 BP Outrage.
 Notes: Fast Sashed Physical Sweeper.
-Rank: N/A.
+Rank: B.
 
 Kevso
 (Deoxys-D)
@@ -608,9 +608,9 @@ Item: Rainbow Plate
 EVs: 4 Def / 252 SpA / 252 SpD
 Timid Nature
 Ability: Almighty Presence
-    - Adaptability + changes Type every Turn.
+    - Adaptability + changes Type every Turn + Dazzling.
 Moves: Judgment, Substitute, Quiver Dance
 Special Move: Holy Dance
     - Normal Type, Special, 80 BP, 100% Accuracy, 15 PP.
-Notes: N/A.
-Rank: N/A.
+Notes: Changing types every turn makes this mon difficult to be entirely countered, and getting substitutes up can allow late game sweeps.
+Rank: A.

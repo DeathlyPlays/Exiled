@@ -32,7 +32,7 @@ exports.BattleScripts = {
 			return this.modifiedStats[statName];
 		},
 		// Gen 1 function to apply a stat modification that is only active until the stat is recalculated or mon switched.
-		// Modified stats are declared in BattlePokemon object in battle-engine.js in about line 303.
+		// Modified stats are declared in the Pokemon object in sim/pokemon.js in about line 681.
 		modifyStat: function (stat, modifier) {
 			if (!(stat in this.stats)) return;
 			this.modifiedStats[stat] = this.battle.clampIntRange(Math.floor(this.modifiedStats[stat] * modifier), 1, 999);
@@ -70,7 +70,8 @@ exports.BattleScripts = {
 	// It deals with the beforeMove and AfterMoveSelf events.
 	// This leads with partial trapping moves shennanigans after the move has been used.
 	// It also deals with how PP reduction works on gen 1.
-	runMove: function (move, pokemon, target, sourceEffect) {
+	runMove: function (move, pokemon, targetLoc, sourceEffect) {
+		let target = this.getTarget(pokemon, move, targetLoc);
 		move = this.getMove(move);
 		if (!target) target = this.resolveTarget(pokemon, move);
 		if (target.subFainted) delete target.subFainted;
@@ -581,7 +582,7 @@ exports.BattleScripts = {
 
 		return damage;
 	},
-	// boost can be found on battle-engine.js on Battle object.
+	// boost can be found on sim/battle.js on Battle object.
 	// It deals with Pokémon stat boosting, including Gen 1 buggy behaviour with burn and paralyse.
 	boost: function (boost, target, source, effect) {
 		if (this.event) {
@@ -626,7 +627,7 @@ exports.BattleScripts = {
 		}
 		this.runEvent('AfterBoost', target, source, effect, boost);
 	},
-	// damage can be found in battle-engine.js on the Battle object. Not to confuse with BattlePokemon.prototype.damage
+	// damage can be found in sim/battle.js on the Battle object. Not to confuse with BattlePokemon.prototype.damage
 	// It calculates and executes the damage damage from source to target with effect.
 	// It also deals with recoil and drains.
 	damage: function (damage, target, source, effect) {
@@ -688,7 +689,7 @@ exports.BattleScripts = {
 
 		return damage;
 	},
-	// directDamage can be found on battle-engine.js in Battle object
+	// directDamage can be found on sim/battle.js in Battle object
 	// It deals direct damage damage from source to target with effect.
 	// It also deals with Gen 1 weird Substitute behaviour.
 	directDamage: function (damage, target, source, effect) {
@@ -729,7 +730,7 @@ exports.BattleScripts = {
 
 		return damage;
 	},
-	// getDamage can be found on battle-engine.js on the Battle object.
+	// getDamage can be found on sim/battle.js on the Battle object.
 	// It calculates the damage pokemon does to target with move.
 	getDamage: function (pokemon, target, move, suppressMessages) {
 		// First of all, we get the move.
@@ -1031,7 +1032,10 @@ exports.BattleScripts = {
 			let moves;
 			let pool = [];
 			for (let move in template.learnset) {
-				if (this.getMove(move).gen === 1) pool.push(move);
+				if (this.getMove(move).gen !== 1) continue;
+				if (template.learnset[move].some(learned => learned[0] === '1')) {
+					pool.push(move);
+				}
 			}
 			if (pool.length <= 4) {
 				moves = pool;
@@ -1122,7 +1126,7 @@ exports.BattleScripts = {
 			// Spammable attacks are: Thunderbolt, Psychic, Surf, Blizzard, Earthquake.
 			let pokemonWeaknesses = [];
 			for (let type in weaknessCount) {
-				let increaseCount = Tools.getImmunity(type, template) && Tools.getEffectiveness(type, template) > 0;
+				let increaseCount = this.getImmunity(type, template) && this.getEffectiveness(type, template) > 0;
 				if (!increaseCount) continue;
 				if (weaknessCount[type] >= 2) {
 					skip = true;

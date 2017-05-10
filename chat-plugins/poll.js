@@ -465,14 +465,14 @@ exports.commands = {
 		if (!this.can('minigame', null, room)) return false;
 		if (room.poll) return this.errorReply("There is already a poll in progress in this room.");
 		let options = [];
-		for (let key in Tools.data.Formats) {
-			if (!Tools.data.Formats[key].mod) continue;
-			if (!Tools.data.Formats[key].searchShow) continue;
+		for (let key in Dex.data.Formats) {
+			if (!Dex.data.Formats[key].mod) continue;
+			if (!Dex.data.Formats[key].searchShow) continue;
 			if (toId(target) !== 'all') {
 				let commonMods = ['gen7', 'essb', 'pmd', 'cssb', 'metronome', 'ashspokemon', 'clashoftheregions', 'advancedwars', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame', 'fakemons', 'mixandmega'];
-				if (commonMods.indexOf(Tools.data.Formats[key].mod) === -1) continue;
+				if (commonMods.indexOf(Dex.data.Formats[key].mod) === -1) continue;
 			}
-			options.push(Tools.data.Formats[key].name);
+			options.push(Dex.data.Formats[key].name);
 		}
 		room.poll = new Poll(room, {
 			source: 'What should the next tournament tier be?',

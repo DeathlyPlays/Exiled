@@ -1,5 +1,4 @@
 /**
-/**
  * Room games
  * Pokemon Showdown - http://pokemonshowdown.com/
  *

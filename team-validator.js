@@ -18,7 +18,7 @@ function banReason(strings, reason) {
 
 class Validator {
 	constructor(format, supplementaryBanlist) {
-		format = Tools.getFormat(format);
+		format = Dex.getFormat(format);
 		if (supplementaryBanlist && supplementaryBanlist.length) {
 			format = Object.assign({}, format);
 			if (format.banlistTable) delete format.banlistTable;
@@ -54,7 +54,7 @@ class Validator {
 		}
 		this.format = format;
 		this.supplementaryBanlist = supplementaryBanlist;
-		this.tools = Tools.format(this.format);
+		this.tools = Dex.format(this.format);
 	}
 
 	validateTeam(team, removeNicknames) {
@@ -154,13 +154,13 @@ class Validator {
 			return [`This is not a Pokemon.`];
 		}
 
-		set.species = Tools.getSpecies(set.species);
+		set.species = Dex.getSpecies(set.species);
 		set.name = tools.getName(set.name);
-		let item = tools.getItem(Tools.getString(set.item));
+		let item = tools.getItem(Dex.getString(set.item));
 		set.item = item.name;
-		let ability = tools.getAbility(Tools.getString(set.ability));
+		let ability = tools.getAbility(Dex.getString(set.ability));
 		set.ability = ability.name;
-		set.nature = tools.getNature(Tools.getString(set.nature)).name;
+		set.nature = tools.getNature(Dex.getString(set.nature)).name;
 		if (!Array.isArray(set.moves)) set.moves = [];
 
 		let maxLevel = format.maxLevel || 100;
@@ -178,7 +178,7 @@ class Validator {
 		}
 
 		let nameTemplate = tools.getTemplate(set.name);
-		if (nameTemplate.exists && nameTemplate.name.toLowerCase() === set.name.toLowerCase()) {
+		if (toId(format.name) !== 'gen7crossevolution' && nameTemplate.exists && nameTemplate.name.toLowerCase() === set.name.toLowerCase()) {
 			set.name = null;
 		}
 		set.name = set.name || set.baseSpecies;
@@ -204,7 +204,7 @@ class Validator {
 
 		if (!template) {
 			template = tools.getTemplate(set.species);
-			if (ability.id === 'battlebond' && template.id === 'greninja') {
+			if (ability.id === 'battlebond' && template.id === 'greninja' && !banlistTable['Rule:ignoreillegalabilities']) {
 				template = tools.getTemplate('greninjaash');
 				set.gender = 'M';
 			}
@@ -277,7 +277,7 @@ class Validator {
 			// Don't check abilities for metagames with All Abilities
 			if (tools.gen <= 2) {
 				set.ability = 'None';
-			} else if (!banlistTable['ignoreillegalabilities']) {
+			} else if (!banlistTable['Rule:ignoreillegalabilities']) {
 				if (!ability.name) {
 					problems.push(`${name} needs to have an ability.`);
 				} else if (!Object.values(template.abilities).includes(ability.name)) {
@@ -318,7 +318,7 @@ class Validator {
 
 			for (let i = 0; i < set.moves.length; i++) {
 				if (!set.moves[i]) continue;
-				let move = tools.getMove(Tools.getString(set.moves[i]));
+				let move = tools.getMove(Dex.getString(set.moves[i]));
 				if (!move.exists) return [`"${move.name}" is an invalid move.`];
 				check = move.id;
 				setHas[check] = true;
@@ -341,7 +341,8 @@ class Validator {
 					let problem = this.checkLearnset(move, template, lsetData);
 					if (problem) {
 						// Sketchmons hack
-						if (banlistTable['allowonesketch'] && format.noSketch.indexOf(move.name) < 0 && !set.sketchmonsMove && !move.noSketch && !move.isZ) {
+						const noSketch = format.noSketch || tools.getFormat('gen7sketchmons').noSketch;
+						if (banlistTable['Rule:allowonesketch'] && noSketch.indexOf(move.name) < 0 && !set.sketchmonsMove && !move.noSketch && !move.isZ) {
 							set.sketchmonsMove = move.id;
 							continue;
 						}
@@ -395,6 +396,13 @@ class Validator {
 				const expectedHpDV = (atkDV % 2) * 8 + (defDV % 2) * 4 + (speDV % 2) * 2 + (spcDV % 2);
 				if (expectedHpDV !== hpDV) {
 					problems.push(`${name} has an HP DV of ${hpDV}, but its Atk, Def, Spe, and Spc DVs give it an HP DV of ${expectedHpDV}.`);
+				}
+				if (set.ivs.spa !== set.ivs.spd) {
+					if (tools.gen === 2) {
+						problems.push(`${name} has different SpA and SpD DVs, which is not possible in Gen 2.`);
+					} else {
+						set.ivs.spd = set.ivs.spa;
+					}
 				}
 				if (tools.gen > 1 && !template.gender) {
 					// Gen 2 gender is calculated from the Atk DV.
@@ -1221,7 +1229,7 @@ class TeamValidatorManager extends ProcessManager {
 	}
 
 	receive(format, supplementaryBanlist, removeNicknames, team) {
-		let parsedTeam = Tools.fastUnpackTeam(team);
+		let parsedTeam = Dex.fastUnpackTeam(team);
 		supplementaryBanlist = supplementaryBanlist === '0' ? false : supplementaryBanlist.split(',');
 		removeNicknames = removeNicknames === '1';
 
@@ -1240,7 +1248,7 @@ class TeamValidatorManager extends ProcessManager {
 		if (problems && problems.length) {
 			return '0' + problems.join('\n');
 		} else {
-			let packedTeam = Tools.packTeam(parsedTeam);
+			let packedTeam = Dex.packTeam(parsedTeam);
 			// console.log('FROM: ' + message.substr(pipeIndex2 + 1));
 			// console.log('TO: ' + packedTeam);
 			return '1' + packedTeam;
@@ -1267,8 +1275,8 @@ if (process.send && module === process.mainModule) {
 		});
 	}
 
-	global.Tools = require('./tools').includeData();
-	global.toId = Tools.getId;
+	global.Dex = require('./sim/dex').includeData();
+	global.toId = Dex.getId;
 	global.Chat = require('./chat');
 
 	require('./repl').start('team-validator-', process.pid, cmd => eval(cmd));

@@ -20,7 +20,7 @@ global.moneyPlural = 'Bucks';
  * @param {Number} amount
  * @returns {String}
  */
-function moneyName(amount) {
+function currencyName(amount) {
 	let name = " buck";
 	return amount === 1 ? name : name + "s";
 }
@@ -50,7 +50,8 @@ let shop = [
 	//['Custom Color', 'Changes the color of your name (can be denied)', 25], //Comment out for now because custom color screws up CSS
 	['Room', 'Buys a chatroom for you to own. (within reason, can be refused).', 30],
 	['Trainer Card', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 40],
-	['Staff Help', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 50],
+	['Custom Emoticon', 'You provide an image (50x50) to be added as an emote on the server. (Can be refused)', 40],
+	['Profile Help', 'Staff members will help you set your profile. (responses may not be immediate)', 50],
 	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 50],
 	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Exiled Super Staff Bros metagame. Insist will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 100],
 ];
@@ -213,8 +214,8 @@ exports.commands = {
 		if (typeof amount === 'string') return this.errorReply(amount);
 
 		let total = Db('money').set(toId(username), Db('money').get(toId(username), 0) + amount).get(toId(username));
-		amount = amount + moneyName(amount);
-		total = total + moneyName(total);
+		amount = amount + currencyName(amount);
+		total = total + currencyName(total);
 		this.sendReply(username + " was given " + amount + ". " + username + " now has " + total + ".");
 		if (Users.get(username)) Users(username).popup(user.name + " has given you " + amount + ". You now have " + total + ".");
 		Economy.logTransaction(username + " was given " + amount + " by " + user.name + ". " + username + " now has " + total);
@@ -262,9 +263,9 @@ exports.commands = {
 			.set(user.userid, Db('money').get(user.userid) - amount)
 			.set(uid, Db('money').get(uid, 0) + amount);
 
-		let userTotal = Db('money').get(user.userid) + moneyName(Db('money').get(user.userid));
-		let targetTotal = Db('money').get(uid) + moneyName(Db('money').get(uid));
-		amount = amount + moneyName(amount);
+		let userTotal = Db('money').get(user.userid) + currencyName(Db('money').get(user.userid));
+		let targetTotal = Db('money').get(uid) + currencyName(Db('money').get(uid));
+		amount = amount + currencyName(amount);
 
 		this.sendReply("You have successfully transferred " + amount + ". You now have " + userTotal + ".");
 		if (Users.get(username)) Users(username).popup(user.name + " has transferred " + amount + ". You now have " + targetTotal + ".");
@@ -312,9 +313,9 @@ exports.commands = {
 		let cost = findItem.call(this, target, amount);
 		if (!cost) return;
 		let total = Db('money').set(user.userid, amount - cost).get(user.userid);
-		this.sendReply("You have bought " + target + " for " + cost + moneyName(cost) + ". You now have " + total + moneyName(total) + " left.");
+		this.sendReply("You have bought " + target + " for " + cost + currencyName(cost) + ". You now have " + total + currencyName(total) + " left.");
 		room.addRaw(user.name + " has bought <b>" + target + "</b> from the shop.");
-		Economy.logTransaction(user.name + " has bought " + target + " from the shop. This user now has " + total + moneyName(total) + ".");
+		Economy.logTransaction(user.name + " has bought " + target + " from the shop. This user now has " + total + currencyName(total) + ".");
 		handleBoughtItem.call(this, target.toLowerCase(), user, cost);
 	},
 	buyhelp: ["/buy [command] - Buys an item from the shop."],
@@ -389,8 +390,8 @@ exports.commands = {
 			return acc + Db('money').get(cur);
 		}, 0);
 		let average = Math.floor(total / users.length) || '0';
-		let output = "There " + (total > 1 ? "are " : "is ") + total + moneyName(total) + " circulating in the economy. ";
-		output += "The average user has " + average + moneyName(average) + ".";
+		let output = "There " + (total > 1 ? "are " : "is ") + total + currencyName(total) + " circulating in the economy. ";
+		output += "The average user has " + average + currencyName(average) + ".";
 		this.sendReplyBox(output);
 	},
 };

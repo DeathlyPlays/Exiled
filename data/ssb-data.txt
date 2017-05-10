@@ -191,7 +191,7 @@ Special Move: Analyze Intents
 Notes: Physical Sweeper.
 Rank: A.
 
-Crystal Ludicolo
+The Exiler
 (Ludicolo)
 @Life Orb
 Fire & Grass type
@@ -380,7 +380,7 @@ UB-01 Symbi0nt
 EVs: 252 Atk / 4 SpD / 252 Spe
 Adamant Nature
 Ability: No Hax
-    - Shield Dust + No guard (but only effects moves under 100 BP).
+    - Shield Dust + No guard (but only effects moves under 100 BP) + Huge Power.
 Moves: Play Rough, Knock Off, Ice Punch
 Special Move: Double Jaw Tackle
     - Steel Type, Physical, 99 BP, 100% Accuracy, 10 PP, Hits twice, Always crits.
@@ -590,14 +590,14 @@ GuiltasBR
 (Conkeldurr)
 Item: Douglasinium Z
 	- If the user is Conkeldurr with Punchy Fury, it may use the Z move Punchyru Massacre Z.
-		- Punchru Massacre Z: Hits 1 to 3 times, 50 BP per hit, Fighting, Physical.
+		- Punchru Massacre Z: Hits 2 to 3 times, 50 BP per hit, Fighting, Physical.
 EVs: 252 Atk / 252 SpD / 4 Spe
 Careful Nature
 Ability: handsBurn
 	- Immune to being frozen, if status'ed this Pokemon's Attack is multiplied by 3x.
 Moves: Drain Punch, Thunder Punch, Poison Jab
 Special Move: Punchy Fury
-	- 30 BP, Fighting, Physical, Hits 1-5 times.
+	- 30 BP, Fighting, Physical, Hits 2-5 times.
 Notes: Hard hitting revenge attacker.
 Rank: N/A.
 

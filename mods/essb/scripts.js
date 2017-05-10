@@ -125,7 +125,7 @@ exports.BattleScripts = {
 				nature: "Modest",
 			},
 			//Bots
-			"*Crystal Ludicolo": {
+			"*The Exiler": {
 				species: "Ludicolo",
 				ability: "Desolate Land",
 				item: "Life Orb",

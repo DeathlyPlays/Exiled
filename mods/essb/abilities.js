@@ -834,6 +834,11 @@ exports.BattleAbilities = {
 		onModifySecondaries: function (secondaries) {
 			return secondaries.filter(effect => !!(effect.self || effect.dustproof));
 		},
+		//Huge Power
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (atk) {
+			return this.chainModify(2);
+		},
 	},
 	"conflictofinterest": {
 		id: "conflictofinterest",

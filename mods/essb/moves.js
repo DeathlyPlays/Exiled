@@ -1373,7 +1373,7 @@ exports.BattleMovedex = {
 		basePower: 30,
 		category: "Physical",
 		accuracy: 100,
-		multihit: [1, 5],
+		multihit: [2, 5],
 		priority: 0,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -1404,7 +1404,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Close Combat", target);
 		},
-		multihit: [1, 3],
+		multihit: [2, 3],
 		target: "normal",
 		type: "Fighting",
 	},
@@ -1418,6 +1418,10 @@ exports.BattleMovedex = {
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Hidden Power", target);
+		},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('c| Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
 		},
 		onEffectiveness: function (typeMod) {
 			return 1;

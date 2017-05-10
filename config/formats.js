@@ -1455,6 +1455,9 @@ exports.Formats = [
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
 			}
+			if (name === 'almightyjudgment') {
+				this.add('c| Almighty Judgment|M3RP');
+			}
 
 			// Add here special typings, done for flavor mainly. (and stat boosts)
 			if (name === 'crystalludicolo' && !pokemon.illusion) {
@@ -1544,6 +1547,9 @@ exports.Formats = [
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|ur mom');
 			}
+			if (name === 'almightyjudgment') {
+				this.add('c| Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
+			}
 		},
 		onHit: function (pokemon, target) {
 			if (pokemon.hp <= 0 || pokemon.fainted) {
@@ -1554,6 +1560,9 @@ exports.Formats = [
 				}
 				if (name === 'insist') {
 					this.add('c|~Insist|**FOH, THIS IS MY HOUSE!!!**');
+				}
+				if (name === 'almightyjudgment') {
+					this.add('c| Almighty Judgment|You Have Been Judged!');
 				}
 			}
 		},

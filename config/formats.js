@@ -1418,7 +1418,7 @@ exports.Formats = [
 		section: "Exiled's Custom Gamemodes",
 		mod: 'essb',
 		team: 'randomSeasonalMelee',
-		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Freeze Clause Mod'],
+		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		desc: [
 			"Credit to: Insist (head coder).",
 			"Thanks to all the auth whom cooperated in this process of making this.",
@@ -1457,6 +1457,9 @@ exports.Formats = [
 			}
 			if (name === 'almightyjudgment') {
 				this.add('c| Almighty Judgment|M3RP');
+			}
+			if (name === 'guiltasbr') {
+				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
 			}
 
 			// Add here special typings, done for flavor mainly. (and stat boosts)
@@ -1549,6 +1552,9 @@ exports.Formats = [
 			}
 			if (name === 'almightyjudgment') {
 				this.add('c| Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
+			}
+			if (name === 'guiltasbr') {
+				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
 			}
 		},
 		onHit: function (pokemon, target) {

@@ -1380,6 +1380,10 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Drain Punch", target);
 			this.add('-anim', source, "Barrage", target);
 		},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('c| GuiltasBR|jooj jooj jooj');
+		},
 		flags: {protect: 1, contact: 1, mirror: 1},
 		secondary: false,
 		pp: 15,
@@ -1403,6 +1407,10 @@ exports.BattleMovedex = {
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Close Combat", target);
+		},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('c| GuiltasBR|ORA ORA ORA ORA ORA ORA ORA ORA ORA');
 		},
 		multihit: [2, 3],
 		target: "normal",

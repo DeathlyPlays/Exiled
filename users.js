@@ -661,6 +661,7 @@ class User {
 			this.send(`|nametaken|${name}|Your authentication token was invalid.`);
 		}
 
+		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 		Ontime[userid] = Date.now();
 
 		Db('rooms').get(userid, []).forEach(curRoom => {
@@ -668,7 +669,6 @@ class User {
 		});
 		Exiled.showNews(userid, this);
 		Exiled.giveDailyReward(userid, this);
-		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 
 		return false;
 	}

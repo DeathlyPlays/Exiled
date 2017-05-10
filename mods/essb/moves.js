@@ -234,36 +234,57 @@ exports.BattleMovedex = {
 		target: "self",
 		type: "Water",
 	},
-	//alolaludicolo
-	"mymixtape": {
-		id: "mymixtape",
-		name: "My Mixtape",
-		priority: 1,
+	"exile": {
+		isNonstandard: true,
+		accuracy: 100,
+		category: "Special",
+		id: "exile",
+		isViable: true,
+		name: "Exile",
+		pp: 10,
+		priority: 0,
+		basePower: 80,
 		self: {
-			boosts: {
-				spa: 1,
-				spe: 1,
+			onHit: function (pokemon, target, move) {
+				// substitute moves
+				function setMove(oldMove, moveid) {
+					let index = pokemon.moves.indexOf(oldMove);
+					if (index === -1) return;
+					let move = Dex.getMove(moveid);
+					let sketchedMove = {
+						move: move.name,
+						id: move.id,
+						pp: move.pp,
+						maxpp: move.pp,
+						target: move.target,
+						disabled: false,
+						used: false,
+					};
+					pokemon.moveset[index] = sketchedMove;
+					pokemon.moves[index] = toId(move.name);
+				}
+				let subs = [
+					["aurasphere", "recover"],
+					["sludgewave", "storedpower"],
+					["psychic", "cosmicpower"],
+				];
+				if (pokemon.template.speciesid === 'darkrai' && pokemon.formeChange('Cresselia')) {
+					subs.forEach(s => setMove(s[0], s[1]));
+					this.add('-formechange', pokemon, 'Cresselia', '[msg]');
+				} else if (pokemon.formeChange('Cresselia')) {
+					subs.forEach(s => setMove(s[1], s[0]));
+					this.add('-formechange', pokemon, 'Darkrai', '[msg]');
+				}
+				// make changing form available in consecutive turns
+				delete pokemon.volatiles.stall;
 			},
 		},
 		flags: {
 			protect: 1,
-			mirror: 1,
-			defrost: 1,
+			distance: 1,
 		},
-		secondary: false,
-		category: "Special",
-		onHit: function (target, source, move) {
-			this.add('c|*Crystal Ludicolo|Lemme drop out dis new mixtape fam.... I know it\'s **STRAIGHT FIRE** m8!');
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Fire Blast", target);
-		},
-		basePower: 90,
-		pp: 15,
-		accuracy: 100,
-		target: "normal",
-		type: "Fire",
+		target: "any",
+		type: "Dark",
 	},
 	//backatmyday
 	"roleplaying": {

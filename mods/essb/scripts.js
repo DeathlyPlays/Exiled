@@ -126,14 +126,14 @@ exports.BattleScripts = {
 			},
 			//Bots
 			"*The Exiler": {
-				species: "Ludicolo",
-				ability: "Desolate Land",
-				item: "Life Orb",
+				species: "Darkrai",
+				ability: "The Exiled Ones",
+				item: "Leftovers",
 				gender: "M",
 				shiny: true,
-				moves: ['freezedry', 'solarbeam', 'earthpower'],
-				baseSignatureMove: "mymixtape",
-				signatureMove: "My Mixtape",
+				moves: ['aurasphere', 'sludgewave', 'psychic'],
+				baseSignatureMove: "exile",
+				signatureMove: "Exile",
 				evs: {
 					spa: 252,
 					spe: 252,

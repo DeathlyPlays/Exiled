@@ -192,16 +192,16 @@ Notes: Physical Sweeper.
 Rank: A.
 
 The Exiler
-(Ludicolo)
-@Life Orb
-Fire & Grass type
+(Darkrai)
+@Leftovers
 EVs: 252 SpA / 252 Spe / 4 HP
 Timid Nature
-Ability: Desolate Land
-Moves: Solar Beam, Freeze-Dry, Earth Power
-Special Move: My Mixtape
-    - Fire, Special, 90 BP, 100% accuracy, boosts SpA and Spe by one stage, +1 priority, sound move, ignores Substitute.
-Notes: Fast Special Sweeper, with priority.
+Ability: The Exiled Ones
+	- Dazzling, Ignores Abilities, Infiltrator, Mold Breaker, uses Topsy Tury and Air Lock.
+Moves: Aura Sphere, Sludge Wave, Psychic
+Special Move: Exile
+    - Dark, Distance, 80 BP, 100% accuracy, Transforms into a Cresselia and replaces its moves for: Stored Power, Recover, Cosmic Power, and keeps Exile so it can change back.
+Notes: Fast Special Sweeper that can become bulky. (INSANE ANTIMETA)
 Rank: B.
 
 Alрhа Hawk

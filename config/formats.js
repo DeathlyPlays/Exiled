@@ -1462,11 +1462,7 @@ exports.Formats = [
 				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
 			}
 
-			// Add here special typings, done for flavor mainly. (and stat boosts)
-			if (name === 'crystalludicolo' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Grass/Fire');
-				pokemon.types = ["Grass", "Fire"];
-			}
+			// Add here special typings, done for flavor mainly. (and stat boosts)]
 			if (name === 'volco' && !pokemon.illusion) {
 				this.boost({
 					spe: 1,

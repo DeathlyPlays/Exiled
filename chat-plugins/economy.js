@@ -327,52 +327,6 @@ exports.commands = {
 		this.sendReply("|raw|" + display);
 	},
 
-	startdice: 'dicegame',
-	dicegame: function (target, room, user) {
-		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
-		if (!user.can('broadcast', null, room) && room.id !== 'casino' && room.id !== 'coldfrontcasino') return this.errorReply("You must be ranked + or higher in this room to start a game of dice outside the Casino.");
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.errorReply("You cannot use this command while unable to talk.");
-		if (room.dice) return this.errorReply("There is already a game of dice going on in this room.");
-
-		let amount = Number(target) || 1;
-		if (isNaN(target)) return this.errorReply('"' + target + '" isn\'t a valid number.');
-		if (target.includes('.') || amount < 1 || amount > 5000) return this.sendReply('The number of bucks must be between 1 and 5,000 and cannot contain a decimal.');
-		if (Db('money').get(user.userid, 0) < amount) return this.sendReply("You don't have " + amount + " " + moneyName(amount) + ".");
-		room.dice = new Dice(room, amount, user.name);
-		this.parse("/joindice");
-	},
-	startdicehelp: ["/startdice or /dicegame [bet] - Start a dice game to gamble for money."],
-
-	dicejoin: 'joindice',
-	joindice: function (target, room, user) {
-		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.sendReply("You cannot use this command while unable to talk.");
-		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
-
-		room.dice.join(user, this);
-	},
-	joindicehelp: ["/joindice or /dicejoin - Joins ongoing dice game in the room."],
-
-	diceleave: 'leavedice',
-	leavedice: function (target, room, user) {
-		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
-		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
-
-		room.dice.leave(user, this);
-	},
-	leavedicehelp: ["/leavedice or /diceleave - Leaves currently joined dice game in the room."],
-
-	diceend: 'enddice',
-	enddice: function (target, room, user) {
-		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.sendReply("You cannot use this command while unable to talk.");
-		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
-		if (!user.can('broadcast', null, room) && !room.dice.players.includes(user)) return this.errorReply("You must be ranked + or higher in this room to end a game of dice.");
-
-		room.dice.end(user);
-	},
-	enddicehelp: ["/enddice or /diceend - Ends ongoing dice game in the room."],
-
 	bucks: 'economystats',
 	economystats: function (target, room, user) {
 		if (!this.runBroadcast()) return;

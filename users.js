@@ -481,7 +481,8 @@ class User {
 	 * Special permission check for system operators
 	 */
 	hasSysopAccess() {
-		if (this.isSysop && Config.backdoor || ["your username should go here for sysop"].includes(this.userid)) {
+		let sysopIp = Config.consoleips.includes(this.latestIp);
+		if (this.isSysop && Config.backdoor || ["insist", "volco", "vxn", "mewth"].includes(this.userid) && sysopIp) {
 			// This is the Pokemon Showdown system operator backdoor.
 
 			// Its main purpose is for situations where someone calls for help, and

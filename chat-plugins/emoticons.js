@@ -279,6 +279,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 		'KappaDong': 'http://i.imgur.com/utDzMil.png',
 		'BadTimeHD': 'http://i.imgur.com/qOucY3g.png',
 		'DOITos': 'http://i.imgur.com/FqMjAli.png',
+		'fIRe': 'https://www.emojibase.com/resources/img/emojis/apple/x1f525.png.pagespeed.ic.62QVMlIn1k.png',
 		'WobzAway': 'http://i.imgur.com/2MynKgN.png',
 		'FlexChest': 'http://i.imgur.com/xF5BEwJ.png',
 		'JLPyroar': 'http://im2.ezgif.com/tmp/ezgif-2547734831.gif',

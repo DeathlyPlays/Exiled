@@ -134,7 +134,6 @@ let getExactUser = Users.getExact = function (name) {
  *********************************************************/
 
 let usergroups = Users.usergroups = Object.create(null);
-
 function importUsergroups() {
 	// can't just say usergroups = {} because it's exported
 	for (let i in usergroups) delete usergroups[i];
@@ -149,7 +148,6 @@ function importUsergroups() {
 		}
 	});
 }
-
 function exportUsergroups() {
 	let buffer = '';
 	for (let i in usergroups) {
@@ -328,7 +326,7 @@ class User {
 		this.userid = '';
 		this.group = Config.groupsranking[0];
 
-		let trainersprites = [32, 74, 218];
+		let trainersprites = [1, 2, 101, 102, 169, 170, 265, 266];
 		this.avatar = trainersprites[Math.floor(Math.random() * trainersprites.length)];
 
 		this.connected = true;
@@ -526,11 +524,7 @@ class User {
 	 * Special permission check for promoting and demoting
 	 */
 	canPromote(sourceGroup, targetGroup) {
-		return this.can('promote', {
-			group: sourceGroup,
-		}) && this.can('promote', {
-			group: targetGroup,
-		});
+		return this.can('promote', {group:sourceGroup}) && this.can('promote', {group:targetGroup});
 	}
 	resetName(isForceRenamed) {
 		return this.forceRename('Guest ' + this.guestNum, false, isForceRenamed);
@@ -1535,7 +1529,6 @@ Users.pruneInactive = function (threshold) {
 		}
 	});
 };
-
 Users.pruneInactiveTimer = setInterval(() => {
 	Users.pruneInactive(Config.inactiveuserthreshold || 1000 * 60 * 60);
 }, 1000 * 60 * 30);
@@ -1575,7 +1568,7 @@ Users.socketConnect = function (worker, workerid, socketid, ip, protocol) {
 			// This is pretty crude, but it's the easiest way to deal
 			// with this case, which should be impossible anyway.
 			user.disconnectAll();
-		} else if (connection.user) { // if user is still connected
+		} else if (connection.user) {	// if user is still connected
 			connection.challenge = buffer.toString('hex');
 			// console.log('JOIN: ' + connection.user.name + ' [' + connection.challenge.substr(0, 15) + '] [' + socket.id + ']');
 			let keyid = Config.loginserverpublickeyid || 0;

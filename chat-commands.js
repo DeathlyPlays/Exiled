@@ -2439,7 +2439,7 @@ exports.commands = {
 			command = `tail -${lines} ${filename} | tac`;
 		} else {
 			command = `awk '{a[i++]=$0} END {for (j=i-1; j>=i-${lines};) print a[j--]}' ${filename}`;
- 		}
+		}
 		let grepLimit = 100;
 		let strictMatch = false;
 		if (wordSearch) { // searching for a word instead

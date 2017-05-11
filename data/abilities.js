@@ -4237,4 +4237,23 @@ exports.BattleAbilities = {
 		rating: 5,
 		num: -27,
 	},
+	"barricade": {
+		desc: "This Pokemon receives 1/2 damage and is immune to non-volatile status",
+		shortDesc: "This Pokemon receives 1/2 damage and is immune to non-volatile status",
+		// TODO: are either of these effects actually base power modifiers?
+		onSourceModifyDamage: function (damage, source, target, move) {
+			let mod = 1;
+			mod /= 2;
+			return this.chainModify(mod);
+		},
+		onSetStatus: function (status, target, source, effect) {
+			if (!effect || !effect.status) return false;
+			this.add('-immune', target, '[msg]', '[from] ability: Barricade');
+			return false;
+		},
+		id: "barricade",
+		name: "Barricade",
+		rating: 5,
+		num: -28,
+	},
 };

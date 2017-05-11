@@ -6806,4 +6806,32 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Pachirisu, this item allows it to Mega Evolve in battle.",
 	},
+	"magmorite": {
+		id: "magmorite",
+		name: "Magmorite",
+		spritenum: -243,
+		megaStone: "Magmortar-Mega",
+		megaEvolves: "Magmortar",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Magmortar, this item allows it to Mega Evolve in battle.",
+	},
+	"electivite": {
+		id: "electivite",
+		name: "Electivite",
+		spritenum: -243,
+		megaStone: "Electivire-Mega",
+		megaEvolves: "Electivire",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Electivire, this item allows it to Mega Evolve in battle.",
+	},
 };

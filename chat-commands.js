@@ -2131,7 +2131,7 @@ exports.commands = {
 				Rooms('staff').addLogMessage(user, "<<" + room.id + ">> " + unlockMessage);
 			}
 			if (!reason) this.globalModlog("UNLOCK", target, " by " + user.name);
- 			if (targetUser) targetUser.popup("" + user.name + " has unlocked you.");
+			if (targetUser) targetUser.popup("" + user.name + " has unlocked you.");
 		} else {
 			this.errorReply("User '" + target + "' is not namelocked.");
 		}
@@ -2140,7 +2140,6 @@ exports.commands = {
 
 	hidetext: function (target, room, user) {
 		if (!target) return this.parse('/help hidetext');
-
 		this.splitTarget(target);
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /**
  * System commands
  * Pokemon Showdown - http://pokemonshowdown.com/
@@ -3577,4 +3575,3 @@ process.nextTick(() => {
 		'>>>? ', '/(?:room|staff)intro ', '/(?:staff)?topic ', '/adddatacenters ', '/bash '
 	);
 });
->>>>>>> a6b33f0d9f86d4c60701fbf87a14dc08acfec97f

@@ -29,6 +29,16 @@ Exiled.log = function (file, text) {
 	fs.appendFile(file, text);
 };
 
+Exiled.messageSeniorStaff = function (message, pmName, from) {
+	pmName = (pmName ? pmName : '~Exiled Server');
+	from = (from ? ' (PM from ' + from + ')' : '');
+	Users.users.forEach(curUser => {
+		if (curUser.group === '~' || curUser.group === '&') {
+			curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message + from);
+		}
+	});
+};
+
 //Daily Rewards System for SpacialGaze by Lord Haji
 Exiled.giveDailyReward = function (userid, user) {
 	if (!user || !userid) return false;
@@ -129,7 +139,7 @@ exports.commands = {
 	],
 
 	/* * * * * * * * * * * * *
-	 *  Allow letious games  *
+	 *  Allow various games  *
 	 *  to be played in      *
 	 *  unspecified rooms    *
 	 *  by Insist		     *

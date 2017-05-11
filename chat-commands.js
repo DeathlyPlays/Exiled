@@ -2383,6 +2383,7 @@ exports.commands = {
 		let hideIps = !user.can('lock');
 		let path = require('path');
 		let isWin = process.platform === 'win32';
+		let isLinux = process.platform === 'linux';
 		let logPath = 'logs/modlog/';
 
 		if (target.includes(',')) {

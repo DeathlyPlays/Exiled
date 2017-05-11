@@ -164,10 +164,19 @@ class CommandContext {
 
 			message = this.canTalk(message);
 		}
+
+		if (this.room) {
+			if (parseEmoticons(message, this.room, this.user)) return null;
+		} else {
+			message = parseEmoticons(message, this.room, this.user, true) || message;
+		}
+
 		// Output the message
 
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
+				const parsedMsg = parseEmoticons(message, this.room, this.user, true);
+				if (parsedMsg) message = '/html ' + parsedMsg;
 				let buf = `|pm|${this.user.getIdentity()}|${this.pmTarget.getIdentity()}|${message}`;
 				this.user.send(buf);
 				if (this.pmTarget !== this.user) this.pmTarget.send(buf);

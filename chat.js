@@ -16,8 +16,11 @@
  */
 
 /*
+
 To reload chat commands:
+
 /hotpatch chat
+
 */
 
 'use strict';
@@ -25,6 +28,7 @@ To reload chat commands:
 let Chat = module.exports;
 
 const MAX_MESSAGE_LENGTH = 300;
+
 const BROADCAST_COOLDOWN = 20 * 1000;
 const MESSAGE_COOLDOWN = 5 * 60 * 1000;
 
@@ -160,13 +164,6 @@ class CommandContext {
 
 			message = this.canTalk(message);
 		}
-
-		if (this.room) {
-			if (parseEmoticons(message, this.room, this.user)) return null;
-		} else {
-			message = parseEmoticons(message, this.room, this.user, true) || message;
-		}
-
 		// Output the message
 
 		if (message && message !== true && typeof message.then !== 'function') {
@@ -219,8 +216,7 @@ class CommandContext {
 		if (cmdToken === message.charAt(1)) return;
 		if (cmdToken === BROADCAST_TOKEN && /[^A-Za-z0-9]/.test(message.charAt(1))) return;
 
-		let cmd = '',
-			target = '';
+		let cmd = '', target = '';
 
 		let spaceIndex = message.indexOf(' ');
 		if (spaceIndex > 0) {
@@ -493,7 +489,7 @@ class CommandContext {
 			let broadcastMessage = message.toLowerCase().replace(/[^a-z0-9\s!,]/g, '');
 
 			if (this.room && this.room.lastBroadcast === this.broadcastMessage &&
-				this.room.lastBroadcastTime >= Date.now() - BROADCAST_COOLDOWN) {
+					this.room.lastBroadcastTime >= Date.now() - BROADCAST_COOLDOWN) {
 				this.errorReply("You can't broadcast this because it was just broadcasted.");
 				return false;
 			}
@@ -636,7 +632,7 @@ class CommandContext {
 			if (room) {
 				let normalized = message.trim();
 				if (room.id === 'lobby' && (normalized === user.lastMessage) &&
-					((Date.now() - user.lastMessageTime) < MESSAGE_COOLDOWN)) {
+						((Date.now() - user.lastMessageTime) < MESSAGE_COOLDOWN)) {
 					this.errorReply("You can't send the same message again so soon.");
 					return false;
 				}
@@ -818,12 +814,7 @@ Chat.CommandContext = CommandContext;
  */
 Chat.parse = function (message, room, user, connection) {
 	Chat.loadCommands();
-	let context = new CommandContext({
-		message,
-		room,
-		user,
-		connection,
-	});
+	let context = new CommandContext({message, room, user, connection});
 
 	return context.parse();
 };
@@ -838,8 +829,8 @@ Chat.uncacheTree = function (root) {
 			if (require.cache[uncache[i]]) {
 				newuncache.push.apply(newuncache,
 					require.cache[uncache[i]].children
-					.filter(cachedModule => !cachedModule.id.endsWith('.node'))
-					.map(cachedModule => cachedModule.id)
+						.filter(cachedModule => !cachedModule.id.endsWith('.node'))
+						.map(cachedModule => cachedModule.id)
 				);
 				delete require.cache[uncache[i]];
 			}

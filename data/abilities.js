@@ -4140,6 +4140,7 @@ exports.BattleAbilities = {
 		rating: 3.5,
 		num: -4,
 	},
+	//Exiled custom mons
 	"insectize": {
 		desc: "This Pokemon's Normal-type moves become Bug-type moves and have their power multiplied by 1.2. This effect comes after other effects that change a move's type, but before Ion Deluge and Electrify's effects.",
 		shortDesc: "This Pokemon's Normal-type moves become Bug Type and have 1.2x power.",
@@ -4218,15 +4219,15 @@ exports.BattleAbilities = {
 		onAfterDamage: function (damage, target, source, move) {
 			if (move && move.flags['contact'] && !source.status && source.runStatusImmunity('powder')) {
 				let r = this.random(100);
-				if (r < 70) {
+				if (r <= 14) {
 					source.setStatus('slp', target);
-				} else if (r < 70) {
+				} else if (r <= 28) {
 					source.setStatus('par', target);
-				} else if (r < 70) {
+				} else if (r <= 42) {
 					source.setStatus('psn', target);
-				} else if (r < 70) {
+				} else if (r <= 56) {
 					source.setStatus('frz', target);
-				} else if (r < 70) {
+				} else if (r <= 70) {
 					source.setStatus('brn', target);
 				}
 			}

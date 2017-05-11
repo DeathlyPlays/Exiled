@@ -2123,9 +2123,15 @@ exports.commands = {
 		let unlocked = Punishments.unnamelock(target);
 
 		if (unlocked) {
-			this.addModCommand(unlocked + " was unnamelocked by " + user.name + "." + reason);
-			if (!reason) this.globalModlog("UNNAMELOCK", target, " by " + user.name);
-			if (targetUser) targetUser.popup("" + user.name + " has unnamelocked you.");
+			const unlockMessage = unlocked.join(", ") + " " + ((unlocked.length > 1) ? "were" : "was") +
+				" unlocked by " + user.name + "." + reason;
+			this.addModCommand(unlockMessage);
+			// Notify staff room when a user is unlocked outside of it.
+			if (!reason && room.id !== 'staff' && Rooms('staff')) {
+				Rooms('staff').addLogMessage(user, "<<" + room.id + ">> " + unlockMessage);
+			}
+			if (!reason) this.globalModlog("UNLOCK", target, " by " + user.name);
+ 			if (targetUser) targetUser.popup("" + user.name + " has unlocked you.");
 		} else {
 			this.errorReply("User '" + target + "' is not namelocked.");
 		}
@@ -2400,17 +2406,19 @@ exports.commands = {
 		let roomNames = '';
 		let filename = '';
 		let command = '';
-		if (roomId === 'all' && wordSearch) {
+		if (roomId === 'all') {
 			if (!this.can('modlog')) return;
 			roomNames = "all rooms";
+			if (!wordSearch) return connection.popup(`The modlog for ${roomNames} cannot be viewed by line count. Did you mean to run \`\`/modlog ${roomId}, "${lines}"\`\` instead?`);
 			// Get a list of all the rooms
 			let fileList = fs.readdirSync('logs/modlog');
 			for (let i = 0; i < fileList.length; ++i) {
 				filename += path.normalize(`${__dirname}/${logPath}${fileList[i]}`) + ' ';
 			}
-		} else if (roomId === 'public' && wordSearch) {
+		} else if (roomId === 'public') {
 			if (!this.can('modlog')) return;
 			roomNames = "all public rooms";
+			if (!wordSearch) return connection.popup(`The modlog for ${roomNames} cannot be viewed by line count. Did you mean to run \`\`/modlog ${roomId}, "${lines}"\`\` instead?`);
 			const isPublicRoom = (room => !(room.isPrivate || room.battle || room.isPersonal || room.id === 'global'));
 			const publicRoomIds = Array.from(Rooms.rooms.values()).filter(isPublicRoom).map(room => room.id);
 			for (let i = 0; i < publicRoomIds.length; i++) {
@@ -2427,9 +2435,11 @@ exports.commands = {
 		// Seek for all input rooms for the lines or text
 		if (isWin) {
 			command = `${path.normalize(__dirname + '/lib/winmodlog')} tail ${lines} ${filename}`;
-		} else {
+		} else if (isLinux) {
 			command = `tail -${lines} ${filename} | tac`;
-		}
+		} else {
+			command = `awk '{a[i++]=$0} END {for (j=i-1; j>=i-${lines};) print a[j--]}' ${filename}`;
+ 		}
 		let grepLimit = 100;
 		let strictMatch = false;
 		if (wordSearch) { // searching for a word instead
@@ -2458,10 +2468,11 @@ exports.commands = {
 					// doesn't happen. ID search with RegEx isn't implemented for windows yet (feel free to add it to winmodlog.cmd and call it from here)
 				}
 			} else {
+				command = isLinux ? `tac ${filename}` : `awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--]}' ${filename}`;
 				if (strictMatch) {
-					command = `awk '{print NR,$0}' ${filename} | sort -nr | cut -d' ' -f2- | grep -m${grepLimit} -i '${searchString.replace(/\\/g, '\\\\\\\\').replace(/["'`]/g, '\'\\$&\'').replace(/[\{\}\[\]\(\)\$\^\.\?\+\-\*]/g, '[$&]')}'`;
+					command += ` | grep -m${grepLimit} -i '${searchString.replace(/\\/g, '\\\\\\\\').replace(/["'`]/g, '\'\\$&\'').replace(/[\{\}\[\]\(\)\$\^\.\?\+\-\*]/g, '[$&]')}'`;
 				} else {
-					command = `awk '{print NR,$0}' ${filename} | sort -nr | cut -d' ' -f2- | grep -m${grepLimit} -Ei '${searchString}'`;
+					command += ` | grep -m${grepLimit} -Ei '${searchString}'`;
 				}
 			}
 		}
@@ -2819,9 +2830,7 @@ exports.commands = {
 			return this.errorReply("Wait for /updateserver to finish before using /kill.");
 		}
 
-		for (let i in Sockets.workers) {
-			Sockets.workers[i].kill();
-		}
+		Sockets.workers.forEach(worker => worker.kill());
 
 		if (!room.destroyLog) {
 			process.exit();
@@ -3179,11 +3188,7 @@ exports.commands = {
 	kickbattlehelp: ["/kickbattle [username], [reason] - Kicks a user from a battle with reason. Requires: % @ * & ~"],
 
 	kickinactive: function (target, room, user) {
-		if (room.requestKickInactive) {
-			room.requestKickInactive(user);
-		} else {
-			this.errorReply("You can only kick inactive players from inside a room.");
-		}
+		this.parse(`/timer on`);
 	},
 
 	timer: function (target, room, user) {

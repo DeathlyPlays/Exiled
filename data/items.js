@@ -6792,4 +6792,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Volcanion, this item allows it to Mega Evolve in battle.",
 	},
+	"pachite": {
+		id: "pachite",
+		name: "Pachite",
+		spritenum: -243,
+		megaStone: "Pachirisu-Mega",
+		megaEvolves: "Pachirisu",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Pachirisu, this item allows it to Mega Evolve in battle.",
+	},
 };

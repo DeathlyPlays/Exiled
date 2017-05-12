@@ -1234,6 +1234,11 @@ exports.commands = {
 
 	'!calc': true,
 	calculator: 'calc',
+<<<<<<< HEAD
+=======
+	damagecalculator: 'calc',
+	damagecalc: 'calc',
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	calc: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(

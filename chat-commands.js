@@ -12,6 +12,10 @@
  *
  * @license MIT license
  */
+<<<<<<< HEAD
+=======
+
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 'use strict';
 
 /* eslint no-else-return: "error" */
@@ -1180,20 +1184,30 @@ exports.commands = {
 			(Config.groups[b] || {rank:0}).rank - (Config.groups[a] || {rank:0}).rank
 		).map(r => {
 			let roomRankList = rankLists[r].sort();
+<<<<<<< HEAD
 			roomRankList = roomRankList.map(s => ((Users(s) && Users(s).connected) ? Exiled.nameColor(s, true) : Exiled.nameColor(s)));
 			return (Config.groups[r] ? Chat.escapeHTML(Config.groups[r].name) + "s (" + Chat.escapeHTML(r) + ")" : r) + ":\n" + roomRankList.join(", ");
+=======
+			roomRankList = roomRankList.map(s => s in targetRoom.users ? "**" + s + "**" : s);
+			return (Config.groups[r] ? Config.groups[r].name + "s (" + r + ")" : r) + ":\n" + roomRankList.join(", ");
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		});
 
 		if (!buffer.length) {
 			connection.popup("The room '" + targetRoom.title + "' has no auth." + userLookup);
 			return;
 		}
+<<<<<<< HEAD
 		if (targetRoom.founder) {
 			buffer.unshift((targetRoom.founder ? "Room Founder:\n" + ((Users(targetRoom.founder) && Users(targetRoom.founder).connected) ? Exiled.nameColor(targetRoom.founder, true) : Exiled.nameColor(targetRoom.founder)) : ''));
 		}
 		if (room.autorank) buffer.unshift("Autorank is currently set to " + Config.groups[room.autorank].name + " (" + room.autorank + ")");
 		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");
 		connection.send("|popup||html|" + buffer.join("\n\n") + userLookup);
+=======
+		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");
+		connection.popup(buffer.join("\n\n") + userLookup);
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	},
 
 	'!userauth': true,
@@ -1262,7 +1276,10 @@ exports.commands = {
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
+<<<<<<< HEAD
 		if (targetUser.can('root')) return this.errorReply("PISS OFF!!!!!");
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
@@ -1638,8 +1655,18 @@ exports.commands = {
 		let unlocked = Punishments.unlock(target);
 
 		if (unlocked) {
+<<<<<<< HEAD
 			this.addModCommand(unlocked.join(", ") + " " + ((unlocked.length > 1) ? "were" : "was") +
 				" unlocked by " + user.name + "." + reason);
+=======
+			const unlockMessage = unlocked.join(", ") + " " + ((unlocked.length > 1) ? "were" : "was") +
+				" unlocked by " + user.name + "." + reason;
+			this.addModCommand(unlockMessage);
+			// Notify staff room when a user is unlocked outside of it.
+			if (!reason && room.id !== 'staff' && Rooms('staff')) {
+				Rooms('staff').addLogMessage(user, "<<" + room.id + ">> " + unlockMessage);
+			}
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			if (!reason) this.globalModlog("UNLOCK", target, " by " + user.name);
 			if (targetUser) targetUser.popup("" + user.name + " has unlocked you.");
 		} else {
@@ -1648,7 +1675,10 @@ exports.commands = {
 	},
 	unlockhelp: ["/unlock [username] - Unlocks the user. Requires: % @ * & ~"],
 
+<<<<<<< HEAD
 	exile: 'globalban',
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	forceglobalban: 'globalban',
 	gban: 'globalban',
 	globalban: function (target, room, user, connection, cmd) {
@@ -1657,7 +1687,10 @@ exports.commands = {
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
+<<<<<<< HEAD
 		if (targetUser.can('root')) return this.errorReply("PISS OFF!");
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
@@ -2123,6 +2156,7 @@ exports.commands = {
 		let unlocked = Punishments.unnamelock(target);
 
 		if (unlocked) {
+<<<<<<< HEAD
 			const unlockMessage = unlocked.join(", ") + " " + ((unlocked.length > 1) ? "were" : "was") +
 				" unlocked by " + user.name + "." + reason;
 			this.addModCommand(unlockMessage);
@@ -2132,6 +2166,11 @@ exports.commands = {
 			}
 			if (!reason) this.globalModlog("UNLOCK", target, " by " + user.name);
 			if (targetUser) targetUser.popup("" + user.name + " has unlocked you.");
+=======
+			this.addModCommand(unlocked + " was unnamelocked by " + user.name + "." + reason);
+			if (!reason) this.globalModlog("UNNAMELOCK", target, " by " + user.name);
+			if (targetUser) targetUser.popup("" + user.name + " has unnamelocked you.");
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		} else {
 			this.errorReply("User '" + target + "' is not namelocked.");
 		}
@@ -2140,6 +2179,10 @@ exports.commands = {
 
 	hidetext: function (target, room, user) {
 		if (!target) return this.parse('/help hidetext');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		this.splitTarget(target);
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;

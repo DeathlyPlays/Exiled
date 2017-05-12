@@ -1,18 +1,27 @@
 'use strict';
 
 // The server port - the port to run Pokemon Showdown under
+<<<<<<< HEAD
 //   The default port is 8000. If you are hosting the server under c9, change the port number to 8080.
 exports.port = 8000;
 
 //serverIp for parsing of custom avatars, put your server's ip here
 exports.serverIp = '';
 
+=======
+exports.port = 8000;
+
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 // proxyip - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array
 //   of strings. Each string should be either an IP address or a subnet given
 //   in CIDR notation. You should usually leave this as `false` unless you
 //   know what you are doing.
+<<<<<<< HEAD
 exports.proxyip = '10.69.187.242/8';
+=======
+exports.proxyip = false;
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 // Pokemon of the Day - put a pokemon's name here to make it Pokemon of the Day
 //   The PotD will always be in the #2 slot (not #1 so it won't be a lead)
@@ -72,7 +81,11 @@ Y929lRybWEiKUr+4Yw2O1W0CAwEAAQ==
 //   like the upside-down exclamation mark (looks like an i), the Greek omicron (looks
 //   like an o), etc. Disable only if you need one of the alphabets it disables, such as
 //   Greek or Cyrillic.
+<<<<<<< HEAD
 exports.disablebasicnamefilter = true;
+=======
+exports.disablebasicnamefilter = false;
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 // report joins and leaves - shows messages like "<USERNAME> joined"
 //   Join and leave messages are small and consolidated, so there will never
@@ -81,7 +94,11 @@ exports.disablebasicnamefilter = true;
 //   /hidejoins configuration for users.
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 80 or so users.
+<<<<<<< HEAD
 exports.reportjoins = false;
+=======
+exports.reportjoins = true;
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 // report joins and leaves periodically - sends silent join and leave messages in batches
 //   This setting will only be effective if `reportjoins` is set to false, and users will
@@ -92,13 +109,34 @@ exports.reportjoinsperiod = 0;
 // report battles - shows messages like "OU battle started" in the lobby
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 160 or so users.
+<<<<<<< HEAD
 exports.reportbattles = false;
+=======
+exports.reportbattles = true;
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 // report joins and leaves in battle - shows messages like "<USERNAME> joined" in battle
 //   Set this to false on large tournament servers where battles get a lot of joins and leaves.
 //   Note that the feature of turning this off is deprecated.
 exports.reportbattlejoins = true;
 
+<<<<<<< HEAD
+=======
+// notify staff when users have a certain amount of room punishments.
+//   Setting this to a number greater than zero will notify staff for everyone with
+//   the required amount of room punishments.
+//   Set this to 0 to turn the monitor off.
+exports.monitorminpunishments = 3;
+
+// allow punishmentmonitor to lock users with multiple roombans.
+//	 When set to `true`, this feature will automatically lock any users with three or more
+//	 active roombans, and notify the staff room.
+//   Note that this requires punishmentmonitor to be enabled, and therefore requires the `monitorminpunishments`
+//   option to be set to a number greater than zero. If `monitorminpunishments` is set to a value greater than 3,
+//   the autolock will only apply to people who pass this threshold.
+exports.punishmentautolock = false;
+
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 // whitelist - prevent users below a certain group from doing things
 //   For the modchat settings, false will allow any user to participate, while a string
 //   with a group symbol will restrict it to that group and above. The string
@@ -127,7 +165,11 @@ exports.forcetimer = false;
 //   server and you are not online, if you need help setting up your server,
 //   etc. If you do not trust Pokemon Showdown with admin access, you should
 //   disable this feature.
+<<<<<<< HEAD
 exports.backdoor = false;
+=======
+exports.backdoor = true;
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 // List of IPs and user IDs with dev console (>> and >>>) access.
 // The console is incredibly powerful because it allows the execution of
@@ -148,7 +190,11 @@ exports.consoleips = ['127.0.0.1'];
 exports.watchconfig = true;
 
 // logchat - whether to log chat rooms.
+<<<<<<< HEAD
 exports.logchat = true;
+=======
+exports.logchat = false;
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 // logchallenges - whether to log challenge battles. Useful for tournament servers.
 exports.logchallenges = false;
@@ -157,7 +203,10 @@ exports.logchallenges = false;
 // lobby log. This has no effect if `logchat` is disabled.
 exports.loguserstats = 1000 * 60 * 10; // 10 minutes
 
+<<<<<<< HEAD
 exports.tellsexpiryage = 1000 * 60 * 60 * 24 * 7;
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 // validatorprocesses - the number of processes to use for validating teams
 // simulatorprocesses - the number of processes to use for handling battles
 // You should leave both of these at 1 unless your server has a very large
@@ -167,6 +216,7 @@ exports.simulatorprocesses = 1;
 
 // inactiveuserthreshold - how long a user must be inactive before being pruned
 // from the `users` array. The default is 1 hour.
+<<<<<<< HEAD
 // Set to 7 days
 exports.inactiveuserthreshold = 1000 * 60 * 60 * 24 * 7;
 
@@ -179,6 +229,9 @@ exports.tellsexpiryage = 1000 * 60 * 60 * 24 * 7;
 // offline messaging completely. Set to `'autoconfirmed'` to allow only autoconfirmed users
 // to send offline messages.
 exports.tellrank = 'autoconfirmed';
+=======
+exports.inactiveuserthreshold = 1000 * 60 * 60;
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 // Custom avatars.
 // This allows you to specify custom avatar images for users on your server.
@@ -192,6 +245,7 @@ exports.customavatars = {
 	//'userid': 'customavatar.png'
 };
 
+<<<<<<< HEAD
 // notify staff when users have a certain amount of room punishments.
 //   Setting this to a number greater than zero will notify staff for everyone with
 //   the required amount of room punishments.
@@ -211,17 +265,33 @@ exports.punishmentautolock = true;
 // tourannouncements - announcements are only allowed in these rooms
 exports.tourroom = '';
 exports.tourannouncements = [/*rooms*/];
+=======
+// tourroom - specify a room to receive tournament announcements (defaults to
+// the room 'tournaments').
+// tourannouncements - announcements are only allowed in these rooms
+// tourdefaultplayercap - a set cap of how many players can be in a tournament
+// ratedtours - toggles tournaments being ladder rated (true) or not (false)
+exports.tourroom = '';
+exports.tourannouncements = [/* roomids */];
+exports.tourdefaultplayercap = 0;
+exports.ratedtours = false;
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 // appealurl - specify a URL containing information on how users can appeal
 // disciplinary actions on your section. You can also leave this blank, in
 // which case users won't be given any information on how to appeal.
+<<<<<<< HEAD
 exports.appealurl = 'http://exiledps.boards.net/board/5/appeals';
+=======
+exports.appealurl = '';
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 // replsocketprefix - the prefix for the repl sockets to be listening on
 // replsocketmode - the file mode bits to use for the repl sockets
 exports.replsocketprefix = './logs/repl/';
 exports.replsocketmode = 0o600;
 
+<<<<<<< HEAD
 //github repo config
 exports.github = {
 	secret: "", // Your repo secret
@@ -229,6 +299,8 @@ exports.github = {
 	rooms: ['development'], // Desired rooms
 };
 
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 // permissions and groups:
 //   Each entry in `grouplist' is a seperate group. Some of the members are "special"
 //     while the rest is just a normal permission.
@@ -264,7 +336,10 @@ exports.github = {
 //     - lock: locking (ipmute) and unlocking.
 //     - receivemutedpms: Receive PMs from muted users.
 //     - forcerename: /fr command.
+<<<<<<< HEAD
 //     - redirect: /redir command.
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 //     - ip: IP checking.
 //     - alts: Alt checking.
 //     - modlog: view the moderator logs.
@@ -281,6 +356,7 @@ exports.github = {
 //     - minigame: make minigames (hangman, polls, etc.).
 //     - game: make games.
 //     - gamemanagement: enable/disable games and minigames.
+<<<<<<< HEAD
 exports.grouplist = [{
 	symbol: '~',
 	id: "admin",
@@ -409,4 +485,123 @@ exports.grouplist = [{
 	symbol: ' ',
 	ip: 's',
 },
+=======
+exports.grouplist = [
+	{
+		symbol: '~',
+		id: "admin",
+		name: "Administrator",
+		root: true,
+		globalonly: true,
+	},
+	{
+		symbol: '&',
+		id: "leader",
+		name: "Leader",
+		inherit: '@',
+		jurisdiction: '@u',
+		promote: 'u',
+		roomowner: true,
+		roombot: true,
+		roommod: true,
+		roomdriver: true,
+		forcewin: true,
+		declare: true,
+		modchatall: true,
+		rangeban: true,
+		makeroom: true,
+		editroom: true,
+		potd: true,
+		disableladder: true,
+		globalonly: true,
+		tournamentsmanagement: true,
+		gamemanagement: true,
+	},
+	{
+		symbol: '#',
+		id: "owner",
+		name: "Room Owner",
+		inherit: '@',
+		jurisdiction: 'u',
+		roombot: true,
+		roommod: true,
+		roomdriver: true,
+		editroom: true,
+		declare: true,
+		modchatall: true,
+		roomonly: true,
+		tournamentsmanagement: true,
+		gamemanagement: true,
+	},
+	{
+		symbol: '\u2606',
+		id: "player",
+		name: "Player",
+		inherit: '+',
+		roomvoice: true,
+		modchat: true,
+		roomonly: true,
+		editroom: true,
+		joinbattle: true,
+		nooverride: true,
+	},
+	{
+		symbol: '*',
+		id: "bot",
+		name: "Bot",
+		inherit: '@',
+		jurisdiction: 'u',
+		declare: true,
+		addhtml: true,
+	},
+	{
+		symbol: '@',
+		id: "mod",
+		name: "Moderator",
+		inherit: '%',
+		jurisdiction: 'u',
+		ban: true,
+		modchat: true,
+		roomvoice: true,
+		forcerename: true,
+		ip: true,
+		alts: '@u',
+		tournaments: true,
+		game: true,
+	},
+	{
+		symbol: '%',
+		id: "driver",
+		name: "Driver",
+		inherit: '+',
+		jurisdiction: 'u',
+		announce: true,
+		warn: '\u2606u',
+		kick: true,
+		mute: '\u2606u',
+		lock: true,
+		forcerename: true,
+		timer: true,
+		modlog: true,
+		alts: '%u',
+		bypassblocks: 'u%@&~',
+		receiveauthmessages: true,
+		tournamentsmoderation: true,
+		jeopardy: true,
+		joinbattle: true,
+		minigame: true,
+	},
+	{
+		symbol: '+',
+		id: "voice",
+		name: "Voice",
+		inherit: ' ',
+		alts: 's',
+		broadcast: true,
+	},
+	{
+		symbol: ' ',
+		ip: 's',
+	},
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 ];

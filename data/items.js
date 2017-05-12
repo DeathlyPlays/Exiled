@@ -6129,6 +6129,7 @@ exports.BattleItems = {
 		isNonstandard: true,
 		desc: "If holder is a Crucibelle, this item allows it to Mega Evolve in battle.",
 	},
+<<<<<<< HEAD
 	"staticorb": {
 		id: "staticorb",
 		name: "Static Orb",
@@ -6834,4 +6835,6 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Electivire, this item allows it to Mega Evolve in battle.",
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 };

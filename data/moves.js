@@ -19031,6 +19031,7 @@ exports.BattleMovedex = {
 		type: "Water",
 		contestType: "Cute",
 	},
+<<<<<<< HEAD
 	"spiralingtoxins": {
 		num: -92,
 		accuracy: 100,
@@ -19089,4 +19090,6 @@ exports.BattleMovedex = {
 		zMovePower: 200,
 		contestType: "Tough",
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 };

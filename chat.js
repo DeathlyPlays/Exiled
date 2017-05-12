@@ -39,7 +39,10 @@ const BROADCAST_TOKEN = '!';
 
 const fs = require('fs');
 const path = require('path');
+<<<<<<< HEAD
 const parseEmoticons = require('./chat-plugins/emoticons').parseEmoticons;
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 class PatternTester {
 	// This class sounds like a RegExp
@@ -165,18 +168,24 @@ class CommandContext {
 			message = this.canTalk(message);
 		}
 
+<<<<<<< HEAD
 		if (this.room) {
 			if (parseEmoticons(message, this.room, this.user)) return null;
 		} else {
 			message = parseEmoticons(message, this.room, this.user, true) || message;
 		}
 
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		// Output the message
 
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
+<<<<<<< HEAD
 				const parsedMsg = parseEmoticons(message, this.room, this.user, true);
 				if (parsedMsg) message = '/html ' + parsedMsg;
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 				let buf = `|pm|${this.user.getIdentity()}|${this.pmTarget.getIdentity()}|${message}`;
 				this.user.send(buf);
 				if (this.pmTarget !== this.user) this.pmTarget.send(buf);
@@ -184,6 +193,7 @@ class CommandContext {
 				this.pmTarget.lastPM = this.user.userid;
 				this.user.lastPM = this.pmTarget.userid;
 			} else {
+<<<<<<< HEAD
 				if (Users.ShadowBan.checkBanned(this.user)) {
 					Users.ShadowBan.addMessage(this.user, `To ${this.room.id}`, message);
 					this.user.sendTo(this.room.id, `|c|${this.user.getIdentity(this.room.id)}|${message}`);
@@ -196,6 +206,9 @@ class CommandContext {
 						Exiled.addExp(this.user, this.room, 1);
 					}
 				}
+=======
+				this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`);
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			}
 		}
 
@@ -864,12 +877,16 @@ Chat.loadCommands = function () {
 	// info always goes first so other plugins can shadow it
 	Object.assign(commands, require('./chat-plugins/info').commands);
 
+<<<<<<< HEAD
 	Object.assign(commands, require('./console.js').commands);
 
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	for (let file of fs.readdirSync(path.resolve(__dirname, 'chat-plugins'))) {
 		if (file.substr(-3) !== '.js' || file === 'info.js') continue;
 		Object.assign(commands, require('./chat-plugins/' + file).commands);
 	}
+<<<<<<< HEAD
 	for (let file of fs.readdirSync(path.resolve(__dirname, 'game-cards'))) {
 		if (file.substr(-3) !== '.js') continue;
 		Object.assign(commands, require('./game-cards/' + file).commands);
@@ -882,6 +899,8 @@ Chat.loadCommands = function () {
 		if (obj && obj.name) obj.id = toId(obj.name);
 		Exiled.gameList[obj.id] = obj;
 	}
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 };
 
 /**

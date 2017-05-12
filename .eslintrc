@@ -14,11 +14,15 @@
 	"globals": {
 		"Config": false, "Monitor": false, "toId": false, "Dex": false, "LoginServer": false,
 		"Users": false, "Punishments": false, "Rooms": false, "Verifier": false, "Chat": false,
+<<<<<<< HEAD
 		"Tournaments": false, "Dnsbl": false, "Sockets": false, "TeamValidator": false, "Ladders": false,
 		"SG": false, "Tells": false, "Db": false, "Economy": false, "sqlite3": false, "moneyName": false, "currencyName": false, "moneyPlural": false, "writeSSB": false,
 		"Exiled": false, "nightclub": false, "nightclubify": false, "Ontime": false, "rankLadder": false, "runDexSearch": false, "runMoveSearch": false,
 		"runItemSearch": false, "runLearn": false, "MD5": false, "autolinker": false, "nani": false, "moment": false, "https": false, "http": false, "amCache": false,
 		"colorCache": false, "isYouTube": false, "hashColorWithCustoms": false, "isCapo": false, "isGodfather": false, "isDev": false
+=======
+		"Tournaments": false, "Dnsbl": false, "Sockets": false, "TeamValidator": false, "Ladders": false
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	},
 	"extends": "eslint:recommended",
 	"rules": {
@@ -102,7 +106,11 @@
 		"no-path-concat": "off",
 		"no-process-env": "off",
 		"no-process-exit": "off",
+<<<<<<< HEAD
 		"no-restricted-modules": ["error", "sugar"],
+=======
+		"no-restricted-modules": ["error", "moment", "request", "sugar"],
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		"no-sync": "off",
 
 		"array-bracket-spacing": ["error", "never"],

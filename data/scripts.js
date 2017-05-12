@@ -1840,7 +1840,11 @@ exports.BattleScripts = {
 					if (hasMove['scald']) rejected = true;
 					break;
 				case 'moonlight': case 'painsplit': case 'recover': case 'roost': case 'softboiled': case 'synthesis':
+<<<<<<< HEAD
 					if (hasMove['rest'] || hasMove['wish']) rejected = true;
+=======
+					if (hasMove['leechseed'] || hasMove['rest'] || hasMove['wish']) rejected = true;
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 					break;
 				case 'safeguard':
 					if (hasMove['destinybond']) rejected = true;
@@ -3050,8 +3054,11 @@ exports.BattleScripts = {
 				rejectAbility = !counter['inaccurate'];
 			} else if (ability === 'Defiant' || ability === 'Moxie') {
 				rejectAbility = !counter['Physical'] && !hasMove['batonpass'];
+<<<<<<< HEAD
 			} else if (ability === 'Gluttony') {
 				rejectAbility = !hasMove['bellydrum'];
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			} else if (ability === 'Limber') {
 				rejectAbility = template.types.includes('Electric');
 			} else if (ability === 'Lightning Rod') {
@@ -3259,7 +3266,11 @@ exports.BattleScripts = {
 		// medium priority
 		} else if (ability === 'Guts') {
 			item = hasType['Fire'] ? 'Toxic Orb' : 'Flame Orb';
+<<<<<<< HEAD
 		} else if (ability === 'Marvel Scale' && hasMove['psychoshift']) {
+=======
+		} else if (ability === 'Marvel Scale') {
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			item = 'Flame Orb';
 		} else if (counter.Physical >= 4 && template.baseStats.spe > 55 && !hasMove['fakeout'] && !hasMove['suckerpunch'] && !hasMove['flamecharge'] && !hasMove['rapidspin'] && ability !== 'Sturdy' && ability !== 'Multiscale') {
 			item = 'Life Orb';
@@ -3336,9 +3347,14 @@ exports.BattleScripts = {
 		if (templateAbility === 'Huge Power' || templateAbility === 'Pure Power') {
 			bst += baseStats.atk;
 		} else if (templateAbility === 'Parental Bond') {
+<<<<<<< HEAD
 			bst += 0.5 * (counter.Physical > counter.Special ? baseStats.atk : baseStats.spa);
 		} else if (templateAbility === 'Protean') {
 			// Holistic judgment. Don't boost Protean as much as Parental Bond
+=======
+			bst += 0.25 * (counter.Physical > counter.Special ? baseStats.atk : baseStats.spa);
+		} else if (templateAbility === 'Protean') {
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			bst += 0.3 * (counter.Physical > counter.Special ? baseStats.atk : baseStats.spa);
 		} else if (templateAbility === 'Fur Coat') {
 			bst += baseStats.def;

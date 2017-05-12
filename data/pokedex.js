@@ -220,7 +220,11 @@ exports.BattlePokedex = {
 		num: 12,
 		species: "Butterfree",
 		types: ["Bug", "Flying"],
+<<<<<<< HEAD
 		baseStats: {hp: 80, atk: 45, def: 50, spa: 90, spd: 80, spe: 70},
+=======
+		baseStats: {hp: 60, atk: 45, def: 50, spa: 90, spd: 80, spe: 70},
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		abilities: {0: "Compound Eyes", H: "Tinted Lens"},
 		heightm: 1.1,
 		weightkg: 32,
@@ -229,6 +233,7 @@ exports.BattlePokedex = {
 		evoLevel: 10,
 		eggGroups: ["Bug"],
 	},
+<<<<<<< HEAD
 	butterfreemega: {
 		num: 12,
 		species: "Butterfree-Mega",
@@ -243,6 +248,8 @@ exports.BattlePokedex = {
 		color: "White",
 		eggGroups: ["Bug"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	weedle: {
 		num: 13,
 		species: "Weedle",
@@ -464,7 +471,11 @@ exports.BattlePokedex = {
 		species: "Pikachu",
 		types: ["Electric"],
 		baseStats: {hp: 35, atk: 55, def: 40, spa: 50, spd: 50, spe: 90},
+<<<<<<< HEAD
 		abilities: {0: "Static", H: "Lightning Rod", S: "Pika Bond"},
+=======
+		abilities: {0: "Static", H: "Lightning Rod"},
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		heightm: 0.4,
 		weightkg: 6,
 		color: "Yellow",
@@ -474,6 +485,7 @@ exports.BattlePokedex = {
 		eggGroups: ["Field", "Fairy"],
 		otherFormes: ["pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola"],
 	},
+<<<<<<< HEAD
 	pikachuash: {
 		num: 25,
 		species: "Pikachu-Ash",
@@ -489,6 +501,8 @@ exports.BattlePokedex = {
 		color: "Yellow",
 		eggGroups: ["Undiscovered"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	pikachucosplay: {
 		num: 25,
 		species: "Pikachu-Cosplay",
@@ -2091,6 +2105,7 @@ exports.BattlePokedex = {
 		evoLevel: 35,
 		eggGroups: ["Amorphous"],
 	},
+<<<<<<< HEAD
 	weezingmega: {
 		num: 110,
 		species: "Weezing-Mega",
@@ -2105,6 +2120,8 @@ exports.BattlePokedex = {
 		color: "Purple",
 		eggGroups: ["Amorphous"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	rhyhorn: {
 		num: 111,
 		species: "Rhyhorn",
@@ -2423,6 +2440,7 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Monster", "Water 1"],
 	},
+<<<<<<< HEAD
 	laprasmega: {
 		num: 131,
 		species: "Lapras-Mega",
@@ -2437,6 +2455,8 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Monster", "Water 1"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	ditto: {
 		num: 132,
 		species: "Ditto",
@@ -2544,6 +2564,7 @@ exports.BattlePokedex = {
 		evoLevel: 40,
 		eggGroups: ["Water 1", "Water 3"],
 	},
+<<<<<<< HEAD
 	omastarmega: {
 		num: 139,
 		species: "Omastar-Mega",
@@ -2559,6 +2580,8 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Water 1", "Water 3"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	kabuto: {
 		num: 140,
 		species: "Kabuto",
@@ -2586,6 +2609,7 @@ exports.BattlePokedex = {
 		evoLevel: 40,
 		eggGroups: ["Water 1", "Water 3"],
 	},
+<<<<<<< HEAD
 	kabutopsmega: {
 		num: 141,
 		species: "Kabutops-Mega",
@@ -2601,6 +2625,8 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Water 1", "Water 3"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	aerodactyl: {
 		num: 142,
 		species: "Aerodactyl",
@@ -2924,6 +2950,7 @@ exports.BattlePokedex = {
 		evoLevel: 15,
 		eggGroups: ["Field"],
 	},
+<<<<<<< HEAD
 	furretmega: {
 		num: 162,
 		species: "Furret-Mega",
@@ -2938,6 +2965,8 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Field"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	hoothoot: {
 		num: 163,
 		species: "Hoothoot",
@@ -3444,6 +3473,7 @@ exports.BattlePokedex = {
 		evoLevel: 1,
 		eggGroups: ["Monster", "Water 1"],
 	},
+<<<<<<< HEAD
 	slowkingmega: {
 		num: 199,
 		species: "Slowking-Mega",
@@ -3458,6 +3488,8 @@ exports.BattlePokedex = {
 		color: "Pink",
 		eggGroups: ["Monster", "Water 1"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	misdreavus: {
 		num: 200,
 		species: "Misdreavus",
@@ -3533,6 +3565,7 @@ exports.BattlePokedex = {
 		evoLevel: 31,
 		eggGroups: ["Bug"],
 	},
+<<<<<<< HEAD
 	forretressmega: {
 		num: 205,
 		species: "Forretress-Mega",
@@ -3547,6 +3580,8 @@ exports.BattlePokedex = {
 		color: "Purple",
 		eggGroups: ["Persistent"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	dunsparce: {
 		num: 206,
 		species: "Dunsparce",
@@ -3717,7 +3752,11 @@ exports.BattlePokedex = {
 		num: 216,
 		species: "Teddiursa",
 		types: ["Normal"],
+<<<<<<< HEAD
 		baseStats: {hp: 110, atk: 130, def: 100, spa: 100, spd: 100, spe: 90},
+=======
+		baseStats: {hp: 60, atk: 80, def: 50, spa: 50, spd: 50, spe: 40},
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		abilities: {0: "Pickup", 1: "Quick Feet", H: "Honey Gather"},
 		heightm: 0.6,
 		weightkg: 8.8,
@@ -3939,6 +3978,7 @@ exports.BattlePokedex = {
 		evoLevel: 25,
 		eggGroups: ["Field"],
 	},
+<<<<<<< HEAD
 	donphanmega: {
 		num: 232,
 		species: "Donphan-Mega",
@@ -3953,6 +3993,8 @@ exports.BattlePokedex = {
 		color: "Gray",
 		eggGroups: ["Mineral"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	porygon2: {
 		num: 233,
 		species: "Porygon2",
@@ -4094,6 +4136,7 @@ exports.BattlePokedex = {
 		evoLevel: 2,
 		eggGroups: ["Fairy"],
 	},
+<<<<<<< HEAD
 	blisseymega: {
 		num: 242,
 		species: "Blissey-Mega",
@@ -4108,6 +4151,8 @@ exports.BattlePokedex = {
 		color: "Pink",
 		eggGroups: ["Fairy"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	raikou: {
 		num: 243,
 		species: "Raikou",
@@ -4563,6 +4608,7 @@ exports.BattlePokedex = {
 		evoLevel: 14,
 		eggGroups: ["Water 1", "Grass"],
 	},
+<<<<<<< HEAD
 	ludicolomega: {
 		num: 272,
 		species: "Ludicolo-Mega",
@@ -4577,6 +4623,8 @@ exports.BattlePokedex = {
 		color: "Green",
 		eggGroups: ["Water 1", "Grass"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	seedot: {
 		num: 273,
 		species: "Seedot",
@@ -4616,6 +4664,7 @@ exports.BattlePokedex = {
 		evoLevel: 14,
 		eggGroups: ["Field", "Grass"],
 	},
+<<<<<<< HEAD
 	shiftrymega: {
 		num: 275,
 		species: "Shiftry-Mega",
@@ -4630,6 +4679,8 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Field", "Grass"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	taillow: {
 		num: 276,
 		species: "Taillow",
@@ -4823,6 +4874,7 @@ exports.BattlePokedex = {
 		evoLevel: 36,
 		eggGroups: ["Field"],
 	},
+<<<<<<< HEAD
 	slakingmega: {
 		num: 289,
 		species: "Slaking-Mega",
@@ -4837,6 +4889,8 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Field"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	nincada: {
 		num: 290,
 		species: "Nincada",
@@ -5448,7 +5502,11 @@ exports.BattlePokedex = {
 		num: 330,
 		species: "Flygon",
 		types: ["Ground", "Dragon"],
+<<<<<<< HEAD
 		baseStats: {hp: 100, atk: 120, def: 100, spa: 120, spd: 100, spe: 120},
+=======
+		baseStats: {hp: 80, atk: 100, def: 80, spa: 80, spd: 80, spe: 100},
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		abilities: {0: "Levitate"},
 		heightm: 2,
 		weightkg: 82,
@@ -5457,6 +5515,7 @@ exports.BattlePokedex = {
 		evoLevel: 45,
 		eggGroups: ["Bug"],
 	},
+<<<<<<< HEAD
 	flygonmega: {
 		num: 330,
 		species: "Flygon-Mega",
@@ -5471,6 +5530,8 @@ exports.BattlePokedex = {
 		color: "Green",
 		eggGroups: ["Bug"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	cacnea: {
 		num: 331,
 		species: "Cacnea",
@@ -5570,6 +5631,7 @@ exports.BattlePokedex = {
 		color: "Yellow",
 		eggGroups: ["Mineral"],
 	},
+<<<<<<< HEAD
 	lunatonemega: {
 		num: 337,
 		species: "Lunatone-Mega",
@@ -5584,6 +5646,8 @@ exports.BattlePokedex = {
 		color: "Yellow",
 		eggGroups: ["Mineral"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	solrock: {
 		num: 338,
 		species: "Solrock",
@@ -5596,6 +5660,7 @@ exports.BattlePokedex = {
 		color: "Red",
 		eggGroups: ["Mineral"],
 	},
+<<<<<<< HEAD
 	solrockmega: {
 		num: 337,
 		species: "Solrock-Mega",
@@ -5610,6 +5675,8 @@ exports.BattlePokedex = {
 		color: "Red",
 		eggGroups: ["Mineral"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	barboach: {
 		num: 339,
 		species: "Barboach",
@@ -5635,6 +5702,7 @@ exports.BattlePokedex = {
 		evoLevel: 30,
 		eggGroups: ["Water 2"],
 	},
+<<<<<<< HEAD
 	whiscashmega: {
 		num: 340,
 		species: "Whiscash-Mega",
@@ -5649,6 +5717,8 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Water 2"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	corphish: {
 		num: 341,
 		species: "Corphish",
@@ -5728,6 +5798,7 @@ exports.BattlePokedex = {
 		evoLevel: 40,
 		eggGroups: ["Water 3"],
 	},
+<<<<<<< HEAD
 	cradilymega: {
 		num: 346,
 		species: "Cradily-Mega",
@@ -5743,6 +5814,8 @@ exports.BattlePokedex = {
 		color: "Green",
 		eggGroups: ["Water 3"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	anorith: {
 		num: 347,
 		species: "Anorith",
@@ -5780,7 +5853,11 @@ exports.BattlePokedex = {
 		weightkg: 7.4,
 		color: "Brown",
 		evos: ["milotic"],
+<<<<<<< HEAD
 		eggGroups: ["Water 1", "Dragon", "Fairy"],
+=======
+		eggGroups: ["Water 1", "Dragon"],
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	},
 	milotic: {
 		num: 350,
@@ -5793,6 +5870,7 @@ exports.BattlePokedex = {
 		color: "Pink",
 		prevo: "feebas",
 		evoLevel: 1,
+<<<<<<< HEAD
 		eggGroups: ["Water 1", "Dragon", "Fairy"],
 	},
 	miloticmega: {
@@ -5808,6 +5886,9 @@ exports.BattlePokedex = {
 		weightkg: 188.4,
 		color: "Pink",
 		eggGroups: ["Water 1", "Dragon", "Fairy"],
+=======
+		eggGroups: ["Water 1", "Dragon"],
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	},
 	castform: {
 		num: 351,
@@ -6081,6 +6162,7 @@ exports.BattlePokedex = {
 		evoLevel: 44,
 		eggGroups: ["Water 1", "Field"],
 	},
+<<<<<<< HEAD
 	walreinmega: {
 		num: 365,
 		species: "Walrein-Mega",
@@ -6096,6 +6178,8 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Water 1", "Field"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	clamperl: {
 		num: 366,
 		species: "Clamperl",
@@ -6559,6 +6643,7 @@ exports.BattlePokedex = {
 		evoLevel: 32,
 		eggGroups: ["Monster", "Grass"],
 	},
+<<<<<<< HEAD
 	torterramega: {
 		num: 389,
 		species: "Torterra-Mega",
@@ -6573,6 +6658,8 @@ exports.BattlePokedex = {
 		color: "Green",
 		eggGroups: ["Monster", "Grass"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	chimchar: {
 		num: 390,
 		species: "Chimchar",
@@ -6776,7 +6863,11 @@ exports.BattlePokedex = {
 		num: 405,
 		species: "Luxray",
 		types: ["Electric"],
+<<<<<<< HEAD
 		baseStats: {hp: 100, atk: 120, def: 90, spa: 95, spd: 89, spe: 100},
+=======
+		baseStats: {hp: 80, atk: 120, def: 79, spa: 95, spd: 79, spe: 70},
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		abilities: {0: "Rivalry", 1: "Intimidate", H: "Guts"},
 		heightm: 1.4,
 		weightkg: 42,
@@ -6785,6 +6876,7 @@ exports.BattlePokedex = {
 		evoLevel: 30,
 		eggGroups: ["Field"],
 	},
+<<<<<<< HEAD
 	luxraymega: {
 		num: 405,
 		species: "Luxray-Mega",
@@ -6799,6 +6891,8 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Field"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	budew: {
 		num: 406,
 		species: "Budew",
@@ -6881,7 +6975,11 @@ exports.BattlePokedex = {
 	burmy: {
 		num: 412,
 		species: "Burmy",
+<<<<<<< HEAD
 		baseForme: "Grass",
+=======
+		baseForme: "Plant",
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		types: ["Bug"],
 		baseStats: {hp: 40, atk: 29, def: 45, spa: 29, spd: 45, spe: 36},
 		abilities: {0: "Shed Skin", H: "Overcoat"},
@@ -6895,7 +6993,11 @@ exports.BattlePokedex = {
 	wormadam: {
 		num: 413,
 		species: "Wormadam",
+<<<<<<< HEAD
 		baseForme: "Grass",
+=======
+		baseForme: "Plant",
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		types: ["Bug", "Grass"],
 		gender: "F",
 		baseStats: {hp: 60, atk: 59, def: 85, spa: 79, spd: 105, spe: 36},
@@ -6994,6 +7096,7 @@ exports.BattlePokedex = {
 		color: "White",
 		eggGroups: ["Field", "Fairy"],
 	},
+<<<<<<< HEAD
 	pachirisumega: {
 		num: 417,
 		species: "Pachirisu-Mega",
@@ -7008,6 +7111,8 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Field", "Fairy"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	buizel: {
 		num: 418,
 		species: "Buizel",
@@ -7197,6 +7302,7 @@ exports.BattlePokedex = {
 		evoLevel: 1,
 		eggGroups: ["Amorphous"],
 	},
+<<<<<<< HEAD
 	mismagiusmega: {
 		num: 429,
 		species: "Mismagius-Mega",
@@ -7211,6 +7317,8 @@ exports.BattlePokedex = {
 		color: "Purple",
 		eggGroups: ["Amorphous"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	honchkrow: {
 		num: 430,
 		species: "Honchkrow",
@@ -7224,6 +7332,7 @@ exports.BattlePokedex = {
 		evoLevel: 1,
 		eggGroups: ["Flying"],
 	},
+<<<<<<< HEAD
 	honchkrowmega: {
 		num: 430,
 		species: "Honchkrow-Mega",
@@ -7238,6 +7347,8 @@ exports.BattlePokedex = {
 		color: "Black",
 		eggGroups: ["Flying"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	glameow: {
 		num: 431,
 		species: "Glameow",
@@ -7609,6 +7720,7 @@ exports.BattlePokedex = {
 		evoLevel: 31,
 		eggGroups: ["Water 2"],
 	},
+<<<<<<< HEAD
 	lumineonmega: {
 		num: 457,
 		species: "Lumineon-Mega",
@@ -7623,6 +7735,8 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Water 2"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	mantyke: {
 		num: 458,
 		species: "Mantyke",
@@ -7688,6 +7802,7 @@ exports.BattlePokedex = {
 		evoLevel: 2,
 		eggGroups: ["Field"],
 	},
+<<<<<<< HEAD
 	weavilemega: {
 		num: 461,
 		species: "Weavile-Mega",
@@ -7702,6 +7817,8 @@ exports.BattlePokedex = {
 		color: "Black",
 		eggGroups: ["Field"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	magnezone: {
 		num: 462,
 		species: "Magnezone",
@@ -7771,6 +7888,7 @@ exports.BattlePokedex = {
 		evoLevel: 30,
 		eggGroups: ["Human-Like"],
 	},
+<<<<<<< HEAD
 	electiviremega: {
 		num: 466,
 		species: "Electivire-Mega",
@@ -7785,6 +7903,8 @@ exports.BattlePokedex = {
 		color: "Yellow",
 		eggGroups: ["Human-Like"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	magmortar: {
 		num: 467,
 		species: "Magmortar",
@@ -7799,6 +7919,7 @@ exports.BattlePokedex = {
 		evoLevel: 30,
 		eggGroups: ["Human-Like"],
 	},
+<<<<<<< HEAD
 	magmortarmega: {
 		num: 467,
 		species: "Magmortar-Mega",
@@ -7813,6 +7934,8 @@ exports.BattlePokedex = {
 		color: "Red",
 		eggGroups: ["Human-Like"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	togekiss: {
 		num: 468,
 		species: "Togekiss",
@@ -7882,6 +8005,7 @@ exports.BattlePokedex = {
 		evoLevel: 2,
 		eggGroups: ["Bug"],
 	},
+<<<<<<< HEAD
 	gliscormega: {
 		num: 472,
 		species: "Gliscor-Mega",
@@ -7896,6 +8020,8 @@ exports.BattlePokedex = {
 		color: "Purple",
 		eggGroups: ["Bug"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	mamoswine: {
 		num: 473,
 		species: "Mamoswine",
@@ -7994,6 +8120,7 @@ exports.BattlePokedex = {
 		evoLevel: 1,
 		eggGroups: ["Fairy", "Mineral"],
 	},
+<<<<<<< HEAD
 	froslassmega: {
 		num: 478,
 		species: "Froslass-Mega",
@@ -8009,6 +8136,8 @@ exports.BattlePokedex = {
 		color: "White",
 		eggGroups: ["Fairy", "Mineral"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	rotom: {
 		num: 479,
 		species: "Rotom",
@@ -8145,6 +8274,7 @@ exports.BattlePokedex = {
 		color: "White",
 		eggGroups: ["Undiscovered"],
 	},
+<<<<<<< HEAD
 	dialgaprimal: {
 		num: 483,
 		species: "Dialga-Primal",
@@ -8160,6 +8290,8 @@ exports.BattlePokedex = {
 		color: "White",
 		eggGroups: ["Undiscovered"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	palkia: {
 		num: 484,
 		species: "Palkia",
@@ -8183,6 +8315,7 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Undiscovered"],
 	},
+<<<<<<< HEAD
 	heatranmega: {
 		num: 485,
 		species: "Heatran-Mega",
@@ -8197,6 +8330,8 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Mineral"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	regigigas: {
 		num: 486,
 		species: "Regigigas",
@@ -8209,6 +8344,7 @@ exports.BattlePokedex = {
 		color: "White",
 		eggGroups: ["Undiscovered"],
 	},
+<<<<<<< HEAD
 	regigigasmega: {
 		num: 486,
 		species: "Regigigas-Mega",
@@ -8223,6 +8359,8 @@ exports.BattlePokedex = {
 		color: "White",
 		eggGroups: ["Undiscovered"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	giratina: {
 		num: 487,
 		species: "Giratina",
@@ -9318,6 +9456,7 @@ exports.BattlePokedex = {
 		evoLevel: 1,
 		eggGroups: ["Fairy", "Grass"],
 	},
+<<<<<<< HEAD
 	whimsicottmega: {
 		num: 547,
 		species: "Whimsicott-Mega",
@@ -9332,6 +9471,8 @@ exports.BattlePokedex = {
 		color: "Green",
 		eggGroups: ["Fairy", "Grass"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	petilil: {
 		num: 548,
 		species: "Petilil",
@@ -9359,6 +9500,7 @@ exports.BattlePokedex = {
 		evoLevel: 1,
 		eggGroups: ["Grass"],
 	},
+<<<<<<< HEAD
 	lilligantmega: {
 		num: 549,
 		species: "Lilligant-Mega",
@@ -9373,6 +9515,8 @@ exports.BattlePokedex = {
 		color: "Green",
 		eggGroups: ["Grass"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	basculin: {
 		num: 550,
 		species: "Basculin",
@@ -9543,6 +9687,7 @@ exports.BattlePokedex = {
 		evoLevel: 39,
 		eggGroups: ["Field", "Dragon"],
 	},
+<<<<<<< HEAD
 	scraftymega: {
 		num: 560,
 		species: "Scrafty-Mega",
@@ -9557,6 +9702,8 @@ exports.BattlePokedex = {
 		color: "Red",
 		eggGroups: ["Field", "Dragon"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	sigilyph: {
 		num: 561,
 		species: "Sigilyph",
@@ -9798,7 +9945,11 @@ exports.BattlePokedex = {
 		num: 579,
 		species: "Reuniclus",
 		types: ["Psychic"],
+<<<<<<< HEAD
 		baseStats: {hp: 110, atk: 65, def: 75, spa: 135, spd: 85, spe: 30},
+=======
+		baseStats: {hp: 110, atk: 65, def: 75, spa: 125, spd: 85, spe: 30},
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		abilities: {0: "Overcoat", 1: "Magic Guard", H: "Regenerator"},
 		heightm: 1,
 		weightkg: 20.1,
@@ -9807,6 +9958,7 @@ exports.BattlePokedex = {
 		evoLevel: 41,
 		eggGroups: ["Amorphous"],
 	},
+<<<<<<< HEAD
 	reuniclusmega: {
 		num: 579,
 		species: "Reuniclus-Mega",
@@ -9822,6 +9974,8 @@ exports.BattlePokedex = {
 		color: "Green",
 		eggGroups: ["Amorphous"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	ducklett: {
 		num: 580,
 		species: "Ducklett",
@@ -10143,6 +10297,7 @@ exports.BattlePokedex = {
 		evoLevel: 39,
 		eggGroups: ["Amorphous"],
 	},
+<<<<<<< HEAD
 	eelektrossmega: {
 		num: 604,
 		species: "Eelektross-Mega",
@@ -10157,6 +10312,8 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Amorphous"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	elgyem: {
 		num: 605,
 		species: "Elgyem",
@@ -10358,6 +10515,7 @@ exports.BattlePokedex = {
 		evoLevel: 50,
 		eggGroups: ["Field", "Human-Like"],
 	},
+<<<<<<< HEAD
 	mienshaomega: {
 		num: 620,
 		species: "Mienshao-Mega",
@@ -10372,6 +10530,8 @@ exports.BattlePokedex = {
 		color: "Purple",
 		eggGroups: ["Field", "Human-Like"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	druddigon: {
 		num: 621,
 		species: "Druddigon",
@@ -10435,6 +10595,7 @@ exports.BattlePokedex = {
 		evoLevel: 52,
 		eggGroups: ["Human-Like"],
 	},
+<<<<<<< HEAD
 	bisharpmega: {
 		num: 625,
 		species: "Bisharp-Mega",
@@ -10449,6 +10610,8 @@ exports.BattlePokedex = {
 		color: "Red",
 		eggGroups: ["Human-Like"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	bouffalant: {
 		num: 626,
 		species: "Bouffalant",
@@ -10812,7 +10975,11 @@ exports.BattlePokedex = {
 		formeLetter: "R",
 		types: ["Water", "Fighting"],
 		gender: "N",
+<<<<<<< HEAD
 		baseStats: {hp: 101, atk: 72, def: 110, spa: 159, spd: 110, spe: 128},
+=======
+		baseStats: {hp: 91, atk: 72, def: 90, spa: 129, spd: 90, spe: 108},
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		abilities: {0: "Justified"},
 		heightm: 1.4,
 		weightkg: 48.5,
@@ -11048,6 +11215,7 @@ exports.BattlePokedex = {
 		eggGroups: ["Water 1"],
 		otherFormes: ["greninjaash"],
 	},
+<<<<<<< HEAD
 	greninjamega: {
 		num: 658,
 		species: "Greninja-Mega",
@@ -11063,6 +11231,8 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Water 1"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	greninjaash: {
 		num: 658,
 		species: "Greninja-Ash",
@@ -11142,6 +11312,7 @@ exports.BattlePokedex = {
 		evoLevel: 35,
 		eggGroups: ["Flying"],
 	},
+<<<<<<< HEAD
 	talonflamemega: {
 		num: 663,
 		species: "Talonflame-Mega",
@@ -11156,6 +11327,8 @@ exports.BattlePokedex = {
 		color: "Red",
 		eggGroups: ["Flying"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	scatterbug: {
 		num: 664,
 		species: "Scatterbug",
@@ -11255,6 +11428,10 @@ exports.BattlePokedex = {
 	flabebe: {
 		num: 669,
 		species: "Flabebe",
+<<<<<<< HEAD
+=======
+		baseForme: "Red",
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		types: ["Fairy"],
 		gender: "F",
 		baseStats: {hp: 44, atk: 38, def: 39, spa: 61, spd: 79, spe: 42},
@@ -11269,7 +11446,11 @@ exports.BattlePokedex = {
 	floette: {
 		num: 670,
 		species: "Floette",
+<<<<<<< HEAD
 		baseForme: "Red-Flower",
+=======
+		baseForme: "Red",
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		types: ["Fairy"],
 		gender: "F",
 		baseStats: {hp: 54, atk: 45, def: 47, spa: 75, spd: 98, spe: 52},
@@ -11302,6 +11483,10 @@ exports.BattlePokedex = {
 	florges: {
 		num: 671,
 		species: "Florges",
+<<<<<<< HEAD
+=======
+		baseForme: "Red",
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		types: ["Fairy"],
 		gender: "F",
 		baseStats: {hp: 78, atk: 65, def: 68, spa: 112, spd: 154, spe: 75},
@@ -11314,6 +11499,7 @@ exports.BattlePokedex = {
 		eggGroups: ["Fairy"],
 		otherForms: ["florgesblue", "florgesorange", "florgeswhite", "florgesyellow"],
 	},
+<<<<<<< HEAD
 	florgesmega: {
 		num: 671,
 		species: "Florges-Mega",
@@ -11328,6 +11514,8 @@ exports.BattlePokedex = {
 		color: "White",
 		eggGroups: ["Fairy"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	skiddo: {
 		num: 672,
 		species: "Skiddo",
@@ -11768,6 +11956,7 @@ exports.BattlePokedex = {
 		color: "Gray",
 		eggGroups: ["Fairy", "Mineral"],
 	},
+<<<<<<< HEAD
 	carbinkmega: {
 		num: 703,
 		species: "Carbink-Mega",
@@ -11783,6 +11972,8 @@ exports.BattlePokedex = {
 		color: "Carbink",
 		eggGroups: ["Fairy", "Mineral"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	goomy: {
 		num: 704,
 		species: "Goomy",
@@ -12167,6 +12358,7 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Undiscovered"],
 	},
+<<<<<<< HEAD
 	volcanionmega: {
 		num: 721,
 		species: "Volcanion-Mega",
@@ -12179,6 +12371,8 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Undiscovered"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	rowlet: {
 		num: 722,
 		species: "Rowlet",
@@ -13248,6 +13442,7 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Mineral"],
 	},
+<<<<<<< HEAD
 	miniormega: {
 		num: 774,
 		species: "Minior-Mega",
@@ -13262,6 +13457,8 @@ exports.BattlePokedex = {
 		color: "Red",
 		eggGroups: ["Mineral"],
 	},
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	komala: {
 		num: 775,
 		species: "Komala",

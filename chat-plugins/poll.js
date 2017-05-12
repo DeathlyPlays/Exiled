@@ -1,7 +1,13 @@
 /*
+<<<<<<< HEAD
  * Poll chat plugin
  * By bumbadadabum and Zarel.
  */
+=======
+* Poll chat plugin
+* By bumbadadabum and Zarel.
+*/
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 'use strict';
 
@@ -20,6 +26,7 @@ class Poll {
 		this.totalVotes = 0;
 		this.timeout = null;
 		this.timeoutMins = 0;
+<<<<<<< HEAD
 		this.startTime = Date.now();
 		this.startedUser = Exiled.nameColor(questionData.username, true, true);
 
@@ -29,6 +36,12 @@ class Poll {
 				name: options[i],
 				votes: 0,
 			});
+=======
+
+		this.options = new Map();
+		for (let i = 0; i < options.length; i++) {
+			this.options.set(i + 1, {name: options[i], votes: 0});
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		}
 	}
 
@@ -63,6 +76,7 @@ class Poll {
 	}
 
 	generateVotes() {
+<<<<<<< HEAD
 		let count = 0;
 		let output = '<div style="border-top-right-radius: 20px; border-top-left-radius: 20px;"><table cellspacing="0" style="background: rgb(128,0,0); width: 100%; border: 1px solid #886600; border-bottom: none; border-top-right-radius: 20px; border-top-left-radius: 20px;"><tr><td colspan="4" class="poll-td" style="background: rgb(255,0,0); background: linear-gradient(rgba(255,0,0), rgba128,0,0); border-bottom: 1px solid #886600; border-top-right-radius: 20px; border-top-left-radius: 20px; text-shadow: 0px 0px 0,.5px #000; box-shadow: 1px 1px 1px rgba(128,128,128) inset, 0px 0px 1px rgba(0, 0, 0, 0) inset;"><span style="border: 1px solid #000000; color: #886600; border-radius: 4px; padding: 0 3px; box-shadow: 0px 0px 2px rgba(128,128,128);"><i class="fa fa-bar-chart"></i> Poll</span> <strong style="font-size: 11pt; color: #000;">' + this.getQuestionMarkup() + '</strong><img src="https://pldh.net/media/pokecons_action/491.gif" width="32" height="32"><br /></td></tr>';
 		this.options.forEach((option, number) => {
@@ -75,31 +89,56 @@ class Poll {
 			}
 		});
 		output += '</table></div><div style="background: rgba(0, 0, 0, 0); padding: 8px 0px; text-align: center; border: 1px solid #80000; border-top: none; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;"><button value="/poll results" name="send" title="View results - you will not be able to vote after viewing results" class="poll-results-btn" style="border-radius: 20px; transition-duration: 0.5s; transition-timing-function: linear;"><small>(View results)</small></button></div>';
+=======
+		let output = '<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Poll</span> <strong style="font-size:11pt">' + this.getQuestionMarkup() + '</strong></p>';
+		this.options.forEach((option, number) => {
+			output += '<div style="margin-top: 5px"><button class="button" style="text-align: left" value="/poll vote ' + number + '" name="send" title="Vote for ' + number + '. ' + Chat.escapeHTML(option.name) + '">' + number + '. <strong>' + this.getOptionMarkup(option) + '</strong></button></div>';
+		});
+		output += '<div style="margin-top: 7px; padding-left: 12px"><button value="/poll results" name="send" title="View results - you will not be able to vote after viewing results"><small>(View results)</small></button></div>';
+		output += '</div>';
+
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		return output;
 	}
 
 	generateResults(ended, option) {
+<<<<<<< HEAD
 		let icon = '<span style="border: 1px solid #' + (ended ? '777; color: #000' : 'FFF; color: #886600') + '; border-radius: 4px; padding: 0 3px; box-shadow: 0px 0px 2px rgb(128,0,0);"><i class="fa fa-bar-chart"></i> ' + (ended ? "Poll ended" : "Poll") + '</span>';
 		let totalVotes = '<br /><span style="font-style: italic; font-size: 9pt; color: #886600;">[Total Votes: ' + this.totalVotes + '] (Started by ' + this.startedUser + ' ' + Chat.toDurationString(Date.now() - this.startTime) + ' ago.)</span></div>';
 		let output = '<div style="background: rgba(0, 0, 0, 0); width: 100%; border: 1px solid #886600; border-radius: 20px;"><div class="poll-td" style="background: rgb(128, 0, 0); background: linear-gradient(rgb(128, 0, 0), rgb(255,0,0)); border-bottom: 1px solid #000; border-top-right-radius: 20px; border-top-left-radius: 20px; text-shadow: 0px 0px 0.5px #FFF; box-shadow: 1px 1px 1px rgb(0, 0, 0) inset, 0px 0px 1px rgb(0, 0, 0, 0) inset;">' + icon + ' <strong style="font-size: 11pt; color: #886600;">' + this.getQuestionMarkup() + '</strong><img src="https://pldh.net/media/pokecons_action/491.gif" width="32" height="32">';
 		output += totalVotes;
 		output += '<div style="padding: 8px 15px;"><font color="maroon"><small><center>(Options with 0 votes are not shown)</center></small></font>';
 		output += '<table cellspacing="0" style="width: 100%;margin-top: 3px;">';
+=======
+		let icon = '<span style="border:1px solid #' + (ended ? '777;color:#555' : '6A6;color:#484') + ';border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> ' + (ended ? "Poll ended" : "Poll") + '</span>';
+		let output = '<div class="infobox"><p style="margin: 2px 0 5px 0">' + icon + ' <strong style="font-size:11pt">' + this.getQuestionMarkup() + '</strong></p>';
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		let iter = this.options.entries();
 
 		let i = iter.next();
 		let c = 0;
+<<<<<<< HEAD
 		let colors = ['#00FFFF', '#00EEEE', '#00CDCD'];
 		while (!i.done) {
 			if (i.value[1].votes && i.value[1].votes !== 0) {
 				let percentage = Math.round((i.value[1].votes * 100) / (this.totalVotes || 1));
 				output += '<tr><td><strong>' + (i.value[0] === option ? '<em>' : '') + Chat.escapeHTML(i.value[1].name) + (i.value[0] === option ? '</em>' : '') + '</strong> <small>(' + i.value[1].votes + ' vote' + (i.value[1].votes === 1 ? '' : 's') + ')</small></td><td><span style="font-size: 7pt; background: ' + colors[c % 3] + '; padding-right: ' + (percentage * 3) + 'px; border-radius: 20px;"></span><small>&nbsp;' + percentage + '%</small></td></tr>';
 			}
+=======
+		let colors = ['#79A', '#8A8', '#88B'];
+		while (!i.done) {
+			let percentage = Math.round((i.value[1].votes * 100) / (this.totalVotes || 1));
+			output += '<div style="margin-top: 3px">' + i.value[0] + '. <strong>' + (i.value[0] === option ? '<em>' : '') + this.getOptionMarkup(i.value[1]) + (i.value[0] === option ? '</em>' : '') + '</strong> <small>(' + i.value[1].votes + ' vote' + (i.value[1].votes === 1 ? '' : 's') + ')</small><br /><span style="font-size:7pt;background:' + colors[c % 3] + ';padding-right:' + (percentage * 3) + 'px"></span><small>&nbsp;' + percentage + '%</small></div>';
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			i = iter.next();
 			c++;
 		}
 		if (option === 0 && !ended) output += '<div><small>(You can\'t vote after viewing results)</small></div>';
+<<<<<<< HEAD
 		output += '</table>';
+=======
+		output += '</div>';
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 		return output;
 	}
@@ -114,7 +153,11 @@ class Poll {
 		return Chat.escapeHTML(option.name);
 	}
 
+<<<<<<< HEAD
 	update(force) {
+=======
+	update() {
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		let results = [];
 
 		for (let i = 0; i <= this.options.size; i++) {
@@ -128,8 +171,11 @@ class Poll {
 				user.sendTo(this.room, '|uhtmlchange|poll' + this.room.pollNumber + '|' + results[this.voters[user.userid]]);
 			} else if (user.latestIp in this.voterIps) {
 				user.sendTo(this.room, '|uhtmlchange|poll' + this.room.pollNumber + '|' + results[this.voterIps[user.latestIp]]);
+<<<<<<< HEAD
 			} else if (force) {
 				user.sendTo(this.room, '|uhtmlchange|poll' + this.room.pollNumber + '|' + this.generateVotes());
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			}
 		}
 	}
@@ -191,7 +237,11 @@ class Poll {
 		let results = this.generateResults(true);
 
 		this.room.send('|uhtmlchange|poll' + this.room.pollNumber + '|<div class="infobox">(The poll has ended &ndash; scroll down to see the results)</div>');
+<<<<<<< HEAD
 		this.room.add('|html|' + results).update();
+=======
+		this.room.add('|html|' + results);
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	}
 }
 
@@ -228,6 +278,7 @@ exports.commands = {
 			if (supportHTML) params = params.map(parameter => this.canHTML(parameter));
 			if (params.some(parameter => !parameter)) return;
 
+<<<<<<< HEAD
 			let options = [];
 
 			for (let i = 1; i < params.length; i++) {
@@ -243,6 +294,14 @@ exports.commands = {
 				supportHTML: supportHTML,
 				username: user.name,
 			}, options);
+=======
+			const options = params.splice(1);
+			if (options.length > 8) {
+				return this.errorReply("Too many options for poll (maximum is 8).");
+			}
+
+			room.poll = new Poll(room, {source: params[0], supportHTML: supportHTML}, options);
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			room.poll.display();
 
 			this.logEntry("" + user.name + " used " + message);
@@ -263,12 +322,16 @@ exports.commands = {
 			if (isNaN(parsed)) return this.errorReply("To vote, specify the number of the option.");
 
 			if (!room.poll.options.has(parsed)) return this.sendReply("Option not in poll.");
+<<<<<<< HEAD
 			if (room.poll.options.get(parsed).void) return this.sendReply("That option is void.");
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 			room.poll.vote(user, parsed);
 		},
 		votehelp: ["/poll vote [number] - Votes for option [number]."],
 
+<<<<<<< HEAD
 		void: function (target, room, user) {
 			if (!room.poll) return this.errorReply("There is no poll running in this room.");
 			if (!target) return this.parse('/help poll void');
@@ -350,12 +413,18 @@ exports.commands = {
 		},
 		unvoidhelp: ["/poll unvoid [option] - Undoes /poll void. You can specify multiple options by seperating them with a comma."],
 
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		timer: function (target, room, user) {
 			if (!room.poll) return this.errorReply("There is no poll running in this room.");
 
 			if (target) {
 				if (!this.can('minigame', null, room)) return false;
+<<<<<<< HEAD
 				if (target === 'clear' || target === 'off') {
+=======
+				if (target === 'clear') {
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 					if (!room.poll.timeout) return this.errorReply("There is no timer to clear.");
 					clearTimeout(room.poll.timeout);
 					room.poll.timeout = null;
@@ -418,12 +487,15 @@ exports.commands = {
 		},
 		displayhelp: ["/poll display - Displays the poll"],
 
+<<<<<<< HEAD
 		votes: function (target, room, user) {
 			if (!room.poll) return this.errorReply("There is no poll running in this room.");
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox("votes: " + room.poll.totalVotes);
 		},
 
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		'': function (target, room, user) {
 			this.parse('/help poll');
 		},
@@ -439,6 +511,7 @@ exports.commands = {
 		"/poll display - Displays the poll",
 		"/poll end - Ends a poll and displays the results. Requires: % @ * # & ~",
 	],
+<<<<<<< HEAD
 
 	exiledtierspoll: 'exiledpoll',
 	epoll: 'exiledpoll',
@@ -484,6 +557,8 @@ exports.commands = {
 		return this.privateModCommand("(A tier poll was started by " + user.name + ".)");
 	},
 	tierpollhelp: ["/tierpoll - (all) Creates a poll with all the common formats as options. All all to use all formats Requires: % @ * # & ~"],
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 };
 
 process.nextTick(() => {

@@ -209,9 +209,16 @@ class Room {
 		}
 		this.runMuteTimer();
 
+<<<<<<< HEAD
 		if (!(this.isPrivate === true || this.isPersonal || this.battle)) Punishments.monitorRoomPunishments(user);
 
 		user.updateIdentity(this.id);
+=======
+		user.updateIdentity(this.id);
+
+		if (!(this.isPrivate === true || this.isPersonal || this.battle)) Punishments.monitorRoomPunishments(user);
+
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		return userid;
 	}
 	unmute(userid, notifyText) {
@@ -287,6 +294,7 @@ class GlobalRoom {
 				isPrivate: true,
 				staffRoom: true,
 				staffAutojoin: true,
+<<<<<<< HEAD
 				godAutojoin: true,
 			}, {
 				title: 'Upper Staff',
@@ -298,6 +306,8 @@ class GlobalRoom {
 				title: 'Development',
 				isPrivate: true,
 				devRoom: true,
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			}];
 		}
 
@@ -615,7 +625,11 @@ class GlobalRoom {
 			user.joinRoom(this.autojoin[i], connection);
 			if (this.autojoin[i] === 'lobby') includesLobby = true;
 		}
+<<<<<<< HEAD
 		if (!includesLobby && Config.serverid !== 'exiled') user.send(`>lobby\n|deinit`);
+=======
+		if (!includesLobby && Config.serverid !== 'showdown') user.send(`>lobby\n|deinit`);
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	}
 	checkAutojoin(user, connection) {
 		if (!user.named) return;
@@ -627,8 +641,13 @@ class GlobalRoom {
 				continue;
 			}
 			if (room.staffAutojoin === true && user.isStaff ||
+<<<<<<< HEAD
 				typeof room.staffAutojoin === 'string' && room.staffAutojoin.includes(user.group) ||
 				room.auth && user.userid in room.auth) {
+=======
+					typeof room.staffAutojoin === 'string' && room.staffAutojoin.includes(user.group) ||
+					room.auth && user.userid in room.auth) {
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 				// if staffAutojoin is true: autojoin if isStaff
 				// if staffAutojoin is String: autojoin if user.group in staffAutojoin
 				// if staffAutojoin is anything truthy: autojoin if user has any roomauth
@@ -793,7 +812,10 @@ class BattleRoom extends Room {
 			this.log = this.log.concat(message);
 		}
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	win(winner) {
 		// Declare variables here in case we need them for non-rated battles logging.
 		let p1score = 0.5;
@@ -1252,7 +1274,11 @@ class ChatRoom extends Room {
 	}
 	getIntroMessage(user) {
 		let message = '';
+<<<<<<< HEAD
 		if (this.introMessage) message += '\n|raw|<div class="infobox infobox-roomintro"><div' + '>' + this.introMessage.replace(/\n/g, '') + '</div>';
+=======
+		if (this.introMessage) message += '\n|raw|<div class="infobox infobox-roomintro"><div' + (!this.isOfficial ? ' class="infobox-limited"' : '') + '>' + this.introMessage.replace(/\n/g, '') + '</div>';
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (this.staffMessage && user.can('mute', null, this)) message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '(Staff intro:)<br /><div>' + this.staffMessage.replace(/\n/g, '') + '</div>';
 		if (this.modchat) {
 			message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '<div class="broadcast-red">' +
@@ -1261,8 +1287,13 @@ class ChatRoom extends Room {
 		}
 		if (this.slowchat && user.can('mute', null, this)) {
 			message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '<div class="broadcast-red">' +
+<<<<<<< HEAD
 			'Messages must have at least ' + this.slowchat + ' seconds between them.' +
 			'</div>';
+=======
+				'Messages must have at least ' + this.slowchat + ' seconds between them.' +
+				'</div>';
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		}
 		if (message) message += '</div>';
 		return message;
@@ -1271,7 +1302,10 @@ class ChatRoom extends Room {
 		let userList = this.userList ? this.userList : this.getUserList();
 		this.sendUser(connection, '|init|chat\n|title|' + this.title + '\n' + userList + '\n' + this.getLogSlice(-100).join('\n') + this.getIntroMessage(user));
 		if (this.poll) this.poll.onConnect(user, connection);
+<<<<<<< HEAD
 		if (this.survey) this.survey.onConnect(user, connection);
+=======
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (this.game && this.game.onConnect) this.game.onConnect(user, connection);
 	}
 	onJoin(user, connection) {
@@ -1302,9 +1336,15 @@ class ChatRoom extends Room {
 		if (this.poll && user.userid in this.poll.voters) this.poll.updateFor(user);
 		return user;
 	}
+<<<<<<< HEAD
 		/**
 		 * onRename, but without a userid change
 		 */
+=======
+	/**
+	 * onRename, but without a userid change
+	 */
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	onUpdateIdentity(user) {
 		if (user && user.connected && user.named) {
 			if (!this.users[user.userid]) return false;
@@ -1430,4 +1470,8 @@ Rooms.SimulatorProcess = require('./room-battle').SimulatorProcess;
 if (!Config.quietconsole) console.log("NEW GLOBAL: global");
 Rooms.global = new GlobalRoom('global');
 
+<<<<<<< HEAD
 Rooms.rooms.set('global', Rooms.global);
+=======
+Rooms.rooms.set('global', Rooms.global);
+>>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0

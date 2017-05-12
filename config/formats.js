@@ -1416,8 +1416,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Type Illusion Beta",
 		section: "Exiled's Custom Gamemodes",
-		mod: 'gen7',
-		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Pokemon', 'Standard'],
+		ruleset: ['[Gen 7] OU'],
 		desc: [
 			"&bullet; Coded by flufi.",
 			"Nickname a Pokemon a single typing and the Pokemon will change to that typing in battle.",

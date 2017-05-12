@@ -2112,16 +2112,16 @@ exports.Formats = [
 		mod: "slowtown",
 		team: 'random',
 		ruleset: ["Team Preview", 'Random Battle'],
-		onBegin: function() {
+		onBegin: function () {
 			this.trickRoom = ["Trick Room"];
 			this.startNewTrickRoom = this.trickRoom[this.random(1)];
 			this.add("-message", "Starting next turn, the set up another 5 rounds of " + this.startNewTrickRoom + "!");
 		},
 		onResidualOrder: 999,
-		onResidual: function() {
-			if (this.turn % 5 == 4) {
+		onResidual: function () {
+			if (this.turn % 5 === 4) {
 				let startNewTrickRoom = this.trickRoom[this.random(1)];
-				while (startNewTrickRoom == this.trickRoom) startNewTrickRoom = this.trickRoom[this.random(1)];
+				while (startNewTrickRoom === this.trickRoom) startNewTrickRoom = this.trickRoom[this.random(1)];
 				this.startNewTrickRoom = startNewTrickRoom;
 				this.add("-message", "Starting next turn, the battle will set another 5 rounds of " + this.startNewTrickRoom + "!");
 			}

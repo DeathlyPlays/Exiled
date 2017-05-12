@@ -52,8 +52,7 @@ exports.BattleScripts = {
 						if (banlistTable && !('illegal' in banlistTable) && !this.getFormat().team) {
 							// hackmons format
 							continue;
-						}
-						else if (abilitySlot === 'H' && template.unreleasedHidden) {
+						} else if (abilitySlot === 'H' && template.unreleasedHidden) {
 							// unreleased hidden ability
 							continue;
 						}
@@ -73,13 +72,13 @@ exports.BattleScripts = {
 							if (this.firstStaleWarned && pokemon.isStale < 2) {
 								switch (pokemon.isStaleSource) {
 								case 'struggle':
-									this.add('html', '<div class="broadcast-red">' + escapeHTML(pokemon.name) + ' isn\'t losing HP from Struggle. If this continues, it will be classified as being in an endless loop.</div>');
+									this.add('html', '<div class="broadcast-red">' + Chat.escapeHTML(pokemon.name) + ' isn\'t losing HP from Struggle. If this continues, it will be classified as being in an endless loop.</div>');
 									break;
 								case 'drag':
-									this.add('html', '<div class="broadcast-red">' + escapeHTML(pokemon.name) + ' isn\'t losing PP or HP from being forced to switch. If this continues, it will be classified as being in an endless loop.</div>');
+									this.add('html', '<div class="broadcast-red">' + Chat.escapeHTML(pokemon.name) + ' isn\'t losing PP or HP from being forced to switch. If this continues, it will be classified as being in an endless loop.</div>');
 									break;
 								case 'switch':
-									this.add('html', '<div class="broadcast-red">' + escapeHTML(pokemon.name) + ' isn\'t losing PP or HP from repeatedly switching. If this continues, it will be classified as being in an endless loop.</div>');
+									this.add('html', '<div class="broadcast-red">' + Chat.escapeHTML(pokemon.name) + ' isn\'t losing PP or HP from repeatedly switching. If this continues, it will be classified as being in an endless loop.</div>');
 									break;
 								}
 							}
@@ -93,7 +92,7 @@ exports.BattleScripts = {
 							pokemon.isStale++;
 							pokemon.isStaleSource = 'ppstall';
 							if (this.firstStaleWarned && pokemon.isStale < 2) {
-								this.add('html', '<div class="broadcast-red">' + escapeHTML(pokemon.name) + ' isn\'t losing PP or HP. If it keeps on not losing PP or HP, it will be classified as being in an endless loop.</div>');
+								this.add('html', '<div class="broadcast-red">' + Chat.escapeHTML(pokemon.name) + ' isn\'t losing PP or HP. If it keeps on not losing PP or HP, it will be classified as being in an endless loop.</div>');
 							}
 						}
 						pokemon.isStaleCon = 0;
@@ -107,8 +106,7 @@ exports.BattleScripts = {
 				}
 				if (pokemon.isStale < 2) {
 					allStale = false;
-				}
-				else if (pokemon.isStale && !pokemon.staleWarned) {
+				} else if (pokemon.isStale && !pokemon.staleWarned) {
 					oneStale = pokemon;
 				}
 				if (!pokemon.isStalePPTurns) {
@@ -152,7 +150,7 @@ exports.BattleScripts = {
 					loopReason = ": its PP overflowed";
 					break;
 				}
-				this.add('html', '<div class="broadcast-red">' + escapeHTML(oneStale.name) + ' is in an endless loop' + loopReason + '.' + activationWarning + '</div>');
+				this.add('html', '<div class="broadcast-red">' + Chat.escapeHTML(oneStale.name) + ' is in an endless loop' + loopReason + '.' + activationWarning + '</div>');
 				oneStale.staleWarned = true;
 				this.firstStaleWarned = true;
 			}
@@ -166,8 +164,7 @@ exports.BattleScripts = {
 							if (leppaPokemon) {
 								leppaPokemon = null; // both sides have Leppa
 								this.add('-message', "Both sides started with a Leppa Berry.");
-							}
-							else {
+							} else {
 								leppaPokemon = pokemon;
 							}
 							break;
@@ -186,9 +183,8 @@ exports.BattleScripts = {
 			if (allStale && !this.staleWarned) {
 				this.staleWarned = true;
 				this.add('html', '<div class="broadcast-red">If this format had Endless Battle Clause, it would have activated.</div>');
-			}
-			else if (oneStale) {
-				this.add('html', '<div class="broadcast-red">' + escapeHTML(oneStale.name) + ' is in an endless loop.</div>');
+			} else if (oneStale) {
+				this.add('html', '<div class="broadcast-red">' + Chat.escapeHTML(oneStale.name) + ' is in an endless loop.</div>');
 				oneStale.staleWarned = true;
 			}
 		}
@@ -209,15 +205,15 @@ exports.BattleScripts = {
 			}
 		}
 		this.add('turn', this.turn);
-		if (this.turn % 5 == 0 || this.turn == 1) {
+		if (this.turn % 5 === 0 || this.turn === 1) {
 			if (this.trickroom) this.removePseudoWeather(toId(this.trickroom));
 			this.add("-message", this.startNewTrickRoom + " started!");
-			if (this.startNewTrickRoom != "Trick Room") {
+			if (this.startNewTrickRoom !== "Trick Room") {
 				this.addPseudoWeather(toId(this.startNewTrickRoom), this.p1.pokemon[0], "[move]: " + this.startNewTrickRoom);
 			} else {
 				this.pseudoWeather["trickroom"] = {
 					id: 'trickroom',
-					duration: 5
+					duration: 5,
 				};
 				this.add("-message", "The dimensions were twisted!");
 				this.add("-hint", "Although its not visible, Trick Room would been in effect.");

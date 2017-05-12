@@ -1506,7 +1506,7 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Bug/Ghost');
 				pokemon.types = ["Bug", "Ghost"];
 			}
-			if (name === 'V!X3N' && !pokemon.illusion) {
+			if (name === 'vxn' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire/Bug/Electric');
 				pokemon.types = ["Fire", "Bug", "Electric"];
 			}

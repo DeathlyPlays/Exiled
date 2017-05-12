@@ -11,18 +11,12 @@ License
 
 Your submitted code should be MIT licensed (for simplicity, it should be MIT licensed even if you're submitting client code). The first time you make a pull request, we'll ask you to explicitly state that you agree to MIT license it, just to be safe.
 
-<<<<<<< HEAD
-Even if we forget, we'll take the fact that your pull request contains a LICENSE file that says "MIT licensed" as evidence that your submitted code is MIT licensed.
-=======
 Even if we forget, we'll take the fact that your pull request contains a LICENSE file that says "MIT licensed" as evidence that your submitted code is MIT licensed. GitHub's ToS also makes you use the license when you submit a pull request.
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 
 Commit standards
 ------------------------------------------------------------------------
 
-<<<<<<< HEAD
-=======
 Commits should describe what the code _does_, not how it does it.
 
 In other words:
@@ -40,7 +34,6 @@ Commits should usually start with a verb in imperative mood, such as "Add", "Fix
 - BAD: `Adds namefilter`
 - GOOD: `Add namefilter`
 
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 The first line of the commit summary should be under 50 characters long.
 
 The first letter of a commit summary should be capitalized (unless the first word starts with a number or is case-sensitive, e.g. `ls`).
@@ -51,25 +44,13 @@ The commit summary should not end in a period.
 - BAD: `Refactor Users to use classes.`
 - GOOD: `Refactor Users to use classes`
 
-<<<<<<< HEAD
-If the first word is a verb, it should be in imperative mood (the first word doesn't have to be a verb, but we recommend it).
 
-- BAD: `Adding namefilter`
-- BAD: `Adds namefilter`
-- GOOD: `Add namefilter`
-
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 Your commit summary should make it clear what part of the code you're talking about. For instance, if you're editing the Trivia plugin, you might want to add "Trivia: " to the beginning of your commit summary so it's clear.
 
 - BAD: `Ban Genesect`
 - GOOD: `Monotype: Ban Genesect` (notice the uppercase "B")
 
-<<<<<<< HEAD
-OPTIONAL: If you make commits to fix commits in your pull request, you can squash/amend them into one commit.
-=======
 OPTIONAL: If you make commits to fix commits in your pull request, you can squash/amend them into one commit. This is no longer required now that GitHub supports squash-merging.
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 - BAD: `Add /lock`, `Fix crash in /lock`, `Fix another crash in /lock` (if these are the same pullreq, they should be the same commit)
 - GOOD: `Add /lock`
@@ -126,15 +107,6 @@ In general, use modern features only if they're supported in Node 6 and reasonab
 
 - **Promises: ALWAYS** - Supported in Node 4+, great performance.
 
-<<<<<<< HEAD
-- **Function#bind: ALMOST NEVER** - Horrible performance. Use arrow functions. Basically, never use outside of the (deprecated) trick we use in battle-engine for split logs.
-
-- **classes and subclasses: ALWAYS** - Supported in Node 4+ and good performance in Node 6+, please start refactoring existing code over.
-
-- **String#includes: ALWAYS** - Supported in Node 4+, poor performance, but not really noticeable and worth the better readability.
-
-- **Template strings: ALWAYS** - Supported in Node 4+ and good performance in Node 6+, please start refactoring existing code over, but be careful since code standards having settled for template strings yet. Look at existing uses for guidance.
-=======
 - **Function#bind: NEVER** - Horrible performance. Use arrow functions.
 
 - **classes and subclasses: ALWAYS** - Supported in Node 4+ and good performance in Node 6+; please start refactoring existing code over.
@@ -142,6 +114,5 @@ In general, use modern features only if they're supported in Node 6 and reasonab
 - **String#includes: ALWAYS** - Supported in Node 4+, poor performance, but not really noticeable and worth the better readability.
 
 - **Template strings: ALWAYS** - Supported in Node 4+ and good performance in Node 6+; please start refactoring existing code over, but be careful not to use them for IDs (follow the String standards). Look at existing uses for guidance.
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 Take "good performance" to mean "approximately on par with ES3" and "great performance" to mean "better than ES3".

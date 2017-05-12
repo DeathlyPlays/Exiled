@@ -6092,11 +6092,7 @@ exports.BattleFormatsData = {
 	},
 	silvally: {
 		randomBattleMoves: ["swordsdance", "return", "doubleedge", "crunch", "flamecharge", "flamethrower", "icebeam", "uturn", "ironhead"],
-<<<<<<< HEAD
-		randomDoubleBattleMoves: ["protect", "doubledge", "uturn", "crunch", "icebeam", "partingshot", "flamecharge", "partingshot", "swordsdance", "explosion"],
-=======
 		randomDoubleBattleMoves: ["protect", "doubleedge", "uturn", "crunch", "icebeam", "partingshot", "flamecharge", "partingshot", "swordsdance", "explosion"],
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		tier: "New",
 	},
 	silvallybug: {

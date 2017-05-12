@@ -1,13 +1,7 @@
 /*
-<<<<<<< HEAD
- * Hangman chat plugin
- * By bumbadadabum and Zarel. Art by crobat.
- */
-=======
 * Hangman chat plugin
 * By bumbadadabum and Zarel. Art by crobat.
 */
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 'use strict';
 
@@ -136,11 +130,7 @@ class Hangman extends Rooms.RoomGame {
 			result = 2;
 		}
 
-<<<<<<< HEAD
 		let output = '<div style="background-color: #000; border: 12px double #FF0000; border-radius: 15px; color: #FF0000"><center><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>Exiled\'s Hangman Game</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><br><br><font face="arial" size="2">';
-=======
-		let output = '<div class="broadcast-' + (result === 1 ? 'red' : (result === 2 ? 'green' : 'blue')) + '">';
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		output += '<p style="text-align:left;font-weight:bold;font-size:10pt;margin:5px 0 0 15px">' + (result === 1 ? 'Too bad! The mon has been hanged.' : (result === 2 ? 'The word has been guessed. Congratulations!' : 'Hangman')) + '</p>';
 		output += '<table><tr><td style="text-align:center;">' + this.hangingMan() + '</td><td style="text-align:center;width:100%;word-wrap:break-word">';
 
@@ -170,11 +160,7 @@ class Hangman extends Rooms.RoomGame {
 			}
 		}
 
-<<<<<<< HEAD
-		output += '</td></tr></table></font></div>';
-=======
 		output += '</td></tr></table></div>';
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 		return output;
 	}
@@ -217,28 +203,19 @@ exports.commands = {
 			if (!this.can('minigame', null, room)) return false;
 			if (room.hangmanDisabled) return this.errorReply("Hangman is disabled for this room.");
 			if (!this.canTalk()) return;
-<<<<<<< HEAD
-=======
 			if (room.game) return this.errorReply("There is already a game of " + room.game.title + " in progress in this room.");
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 			if (!params) return this.errorReply("No word entered.");
 			let word = params[0].replace(/[^A-Za-z '-]/g, '');
 			if (word.replace(/ /g, '').length < 1) return this.errorReply("Enter a valid word");
-<<<<<<< HEAD
-=======
 			if (word.length > 30) return this.errorReply("Phrase must be less than 30 characters.");
 			if (word.split(' ').some(w => w.length > 20)) return this.errorReply("Each word in the phrase must be less than 20 characters.");
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			if (!/[a-zA-Z]/.test(word)) return this.errorReply("Word must contain at least one letter.");
 
 			let hint;
 			if (params.length > 1) {
 				hint = params.slice(1).join(',').trim();
-<<<<<<< HEAD
-=======
 				if (hint.length > 150) return this.errorReply("Hint too long.");
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			}
 
 			room.game = new Hangman(room, user, word, hint);
@@ -255,12 +232,8 @@ exports.commands = {
 
 			room.game.guess(target, user);
 		},
-<<<<<<< HEAD
-		guesshelp: ["/hangman guess [letter] - Makes a guess for the letter entered.",
-=======
 		guesshelp: [
 			"/hangman guess [letter] - Makes a guess for the letter entered.",
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			"/hangman guess [word] - Same as a letter, but guesses an entire word.",
 		],
 
@@ -314,12 +287,8 @@ exports.commands = {
 		},
 	},
 
-<<<<<<< HEAD
-	hangmanhelp: ["/hangman allows users to play the popular game hangman in PS rooms.",
-=======
 	hangmanhelp: [
 		"/hangman allows users to play the popular game hangman in PS rooms.",
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		"Accepts the following commands:",
 		"/hangman create [word], [hint] - Makes a new hangman game. Requires: % @ * # & ~",
 		"/hangman guess [letter] - Makes a guess for the letter entered.",
@@ -336,12 +305,8 @@ exports.commands = {
 
 		room.game.guess(target, user);
 	},
-<<<<<<< HEAD
-	guesshelp: ["/guess - Shortcut for /hangman guess.", "/hangman guess [letter] - Makes a guess for the letter entered.",
-=======
 	guesshelp: [
 		"/guess - Shortcut for /hangman guess.", "/hangman guess [letter] - Makes a guess for the letter entered.",
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		"/hangman guess [word] - Same as a letter, but guesses an entire word.",
 	],
 };

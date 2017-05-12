@@ -33235,10 +33235,7 @@ exports.BattleLearnsets = {
 		watersport: ["7L4", "7L1", "6L4", "5L5", "4L5", "3L10"],
 		whirlpool: ["4M"],
 		wrap: ["7L1", "6L1", "5L1", "4L1", "3L5"],
-<<<<<<< HEAD
 		moonblast: ["6L49"],
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	}},
 	castform: {learnset: {
 		amnesia: ["7E", "6E", "5E", "4E"],
@@ -38079,11 +38076,6 @@ exports.BattleLearnsets = {
 		uproar: ["6T", "5T", "4T"],
 		uturn: ["7M", "6M", "5M", "4M"],
 		voltswitch: ["7M", "6M", "5M"],
-<<<<<<< HEAD
-		darkpulse: ["7M", "6M", "5T", "4M"],
-		darkvoid: ["7L66", "6L66", "6S5", "6S6", "5L66", "5S4", "4L66", "4S2"],
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 	}},
 	buizel: {learnset: {
 		agility: ["7L41", "6L41", "5L28", "4L28"],

@@ -103,13 +103,7 @@ class Tournament {
 		if (isErrored) return;
 
 		this.generator = generator;
-<<<<<<< HEAD
-		this.room.send('|tournament|update|' + JSON.stringify({
-			generator: generator.name,
-		}));
-=======
 		this.room.send('|tournament|update|' + JSON.stringify({generator: generator.name}));
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		this.isBracketInvalidated = true;
 		this.update();
 		return true;
@@ -132,11 +126,7 @@ class Tournament {
 			}
 			let ban, oppositeBan;
 			let subformat = Dex.getFormat(param);
-<<<<<<< HEAD
-			if (subformat.effectType === 'ValidatorRule' || subformat.effectType === 'Format') {
-=======
 			if (subformat.effectType === 'ValidatorRule' || subformat.effectType === 'Rule' || subformat.effectType === 'Format') {
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 				if (unban) {
 					if (format.banlistTable['Rule:' + subformat.id] === false) continue;
 				} else {
@@ -251,19 +241,9 @@ class Tournament {
 			let pendingChallenge = this.pendingChallenges.get(this.players[targetUser.userid]);
 			if (pendingChallenge) {
 				if (pendingChallenge.to) {
-<<<<<<< HEAD
-					connection.sendTo(this.room, '|tournament|update|' + JSON.stringify({
-						challenging: pendingChallenge.to.name,
-					}));
-				} else if (pendingChallenge.from) {
-					connection.sendTo(this.room, '|tournament|update|' + JSON.stringify({
-						challenged: pendingChallenge.from.name,
-					}));
-=======
 					connection.sendTo(this.room, '|tournament|update|' + JSON.stringify({challenging: pendingChallenge.to.name}));
 				} else if (pendingChallenge.from) {
 					connection.sendTo(this.room, '|tournament|update|' + JSON.stringify({challenged: pendingChallenge.from.name}));
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 				}
 			}
 		}
@@ -285,13 +265,7 @@ class Tournament {
 
 				this.bracketCache = this.getBracketData();
 				this.isBracketInvalidated = false;
-<<<<<<< HEAD
-				this.room.send('|tournament|update|' + JSON.stringify({
-					bracketData: this.bracketCache,
-				}));
-=======
 				this.room.send('|tournament|update|' + JSON.stringify({bracketData: this.bracketCache}));
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			}
 		}
 
@@ -300,21 +274,10 @@ class Tournament {
 			this.isAvailableMatchesInvalidated = false;
 
 			this.availableMatchesCache.challenges.forEach((opponents, player) => {
-<<<<<<< HEAD
-				player.sendRoom('|tournament|update|' + JSON.stringify({
-					challenges: usersToNames(opponents),
-				}));
-			});
-			this.availableMatchesCache.challengeBys.forEach((opponents, player) => {
-				player.sendRoom('|tournament|update|' + JSON.stringify({
-					challengeBys: usersToNames(opponents),
-				}));
-=======
 				player.sendRoom('|tournament|update|' + JSON.stringify({challenges: usersToNames(opponents)}));
 			});
 			this.availableMatchesCache.challengeBys.forEach((opponents, player) => {
 				player.sendRoom('|tournament|update|' + JSON.stringify({challengeBys: usersToNames(opponents)}));
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			});
 		}
 		this.room.send('|tournament|updateEnd');
@@ -358,13 +321,8 @@ class Tournament {
 		}
 
 		let gameCount = user.games.size;
-<<<<<<< HEAD
 		if (gameCount > 100) {
 			output.errorReply("Due to high load, you are limited to 100 games at the same time.");
-=======
-		if (gameCount > 4) {
-			output.errorReply("Due to high load, you are limited to 4 games at the same time.");
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			return;
 		}
 
@@ -617,12 +575,9 @@ class Tournament {
 			return false;
 		}
 
-<<<<<<< HEAD
 		user.tourBoost = false;
 		user.gameBoost = false;
 
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		this.disqualifiedUsers.set(player, true);
 		this.generator.setUserBusy(player, false);
 
@@ -811,27 +766,10 @@ class Tournament {
 		}
 
 		this.lastActionTimes.set(to, Date.now());
-<<<<<<< HEAD
-		this.pendingChallenges.set(from, {
-			to: to,
-			team: user.team,
-		});
-		this.pendingChallenges.set(to, {
-			from: from,
-			team: user.team,
-		});
-		from.sendRoom('|tournament|update|' + JSON.stringify({
-			challenging: to.name,
-		}));
-		to.sendRoom('|tournament|update|' + JSON.stringify({
-			challenged: from.name,
-		}));
-=======
 		this.pendingChallenges.set(from, {to: to, team: user.team});
 		this.pendingChallenges.set(to, {from: from, team: user.team});
 		from.sendRoom('|tournament|update|' + JSON.stringify({challenging: to.name}));
 		to.sendRoom('|tournament|update|' + JSON.stringify({challenged: from.name}));
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 		this.isBracketInvalidated = true;
 		this.update();
@@ -891,11 +829,7 @@ class Tournament {
 		let player = this.players[user.userid];
 		if (!this.pendingChallenges.get(player)) return;
 
-<<<<<<< HEAD
-		let room = Matchmaker.startBattle(from, user, this.format, challenge.team, user.team, {rated: this.isRated, tour: this});
-=======
 		let room = Matchmaker.startBattle(from, user, this.format, challenge.team, user.team, {rated: this.isRated, tour: this, supplementaryRuleset: this.banlist});
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (!room) return;
 
 		this.pendingChallenges.set(challenge.from, null);
@@ -903,23 +837,12 @@ class Tournament {
 		from.sendTo(this.room, '|tournament|update|{"challenging":null}');
 		user.sendTo(this.room, '|tournament|update|{"challenged":null}');
 
-<<<<<<< HEAD
-		this.inProgressMatches.set(challenge.from, {
-			to: player,
-			room: room,
-		});
-=======
 		this.inProgressMatches.set(challenge.from, {to: player, room: room});
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		this.room.add('|tournament|battlestart|' + from.name + '|' + user.name + '|' + room.id).update();
 
 		this.isBracketInvalidated = true;
 		if (this.autoDisqualifyTimeout !== Infinity) this.runAutoDisqualify(this.room);
-<<<<<<< HEAD
-		if (this.forceTimer) room.requestKickInactive(false);
-=======
 		if (this.forceTimer) room.battle.timer.start();
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		this.update();
 	}
 	forfeit(user) {
@@ -1106,10 +1029,7 @@ function createTournamentGenerator(generator, args, output) {
 	args.unshift(null);
 	return new (Generator.bind.apply(Generator, args))();
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 function createTournament(room, format, generator, playerCap, isRated, args, output) {
 	if (room.type !== 'chat') {
 		output.errorReply("Tournaments can only be created in chat rooms.");
@@ -1141,10 +1061,7 @@ function createTournament(room, format, generator, playerCap, isRated, args, out
 	room.game = exports.tournaments[room.id] = new Tournament(room, format, createTournamentGenerator(generator, args, output), playerCap, isRated);
 	return room.game;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 function deleteTournament(id, output) {
 	let tournament = exports.tournaments[id];
 	if (!tournament) {
@@ -1157,10 +1074,7 @@ function deleteTournament(id, output) {
 	if (room) delete room.game;
 	return true;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 function getTournament(id, output) {
 	if (exports.tournaments[id]) {
 		return exports.tournaments[id];
@@ -1344,7 +1258,6 @@ let commands = {
 			tournament.runAutoDisqualify(this);
 			this.logEntry(user.name + " used /tour runautodq");
 		},
-<<<<<<< HEAD
 		remind: function (tournament, user) {
 			let users = tournament.generator.getAvailableMatches().toString().split(',');
 			let offlineUsers = [];
@@ -1369,8 +1282,6 @@ let commands = {
 				this.errorReply('The tournament hasen\'t started yet.');
 			}
 		},
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		scout: 'setscouting',
 		scouting: 'setscouting',
 		setscout: 'setscouting',
@@ -1497,17 +1408,7 @@ Chat.commands.tournament = function (paramString, room, user) {
 			return !tournament.room.isPrivate && !tournament.room.isPersonal && !tournament.room.staffRoom;
 		}).map(tournament => {
 			tournament = exports.tournaments[tournament];
-<<<<<<< HEAD
-			return {
-				room: tournament.room.id,
-				title: tournament.room.title,
-				format: tournament.format,
-				generator: tournament.generator.name,
-				isStarted: tournament.isTournamentStarted,
-			};
-=======
 			return {room: tournament.room.id, title: tournament.room.title, format: tournament.format, generator: tournament.generator.name, isStarted: tournament.isTournamentStarted};
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		})));
 	} else if (cmd === 'help') {
 		return this.parse('/help tournament');

@@ -117,6 +117,36 @@ exports.commands = {
 		);
 	},
 
+	//Credits to Snaquaza on these feature and other DragonHeaven developers/contributers
+	'fakemonlist': 'fakemonslist',
+	fakemonslist: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		let buf = `<div class=infobox-limited><center><h2>List Of Fakemons</h2></center>`;
+		let fakemonsDex = require('../mods/fakemons/pokedex.js').BattlePokedex;
+		if (!fakemonsDex) return this.errorReply("Error Fetching Fakemons Data.");
+		Object.values(fakemonsDex).forEach(mon => {
+			buf += `<button name="send" value="/dt ${mon.species}" style="background:none;border:none;">${mon.species}</button><br>`;
+		});
+		this.sendReplyBox(`${buf}</div>`);
+	},
+	fakemonslisthelp: ["/fakemonslist - Shows the list of Fakemons."],
+
+	learnfakemons: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		let learnfakemons = Dex.mod('fakemons').data.Learnsets, movefakemons = Dex.mod('fakemons').data.Movedex, dexfakemons = Dex.mod('fakemons').data.Pokedex;
+		if (!target || toId(target) === '') return this.sendReply("/learnfakemons: Shows the whether a Pokemon can learn a move, including Pokemon and Moves from fakemons.");
+		let targets = target.split(','), mon = targets[0], move = targets[1];
+		if (!mon || !dexfakemons[toId(mon)]) return this.errorReply("Error: Pokemon not found");
+		if (!learnfakemons[toId(mon)]) return this.errorReply("Error: Learnset not found");
+		if (!move || !movefakemons[toId(move)]) return this.errorReply("Error: Move not found");
+		mon = dexfakemons[toId(mon)];
+		move = movefakemons[toId(move)];
+		if (learnfakemons[toId(mon.species)].learnset[toId(move.name)]) {
+			return this.sendReplyBox("In Fakemons, " + mon.species + ' <font color="green"><u><b>can<b><u></font> learn ' + move.name);
+		}
+		return this.sendReplyBox("In Fakemons, " + mon.species + ' <font color="red"><u><b>can\'t<b><u></font> learn ' + move.name);
+	},
+
 	'!bugs': true,
 	bugs: function (target, room, user) {
 		if (!this.runBroadcast()) return;

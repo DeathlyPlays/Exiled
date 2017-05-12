@@ -1122,20 +1122,29 @@ exports.BattleMovedex = {
 		contestType: "Beautiful",
 	},
 	//Lord Coldwraith
-	"shadowforceimpact": {
-		id: "shadowforceimpact",
-		name: "Shadowforce Impact",
+	"soulreaper": {
+		id: "soulreaper",
+		name: "Soul Reaper",
 		basePower: 95,
-		secondary: {
-			chance: 30,
-			volatileStatus: "flinch",
-		},
+		secondaries: [
+			{
+				chance: 20,
+				status: 'frz',
+			}, {
+				chance: 30,
+				volatileStatus: 'flinch',
+			},
+		],
 		accuracy: 100,
 		pp: 10,
 		category: "Special",
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Shadow Force", target);
+			this.add('-anim', source, "Ice Burn", target);
+		},
+		onEffectiveness: function (typeMod, type, move) {
+			return typeMod + this.getEffectiveness('Ice', type);
 		},
 		flags: {protect: 1, mirror: 1},
 		target: "normal",

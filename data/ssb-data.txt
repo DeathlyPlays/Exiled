@@ -64,16 +64,16 @@ Special Move: Crippling Kiss
 Notes: Bulky Attacker.
 Rank: A.
 
-Lord Coldwraith
-(Froslass)
-@Focus Sash
-EVs: 252 SpA / 252 Spe / 4 HP
-Modest Nature
-Ability: Necropower
-    -Special Pure Power and charge moves have no charge required.
-Moves: Oblivion Wing, Ice Burn, Quiver Dance
-Special Move: Shadowforce Impact
-	-Ghost type, Special, 30% chance of flinching, 95 BP, 100% Accuracy, +1 priority.
+Bronze0re
+(White Kyurem)
+@ Never-Melt Ice
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+Ability: Lord of Winter
+	- Sets hail and cancels two charge turns.
+Moves: Quiver Dance, Oblivion Wing, Ice Burn
+Special Move: Soul Reaper
+	- 95 BP Ghost/Ice type attack, 30% Flinch Chance, 20% freeze chance, Special.
 Notes: Fast Special Sweeper.
 Rank: A.
 

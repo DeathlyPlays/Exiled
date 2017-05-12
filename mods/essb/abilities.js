@@ -815,9 +815,9 @@ exports.BattleAbilities = {
 			this.debug('Delete charge for ' + move.id);
 			return false; // skip charge turn
 		},
-		onModifySpAPriority: 5,
-		onModifySpA: function (spa) {
-			return this.chainModify(2);
+		//sets hail
+		onStart: function (source) {
+			this.setWeather('hail');
 		},
 	},
 	"nohax": {

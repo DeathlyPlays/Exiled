@@ -109,20 +109,21 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"&Lord Coldwraith": {
-				species: "Froslass",
-				ability: "Necropower",
-				item: "Focus Sash",
+			"&Bronze0re": {
+				species: "Kyurem-White",
+				ability: "Lord of Winter",
+				item: "Never-Melt Ice",
 				gender: "M",
+				shiny: true,
 				moves: ['quiverdance', 'iceburn', 'oblivionwing'],
-				baseSignatureMove: "shadowforceimpact",
-				signatureMove: "Shadowforce Impact",
+				baseSignatureMove: "soulreaper",
+				signatureMove: "Soul Reaper",
 				evs: {
 					spa: 252,
 					spe: 252,
 					hp: 4,
 				},
-				nature: "Modest",
+				nature: "Timid",
 			},
 			//Bots
 			"*The Exiler": {

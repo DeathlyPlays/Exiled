@@ -1670,58 +1670,58 @@ exports.Formats = [
 		],
 		onSwitchInPriority: 1,
 		onSwitchIn: function (pokemon) {
-			if (pokemon.types === ["Fire"]) {
+			if (pokemon.type === ["Fire"]) {
 				 this.useMove("Sunny Day", pokemon);
 			}
-			if (pokemon.types === ["Water"]) {
+			if (pokemon.type === ["Water"]) {
 				this.useMove("Rain Dance", pokemon);
 			}
-			if (pokemon.types === ["Grass"]) {
+			if (pokemon.type === ["Grass"]) {
 				this.useMove("Grassy Terrain", pokemon);
 			}
-			if (pokemon.types === ["Psychic"]) {
+			if (pokemon.type === ["Psychic"]) {
 				this.useMove("Psychic Terrain", pokemon);
 			}
-			if (pokemon.types === ["Dark"]) {
+			if (pokemon.type === ["Dark"]) {
 				this.useMove("Topsy-Turvy", pokemon);
 			}
-			if (pokemon.types === ["Ghost"]) {
+			if (pokemon.type === ["Ghost"]) {
 				this.useMove("Trick-or-Treat", pokemon);
 			}
-			if (pokemon.types === ["Fairy"]) {
+			if (pokemon.type === ["Fairy"]) {
 				this.useMove("Misty Terrain", pokemon);
 			}
-			if (pokemon.types === ["Poison"]) {
+			if (pokemon.type === ["Poison"]) {
 			        this.useMove("Toxic Spikes", pokemon);
 			}
-			if (pokemon.types === ["Flying"]) {
+			if (pokemon.type === ["Flying"]) {
 				this.useMove("Tailwind", pokemon);
 			}
-			if (pokemon.types === ["Ground"]) {
+			if (pokemon.type === ["Ground"]) {
 				this.useMove("Spikes", pokemon);
 			}
-			if (pokemon.types === ["Rock"]) {
+			if (pokemon.type === ["Rock"]) {
 				this.useMove("Sandstorm", pokemon);
 			}
-			if (pokemon.types === ["Bug"]) {
+			if (pokemon.type === ["Bug"]) {
 				this.useMove("Quiver Dance", pokemon);
 			}
-			if (pokemon.types === ["Fighting"]) {
+			if (pokemon.type === ["Fighting"]) {
 				this.useMove("Bulk Up", pokemon);
 			}
-			if (pokemon.types === ["Dragon"]) {
+			if (pokemon.type === ["Dragon"]) {
 				this.useMove("Dragon Tail", pokemon);
 			}
-			if (pokemon.types === ["Ice"]) {
+			if (pokemon.type === ["Ice"]) {
 				this.useMove("Hail", pokemon);
 			}
-			if (pokemon.types === ["Steel"]) {
+			if (pokemon.type === ["Steel"]) {
 				this.useMove("Autotomize", pokemon);
 			}
-			if (pokemon.types === ["Electric"]) {
+			if (pokemon.type === ["Electric"]) {
 				this.useMove("Electric Terrain", pokemon);
 			}
-			if (pokemon.types === ["Normal"]) {
+			if (pokemon.type === ["Normal"]) {
 				this.useMove("Metronome", pokemon);
 			}
 		},

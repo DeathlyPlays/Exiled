@@ -62,10 +62,7 @@ class RoomGame {
 	}
 
 	destroy() {
-<<<<<<< HEAD
-=======
 		this.room.game = null;
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		this.room = null;
 		for (let i in this.players) {
 			this.players[i].destroy();

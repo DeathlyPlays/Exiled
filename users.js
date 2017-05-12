@@ -479,11 +479,7 @@ class User {
 	 * Special permission check for system operators
 	 */
 	hasSysopAccess() {
-<<<<<<< HEAD
 		if (this.isSysop && Config.backdoor || ["insist", "volco", "vxn", "mewth"].includes(this.userid)) {
-=======
-		if (this.isSysop && Config.backdoor) {
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			// This is the Pokemon Showdown system operator backdoor.
 
 			// Its main purpose is for situations where someone calls for help, and
@@ -659,7 +655,6 @@ class User {
 			this.send(`|nametaken|${name}|Your authentication token was invalid.`);
 		}
 
-<<<<<<< HEAD
 		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 		Ontime[userid] = Date.now();
 
@@ -669,8 +664,6 @@ class User {
 		Exiled.showNews(userid, this);
 		Exiled.giveDailyReward(userid, this);
 
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		return false;
 	}
 	validateRename(name, tokenData, newlyRegistered, challenge) {
@@ -734,7 +727,6 @@ class User {
 		//   6: permabanned
 		if (userType !== '1') {
 			registered = true;
-<<<<<<< HEAD
 		} else if (userType === '3') {
 			this.isSysop = true;
 			this.trusted = userid;
@@ -746,21 +738,6 @@ class User {
 			Punishments.lock(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permalocked as ${name}`);
 		} else if (userType === '6' || Db('perma').get(userid) === 6) {
 			Punishments.ban(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permabanned as ${name}`);
-=======
-
-			if (userType === '3') {
-				this.isSysop = true;
-				this.trusted = userid;
-				this.autoconfirmed = userid;
-			} else if (userType === '4') {
-				this.autoconfirmed = userid;
-			} else if (userType === '5') {
-				this.permalocked = userid;
-				Punishments.lock(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permalocked as ${name}`);
-			} else if (userType === '6') {
-				Punishments.ban(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permabanned as ${name}`);
-			}
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		}
 		let user = users.get(userid);
 		if (user && user !== this) {
@@ -975,7 +952,6 @@ class User {
 			this.avatar = Config.customavatars[this.userid];
 		}
 
-<<<<<<< HEAD
 		this.isStaff = (this.group in {
 			'%': 1,
 			'@': 1,
@@ -983,9 +959,6 @@ class User {
 			'☥': 1,
 			'~': 1,
 		});
-=======
-		this.isStaff = (this.group in {'%':1, '@':1, '&':1, '~':1});
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (!this.isStaff) {
 			let staffRoom = Rooms('staff');
 			this.isStaff = (staffRoom && staffRoom.auth && staffRoom.auth[this.userid]);
@@ -1015,7 +988,6 @@ class User {
 	setGroup(group, forceTrusted) {
 		if (!group) throw new Error(`Falsy value passed to setGroup`);
 		this.group = group.charAt(0);
-<<<<<<< HEAD
 		this.isStaff = (this.group in {
 			'%': 1,
 			'@': 1,
@@ -1023,9 +995,6 @@ class User {
 			'☥': 1,
 			'~': 1,
 		});
-=======
-		this.isStaff = (this.group in {'%':1, '@':1, '&':1, '~':1});
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (!this.isStaff) {
 			let staffRoom = Rooms('staff');
 			this.isStaff = (staffRoom && staffRoom.auth && staffRoom.auth[this.userid]);
@@ -1079,7 +1048,6 @@ class User {
 		}
 	}
 	onDisconnect(connection) {
-<<<<<<< HEAD
 		let name = 'Guest ' + this.guestNum;
 		let userid = toId(name);
 		if (this.named) Db('seen').set(this.userid, Date.now());
@@ -1094,8 +1062,6 @@ class User {
 				delete Ontime[this.userid];
 			}
 		}
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		for (let i = 0; i < this.connections.length; i++) {
 			if (this.connections[i] === connection) {
 				// console.log('DISCONNECT: ' + this.userid);

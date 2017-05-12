@@ -7,10 +7,7 @@ const AUTO_DISQUALIFY_WARNING_TIMEOUT = 30 * 1000;
 const AUTO_START_MINIMUM_TIMEOUT = 30 * 1000;
 const MAX_REASON_LENGTH = 300;
 const TOURBAN_DURATION = 14 * 24 * 60 * 60 * 1000;
-<<<<<<< HEAD
 const turfwars = require("../chat-plugins/gangs");
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 Punishments.roomPunishmentTypes.set('TOURBAN', 'banned from tournaments');
 
@@ -18,10 +15,7 @@ let TournamentGenerators = Object.create(null);
 let generatorFiles = {
 	'roundrobin': 'generator-round-robin',
 	'elimination': 'generator-elimination',
-<<<<<<< HEAD
 	'doubleelimination': 'generator-elimination',
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 };
 for (let type in generatorFiles) {
 	TournamentGenerators[type] = require('./' + generatorFiles[type]);
@@ -87,13 +81,9 @@ class Tournament {
 		}));
 		this.update();
 	}
-<<<<<<< HEAD
-	destroy() {}
-=======
 	destroy() {
 		this.forceEnd();
 	}
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 
 	setGenerator(generator, output) {
 		if (this.isTournamentStarted) {
@@ -1025,7 +1015,6 @@ class Tournament {
 		}));
 		this.isEnded = true;
 		if (this.autoDisqualifyTimer) clearTimeout(this.autoDisqualifyTimer);
-<<<<<<< HEAD
 
 		//
 		// Tournament Winnings
@@ -1102,11 +1091,6 @@ class Tournament {
 		for (let i in this.players) {
 			Users(this.players[i].userid).tourBoost = false;
 			Users(this.players[i].userid).gameBoost = false;
-=======
-		delete exports.tournaments[this.room.id];
-		delete this.room.game;
-		for (let i in this.players) {
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			this.players[i].destroy();
 		}
 	}

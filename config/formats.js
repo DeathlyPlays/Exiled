@@ -295,12 +295,6 @@ exports.Formats = [
 		],
 		mod: 'gen7',
 		ruleset: ['[Gen 7] OU'],
-<<<<<<< HEAD
-		banlist: ['Endeavor'],
-		onBeforeFaint: function (pokemon, source) {
-			this.add('-hint', `${pokemon.name || pokemon.species}'s Last Will let it use one last move!`);
-			this.useMove(pokemon.moves[pokemon.moves.length - 1], pokemon);
-=======
 		banlist: ['Endeavor', 'Blast Burn + Explosion + Frenzy Plant + Giga Impact + Hydro Cannon + Hyper Beam + Self Destruct + V-Create > 2'],
 		onBeforeFaint: function (pokemon, source) {
 			try {
@@ -309,7 +303,6 @@ exports.Formats = [
 			} catch (e) {
 				this.add('-message', 'But it failed!');
 			}
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		},
 	},
 	{
@@ -335,29 +328,6 @@ exports.Formats = [
 			}
 		},
 		validateSet: function (set, teamHas) {
-<<<<<<< HEAD
-			let crossTemplate = this.Dex.getTemplate(set.name);
-			if (!crossTemplate.exists || crossTemplate.isNonstandard) return this.validateSet(set, teamHas);
-			let template = this.Dex.getTemplate(set.species);
-			if (!template.exists) return [`The Pokemon ${set.species} does not exist.`];
-			if (!template.evos.length) return [`${template.species} cannot cross evolve because it doesn't evolve.`];
-			if (template.species === 'Sneasel') return [`Sneasel as a base Pokemon is banned.`];
-			let crossBans = {'shedinja': 1, 'solgaleo': 1, 'lunala': 1};
-			if (crossTemplate.id in crossBans) return [`${template.species} cannot cross evolve into ${crossTemplate.species} because it is banned.`];
-			if (crossTemplate.battleOnly || !crossTemplate.prevo) return [`${template.species} cannot cross evolve into ${crossTemplate.species} because it isn't an evolution.`];
-			let crossPrevoTemplate = this.Dex.getTemplate(crossTemplate.prevo);
-			if (!crossPrevoTemplate.prevo !== !template.prevo) return [`${template.species} cannot cross into ${crossTemplate.species} because they are not consecutive evolutionary stages.`];
-
-			// Make sure no stat is too high/low to cross evolve to
-			let stats = {
-				'hp': 'HP',
-				'atk': 'Attack',
-				'def': 'Defense',
-				'spa': 'Special Attack',
-				'spd': 'Special Defense',
-				'spe': 'Speed',
-			};
-=======
 			let crossTemplate = this.tools.getTemplate(set.name);
 			if (!crossTemplate.exists || crossTemplate.isNonstandard) return this.validateSet(set, teamHas);
 			let template = this.tools.getTemplate(set.species);
@@ -372,27 +342,18 @@ exports.Formats = [
 
 			// Make sure no stat is too high/low to cross evolve to
 			let stats = {'hp':'HP', 'atk':'Attack', 'def':'Defense', 'spa':'Special Attack', 'spd':'Special Defense', 'spe':'Speed'};
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			for (let statid in template.baseStats) {
 				let evoStat = template.baseStats[statid] + crossTemplate.baseStats[statid] - crossPrevoTemplate.baseStats[statid];
 				if (evoStat < 1) {
 					return [`${template.species} cannot cross evolve to ${crossTemplate.species} because its ${stats[statid]} would be too low.`];
 				} else if (evoStat > 255) {
-<<<<<<< HEAD
-					return [`{template.species} cannot cross evolve to ${crossTemplate.species} because its ${stats[statid]} would be too high.`];
-=======
 					return [`${template.species} cannot cross evolve to ${crossTemplate.species} because its ${stats[statid]} would be too high.`];
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 				}
 			}
 
 			let mixedTemplate = Object.assign({}, template);
 			// Ability test
-<<<<<<< HEAD
-			let ability = this.Dex.getAbility(set.ability);
-=======
 			let ability = this.tools.getAbility(set.ability);
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			let abilityBans = {'hugepower': 1, 'purepower': 1, 'shadowtag': 1};
 			if (!(ability.id in abilityBans)) mixedTemplate.abilities = crossTemplate.abilities;
 
@@ -407,12 +368,6 @@ exports.Formats = [
 			}
 			return this.validateSet(set, teamHas, mixedTemplate);
 		},
-<<<<<<< HEAD
-		onModifyTemplate: function (template, pokemon) {
-			if (pokemon.crossEvolved || pokemon.set.name === pokemon.species) return template;
-			let crossTemplate = this.getTemplate(pokemon.name);
-			if (!crossTemplate.exists || crossTemplate.num === template.num) return template;
-=======
 		onModifyTemplate: function (template, pokemon, source) {
 			if (source) return;
 			if (pokemon.set.name === pokemon.set.species) return;
@@ -420,7 +375,6 @@ exports.Formats = [
 			if (!crossTemplate.exists) return;
 			if (template.battleOnly || !template.nfe) return;
 			if (crossTemplate.battleOnly || !crossTemplate.prevo) return;
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 			let crossPrevoTemplate = this.getTemplate(crossTemplate.prevo);
 			let mixedTemplate = Object.assign({}, template);
 			mixedTemplate.baseSpecies = mixedTemplate.species = template.species + '-' + crossTemplate.species;
@@ -437,12 +391,6 @@ exports.Formats = [
 			if (crossTemplate.types[1] !== crossPrevoTemplate.types[1]) mixedTemplate.types[1] = crossTemplate.types[1] || crossTemplate.types[0];
 			if (mixedTemplate.types[0] === mixedTemplate.types[1]) mixedTemplate.types.length = 1;
 
-<<<<<<< HEAD
-			pokemon.baseTemplate = mixedTemplate;
-			pokemon.crossEvolved = true;
-			return mixedTemplate;
-		},
-=======
 			pokemon.crossEvolved = true;
 			return mixedTemplate;
 		},
@@ -452,7 +400,6 @@ exports.Formats = [
 				allPokemon[i].baseTemplate = allPokemon[i].template;
 			}
 		},
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		onSwitchInPriority: 1,
 		onSwitchIn: function (pokemon) {
 			if (pokemon.crossEvolved) {
@@ -487,10 +434,7 @@ exports.Formats = [
 		],
 
 		mod: 'gen7',
-<<<<<<< HEAD
-=======
 		searchShow: false,
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		teamLength: {
 			validate: [1, 3],
 			battle: 1,
@@ -503,8 +447,6 @@ exports.Formats = [
 		],
 	},
 	{
-<<<<<<< HEAD
-=======
 		name: "[Gen 7] 1v1 (suspect test)",
 
 		mod: 'gen7',
@@ -521,7 +463,6 @@ exports.Formats = [
 		],
 	},
 	{
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		name: "[Gen 7] Monotype",
 		desc: [
 			"All the Pok&eacute;mon on a team must share a type.",
@@ -1403,7 +1344,6 @@ exports.Formats = [
 		debug: true,
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
-<<<<<<< HEAD
 		/* * * * * * * * *
 		 * EXILED METAS: *
 		 * * * * * * * * */
@@ -2359,6 +2299,4 @@ exports.Formats = [
 			}
 		},
 	},
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 ];

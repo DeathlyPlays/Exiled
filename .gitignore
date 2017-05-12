@@ -1,18 +1,12 @@
 /config/*
 !/config/formats.js
-<<<<<<< HEAD
 /config/custom.css
-/config/config-example.js
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
+/config/config.js
 /logs/*
 /node_modules
 /eslint-cache
 /chat-plugins/private.js
-<<<<<<< HEAD
 /chat-plugins/exp.js
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 npm-debug.log
 .eslintcache
 

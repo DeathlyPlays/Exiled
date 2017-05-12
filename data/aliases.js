@@ -38,6 +38,9 @@ exports.BattleAliases = {
 	"gen6inverse": "Inverse Battle",
 	"lastwill": "[Gen 7] Last Will",
 	"crossevolution": "[Gen 7] Cross Evolution",
+	"essb": "[Gen 7]: Exiled Super Staff Bros",
+	"cotr": "[Gen 7]: Clash of the Regions",
+	"monoubers": "[Gen 7] Monotype Ubers",
 
 	// mega evos
 	"maero": "Aerodactyl-Mega",

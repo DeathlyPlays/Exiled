@@ -617,10 +617,7 @@ let commands = {
 	 * Leaderboard Point Distribution Editing
 	 */
 	setblitz: function (target, room, user) {
-<<<<<<< HEAD
-=======
 		if (room.id !== 'scavengers') return this.errorReply("This command can only be used in the scavenger room.");
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (!this.can("mute", null, room)) return false; // perms for viewing only
 		if (!target) return this.sendReply(`The points rewarded for winning official hunts is: ${(room.blitzPoints || DEFAULT_BLITZ_POINTS)}`);
 
@@ -639,10 +636,7 @@ let commands = {
 	},
 
 	setpoints: function (target, room, user) {
-<<<<<<< HEAD
-=======
 		if (room.id !== 'scavengers') return this.errorReply("This command can only be used in the scavenger room.");
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (!this.can("mute", null, room)) return false; // perms for viewing only
 		if (!target) return this.sendReply(`The points rewarded for winning official hunts is: ${(room.winPoints || DEFAULT_POINTS).map((p, i) => `(${(i + 1)}) ${p}`).join(', ')}`);
 
@@ -666,10 +660,7 @@ let commands = {
 	 */
 	huntcount: 'huntlogs',
 	huntlogs: function (target, room, user) {
-<<<<<<< HEAD
-=======
 		if (room.id !== 'scavengers') return this.errorReply("This command can only be used in the scavenger room.");
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		if (!this.can('mute', null, room)) return false;
 
 		if (target === 'reset') {
@@ -681,9 +672,6 @@ let commands = {
 		}
 
 		HostLeaderboard.visualize().then(ladder => {
-<<<<<<< HEAD
-			this.sendReply(`|raw|<div class="ladder" style="overflow-y: scroll; max-height: 300px;"><table style="width: 100%"><tr><th>Rank</th><th>Name</th><th>Points</th></tr>${ladder.map(entry => `<tr><td>${entry.rank}</td><td>${Chat.escapeHTML(entry.name)}</td><td>${entry.points}</td></tr>`).join('')}</table></div>`);
-=======
 			this.sendReply(`|raw|<div class="ladder" style="overflow-y: scroll; max-height: 300px;"><table style="width: 100%"><tr><th>Rank</th><th>Name</th><th>Points</th></tr>${ladder.map(entry => {
 				let userid = toId(entry.name);
 
@@ -692,7 +680,6 @@ let commands = {
 
 				return `<tr><td>${entry.rank}</td><td><span style="color: ${color}">${auth}</span>${Chat.escapeHTML(entry.name)}</td><td>${entry.points}</td></tr>`;
 			}).join('')}</table></div>`);
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 		});
 	},
 };

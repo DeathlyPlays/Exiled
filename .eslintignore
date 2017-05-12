@@ -1,6 +1,6 @@
 tournaments/lib/
 logs/
-<<<<<<< HEAD
+dev-tools/globals.js
 config/color.js
 mods/opmetagame
 chat-plugins/tilepuzzle.js
@@ -9,6 +9,3 @@ chat-plugins/gangs.js
 chat-plugins/emoticons.js
 chat-plugins/ttt.js
 config/card-data.js
-=======
-dev-tools/globals.js
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0

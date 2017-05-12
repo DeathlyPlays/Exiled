@@ -4140,7 +4140,6 @@ exports.BattleAbilities = {
 		rating: 3.5,
 		num: -4,
 	},
-<<<<<<< HEAD
 	//Exiled custom mons
 	"insectize": {
 		desc: "This Pokemon's Normal-type moves become Bug-type moves and have their power multiplied by 1.2. This effect comes after other effects that change a move's type, but before Ion Deluge and Electrify's effects.",
@@ -4257,6 +4256,4 @@ exports.BattleAbilities = {
 		rating: 5,
 		num: -28,
 	},
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 };

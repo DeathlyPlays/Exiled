@@ -49,31 +49,11 @@
 const fs = require('fs');
 const path = require('path');
 
-<<<<<<< HEAD
-/*********************************************************
- * Make sure we have everything set up correctly
- *********************************************************/
-
-// Make sure our dependencies are available, and install them if they
-// aren't
-
-try {
-	require.resolve('sockjs');
-} catch (e) {
-	if (require.main !== module) throw new Error("Dependencies unmet");
-
-	let command = 'npm install --production';
-	console.log('Installing dependencies: `' + command + '`...');
-	require('child_process').spawnSync('sh', ['-c', command], {
-		stdio: 'inherit',
-	});
-=======
 // Check for dependencies
 try {
 	require.resolve('sockjs');
 } catch (e) {
 	throw new Error("Dependencies unmet; run npm install");
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 }
 
 /*********************************************************
@@ -113,11 +93,8 @@ if (Config.watchconfig) {
  * Set up most of our globals
  *********************************************************/
 
-<<<<<<< HEAD
 global.Exiled = {};
 
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 global.Monitor = require('./monitor');
 
 global.Dex = require('./sim/dex');
@@ -131,16 +108,12 @@ global.Users = require('./users');
 
 global.Punishments = require('./punishments');
 
-<<<<<<< HEAD
 global.Console = require('./console.js');
 
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 global.Chat = require('./chat');
 
 global.Rooms = require('./rooms');
 
-<<<<<<< HEAD
 global.Tells = require('./tells');
 
 global.Ontime = {};
@@ -153,8 +126,6 @@ global.forever = {};
 
 global.Db = require('origindb')('config/db');
 
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 delete process.send; // in case we're a child process
 global.Verifier = require('./verifier');
 Verifier.PM.spawn();
@@ -177,7 +148,6 @@ if (Config.crashguard) {
 	process.on('unhandledRejection', err => {
 		throw err;
 	});
-<<<<<<< HEAD
 	process.on('exit', code => {
 		let exitCodes = {
 			1: 'Uncaught Fatal Exception',
@@ -207,8 +177,6 @@ if (Config.crashguard) {
 			console.error('Refer to https://github.com/nodejs/node-v0.x-archive/blob/master/doc/api/process.markdown#exit-codes for more details. The process will now exit.');
 		}
 	});
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
 }
 
 /*********************************************************

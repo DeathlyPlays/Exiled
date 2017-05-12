@@ -2103,15 +2103,15 @@ exports.Formats = [
 		],
 	},
 	{
-		// Credit for this goes to DragonHeaven I just edited it for Trick Room :I
 		name: "[Gen 7] Slowtown",
 		desc: [
-			"Every 5 turns, one of Trick Room is set up.",
+			"Every 5 turns, one of Trick Room is set up. Concept by VXN. Coded by Insist with the template from Smogon.",
 			"&bullet; <a href=\"http://www.smogon.com/forums/threads/open-house.3584274/\">Open House</a>",
 		],
 		mod: "slowtown",
-		team: 'random',
-		ruleset: ["Team Preview", 'Random Battle'],
+		ruleset: ['[Gen 7] OU'],
+		banlist: ['Sablenite', 'Baton Pass'],
+		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky'],
 		onBegin: function () {
 			this.trickRoom = ["Trick Room"];
 			this.startNewTrickRoom = this.trickRoom[this.random(1)];

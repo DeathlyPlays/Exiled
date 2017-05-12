@@ -1416,6 +1416,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Type Illusion Beta",
 		section: "Exiled's Custom Gamemodes",
+		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
 		desc: [
 			"&bullet; Coded by flufi.",

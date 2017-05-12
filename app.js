@@ -207,14 +207,11 @@ global.TeamValidator = require('./team-validator');
 TeamValidator.PM.spawn();
 
 /*********************************************************
-<<<<<<< HEAD
  * Start up the githubhook server
  ********************************************************/
 require('./github');
 
 /*********************************************************
-=======
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
  * Start up the REPL server
  *********************************************************/
 

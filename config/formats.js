@@ -1621,6 +1621,18 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Psychic/Fighting');
 				pokemon.types = ["Psychic", "Fighting"];
 		        }
+			if (name === 'fairy/steel' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Fairy/Steel');
+				pokemon.types = ["Fairy", "Steel"];
+		        }
+			if (name === 'fighting/flying' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Fighting/Flying');
+				pokemon.types = ["Fighting", "Flying"];
+		        }
+			if (name === 'mystery' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Fire/Water/Grass');
+				pokemon.types = ["Fire", "Water", "Grass"];
+		        }
 		},
 	},
 	{

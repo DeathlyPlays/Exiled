@@ -808,9 +808,9 @@ exports.BattleAbilities = {
 			this.useMove('topsyturvy', pokemon);
 		},
 	},
-	"necropower": {
-		id: "necropower",
-		name: "Necropower",
+	"lordofwinter": {
+		id: "lordofwinter",
+		name: "Lord of Winter",
 		onChargeMove: function (pokemon, target, move) {
 			this.debug('Delete charge for ' + move.id);
 			return false; // skip charge turn

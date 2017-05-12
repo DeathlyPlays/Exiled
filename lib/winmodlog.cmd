@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 @echo off
 setlocal enableextensions
 
@@ -46,4 +43,3 @@ type %files% 2>nul | find /i %search% | more +%skiplines%
 rem ** END OF WORDSEARCH SECTION **
 
 :end
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0

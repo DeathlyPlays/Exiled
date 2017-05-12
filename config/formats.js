@@ -1416,7 +1416,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Type Illusion Beta",
 		section: "Exiled's Custom Gamemodes",
-		ruleset: ['[Gen 7] OU'],
+		ruleset: ['[Gen 7 OU]'],
 		desc: [
 			"&bullet; Coded by flufi.",
 			"Nickname a Pokemon a single typing and the Pokemon will change to that typing in battle.",
@@ -1425,7 +1425,6 @@ exports.Formats = [
 		],
 		onSwitchIn: function (pokemon) {
 			let name = toId(pokemon.name);
-
 			if (name === 'fire' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire');
 				pokemon.types = ["Fire"];
@@ -1522,6 +1521,105 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Psychic/Fighting');
 				pokemon.types = ["Psychic", "Fighting"];
 			}
+		},
+		onModifyPokemon: function (pokemon) {
+			let name = toId(pokemon.name);
+			if (name === 'fire' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Fire');
+				pokemon.types = ["Fire"];
+			}
+			if (name === 'electric' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Electric');
+				pokemon.types = ["Electric"];
+			}
+			if (name === 'bug' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Bug');
+				pokemon.types = ["Bug"];
+			}
+			if (name === 'water' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Water');
+				pokemon.types = ["Water"];
+			}
+			if (name === 'grass' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Grass');
+				pokemon.types = ["Grass"];
+			}
+			if (name === 'fighting' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Fighting');
+				pokemon.types = ["Fighting"];
+			}
+			if (name === 'psychic' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Psychic');
+				pokemon.types = ["Psychic"];
+			}
+			if (name === 'fairy' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Fairy');
+				pokemon.types = ["Fairy"];
+			}
+			if (name === 'ice' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Ice');
+				pokemon.types = ["Ice"];
+			}
+			if (name === 'dark' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dark');
+				pokemon.types = ["Dark"];
+			}
+			if (name === 'ghost' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Ghost');
+				pokemon.types = ["Ghost"];
+			}
+			if (name === 'normal' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Normal');
+				pokemon.types = ["Normal"];
+			}
+			if (name === 'flying' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Flying');
+				pokemon.types = ["Flying"];
+			}
+			if (name === 'ground' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Ground');
+				pokemon.types = ["Ground"];
+			}
+			if (name === 'rock' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Rock');
+				pokemon.types = ["Rock"];
+			}
+			if (name === 'dragon' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dragon');
+				pokemon.types = ["Dragon"];
+			}
+			if (name === 'poison' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Poison');
+				pokemon.types = ["Poison"];
+			}
+			if (name === 'steel' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Steel');
+				pokemon.types = ["Steel"];
+			}
+			if (name === 'volcano' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Fire/Ground/Rock');
+				pokemon.types = ["Fire", "Ground", "Rock"];
+			}
+			if (name === 'shedinja' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Bug/Ghost');
+				pokemon.types = ["Bug", "Ghost"];
+			}
+			if (name === 'V!X3N' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Fire/Bug/Electric');
+				pokemon.types = ["Fire", "Bug", "Electric"];
+			}
+			if (name === 'flufi' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Normal/Ghost');
+				pokemon.types = ["Normal", "Ghost"];
+			}
+			if (name === 'exiled' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dark/Ghost');
+				pokemon.types = ["Dark", "Ghost"];
+			}
+			if (name === 'insist' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Psychic/Fighting');
+				pokemon.types = ["Psychic", "Fighting"];
+		        }
 		},
 	},
 	{

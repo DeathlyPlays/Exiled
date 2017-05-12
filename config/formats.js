@@ -1638,7 +1638,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Move Storm",
-		section: "Exiled's Custom Gamemode",
+		section: "Exiled's Custom Gamemodes",
 		mod: 'gen7',
 		team: 'random',
 		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],

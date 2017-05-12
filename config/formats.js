@@ -1418,6 +1418,7 @@ exports.Formats = [
         section: "Exiled's Custom Gamemodes",
         mod: "gen7",
         ruleset: ['[Gen 7] OU'],
+        banlist: ["Shedinja"],
         desc: [
             "&bullet; Coded by flufi.",
             "Nickname a Pokemon a single typing and the Pokemon will change to that typing in battle.",

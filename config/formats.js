@@ -1620,7 +1620,39 @@ exports.Formats = [
 			if (name === 'insist' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Psychic/Fighting');
 				pokemon.types = ["Psychic", "Fighting"];
-		        }
+			}
+		},
+	},
+	{
+		name: "[Gen 7] Move Storm",
+		section: "Exiled's Custom Gamemode",
+		mod: 'gen7',
+		team: 'random',
+		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		desc: [
+			"&bullet; Coded by flufi.",
+			"Depending on the Pokemon's type, it will use a certain move on switch in.",
+		],
+		onSwitchInPriority: 1,
+		onSwitchIn: function (pokemon) {
+			if (pokemon.types === ["Fire"]) this.useMove("Sunny Day", pokemon);
+			if (pokemon.types === ["Water"]) this.useMove("Rain Dance", pokemon);
+			if (pokemon.types === ["Grass"]) this.useMove("Grassy Terrain", pokemon);
+			if (pokemon.types === ["Psychic"]) this.useMove("Psychic Terrain", pokemon);
+			if (pokemon.types === ["Dark"]) this.useMove("Topsy-Turvy", pokemon);
+			if (pokemon.types === ["Ghost"]) this.useMove("Trick-or-Treat", pokemon);
+			if (pokemon.types === ["Fairy"]) this.useMove("Misty Terrain", pokemon);
+			if (pokemon.types === ["Poison"]) this.useMove("Toxic", pokemon);
+			if (pokemon.types === ["Flying"]) this.useMove("Tailwind", pokemon);
+			if (pokemon.types === ["Ground"]) this.useMove("Spikes", pokemon);
+			if (pokemon.types === ["Rock"]) this.useMove("Sandstorm", pokemon);
+			if (pokemon.types === ["Bug"]) this.useMove("Quiver Dance", pokemon);
+			if (pokemon.types === ["Fighting"]) this.useMove("Bulk Up", pokemon);
+			if (pokemon.types === ["Dragon"]) this.useMove("Dragon Tail", pokemon);
+			if (pokemon.types === ["Ice"]) this.useMove("Hail", pokemon);
+			if (pokemon.types === ["Steel"]) this.useMove("Autotomize", pokemon);
+			if (pokemon.types === ["Electric"]) this.useMove("Electric Terrain", pokemon);
+			if (pokemon.types === ["Normal"]) this.useMove("Metronome", pokemon);
 		},
 	},
 	{

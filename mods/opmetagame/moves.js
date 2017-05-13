@@ -1589,7 +1589,7 @@ exports.BattleMovedex = {
         accuracy: 100,
         pp: 15,
         category: "Physical",
-        priority: 0,
+        priority: 3,
         self: {
             boosts: {
                 atk: 2

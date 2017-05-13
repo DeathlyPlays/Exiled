@@ -1536,11 +1536,7 @@ exports.Formats = [
 				pokemon.types = ["Psychic", "Fighting"];
 			}
 		},
-<<<<<<< HEAD
-		onSwitchIn: function (pokemon) {
-=======
 		onAfterMega: function (pokemon) {
->>>>>>> 8a2f44c57471a63f6974b5e811649e15f9816b3f
 			let name = toId(pokemon.name);
 			if (name === 'fire' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire');

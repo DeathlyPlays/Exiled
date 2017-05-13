@@ -2163,8 +2163,8 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Slowtown",
 		desc: [
-			"Every 5 turns, one of Trick Room is set up. Concept by VXN. Coded by Insist with the template from Smogon.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/open-house.3584274/\">Open House</a>",
+			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by VXN. Coded by Insist.",
+			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
 		],
 		mod: "slowtown",
 		ruleset: ['[Gen 7] OU'],

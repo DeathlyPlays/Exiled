@@ -1536,7 +1536,7 @@ exports.Formats = [
 				pokemon.types = ["Psychic", "Fighting"];
 			}
 		},
-		onUpdate: function (pokemon) {
+		onSwitchIn: function (pokemon) {
 			let name = toId(pokemon.name);
 			if (name === 'fire' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire');

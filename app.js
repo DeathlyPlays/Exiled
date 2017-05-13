@@ -20,11 +20,7 @@
  *   rooms.js. There's also a global room which every user is in, and
  *   handles miscellaneous things like welcoming the user.
  *
-<<<<<<< HEAD
- * Tools - from tools.js
-=======
  * Dex - from sim/dex.js
->>>>>>> 343c0143582be0ecc6de3dfb5c5f9d9166a8e2d0
  *
  *   Handles getting data about Pokemon, items, etc.
  *

@@ -38076,6 +38076,8 @@ exports.BattleLearnsets = {
 		uproar: ["6T", "5T", "4T"],
 		uturn: ["7M", "6M", "5M", "4M"],
 		voltswitch: ["7M", "6M", "5M"],
+		darkpulse: ["7M", "6M", "5T", "4M"],
+		darkvoid: ["7L66", "6L66", "6S5", "6S6", "5L66", "5S4", "4L66", "4S2"],
 	}},
 	buizel: {learnset: {
 		agility: ["7L41", "6L41", "5L28", "4L28"],

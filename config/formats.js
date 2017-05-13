@@ -1546,7 +1546,7 @@ exports.Formats = [
 				pokemon.types = ["Psychic", "Fighting"];
 			}
 		},
-		onModifyPokemon: function (pokemon) {
+		onUpdate: function (pokemon) {
 			let name = toId(pokemon.name);
 			if (name === 'fire' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire');
@@ -1655,6 +1655,14 @@ exports.Formats = [
 			if (name === 'mystery' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire/Water/Grass');
 				pokemon.types = ["Fire", "Water", "Grass"];
+			}
+			if (name === 'metalbug' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Steel/Bug');
+				pokemon.types = ["Steel", "Bug"];
+			}
+			if (name === 'icewall' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Steel/Ice/Water');
+				pokemon.types = ["Steel", "Ice", "Water"];
 			}
 		},
 	},

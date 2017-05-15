@@ -841,11 +841,12 @@ exports.BattleMovedex = {
 	},
 	//HoeenHero
 	"scripting": {
-		category: "Status",
+		category: "Special",
 		id: "scripting",
 		isNonstandard: true,
 		name: "Scripting",
 		pp: 10,
+		basePower: 60,
 		secondary: {
 			chance: 100,
 			volatileStatus: 'confusion',

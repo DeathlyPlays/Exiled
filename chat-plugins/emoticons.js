@@ -301,6 +301,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 		'feelsgoodman': 'http://i.imgur.com/UCePRuI.png',
 		'feelssweet': 'http://i.imgur.com/7FDtLTq.jpg',
 		'uwot': 'http://i.imgur.com/3VsV5pN.png',
+		'spmeme': 'http://i.imgur.com/gYtxtDP.jpg',
 		'feelssammich': 'http://i.imgur.com/sVgkUF1.png?1',
 		'Egg1': 'http://i.imgur.com/J1Tuhua.png',
 		'Egg2': 'http://i.imgur.com/BEUUdAD.png',

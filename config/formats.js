@@ -2167,7 +2167,7 @@ exports.Formats = [
 		mod: "slowtown",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Sablenite', 'Baton Pass'],
-		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky'],
+		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken'],
 		onBegin: function () {
 			this.trickRoom = ["Trick Room"];
 			this.startNewTrickRoom = this.trickRoom[this.random(1)];

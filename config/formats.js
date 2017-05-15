@@ -2160,15 +2160,16 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "[Gen 7] Slowtown",
+		name: "[Gen 7] Slowtown (suspect test)",
 		desc: [
 			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by VXN. Coded by Insist.",
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
+			"&bullet; <b>CURRENT SUSPECT: UNBANNING GENGARITE</b>",
 		],
 		mod: "slowtown",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Sablenite', 'Baton Pass'],
-		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken'],
+		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite'],
 		onBegin: function () {
 			this.trickRoom = ["Trick Room"];
 			this.startNewTrickRoom = this.trickRoom[this.random(1)];

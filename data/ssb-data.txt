@@ -614,3 +614,15 @@ Special Move: Holy Dance
     - Normal Type, Special, 80 BP, 100% Accuracy, 15 PP.
 Notes: Changing types every turn makes this mon difficult to be entirely countered, and getting substitutes up can allow late game sweeps.
 Rank: A.
+
+EchoSierra
+(Bisharp)
+Item: Focus Sash
+EVs: 4 HP / 252 Atk / 252 Spe
+Adamant Nature
+Ability: Checkmate
+ - Confers the effect of Taunt on the opponent. If the opponent switches out, EchoSierra gets +6 to Atk and Spe, but -6 to Def and SpD.
+Moves: Knock Off, Iron Head, Sucker Punch
+Special Move: First Strike
+ - Dark-type. +1 Atk and a base-180 power Sucker Punch.
+Role: Physical Glass Cannon

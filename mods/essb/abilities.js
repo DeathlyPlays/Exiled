@@ -1297,4 +1297,19 @@ exports.BattleAbilities = {
 			this.useMove('topsyturvy', pokemon);
 		},
 	},
+	"checkmate": {
+		id: "checkmate",
+		name: "Checkmate",
+		//uses Taunt
+		onStart: function (pokemon) {
+			this.useMove('taunt', pokemon);
+		},
+		//if the target switches out the user gains +6 Atk and Spe, but loses 6 defense and special defense
+		onModifyDamage: function (damage, source, target) {
+			if (!target.activeTurns) {
+				this.debug('Checkmate boost');
+				return this.boost({atk: 6, spe: 6, def: -6, spd: -6});
+			}
+		},
+	},
 };

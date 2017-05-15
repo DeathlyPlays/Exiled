@@ -1479,4 +1479,35 @@ exports.BattleMovedex = {
 			move.type = type;
 		},
 	},
+	"firststrike": {
+		accuracy: 100,
+		basePower: 180,
+		category: "Physical",
+		desc: "Fails if the target did not select a physical attack, special attack, or Me First for use this turn, or if the target moves before the user.",
+		shortDesc: "Usually goes first. Fails if target is not attacking.",
+		id: "firststrike",
+		isViable: true,
+		name: "First Strike",
+		pp: 5,
+		priority: 1,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onTry: function (source, target) {
+			let decision = this.willMove(target);
+			if (!decision || decision.choice !== 'move' || (decision.move.category === 'Status' && decision.move.id !== 'mefirst') || target.volatiles.mustrecharge) {
+				this.attrLastMove('[still]');
+				this.add('-fail', source);
+				return null;
+			}
+		},
+		self: {
+			boosts: {
+				atk: 1,
+			},
+		},
+		secondary: false,
+		target: "normal",
+		type: "Dark",
+		zMovePower: 240,
+		contestType: "Clever",
+	},
 };

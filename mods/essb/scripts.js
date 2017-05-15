@@ -432,6 +432,21 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
+			" EchoSierra": {
+				species: "Bisharp",
+				ability: "Checkmate",
+				item: "Focus Sash",
+				gender: "F",
+				moves: ['ironhead', 'knockoff', 'suckerpunch'],
+				baseSignatureMove: "firststrike",
+				signatureMove: "First Strike",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Adamant",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Dex.shuffle(Object.keys(sets));

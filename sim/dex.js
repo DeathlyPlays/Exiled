@@ -729,6 +729,7 @@ class ModdedDex {
 			if (!nature.name) nature.name = name;
 			nature.toString = this.effectToString;
 			if (!nature.effectType) nature.effectType = 'Nature';
+			if (!nature.gen) nature.gen = 3;
 		}
 		return nature;
 	}
@@ -982,9 +983,9 @@ class ModdedDex {
 			let res = this[searchFunctions[searchIn[i]]](target);
 			if (res.exists && res.gen <= this.gen) {
 				searchResults.push({
-					exactMatch: !isInexact,
+					isInexact: isInexact,
 					searchType: searchTypes[searchIn[i]],
-					name: res.name || isInexact,
+					name: res.name,
 				});
 			}
 		}

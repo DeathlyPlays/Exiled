@@ -253,14 +253,14 @@ exports.commands = {
 		if (!this.can('broadcast')) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		room.add(User + ' has begun a riot against ' + targetUser + '.');
-		this.parse('/broadcast ᕙ༼ຈل͜ຈ༽ᕗ flex your dongers ᕙ༼ຈل͜ຈ༽ᕗ');
+		this.parse('ᕙ༼ຈل͜ຈ༽ᕗ flex your dongers ᕙ༼ຈل͜ຈ༽ᕗ');
 	},
 	splat: function (target, room, User) {
 		if (!target) return this.sendReply('/splat needs a target.');
 		if (!this.can('broadcast')) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		room.add(User + ' has Splatted ' + targetUser + '.');
-		this.parse('/broadcast you were splatted by the Aerospray PG');
+		this.parse('you were splatted by the Aerospray PG');
 	},
 	roasted: function (target, room, User) {
 		if (!target) return this.sendReply('/roasted needs a target.');

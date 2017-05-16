@@ -621,7 +621,7 @@ Item: Lum Berry
 EVs: 4 HP / 252 Atk / 252 Spe
 Adamant Nature
 Ability: Checkmate
- - Confers the effect of Taunt on the opponent. If the opponent switches out, EchoSierra gets +6 to Atk and Spe, but -6 to Def and SpD.
+ - Confers the effect of Taunt on the opponent. If the opponent switches out, EchoSierra gets +6 to Atk and Spe, but -6 to Def and SpD + the user has 0.25x Def and SpD.
 Moves: Knock Off, Iron Head, Sucker Punch
 Special Move: First Strike
  - Dark-type. +1 Atk and a base-180 power Sucker Punch.

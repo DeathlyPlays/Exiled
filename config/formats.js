@@ -1437,6 +1437,7 @@ exports.Formats = [
 			"Nickname a Pokemon a single typing and the Pokemon will change to that typing in battle.",
 			"Dual Typings will be settable when the OM is out of beta.",
 			"To keep a Pokemon's default typing, don't give it a nickname.",
+			"&bullet; <a href=\"http://exiledps.boards.net/board/20/type-illusions\">Type Illusion Thread</a>",
 		],
 		onSwitchIn: function (pokemon) {
 			let name = toId(pokemon.name);
@@ -1658,74 +1659,6 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Move Storm",
-		section: "Exiled's Custom Gamemodes",
-		mod: 'gen7',
-		team: 'random',
-		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		desc: [
-			"&bullet; Coded by flufi.",
-			"Depending on the Pokemon's type, it will use a certain move on switch in.",
-		],
-		onSwitchInPriority: 1,
-		onSwitchIn: function (pokemon) {
-			if (pokemon.type === ["Fire"]) {
-				 this.useMove("Sunny Day", pokemon);
-			}
-			if (pokemon.type === ["Water"]) {
-				this.useMove("Rain Dance", pokemon);
-			}
-			if (pokemon.type === ["Grass"]) {
-				this.useMove("Grassy Terrain", pokemon);
-			}
-			if (pokemon.type === ["Psychic"]) {
-				this.useMove("Psychic Terrain", pokemon);
-			}
-			if (pokemon.type === ["Dark"]) {
-				this.useMove("Topsy-Turvy", pokemon);
-			}
-			if (pokemon.type === ["Ghost"]) {
-				this.useMove("Trick-or-Treat", pokemon);
-			}
-			if (pokemon.type === ["Fairy"]) {
-				this.useMove("Misty Terrain", pokemon);
-			}
-			if (pokemon.type === ["Poison"]) {
-			        this.useMove("Toxic Spikes", pokemon);
-			}
-			if (pokemon.type === ["Flying"]) {
-				this.useMove("Tailwind", pokemon);
-			}
-			if (pokemon.type === ["Ground"]) {
-				this.useMove("Spikes", pokemon);
-			}
-			if (pokemon.type === ["Rock"]) {
-				this.useMove("Sandstorm", pokemon);
-			}
-			if (pokemon.type === ["Bug"]) {
-				this.useMove("Quiver Dance", pokemon);
-			}
-			if (pokemon.type === ["Fighting"]) {
-				this.useMove("Bulk Up", pokemon);
-			}
-			if (pokemon.type === ["Dragon"]) {
-				this.useMove("Dragon Tail", pokemon);
-			}
-			if (pokemon.type === ["Ice"]) {
-				this.useMove("Hail", pokemon);
-			}
-			if (pokemon.type === ["Steel"]) {
-				this.useMove("Autotomize", pokemon);
-			}
-			if (pokemon.type === ["Electric"]) {
-				this.useMove("Electric Terrain", pokemon);
-			}
-			if (pokemon.type === ["Normal"]) {
-				this.useMove("Metronome", pokemon);
-			}
-		},
-	},
-	{
 		name: "[Gen 7] Exiled Super Staff Bros.",
 		section: "Exiled's Custom Gamemodes",
 		mod: 'essb',
@@ -1735,6 +1668,7 @@ exports.Formats = [
 			"Credit to: Insist (head coder).",
 			"Thanks to all the auth whom cooperated in this process of making this.",
 			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
+			"&bullet; <a href=\"http://exiledps.boards.net/board/6/exiled-super-staff-bros\">ESSB Thread</a>",
 		],
 		onBegin: function () {
 			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
@@ -1887,6 +1821,7 @@ exports.Formats = [
 			"All the Pok&eacute;mon on a team must share a type, but it is in Ubers",
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3587204/\">Monotype</a>",
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3589809/\">Monotype Viability Ranking</a>",
+			"&bullet; <a href=\"http://exiledps.boards.net/board/21/monotype-ubers\">Monotype Ubers Thread</a>",
 		],
 
 		mod: 'gen7',
@@ -2155,7 +2090,7 @@ exports.Formats = [
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
 		desc: [
 			"This metagame is about the game known as Advanced Wars, suggested by Back At My Day (and all information for this meta was supplied by him).",
-			"<b>Developers:</b> Insist.",
+			"<b>Developers:</b> Insist and Back At My Day.",
 			"&bullet; <a href=\"https://pastebin.com/Nr5wRnD5\">Advanced Wars Manual</a>",
 		],
 	},

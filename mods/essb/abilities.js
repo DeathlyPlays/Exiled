@@ -1311,6 +1311,15 @@ exports.BattleAbilities = {
 				return this.boost({atk: 6, spe: 6, def: -6, spd: -6});
 			}
 		},
+		//lowers Defense and SpD by 0.25x
+		onModifyDefPriority: 6,
+		onModifyDef: function (def) {
+			return this.chainModify(0.25);
+		},
+		onModifySpDPriority: 6,
+		onModifySpD: function (spd) {
+			return this.chainModify(0.25);
+		},
 	},
 	"masterofillusions": {
 		id: "masterofillusions",

@@ -447,6 +447,21 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			" 007Nilo": {
+				species: "Zoroark",
+				ability: "Master of Illusions",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['nastyplot', 'nightdaze', 'focusblast'],
+				baseSignatureMove: "powerofdarkness",
+				signatureMove: "Power Of Darkness",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Modest",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Dex.shuffle(Object.keys(sets));

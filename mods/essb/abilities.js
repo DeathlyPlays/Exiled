@@ -1312,4 +1312,11 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"masterofillusions": {
+		id: "masterofillusions",
+		name: "Master of Illusions",
+		onStart: function (pokemon) {
+			this.boost({spa: 2, spe: 2});
+		},
+	},
 };

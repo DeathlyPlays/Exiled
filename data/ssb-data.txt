@@ -202,7 +202,7 @@ Moves: Aura Sphere, Sludge Wave, Psychic
 Special Move: Exile
     - Dark, Distance, 80 BP, 100% accuracy, Transforms into a Cresselia and replaces its moves for: Stored Power, Recover, Cosmic Power, and keeps Exile so it can change back.
 Notes: Fast Special Sweeper that can become bulky. (INSANE ANTIMETA)
-Rank: B.
+Rank: A.
 
 Alрhа Hawk
 (Staraptor)
@@ -599,7 +599,7 @@ Moves: Drain Punch, Thunder Punch, Poison Jab
 Special Move: Punchy Fury
 	- 30 BP, Fighting, Physical, Hits 2-5 times.
 Notes: Hard hitting revenge attacker.
-Rank: N/A.
+Rank: B.
 
 Almighty Judgment
 (Arceus)
@@ -625,4 +625,18 @@ Ability: Checkmate
 Moves: Knock Off, Iron Head, Sucker Punch
 Special Move: First Strike
  - Dark-type. +1 Atk and a base-180 power Sucker Punch.
-Role: Physical Glass Cannon
+Notes: Physical Glass Cannon, DO NOT SWITCH OR HELL WILL STRIKE (IF YOU MUST SWITCH, MAKE SURE YOU HAVE PRIORITY)!!!!
+Rank: N/A.
+
+007Nilo
+(Zoroark)
+Item: Life Orb
+EVs: 252 SpA / 252 Spe / 4 HP
+Modest Nature
+Ability: Master of Illusions
+	- Gets +2 SpA and Spe upon entry
+Moves: Nasty Plot, Night Daze, Focus Blast
+Special Move: Power Of Darkness
+	- Dark type, Special, 100 BP, 100% accuracy, Ignores Abilities.
+Notes: Boosted Special Attacker.
+Rank: N/A.

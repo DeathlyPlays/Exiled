@@ -617,7 +617,7 @@ Rank: A.
 
 EchoSierra
 (Bisharp)
-Item: Sitrus Berry
+Item: Lum Berry
 EVs: 4 HP / 252 Atk / 252 Spe
 Adamant Nature
 Ability: Checkmate

@@ -154,6 +154,36 @@ exports.BattleScripts = {
 				},
 				nature: "Calm",
 			},
+			"Election Day": {
+				species: "Gumshoos",
+				ability: "Huge Power",
+				item: "Choice Band",
+				gender: "M",
+				level: 85,
+				moves: ['extremespeed', 'knockoff', 'drainpunch'],
+				signatureMove: "Return",
+				evs: {
+					atk: 252,
+					hp: 252,
+					def: 4,
+				},
+				nature: "Adamant",
+			},
+			"Veteran's Day": {
+				species: "Cawmodore",
+				ability: "Volt Absorb",
+				item: "Sitrus Berry",
+				gender: "M",
+				level: 82,
+				moves: ['bellydrum', 'drainpunch', 'acrobatics'],
+				signatureMove: "Bullet Punch",
+				evs: {
+					atk: 252,
+					spe: 252,
+					def: 4,
+				},
+				nature: "Adamant",
+			},
 		};
 
 		let pool = Object.keys(sets);

@@ -435,7 +435,7 @@ exports.BattleScripts = {
 			" EchoSierra": {
 				species: "Bisharp",
 				ability: "Checkmate",
-				item: "Sitrus Berry",
+				item: "Lum Berry",
 				gender: "F",
 				moves: ['ironhead', 'knockoff', 'suckerpunch'],
 				baseSignatureMove: "firststrike",

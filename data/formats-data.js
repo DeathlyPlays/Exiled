@@ -6769,4 +6769,9 @@ exports.BattleFormatsData = {
 		gen: 5,
 		tier: "Illegal",
 	},
+	ludicolomega: {
+		randomBattleMoves: ["scald", "gigadrain", "icebeam", "focusblast", "knockoff"],
+		requiredItem: "Ludicolite",
+		tier: "OU",
+	},
 };

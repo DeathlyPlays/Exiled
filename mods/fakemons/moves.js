@@ -11,7 +11,7 @@ exports.BattleMovedex = {
 		shortDesc: "Target's stats go down by -6, get locked in, faints user.",
 		id: "drinkbleach",
 		isViable: true,
-		name: "drinkbleach",
+		name: "Drink Bleach",
 		pp: 10,
 		priority: 0,
 		flags: {

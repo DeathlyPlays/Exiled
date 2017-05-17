@@ -50,6 +50,23 @@ Special Move: Zen-Create
 Notes: Physical sweeper.
 Rank: B.
 
+Flufi
+(Milotic)
+@ Hydrium Z 
+       - Allows user to use Oceanic Song.
+		- Oceanic Song: Water type, Special, Z-Move, 130 BP, Puts Opponent to Sleep.
+EVs: 252 HP / 152 Def / 44 SpA / 56 SpD
+Modest Nature
+Ability: Water Bubble
+Moves: Stealth Rock, Dragon Tail, Thunderbolt
+Special Move: Hydraulic Blast
+        - Water Type, Special, 100 BP, 90% accuracy.
+Notes: Mostly an offensive tank for walling attacks and dealing a lot of damage with 
+Hydraulic Blast and Thunderbolt. Acts as utility with Stealth Rock + Dragon Tail and
+the ability to put opponent's to sleep with Oceanic Song. Changes to Water/Electric type
+on switch-in.
+Rank: A.
+
 Wobbleleez
 (Musharna)
 @ Leftovers

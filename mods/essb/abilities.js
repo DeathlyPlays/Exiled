@@ -1180,6 +1180,23 @@ exports.BattleAbilities = {
 				return this.chainModify(3);
 			}
 		},
+		//Skill Link
+		onModifyMove: function (move) {
+			if (move.multihit && move.multihit.length) {
+				move.multihit = move.multihit[1];
+			}
+			if (move.multiaccuracy) {
+				delete move.multiaccuracy;
+			}
+		},
+		//Dazzling
+		onFoeTryMove: function (target, source, effect) {
+			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
+				this.attrLastMove('[still]');
+				this.add('cant', this.effectData.target, 'ability: handsBurn', effect, '[of] ' + target);
+				return false;
+			}
+		},
 	},
 	"almightypresence": {
 		onModifyMove: function (move) {

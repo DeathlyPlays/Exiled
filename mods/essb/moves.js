@@ -34,32 +34,22 @@ exports.BattleMovedex = {
 		contestType: "Cool",
 	},
 	//Insist
-	"exiledfromallothers": {
-		id: "exiledfromallothers",
-		name: "Exiled From All Others",
-		basePower: 140,
+	"extremesupermegaultimatealphagigasupremefantasticextraprefixcombobreaker": {
+		id: "extremesupermegaultimatealphagigasupremefantasticextraprefixcombobreaker",
+		name: "EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER",
+		basePower: 150,
 		accuracy: 100,
 		pp: 0.625,
 		secondary: false,
 		category: "Special",
 		isViable: true,
 		isZ: "playniumz",
-		priority: 1,
+		priority: 0,
 		flags: {
 			protect: 1,
 		},
-		self: {
-			boosts: {
-				atk: 1,
-				def: 1,
-				spa: 1,
-				spd: 1,
-				spe: 1,
-			},
-		},
-		shortDesc: "Like so amazing mannnnn, like look at dem boosts boi",
 		onHit: function (target, source, move) {
-			this.add('c|~Insist|Exiled from all others, we shall become greater than ever before.');
+			this.add('c|~Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -1489,7 +1479,7 @@ exports.BattleMovedex = {
 		isViable: true,
 		name: "First Strike",
 		pp: 5,
-		priority: 1,
+		priority: 2,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		onTry: function (source, target) {
 			let decision = this.willMove(target);

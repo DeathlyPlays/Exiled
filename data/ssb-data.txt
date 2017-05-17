@@ -1,8 +1,8 @@
 Insist
 (Ludicolo)
 @ Playnium Z
-	- Allows user to use Exiled From All Others
-		- Exiled From All Others: Water type, Special, Z-Move, Boosts all stats by 1 stage, 140 BP.
+	- Allows user to use EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER
+		- Exiled From All Others: Water type, Special, Z-Move, 150 BP.
 EVs: 4 HP / 252 SpA / 252 Spe
 Timid Nature
 Ability: Crippling Depression
@@ -594,7 +594,7 @@ Item: Douglasinium Z
 EVs: 252 Atk / 252 SpD / 4 Spe
 Careful Nature
 Ability: handsBurn
-	- Immune to being frozen, if status'ed this Pokemon's Attack is multiplied by 3x.
+	- Immune to being frozen, if status'ed this Pokemon's Attack is multiplied by 3x, Dazzling, and Skill Link effects.
 Moves: Drain Punch, Thunder Punch, Poison Jab
 Special Move: Punchy Fury
 	- 30 BP, Fighting, Physical, Hits 2-5 times.
@@ -624,7 +624,7 @@ Ability: Checkmate
  - Confers the effect of Taunt on the opponent. If the opponent switches out, EchoSierra gets +6 to Atk and Spe, but -6 to Def and SpD + the user has 0.25x Def and SpD.
 Moves: Knock Off, Iron Head, Sucker Punch
 Special Move: First Strike
- - Dark-type. +1 Atk and a base-180 power Sucker Punch.
+ - Dark-type. +1 Atk and a base-180 power Sucker Punch, +2 priority.
 Notes: Physical Glass Cannon, DO NOT SWITCH OR HELL WILL STRIKE (IF YOU MUST SWITCH, MAKE SURE YOU HAVE PRIORITY)!!!!
 Rank: N/A.
 

@@ -1494,6 +1494,9 @@ exports.BattleMovedex = {
 				atk: 1,
 			},
 		},
+		onHit: function (target, source, move) {
+			this.add('c| EchoSierra|priority, bish!');
+		},
 		secondary: false,
 		target: "normal",
 		type: "Dark",

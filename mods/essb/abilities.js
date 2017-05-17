@@ -1345,4 +1345,12 @@ exports.BattleAbilities = {
 			this.boost({spa: 2, spe: 2});
 		},
 	},
+	"lordsgrace": {
+		id: "lordsgrace",
+		name: "Lord's Grace",
+		//boosts own atk + def + spd + spe by 1 stage
+		onStart: function (pokemon) {
+			this.boost({atk: 1, def: 1, spd: 1, spe: 1});
+		},
+	},
 };

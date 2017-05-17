@@ -640,3 +640,14 @@ Special Move: Power Of Darkness
 	- Dark type, Special, 100 BP, 100% accuracy, Ignores Abilities.
 Notes: Boosted Special Attacker.
 Rank: N/A.
+
+ggdaca
+(Rayquaza)
+Item: Leftovers
+EVs: 252 Atk / 4 HP / 252 Spe
+Adamant Nature
+Ability: Lord's Grace
+	- Boosts the user's Attack, Defense, Special Defense, and Speed by one stage.
+Moves: Extreme Speed, Earthquake, Outrage, Dragon Ascent
+Notes: Like it's okay.... It's a Mega Rayquaza.... Not as good as a Magikarp tho....
+Rank: N/A.

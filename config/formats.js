@@ -1707,6 +1707,9 @@ exports.Formats = [
 			if (name === 'guiltasbr') {
 				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
 			}
+			if (name === 'echosierra') {
+				this.add('c| EchoSierra|lol fite me irl');
+			}
 
 			// Add here special typings, done for flavor mainly. (and stat boosts)]
 			if (name === 'volco' && !pokemon.illusion) {
@@ -1763,6 +1766,9 @@ exports.Formats = [
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
 			}
+			if (name === 'echosierra') {
+				this.add('c| EchoSierra|bbl fam');
+			}
 		},
 		// Add here salty tears, that is, custom faint phrases.
 		onFaint: function (pokemon) {
@@ -1798,6 +1804,9 @@ exports.Formats = [
 			if (name === 'guiltasbr') {
 				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
 			}
+			if (name === 'echosierra') {
+				this.add('c| EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
+			}
 		},
 		onHit: function (pokemon, target) {
 			if (pokemon.hp <= 0 || pokemon.fainted) {
@@ -1811,6 +1820,9 @@ exports.Formats = [
 				}
 				if (name === 'almightyjudgment') {
 					this.add('c| Almighty Judgment|You Have Been Judged!');
+				}
+				if (name === 'echosierra') {
+					this.add('c| EchoSierra|let the bodies hit the floor');
 				}
 			}
 		},

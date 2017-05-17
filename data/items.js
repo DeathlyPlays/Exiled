@@ -6144,18 +6144,6 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "At the end of every turn, this item attempts to paralyze the holder.",
 	},
-	"furrniumz": {
-		id: "furrniumz",
-		name: "Furrnium Z",
-		spritenum: -656,
-		onTakeItem: false,
-		zMove: "Oblivion Banisher",
-		zMoveFrom: "Shadow Claw",
-		zMoveUser: ["Furret"],
-		num: -124,
-		gen: 0,
-		desc: "If holder is a Furret with Shadow Claw, it can use Oblivion Banisher.",
-	},
 	"furretite": {
 		id: "furretite",
 		name: "Furretite",
@@ -6699,7 +6687,7 @@ exports.BattleItems = {
 			pokemon.baseAbility = pokemon.ability;
 		},
 		onTakeItem: function (item, source) {
-			if (source.baseTemplate.baseSpecies === 'Groudon') return false;
+			if (source.baseTemplate.baseSpecies === 'Dialga') return false;
 			return true;
 		},
 		num: -534,

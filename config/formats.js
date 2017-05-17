@@ -1636,11 +1636,11 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Psychic/Fighting');
 				pokemon.types = ["Psychic", "Fighting"];
 			}
-			if (name === 'fairy/steel' && !pokemon.illusion) {
+			if (name === 'fairysteel' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fairy/Steel');
 				pokemon.types = ["Fairy", "Steel"];
 			}
-			if (name === 'fighting/flying' && !pokemon.illusion) {
+			if (name === 'fightingflying' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fighting/Flying');
 				pokemon.types = ["Fighting", "Flying"];
 			}
@@ -2095,16 +2095,15 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "[Gen 7] Slowtown (suspect test)",
+		name: "[Gen 7] Slowtown",
 		desc: [
 			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by VXN. Coded by Insist.",
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
-			"&bullet; <b>CURRENT SUSPECT: UNBANNING GENGARITE</b>",
 		],
 		mod: "slowtown",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Sablenite', 'Baton Pass'],
-		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite'],
+		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite'],
 		onBegin: function () {
 			this.trickRoom = ["Trick Room"];
 			this.startNewTrickRoom = this.trickRoom[this.random(1)];

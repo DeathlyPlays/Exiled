@@ -180,9 +180,9 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is a Conkeldurr with Punchy Fury, it can use Punchyru Massacre Z.",
 	},
-	"amazingplate": {
-		id: "amazingplate",
-		name: "Amazing Plate",
+	"rainbowplate": {
+		id: "rainbowplate",
+		name: "Rainbow Plate",
 		spritenum: 572,
 		onBasePowerPriority: 6,
 		onBasePower: function (basePower, user, target, move) {

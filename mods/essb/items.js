@@ -190,14 +190,14 @@ exports.BattleItems = {
 				return this.chainModify([0x1333, 0x1000]);
 			}
 		},
-		onTakeItem: false,
 		onResidualOrder: 5,
 		onResidualSubOrder: 2,
-		onResidual: function (pokemon, target, source) {
+		onResidual: function (pokemon) {
 			this.heal(pokemon.maxhp / 8);
 		},
-		num: -305,
-		gen: -4,
+		onTakeItem: false,
+		num: -12,
+		gen: -1,
 		desc: "7.8/10 too much code.",
 	},
 };

@@ -13,6 +13,18 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is a Ludicolo with Aqua Subscribe, it can use EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER.",
 	},
+	"hydriumz": {
+		spritenum: 656,
+		onTakeItem: false,
+		id: "hydriumz",
+		name: "Hydrium-Z",
+		zMove: "Oceanic Song",
+		zMoveFrom: "Hydraulic Blast",
+		zMoveUser: ["Milotic"],
+		num: 0,
+		gen: -1,
+		desc: "If holder is a Milotic with Hydraulic Blast, it can use Oceanic Song.",
+	},
 	"flarez": {
 		spritenum: 656,
 		onTakeItem: false,

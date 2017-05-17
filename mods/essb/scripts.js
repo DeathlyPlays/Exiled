@@ -235,6 +235,22 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
+			"%flufi": {
+				species: "Milotic",
+				ability: "Regenerator",
+				item: "Leftovers",
+				gender: "M",
+				moves: ['stealthrock', 'dragontail', 'thunderbolt'],
+				baseSignatureMove: "Hydraulic Blast",
+				signatureMove: "Hydraulic Blast",
+				evs: {
+					hp: 252,
+					spa: 96,
+					spd: 100,
+					def: 56,
+				},
+				nature: "Modest",
+		        },
 			"%AlfaStorm": {
 				species: "Hydreigon",
 				ability: "Attack Shield",

@@ -85,6 +85,58 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Normal",
 	},
+	//flufi
+	"hydraulicblast": {
+		id: "hydraulicblast",
+		name: "Hydraulic Blast",
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		category: "Special",
+		isZ: "hydriumz",
+		onHit: function (target, source, move) {
+			this.add('c|%flufi|Too much water');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Water Pulse", target);
+		},
+		basePower: 100,
+		pp: 15,
+		accuracy: 90,
+		target: "normal",
+		type: "Water",
+		zMovePower: 135,
+		contestType: "Cool",
+	},
+	//flufi
+	"oceanicsong": {
+		id: "oceanicsong",
+		name: "Oceanic Song",
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		status: 'slp',
+		category: "Special",
+		onHit: function (target, source, move) {
+			this.add('c|%flufi|ToOO MuCCH waATeR!1!!!!11!1!!');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Sing", target);
+		},
+		basePower: 135,
+		pp: 0.625,
+		accuracy: 100,
+		target: "normal",
+		type: "Water",
+		zMovePower: 200,
+		contestType: "Cool",
+	},
 	//cieltsnow
 	"pimpslap": {
 		id: "pimpslap",

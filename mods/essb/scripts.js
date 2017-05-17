@@ -437,7 +437,7 @@ exports.BattleScripts = {
 				ability: "Checkmate",
 				item: "Lum Berry",
 				gender: "F",
-				moves: ['ironhead', 'knockoff', 'suckerpunch'],
+				moves: ['ironhead', 'knockoff', 'psychocut'],
 				baseSignatureMove: "firststrike",
 				signatureMove: "First Strike",
 				evs: {

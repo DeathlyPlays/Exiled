@@ -5,20 +5,6 @@
  ********************/
 const color = require('../config/color');
 const Pokedex = require('../data/pokedex.js').BattlePokedex;
-let messages = [
-	"has vanished into nothingness!",
-	"used Explosion!",
-	"fell into the void.",
-	"went into a cave without a repel!",
-	"has left the building.",
-	"was forced to give StevoDuhHero's mom an oil massage!",
-	"was hit by Magikarp's Revenge!",
-	"ate a bomb!",
-	"is blasting off again!",
-	"(Quit: oh god how did this get here i am not good with computer)",
-	"was unfortunate and didn't get a cool message.",
-	"{{user}}'s mama accidently kicked {{user}} from the server!",
-];
 
 function font(color, text) {
 	return '<font color="' + color + '">' + text + '</font>';
@@ -58,26 +44,6 @@ exports.commands = {
 		let results = ['Here\'s some bright powder!', 'I sense a shiny in the near future, just keep trying!', 'If you\'re hungry, just eat some of your breedjects :D', 'BRIGHT POWDER!', 'Good luck!', '#ItsBreedingTime', '/pick is rigged!'];
 		return this.sendReplyBox(results[Math.floor(7 * Math.random())]);
 	},
-	d: 'poof',
-	cpoof: 'poof',
-	poof: function (target, room, user) {
-		if (Config.poofOff) return this.sendReply("Poof is currently disabled.");
-		if (target && !this.can('broadcast')) return false;
-		if (room.id !== 'lobby') return false;
-		let message = target || messages[Math.floor(Math.random() * messages.length)];
-		if (message.indexOf('{{user}}') < 0) message = '{{user}} ' + message;
-		message = message.replace(/{{user}}/g, user.name);
-		if (!this.canTalk(message)) return false;
-
-		let colour = '#' + [1, 1, 1].map(function () {
-			let part = Math.floor(Math.random() * 0xaa);
-			return (part < 0x10 ? '0' : '') + part.toString(16);
-		}).join('');
-
-		room.addRaw("<strong><font color=\"" + colour + "\">~~ " + Chat.escapeHTML(message) + " ~~</font></strong>");
-		user.disconnectAll();
-	},
-	poofhelp: ["/poof - Disconnects the user and leaves a message in the room."],
 
 	randp: function (target, room, user) {
 		if (!this.runBroadcast()) return;

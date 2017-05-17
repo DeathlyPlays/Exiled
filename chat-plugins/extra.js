@@ -5,7 +5,6 @@
 'use strict';
 /*eslint no-restricted-modules: [0]*/
 
-
 let messages = [
 	"has vanished into nothingness!",
 	"used Explosion!",
@@ -19,6 +18,8 @@ let messages = [
 	"(Quit: oh god how did this get here i am not good with computer)",
 	"was unfortunate and didn't get a cool message.",
 	"{{user}}'s mama accidently kicked {{user}} from the server!",
+	"felt Insist's wrath.",
+	"got rekt by Travis CI!",
 ];
 
 function clearRoom(room) {

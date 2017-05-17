@@ -238,7 +238,7 @@ exports.BattleScripts = {
 			"%flufi": {
 				species: "Milotic",
 				ability: "Regenerator",
-				item: "Leftovers",
+				item: "Hydrium Z",
 				gender: "M",
 				moves: ['stealthrock', 'dragontail', 'thunderbolt'],
 				baseSignatureMove: "Hydraulic Blast",
@@ -246,8 +246,8 @@ exports.BattleScripts = {
 				evs: {
 					hp: 252,
 					spa: 96,
-					spd: 100,
-					def: 56,
+					spd: 4,
+					def: 152,
 				},
 				nature: "Modest",
 		    },

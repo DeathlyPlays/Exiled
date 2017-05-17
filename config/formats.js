@@ -1427,18 +1427,6 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Move Storm",
-		section: "Exiled's Custom Gamemodes",
-		mod: "gen7",
-		ruleset: ['[Gen 7] OU'],
-		banlist: ["Volcarona"],
-		desc: [
-			"&bullet; Coded by flufi.",
-			"Each Pokemon will automatically use a move on switch in",
-			"depending on their type(s).",
-		],
-	},
-	{
 		name: "[Gen 7] Type Illusion Beta",
 		section: "Exiled's Custom Gamemodes",
 		mod: "gen7",

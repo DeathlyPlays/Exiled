@@ -250,7 +250,7 @@ exports.BattleScripts = {
 					def: 56,
 				},
 				nature: "Modest",
-		        },
+		    },
 			"%AlfaStorm": {
 				species: "Hydreigon",
 				ability: "Attack Shield",

@@ -1749,7 +1749,7 @@ exports.Formats = [
 				});
 			}
 			if (name === 'backatmyday' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Groud/Water');
+				this.add('-start', pokemon, 'typechange', 'Ground/Water');
 				pokemon.types = ["Ground", "Water"];
 			}
 		},

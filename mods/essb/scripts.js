@@ -112,7 +112,7 @@ exports.BattleScripts = {
 			"&ggdaca":{
 				species: "Rayquaza-Mega",
 				ability: "Lord's Grace",
-				item: "Leftovers",
+				item: "Legendium Z",
 				gender: 'M',
 				moves: ['dragonascent', 'earthquake', 'extremespeed'],
 				baseSignatureMove: "lordswrath",

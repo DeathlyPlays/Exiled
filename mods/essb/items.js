@@ -156,6 +156,10 @@ exports.BattleItems = {
 		onModifyDef: function (def) {
 			return this.chainModify(2);
 		},
+		onModifySpDPriority: 1,
+		onModifySpD: function (spd) {
+			return this.chainModify(2);
+		},
 		onDisableMove: function (pokemon) {
 			let moves = pokemon.moveset;
 			for (let i = 0; i < moves.length; i++) {

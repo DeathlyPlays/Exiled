@@ -509,6 +509,21 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
+			" Horrific17": {
+				species: "Arcanine",
+				ability: "Horrific Plays",
+				item: "Arcanium Z",
+				gender: "M",
+				moves: ['closecombat', 'extremespeed', 'morningsun'],
+				baseSignatureMove: "horrificroasts",
+				signatureMove: "Horrific Roasts",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Adamant",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Dex.shuffle(Object.keys(sets));

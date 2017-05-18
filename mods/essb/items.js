@@ -228,4 +228,16 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is a Rayquaza-Mega with Lord's Wrath, it can use Legend's Destruction.",
 	},
+	"arcaniumz": {
+		spritenum: 656,
+		onTakeItem: false,
+		id: "arcaniumz",
+		name: "Arcanium Z",
+		zMove: "Horrific Memes",
+		zMoveFrom: "Horrific Roasts",
+		zMoveUser: ["Arcanine"],
+		num: -14,
+		gen: -1,
+		desc: "If holder is an Arcanine with Horrific Roasts, it can use Horrific Memes.",
+	},
 };

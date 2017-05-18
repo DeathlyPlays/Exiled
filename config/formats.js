@@ -1715,6 +1715,9 @@ exports.Formats = [
 			if (name === 'echosierra') {
 				this.add('c| EchoSierra|lol fite me irl');
 			}
+			if (name === 'horrific17') {
+				this.add('c| Horrific17|It seems you\'ve made a __horrific__ mistake');
+			}
 
 			// Add here special typings, done for flavor mainly. (and stat boosts)]
 			if (name === 'volco' && !pokemon.illusion) {
@@ -1815,6 +1818,9 @@ exports.Formats = [
 			}
 			if (name === 'echosierra') {
 				this.add('c| EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
+			}
+			if (name === 'horrific17') {
+				this.add('c| Horrific17|I never expected my death to be this... __horrific__');
 			}
 		},
 		onHit: function (pokemon, target) {

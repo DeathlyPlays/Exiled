@@ -1353,4 +1353,17 @@ exports.BattleAbilities = {
 			this.boost({atk: 1, def: 1, spd: 1, spe: 1});
 		},
 	},
+	"horrificplays": {
+		id: "horrificplays",
+		name: "Horrific Plays",
+		//starts up Magic Room upon entry
+		onStart: function (pokemon) {
+			this.useMove('magicroom', pokemon);
+		},
+		//fur coat
+		onModifyDefPriority: 6,
+		onModifyDef: function (def) {
+			return this.chainModify(2);
+		},
+	},
 };

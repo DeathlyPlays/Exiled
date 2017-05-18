@@ -686,3 +686,18 @@ Special Move: Mega Rage
 	- Fairy, Special, 150 BP, User's Defenses lower by 1 stage after usage of this
 Notes: Moody allows this Pokemon to potentially get obnoxious Evasion boosts.
 Rank: N/A.
+
+Horrific17
+(Arcanine)
+Item: Arcanium Z
+	- If the holder is an Arcanine with Horrific Roasts, it may use Horrific Memes.
+		- Horrific Memes: Fire type, Summons intense sunlight, 200 BP, 50% chance to burn, 33% recoil, Physical, Contact, Defrosts user if frozen.
+EVs: 252 Atk / 4 HP / 252 Spe
+Adamant Nature
+Ability: Horrific Plays
+	- Uses Magic Room upon entry, and has Fur Coat effects.
+Moves: Close Combat, Extreme Speed, Morning Sun
+Special Move: Horrific Roasts
+	- Fire type, Summons the sun, 150 BP, 33% recoil, 30% chance to burn, Defrosts user if frozen.
+Notes: Hard Hitting Physical Attacker.
+Rank: N/A.

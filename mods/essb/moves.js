@@ -95,7 +95,6 @@ exports.BattleMovedex = {
 		},
 		secondary: false,
 		category: "Special",
-		isZ: "hydriumz",
 		onHit: function (target, source, move) {
 			this.add('c|%flufi|Too much water');
 		},
@@ -124,7 +123,9 @@ exports.BattleMovedex = {
 		category: "Special",
 		onHit: function (target, source, move) {
 			this.add('c|%flufi|ToOO MuCCH waATeR!1!!!!11!1!!');
+			this.add('c|~Insist|More like too much edge.....');
 		},
+		isZ: "hydriumz",
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Sing", target);

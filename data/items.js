@@ -6144,6 +6144,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "At the end of every turn, this item attempts to paralyze the holder.",
 	},
+	"furrniumz": {
+		id: "furrniumz",
+		name: "Furrnium Z",
+		spritenum: -656,
+		onTakeItem: false,
+		zMove: "Oblivion Banisher",
+		zMoveFrom: "Shadow Claw",
+		zMoveUser: ["Furret"],
+		num: -124,
+		gen: 0,
+		desc: "If holder is a Furret with Shadow Claw, it can use Oblivion Banisher.",
+	},
 	"furretite": {
 		id: "furretite",
 		name: "Furretite",
@@ -6687,7 +6699,7 @@ exports.BattleItems = {
 			pokemon.baseAbility = pokemon.ability;
 		},
 		onTakeItem: function (item, source) {
-			if (source.baseTemplate.baseSpecies === 'Dialga') return false;
+			if (source.baseTemplate.baseSpecies === 'Groudon') return false;
 			return true;
 		},
 		num: -534,
@@ -6819,5 +6831,61 @@ exports.BattleItems = {
 		num: -118,
 		gen: 0,
 		desc: "If holder is a Electivire, this item allows it to Mega Evolve in battle.",
+	},
+	"zangoosite": {
+		id: "zangoosite",
+		name: "Zangoosite",
+		spritenum: -243,
+		megaStone: "Zangoose-Mega",
+		megaEvolves: "Zangoose",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Zangoose, this item allows it to Mega Evolve in battle.",
+	},
+	"chesnaughtite": {
+		id: "chesnaughtite",
+		name: "Chesnaughtite",
+		spritenum: -243,
+		megaStone: "Chesnaught-Mega",
+		megaEvolves: "Chesnaught",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Chesnaught, this item allows it to Mega Evolve in battle.",
+	},
+	"golduckite": {
+		id: "golduckite",
+		name: "Golduckite",
+		spritenum: -243,
+		megaStone: "Golduck-Mega",
+		megaEvolves: "Golduck",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Golduck, this item allows it to Mega Evolve in battle.",
+	},
+	"chandelite": {
+		id: "chandelite",
+		name: "Chandelite",
+		spritenum: -243,
+		megaStone: "Chandelure-Mega",
+		megaEvolves: "Chandelure",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Chandelure, this item allows it to Mega Evolve in battle.",
 	},
 };

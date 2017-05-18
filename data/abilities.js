@@ -4256,4 +4256,32 @@ exports.BattleAbilities = {
 		rating: 5,
 		num: -28,
 	},
+	"macrocosm": {
+		shortDesc: "This Pokemon's Fire-type attacks have their power multiplied by 1.5.",
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.type === 'Fire') {
+				this.debug('Steelworker boost');
+				return this.chainModify(1.5);
+			}
+		},
+		id: "macrocosm",
+		name: "Macrocosm",
+		rating: 3,
+		num: -200,
+	},
+	"microcosm": {
+		shortDesc: "This Pokemon's Fairy-type attacks have their power multiplied by 1.5.",
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.type === 'Fairy') {
+				this.debug('Steelworker boost');
+				return this.chainModify(1.5);
+			}
+		},
+		id: "microcosm",
+		name: "Microcosm",
+		rating: 3,
+		num: -200,
+	},
 };

@@ -48771,6 +48771,8 @@ exports.BattleLearnsets = {
 		trick: ["6T", "5T"],
 		trickroom: ["7M", "6M", "5M"],
 		willowisp: ["7M", "6M", "5M"],
+		focusblast: ["7M", "6M", "5M", "4M"],
+		aurasphere: ["7L61", "6L61", "5L61"],
 	}},
 	axew: {learnset: {
 		aerialace: ["7M", "6M", "5M"],

@@ -1504,9 +1504,6 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('c| Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
 		},
-		onEffectiveness: function (typeMod) {
-			return 1;
-		},
 		flags: {protect: 1, mirror: 1},
 		secondary: false,
 		pp: 15,
@@ -1572,5 +1569,29 @@ exports.BattleMovedex = {
 		type: "Dark",
 		zMovePower: 180,
 		contestType: "Cool",
+	},
+	// Kraken Mare
+	"megarage": {
+		category: "Special",
+		basePower: 150,
+		id: "megarage",
+		isNonstandard: true,
+		name: "Mega Rage",
+		pp: 15,
+		priority: 0,
+		self: {
+			boosts: {
+				def: -1,
+				spd: -1,
+			},
+		},
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hyper Voice", source);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 210,
 	},
 };

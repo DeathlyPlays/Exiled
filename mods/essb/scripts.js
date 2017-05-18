@@ -281,6 +281,22 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			"%Kraken Mare": {
+				species: "Gardevoir-Mega",
+				ability: "Moody",
+				shiny: true,
+				item: "Leftovers",
+				gender: "F",
+				moves: ['moonblast', 'calmmind', 'psychic'],
+				baseSignatureMove: "megarage",
+				signatureMove: "Mega Rage",
+				evs: {
+					hp: 248,
+					spa: 252,
+					def: 8,
+				},
+				nature: "Modest",
+			},
 			//Voices
 			"+cyt0pl4sm": {
 				species: "Zygarde-10%",

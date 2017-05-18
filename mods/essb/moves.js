@@ -349,7 +349,7 @@ exports.BattleMovedex = {
 			protect: 1,
 			mirror: 1,
 		},
-		type: "Steel",
+		type: "Ground",
 		target: "normal",
 	},
 	//happysong

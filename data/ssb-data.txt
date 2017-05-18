@@ -224,10 +224,10 @@ EVs: 48 Def / 252 SpA / 208 SpD
 IVs: 0 Atk / 0 Spe
 Quiet Nature
 Ability: Time Traveler
-    - Trick Room upon entry + Pressure + Rough Skin.
-Moves: Spacial Rend, Earth Power, Steam Eruption
+	- Pressure and Rough Skin + Trick Room upon entry. Changes type to Ground/Water.
+Moves: Aeroblast, Steam Eruption, Freeze-Dry
 Special Move: Roleplaying
-    - Special, 120 BP, Steel, 100% accuracy, 10 PP.
+- Ground Type, Special, 120 BP, 100% Accuracy, 10 PP.
 Notes: Trick Room makes great antimeta in this meta and with the bulk Dialga has.
 Rank: A.
 
@@ -285,8 +285,8 @@ Rank: A.
 Mewth
 (Furret-Mega)
 @Scope Lens
-EVs: 252 Atk / 252 Spe / 4 HP
-Adamant Nature
+EVs: 252 SpA / 252 Spe / 4 HP
+Modest Nature
 Ability: Roarplaying
 	- Uses Roar on its foe and Focus Energy on itself upon entry
 Moves: Fire Blast, Blizzard, Boomburst

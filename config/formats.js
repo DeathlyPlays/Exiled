@@ -1748,6 +1748,10 @@ exports.Formats = [
 					spe: 1,
 				});
 			}
+			if (name === 'backatmyday' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Groud/Water');
+				pokemon.types = ["Ground", "Water"];
+			}
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {

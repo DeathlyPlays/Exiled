@@ -6,6 +6,7 @@ const BRACKET_MINIMUM_UPDATE_INTERVAL = 2 * 1000;
 const AUTO_DISQUALIFY_WARNING_TIMEOUT = 30 * 1000;
 const AUTO_START_MINIMUM_TIMEOUT = 30 * 1000;
 const MAX_REASON_LENGTH = 300;
+const MAX_CUSTOM_NAME_LENGTH = 100;
 const TOURBAN_DURATION = 14 * 24 * 60 * 60 * 1000;
 const turfwars = require("../chat-plugins/gangs");
 
@@ -40,6 +41,7 @@ class Tournament {
 		this.playerCap = parseInt(playerCap) || Config.tourdefaultplayercap || 0;
 
 		this.format = format;
+		this.teambuilderFormat = format;
 		this.banlist = [];
 		this.generator = generator;
 		this.isRated = isRated;
@@ -110,7 +112,7 @@ class Tournament {
 	}
 
 	setBanlist(params, output) {
-		let format = Dex.getFormat(this.format);
+		let format = Dex.getFormat(this.teambuilderFormat);
 		if (format.team) {
 			output.errorReply(format.name + " does not support supplementary banlists.");
 			return false;
@@ -225,13 +227,15 @@ class Tournament {
 			return;
 		}
 		let isJoined = targetUser.userid in this.players;
-		connection.sendTo(this.room, '|tournament|update|' + JSON.stringify({
+		let update = {
 			format: this.format,
 			generator: this.generator.name,
 			isStarted: this.isTournamentStarted,
 			isJoined: isJoined,
 			bracketData: this.bracketCache,
-		}));
+		};
+		if (this.format !== this.teambuilderFormat) update.teambuilderFormat = this.teambuilderFormat;
+		connection.sendTo(this.room, '|tournament|update|' + JSON.stringify(update));
 		if (this.isTournamentStarted && isJoined) {
 			connection.sendTo(this.room, '|tournament|update|' + JSON.stringify({
 				challenges: usersToNames(this.availableMatchesCache.challenges.get(this.players[targetUser.userid])),
@@ -752,7 +756,7 @@ class Tournament {
 		this.isAvailableMatchesInvalidated = true;
 		this.update();
 
-		user.prepBattle(this.format, 'tournament', user, this.banlist).then(result => this.finishChallenge(user, to, output, result));
+		user.prepBattle(this.teambuilderFormat, 'tournament', user, this.banlist).then(result => this.finishChallenge(user, to, output, result));
 	}
 	finishChallenge(user, to, output, result) {
 		let from = this.players[user.userid];
@@ -815,7 +819,7 @@ class Tournament {
 		let challenge = this.pendingChallenges.get(player);
 		if (!challenge || !challenge.from) return;
 
-		user.prepBattle(this.format, 'tournament', user, this.banlist).then(result => this.finishAcceptChallenge(user, challenge, result));
+		user.prepBattle(this.teambuilderFormat, 'tournament', user, this.banlist).then(result => this.finishAcceptChallenge(user, challenge, result));
 	}
 	finishAcceptChallenge(user, challenge, result) {
 		if (!result) return;
@@ -829,7 +833,7 @@ class Tournament {
 		let player = this.players[user.userid];
 		if (!this.pendingChallenges.get(player)) return;
 
-		let room = Matchmaker.startBattle(from, user, this.format, challenge.team, user.team, {rated: this.isRated, tour: this, supplementaryRuleset: this.banlist});
+		let room = Matchmaker.startBattle(from, user, this.teambuilderFormat, challenge.team, user.team, {rated: this.isRated, tour: this, supplementaryRuleset: this.banlist});
 		if (!room) return;
 
 		this.pendingChallenges.set(challenge.from, null);
@@ -1181,8 +1185,33 @@ let commands = {
 				return this.errorReply("The tournament's banlist is already empty.");
 			}
 			tournament.banlist = [];
+			tournament.format = tournament.teambuilderFormat;
 			this.room.addRaw("<b>The tournament's banlist was cleared.</b>");
+			this.room.send('|tournament|update|' + JSON.stringify({format: tournament.format}));
 			this.privateModCommand("(" + user.name + " cleared the tournament's banlist.)");
+		},
+		name: 'setname',
+		customname: 'setname',
+		setname: function (tournament, user, params, cmd) {
+			if (params.length < 1) {
+				return this.sendReply("Usage: " + cmd + " <comma-separated arguments>");
+			}
+			if (tournament.banlist.length < 1) {
+				return this.errorReply("The tournament cannot be named unless it has a banlist.");
+			}
+			const name = Chat.escapeHTML(params[0].trim());
+			if (!name.length) return this.errorReply("The tournament's name cannot be blank.");
+			if (name.length > MAX_CUSTOM_NAME_LENGTH) return this.errorReply("The tournament's name cannot exceed " + MAX_CUSTOM_NAME_LENGTH + " characters.");
+			tournament.format = name;
+			this.room.send('|tournament|update|' + JSON.stringify({format: tournament.format}));
+			this.privateModCommand("(" + user.name + " set the tournament's name to " + tournament.format + ".)");
+		},
+		resetname: 'clearname',
+		clearname: function (tournament, user) {
+			if (tournament.format === tournament.teambuilderFormat) return this.errorReply("The tournament does not have a name.");
+			tournament.format = tournament.teambuilderFormat;
+			this.room.send('|tournament|update|' + JSON.stringify({format: tournament.format}));
+			this.privateModCommand("(" + user.name + " cleared the tournament's name.)");
 		},
 	},
 	moderation: {
@@ -1543,6 +1572,8 @@ Chat.commands.tournamenthelp = function (target, room, user) {
 		"- banlist &lt;comma-separated arguments>: Sets the supplementary banlist for the tournament before it has started.<br />" +
 		"- viewbanlist: Shows the supplementary banlist for the tournament.<br />" +
 		"- clearbanlist: Clears the supplementary banlist for the tournament before it has started.<br />" +
+		"- name &lt;name>: Sets a custom name for the tournament if it has a supplementary banlist.<br />" +
+		"- clearname: Clears the custom name of the tournament.<br />" +
 		"- end/stop/delete: Forcibly ends the tournament in the current room.<br />" +
 		"- begin/start: Starts the tournament in the current room.<br />" +
 		"- autostart/setautostart &lt;on|minutes|off>: Sets the automatic start timeout.<br />" +

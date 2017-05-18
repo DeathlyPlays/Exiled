@@ -1595,4 +1595,41 @@ exports.BattleMovedex = {
 		type: "Fairy",
 		zMovePower: 210,
 	},
+	//ggdaca
+	"lordswrath": {
+		id: "lordswrath",
+		name: "Lord's Wrath",
+		basePower: 90,
+		priority: 0,
+		accuracy: 100,
+		category: "Physical",
+		flags: {protect: 1, mirror: 1, contact: 1},
+		self: {
+			boosts: {
+				atk: 1,
+			},
+		},
+		pp: 10,
+		secondary: false,
+		target: "normal",
+		type: "Dragon",
+	},
+	//ggdaca
+	"legendsdestruction": {
+		id: "legendsdestruction",
+		name: "Legend's Destruction",
+		basePower: 130,
+		accuracy: 100,
+		category: "Physical",
+		pp: 0.625,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, heal: 1},
+		stealsBoosts: true,
+		secondary: false,
+		isZ: "legendiniumz",
+		target: "normal",
+		type: "Dragon",
+		drain: [1, 2],
+		contestType: "Cool",
+	},
 };

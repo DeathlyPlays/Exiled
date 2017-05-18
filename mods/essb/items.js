@@ -212,4 +212,16 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is a Milotic with Hydraulic Blast, it can use Oceanic Song.",
 	},
+	"legendiniumz": {
+		spritenum: 656,
+		onTakeItem: false,
+		id: "legendiniumz",
+		name: "Legendium Z",
+		zMove: "Legend's Destruction",
+		zMoveFrom: "Lord's Wrath",
+		zMoveUser: ["Rayquaza-Mega"],
+		num: -13,
+		gen: -1,
+		desc: "If holder is a Rayquaza-Mega with Lord's Wrath, it can use Legend's Destruction.",
+	},
 };

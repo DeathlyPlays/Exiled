@@ -110,13 +110,13 @@ exports.BattleScripts = {
 				nature: "Modest",
 			},
 			"&ggdaca":{
-				species: "Rayquaza",
+				species: "Rayquaza-Mega",
 				ability: "Lord's Grace",
 				item: "Leftovers",
 				gender: 'M',
 				moves: ['dragonascent', 'earthquake', 'extremespeed'],
-				baseSignatureMove: "outrage",
-				signatureMove:"Outrage",
+				baseSignatureMove: "lordswrath",
+				signatureMove: "Lord's Wrath",
 				evs: {
 					spe: 252,
 					atk: 252,

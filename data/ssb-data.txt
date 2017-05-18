@@ -661,13 +661,17 @@ Notes: Boosted Special Attacker.
 Rank: N/A.
 
 ggdaca
-(Rayquaza)
-Item: Leftovers
+(Rayquaza-Mega)
+Item: Legendium Z
+	- If the user is a Rayquaza-Mega with Lord's Wrath it may use Legend's Destruction.
+		- Legend's Destruction: Dragon, 130 BP, 100% accuracy, Drains 1/2 damage dealt, Steals boosts, Physical, Z-Move, Contact.
 EVs: 252 Atk / 4 HP / 252 Spe
 Adamant Nature
 Ability: Lord's Grace
 	- Boosts the user's Attack, Defense, Special Defense, and Speed by one stage.
-Moves: Extreme Speed, Earthquake, Outrage, Dragon Ascent
+Moves: Extreme Speed, Earthquake, Dragon Ascent
+Special Move: Lord's Wrath
+	- Dragon, 90 BP, Physical, 100% accuracy, Boosts Atk by one stage, Contact.
 Notes: Like it's okay.... It's a Mega Rayquaza.... Not as good as a Magikarp tho....
 Rank: N/A.
 

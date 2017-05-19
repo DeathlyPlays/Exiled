@@ -321,6 +321,13 @@ exports.commands = {
 		room.add(targetUser + ' felt their sins crawling on their back ');
 		targetUser.popup('Do you want to have a bad time?');
 	},
+	bop: function (target, room, User) {
+		if (!target) return this.sendReply('/bop needs a target.');
+		if (!this.can('broadcast', null, room)) return this.errorReply('Access Denied');
+		let targetUser = Users.get(target);
+		room.add(User + ' has bopped ' + target + 'in the face!');
+		targetUser.popup("Get bopped boi");
+	},
 	/*
 	MEME RANDOMIZER
 	Coded by:

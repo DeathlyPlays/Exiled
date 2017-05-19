@@ -1003,23 +1003,19 @@ exports.BattleAbilities = {
 		id: "magmaoverdrive",
 		name: "Magma Overdrive",
 		rating: 4.5,
-		desc: "Desolate Land + Adaptability + Tinted Lens; Fire Moves are 2x stronger; If hit by a Fire Move, it Special Attack raises by 1 stage.",
-		onModifySpAPriority: 5,
-		onModifySpA: function (atk, attacker, defender, move) {
-			if (move.type === 'Fire') {
-				this.debug('Magma Overdrive boost');
-				return this.chainModify(2);
-			}
-		},
+		desc: "Desolate Land + Adaptability + Tinted Lens; If hit by a Fire Move, it Special Attack raises by 1 stage.",
+		//Adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
 		},
+		//Tinted Lens
 		onModifyDamage: function (damage, source, target, move) {
 			if (move.typeMod < 0) {
 				this.debug('Magma Overdrive boost');
 				return this.chainModify(2);
 			}
 		},
+		//Flash Fire
 		onTryHit: function (target, source, move) {
 			if (target !== source && move.type === 'Fire') {
 				move.accuracy = true;
@@ -1052,6 +1048,7 @@ exports.BattleAbilities = {
 				this.add('-end', target, 'ability: Magma Overdrive', '[silent]');
 			},
 		},
+		//Desolate Land
 		onStart: function (source) {
 			this.setWeather('desolateland');
 		},
@@ -1071,6 +1068,7 @@ exports.BattleAbilities = {
 				}
 			}
 			this.clearWeather();
+			//Piece of Flash Fire
 			pokemon.removeVolatile('flashfire');
 		},
 	},

@@ -1369,19 +1369,13 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			mirror: 1,
-			recharge: 1,
 			defrost: 1,
 		},
 		critRatio: 3,
 		self: {
 			boosts: {
 				spa: 1,
-				spe: 1,
-			},
-		},
-		secondary: {
-			self: {
-				volatileStatus: "mustrecharge",
+				spe: 2,
 			},
 		},
 		status: "brn",
@@ -1675,4 +1669,6 @@ exports.BattleMovedex = {
 		zMovePower: 200,
 		contestType: "Cool",
 	},
+	//EchoSierra
+
 };

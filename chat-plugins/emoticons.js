@@ -76,7 +76,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 		'PeoplesChamp': 'http://i.imgur.com/QMiMBKe.png',
 		'nicememe': 'http://i.imgur.com/61SelMS.png',
 		'spongegar': 'http://i.imgur.com/L0mK1f5.jpg',
-		'trash': 'http://i.imgur.com/rghiV9b.png',
+		'TrashCan': 'http://i.imgur.com/rghiV9b.png',
 		'feelsrb': 'http://i.imgur.com/L6ak1Uk.png',
 		'EleGiggle': 'https://static-cdn.jtvnw.net/emoticons/v1/4339/2.0',
 		'4Head': 'https://static-cdn.jtvnw.net/emoticons/v1/354/1.0',

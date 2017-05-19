@@ -862,12 +862,12 @@ exports.BattleMovedex = {
 		isZ: "thekidz",
 	},
 	//VXN
-	"insectplague": {
+	"psychocrusher": {
 		accuracy: 100,
 		basePower: 120,
 		category: "Physical",
-		id: "insectplague",
-		name: "Insect Plague",
+		id: "psychocrusher",
+		name: "Psycho Crusher",
 		pp: 10,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
@@ -877,9 +877,10 @@ exports.BattleMovedex = {
 		},
 		ignoreEvasion: true,
 		ignoreDefensive: true,
+		ignoreImmunity: {'Psychic': true},
 		secondary: false,
 		target: "normal",
-		type: "Bug",
+		type: "Psychic",
 	},
 	//HoeenHero
 	"scripting": {
@@ -1669,5 +1670,37 @@ exports.BattleMovedex = {
 		contestType: "Cool",
 	},
 	//EchoSierra
-
+	"kamikaze": {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		desc: "Power doubles if the user is burned, paralyzed, or poisoned. The physical damage halving effect from the user's burn is ignored.",
+		shortDesc: "Power doubles if user is burn/poison/paralyzed.",
+		id: "kamikaze",
+		isViable: true,
+		name: "Kamikaze",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onBasePowerPriority: 4,
+		onBasePower: function (basePower, pokemon) {
+			if (pokemon.status && pokemon.status !== 'slp') {
+				return this.chainModify(2);
+			}
+		},
+		onTryHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Sky Attack", target);
+			this.add('c| EchoSierra|FUUUUUUUUUUUUUUUUUUUUU');
+		},
+		onEffectiveness: function (typeMod, type) {
+			if (type === 'Steel' || type === 'Rock') return 1;
+		},
+		recoil: [1, 2],
+		secondary: false,
+		target: "normal",
+		type: "Flying",
+		zMovePower: 140,
+		contestType: "Tough",
+	},
 };

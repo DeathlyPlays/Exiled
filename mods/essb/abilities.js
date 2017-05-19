@@ -1304,30 +1304,53 @@ exports.BattleAbilities = {
 			this.useMove('topsyturvy', pokemon);
 		},
 	},
-	"checkmate": {
-		id: "checkmate",
-		name: "Checkmate",
-		//uses Taunt
-		onStart: function (pokemon) {
-			this.useMove('taunt', pokemon);
-		},
-		//if the target switches out the user gains +6 Atk and Spe, but loses 6 defense and special defense
-		onModifyDamage: function (damage, source, target) {
-			if (!target.activeTurns) {
-				this.debug('Checkmate boost');
-				return this.boost({atk: 6, spe: 6, def: -6, spd: -6});
+	//EchoSierra
+	"nogutsnoglory": {
+		id: "nogutsnoglory",
+		name: "No Guts, No Glory",
+		//Quick Feet
+		onModifySpe: function (spe, pokemon) {
+			if (pokemon.status) {
+				return this.chainModify(1.5);
 			}
 		},
-		//lowers Defense and SpD by 0.25x
-		onModifyDefPriority: 6,
-		onModifyDef: function (def) {
-			return this.chainModify(0.25);
+		//Guts
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (atk, pokemon) {
+			if (pokemon.status) {
+				return this.chainModify(1.5);
+			}
 		},
-		onModifySpDPriority: 6,
-		onModifySpD: function (spd) {
-			return this.chainModify(0.25);
+		//Gale Wings
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.type === 'Flying' && pokemon.hp === pokemon.maxhp) return priority + 1;
+		},
+		//adaptability + scraopy
+		onModifyMove: function (move) {
+			move.stab = 2;
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Fighting'] = true;
+				move.ignoreImmunity['Normal'] = true;
+			}
+		},
+		//reckless
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.recoil || move.hasCustomRecoil) {
+				this.debug('Reckless boost');
+				return this.chainModify([0x1333, 0x1000]);
+			}
+		},
+		//poison heal
+		onDamage: function (damage, target, source, effect) {
+			if (effect.id === 'psn' || effect.id === 'tox') {
+				this.heal(target.maxhp / 8);
+				return false;
+			}
 		},
 	},
+	//007Nilo
 	"masterofillusions": {
 		id: "masterofillusions",
 		name: "Master of Illusions",
@@ -1335,6 +1358,7 @@ exports.BattleAbilities = {
 			this.boost({spa: 2, spe: 2});
 		},
 	},
+	//ggdaca
 	"lordsgrace": {
 		id: "lordsgrace",
 		name: "Lord's Grace",
@@ -1343,6 +1367,7 @@ exports.BattleAbilities = {
 			this.boost({atk: 1, def: 1, spd: 1, spe: 1});
 		},
 	},
+	//Horrific17
 	"horrificplays": {
 		id: "horrificplays",
 		name: "Horrific Plays",

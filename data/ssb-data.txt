@@ -376,17 +376,16 @@ Notes: Changing types every turn makes this mon difficult to be entirely counter
 Rank: A.
 
 EchoSierra
-(Bisharp)
-@ Lum Berry
+(Swellow)
+@ Toxic Orb
 EVs: 4 HP / 252 Atk / 252 Spe
 Adamant Nature
-Ability: Checkmate
- - Confers the effect of Taunt on the opponent. If the opponent switches out, EchoSierra gets +6 to Atk and Spe, but -6 to Def and SpD + the user has 0.25x Def and SpD.
-Moves: Knock Off, Iron Head, Psycho Cut
-Special Move: First Strike
- - Dark-type. +1 Atk and a base-180 power Sucker Punch, +2 priority.
-Notes: Physical Glass Cannon, DO NOT SWITCH OR HELL WILL STRIKE (IF YOU MUST SWITCH, MAKE SURE YOU HAVE PRIORITY)!!!!
-Rank: N/A.
+Ability: No Guts, No Glory
+	- Gale Wings + Guts + Quick Feet + Adaptability + Reckless + Scrappy + Poison Heal
+Moves: Brave Bird, Double-Edge, Protect
+Special Move: Kamikaze
+	- Flying-type. Acts the same as Facade (70 BP, double if statused). Normally effective against Rock and Steel-types. 50% recoil damage.
+Notes: Physical glass cannon. Kill with recoil sacs or ExtremeSpeed.
 
 007Nilo
 (Zoroark)

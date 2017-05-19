@@ -418,6 +418,7 @@ Profile.prototype.show = function (callback) {
 		SPACE + this.nature(userid) + BR +
 		SPACE + this.type(userid) + BR +
 		SPACE + this.pokemon(userid) + BR +
+		SPACE + this.setfriendcode(userid) + BR +
 		this.pet(userid) +
 		this.gang() +
 		SPACE + this.badges(userid) + this.team(userid) +

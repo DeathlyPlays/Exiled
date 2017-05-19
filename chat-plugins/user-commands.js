@@ -136,24 +136,6 @@ exports.commands = {
 		this.parse('/roomintro ' + room.introMessage.split('<u>Announcements</u>: ')[0] + '<u>Announcements</u>: ' + target + ('</marquee></div>'));
 	},
 
-	fcadd: 'friendcodeadd',
-	friendcodeadd: function (target, room, user) {
-		if (!target) return this.errorReply("Invalid command. Valid commands are `/friendcodeadd code` and `/friendcoderemove`.");
-		let fc = Chat.escapeHTML(target.trim());
-		let reg = /^\d{4}-\d{4}-\d{4}$/;
-		if (!reg.test(fc)) return this.errorReply("Invalid friend code, example: 3110-7818-5106");
-		Db('FriencodeDB').set(toId(user), fc);
-		this.sendReply("Friendcode set.");
-	},
-
-	fcrmv: 'friendcoderemove',
-	fcdelete: 'friendcoderemove',
-	friendcoderemove: function (target, room, user) {
-		if (!Db('FriencodeDB').has(toId(user))) return this.errorReply("You do not have a friendcode.");
-		Db('FriencodeDB').delete(toId(user));
-		this.sendReply("Friendcode removed.");
-	},
-
 	dimg: 'displayimage',
 	displayimg: 'displayimage',
 	displayimage: function (target, room, user) {

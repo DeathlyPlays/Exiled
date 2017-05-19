@@ -112,7 +112,7 @@ exports.BattleScripts = {
 			"&ggdaca":{
 				species: "Rayquaza-Mega",
 				ability: "Lord's Grace",
-				item: "Legendium Z",
+				item: "Legendinium Z",
 				gender: 'M',
 				moves: ['dragonascent', 'earthquake', 'extremespeed'],
 				baseSignatureMove: "lordswrath",
@@ -172,7 +172,6 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			/*
 			"@VXN": {
 				species: "Scizor-Mega",
 				ability: "Psycho Power",
@@ -188,7 +187,6 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
-			*/
 			"@Perison": {
 				species: "Xerneas",
 				ability: "Adaptability",

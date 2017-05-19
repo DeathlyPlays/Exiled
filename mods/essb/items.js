@@ -220,7 +220,7 @@ exports.BattleItems = {
 		spritenum: 656,
 		onTakeItem: false,
 		id: "legendiniumz",
-		name: "Legendium Z",
+		name: "Legendinium Z",
 		zMove: "Legend's Destruction",
 		zMoveFrom: "Lord's Wrath",
 		zMoveUser: ["Rayquaza-Mega"],

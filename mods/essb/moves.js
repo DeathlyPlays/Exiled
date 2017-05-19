@@ -1669,6 +1669,7 @@ exports.BattleMovedex = {
 			chance: 30,
 			status: 'brn',
 		},
+		isZ: "arcaniumz",
 		target: "normal",
 		type: "Fire",
 		zMovePower: 200,

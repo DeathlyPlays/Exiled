@@ -13,31 +13,6 @@ Special Move: Aqua Subscribe
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
 
-AB Starfox
-(Staraptor)
-@Life Orb
-EVs: 252 Atk / 4 Def / 252 Spe
-Adamant Nature
-Ability: Hiya
-	-Intimidate + Technician + Adaptability + Magic Guard
-Moves: Pluck, Roost, Swords Dance
-Special Move: Fast as Fucc
-	- Normal, Physical, 100% accuracy, 30% chance to boost own Speed by one stage, supereffective against Steel types, and has +1 priority.
-Notes: Strong moves, that take advantage of the No Guard effects, and gets Speed Boosts every turn, and then having priority as well makes it extremely useful.
-Rank: A.
-
-TheAquaPhoenix
-(Articuno)
-@Leftovers
-EVs: 4 SpA / 252 HP / 252 SpD
-Calm Nature
-Ability: How to be OP 101
-	- Special Fur Coat, Regenerator, Natural Cure, Rough Skin, Multiscale, and Delta Stream.
-Moves: Scald, Roost, Oblivion Wing, Freeze-Dry
-Special Move: None
-Notes: A great Special Defensive wall, which this tier lacks severely.
-Rank: B.
-
 Sota Higurashi
 (Victini)
 @ Expert Belt
@@ -94,98 +69,9 @@ Special Move: Soul Reaper
 Notes: Fast Special Sweeper.
 Rank: A.
 
-Kairak
-(Nidorina)
-@Focus Sash
-EVs: 252 Atk / 252 Spe / 4 Def
-Ability: gj Squad
-    -Sheer Force + Tough Claws + Strong Jaw + Huge Power + Adaptability
-Jolly Nature
-Moves: Knock Off, Extreme-Speed, Precipice Blades
-Special Move: Bowing and Blowing
-    -Poison, Physical, 95 BP, 100% accuracy, 30% chance to badly poison target, contact, bite.
-Notes: Sashed Sweeper with priority, allowing it to balance out some stuff :3
-Rank: B.
-
-CielTSnow
-(Lucario-Mega)
-@Life Orb
-EVs: 252 SpA / 252 Spe / 4 SpD
-Ability: Adaptability
-Timid Nature
-Moves: Flash Cannon, Flamethrower, Ice Beam
-Special Move: Pimp Slap
-	-Special, Fighting type move, 90 BP, 100% accuracy, raises user's Special Attack and Speed by one stage, +1 Priority.
-Notes: Fast Special Sweeper.
-Rank: B.
-
-Prince JLP
-(Pyroar)
-@Choice Scarf
-EVs: 252 SpA / 252 Spe / 4 SpD
-Ability: Headphones
-	-Boosts sound moves by 1.3x.
-Timid Nature
-Moves: Boomburst, Giga Drain, Thunderbolt
-Special Move: Lion's Roar
-	-Fire, Special, 130 BP, 100% accuracy, Sound move, ignores Substitute.
-Notes: Scarfed Special Sweeper.
-Rank: C.
-
-Vivid is a God
-(Latios)
-@Life Orb
-EVs: 252 SpA / 252 Spe / 4 SpD
-Ability: JetStream
-	-Multiscale and +1 speed upon entry.
-Timid Nature
-Moves: Psychic, Surf, Fire Blast
-Special Move: Jet Blast
-    -Special, Dragon type, 100% accuracy, 140 BP.
-Notes: Fast strong special sweeper.
-Rank: B.
-
-Execute
-(Dragonite)
-@Choice Band
-EVs: 252 Atk / 252 Spe / 4 Def
-Adamant Nature
-Ability: Rock Head
-Moves: Brave Bird, Head Smash, Flare Blitz
-Special Move: EXECUTE THEM
-    -Dragon type, Physical, 130 BP, 70% Accuracy, 1/3 recoil, Contact.
-Notes: Will be hitting hard, and doesn't take recoil.
-Rank: B.
-
-Philmiester
-(Gallade-Mega)
-@Leftovers
-EVs: 252 Atk / 252 Spe / 4 SpD
-Jolly Nature
-Ability: Demon's Blade
-    -Tough Claws effects
-Moves: Psycho Cut, Drain Punch, Ice Punch
-Special Move: Heathcliff's Revenge
-    -Psychic, Status, Raises Attack and Speed by two stages.
-Notes: Fast Physical Sweeper.
-Rank: A.
-
-CateQuil
-(Magikarp)
-@Focus Sash
-EVs: 252 Atk / 252 Spe / 4 HP
-Adamant Nature
-Ability: GAWD
-    -Adaptability + Huge Power effects.
-Moves: Flail, Splash, Precipice Blades
-Special Move: FUCKING SPLASHING
-    - Water, Physical, 120 BP, 100% accuracy, Boosts Attack, Defense, Special Defense, Accuracy, and Speed by two stages.
-Notes: Physical Sweeper.
-Rank: A.
-
 Jigglykong
 (Porygon2)
-@Eviolite
+@ Eviolite
 EVs: 252 HP / 100 Def / 60 SpA / 96 SpD
 Bold Nature
 Ability: 3Bawlky5U
@@ -196,21 +82,9 @@ Special Move: Plasma Blast
 Notes: MLG Wall m8.
 Rank: A.
 
-Ithi
-(Charizard-Mega-X)
-@Leftovers
-252 Atk / 252 Spe / 4 Def
-Jolly Nature
-Ability: Tough Claws
-Moves: Flare Blitz, Roost, Protect
-Special Move: Analyze Intents
-    - Physical, 90 BP, 95% accuracy, Contact, Boosts attack and speed by one stage, Dragon type.
-Notes: Physical Sweeper.
-Rank: A.
-
 The Exiler
 (Darkrai)
-@Leftovers
+@ Leftovers
 EVs: 252 SpA / 252 Spe / 4 HP
 Timid Nature
 Ability: The Exiled Ones
@@ -221,22 +95,9 @@ Special Move: Exile
 Notes: Fast Special Sweeper that can become bulky. (INSANE ANTIMETA)
 Rank: A.
 
-Alрhа Hawk
-(Staraptor)
-@Life Orb
-EVs: 252 Atk / 252 Spe / 4 SpD
-Jolly Nature
-Ability: Eyes of the Hawk
-    -Intimidate + Reckless
-Moves: Double-Edge, Shadow Strike, Head Smash
-Special Move: Cyclone Sphere
-    -Physical, Flying type, 120 BP, 100% accuracy, 33% recoil, 20% chance to boost Speed by one stage.
-Notes: Fast Physical Sweeper.
-Rank: B.
-
 Back At My Day
 (Dialga)
-@Rocky Helmet
+@ Rocky Helmet
 EVs: 48 Def / 252 SpA / 208 SpD
 IVs: 0 Atk / 0 Spe
 Quiet Nature
@@ -250,7 +111,7 @@ Rank: A.
 
 Kimisumi
 (Gallade-Mega)
-@Life Orb
+@ Life Orb
 EVs: 252 Atk / 252 Spe / 4 HP
 Jolly Nature
 Ability: God Complex
@@ -263,7 +124,7 @@ Rank: A.
 
 Princess Teddiursa
 (Ninetales-Alola)
-@Life Orb
+@ Life Orb
 EVs: 252 SpA / 252 Spe / 4 SpD
 Timid Nature
 Ability: prfmlmao
@@ -274,20 +135,9 @@ Special Move: prfmador
 Notes: Fast Special Sweeper.
 Rank: A.
 
-EmoGuy3000
-(Mewtwo-Mega-Y)
-@Choice Specs
-EVs: 252 SpA / 252 Spe / 4 Atk
-Hasty Nature
-Ability: Contrary
-Moves: Draco Meteor, Psycho Boost, V-Create
-Special Move: None
-Notes: Special Sweeper.
-Rank: A.
-
 Volco
 (Volcanion)
-@Volcanionite
+@ Volcanionite
     - Allows the user to mega evolve to become Mega Volcanion
 EVs: 252 SpA / 252 Spe / 4 SpD
 Modest Nature
@@ -301,7 +151,7 @@ Rank: A.
 
 Mewth
 (Furret-Mega)
-@Scope Lens
+@ Scope Lens
 EVs: 252 SpA / 252 Spe / 4 HP
 Modest Nature
 Ability: Roarplaying
@@ -312,61 +162,9 @@ Special Move: Oblivion Banisher
 Notes: Fast Physical Sweeper.
 Rank: A.
 
-Speckeldorft
-(Jigglypuff)
-@Eviolite
-EVs: 252 SpA / 252 Spe / 4 HP
-Timid Nature
-Ability: The Cute Charm
-    -Cute Charm effects + Adaptability effects + Boosts user's Special Attack stage by one upon fainting an opponent.
-Moves: Stored Power, Boomburst, Recover
-Special Move: FUCKING NORMIES
-    -Fairy type, Special, 70 BP, Never misses, 1/2 of damage given to target heals user, Boosts user's Special Attack, Special Defense, Speed, Accuracy by two stage, Confuses target.
-Notes: Fast Special Attacker.
-Rank: A.
-
-Yoshonic
-(Zoroark)
-@Life Orb
-EVs: 252 SpA / 252 Spe / 4 HP
-Timid Nature
-Ability: Too Fast
-    -Speed Boost effects, Special Moxie effects, and Adaptability effects.
-Moves: Psystrike, Aura Sphere, Sludge Wave
-Special Move: Down B
-    -Dark type, Special, 120 BP, 100% accuracy, Raises user's Special Attack and Speed one stage, +1 priority.
-Notes: Fast Special Attacker.
-Rank: A.
-
-Nightcraven
-(Missingno.)
-@Focus Sash
-EVs: 252 Atk / 252 Spe / 4 HP
-Adamant Nature
-Ability: Derp
-    -Adaptability + Speed Boost + Mold Breaker
-Moves: Close Combat, Dragon Ascent, Knock Off
-Special Move: Evictus
-    -Normal, Physical, Contact, +1 Priority, Boosts own Attack and Speed by one stage, 120 BP, 100% accuracy.
-Notes: Fast Physical Sweeper.
-Rank: A.
-
-PaxAxeBrichu
-(Golbat)
-@Eviolite
-EVs: 248 HP / 252 Def / 8 SpA
-Impish Nature
-Ability: RIP You
-    -Uses Mean Look, Taunt, Haze effects upon entry + Serene Grace effects + Speed Boost
-Moves: U-Turn, Air Slash, Roost
-Special Move #2: Repel
-    -Status, Typeless, Ignore Immunity, 100% accuracy, Paralyzes and Confuses target.
-Notes: Freaking annoyance.
-Rank: N/A.
-
 TheGodOfPie
 (Mawile-Mega)
-@Life Orb
+@ Life Orb
 EVs: 252 Atk / 252 HP / 4 Def
 Adamant Nature
 Ability: Mad Tings
@@ -379,23 +177,9 @@ Special Move: The Power Of Pi
 Notes: Bulky Physical Sweeper. Another one of the topsy-turvers.
 Rank: A.
 
-Hax Orus 04
-(Haxorus)
-@Haxium Z
-	-Allows user to use Too Much Hax
-		-Too Much Hax: Dragon Type, Physical, Z-Move, Increases Speed after use, Spectral Thief, 100 BP.
-EVs: 252 Atk / 4 SpD / 252 Spe
-Adamant Nature
-Ability: Prism Armor
-Moves: Dragon Dance, Dragon Claw, Earthquake
-Special Move: H-Axe
-    - Steel Type, Physical, 70 BP, 100% Accuracy, Hits 2 times, 10 PP
-Notes: Fast Multihitter Sweeper. Great counter against Sturdy/Focus Sash. Annoying Boost Stealer.
-Rank: A.
-
 UB-01 Symbi0nt
 (Mawile-Mega)
-@Choice Scarf
+@ Choice Scarf
 EVs: 252 Atk / 4 SpD / 252 Spe
 Adamant Nature
 Ability: No Hax
@@ -406,23 +190,9 @@ Special Move: Double Jaw Tackle
 Notes: Attacker that can nullify secondary effects.
 Rank: B.
 
-Almighty Bronzong
-(Bronzong)
-@Leftovers
-EVs: 252 HP / 88 Def / 168 SpD
-IVs: 0 Spe
-Relaxed Nature
-Ability: Conflict of Interest
-    - Magnet Rise + Heatproof + -50% damage from Ghost and Dark type moves.
-Moves: Recover, Earthquake, Toxic
-Special Move: Moment of Inertia
-    - Steel Type, Physical, Gyro Ball, 100% Accuracy, 10 PP, Eliminates stat changes and increases defense, special defense by 1 stage and decreases speed by 1 stage if the opponent had stat changes.
-Notes: Slow Gyro Baller, one of the few walls in the meta.
-Rank: B.
-
 Chesnaught90000
 (Chesnaught)
-@Life Orb
+@ Life Orb
 EVs: 252 Atk / 4 SpD / 252 Spe
 Jolly Nature
 Ability: Nice 0u0
@@ -433,23 +203,9 @@ Special Move: Cookie Storm
 Notes: High power moves that are boosted by its Reckless effects obliterate teams.
 Rank: B.
 
-UB-03 Xurkitree
-(Xurkitree)
-@Relic of Choiceness
-    - Choice Specs and Choice Scarf.
-EVs: 4 HP / 252 SpA / 252 Spe
-Modest Nature
-Ability: feelsfly
-    - Magnet Rise and +2 SpA upon entry and Beast Boost.
-Moves: Energy Ball, Fire Blast, Ice Beam
-Special Move: Super Flys Laser
-    - Electric Type, Special, 120 BP, 95% Accuracy, 15 PP, 30% chance of Confusion.
-Notes: Fast Choiced Special Sweeper.
-Rank: B.
-
 Perison
 (Xerneas)
-@Power Herb
+@ Power Herb
 EVs: 252 HP / 252 SpA / 4 Spe
 Modest Nature
 Ability: Adaptability
@@ -461,7 +217,7 @@ Rank: A.
 
 HoeenHero
 (Ludicolo)
-@Leftovers
+@ Leftovers
 EVs: 4 HP / 252 SpA / 252 Spe
 Modest Nature
 Ability: Swift Swim
@@ -471,23 +227,9 @@ Special Move: Scripting
 Notes: Weak Special Attacker within this meta unfortunately.
 Rank: C.
 
-UniversalCraftr
-(Pykumuku)
-@General Annoyance
-    - Holder restores 1/4th of its Max HP.
-EVs: 252 HP / 4 Def / 252 SpD
-Bold Nature
-Ability: Trade-Off
-    - 0.5x stats and uses Heart Swap upon entry and Natural Cure.
-Moves: Baton Pass, Shore Up, Substitute
-Special Move: Hinderance
-    - Fairy Type, Special, 100% Accuracy, 10 PP, 30% chance to Flinch, Boosts all Stats by 1 stage.
-Notes: A literal General Annoyance. An asshole trader.
-Rank: A.
-
 Failures
 (Greninja-Ash)
-@Bag of Ls
+@ Bag of Ls
     - Holder's accuracy is 1.1x.
 EVs: 4 Def / 252 SpA / 252 Spe
 Modest Nature
@@ -501,7 +243,7 @@ Rank: N/A.
 
 AlfaStorm
 (Hydreigon)
-@Focus Sash
+@ Focus Sash
 EVs: 252 SpA / 4 SpD / 252 Spe
 Timid Nature
 Ability: Attack Shield
@@ -542,7 +284,7 @@ Rank: A.
 
 C733937 123
 (Gengar-Mega)
-Item: Aguav Berry
+@ Aguav Berry
 EVs: 252 SpA / 4 SpD / 252 Spe
 Timid Nature
 Ability: Chaotic Armor
@@ -555,7 +297,7 @@ Rank: B.
 
 Noviex
 (Tyranitar)
-Item: Armor Vest
+@ Armor Vest
     - 2x Defense and 2x SpD, can only use damaging moves.
 EVs: 248 HP / 252 Atk / 8 Def
 Adamant Nature
@@ -570,7 +312,7 @@ Rank: B.
 cyt0pl4sm
 (Zygarde-10%)
 	- Becomes Dark/Fairy type
-Item: Choice Band
+@ Choice Band
 EVs: 252 Atk / 252 Spe / 4 HP
 Jolly Nature
 Ability: Energy Overflow
@@ -581,7 +323,7 @@ Rank: B.
 
 Renfur
 (Flygon)
-Item: Focus Sash
+@ Focus Sash
 EVs: 252 Atk / 252 Spe / 4 SpD
 Jolly Nature
 Ability: DesertDragon
@@ -594,7 +336,7 @@ Rank: B.
 
 Kevso
 (Deoxys-D)
-Item: Leftovers
+@ Leftovers
 EVs: 252 Hp / 252 def / 4 SpD
 Bold Nature
 Ability: Defense
@@ -607,7 +349,7 @@ Rank: A.
 
 GuiltasBR
 (Conkeldurr)
-Item: Douglasinium Z
+@ Douglasinium Z
 	- If the user is Conkeldurr with Punchy Fury, it may use the Z move Punchyru Massacre Z.
 		- Punchru Massacre Z: Hits 2 to 3 times, 50 BP per hit, Fighting, Physical.
 EVs: 252 Atk / 252 SpD / 4 Spe
@@ -622,7 +364,7 @@ Rank: B.
 
 Almighty Judgment
 (Arceus)
-Item: Rainbow Plate
+@ Rainbow Plate
     - Can't be knocked off, heals user by 1/8th and boosts moves that are STAB.
 EVs: 4 Def / 252 SpA / 252 SpD
 Timid Nature
@@ -636,7 +378,7 @@ Rank: A.
 
 EchoSierra
 (Bisharp)
-Item: Lum Berry
+@ Lum Berry
 EVs: 4 HP / 252 Atk / 252 Spe
 Adamant Nature
 Ability: Checkmate
@@ -649,7 +391,7 @@ Rank: N/A.
 
 007Nilo
 (Zoroark)
-Item: Life Orb
+@ Life Orb
 EVs: 252 SpA / 252 Spe / 4 HP
 Modest Nature
 Ability: Master of Illusions
@@ -662,7 +404,7 @@ Rank: N/A.
 
 ggdaca
 (Rayquaza-Mega)
-Item: Legendinium Z
+@ Legendinium Z
 	- If the user is a Rayquaza-Mega with Lord's Wrath it may use Legend's Destruction.
 		- Legend's Destruction: Dragon, 130 BP, 100% accuracy, Drains 1/2 damage dealt, Steals boosts, Physical, Z-Move, Contact.
 EVs: 252 Atk / 4 HP / 252 Spe
@@ -677,7 +419,7 @@ Rank: N/A.
 
 Kraken Mare
 (Gardevoir-Mega)
-Item: Leftovers
+@ Leftovers
 EVs: 248 HP / 8 Def / 252 SpA
 Modest Nature
 Ability: Moody
@@ -689,7 +431,7 @@ Rank: N/A.
 
 Horrific17
 (Arcanine)
-Item: Arcanium Z
+@ Arcanium Z
 	- If the holder is an Arcanine with Horrific Roasts, it may use Horrific Memes.
 		- Horrific Memes: Fire type, Summons intense sunlight, 200 BP, 50% chance to burn, 33% recoil, Physical, Contact, Defrosts user if frozen.
 EVs: 252 Atk / 4 HP / 252 Spe

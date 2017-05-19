@@ -47,7 +47,6 @@ let shop = [
 	['Custom Title', 'Buys a title to be added on your /profile (can be refused).', 10],
 	['Profile Team', 'Allows you to choose which Pokemon you want to be displayed on your /profile. PM Insist, after purchasing it to have it set. (can be denied)', 20],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 25],
-	//['Custom Color', 'Changes the color of your name (can be denied)', 25], //Comment out for now because custom color screws up CSS
 	['Room', 'Buys a chatroom for you to own. (within reason, can be refused).', 30],
 	['Trainer Card', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 40],
 	['Custom Emoticon', 'You provide an image (50x50) to be added as an emote on the server. (Can be refused)', 40],

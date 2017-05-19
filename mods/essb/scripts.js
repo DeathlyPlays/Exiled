@@ -172,14 +172,14 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"@VXN": {
+			"@Letter W": {
 				species: "Scizor-Mega",
-				ability: "Psycho Power",
-				item: "Psycho Generator",
+				ability: "Heavenly Guard",
+				item: "Manna",
 				gender: "M",
-				moves: ['bounce', 'jumpkick', 'knockoff'],
-				baseSignatureMove: "psychocrusher",
-				signatureMove: "Psycho Crusher",
+				moves: ['sunsteelstrike', 'knockoff', 'precipiceblades'],
+				baseSignatureMove: "insectplague",
+				signatureMove: "Insect Plague",
 				evs: {
 					spe: 252,
 					atk: 252,

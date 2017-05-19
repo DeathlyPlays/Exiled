@@ -121,9 +121,9 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "The accuracy of attacks by the holder is 1.1x.",
 	},
-	"psychogenerator": {
-		id: "psychogenerator",
-		name: "Psycho Generator",
+	"manna": {
+		id: "manna",
+		name: "Manna",
 		spritenum: 476,
 		onResidualOrder: 5,
 		onResidualSubOrder: 2,

@@ -690,17 +690,9 @@ exports.BattleAbilities = {
 			move.stab = 2;
 		},
 	},
-	"psychopower": {
-		id: "psychopower",
-		name: "Psycho Power",
-		onTryHit: function (target, source, move) {
-			if (target !== source && move.type === 'Psychic') {
-				if (!this.heal(target.maxhp / 4)) {
-					this.add('-immune', target, '[msg]', '[from] ability: Psycho Power');
-				}
-				return null;
-			}
-		},
+	"heavenlyguard": {
+		id: "heavenlyguard",
+		name: "Heavenly Guard",
 		onSourceModifyDamage: function (damage, source, target, move) {
 			if (move.typeMod > 0) {
 				this.debug('Filter neutralize');

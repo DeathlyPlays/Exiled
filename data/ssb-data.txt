@@ -267,18 +267,17 @@ Special Move: Solar Eruption
 Notes: Fast Special Sweeper.
 Rank: B.
 
-VXN
-(Scizor)
-Psychic Type
-@ Psycho Generator
+Letter W
+(Scizor-mega)
+@ Manna
     - The user recovers 1/16 of its health every turn, and gets a boost in a random stat (except accuracy and evasion).
 EVs: 252 Atk / 252 Spe / 4 SpD
 Jolly Nature
-Ability: Psycho Power
-	- Psychic type moves get absorbed and heal the user by 1/4 of their max HP, Rock Head, and Filter
-Moves: Jump Kick, Bounce, Knock Off
-Special Move: Psycho Crusher
-    - 120 BP, Physical, Psychic, Makes Contact, Ignores Evasion, Ignores Defense boosts, Ignores immunities.
+Ability: Heavenly Guard
+    - Magic Guard and Filter
+Moves: Sunsteel Strike, Precipice Blades, Knock Off
+Special Move: Insect Plague
+    - 120 BP, Physical, Bug, Makes Contact, Ignores Evasion, Ignores Defense boosts, Calculates damage with a reverse type chart.
 Notes: Physical Attacker that gets boosts every turn.
 Rank: A.
 

@@ -134,6 +134,13 @@ function parseStatus(text, encoding) {
 	return text;
 }
 
+let monData;
+try {
+	monData = fs.readFileSync("data/ssb-data.txt").toString().split("\n\n");
+} catch (e) {
+	console.error(e);
+}
+
 function getMonData(target) {
 	let returnData = null;
 	monData.forEach(function (data) {
@@ -144,13 +151,6 @@ function getMonData(target) {
 		}
 	});
 	return returnData;
-}
-
-let monData;
-try {
-	monData = fs.readFileSync("data/ssb-data.txt").toString().split("\n\n");
-} catch (e) {
-	console.error(e);
 }
 
 exports.commands = {

@@ -69,57 +69,6 @@ Special Move: Soul Reaper
 Notes: Fast Special Sweeper.
 Rank: A.
 
-Prince JLP
-(Pyroar)
-@Choice Scarf
-EVs: 252 SpA / 252 Spe / 4 SpD
-Ability: Headphones
-	-Boosts sound moves by 1.3x.
-Timid Nature
-Moves: Boomburst, Giga Drain, Thunderbolt
-Special Move: Lion's Roar
-	-Fire, Special, 130 BP, 100% accuracy, Sound move, ignores Substitute.
-Notes: Scarfed Special Sweeper.
-Rank: C.
-
-Execute
-(Dragonite)
-@Choice Band
-EVs: 252 Atk / 252 Spe / 4 Def
-Adamant Nature
-Ability: Rock Head
-Moves: Brave Bird, Head Smash, Flare Blitz
-Special Move: EXECUTE THEM
-    -Dragon type, Physical, 130 BP, 70% Accuracy, 1/3 recoil, Contact.
-Notes: Will be hitting hard, and doesn't take recoil.
-Rank: B.
-
-Philmiester
-(Gallade-Mega)
-@Leftovers
-EVs: 252 Atk / 252 Spe / 4 SpD
-Jolly Nature
-Ability: Demon's Blade
-    -Tough Claws effects
-Moves: Psycho Cut, Drain Punch, Ice Punch
-Special Move: Heathcliff's Revenge
-    -Psychic, Status, Raises Attack and Speed by two stages.
-Notes: Fast Physical Sweeper.
-Rank: A.
-
-CateQuil
-(Magikarp)
-@Focus Sash
-EVs: 252 Atk / 252 Spe / 4 HP
-Adamant Nature
-Ability: GAWD
-    -Adaptability + Huge Power effects.
-Moves: Flail, Splash, Precipice Blades
-Special Move: FUCKING SPLASHING
-    - Water, Physical, 120 BP, 100% accuracy, Boosts Attack, Defense, Special Defense, Accuracy, and Speed by two stages.
-Notes: Physical Sweeper.
-Rank: A.
-
 Jigglykong
 (Porygon2)
 @Eviolite
@@ -131,18 +80,6 @@ Moves: Hex, Recover, Toxic
 Special Move: Plasma Blast
     - Normal type + Electric Effectiveness + 20% chance to burn, freeze, or paralyze + 120 BP + 100% accuracy.
 Notes: MLG Wall m8.
-Rank: A.
-
-Ithi
-(Charizard-Mega-X)
-@Leftovers
-252 Atk / 252 Spe / 4 Def
-Jolly Nature
-Ability: Tough Claws
-Moves: Flare Blitz, Roost, Protect
-Special Move: Analyze Intents
-    - Physical, 90 BP, 95% accuracy, Contact, Boosts attack and speed by one stage, Dragon type.
-Notes: Physical Sweeper.
 Rank: A.
 
 The Exiler
@@ -157,19 +94,6 @@ Special Move: Exile
     - Dark, Distance, 80 BP, 100% accuracy, Transforms into a Cresselia and replaces its moves for: Stored Power, Recover, Cosmic Power, and keeps Exile so it can change back.
 Notes: Fast Special Sweeper that can become bulky. (INSANE ANTIMETA)
 Rank: A.
-
-Alрhа Hawk
-(Staraptor)
-@Life Orb
-EVs: 252 Atk / 252 Spe / 4 SpD
-Jolly Nature
-Ability: Eyes of the Hawk
-    -Intimidate + Reckless
-Moves: Double-Edge, Shadow Strike, Head Smash
-Special Move: Cyclone Sphere
-    -Physical, Flying type, 120 BP, 100% accuracy, 33% recoil, 20% chance to boost Speed by one stage.
-Notes: Fast Physical Sweeper.
-Rank: B.
 
 Back At My Day
 (Dialga)
@@ -209,17 +133,6 @@ Moves: Earth Power, Boomburst, Psychic
 Special Move: prfmador
     - Ice, Special, 60 BP, infatuates target, Raises own Special Attack and Speed by one stage, 100% accuracy, +1 priority, 20% chance to freeze target.
 Notes: Fast Special Sweeper.
-Rank: A.
-
-EmoGuy3000
-(Mewtwo-Mega-Y)
-@Choice Specs
-EVs: 252 SpA / 252 Spe / 4 Atk
-Hasty Nature
-Ability: Contrary
-Moves: Draco Meteor, Psycho Boost, V-Create
-Special Move: None
-Notes: Special Sweeper.
 Rank: A.
 
 Volco

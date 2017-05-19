@@ -1742,10 +1742,6 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Dark/Fairy');
 				pokemon.types = ["Dark", "Fairy"];
 			}
-			if (name === 'vxn' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Psychic');
-				pokemon.types = ["Psychic"];
-			}
 			if (name === 'chesnaught90000' && !pokemon.illusion) {
 				this.boost({
 					spe: 1,

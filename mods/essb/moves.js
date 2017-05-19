@@ -862,12 +862,12 @@ exports.BattleMovedex = {
 		isZ: "thekidz",
 	},
 	//VXN
-	"psychocrusher": {
+	"insectplague": {
 		accuracy: 100,
 		basePower: 120,
 		category: "Physical",
-		id: "psychocrusher",
-		name: "Psycho Crusher",
+		id: "insectplague",
+		name: "Insect Plague",
 		pp: 10,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
@@ -877,10 +877,9 @@ exports.BattleMovedex = {
 		},
 		ignoreEvasion: true,
 		ignoreDefensive: true,
-		ignoreImmunity: {'Psychic': true},
 		secondary: false,
 		target: "normal",
-		type: "Psychic",
+		type: "Bug",
 	},
 	//HoeenHero
 	"scripting": {

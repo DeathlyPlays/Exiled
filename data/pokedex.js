@@ -10256,7 +10256,7 @@ exports.BattlePokedex = {
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Ghost", "Fire"],
-		baseStats: {hp: 90, atk: 40, def: 95, spa: 190, spd: 95, spe: 110},
+		baseStats: {hp: 60, atk: 40, def: 105, spa: 190, spd: 105, spe: 120},
 		abilities: {0: "Levitate"},
 		heightm: 1,
 		weightkg: 24.7,

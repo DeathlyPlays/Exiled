@@ -172,6 +172,7 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
+			/*
 			"@VXN": {
 				species: "Scizor-Mega",
 				ability: "Psycho Power",
@@ -187,6 +188,7 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			*/
 			"@Perison": {
 				species: "Xerneas",
 				ability: "Adaptability",

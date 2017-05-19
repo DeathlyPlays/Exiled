@@ -161,7 +161,7 @@ exports.BattleScripts = {
 			},
 			'Agatha': {
 				species: 'Gengar',
-				ability: 'Levitate',
+				ability: 'Cursed Body',
 				item: 'Focus Sash',
 				gender: 'F',
 				moves: ['shadowball', 'sludgewave', 'dazzlinggleam'],
@@ -288,7 +288,7 @@ exports.BattleScripts = {
 			},
 			'Morty': {
 				species: 'Gengar',
-				ability: 'Levitate',
+				ability: 'Cursed Body',
 				item: 'Life Orb',
 				gender: 'M',
 				moves: ['sludgewave', 'dazzlinggleam', 'psychic'],

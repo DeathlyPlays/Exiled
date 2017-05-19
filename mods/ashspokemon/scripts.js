@@ -595,7 +595,7 @@ exports.BattleScripts = {
 			},
 			'Gigalith': {
 				species: 'Gigalith',
-				ability: 'Sturdy',
+				ability: 'Sand Stream',
 				item: 'Assault Vest',
 				moves: ['return', 'earthquake', 'ironhead'],
 				signatureMove: 'Stone Edge',

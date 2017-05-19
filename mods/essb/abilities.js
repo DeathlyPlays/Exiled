@@ -1365,5 +1365,9 @@ exports.BattleAbilities = {
 		onModifyDef: function (def) {
 			return this.chainModify(2);
 		},
+		//ignores abilities
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
+		},
 	},
 };

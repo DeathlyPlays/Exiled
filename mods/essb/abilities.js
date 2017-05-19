@@ -350,6 +350,14 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	//flufi
+	"thewaggling": {
+		id: "thewaggling",
+		name: "The Waggling",
+		onStart: function (pokemon) {
+			this.useMove("Metronome", pokemon);
+		},
+	},
 	//astralwobz
 	"wobzdoezjobz": {
 		id: "wobzdoezjobz",

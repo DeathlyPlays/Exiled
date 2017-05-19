@@ -1837,7 +1837,7 @@ exports.Formats = [
 					this.add('c| Almighty Judgment|You Have Been Judged!');
 				}
 				if (name === 'echosierra') {
-					this.add('c| EchoSierra|let the bodies hit the floor');
+					this.add('c| EchoSierra|dasWRIGHT.jpg');
 				}
 			}
 		},

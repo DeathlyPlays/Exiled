@@ -144,6 +144,7 @@ exports.BattleAbilities = {
 	"3bawlky5u": {
 		id: "3bawlky5u",
 		name: "3Bawlky5U",
+		isUnbreakable: true,
 		//prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Status') {

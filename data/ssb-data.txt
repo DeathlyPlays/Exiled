@@ -34,7 +34,7 @@ Ability: The Waggling
 	- Uses Metronome upon entry.
 Moves: Cotton Guard, Fleur Cannon, Volt Switch
 Special Move: Fluff Blast
-        - Normal Type, Special, 80 BP, 100% Accuracy
+    - Normal Type, Special, 80 BP, 100% Accuracy
 	- Raises Defense and Speed by 1 stage.
 Notes: Luck Based Staffmon. Has an item, move, and ability built for
 constantly switching and gaining more switch-in metronomes.
@@ -73,7 +73,7 @@ Jigglykong
 EVs: 252 HP / 100 Def / 60 SpA / 96 SpD
 Bold Nature
 Ability: 3Bawlky5U
-    - Prankster + Regenerator + Magic Bounce + Magic Guard + Natural Cure + Unaware
+    - Prankster + Regenerator + Magic Bounce + Magic Guard + Natural Cure + Unaware + unbreakable.
 Moves: Hex, Recover, Toxic
 Special Move: Plasma Blast
     - Normal type + Electric Effectiveness + 20% chance to burn, freeze, or paralyze + 120 BP + 100% accuracy.
@@ -259,7 +259,9 @@ EVs: 252 SpA / 252 Spe / 4 HP
 Modest Nature
 Ability: Magma Overdrive
 Desolate Land + Adaptability + Tinted Lens; If hit by a Fire Move, it Special Attack raises by 1 stage.
-Moves: Fiery Dance, Moongeist Beam, Energy Ball
+Moves: Moongeist Beam, Secret Sword
+Modified Move: Fast Flame
+    - 85 BP, +2 priority Blue Flare
 Special Move: Solar Eruption
 	- Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage.
 Notes: Fast Special Sweeper.
@@ -267,13 +269,16 @@ Rank: B.
 
 Letter W
 (Scizor-Mega)
+    - Bug/Electric type
 @ Manna
     - The user recovers 1/16 of its health every turn, and gets a boost in a random stat (except accuracy and evasion).
 EVs: 252 Atk / 252 Spe / 4 SpD
 Jolly Nature
 Ability: Heavenly Guard
     - Magic Guard and Filter
-Moves: Sunsteel Strike, Precipice Blades, Knock Off
+Moves: Precipice Blades, Knock Off
+Modified Move: Sunsteel Shock
+    - Electric type Sunsteel Strike
 Special Move: Insect Plague
     - 80 BP, Physical, Bug, Makes Contact, Ignores Evasion, Ignores Defense boosts.
 Notes: Physical Attacker that gets boosts every turn.

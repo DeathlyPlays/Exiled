@@ -1420,7 +1420,7 @@ exports.BattleAbilities = {
 				if (foeactive[i].volatiles['substitute']) {
 					this.add('-immune', foeactive[i], '[msg]');
 				} else {
-					this.boost({atk: -2, spe: -2});
+					this.boost({atk: 2, spe: 2});
 				}
 			}
 		},

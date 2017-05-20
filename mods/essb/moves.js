@@ -92,6 +92,7 @@ exports.BattleMovedex = {
 		self: {
 			boosts: {
 				def: 1,
+				spd: 1,
 				spe: 1,
 			},
 		},
@@ -109,8 +110,8 @@ exports.BattleMovedex = {
 		pp: 10,
 		accuracy: 100,
 		target: "normal",
-		type: "Normal",
-		zMovePower: 130,
+		type: "Steel",
+		zMovePower: 125,
 		contestType: "Cute",
 	},
 	//cieltsnow

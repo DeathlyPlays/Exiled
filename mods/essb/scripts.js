@@ -172,21 +172,6 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"@Letter W": {
-				species: "Scizor-Mega",
-				ability: "Heavenly Guard",
-				item: "Manna",
-				gender: "M",
-				moves: ['sunsteelstrike', 'knockoff', 'precipiceblades'],
-				baseSignatureMove: "insectplague",
-				signatureMove: "Insect Plague",
-				evs: {
-					spe: 252,
-					atk: 252,
-					spd: 4,
-				},
-				nature: "Jolly",
-			},
 			"@Perison": {
 				species: "Xerneas",
 				ability: "Adaptability",
@@ -208,7 +193,7 @@ exports.BattleScripts = {
 				ability: "Magma Overdrive",
 				item: "Life Orb",
 				gender: "M",
-				moves: ['fierydance', 'moongeistbeam', 'energyball'],
+				moves: ['secretsword', 'moongeistbeam', 'blueflare'],
 				baseSignatureMove: "solareruption",
 				signatureMove: "Solar Eruption",
 				evs: {
@@ -219,6 +204,22 @@ exports.BattleScripts = {
 				nature: "Modest",
 			},
 			//Drivers
+			"%Letter W": {
+				species: "Scizor-Mega",
+				ability: "Heavenly Guard",
+				item: "Manna",
+				gender: "M",
+				moves: ['sunsteelstrike', 'knockoff', 'precipiceblades'],
+				baseSignatureMove: "insectplague",
+				signatureMove: "Insect Plague",
+				evs: {
+					spe: 248,
+					atk: 48,
+					def: 204,
+					spd: 8,
+				},
+				nature: "Adamant",
+			},
 			"%Wobbleleez": {
 				species: "Musharna",
 				ability: "WobzDoezJobz",

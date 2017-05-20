@@ -862,25 +862,24 @@ exports.BattleMovedex = {
 		isZ: "thekidz",
 	},
 	//VXN
-	"psychocrusher": {
+	"insectplague": {
 		accuracy: 100,
 		basePower: 120,
 		category: "Physical",
-		id: "psychocrusher",
-		name: "Psycho Crusher",
+		id: "insectplague",
+		name: "Insect Plague",
 		pp: 10,
-		priority: 0,
+		priority: 1,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Darkest Lariat", target);
+			this.add('-anim', source, "Attack Order", target);
 		},
 		ignoreEvasion: true,
 		ignoreDefensive: true,
-		ignoreImmunity: {'Psychic': true},
 		secondary: false,
 		target: "normal",
-		type: "Psychic",
+		type: "Bug",
 	},
 	//HoeenHero
 	"scripting": {

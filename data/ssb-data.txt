@@ -271,7 +271,7 @@ Ability: Heavenly Guard
     - Magic Guard and Filter
 Moves: Sunsteel Strike, Precipice Blades, Knock Off
 Special Move: Insect Plague
-    - 120 BP, Physical, Bug, Makes Contact, Ignores Evasion, Ignores Defense boosts, Calculates damage with a reverse type chart.
+    - 120 BP, Physical, Bug, Makes Contact, Ignores Evasion, Ignores Defense boosts, Calculates damage with a reverse type chart. 1 Priority.
 Notes: Physical Attacker that gets boosts every turn.
 Rank: A.
 

@@ -86,57 +86,32 @@ exports.BattleMovedex = {
 		type: "Normal",
 	},
 	//flufi
-	"hydraulicblast": {
-		id: "hydraulicblast",
-		name: "Hydraulic Blast",
-		flags: {
-			protect: 1,
-			mirror: 1,
+	"fluffblast": {
+		id: "fluffblast",
+		name: "Fluff Blast",
+		self: {
+			boosts: {
+				def: 1,
+				spe: 1,
+			},
 		},
 		secondary: false,
 		category: "Special",
 		onHit: function (target, source, move) {
-			this.add('c|%flufi|Too much water');
+			this.add('c|%flufi|Suffocate on my fluff!');
 		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Water Pulse", target);
-		},
-		basePower: 100,
-		pp: 15,
-		accuracy: 90,
-		target: "normal",
-		type: "Water",
-		zMovePower: 135,
-		contestType: "Cool",
-	},
-	//flufi
-	"oceanicsong": {
-		id: "oceanicsong",
-		name: "Oceanic Song",
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		secondary: false,
-		status: 'slp',
-		category: "Special",
-		onHit: function (target, source, move) {
-			this.add('c|%flufi|ToOO MuCCH waATeR!1!!!!11!1!!');
-			this.add('c|~Insist|More like too much edge.....');
-		},
-		isZ: "hydriumz",
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Sing", target);
+			this.add('-anim', source, "Spike Cannon", target);
 		},
-		basePower: 135,
-		pp: 0.625,
+		basePower: 80,
+		pp: 10,
 		accuracy: 100,
 		target: "normal",
-		type: "Water",
-		zMovePower: 200,
-		contestType: "Cool",
+		type: "Normal",
+		zMovePower: 130,
+		contestType: "Cute",
 	},
 	//cieltsnow
 	"pimpslap": {

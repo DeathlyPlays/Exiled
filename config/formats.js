@@ -1696,9 +1696,9 @@ exports.Formats = [
 				this.add('c| AB Starfox|Hello, just here to clean up');
 			}
 			if (name === 'flufi') {
-				this.add('c|%flufi|Howdy feelsfdra');
-				this.add('-start', pokemon, 'typechange', 'Water/Electric');
-				pokemon.types = ["Water", "Electric"];
+				this.add('c|%flufi|Howdy');
+				this.add('-start', pokemon, 'typechange', 'Fairy/Steel');
+				pokemon.types = ["Fairy", "Steel"];
 			}
 			if (name === 'hoeenhero') {
 				this.add('c| HoeenHero|Do I have to? I\'m in the middle of programming.');

@@ -28,13 +28,17 @@ Rank: B.
 flufi
 (Altaria-Mega)
 @ Eject Button
-EVs: 252 HP / 108 SpA / 144 SpD
+EVs: 252 HP / 128 SpA / 128 SpD
 Modest Nature
 Ability: The Waggling
 	- Uses Metronome upon entry.
-Moves: Fleur Cannon, Draco Meteor, Volt Switch, Cotton Guard
-Notes: Luck Based Staffmon.
-Rank: N/A.
+Moves: Cotton Guard, Fleur Cannon, Volt Switch
+Special Move: Fluff Blast
+        - Normal Type, Special, 80 BP, 100% Accuracy
+	- Raises Defense and Speed by 1 stage.
+Notes: Luck Based Staffmon. Has an item, move, and ability built for
+constantly switching and gaining more switch-in metronomes. 
+Rank: C.
 
 Wobbleleez
 (Musharna)

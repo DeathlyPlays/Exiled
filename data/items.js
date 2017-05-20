@@ -245,6 +245,20 @@ exports.BattleItems = {
 		gen: 3,
 		desc: "Raises holder's Sp. Def by 1 stage when at 1/4 max HP or less. Single use.",
 	},
+	"arbokite": {
+		id: "arbokite",
+		name: "Arbokite",
+		spritenum: -246,
+		megaStone: "Arbok-Mega",
+		megaEvolves: "Arbok",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -1001,
+		gen: 0,
+		desc: "If holder is a Arbok, this item allows it to Mega Evolve in battle.",
+	},
 	"armorfossil": {
 		id: "armorfossil",
 		name: "Armor Fossil",
@@ -4716,6 +4730,20 @@ exports.BattleItems = {
 		num: 769,
 		gen: 6,
 		desc: "If holder is a Salamence, this item allows it to Mega Evolve in battle.",
+	},
+	"sevipite": {
+		id: "sevipite",
+		name: "Sevipite",
+		spritenum: -248,
+		megaStone: "Seviper-Mega",
+		megaEvolves: "Seviper",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -1000,
+		gen: 0,
+		desc: "If holder is a Seviper, this item allows it to Mega Evolve in battle.",
 	},
 	"sceptilite": {
 		id: "sceptilite",

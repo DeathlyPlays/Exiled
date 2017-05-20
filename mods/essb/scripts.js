@@ -317,9 +317,9 @@ exports.BattleScripts = {
 				item: "Flygonite",
 				moves: ['flamethrower', 'earthpower', 'dragonpulse'],
 				baseSignatureMove: "itsmytimenow",
-				signatureMove: "It's My Time Now!",
+				signatureMove: "It's My Time Now",
 				evs: {
-					atk: 252,
+					spa: 252,
 					spe: 252,
 					spd: 4,
 				},

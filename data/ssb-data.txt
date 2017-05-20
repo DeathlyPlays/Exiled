@@ -327,7 +327,7 @@ Renfur
 (Flygon)
 @ Flygonite
 EVs: 252 SpA / 252 Spe / 4 SpD
-Timid Nature
+Mild Nature
 Ability: DesertDragon
     - If this Pokemon KO's its target, its Special Attack, and Speed is boosted by two stages.
 Moves: Dragon Pulse, Flamethrower, Earth Power

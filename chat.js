@@ -603,7 +603,7 @@ class CommandContext {
 		this.broadcasting = true;
 
 		return true;
-}
+	}
 	canTalk(message, room, targetUser) {
 		if (room === undefined) room = this.room;
 		if (targetUser === undefined && this.pmTarget) {

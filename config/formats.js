@@ -1751,7 +1751,7 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Ground/Water');
 				pokemon.types = ["Ground", "Water"];
 			}
-				if (name === 'letterw' && !pokemon.illusion) {
+			if (name === 'letterw' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Bug/Electric');
 				pokemon.types = ["Bug", "Electric"];
 			}

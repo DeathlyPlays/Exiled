@@ -4261,7 +4261,7 @@ exports.BattleAbilities = {
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.type === 'Fire') {
-				this.debug('Steelworker boost');
+				this.debug('Macrocosm boost');
 				return this.chainModify(1.5);
 			}
 		},
@@ -4275,7 +4275,7 @@ exports.BattleAbilities = {
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.type === 'Fairy') {
-				this.debug('Steelworker boost');
+				this.debug('Microcosm boost');
 				return this.chainModify(1.5);
 			}
 		},

@@ -1361,7 +1361,7 @@ exports.BattleMovedex = {
 	},
 	"itsmytimenow": {
 		id: "itsmytimenow",
-		name: "It's My Time Now!",
+		name: "It's My Time Now",
 		accuracy: 100,
 		basePower: 150,
 		category: "Special",
@@ -1370,7 +1370,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
 		secondary: false,
 		target: "allAdjacent",
-		type: "normal",
+		type: "Bug",
 		zMovePower: 200,
 		contestType: "Tough",
 	},
@@ -1688,7 +1688,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Swords Dance", source);
 			this.add('-anim', source, "Sacred Sword", target);
 		},
-		target: "Normal",
+		target: "normal",
 		type: "Steel",
 	},
 };

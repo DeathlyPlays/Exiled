@@ -1412,18 +1412,17 @@ exports.BattleAbilities = {
 	},
 	//Stabby the Krabby
 	"readytostab": {
-    	id: "readytostab",
+		id: "readytostab",
 		name: "Ready to Stab",
 		onStart: function (pokemon) {
 			let foeactive = pokemon.side.foe.active;
-			let activated = false;
 			for (let i = 0; i < foeactive.length; i++) {
-			if (foeactive[i].volatiles['substitute']) {
+				if (foeactive[i].volatiles['substitute']) {
 					this.add('-immune', foeactive[i], '[msg]');
 				} else {
-					this.boost({atk: -2,spe: -2});
+					this.boost({atk: -2, spe: -2});
 				}
 			}
 		},
-    },
+	},
 };

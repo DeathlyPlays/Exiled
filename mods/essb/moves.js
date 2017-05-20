@@ -1359,29 +1359,20 @@ exports.BattleMovedex = {
 		zMovePower: 190,
 		contestType: "Cool",
 	},
-	"outripper": {
+	"itsmytimenow": {
+		id: "itsmytimenow",
+		name: "It's My Time Now!",
 		accuracy: 100,
 		basePower: 150,
-		category: "Physical",
-		id: "outripper",
-		isViable: true,
-		name: "Outripper",
+		category: "Special",
 		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		self: {
-			volatileStatus: 'lockedmove',
-		},
-		onAfterMove: function (pokemon) {
-			if (pokemon.volatiles['lockedmove'] && pokemon.volatiles['lockedmove'].duration === 1) {
-				pokemon.removeVolatile('lockedmove');
-			}
-		},
+		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
 		secondary: false,
-		target: "randomNormal",
-		type: "Dragon",
-		zMovePower: 190,
-		contestType: "Cool",
+		target: "allAdjacent",
+		type: "normal",
+		zMovePower: 200,
+		contestType: "Tough",
 	},
 	"cripplinghazards": {
 		id: "cripplinghazards",
@@ -1676,5 +1667,28 @@ exports.BattleMovedex = {
 		type: "Flying",
 		zMovePower: 140,
 		contestType: "Tough",
+	},
+	"stabstab": {
+		category: "Physical",
+		basePower: 100,
+		accuracy: true,
+		desc: 'Stabby\'s Signature move which always hits. Hits Twice.',
+		id: "stabstab",
+		isNonstandard: true,
+		name: "Stab Stab",
+		secondary: {
+			chance: 25,
+			volatileStatus: 'flinch',
+		},
+		pp: 5,
+		priority: 2,
+		multihit: [2, 2],
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Swords Dance", source);
+			this.add('-anim', source, "Sacred Sword", target);
+		},
+		target: "Normal",
+		type: "Steel",
 	},
 };

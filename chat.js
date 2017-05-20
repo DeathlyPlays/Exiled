@@ -389,7 +389,7 @@ class CommandContext {
 				message: this.message,
 			});
 			Rooms.global.reportCrash(err);
-			this.sendReply(`|html|<div class="broadcast-red"><b>Pokemon Showdown crashed!</b><br />Don't worry, we\'re working on fixing it.</div>`);
+			this.sendReply(`|html|<div class="broadcast-red"><b>Exiled crashed!</b><br />Don't worry, we\'re working on fixing it.</div>`);
 		}
 		if (result === undefined) result = false;
 
@@ -603,7 +603,7 @@ class CommandContext {
 		this.broadcasting = true;
 
 		return true;
-	}
+}
 	canTalk(message, room, targetUser) {
 		if (room === undefined) room = this.room;
 		if (targetUser === undefined && this.pmTarget) {

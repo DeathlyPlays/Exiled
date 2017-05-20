@@ -141,6 +141,21 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
+			'*Stabby the Krabby': {
+				species: 'Krabby',
+				ability: 'Ready to Stab',
+				item: 'Eviolite',
+				gender: 'M',
+				moves: ['Crabhammer', 'Swords Dance', 'Knock Off'],
+				baseSignatureMove: "stabstab",
+				signatureMove: 'Stab Stab',
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 6,
+				},
+				nature: 'Adamant',
+			},
 			"*Princess Teddiursa": {
 				species: "Ninetales-Alola",
 				ability: "prfmlmao",
@@ -299,16 +314,16 @@ exports.BattleScripts = {
 			"+Renfur": {
 				species: "Flygon",
 				ability: "DesertDragon",
-				item: "Focus Sash",
-				moves: ['earthquake', 'dragonclaw', 'stoneedge'],
-				baseSignatureMove: "outripper",
-				signatureMove: "Outripper",
+				item: "Flygonite",
+				moves: ['flamethrower', 'earthpower', 'dragonpulse'],
+				baseSignatureMove: "itsmytimenow",
+				signatureMove: "It's My Time Now!",
 				evs: {
 					atk: 252,
 					spe: 252,
 					spd: 4,
 				},
-				nature: "Jolly",
+				nature: "Mild",
 			},
 			"+Kevso": {
 				species: "Deoxys-Defense",

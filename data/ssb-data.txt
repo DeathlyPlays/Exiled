@@ -325,16 +325,16 @@ Rank: B.
 
 Renfur
 (Flygon)
-@ Focus Sash
-EVs: 252 Atk / 252 Spe / 4 SpD
-Jolly Nature
+@ Flygonite
+EVs: 252 SpA / 252 Spe / 4 SpD
+Timid Nature
 Ability: DesertDragon
-    - If this Pokemon KO's its target, its Attack and Speed is boosted by two stages.
-Moves: Dragon Claw, Earthquake, Stone Edge
-Special Move: Outripper
-    - Essentially a 150 BP Outrage.
-Notes: Fast Sashed Physical Sweeper.
-Rank: B.
+    - If this Pokemon KO's its target, its Special Attack, and Speed is boosted by two stages.
+Moves: Dragon Pulse, Flamethrower, Earth Power
+Special Move: It's My Time Now!
+    - Essentially a 150 BP Boomburst, just has the bug typing.
+Notes: Fast Special Attacker.
+Rank: A.
 
 Kevso
 (Deoxys-D)
@@ -443,4 +443,17 @@ Moves: Close Combat, Extreme Speed, Morning Sun
 Special Move: Horrific Roasts
 	- Fire type, Summons the sun, 150 BP, 33% recoil, 30% chance to burn, Defrosts user if frozen.
 Notes: Hard Hitting Physical Attacker.
+Rank: N/A.
+
+Stabby the Krabby
+(Stabby)
+@ Eviolite
+EVs: 252 Atk / 252 Spe / 4 HP
+Adamant Nature
+Ability: Ready to Stab
+    - Lowers target's Attack and Speed by 2 stages (like a better Intimidate) upon entry.
+Moves: Crabhammer, Knock Off, Swords Dance
+Signature Move: Stab Stab
+    - Stabby's Signature move which always hits, Hits Twice, 100 BP, +2 priority, 25% chance to flinch.
+Notes: FLINCH HAX.
 Rank: N/A.

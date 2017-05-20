@@ -1686,8 +1686,8 @@ exports.Formats = [
 			if (name === 'insist') {
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
-			if (name === 'vxn') {
-				this.add('c|@VXN|Lets get this over with...');
+			if (name === 'letterw') {
+				this.add('c| Letter W|Lets get this over with...');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1751,6 +1751,31 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Ground/Water');
 				pokemon.types = ["Ground", "Water"];
 			}
+				if (name === 'letterw' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Bug/Electric');
+				pokemon.types = ["Bug", "Electric"];
+			}
+		},
+		// Code for use specific moves
+		onModifyMove: function (move, pokemon) {
+			let name = toId(pokemon.illusion ? pokemon.illusion.name : pokemon.name);
+			if (move.id === 'sunsteelstrike' && name === 'letterw') {
+				move.name = 'Sunshock Strike';
+				move.type = 'Electric';
+				move.onTryHit = function (target, source, move) {
+					this.attrLastMove('[still]');
+					this.add('-anim', source, "Stoked Sparksurfer", target);
+				};
+			}
+			if (move.id === 'blueflare' && name === 'chandie') {
+				move.name = 'Fast Flame';
+				move.basePower = 85;
+				move.priority = 2;
+				move.onTryHit = function (target, source, move) {
+					this.attrLastMove('[still]');
+					this.add('-anim', source, "Flame Burst", target);
+				};
+			}
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {
@@ -1788,7 +1813,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'letterw') {
-				this.add('c|@Letter W|Why do i always get blamed for everything...');
+				this.add('c| Letter W|Why do i always get blamed for everything...');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -2121,7 +2146,7 @@ exports.Formats = [
 		],
 		mod: "slowtown",
 		ruleset: ['[Gen 7] OU'],
-		banlist: ['Sablenite', 'Baton Pass'],
+		banlist: ['Sablenite', 'Baton Pass', 'Snorlax'],
 		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite'],
 		onBegin: function () {
 			this.trickRoom = ["Trick Room"];

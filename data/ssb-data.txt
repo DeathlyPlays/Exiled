@@ -37,7 +37,7 @@ Special Move: Fluff Blast
         - Normal Type, Special, 80 BP, 100% Accuracy
 	- Raises Defense and Speed by 1 stage.
 Notes: Luck Based Staffmon. Has an item, move, and ability built for
-constantly switching and gaining more switch-in metronomes. 
+constantly switching and gaining more switch-in metronomes.
 Rank: C.
 
 Wobbleleez
@@ -157,7 +157,7 @@ Ability: Roarplaying
 Moves: Fire Blast, Blizzard, Boomburst
 Special Move: Oblivion Banisher
 	- Special, 120 BP, Ghost type, Recharges after usage, Boosts all user's stats except accuracy and evasion.
-Notes: Fast Physical Sweeper.
+Notes: Fast Special Sweeper.
 Rank: A.
 
 TheGodOfPie
@@ -266,7 +266,7 @@ Notes: Fast Special Sweeper.
 Rank: B.
 
 Letter W
-(Scizor-mega)
+(Scizor-Mega)
 @ Manna
     - The user recovers 1/16 of its health every turn, and gets a boost in a random stat (except accuracy and evasion).
 EVs: 252 Atk / 252 Spe / 4 SpD
@@ -275,7 +275,7 @@ Ability: Heavenly Guard
     - Magic Guard and Filter
 Moves: Sunsteel Strike, Precipice Blades, Knock Off
 Special Move: Insect Plague
-    - 120 BP, Physical, Bug, Makes Contact, Ignores Evasion, Ignores Defense boosts, Calculates damage with a reverse type chart. 1 Priority.
+    - 80 BP, Physical, Bug, Makes Contact, Ignores Evasion, Ignores Defense boosts.
 Notes: Physical Attacker that gets boosts every turn.
 Rank: A.
 

@@ -38597,6 +38597,7 @@ exports.BattleLearnsets = {
 		toxic: ["7M", "6M", "5M", "4M"],
 		trick: ["6T", "5T", "4T"],
 		willowisp: ["7M", "6M", "5M", "4M"],
+		aeroblast: ["7L43", "6L43", "6S5", "6S6", "5L43", "4L43", "4S2", "4S3", "3L77"],
 	}},
 	buneary: {learnset: {
 		afteryou: ["7L43", "6T", "6L43", "5T", "5L43"],
@@ -55106,7 +55107,7 @@ exports.BattleLearnsets = {
 		skillswap: ["7L40", "6T", "6L40"],
 		sleeptalk: ["7M", "6M"],
 		smackdown: ["7M", "7L12", "6M", "6L12"],
-		snore: ["6T"],
+		minigeomancy: ["6T"],
 		stealthrock: ["7L21", "6T", "6L21"],
 		stoneedge: ["7M", "7L49", "6M", "6L49"],
 		substitute: ["7M", "6M"],

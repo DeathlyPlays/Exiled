@@ -839,12 +839,12 @@ exports.BattleMovedex = {
 	//VXN
 	"insectplague": {
 		accuracy: 100,
-		basePower: 120,
+		basePower: 80,
 		category: "Physical",
 		id: "insectplague",
 		name: "Insect Plague",
 		pp: 10,
-		priority: 1,
+		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');

@@ -6804,34 +6804,6 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Pachirisu, this item allows it to Mega Evolve in battle.",
 	},
-	"magmorite": {
-		id: "magmorite",
-		name: "Magmorite",
-		spritenum: -243,
-		megaStone: "Magmortar-Mega",
-		megaEvolves: "Magmortar",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: -118,
-		gen: 0,
-		desc: "If holder is a Magmortar, this item allows it to Mega Evolve in battle.",
-	},
-	"electivite": {
-		id: "electivite",
-		name: "Electivite",
-		spritenum: -243,
-		megaStone: "Electivire-Mega",
-		megaEvolves: "Electivire",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: -118,
-		gen: 0,
-		desc: "If holder is a Electivire, this item allows it to Mega Evolve in battle.",
-	},
 	"zangoosite": {
 		id: "zangoosite",
 		name: "Zangoosite",
@@ -6887,5 +6859,19 @@ exports.BattleItems = {
 		num: -118,
 		gen: 0,
 		desc: "If holder is a Chandelure, this item allows it to Mega Evolve in battle.",
+	},
+	"grumpigite": {
+		id: "grumpigite",
+		name: "Grumpigite",
+		spritenum: -243,
+		megaStone: "Grumpig-Mega",
+		megaEvolves: "Grumpig",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Grumpig, this item allows it to Mega Evolve in battle.",
 	},
 };

@@ -3826,6 +3826,25 @@ exports.BattleAbilities = {
 		rating: 1.5,
 		num: 127,
 	},
+	"venomousfangs": {
+		shortDesc: "This Pokemon's bite moves have a 50% chance of badly poisoning.",
+		// upokecenter says this is implemented as an added secondary effect
+		onModifyMove: function (move) {
+			if (!move || !move.flags['bite']) return;
+			if (!move.secondaries) {
+				move.secondaries = [];
+			}
+			move.secondaries.push({
+				chance: 50,
+				status: 'tox',
+				ability: this.getAbility('venomousfangs'),
+			});
+		},
+		id: "venomousfangs",
+		name: "Venomous Fangs",
+		rating: 2,
+		num: 10000,
+	},
 	"victorystar": {
 		shortDesc: "This Pokemon and its allies' moves have their accuracy multiplied by 1.1.",
 		onAllyModifyMove: function (move) {

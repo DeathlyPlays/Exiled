@@ -156,21 +156,6 @@ exports.BattleScripts = {
 				},
 				nature: 'Adamant',
 			},
-			"*Princess Teddiursa": {
-				species: "Ninetales-Alola",
-				ability: "prfmlmao",
-				item: "Life Orb",
-				gender: "F",
-				moves: ['boomburst', 'psychic', 'earthpower'],
-				baseSignatureMove: "prfmador",
-				signatureMove: "prfmador",
-				evs: {
-					spa: 252,
-					spe: 252,
-					spd: 4,
-				},
-				nature: "Timid",
-			},
 			//Moderators
 			"@C733937 123": {
 				species: "Gengar-Mega",
@@ -340,6 +325,21 @@ exports.BattleScripts = {
 				},
 				nature: "Bold",
 			},
+			"+EchoSierra": {
+				species: "Swellow",
+				ability: "No Guts, No Glory",
+				item: "Toxic Orb",
+				gender: "F",
+				moves: ['bravebird', 'doubleedge', 'protect'],
+				baseSignatureMove: "kamikaze",
+				signatureMove: "Kamikaze",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Adamant",
+			},
 			//Regs
 			" UB-01 Symbi0nt": {
 				species: "Mawile-Mega",
@@ -478,21 +478,6 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			" EchoSierra": {
-				species: "Swellow",
-				ability: "No Guts, No Glory",
-				item: "Toxic Orb",
-				gender: "F",
-				moves: ['bravebird', 'doubleedge', 'protect'],
-				baseSignatureMove: "kamikaze",
-				signatureMove: "Kamikaze",
-				evs: {
-					atk: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Adamant",
-			},
 			" 007Nilo": {
 				species: "Zoroark",
 				ability: "Master of Illusions",
@@ -538,6 +523,21 @@ exports.BattleScripts = {
 					hp: 4,
 				},
 				nature: "Adamant",
+			},
+			" Princess Teddiursa": {
+				species: "Ninetales-Alola",
+				ability: "prfmlmao",
+				item: "Life Orb",
+				gender: "F",
+				moves: ['boomburst', 'psychic', 'earthpower'],
+				baseSignatureMove: "prfmador",
+				signatureMove: "prfmador",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Timid",
 			},
 		};
 		// Generate the team randomly.

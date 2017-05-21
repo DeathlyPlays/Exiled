@@ -1657,7 +1657,7 @@ exports.BattleMovedex = {
 		onTryHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Sky Attack", target);
-			this.add('c| EchoSierra|FUUUUUUUUUUUUUUUUUUUUU');
+			this.add('c|+EchoSierra|FUUUUUUUUUUUUUUUUUUUUU');
 		},
 		onEffectiveness: function (typeMod, type) {
 			if (type === 'Steel' || type === 'Rock') return 1;

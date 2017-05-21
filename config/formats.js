@@ -1687,7 +1687,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'letterw') {
-				this.add('c| Letter W|Lets get this over with...');
+				this.add('c| Letter W|Let\'s get this over with...');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1713,7 +1713,7 @@ exports.Formats = [
 				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
 			}
 			if (name === 'echosierra') {
-				this.add('c| EchoSierra|lol fite me irl');
+				this.add('c|+EchoSierra|lol fite me irl');
 			}
 			if (name === 'horrific17') {
 				this.add('c| Horrific17|It seems you\'ve made a __horrific__ mistake');
@@ -1797,7 +1797,7 @@ exports.Formats = [
 				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
 			}
 			if (name === 'echosierra') {
-				this.add('c| EchoSierra|bbl fam');
+				this.add('c|+EchoSierra|bbl fam');
 			}
 		},
 		// Add here salty tears, that is, custom faint phrases.
@@ -1834,7 +1834,7 @@ exports.Formats = [
 				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
 			}
 			if (name === 'echosierra') {
-				this.add('c| EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
+				this.add('c|+EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
 			}
 			if (name === 'horrific17') {
 				this.add('c| Horrific17|I never expected my death to be this... __horrific__');
@@ -1854,7 +1854,7 @@ exports.Formats = [
 					this.add('c| Almighty Judgment|You Have Been Judged!');
 				}
 				if (name === 'echosierra') {
-					this.add('c| EchoSierra|dasWRIGHT.jpg');
+					this.add('c|+EchoSierra|dasWRIGHT.jpg');
 				}
 			}
 		},

@@ -10,7 +10,7 @@
 'use strict';
 
 exports.commands = {
-	shrug: function (target, room, user) {
+	shrug: function () {
 		this.parse("¯\\_(ツ)_\/¯");
 	},
 	murder: function (target, room, User) {

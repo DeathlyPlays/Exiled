@@ -58,12 +58,6 @@ exports.commands = {
 		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for Exiled</a>");
 	},
 
-	'!dub': true,
-	dubtrack: 'dub',
-	dub: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://www.dubtrack.fm/join/exiled_147873230374424\">The Official Dubtrack for the Exiled Server</a>");
-	},
 	'!fakemon': true,
 	fakemons: 'fakemon',
 	fakemon: function (target, room, user) {

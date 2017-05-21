@@ -375,7 +375,7 @@ exports.BattleScripts = {
 			},
 			" HoeenHero": {
 				species: "Ludicolo",
-				ability: "Swift Swim",
+				ability: "Programmers Domain",
 				item: "Leftovers",
 				gender: "M",
 				moves: ['scald', 'icebeam', 'gigadrain'],
@@ -386,7 +386,7 @@ exports.BattleScripts = {
 					spe: 252,
 					hp: 4,
 				},
-				nature: "Modest",
+				nature: "Timid",
 			},
 			" Kimisumi": {
 				species: "Gallade-Mega",

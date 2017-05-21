@@ -677,6 +677,20 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If holder is a Camerupt, this item allows it to Mega Evolve in battle.",
 	},
+	"cofagrite": {
+		id: "cofagrite",
+		name: "Cofagrite",
+		spritenum: 588,
+		megaStone: "Cofagrigus-Mega",
+		megaEvolves: "Cofagrigus",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -1003,
+		gen: 7,
+		desc: "If holder is a Cofagrigus, this item allows it to Mega Evolve in battle.",
+	},
 	"cellbattery": {
 		id: "cellbattery",
 		name: "Cell Battery",

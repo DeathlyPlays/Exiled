@@ -876,7 +876,7 @@ exports.BattleMovedex = {
 				spd: 2,
 			},
 		},
-		onHit: function (source) {
+		onHit: function (target, source) {
 			source.setStatus('aquaring');
 		},
 		onPrepareHit: function (target, source) {

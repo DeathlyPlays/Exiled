@@ -10,6 +10,20 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"torch": {
+		id: "torch",
+		name: "Torch",
+		onStart: function (pokemon) {
+			this.add('-ability', pokemon, 'Fire Aura');
+			this.boost({atk: 1, spa: 1, spe: 1});
+		},
+		onAnyTryPrimaryHit: function (target, source, move) {
+			if (target === source || move.category === 'Status') return;
+			if (move.type === 'Fire') {
+				source.addVolatile('aura');
+			}
+		},
+	},
 	"wynaut": {
 		id: "Wynaut",
 		name: "Wynaut",

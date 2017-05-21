@@ -56,6 +56,110 @@ exports.BattleMovedex = {
         },
         type: "Fire",
     },
+    "ignite": {
+        id: "ignite",
+        name: "Ignite",
+        pp: 10,
+        basePower: 20,
+        category: "Special",
+        priority: 1,
+        accuracy: true,
+        flags: {
+            protect: 1,
+            mirror: 1,
+        },
+        secondary: {
+		chance: 100,
+		status: 'brn',
+	},
+        target: "normal",
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Ember", target);
+        },
+        type: "Fire",
+    },
+    "fastclaw": {
+        id: "fastclaw",
+        name: "Fast Claw",
+        pp: 10,
+        basePower: 60,
+        category: "Special",
+        priority: 3,
+        accuracy: true,
+        flags: {
+            protect: 1,
+            mirror: 1,
+        },
+        secondary: {
+		chance: 20,
+		volatileStatus: 'flinch',
+	},
+        target: "normal",
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Quick Attack", target);
+            this.add('-anim', source, "Slash", target);
+        },
+        type: "Normal",
+    },
+    "fieryoutburst": {
+        id: "fieryoutburst",
+        name: "Fiery Outburst",
+        pp: 5,
+        basePower: 135,
+        category: "Physical",
+        priority: 0,
+        accuracy: true,
+        flags: {
+            protect: 1,
+            mirror: 1,
+        },
+        secondary: {
+		chance: 100,
+		self: {
+			boosts: {
+				atk: -1,
+				spa: -1,
+				spe: 1,
+			},
+		},
+	},
+        target: "normal",
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Agility", target);
+            this.add('-anim', source, "Flash", target);
+            this.add('-anim', source, "Flare Blitz", target);
+        },
+        type: "Normal",
+    },
+    "tailswipe": {
+        id: "tailswipe",
+        name: "Tail Swipe",
+        pp: 20,
+        basePower: 50,
+        category: "Physical",
+        priority: -1,
+        accuracy: 90,
+        multihit: [2, 3],
+        self: {
+		boosts: {
+			spd: 1,
+		},
+	},
+        flags: {
+            protect: 1,
+            mirror: 1,
+        },
+        secondary: false,
+        target: "normal",
+        onPrepareHit: function (target, source) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Tail Slap", target);
+        },
+        type: "Normal",
+    },
     "badtime": {
         id: "badtime",
         name: "Bad Time",

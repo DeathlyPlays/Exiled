@@ -1730,6 +1730,28 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			"Agumon": {
+				species: "Charmander",
+				ability: "Torch",
+				item: "Eviolite",
+				moves: ['ignite', 'tailswipe', 'fieryoutburst'],
+				baseSignatureMove: "fastclaw",
+				signatureMove: "fastclaw",
+				evs: {
+					atk: 252,
+					hp: 252,
+					def: 4,
+				},
+				ivs: {
+					hp: 31,
+					atk: 31,
+					def: 31,
+					spa: 0,
+					spd: 31,
+					spe: 31,
+				},
+				nature: "Adamant",
+			},
 		};
 
 		let pool = Object.keys(sets);

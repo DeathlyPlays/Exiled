@@ -1682,7 +1682,7 @@ exports.BattleMovedex = {
 			volatileStatus: 'flinch',
 		},
 		pp: 5,
-		priority: 2,
+		priority: 0,
 		multihit: [2, 2],
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');

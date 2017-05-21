@@ -455,6 +455,6 @@ Ability: Ready to Stab
     - +2 Atk and Speed upon entry.
 Moves: Crabhammer, Knock Off, Swords Dance
 Signature Move: Stab Stab
-    - Stabby's Signature move which always hits, Hits Twice, 100 BP, +2 priority, 25% chance to flinch.
+    - Stabby's Signature move which always hits, Hits Twice, 100 BP, 25% chance to flinch.
 Notes: FLINCH HAX.
 Rank: N/A.

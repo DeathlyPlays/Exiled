@@ -5427,7 +5427,7 @@ exports.BattlePokedex = {
 		baseSpecies: "Grumpig",
 		forme: "Mega",
 		formeLetter: "M",
-		types: ["Dark", "Ice"],
+		types: ["Psychic"],
 		baseStats: {hp: 130, atk: 10, def: 115, spa: 120, spd: 115, spe: 80},
 		abilities: {0: "Psychic Surge"},
 		heightm: 1.2,

@@ -325,7 +325,7 @@ exports.commands = {
 		if (!target) return this.sendReply('/bop needs a target.');
 		if (!this.can('lock', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has bopped ' + target + 'in the face!');
+		room.add(User + ' has bopped ' + target + ' in the face!');
 		targetUser.popup("Get bopped boi");
 	},
 	/*

@@ -1780,8 +1780,8 @@ exports.Formats = [
 			}
 			if (move.id === 'blueflare' && name === 'chandie') {
 				move.name = 'Fast Flame';
-				move.basePower = 85;
-				move.priority = 2;
+				move.basePower === 85;
+				move.priority === 2;
 				move.onTryHit = function (target, source, move) {
 					this.attrLastMove('[still]');
 					this.add('-anim', source, "Flame Burst", target);

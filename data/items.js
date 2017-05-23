@@ -6916,4 +6916,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Grumpig, this item allows it to Mega Evolve in battle.",
 	},
+	"zoruite": {
+		id: "zoruite",
+		name: "Zoruite",
+		spritenum: -243,
+		megaStone: "Zoroark-Mega",
+		megaEvolves: "Zoroark",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Zoroark, this item allows it to Mega Evolve in battle.",
+	},
 };

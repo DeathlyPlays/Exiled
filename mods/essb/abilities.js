@@ -805,13 +805,6 @@ exports.BattleAbilities = {
 				return this.chainModify([0x1333, 0x1000]);
 			},
 		},
-		effect: {
-			duration: 1,
-			onBasePowerPriority: 8,
-			onBasePower: function (basePower, pokemon, target, move) {
-				return this.chainModify([0x1333, 0x1000]);
-			},
-		},
 		//uses topsy turvy upon entry
 		onStart: function (pokemon) {
 			this.useMove('topsyturvy', pokemon);

@@ -147,7 +147,7 @@ exports.commands = {
 		targetUser.popup("The Hammer has been dropped");
 	},
 	rekt: function (target, room, user) {
-		if (!this.runroot()) return;
+		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center><img src="http://i.imgur.com/C26ZRE6.gif" width="600" height="300"</center>');
 	},
 	bombing: function (target, room, User) {
@@ -158,7 +158,7 @@ exports.commands = {
 		targetUser.popup("The bomb has exploded");
 	},
 	noscope: function (target, room, user) {
-		if (!this.runroot()) return;
+		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center><img src=http://stream1.gifsoup.com/view3/20140324/5006332/360-noscope-chicken-o.gif width="600" height="300"</center>');
 	},
 	roflstomp: function (target, room, User) {
@@ -204,7 +204,7 @@ exports.commands = {
 		targetUser.popup('YOU HAVE BEEN FIRED!');
 	},
 	broke: function (target, room, user) {
-		if (!this.runroot()) return;
+		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center><video src="http://r4---sn-ab5l6nzs.googlevideo.com/videoplayback?source=youtube&pl=24&mime=video/webm&ip=68.132.51.87&expire=1456788631&id=o-AHMd8ZLgKPboESCKb60dXCAAV6rjEC9Kof3-2-QQfdB8&keepalive=yes&upn=1M4ZMLLmG0w&key=cms1&fexp=9406852,9408491,9412845,9416126,9416985,9418223,9420452,9422596,9423661,9423662,9424037,9424135,9424772,9425780,9427245,9429055,9429087,9429505&clen=170856526&itag=242&dur=35995.760&signature=34DC47CC23F06F6F70A02FD47DE6DA98EE94D7C1.7185593359F397AC90C9498AD91CB6A09211E9E2&ipbits=0&sver=3&sparams=clen,dur,expire,gir,id,initcwndbps,ip,ipbits,itag,keepalive,lmt,mime,mm,mn,ms,mv,nh,pl,source,upn&lmt=1449590895266333&gir=yes&title=Windows-Error-Remix-10-Hours%20[BollyCine.Net]&redirect_counter=1&req_id=a7b35ef98b4ba3ee&cms_redirect=yes&mm=30&mn=sn-ab5l6nzs&ms=nxu&mt=1456766974&mv=m" controls"play/stop" width="400" height="300"></video></center>');
 	},
 	dunked: function (target, room, user) {
@@ -222,11 +222,11 @@ exports.commands = {
 		targetUser.popup('You have recieved a dank meme (legend of zelda treasure found music plays)');
 	},
 	sans: function (target, room, user) {
-		if (!this.runroot()) return;
+		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center>So I got a question for you.... do you think the worst person.. can change?<br><img src="http://i.imgur.com/DPr9ifK.gif" height="50" width="50"><br>heh alright i have a better question... DO YOU WANNA HAVE A BAD TIME?!<br><br><audio src="https://dl.pushbulletusercontent.com/Jyh0owl5BR8rNmcQjFH9VlrQaDPKWCeT/Megalovania.mp3" controls=""></audio></center>');
 	},
 	trump: function (target, room, user) {
-		if (!this.runroot()) return;
+		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center><img src="http://cdn.buzzlie.com/wp-content/uploads/2015/11/54a07996c8f1c37f77be418079ae352a.jpg" height="300" width="300"><br></center>');
 	},
 	sans2: function (target, room, user) {

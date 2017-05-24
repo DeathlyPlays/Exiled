@@ -6958,4 +6958,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Magearna, this item allows it to Mega Evolve in battle.",
 	},
+	"darmanite": {
+		id: "darmanite",
+		name: "Darmanite",
+		spritenum: 243,
+		megaStone: "Darmanitan-Mega",
+		megaEvolves: "Darmanitan",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Darmanitan, this item allows it to Mega Evolve in battle.",
+	},
 };

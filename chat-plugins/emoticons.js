@@ -262,6 +262,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 		'KappaHD': 'http://i.imgur.com/Ux6uqWf.png',
 		'Loominati': 'http://i.imgur.com/Cl2Hybg.png',
 		'HeyGuys': 'http://i.imgur.com/I27iAfx.png',
+		'dogeception': 'https://i.imgur.com/5VI6Akv.gif',
 		'OhMyDog': 'http://i.imgur.com/dDWXmVN.png',
 		'PraiseIt': 'http://i.imgur.com/mIgJsgZ.png',
 		'riPepperonis': 'http://i.imgur.com/HfepYda.png',

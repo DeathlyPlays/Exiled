@@ -6930,4 +6930,32 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Zoroark, this item allows it to Mega Evolve in battle.",
 	},
+	"tangrowthite": {
+		id: "tangrowthite",
+		name: "Tangrowthite",
+		spritenum: -243,
+		megaStone: "Tangrowth-Mega",
+		megaEvolves: "Tangrowth",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Tangrowth, this item allows it to Mega Evolve in battle.",
+	},
+	"magearnite": {
+		id: "magearnite",
+		name: "Magearnite",
+		spritenum: -243,
+		megaStone: "Magearna-Mega",
+		megaEvolves: "Magearna",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Magearna, this item allows it to Mega Evolve in battle.",
+	},
 };

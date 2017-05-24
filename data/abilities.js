@@ -1364,6 +1364,17 @@ exports.BattleAbilities = {
 		rating: 5,
 		num: 37,
 	},
+	"pureheart": {
+		shortDesc: "This Pokemon's Special Attack is doubled. Only for Magearna-Mega.",
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (spa) {
+			return this.chainModify(2);
+		},
+		id: "pureheart",
+		name: "Pure Heart",
+		rating: 5,
+		num: -37,
+	},
 	"hustle": {
 		desc: "This Pokemon's Attack is multiplied by 1.5 and the accuracy of its physical attacks is multiplied by 0.8.",
 		shortDesc: "This Pokemon's Attack is 1.5x and accuracy of its physical attacks is 0.8x.",

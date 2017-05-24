@@ -539,6 +539,21 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
+			" KanekiPlayerBR": {
+				species: "Ninetales",
+				ability: "JOOJ",
+				item: "Kanekinium Z",
+				gender: "M",
+				moves: ['flamethrower', 'psyshock', 'energyball'],
+				baseSignatureMove: "superultraflamethrowerdestroyerofuniverses",
+				signatureMove: "Super Ultra Flamethrower Destroyer of Universes",
+				evs: {
+					spa: 252,
+					hp: 236,
+					spd: 16,
+				},
+				nature: "Modest",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Dex.shuffle(Object.keys(sets));

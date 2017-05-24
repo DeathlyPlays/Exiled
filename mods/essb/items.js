@@ -240,4 +240,16 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is an Arcanine with Horrific Roasts, it can use Horrific Memes.",
 	},
+	"kanekiniumz": {
+		spritenum: 656,
+		onTakeItem: false,
+		id: "kanekiniumz",
+		name: "Kanekinium Z",
+		zMove: "ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS",
+		zMoveFrom: "Super Ultra Flamethrower Destroyer of Universes",
+		zMoveUser: ["Ninetales"],
+		num: -15,
+		gen: -1,
+		desc: "If holder is an Ninetales with Super Ultra Flamethrower Destroyer of Universes, it can use ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS.",
+	},
 };

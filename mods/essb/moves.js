@@ -1692,4 +1692,55 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Steel",
 	},
+	//kaneki
+	"superultraflamethrowerdestroyerofuniverses": {
+		id: "superultraflamethrowerdestroyerofuniverses",
+		name: "Super Ultra Flamethrower Destroyer of Universes",
+		priority: 1,
+		self: {
+			boosts: {
+				spa: 1,
+				spe: 1,
+			},
+		},
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		category: "Special",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Blue Flare", target);
+		},
+		basePower: 100,
+		pp: 15,
+		accuracy: true,
+		target: "normal",
+		type: "Fire",
+		zMovePower: 150,
+		contestType: "Cool",
+	},
+	//Kaneki
+	"ultramegasuperfantasticflamethrowerofthegods": {
+		id: "ultramegasuperfantasticflamethrowerofthegods",
+		name: "ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS",
+		basePower: 150,
+		accuracy: 100,
+		pp: 0.625,
+		secondary: false,
+		category: "Special",
+		isViable: true,
+		isZ: "kanekiniumz",
+		priority: 0,
+		flags: {
+			protect: 1,
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Fire Blast", target);
+		},
+		target: "normal",
+		type: "Fire",
+	},
 };

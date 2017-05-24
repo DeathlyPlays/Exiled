@@ -6972,4 +6972,60 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Darmanitan, this item allows it to Mega Evolve in battle.",
 	},
+	"hydreigonite":{
+		id: "hydreigonite",
+		name: "Hydreigonite",
+		spritenum: -397,
+		megaStone: "Hydreigon-Mega",
+		megaEvolves: "Hydreigon",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -120,
+		gen: 0,
+		desc: "If holder is a Hydreigon, this item allows it to Mega Evolve in battle.",
+	},
+	"kingdrite": {
+		id: "kingdrite",
+		name: "Kingdrite",
+		spritenum: -399,
+		megaStone: "Kingdra-Mega",
+		megaEvolves: "Kingdra",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Kingdra, this item allows it to Mega Evolve in battle.",
+	},
+	"dragalgite": {
+		id: "dragalgite",
+		name: "Dragalgite",
+		spritenum: -400,
+		megaStone: "Dragalge-Mega",
+		megaEvolves: "Dragalge",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Dragalge, this item allows it to Mega Evolve in battle.",
+	},
+	"breloomite": {
+		id: "breloomite",
+		name: "Breloomite",
+		spritenum: -401,
+		megaStone: "Breloom-Mega",
+		megaEvolves: "Breloom",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Breloom, this item allows it to Mega Evolve in battle.",
+	},
 };

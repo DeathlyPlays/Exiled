@@ -1692,6 +1692,12 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Steel",
 	},
+	"ember": {
+		inherit: true,
+		basePower: 85,
+		pp: 10,
+		priority: 2,
+	},
 	//kaneki
 	"superultraflamethrowerdestroyerofuniverses": {
 		id: "superultraflamethrowerdestroyerofuniverses",

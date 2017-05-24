@@ -193,7 +193,7 @@ exports.BattleScripts = {
 				ability: "Magma Overdrive",
 				item: "Life Orb",
 				gender: "M",
-				moves: ['secretsword', 'moongeistbeam', 'blueflare'],
+				moves: ['secretsword', 'moongeistbeam', 'ember'],
 				baseSignatureMove: "solareruption",
 				signatureMove: "Solar Eruption",
 				evs: {

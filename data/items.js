@@ -6986,7 +6986,11 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Hydreigon, this item allows it to Mega Evolve in battle.",
 	},
+<<<<<<< HEAD
 	kingdrite: {
+=======
+	"kingdrite": {
+>>>>>>> 6746603295b017af6fbc663d430a222fe8e8836c
 		id: "kingdrite",
 		name: "Kingdrite",
 		spritenum: -399,
@@ -7000,7 +7004,11 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Kingdra, this item allows it to Mega Evolve in battle.",
 	},
+<<<<<<< HEAD
 	dragalgite: {
+=======
+	"dragalgite": {
+>>>>>>> 6746603295b017af6fbc663d430a222fe8e8836c
 		id: "dragalgite",
 		name: "Dragalgite",
 		spritenum: -400,
@@ -7014,7 +7022,11 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Dragalge, this item allows it to Mega Evolve in battle.",
 	},
+<<<<<<< HEAD
 	breloomite: {
+=======
+	"breloomite": {
+>>>>>>> 6746603295b017af6fbc663d430a222fe8e8836c
 		id: "breloomite",
 		name: "Breloomite",
 		spritenum: -401,

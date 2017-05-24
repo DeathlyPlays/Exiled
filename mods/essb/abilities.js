@@ -1490,6 +1490,7 @@ exports.BattleAbilities = {
 				}
 			}
 			this.clearWeather();
+			pokemon.removeVolatile('flashfire');
 		},
 		//Adaptability
 		onModifyMove: function (move) {
@@ -1504,9 +1505,6 @@ exports.BattleAbilities = {
 				}
 				return null;
 			}
-		},
-		onEnd: function (pokemon) {
-			pokemon.removeVolatile('flashfire');
 		},
 		effect: {
 			noCopy: true, // doesn't get copied by Baton Pass

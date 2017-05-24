@@ -7813,7 +7813,7 @@ exports.BattlePokedex = {
 		evoMove: "AncientPower",
 		eggGroups: ["Grass"],
 	},
-    tangrowthmega: {
+	tangrowthmega: {
 		num: 465,
 		species: "Tangrowth-Mega",
 		baseSpecies: "Tangrowth",

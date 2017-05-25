@@ -7084,4 +7084,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Beartic, this item allows it to Mega Evolve in battle.",
 	},
+	"bewearite": {
+		id: "bewearite",
+		name: "Bewearite",
+		spritenum: -400,
+		megaStone: "Bewear-Mega",
+		megaEvolves: "Bewear",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Bewear, this item allows it to Mega Evolve in battle.",
+	},
 };

@@ -458,3 +458,17 @@ Signature Move: Stab Stab
     - Stabby's Signature move which always hits, Hits Twice, 100 BP, 25% chance to flinch.
 Notes: FLINCH HAX.
 Rank: N/A.
+
+Professor Bulbasaur
+(Bulbasaur)
+Item: @ Bulbasaurium Z
+    - If this pokemon is a bulbasaur with BulbaLord it uses One bulbasaur hoard
+        - One  Bulbasaur Hoard: raises all stats by 2 (except eva and accuracy), Poison move -- accuracy  (cant miss)
+EVs: 252 SpA / 4 HP / 252 Spe
+Ability: Immortality
+    - when come in it brings in stealth rock, 3 layers of spikes, sticky web, 2 toxic spikes, protects it self and uses rapid spin. Also magic bounce and topsy turvy.
+Moves: Leaf Tornado, Blizzard, Boomburst
+Signature Move: BulbaLord
+	- 90 BP, Special, and lowers the target's stats by 1 stage, Poison move, 100% accuracy.
+Nature: Modest
+Notes: N/A.

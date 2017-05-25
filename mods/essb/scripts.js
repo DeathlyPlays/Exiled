@@ -554,6 +554,21 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
+			" ProfessorBulbasaur": {
+				species: "Bulbasaur",
+				ability: "Immortality",
+				item: "Bulbasaurium Z",
+				gender: "M",
+				moves: ['blizzard', 'leaftornado', 'boomburst'],
+				baseSignatureMove: "bulbalord",
+				signatureMove: "Bulba Lord",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Modest",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Dex.shuffle(Object.keys(sets));

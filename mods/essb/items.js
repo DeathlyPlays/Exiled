@@ -252,4 +252,16 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is an Ninetales with Super Ultra Flamethrower Destroyer of Universes, it can use ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS.",
 	},
+	"bulbasauriumz": {
+		spritenum: 656,
+		onTakeItem: false,
+		id: "bulbasauriumz",
+		name: "Bulbasaurium Z",
+		zMove: "One Bulbasaur Horde",
+		zMoveFrom: "Bulba Lord",
+		zMoveUser: ["Bulbasaur"],
+		num: -15,
+		gen: -1,
+		desc: "If holder is an Ninetales with Bulba Lord, it can use One Bulbasaur Horde.",
+	},
 };

@@ -1544,4 +1544,46 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"immortality": {
+		id: "immortality",
+		name: "Originality",
+		//sets up all hazards + uses Rapid Spin & Topsy Turvy + Protect
+		onStart: function (pokemon) {
+			this.useMove('Spikes', pokemon);
+			this.useMove('Spikes', pokemon);
+			this.useMove('Spikes', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+			this.useMove('Stealth Rock', pokemon);
+			this.useMove('Sticky Web', pokemon);
+			this.useMove('Rapid Spin', pokemon);
+			this.useMove('Topsy Turvy', pokemon);
+			this.useMove('Protect', pokemon);
+		},
+		//magic bounce
+		onTryHitPriority: 1,
+		onTryHit: function (target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide: function (target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		effect: {
+			duration: 1,
+		},
+	},
 };

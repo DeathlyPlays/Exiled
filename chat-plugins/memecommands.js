@@ -387,8 +387,6 @@ exports.commands = {
 	},
 	randomsurvey: 'randsurvey',
 	randsurvey: function (target, room, user) {
-		if (!this.runBroadcast()) return false;
-		if (!this.can('survey')) return this.errorReply('Access Denied');
 		let results = [
 			"/survey create What do you want to see added or updated in Exiled?",
 			"/survey create What's your most memorable experience on Exiled?",
@@ -397,8 +395,15 @@ exports.commands = {
 			"/survey create Was Exiled your first Pokemon Showdown side-server?", //5
 			"/survey create Do you like the league system?",
 			"/survey create Do you like the idea of us adding custom megas on Exiled that you can use in regular formats? (OU, UU, Ubers, Etc)",
-			"/survey create What was your worst experience so far on Exiled?", //8
+			"/survey create What was your worst experience so far on Exiled?",
+			"/survey create What's your favorite food?",
+			"/survey create What's your favorite activity on a hot summer day?", //10
+			"/survey create What's your favorite drink",
+			"/survey create What's your favorite color?",
+			"/survey create What's the most embarrassing thing that's ever happened to you in real life?",
+			"/survey create Have you ever been banned/locked on main? (play.pokemonshowdown.com)",
+			"/survey create Do you want to see more events on Exiled?", //15
 		];
-		return this.parse(results[Math.floor(8 * Math.random())]);
+		return this.parse(results[Math.floor(15 * Math.random())]);
 	},
 };

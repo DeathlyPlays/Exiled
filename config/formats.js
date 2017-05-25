@@ -1681,7 +1681,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'letterw') {
-				this.add('c| Letter W|Let\'s get this over with...');
+				this.add('c|@Letter W|Let\'s get this over with...');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1805,7 +1805,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'letterw') {
-				this.add('c| Letter W|Why do i always get blamed for everything...');
+				this.add('c|@Letter W|Why do i always get blamed for everything...');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');

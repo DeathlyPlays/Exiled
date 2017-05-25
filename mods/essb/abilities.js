@@ -1080,7 +1080,7 @@ exports.BattleAbilities = {
 		onStart: function (pokemon, source) {
 			this.useMove('roar', pokemon);
 			this.useMove('focusenergy', pokemon);
-			this.add('c|@Mewth|LEMME HEAR YOU ROARRRRRRRRRRRR');
+			this.add('c|~Mewth|LEMME HEAR YOU ROARRRRRRRRRRRR');
 		},
 	},
 	"energyoverflow": {

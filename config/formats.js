@@ -180,6 +180,14 @@ exports.Formats = [
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod'],
 	},
+	{
+		name: "[Gen 7] Ashmons",
+
+		mod: 'gen7',
+		maxLevel: 50,
+		defaultLevel: 50,
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],
+	},
 
 	// SM Doubles
 	///////////////////////////////////////////////////////////////////

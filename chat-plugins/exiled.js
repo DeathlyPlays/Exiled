@@ -185,6 +185,7 @@ exports.commands = {
 
 		if (!target) return this.sendReply("Usage: /autorank [rank] - Automatically promotes user to the specified rank when they join the room.");
 		if (!this.can('roommod', null, room)) return false;
+		if (room.isPersonal) return this.sendReply('Autorank is not currently a feature in groupchats.');
 		target = target.trim();
 
 		if (target === 'off' && room.autorank) {

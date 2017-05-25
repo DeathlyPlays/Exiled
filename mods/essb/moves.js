@@ -1782,11 +1782,19 @@ exports.BattleMovedex = {
 		contestType: "Cool",
 	},
 	//ProfessorBulbasaur
-	"onemorebulbasaur": {
-		id: "onemorebulbasaur",
-		name: "One More Bulbasaur",
-		basePower: 0,
-		ohko: "always",
+	"onebulbasaurhorde": {
+		id: "onebulbasaurhorde",
+		name: "One Bulbasaur Horde",
+		basePower: 40,
+		self: {
+			boosts: {
+				atk: 2,
+				def: 2,
+				spa: 2,
+				spd: 2,
+				spe: 2,
+			},
+		},
 		accuracy: 100,
 		pp: 0.625,
 		secondary: false,

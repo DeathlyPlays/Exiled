@@ -463,7 +463,7 @@ Professor Bulbasaur
 (Bulbasaur)
 Item: @ Bulbasaurium Z
     - If this pokemon is a bulbasaur with BulbaLord it uses One bulbasaur hoard
-        - One  Bulbasaur Hoard: raises all stats by 2 (except eva and accuracy), Poison move -- accuracy  (cant miss)
+        - One  Bulbasaur Hoard: 40 BP, Special, raises all stats by 2 (except eva and accuracy), Poison move -- accuracy  (cant miss)
 EVs: 252 SpA / 4 HP / 252 Spe
 Ability: Immortality
     - when come in it brings in stealth rock, 3 layers of spikes, sticky web, 2 toxic spikes, protects it self and uses rapid spin. Also magic bounce and topsy turvy.

@@ -326,7 +326,7 @@ Rank: B.
 
 Renfur
 (Flygon)
-@ Flygonite
+@ Life Orb
 EVs: 252 SpA / 252 Spe / 4 SpD
 Mild Nature
 Ability: DesertDragon

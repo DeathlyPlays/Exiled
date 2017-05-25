@@ -48,6 +48,7 @@ let shop = [
 	['Profile Team', 'Allows you to choose which Pokemon you want to be displayed on your /profile. PM Insist, after purchasing it to have it set. (can be denied)', 20],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 25],
 	['Custom Color', 'Changes the color of your name (can be denied)', 25],
+	['POTD', 'Allows you to change the Pokemon of the Day that shows up guaranteed in Random Battles (can be refused, or held off if one is already active)', 25],
 	['Room', 'Buys a chatroom for you to own. (within reason, can be refused).', 30],
 	['Trainer Card', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 40],
 	['Custom Emoticon', 'You provide an image (50x50) to be added as an emote on the server. (Can be refused)', 40],

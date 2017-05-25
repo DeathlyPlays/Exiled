@@ -521,16 +521,6 @@ exports.commands = {
 	},
 	sharthelp: ["/shart [username], [reason] - Kick user from all rooms and ban user's IP address with reason. Requires: @ & ~"],
 
-	unlink: function (target, room, user) {
-		if (!target || !this.can('mute')) return this.parse('/help unlink');
-		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
-		let targetUser = Users.get(target).getLastId();
-		this.add('|unlink|' + targetUser);
-		this.addModCommand(targetUser.name + "'s links were unlinked by " + user.name);
-		targetUser.popup(user.name + " has unlinked all your previous messages.");
-	},
-	unlinkhelp: ["/unlink [username] - Attempts to unlink every link sent by [username]. Requires: % @ & ~"],
-
 	timedgdeclare: function (target, room, user) {
 		if (!target || !this.can('declare')) return this.errorReply("/help timedgdeclare");
 		let parts = target.split(',');

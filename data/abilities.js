@@ -4314,4 +4314,37 @@ exports.BattleAbilities = {
 		rating: 3,
 		num: -200,
 	},
+	"shadowrush": {
+		shortDesc: "The user's Dark-type moves have +1 priority.",
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.type === 'Dark') return priority + 1;
+		},
+		id: "shadowrush",
+		name: "Shadow Rush",
+		rating: 3,
+		num: -201,
+	},
+	"belligerent": {
+		shortDesc: "Scrappy + Tough Claws.",
+		//scrappy
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Fighting'] = true;
+				move.ignoreImmunity['Normal'] = true;
+			}
+		},
+		//toughclaws
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.flags['contact']) {
+				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+		id: "belligerent",
+		name: "Belligerant",
+		rating: 3,
+		num: -202,
+	},
 };

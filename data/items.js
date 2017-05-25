@@ -6958,6 +6958,34 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Magearna, this item allows it to Mega Evolve in battle.",
 	},
+	"pangorite": {
+		id: "pangorite",
+		name: "Pangorite",
+		spritenum: 243,
+		megaStone: "Pangoro-Mega",
+		megaEvolves: "Pangoro",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -123,
+		gen: 0,
+		desc: "If holder is a Pangoro, this item allows it to Mega Evolve in battle.",
+	},
+	"klefkite": {
+		id: "klefkite",
+		name: "Klefkite",
+		spritenum: 243,
+		megaStone: "Klefki-Mega",
+		megaEvolves: "Klefki",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -122,
+		gen: 0,
+		desc: "If holder is a Klefki, this item allows it to Mega Evolve in battle.",
+	},
 	"darmanite": {
 		id: "darmanite",
 		name: "Darmanite",

@@ -41,87 +41,39 @@ function clearRoom(room) {
 }
 
 exports.commands = {
-	globalauth: 'gal',
-	stafflist: 'gal',
-	authlist: 'gal',
-	auth: 'gal',
-	gal: function (target, room, user, connection) {
+	'!authority': true,
+	auth: 'authority',
+	stafflist: 'authority',
+	globalauth: 'authority',
+	authlist: 'authority',
+	authority: function (target, room, user, connection) {
+		if (target) {
+			let targetRoom = Rooms.search(target);
+			let unavailableRoom = targetRoom && targetRoom.checkModjoin(user);
+			if (targetRoom && !unavailableRoom) return this.parse('/roomauth1 ' + target);
+			return this.parse('/userauth ' + target);
+		}
+		let rankLists = {};
 		let ranks = Object.keys(Config.groups);
-		let persons = [];
 		for (let u in Users.usergroups) {
 			let rank = Users.usergroups[u].charAt(0);
-			if (ranks.indexOf(rank) >= 0) {
+			if (rank === ' ') continue;
+			// In case the usergroups.csv file is not proper, we check for the server ranks.
+			if (ranks.includes(rank)) {
 				let name = Users.usergroups[u].substr(1);
-				persons.push({
-					name: name,
-					rank: rank,
-				});
+				if (!rankLists[rank]) rankLists[rank] = [];
+				if (name) rankLists[rank].push(Exiled.nameColor(name, (Users(name) && Users(name).connected)));
 			}
 		}
-		let staff = {
-			"admins": [],
-			"gods": [],
-			"leaders": [],
-			"bots": [],
-			"mods": [],
-			"drivers": [],
-			"voices": [],
-		};
-		persons = persons.sort((a, b) => toId(a.name).localeCompare(toId(b.name))); // No need to return, arrow functions with single lines have an implicit return
-		function nameColor(name) {
-			if (Users.getExact(name) && Users(name).connected) {
-				return '<b><i><font color="' + hashColorWithCustoms(name) + '">' + Chat.escapeHTML(Users.getExact(name).name) + '</font></i></b>';
-			} else {
-				return '<font color="' + hashColorWithCustoms(name) + '">' + Chat.escapeHTML(name) + '</font>';
-			}
-		}
-		for (let j = 0; j < persons.length; j++) {
-			let rank = persons[j].rank;
-			let person = persons[j].name;
-			switch (rank) {
-			case '~':
-				staff['admins'].push(nameColor(person));
-				break;
-			case '☥':
-				staff['gods'].push(nameColor(person));
-				break;
-			case '&':
-				staff['leaders'].push(nameColor(person));
-				break;
-			case '*':
-				staff['bots'].push(nameColor(person));
-				break;
-			case '@':
-				staff['mods'].push(nameColor(person));
-				break;
-			case '%':
-				staff['drivers'].push(nameColor(person));
-				break;
-			case '+':
-				staff['voices'].push(nameColor(person));
-				break;
-			default:
-				continue;
 
-			}
-		}
-		connection.popup('|html|' +
-			'<div style="background-color: Black ; border: 12px double Red ; width: 95%"><center><font color="white"><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="left">Exileds Authority List<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="right"></h3>' +
-			'<br><br><br><br><br><br><b><u>~Administrators (' + staff['admins'].length + ')</u></b>:<br />' + staff['admins'].join(', ') +
-			'<br />' +
-			'<br /><b><u>☥Gods (' + staff['gods'].length + ')</u></b>:<br />' + staff['gods'].join(', ') +
-			'<br />' +
-			'<br /><b><u>&Leaders (' + staff['leaders'].length + ')</u></b>:<br />' + staff['leaders'].join(', ') +
-			'<br />' +
-			'<br /><b><u>*Bots (' + staff['bots'].length + ')</u></b><br />' + staff['bots'].join(', ') +
-			'<br />' +
-			'<br /><b><u>@Moderators (' + staff['mods'].length + ')</u></b>:<br />' + staff['mods'].join(', ') +
-			'<br />' +
-			'<br /><b><u>%Drivers (' + staff['drivers'].length + ')</u></b>:<br />' + staff['drivers'].join(', ') +
-			'<br />' +
-			'<br /><b><u>+Voices (' + staff['voices'].length + ')</u></b>:<br />' + staff['voices'].join(', ') +
-			'<br /><br /><blink>(<b>Bold</b> / <i>Italic</i> = Currently Online)</blink></font></center></div>'
+		let buffer = Object.keys(rankLists).sort((a, b) =>
+			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
+		).map(r =>
+			(Config.groups[r] ? "<b>" + Config.groups[r].name + "s</b> (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
 		);
+
+		if (!buffer.length) return connection.popup("This server has no global authority.");
+		connection.send("|popup||html|" + buffer.join("\n\n"));
 	},
 
 	clearall: function (target, room, user) {

@@ -297,9 +297,10 @@ exports.BattleScripts = {
 				nature: "Jolly",
 			},
 			"+Renfur": {
-				species: "Flygon",
+				species: "Flygon-Mega",
 				ability: "DesertDragon",
-				item: "Flygonite",
+				item: "Life Orb",
+				gender: "M",
 				moves: ['flamethrower', 'earthpower', 'dragonpulse'],
 				baseSignatureMove: "itsmytimenow",
 				signatureMove: "It's My Time Now",

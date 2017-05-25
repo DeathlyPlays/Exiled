@@ -20,11 +20,11 @@ exports.commands = {
 		room.add(User + ' has murdered  ' + target + '!');
 		targetUser.popup("WASTED!");
 	},
-	slap: function (target, room, user) {
+	slap: function (target) {
 		if (!target) return this.sendReply("Slap needs a target.");
 		return this.parse('/me slaps ' + target + ' in the face with a slipper!');
 	},
-	eat: function (target, room, user) {
+	eat: function (target) {
 		if (!target) return this.sendReply("Eat needs a target.");
 		return this.parse('/me eats ' + target + '!');
 	},

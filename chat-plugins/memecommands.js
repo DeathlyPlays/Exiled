@@ -385,4 +385,20 @@ exports.commands = {
 		];
 		return this.sendReplyBox(results[Math.floor(41 * Math.random())]);
 	},
+	randomsurvey: 'randsurvey',
+	randsurvey: function (target, room, user) {
+		if (!this.runBroadcast()) return false;
+		if (!this.can('survey')) return this.errorReply('Access Denied');
+		let results = [
+			"/survey create What do you want to see added or updated in Exiled?",
+			"/survey create What's your most memorable experience on Exiled?",
+			"/survey create How much time do you spend on Exiled daily?",
+			"/survey create What is your favorite custom mechanic on Exiled?",
+			"/survey create Was Exiled your first Pokemon Showdown side-server?", //5
+			"/survey create Do you like the league system?",
+			"/survey create Do you like the idea of us adding custom megas on Exiled that you can use in regular formats? (OU, UU, Ubers, Etc)",
+			"/survey create What was your worst experience so far on Exiled?", //8
+		];
+		return this.parse(results[Math.floor(8 * Math.random())]);
+	},
 };

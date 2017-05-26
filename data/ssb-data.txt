@@ -478,7 +478,7 @@ douglasgamer
 	- Water + Electric type
 @ Life Orb
 Ability: Get Bonded
-	- Heavy Rain, Mold Breaker, Magic Bounce, sets up one layer of Toxic Spikes and one layer of spikes in the opposing field, +1 Spe.
+	- Heavy Rain, Mold Breaker, Magic Bounce, sets up one layer of Toxic Spikes and one layer of spikes in the opposing field, +1 SpA.
 EVs: 4 HP / 252 SpA / 252 Spe
 Modest Nature
 Moves: Scald, Thunder, Ice Beam

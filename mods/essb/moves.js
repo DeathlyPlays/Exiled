@@ -1823,6 +1823,7 @@ exports.BattleMovedex = {
 				evasion: 1,
 			},
 		},
+		multihit: 2,
 		secondary: false,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},

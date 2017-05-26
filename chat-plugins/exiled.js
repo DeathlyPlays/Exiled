@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
+const https = require('https');
 let request = require('request');
 
 const bubbleLetterMap = new Map([
@@ -27,8 +28,6 @@ let amCache = {
 
 let Reports = {};
 
-Exiled.customColors = {};
-
 Exiled.img = function (link, height, width) {
 	if (!link) return '<font color="maroon">ERROR : You must supply a link.</font>';
 	return '<img src="' + link + '"' + (height ? ' height="' + height + '"' : '') + (width ? ' width="' + width + '"' : '') + '/>';
@@ -44,43 +43,6 @@ Exiled.log = function (file, text) {
 	if (!text) return '<font color="maroon">ERROR : No text specified!</font>';
 	fs.appendFile(file, text);
 };
-
-Exiled.messageSeniorStaff = function (message, pmName, from) {
-	pmName = (pmName ? pmName : '~Exiled Server');
-	from = (from ? ' (PM from ' + from + ')' : '');
-	Users.users.forEach(curUser => {
-		if (curUser.group === '~' || curUser.group === '&') {
-			curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message + from);
-		}
-	});
-};
-
-//Daily Rewards System for SpacialGaze by Lord Haji
-Exiled.giveDailyReward = function (userid, user) {
-	if (!user || !userid) return false;
-	userid = toId(userid);
-	if (!Db('DailyBonus').has(userid)) {
-		Db('DailyBonus').set(userid, [1, Date.now()]);
-		return false;
-	}
-	let lastTime = Db('DailyBonus').get(userid)[1];
-	if ((Date.now() - lastTime) < 86400000) return false;
-	if ((Date.now() - lastTime) >= 127800000) Db('DailyBonus').set(userid, [1, Date.now()]);
-	if (Db('DailyBonus').get(userid)[0] === 8) Db('DailyBonus').set(userid, [7, Date.now()]);
-	Economy.writeMoney(userid, Db('DailyBonus').get(userid)[0]);
-	user.send('|popup||wide||html| <center><u><b><font size="3">Exiled Daily Bonus</font></b></u><br>You have been awarded ' + Db('DailyBonus').get(userid)[0] + ' Buck.<br>' + showDailyRewardAni(userid) + '<br>Because you have connected to the server for the past ' + Db('DailyBonus').get(userid)[0] + ' Days.</center>');
-	Db('DailyBonus').set(userid, [(Db('DailyBonus').get(userid)[0] + 1), Date.now()]);
-};
-
-function showDailyRewardAni(userid) {
-	userid = toId(userid);
-	let streak = Db('DailyBonus').get(userid)[0];
-	let output = '';
-	for (let i = 1; i <= streak; i++) {
-		output += "<img src='https://www.mukuru.com/media/img/icons/new_order.png' width='16' height='16'> ";
-	}
-	return output;
-}
 
 let urbanCache;
 try {
@@ -823,5 +785,33 @@ exports.commands = {
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";
 		user.popup(popup);
+	},
+	'!dub': true,
+	dub: 'dubtrack',
+	music: 'dubtrack',
+	radio: 'dubtrack',
+	dubtrackfm: 'dubtrack',
+	dubtrack: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		let nowPlaying = "";
+		let options = {
+			host: 'api.dubtrack.fm',
+			port: 443,
+			path: '/room/exiled_147873230374424',
+			method: 'GET',
+		};
+		https.get(options, res => {
+			let data = '';
+			res.on('data', chunk => {
+				data += chunk;
+			}).on('end', () => {
+				if (data.charAt(0) === '{') {
+					data = JSON.parse(data);
+					if (data['data'] && data['data']['currentSong']) nowPlaying = "<br /><b>Now Playing:</b> " + Chat.escapeHTML(data['data']['currentSong'].name);
+				}
+				this.sendReplyBox('Join our dubtrack.fm room <a href="https://www.dubtrack.fm/join/exiled_147873230374424">here!</a>' + nowPlaying);
+				room.update();
+			});
+		});
 	},
 };

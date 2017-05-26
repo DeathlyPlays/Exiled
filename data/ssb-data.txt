@@ -461,14 +461,27 @@ Rank: N/A.
 
 Professor Bulbasaur
 (Bulbasaur)
-Item: @ Bulbasaurium Z
+@ Bulbasaurium Z
     - If this pokemon is a bulbasaur with BulbaLord it uses One bulbasaur hoard
         - One  Bulbasaur Hoard: 40 BP, Special, raises all stats by 2 (except eva and accuracy), Poison move -- accuracy  (cant miss)
 EVs: 252 SpA / 4 HP / 252 Spe
+Modest Nature
 Ability: Immortality
     - when come in it brings in stealth rock, 3 layers of spikes, sticky web, 2 toxic spikes, protects it self and uses rapid spin. Also magic bounce and topsy turvy.
 Moves: Leaf Tornado, Blizzard, Boomburst
 Signature Move: BulbaLord
 	- 90 BP, Special, and lowers the target's stats by 1 stage, Poison move, 100% accuracy.
-Nature: Modest
-Notes: N/A.
+Notes: Hazard setter lmao
+
+douglasgamer
+(Greninja-Ash)
+	- Water + Electric type
+@ Life Orb
+Ability: Get Bonded
+	- Heavy Rain, Mold Breaker, Magic Bounce, sets up one layer of Toxic Spikes and one layer of spikes in the opposing field, +1 Spe.
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+Moves: Scald, Thunder, Ice Beam
+Signature Move: Copy Water Clones
+	- 50 bp, Raises user's one stages evasion, Hit two times, Special
+Notes: Fast Special Sweeper.

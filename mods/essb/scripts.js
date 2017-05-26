@@ -22,21 +22,6 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"~Volco": {
-				species: "Volcanion",
-				ability: "Volcanic Ash",
-				item: "Volcanionite",
-				gender: "M",
-				moves: ['steameruption', 'gigadrain', 'earthpower'],
-				baseSignatureMove: "volcanosrevenge",
-				signatureMove: "Volcano's Revenge",
-				evs: {
-					spa: 252,
-					spe: 252,
-					spd: 4,
-				},
-				nature: "Modest",
-			},
 			"~Mewth": {
 				species: "Furret-Mega",
 				ability: "Roarplaying",
@@ -570,6 +555,36 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
+			" douglasgamer": {
+				species: "Greninja-Ash",
+				ability: "Get Bonded",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['scald', 'icebeam', 'thunder'],
+				baseSignatureMove: "copywaterclones",
+				signatureMove: "Copy Water Clones",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Modest",
+			},
+			" Volco": {
+				species: "Volcanion",
+				ability: "Volcanic Ash",
+				item: "Volcanionite",
+				gender: "M",
+				moves: ['steameruption', 'gigadrain', 'earthpower'],
+				baseSignatureMove: "volcanosrevenge",
+				signatureMove: "Volcano's Revenge",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Modest",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Dex.shuffle(Object.keys(sets));
@@ -628,7 +643,7 @@ exports.BattleScripts = {
 		}
 
 		if (pokemon.species === 'Volcanion') {
-			this.add('c|~Volco| GO MEGA EVOLUTION IT\'S TIME FOR MY REAL POWER!');
+			this.add('c| Volco| GO MEGA EVOLUTION IT\'S TIME FOR MY REAL POWER!');
 			pokemon.baseTemplate = template; // mega evolution is permanent
 			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
 			this.add('-mega', pokemon, template.baseSpecies, template.requiredItem);

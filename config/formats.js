@@ -1681,7 +1681,7 @@ exports.Formats = [
 		},
 		// Edgy switch-in sentences go here.
 		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
-		onSwitchIn: function (pokemon) {
+		onSwitchIn: function (pokemon, source) {
 			let name = toId(pokemon.name);
 
 			//Switch-in Quotes
@@ -1721,7 +1721,7 @@ exports.Formats = [
 				this.add('c| Horrific17|It seems you\'ve made a __horrific__ mistake');
 			}
 
-			// Add here special typings, done for flavor mainly. (and stat boosts)]
+			// Add here special typings, done for flavor mainly. (and stat boosts)
 			if (name === 'volco' && !pokemon.illusion) {
 				this.boost({
 					spe: 1,
@@ -1748,6 +1748,13 @@ exports.Formats = [
 				this.boost({
 					spe: 1,
 				});
+			}
+			if (name === 'douglasgamer' && !pokemon.illusion) {
+				this.boost({
+					spa: 1,
+				});
+				this.add('-start', pokemon, 'typechange', 'Water/Electric');
+				pokemon.types = ["Water", "Electric"];
 			}
 			if (name === 'backatmyday' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Ground/Water');
@@ -1838,6 +1845,9 @@ exports.Formats = [
 			}
 			if (name === 'horrific17') {
 				this.add('c| Horrific17|I never expected my death to be this... __horrific__');
+			}
+			if (name === 'douglasgamer') {
+				this.add('c| douglasgamer|I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');
 			}
 		},
 		onHit: function (pokemon, target) {

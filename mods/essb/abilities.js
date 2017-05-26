@@ -1546,7 +1546,7 @@ exports.BattleAbilities = {
 	},
 	"immortality": {
 		id: "immortality",
-		name: "Originality",
+		name: "Immortality",
 		//sets up all hazards + uses Rapid Spin & Topsy Turvy + Protect
 		onStart: function (pokemon) {
 			this.useMove('Spikes', pokemon);
@@ -1584,6 +1584,63 @@ exports.BattleAbilities = {
 		},
 		effect: {
 			duration: 1,
+		},
+	},
+	"getbonded": {
+		id: "getbonded",
+		name: "Get Bonded",
+		//Magic Bounce
+		onTryHitPriority: 1,
+		onTryHit: function (target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide: function (target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		effect: {
+			duration: 1,
+		},
+		//Heavy Rain
+		onStart: function (pokemon) {
+			this.setWeather('primordialsea');
+			this.useMove('Spikes', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+			this.add('c| douglasgamer|You just got screwed brother >:D');
+		},
+		onAnySetWeather: function (target, source, weather) {
+			if (this.getWeather().id === 'primordialsea' && !(weather.id in {desolateland:1, primordialsea:1, deltastream:1})) return false;
+		},
+		onEnd: function (pokemon) {
+			if (this.weatherData.source !== pokemon) return;
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					let target = this.sides[i].active[j];
+					if (target === pokemon) continue;
+					if (target && target.hp && target.hasAbility('primordialsea')) {
+						this.weatherData.source = target;
+						return;
+					}
+				}
+			}
+			this.clearWeather();
+		},
+		//Mold Breaker
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
 		},
 	},
 };

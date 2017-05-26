@@ -523,7 +523,7 @@ exports.BattleMovedex = {
 		category: "Special",
 		priority: 0,
 		onHit: function (target, source, move) {
-			this.add('c|~Volco|SEE YOU ALL IN HELL!!!!!!!!');
+			this.add('c| Volco|SEE YOU ALL IN HELL!!!!!!!!');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -662,7 +662,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target, source, move) {
 			if (target.status === 'psn' || target.status === 'tox') {
-				return this.boost({atk:-1, spa:-1, spe:-1}, target, source, move);
+				return Exiled({atk:-1, spa:-1, spe:-1}, target, source, move);
 			}
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Leech Seed', target);
@@ -1248,7 +1248,7 @@ exports.BattleMovedex = {
 		effect: {
 			duration: 1,
 			onAfterMoveSecondarySelf: function (pokemon, target, move) {
-				if (target.clearBoosts) this.boost({def: 1, spd: 1, spe: -1}, pokemon, pokemon, move);
+				if (target.clearBoosts) Exiled({def: 1, spd: 1, spe: -1}, pokemon, pokemon, move);
 			},
 		},
 		category: "Physical",
@@ -1809,5 +1809,28 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Poison",
+	},
+	//douglasgamer
+	"copywaterclones": {
+		id: "copywaterclones",
+		name: "Copy Water Clones",
+		basePower: 50,
+		category: "Special",
+		pp: 10,
+		accuracy: 100,
+		self: {
+			boosts: {
+				evasion: 1,
+			},
+		},
+		secondary: false,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Water Shuriken", target);
+		},
+		target: "normal",
+		type: "Water",
 	},
 };

@@ -540,21 +540,6 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			" ProfessorBulbasaur": {
-				species: "Bulbasaur",
-				ability: "Immortality",
-				item: "Bulbasaurium Z",
-				gender: "M",
-				moves: ['blizzard', 'leaftornado', 'boomburst'],
-				baseSignatureMove: "bulbalord",
-				signatureMove: "Bulba Lord",
-				evs: {
-					spa: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Modest",
-			},
 			" douglasgamer": {
 				species: "Greninja-Ash",
 				ability: "Get Bonded",

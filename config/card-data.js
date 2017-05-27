@@ -3724,4 +3724,5 @@ module.exports = {
 'onixexiled': {title: 'onixexiled', name: 'Onix (Exiled)', card: 'http://i.imgur.com/uqGehCs.png', rarity: 'Uncommon', collection: ['Exiled'], points: 5},
 'miltankexiled': {title: 'miltankexiled', name: 'Miltank (Exiled)', card: 'http://i.imgur.com/h4mEG5j.png', rarity: 'Uncommon', collection: ['Exiled'], points: 4},
 'runawayexiled': {title: 'runawayexiled', name: 'Run Away Trainer (Exiled)', card: 'http://i.imgur.com/q6hk0Yf.png', rarity: 'Common', collection: ['Exiled'], points: 3},
+'marshadowgx': {title: 'marshadowgx', name: 'Marshadow GX (Exiled)', card: 'http://i.imgur.com/TxeWmQa.jpg', rarity: 'Legendary', collection: ['Exiled'], points: 18},
 };

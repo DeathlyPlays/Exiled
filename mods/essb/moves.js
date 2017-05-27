@@ -662,7 +662,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target, source, move) {
 			if (target.status === 'psn' || target.status === 'tox') {
-				return Exiled({atk:-1, spa:-1, spe:-1}, target, source, move);
+				return this.boost({atk:-1, spa:-1, spe:-1}, target, source, move);
 			}
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Leech Seed', target);
@@ -1228,37 +1228,6 @@ exports.BattleMovedex = {
 		type: "Steel",
 		zMovePower: 200,
 		contestType: "Tough",
-	},
-	"momentofinertia": {
-		id: "momentofinertia",
-		name: "Moment of Inertia",
-		accuracy: 100,
-		basePower: 0,
-		basePowerCallback: function (pokemon, target) {
-			let power = (Math.floor(25 * target.getStat('spe') / pokemon.getStat('spe')) || 1);
-			if (power > 150) power = 150;
-			this.debug('' + power + ' bp');
-			return power;
-		},
-		pp: 10,
-		onHit: function (target) {
-			target.clearBoosts();
-			this.add('-clearboost', target);
-		},
-		effect: {
-			duration: 1,
-			onAfterMoveSecondarySelf: function (pokemon, target, move) {
-				if (target.clearBoosts) Exiled({def: 1, spd: 1, spe: -1}, pokemon, pokemon, move);
-			},
-		},
-		category: "Physical",
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		secondary: false,
-		target: "normal",
-		type: "Steel",
-		zMovePower: 160,
-		contestType: "Cool",
 	},
 	//ches
 	"cookiestorm": {

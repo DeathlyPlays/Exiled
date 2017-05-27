@@ -327,6 +327,21 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			"+Horrific17": {
+				species: "Arcanine",
+				ability: "Horrific Plays",
+				item: "Arcanium Z",
+				gender: "M",
+				moves: ['closecombat', 'extremespeed', 'morningsun'],
+				baseSignatureMove: "horrificroasts",
+				signatureMove: "Horrific Roasts",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Adamant",
+			},
 			//Regs
 			" Kevso": {
 				species: "Deoxys-Defense",
@@ -494,21 +509,6 @@ exports.BattleScripts = {
 					hp: 4,
 				},
 				nature: "Timid",
-			},
-			" Horrific17": {
-				species: "Arcanine",
-				ability: "Horrific Plays",
-				item: "Arcanium Z",
-				gender: "M",
-				moves: ['closecombat', 'extremespeed', 'morningsun'],
-				baseSignatureMove: "horrificroasts",
-				signatureMove: "Horrific Roasts",
-				evs: {
-					atk: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Adamant",
 			},
 			" Princess Teddiursa": {
 				species: "Ninetales-Alola",

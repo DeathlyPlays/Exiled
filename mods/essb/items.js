@@ -264,4 +264,36 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is an Bulbasaur with Bulba Lord, it can use One Bulbasaur Horde.",
 	},
+	"ultimateberry": {
+		id: "ultimateberry",
+		name: "Ultimate Berry",
+		spritenum: 217,
+		isBerry: true,
+		naturalGift: {
+			basePower: 80,
+			type: "Dark",
+		},
+		onUpdate: function (pokemon) {
+			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
+				pokemon.eatItem();
+			}
+		},
+		onEat: function (pokemon) {
+			let stats = [];
+			for (let stat in pokemon.boosts) {
+				if (stat !== 'accuracy' && stat !== 'evasion' && stat !== 'spa' && stat !== 'spe' && pokemon.boosts[stat] < 6) {
+					stats.push(stat);
+				}
+			}
+			if (stats.length) {
+				let randomStat = stats[this.random(stats.length)];
+				let boost = {};
+				boost[randomStat] = 1;
+				this.boost(boost);
+			}
+		},
+		num: -16,
+		gen: -1,
+		desc: "Randomly boosts a stat at 1/4 health; 1/2 if Gluttony.",
+	},
 };

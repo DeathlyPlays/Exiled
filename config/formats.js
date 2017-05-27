@@ -1779,6 +1779,10 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Bug/Electric');
 				pokemon.types = ["Bug", "Electric"];
 			}
+			//custom moves on switch while having a specific ability
+			if (name === 'universalcraftr' && !pokemon.illusion) {
+				this.useMove('trickroom', pokemon);
+			}
 		},
 		// Code for use specific moves
 		onModifyMove: function (move, pokemon) {

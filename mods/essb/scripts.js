@@ -570,6 +570,22 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
+			" UniversalCraftr": {
+				species: "Snorlax",
+				ability: "Gluttony",
+				item: "Iapapa Berry",
+				gender: "M",
+				moves: ['thousandarrows', 'recycle', 'curse'],
+				baseSignatureMove: "pyukumukusrevenge",
+				signatureMove: "Pyukumuku's Revenge",
+				evs: {
+					hp: 252,
+					atk: 136,
+					spd: 52,
+					def: 68,
+				},
+				nature: "Brave",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Dex.shuffle(Object.keys(sets));

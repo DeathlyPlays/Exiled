@@ -1703,8 +1703,8 @@ exports.Formats = [
 			if (name === 'insist') {
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
-			if (name === 'letterw') {
-				this.add('c|@Letter W|Let\'s get this over with...');
+			if (name === 'vampiire') {
+				this.add('c|@Vampiire|Let\'s get this over with...');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1775,7 +1775,7 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Ground/Water');
 				pokemon.types = ["Ground", "Water"];
 			}
-			if (name === 'letterw' && !pokemon.illusion) {
+			if (name === 'vampiire' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Bug/Electric');
 				pokemon.types = ["Bug", "Electric"];
 			}
@@ -1783,7 +1783,7 @@ exports.Formats = [
 		// Code for use specific moves
 		onModifyMove: function (move, pokemon) {
 			let name = toId(pokemon.illusion ? pokemon.illusion.name : pokemon.name);
-			if (move.id === 'sunsteelstrike' && name === 'letterw') {
+			if (move.id === 'sunsteelstrike' && name === 'vampiire') {
 				move.name = 'Sunshock Strike';
 				move.type = 'Electric';
 				move.onTryHit = function (target, source, move) {
@@ -1834,8 +1834,8 @@ exports.Formats = [
 				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
-			if (name === 'letterw') {
-				this.add('c|@Letter W|Why do i always get blamed for everything...');
+			if (name === 'vampiire') {
+				this.add('c|@Vampiire|Why do i always get blamed for everything...');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -2166,7 +2166,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Slowtown",
 		desc: [
-			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Letter W. Coded by Insist.",
+			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Vampiire. Coded by Insist.",
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
 		],
 		mod: "slowtown",

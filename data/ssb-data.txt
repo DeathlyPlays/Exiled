@@ -2,7 +2,7 @@ Insist
 (Ludicolo)
 @ Playnium Z
 	- Allows user to use EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER
-		- Exiled From All Others: Water type, Special, Z-Move, 150 BP.
+		- EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER: Water type, Special, Z-Move, 150 BP.
 EVs: 4 HP / 252 SpA / 252 Spe
 Timid Nature
 Ability: Crippling Depression
@@ -202,7 +202,7 @@ Special Move: Cookie Storm
 Notes: High power moves that are boosted by its Reckless effects obliterate teams.
 Rank: B.
 
-Perison
+Exiler
 (Xerneas)
 @ Power Herb
 EVs: 252 HP / 252 SpA / 4 Spe
@@ -254,7 +254,7 @@ Notes: Fast special attacker.
 Rank: B.
 
 Chandie
-(Chandelure)
+(Chandelure-Mega)
 @ Life Orb
 EVs: 252 SpA / 252 Spe / 4 HP
 Modest Nature
@@ -268,7 +268,7 @@ Special Move: Solar Eruption
 Notes: Fast Special Sweeper.
 Rank: B.
 
-Letter W
+Vampiire
 (Scizor-Mega)
     - Bug/Electric type
 @ Manna
@@ -325,7 +325,7 @@ Notes: Fast Physical Sweeper, with a Choice Band allowing it to hit even harder.
 Rank: B.
 
 Renfur
-(Flygon)
+(Flygon-Mega)
 @ Life Orb
 EVs: 252 SpA / 252 Spe / 4 SpD
 Mild Nature
@@ -447,7 +447,7 @@ Notes: Hard Hitting Physical Attacker.
 Rank: N/A.
 
 Stabby the Krabby
-(Stabby)
+(Krabby)
 @ Eviolite
 EVs: 252 Atk / 252 Spe / 4 HP
 Adamant Nature
@@ -483,5 +483,19 @@ EVs: 4 HP / 252 SpA / 252 Spe
 Modest Nature
 Moves: Scald, Thunder, Ice Beam
 Signature Move: Copy Water Clones
-	- 50 bp, Raises user's one stages evasion, Hit two times, Special
+	- 50 BP, Raises user's one stages evasion, Hit two times, Special, Water.
 Notes: Fast Special Sweeper.
+
+KanekiPlayerBR
+(Ninetales)
+@ Kanekinium Z
+    - If holder is an Ninetales with Super Ultra Flamethrower Destroyer of Universes, it can use ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS.
+        - ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS: Fire, Special, 150 BP.
+Ability: JOOJ
+    - Desolate Land + Flash Fire + Dazzling + Magic Guard
+EVs: 252 SpA / 236 HP / 16 SpD
+Modest Nature
+Moves: Flamethrower, Energy Ball, Psyshock
+Signature Move: Super Ultra Flamethrower Destroyer of Universes
+    - Fire, Special, 100 BP, Boosts user's Special Attack and Speed by one stage, +1 priority.
+Notes: Special Sweeper.

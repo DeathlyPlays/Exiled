@@ -94,23 +94,8 @@ exports.BattleScripts = {
 				},
 				nature: "Quiet",
 			},
-			"&ggdaca":{
-				species: "Rayquaza-Mega",
-				ability: "Lord's Grace",
-				item: "Legendinium Z",
-				gender: 'M',
-				moves: ['dragonascent', 'earthquake', 'extremespeed'],
-				baseSignatureMove: "lordswrath",
-				signatureMove: "Lord's Wrath",
-				evs: {
-					spe: 252,
-					atk: 252,
-					spd: 4,
-				},
-				nature: "Adamant",
-			},
 			"&Chandie": {
-				species: "Chandelure",
+				species: "Chandelure-Mega",
 				ability: "Magma Overdrive",
 				item: "Life Orb",
 				gender: "M",
@@ -172,7 +157,7 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"@Perison": {
+			"@Exiler": {
 				species: "Xerneas",
 				ability: "Adaptability",
 				item: "Power Herb",
@@ -188,7 +173,7 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			"@Letter W": {
+			"@Vampiire": {
 				species: "Scizor-Mega",
 				ability: "Heavenly Guard",
 				item: "Manna",
@@ -204,24 +189,7 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			//Drivers
-			"%Wobbleleez": {
-				species: "Musharna",
-				ability: "WobzDoezJobz",
-				item: "Leftovers",
-				gender: "M",
-				moves: ['storedpower', 'chargebeam', 'drainingkiss'],
-				baseSignatureMove: "Crippling Kiss",
-				signatureMove: "Crippling Kiss",
-				evs: {
-					hp: 252,
-					spa: 220,
-					spd: 16,
-					def: 16,
-				},
-				nature: "Modest",
-			},
-			"%flufi": {
+			"@flufi": {
 				species: "Altaria-Mega",
 				ability: "The Waggling",
 				item: "Eject Button",
@@ -235,6 +203,22 @@ exports.BattleScripts = {
 					spd: 136,
 				},
 				nature: "Modest",
+			},
+			//Drivers
+			"&ggdaca":{
+				species: "Rayquaza-Mega",
+				ability: "Lord's Grace",
+				item: "Legendinium Z",
+				gender: 'M',
+				moves: ['dragonascent', 'earthquake', 'extremespeed'],
+				baseSignatureMove: "lordswrath",
+				signatureMove: "Lord's Wrath",
+				evs: {
+					spe: 252,
+					atk: 252,
+					spd: 4,
+				},
+				nature: "Adamant",
 			},
 			"%AlfaStorm": {
 				species: "Hydreigon",
@@ -283,6 +267,22 @@ exports.BattleScripts = {
 				nature: "Modest",
 			},
 			//Voices
+			"+Wobbleleez": {
+				species: "Musharna",
+				ability: "WobzDoezJobz",
+				item: "Leftovers",
+				gender: "M",
+				moves: ['storedpower', 'chargebeam', 'drainingkiss'],
+				baseSignatureMove: "Crippling Kiss",
+				signatureMove: "Crippling Kiss",
+				evs: {
+					hp: 252,
+					spa: 220,
+					spd: 16,
+					def: 16,
+				},
+				nature: "Modest",
+			},
 			"+cyt0pl4sm": {
 				species: "Zygarde-10%",
 				ability: "Energy Overflow",
@@ -312,21 +312,6 @@ exports.BattleScripts = {
 				},
 				nature: "Mild",
 			},
-			"+Kevso": {
-				species: "Deoxys-Defense",
-				ability: "Defense",
-				item: "Leftovers",
-				gender: "M",
-				moves: ['roar', 'storedpower', 'recover'],
-				baseSignatureMove: "cripplinghazards",
-				signatureMove: "Crippling Hazards",
-				evs: {
-					hp: 252,
-					def: 252,
-					spd: 4,
-				},
-				nature: "Bold",
-			},
 			"+EchoSierra": {
 				species: "Swellow",
 				ability: "No Guts, No Glory",
@@ -343,6 +328,21 @@ exports.BattleScripts = {
 				nature: "Adamant",
 			},
 			//Regs
+			" Kevso": {
+				species: "Deoxys-Defense",
+				ability: "Defense",
+				item: "Leftovers",
+				gender: "M",
+				moves: ['roar', 'storedpower', 'recover'],
+				baseSignatureMove: "cripplinghazards",
+				signatureMove: "Crippling Hazards",
+				evs: {
+					hp: 252,
+					def: 252,
+					spd: 4,
+				},
+				nature: "Bold",
+			},
 			" UB-01 Symbi0nt": {
 				species: "Mawile-Mega",
 				ability: "No Hax",

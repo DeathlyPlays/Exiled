@@ -19041,7 +19041,7 @@ exports.BattleMovedex = {
 		id: "spiralingtoxins",
 		isViable: true,
 		name: "Spiraling Toxins",
-		pp: 16,
+		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		// No Guard-like effect for Poison-type users implemented in BattleScripts#tryMoveHit

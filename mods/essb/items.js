@@ -262,6 +262,6 @@ exports.BattleItems = {
 		zMoveUser: ["Bulbasaur"],
 		num: -15,
 		gen: -1,
-		desc: "If holder is an Ninetales with Bulba Lord, it can use One Bulbasaur Horde.",
+		desc: "If holder is an Bulbasaur with Bulba Lord, it can use One Bulbasaur Horde.",
 	},
 };

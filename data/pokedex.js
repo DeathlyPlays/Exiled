@@ -14515,7 +14515,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Water", "Dragon"],
 		baseStats: {hp: 75, atk: 115, def: 115, spa: 115, spd: 115, spe: 105},
-		abilities: {0: "Water Bubble"},
+		abilities: {0: "Beast Boost"},
 		heightm: 1.8,
 		weightkg: 152,
 		color: "Blue",

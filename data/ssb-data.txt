@@ -353,7 +353,7 @@ Rank: A.
 GuiltasBR
 (Conkeldurr)
 @ Douglasinium Z
-	- If the user is Conkeldurr with Punchy Fury, it may use the Z move Punchyru Massacre Z.
+	- If the user is Conkeldurr with Punchy Fury, it may use the Z move Punchyru Massacre Z + Flame Orb effects.
 		- Punchru Massacre Z: Hits 2 to 3 times, 50 BP per hit, Fighting, Physical.
 EVs: 252 Atk / 252 SpD / 4 Spe
 Careful Nature

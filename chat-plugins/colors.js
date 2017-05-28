@@ -103,6 +103,12 @@ exports.commands = {
 		"/customcolor reload - Reloads colours.",
 		"/customcolor preview [user], [hex] - Previews what that username looks like with [hex] as the color.",
 	],
+	'!hex': true,
+	hex: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		let targetUser = (target ? target : user.name);
+		this.sendReplyBox('The hex code of ' + Exiled.nameColor(targetUser, true) + ' is: <font color="' + Exiled.hashColor(targetUser) + '"><b>' + Exiled.hashColor(targetUser) + '</b></font>');
+	},
 };
 
 /* Pokemon Showdown hashColor function

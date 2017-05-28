@@ -180,9 +180,14 @@ exports.BattleItems = {
 		zMove: "Punchyru Massacre Z",
 		zMoveFrom: "Punchy Fury",
 		zMoveUser: ["Conkeldurr"],
+		onResidualOrder: 26,
+		onResidualSubOrder: 2,
+		onResidual: function (pokemon) {
+			pokemon.trySetStatus('brn');
+		},
 		num: -11,
 		gen: -1,
-		desc: "If holder is a Conkeldurr with Punchy Fury, it can use Punchyru Massacre Z.",
+		desc: "If holder is a Conkeldurr with Punchy Fury, it can use Punchyru Massacre Z, and burns holder every turn.",
 	},
 	"rainbowplate": {
 		id: "rainbowplate",

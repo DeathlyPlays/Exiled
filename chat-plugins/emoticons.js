@@ -294,6 +294,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 		'Splatastic': 'http://i.imgur.com/qSlSCbF.png',
 		'feelsbadman': 'http://i.imgur.com/jaPiNPX.jpg',
 		'feelsgoodman': 'http://i.imgur.com/UCePRuI.png',
+		'feelsfeel': 'http://i.imgur.com/s8kN3AV.png',
 		'feelssweet': 'http://i.imgur.com/7FDtLTq.jpg',
 		'uwot': 'http://i.imgur.com/3VsV5pN.png',
 		'spmeme': 'http://i.imgur.com/gYtxtDP.jpg',

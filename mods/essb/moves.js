@@ -175,12 +175,12 @@ exports.BattleMovedex = {
 		type: "Water",
 		target: "normal",
 	},
-	"pyukumukusrevenge": {
+	"slowtownking": {
 		accuracy: 100,
 		basePower: 110,
 		category: "Physical",
-		id: "pyukumukusrevenge",
-		name: "Pyukumuku's Revenge",
+		id: "slowtownking",
+		name: "Slowtown King",
 		pp: 20,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
@@ -216,6 +216,24 @@ exports.BattleMovedex = {
 		type: "Rock",
 		zMovePower: 120,
 		contestType: "Tough",
+	},
+	"shinkuhadoken": {
+		accuracy: 100,
+		basePower: 60,
+		basePowerCallback: function (pokemon, target, move) {
+			return move.basePower + 20 * pokemon.positiveBoosts();
+		},
+		defensiveCategory: "Special",
+		category: "Physical",
+		id: "shinkuhadoken",
+		name: "Shinku Hadoken",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: false,
+		target: "normal",
+		type: "Fighting",
+		zMovePower: 160,
 	},
 	//vividisagod
 	"jetblast": {
@@ -575,6 +593,66 @@ exports.BattleMovedex = {
 		type: "Fire",
 		target: "normal",
 		secondary: false,
+	},
+	"meditate": {
+		inherit: true,
+		boosts: {
+			def: -1,
+			spd: -1,
+			atk: 2,
+			spa: 2,
+			spe: 2,
+		},
+		pp: 10,
+		priority: 6,
+		stallingMove: true,
+		volatileStatus: 'protect',
+		onPrepareHit: function (pokemon) {
+			return !!this.willAct() && this.runEvent('StallMove', pokemon);
+		},
+		onHit: function (pokemon) {
+			pokemon.addVolatile('stall');
+		},
+	},
+	"rushofdragonbolt": {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		id: "rushofdragonbolt",
+		name: "Rush of Dragon Bolt",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: {
+			self: {
+				onSourceFaint: function (target, source, effect) {
+					this.boost({atk:1, spe:1}, source);
+				},
+			},
+		},
+		target: "normal",
+		type: "Water",
+		zMovePower: 160,
+		contestType: "Tough",
+	},
+	"rushofvolcanothunder": {
+		accuracy: 100,
+		basePower: 180,
+		category: "Physical",
+		id: "rushofvolcanothunder",
+		name: "rushofvolcanothunder",
+		pp: 0.625,
+		isZ: 'playeriniumz',
+		flags: {contact: 1, recharge: 1, protect: 1, mirror: 1},
+		self: {
+			volatileStatus: 'mustrecharge',
+		},
+		priority: 0,
+		secondary: false,
+		target: "normal",
+		type: "Water",
+		zMovePower: 160,
+		contestType: "Tough",
 	},
 	//supanova
 	"supernova": {

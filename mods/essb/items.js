@@ -65,14 +65,14 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "Holder's Speed & Special Attack is 1.5x, but it can only select the first move it executes.",
 	},
-	"marveliumz": {
+	"playeriniumz": {
 		spritenum: 656,
 		onTakeItem: false,
-		id: "marveliumz",
-		name: "Marvelium Z",
-		zMove: "Hyper Viper Beam",
-		zMoveFrom: "Hail Storm",
-		zMoveUser: ["Rotom-Frost"],
+		id: "playeriniumz",
+		name: "Playerinium Z",
+		zMove: "Rush Of Volcano Thunder",
+		zMoveFrom: "Rush Of Fire Bolt",
+		zMoveUser: ["Dragonite"],
 		num: -5,
 		gen: -1,
 		desc: "If holder is a Rotom-Frost with Hail Storm, it can use Hyper Viper Beam.",
@@ -121,25 +121,28 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "The accuracy of attacks by the holder is 1.1x.",
 	},
-	"manna": {
-		id: "manna",
-		name: "Manna",
+	"debugger": {
+		id: "debugger",
+		name: "Debugger",
 		spritenum: 476,
-		onResidualOrder: 5,
-		onResidualSubOrder: 2,
-		onResidual: function (pokemon) {
-			this.heal(pokemon.maxhp / 16);
-			let stats = [];
-			for (let stat in pokemon.boosts) {
-				if (stat !== 'accuracy' && stat !== 'evasion' && pokemon.boosts[stat] < 6) {
-					stats.push(stat);
+		onDamage: function (damage, target, source, effect) {
+			if (target.hp === target.maxhp && damage >= target.hp && effect && effect.effectType === 'Move') {
+				return target.hp - 1;
+			}
+		},
+		onUpdate: function (pokemon) {
+			let activate = false;
+			let boosts = {};
+			for (let i in pokemon.boosts) {
+				if (pokemon.boosts[i] < 0) {
+					activate = true;
+					boosts[i] = 0;
 				}
 			}
-			if (stats.length) {
-				let randomStat = stats[this.random(stats.length)];
-				let boost = {};
-				boost[randomStat] = 1;
-				this.boost(boost);
+			if (activate) {
+				pokemon.setBoost(boosts);
+				this.heal(pokemon.maxhp / 4);
+				this.add('-clearnegativeboost', pokemon, '[silent]');
 			}
 		},
 		num: -9,

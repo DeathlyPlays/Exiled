@@ -71,6 +71,7 @@ exports.commands = {
 			return this.errorReply('This song is not in your playlist');
 		case 'reset':
 			data[user.userid] = [];
+			save();
 			this.sendReply('You have reset your playlist.');
 			break;
 		case 'play':

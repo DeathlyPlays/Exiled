@@ -361,7 +361,7 @@ Ability: handsBurn
 	- Immune to being frozen, if status'ed this Pokemon's Attack is multiplied by 3x, Dazzling, and Skill Link effects.
 Moves: Drain Punch, Thunder Punch, Poison Jab
 Special Move: Punchy Fury
-	- 30 BP, Fighting, Physical, Hits 2-5 times.
+	- Fighting Type, Physical, 30 BP, 100% Accuracy, Hits 2-5 times.
 Notes: Hard hitting revenge attacker.
 Rank: B.
 
@@ -388,7 +388,7 @@ Ability: No Guts, No Glory
 	- Gale Wings + Guts + Quick Feet + Adaptability + Reckless + Scrappy + Poison Heal
 Moves: Brave Bird, Double-Edge, Protect
 Special Move: Kamikaze
-	- Flying-type. Acts the same as Facade (70 BP, double if statused). Normally effective against Rock and Steel-types. 50% recoil damage.
+	- Flying Type. Acts the same as Facade (70 BP, double if statused). Normally effective against Rock and Steel-types. 50% recoil damage.
 Notes: Physical glass cannon. Kill with recoil sacs or ExtremeSpeed.
 
 007Nilo
@@ -400,7 +400,7 @@ Ability: Master of Illusions
 	- Gets +2 SpA and Spe upon entry
 Moves: Nasty Plot, Night Daze, Focus Blast
 Special Move: Power Of Darkness
-	- Dark type, Special, 100 BP, 100% accuracy, Ignores Abilities.
+	- Dark Type, Special, 100 BP, 100% accuracy, Ignores Abilities.
 Notes: Boosted Special Attacker.
 Rank: N/A.
 
@@ -415,7 +415,7 @@ Ability: Lord's Grace
 	- Boosts the user's Attack, Defense, Special Defense, and Speed by one stage.
 Moves: Extreme Speed, Earthquake, Dragon Ascent
 Special Move: Lord's Wrath
-	- Dragon, 90 BP, Physical, 100% accuracy, Boosts Atk by one stage, Contact.
+	- Dragon Type, 90 BP, Physical, 100% accuracy, Boosts Atk by one stage, Contact.
 Notes: Like it's okay.... It's a Mega Rayquaza.... Not as good as a Magikarp tho....
 Rank: N/A.
 
@@ -427,7 +427,7 @@ Modest Nature
 Ability: Moody
 Moves: Moonblast, Calm Mind, Psychic
 Special Move: Mega Rage
-	- Fairy, Special, 150 BP, User's Defenses lower by 1 stage after usage of this
+	- Fairy Type, Special, 150 BP, User's Defenses lower by 1 stage after usage of this
 Notes: Moody allows this Pokemon to potentially get obnoxious Evasion boosts.
 Rank: N/A.
 
@@ -442,7 +442,7 @@ Ability: Horrific Plays
 	- Uses Magic Room upon entry, and has Fur Coat effects.
 Moves: Close Combat, Extreme Speed, Morning Sun
 Special Move: Horrific Roasts
-	- Fire type, Summons the sun, 150 BP, 33% recoil, 30% chance to burn, Defrosts user if frozen.
+	- Fire type, 150 BP, 100% Accuracy, 5 PP, 33% recoil, 30% chance to burn, Summons the Sun, Defrosts user if frozen.
 Notes: Hard Hitting Physical Attacker.
 Rank: N/A.
 
@@ -455,36 +455,9 @@ Ability: Ready to Stab
     - +2 Atk and Speed upon entry.
 Moves: Crabhammer, Knock Off, Swords Dance
 Signature Move: Stab Stab
-    - Stabby's Signature move which always hits, Hits Twice, 100 BP, 25% chance to flinch.
+    - Steel Type, Physical, 100 BP, Always hits twice, 5 PP, 25% chance to flinch.
 Notes: FLINCH HAX.
 Rank: N/A.
-
-Professor Bulbasaur
-(Bulbasaur)
-@ Bulbasaurium Z
-    - If this pokemon is a bulbasaur with BulbaLord it uses One bulbasaur hoard
-        - One  Bulbasaur Hoard: 40 BP, Special, raises all stats by 2 (except eva and accuracy), Poison move -- accuracy  (cant miss)
-EVs: 252 SpA / 4 HP / 252 Spe
-Modest Nature
-Ability: Immortality
-    - when come in it brings in stealth rock, 3 layers of spikes, sticky web, 2 toxic spikes, protects it self and uses rapid spin. Also magic bounce and topsy turvy.
-Moves: Leaf Tornado, Blizzard, Boomburst
-Signature Move: BulbaLord
-	- 90 BP, Special, and lowers the target's stats by 1 stage, Poison move, 100% accuracy.
-Notes: Hazard setter lmao
-
-douglasgamer
-(Greninja-Ash)
-	- Water + Electric type
-@ Life Orb
-Ability: Get Bonded
-	- Heavy Rain, Mold Breaker, Magic Bounce, sets up one layer of Toxic Spikes and one layer of spikes in the opposing field, +1 SpA.
-EVs: 4 HP / 252 SpA / 252 Spe
-Modest Nature
-Moves: Scald, Thunder, Ice Beam
-Signature Move: Copy Water Clones
-	- 50 BP, Raises user's speed by one stage, Hit two times, Special, Water.
-Notes: Fast Special Sweeper.
 
 KanekiPlayerBR
 (Ninetales)
@@ -497,5 +470,18 @@ EVs: 252 SpA / 236 HP / 16 SpD
 Modest Nature
 Moves: Flamethrower, Energy Ball, Psyshock
 Signature Move: Super Ultra Flamethrower Destroyer of Universes
-    - Fire, Special, 100 BP, Boosts user's Special Attack and Speed by one stage, +1 priority.
+    - Fire Type, Special, 100 BP, 15 PP, Always hits, Boosts user's Special Attack and Speed by one stage, +1 priority.
 Notes: Special Sweeper.
+
+douglasgamer
+(Greninja-Ash)
+	- Water + Electric type
+@ Life Orb
+Ability: Get Bonded
+	- Heavy Rain, Mold Breaker, Magic Bounce, sets up one layer of Toxic Spikes and one layer of spikes in the opposing field, +1 SpA.
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+Moves: Scald, Thunder, Ice Beam
+Signature Move: Copy Water Clones
+	- 50 BP, Water Type, Raises user's Speed by one stage, Hit two times, Special.
+Notes: Fast Special Sweeper.

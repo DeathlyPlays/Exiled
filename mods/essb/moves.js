@@ -1334,13 +1334,16 @@ exports.BattleMovedex = {
 			defrost: 1,
 		},
 		critRatio: 3,
-		self: {
-			boosts: {
-				spa: 1,
-				spe: 2,
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					spa: 1,
+					spe: 2,
+				},
 			},
+			status: 'brn',
 		},
-		status: "brn",
 		pp: 10,
 		target: "normal",
 		type: "Fire",

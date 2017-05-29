@@ -1326,7 +1326,7 @@ exports.BattleMovedex = {
 		name: "Solar Eruption",
 		basePower: 110,
 		accuracy: 100,
-		desc: "Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage. The User has to recharge after using.",
+		desc: "Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage.",
 		category: "Special",
 		flags: {
 			protect: 1,
@@ -1807,7 +1807,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		self: {
 			boosts: {
-				evasion: 1,
+				spe: 1,
 			},
 		},
 		multihit: 2,

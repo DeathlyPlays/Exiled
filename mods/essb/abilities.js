@@ -277,6 +277,56 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"lawofthedragon": {
+		shortDesc: "This Pokemon's contact moves have their power multiplied by 1.3.",
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.flags['contact']) {
+				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+		onSourceModifyDamage: function (damage, source, target, move) {
+			if (target.hp >= target.maxhp) {
+				this.debug('Multiscale weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		onTryHitPriority: 1,
+		onTryHit: function (target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide: function (target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		effect: {
+			duration: 1,
+		},
+		onDamage: function (damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				return false;
+			}
+		},
+		onStart: function (pokemon) {
+			this.useMove('Stealth Rock', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+		},
+		id: "lawofthedragon",
+		name: "Law of the Dragon",
+	},
 	//backatmyday
 	"landlord": {
 		id: "landlord",
@@ -700,20 +750,45 @@ exports.BattleAbilities = {
 			move.stab = 2;
 		},
 	},
-	"heavenlyguard": {
-		id: "heavenlyguard",
-		name: "Heavenly Guard",
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (move.typeMod > 0) {
-				this.debug('Filter neutralize');
-				return this.chainModify(0.75);
+	"glitchingout": {
+		shortDesc: "If this Pokemon's stat stages are raised or lowered, the effect is doubled instead.",
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual: function (pokemon) {
+			let stats = [];
+			let boost = {};
+			for (let statPlus in pokemon.boosts) {
+				if (pokemon.boosts[statPlus] < 6) {
+					stats.push(statPlus);
+				}
+			}
+			let randomStat = stats.length ? stats[this.random(stats.length)] : "";
+			if (randomStat) boost[randomStat] = 2;
+
+			stats = [];
+			for (let statMinus in pokemon.boosts) {
+				if (pokemon.boosts[statMinus] > -6 && statMinus !== randomStat) {
+					stats.push(statMinus);
+				}
+			}
+			randomStat = stats.length ? stats[this.random(stats.length)] : "";
+			if (randomStat) boost[randomStat] = -1;
+
+			this.boost(boost);
+		},
+		onBoost: function (boost, target, source, effect) {
+			if (effect && effect.id === 'zpower') return;
+			for (let i in boost) {
+				boost[i] *= 2;
 			}
 		},
-		onDamage: function (damage, target, source, effect) {
-			if (effect.effectType !== 'Move') {
-				return false;
+		onModifyPriority: function (priority, move) {
+			if (move.stab) {
+				return Math.round(priority) + 2;
 			}
 		},
+		id: "glitchingout",
+		name: "Glitching Out",
 	},
 	"feelsflys": {
 		id: "feelsflys",

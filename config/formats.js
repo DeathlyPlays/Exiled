@@ -1775,9 +1775,13 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Ground/Water');
 				pokemon.types = ["Ground", "Water"];
 			}
-			if (name === 'vampiire' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Bug/Electric');
-				pokemon.types = ["Bug", "Electric"];
+			if (name === 'playershadowbr' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dragon/Water');
+				pokemon.types = ["Dragon", "Water"];
+			}
+			if (name === 'vxn' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Psychic/Fighting');
+				pokemon.types = ["Psychic", "Fighting"];
 			}
 			//custom moves on switch while having a specific ability
 			if (name === 'universalcraftr' && !pokemon.illusion) {
@@ -1787,13 +1791,12 @@ exports.Formats = [
 		// Code for use specific moves
 		onModifyMove: function (move, pokemon) {
 			let name = toId(pokemon.illusion ? pokemon.illusion.name : pokemon.name);
-			if (move.id === 'sunsteelstrike' && name === 'vampiire') {
-				move.name = 'Sunshock Strike';
-				move.type = 'Electric';
-				move.onTryHit = function (target, source, move) {
-					this.attrLastMove('[still]');
-					this.add('-anim', source, "Stoked Sparksurfer", target);
-				};
+			if (move.id === 'storedpower' && name === 'vxn') {
+				move.defensiveCategory = 'Special';
+				move.category = 'Physical';
+			}
+			if (move.id === 'meditate' && name === 'vxn') {
+				move.name = 'Ultimate Setup';
 			}
 			if (move.id === 'ember' && name === 'chandie') {
 				move.name = 'Fast Flame';

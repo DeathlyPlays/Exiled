@@ -173,19 +173,18 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			"@Vampiire": {
-				species: "Scizor-Mega",
-				ability: "Heavenly Guard",
-				item: "Manna",
+			"@VXN": {
+				species: "Missingno",
+				ability: "Glitching Out",
+				item: "Debugger",
 				gender: "M",
-				moves: ['sunsteelstrike', 'knockoff', 'precipiceblades'],
-				baseSignatureMove: "insectplague",
-				signatureMove: "Insect Plague",
+				moves: ['Shell Smash', 'powertrip', 'storedpower'],
+				baseSignatureMove: "Shinku Hadoken",
+				signatureMove: "Shinku Hadoken",
 				evs: {
-					spe: 248,
-					atk: 48,
-					def: 204,
-					spd: 8,
+					hp: 252,
+					atk: 252,
+					def: 4,
 				},
 				nature: "Adamant",
 			},
@@ -205,7 +204,7 @@ exports.BattleScripts = {
 				nature: "Modest",
 			},
 			//Drivers
-			"&ggdaca":{
+			"%ggdaca":{
 				species: "Rayquaza-Mega",
 				ability: "Lord's Grace",
 				item: "Legendinium Z",
@@ -404,6 +403,21 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			" Player Shadow br": {
+				species: "Dragonite",
+				ability: "Law of the Dragon",
+				item: "Playerinium Z",
+				gender: "N",
+				moves: ['firelash', 'fusionbolt', 'dragonrush'],
+				baseSignatureMove: "rushoffirebolt",
+				signatureMove: "Rush of Fire Bolt",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Jolly",
+			},
 			" TheGodOfPie": {
 				species: "Mawile-Mega",
 				ability: "Mad Tings",
@@ -576,8 +590,8 @@ exports.BattleScripts = {
 				item: "Iapapa Berry",
 				gender: "M",
 				moves: ['thousandarrows', 'recycle', 'curse'],
-				baseSignatureMove: "pyukumukusrevenge",
-				signatureMove: "Pyukumuku's Revenge",
+				baseSignatureMove: "slowtownking",
+				signatureMove: "Slowtown King",
 				evs: {
 					hp: 252,
 					atk: 136,

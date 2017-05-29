@@ -178,7 +178,7 @@ exports.BattleScripts = {
 				ability: "Glitching Out",
 				item: "Debugger",
 				gender: "M",
-				moves: ['Shell Smash', 'powertrip', 'storedpower'],
+				moves: ['meditate', 'powertrip', 'storedpower'],
 				baseSignatureMove: "Shinku Hadoken",
 				signatureMove: "Shinku Hadoken",
 				evs: {

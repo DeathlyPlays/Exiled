@@ -782,10 +782,8 @@ exports.BattleAbilities = {
 				boost[i] *= 2;
 			}
 		},
-		onModifyPriority: function (priority, move) {
-			if (move.stab) {
-				return Math.round(priority) + 2;
-			}
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.type === 'Psychic' &&  move.type === 'Fighting') return priority + 2;
 		},
 		id: "glitchingout",
 		name: "Glitching Out",

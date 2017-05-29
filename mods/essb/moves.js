@@ -614,12 +614,12 @@ exports.BattleMovedex = {
 			pokemon.addVolatile('stall');
 		},
 	},
-	"rushofdragonbolt": {
+	"rushoffirebolt": {
 		accuracy: 100,
 		basePower: 80,
 		category: "Physical",
-		id: "rushofdragonbolt",
-		name: "Rush of Dragon Bolt",
+		id: "rushoffirebolt",
+		name: "Rush of Fire Bolt",
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},

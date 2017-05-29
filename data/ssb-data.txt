@@ -483,7 +483,7 @@ EVs: 4 HP / 252 SpA / 252 Spe
 Modest Nature
 Moves: Scald, Thunder, Ice Beam
 Signature Move: Copy Water Clones
-	- 50 BP, Raises user's one stages evasion, Hit two times, Special, Water.
+	- 50 BP, Raises user's speed by one stage, Hit two times, Special, Water.
 Notes: Fast Special Sweeper.
 
 KanekiPlayerBR

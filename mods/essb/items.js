@@ -141,8 +141,8 @@ exports.BattleItems = {
 			}
 			if (activate) {
 				pokemon.setBoost(boosts);
-				this.heal(pokemon.maxhp / 4);
 				this.add('-clearnegativeboost', pokemon, '[silent]');
+				this.heal(pokemon.maxhp / 4);
 			}
 		},
 		num: -9,

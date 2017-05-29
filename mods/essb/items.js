@@ -71,7 +71,7 @@ exports.BattleItems = {
 		id: "playeriniumz",
 		name: "Playerinium Z",
 		zMove: "Rush Of Volcano Thunder",
-		zMoveFrom: "Rush Of Fire Bolt",
+		zMoveFrom: "Rush Of Dragon Bolt",
 		zMoveUser: ["Dragonite"],
 		num: -5,
 		gen: -1,

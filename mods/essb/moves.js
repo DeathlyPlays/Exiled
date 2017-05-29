@@ -1902,4 +1902,28 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Water",
 	},
+	//Bunnigail
+	"blindingflashes": {
+		id: "blindingflashes",
+		name: "Blinding Flashes",
+		priority: 1,
+		basePower: 100,
+		accuracy: 100,
+		category: "Physical",
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					atk: 1,
+					spe: 1,
+				},
+			},
+		},
+		pp: 10,
+		target: "normal",
+		type: "Normal",
+		zMovePower: 180,
+		contestType: "Tough",
+	},
 };

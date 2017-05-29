@@ -1716,4 +1716,50 @@ exports.BattleAbilities = {
 			move.ignoreAbility = true;
 		},
 	},
+	"susanoo": {
+		id: "susanoo",
+		name: "Susanoo",
+		//Magic Bounce
+		onTryHitPriority: 1,
+		onTryHit: function (target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide: function (target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getMoveCopy(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		effect: {
+			duration: 1,
+		},
+		//Scrappy
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Fighting'] = true;
+				move.ignoreImmunity['Normal'] = true;
+			}
+		},
+		//Boosts upon entry
+		onStart: function (pokemon) {
+			this.boost({atk: 1, spe: 1});
+		},
+		//Rock Head
+		onDamage: function (damage, target, source, effect) {
+			if (effect.id === 'recoil' && this.activeMove.id !== 'struggle') return null;
+		},
+	},
 };

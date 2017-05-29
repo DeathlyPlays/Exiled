@@ -409,8 +409,8 @@ exports.BattleScripts = {
 				item: "Playerinium Z",
 				gender: "N",
 				moves: ['firelash', 'fusionbolt', 'dragonrush'],
-				baseSignatureMove: "rushoffirebolt",
-				signatureMove: "Rush of Fire Bolt",
+				baseSignatureMove: "rushofdragonbolt",
+				signatureMove: "Rush of Dragon Bolt",
 				evs: {
 					atk: 252,
 					spe: 252,
@@ -599,6 +599,21 @@ exports.BattleScripts = {
 					def: 68,
 				},
 				nature: "Brave",
+			},
+			" Bunnigail": {
+				species: "Lopunny-Mega",
+				ability: "Susanoo",
+				item: "Life Orb",
+				gender: "F",
+				moves: ['highjumpkick', 'doubleedge', 'icepunch'],
+				baseSignatureMove: "blindingflashes",
+				signatureMove: "Blinding Flashes",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Jolly",
 			},
 		};
 		// Generate the team randomly.

@@ -272,14 +272,14 @@ VXN
 (Missingno.)
     - Psychic/Fighting type
 @ Debugger
-    - When a stat is lowered it is cleared and tye user gains 25% of their heath along with reducing their HP down to one when an attack KOs them at full health.
-EVs: 252 Atk / 252 HP / 4 Def
+    - When a stat is lowered it is cleared and the user gains 25% of their heath along with reducing their HP down to one when an attack KOs them at full health.
+EVs: 252 Atk / 252 HP / 4 Def / 36 Spe
 Adamant Nature
 Ability: Glitching Out
-    - Moody + Simple + Priority on fighting and Psychic type attacks
+    - Moody + Simple + Priority on Psychic type attacks
 Moves: Power trip, Stored Power
 Modified Move: Ultimate Setup
-    - Shell Smash but the user protects itsself when used. Has a chance of failing on consecutive turns
+    - Shell Smash but the user protects itself when used. Has a chance of failing on consecutive turns
 Special Move: Shinku Hadoken
     - 60 BP, Physical, Fighting, Damage is calculated with the user's SpD. Base power is raised depending on the amount of positive boosts the user has.
 Notes: Physical Attacker that gets boosts every turn.

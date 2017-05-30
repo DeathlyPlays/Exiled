@@ -1703,8 +1703,8 @@ exports.Formats = [
 			if (name === 'insist') {
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
-			if (name === 'vampiire') {
-				this.add('c|@Vampiire|Let\'s get this over with...');
+			if (name === 'vxn') {
+				this.add('c|@VXN|ok im here, what do you want me to break');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1841,8 +1841,8 @@ exports.Formats = [
 				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
-			if (name === 'vampiire') {
-				this.add('c|@Vampiire|Why do i always get blamed for everything...');
+			if (name === 'vxn') {
+				this.add('c|@VXN|the bug has been fixed');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -2173,7 +2173,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Slowtown",
 		desc: [
-			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Vampiire. Coded by Insist.",
+			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by VXN. Coded by Insist.",
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
 		],
 		mod: "slowtown",

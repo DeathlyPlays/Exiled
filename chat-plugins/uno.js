@@ -258,20 +258,20 @@ class UNOgame extends Rooms.RoomGame {
 		return name;
 	}
 
-	sendToRoom(mExiled, overrideSuppress) {
+	sendToRoom(msg, overrideSuppress) {
 		if (!this.suppressMessages || overrideSuppress) {
-			this.room.add(mExiled).update();
+			this.room.add(msg).update();
 		} else {
 			// send to the players first
 			for (let i in this.players) {
-				this.players[i].sendRoom(mExiled);
+				this.players[i].sendRoom(msg);
 			}
 
 			// send to spectators
 			for (let i in this.spectators) {
 				if (i in this.players) continue; // don't double send to users already in the game.
 				let user = Users.getExact(i);
-				if (user) user.sendTo(this.id, mExiled);
+				if (user) user.sendTo(this.id, msg);
 			}
 		}
 	}

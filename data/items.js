@@ -524,7 +524,6 @@ exports.BattleItems = {
 	"blazikenite": {
 		id: "blazikenite",
 		name: "Blazikenite",
-		isUnreleased: true,
 		spritenum: 584,
 		megaStone: "Blaziken-Mega",
 		megaEvolves: "Blaziken",
@@ -4762,7 +4761,6 @@ exports.BattleItems = {
 	"sceptilite": {
 		id: "sceptilite",
 		name: "Sceptilite",
-		isUnreleased: true,
 		spritenum: 613,
 		megaStone: "Sceptile-Mega",
 		megaEvolves: "Sceptile",
@@ -5341,7 +5339,6 @@ exports.BattleItems = {
 	"swampertite": {
 		id: "swampertite",
 		name: "Swampertite",
-		isUnreleased: true,
 		spritenum: 612,
 		megaStone: "Swampert-Mega",
 		megaEvolves: "Swampert",

@@ -268,20 +268,20 @@ Special Move: Solar Eruption
 Notes: Fast Special Sweeper.
 Rank: B.
 
-Vampiire
-(Scizor-Mega)
-    - Bug/Electric type
-@ Manna
-    - The user recovers 1/16 of its health every turn, and gets a boost in a random stat (except accuracy and evasion).
-EVs: 252 Atk / 252 Spe / 4 SpD
-Jolly Nature
-Ability: Heavenly Guard
-    - Magic Guard and Filter
-Moves: Precipice Blades, Knock Off
-Modified Move: Sunsteel Shock
-    - Electric type Sunsteel Strike
-Special Move: Insect Plague
-    - 80 BP, Physical, Bug, Makes Contact, Ignores Evasion, Ignores Defense boosts.
+VXN
+(Missingno.)
+    - Psychic/Fighting type
+@ Debugger
+    - When a stat is lowered it is cleared and tye user gains 25% of their heath along with reducing their HP down to one when an attack KOs them at full health.
+EVs: 252 Atk / 252 HP / 4 Def
+Adamant Nature
+Ability: Glitching Out
+    - Moody + Simple + Priority on fighting and Psychic type attacks
+Moves: Power trip, Stored Power
+Modified Move: Ultimate Setup
+    - Shell Smash but the user protects itsself when used. Has a chance of failing on consecutive turns
+Special Move: Shinku Hadoken
+    - 60 BP, Physical, Fighting, Damage is calculated with the user's SpD. Base power is raised depending on the amount of positive boosts the user has.
 Notes: Physical Attacker that gets boosts every turn.
 Rank: A.
 

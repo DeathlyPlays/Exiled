@@ -2365,6 +2365,20 @@ exports.BattleItems = {
 		gen: 3,
 		desc: "Can be revived into Omanyte.",
 	},
+	"heliolite": {
+		id: "heliolite",
+		name: "Heliolite",
+		spritenum: -345,
+		megaStone: "Heliolisk-Mega",
+		megaEvolves: "Heliolisk",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -435,
+		gen: 0,
+		desc: "If holder is a Heliolisk, this item allows it to Mega Evolve in battle.",
+	},
 	"heracronite": {
 		id: "heracronite",
 		name: "Heracronite",
@@ -3639,6 +3653,20 @@ exports.BattleItems = {
 		num: 246,
 		gen: 2,
 		desc: "Holder's Ice-type attacks have 1.2x power.",
+	},
+	"nidokinite": {
+		id: "nidokinite",
+		name: "Nidokinite",
+		spritenum: -575,
+		megaStone: "Nidoking-Mega",
+		megaEvolves: "Nidoking",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -693,
+		gen: 0,
+		desc: "If holder is a Nidoking, this item allows it to Mega Evolve in battle.",
 	},
 	"nomelberry": {
 		id: "nomelberry",

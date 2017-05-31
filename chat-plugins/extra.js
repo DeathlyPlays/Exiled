@@ -22,24 +22,6 @@ let messages = [
 	"got rekt by Travis CI!",
 ];
 
-function clearRoom(room) {
-	let len = (room.log && room.log.length) || 0;
-	let users = [];
-	while (len--) {
-		room.log[len] = '';
-	}
-	for (let u in room.users) {
-		users.push(u);
-		Users.get(u).leaveRoom(room, Users.get(u).connections[0]);
-	}
-	len = users.length;
-	setTimeout(function () {
-		while (len--) {
-			Users.get(users[len]).joinRoom(room, Users.get(users[len]).connections[0]);
-		}
-	}, 1000);
-}
-
 exports.commands = {
 	'!authority': true,
 	auth: 'authority',
@@ -74,24 +56,6 @@ exports.commands = {
 
 		if (!buffer.length) return connection.popup("This server has no global authority.");
 		connection.send("|popup||html|" + buffer.join("\n\n"));
-	},
-
-	clearall: function (target, room, user) {
-		if (!this.can('roomintro')) return false;
-		if (room.battle) return this.sendReply("You cannot clearall in battle rooms.");
-
-		clearRoom(room);
-
-		this.privateModCommand(`(${user.name} used /clearall.)`);
-	},
-
-	gclearall: 'globalclearall',
-	globalclearall: function (target, room, user) {
-		if (!this.can('gdeclare')) return false;
-
-		Rooms.rooms.forEach(room => clearRoom(room));
-		Users.users.forEach(user => user.popup('All rooms have been cleared.'));
-		this.privateModCommand(`(${user.name} used /globalclearall.)`);
 	},
 
 	dm: 'daymute',

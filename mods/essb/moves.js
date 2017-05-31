@@ -219,7 +219,7 @@ exports.BattleMovedex = {
 	},
 	"shinkuhadoken": {
 		accuracy: 100,
-		basePower: 60,
+		basePower: 20,
 		basePowerCallback: function (pokemon, target, move) {
 			return move.basePower + 20 * pokemon.positiveBoosts();
 		},
@@ -1912,7 +1912,7 @@ exports.BattleMovedex = {
 		category: "Physical",
 		flags: {contact: 1, protect: 1, mirror: 1},
 		secondary: {
-			chance: 100,
+			chance: 30,
 			self: {
 				boosts: {
 					atk: 1,

@@ -136,10 +136,10 @@ exports.commands = {
 		if (!this.can('root')) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		room.add(User + ' has memed ' + targetUser + '.');
-		this.parse('/root NIIIIICE MEEEEME');
+		this.parse('/declare NIIIIICE MEEEEME');
 	},
 	roothammer: function (target, room, User) {
-		if (!target) return this.sendReply('/roothammer needs a target.');
+		if (!target) return this.sendReply('banhammer needs a target.');
 		if (!this.can('root', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		if (targetUser.can('root')) return this.sendReply('You cannot root an Admin - nice try. Chump.');

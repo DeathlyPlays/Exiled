@@ -281,7 +281,7 @@ Moves: Power trip, Stored Power
 Modified Move: Ultimate Setup
     - Shell Smash but the user protects itself when used. Has a chance of failing on consecutive turns
 Special Move: Shinku Hadoken
-    - 60 BP, Physical, Fighting, Damage is calculated with the user's SpD. Base power is raised depending on the amount of positive boosts the user has.
+    - 20 BP, Physical, Fighting, Damage is calculated with the user's SpD. Base power is raised depending on the amount of positive boosts the user has.
 Notes: Physical Attacker that gets boosts every turn.
 Rank: A.
 
@@ -455,7 +455,7 @@ Ability: Ready to Stab
     - +2 Atk and Speed upon entry.
 Moves: Crabhammer, Knock Off, Swords Dance
 Signature Move: Stab Stab
-    - Steel Type, Physical, 100 BP, Always hits twice, 5 PP, 25% chance to flinch.
+    - Steel Type, Physical, 100 BP, Always hits twice, 5 PP, 25% chance to flinch, Bypasses Protect.
 Notes: FLINCH HAX.
 Rank: N/A.
 
@@ -495,7 +495,7 @@ EVs: 252 Atk / 4 HP / 252 Spe
 Jolly Nature
 Moves: High Jump Kick, Ice Punch, Double-Edge
 Signature Move: Blinding Flashes
-	- 100 BP, Normal Type, Physical, +1 priority, 100% chance to boost user's Attack and Speed.
+	- 100 BP, Normal Type, Physical, +1 priority, 30% chance to boost user's Attack and Speed.
 Notes: Fast Physical Sweeper.
 
 Alpha Shivam

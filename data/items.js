@@ -7095,4 +7095,32 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Bewear, this item allows it to Mega Evolve in battle.",
 	},
+	"yanmegite": {
+		id: "yanmegite",
+		name: "Yanmegite",
+		spritenum: 575,
+		megaStone: "Yanmega-Mega",
+		megaEvolves: "Yanmega",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 674,
+		gen: 6,
+		desc: "If holder is an Yanmega, this item allows it to Mega Evolve in battle.",
+	},
+	"pyukumite": {
+		id: "pyukumute",
+		name: "Pyukumite",
+		spritenum: 575,
+		megaStone: "Pyukumuku-Mega",
+		megaEvolves: "Pyukumuku",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 674,
+		gen: 6,
+		desc: "If holder is an Pyukumuku, this item allows it to Mega Evolve in battle.",
+	},
 };

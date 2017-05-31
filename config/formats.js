@@ -1850,19 +1850,6 @@ exports.Formats = [
 			if (name === 'abstarfox') {
 				this.add('c| AB Starfox|Once again I get lucked out smh');
 			}
-			if (name === 'hoeenhero') {
-				move.category = 'Physical';
-			}
-			if (move.id === 'meditate' && name === 'vxn') {
-				move.name = 'Ultimate Setup';
-			}
-			if (move.id === 'ember' && name === 'chandie') {
-				move.name = 'Fast Flame';
-				move.onTryHit = function (target, source, move) {
-					this.attrLastMove('[still]');
-					this.add('-anim', source, "Flame Burst", target);
-				};
-			}
 		},
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {

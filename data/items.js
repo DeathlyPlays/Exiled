@@ -1209,6 +1209,20 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If holder is a Diancie, this item allows it to Mega Evolve in battle.",
 	},
+	"diggersbite": {
+		id: "diggersbite",
+		name: "Diggersbite",
+		spritenum: -666,
+		megaStone: "Diggersby-Mega",
+		megaEvolves: "Diggersby",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -689,
+		gen: 0,
+		desc: "If holder is a Diggersby, this item allows it to Mega Evolve in battle.",
+	},
 	"diveball": {
 		id: "diveball",
 		name: "Dive Ball",
@@ -3162,6 +3176,20 @@ exports.BattleItems = {
 		isUnreleased: true,
 		gen: 2,
 		desc: "Cannot be given to or taken from a Pokemon, except by Covet/Knock Off/Thief.",
+	},
+	"mamoswite": {
+		id: "mamoswite",
+		name: "Mamoswite",
+		spritenum: -547,
+		megaStone: "Mamoswine-Mega",
+		megaEvolves: "Mamoswine",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -906,
+		gen: 0,
+		desc: "If holder is a Mamoswine, this item allows it to Mega Evolve in battle.",
 	},
 	"manectite": {
 		id: "manectite",

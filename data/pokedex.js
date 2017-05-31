@@ -12367,6 +12367,7 @@ exports.BattlePokedex = {
 	volcanionmega: {
 		num: 721,
 		species: "Volcanion-Mega",
+		baseSpecies: "Volcanion",
 		types: ["Fire", "Water"],
 		gender: "N",
 		baseStats: {hp: 80, atk: 50, def: 140, spa: 180, spd: 140, spe: 130},

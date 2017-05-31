@@ -823,6 +823,18 @@ class BattleRoom extends Room {
 			}
 			// update rankings
 			Ladders(this.battle.format).updateRating(p1name, p2name, p1score, this);
+			//
+			// Buck Winnings
+			//
+			if (this.format !== 'OU' && this.format !== 'UU' && this.format !== 'RU' && this.format !== 'NU' && this.format !== 'PU' && this.format !== 'CAP' && this.format !== 'LC') {
+				let wid = toId(winner);
+				Db('money').set(wid, Db('money').get(wid, 0) + 2);
+				this.push("|raw|<b><font color='#cc0099'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='#cc0099'>2</font> bucks for winning an Official Format Rated Battle!</b>");
+			} else if (this.format !== 'randombattle' && this.format !== 'cc1v1' && this.format !== 'randomdoublesbattle' && this.format !== 'hackmonscup' && this.format !== 'randomtriplesbattle' && this.format !== 'battlefactory' && this.format !== 'gen1randombattle') {
+				let wid = toId(winner);
+				Db('money').set(wid, Db('money').get(wid, 0) + 1);
+				this.push("|raw|<b><font color='#cc0099'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='#cc0099'>1</font> buck for winning an Random Format Rated Battle!</b>");
+			}
 		} else if (Config.logchallenges) {
 			// Log challenges if the challenge logging config is enabled.
 			if (winnerid === this.p1.userid) {

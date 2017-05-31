@@ -497,3 +497,17 @@ Moves: High Jump Kick, Ice Punch, Double-Edge
 Signature Move: Blinding Flashes
 	- 100 BP, Normal Type, Physical, +1 priority, 100% chance to boost user's Attack and Speed.
 Notes: Fast Physical Sweeper.
+
+Alpha Shivam
+(Charizard-Mega-X)
+@ Health Orb
+	- 1.3x Attacking Moves + Loses 1/32 of maximum health every turn.
+Ability: Bird Claws
+	- Tough Claws
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+Moves: Outrage, Flare Blitz, Roost
+Signature Move: Dragonify
+	- 100 BP, Dragon Type, Physical, Boosts user's Attack and Speed one stage, +1 priority, Makes targets type Dragon type, 8 PP.
+Rank: A.
+Notes: Fast Physical Sweeper.

@@ -304,4 +304,23 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "Randomly boosts a stat at 1/4 health; 1/2 if Gluttony.",
 	},
+	"healthorb": {
+		id: "healthorb",
+		name: "Health Orb",
+		spritenum: 249,
+		fling: {
+			basePower: 30,
+		},
+		onModifyDamage: function (damage, source, target, move) {
+			return this.chainModify([0x14CC, 0x1000]);
+		},
+		onAfterMoveSecondarySelf: function (source, target, move) {
+			if (source && source !== target && move && move.category !== 'Status' && !move.ohko) {
+				this.damage(source.maxhp / 32, source, source, this.getItem('healthorb'));
+			}
+		},
+		num: -17,
+		gen: -1,
+		desc: "Holder's attacks do 1.3x damage, and it loses 1/32 its max HP after the attack.",
+	},
 };

@@ -481,64 +481,6 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
-		searchShow: false,
-		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Mega Rayquaza Clause', 'Team Preview'],
-		banlist: ['Baton Pass'],
-		onValidateTeam: function (team) {
-			let itemTable = {};
-			for (let i = 0; i < team.length; i++) {
-				let item = this.getItem(team[i].item);
-				if (!item) continue;
-				if (!(item in itemTable)) {
-					itemTable[item] = 1;
-				} else if (itemTable[item] < 2) {
-					itemTable[item]++;
-				} else {
-					if (item.megaStone) return ["You are limited to two of each Mega Stone.", "(You have more than two " + this.getItem(item).name + ")"];
-					if (item.id === 'blueorb' || item.id === 'redorb') return ["You are limited to two of each Primal Orb.", "(You have more than two " + this.getItem(item).name + ")"];
-				}
-			}
-		},
-		onValidateSet: function (set) {
-			let template = this.getTemplate(set.species || set.name);
-			let item = this.getItem(set.item);
-			if (!item.megaEvolves && item.id !== 'blueorb' && item.id !== 'redorb') return;
-			if (template.baseSpecies === item.megaEvolves || (template.baseSpecies === 'Groudon' && item.id === 'redorb') || (template.baseSpecies === 'Kyogre' && item.id === 'blueorb')) return;
-			if (template.evos.length) return ["" + template.species + " is not allowed to hold " + item.name + " because it's not fully evolved."];
-			let uberStones = ['beedrillite', 'gengarite', 'kangaskhanite', 'mawilite', 'medichamite'];
-			if (template.tier === 'Uber' || set.ability === 'Power Construct' || uberStones.includes(item.id)) return ["" + template.species + " is not allowed to hold " + item.name + "."];
-		},
-		onBegin: function () {
-			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
-			for (let i = 0, len = allPokemon.length; i < len; i++) {
-				let pokemon = allPokemon[i];
-				pokemon.originalSpecies = pokemon.baseTemplate.species;
-			}
-		},
-		onSwitchIn: function (pokemon) {
-			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
-			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
-				// Place volatiles on the Pokémon to show its mega-evolved condition and details
-				this.add('-start', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
-				let oTemplate = this.getTemplate(pokemon.originalSpecies);
-				if (oTemplate.types.length !== pokemon.template.types.length || oTemplate.types[1] !== pokemon.template.types[1]) {
-					this.add('-start', pokemon, 'typechange', pokemon.template.types.join('/'), '[silent]');
-				}
-			}
-		},
-		onSwitchOut: function (pokemon) {
-			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
-			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
-				this.add('-end', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
-			}
-		},
-	},
-	{
-		name: "[Gen 7] Mix and Mega (suspect test)",
-		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3605195/\">M&M Suspect #4</a>"],
-
-		mod: 'mixandmega',
-		challengeShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass'],
 		onValidateTeam: function (team) {
@@ -1776,7 +1718,7 @@ exports.Formats = [
 				pokemon.types = ["Fairy", "Steel"];
 			}
 			if (name === 'hoeenhero') {
-				this.add('c| HoeenHero|Do I have to? I\'m in the middle of programming.');
+				this.add('c|+HoeenHero|Do I have to? I\'m in the middle of programming.');
 			}
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
@@ -1878,6 +1820,64 @@ exports.Formats = [
 				this.add('c| AB Starfox|Time for me to get a life');
 			}
 			if (name === 'hoeenhero') {
+				this.add('c|+HoeenHero|I can\'t battle now, I\'m too busy.');
+			}
+			if (name === 'thegodofpie') {
+				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
+			}
+			if (name === 'echosierra') {
+				this.add('c|+EchoSierra|bbl fam');
+			}
+		},
+		// Add here salty tears, that is, custom faint phrases.
+		onFaint: function (pokemon) {
+			let name = toId(pokemon.name);
+			//le faint
+			if (name === 'insist') {
+				this.add('c|~Insist|Death.... what a cool concept.');
+				this.add('c|~Insist|Wait wot!');
+				this.add('c|~Insist|>~Insist fainted.');
+				this.add('c|~Insist|That\'s obviously hax m8!');
+				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
+				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
+			}
+			if (name === 'vxn') {
+				this.add('c|@VXN|the bug has been fixed');
+			}
+			if (name === 'speckeldorft') {
+				this.add('c| Speckeldorft|__I was a ded meme.......__');
+			}
+			if (name === 'abstarfox') {
+				this.add('c| AB Starfox|Once again I get lucked out smh');
+			}
+			if (name === 'hoeenhero') {
+				move.category = 'Physical';
+			}
+			if (move.id === 'meditate' && name === 'vxn') {
+				move.name = 'Ultimate Setup';
+			}
+			if (move.id === 'ember' && name === 'chandie') {
+				move.name = 'Fast Flame';
+				move.onTryHit = function (target, source, move) {
+					this.attrLastMove('[still]');
+					this.add('-anim', source, "Flame Burst", target);
+				};
+			}
+		},
+		//Switch-out Phrase
+		onSwitchOut: function (pokemon) {
+			let name = toId(pokemon.name);
+			//switchout
+			if (name === 'insist') {
+				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
+			}
+			if (name === 'speckeldorft') {
+				this.add('c| Speckeldorft|fuck you');
+			}
+			if (name === 'abstarfox') {
+				this.add('c| AB Starfox|Time for me to get a life');
+			}
+			if (name === 'hoeenhero') {
 				this.add('c| HoeenHero|I can\'t battle now, I\'m too busy.');
 			}
 			if (name === 'thegodofpie') {
@@ -1909,7 +1909,7 @@ exports.Formats = [
 				this.add('c| AB Starfox|Once again I get lucked out smh');
 			}
 			if (name === 'hoeenhero') {
-				this.add('c| HoeenHero|Hey! Thats more hax than I get to use >:(');
+				this.add('c|+HoeenHero|Hey! Thats more hax than I get to use >:(');
 			}
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|ur mom');

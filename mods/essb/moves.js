@@ -1920,10 +1920,41 @@ exports.BattleMovedex = {
 				},
 			},
 		},
-		pp: 10,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Return", target);
+		},
+		pp: 15,
 		target: "normal",
 		type: "Normal",
 		zMovePower: 180,
 		contestType: "Tough",
+	},
+	//Alpha Shivam
+	"dragonify": {
+		id: "dragonify",
+		name: "Dragonify",
+		basePower: 100,
+		pp: 5,
+		accuracy: 100,
+		category: "Physical",
+		flags: {protect: 1},
+		self: {
+			boosts: {
+				atk: 1,
+				spe: 1,
+			},
+		},
+		onHit: function (target) {
+			if (!target.setType('Dragon')) return false;
+			this.add('-start', target, 'typechange', 'Dragon');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Roar of Time", target);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Dragon",
 	},
 };

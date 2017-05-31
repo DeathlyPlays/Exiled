@@ -1762,4 +1762,14 @@ exports.BattleAbilities = {
 			if (effect.id === 'recoil' && this.activeMove.id !== 'struggle') return null;
 		},
 	},
+	"birdclaws": {
+		id: "birdclaws",
+		name: "Bird Claws",
+		//Tough Claws
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.flags['contact']) {
+				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+	},
 };

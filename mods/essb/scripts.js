@@ -342,6 +342,36 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			"+HoeenHero": {
+				species: "Ludicolo",
+				ability: "Programmers Domain",
+				item: "Leftovers",
+				gender: "M",
+				moves: ['scald', 'icebeam', 'gigadrain'],
+				baseSignatureMove: "scripting",
+				signatureMove: "Scripting",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Timid",
+			},
+			"+Alpha Shivam": {
+				species: "Charizard-Mega-X",
+				ability: "Bird Claws",
+				item: "Health Orb",
+				gender: "M",
+				moves: ['outrage', 'flareblitz', 'roost'],
+				baseSignatureMove: "dragonify",
+				signatureMove: "Dragonify",
+				evs: {
+					atk: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Adamant",
+			},
 			//Regs
 			" Kevso": {
 				species: "Deoxys-Defense",
@@ -373,21 +403,6 @@ exports.BattleScripts = {
 					spd: 4,
 				},
 				nature: "Adamant",
-			},
-			" HoeenHero": {
-				species: "Ludicolo",
-				ability: "Programmers Domain",
-				item: "Leftovers",
-				gender: "M",
-				moves: ['scald', 'icebeam', 'gigadrain'],
-				baseSignatureMove: "scripting",
-				signatureMove: "Scripting",
-				evs: {
-					spa: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Timid",
 			},
 			" Kimisumi": {
 				species: "Gallade-Mega",

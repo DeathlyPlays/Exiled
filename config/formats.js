@@ -1850,51 +1850,6 @@ exports.Formats = [
 			if (name === 'abstarfox') {
 				this.add('c| AB Starfox|Once again I get lucked out smh');
 			}
-		},
-		//Switch-out Phrase
-		onSwitchOut: function (pokemon) {
-			let name = toId(pokemon.name);
-			//switchout
-			if (name === 'insist') {
-				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
-			}
-			if (name === 'speckeldorft') {
-				this.add('c| Speckeldorft|fuck you');
-			}
-			if (name === 'abstarfox') {
-				this.add('c| AB Starfox|Time for me to get a life');
-			}
-			if (name === 'hoeenhero') {
-				this.add('c| HoeenHero|I can\'t battle now, I\'m too busy.');
-			}
-			if (name === 'thegodofpie') {
-				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
-			}
-			if (name === 'echosierra') {
-				this.add('c|+EchoSierra|bbl fam');
-			}
-		},
-		// Add here salty tears, that is, custom faint phrases.
-		onFaint: function (pokemon) {
-			let name = toId(pokemon.name);
-			//le faint
-			if (name === 'insist') {
-				this.add('c|~Insist|Death.... what a cool concept.');
-				this.add('c|~Insist|Wait wot!');
-				this.add('c|~Insist|>~Insist fainted.');
-				this.add('c|~Insist|That\'s obviously hax m8!');
-				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
-				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
-			}
-			if (name === 'vxn') {
-				this.add('c|@VXN|the bug has been fixed');
-			}
-			if (name === 'speckeldorft') {
-				this.add('c| Speckeldorft|__I was a ded meme.......__');
-			}
-			if (name === 'abstarfox') {
-				this.add('c| AB Starfox|Once again I get lucked out smh');
-			}
 			if (name === 'hoeenhero') {
 				this.add('c|+HoeenHero|Hey! Thats more hax than I get to use >:(');
 			}

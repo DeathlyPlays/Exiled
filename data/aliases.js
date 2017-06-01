@@ -38,16 +38,8 @@ exports.BattleAliases = {
 	"monorandom": "[Gen 7] Monotype Random Battle",
 	"bf": "Battle Factory",
 	"gen6inverse": "Inverse Battle",
-<<<<<<< HEAD
-	"lastwill": "[Gen 7] Last Will",
-	"crossevolution": "[Gen 7] Cross Evolution",
-	"essb": "[Gen 7]: Exiled Super Staff Bros",
-	"cotr": "[Gen 7]: Clash of the Regions",
-	"monoubers": "[Gen 7] Monotype Ubers",
-=======
 	"godlygift": "[Gen 7] Godly Gift",
 	"dancerability": "[Gen 7] Dancerability",
->>>>>>> f3e1097b990a7fcb628f9091da67618f0e88e35e
 
 	// mega evos
 	"maero": "Aerodactyl-Mega",
@@ -709,4 +701,10 @@ exports.BattleAliases = {
 	"borutorosu": "Thundurus",
 	// there's no need to type out the other Japanese names
 	// I'll autogenerate them at some point
+
+	//Exiled's Meta
+	//mainly to avoid conflicts when updating with main
+	"essb": "[Gen 7]: Exiled Super Staff Bros",
+	"cotr": "[Gen 7]: Clash of the Regions",
+	"monoubers": "[Gen 7] Monotype Ubers",
 };

@@ -2,7 +2,7 @@
 
 /* Tic Tac Toe Plugin By Digital Edge and Kewlstatics */
 
-if (!global.ttt) global.ttt = [{}, {}];
+/*if (!global.ttt) global.ttt = [{}, {}];
 let tttgames = global.ttt[0];
 let tttplayers = global.ttt[1];
 
@@ -370,4 +370,4 @@ exports.commands = {
 		targetUser.lastPM = user.userid;
 		user.lastPM = targetUser.userid;
 	},
-};
+};*/

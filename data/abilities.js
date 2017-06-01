@@ -4348,4 +4348,36 @@ exports.BattleAbilities = {
 		rating: 3,
 		num: -202,
 	},
+	"blizzardrush": {
+		shortDesc: "Snow Warning + Slush Rush + Refrigerate",
+		//snow warning
+		onStart: function (source) {
+			this.setWeather('hail');
+		},
+		//slush rush (weakned to x1.5 to balance)
+		onModifySpe: function (spe, pokemon) {
+			if (this.isWeather('hail')) {
+				return this.chainModify(1.5);
+			}
+		},
+		//refrigerate
+		onModifyMovePriority: -1,
+		onModifyMove: function (move, pokemon) {
+			if (move.type === 'Normal' && move.id !== 'naturalgift' && !move.isZ) {
+				move.type = 'Ice';
+				if (move.category !== 'Status') pokemon.addVolatile('refrigerate');
+			}
+		},
+		effect: {
+			duration: 1,
+			onBasePowerPriority: 8,
+			onBasePower: function (basePower, pokemon, target, move) {
+				return this.chainModify([0x1333, 0x1000]);
+			},
+		},
+		id: "blizzardrush",
+		name: "Blizzard Rush",
+		rating: 4,
+		num: 117,
+	},
 };

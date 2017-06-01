@@ -6955,6 +6955,20 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Chandelure, this item allows it to Mega Evolve in battle.",
 	},
+	"delinite": {
+		id: "delinite",
+		name: "Delinite",
+		spritenum: -243,
+		megaStone: "Delibird-Mega",
+		megaEvolves: "Delibird",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 6,
+		desc: "If holder is a Delibird, this item allows it to Mega Evolve in battle.",
+	},
 	"grumpigite": {
 		id: "grumpigite",
 		name: "Grumpigite",

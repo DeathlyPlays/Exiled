@@ -14656,4 +14656,18 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		eggGroups: ["Bug"],
 	},
+	delibirdmega: {
+		num: 225,
+		species: "Delibird-Mega",
+		baseSpecies: "Delibird",
+		forme: "Mega",
+		formeLetter: "M",
+		types: ["Ice"],
+		baseStats: {hp: 45, atk: 105, def: 85, spa: 105, spd: 85, spe: 105},
+		abilities: {0: "Blizzard Rush"}, //Custom ability I'm making, Snow Warning + Slush Rush + Refrigerate
+		heightm: 1.4,
+		weightkg: 31.3,
+		color: "Blue",
+		eggGroups: ["Water 1", "Field"],
+	},
 };

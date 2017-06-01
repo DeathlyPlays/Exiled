@@ -480,6 +480,12 @@ exports.BattleAliases = {
 	"yache": "Yache Berry",
 
 	// pokemon
+	"karp": "Magikarp",
+	"flufi": "Raichu",
+	"insist": "Ludicolo",
+	"hoeenhero": "Ludicolo",
+	"noviex": "Tyranitar",
+	"vxn": "Missingno",
 	"aboma": "Abomasnow",
 	"arc": "Arceus",
 	"arceusnormal": "Arceus",

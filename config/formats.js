@@ -50,6 +50,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Clause'],
+		banlist: ['Furretite'],
 	},
 	{
 		name: "[Gen 7] UU",
@@ -61,7 +62,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] OU'],
-		banlist: ['OU', 'BL', 'Drizzle', 'Power Construct', 'Mewnium Z'],
+		banlist: ['OU', 'BL', 'Drizzle', 'Power Construct', 'Mewnium Z', 'Flygonite'],
 	},
 	{
 		name: "[Gen 7] RU (beta)",
@@ -72,7 +73,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] UU'],
-		banlist: ['UU', 'BL2'],
+		banlist: ['UU', 'BL2', 'Carbite', 'Ludicolite', 'Butterfrite', 'Lilligite', 'Solite', 'Lunite'],
 	},
 	{
 		name: "[Gen 7] NU (alpha)",
@@ -452,7 +453,7 @@ exports.Formats = [
 		banlist: [
 			'Illegal', 'Unreleased', 'Arceus', 'Darkrai', 'Deoxys-Base', 'Deoxys-Attack', 'Dialga', 'Giratina', 'Groudon', 'Ho-Oh', 'Kyogre',
 			'Kyurem-White', 'Lugia', 'Lunala', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zekrom',
-			'Power Construct', 'Perish Song', 'Focus Sash', 'Kangaskhanite', 'Salamencite', 'Chansey + Charm + Seismic Toss',
+			'Power Construct', 'Perish Song', 'Kangaskhanite', 'Salamencite', 'Chansey + Charm + Seismic Toss',
 		],
 	},
 	{

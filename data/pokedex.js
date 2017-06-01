@@ -2295,8 +2295,8 @@ exports.BattlePokedex = {
 	mrmime: {
 		num: 122,
 		species: "Mr. Mime",
-		types: ["Psychic", "Fairy"],
-		baseStats: {hp: 40, atk: 45, def: 65, spa: 100, spd: 120, spe: 90},
+		types: ["Steel", "Fairy"],
+		baseStats: {hp: 40, atk: 45, def: 65, spa: 110, spd: 120, spe: 110},
 		abilities: {0: "Soundproof", 1: "Filter", H: "Technician"},
 		heightm: 1.3,
 		weightkg: 54.5,
@@ -14679,11 +14679,25 @@ exports.BattlePokedex = {
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Ice"],
-		baseStats: {hp: 45, atk: 105, def: 85, spa: 105, spd: 85, spe: 105},
+		baseStats: {hp: 45, atk: 105, def: 85, spa: 105, spd: 85, spe: 115},
 		abilities: {0: "Blizzard Rush"}, //Custom ability I'm making, Snow Warning + Slush Rush + Refrigerate
 		heightm: 1.4,
 		weightkg: 31.3,
 		color: "Blue",
 		eggGroups: ["Water 1", "Field"],
+	},
+	nucleon: {
+		num: 10000,
+		species: "Nucleon",
+		types: ["Nuclear"],
+		genderRatio: {M: 0.75, F: 0.25},
+		baseStats: {hp: 90, atk: 130, def: 80, spa: 90, spd: 80, spe: 55},
+		abilities: {0: "Analytic", H: "Nuclearize"}, //Nuclearize - Changes normal moves to nuclear type and deal x1.2 damage
+		heightm: 1.3,
+		weightkg: 55.2,
+		color: "Gray",
+		prevo: "eevee",
+		evoLevel: 2,
+		eggGroups: ["Monster"],
 	},
 };

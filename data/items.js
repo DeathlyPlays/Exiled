@@ -524,6 +524,7 @@ exports.BattleItems = {
 	"blazikenite": {
 		id: "blazikenite",
 		name: "Blazikenite",
+		isUnreleased: true,
 		spritenum: 584,
 		megaStone: "Blaziken-Mega",
 		megaEvolves: "Blaziken",
@@ -1208,20 +1209,6 @@ exports.BattleItems = {
 		num: 764,
 		gen: 6,
 		desc: "If holder is a Diancie, this item allows it to Mega Evolve in battle.",
-	},
-	"diggersbite": {
-		id: "diggersbite",
-		name: "Diggersbite",
-		spritenum: -666,
-		megaStone: "Diggersby-Mega",
-		megaEvolves: "Diggersby",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: -689,
-		gen: 0,
-		desc: "If holder is a Diggersby, this item allows it to Mega Evolve in battle.",
 	},
 	"diveball": {
 		id: "diveball",
@@ -2365,20 +2352,6 @@ exports.BattleItems = {
 		gen: 3,
 		desc: "Can be revived into Omanyte.",
 	},
-	"heliolite": {
-		id: "heliolite",
-		name: "Heliolite",
-		spritenum: -345,
-		megaStone: "Heliolisk-Mega",
-		megaEvolves: "Heliolisk",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: -435,
-		gen: 0,
-		desc: "If holder is a Heliolisk, this item allows it to Mega Evolve in battle.",
-	},
 	"heracronite": {
 		id: "heracronite",
 		name: "Heracronite",
@@ -3191,20 +3164,6 @@ exports.BattleItems = {
 		gen: 2,
 		desc: "Cannot be given to or taken from a Pokemon, except by Covet/Knock Off/Thief.",
 	},
-	"mamoswite": {
-		id: "mamoswite",
-		name: "Mamoswite",
-		spritenum: -547,
-		megaStone: "Mamoswine-Mega",
-		megaEvolves: "Mamoswine",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: -906,
-		gen: 0,
-		desc: "If holder is a Mamoswine, this item allows it to Mega Evolve in battle.",
-	},
 	"manectite": {
 		id: "manectite",
 		name: "Manectite",
@@ -3653,20 +3612,6 @@ exports.BattleItems = {
 		num: 246,
 		gen: 2,
 		desc: "Holder's Ice-type attacks have 1.2x power.",
-	},
-	"nidokinite": {
-		id: "nidokinite",
-		name: "Nidokinite",
-		spritenum: -575,
-		megaStone: "Nidoking-Mega",
-		megaEvolves: "Nidoking",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: -693,
-		gen: 0,
-		desc: "If holder is a Nidoking, this item allows it to Mega Evolve in battle.",
 	},
 	"nomelberry": {
 		id: "nomelberry",
@@ -4817,6 +4762,7 @@ exports.BattleItems = {
 	"sceptilite": {
 		id: "sceptilite",
 		name: "Sceptilite",
+		isUnreleased: true,
 		spritenum: 613,
 		megaStone: "Sceptile-Mega",
 		megaEvolves: "Sceptile",
@@ -5395,6 +5341,7 @@ exports.BattleItems = {
 	"swampertite": {
 		id: "swampertite",
 		name: "Swampertite",
+		isUnreleased: true,
 		spritenum: 612,
 		megaStone: "Swampert-Mega",
 		megaEvolves: "Swampert",
@@ -7151,6 +7098,20 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Beartic, this item allows it to Mega Evolve in battle.",
 	},
+	"togenite": {
+		id: "togenite",
+		name: "Togenite",
+		spritenum: -400,
+		megaStone: "Togekiss-Mega",
+		megaEvolves: "Togekiss",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 6,
+		desc: "If holder is a Togekiss, this item allows it to Mega Evolve in battle.",
+	},
 	"bewearite": {
 		id: "bewearite",
 		name: "Bewearite",
@@ -7164,33 +7125,5 @@ exports.BattleItems = {
 		num: -119,
 		gen: 0,
 		desc: "If holder is a Bewear, this item allows it to Mega Evolve in battle.",
-	},
-	"yanmegite": {
-		id: "yanmegite",
-		name: "Yanmegite",
-		spritenum: 575,
-		megaStone: "Yanmega-Mega",
-		megaEvolves: "Yanmega",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: 674,
-		gen: 6,
-		desc: "If holder is an Yanmega, this item allows it to Mega Evolve in battle.",
-	},
-	"pyukumite": {
-		id: "pyukumute",
-		name: "Pyukumite",
-		spritenum: 575,
-		megaStone: "Pyukumuku-Mega",
-		megaEvolves: "Pyukumuku",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: 674,
-		gen: 6,
-		desc: "If holder is an Pyukumuku, this item allows it to Mega Evolve in battle.",
 	},
 };

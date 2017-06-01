@@ -106,12 +106,12 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Sing", target);
 			this.add('-anim', source, "Spike Cannon", target);
 		},
-		basePower: 80,
+		basePower: 85,
 		pp: 10,
 		accuracy: 100,
-		target: "normal",
+		target: "allAdjacent",
 		type: "Steel",
-		zMovePower: 125,
+		zMovePower: 130,
 		contestType: "Cute",
 	},
 	//cieltsnow
@@ -1402,7 +1402,7 @@ exports.BattleMovedex = {
 	"solareruption": {
 		id: "solareruption",
 		name: "Solar Eruption",
-		basePower: 110,
+		basePower: 100,
 		accuracy: 100,
 		desc: "Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage.",
 		category: "Special",
@@ -1417,7 +1417,7 @@ exports.BattleMovedex = {
 			self: {
 				boosts: {
 					spa: 1,
-					spe: 2,
+					spe: 1,
 				},
 			},
 			status: 'brn',
@@ -1631,14 +1631,22 @@ exports.BattleMovedex = {
 		priority: 0,
 		accuracy: 100,
 		category: "Physical",
-		flags: {protect: 1, mirror: 1, contact: 1},
+		flags: {protect: 1, mirror: 1, contact: 1, recharge: 1},
 		self: {
-			boosts: {
-				atk: 1,
-			},
+			volatileStatus: 'mustrecharge',
+		},
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Outrage", source);
 		},
 		pp: 10,
-		secondary: false,
+		secondary: {
+			self: {
+				boosts: {
+					atk: 1,
+				},
+			},
+		},
 		target: "normal",
 		type: "Dragon",
 	},
@@ -1651,7 +1659,10 @@ exports.BattleMovedex = {
 		category: "Physical",
 		pp: 0.625,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, heal: 1},
+		flags: {contact: 1, protect: 1, mirror: 1, heal: 1, recharge: 1},
+		self: {
+			volatileStatus: 'mustrecharge',
+		},
 		stealsBoosts: true,
 		secondary: false,
 		isZ: "legendiniumz",

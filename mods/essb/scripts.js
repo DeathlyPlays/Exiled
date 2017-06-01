@@ -192,17 +192,32 @@ exports.BattleScripts = {
 			"@flufi": {
 				species: "Altaria-Mega",
 				ability: "The Waggling",
-				item: "Eject Button",
+				item: "Red Card",
 				gender: "M",
 				moves: ['Fleur Cannon', 'Volt Switch', 'Roost'],
 				baseSignatureMove: "fluffblast",
 				signatureMove: "Fluff Blast",
 				evs: {
 					hp: 252,
-					spa: 120,
-					spd: 136,
+					spa: 248,
+					spe: 8,
 				},
 				nature: "Modest",
+			},
+			"@aquaflufi": {
+				species: "Greninja-Mega",
+				ability: "Long Tongue",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['U-Turn', 'Low Kick', 'Water Spout'],
+				baseSignatureMove: "icebeam",
+				signatureMove: "Ice Beam",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Timid",
 			},
 			//Drivers
 			"%ggdaca":{
@@ -235,7 +250,7 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"%Noviex": {
+			"@Noviex": {
 				species: "Tyranitar",
 				ability: "Phat Ass",
 				item: "Armor Vest",

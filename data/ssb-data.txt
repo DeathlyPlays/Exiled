@@ -27,15 +27,16 @@ Rank: B.
 
 flufi
 (Altaria-Mega)
-@ Eject Button
+@ Red Card
 EVs: 252 HP / 128 SpA / 128 SpD
 Modest Nature
 Ability: The Waggling
-	- Uses Metronome twice upon entry.
-	- Changes to Fairy/Steel type on switch-in.
+	- Uses Metronome upon entry.
+	- Changes to Fairy/Steel/Dragon type on switch-in.
+	- Combines effect of Fur Coat (x1.5 defense, not x2)
 Moves: Roost, Fleur Cannon, Volt Switch
 Special Move: Fluff Blast
-  - Steel Type, Special, 80 BP, 100% Accuracy
+  - Steel Type, Special, 85 BP, 100% Accuracy
 	- Raises Defense, Special Defense and Speed by 1 stage.
 Notes: Luck Based Staffmon. Has an item, move, and ability built for
 constantly switching and gaining more switch-in metronomes.
@@ -408,14 +409,14 @@ ggdaca
 (Rayquaza-Mega)
 @ Legendinium Z
 	- If the user is a Rayquaza-Mega with Lord's Wrath it may use Legend's Destruction.
-		- Legend's Destruction: Dragon, 130 BP, 100% accuracy, Drains 1/2 damage dealt, Steals boosts, Physical, Z-Move, Contact.
+		- Legend's Destruction: Dragon, 130 BP, 100% accuracy, Drains 1/2 damage dealt, Steals boosts, Physical, Z-Move, Contact, User must recharge after usage.
 EVs: 252 Atk / 4 HP / 252 Spe
 Adamant Nature
 Ability: Lord's Grace
 	- Boosts the user's Attack, Defense, Special Defense, and Speed by one stage.
 Moves: Extreme Speed, Earthquake, Dragon Ascent
 Special Move: Lord's Wrath
-	- Dragon Type, 90 BP, Physical, 100% accuracy, Boosts Atk by one stage, Contact.
+	- Dragon Type, 90 BP, Physical, 100% accuracy, User must recharge after usage, Contact, Boosts user's Attack by one stage.
 Notes: Like it's okay.... It's a Mega Rayquaza.... Not as good as a Magikarp tho....
 Rank: N/A.
 
@@ -459,6 +460,21 @@ Signature Move: Stab Stab
 Notes: FLINCH HAX.
 Rank: N/A.
 
+Aqua Flufi
+(Greninja-Mega)
+@ Life Orb
+Ability: Long Tongue
+    - Water Bubble + Drizzle + Protean, Defense is Halved (multiplied by x0.5)
+EVS: 252 SpA / 252 Spe / 4 SpD
+Timid Nature
+Moves: Low Kick, U-Turn, Water Spout, Ice Beam
+Notes: Glass Cannon. Immense power when at full health, but becomes
+much weaker as it loses health, as Water Bubble and Drizzle only help
+with Water Spout, which becomes weak when you have low health. U-turn
+for pivoting and keeping momentum, Low Kick and Ice Beam for coverage.
+Defense is halved for balance, and any Desolate Land user walls it completely.
+Rank: A.
+
 KanekiPlayerBR
 (Ninetales)
 @ Kanekinium Z
@@ -472,6 +488,7 @@ Moves: Flamethrower, Energy Ball, Psyshock
 Signature Move: Super Ultra Flamethrower Destroyer of Universes
     - Fire Type, Special, 100 BP, 15 PP, Always hits, Boosts user's Special Attack and Speed by one stage, +1 priority.
 Notes: Special Sweeper.
+Rank: N/A
 
 douglasgamer
 (Greninja-Ash)

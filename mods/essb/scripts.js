@@ -182,10 +182,10 @@ exports.BattleScripts = {
 				baseSignatureMove: "Shinku Hadoken",
 				signatureMove: "Shinku Hadoken",
 				evs: {
-					hp: 216,
+					hp: 172,
 					atk: 252,
 					def: 4,
-					spe: 36,
+					spe: 80,
 				},
 				nature: "Adamant",
 			},

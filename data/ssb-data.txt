@@ -273,7 +273,7 @@ VXN
     - Psychic/Fighting type
 @ Debugger
     - When a stat is lowered it is cleared and the user gains 25% of their heath along with reducing their HP down to one when an attack KOs them at full health.
-EVs: 252 Atk / 252 HP / 4 Def / 36 Spe
+EVs: 252 Atk / 172 HP / 4 Def / 80 Spe
 Adamant Nature
 Ability: Glitching Out
     - Moody + Simple + Priority on Psychic type attacks

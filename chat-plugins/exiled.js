@@ -133,6 +133,47 @@ function clearRoom(room) {
 	}, 1000);
 }
 
+Exiled.regdate = function (target, callback) {
+	target = toId(target);
+	if (regdateCache[target]) return callback(regdateCache[target]);
+	let options = {
+		host: 'pokemonshowdown.com',
+		port: 80,
+		path: '/users/' + target + '.json',
+		method: 'GET',
+	};
+	http.get(options, function (res) {
+		let data = '';
+		res.on('data', function (chunk) {
+			data += chunk;
+		}).on('end', function () {
+			data = JSON.parse(data);
+			let date = data['registertime'];
+			if (date !== 0 && date.toString().length < 13) {
+				while (date.toString().length < 13) {
+					date = Number(date.toString() + '0');
+				}
+			}
+			if (date !== 0) {
+				regdateCache[target] = date;
+				saveRegdateCache();
+			}
+			callback((date === 0 ? false : date));
+		});
+	});
+};
+
+function loadRegdateCache() {
+	try {
+		regdateCache = JSON.parse(fs.readFileSync('config/regdate.json', 'utf8'));
+	} catch (e) {}
+}
+loadRegdateCache();
+
+function saveRegdateCache() {
+	fs.writeFileSync('config/regdate.json', JSON.stringify(regdateCache));
+}
+
 exports.commands = {
 	useroftheweek: 'uotw',
 	uotw: function (target, room, user) {
@@ -723,7 +764,7 @@ exports.commands = {
 	nerding: 'away',
 	mimis: 'away',
 	away: function (target, room, user, connection, cmd) {
-		if (!user.isAway && user.name.length > 19 && !user.can('lock')) return this.sendReply("Your username is too long for any kind of use of this command.");
+		if (!user.isAway && user.name.length > 30 && !user.can('lock')) return this.sendReply("Your username is too long for any kind of use of this command.");
 		if (!this.canTalk()) return false;
 
 		target = target ? target.replace(/[^a-zA-Z0-9]/g, '') : 'AWAY';
@@ -740,7 +781,7 @@ exports.commands = {
 		}
 
 		newName += ' - ' + status;
-		if (newName.length > 18 && !user.can('lock')) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
+		if (newName.length > 30 && !user.can('lock')) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
 
 		// forcerename any possible impersonators
 		let targetUser = Users.getExact(user.userid + target);
@@ -779,6 +820,7 @@ exports.commands = {
 	},
 	backhelp: ["/back - Sets a users away status back to normal."],
 
+	'!essb': true,
 	essb: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
 		if (!target || target === 'help') return this.parse('/help essb');
@@ -849,4 +891,46 @@ exports.commands = {
 		Users.users.forEach(user => user.popup('All rooms have been cleared.'));
 		this.privateModCommand(`(${user.name} used /globalclearall.)`);
 	},
+	'!regdate': true,
+	regdate: function (target, room, user, connection) {
+		if (!target) target = user.name;
+		target = toId(target);
+		if (target.length < 1 || target.length > 19) {
+			return this.sendReply("Usernames can not be less than one character or longer than 19 characters. (Current length: " + target.length + ".)");
+		}
+		if (!this.runBroadcast()) return;
+		Exiled.regdate(target, date => {
+			if (date) {
+				this.sendReplyBox(regdateReply(date));
+			}
+		});
+
+		function regdateReply(date) {
+			if (date === 0) {
+				return Exiled.nameColor(target, true) + " <b><font color='red'>is not registered.</font></b>";
+			} else {
+				let d = new Date(date);
+				let MonthNames = ["January", "February", "March", "April", "May", "June",
+					"July", "August", "September", "October", "November", "December",
+				];
+				let DayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+				return Exiled.nameColor(target, true) + " was registered on <b>" + DayNames[d.getUTCDay()] + ", " + MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + ", " + d.getUTCFullYear() + "</b> at <b>" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC.</b>";
+			}
+			//room.update();
+		}
+	},
+	regdatehelp: ["/regdate - Gets the regdate (register date) of a username."],
+
+	'!seen': true,
+	seen: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		if (!target) return this.parse('/help seen');
+		let targetUser = Users.get(target);
+		if (targetUser && targetUser.connected) return this.sendReplyBox(Exiled.nameColor(targetUser.name, true) + " is <b><font color='limegreen'>Currently Online</b></font>.");
+		target = Chat.escapeHTML(target);
+		let seen = Db('seen').get(toId(target));
+		if (!seen) return this.sendReplyBox(Exiled.nameColor(target, true) + " has <b><font color='red'>never been online</font></b> on this server.");
+		this.sendReplyBox(Exiled.nameColor(target, true) + " was last seen <b>" + Chat.toDurationString(Date.now() - seen, {precision: true}) + "</b> ago.");
+	},
+	seenhelp: ["/seen - Shows when the user last connected on the server."],
 };

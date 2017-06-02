@@ -29,6 +29,7 @@ exports.commands = {
 	chatcolorhelp: ["/chatcolor OR /chatcolour [colour], [message] - Outputs a message in a custom colour. Requires VIP."],
 
 	/* eslint-enable */
+	'!m8b': true,
 	helixfossil: 'm8b',
 	helix: 'm8b',
 	magic8ball: 'm8b',

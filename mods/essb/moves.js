@@ -86,33 +86,29 @@ exports.BattleMovedex = {
 		type: "Normal",
 	},
 	//flufi
-	"fluffblast": {
-		id: "fluffblast",
-		name: "Fluff Blast",
+	"hypertensiveattack": {
+		id: "hypertensiveattack",
+		name: "Hypertensive Attack",
 		self: {
 			boosts: {
-				def: 1,
-				spd: 1,
-				spe: 1,
+				atk: 1,
 			},
 		},
 		secondary: false,
 		category: "Special",
-		onHit: function (target, source, move) {
-			this.add('c|%flufi|Suffocate on my fluff!');
-		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Sing", target);
-			this.add('-anim', source, "Spike Cannon", target);
+			this.add('-anim', source, "Draco Meteor", target);
+			this.add('-anim', source, "Agility", target);
+			this.add('-anim', source, "Nightmare", target);
 		},
-		basePower: 85,
-		pp: 10,
-		accuracy: 100,
-		target: "allAdjacent",
-		type: "Steel",
-		zMovePower: 130,
-		contestType: "Cute",
+		basePower: 140,
+		pp: 5,
+		accuracy: 80,
+		target: "normal",
+		type: "Dragon",
+		zMovePower: 185,
+		contestType: "Clever",
 	},
 	//cieltsnow
 	"pimpslap": {

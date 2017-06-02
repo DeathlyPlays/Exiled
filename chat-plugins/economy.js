@@ -54,6 +54,7 @@ let shop = [
 	['Custom Emoticon', 'You provide an image (50x50) to be added as an emote on the server. (Can be refused)', 40],
 	['Profile Help', 'Staff members will help you set your profile. (responses may not be immediate)', 50],
 	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 50],
+	['Custom PM Box', 'A Custom Designed PM Box Created by LassNinetales for you. [can be refused]', 75],
 	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Exiled Super Staff Bros metagame. Insist will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 100],
 ];
 
@@ -66,7 +67,7 @@ let shopDisplay = getShopDisplay(shop);
  * @return {String} display
  */
 function getShopDisplay(shop) {
-	let display = "<center><img src=http://i.imgur.com/8KX56s2.gif><img src=http://i.imgur.com/BkeDY83.png width=250> <img src=http://i.imgur.com/bKJYns1.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #000; border-color: #DF0101; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
+	let display = "<center><img src=https://play.pokemonshowdown.com/sprites/xyani/darkrai.gif><img src=http://i.imgur.com/WOewQZw.gif width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/cresselia.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #000; border-color: #DF0101; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
 		"<tbody><tr><th><font color=#DF0101 face=courier>Item</font></th><th><font color=#DF0101 face=courier>Description</font></th><th><font color=#DF0101 face=courier>Price</font></th></tr>";
 	let start = 0;
 	while (start < shop.length) {

@@ -26,21 +26,18 @@ Notes: Physical sweeper.
 Rank: B.
 
 flufi
-(Altaria-Mega)
-@ Red Card
-EVs: 252 HP / 128 SpA / 128 SpD
+(Kyurem-White)
+@ Expert Belt
+EVs: 236 SpA / 196 Spe / 72 Atk
 Modest Nature
-Ability: The Waggling
-	- Uses Metronome upon entry.
-	- Changes to Fairy/Steel/Dragon type on switch-in.
-	- Combines effect of Fur Coat (x1.5 defense, not x2)
-Moves: Roost, Fleur Cannon, Volt Switch
-Special Move: Fluff Blast
-  - Steel Type, Special, 85 BP, 100% Accuracy
-	- Raises Defense, Special Defense and Speed by 1 stage.
-Notes: Luck Based Staffmon. Has an item, move, and ability built for
-constantly switching and gaining more switch-in metronomes.
-Rank: B.
+Ability: Blizzard Rush
+	- Snow Warning + Slush Rush + Refrigerate
+	- Changes to Dragon/Steel type on switch-in.
+Moves: Wild Charge, Boomburst, Gear Grind
+Special Move: Hypertensive Attack
+  - Dragon Type, Special, 120 BP, 90% Accuracy, Raises Attack by +1.
+Notes: Very powerful revenge killer/wallbreaker.
+Rank: A.
 
 Wobbleleez
 (Musharna)

@@ -432,6 +432,7 @@ function hasUpperCase(msg) {
 }
 
 exports.commands = {
+	'!profile': true,
 	profile: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (target.length >= 19) return this.sendReply("Usernames are required to be less than 19 characters long.");

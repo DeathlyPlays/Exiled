@@ -4,8 +4,6 @@
  * This file contains commands that keep track of users activity.
  ********************/
 let color = require('../config/color');
-let moment = require('moment');
-let request = require('request');
 let rankLadder = require('../rank-ladder');
 
 function convertTime(time) {
@@ -27,39 +25,7 @@ function displayTime(t) {
 }
 
 exports.commands = {
-	regdate: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		target = toId(target);
-		if (!target) target = toId(user.name);
-		request('http://pokemonshowdown.com/users/' + target, function (error, response, body) {
-			if (error && response.statusCode !== 200) {
-				this.sendReplyBox('<b><font color="' + color(target) + '">' + Chat.escapeHTML(target) + '</font></b> is not registered.');
-				return room.update();
-			}
-			let regdate = body.split('<small>')[1].split('</small>')[0].replace(/(<em>|<\/em>)/g, '');
-			if (regdate === '(Unregistered)') {
-				this.sendReplyBox('<b><font color="' + color(target) + '">' + Chat.escapeHTML(target) + '</font></b> is not registered.');
-			} else {
-				this.sendReplyBox('<b><font color="' + color(target) + '">' + Chat.escapeHTML(target) + '</font></b> was registered on ' + regdate.slice(7) + '.');
-			}
-			room.update();
-		}.bind(this));
-	},
-	regdatehelp: ["/regdate - Please specify a valid username."],
-
-	seen: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		if (!target) return this.parse('/help seen');
-		let targetUser = Users.get(target);
-		if (targetUser && targetUser.connected) return this.sendReplyBox('<b><font color="' + color(toId(targetUser.name)) + '">' + targetUser.name + '</font></b> is <b>currently online</b>.');
-		//if (targetUser.userid === 'username') return false;
-		target = Chat.escapeHTML(target);
-		let seen = Db('seen').get(toId(target));
-		if (!seen) return this.sendReplyBox('<b><font color="' + color(toId(target)) + '">' + target + '</b> has never been online on this server.');
-		this.sendReplyBox('<b><font color="' + color(toId(target)) + '">' + target + '</font></b> was last seen <b>' + moment(seen).fromNow() + '</b>.');
-	},
-	seenhelp: ["/seen - Shows when the user last connected on the server."],
-
+	'!ontime': true,
 	nolife: 'ontime',
 	userontime: 'ontime',
 	ontime: function (target, room, user) {

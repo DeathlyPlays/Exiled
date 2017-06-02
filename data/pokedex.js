@@ -11267,7 +11267,7 @@ exports.BattlePokedex = {
 		species: "Bunnelby",
 		types: ["Normal"],
 		baseStats: {hp: 38, atk: 36, def: 38, spa: 32, spd: 36, spe: 57},
-		abilities: {0: "Pickup", 1: "Cheek Pouch", H: "Huge Power"},
+		abilities: {0: "Run Away", 1: "Cheek Pouch", H: "Huge Power"},
 		heightm: 0.4,
 		weightkg: 5,
 		color: "Brown",

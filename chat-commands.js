@@ -817,35 +817,11 @@ exports.commands = {
 		}
 	},
 
-	privateroomhelp: ["/secretroom - Makes a room secret. Secret rooms are visible to & and up. Requires: & ~",
+	privateroomhelp: [
+		"/secretroom - Makes a room secret. Secret rooms are visible to & and up. Requires: & ~",
 		"/hiddenroom [on/off] - Makes a room hidden. Hidden rooms are visible to % and up, and inherit global ranks. Requires: \u2606 & ~",
-		"/publicroom - Makes a room public. Requires: \u2606 & ~"],
-
-	var: 'variable',
-	variable: function (target, room, user) {
-		function setVariable() {
-			var cmdVariable = 5;
-			return cmdVariable * cmdVariable;
-		}
-		if (!target) {
-			return this.parse('/variablehelp');
-		}
-		if (target === 'add') {
-			cmdVariable++;
-			this.sendReply('Variable increased');
-		}
-		if (target === 'subtract') {
-			cmdVariable--;
-			this.sendReply('Variable subtracted.');
-		}
-		if (target === 'show') {
-			return this.sendReply('Current Variable = ' + cmdVariable);
-		}
-	},
-
-	variablehelp: ["/var add - Increase the test variable by +1.",
-		"/var subtract - Decrease the test variable by -1.",
-		"/var show - Display the current integer of the variable."],
+		"/publicroom - Makes a room public. Requires: \u2606 & ~"
+	],
 
 	officialchatroom: 'officialroom',
 	officialroom: function (target, room, user) {

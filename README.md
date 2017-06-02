@@ -6,8 +6,7 @@ This server requires the Node Js Version 6.6.0 or higher<br>
 #### `Windows`
 
 * On Windows OS you can install a preferred Version of NodeJS easily from https://nodejs.org/en/download/
-* Afte
-installing your preffered version of NodeJS (>6.2), you can easily start up NodeJS Command Prompt then run
+* After installing your preffered version of NodeJS (>6.2), you can easily start up NodeJS Command Prompt then run
 ``node app`` or ``node app.js`` you even might specify the port in which to run the server on eg:- ``node app.js 8080`` if you do not mention the port, the mentioned port from **Config.port** will be used to run the server
 
 #### `OS X`

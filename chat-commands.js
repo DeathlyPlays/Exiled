@@ -823,7 +823,10 @@ exports.commands = {
 
 	var: 'variable',
 	variable: function (target, room, user) {
-		let cmdVariable = 1;
+		function setVariable() {
+			var cmdVariable = 5;
+			return cmdVariable * cmdVariable;
+		}
 		if (!target) {
 			return this.parse('/variablehelp');
 		}

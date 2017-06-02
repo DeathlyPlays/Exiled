@@ -75,6 +75,18 @@ function saveReports() {
 	fs.writeFile('config/reports.json', JSON.stringify(Reports));
 }
 
+function getLinkId(msg) {
+	msg = msg.split(' ');
+	for (let i = 0; i < msg.length; i++) {
+		if ((/youtu\.be/i).test(msg[i])) {
+			let temp = msg[i].split('/');
+			return temp[temp.length - 1];
+		} else if ((/youtube\.com/i).test(msg[i])) {
+			return msg[i].substring(msg[i].indexOf("=") + 1).replace(".", "");
+		}
+	}
+}
+
 function isDev(user) {
 	if (!user) return;
 	if (typeof user === 'object') user = user.userid;
@@ -875,6 +887,46 @@ exports.commands = {
 				room.update();
 			});
 		});
+	},
+	yt: 'youtube',
+	youtube: function (target, room, user) {
+		if (!this.runBroadcast()) return false;
+		if (!target) return false;
+		let params_spl = target.split(' '), g = ' ';
+		for (let i = 0; i < params_spl.length; i++) {
+			g += '+' + params_spl[i];
+		}
+		g = g.substr(1);
+
+		let reqOpts = {
+			hostname: 'www.googleapis.com',
+			method: 'GET',
+			path: '/youtube/v3/search?part=snippet&q=' + g + '&type=video&key=AIzaSyA4fgl5OuqrgLE1B7v8IWYr3rdpTGkTmns',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+
+		let self = this;
+		let data = '';
+		let req = require('https').request(reqOpts, function (res) {
+			res.on('data', function (chunk) {
+				data += chunk;
+			});
+			res.on('end', function (chunk) {
+				let d = JSON.parse(data);
+				if (d.pageInfo.totalResults === 0) {
+					room.add('No videos found');
+					room.update();
+					return false;
+				}
+				let id = getLinkId(target);
+				const image = '<button style="background: none; border: none;"><img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg?custom=true&w=168&h=94&stc=true&jpg444=true&jpgq=90&sp=68&sigh=tbq7TDTjFXD_0RtlFUMGz-k3JiQ" height="180" width="180"></button>';
+				self.sendReplyBox('<center>' + image + '<br><a href="https://www.youtube.com/watch?v=' + d.items[0].id.videoId + '"><b> ' + d.items[0].snippet.title + '</b></center>');
+				room.update();
+			});
+		});
+		req.end();
 	},
 	clearall: function (target, room, user) {
 		if (!this.can('declare')) return false;

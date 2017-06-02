@@ -820,7 +820,7 @@ exports.commands = {
 	privateroomhelp: [
 		"/secretroom - Makes a room secret. Secret rooms are visible to & and up. Requires: & ~",
 		"/hiddenroom [on/off] - Makes a room hidden. Hidden rooms are visible to % and up, and inherit global ranks. Requires: \u2606 & ~",
-		"/publicroom - Makes a room public. Requires: \u2606 & ~"
+		"/publicroom - Makes a room public. Requires: \u2606 & ~",
 	],
 
 	officialchatroom: 'officialroom',

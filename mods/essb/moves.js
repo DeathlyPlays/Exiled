@@ -92,6 +92,7 @@ exports.BattleMovedex = {
 		self: {
 			boosts: {
 				atk: 1,
+				spe: 1,
 			},
 		},
 		secondary: false,

@@ -202,7 +202,7 @@ exports.BattleScripts = {
 					spe: 208,
 					atk: 72,
 				},
-				nature: "Modest",
+				nature: "Mild",
 			},
 			"@Noviex": {
 				species: "Tyranitar",

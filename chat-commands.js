@@ -816,29 +816,33 @@ exports.commands = {
 			room.privacySetter = new Set([user.userid]);
 		}
 	},
-	variablehelp: ["/var add - Increase the test variable by +1.",
-		"/var subtract - Decrease the test variable by -1.",
-		"/var show - Display the current integer of the variable."],
+
+	privateroomhelp: ["/secretroom - Makes a room secret. Secret rooms are visible to & and up. Requires: & ~",
+		"/hiddenroom [on/off] - Makes a room hidden. Hidden rooms are visible to % and up, and inherit global ranks. Requires: \u2606 & ~",
+		"/publicroom - Makes a room public. Requires: \u2606 & ~"],
 
 	var: 'variable',
 	variable: function (target, room, user) {
-		let testVar = 1;
+		let cmdVariable = 1;
 		if (!target) {
 			return this.parse('/variablehelp');
 		}
 		if (target === 'add') {
-			return this.sendReply (testVar + 1);
+			cmdVariable++;
+			this.sendReply('Variable increased');
 		}
 		if (target === 'subtract') {
-			return this.sendReply (testVar - 1);
+			cmdVariable--;
+			this.sendReply('Variable subtracted.');
 		}
 		if (target === 'show') {
-			return this.sendReply (testVar);
+			return this.sendReply('Current Variable = ' + cmdVariable);
 		}
 	},
-	privateroomhelp: ["/secretroom - Makes a room secret. Secret rooms are visible to & and up. Requires: & ~",
-		"/hiddenroom [on/off] - Makes a room hidden. Hidden rooms are visible to % and up, and inherit global ranks. Requires: \u2606 & ~",
-		"/publicroom - Makes a room public. Requires: \u2606 & ~"],
+
+	variablehelp: ["/var add - Increase the test variable by +1.",
+		"/var subtract - Decrease the test variable by -1.",
+		"/var show - Display the current integer of the variable."],
 
 	officialchatroom: 'officialroom',
 	officialroom: function (target, room, user) {

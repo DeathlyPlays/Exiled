@@ -28,6 +28,8 @@ let amCache = {
 
 let Reports = {};
 
+let regdateCache = {};
+
 Exiled.img = function (link, height, width) {
 	if (!link) return '<font color="maroon">ERROR : You must supply a link.</font>';
 	return '<img src="' + link + '"' + (height ? ' height="' + height + '"' : '') + (width ? ' width="' + width + '"' : '') + '/>';

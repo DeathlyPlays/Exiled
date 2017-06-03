@@ -7126,4 +7126,21 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Bewear, this item allows it to Mega Evolve in battle.",
 	},
+	"frostorb": {
+		id: "frostorb",
+		name: "Frost Orb",
+		spritenum: -251,
+		fling: {
+			basePower: 30,
+			status: 'frz',
+		},
+		onResidualOrder: 26,
+		onResidualSubOrder: 2,
+		onResidual: function (pokemon) {
+			pokemon.trySetStatus('frz');
+		},
+		num: -273,
+		gen: 0,
+		desc: "At the end of every turn, this item attempts to freeze the holder.",
+	},
 };

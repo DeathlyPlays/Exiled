@@ -284,18 +284,18 @@ exports.commands = {
 		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Exiled Credits:</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Server Maintainers:</u></b><br />" +
-			"- " + Exiled.nameColor('Insist', true) + " (Owner, Sysadmin, Development)<br />" +
-			"- " + Exiled.nameColor('Volco', true) + " (Owner, Sysadmin, Development)<br />" +
+			"- " + Exiled.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
+			"- " + Exiled.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
 			"<br />" +
 			"<u><b>Major Contributors:</b></u><br />" +
-			"- " + Exiled.nameColor('VXN', true) + " (Developments)<br />" +
-			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developments)<br />" +
-			"- " + Exiled.nameColor('Mewth', true) + " (Developments)<br />" +
-			"- " + Exiled.nameColor('Back At My Day', true) + " (Developments)<br />" +
+			"- " + Exiled.nameColor('VXN', true) + " (Developer)<br />" +
+			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developer)<br />" +
+			"- " + Exiled.nameColor('Back At My Day', true) + " (Developer)<br />" +
 			"<br />" +
 			"<u><b>Retired Staff:</b></u><br />" +
-			"- " + Exiled.nameColor('Princess Teddiursa', true) + " (Former Owner, Development, CSS Developments)<br />" +
-			"- " + Exiled.nameColor('Alpha Hawk', true) + " (Developments)<br />" +
+			"- " + Exiled.nameColor('Princess Teddiursa', true) + " (Former Owner, Developer, CSS Developments)<br />" +
+			"- " + Exiled.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
+			"- " + Exiled.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
 			"<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members<br />" +

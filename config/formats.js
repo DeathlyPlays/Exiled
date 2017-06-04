@@ -388,8 +388,6 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
-<<<<<<< HEAD
-=======
 		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],
@@ -448,7 +446,6 @@ exports.Formats = [
 
 		mod: 'mixandmega',
 		challengeShow: false,
->>>>>>> 83efb5b191bdd8fbe32dc099a33afcea96cd4137
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],
 		onValidateTeam: function (team) {

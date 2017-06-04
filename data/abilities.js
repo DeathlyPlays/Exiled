@@ -1388,8 +1388,8 @@ exports.BattleAbilities = {
 	},
 	"pureheart": {
 		shortDesc: "This Pokemon's Special Attack is doubled. Only for Magearna-Mega.",
-		onModifyAtkPriority: 5,
-		onModifyAtk: function (spa) {
+		onModifySpAPriority: 5,
+		onModifySpA: function (spa) {
 			return this.chainModify(2);
 		},
 		id: "pureheart",
@@ -1403,8 +1403,8 @@ exports.BattleAbilities = {
 		onModifyAtk: function (atk) {
 			return this.chainModify(2);
 		},
-		onModifyAtkPriority: 5,
-		onModifyAtk: function (spa) {
+		onModifySpAPriority: 5,
+		onModifySpA: function (spa) {
 			return this.chainModify(2);
 		},
 		id: "brutepower",
@@ -4427,6 +4427,6 @@ exports.BattleAbilities = {
 		id: "oldgalewings",
 		name: "Old Gale Wings",
 		rating: 4.5,
-		num: -115
+		num: -115,
 	},
 };

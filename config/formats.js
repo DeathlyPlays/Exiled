@@ -2382,7 +2382,6 @@ exports.Formats = [
 		],
 		mod: "powertrick",
 		ruleset: ['[Gen 7] OU'],
-		banlist: [' ',],
 		unbanlist: ['Aegislash', 'Deoxys-Attack'],
 		onBegin: function () {
 			this.powerTrick = ["Power Trick"];

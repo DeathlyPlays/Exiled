@@ -28,14 +28,13 @@ Rank: B.
 flufi
 (Kyurem-White)
 @ Expert Belt
-EVs: 236 SpA / 196 Spe / 72 Atk
-Modest Nature
+EVs: 248 SpA / 252 Spe / 8 Def
+Timid Nature
 Ability: Blizzard Rush
 	- Snow Warning + Slush Rush + Refrigerate
-	- Changes to Dragon/Steel type on switch-in.
-Moves: Wild Charge, Boomburst, Gear Grind
+Moves: Thunderbolt, Boomburst, Flash Cannon
 Special Move: Hypertensive Attack
-  - Dragon Type, Special, 120 BP, 90% Accuracy, Raises Attack by +1.
+  - Dragon Type, Special, 120 BP, 80% Accuracy, Raises SpAttack by +1.
 Notes: Very powerful revenge killer/wallbreaker.
 Rank: A.
 

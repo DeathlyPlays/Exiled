@@ -178,15 +178,15 @@ exports.BattleScripts = {
 				ability: "Blizzard Rush",
 				item: "Expert Belt",
 				gender: "M",
-				moves: ['wildcharge', 'boomburst', 'geargrind'], //Ice Moves aren't STAB (Balancing)
+				moves: ['thunderbolt', 'boomburst', 'flashcannon'],
 				baseSignatureMove: "hypertensiveattack",
 				signatureMove: "Hypertensive Attack",
 				evs: {
-					spa: 224,
-					spe: 208,
-					atk: 72,
+					spa: 248,
+					spe: 252,
+					def: 8,
 				},
-				nature: "Mild",
+				nature: "Timid",
 			},
 			"@Noviex": {
 				species: "Tyranitar",

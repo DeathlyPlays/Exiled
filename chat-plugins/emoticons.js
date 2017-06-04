@@ -303,6 +303,7 @@ let emoticons = {
 	'feelsbern': 'http://i.imgur.com/hSSP1V7.gif',
 	'Doge': '//i.imgur.com/jfVcWbz.jpg',
 	'feelsmiguel': 'http://68.media.tumblr.com/11c5b846207ed38389ae4b6dec3fcae4/tumblr_npbpfrztSN1uxp9xfo1_1280.jpg',
+	'feelsshrek': 'https://i.gyazo.com/f5868547d79a085e16121fae303bc7c7.png',
 };
 let emoteRegex = new RegExp('feelsbd', 'g');
 Exiled.ignoreEmotes = {};

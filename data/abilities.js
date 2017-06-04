@@ -1386,17 +1386,6 @@ exports.BattleAbilities = {
 		rating: 5,
 		num: 37,
 	},
-	"atomicpower": {
-		shortDesc: "This Pokemon's Attack is multiplied by 50.",
-		onModifyAtkPriority: 5,
-		onModifyAtk: function (atk) {
-			return this.chainModify(50);
-		},
-		id: "atomicpower",
-		name: "Atomic Power",
-		rating: 5,
-		num: 37,
-	},
 	"pureheart": {
 		shortDesc: "This Pokemon's Special Attack is doubled. Only for Magearna-Mega.",
 		onModifyAtkPriority: 5,
@@ -1405,6 +1394,21 @@ exports.BattleAbilities = {
 		},
 		id: "pureheart",
 		name: "Pure Heart",
+		rating: 5,
+		num: -37,
+	},
+	"brutepower": {
+		shortDesc: "This Pokemon's Attack and Special Attack is doubled.",
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (atk) {
+			return this.chainModify(2);
+		},
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (spa) {
+			return this.chainModify(2);
+		},
+		id: "brutepower",
+		name: "Brute Power",
 		rating: 5,
 		num: -37,
 	},
@@ -4373,7 +4377,7 @@ exports.BattleAbilities = {
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.flags['contact']) {
-				return this.chainModify([0x14CD, 0x1000]);
+				return this.chainModify([0x15CD, 0x1000]);
 			}
 		},
 		id: "belligerent",
@@ -4386,11 +4390,12 @@ exports.BattleAbilities = {
 		//snow warning
 		onStart: function (source) {
 			this.setWeather('hail');
+			this.setTerrain('electricterrain');
 		},
-		//slush rush (weakned to x1.5 to balance)
+		//slush rush
 		onModifySpe: function (spe, pokemon) {
 			if (this.isWeather('hail')) {
-				return this.chainModify(1.5);
+				return this.chainModify(2);
 			}
 		},
 		//refrigerate
@@ -4412,5 +4417,16 @@ exports.BattleAbilities = {
 		name: "Blizzard Rush",
 		rating: 4,
 		num: 117,
+	},
+	"oldgalewings": {
+		inherit: true,
+		shortDesc: "This Pokemon's Flying-type moves have their priority increased by 1.",
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.type === 'Flying') return priority + 1;
+		},
+		id: "oldgalewings",
+		name: "Old Gale Wings",
+		rating: 4.5,
+		num: -115
 	},
 };

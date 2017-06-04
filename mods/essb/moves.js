@@ -91,8 +91,7 @@ exports.BattleMovedex = {
 		name: "Hypertensive Attack",
 		self: {
 			boosts: {
-				atk: 1,
-				spe: 1,
+				spa: 1,
 			},
 		},
 		secondary: false,

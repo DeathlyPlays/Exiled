@@ -6507,7 +6507,7 @@ exports.BattleMovedex = {
 	},
 	"grasswhistle": {
 		num: 320,
-		accuracy: 55,
+		accuracy: 80,
 		basePower: 0,
 		category: "Status",
 		desc: "Causes the target to fall asleep.",
@@ -7388,6 +7388,15 @@ exports.BattleMovedex = {
 		basePowerCallback: function (pokemon, target) {
 			let targetWeight = target.getWeight();
 			let pokemonWeight = pokemon.getWeight();
+			if (pokemonWeight > targetWeight * 8) {
+				return 180;
+			}
+			if (pokemonWeight > targetWeight * 7) {
+				return 160;
+			}
+			if (pokemonWeight > targetWeight * 6) {
+				return 140;
+			}
 			if (pokemonWeight > targetWeight * 5) {
 				return 120;
 			}
@@ -7755,6 +7764,22 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Water",
+		contestType: "Clever",
+	},
+	"hiddenpowerfairy": {
+		accuracy: 100,
+		basePower: 60,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		id: "hiddenpower",
+		name: "Hidden Power Fairy",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: false,
+		target: "normal",
+		type: "Fairy",
 		contestType: "Clever",
 	},
 	"highhorsepower": {
@@ -12012,8 +12037,8 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "The user swaps its Attack and Defense stats; stat stage changes remain on their respective stats. This move can be used again to swap the stats back. If the user uses Baton Pass, the replacement will have its Attack and Defense stats swapped if the effect is active. If the user has its stats recalculated by changing forme while its stats are swapped, this effect is ignored but is still active for the purposes of Baton Pass.",
-		shortDesc: "Switches user's Attack and Defense stats.",
+		desc: "The user swaps its Attack/Special Attack and Defense/Special Defense stats; stat stage changes remain on their respective stats. This move can be used again to swap the stats back. If the user uses Baton Pass, the replacement will have its Attack and Defense stats swapped if the effect is active. If the user has its stats recalculated by changing forme while its stats are swapped, this effect is ignored but is still active for the purposes of Baton Pass.",
+		shortDesc: "Switches user's Attack/Special Attack and Defense/Special Defense stats.",
 		id: "powertrick",
 		name: "Power Trick",
 		pp: 10,
@@ -12024,22 +12049,34 @@ exports.BattleMovedex = {
 			onStart: function (pokemon) {
 				this.add('-start', pokemon, 'Power Trick');
 				let newatk = pokemon.stats.def;
+				let newspa = pokemon.stats.spd;
 				let newdef = pokemon.stats.atk;
+				let newspd = pokemon.stats.spa;
 				pokemon.stats.atk = newatk;
 				pokemon.stats.def = newdef;
+				pokemon.stats.spa = newspa;
+				pokemon.stats.spd = newspd;
 			},
 			onCopy: function (pokemon) {
 				let newatk = pokemon.stats.def;
+				let newspa = pokemon.stats.spd;
 				let newdef = pokemon.stats.atk;
+				let newspd = pokemon.stats.spa;
 				pokemon.stats.atk = newatk;
 				pokemon.stats.def = newdef;
+				pokemon.stats.spa = newspa;
+				pokemon.stats.spd = newspd;
 			},
 			onEnd: function (pokemon) {
 				this.add('-end', pokemon, 'Power Trick');
 				let newatk = pokemon.stats.def;
+				let newspa = pokemon.stats.spd;
 				let newdef = pokemon.stats.atk;
+				let newspd = pokemon.stats.spa;
 				pokemon.stats.atk = newatk;
 				pokemon.stats.def = newdef;
+				pokemon.stats.spa = newspa;
+				pokemon.stats.spd = newspd;
 			},
 			onRestart: function (pokemon) {
 				pokemon.removeVolatile('Power Trick');
@@ -12048,7 +12085,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "self",
 		type: "Psychic",
-		zMoveBoost: {atk: 1},
+		zMoveBoost: {atk: 1, spa: 1},
 		contestType: "Clever",
 	},
 	"powertrip": {
@@ -19027,7 +19064,6 @@ exports.BattleMovedex = {
 				spa: -1,
 			},
 		},
-		stealsBoosts: true,
 		target: "normal",
 		type: "Water",
 		contestType: "Cute",
@@ -19042,7 +19078,7 @@ exports.BattleMovedex = {
 		id: "spiralingtoxins",
 		isViable: true,
 		name: "Spiraling Toxins",
-		pp: 10,
+		pp: 16,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		// No Guard-like effect for Poison-type users implemented in BattleScripts#tryMoveHit
@@ -19094,22 +19130,27 @@ exports.BattleMovedex = {
 		num: -100,
 		accuracy: 100,
 		basePower: 70,
-		category: "Special",
+		category: "Physical",
 		desc: "Heals 25% of the user's max health.",
-		shortDesc: "Heals 1/4 of max HP. 10% sleep chance.",
+		shortDesc: "Heals 1/4 of max HP. 40% sleep chance.",
 		id: "wishfulstrike",
 		name: "Wishful Strike",
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		heal: [1, 4],
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Wish", source);
+			this.add('-anim', source, "Meteor Mash", source);
+		},
 		secondary: {
-			chance: 10,
+			chance: 40,
 			status: 'slp',
 		},
 		target: "normal",
 		type: "Fairy",
-		zMovePower: 130,
+		zMovePower: 120,
 		contestType: "Cool",
 	},
 	"minigeomancy": {
@@ -19125,6 +19166,10 @@ exports.BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {charge: 1, nonsky: 1},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Geomancy", source);
+		},
 		onTry: function (attacker, defender, move) {
 			if (attacker.removeVolatile(move.id)) {
 				return;
@@ -19148,5 +19193,26 @@ exports.BattleMovedex = {
 		type: "Fairy",
 		zMoveBoost: {atk: 1, def: 1, spa: 1, spd: 1, spe: 1},
 		contestType: "Beautiful",
+	},
+	"quickcombustion": {
+		num: -602,
+		accuracy: 100,
+		basePower: 40,
+		category: "Special",
+		shortDesc: "+1 Priority. 20% chance to burn.",
+		id: "quickcombustion",
+		isViable: true,
+		name: "Quick Combustion",
+		pp: 20,
+		priority: 1,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 20,
+			status: 'brn',
+		},
+		target: "normal",
+		type: "Fire",
+		zMovePower: 100,
+		contestType: "Clever",
 	},
 };

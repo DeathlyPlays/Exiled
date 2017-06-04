@@ -2892,6 +2892,7 @@ exports.BattleLearnsets = {
 		inferno: ["7L62", "6L62", "6S1", "5L62"],
 		irontail: ["6T", "5T", "4M", "3M"],
 		leer: ["7V"],
+		quickcombustion: ["7M", "7L47"],
 		megakick: ["7V", "3T"],
 		megapunch: ["7V", "3T"],
 		metalclaw: ["3L1"],
@@ -36008,6 +36009,7 @@ exports.BattleLearnsets = {
 		waterpulse: ["6T", "4M", "3M"],
 		wish: ["7L1", "6L1", "6S17", "6S18", "6S19", "6S20", "6S21", "5L1", "5S14", "5S15", "5S16", "4L1", "4S11", "4S12", "3L1", "3S0", "3S1", "3S2", "3S3", "3S4", "3S5", "3S6", "3S7", "3S8", "3S9"],
 		zenheadbutt: ["7L35", "6T", "6L35", "5T", "5L35", "4T", "4L35"],
+		wishfulstrike: ["6T", "5T", "4T"],
 	}},
 	deoxys: {learnset: {
 		aerialace: ["7M", "6M", "5M", "4M", "3M"],
@@ -52766,6 +52768,7 @@ exports.BattleLearnsets = {
 	}},
 	pyroar: {learnset: {
 		attract: ["7M", "6M"],
+		quickcombustion: ["7M", "6M"],
 		bounce: ["6T"],
 		bulldoze: ["7M", "6M"],
 		confide: ["7M", "6M"],
@@ -55002,6 +55005,7 @@ exports.BattleLearnsets = {
 		workup: ["7M"],
 		xscissor: ["7M", "6M"],
 		zenheadbutt: ["6T"],
+		drillpeck: ["5E"],
 	}},
 	dedenne: {learnset: {
 		aerialace: ["7M", "6M"],

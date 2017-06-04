@@ -13842,7 +13842,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Steel", "Fairy"],
 		baseStats: {hp: 80, atk: 95, def: 135, spa: 155, spd: 135, spe: 100},
-		abilities: {0: "Regenerator"},
+		abilities: {0: "Pure Heart"},
 		heightm: 1.2,
 		weightkg: 81.3,
 		color: "Gray",

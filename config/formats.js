@@ -2378,7 +2378,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Swapping Powers",
 		desc: [
-			"Power Trick is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Mewth. Coded by Mewth/flufi.",
+			"Power Trick is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Mewth. Coded by Mewth/flufi. (Also Switches Special Attack with Special Defense.)",
 		],
 		mod: "powertrick",
 		ruleset: ['[Gen 7] OU'],

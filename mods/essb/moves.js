@@ -111,6 +111,31 @@ exports.BattleMovedex = {
 		zMovePower: 185,
 		contestType: "Clever",
 	},
+	"electrocryption": {
+		accuracy: 100,
+		basePower: 200,
+		basePowerCallback: function (pokemon, target, move) {
+			return move.basePower * pokemon.hp / pokemon.maxhp;
+		},
+		category: "Special",
+		id: "electrocryption",
+		name: "Electrocryption",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Discharge", target);
+		},
+		secondary: {
+			chance: 50,
+			status: 'par',
+		},
+		target: "allAdjacentFoes",
+		type: "Electric",
+		zMovePower: 999,
+		contestType: "Clever",
+	},
 	//cieltsnow
 	"pimpslap": {
 		id: "pimpslap",

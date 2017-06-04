@@ -181,14 +181,6 @@ exports.Formats = [
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod'],
 	},
-	{
-		name: "[Gen 7] Ashmons",
-
-		mod: 'gen7',
-		maxLevel: 50,
-		defaultLevel: 50,
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],
-	},
 
 	// SM Doubles
 	///////////////////////////////////////////////////////////////////
@@ -1619,7 +1611,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'vxn') {
-				this.add('c|@VXN|ok im here, what do you want me to break');
+				this.add('c|+VXN|ok im here, what do you want me to break');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1695,8 +1687,8 @@ exports.Formats = [
 				pokemon.types = ["Dragon", "Water"];
 			}
 			if (name === 'vxn' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Psychic/Fighting');
-				pokemon.types = ["Psychic", "Fighting"];
+				this.add('-start', pokemon, 'typechange', 'Electric/Flying');
+				pokemon.types = ["Electric", "Flying"];
 			}
 			//custom moves on switch while having a specific ability
 			if (name === 'universalcraftr' && !pokemon.illusion) {
@@ -1757,7 +1749,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c|@VXN|the bug has been fixed');
+				this.add('c|+VXN|the bug has been fixed');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -1836,7 +1828,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'vxn') {
-				this.add('c|@VXN|ok im here, what do you want me to break');
+				this.add('c|+VXN|ok im here, what do you want me to break');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1912,8 +1904,8 @@ exports.Formats = [
 				pokemon.types = ["Dragon", "Water"];
 			}
 			if (name === 'vxn' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Psychic/Fighting');
-				pokemon.types = ["Psychic", "Fighting"];
+				this.add('-start', pokemon, 'typechange', 'Electric/Flying');
+				pokemon.types = ["Electric", "Flying"];
 			}
 			//custom moves on switch while having a specific ability
 			if (name === 'universalcraftr' && !pokemon.illusion) {
@@ -1974,7 +1966,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c|@VXN|the bug has been fixed');
+				this.add('c|+VXN|the bug has been fixed');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -2326,6 +2318,13 @@ exports.Formats = [
 				this.add("-message", "Starting next turn, the battle will set another 5 rounds of " + this.startNewTrickRoom + "!");
 			}
 		},
+	},
+	{
+		name: "[Gen 7] Ashmons",
+		mod: 'gen7',
+		maxLevel: 50,
+		defaultLevel: 50,
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],
 	},
 	{
 		name: "[Gen 7] Prehistoric",

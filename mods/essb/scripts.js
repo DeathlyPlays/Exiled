@@ -173,22 +173,6 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			"@VXN": {
-				species: "Missingno",
-				ability: "Glitching Out",
-				item: "Debugger",
-				gender: "M",
-				moves: ['meditate', 'powertrip', 'storedpower'],
-				baseSignatureMove: "Shinku Hadoken",
-				signatureMove: "Shinku Hadoken",
-				evs: {
-					hp: 172,
-					atk: 252,
-					def: 4,
-					spe: 80,
-				},
-				nature: "Adamant",
-			},
 			"@flufi": {
 				species: "Kyurem-White",
 				ability: "Blizzard Rush",
@@ -282,6 +266,24 @@ exports.BattleScripts = {
 				nature: "Timid",
 			},
 			//Voices
+			"+VXN": {
+				species: "Raikou",
+				ability: "Wingdings",
+				item: "Leftovers",
+				gender: "M",
+				moves: ['secretsword', 'triattack', 'icebeam'],
+				baseSignatureMove: "electrocryption",
+				signatureMove: "Electrocryption",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4,
+				},
+				ivs: {
+					atk: 0,
+				},
+				nature: "Timid",
+			},
 			"+Wobbleleez": {
 				species: "Musharna",
 				ability: "WobzDoezJobz",

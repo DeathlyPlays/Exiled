@@ -78,6 +78,33 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"wingdings": {
+		onModifyMovePriority: -1,
+		onModifyMove: function (move, pokemon) {
+			if (move.type === 'Normal' && move.id !== 'naturalgift' && !move.isZ) {
+				move.type = 'Flying';
+				if (move.category !== 'Status') pokemon.addVolatile('aerilate');
+			}
+			if (!move) return;
+			if (!move.secondaries) {
+				move.secondaries = [];
+			}
+			move.secondaries.push({
+				chance: 30,
+				volatileStatus: 'confusion',
+				ability: this.getAbility('wingdings'),
+			});
+		},
+		effect: {
+			duration: 1,
+			onBasePowerPriority: 8,
+			onBasePower: function (basePower, pokemon, target, move) {
+				return this.chainModify([0x1333, 0x1000]);
+			},
+		},
+		id: "wingdings",
+		name: "Wingdings",
+	},
 	//catequil
 	"gawd": {
 		id: "gawd",

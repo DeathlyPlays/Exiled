@@ -39,6 +39,22 @@ Special Move: Hypertensive Attack
 Notes: Very powerful revenge killer/wallbreaker.
 Rank: A.
 
+Player Shadow BR
+(Dragonite)
+Water/Dragon Type
+@ Playernium Z
+  -Allows the user to use rush of volcano fire
+  Rush of Volcano Fire - Water type. 180 BP. User must recharge after use.
+EVs: 236 SpA / 196 Spe / 72 Atk
+Modest Nature
+Ability: Law of the dragon
+        - Tough Claws + Magic Bounce + uses stealth rock and toxic spikes on switch in.
+Moves: fire lash, Fusion Bolt, Dragon Rush
+Special Move: Rush of Dragon Bolt
+  - Water Type, Physical, 80 BP, 100% Accuracy.
+Notes: Very powerful revenge killer/wallbreaker.
+Rank: N/A.
+
 Wobbleleez
 (Musharna)
 @ Leftovers
@@ -267,21 +283,18 @@ Notes: Fast Special Sweeper.
 Rank: B.
 
 VXN
-(Missingno.)
-    - Psychic/Fighting type
-@ Debugger
-    - When a stat is lowered it is cleared and the user gains 25% of their heath along with reducing their HP down to one when an attack KOs them at full health.
-EVs: 252 Atk / 172 HP / 4 Def / 80 Spe
-Adamant Nature
-Ability: Glitching Out
-    - Moody + Simple + Priority on Psychic type attacks
-Moves: Power trip, Stored Power
-Modified Move: Ultimate Setup
-    - Shell Smash but the user protects itself when used. Has a chance of failing on consecutive turns
-Special Move: Shinku Hadoken
-    - 20 BP, Physical, Fighting, Damage is calculated with the user's SpD. Base power is raised depending on the amount of positive boosts the user has.
-Notes: Physical Attacker that gets boosts every turn.
-Rank: A.
+(Raikou)
+    - Electric/Flying type
+@ Leftovers
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+Ability: Wingdings
+    - Aerilate + all moves have a 30% chance to confuse the opponent.
+Moves: Tri Attack, Ice Beam, Secret Sword
+Special Move: Electrocryption
+    - 200 BP, Special, Electric Type, Base Power is deteremined by how much HP the attacker has, 50% to paralyze the opponent.
+Notes: Annoying Special Attacker.
+Rank: N/A.
 
 C733937 123
 (Gengar-Mega)

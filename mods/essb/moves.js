@@ -1443,6 +1443,10 @@ exports.BattleMovedex = {
 			},
 			status: 'brn',
 		},
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Inferno Overdrive", source);
+		},
 		pp: 10,
 		target: "normal",
 		type: "Fire",
@@ -1757,7 +1761,7 @@ exports.BattleMovedex = {
 		onTryHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Sky Attack", target);
-			this.add('c|+EchoSierra|FUUUUUUUUUUUUUUUUUUUUU');
+			this.add('c| EchoSierra|FUUUUUUUUUUUUUUUUUUUUU');
 		},
 		onEffectiveness: function (typeMod, type) {
 			if (type === 'Steel' || type === 'Rock') return 1;
@@ -1797,6 +1801,10 @@ exports.BattleMovedex = {
 		basePower: 85,
 		pp: 10,
 		priority: 2,
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Blue Flare", source);
+		},
 	},
 	//kaneki
 	"superultraflamethrowerdestroyerofuniverses": {
@@ -1977,6 +1985,7 @@ exports.BattleMovedex = {
 				spe: 1,
 			},
 		},
+		priority: 1,
 		onHit: function (target) {
 			if (!target.setType('Dragon')) return false;
 			this.add('-start', target, 'typechange', 'Dragon');
@@ -1988,5 +1997,31 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Dragon",
+	},
+	"punchofdarkness": {
+		id: "punchofdarkness",
+		name: "Punch of Darkness",
+		basePower: 90,
+		category: "Physical",
+		pp: 5,
+		priority: 2,
+		flags: {
+			authetic: 1,
+			contact: 1,
+			punch: 1,
+		},
+		breaksProtect: true,
+		accuracy: 100,
+		secondary: false,
+		type: "Dark",
+		target: "normal",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dark Pulse", target);
+			this.add('-anim', source, "Play Rough", target);
+			this.add('-anim', source, "Superpower", target);
+		},
+		zMovePower: 150,
+		contestType: "Cool",
 	},
 };

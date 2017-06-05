@@ -537,3 +537,16 @@ Signature Move: Dragonify
 	- 100 BP, Dragon Type, Physical, Boosts user's Attack and Speed one stage, +1 priority, Makes targets type Dragon type, 8 PP.
 Rank: A.
 Notes: Fast Physical Sweeper.
+
+Mysticoz
+(Absol-Mega)
+@ Life Orb
+Ability: Dark Boost
+	- Boosts Power of Dark type moves by 2x.
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+Moves: Swords Dance, Play Rough, Sucker Punch
+Signature Move: Punch of Darkness
+	- 90 BP, Physical, 5 PP, priority +2, punch move, contact move, bypasses substitute, bypasses protect
+Rank: N/A.
+Notes: Strong Sweeper.

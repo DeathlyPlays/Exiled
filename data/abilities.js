@@ -4553,4 +4553,16 @@ exports.BattleAbilities = {
 		id: "typecamo",
 		name: "Type Camo",
 	},
+	"theunknown": {
+		id: "theunknown",
+		name: "The Unknown",
+		desc: "Adaptability + Psychic Terrain on start.",
+		onModifyMove: function (move) {
+			move.stab = 2;
+		},
+		onStart: function (source) {
+			this.setTerrain('psychicterrain');
+		},
+		rating: 5,
+	},
 };

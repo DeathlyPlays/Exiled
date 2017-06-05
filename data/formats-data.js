@@ -5476,8 +5476,7 @@ exports.BattleFormatsData = {
 	floetteeternal: {
 		randomBattleMoves: ["lightofruin", "psychic", "hiddenpowerfire", "hiddenpowerground", "moonblast"],
 		randomDoubleBattleMoves: ["lightofruin", "dazzlinggleam", "wish", "psychic", "aromatherapy", "protect", "calmmind"],
-		isUnreleased: true,
-		tier: "Unreleased",
+		tier: "UU",
 	},
 	florges: {
 		randomBattleMoves: ["calmmind", "moonblast", "synthesis", "aromatherapy", "wish", "toxic", "protect"],
@@ -6424,8 +6423,7 @@ exports.BattleFormatsData = {
 		tier: "OU",
 	},
 	magearnaoriginal: {
-		isUnreleased: true,
-		tier: "Unreleased",
+		tier: "OU",
 	},
 	marshadow: {
 		randomBattleMoves: ["spectralthief", "closecombat", "stoneedge", "shadowsneak", "icepunch"],
@@ -6672,7 +6670,7 @@ exports.BattleFormatsData = {
 			{"generation": 5, "level": 99, "moves": ["crushgrip", "focuspunch", "growl", "rage"]},
 		],
 		gen: 5,
-		tier: "Illegal",
+		tier: "OU",
 	},
 	pokestargiant2: {
 		isNonstandard: true,

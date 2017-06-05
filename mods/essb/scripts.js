@@ -329,21 +329,6 @@ exports.BattleScripts = {
 				},
 				nature: "Mild",
 			},
-			"+EchoSierra": {
-				species: "Swellow",
-				ability: "No Guts, No Glory",
-				item: "Toxic Orb",
-				gender: "F",
-				moves: ['bravebird', 'doubleedge', 'protect'],
-				baseSignatureMove: "kamikaze",
-				signatureMove: "Kamikaze",
-				evs: {
-					atk: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Adamant",
-			},
 			"+Horrific17": {
 				species: "Arcanine",
 				ability: "Horrific Plays",
@@ -374,7 +359,37 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
+			"+Chesnaught90000": {
+				species: "Chesnaught",
+				ability: "Nice 0u0",
+				item: "Life Orb",
+				moves: ['doubleedge', 'drainpunch', 'woodhammer'],
+				gender: "F",
+				baseSignatureMove: "cookiestorm",
+				signatureMove: "Cookie Storm",
+				evs: {
+					atk: 252,
+					spd: 4,
+					spe: 252,
+				},
+				nature: "Jolly",
+			},
 			//Regs
+			" EchoSierra": {
+				species: "Swellow",
+				ability: "No Guts, No Glory",
+				item: "Toxic Orb",
+				gender: "F",
+				moves: ['bravebird', 'doubleedge', 'protect'],
+				baseSignatureMove: "kamikaze",
+				signatureMove: "Kamikaze",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Adamant",
+			},
 			" Kevso": {
 				species: "Deoxys-Defense",
 				ability: "Defense",
@@ -450,21 +465,6 @@ exports.BattleScripts = {
 					def: 4,
 				},
 				nature: "Adamant",
-			},
-			" Chesnaught90000": {
-				species: "Chesnaught",
-				ability: "Nice 0u0",
-				item: "Life Orb",
-				moves: ['doubleedge', 'drainpunch', 'woodhammer'],
-				gender: "F",
-				baseSignatureMove: "cookiestorm",
-				signatureMove: "Cookie Storm",
-				evs: {
-					atk: 252,
-					spd: 4,
-					spe: 252,
-				},
-				nature: "Jolly",
 			},
 			" Failures": {
 				species: "Greninja-Ash",
@@ -632,6 +632,21 @@ exports.BattleScripts = {
 					hp: 4,
 				},
 				nature: "Jolly",
+			},
+			" Mysticoz": {
+				species: "Absol-Mega",
+				ability: "Dark Boost",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['swordsdance', 'playrough', 'suckerpunch'],
+				baseSignatureMove: "punchofdarkness",
+				signatureMove: "Punch of Darkness",
+				evs: {
+					atk: 252,
+					def: 4,
+					spe: 252,
+				},
+				nature: "Adamant",
 			},
 		};
 		// Generate the team randomly.

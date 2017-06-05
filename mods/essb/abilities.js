@@ -1441,7 +1441,7 @@ exports.BattleAbilities = {
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.type === 'Flying' && pokemon.hp === pokemon.maxhp) return priority + 1;
 		},
-		//adaptability + scraopy
+		//adaptability + scrappy
 		onModifyMove: function (move) {
 			move.stab = 2;
 			if (!move.ignoreImmunity) move.ignoreImmunity = {};
@@ -1454,7 +1454,7 @@ exports.BattleAbilities = {
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.recoil || move.hasCustomRecoil) {
-				this.debug('Reckless boost');
+				this.debug('No Guts, No Glory boost');
 				return this.chainModify([0x1333, 0x1000]);
 			}
 		},
@@ -1787,6 +1787,17 @@ exports.BattleAbilities = {
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.flags['contact']) {
 				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+	},
+	"darkpower": {
+		id: "darkpower",
+		name: "Dark Power",
+		//boosts Dark moves by 2x
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.type === 'Dark') {
+				this.debug('Dark Power boost');
+				return this.chainModify(2);
 			}
 		},
 	},

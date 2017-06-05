@@ -601,7 +601,6 @@ exports.BattleItems = {
 	"buggem": {
 		id: "buggem",
 		name: "Bug Gem",
-		isUnreleased: true,
 		spritenum: 53,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -1087,7 +1086,6 @@ exports.BattleItems = {
 	"darkgem": {
 		id: "darkgem",
 		name: "Dark Gem",
-		isUnreleased: true,
 		spritenum: 89,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -1287,7 +1285,6 @@ exports.BattleItems = {
 	"dragongem": {
 		id: "dragongem",
 		name: "Dragon Gem",
-		isUnreleased: true,
 		spritenum: 107,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -1454,7 +1451,6 @@ exports.BattleItems = {
 	"electricgem": {
 		id: "electricgem",
 		name: "Electric Gem",
-		isUnreleased: true,
 		spritenum: 120,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -1606,7 +1602,6 @@ exports.BattleItems = {
 	"fairygem": {
 		id: "fairygem",
 		name: "Fairy Gem",
-		isUnreleased: true,
 		spritenum: 611,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -1649,7 +1644,6 @@ exports.BattleItems = {
 	"fightinggem": {
 		id: "fightinggem",
 		name: "Fighting Gem",
-		isUnreleased: true,
 		spritenum: 139,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -1724,7 +1718,6 @@ exports.BattleItems = {
 	"firegem": {
 		id: "firegem",
 		name: "Fire Gem",
-		isUnreleased: true,
 		spritenum: 141,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -1847,7 +1840,6 @@ exports.BattleItems = {
 	"flyinggem": {
 		id: "flyinggem",
 		name: "Flying Gem",
-		isUnreleased: true,
 		spritenum: 149,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -2031,7 +2023,6 @@ exports.BattleItems = {
 	"ghostgem": {
 		id: "ghostgem",
 		name: "Ghost Gem",
-		isUnreleased: true,
 		spritenum: 161,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -2093,7 +2084,6 @@ exports.BattleItems = {
 	"grassgem": {
 		id: "grassgem",
 		name: "Grass Gem",
-		isUnreleased: true,
 		spritenum: 172,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -2215,7 +2205,6 @@ exports.BattleItems = {
 	"groundgem": {
 		id: "groundgem",
 		name: "Ground Gem",
-		isUnreleased: true,
 		spritenum: 182,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -2424,7 +2413,6 @@ exports.BattleItems = {
 	"icegem": {
 		id: "icegem",
 		name: "Ice Gem",
-		isUnreleased: true,
 		spritenum: 218,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -3986,7 +3974,6 @@ exports.BattleItems = {
 	"poisongem": {
 		id: "poisongem",
 		name: "Poison Gem",
-		isUnreleased: true,
 		spritenum: 344,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -4197,7 +4184,6 @@ exports.BattleItems = {
 	"psychicgem": {
 		id: "psychicgem",
 		name: "Psychic Gem",
-		isUnreleased: true,
 		spritenum: 369,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -4516,7 +4502,6 @@ exports.BattleItems = {
 	"rockgem": {
 		id: "rockgem",
 		name: "Rock Gem",
-		isUnreleased: true,
 		spritenum: 415,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -5232,7 +5217,6 @@ exports.BattleItems = {
 	"steelgem": {
 		id: "steelgem",
 		name: "Steel Gem",
-		isUnreleased: true,
 		spritenum: 473,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -5557,7 +5541,6 @@ exports.BattleItems = {
 	"watergem": {
 		id: "watergem",
 		name: "Water Gem",
-		isUnreleased: true,
 		spritenum: 528,
 		isGem: true,
 		onSourceTryPrimaryHit: function (target, source, move) {
@@ -7190,60 +7173,60 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Castform, this item allows it to Mega Evolve in battle.",
 	},
-	"kecleonite": {
-		id: "kecleonite",
-		name: "Kecleonite",
-		spritenum: 592,
-		megaStone: "Kecleon-Mega",
-		megaEvolves: "Kecleon",
+	"unownite": {
+		id: "unownite",
+		name: "Unownite",
+		spritenum: -400,
+		megaStone: "Unwon-Mega",
+		megaEvolves: "Unown",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;
 		},
-		num: 675,
-		gen: 6,
-		desc: "If holder is a Kecleon, this item allows it to Mega Evolve in battle.",
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Unown, this item allows it to Mega Evolve in battle.",
 	},
-	"nidokinite": {
-		id: "nidokinite",
-		name: "Nidokinite",
-		spritenum: -575,
+	"nidokingite": {
+		id: "nidokingite",
+		name: "Nidokingite",
+		spritenum: -400,
 		megaStone: "Nidoking-Mega",
 		megaEvolves: "Nidoking",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;
 		},
-		num: -693,
+		num: -119,
 		gen: 0,
 		desc: "If holder is a Nidoking, this item allows it to Mega Evolve in battle.",
 	},
-	"heliolite": {
-		id: "heliolite",
-		name: "Heliolite",
-		spritenum: -345,
-		megaStone: "Heliolisk-Mega",
-		megaEvolves: "Heliolisk",
+	"kecleonite": {
+		id: "kecleonite",
+		name: "Kecleonite",
+		spritenum: -400,
+		megaStone: "Kecleon-Mega",
+		megaEvolves: "Kecleon",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;
 		},
-		num: -435,
+		num: -119,
 		gen: 0,
-		desc: "If holder is a Heliolisk, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is a Kecleon, this item allows it to Mega Evolve in battle.",
 	},
-	"farfetchite": {
+		"farfetchite": {
 		id: "farfetchite",
 		name: "Farfetchite",
-		spritenum: 596,
+		spritenum: -400,
 		megaStone: "Farfetch'd-Mega",
 		megaEvolves: "Farfetch'd",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;
 		},
-		num: -83,
-		gen: -1,
+		num: -119,
+		gen: 0,
 		desc: "If holder is a Farfetch'd, this item allows it to Mega Evolve in battle.",
 	},
 };

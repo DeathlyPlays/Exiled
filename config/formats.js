@@ -172,7 +172,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Custom Game",
 
-		mod: 'mixandmega',
+		mod: 'gen7',
 		searchShow: false,
 		canUseRandomTeam: true,
 		debug: true,
@@ -1898,7 +1898,7 @@ exports.Formats = [
 				pokemon.types = ["Fairy", "Steel", "Dragon"];
 			}
 			if (name === 'hoeenhero') {
-				this.add('c|+HoeenHero|Do I have to? I\'m in the middle of programming.');
+				this.add('c|%HoeenHero|Do I have to? I\'m in the middle of programming.');
 			}
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
@@ -1910,7 +1910,7 @@ exports.Formats = [
 				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
 			}
 			if (name === 'echosierra') {
-				this.add('c|+EchoSierra|lol fite me irl');
+				this.add('c| EchoSierra|lol fite me irl');
 			}
 			if (name === 'horrific17') {
 				this.add('c| Horrific17|It seems you\'ve made a __horrific__ mistake');
@@ -2000,13 +2000,13 @@ exports.Formats = [
 				this.add('c| AB Starfox|Time for me to get a life');
 			}
 			if (name === 'hoeenhero') {
-				this.add('c|+HoeenHero|I can\'t battle now, I\'m too busy.');
+				this.add('c|%HoeenHero|I can\'t battle now, I\'m too busy.');
 			}
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
 			}
 			if (name === 'echosierra') {
-				this.add('c|+EchoSierra|bbl fam');
+				this.add('c| EchoSierra|bbl fam');
 			}
 		},
 		// Add here salty tears, that is, custom faint phrases.
@@ -2031,7 +2031,7 @@ exports.Formats = [
 				this.add('c| AB Starfox|Once again I get lucked out smh');
 			}
 			if (name === 'hoeenhero') {
-				this.add('c|+HoeenHero|Hey! Thats more hax than I get to use >:(');
+				this.add('c|%HoeenHero|Hey! Thats more hax than I get to use >:(');
 			}
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|ur mom');
@@ -2043,7 +2043,7 @@ exports.Formats = [
 				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
 			}
 			if (name === 'echosierra') {
-				this.add('c|+EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
+				this.add('c| EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
 			}
 			if (name === 'horrific17') {
 				this.add('c| Horrific17|I never expected my death to be this... __horrific__');
@@ -2066,7 +2066,7 @@ exports.Formats = [
 					this.add('c| Almighty Judgment|You Have Been Judged!');
 				}
 				if (name === 'echosierra') {
-					this.add('c|+EchoSierra|dasWRIGHT.jpg');
+					this.add('c| EchoSierra|dasWRIGHT.jpg');
 				}
 			}
 		},
@@ -2378,7 +2378,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Swapping Powers",
 		desc: [
-			"Power trick that's constantly there, not only swapping Attack and Defense, but Special Attack and Special Defense also. Concept by Mewth. Coded by Mewth/Insist/HoeenHero.",
+			"Power trick that's constantly there, not only swapping Attack and Defense, but Special Attack and Special Defense also. Concept by Mewth. Coded by Insist/HoeenHero.",
 		],
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
@@ -2386,6 +2386,133 @@ exports.Formats = [
 		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow'],
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
+		},
+	},
+	{
+		name: "[Gen 7] Action Storm",
+		desc: [
+			"&bullet; Coded by flufi.",
+			"On switch-in, something completely random happens.",
+			"(i.e a random move can be used, a random weather",
+			"condition can be set, a random stat can be raised,",
+			"etc.",
+		],
+		mod: "gen7",
+		team: "random",
+		ruleset: ['[Gen 7] Anything Goes', 'Team Preview'],
+		banlist: ['Furretite'],
+		onSwitchIn: function (pokemon) {
+		let side = pokemon.side;
+				let n = this.random(45);
+				if (n === 1) {
+					this.add('-start', pokemon, 'typechange', 'Normal');
+					pokemon.types = ["Normal"];
+				} else if (n === 2) {
+					this.add('-start', pokemon, 'typechange', 'Fighting');
+					pokemon.types = ["Fighting"];
+				} else if (n === 3) {
+					this.add('-start', pokemon, 'typechange', 'Psychic');
+					pokemon.types = ["Psychic"];
+				} else if (n === 4) {
+					this.add('-start', pokemon, 'typechange', 'Ice');
+					pokemon.types = ["Ice"];
+				} else if (n === 5) {
+					this.add('-start', pokemon, 'typechange', 'Grass');
+					pokemon.types = ["Grass"];
+				} else if (n === 6) {
+					this.add('-start', pokemon, 'typechange', 'Fairy');
+					pokemon.types = ["Fairy"];
+				} else if (n === 7) {
+					this.add('-start', pokemon, 'typechange', 'Dark');
+					pokemon.types = ["Dark"];
+				} else if (n === 8) {
+					this.add('-start', pokemon, 'typechange', 'Water');
+					pokemon.types = ["Water"];
+				} else if (n === 9) {
+					this.add('-start', pokemon, 'typechange', 'Steel');
+					pokemon.types = ["Steel"];
+				} else if (n === 10) {
+					this.add('-start', pokemon, 'typechange', 'Fire');
+					pokemon.types = ["Fire"];
+				} else if (n === 11) {
+					this.add('-start', pokemon, 'typechange', 'Bug');
+					pokemon.types = ["Bug"];
+				} else if (n === 12) {
+					this.add('-start', pokemon, 'typechange', 'Electric');
+					pokemon.types = ["Electric"];
+				} else if (n === 13) {
+					this.add('-start', pokemon, 'typechange', 'Poison');
+					pokemon.types = ["Poison"];
+				} else if (n === 14) {
+					this.add('-start', pokemon, 'typechange', 'Ghost');
+					pokemon.types = ["Ghost"];
+				} else if (n === 15) {
+					this.add('-start', pokemon, 'typechange', 'Rock');
+					pokemon.types = ["Rock"];
+				} else if (n === 16) {
+					this.add('-start', pokemon, 'typechange', 'Ground');
+					pokemon.types = ["Ground"];
+				} else if (n === 17) {
+					this.add('-start', pokemon, 'typechange', 'Flying');
+					pokemon.types = ["Flying"];
+				} else if (n === 18) {
+					this.add('-start', pokemon, 'typechange', 'Dragon');
+					pokemon.types = ["Dragon"];
+				} else if (n === 19) {
+					this.setTerrain('psychicterrain');
+				} else if (n === 20) {
+					this.setTerrain('electricterrain');
+				} else if (n === 21) {
+					this.setTerrain('grassyterrain');
+				} else if (n === 22) {
+					this.setWeather('sunnyday');
+				} else if (n === 23) {
+					this.setWeather('raindance');
+				} else if (n === 24) {
+					this.setWeather('sandstorm');
+				} else if (n === 25) {
+					this.setWeather('hail');
+				} else if (n === 26) {
+					this.useMove("Stealth Rock", pokemon, pokemon, pokemon);
+				} else if (n === 27) {
+					this.useMove("Spikes", pokemon, pokemon, pokemon);
+				} else if (n === 28) {
+					this.useMove("Toxic Spikes", pokemon, pokemon, pokemon);
+				} else if (n === 29) {
+					this.useMove("Power Trick", pokemon, pokemon, pokemon);
+				} else if (n === 30) {
+					this.useMove("Trick Room", pokemon, pokemon, pokemon);
+				} else if (n === 31) {
+					this.useMove("Speed Swap", pokemon, pokemon, pokemon);
+				} else if (n === 32) {
+					this.useMove("Trick", pokemon, pokemon, pokemon);
+				} else if (n === 33) {
+					this.useMove("Defog", pokemon);
+				} else if (n === 34) {
+					this.useMove("Self-Destruct", pokemon, pokemon, pokemon);
+				} else if (n === 35) {
+					this.useMove("Entrainment", pokemon, pokemon, pokemon);
+				} else if (n === 36) {
+					this.useMove("Role Play", pokemon, pokemon, pokemon);
+				} else if (n === 37) {
+					this.useMove("Shell Smash", pokemon, pokemon, pokemon);
+				} else if (n === 38) {
+					this.useMove("Quiver Dance", pokemon, pokemon, pokemon);
+				} else if (n === 39) {
+					this.useMove("Noble Roar", pokemon);
+				} else if (n === 40) {
+					this.useMove("Magikarp's Revenge", pokemon);
+				} else if (n === 41) {
+					this.useMove("Lockdown", pokemon);
+				} else if (n === 42) {
+					this.useMove("Spider Web", pokemon);
+				} else if (n === 43) {
+					this.useMove("Toxic", pokemon, pokemon, pokemon);
+				} else if (n === 44) {
+					this.useMove("Will-O-Wisp", pokemon, pokemon, pokemon);
+				} else if (n === 45) {
+					this.useMove("Thunder Wave", pokemon, pokemon, pokemon);
+				}
 		},
 	},
 	{

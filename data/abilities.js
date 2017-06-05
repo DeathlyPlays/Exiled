@@ -4429,4 +4429,131 @@ exports.BattleAbilities = {
 		rating: 4.5,
 		num: -115,
 	},
+	"climatechange": {
+		desc: "If this Pokemon is a Castform, its type changes to the current weather condition's type, and sets a new weather every turn.",
+		onUpdate: function (pokemon) {
+			if (pokemon.baseTemplate.baseSpecies !== 'Castform' || pokemon.transformed) return;
+			let forme = null;
+			switch (this.effectiveWeather()) {
+			case 'sunnyday':
+			case 'desolateland':
+				if (pokemon.template.speciesid !== 'castformsunny') forme = 'Castform-Sunny';
+				break;
+			case 'raindance':
+			case 'primordialsea':
+				if (pokemon.template.speciesid !== 'castformrainy') forme = 'Castform-Rainy';
+				break;
+			case 'hail':
+				if (pokemon.template.speciesid !== 'castformsnowy') forme = 'Castform-Snowy';
+				break;
+			case 'sandstorm':
+				if (pokemon.template.speciesid !== 'castformdirty') forme = 'Castform-Dirty';
+				break;
+			case 'deltastream':
+				if (pokemon.template.speciesid !== 'castformcloudy') forme = 'Castform-Cloudy';
+				break;
+			default:
+				if (pokemon.template.speciesid !== 'castform') forme = 'Castform';
+				break;
+			}
+			if (pokemon.isActive && forme) {
+				pokemon.formeChange(forme);
+				this.add('-formechange', pokemon, forme, '[msg]', '[from] ability: Climate Change');
+			}
+		},
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual: function (pokemon) {
+			if (pokemon.activeTurns) {
+				let r = this.random(7);
+				if (r === 1) {
+					this.setWeather('sunnyday');
+				} else if (r === 2) {
+					this.setWeather('raindance');
+				} else if (r === 3) {
+					this.setWeather('hail');
+				} else if (r === 4) {
+					this.setWeather('sandstorm');
+				} else if (r === 5) {
+					this.setWeather('deltastream');
+				} else if (r === 6) {
+					this.setWeather('desolateland');
+				} else if (r === 7) {
+					this.setWeather('primordialsea');
+				}
+			}
+		},
+		id: "climatechange",
+		name: "Climate Change",
+		rating: 5,
+		num: -59,
+	},
+	"typecamo": {
+		rating: 5,
+		num: -60,
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual: function (pokemon) {
+			if (pokemon.activeTurns) {
+				let r = this.random(17);
+				if (r === 1) {
+					this.add('-start', pokemon, 'typechange', 'Normal');
+					pokemon.types = ["Normal"];
+				} else if (r === 2) {
+					this.add('-start', pokemon, 'typechange', 'Fighting');
+					pokemon.types = ["Fighting"];
+				} else if (r === 3) {
+					this.add('-start', pokemon, 'typechange', 'Psychic');
+					pokemon.types = ["Psychic"];
+				} else if (r === 4) {
+					this.add('-start', pokemon, 'typechange', 'Ice');
+					pokemon.types = ["Ice"];
+				} else if (r === 5) {
+					this.add('-start', pokemon, 'typechange', 'Grass');
+					pokemon.types = ["Grass"];
+				} else if (r === 6) {
+					this.add('-start', pokemon, 'typechange', 'Fairy');
+					pokemon.types = ["Fairy"];
+				} else if (r === 7) {
+					this.add('-start', pokemon, 'typechange', 'Dark');
+					pokemon.types = ["Dark"];
+				} else if (r === 8) {
+					this.add('-start', pokemon, 'typechange', 'Water');
+					pokemon.types = ["Water"];
+				} else if (r === 9) {
+					this.add('-start', pokemon, 'typechange', 'Steel');
+					pokemon.types = ["Steel"];
+				} else if (r === 10) {
+					this.add('-start', pokemon, 'typechange', 'Fire');
+					pokemon.types = ["Fire"];
+				} else if (r === 11) {
+					this.add('-start', pokemon, 'typechange', 'Bug');
+					pokemon.types = ["Bug"];
+				} else if (r === 12) {
+					this.add('-start', pokemon, 'typechange', 'Electric');
+					pokemon.types = ["Electric"];
+				} else if (r === 13) {
+					this.add('-start', pokemon, 'typechange', 'Poison');
+					pokemon.types = ["Poison"];
+				} else if (r === 14) {
+					this.add('-start', pokemon, 'typechange', 'Ghost');
+					pokemon.types = ["Ghost"];
+				} else if (r === 15) {
+					this.add('-start', pokemon, 'typechange', 'Rock');
+					pokemon.types = ["Rock"];
+				} else if (r === 16) {
+					this.add('-start', pokemon, 'typechange', 'Ground');
+					pokemon.types = ["Ground"];
+				} else if (r === 17) {
+					this.add('-start', pokemon, 'typechange', 'Flying');
+					pokemon.types = ["Flying"];
+				} else {
+					this.add('-start', pokemon, 'typechange', 'Dragon');
+					pokemon.types = ["Dragon"];
+				}
+			}
+		},
+		id: "typecamo",
+		name: "Type Camo",
+	},
 };

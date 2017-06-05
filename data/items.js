@@ -677,6 +677,20 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If holder is a Camerupt, this item allows it to Mega Evolve in battle.",
 	},
+	"castformite": {
+		id: "castformite",
+		name: "Castformite",
+		spritenum: 596,
+		megaStone: "Castform-Mega",
+		megaEvolves: "Castform",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -83,
+		gen: -1,
+		desc: "If holder is a Castform, this item allows it to Mega Evolve in battle.",
+	},
 	"cofagrite": {
 		id: "cofagrite",
 		name: "Cofagrite",
@@ -1651,6 +1665,20 @@ exports.BattleItems = {
 		num: 920,
 		gen: 7,
 		desc: "Holder's Multi-Attack is Fairy type.",
+	},
+	"farfetchite": {
+		id: "farfetchite",
+		name: "Farfetchite",
+		spritenum: 596,
+		megaStone: "Farfetch'd-Mega",
+		megaEvolves: "Farfetch'd",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -83,
+		gen: -1,
+		desc: "If holder is a Farfetch'd, this item allows it to Mega Evolve in battle.",
 	},
 	"fastball": {
 		id: "fastball",
@@ -2721,6 +2749,20 @@ exports.BattleItems = {
 		num: 675,
 		gen: 6,
 		desc: "If holder is a Kangaskhan, this item allows it to Mega Evolve in battle.",
+	},
+	"kecleonite": {
+		id: "kecleonite",
+		name: "Kecleonite",
+		spritenum: 592,
+		megaStone: "Kecleon-Mega",
+		megaEvolves: "Kecleon",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 675,
+		gen: 6,
+		desc: "If holder is a Kecleon, this item allows it to Mega Evolve in battle.",
 	},
 	"kingsrock": {
 		id: "kingsrock",

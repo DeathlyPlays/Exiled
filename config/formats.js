@@ -2378,7 +2378,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Swapping Powers",
 		desc: [
-			"Power trick that's constantly there, not only swapping Attack and Defense, but Special Attack and Special Defense also. Concept by Mewth. Coded by Mewth/Insist/HoeenHero."
+			"Power trick that's constantly there, not only swapping Attack and Defense, but Special Attack and Special Defense also. Concept by Mewth. Coded by Mewth/Insist/HoeenHero.",
 		],
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],

@@ -4477,8 +4477,6 @@ exports.BattleAbilities = {
 					this.setWeather('desolateland');
 				} else if (r === 7) {
 					this.setWeather('primordialsea');
-				} else if (r === 8) {
-					suppressWeather: true;
 				}
 			}
 		},

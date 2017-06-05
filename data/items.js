@@ -7178,7 +7178,7 @@ exports.BattleItems = {
 		id: "unownite",
 		name: "Unownite",
 		spritenum: -400,
-		megaStone: "Unwon-Mega",
+		megaStone: "Unown-Mega",
 		megaEvolves: "Unown",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;

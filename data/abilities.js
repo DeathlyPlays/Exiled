@@ -4565,4 +4565,13 @@ exports.BattleAbilities = {
 		},
 		rating: 5,
 	},
+	"barrierrise": {
+		id: "barrierrise",
+		name: "Barrier Rise",
+		desc: "Summons Steel Barrier on start.",
+		onStart: function (source) {
+			this.setWeather('steelbarrier');
+		},
+		rating: 2,
+	},
 };

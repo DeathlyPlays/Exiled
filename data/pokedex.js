@@ -8355,7 +8355,7 @@ exports.BattlePokedex = {
 		types: ["Steel", "Dragon"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 120, def: 120, spa: 150, spd: 100, spe: 90},
-		abilities: {0: "Pressure", H: "Telepathy"},
+		abilities: {0: "Pressure", 1: "Barrier Rise", H: "Telepathy"},
 		heightm: 5.4,
 		weightkg: 683,
 		color: "White",

@@ -11,7 +11,7 @@ const gangs = {
 	rocket: {
 		icon: 'http://i.imgur.com/eaTAxKU.gif',
 		name: 'Rocket',
-		godfather: 'Kairak',
+		godfather: 'Kraken Mare',
 	},
 	magma: {
 		icon: 'http://i.imgur.com/reKEhUA.png',
@@ -36,7 +36,7 @@ const gangs = {
 	flare: {
 		icon: 'http://i.imgur.com/X6g6fbc.png',
 		name: 'Flare',
-		godfather: 'Placeholder',
+		godfather: 'Damecco',
 	},
 	skull: {
 		icon: 'http://i.imgur.com/Bdrtvh5.png',

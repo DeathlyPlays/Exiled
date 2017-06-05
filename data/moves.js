@@ -18473,7 +18473,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 50,
 		basePowerCallback: function (pokemon, target, move) {
-			if (this.weather) return move.basePower * 2;
+			if (this.weather) return move.basePower * 3;
 			return move.basePower;
 		},
 		category: "Special",

@@ -4462,7 +4462,7 @@ exports.BattleAbilities = {
 		onResidualSubOrder: 1,
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
-				let r = this.random(8);
+				let r = this.random(7);
 				if (r === 1) {
 					this.setWeather('sunnyday');
 				} else if (r === 2) {

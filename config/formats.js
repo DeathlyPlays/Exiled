@@ -172,7 +172,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Custom Game",
 
-		mod: 'gen7',
+		mod: 'mixandmega',
 		searchShow: false,
 		canUseRandomTeam: true,
 		debug: true,

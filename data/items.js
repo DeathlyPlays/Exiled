@@ -7190,4 +7190,60 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Castform, this item allows it to Mega Evolve in battle.",
 	},
+	"kecleonite": {
+		id: "kecleonite",
+		name: "Kecleonite",
+		spritenum: 592,
+		megaStone: "Kecleon-Mega",
+		megaEvolves: "Kecleon",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 675,
+		gen: 6,
+		desc: "If holder is a Kecleon, this item allows it to Mega Evolve in battle.",
+	},
+	"nidokinite": {
+		id: "nidokinite",
+		name: "Nidokinite",
+		spritenum: -575,
+		megaStone: "Nidoking-Mega",
+		megaEvolves: "Nidoking",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -693,
+		gen: 0,
+		desc: "If holder is a Nidoking, this item allows it to Mega Evolve in battle.",
+	},
+	"heliolite": {
+		id: "heliolite",
+		name: "Heliolite",
+		spritenum: -345,
+		megaStone: "Heliolisk-Mega",
+		megaEvolves: "Heliolisk",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -435,
+		gen: 0,
+		desc: "If holder is a Heliolisk, this item allows it to Mega Evolve in battle.",
+	},
+	"farfetchite": {
+		id: "farfetchite",
+		name: "Farfetchite",
+		spritenum: 596,
+		megaStone: "Farfetch'd-Mega",
+		megaEvolves: "Farfetch'd",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -83,
+		gen: -1,
+		desc: "If holder is a Farfetch'd, this item allows it to Mega Evolve in battle.",
+	},
 };

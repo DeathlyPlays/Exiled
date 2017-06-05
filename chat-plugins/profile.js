@@ -638,7 +638,6 @@ exports.commands = {
 		"/type delete, user - Deletes a users type.",
 	],
 
-
 	title: function (target) {
 		let parts = target.split(', ');
 		if (!this.can('broadcast')) return false;
@@ -840,7 +839,6 @@ exports.commands = {
 		display += '<b>/setmusic (user), (link must be mp3 file), (title of song)</b> - Sets a music box on a user\'s profile.<br>';
 		display += '<b>/setpet (user), (spot 1 or 2), (Pokemon name)</b> - Sets a user\'s profile pet.<br>';
 		display += '<b>/setmusic (user), (link must be mp3 file), (title of song)</b> - Sets a music box on a user\'s profile.<br>';
-		display += '<b>/setpet (user), (spot 1 or 2), (Pokemon name)</b> - Sets a user\'s profile pet.<br>';
 		display += '<b>/setbg (user), (link)</b> - Sets a user\'s background.<br>';
 		display += '<b>/addmon (slot one-six), (dex number 3 digits)</b> - Sets a Pokemon on your profile team.';
 		this.sendReply('|html|' + display);

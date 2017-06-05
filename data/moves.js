@@ -19215,4 +19215,41 @@ exports.BattleMovedex = {
 		zMovePower: 100,
 		contestType: "Clever",
 	},
+	"lockdown": {
+		num: -603,
+		accuracy: 90,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Target is trapped. Raises Def and Spd by 1.",
+		id: "lockdown",
+		isViable: true,
+		name: "Lockdown",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, reflectable: 1, mirror: 1, authentic: 1},
+		onHit: function (target, source, move) {
+			this.add("-message", "The user prepared themselves and trapped the target!");
+			if (!target.addVolatile('trapped', source, move, 'trapper')) {
+				this.add('-fail', target);
+			}
+		},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Earthquake", source);
+			this.add('-anim', source, "Bind", source);
+		},
+		secondary: {
+			self: {
+				boosts: {
+				def: 1,
+				spd: 1,
+				},
+
+			},
+		},
+		target: "normal",
+		type: "Fighting",
+		zMoveBoost: {def: 1, spd: 1, spe: 1},
+		contestType: "Clever",
+	},
 };

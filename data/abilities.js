@@ -4452,9 +4452,6 @@ exports.BattleAbilities = {
 			case 'deltastream':
 				if (pokemon.template.speciesid !== 'castformcloudy') forme = 'Castform-Cloudy';
 				break;
-			default:
-				if (pokemon.template.speciesid !== 'castform') forme = 'Castform';
-				break;
 			}
 			if (pokemon.isActive && forme) {
 				pokemon.formeChange(forme);
@@ -4465,7 +4462,7 @@ exports.BattleAbilities = {
 		onResidualSubOrder: 1,
 		onResidual: function (pokemon) {
 			if (pokemon.activeTurns) {
-				let r = this.random(7);
+				let r = this.random(8);
 				if (r === 1) {
 					this.setWeather('sunnyday');
 				} else if (r === 2) {
@@ -4480,6 +4477,8 @@ exports.BattleAbilities = {
 					this.setWeather('desolateland');
 				} else if (r === 7) {
 					this.setWeather('primordialsea');
+				} else if (r === 8) {
+					suppressWeather: true;
 				}
 			}
 		},

@@ -18500,6 +18500,9 @@ exports.BattleMovedex = {
 			case 'hail':
 				move.type = 'Ice';
 				break;
+			case 'deltastream':
+				move.type = 'Flying';
+				break;
 			}
 		},
 		secondary: false,
@@ -19078,9 +19081,9 @@ exports.BattleMovedex = {
 		id: "spiralingtoxins",
 		isViable: true,
 		name: "Spiraling Toxins",
-		pp: 16,
+		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, distance: 1},
 		// No Guard-like effect for Poison-type users implemented in BattleScripts#tryMoveHit
 		status: 'tox',
 		secondary: false,
@@ -19138,7 +19141,9 @@ exports.BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		heal: [1, 4],
+		self: {
+			heal: [1, 4],
+		},
 		onPrepareHit: function (source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Wish", source);
@@ -19251,5 +19256,27 @@ exports.BattleMovedex = {
 		type: "Fighting",
 		zMoveBoost: {def: 1, spd: 1, spe: 1},
 		contestType: "Clever",
+	},
+	"terrordrop": {
+		num: -604,
+		accuracy: 90,
+		basePower: 100,
+		category: "Physical",
+		desc: "20% chance to flinch.",
+		shortDesc: "20% chance to flinch.",
+		id: "terrordrop",
+		isViable: true,
+		name: "Terror Drop",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: {
+			chance: 20,
+			volatileStatus: 'flinch',
+		},
+		target: "normal",
+		type: "Ghost",
+		zMovePower: 150,
+		contestType: "Tough",
 	},
 };

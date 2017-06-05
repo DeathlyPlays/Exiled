@@ -635,7 +635,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		team: 'randomHC',
-		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
+		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod', 'PotD'],
 	},
 	{
 		name: "[Gen 7] Doubles Hackmons Cup",
@@ -644,7 +644,7 @@ exports.Formats = [
 		gameType: 'doubles',
 		team: 'randomHC',
 		searchShow: false,
-		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
+		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod', 'PotD'],
 	},
 
 	// RoA Spotlight
@@ -2383,7 +2383,7 @@ exports.Formats = [
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Furretite'],
-		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash'],
+		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow'],
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},

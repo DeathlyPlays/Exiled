@@ -4,25 +4,6 @@
  * This file contains all custom commands used to moderate the server.
 ********************/
 const MAX_REASON_LENGTH = 300;
-const fs = require('fs');
-let permaUsers;
-
-try {
-	permaUsers = JSON.parse(fs.readFileSync("config/perma.json"));
-} catch (e) {
-	permaUsers = {};
-	console.log("Unable to load config/perma.txt; creating empty object.");
-}
-Users.parsePerma = function (userid, targetUser) {
-	if (!userid) return;
-	if (userid in permaUsers) {
-		try {
-			Punishments[permaUsers[userid]](Users.get(userid));
-		} catch (e) {
-			console.log("ERROR: unable to apply perma to " + userid);
-		}
-	}
-};
 
 function clearRoom(room) {
 	let len = (room.log && room.log.length) || 0;

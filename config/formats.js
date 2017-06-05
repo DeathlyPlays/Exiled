@@ -2378,24 +2378,14 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Swapping Powers",
 		desc: [
-			"Power Trick is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Mewth. Coded by Mewth/flufi. (Also Switches Special Attack with Special Defense.)",
+			"Power trick that's constantly there, not only swapping Attack and Defense, but Special Attack and Special Defense also. Concept by Mewth. Coded by Mewth/Insist/HoeenHero."
 		],
-		mod: "powertrick",
+		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
-		unbanlist: ['Aegislash', 'Deoxys-Attack'],
-		onBegin: function () {
-			this.powerTrick = ["Power Trick"];
-			this.startNewPowerTrick = this.powerTrick[this.random(1)];
-			this.add("-message", "Starting next turn, the set up another 5 rounds of " + this.startNewPowerTrick + "!");
-		},
-		onResidualOrder: 999,
-		onResidual: function () {
-			if (this.turn % 5 === 4) {
-				let startNewPowerTrick = this.powerTrick[this.random(1)];
-				while (startNewPowerTrick === this.powerTrick) startNewPowerTrick = this.powerTrick[this.random(1)];
-				this.startNewPowerTrick = startNewPowerTrick;
-				this.add("-message", "Starting next turn, the battle will set another 5 rounds of " + this.startNewPowerTrick + "!");
-			}
+		banlist: ['Furretite'],
+		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash'],
+		onSwitchIn: function (pokemon) {
+			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
 	},
 	{

@@ -14,9 +14,9 @@ class Ambush {
 		}
 		this.timeLeft = Date.now() + seconds * 1000;
 
-		this.room.add('|uhtml|ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #627ADC ; border: 12px double #3D668E ; color: #FFF"><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/006-mega-x.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>A game of Ambush has created!</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/006-mega-x.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
+		this.room.add('|uhtml|ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000000 ; border: 12px double #860000 ; color: #DF0101"><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>A game of Ambush has created!</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
 			'The game will begin in <b>' + seconds + '</b> seconds!' +
-			'<br><br><button style="border: 4px solid #3D668E ; background: White ; box-shadow: 0px 1px 1px rgba(255 , 255 , 255 , 0.3) inset ; color: #3D668E ; margin: 1px 6px ; padding: 8px 40px" name = "send" value = "/ambush join"><font size="3">Join!</font></button><br><br></center></div>'
+			'<br><br><button style="border: 4px solid #000 ; background: White ; box-shadow: 0px 1px 1px rgba(255 , 255 , 255 , 0.3) inset ; color: #DF0101 ; margin: 1px 6px ; padding: 8px 40px" name = "send" value = "/ambush join"><font size="3">Join!</font></button><br><br></center></div>'
 		);
 
 		this.timer = setTimeout(() => {
@@ -28,9 +28,9 @@ class Ambush {
 		}, seconds * 1000);
 	}
 	updateJoins() {
-		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #627ADC ; border: 12px double #3D668E ; color: #FFF"><center><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/006-mega-x.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>A game of Ambush has been started!</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/006-mega-x.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
+		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000000; border: 12px double #860000 ; color: #DF0101"><center><h3><img style="transform: scaleX(-1);" src="https://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>A game of Ambush has been started!</b></u></font><img src="https://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
 			'The game will begin in <b>' + Math.round((this.timeLeft - Date.now()) / 1000) + '</b> seconds' +
-			'<br><br><button style="border: 4px solid #3D668E ; background: White ; box-shadow: 0px 1px 1px rgba(255 , 255 , 255 , 0.3) inset ; color: #3D668E ; margin: 1px 6px ; padding: 8px 40px" name = "send" value = "/ambush join"><font size="3">Join!</font></button><br><br>';
+			'<br><br><button style="border: 4px solid #000 ; background: White ; box-shadow: 0px 1px 1px rgba(255 , 255 , 255 , 0.3) inset ; color: #DF0101 ; margin: 1px 6px ; padding: 8px 40px" name = "send" value = "/ambush join"><font size="3">Join!</font></button><br><br>';
 		if (this.players.size > 0) {
 			msg += '<center><b>' + this.players.size + '</b> ' + (this.players.size === 1 ? 'user has' : 'users have') + ' joined: ' + Array.from(this.players).map(player => Chat.escapeHTML(player[0].name)).join(', ') + '</center>';
 		}
@@ -70,7 +70,7 @@ class Ambush {
 
 		this.round++;
 		this.loadGuns();
-		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #627ADC ; border: 12px double #3D668E ; color: #FFF"><center><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/006-mega-x.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>Round ' + this.round + '</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/006-mega-x.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><br>' +
+		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000 ; border: 12px double #860000 ; color: #DF0101"><center><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>Round ' + this.round + '</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><br>' +
 			'Players: ' + this.getSurvivors().map(player => Chat.escapeHTML(player[0].name)).join(', ') +
 			'<br><br><small>Use /fire [player] to shoot another player!</small>';
 		this.room.add('|uhtml|' + msg + '<br><br><i>Wait for it...</i>').update();

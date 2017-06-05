@@ -25,6 +25,7 @@ exports.commands = {
 	newsentence: 'sentence',
 	sentence: function (target, room, user) {
 		if (!this.can('lock', null, room)) return this.errorReply("/sentence - Access denied.");
+		if (room.id === 'lobby') return this.errorReply("This command cannot be used in Lobby.");
 		if (room.sentence) return this.errorReply("There is already a sentence game in this room.");
 		if (room.battle) return this.errorReply("You cannot play sentence game in battle rooms.");
 		if (!target) return this.errorReply("You must specify a sentence length.");
@@ -32,7 +33,7 @@ exports.commands = {
 
 		let length = Math.floor(Number(target));
 		if (isNaN(length)) return this.errorReply("The length must be a number.");
-		if (length > 100 || length < 2) return this.errorReply("The sentence cannot be this long.");
+		if (length > 15 || length < 2) return this.errorReply("The sentence cannot be this long.");
 
 		room.sentence = {};
 		room.sentence.size = length;

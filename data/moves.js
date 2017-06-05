@@ -19217,7 +19217,7 @@ exports.BattleMovedex = {
 	},
 	"lockdown": {
 		num: -603,
-		accuracy: 90,
+		accuracy: 100,
 		basePower: 0,
 		category: "Status",
 		shortDesc: "Target is trapped. Raises Def and Spd by 1.",
@@ -19239,12 +19239,12 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Bind", source);
 		},
 		secondary: {
+			chance: 100,
 			self: {
 				boosts: {
-				def: 1,
-				spd: 1,
+					def: 1,
+					spd: 1,
 				},
-
 			},
 		},
 		target: "normal",

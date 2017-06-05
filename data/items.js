@@ -7300,4 +7300,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Hawlucha, this item allows it to Mega Evolve in battle.",
 	},
+	"wailordite": {
+		id: "wailordite",
+		name: "Wailordite",
+		spritenum: 592,
+		megaStone: "Wailord-Mega",
+		megaEvolves: "Wailord",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 675,
+		gen: 6,
+		desc: "If holder is a Wailord, this item allows it to Mega Evolve in battle.",
+	},
 };

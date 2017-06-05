@@ -7216,7 +7216,7 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Kecleon, this item allows it to Mega Evolve in battle.",
 	},
-		"farfetchite": {
+	"farfetchite": {
 		id: "farfetchite",
 		name: "Farfetchite",
 		spritenum: -400,

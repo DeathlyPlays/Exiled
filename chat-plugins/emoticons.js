@@ -371,15 +371,15 @@ exports.commands = {
 		switch (parts[0]) {
 		case 'add':
 			if (!this.can('roomowner')) return false;
-			if (!parts[2]) return this.sendReply("Usage: /emoticon add, [name], [url] - Remember to resize the image first! (recommended 30x30)");
+			if (!parts[2]) return this.sendReply("Usage: /emoticon add, [name], [url] - Remember to resize the image first! (recommended 50x50)");
 			if (emoticons[parts[1]]) return this.sendReply("\"" + parts[1] + "\" is already an emoticon.");
 			emoticons[parts[1]] = parts[2];
 			saveEmoticons();
 			this.sendReply('|raw|The emoticon "' + Chat.escapeHTML(parts[1]) + '" has been added: <img src="' + parts[2] + '">');
 			Rooms('upperstaff').add('|raw|' + Exiled.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
-				'": <img width="40" height="40" src="' + parts[2] + '">').update();
+				'": <img width="50" height="50" src="' + parts[2] + '">').update();
 			Exiled.messageSeniorStaff('/html ' + Exiled.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
-				'": <img width="40" height="40" src="' + parts[2] + '">');
+				'": <img width="50" height="50" src="' + parts[2] + '">');
 			break;
 
 		case 'delete':
@@ -411,7 +411,7 @@ exports.commands = {
 		case 'list':
 			if (!this.runBroadcast()) return;
 			let reply = "<b><u>Emoticons (" + Object.keys(emoticons).length + ")</u></b><br />";
-			for (let emote in emoticons) reply += "(" + emote + " <img src=\"" + emoticons[emote] + "\" height=\"40\" width=\"40\">) ";
+			for (let emote in emoticons) reply += "(" + emote + " <img src=\"" + emoticons[emote] + "\" height=\"50\" width=\"50\">) ";
 			this.sendReply('|raw|<div class="infobox infobox-limited">' + reply + '</div>');
 			break;
 

@@ -850,6 +850,7 @@ exports.BattlePokedex = {
 		types: ["Poison", "Ground"],
 		gender: "M",
 		baseStats: {hp: 81, atk: 85, def: 90, spa: 125, spd: 90, spe: 100},
+		abilities: {0: "Sheer Force"},
 		heightm: 1.5,
 		weightkg: 67,
 		color: "Purple",

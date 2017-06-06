@@ -4673,7 +4673,7 @@ exports.BattleFormatsData = {
 	},
 	darmanitanzen: {
 		requiredAbility: "Zen Mode",
-		tier: "UU"
+		tier: "UU",
 	},
 	maractus: {
 		randomBattleMoves: ["spikes", "gigadrain", "leechseed", "hiddenpowerfire", "toxic", "suckerpunch", "spikyshield"],

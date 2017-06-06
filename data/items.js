@@ -7084,6 +7084,20 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If holder is a Togekiss, this item allows it to Mega Evolve in battle.",
 	},
+	"togedemarite": {
+		id: "togedemarite",
+		name: "Togedemarite",
+		spritenum: -400,
+		megaStone: "Togedemaru-Mega",
+		megaEvolves: "Togedemaru",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 6,
+		desc: "If holder is a Togedemaru, this item allows it to Mega Evolve in battle.",
+	},
 	"bewearite": {
 		id: "bewearite",
 		name: "Bewearite",

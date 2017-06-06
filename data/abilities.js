@@ -86,28 +86,6 @@ exports.BattleAbilities = {
 		rating: 4,
 		num: 185,
 	},
-	"nuclearize": {
-		desc: "This Pokemon's Normal-type moves become Nuclear-type moves and have their power multiplied by 1.2. This effect comes after other effects that change a move's type, but before Ion Deluge and Electrify's effects.",
-		shortDesc: "This Pokemon's Normal-type moves become Nuclear-type and have 1.2x power.",
-		onModifyMovePriority: -1,
-		onModifyMove: function (move, pokemon) {
-			if (move.type === 'Normal' && move.id !== 'naturalgift' && !move.isZ) {
-				move.type = 'Nuclear';
-				if (move.category !== 'Status') pokemon.addVolatile('aerilate');
-			}
-		},
-		effect: {
-			duration: 1,
-			onBasePowerPriority: 8,
-			onBasePower: function (basePower, pokemon, target, move) {
-				return this.chainModify([0x1333, 0x1000]);
-			},
-		},
-		id: "nuclearize",
-		name: "Nuclearize",
-		rating: 4,
-		num: 10000,
-	},
 	"airlock": {
 		shortDesc: "While this Pokemon is active, the effects of weather conditions are disabled.",
 		onStart: function (pokemon) {

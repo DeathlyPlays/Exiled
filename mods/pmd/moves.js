@@ -92,6 +92,30 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Rock",
 	},
+	//Geopebble
+	geopebble: {
+		accuracy: 100,
+		category: "Special",
+		basePower: 40,
+		id: "geopebble",
+		isNonstandard: true,
+		name: "Geo Pebble",
+		pp: 0.625,
+		priority: 0,
+		flags: {
+			protect: 1,
+			distance: 1,
+			gravity: 1,
+		},
+		multihit: [4, 7],
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Rock Blast", target);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Rock",
+	},
 	//Heal Seed
 	healseed: {
 		accuracy: true,

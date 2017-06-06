@@ -955,7 +955,7 @@ exports.Formats = [
 	},
 	{
 		name: "Triples Custom Game",
-
+		mod: 'pmd',
 		gameType: 'triples',
 		searchShow: false,
 		canUseRandomTeam: true,
@@ -2421,7 +2421,7 @@ exports.Formats = [
 		ruleset: ['[Gen 7] Anything Goes', 'Team Preview'],
 		banlist: ['Furretite'],
 		onSwitchIn: function (pokemon) {
-			let n = this.random(45);
+			let n = this.random(51);
 			if (n === 1) {
 				this.add('-start', pokemon, 'typechange', 'Normal');
 				pokemon.types = ["Normal"];
@@ -2530,6 +2530,18 @@ exports.Formats = [
 				this.useMove("Will-O-Wisp", pokemon);
 			} else if (n === 45) {
 				this.useMove("Thunder Wave", pokemon);
+			} else if (n === 46) {
+				this.useMove("Fire Blast", pokemon);
+			} else if (n === 47) {
+				this.useMove("Hydro Pump", pokemon);
+			} else if (n === 48) {
+				this.useMove("Leaf Storm", pokemon);
+			} else if (n === 49) {
+				this.useMove("Light Screen", pokemon);
+			} else if (n === 50) {
+				this.useMove("Reflect", pokemon);
+			} else if (n === 51) {
+				this.useMove("Safeguard", pokemon);
 			}
 		},
 	},

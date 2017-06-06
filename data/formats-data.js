@@ -4673,7 +4673,7 @@ exports.BattleFormatsData = {
 	},
 	darmanitanzen: {
 		requiredAbility: "Zen Mode",
-		battleOnly: true,
+		tier: "UU"
 	},
 	maractus: {
 		randomBattleMoves: ["spikes", "gigadrain", "leechseed", "hiddenpowerfire", "toxic", "suckerpunch", "spikyshield"],
@@ -5298,8 +5298,7 @@ exports.BattleFormatsData = {
 	meloettapirouette: {
 		randomBattleMoves: ["relicsong", "closecombat", "knockoff", "return"],
 		randomDoubleBattleMoves: ["relicsong", "closecombat", "knockoff", "return", "protect"],
-		requiredMove: "Relic Song",
-		battleOnly: true,
+		tier: "UU",
 	},
 	genesect: {
 		randomBattleMoves: ["uturn", "bugbuzz", "icebeam", "flamethrower", "thunderbolt", "ironhead", "shiftgear", "extremespeed", "blazekick"],
@@ -5541,7 +5540,7 @@ exports.BattleFormatsData = {
 		tier: "Uber",
 	},
 	aegislashblade: {
-		battleOnly: true,
+		tier: "Uber",
 	},
 	spritzee: {
 		randomBattleMoves: ["calmmind", "drainingkiss", "moonblast", "psychic", "aromatherapy", "wish", "trickroom", "thunderbolt"],

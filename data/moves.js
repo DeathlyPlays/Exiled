@@ -13319,6 +13319,12 @@ exports.BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1, mirror: 1, dance: 1},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Tri Attack", source);
+			this.add('-anim', source, "Multi Attack", source);
+			this.add('-anim', source, "Dynamic Punch");
+		},
 		onModifyMove: function (move, pokemon) {
 			let type = pokemon.types[0];
 			if (type === "Bird") type = "???";
@@ -14144,7 +14150,24 @@ exports.BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		secondary: false,
+		secondary: {
+			chance: 1,
+			status: 'slp',
+		},
+		onHit: function (target, pokemon) {
+			if (pokemon.baseTemplate.baseSpecies === 'Keldeo' && !pokemon.transformed) {
+				pokemon.addVolatile('secretsword');
+			}
+		},
+		effect: {
+			duration: 1,
+			onAfterMoveSecondarySelf: function (pokemon, target, move) {
+				if (pokemon.formeChange(pokemon.template.speciesid === 'keldeoresolute' ? 'Keldeo' : 'Keldeo-Resolute')) {
+					this.add('-formechange', pokemon, pokemon.illusion ? pokemon.illusion.template.species : pokemon.template.species, '[msg]');
+				}
+				pokemon.removeVolatile('secretsword');
+			},
+		},
 		target: "normal",
 		type: "Fighting",
 		zMovePower: 160,
@@ -19313,13 +19336,18 @@ exports.BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dark Void", source);
+			this.add('-anim', source, "Supersonic Skystrike", source);
+		},
 		secondary: {
 			chance: 20,
 			volatileStatus: 'flinch',
 		},
 		target: "normal",
 		type: "Ghost",
-		zMovePower: 150,
+		zMovePower: 180,
 		contestType: "Tough",
 	},
 };

@@ -4,7 +4,6 @@ exports.BattleItems = {
 	"abomasite": {
 		id: "abomasite",
 		name: "Abomasite",
-		isUnreleased: true,
 		spritenum: 575,
 		megaStone: "Abomasnow-Mega",
 		megaEvolves: "Abomasnow",
@@ -3155,7 +3154,6 @@ exports.BattleItems = {
 	"manectite": {
 		id: "manectite",
 		name: "Manectite",
-		isUnreleased: true,
 		spritenum: 596,
 		megaStone: "Manectric-Mega",
 		megaEvolves: "Manectric",
@@ -5481,7 +5479,6 @@ exports.BattleItems = {
 	"tyranitarite": {
 		id: "tyranitarite",
 		name: "Tyranitarite",
-		isUnreleased: true,
 		spritenum: 607,
 		megaStone: "Tyranitar-Mega",
 		megaEvolves: "Tyranitar",

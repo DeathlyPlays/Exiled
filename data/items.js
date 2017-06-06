@@ -6710,7 +6710,7 @@ exports.BattleItems = {
 			pokemon.baseAbility = pokemon.ability;
 		},
 		onTakeItem: function (item, source) {
-			if (source.baseTemplate.baseSpecies === 'Groudon') return false;
+			if (source.baseTemplate.baseSpecies === 'Dialga') return false;
 			return true;
 		},
 		num: -534,
@@ -7240,5 +7240,19 @@ exports.BattleItems = {
 		num: -119,
 		gen: 0,
 		desc: "If holder is a Farfetch'd, this item allows it to Mega Evolve in battle.",
+	},
+	"victinite": {
+		id: "victinite",
+		name: "Victinite",
+		spritenum: -400,
+		megaStone: "Victini-Mega",
+		megaEvolves: "Victini",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Victini, this item allows it to Mega Evolve in battle.",
 	},
 };

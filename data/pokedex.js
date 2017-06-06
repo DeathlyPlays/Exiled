@@ -8826,6 +8826,7 @@ exports.BattlePokedex = {
 		weightkg: 4,
 		color: "Yellow",
 		eggGroups: ["Undiscovered"],
+		otherFormes: ["victinimega"],
 	},
 	snivy: {
 		num: 495,
@@ -14837,6 +14838,7 @@ exports.BattlePokedex = {
 	spindamega: {
 		num: 327,
 		species: "Spinda-Mega",
+		baseSpecies: "Spinda",
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Normal", "Fighting"],
@@ -14846,5 +14848,20 @@ exports.BattlePokedex = {
 		weightkg: 5,
 		color: "Brown",
 		eggGroups: ["Field", "Human-Like"],
+	},
+	victinimega: {
+		num: 494,
+		species: "Victini-Mega",
+		baseSpecies: "Victini",
+		forme: "Mega",
+		formeLetter: "M",
+		types: ["Psychic", "Fire"],
+		gender: "N",
+		baseStats: {hp: 100, atk: 120, def: 120, spa: 120, spd: 120, spe: 120},
+		abilities: {0: "Contrary"},
+		heightm: 0.4,
+		weightkg: 4,
+		color: "Yellow",
+		eggGroups: ["Undiscovered"],
 	},
 };

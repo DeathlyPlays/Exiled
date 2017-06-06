@@ -1688,7 +1688,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'vxn') {
-				this.add('c|+VXN|ok im here, what do you want me to break');
+				this.add('c| VXN|ok im here, what do you want me to break');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1824,7 +1824,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c|+VXN|the bug has been fixed');
+				this.add('c| VXN|the bug has been fixed');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -1903,7 +1903,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'vxn') {
-				this.add('c|+VXN|ok im here, what do you want me to break');
+				this.add('c| VXN|ok im here, what do you want me to break');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -2041,7 +2041,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c|+VXN|the bug has been fixed');
+				this.add('c| VXN|the bug has been fixed');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -2395,14 +2395,27 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Swapping Powers",
+		name: "[Gen 7] Corruption",
 		desc: [
-			"Power trick that's constantly there, not only swapping Attack and Defense, but Special Attack and Special Defense also. Concept by Mewth. Coded by Insist/HoeenHero.",
+			"When a Pokemon reaches half of their maximum HP or less, they will become",
+			"'corrupted'. While in corrupted form, the Pokemon's highest stat is",
+			"multiplied by x1.5. This does not include HP.",
 		],
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Furretite'],
-		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow'],
+	},
+	{
+		name: "[Gen 7] Swapping Powers",
+		desc: [
+			"Power trick that's constantly there, not only swapping Attack and Defense, but Special Attack and Special Defense also.",
+			"&bullet; <a href=\"http://exiledps.boards.net/thread/24/welcome-swapping-powers\">Swapping Powers Thread</a>",
+			"Concept by Mewth. Coded by Insist/HoeenHero.",
+		],
+		mod: "gen7",
+		ruleset: ['[Gen 7] OU'],
+		banlist: ['Furretite'],
+		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow', "King's Shield"],
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},

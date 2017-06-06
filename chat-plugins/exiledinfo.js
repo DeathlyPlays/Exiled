@@ -13,7 +13,7 @@ exports.commands = {
 	 *********************************************************/
 
 	'!groups': true,
-	groups: function (target, room, user) {
+	groups: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
 			"+ <b>Voice</b> - They can use ! commands like !groups, and talk during moderated chat.<br />" +
@@ -32,7 +32,7 @@ exports.commands = {
 	],
 
 	git: "opensource",
-	opensource: function (target, room, user) {
+	opensource: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
 			"Exiled's Github's:<br />" +
@@ -47,44 +47,44 @@ exports.commands = {
 	],
 
 	'!forums': true,
-	forums: function (target, room, user) {
+	forums: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">Exiled Forums</a>");
 	},
 
 	'!suggestions': true,
-	suggestions: function (target, room, user) {
+	suggestions: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for Exiled</a>");
 	},
 
 	'!fakemon': true,
 	fakemons: 'fakemon',
-	fakemon: function (target, room, user) {
+	fakemon: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox("<a href=\"https://goo.gl/forms/ho9YhvxrnXMY2QLI3\">Submit a Fakemon :D</a>");
 	},
 
 	'!skype': true,
-	skype: function (target, room, user) {
+	skype: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox("<a href=\"https://join.skype.com/Eo5DCq8nCh1j\">The Official Skype Group</a>");
 	},
 
 	'!discord': true,
-	discord: function (target, room, user) {
+	discord: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Exiled Discord</a>");
 	},
 
 	'!reddit': true,
-	reddit: function (target, room, user) {
+	reddit: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox("<a href=\"https://www.reddit.com/me/m/exiled_ps/\">The Official Exiled Reddit</a>");
 	},
 
 	'!facebook': true,
-	facebook: function (target, room, user) {
+	facebook: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox("<a href=\"https://www.facebook.com/exiledserver/\">The Official Exiled Facebook Page</a>");
 	},
@@ -146,7 +146,7 @@ exports.commands = {
 	dtfakemon: 'fakemondata',
 	datafakemons: 'fakemondata',
 	fakemonsdata: 'fakemondata',
-	fakemondata: function (target, room, user) {
+	fakemondata: function () {
 		if (!this.runBroadcast('!htmlbox')) return;
 		this.sendReplyBox(
 			//SMK
@@ -156,7 +156,7 @@ exports.commands = {
 
 	//Credits to Snaquaza on these feature and other DragonHeaven developers/contributers
 	'fakemonlist': 'fakemonslist',
-	fakemonslist: function (target, room, user) {
+	fakemonslist: function () {
 		if (!this.runBroadcast()) return;
 		let buf = `<div class=infobox-limited><center><h2>List Of Fakemons</h2></center>`;
 		let fakemonsDex = require('../mods/fakemons/pokedex.js').BattlePokedex;
@@ -168,7 +168,7 @@ exports.commands = {
 	},
 	fakemonslisthelp: ["/fakemonslist - Shows the list of Fakemons."],
 
-	learnfakemons: function (target, room, user) {
+	learnfakemons: function (target) {
 		if (!this.runBroadcast()) return;
 		let learnfakemons = Dex.mod('fakemons').data.Learnsets, movefakemons = Dex.mod('fakemons').data.Movedex, dexfakemons = Dex.mod('fakemons').data.Pokedex;
 		if (!target || toId(target) === '') return this.sendReply("/learnfakemons: Shows the whether a Pokemon can learn a move, including Pokemon and Moves from fakemons.");
@@ -185,7 +185,7 @@ exports.commands = {
 	},
 
 	'!bugs': true,
-	bugs: function (target, room, user) {
+	bugs: function (room) {
 		if (!this.runBroadcast()) return;
 		if (room && room.battle) {
 			this.sendReplyBox("<center><button name=\"saveReplay\"><i class=\"fa fa-upload\"></i> Save Replay</button> &mdash; <a href=\"https://www.smogon.com/forums/threads/3520646/\">Questions</a> &mdash; <a href=\"https://www.smogon.com/forums/threads/3469932/\">Bug Reports</a></center>");
@@ -198,7 +198,7 @@ exports.commands = {
 	},
 
 	'!roomhelp': true,
-	roomhelp: function (target, room, user) {
+	roomhelp: function (room) {
 		if (!this.canBroadcast('!htmlbox')) return;
 		if (this.broadcastMessage && !this.can('declare', null, room)) return false;
 
@@ -256,7 +256,7 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox("Please follow the rules:<br />" +
 				(room && room.rulesLink ? "- <a href=\"" + Chat.escapeHTML(room.rulesLink) + "\">" + Chat.escapeHTML(room.title) + " room rules</a><br />" : "") +
-				"- <a href=\"http://exiledps.boards.net/thread/4/exiled-rules-regulations\">" + (room && room.rulesLink ? "Global rules" : "Rules") + "</a>");
+				"- <a href=\"http://exiledps.boards.net/thread/4/exiled-rules\">" + (room && room.rulesLink ? "Global rules" : "Rules") + "</a>");
 			return;
 		}
 		if (!room) {

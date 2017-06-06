@@ -402,7 +402,7 @@ Special Move: Kamikaze
 Notes: Physical glass cannon. Kill with recoil sacs or ExtremeSpeed.
 
 007Nilo
-(Zoroark)
+(Zoroark-Mega)
 @ Life Orb
 EVs: 252 SpA / 252 Spe / 4 HP
 Modest Nature

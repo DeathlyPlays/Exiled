@@ -288,7 +288,6 @@ exports.commands = {
 			"- " + Exiled.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
 			"<br />" +
 			"<u><b>Major Contributors:</b></u><br />" +
-			"- " + Exiled.nameColor('VXN', true) + " (Developer)<br />" +
 			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developer)<br />" +
 			"- " + Exiled.nameColor('Back At My Day', true) + " (Developer)<br />" +
 			"<br />" +
@@ -296,6 +295,7 @@ exports.commands = {
 			"- " + Exiled.nameColor('Princess Teddiursa', true) + " (Former Owner, Developer, CSS Developments)<br />" +
 			"- " + Exiled.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
 			"- " + Exiled.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
+			"- " + Exiled.nameColor('VXN', true) + " (Former Developer)<br />" +
 			"<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members<br />" +

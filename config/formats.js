@@ -50,11 +50,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Clause'],
-<<<<<<< HEAD
-		banlist: ['Furretite'],
-=======
-		banlist: ['Baton Pass'],
->>>>>>> 3fffe38efc340a392ea01f8486a6420def4ca89c
+		banlist: ['Baton Pass', 'Furretite'],
 	},
 	{
 		name: "[Gen 7] UU",

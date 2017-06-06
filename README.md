@@ -32,7 +32,6 @@ This server requires the Node Js Version 6.6.0 or higher<br>
 * **Insist** - Main developer of Exiled files, Sysadmin, Owner.
 * **Mewth** - Developer, Sysadmin, Co-Owner.
 * **HoeenCoder** - Sysop, Bug fixes, Mechanic assistance.
-* **VXN** - Developments, Sysop.
 * **Back At My Day** - Developments.
 * **Mystifi** - Assistance, Developments.
 * **AlfaStorm** - Developer.
@@ -43,5 +42,6 @@ This server requires the Node Js Version 6.6.0 or higher<br>
 * **Sukesha** - Former co-owner, HTML developments, and CSS creator.
 * **Volco** - Former Sysop + Former Admin + Former Owner.
 * **Alpha Hawk** - Former Developer.
+* **VXN** - Former Developer, Former Sysop.
 
 ### Thanks for reading!  Hope you enjoy these codes, that are possible thanks to the above listed.

@@ -4407,6 +4407,17 @@ exports.BattleAbilities = {
 		rating: 4.5,
 		num: -115,
 	},
+	"lightflow": {
+		inherit: true,
+		shortDesc: "This Pokemon's Normal-type moves have their priority increased by 1.",
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.type === 'Normal') return priority + 1;
+		},
+		id: "lightflow",
+		name: "Light Flow",
+		rating: 5,
+		num: -116,
+	},
 	"climatechange": {
 		desc: "If this Pokemon is a Castform, its type changes to the current weather condition's type, and sets a new weather every turn.",
 		onUpdate: function (pokemon) {

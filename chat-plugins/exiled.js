@@ -3,6 +3,7 @@
 const fs = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
+const http = require('http');
 let request = require('request');
 
 const bubbleLetterMap = new Map([

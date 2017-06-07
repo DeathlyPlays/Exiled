@@ -2395,17 +2395,6 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Corruption",
-		desc: [
-			"When a Pokemon reaches half of their maximum HP or less, they will become",
-			"'corrupted'. While in corrupted form, the Pokemon's highest stat is",
-			"multiplied by x1.5. This does not include HP.",
-		],
-		mod: "gen7",
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Furretite'],
-	},
-	{
 		name: "[Gen 7] Swapping Powers",
 		desc: [
 			"Power trick that's constantly there, not only swapping Attack and Defense, but Special Attack and Special Defense also.",
@@ -2414,8 +2403,8 @@ exports.Formats = [
 		],
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
-		banlist: ['Furretite'],
-		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow', "King's Shield"],
+		banlist: ['Furretite', 'Kings Shield'],
+		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow', 'Genesect', 'Shaymin-Sky', 'Landorus', 'Blaziken', 'Pheromosa'],
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
@@ -2434,7 +2423,7 @@ exports.Formats = [
 		ruleset: ['[Gen 7] Anything Goes', 'Team Preview'],
 		banlist: ['Furretite'],
 		onSwitchIn: function (pokemon) {
-			let n = this.random(51);
+			let n = this.random(55);
 			if (n === 1) {
 				this.add('-start', pokemon, 'typechange', 'Normal');
 				pokemon.types = ["Normal"];
@@ -2555,6 +2544,15 @@ exports.Formats = [
 				this.useMove("Reflect", pokemon);
 			} else if (n === 51) {
 				this.useMove("Safeguard", pokemon);
+			} else if (n === 52) {
+				this.useMove("Wonder Room", pokemon);
+			} else if (n === 53) {
+				this.useMove("Power Trick", pokemon);
+			} else if (n === 54) {
+				this.setWeather('steelbarrier');
+			} else if (n === 55) {
+				this.add('-start', pokemon, 'typechange', 'Bird');
+				pokemon.types = ["Bird"];
 			}
 		},
 	},

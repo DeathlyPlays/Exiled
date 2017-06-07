@@ -5318,15 +5318,6 @@ exports.BattleFormatsData = {
 		eventOnly: true,
 		requiredItem: "Burn Drive",
 	},
-	nucleon: {
-		randomBattleMoves: ["fakeout", "return", "earthquake", "wildcharge", "stoneedge", "leafblade"],
-		randomDoubleBattleMoves: ["fakeout", "return", "earthquake", "protect", "wideguard", "quickguard", "wildcharge", "poisonjab", "stoneedge"],
-	},
-	delibirdmega: {
-		randomBattleMoves: ["fakeout", "return", "drillpeck", "present", "protect", "quickattack", "brutalswing", "seedbomb", "iceshard", "megakick"],
-		randomDoubleBattleMoves: ["fakeout", "return", "drillpeck", "present", "protect", "quickattack", "brutalswing", "seedbomb", "iceshard", "megakick"],
-		requiredItem: "Delinite",
-	},
 	genesectchill: {
 		randomBattleMoves: ["uturn", "bugbuzz", "technoblast", "flamethrower", "thunderbolt", "ironhead", "extremespeed"],
 		randomDoubleBattleMoves: ["uturn", "bugbuzz", "technoblast", "flamethrower", "thunderbolt", "ironhead", "extremespeed", "protect"],

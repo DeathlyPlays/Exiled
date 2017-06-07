@@ -72,7 +72,7 @@ exports.BattleScripts = {
 			},
 			//Leaders
 			"&Back At My Day": {
-				species: "Dialga-Primal",
+				species: "Camerupt-Mega",
 				ability: "Time Traveler",
 				item: "Rocky Helmet",
 				gender: "M",
@@ -80,9 +80,9 @@ exports.BattleScripts = {
 				baseSignatureMove: "roleplaying",
 				signatureMove: "Roleplaying",
 				evs: {
-					def: 48,
+					def: 148,
 					spa: 252,
-					spd: 208,
+					spd: 108,
 				},
 				ivs: {
 					hp: 31,

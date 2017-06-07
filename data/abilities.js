@@ -4368,12 +4368,11 @@ exports.BattleAbilities = {
 		//snow warning
 		onStart: function (source) {
 			this.setWeather('hail');
-			this.setTerrain('electricterrain');
 		},
 		//slush rush
 		onModifySpe: function (spe, pokemon) {
 			if (this.isWeather('hail')) {
-				return this.chainModify(2);
+				return this.chainModify(1.5);
 			}
 		},
 		//refrigerate

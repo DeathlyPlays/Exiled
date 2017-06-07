@@ -1700,223 +1700,6 @@ exports.Formats = [
 				this.add('c|@flufi|Howdy');
 			}
 			if (name === 'hoeenhero') {
-				this.add('c|+HoeenHero|Do I have to? I\'m in the middle of programming.');
-			}
-			if (name === 'thegodofpie') {
-				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
-			}
-			if (name === 'almightyjudgment') {
-				this.add('c| Almighty Judgment|M3RP');
-			}
-			if (name === 'guiltasbr') {
-				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
-			}
-			if (name === 'echosierra') {
-				this.add('c|+EchoSierra|lol fite me irl');
-			}
-			if (name === 'horrific17') {
-				this.add('c| Horrific17|It seems you\'ve made a __horrific__ mistake');
-			}
-
-			// Add here special typings, done for flavor mainly. (and stat boosts)
-			if (name === 'volco' && !pokemon.illusion) {
-				this.boost({
-					spe: 1,
-				});
-			}
-			if (name === 'wobbleleez' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Psychic/Fairy');
-				pokemon.types = ["Psychic", "Fairy"];
-				this.boost({
-					def: 1,
-					spd: 1,
-				});
-			}
-			if (name === 'failures' && !pokemon.illusion) {
-				this.boost({
-					spe: 1,
-				});
-			}
-			if (name === 'cyt0pl4sm' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dark/Fairy');
-				pokemon.types = ["Dark", "Fairy"];
-			}
-			if (name === 'chesnaught90000' && !pokemon.illusion) {
-				this.boost({
-					spe: 1,
-				});
-			}
-			if (name === 'douglasgamer' && !pokemon.illusion) {
-				this.boost({
-					spa: 1,
-				});
-				this.add('-start', pokemon, 'typechange', 'Water/Electric');
-				pokemon.types = ["Water", "Electric"];
-			}
-			if (name === 'backatmyday' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Ground/Water');
-				pokemon.types = ["Ground", "Water"];
-			}
-			if (name === 'playershadowbr' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dragon/Water');
-				pokemon.types = ["Dragon", "Water"];
-			}
-			if (name === 'vxn' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Electric/Flying');
-				pokemon.types = ["Electric", "Flying"];
-			}
-			//custom moves on switch while having a specific ability
-			if (name === 'universalcraftr' && !pokemon.illusion) {
-				this.useMove('trickroom', pokemon);
-			}
-		},
-		// Code for use specific moves
-		onModifyMove: function (move, pokemon) {
-			let name = toId(pokemon.illusion ? pokemon.illusion.name : pokemon.name);
-			if (move.id === 'storedpower' && name === 'vxn') {
-				move.defensiveCategory = 'Special';
-				move.category = 'Physical';
-			}
-			if (move.id === 'meditate' && name === 'vxn') {
-				move.name = 'Ultimate Setup';
-			}
-			if (move.id === 'ember' && name === 'chandie') {
-				move.name = 'Fast Flame';
-				move.onTryHit = function (target, source, move) {
-					this.attrLastMove('[still]');
-					this.add('-anim', source, "Flame Burst", target);
-				};
-			}
-		},
-		//Switch-out Phrase
-		onSwitchOut: function (pokemon) {
-			let name = toId(pokemon.name);
-			//switchout
-			if (name === 'insist') {
-				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
-			}
-			if (name === 'speckeldorft') {
-				this.add('c| Speckeldorft|fuck you');
-			}
-			if (name === 'abstarfox') {
-				this.add('c| AB Starfox|Time for me to get a life');
-			}
-			if (name === 'hoeenhero') {
-				this.add('c|+HoeenHero|I can\'t battle now, I\'m too busy.');
-			}
-			if (name === 'thegodofpie') {
-				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
-			}
-			if (name === 'echosierra') {
-				this.add('c|+EchoSierra|bbl fam');
-			}
-		},
-		// Add here salty tears, that is, custom faint phrases.
-		onFaint: function (pokemon) {
-			let name = toId(pokemon.name);
-			//le faint
-			if (name === 'insist') {
-				this.add('c|~Insist|Death.... what a cool concept.');
-				this.add('c|~Insist|Wait wot!');
-				this.add('c|~Insist|>~Insist fainted.');
-				this.add('c|~Insist|That\'s obviously hax m8!');
-				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
-				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
-			}
-			if (name === 'vxn') {
-				this.add('c| VXN|the bug has been fixed');
-			}
-			if (name === 'speckeldorft') {
-				this.add('c| Speckeldorft|__I was a ded meme.......__');
-			}
-			if (name === 'abstarfox') {
-				this.add('c| AB Starfox|Once again I get lucked out smh');
-			}
-			if (name === 'hoeenhero') {
-				this.add('c|+HoeenHero|Hey! Thats more hax than I get to use >:(');
-			}
-			if (name === 'thegodofpie') {
-				this.add('c| TheGodOfPie|ur mom');
-			}
-			if (name === 'almightyjudgment') {
-				this.add('c| Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
-			}
-			if (name === 'guiltasbr') {
-				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
-			}
-			if (name === 'echosierra') {
-				this.add('c|+EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
-			}
-			if (name === 'horrific17') {
-				this.add('c| Horrific17|I never expected my death to be this... __horrific__');
-			}
-			if (name === 'douglasgamer') {
-				this.add('c| douglasgamer|I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');
-			}
-		},
-		onHit: function (pokemon, target) {
-			if (pokemon.hp <= 0 || pokemon.fainted) {
-			//When a staffmon knocks out an enemy
-				let name = toId(target.name);
-				if (name === 'thegodofpie') {
-					this.add('c| TheGodOfPie|lmao dora fights better than you');
-				}
-				if (name === 'insist') {
-					this.add('c|~Insist|**FOH, THIS IS MY HOUSE!!!**');
-				}
-				if (name === 'almightyjudgment') {
-					this.add('c| Almighty Judgment|You Have Been Judged!');
-				}
-				if (name === 'echosierra') {
-					this.add('c|+EchoSierra|dasWRIGHT.jpg');
-				}
-			}
-		},
-	},
-	{
-		name: "[Gen 7] Exiled SSB Doubles",
-		section: "Exiled's Custom Gamemodes",
-		mod: 'essb',
-		team: 'randomSeasonalMelee',
-		gameType: 'doubles',
-		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		desc: [
-			"Credit to: Insist (head coder).",
-			"Thanks to all the auth whom cooperated in this process of making this.",
-			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
-			"&bullet; <a href=\"http://exiledps.boards.net/board/6/exiled-super-staff-bros\">ESSB Thread</a>",
-		],
-		onBegin: function () {
-			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
-			this.add('message', "GET READY FOR THE NEXT BATTLE!");
-			this.add('message', "For more information on a user's staffmon, use /essb (authed user's name)!");
-			// This variable saves the status of a spammy conversation to be played, so it's only played once.
-			this.convoPlayed = false;
-		},
-		// Edgy switch-in sentences go here.
-		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
-		onSwitchIn: function (pokemon, source) {
-			let name = toId(pokemon.name);
-
-			//Switch-in Quotes
-			if (name === 'insist') {
-				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
-			}
-			if (name === 'vxn') {
-				this.add('c| VXN|ok im here, what do you want me to break');
-			}
-			if (name === 'speckeldorft') {
-				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
-			}
-			if (name === 'abstarfox') {
-				this.add('c| AB Starfox|Hello, just here to clean up');
-			}
-			if (name === 'flufi') {
-				this.add('c|@flufi|Howdy');
-				this.add('-start', pokemon, 'typechange', 'Fairy/Steel/Dragon');
-				pokemon.types = ["Fairy", "Steel", "Dragon"];
-			}
-			if (name === 'hoeenhero') {
 				this.add('c|%HoeenHero|Do I have to? I\'m in the middle of programming.');
 			}
 			if (name === 'thegodofpie') {
@@ -1932,7 +1715,7 @@ exports.Formats = [
 				this.add('c| EchoSierra|lol fite me irl');
 			}
 			if (name === 'horrific17') {
-				this.add('c| Horrific17|It seems you\'ve made a __horrific__ mistake');
+				this.add('c|+Horrific17|It seems you\'ve made a __horrific__ mistake');
 			}
 
 			// Add here special typings, done for flavor mainly. (and stat boosts)
@@ -2065,7 +1848,224 @@ exports.Formats = [
 				this.add('c| EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
 			}
 			if (name === 'horrific17') {
-				this.add('c| Horrific17|I never expected my death to be this... __horrific__');
+				this.add('c|+Horrific17|I never expected my death to be this... __horrific__');
+			}
+			if (name === 'douglasgamer') {
+				this.add('c| douglasgamer|I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');
+			}
+		},
+		onHit: function (pokemon, target) {
+			if (pokemon.hp <= 0 || pokemon.fainted) {
+			//When a staffmon knocks out an enemy
+				let name = toId(target.name);
+				if (name === 'thegodofpie') {
+					this.add('c| TheGodOfPie|lmao dora fights better than you');
+				}
+				if (name === 'insist') {
+					this.add('c|~Insist|**FOH, THIS IS MY HOUSE!!!**');
+				}
+				if (name === 'almightyjudgment') {
+					this.add('c| Almighty Judgment|You Have Been Judged!');
+				}
+				if (name === 'echosierra') {
+					this.add('c| EchoSierra|dasWRIGHT.jpg');
+				}
+			}
+		},
+	},
+	{
+		name: "[Gen 7] Exiled SSB Doubles",
+		section: "Exiled's Custom Gamemodes",
+		mod: 'essb',
+		team: 'randomSeasonalMelee',
+		gameType: 'doubles',
+		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		desc: [
+			"Credit to: Insist (head coder).",
+			"Thanks to all the auth whom cooperated in this process of making this.",
+			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
+			"&bullet; <a href=\"http://exiledps.boards.net/board/6/exiled-super-staff-bros\">ESSB Thread</a>",
+		],
+		onBegin: function () {
+			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
+			this.add('message', "GET READY FOR THE NEXT BATTLE!");
+			this.add('message', "For more information on a user's staffmon, use /essb (authed user's name)!");
+			// This variable saves the status of a spammy conversation to be played, so it's only played once.
+			this.convoPlayed = false;
+		},
+		// Edgy switch-in sentences go here.
+		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
+		onSwitchIn: function (pokemon, source) {
+			let name = toId(pokemon.name);
+
+			//Switch-in Quotes
+			if (name === 'insist') {
+				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
+			}
+			if (name === 'vxn') {
+				this.add('c| VXN|ok im here, what do you want me to break');
+			}
+			if (name === 'speckeldorft') {
+				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
+			}
+			if (name === 'abstarfox') {
+				this.add('c| AB Starfox|Hello, just here to clean up');
+			}
+			if (name === 'flufi') {
+				this.add('c|@flufi|Howdy');
+				this.add('-start', pokemon, 'typechange', 'Fairy/Steel/Dragon');
+				pokemon.types = ["Fairy", "Steel", "Dragon"];
+			}
+			if (name === 'hoeenhero') {
+				this.add('c|%HoeenHero|Do I have to? I\'m in the middle of programming.');
+			}
+			if (name === 'thegodofpie') {
+				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
+			}
+			if (name === 'almightyjudgment') {
+				this.add('c| Almighty Judgment|M3RP');
+			}
+			if (name === 'guiltasbr') {
+				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
+			}
+			if (name === 'echosierra') {
+				this.add('c| EchoSierra|lol fite me irl');
+			}
+			if (name === 'horrific17') {
+				this.add('c|+Horrific17|It seems you\'ve made a __horrific__ mistake');
+			}
+
+			// Add here special typings, done for flavor mainly. (and stat boosts)
+			if (name === 'volco' && !pokemon.illusion) {
+				this.boost({
+					spe: 1,
+				});
+			}
+			if (name === 'wobbleleez' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Psychic/Fairy');
+				pokemon.types = ["Psychic", "Fairy"];
+				this.boost({
+					def: 1,
+					spd: 1,
+				});
+			}
+			if (name === 'failures' && !pokemon.illusion) {
+				this.boost({
+					spe: 1,
+				});
+			}
+			if (name === 'cyt0pl4sm' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dark/Fairy');
+				pokemon.types = ["Dark", "Fairy"];
+			}
+			if (name === 'chesnaught90000' && !pokemon.illusion) {
+				this.boost({
+					spe: 1,
+				});
+			}
+			if (name === 'douglasgamer' && !pokemon.illusion) {
+				this.boost({
+					spa: 1,
+				});
+				this.add('-start', pokemon, 'typechange', 'Water/Electric');
+				pokemon.types = ["Water", "Electric"];
+			}
+			if (name === 'backatmyday' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Ground/Water');
+				pokemon.types = ["Ground", "Water"];
+			}
+			if (name === 'playershadowbr' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dragon/Water');
+				pokemon.types = ["Dragon", "Water"];
+			}
+			if (name === 'vxn' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Electric/Flying');
+				pokemon.types = ["Electric", "Flying"];
+			}
+			//custom moves on switch while having a specific ability
+			if (name === 'universalcraftr' && !pokemon.illusion) {
+				this.useMove('trickroom', pokemon);
+			}
+		},
+		// Code for use specific moves
+		onModifyMove: function (move, pokemon) {
+			let name = toId(pokemon.illusion ? pokemon.illusion.name : pokemon.name);
+			if (move.id === 'storedpower' && name === 'vxn') {
+				move.defensiveCategory = 'Special';
+				move.category = 'Physical';
+			}
+			if (move.id === 'meditate' && name === 'vxn') {
+				move.name = 'Ultimate Setup';
+			}
+			if (move.id === 'ember' && name === 'chandie') {
+				move.name = 'Fast Flame';
+				move.onTryHit = function (target, source, move) {
+					this.attrLastMove('[still]');
+					this.add('-anim', source, "Flame Burst", target);
+				};
+			}
+		},
+		//Switch-out Phrase
+		onSwitchOut: function (pokemon) {
+			let name = toId(pokemon.name);
+			//switchout
+			if (name === 'insist') {
+				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
+			}
+			if (name === 'speckeldorft') {
+				this.add('c| Speckeldorft|fuck you');
+			}
+			if (name === 'abstarfox') {
+				this.add('c| AB Starfox|Time for me to get a life');
+			}
+			if (name === 'hoeenhero') {
+				this.add('c|%HoeenHero|I can\'t battle now, I\'m too busy.');
+			}
+			if (name === 'thegodofpie') {
+				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
+			}
+			if (name === 'echosierra') {
+				this.add('c| EchoSierra|bbl fam');
+			}
+		},
+		// Add here salty tears, that is, custom faint phrases.
+		onFaint: function (pokemon) {
+			let name = toId(pokemon.name);
+			//le faint
+			if (name === 'insist') {
+				this.add('c|~Insist|Death.... what a cool concept.');
+				this.add('c|~Insist|Wait wot!');
+				this.add('c|~Insist|>~Insist fainted.');
+				this.add('c|~Insist|That\'s obviously hax m8!');
+				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
+				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
+			}
+			if (name === 'vxn') {
+				this.add('c| VXN|the bug has been fixed');
+			}
+			if (name === 'speckeldorft') {
+				this.add('c| Speckeldorft|__I was a ded meme.......__');
+			}
+			if (name === 'abstarfox') {
+				this.add('c| AB Starfox|Once again I get lucked out smh');
+			}
+			if (name === 'hoeenhero') {
+				this.add('c|%HoeenHero|Hey! Thats more hax than I get to use >:(');
+			}
+			if (name === 'thegodofpie') {
+				this.add('c| TheGodOfPie|ur mom');
+			}
+			if (name === 'almightyjudgment') {
+				this.add('c| Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
+			}
+			if (name === 'guiltasbr') {
+				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
+			}
+			if (name === 'echosierra') {
+				this.add('c| EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
+			}
+			if (name === 'horrific17') {
+				this.add('c|+Horrific17|I never expected my death to be this... __horrific__');
 			}
 			if (name === 'douglasgamer') {
 				this.add('c| douglasgamer|I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');

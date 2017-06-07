@@ -761,6 +761,47 @@ exports.commands = {
 		}
 	},
 
+	setavi: 'setavatar',
+	setavatar: function (target, room, user) {
+		if (!this.can('declare')) return false;
+		let parts = target.split(',').map(param => param.trim());
+		if (parts.length < 2) return this.sendReply('/setavi [player], [avatar ID] - Set the avatar of another player. Requires: % @ # & ~');
+		if (parts.length > 2) return this.errorReply('Too many arguments.');
+		if (!name.connected) return this.errorReply(name + ' is either offline or not an existing user.');
+
+		let name = toId(parts[0]);
+		let avatarID = parts[1];
+
+		Chat.parse("/avatar " + avatarID, Rooms('lobby'), Users(name), Users(name).connections[0]);
+		this.sendReply('Avatar of user ' + name + ' was successfully set.');
+	},
+
+	setterrain: 'setweather',
+	terrain: 'setweather',
+	weather: 'setweather',
+	setweather: function (cmd) {
+	if (!this.can('eval')) return false;
+		if (cmd === 'sand' || cmd === 'sandstorm') {
+			return this.parse('/ebat weather sandstorm');
+		} else if (cmd === 'snow' || cmd === 'hail') {
+			return this.parse('/ebat weather hail');
+		} else if (cmd === 'sun' || cmd === 'sunnyday') {
+			return this.parse('/ebat weather sunnyday');
+		} else if (cmd === 'rain' || cmd === 'raindance') {
+			return this.parse('/ebat weather raindance');
+		} else if (cmd === 'grassy' || cmd === 'grassyterrain') {
+			return this.parse('/ebat terrain grassyterrain');
+		} else if (cmd === 'misty' || cmd === 'mistyterrain') {
+			return this.parse('/ebat terrain mistyterrain');
+		} else if (cmd === 'electric' || cmd === 'electricterrain') {
+			return this.parse('/ebat terrain electricterrain');
+		} else if (cmd === 'psychic' || cmd === 'psychicterrain') {
+			this.parse('/ebat terrain psychicterrain');
+		} else {
+			return this.errorReply('Please input a valid terrain or weather status.');
+		}
+	},
+
 	privateroomhelp: [
 		"/secretroom - Makes a room secret. Secret rooms are visible to & and up. Requires: & ~",
 		"/hiddenroom [on/off] - Makes a room hidden. Hidden rooms are visible to % and up, and inherit global ranks. Requires: \u2606 & ~",

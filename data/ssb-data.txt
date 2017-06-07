@@ -215,7 +215,7 @@ Special Move: Cookie Storm
 Notes: High power moves that are boosted by its Reckless effects obliterate teams.
 Rank: B.
 
-Exiler
+Perison
 (Xerneas)
 @ Power Herb
 EVs: 252 HP / 252 SpA / 4 Spe

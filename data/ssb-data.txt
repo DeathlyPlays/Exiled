@@ -108,9 +108,9 @@ Notes: Fast Special Sweeper that can become bulky. (INSANE ANTIMETA)
 Rank: A.
 
 Back At My Day
-(Dialga)
+(Camerupt-Mega)
 @ Rocky Helmet
-EVs: 48 Def / 252 SpA / 208 SpD
+EVs: 148 Def / 252 SpA / 108 SpD
 IVs: 0 Atk / 0 Spe
 Quiet Nature
 Ability: Time Traveler
@@ -118,7 +118,7 @@ Ability: Time Traveler
 Moves: Aeroblast, Steam Eruption, Freeze-Dry
 Special Move: Roleplaying
 - Ground Type, Special, 120 BP, 100% Accuracy, 10 PP.
-Notes: Trick Room makes great antimeta in this meta and with the bulk Dialga has.
+Notes: Trick Room makes great antimeta in this meta and with the bulk Mega Camerupt has.
 Rank: A.
 
 Kimisumi

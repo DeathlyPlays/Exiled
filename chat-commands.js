@@ -765,12 +765,11 @@ exports.commands = {
 	setavatar: function (target, room, user) {
 		if (!this.can('declare')) return false;
 		let parts = target.split(',').map(param => param.trim());
+		let name = toId(parts[0]);
+		let avatarID = parts[1];
 		if (parts.length < 2) return this.sendReply('/setavi [player], [avatar ID] - Set the avatar of another player. Requires: % @ # & ~');
 		if (parts.length > 2) return this.errorReply('Too many arguments.');
 		if (!name.connected) return this.errorReply(name + ' is either offline or not an existing user.');
-
-		let name = toId(parts[0]);
-		let avatarID = parts[1];
 
 		Chat.parse("/avatar " + avatarID, Rooms('lobby'), Users(name), Users(name).connections[0]);
 		this.sendReply('Avatar of user ' + name + ' was successfully set.');
@@ -780,7 +779,7 @@ exports.commands = {
 	terrain: 'setweather',
 	weather: 'setweather',
 	setweather: function (cmd) {
-	if (!this.can('eval')) return false;
+		if (!this.can('eval')) return false;
 		if (cmd === 'sand' || cmd === 'sandstorm') {
 			return this.parse('/ebat weather sandstorm');
 		} else if (cmd === 'snow' || cmd === 'hail') {

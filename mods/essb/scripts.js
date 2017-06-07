@@ -72,7 +72,7 @@ exports.BattleScripts = {
 			},
 			//Leaders
 			"&Back At My Day": {
-				species: "Dialga",
+				species: "Dialga-Primal",
 				ability: "Time Traveler",
 				item: "Rocky Helmet",
 				gender: "M",

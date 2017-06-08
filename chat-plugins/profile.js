@@ -369,7 +369,7 @@ Profile.prototype.setfriendcode = function (person) {
 Profile.prototype.background = function (buddy) {
 	let bg = Db('backgrounds').get(buddy);
 	if (!Db('backgrounds').has(buddy)) return '<div>';
-	return '<div style="background:url(' + bg + ')">';
+	return '<div style="background-image :url(' + bg + '); background-repeat: no-repeat;">';
 };
 
 Profile.prototype.song = function (fren) {

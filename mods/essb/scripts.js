@@ -342,22 +342,22 @@ exports.BattleScripts = {
 			},
 			//Regs
 			" VXN": {
-				species: "Raikou",
-				ability: "Wingdings",
-				item: "Leftovers",
+				species: "Guzzlord",
+				ability: "Last Laugh",
+				item: "Perception",
 				gender: "M",
-				moves: ['secretsword', 'triattack', 'icebeam'],
-				baseSignatureMove: "electrocryption",
-				signatureMove: "Electrocryption",
+				moves: ['partingshot', 'rest', 'taunt'],
+				baseSignatureMove: "aggrodraw",
+				signatureMove: "Aggro Draw",
 				evs: {
-					spa: 252,
-					spe: 252,
-					spd: 4,
+					hp: 252,
 				},
 				ivs: {
 					atk: 0,
+					def: 0,
+					spd: 0,
 				},
-				nature: "Timid",
+				nature: "Serious",
 			},
 			" Wobbleleez": {
 				species: "Musharna",

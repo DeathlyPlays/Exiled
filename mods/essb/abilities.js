@@ -78,32 +78,31 @@ exports.BattleAbilities = {
 			}
 		},
 	},
-	"wingdings": {
-		onModifyMovePriority: -1,
-		onModifyMove: function (move, pokemon) {
-			if (move.type === 'Normal' && move.id !== 'naturalgift' && !move.isZ) {
-				move.type = 'Flying';
-				if (move.category !== 'Status') pokemon.addVolatile('aerilate');
-			}
-			if (!move) return;
-			if (!move.secondaries) {
-				move.secondaries = [];
-			}
-			move.secondaries.push({
-				chance: 30,
-				volatileStatus: 'confusion',
-				ability: this.getAbility('wingdings'),
-			});
+	"lastlaugh": {
+		onStart: function (pokemon) {
+			this.add('-ability', pokemon, 'Dark Aura');
 		},
-		effect: {
-			duration: 1,
-			onBasePowerPriority: 8,
-			onBasePower: function (basePower, pokemon, target, move) {
-				return this.chainModify([0x1333, 0x1000]);
-			},
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
 		},
-		id: "wingdings",
-		name: "Wingdings",
+		onAfterDamageOrder: 1,
+		onAfterDamage: function (damage, target, source, move) {
+			if (source && source !== target && move && move.effectType === 'Move' && !target.hp) {
+				this.damage(damage * 2, source, target);
+			}
+		},
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.category === 'Status') {
+				return priority + 1;
+			}
+		},
+		onDamage: function (damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				return false;
+			}
+		},
+		id: "lastlaugh",
+		name: "Last Laugh",
 	},
 	//catequil
 	"gawd": {

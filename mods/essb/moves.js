@@ -238,23 +238,26 @@ exports.BattleMovedex = {
 		zMovePower: 120,
 		contestType: "Tough",
 	},
-	"shinkuhadoken": {
-		accuracy: 100,
-		basePower: 20,
-		basePowerCallback: function (pokemon, target, move) {
-			return move.basePower + 20 * pokemon.positiveBoosts();
-		},
-		defensiveCategory: "Special",
-		category: "Physical",
-		id: "shinkuhadoken",
-		name: "Shinku Hadoken",
+	"aggrodraw": {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "aggrodraw",
+		name: "Aggro Draw",
 		pp: 10,
-		priority: 0,
+		priority: 3,
+		onHit: function (target, source, move, pokemon) {
+			this.useMove('Guillotine', target);
+		},
 		flags: {protect: 1, mirror: 1},
 		secondary: false,
 		target: "normal",
-		type: "Fighting",
-		zMovePower: 160,
+		type: "Dark",
+	},
+	"guillotine": {
+		inherit: true,
+		accuracy: true,
+		basePower: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
 	},
 	//vividisagod
 	"jetblast": {

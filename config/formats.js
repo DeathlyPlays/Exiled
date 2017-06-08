@@ -1761,10 +1761,6 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Dragon/Water');
 				pokemon.types = ["Dragon", "Water"];
 			}
-			if (name === 'vxn' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Electric/Flying');
-				pokemon.types = ["Electric", "Flying"];
-			}
 			//custom moves on switch while having a specific ability
 			if (name === 'universalcraftr' && !pokemon.illusion) {
 				this.useMove('trickroom', pokemon);

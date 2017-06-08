@@ -283,18 +283,17 @@ Notes: Fast Special Sweeper.
 Rank: B.
 
 VXN
-(Raikou)
-    - Electric/Flying type
-@ Leftovers
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-Ability: Wingdings
-    - Aerilate + all moves have a 30% chance to confuse the opponent.
-Moves: Tri Attack, Ice Beam, Secret Sword
-Special Move: Electrocryption
-    - 200 BP, Special, Electric Type, Base Power is deteremined by how much HP the attacker has, 50% to paralyze the opponent.
-Notes: Annoying Special Attacker.
-Rank: N/A.
+(Guzzlord)
+@ Preception
+     - Unknown Effect
+EVs: 252 HP
+Serious Nature
+Ability: Dark Aura?
+Moves: Taunt, Parting Shot, Rest
+Special Move: Aggro Draw
+    - Status. Dark Type. Causes the use if Guillotine. 3 Priority.
+Notes: No Secrets! Hahahahaha!
+Rank: ???.
 
 C733937 123
 (Gengar-Mega)

@@ -121,32 +121,34 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "The accuracy of attacks by the holder is 1.1x.",
 	},
-	"debugger": {
-		id: "debugger",
-		name: "Debugger",
-		spritenum: 476,
-		onDamage: function (damage, target, source, effect) {
-			if (target.hp === target.maxhp && damage >= target.hp && effect && effect.effectType === 'Move') {
-				return target.hp - 1;
-			}
+	"perception": {
+		id: "perception",
+		name: "Perception",
+		spritenum: 285,
+		fling: {
+			basePower: 10,
 		},
 		onUpdate: function (pokemon) {
-			let activate = false;
-			let boosts = {};
-			for (let i in pokemon.boosts) {
-				if (pokemon.boosts[i] < 0) {
-					activate = true;
-					boosts[i] = 0;
+			let conditions = ['attract', 'taunt', 'encore', 'torment', 'disable', 'healblock'];
+			for (let i = 0; i < conditions.length; i++) {
+				if (pokemon.volatiles[conditions[i]]) {
+					for (let j = 0; j < conditions.length; j++) {
+						pokemon.removeVolatile(conditions[j]);
+						if (conditions[i] === 'attract' && conditions[j] === 'attract') {
+							this.add('-end', pokemon, 'move: Attract', '[from] item: Mental Herb');
+						}
+					}
+					return;
 				}
 			}
-			if (activate) {
-				pokemon.setBoost(boosts);
-				this.add('-clearnegativeboost', pokemon, '[silent]');
-				this.heal(pokemon.maxhp / 4);
+			if (pokemon.status || pokemon.volatiles['confusion']) {
+				pokemon.cureStatus();
+				pokemon.removeVolatile('confusion');
 			}
 		},
-		num: -9,
+		num: -20,
 		gen: -1,
+		desc: "Cures holder of Attract, Disable, Encore, Heal Block, Taunt, Torment, Confusion, and major status conditions.",
 	},
 	"armorvest": {
 		id: "armorvest",

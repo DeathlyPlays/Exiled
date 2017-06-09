@@ -3022,13 +3022,8 @@ exports.BattlePokedex = {
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Normal", "Ghost"],
-<<<<<<< HEAD
 		baseStats: {hp: 85, atk: 40, def: 70, spa: 130, spd: 70, spe: 100},
 		abilities: {0: "Fur Coat"},
-=======
-		baseStats: {hp: 85, atk: 90, def: 70, spa: 130, spd: 70, spe: 100},
-		abilities: {0: "Shadow Shield"},
->>>>>>> f175094b0b5acaacb597dd69916b1c4494ce0edf
 		heightm: 2.1,
 		weightkg: 40.5,
 		color: "Brown",
@@ -7254,7 +7249,7 @@ exports.BattlePokedex = {
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Electric", "Dark"],
-		baseStats: {hp: 140, atk: 115, def: 140, spa: 115, spd: 140, spe: 160},
+		baseStats: {hp: 60, atk: 115, def: 140, spa: 115, spd: 140, spe: 160},
 		abilities: {0: "Delta Fur"},
 		heightm: 0.7,
 		weightkg: 4.3,

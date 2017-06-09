@@ -1129,6 +1129,20 @@ exports.BattleItems = {
 		gen: 7,
 		desc: "If holder has a Dark move, this item allows it to use a Dark Z-Move.",
 	},
+	"deciduite": {
+		id: "deciduite",
+		name: "Deciduite",
+		spritenum: 576,
+		megaStone: "Decidueye-Mega",
+		megaEvolves: "Decidueye",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -532,
+		gen: 0,
+		desc: "If holder is a Decidueye, this item allows it to Mega Evolve in battle.",
+	},
 	"decidiumz": {
 		id: "decidiumz",
 		name: "Decidium Z",
@@ -2488,6 +2502,20 @@ exports.BattleItems = {
 		gen: 4,
 		desc: "Holder's use of Hail lasts 8 turns instead of 5.",
 	},
+	"incinerite": {
+		id: "incinerite",
+		name: "Incinerite",
+		spritenum: 576,
+		megaStone: "Incineroar-Mega",
+		megaEvolves: "Incineroar",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -785,
+		gen: 0,
+		desc: "If holder is an Incineroar, this item allows it to Mega Evolve in battle.",
+	},
 	"inciniumz": {
 		id: "inciniumz",
 		name: "Incinium Z",
@@ -3149,6 +3177,20 @@ exports.BattleItems = {
 		isUnreleased: true,
 		gen: 2,
 		desc: "Cannot be given to or taken from a Pokemon, except by Covet/Knock Off/Thief.",
+	},
+	"mamoswite": {
+		id: "mamoswite",
+		name: "Mamoswite",
+		spritenum: 576,
+		megaStone: "Mamoswine-Mega",
+		megaEvolves: "Mamoswine",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -543,
+		gen: 0,
+		desc: "If holder is a Mamoswine, this item allows it to Mega Evolve in battle.",
 	},
 	"manectite": {
 		id: "manectite",
@@ -4151,6 +4193,20 @@ exports.BattleItems = {
 		num: 12,
 		gen: 3,
 		desc: "A rare Poke Ball that has been crafted to commemorate an event.",
+	},
+	"primarinite": {
+		id: "primarinite",
+		name: "Primarinite",
+		spritenum: 576,
+		megaStone: "Primarina-Mega",
+		megaEvolves: "Primarina",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -876,
+		gen: 0,
+		desc: "If holder is a Primarina, this item allows it to Mega Evolve in battle.",
 	},
 	"primariumz": {
 		id: "primariumz",

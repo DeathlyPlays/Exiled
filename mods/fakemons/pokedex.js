@@ -176,7 +176,7 @@ exports.BattlePokedex = {
 		},
 		color: "Blue",
 		heightm: 2.2,
-		weightkg: .1,
+		weightkg: 0.1,
 	},
 	reainein: {
 		num: 9009,
@@ -195,7 +195,7 @@ exports.BattlePokedex = {
 		},
 		color: "Blue",
 		heightm: 2.2,
-		weightkg: .1,
+		weightkg: 0.1,
 	},
 	bezzoseal: {
 		num: 9010,
@@ -206,11 +206,15 @@ exports.BattlePokedex = {
 			atk: 101,
 			def: 82,
 			spa: 80,
-			spd: 121,
-			spe: 130,
-	},
-	abilities: {
-		0:
-	},
+			spd: 122,
+			spe: 122,
+		},
+		abilities: {
+			0: "Compound Eyes",
+			1: "Magic Bounce",
+		},
+		color: "Yellow",
+		heightm: 1.1,
+		weightkg: 2,
 	},
 };

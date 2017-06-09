@@ -8,7 +8,6 @@ let BR = '<br>';
 let SPACE = '&nbsp;';
 let profileColor = '#DF0101';
 let trainersprites = [1, 2, 101, 102, 169, 170, 265, 266, 168];
-let turfwars = require('../chat-plugins/gangs');
 
 let geoip = {};
 
@@ -379,17 +378,6 @@ Profile.prototype.song = function (fren) {
 	return '<acronym title="' + title + '"><br><audio src="' + song + '" controls="" style="width:100%;"></audio></acronym>';
 };
 
-Profile.prototype.gang = function () {
-	let gang = Db('gangs').get(this.user.userid, '');
-	let gangrank = caps(Db('gangranks').get(this.user.userid, ''));
-	let gangsymbol = '';
-	if (gang !== '') gangsymbol = '<img src= ' + turfwars.gangs[gang].icon + ' width="10" height="10"</img>';
-	gang = caps(gang);
-	if (gangrank !== '') gangrank = ' (<font color=#00F><b>' + gangrank + '</b></font>)';
-	if (gang) return label('Gang') + gang + SPACE + gangsymbol + gangrank + BR + SPACE;
-	return '';
-};
-
 Profile.prototype.badges = function (pal) {
 	let badgecss = ';border:none;background:none;';
 	let badges = Db('badges').get(pal);
@@ -420,7 +408,6 @@ Profile.prototype.show = function (callback) {
 		SPACE + this.pokemon(userid) + BR +
 		SPACE + this.setfriendcode(userid) + BR +
 		this.pet(userid) +
-		this.gang() +
 		SPACE + this.badges(userid) + this.team(userid) +
 		this.song(userid) +
 

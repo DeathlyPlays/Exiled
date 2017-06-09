@@ -798,6 +798,7 @@ exports.BattlePokedex = {
 		prevo: "nidorina",
 		evoLevel: 16,
 		eggGroups: ["Undiscovered"],
+		otherFormes: ["nidoqueenmega"],
 	},
 	nidoranm: {
 		num: 32,
@@ -15038,5 +15039,20 @@ exports.BattlePokedex = {
 		weightkg: 1.9,
 		color: "Black",
 		eggGroups: ["Flying"],
+	},
+	nidoqueenmega: {
+		num: 31,
+		species: "Nidoqueen-Mega",
+		baseSpecies: "Nidoqueen",
+		forme: "Mega",
+		formeLetter: "M",
+		types: ["Poison", "Ground"],
+		gender: "F",
+		baseStats: {hp: 90, atk: 102, def: 132, spa: 75, spd: 130, spe: 76},
+		abilities: {0: "Sheer Force"},
+		heightm: 1.3,
+		weightkg: 60,
+		color: "Blue",
+		eggGroups: ["Undiscovered"],
 	},
 };

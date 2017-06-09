@@ -7408,4 +7408,18 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If holder is a Arcanine, this item allows it to Mega Evolve in battle.",
 	},
+	"nidoquite": {
+		id: "nidoquite",
+		name: "Nidoquite",
+		spritenum: 624,
+		megaStone: "Nidoqueen-Mega",
+		megaEvolves: "Nidoqueen",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Nidoqueen, this item allows it to Mega Evolve in battle.",
+	},
 };

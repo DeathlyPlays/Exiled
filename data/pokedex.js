@@ -3022,7 +3022,7 @@ exports.BattlePokedex = {
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Normal", "Ghost"],
-		baseStats: {hp: 120, atk: 150, def: 114, spa: 150, spd: 125, spe: 255},
+		baseStats: {hp: 85, atk: 40, def: 70, spa: 130, spd: 70, spe: 100},
 		abilities: {0: "Shadow Shield"},
 		heightm: 2.1,
 		weightkg: 40.5,

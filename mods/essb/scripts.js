@@ -482,7 +482,7 @@ exports.BattleScripts = {
 			},
 			" 007Nilo": {
 				species: "Zoroark-Mega",
-				ability: "Master of Illusions",
+				ability: "Illusion",
 				item: "Life Orb",
 				gender: "M",
 				moves: ['nastyplot', 'nightdaze', 'focusblast'],

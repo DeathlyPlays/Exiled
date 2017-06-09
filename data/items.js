@@ -7297,4 +7297,18 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If holder is a Noctowl, this item allows it to Mega Evolve in battle.",
 	},
+	"taurosite": {
+		id: "taurosite",
+		name: "Taurosite",
+		spritenum: 624,
+		megaStone: "Tauros-Mega",
+		megaEvolves: "Tauros",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Tauros, this item allows it to Mega Evolve in battle.",
+	},
 };

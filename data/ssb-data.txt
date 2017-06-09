@@ -400,20 +400,20 @@ Ability: No Guts, No Glory
 Moves: Brave Bird, Double-Edge, Protect
 Special Move: Kamikaze
 	- Flying Type. Acts the same as Facade (70 BP, double if statused). Normally effective against Rock and Steel-types. 50% recoil damage.
-Notes: Physical glass cannon. Kill with recoil sacs or ExtremeSpeed.
+Notes: Physical glass cannon. Kill with recoil sacs or ExtremeSpeed, dies within two turns maximum.
+Notes: B.
 
 007Nilo
 (Zoroark-Mega)
 @ Life Orb
 EVs: 252 SpA / 252 Spe / 4 HP
 Modest Nature
-Ability: Master of Illusions
-	- Gets +2 SpA and Spe upon entry
+Ability: Illusion
 Moves: Nasty Plot, Night Daze, Focus Blast
 Special Move: Power Of Darkness
 	- Dark Type, Special, 100 BP, 100% accuracy, Ignores Abilities.
 Notes: Boosted Special Attacker.
-Rank: N/A.
+Rank: A.
 
 ggdaca
 (Rayquaza-Mega)

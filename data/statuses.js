@@ -507,11 +507,11 @@ exports.BattleStatuses = {
 		},
 		onWeatherModifyDamage: function (damage, attacker, defender, move) {
 			if (move.type === 'Steel') {
-				this.debug('steel barrier boost');
+				this.debug('Steel Barrier boost');
 				return this.chainModify(1.5);
 			}
 			if (move.type === 'Fairy') {
-				this.debug('steel fairy suppress');
+				this.debug('Steel Barrier supresses Fairy');
 				return this.chainModify(0.5);
 			}
 		},

@@ -4198,7 +4198,7 @@ exports.BattleAbilities = {
 		rating: 3.5,
 		num: -4,
 	},
-	//Exiled custom mons
+	//Exiled Custom Pokemon
 	"insectize": {
 		desc: "This Pokemon's Normal-type moves become Bug-type moves and have their power multiplied by 1.2. This effect comes after other effects that change a move's type, but before Ion Deluge and Electrify's effects.",
 		shortDesc: "This Pokemon's Normal-type moves become Bug Type and have 1.2x power.",
@@ -4573,5 +4573,27 @@ exports.BattleAbilities = {
 			this.setWeather('steelbarrier');
 		},
 		rating: 2,
+	},
+	"stampede": {
+		id: "stampede",
+		name: "Stampede",
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (atk) {
+			return this.chainModify(2);
+		},
+		onModifyMove: function (move, pokemon) {
+			if (move.secondaries) {
+				delete move.secondaries;
+				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
+				pokemon.addVolatile('sheerforce');
+			}
+		},
+		effect: {
+			duration: 1,
+			onBasePowerPriority: 8,
+			onBasePower: function (basePower, pokemon, target, move) {
+				return this.chainModify([0x14CD, 0x1000]);
+			},
+		},
 	},
 };

@@ -194,6 +194,24 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is a Conkeldurr with Punchy Fury, it can use Punchyru Massacre Z, and burns holder every turn.",
 	},
+	"superquickclaw": {
+		id: "superquickclaw",
+		onModifyPriorityPriority: -1,
+		onModifyPriority: function (priority, pokemon) {
+			if (this.random(3) === 0) {
+				this.add('-activate', pokemon, 'item: Quick Claw');
+				return Math.round(priority) + 0.1;
+			}
+		},
+		name: "Super Quick Claw",
+		spritenum: 373,
+		fling: {
+			basePower: 120,
+		},
+		num: -6000,
+		gen: 2,
+		desc: "Each turn, holder has a 50% chance to move first in its priority bracket.",
+	},
 	"rainbowplate": {
 		id: "rainbowplate",
 		name: "Rainbow Plate",

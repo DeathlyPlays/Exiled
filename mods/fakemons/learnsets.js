@@ -353,6 +353,8 @@ exports.BattleLearnsets = {
 			metalclaw: ["7M"],
 			rocktomb: ["7M"],
 			terrordrop: ["7M"],
+			iciclespear: ["7M"],
+			iceshard: ["7M"],
 		},
 	},
 };

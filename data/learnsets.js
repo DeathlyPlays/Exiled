@@ -19569,9 +19569,12 @@ exports.BattleLearnsets = {
 	noctowl: {learnset: {
 		aerialace: ["7M", "6M", "5M", "4M", "3M"],
 		aircutter: ["4T"],
+		uturn: ["7L19"],
 		airslash: ["7L35", "6L37", "5L37", "4L32"],
 		attract: ["7M", "6M", "5M", "4M", "3M"],
 		captivate: ["4M"],
+		darkpulse: ["7M33"],
+		oblivionwing: ["7M56"],
 		confide: ["7M", "6M"],
 		confusion: ["7L10", "6L22", "5L22", "4L22", "3L41"],
 		defog: ["4M"],

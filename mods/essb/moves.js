@@ -2043,6 +2043,24 @@ exports.BattleMovedex = {
 	"guillotine": {
 		inherit: true,
 		accuracy: true,
-		basePower: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
+		basePower: 999999999999999999999999999999999999999999999999999999999999,
+	},
+	"nightmareoblivion": {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "nightmareoblivion",
+		name: "Nightmare Oblivion",
+		pp: 10,
+		priority: 1,
+		onHit: function (target, source, move, pokemon) {
+			this.useMove('Nightmare', pokemon);
+			this.useMove('Dream Eater', pokemon);
+			this.useMove('Torment', pokemon);
+		},
+		flags: {protect: 1, mirror: 1},
+		secondary: false,
+		target: "normal",
+		type: "Dark",
 	},
 };

@@ -38,7 +38,7 @@ exports.BattleFormatsData = {
 		tier: "Fakemons",
 	},
 	bezzoseal: {
-		randomBattleMoves: ["uturn", "terrordrop", "rocktomb", "metalclaw", "phantomforce", "shadowforce", "bugbite", "xscissor", "sleeptalk", "lunge", "shadowsneak", "spark", "finalgambit", "sacredsword", "smartstrike", "slash"],
+		randomBattleMoves: ["uturn", "terrordrop", "rocktomb", "metalclaw", "phantomforce", "shadowforce", "bugbite", "xscissor", "sleeptalk", "lunge", "shadowsneak", "spark", "finalgambit", "sacredsword", "smartstrike", "slash", "iceshard", "iciclespear"],
 		tier: "Fakemons",
 	},
 };

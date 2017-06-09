@@ -26,17 +26,20 @@ Notes: Physical sweeper.
 Rank: B.
 
 flufi
-(Kyurem-White)
-@ Expert Belt
-EVs: 248 SpA / 252 Spe / 8 Def
-Timid Nature
-Ability: Blizzard Rush
-	- Snow Warning, Slush Rush and Refrigerate.
-Moves: Thunderbolt, Boomburst, Flash Cannon
-Special Move: Hypertensive Attack
-  - Dragon Type, Special, 120 BP, 80% Accuracy, Raises SpAttack by +1.
-Notes: Very powerful revenge killer/wallbreaker.
-Rank: A.
+(Noctowl-Mega)
+@ Super Quick Claw
+   - 50% Chance to Move First
+EVs: 248 SpA / 248 HP / 8 Def / 4 SpD
+Modest Nature
+Ability: Natural Intelligence
+	- Multiplies Accuracy by x1.4
+Moves: Hypnosis, Dream Eater, Hurricane
+Special Move: Nightmare Oblivion
+  - Dark Type, 100% Accuracy, Status
+  - Nightmare + Dream Eater + Torment
+Notes: Bulky attacker that requires a lot of thought and strategy
+to be used correctly.
+Rank: B.
 
 Player Shadow BR
 (Dragonite)

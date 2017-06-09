@@ -7367,4 +7367,32 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If holder is a Feraligatr, this item allows it to Mega Evolve in battle.",
 	},
+	"floatzite": {
+		id: "floatzite",
+		name: "Floatzite",
+		spritenum: 624,
+		megaStone: "Floatzel-Mega",
+		megaEvolves: "Floatzel",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Floatzel, this item allows it to Mega Evolve in battle.",
+	},
+	"chatite": {
+		id: "chatite",
+		name: "Chatite",
+		spritenum: 624,
+		megaStone: "Chatot-Mega",
+		megaEvolves: "Chatot",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Chatot, this item allows it to Mega Evolve in battle.",
+	},
 };

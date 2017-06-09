@@ -4572,7 +4572,7 @@ exports.BattleAbilities = {
 		onStart: function (source) {
 			this.setWeather('steelbarrier');
 		},
-		rating: 2,
+		rating: 3.5,
 	},
 	"stampede": {
 		id: "stampede",
@@ -4595,5 +4595,19 @@ exports.BattleAbilities = {
 				return this.chainModify([0x14CD, 0x1000]);
 			},
 		},
+		rating: 5,
+	},
+	"amplifier": {
+		shortDesc: "This Pokemon's sound moves have their power multiplied by 1.3.",
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.flags['sound']) {
+				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+		id: "amplifier",
+		name: "Amplifier",
+		rating: 3.5,
+		num: -800,
 	},
 };

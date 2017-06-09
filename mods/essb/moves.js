@@ -238,26 +238,23 @@ exports.BattleMovedex = {
 		zMovePower: 120,
 		contestType: "Tough",
 	},
-	"aggrodraw": {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		id: "aggrodraw",
-		name: "Aggro Draw",
-		pp: 10,
-		priority: 3,
-		onHit: function (target, source, move, pokemon) {
-			this.useMove('Guillotine', target);
+	"shinkuhadoken": {
+		accuracy: 100,
+		basePower: 20,
+		basePowerCallback: function (pokemon, target, move) {
+			return move.basePower + 20 * pokemon.positiveBoosts();
 		},
+		defensiveCategory: "Special",
+		category: "Physical",
+		id: "shinkuhadoken",
+		name: "Shinku Hadoken",
+		pp: 10,
+		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		secondary: false,
 		target: "normal",
-		type: "Dark",
-	},
-	"guillotine": {
-		inherit: true,
-		accuracy: true,
-		basePower: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
+		type: "Fighting",
+		zMovePower: 160,
 	},
 	//vividisagod
 	"jetblast": {
@@ -1559,7 +1556,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('c| Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
+			this.add('c|+Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
 		},
 		flags: {protect: 1, mirror: 1},
 		secondary: false,
@@ -2026,5 +2023,26 @@ exports.BattleMovedex = {
 		},
 		zMovePower: 150,
 		contestType: "Cool",
+	},
+	"aggrodraw": {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "aggrodraw",
+		name: "Aggro Draw",
+		pp: 10,
+		priority: 3,
+		onHit: function (target, source, move, pokemon) {
+			this.useMove('Guillotine', target);
+		},
+		flags: {protect: 1, mirror: 1},
+		secondary: false,
+		target: "normal",
+		type: "Dark",
+	},
+	"guillotine": {
+		inherit: true,
+		accuracy: true,
+		basePower: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
 	},
 };

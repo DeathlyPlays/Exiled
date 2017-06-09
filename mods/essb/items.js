@@ -135,7 +135,7 @@ exports.BattleItems = {
 					for (let j = 0; j < conditions.length; j++) {
 						pokemon.removeVolatile(conditions[j]);
 						if (conditions[i] === 'attract' && conditions[j] === 'attract') {
-							this.add('-end', pokemon, 'move: Attract', '[from] item: Mental Herb');
+							this.add('-end', pokemon, 'move: Attract', '[from] item: Perception');
 						}
 					}
 					return;

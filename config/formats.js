@@ -379,11 +379,7 @@ exports.Formats = [
 		banlist: [
 			'Illegal', 'Unreleased', 'Arceus', 'Darkrai', 'Deoxys-Base', 'Deoxys-Attack', 'Dialga', 'Giratina', 'Groudon', 'Ho-Oh', 'Kyogre',
 			'Kyurem-White', 'Lugia', 'Lunala', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zekrom',
-<<<<<<< HEAD
-			'Power Construct', 'Perish Song', 'Kangaskhanite', 'Salamencite', 'Chansey + Charm + Seismic Toss',
-=======
 			'Power Construct', 'Perish Song', 'Focus Sash', 'Kangaskhanite', 'Salamencite', 'Chansey + Charm + Seismic Toss', 'Chansey + Charm + Psywave',
->>>>>>> 5dea359d1d1ad526efeb8017dcdeb906f87481ef
 		],
 	},
 	{
@@ -1693,7 +1689,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'vxn') {
-				this.add('c| VXN|ok im here, what do you want me to break');
+				this.add('c|+VXN|ok im here, what do you want me to break');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1711,7 +1707,7 @@ exports.Formats = [
 				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
 			}
 			if (name === 'almightyjudgment') {
-				this.add('c| Almighty Judgment|M3RP');
+				this.add('c|+Almighty Judgment|M3RP');
 			}
 			if (name === 'guiltasbr') {
 				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
@@ -1825,7 +1821,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c| VXN|the bug has been fixed');
+				this.add('c|+VXN|the bug has been fixed');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -1840,7 +1836,7 @@ exports.Formats = [
 				this.add('c| TheGodOfPie|ur mom');
 			}
 			if (name === 'almightyjudgment') {
-				this.add('c| Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
+				this.add('c|+Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
 			}
 			if (name === 'guiltasbr') {
 				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
@@ -1866,7 +1862,7 @@ exports.Formats = [
 					this.add('c|~Insist|**FOH, THIS IS MY HOUSE!!!**');
 				}
 				if (name === 'almightyjudgment') {
-					this.add('c| Almighty Judgment|You Have Been Judged!');
+					this.add('c|+Almighty Judgment|You Have Been Judged!');
 				}
 				if (name === 'echosierra') {
 					this.add('c| EchoSierra|dasWRIGHT.jpg');
@@ -1904,7 +1900,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'vxn') {
-				this.add('c| VXN|ok im here, what do you want me to break');
+				this.add('c|+VXN|ok im here, what do you want me to break');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1914,8 +1910,6 @@ exports.Formats = [
 			}
 			if (name === 'flufi') {
 				this.add('c|@flufi|Howdy');
-				this.add('-start', pokemon, 'typechange', 'Fairy/Steel/Dragon');
-				pokemon.types = ["Fairy", "Steel", "Dragon"];
 			}
 			if (name === 'hoeenhero') {
 				this.add('c|%HoeenHero|Do I have to? I\'m in the middle of programming.');
@@ -1924,7 +1918,7 @@ exports.Formats = [
 				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
 			}
 			if (name === 'almightyjudgment') {
-				this.add('c| Almighty Judgment|M3RP');
+				this.add('c|+Almighty Judgment|M3RP');
 			}
 			if (name === 'guiltasbr') {
 				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
@@ -2038,7 +2032,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c| VXN|the bug has been fixed');
+				this.add('c|+VXN|the bug has been fixed');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -2053,7 +2047,7 @@ exports.Formats = [
 				this.add('c| TheGodOfPie|ur mom');
 			}
 			if (name === 'almightyjudgment') {
-				this.add('c| Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
+				this.add('c|+Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
 			}
 			if (name === 'guiltasbr') {
 				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
@@ -2079,7 +2073,7 @@ exports.Formats = [
 					this.add('c|~Insist|**FOH, THIS IS MY HOUSE!!!**');
 				}
 				if (name === 'almightyjudgment') {
-					this.add('c| Almighty Judgment|You Have Been Judged!');
+					this.add('c|+Almighty Judgment|You Have Been Judged!');
 				}
 				if (name === 'echosierra') {
 					this.add('c| EchoSierra|dasWRIGHT.jpg');
@@ -2211,8 +2205,8 @@ exports.Formats = [
 				this.add('c|+Bionic Puppy|Who did you call guy? I\'ll have you know I am a young strong individual who is a flexible and malleable and I don\'t care about you I am a fluid gender-equal person with extra cream frappuccino');
 			}
 			if (name === 'insist') {
-				this.add('c|Insist|MLG Snail is here m8!');
-				this.add('c|Insist|btw who tf says snails are slow :^)');
+				this.add('c| Insist|MLG Snail is here m8!');
+				this.add('c| Insist|btw who tf says snails are slow :^)');
 			}
 
 			// Add here special typings, done for flavor mainly.
@@ -2247,7 +2241,7 @@ exports.Formats = [
 				this.add('c|%EpicUmbreon29|Sorry about that...');
 			}
 			if (name === 'insist') {
-				this.add('c|Insist|brb I\'m gonna get some help.');
+				this.add('c| Insist|brb I\'m gonna get some help.');
 			}
 		},
 		// Add here salty tears, that is, custom faint phrases.
@@ -2285,7 +2279,7 @@ exports.Formats = [
 				this.add('c|%EpicUmbreon29|See! I knew you could do it! You just have to believe!');
 			}
 			if (name === 'insist') {
-				this.add('c|Insist|Death.... what a cool concept.');
+				this.add('c| Insist|Death.... what a cool concept.');
 			}
 		},
 	},

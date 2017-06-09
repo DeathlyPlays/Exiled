@@ -1891,7 +1891,7 @@ exports.BattleItems = {
 			basePower: 10,
 		},
 		onDamage: function (damage, target, source, effect) {
-			if (this.random(90) === 0 && damage >= target.hp && effect && effect.effectType === 'Move') {
+			if (this.random(90) === 90 && damage >= target.hp && effect && effect.effectType === 'Move') {
 				this.add("-activate", target, "item: Focus Band");
 				return target.hp - 1;
 			}
@@ -6405,9 +6405,9 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Donphan, this item allows it to Mega Evolve in battle.",
 	},
-	"frosslite": {
-		id: "frosslite",
-		name: "Frosslite",
+	"froslite": {
+		id: "froslite",
+		name: "Froslite",
 		spritenum: -239,
 		megaStone: "Froslass-Mega",
 		megaEvolves: "Froslass",
@@ -7254,5 +7254,47 @@ exports.BattleItems = {
 		num: -119,
 		gen: 0,
 		desc: "If holder is a Victini, this item allows it to Mega Evolve in battle.",
+	},
+	"darkrite": {
+		id: "darkrite",
+		name: "Darkrite",
+		spritenum: -400,
+		megaStone: "Darkrai-Mega",
+		megaEvolves: "Darkrai",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Darkrai, this item allows it to Mega Evolve in battle.",
+	},
+	"cresselite": {
+		id: "cresselite",
+		name: "Cresselite",
+		spritenum: -400,
+		megaStone: "Cresselia-Mega",
+		megaEvolves: "Cresselia",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Cresselia, this item allows it to Mega Evolve in battle.",
+	},
+	"noctowlite": {
+		id: "noctowlite",
+		name: "Noctowlite",
+		spritenum: 624,
+		megaStone: "Noctowl-Mega",
+		megaEvolves: "Noctowl",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Noctowl, this item allows it to Mega Evolve in battle.",
 	},
 };

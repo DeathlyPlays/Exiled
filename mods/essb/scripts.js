@@ -266,6 +266,24 @@ exports.BattleScripts = {
 				nature: "Timid",
 			},
 			//Voices
+			"+VXN": {
+				species: "Guzzlord",
+				ability: "Last Laugh",
+				item: "Perception",
+				gender: "M",
+				moves: ['partingshot', 'rest', 'taunt'],
+				baseSignatureMove: "aggrodraw",
+				signatureMove: "Aggro Draw",
+				evs: {
+					hp: 252,
+				},
+				ivs: {
+					atk: 0,
+					def: 0,
+					spd: 0,
+				},
+				nature: "Serious",
+			},
 			"+cyt0pl4sm": {
 				species: "Zygarde-10%",
 				ability: "Energy Overflow",
@@ -340,25 +358,22 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
-			//Regs
-			" VXN": {
-				species: "Guzzlord",
-				ability: "Last Laugh",
-				item: "Perception",
+			"+Almighty Judgment": {
+				species: "Arceus",
+				ability: "Almighty Presence",
+				item: "Rainbow Plate",
 				gender: "M",
-				moves: ['partingshot', 'rest', 'taunt'],
-				baseSignatureMove: "aggrodraw",
-				signatureMove: "Aggro Draw",
+				moves: ['judgment', 'substitute', 'quiverdance'],
+				baseSignatureMove: "holydance",
+				signatureMove: "Holy Dance",
 				evs: {
-					hp: 252,
+					spa: 252,
+					spe: 252,
+					def: 4,
 				},
-				ivs: {
-					atk: 0,
-					def: 0,
-					spd: 0,
-				},
-				nature: "Serious",
+				nature: "Timid",
 			},
+			//Regs
 			" Wobbleleez": {
 				species: "Musharna",
 				ability: "WobzDoezJobz",
@@ -464,21 +479,6 @@ exports.BattleScripts = {
 					spe: 4,
 				},
 				nature: "Careful",
-			},
-			" Almighty Judgment": {
-				species: "Arceus",
-				ability: "Almighty Presence",
-				item: "Rainbow Plate",
-				gender: "M",
-				moves: ['judgment', 'substitute', 'quiverdance'],
-				baseSignatureMove: "holydance",
-				signatureMove: "Holy Dance",
-				evs: {
-					spa: 252,
-					spe: 252,
-					def: 4,
-				},
-				nature: "Timid",
 			},
 			" 007Nilo": {
 				species: "Zoroark-Mega",

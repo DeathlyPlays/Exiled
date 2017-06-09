@@ -285,15 +285,16 @@ Rank: B.
 VXN
 (Guzzlord)
 @ Preception
-     - Unknown Effect
+     - Cures holder of Attract, Disable, Encore, Heal Block, Taunt, Torment, Confusion, and major status conditions.
 EVs: 252 HP
 Serious Nature
-Ability: Dark Aura?
+Ability: Last Laugh
+	- Upon death, user deals double the damage it took on foe, Prankster, Ignores Abilities, Dark Aura.
 Moves: Taunt, Parting Shot, Rest
 Special Move: Aggro Draw
-    - Status. Dark Type. Causes the use if Guillotine. 3 Priority.
-Notes: No Secrets! Hahahahaha!
-Rank: ???.
+    - Status. Dark Type, Causes the foe to use Guillotine on user, +3 Priority.
+Notes: Troll for both sides.
+Rank: B.
 
 C733937 123
 (Gengar-Mega)
@@ -468,21 +469,6 @@ Signature Move: Stab Stab
     - Steel Type, Physical, 100 BP, Always hits twice, 5 PP, 25% chance to flinch, Bypasses Protect.
 Notes: FLINCH HAX.
 Rank: N/A.
-
-Aqua Flufi
-(Greninja-Mega)
-@ Life Orb
-Ability: Long Tongue
-    - Water Bubble + Drizzle + Protean, Defense is Halved (multiplied by x0.5)
-EVS: 252 SpA / 252 Spe / 4 SpD
-Timid Nature
-Moves: Low Kick, U-Turn, Water Spout, Ice Beam
-Notes: Glass Cannon. Immense power when at full health, but becomes
-much weaker as it loses health, as Water Bubble and Drizzle only help
-with Water Spout, which becomes weak when you have low health. U-turn
-for pivoting and keeping momentum, Low Kick and Ice Beam for coverage.
-Defense is halved for balance, and any Desolate Land user walls it completely.
-Rank: A.
 
 KanekiPlayerBR
 (Ninetales)

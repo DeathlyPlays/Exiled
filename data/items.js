@@ -7311,4 +7311,60 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If holder is a Tauros, this item allows it to Mega Evolve in battle.",
 	},
+	"ambipomite": {
+		id: "ambipomite",
+		name: "Ambipomite",
+		spritenum: 624,
+		megaStone: "Ambipom-Mega",
+		megaEvolves: "Ambipom",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Ambipom, this item allows it to Mega Evolve in battle.",
+	},
+	"meganiumite": {
+		id: "meganiumite",
+		name: "Meganiumite",
+		spritenum: 624,
+		megaStone: "Meganium-Mega",
+		megaEvolves: "Meganium",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Meganium, this item allows it to Mega Evolve in battle.",
+	},
+	"typhlosite": {
+		id: "typhlosite",
+		name: "Typhlosite",
+		spritenum: 624,
+		megaStone: "Typhlosion-Mega",
+		megaEvolves: "Typhlosion",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Typhlosion, this item allows it to Mega Evolve in battle.",
+	},
+	"feralite": {
+		id: "feralite",
+		name: "Feralite",
+		spritenum: 624,
+		megaStone: "Feraligatr-Mega",
+		megaEvolves: "Feraligatr",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Feraligatr, this item allows it to Mega Evolve in battle.",
+	},
 };

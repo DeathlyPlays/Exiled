@@ -440,7 +440,7 @@ exports.BattleScripts = {
 				ability: "Mad Tings",
 				item: "Life Orb",
 				gender: "M",
-				moves: ['suckerpunch', 'extremespeed', 'bulletpunch'],
+				moves: ['suckerpunch', 'quickattack', 'bulletpunch'],
 				baseSignatureMove: "thepowerofpi",
 				signatureMove: "The Power of Pi",
 				evs: {

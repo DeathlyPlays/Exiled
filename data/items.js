@@ -7395,4 +7395,18 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If holder is a Chatot, this item allows it to Mega Evolve in battle.",
 	},
+	"arcanite": {
+		id: "arcanite",
+		name: "Arcanite",
+		spritenum: 624,
+		megaStone: "Arcanine-Mega",
+		megaEvolves: "Arcanine",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 764,
+		gen: 6,
+		desc: "If holder is a Arcanine, this item allows it to Mega Evolve in battle.",
+	},
 };

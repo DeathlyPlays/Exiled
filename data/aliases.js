@@ -478,6 +478,7 @@ exports.BattleAliases = {
 
 	// pokemon
 	"karp": "Magikarp",
+	"azure": "Trubbish",
 	"flufi": "Raichu",
 	"insist": "Ludicolo",
 	"hoeenhero": "Ludicolo",

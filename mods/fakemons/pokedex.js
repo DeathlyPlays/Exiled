@@ -158,4 +158,59 @@ exports.BattlePokedex = {
 		heightm: 6.8,
 		weightkg: 67.2,
 	},
+	yinyang: {
+		num: 9008,
+		species: "Yinyang",
+		types: ["Ice", "Fire"],
+		baseStats: {
+			hp: 75,
+			atk: 90,
+			def: 93,
+			spa: 110,
+			spd: 93,
+			spe: 109,
+		},
+		abilities: {
+			0: "Refrigerate",
+			1: "Drought",
+		},
+		color: "Blue",
+		heightm: 2.2,
+		weightkg: .1,
+	},
+	reainein: {
+		num: 9009,
+		species: "Reainein",
+		types: ["Dragon", "Bug"],
+		baseStats: {
+			hp: 78,
+			atk: 130,
+			def: 111,
+			spa: 130,
+			spd: 85,
+			spe: 100,
+		},
+		abilities: {
+			0: "Tough Claws",
+		},
+		color: "Blue",
+		heightm: 2.2,
+		weightkg: .1,
+	},
+	bezzoseal: {
+		num: 9010,
+		species: "Bezzoseal",
+		types: ["Bug", "Ghost"],
+		baseStats: {
+			hp: 83,
+			atk: 101,
+			def: 82,
+			spa: 80,
+			spd: 121,
+			spe: 130,
+	},
+	abilities: {
+		0:
+	},
+	},
 };

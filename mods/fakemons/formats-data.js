@@ -29,4 +29,12 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["scald", "magnetbomb", "thunderbolt", "grassknot", "ironhead"],
 		tier: "Fakemons",
 	},
+	yinyang: {
+		randomBattleMoves: ["overheat", "flamethrower", "willowisp", "iciclecrash", "freezedry", "icefang", "auroraveil", "hypervoice", "weatherball", "fakeout", "naturepower", "roar", "encore", "yawn", "bugbuzz", "snarl", "disarmingvoice", "shadowball", "shadowforce", "hex", "confuseray", "razorleaf", "magicalleaf", "earthpower", "clearsmog", "zenheadbutt", "powersplit", "guardsplit", "powerswap", "speedswap", "skillswap", "metalsound", "surf", "aqua jet"],
+		tier: "Fakemons",
+	},
+	reainein: {
+		randomBattleMoves: ["uturn", "firepunch", "bugbite", "dragonclaw"],
+		tier: "Fakemons",
+	},
 };

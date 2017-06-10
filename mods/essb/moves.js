@@ -2075,15 +2075,11 @@ exports.BattleMovedex = {
 		id: "nightmareoblivion",
 		name: "Nightmare Oblivion",
 		pp: 10,
-		priority: 1,
+		priority: 0,
 		onBasePowerPriority: 4,
 		onBasePower: function (basePower, pokemon) {
-			if (pokemon.status == 'slp') {
+			if (pokemon.status === 'slp') {
 				return this.chainModify(2);
-			} else if (pokemon.status == 'par') {
-				return this.chainModify(3);
-			} else if (pokemon.status == 'brn') {
-				return this.chainModify(0.5);
 			}
 		},
 		onPrepareHit: function (target, source, pokemon) {

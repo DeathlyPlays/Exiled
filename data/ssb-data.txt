@@ -56,7 +56,7 @@ Moves: fire lash, Fusion Bolt, Dragon Rush
 Special Move: Rush of Dragon Bolt
   - Water Type, Physical, 80 BP, 100% Accuracy.
 Notes: Very powerful revenge killer/wallbreaker.
-Rank: N/A.
+Rank: B.
 
 Wobbleleez
 (Musharna)
@@ -83,7 +83,7 @@ Moves: Quiver Dance, Oblivion Wing, Ice Burn
 Special Move: Soul Reaper
 	- 95 BP Ghost/Ice type attack, 30% Flinch Chance, 20% freeze chance, Special.
 Notes: Fast Special Sweeper.
-Rank: A.
+Rank: B.
 
 Jigglykong
 (Porygon2)
@@ -96,7 +96,7 @@ Moves: Hex, Recover, Toxic
 Special Move: Plasma Blast
     - Normal type + Electric Effectiveness + 20% chance to burn, freeze, or paralyze + 120 BP + 100% accuracy.
 Notes: MLG Wall m8.
-Rank: A.
+Rank: B.
 
 The Exiler
 (Darkrai)
@@ -163,7 +163,7 @@ Moves: Steam Eruption, Giga Drain, Earth Power
 Special Move: Volcano's Revenge
     - Fire type, Special, Hits opponent's Physical Defense rather than Special Defense, 20% chance to confuse target, 20% chance to boost own Special Attack and Speed by one stage, 120 BP, 100% accuracy.
 Notes: Special Sweeper, with great bulk.
-Rank: A.
+Rank: C.
 
 Mewth
 (Furret-Mega)
@@ -229,7 +229,7 @@ Moves: Psystrike, Moonblast, Hyper Voice
 Special Move: Ooga
     - Fairy Type, Status, 5 PP, Boosts Special Attack, Special Defense and Speed by 2 stages and Boosts Defense by 3 stages.
 Notes: Just a better Xerneas.
-Rank: A.
+Rank: B.
 
 HoeenHero
 (Ludicolo)
@@ -242,7 +242,7 @@ Moves: Scald, Ice Beam, Giga Drain
 Special Move: Scripting
     - Psychic Type, Special, 60 BP, 10 PP, Boosts Special Attack by 2 stages and Boosts Speed by 1 stage, 100% chance of Confusion.
 Notes: Weak Special Attacker within this meta unfortunately.
-Rank: C.
+Rank: B.
 
 Failures
 (Greninja-Ash)
@@ -256,7 +256,7 @@ Moves: Hydro Pump, Blue Flare, Moongeist Beam
 Special Move: Im Depressed
     - Dark Type, Special, 120 BP, 100% Accuracy, 15 PP, Boosts Special Attack by 2 stages.
 Notes: Fast Annoying Switch In Sweeper.
-Rank: N/A.
+Rank: B.
 
 AlfaStorm
 (Hydreigon)
@@ -284,7 +284,7 @@ Modified Move: Fast Flame
 Special Move: Solar Eruption
 	- Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage.
 Notes: Fast Special Sweeper.
-Rank: B.
+Rank: A.
 
 VXN
 (Guzzlord)
@@ -432,19 +432,20 @@ Moves: Extreme Speed, Earthquake, Dragon Ascent
 Special Move: Lord's Wrath
 	- Dragon Type, 90 BP, Physical, 100% accuracy, User must recharge after usage, Contact, Boosts user's Attack by one stage.
 Notes: Like it's okay.... It's a Mega Rayquaza.... Not as good as a Magikarp tho....
-Rank: N/A.
+Rank: A.
 
 Kraken Mare
 (Gardevoir-Mega)
-@ Leftovers
+@ Focus Sash
+Ability: Kraken's Boosts
+	- No Guard + Moody
 EVs: 248 HP / 8 Def / 252 SpA
 Modest Nature
-Ability: Moody
 Moves: Moonblast, Calm Mind, Psychic
-Special Move: Mega Rage
-	- Fairy Type, Special, 150 BP, User's Defenses lower by 1 stage after usage of this
-Notes: Moody allows this Pokemon to potentially get obnoxious Evasion boosts.
-Rank: N/A.
+Special Move: Revenge of Kraken Mare
+	- Water Type, Special, 77,000 BP, Always selfdestructs after usage, +5 priority, Always hits.
+Notes: Able to clear out a threat with Revenge of Kraken Mare.
+Rank: A.
 
 Horrific17
 (Arcanine)
@@ -459,7 +460,7 @@ Moves: Close Combat, Extreme Speed, Morning Sun
 Special Move: Horrific Roasts
 	- Fire type, 150 BP, 100% Accuracy, 5 PP, 33% recoil, 30% chance to burn, Summons the Sun, Defrosts user if frozen.
 Notes: Hard Hitting Physical Attacker.
-Rank: N/A.
+Rank: A.
 
 Stabby the Krabby
 (Krabby)
@@ -472,7 +473,7 @@ Moves: Crabhammer, Knock Off, Swords Dance
 Signature Move: Stab Stab
     - Steel Type, Physical, 100 BP, Always hits twice, 5 PP, 25% chance to flinch, Bypasses Protect.
 Notes: FLINCH HAX.
-Rank: N/A.
+Rank: B.
 
 KanekiPlayerBR
 (Ninetales)
@@ -487,7 +488,7 @@ Moves: Flamethrower, Energy Ball, Psyshock
 Signature Move: Super Ultra Flamethrower Destroyer of Universes
     - Fire Type, Special, 100 BP, 15 PP, Always hits, Boosts user's Special Attack and Speed by one stage, +1 priority.
 Notes: Special Sweeper.
-Rank: N/A
+Rank: B.
 
 douglasgamer
 (Greninja-Ash)
@@ -501,6 +502,7 @@ Moves: Scald, Thunder, Ice Beam
 Signature Move: Copy Water Clones
 	- 50 BP, Water Type, Raises user's Speed by one stage, Hit two times, Special.
 Notes: Fast Special Sweeper.
+Rank: A.
 
 Bunnigail
 (Lopunny-Mega)
@@ -538,7 +540,7 @@ Adamant Nature
 Moves: Swords Dance, Play Rough, Sucker Punch
 Signature Move: Punch of Darkness
 	- 90 BP, Physical, 5 PP, priority +2, punch move, contact move, bypasses substitute, bypasses protect
-Rank: N/A.
+Rank: A.
 Notes: Strong Sweeper.
 
 Paradox03

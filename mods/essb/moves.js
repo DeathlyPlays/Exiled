@@ -1476,15 +1476,16 @@ exports.BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		category: "Status",
-		flags: {reflectable: 1},
-		onHit: function (target, pokemon, move) {
-			this.useMove('Stealth Rock', target);
-			this.useMove('Spikes', target);
-			this.useMove('Spikes', target);
-			this.useMove('Spikes', target);
-			this.useMove('Toxic Spikes', target);
-			this.useMove('Toxic Spikes', target);
-			this.useMove('Sticky Web', target);
+		flags: {},
+		onHit: function (pokemon) {
+			this.useMove('Stealth Rock', pokemon);
+			this.useMove('Spikes', pokemon);
+			this.useMove('Spikes', pokemon);
+			this.useMove('Spikes', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+			this.useMove('Sticky Web', pokemon);
+			this.useMove('Spider Web', pokemon);
 		},
 		secondary: false,
 		onPrepareHit: function (target, source) {
@@ -2046,21 +2047,63 @@ exports.BattleMovedex = {
 		basePower: 999999999999999999999999999999999999999999999999999999999999,
 	},
 	"nightmareoblivion": {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
+		accuracy: 100,
+		basePower: 100,
+		category: "Special",
 		id: "nightmareoblivion",
 		name: "Nightmare Oblivion",
 		pp: 10,
 		priority: 1,
-		onHit: function (target, source, move, pokemon) {
-			this.useMove('Nightmare', pokemon);
-			this.useMove('Dream Eater', pokemon);
-			this.useMove('Torment', pokemon);
+		onBasePowerPriority: 4,
+		onBasePower: function (basePower, pokemon) {
+			if (pokemon.status == 'slp') {
+				return this.chainModify(2);
+			} else if (pokemon.status == 'par') {
+				return this.chainModify(3);
+			} else if (pokemon.status == 'brn') {
+				return this.chainModify(0.5);
+			}
 		},
-		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source, pokemon) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dark Pulse", target);
+			this.add('-anim', source, "Nightmare", pokemon);
+			this.add('-anim', source, "Dark Void", pokemon);
+		},
+		flags: {protect: 1, mirror: 1, contact: 1},
 		secondary: false,
-		target: "normal",
+		target: "allAdjacentFoes",
 		type: "Dark",
+	},
+	"triplepeakmegasmash": {
+		id: "triplepeakmegasmash",
+		name: "Triple Peak Mega Smash",
+		basePower: 100,
+		accuracy: 100,
+		category: "Physical",
+		pp: 5,
+		onBasePowerPriority: 4,
+		onBasePower: function (basePower, source, target, move) {
+			let item = target.getItem();
+			if (!this.singleEvent('TakeItem', item, target.itemData, target, source, move, item)) return;
+			if (item.id) {
+				return this.chainModify(1.5);
+			}
+		},
+		onAfterHit: function (target, source) {
+			if (source.hp) {
+				let item = target.takeItem();
+				if (item) {
+					this.add('-enditem', target, item.name, '[from] move: Triple Peak Mega Smash', '[of] ' + source);
+				}
+			}
+		},
+		priority: 0,
+		secondary: false,
+		flags: {protect: 1, mirror: 1, contact: 1},
+		type: "Normal",
+		target: "normal",
+		zMovePower: 170,
+		contestType: "Cool",
 	},
 };

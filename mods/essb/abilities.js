@@ -65,16 +65,11 @@ exports.BattleAbilities = {
 				return this.chainModify([0x14CD, 0x1000]);
 			},
 		},
-		//hail solar power
+		//boosts damage by 1.5x in hail
 		onModifySpAPriority: 5,
 		onModifySpA: function (spa, pokemon) {
 			if (this.isWeather(['hail'])) {
 				return this.chainModify(1.5);
-			}
-		},
-		onWeather: function (target, source, effect) {
-			if (effect.id === 'hail') {
-				this.damage(target.maxhp / 8, target, target);
 			}
 		},
 	},
@@ -1789,6 +1784,43 @@ exports.BattleAbilities = {
 			if (move.type === 'Dark') {
 				this.debug('Dark Power boost');
 				return this.chainModify(2);
+			}
+		},
+	},
+	"superiorintellect": {
+		shortDesc: "Accuracy is multiplied by x1.4. Uses Lock-On + Laser Focus + Tailwind Upon Switchin.",
+		onSourceModifyAccuracy: function (accuracy) {
+			if (typeof accuracy !== 'number') return;
+			this.debug('compoundeyes - enhancing accuracy');
+			return accuracy * 1.4;
+		},
+		onStart: function (pokemon) {
+			this.useMove('Lock-On', pokemon);
+			this.useMove('Laser Focus', pokemon);
+			this.useMove('Tailwind', pokemon);
+		},
+		id: "superiorintellect",
+		name: "Superior Intellect",
+		rating: 5,
+		num: 14,
+	},
+	"dustkickup": {
+		id: "dustkickup",
+		name: "DustKickUp",
+		onStart: function (pokemon) {
+			let foeactive = pokemon.side.foe.active;
+			let activated = false;
+			for (let i = 0; i < foeactive.length; i++) {
+				if (!foeactive[i] || !this.isAdjacent(foeactive[i], pokemon)) continue;
+				if (!activated) {
+					this.add('-ability', pokemon, 'DustKickUp', 'boost');
+					activated = true;
+				}
+				if (foeactive[i].volatiles['substitute']) {
+					this.add('-immune', foeactive[i], '[msg]');
+				} else {
+					this.boost({atk: -1, def: -1, spa: -1, spd: -1, spe: -1}, foeactive[i], pokemon);
+				}
 			}
 		},
 	},

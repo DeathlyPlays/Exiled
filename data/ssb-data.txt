@@ -29,14 +29,15 @@ flufi
 (Noctowl-Mega)
 @ Super Quick Claw
    - 50% Chance to Move First
-EVs: 248 SpA / 248 HP / 8 Def / 4 SpD
+EVs: 248 SpA / 248 HP / 12 Def / 16 Spe
 Modest Nature
-Ability: Natural Intelligence
+Ability: Superior Intellect
 	- Multiplies Accuracy by x1.4
-Moves: Hypnosis, Dream Eater, Hurricane
+	- Uses Lock On + Laser Focus + Tailwind on Switch-in.
+Moves: Hurricane, Nightmare, Roost
 Special Move: Nightmare Oblivion
-  - Dark Type, 100% Accuracy, Status
-  - Nightmare + Dream Eater + Torment
+  - Dark Type, 100% Accuracy, 20 Base Power, Special
+  - Hypnosis + Dream Eater + Torment
 Notes: Bulky attacker that requires a lot of thought and strategy
 to be used correctly.
 Rank: B.
@@ -143,12 +144,12 @@ Princess Teddiursa
 EVs: 252 SpA / 252 Spe / 4 SpD
 Timid Nature
 Ability: prfmlmao
-    - Pixilate + Hail + Snow Boosts SpA by 1.3x + Fairy Aura + Ice Body + Slush Rush + Snow version of Solar Power.
+    - Pixilate + Hail + Snow Boosts SpA by 1.5x + Fairy Aura.
 Moves: Earth Power, Boomburst, Psychic
 Special Move: prfmador
     - Ice, Special, 60 BP, infatuates target, Raises own Special Attack and Speed by one stage, 100% accuracy, +1 priority, 20% chance to freeze target.
 Notes: Fast Special Sweeper.
-Rank: A.
+Rank: C.
 
 Volco
 (Volcanion)
@@ -360,7 +361,7 @@ Ability: Defense
     - Unaware, magic bounce, at the end of the turn gain 1 stage in Def & spD
 Moves: Roar, Stored Power, recover
 Special Move: Crippling Hazards
-    - Sets up Stealth Rocks + 3x Spikes + 2x Toxic Spikes + Sticky Web + Rock type + Status + Reflectable
+    - Sets up Stealth Rocks + 3x Spikes + 2x Toxic Spikes + Sticky Web + Rock type + Status
 Notes: Bulky Unaware Hazard setter.
 Rank: A.
 
@@ -539,3 +540,16 @@ Signature Move: Punch of Darkness
 	- 90 BP, Physical, 5 PP, priority +2, punch move, contact move, bypasses substitute, bypasses protect
 Rank: N/A.
 Notes: Strong Sweeper.
+
+Paradox03
+(Dodrio)
+@ BrightPowder
+Ability: DustKickUp
+	- All opponent's stats are lowered by 1 (except accuracy and evasion) upon entry.
+EVs: 252 Atk / 252 Spe / 4 Def
+Jolly Nature
+Moves: Brave Bird, Knock Off, Jump Kick
+Signature Move: Triple Peak Mega Smash
+	- Normal type, Physical, 100 BP, Knocks off foe's item, 1.5x if target has an item
+Rank: N/A.
+Notes: Fast Physical Sweeper.

@@ -12,6 +12,7 @@ const db = require('origindb')('./config/db');
 const MAX_ITEMS = 12;
 
 exports.commands = {
+	'!roomshop': true,
 	roomshop: 'leagueshop',
 	leagueshop: {
 		enable: function (target, room, user) {

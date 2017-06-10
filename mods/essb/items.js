@@ -198,9 +198,9 @@ exports.BattleItems = {
 		id: "superquickclaw",
 		onModifyPriorityPriority: -1,
 		onModifyPriority: function (priority, pokemon) {
-			if (this.random(3) === 0) {
+			if (this.random(1) === 0) {
 				this.add('-activate', pokemon, 'item: Quick Claw');
-				return Math.round(priority) + 0.1;
+				return Math.round(priority) + 0.2;
 			}
 		},
 		name: "Super Quick Claw",

@@ -237,13 +237,13 @@ exports.BattleScripts = {
 			},
 			"%Kraken Mare": {
 				species: "Gardevoir-Mega",
-				ability: "Moody",
+				ability: "krakensboost",
 				shiny: true,
-				item: "Leftovers",
+				item: "Focus Sash",
 				gender: "F",
 				moves: ['moonblast', 'calmmind', 'psychic'],
-				baseSignatureMove: "megarage",
-				signatureMove: "Mega Rage",
+				baseSignatureMove: "revengeofkrakenmare",
+				signatureMove: "Revenge of Kraken Mare",
 				evs: {
 					hp: 248,
 					spa: 252,

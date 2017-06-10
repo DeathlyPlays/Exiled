@@ -1774,6 +1774,7 @@ exports.BattleMovedex = {
 		zMovePower: 140,
 		contestType: "Tough",
 	},
+	//Stabby the Krabby
 	"stabstab": {
 		category: "Physical",
 		basePower: 100,
@@ -1796,6 +1797,27 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Steel",
+	},
+	// Kraken Mare
+	revengeofkrakenmare: {
+		category: "Special",
+		accuracy: true,
+		basePower: 77000,
+		id: "revengeofkrakenmare",
+		isNonstandard: true,
+		name: "Revenge of Kraken Mare",
+		pp: 0.625,
+		priority: 5,
+		selfdestruct: "always",
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Surf", target);
+		},
+		onHit: function (target, source, move) {
+			this.add('c| Kraken Mare ☭|If I go down I\'m taking you with me!');
+		},
+		target: "Normal",
+		type: "Water",
 	},
 	"ember": {
 		inherit: true,

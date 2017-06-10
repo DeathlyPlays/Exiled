@@ -1502,6 +1502,39 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	//Kraken Mare (Mostly Ripped from other abilities... I'm lazy)
+	"krakensboost": {
+		id: "krakensboost",
+		name: "Kraken's Boost",
+		onResidual: function (pokemon) {
+			let stats = [];
+			let boost = {};
+			for (let statPlus in pokemon.boosts) {
+				if (pokemon.boosts[statPlus] < 6) {
+					stats.push(statPlus);
+				}
+			}
+			let randomStat = stats.length ? stats[this.random(stats.length)] : "";
+			if (randomStat) boost[randomStat] = 2;
+
+			stats = [];
+			for (let statMinus in pokemon.boosts) {
+				if (pokemon.boosts[statMinus] > -6 && statMinus !== randomStat) {
+					stats.push(statMinus);
+				}
+			}
+			randomStat = stats.length ? stats[this.random(stats.length)] : "";
+			if (randomStat) boost[randomStat] = -1;
+
+			this.boost(boost);
+		},
+		onModifyAccuracy: function (accuracy, target, source, move) {
+			if (move && (source === this.effectData.target || target === this.effectData.target)) {
+				return true;
+			}
+			return accuracy;
+		},
+	},
 	//HoeenHero
 	"programmersdomain": {
 		id: "programmersdomain",

@@ -1718,6 +1718,9 @@ exports.Formats = [
 			if (name === 'horrific17') {
 				this.add('c|+Horrific17|It seems you\'ve made a __horrific__ mistake');
 			}
+			if (name === 'krakenmare') {
+				this.add('c|%Kraken Mare|Today, I prove Gardevoir is the best Pokemon!');
+			}
 
 			// Add here special typings, done for flavor mainly. (and stat boosts)
 			if (name === 'volco' && !pokemon.illusion) {
@@ -1807,6 +1810,9 @@ exports.Formats = [
 			if (name === 'echosierra') {
 				this.add('c| EchoSierra|bbl fam');
 			}
+			if (name === 'krakenmare') {
+				this.add('c|%Kraken Mare|I shall spare you today, young one!');
+			}
 		},
 		// Add here salty tears, that is, custom faint phrases.
 		onFaint: function (pokemon) {
@@ -1850,6 +1856,9 @@ exports.Formats = [
 			if (name === 'douglasgamer') {
 				this.add('c| douglasgamer|I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');
 			}
+			if (name === 'krakenmare') {
+				this.add('c|%Kraken Mare|Trust me, I\'ll be back to prove how strong Gardevoir is. __splashes__');
+			}
 		},
 		onHit: function (pokemon, target) {
 			if (pokemon.hp <= 0 || pokemon.fainted) {
@@ -1866,6 +1875,9 @@ exports.Formats = [
 				}
 				if (name === 'echosierra') {
 					this.add('c| EchoSierra|dasWRIGHT.jpg');
+				}
+				if (name === 'krakenmare') {
+					this.add('c|%Kraken Mare|Told Ya Gardevoir is Strong!');
 				}
 			}
 		},

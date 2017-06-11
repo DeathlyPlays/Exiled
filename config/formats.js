@@ -472,7 +472,7 @@ exports.Formats = [
 		mod: 'mixandmega',
 		searchShow: true,
 		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
-		banlist: ['Electrify'],
+		banlist: ['Electrify', 'Beedrillite', 'Medichamite', 'Deoxys + Mawilite', 'Deoxys-Attack + Mawilite', 'Arceus + Mawilite', 'Blissey + Meganiumite', 'Blissey + Furretite'],
 		onValidateTeam: function (team) {
 			let itemTable = {};
 			for (let i = 0; i < team.length; i++) {

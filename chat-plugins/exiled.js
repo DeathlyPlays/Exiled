@@ -298,6 +298,7 @@ exports.commands = {
 	},
 	devshelp: ["/devs - Shows the coders of the server."],
 
+	'!define': true,
 	def: 'define',
 	define: function (target, room, user) {
 		if (!target) return this.parse('/help define');
@@ -336,6 +337,7 @@ exports.commands = {
 	},
 	definehelp: ["/define [word] - Shows the definition of a word."],
 
+	'!ud': true,
 	u: 'ud',
 	urbandefine: 'ud',
 	ud: function (target, room, user, connection, cmd) {
@@ -889,6 +891,7 @@ exports.commands = {
 			});
 		});
 	},
+	'!youtube': true,
 	yt: 'youtube',
 	youtube: function (target, room, user) {
 		if (!this.runBroadcast()) return false;

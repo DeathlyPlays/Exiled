@@ -1,4 +1,5 @@
 ## Exiled Server
+[![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg)](https://travis-ci.org/DeathlyPlays/Exiled)<br />
 <a href="http://exiled.psim.us" target="_blank">_A server filled with memes, and well a lot of chat commands and metagames._</a>
 ### Node Version:
 This server requires the Node Js Version 6.6.0 or higher<br>

@@ -28,6 +28,13 @@ exports.Formats = [
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
+		name: "[Gen 7] Random Battle (Alola Only)",
+
+		mod: 'alola',
+		team: 'random',
+		ruleset: ['Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+	},
+	{
 		name: "[Gen 7] OU",
 		desc: [
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3592140/\">OU Metagame Discussion</a>",
@@ -408,6 +415,8 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
+		section: "Mix and Mega",
+		column: 6,
 		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],
@@ -470,6 +479,8 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
+		section: "Mix and Mega",
+		column: 6,
 		searchShow: true,
 		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
 		banlist: ['Electrify', 'Beedrillite', 'Medichamite', 'Deoxys + Mawilite', 'Deoxys-Attack + Mawilite', 'Arceus + Mawilite', 'Blissey + Meganiumite', 'Blissey + Furretite'],
@@ -527,6 +538,8 @@ exports.Formats = [
 		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3605195/\">M&M Suspect #4</a>"],
 
 		mod: 'mixandmega',
+		column: 6,
+		section: "Mix and Mega",
 		challengeShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],
@@ -1018,9 +1031,9 @@ exports.Formats = [
 	},
 	{
 		name: "Triples Custom Game",
+		section: "ORAS Doubles/Triples",
 		mod: 'pmd',
 		gameType: 'triples',
-		searchShow: false,
 		canUseRandomTeam: true,
 		maxLevel: 9999,
 		defaultLevel: 100,
@@ -1126,7 +1139,7 @@ exports.Formats = [
 	{
 		name: "[Gen 5] Custom Game",
 
-		mod: 'gen5',
+		mod: 'pmd',
 		searchShow: false,
 		canUseRandomTeam: true,
 		debug: true,
@@ -1512,101 +1525,16 @@ exports.Formats = [
 		],
 		onSwitchIn: function (pokemon) {
 			let name = toId(pokemon.name);
-			if (name === 'fire' && !pokemon.illusion) {
+			if (name.contains('fire') && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire');
 				pokemon.types = ["Fire"];
 			}
-			if (name === 'electric' && !pokemon.illusion) {
+			if (name.contains('electric') && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Electric');
 				pokemon.types = ["Electric"];
 			}
-			if (name === 'bug' && !pokemon.illusion) {
+			if (name.contains('bug') && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Bug');
-				pokemon.types = ["Bug"];
-			}
-			if (name === 'water' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Water');
-				pokemon.types = ["Water"];
-			}
-			if (name === 'grass' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Grass');
-				pokemon.types = ["Grass"];
-			}
-			if (name === 'fighting' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Fighting');
-				pokemon.types = ["Fighting"];
-			}
-			if (name === 'psychic' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Psychic');
-				pokemon.types = ["Psychic"];
-			}
-			if (name === 'fairy' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Fairy');
-				pokemon.types = ["Fairy"];
-			}
-			if (name === 'ice' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Ice');
-				pokemon.types = ["Ice"];
-			}
-			if (name === 'dark' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dark');
-				pokemon.types = ["Dark"];
-			}
-			if (name === 'ghost' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Ghost');
-				pokemon.types = ["Ghost"];
-			}
-			if (name === 'normal' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Normal');
-				pokemon.types = ["Normal"];
-			}
-			if (name === 'flying' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Flying');
-				pokemon.types = ["Flying"];
-			}
-			if (name === 'ground' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Ground');
-				pokemon.types = ["Ground"];
-			}
-			if (name === 'rock' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Rock');
-				pokemon.types = ["Rock"];
-			}
-			if (name === 'dragon' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dragon');
-				pokemon.types = ["Dragon"];
-			}
-			if (name === 'poison' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Poison');
-				pokemon.types = ["Poison"];
-			}
-			if (name === 'steel' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Steel');
-				pokemon.types = ["Steel"];
-			}
-			if (name === 'volcano' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Fire/Ground/Rock');
-				pokemon.types = ["Fire", "Ground", "Rock"];
-			}
-			if (name === 'shedinja' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Bug/Ghost');
-				pokemon.types = ["Bug", "Ghost"];
-			}
-			if (name === 'vxn' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Fire/Bug/Electric');
-				pokemon.types = ["Fire", "Bug", "Electric"];
-			}
-			if (name === 'flufi' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Normal/Ghost');
-				pokemon.types = ["Normal", "Ghost"];
-			}
-			if (name === 'exiled' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dark/Ghost');
-				pokemon.types = ["Dark", "Ghost"];
-			}
-			if (name === 'insist' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Psychic/Fighting');
-				pokemon.types = ["Psychic", "Fighting"];
 			}
 		},
 		onAfterMega: function (pokemon) {
@@ -1727,6 +1655,44 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Steel/Ice/Water');
 				pokemon.types = ["Steel", "Ice", "Water"];
 			}
+		},
+	},
+	{
+		name: "[Gen 7] Infection",
+		section: "Exiled's Custom Gamemodes",
+		desc: [
+			"&bullet; Credit to: flufi (Creator/Idea).",
+			"You can choose to either make each of your Pokemon",
+			"Normal or Infected. Not Shiny being Normal, and Shiny",
+			"being Infected. When a Pokemon is infected, all of",
+			"it's stats are increased by 30% (multiplied by x1.3),",
+			"but it's accuracy is decreased by 30% (multiplied by x0.7).",
+			"(30% Stat Boost does NOT include evasion/evasiveness)",
+		],
+		onSourceModifyAccuracy: function (pokemon, accuracy) {
+			if (typeof accuracy !== 'number' && pokemon.shiny) return;
+			this.debug('compoundeyes - enhancing accuracy');
+			return accuracy * 0.7;
+		},
+		onModifyAtkPriority: 6,
+		onModifyAtk: function (atk, pokemon) {
+			if (pokemon.shiny) return this.chainModify(1.3);
+		},
+		onModifyDefPriority: 6,
+		onModifyDef: function (def, pokemon) {
+			if (pokemon.shiny) return this.chainModify(1.3);
+		},
+		onModifySpaPriority: 6,
+		onModifySpa: function (spa, pokemon) {
+			if (pokemon.shiny) return this.chainModify(5);
+		},
+		onModifySpdPriority: 6,
+		onModifySpd: function (spd, pokemon) {
+			if (pokemon.shiny) return this.chainModify(1.3);
+		},
+		onModifySpePriority: 6,
+		onModifySpe: function (spe, pokemon) {
+			if (pokemon.shiny) return this.chainModify(1.3);
 		},
 	},
 	{
@@ -1991,6 +1957,12 @@ exports.Formats = [
 			}
 			if (name === 'flufi') {
 				this.add('c|@flufi|Howdy');
+				this.add('-start', pokemon, 'typechange', 'Grass/Water');
+				pokemon.types = ["Grass", "Water"];
+				this.boost({
+					spa: 1,
+					spe: -2,
+				});
 			}
 			if (name === 'hoeenhero') {
 				this.add('c|%HoeenHero|Do I have to? I\'m in the middle of programming.');
@@ -2475,7 +2447,7 @@ exports.Formats = [
 		],
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
-		banlist: ['Furretite', 'Kings Shield'],
+		banlist: ['Kings Shield'],
 		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow', 'Genesect', 'Shaymin-Sky', 'Landorus', 'Blaziken', 'Pheromosa'],
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
@@ -2672,35 +2644,33 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "[Gen 7] The Mewth Challenge",
+		name: "[Gen 7] The Mewth Saga",
 		section: "The Mewth Challenge",
 		column: 6,
 		mod: "mewth",
+		gameType: 'triples',
 		searchShow: false,
 		canUseRandomTeam: true,
 		debug: true,
-		defaultLevel: 100,
-		maxLevel: 100,
 		ruleset: ['Team Preview', 'Cancel Mod'],
-		banlist: ['Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Deoxys-Attack', 'Air Balloon'],
+		banlist: [''],
 		desc: [
-			"The first part of the series of challenges Mewth has created, can you complete them all and collect all the badges?",
+			"The first part of the series of challenges Mewth has created, can you complete them all and collect all the keys?",
 		],
 	},
 	{
 		name: "[Gen 7] The Mewth Spire",
 		section: "The Mewth Challenge",
+		column: 6,
 		searchShow: false,
 		mod: "mewth",
-		column: 6,
+		gameType: 'triples',
 		canUseRandomTeam: true,
 		debug: true,
-		maxLevel: 200,
-		defaultLevel: 100,
 		ruleset: ['Team Preview', 'Cancel Mod'],
-		banlist: ['Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Deoxys-Attack', 'Air Balloon'],
+		banlist: [''],
 		desc: [
-			"The second stage of The Mewth Challenge, prepare for the wrath of the first region's Elite Four and the <b>CHAMPION!!!</b>",
+			"The second stage of The Mewth Challenge, prepare for the wrath of the regions Admins and the <b>MASTER!!!</b>",
 		],
 	},
 	{
@@ -2710,11 +2680,10 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/board/18/lc-mix-mega/\">Mix and Mega</a>",
 		],
 		mod: 'mixandmega',
+		section: "Mix and Mega",
 		defaultLevel: 5,
 		ruleset: ['Team Preview', 'Cancel Mod', 'Little Cup', 'Pokemon', 'Illegal', 'Sleep Clause Mod'],
 		banlist: ['Baton Pass', 'NFE', 'Cranidos', 'Eevium Z'],
-		column: 6,
-		section: "The Mewth Challenge",
 		onValidateTeam: function (team) {
 			let itemTable = {};
 			for (let i = 0; i < team.length; i++) {

@@ -447,6 +447,11 @@ exports.commands = {
 			break;
 		}
 	},
+	randemote: function (target, room, user, connection) {
+		if (!this.canTalk()) return;
+		let e = Object.keys(emoticons)[Math.floor(Math.random() * Object.keys(emoticons).length)];
+		return this.parse(e);
+	},
 };
 
 function escapeRegExp(str) {

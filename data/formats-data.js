@@ -3305,6 +3305,14 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["shellsmash", "icebeam", "surf", "hiddenpowergrass", "hiddenpowerelectric", "substitute"],
 		tier: "LC",
 	},
+	kingleralola: {
+		randomBattleMoves: ["stoneedge", "rockslide", "crabhammer", "metalclaw", "swordsdance", "superpower", "substitute"],
+		tier: "RU",
+	},
+	volcaronaalola: {
+		randomBattleMoves: ["waterspout", "surf", "aquaticdance", "hurricane", "bugbuzz", "hiddenpowerground", "raindance"],
+		tier: "OU",
+	},
 	huntail: {
 		randomBattleMoves: ["shellsmash", "waterfall", "icebeam", "batonpass", "suckerpunch"],
 		randomDoubleBattleMoves: ["shellsmash", "waterfall", "icefang", "batonpass", "suckerpunch", "protect"],
@@ -5808,7 +5816,7 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["calmmind", "moonblast", "earthpower", "hiddenpowerfire", "psyshock", "diamondstorm"],
 		randomDoubleBattleMoves: ["diamondstorm", "moonblast", "calmmind", "psyshock", "earthpower", "hiddenpowerfire", "dazzlinggleam", "protect"],
 		requiredItem: "Diancite",
-		tier: "OU",
+		tier: "Unreleased",
 	},
 	hoopa: {
 		randomBattleMoves: ["nastyplot", "psyshock", "shadowball", "focusblast", "trick"],

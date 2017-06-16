@@ -280,6 +280,26 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is an Ninetales with Super Ultra Flamethrower Destroyer of Universes, it can use ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS.",
 	},
+	"bigflower": {
+		id: "bigflower",
+		name: "Big Flower",
+		spritenum: 130,
+		onModifyDefPriority: 2,
+		onModifyDef: function (def, pokemon) {
+			return this.chainModify(1.2);
+		},
+		onModifySpDPriority: 2,
+		onModifySpD: function (spd, pokemon) {
+			return this.chainModify(1.2);
+		},
+		onModifySpAPriority: 2,
+		onModifySpA: function (spa, pokemon) {
+			return this.chainModify(1.2);
+		},
+		num: 538,
+		gen: 5,
+		desc: "Raises Defense, SpDefense and SpAttack by 20%.",
+	},
 	"bulbasauriumz": {
 		spritenum: 656,
 		onTakeItem: false,

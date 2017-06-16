@@ -12,6 +12,22 @@ exports.commands = {
 	 * Informational commands
 	 *********************************************************/
 
+	'!statset': true,
+	statset: function () {
+		let statHP = Math.floor(Math.random() * 151);
+		let statAtk = Math.floor(Math.random() * 181);
+		let statDef = Math.floor(Math.random() * 151);
+		let statSpa = Math.floor(Math.random() * 181);
+		let statSpd = Math.floor(Math.random() * 151);
+		let statSpe = Math.floor(Math.random() * 181);
+		let statBst = statHP + statAtk + statDef + statSpa + statSpd + statSpe;
+		if (!this.runBroadcast()) return;
+		this.sendReplyBox('Generated Statset: ' + statHP + ' / ' + statAtk + ' / ' + statDef + ' / ' + statSpa + ' / ' + statSpd + ' / ' + statSpe + ' | BST: ' + statBst);
+	},
+	statsethelp: [
+		"/statset - Generates a random set of stats. Ideally used for creating Fakemon stats.",
+	],
+
 	'!groups': true,
 	groups: function () {
 		if (!this.runBroadcast()) return;

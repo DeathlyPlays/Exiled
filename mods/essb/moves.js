@@ -2068,30 +2068,48 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 999999999999999999999999999999999999999999999999999999999999,
 	},
-	"nightmareoblivion": {
-		accuracy: 100,
-		basePower: 100,
+	"megadoomofblooms": {
+		accuracy: 90,
+		basePower: 130,
 		category: "Special",
-		id: "nightmareoblivion",
-		name: "Nightmare Oblivion",
-		pp: 10,
+		id: "megadoomofblooms",
+		name: "Megadoom of Blooms",
+		pp: 20,
 		priority: 0,
-		onBasePowerPriority: 4,
-		onBasePower: function (basePower, pokemon) {
-			if (pokemon.status === 'slp') {
-				return this.chainModify(2);
-			}
+		effect: {
+			onStart: function (target) {
+				this.add('-start', target, 'move: Leech Seed');
+			},
+			onResidualOrder: 8,
+			onResidual: function (pokemon) {
+				let target = this.effectData.source.side.active[pokemon.volatiles['leechseed'].sourcePosition];
+				if (!target || target.fainted || target.hp <= 0) {
+					this.debug('Nothing to leech into');
+					return;
+				}
+				let damage = this.damage(pokemon.maxhp / 8, pokemon, target);
+				if (damage) {
+					this.heal(damage, target, pokemon);
+				}
+			},
 		},
 		onPrepareHit: function (target, source, pokemon) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Dark Pulse", target);
-			this.add('-anim', source, "Nightmare", pokemon);
-			this.add('-anim', source, "Dark Void", pokemon);
+			this.add('-anim', source, "Grassy Terrain", pokemon);
+			this.add('-anim', source, "Scald", target);
+			this.add('-anim', source, "Bloom Doom", pokemon);
+		},
+		onTryHit: function (target) {
+			if (target.hasType('Grass')) {
+				this.add('-immune', target, '[msg]');
+				return null;
+			}
 		},
 		flags: {protect: 1, mirror: 1, contact: 1},
+		volatileStatus: 'leechseed',
 		secondary: false,
 		target: "allAdjacentFoes",
-		type: "Dark",
+		type: "Grass",
 	},
 	"triplepeakmegasmash": {
 		id: "triplepeakmegasmash",

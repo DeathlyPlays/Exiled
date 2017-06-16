@@ -4918,6 +4918,32 @@ exports.BattleMovedex = {
 		zMovePower: 160,
 		contestType: "Beautiful",
 	},
+	"aquaticdance": { //Signature for Volcarona-Alola
+		num: 552,
+		accuracy: 100,
+		basePower: 80,
+		category: "Special",
+		desc: "Has a 50% chance to raise the user's Special Attack by 1 stage.",
+		shortDesc: "50% chance to raise the user's Sp. Atk by 1.",
+		id: "aquaticdance",
+		isViable: true,
+		name: "Aquatic Dance",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, dance: 1},
+		secondary: {
+			chance: 50,
+			self: {
+				boosts: {
+					spa: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Water",
+		zMovePower: 160,
+		contestType: "Beautiful",
+	},
 	"finalgambit": {
 		num: 515,
 		accuracy: 100,
@@ -19346,5 +19372,29 @@ exports.BattleMovedex = {
 		type: "Ghost",
 		zMovePower: 180,
 		contestType: "Tough",
+	},
+	"bistrobomb": {
+		num: -605,
+		accuracy: 100,
+		basePower: 140,
+		category: "Physical",
+		desc: "No additional effect.",
+		shortDesc: "No additional effect.",
+		id: "bistrobomb",
+		isViable: true,
+		name: "Bistro Bomb",
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Lock-On", source);
+			this.add('-anim', source, "Egg Bomb", source);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Steel",
+		zMovePower: 200,
+		contestType: "Cool",
 	},
 };

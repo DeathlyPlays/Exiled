@@ -75,7 +75,7 @@ exports.BattleAbilities = {
 	},
 	"lastlaugh": {
 		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Dark Aura');
+			this.boost({def: -12, spd: -12});
 		},
 		onModifyMove: function (move) {
 			move.ignoreAbility = true;
@@ -1820,21 +1820,18 @@ exports.BattleAbilities = {
 			}
 		},
 	},
-	"superiorintellect": {
-		shortDesc: "Accuracy is multiplied by x1.4. Uses Lock-On + Laser Focus + Tailwind Upon Switchin.",
-		onSourceModifyAccuracy: function (accuracy) {
-			if (typeof accuracy !== 'number') return;
-			this.debug('compoundeyes - enhancing accuracy');
-			return accuracy * 1.4;
-		},
+	"bigleaf": {
+		shortDesc: "Uses a variety of setup and support moves on switch-in. x1.1 accuracy.",
 		onStart: function (pokemon) {
-			this.useMove('Lock-On', pokemon);
-			this.useMove('Laser Focus', pokemon);
-			this.useMove('Tailwind', pokemon);
+			this.useMove('Defog', pokemon);
+			this.useMove('Safeguard', pokemon);
+			this.useMove('Light Screen', pokemon);
+			this.useMove('Reflect', pokemon);
+			this.useMove('Magic Coat', pokemon);
 		},
-		id: "superiorintellect",
-		name: "Superior Intellect",
-		rating: 5,
+		id: "bigleaf",
+		name: "Big Leaf",
+		rating: 4.5,
 		num: 14,
 	},
 	"dustkickup": {

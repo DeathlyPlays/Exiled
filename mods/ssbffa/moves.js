@@ -391,7 +391,7 @@ exports.BattleMovedex = {
 		},
 		willCrit: true,
 		secondary: {
-			chance: 30,
+			chance: 40,
 			volatileStatus: 'Flinch',
 		},
 		pp: 10,

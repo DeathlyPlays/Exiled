@@ -108,8 +108,10 @@ exports.commands = {
 		}
 	},
 	addfriend: function (target, room, user) {
+		if (!this.runBroadcast()) return;
 		if (target.length >= 19) return this.sendReply("Usernames are required to be less than 19 characters long.");
 		if (target.length < 3) return this.sendReply("Usernames are required to be greater than 2 characters long.");
+		if (user.userid == target) return this.errorReply("You cannot friend yourself. Loner.");
 		let insertStatement = '';
 
 		Db('FriendsDB').set(toId(user), Db('FriendsDB').get(toId(user)) + ',undefined,');

@@ -26,20 +26,18 @@ Notes: Physical sweeper.
 Rank: B.
 
 flufi
-(Noctowl-Mega)
-@ Super Quick Claw
-   - 50% Chance to Move First
-EVs: 248 SpA / 248 HP / 12 Def / 16 Spe
+(Meganium-Mega)
+@ Big Flower
+   - Boosts Defense, SpDefense and SpAttack by 20%. (x1.2)
+EVs: 252 HP / 96 Def / 96 SpD / 60 SpA
 Modest Nature
-Ability: Superior Intellect
-	- Multiplies Accuracy by x1.4
-	- Uses Lock On + Laser Focus + Tailwind on Switch-in.
-Moves: Hurricane, Nightmare, Roost
-Special Move: Nightmare Oblivion
-  - Dark Type, 100% Accuracy, 20 Base Power, Special
-  - Hypnosis + Dream Eater + Torment
-Notes: Bulky attacker that requires a lot of thought and strategy
-to be used correctly.
+Ability: Big Leaf
+	- Uses Defog, Safeguard, Light Screen, Reflect, and Magic Coat on Switch-in.
+Moves: Synthesis, Toxic, Disable
+Special Move: Megadoom of Blooms
+  - Grass Type, Special, 90% Accuracy, 130 Base Power.
+  - Sets up Leech Seed.
+Notes: Annoying bulky attacker and support Pokemon.
 Rank: B.
 
 Player Shadow BR
@@ -286,14 +284,14 @@ Special Move: Solar Eruption
 Notes: Fast Special Sweeper.
 Rank: A.
 
-VXN
+vxn
 (Guzzlord)
 @ Preception
      - Cures holder of Attract, Disable, Encore, Heal Block, Taunt, Torment, Confusion, and major status conditions.
 EVs: 252 HP
 Serious Nature
 Ability: Last Laugh
-	- Upon death, user deals double the damage it took on foe, Prankster, Ignores Abilities, Dark Aura.
+	- Upon death, user deals double the damage it took on foe, Prankster, Ignores Abilities, and Lowers all defenses to the lowest point.
 Moves: Taunt, Parting Shot, Rest
 Special Move: Aggro Draw
     - Status. Dark Type, Causes the foe to use Guillotine on user, +3 Priority.

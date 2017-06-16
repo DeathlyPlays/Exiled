@@ -2253,7 +2253,7 @@ exports.commands = {
 	hotpatch: function (target, room, user) {
 		if (!target) return this.parse('/help hotpatch');
 		if (!this.can('hotpatch')) return false;
-		if (Monitor.hotpatchLock) return this.errorReply("Hotpatch is currently been disabled. (" + Monitor.hotpatchLock + ")");
+		if (Monitor.hotpatchLock) return this.errorReply("Hotpatch is currently disabled by an administrator. (" + Monitor.hotpatchLock + ")");
 
 		for (let roomid of ['development', 'staff', 'upperstaff']) {
 			let curRoom = Rooms(roomid);

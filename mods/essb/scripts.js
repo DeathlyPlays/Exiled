@@ -158,18 +158,18 @@ exports.BattleScripts = {
 				nature: "Timid",
 			},
 			"@flufi": {
-				species: "Noctowl-Mega",
-				ability: "Superior Intellect",
-				item: "Super Quick Claw",
+				species: "Meganium-Mega",
+				ability: "Big Leaf",
+				item: "Big Flower",
 				gender: "M",
-				moves: ['hurricane', 'dreameater', 'hypnosis'],
-				baseSignatureMove: "nightmareoblivion",
-				signatureMove: "Nightmare Oblivion",
+				moves: ['synthesis', 'toxic', 'disable'],
+				baseSignatureMove: "Megadoom of Blooms",
+				signatureMove: "Megadoom of Blooms",
 				evs: {
-					hp: 232,
-					def: 12,
-					spa: 248,
-					spe: 16,
+					hp: 252,
+					def: 96,
+					spa: 60,
+					spd: 96,
 				},
 				nature: "Modest",
 			},
@@ -266,8 +266,7 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			//Voices
-			"+VXN": {
+			"%vxn": {
 				species: "Guzzlord",
 				ability: "Last Laugh",
 				item: "Perception",
@@ -285,6 +284,7 @@ exports.BattleScripts = {
 				},
 				nature: "Serious",
 			},
+			//Voices
 			"+cyt0pl4sm": {
 				species: "Zygarde-10%",
 				ability: "Energy Overflow",

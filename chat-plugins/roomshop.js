@@ -147,7 +147,7 @@ exports.commands = {
 			  this.sendReply('You have bought ' + itemID + ' for ' + cost + ' bucks.');
 		},
 		'': function (target, room, user) {
-			if (!this.canBroadcast()) return false;
+			if (!this.runBroadcast()) return;
 			if (!db('roomshop').has(room.id)) return this.errorReply('Roomshop is not enabled here.');
 
 			let keys = Object.keys(db('roomshop').object()[room.id]);

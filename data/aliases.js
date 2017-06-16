@@ -480,6 +480,7 @@ exports.BattleAliases = {
 	"karp": "Magikarp",
 	"azure": "Trubbish",
 	"flufi": "Raichu",
+	"mewth": "Cutiefly",
 	"insist": "Ludicolo",
 	"hoeenhero": "Ludicolo",
 	"noviex": "Tyranitar",
@@ -708,4 +709,8 @@ exports.BattleAliases = {
 	"essb": "[Gen 7]: Exiled Super Staff Bros",
 	"cotr": "[Gen 7]: Clash of the Regions",
 	"monoubers": "[Gen 7] Monotype Ubers",
+	"mnmubers": "[Gen 7] Mix and Mega Ubers",
+	"ssbffa": "[Gen 7] Exiled Super Staff Bros Free For All",
+	"astorm": "[Gen 7] Action Storm",
+	"sp": "[Gen 7] Swapping Powers",
 };

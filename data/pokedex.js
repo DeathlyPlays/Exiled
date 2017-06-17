@@ -10717,7 +10717,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Ghost", "Fire"],
 		baseStats: {hp: 60, atk: 40, def: 105, spa: 190, spd: 105, spe: 120},
-		abilities: {0: "Levitate"},
+		abilities: {0:"Drought"},
 		heightm: 1,
 		weightkg: 24.7,
 		color: "Black",

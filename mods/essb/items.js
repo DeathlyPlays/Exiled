@@ -71,10 +71,10 @@ exports.BattleItems = {
 		id: "playeriniumz",
 		name: "Playerinium Z",
 		zMove: "Rush Of Volcano Thunder",
-		zMoveFrom: "Rush Of Dragon Bolt",
+		zMoveFrom: "Rush of Dragon Bolt",
 		zMoveUser: ["Dragonite"],
-		num: -5,
-		gen: -1,
+		num: -429,
+		gen: -7,
 		desc: "If holder is a Rotom-Frost with Hail Storm, it can use Hyper Viper Beam.",
 	},
 	"haxiumz": {

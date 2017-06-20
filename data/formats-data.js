@@ -1808,6 +1808,18 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["roost", "tailwind", "airslash", "hypervoice", "heatwave", "protect", "hypnosis"],
 		tier: "NU",
 	},
+	noctowlmega: {
+		randomBattleMoves: ["hypnosis", "oblivionwing", "darkpulse", "roost"],
+		tier: "UU",
+	},
+	rapidashmega: {
+		randomBattleMoves: ["flareblitz", "drillrun", "wildcharge", "protect"],
+		tier: "OU",
+	},
+	lanturnalola: {
+		randomBattleMoves: ["gigadrain", "icebeam", "scald", "psyshock", "haze", "bugbuzz"],
+		tier: "RU",
+	},
 	ledyba: {
 		randomBattleMoves: ["roost", "agility", "lightscreen", "encore", "reflect", "knockoff", "swordsdance", "batonpass", "toxic"],
 		eventPokemon: [

@@ -7569,4 +7569,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Wigglytuff, this item allows it to Mega Evolve in battle.",
 	},
+	"liepardite": {
+		id: "liepardite",
+		name: "Liepardite",
+		spritenum: -624,
+		megaStone: "Liepard-Mega",
+		megaEvolves: "Liepard",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -764,
+		gen: 0,
+		desc: "If holder is a Liepard, this item allows it to Mega Evolve in battle.",
+	},
 };

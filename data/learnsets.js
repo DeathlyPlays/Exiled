@@ -20145,7 +20145,7 @@ exports.BattleLearnsets = {
 		whirlpool: ["4M"],
 		wildcharge: ["7M", "6M", "5M"],
 	}},
-	lanturn: {learnset: {
+	lanturnalola: {learnset: {
 		aquaring: ["7L47", "6L47", "5L52", "4L47"],
 		aquatail: ["6T", "5T", "4T"],
 		attract: ["7M", "6M", "5M", "4M", "3M"],

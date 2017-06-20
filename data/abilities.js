@@ -4295,17 +4295,17 @@ exports.BattleAbilities = {
 	},
 	"deltafur": {
 		desc: "70% chance a Pokemon making contact with this Pokemon will be poisoned, paralyzed, fall asleep, freeze, or burned.",
-		shortDesc: "70% chance of poison/paralysis/sleep/burn/freeze on others making contact with this Pokemon.",
+		shortDesc: "70% chance of poison/paralysis/sleep/burn/freeze on making contact with the Pokemon.",
 		onAfterDamage: function (damage, target, source, move) {
 			if (move && move.flags['contact'] && !source.status && source.runStatusImmunity('powder')) {
 				let r = this.random(100);
-				if (r <= 14) {
+				if (r <= 70) {
 					source.setStatus('slp', target);
-				} else if (r <= 28) {
+				} else if (r <= 70) {
 					source.setStatus('par', target);
-				} else if (r <= 42) {
+				} else if (r <= 70) {
 					source.setStatus('psn', target);
-				} else if (r <= 56) {
+				} else if (r <= 70) {
 					source.setStatus('frz', target);
 				} else if (r <= 70) {
 					source.setStatus('brn', target);
@@ -4508,6 +4508,7 @@ exports.BattleAbilities = {
 		num: -59,
 	},
 	"typecamo": {
+		desc: "This Pokemon's typing will change to a random type every turn.",
 		rating: 5,
 		num: -60,
 		onResidualOrder: 26,

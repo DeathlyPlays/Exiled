@@ -1484,7 +1484,6 @@ exports.BattleScripts = {
 				let isSetup = false;
 
 				switch (moveid) {
-
 				// Not very useful without their supporting moves
 				case 'batonpass':
 					if (!counter.setupType && !counter['speedsetup'] && !hasMove['substitute'] && !hasMove['wish'] && !hasAbility['Speed Boost']) rejected = true;
@@ -2229,9 +2228,9 @@ exports.BattleScripts = {
 		} else if (template.baseStats.spe <= 50 && hasMove['sleeppowder'] && counter.setupType && !teamDetails.zMove) {
 			item = 'Grassium Z';
 		} else if (counter.Physical >= 4 && !hasMove['bodyslam'] && !hasMove['dragontail'] && !hasMove['fakeout'] && !hasMove['flamecharge'] && !hasMove['rapidspin'] && !hasMove['suckerpunch']) {
-			item = template.baseStats.spe >= 60 && template.baseStats.spe <= 108 && !counter['priority'] && this.random(3) ? 'Choice Scarf' : 'Choice Band';
+			item = template.baseStats.atk >= 100 && template.baseStats.spe >= 60 && template.baseStats.spe <= 108 && !counter['priority'] && this.random(3) ? 'Choice Scarf' : 'Choice Band';
 		} else if (counter.Special >= 4 && !hasMove['acidspray'] && !hasMove['chargebeam'] && !hasMove['clearsmog'] && !hasMove['fierydance']) {
-			item = template.baseStats.spe >= 60 && template.baseStats.spe <= 108 && !counter['priority'] && this.random(3) ? 'Choice Scarf' : 'Choice Specs';
+			item = template.baseStats.spa >= 100 && template.baseStats.spe >= 60 && template.baseStats.spe <= 108 && !counter['priority'] && this.random(3) ? 'Choice Scarf' : 'Choice Specs';
 		} else if (counter.Special >= 3 && hasMove['uturn'] && template.baseStats.spe >= 60 && template.baseStats.spe <= 108 && !counter['priority'] && this.random(3)) {
 			item = 'Choice Scarf';
 		} else if (ability === 'Defeatist' || hasMove['eruption'] || hasMove['waterspout']) {
@@ -3601,12 +3600,10 @@ exports.BattleScripts = {
 		let movesMax = {'batonpass':1, 'stealthrock':1, 'spikes':1, 'toxicspikes':1, 'doubleedge':1, 'trickroom':1};
 		let requiredMoves = {};
 		let weatherAbilitiesRequire = {
-			'hydration': 'raindance', 'swiftswim': 'raindance',
-			'leafguard': 'sunnyday', 'solarpower': 'sunnyday', 'chlorophyll': 'sunnyday',
-			'sandforce': 'sandstorm', 'sandrush': 'sandstorm', 'sandveil': 'sandstorm',
-			'snowcloak': 'hail',
+			'swiftswim': 'raindance',
+			'sandrush': 'sandstorm', 'sandveil': 'sandstorm',
 		};
-		let weatherAbilitiesSet = {'drizzle':1, 'drought':1, 'snowwarning':1, 'sandstream':1};
+		let weatherAbilitiesSet = {'drizzle':1, 'sandstream':1};
 
 		// Build a pool of eligible sets, given the team partners
 		// Also keep track of sets with moves the team requires
@@ -3687,7 +3684,7 @@ exports.BattleScripts = {
 		let teamData = {typeCount: {}, typeComboCount: {}, baseFormes: {}, megaCount: 0, zCount: 0, has: {}, forceResult: forceResult, weaknesses: {}, resistances: {}};
 		let requiredMoveFamilies = {};
 		let requiredMoves = {};
-		let weatherAbilitiesSet = {'drizzle': 'raindance', 'drought': 'sunnyday', 'snowwarning': 'hail', 'sandstream': 'sandstorm'};
+		let weatherAbilitiesSet = {'drizzle': 'raindance', 'sandstream': 'sandstorm'};
 		let resistanceAbilities = {
 			'dryskin': ['Water'], 'waterabsorb': ['Water'], 'stormdrain': ['Water'],
 			'flashfire': ['Fire'], 'heatproof': ['Fire'],

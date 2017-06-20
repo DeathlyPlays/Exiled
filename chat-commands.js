@@ -34,6 +34,47 @@ exports.commands = {
 		this.sendReplyBox("Server version: <b>" + Chat.package.version + "</b>");
 	},
 
+<<<<<<< HEAD
+=======
+	'!authority': true,
+	auth: 'authority',
+	stafflist: 'authority',
+	globalauth: 'authority',
+	authlist: 'authority',
+	authority: function (target, room, user, connection) {
+		if (target) {
+			let targetRoom = Rooms.search(target);
+			let availableRoom = targetRoom && targetRoom.checkModjoin(user);
+			if (targetRoom && availableRoom) return this.parse('/roomauth1 ' + target);
+			return this.parse('/userauth ' + target);
+		}
+		let rankLists = {};
+		let ranks = Object.keys(Config.groups);
+		for (let u in Users.usergroups) {
+			let rank = Users.usergroups[u].charAt(0);
+			if (rank === ' ' || rank === '+') continue;
+			// In case the usergroups.csv file is not proper, we check for the server ranks.
+			if (ranks.includes(rank)) {
+				let name = Users.usergroups[u].substr(1);
+				if (!rankLists[rank]) rankLists[rank] = [];
+				if (name) rankLists[rank].push(name);
+			}
+		}
+
+		let buffer = Object.keys(rankLists).sort((a, b) =>
+			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
+		).map(r =>
+			(Config.groups[r] ? "**" + Config.groups[r].name + "s** (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
+		);
+
+		if (!buffer.length) return connection.popup("This server has no global authority.");
+		connection.popup(buffer.join("\n\n"));
+	},
+	authhelp: ["/auth - Show global staff for the server.",
+		"/auth [room] - Show what roomauth a room has.",
+		"/auth [user] - Show what global and roomauth a user has."],
+
+>>>>>>> 252f844592d26ff00c26a18622acc2acd977900b
 	userlist: function (target, room, user) {
 		let userList = [];
 
@@ -882,7 +923,7 @@ exports.commands = {
 		if (!target) return;
 		if (!/</.test(target)) {
 			// not HTML, do some simple URL linking
-			let re = /(https?:\/\/(([-\w\.]+)+(:\d+)?(\/([\w/_\.]*(\?\S+)?)?)?))/g;
+			let re = /(https?:\/\/(([\w.-]+)+(:\d+)?(\/([\w/_.]*(\?\S+)?)?)?))/g;
 			target = target.replace(re, '<a href="$1">$1</a>');
 		}
 		if (target.substr(0, 11) === '/roomintro ') target = target.substr(11);
@@ -937,7 +978,7 @@ exports.commands = {
 		if (!target) return;
 		if (!/</.test(target)) {
 			// not HTML, do some simple URL linking
-			let re = /(https?:\/\/(([-\w\.]+)+(:\d+)?(\/([\w/_\.]*(\?\S+)?)?)?))/g;
+			let re = /(https?:\/\/(([\w.-]+)+(:\d+)?(\/([\w/_.]*(\?\S+)?)?)?))/g;
 			target = target.replace(re, '<a href="$1">$1</a>');
 		}
 		if (target.substr(0, 12) === '/staffintro ') target = target.substr(12);
@@ -1154,11 +1195,12 @@ exports.commands = {
 		const reason = (target ? ` (${target})` : ``);
 		this.addModCommand(`${name} was banned from ${room.title} by ${user.name}.${reason}`, ` (${targetUser.latestIp})`);
 
+		let affected = Punishments.roomBan(room, targetUser, null, null, target);
+
 		if (!room.isPrivate && room.chatRoomData) {
-			let alts = targetUser.getAlts();
 			let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
-			if (alts.length) {
-				this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "banned alts: " + alts.join(", ") + ")");
+			if (affected.length > 1) {
+				this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "banned alts: " + affected.slice(1).map(user => user.getLastName()).join(", ") + ")");
 			} else if (acAccount) {
 				this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
 			}
@@ -1169,7 +1211,6 @@ exports.commands = {
 		if (!room.isPrivate && room.chatRoomData) {
 			this.globalModlog("ROOMBAN", targetUser, " by " + user.name + (target ? ": " + target : ""));
 		}
-		Punishments.roomBan(room, targetUser, null, null, target);
 		return true;
 	},
 	banhelp: ["/roomban [username], [reason] - Bans the user from the room you are in. Requires: @ # & ~"],
@@ -1394,32 +1435,47 @@ exports.commands = {
 			}
 		});
 
-		targetUser.popup("|modal|" + user.name + " has locked you from talking in chats, battles, and PMing regular users." + (target ? "\n\nReason: " + target : "") + "\n\nIf you feel that your lock was unjustified, you can still PM staff members (%, @, &, and ~) to discuss it" + (Config.appealurl ? " or you can appeal:\n" + Config.appealurl : ".") + "\n\nYour lock will expire in a few days.");
+		let proof = '';
+		let userReason = '';
+		let targetLowercase = target.toLowerCase();
+		if (target && (targetLowercase.includes('spoiler:') || targetLowercase.includes('spoilers:'))) {
+			let proofIndex = (targetLowercase.includes('spoilers:') ? targetLowercase.indexOf('spoilers:') : targetLowercase.indexOf('spoiler:'));
+			let bump = (targetLowercase.includes('spoilers:') ? 9 : 8);
+			proof = `(PROOF: ${target.substr(proofIndex + bump, target.length).trim()}) `;
+			userReason = target.substr(0, proofIndex).trim();
+		}
 
-		let lockMessage = "" + name + " was locked from talking by " + user.name + "." + (target ? " (" + target + ")" : "");
+		targetUser.popup("|modal|" + user.name + " has locked you from talking in chats, battles, and PMing regular users." + (userReason ? "\n\nReason: " + userReason : "") + "\n\nIf you feel that your lock was unjustified, you can still PM staff members (%, @, &, and ~) to discuss it" + (Config.appealurl ? " or you can appeal:\n" + Config.appealurl : ".") + "\n\nYour lock will expire in a few days.");
 
-		this.addModCommand(lockMessage, " (" + targetUser.latestIp + ")");
+		let lockMessage = "" + name + " was locked from talking by " + user.name + "." + (userReason ? " (" + userReason + ")" : "");
+
+
+		this.addModCommand(lockMessage, ` ${proof}(${targetUser.latestIp})`);
 
 		// Notify staff room when a user is locked outside of it.
 		if (room.id !== 'staff' && Rooms('staff')) {
 			Rooms('staff').addLogMessage(user, "<<" + room.id + ">> " + lockMessage);
 		}
 
-		let alts = targetUser.getAlts();
+		let affected = Punishments.lock(targetUser, null, null, userReason);
+
 		let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
-		if (alts.length) {
-			this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "locked alts: " + alts.join(", ") + ")");
+		if (affected.length > 1) {
+			this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "locked alts: " + affected.slice(1).map(user => user.getLastName()).join(", ") + ")");
 		} else if (acAccount) {
 			this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
 		}
 		this.add('|unlink|hide|' + userid);
 		if (userid !== toId(this.inputUsername)) this.add('|unlink|hide|' + toId(this.inputUsername));
 
-		this.globalModlog("LOCK", targetUser, " by " + user.name + (target ? ": " + target : ""));
-		Punishments.lock(targetUser, null, null, target);
+		const globalReason = (target ? `: ${userReason} ${proof}` : ``);
+		this.globalModlog("LOCK", targetUser, ` by ${user.name}${globalReason}`);
 		return true;
 	},
-	lockhelp: ["/lock OR /l [username], [reason] - Locks the user from talking in all chats. Requires: % @ * & ~"],
+	lockhelp: [
+		"/lock OR /l [username], [reason] - Locks the user from talking in all chats. Requires: % @ * & ~",
+		"/lock OR /l [username], [reason] spoiler: [proof] - Marks proof in modlog only.",
+	],
 
 	wl: 'weeklock',
 	weeklock: function (target, room, user, connection, cmd) {
@@ -1461,31 +1517,44 @@ exports.commands = {
 			}
 		});
 
-		targetUser.popup("|modal|" + user.name + " has locked you from talking in chats, battles, and PMing regular users for a week." + (target ? "\n\nReason: " + target : "") + "\n\nIf you feel that your lock was unjustified, you can still PM staff members (%, @, &, and ~) to discuss it" + (Config.appealurl ? " or you can appeal:\n" + Config.appealurl : ".") + "\n\nYour lock will expire in a few days.");
+		let proof = '';
+		let userReason = '';
+		let targetLowercase = target.toLowerCase();
+		if (target && (targetLowercase.includes('spoiler:') || targetLowercase.includes('spoilers:'))) {
+			let proofIndex = (targetLowercase.includes('spoilers:') ? targetLowercase.indexOf('spoilers:') : targetLowercase.indexOf('spoiler:'));
+			let bump = (targetLowercase.includes('spoilers:') ? 9 : 8);
+			proof = `(PROOF: ${target.substr(proofIndex + bump, target.length).trim()}) `;
+			userReason = target.substr(0, proofIndex).trim();
+		}
 
-		let lockMessage = "" + name + " was locked from talking for a week by " + user.name + "." + (target ? " (" + target + ")" : "");
-		this.addModCommand(lockMessage, " (" + targetUser.latestIp + ")");
+		targetUser.popup("|modal|" + user.name + " has locked you from talking in chats, battles, and PMing regular users for a week." + (userReason ? "\n\nReason: " + userReason : "") + "\n\nIf you feel that your lock was unjustified, you can still PM staff members (%, @, &, and ~) to discuss it" + (Config.appealurl ? " or you can appeal:\n" + Config.appealurl : ".") + "\n\nYour lock will expire in a few days.");
+
+		let lockMessage = "" + name + " was locked from talking for a week by " + user.name + "." + (userReason ? " (" + userReason + ")" : "");
+		this.addModCommand(lockMessage, ` ${proof}(${targetUser.latestIp})`);
 
 		// Notify staff room when a user is locked outside of it.
 		if (room.id !== 'staff' && Rooms('staff')) {
 			Rooms('staff').addLogMessage(user, "<<" + room.id + ">> " + lockMessage);
 		}
 
-		let alts = targetUser.getAlts();
+		let affected = Punishments.lock(targetUser, Date.now() + 7 * 24 * 60 * 60 * 1000, null, userReason);
 		let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
-		if (alts.length) {
-			this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "locked alts: " + alts.join(", ") + ")");
+		if (affected.length > 1) {
+			this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "locked alts: " + affected.slice(1).map(user => user.getLastName()).join(", ") + ")");
 		} else if (acAccount) {
 			this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
 		}
 		this.add('|unlink|hide|' + userid);
 		if (userid !== toId(this.inputUsername)) this.add('|unlink|hide|' + toId(this.inputUsername));
 
-		this.globalModlog("WEEKLOCK", targetUser, " by " + user.name + (target ? ": " + target : ""));
-		Punishments.lock(targetUser, Date.now() + 7 * 24 * 60 * 60 * 1000, null, target);
+		const globalReason = (target ? `: ${userReason} ${proof}` : ``);
+		this.globalModlog("WEEKLOCK", targetUser, ` by ${user.name}${globalReason}`);
 		return true;
 	},
-	weeklockhelp: ["/weeklock OR /wl [username], [reason] - Locks the user from talking in all chats for one week. Requires: % @ * & ~"],
+	weeklockhelp: [
+		"/weeklock OR /wl [username], [reason] - Locks the user from talking in all chats for one week. Requires: % @ * & ~",
+		"/weeklock OR /wl [username], [reason] spoiler: [proof] - Marks proof in modlog only.",
+	],
 
 	unlock: function (target, room, user) {
 		if (!target) return this.parse('/help unlock');
@@ -1559,25 +1628,35 @@ exports.commands = {
 			}
 		});
 
-		targetUser.popup("|modal|" + user.name + " has globally banned you." + (target ? "\n\nReason: " + target : "") + (Config.appealurl ? "\n\nIf you feel that your ban was unjustified, you can appeal:\n" + Config.appealurl : "") + "\n\nYour ban will expire in a few days.");
+		let proof = '';
+		let userReason = '';
+		let targetLowercase = target.toLowerCase();
+		if (target && (targetLowercase.includes('spoiler:') || targetLowercase.includes('spoilers:'))) {
+			let proofIndex = (targetLowercase.includes('spoilers:') ? targetLowercase.indexOf('spoilers:') : targetLowercase.indexOf('spoiler:'));
+			let bump = (targetLowercase.includes('spoilers:') ? 9 : 8);
+			proof = `(PROOF: ${target.substr(proofIndex + bump, target.length).trim()}) `;
+			userReason = target.substr(0, proofIndex).trim();
+		}
 
-		let banMessage = "" + name + " was globally banned by " + user.name + "." + (target ? " (" + target + ")" : "");
-		this.addModCommand(banMessage, " (" + targetUser.latestIp + ")");
+		targetUser.popup("|modal|" + user.name + " has globally banned you." + (userReason ? "\n\nReason: " + userReason : "") + (Config.appealurl ? "\n\nIf you feel that your ban was unjustified, you can appeal:\n" + Config.appealurl : "") + "\n\nYour ban will expire in a few days.");
+
+		let banMessage = "" + name + " was globally banned by " + user.name + "." + (userReason ? " (" + userReason + ")" : "");
+		this.addModCommand(banMessage, ` ${proof}(${targetUser.latestIp})`);
 
 		// Notify staff room when a user is banned outside of it.
 		if (room.id !== 'staff' && Rooms('staff')) {
 			Rooms('staff').addLogMessage(user, "<<" + room.id + ">> " + banMessage);
 		}
 
-		let alts = targetUser.getAlts();
+		let affected = Punishments.ban(targetUser, null, null, userReason);
 		let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
-		if (alts.length) {
-			let guests = alts.length;
-			alts = alts.filter(alt => alt.substr(0, 7) !== '[Guest ');
-			guests -= alts.length;
-			this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "banned alts: " + alts.join(", ") + (guests ? " [" + guests + " guests]" : "") + ")");
-			for (let i = 0; i < alts.length; ++i) {
-				this.add('|unlink|' + toId(alts[i]));
+		if (affected.length > 1) {
+			let guests = affected.length - 1;
+			affected = affected.slice(1).map(user => user.getLastName()).filter(alt => alt.substr(0, 7) !== '[Guest ');
+			guests -= affected.length;
+			this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "banned alts: " + affected.join(", ") + (guests ? " [" + guests + " guests]" : "") + ")");
+			for (let i = 0; i < affected.length; ++i) {
+				this.add('|unlink|' + toId(affected[i]));
 			}
 		} else if (acAccount) {
 			this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
@@ -1585,11 +1664,15 @@ exports.commands = {
 
 		this.add('|unlink|hide|' + userid);
 		if (userid !== toId(this.inputUsername)) this.add('|unlink|hide|' + toId(this.inputUsername));
-		Punishments.ban(targetUser, null, null, target);
-		this.globalModlog("BAN", targetUser, " by " + user.name + (target ? ": " + target : ""));
+
+		const globalReason = (target ? `: ${userReason} ${proof}` : ``);
+		this.globalModlog("BAN", targetUser, ` by ${user.name}${globalReason}`);
 		return true;
 	},
-	globalbanhelp: ["/globalban OR /gban [username], [reason] - Kick user from all rooms and ban user's IP address with reason. Requires: @ * & ~"],
+	globalbanhelp: [
+		"/globalban OR /gban [username], [reason] - Kick user from all rooms and ban user's IP address with reason. Requires: @ * & ~",
+		"/globalban OR /gban [username], [reason] spoiler: [proof] - Marks proof in modlog only.",
+	],
 
 	globalunban: 'unglobalban',
 	unglobalban: function (target, room, user) {
@@ -1772,6 +1855,7 @@ exports.commands = {
 			let groupid = Config.groups[nextGroup].id;
 			if (!groupid && nextGroup === Config.groupsranking[0]) groupid = 'deauth';
 			if (Config.groups[nextGroup].globalonly) return this.errorReply(`Did you mean "/global${groupid}"?`);
+			if (Config.groups[nextGroup].roomonly) return this.errorReply(`Did you mean "/room${groupid}"?`);
 			return this.errorReply(`Did you mean "/room${groupid}" or "/global${groupid}"?`);
 		}
 		if (Config.groups[nextGroup].roomonly || Config.groups[nextGroup].battleonly) {
@@ -1873,8 +1957,9 @@ exports.commands = {
 		if (!this.can('declare', null, room)) return false;
 		if (!this.canTalk()) return;
 
-		this.add('|raw|<div class="broadcast-blue"><b>' + Chat.escapeHTML(target) + '</b></div>');
-		this.logModCommand(user.name + " declared " + target);
+		this.add(`|notify|${room.title} announcement!|${target}`);
+		this.add(Chat.html`|raw|<div class="broadcast-blue"><b>${target}</b></div>`);
+		this.logModCommand(`${user.name} declared: ${target}`);
 	},
 	declarehelp: ["/declare [message] - Anonymously announces a message. Requires: # * & ~"],
 
@@ -1885,8 +1970,9 @@ exports.commands = {
 		target = this.canHTML(target);
 		if (!target) return;
 
-		this.add('|raw|<div class="broadcast-blue"><b>' + target + '</b></div>');
-		this.logModCommand(user.name + " declared " + target);
+		this.add(`|notify|${room.title} announcement!|${Chat.stripHTML(target)}`);
+		this.add(`|raw|<div class="broadcast-blue"><b>${target}</b></div>`);
+		this.logModCommand(`${user.name} HTML-declared: ${target}`);
 	},
 	htmldeclarehelp: ["/htmldeclare [message] - Anonymously announces a message using safe HTML. Requires: ~"],
 
@@ -1898,9 +1984,12 @@ exports.commands = {
 		if (!target) return;
 
 		Rooms.rooms.forEach((curRoom, id) => {
-			if (id !== 'global') curRoom.addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>').update();
+			if (id !== 'global') curRoom.addRaw(`<div class="broadcast-blue"><b>${target}</b></div>`).update();
 		});
-		this.logModCommand(user.name + " globally declared " + target);
+		Users.users.forEach(u => {
+			if (u.connected) u.send(`|pm|~|${u.group}${u.name}|/raw <div class="broadcast-blue"><b>${target}</b></div>`);
+		});
+		this.logModCommand(`${user.name} globally declared: ${target}`);
 	},
 	globaldeclarehelp: ["/globaldeclare [message] - Anonymously announces a message to every room on the server. Requires: ~"],
 
@@ -1912,9 +2001,9 @@ exports.commands = {
 		if (!target) return;
 
 		Rooms.rooms.forEach((curRoom, id) => {
-			if (id !== 'global' && curRoom.type !== 'battle') curRoom.addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>').update();
+			if (id !== 'global' && curRoom.type !== 'battle') curRoom.addRaw(`<div class="broadcast-blue"><b>${target}</b></div>`).update();
 		});
-		this.logModCommand(user.name + " globally declared (chat level) " + target);
+		this.logModCommand(`${user.name} declared to all chat rooms: ${target}`);
 	},
 	chatdeclarehelp: ["/cdeclare [message] - Anonymously announces a message to all chatrooms on the server. Requires: ~"],
 
@@ -2070,12 +2159,14 @@ exports.commands = {
 			);
 		}
 
-		this.addModCommand("" + name + " was blacklisted by " + user.name + "." + (target ? " (" + target + ")" : ""), " (" + targetUser.latestIp + ")");
+		this.addModCommand(`${name} was blacklisted from ${room.title} by ${user.name}. ${(target ? ` (${target})` : ``)}`, ` (${targetUser.latestIp})`);
+
+		let affected = Punishments.roomBlacklist(room, targetUser, null, null, target);
+
 		if (!room.isPrivate && room.chatRoomData) {
-			let alts = targetUser.getAlts();
 			let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
-			if (alts.length) {
-				this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "blacklisted alts: " + alts.join(", ") + ")");
+			if (affected.length > 1) {
+				this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "blacklisted alts: " + affected.slice(1).map(user => user.getLastName()).join(", ") + ")");
 			} else if (acAccount) {
 				this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
 			}
@@ -2086,11 +2177,11 @@ exports.commands = {
 		if (!room.isPrivate && room.chatRoomData) {
 			this.globalModlog("BLACKLIST", targetUser, " by " + user.name + (target ? ": " + target : ""));
 		}
-		Punishments.roomBlacklist(room, targetUser, null, null, target);
 		return true;
 	},
 	blacklisthelp: ["/blacklist [username], [reason] - Blacklists the user from the room you are in for a year. Requires: # & ~"],
 
+	nameblacklist: 'blacklistname',
 	blacklistname: function (target, room, user) {
 		if (!target) return this.parse('/help blacklistname');
 		if (!this.canTalk()) return;
@@ -2123,10 +2214,10 @@ exports.commands = {
 			}
 		}
 
-		this.addModCommand("" + targets.join(', ') + (targets.length > 1 ? " were" : " was") + " nameblacklisted by " + user.name + ".");
+		this.addModCommand(`${targets.join(', ')}${(targets.length > 1 ? " were" : " was")} nameblacklisted from ${room.title} by ${user.name}.`);
 		return true;
 	},
-	blacklistnamehelp: ["/blacklistname [username1, username2, etc.] | reason - Blacklists the given username(s) from the room you are in for a year. Requires: # & ~"],
+	blacklistnamehelp: ["/blacklistname OR /nameblacklist [username1, username2, etc.] | reason - Blacklists the given username(s) from the room you are in for a year. Requires: # & ~"],
 
 	unab: 'unblacklist',
 	unblacklist: function (target, room, user) {
@@ -2166,12 +2257,15 @@ exports.commands = {
 	},
 	unblacklistallhelp: ["/unblacklistall - Unblacklists all blacklisted users in the current room. Requires #, &, ~"],
 
+	expiringbls: 'showblacklist',
+	expiringblacklists: 'showblacklist',
 	blacklists: 'showblacklist',
 	showbl: 'showblacklist',
-	showblacklist: function (target, room, user) {
+	showblacklist: function (target, room, user, connection, cmd) {
 		if (target) room = Rooms.search(target);
 		if (!room) return this.errorReply(`The room "${target}" was not found.`);
 		if (!this.can('mute', null, room)) return false;
+		const SOON_EXPIRING_TIME = 3 * 30 * 24 * 60 * 60 * 1000; // 3 months
 
 		if (!room.chatRoomData) return this.errorReply("This room does not support blacklists.");
 
@@ -2205,10 +2299,12 @@ exports.commands = {
 			}
 		}
 
-		let buf = Chat.html`Blacklist for ${room.title}:<br />`;
+		let soonExpiring = (cmd === 'expiringblacklists' || cmd === 'expiringbls');
+		let buf = Chat.html`Blacklist for ${room.title}${soonExpiring ? ` (expiring within 3 months)` : ``}:<br />`;
 
 		blMap.forEach((data, userid) => {
 			const [expireTime, ...alts] = data;
+			if (soonExpiring && expireTime > Date.now() + SOON_EXPIRING_TIME) return;
 			const expiresIn = new Date(expireTime).getTime() - Date.now();
 			const expiresDays = Math.round(expiresIn / 1000 / 60 / 60 / 24);
 			buf += `- <strong>${userid}</strong>, for ${expiresDays} day${Chat.plural(expiresDays)}`;
@@ -2218,7 +2314,10 @@ exports.commands = {
 
 		this.sendReplyBox(buf);
 	},
-	showblacklishelp: ["/showblacklist OR /showbl - show a list of blacklisted users in the room"],
+	showblacklisthelp: [
+		"/showblacklist OR /showbl - show a list of blacklisted users in the room. Requires: % @ # & ~",
+		"/expiringblacklists OR /expiringbls - show a list of blacklisted users from the room whose blacklists are expiring in 3 months or less. Requires: % @ # & ~",
+	],
 
 	markshared: function (target, room, user) {
 		if (!target) return this.parse('/help markshared');
@@ -2255,10 +2354,7 @@ exports.commands = {
 		if (!this.can('hotpatch')) return false;
 		if (Monitor.hotpatchLock) return this.errorReply("Hotpatch is currently disabled by an administrator. (" + Monitor.hotpatchLock + ")");
 
-		for (let roomid of ['development', 'staff', 'upperstaff']) {
-			let curRoom = Rooms(roomid);
-			if (curRoom) curRoom.add(`|c|${user.getIdentity()}|/log ${user.name} used /hotpatch ${target}`).update();
-		}
+		Rooms.global.notifyRooms(['development', 'staff', 'upperstaff'], `|c|${user.getIdentity()}|/log ${user.name} used /hotpatch ${target}`);
 
 		try {
 			if (target === 'chat' || target === 'commands') {
@@ -2318,7 +2414,7 @@ exports.commands = {
 				delete require.cache[require.resolve('./punishments')];
 				global.Punishments = require('./punishments');
 				return this.sendReply("Punishments have been hotpatched.");
-			} else if (target === 'dnsbl') {
+			} else if (target === 'dnsbl' || target === 'datacenters') {
 				Dnsbl.loadDatacenters();
 				return this.sendReply("Dnsbl has been hotpatched.");
 			} else if (target.startsWith('disablechat')) {
@@ -2365,9 +2461,11 @@ exports.commands = {
 		});
 	},
 
-	adddatacenters: function (target, room, user) {
+	widendatacenters: 'adddatacenters',
+	adddatacenters: function (target, room, user, connection, cmd) {
 		if (!this.can('hotpatch')) return false;
 		// should be in the format: IP, IP, name, URL
+		let widen = (cmd === 'widendatacenters');
 
 		fs.readFile(require('path').resolve(__dirname, 'config/datacenters.csv'), (err, data) => {
 			if (err) return;
@@ -2388,6 +2486,7 @@ exports.commands = {
 			data = String(target).split("\n");
 			let successes = 0;
 			let identicals = 0;
+			let widenSuccesses = 0;
 			for (let row of data) {
 				if (!row) continue;
 				let rowSplit = row.split(',');
@@ -2419,6 +2518,11 @@ exports.commands = {
 						continue;
 					}
 					if (rowData[0] <= next[0] && rowData[1] >= next[1]) {
+						if (widen === true) {
+							widenSuccesses++;
+							datacenters.splice(iMin, 1, rowData);
+							continue;
+						}
 						this.errorReply('too wide: ' + row);
 						this.errorReply('intersects with: ' + next[3]);
 						continue;
@@ -2449,6 +2553,7 @@ exports.commands = {
 			let output = datacenters.map(r => r[3]).join('\n') + '\n';
 			fs.writeFile(require('path').resolve(__dirname, 'config/datacenters.csv'), output);
 			this.sendReply(`done: ${successes} successes, ${identicals} unchanged`);
+			if (widenSuccesses) this.sendReply(`${widenSuccesses} widens`);
 		});
 	},
 
@@ -2480,6 +2585,30 @@ exports.commands = {
 		this.logEntry(user.name + " used /lockdown");
 	},
 	lockdownhelp: ["/lockdown - locks down the server, which prevents new battles from starting so that the server can eventually be restarted. Requires: ~"],
+
+	autolockdown: 'autolockdownkill',
+	autolockdownkill: function (target, room, user) {
+		if (!this.can('lockdown')) return false;
+		if (Config.autolockdown === undefined) Config.autolockdown = true;
+
+		if (target === 'on' || target === 'enable') {
+			if (Config.autolockdown) return this.errorReply("The server is already set to automatically kill itself upon the final battle finishing.");
+			Config.autolockdown = true;
+			this.sendReply("The server is now set to automatically kill itself upon the final battle finishing.");
+			this.logEntry(`${user.name} used /autolockdownkill on`);
+		} else if (target === 'off' || target === 'disable') {
+			if (!Config.autolockdown) return this.errorReply("The server is already set to not automatically kill itself upon the final battle finishing.");
+			Config.autolockdown = false;
+			this.sendReply("The server is now set to not automatically kill itself upon the final battle finishing.");
+			this.logEntry(`${user.name} used /autolockdownkill off`);
+		} else {
+			return this.parse('/help autolockdownkill');
+		}
+	},
+	autolockdownkillhelp: [
+		"/autolockdownkill on - Turns on the setting to enable the server to automatically kill itself upon the final battle finishing. Requires ~",
+		"/autolockdownkill off - Turns off the setting to enable the server to automatically kill itself upon the final battle finishing. Requires ~",
+	],
 
 	prelockdown: function (target, room, user) {
 		if (!this.can('lockdown')) return false;
@@ -3295,6 +3424,6 @@ exports.commands = {
 process.nextTick(() => {
 	// We might want to migrate most of this to a JSON schema of command attributes.
 	Chat.multiLinePattern.register(
-		'>>>? ', '/(?:room|staff)intro ', '/(?:staff)?topic ', '/adddatacenters ', '/bash '
+		'>>>? ', '/(?:room|staff)intro ', '/(?:staff)?topic ', '/(?:add|widen)datacenters ', '/bash '
 	);
 });

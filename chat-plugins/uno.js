@@ -96,7 +96,6 @@ const cardImages = {
 const colors = ['Red', 'Blue', 'Green', 'Yellow'];
 const values = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Reverse', 'Skip', '+2'];
 
-<<<<<<< HEAD
 function cardImg(card, fullsize) {
 	let img = cardImages[card.color][card.value];
 	if (!img) return null;
@@ -104,12 +103,6 @@ function cardImg(card, fullsize) {
 	if (!img) return null;
 	return img;
 }
-=======
-function cardHTML(card, fullsize) {
-	let surface = card.value.replace(/[^A-Z0-9+]/g, "");
-	let background = rgbGradients[card.color];
-	if (surface === 'R') surface = '<i class="fa fa-refresh" aria-hidden="true"></i>';
->>>>>>> 252f844592d26ff00c26a18622acc2acd977900b
 
 function cardHTML(card, fullsize) {
 	let img = cardImg(card, fullsize);
@@ -183,7 +176,7 @@ class UNOgame extends Rooms.RoomGame {
 		this.sendToRoom(`|uhtmlchange|uno-${this.room.gameNumber}|<div class="infobox"><p>The game of UNO has started.</p>${(this.suppressMessages ? `<p style="font-size: 6pt">Game messages will be shown to only players.  If you would like to spectate the game, use <strong>/uno spectate</strong></p>` : '')}</div>`, true);
 		this.state = 'play';
 
-		this.onNextPlayer(); // determines the first player
+		this.onNextPlayer();  // determines the first player
 
 		// give cards to the players
 		for (let i in this.players) {
@@ -254,11 +247,6 @@ class UNOgame extends Rooms.RoomGame {
 
 		// handle current player...
 		if (userid === this.currentPlayer) {
-			if (this.state === 'color') {
-				this.topCard.changedColor = this.discards[1].changedColor || this.discards[1].color;
-				this.sendToRoom(`|raw|${Chat.escapeHTML(name)} has not picked a color, the color will stay as <span style="color: ${textColors[this.topCard.changedColor]}">${this.topCard.changedColor}</span>.`);
-			}
-
 			clearTimeout(this.timer);
 			this.nextTurn();
 		}
@@ -362,7 +350,7 @@ class UNOgame extends Rooms.RoomGame {
 
 		// check for legal play
 		if (player.cardLock && player.cardLock !== cardName) return `You can only play ${player.cardLock} after drawing.`;
-		if (card.color !== 'Black' && card.color !== (this.topCard.changedColor || this.topCard.color) && card.value !== this.topCard.value) return `You cannot play this card - you can only play: Wild cards, ${(this.topCard.changedColor ? 'and' : '')} ${(this.topCard.changedColor || this.topCard.color)} cards${this.topCard.changedColor ? "" : ` and ${this.topCard.value}'s`}.`;
+		if (card.color !== 'Black' && card.color !== (this.changedColor || this.topCard.color) && card.value !== this.topCard.value) return `You cannot play this card - you can only play: Wild cards, ${(this.changedColor ? 'and' : '')} ${(this.changedColor || this.topCard.color)} cards${this.changedColor ? "" : ` and ${this.topCard.value}'s`}.`;
 		if (card.value === '+4' && !player.canPlayWildFour()) return "You cannot play Wild +4 when you still have a card with the same color as the top card.";
 
 		clearTimeout(this.timer); // reset the autodq timer.
@@ -373,6 +361,7 @@ class UNOgame extends Rooms.RoomGame {
 		this.topCard = card;
 		player.removeCard(cardName);
 		this.discards.unshift(card);
+		this.changedColor = null; // clear any previous colour changes
 
 		player.sendDisplay(); // update display without the card in it for purposes such as choosing colors
 
@@ -435,7 +424,7 @@ class UNOgame extends Rooms.RoomGame {
 
 	onSelectcolor(user, color) {
 		if (!['Red', 'Blue', 'Green', 'Yellow'].includes(color) || user.userid !== this.currentPlayer || this.state !== 'color') return false;
-		this.topCard.changedColor = color;
+		this.changedColor = color;
 		this.sendToRoom(`The color has been changed to ${color}.`);
 		clearTimeout(this.timer);
 
@@ -561,7 +550,7 @@ class UNOgamePlayer extends Rooms.RoomGamePlayer {
 
 	buildHand() {
 		return this.hand.sort((a, b) => a.color.localeCompare(b.color) || a.value.localeCompare(b.value))
-			.map((c, i) => cardHTML(c, i === this.hand.length - 1));
+		.map((c, i) => cardHTML(c, i === this.hand.length - 1));
 	}
 
 	sendDisplay() {
@@ -570,11 +559,7 @@ class UNOgamePlayer extends Rooms.RoomGamePlayer {
 		let draw = '<button class="button" style="width: 30%; background: rgba(0, 0, 255, 0.05)" name=send value="/uno draw">Draw a card!</button>';
 		let pass = '<button class="button" style=" width: 30%; background: rgba(255, 0, 0, 0.05)" name=send value="/uno pass">Pass!</button>';
 
-<<<<<<< HEAD
 		let top = `<strong>Top Card: <span style="color: ${textColors[this.game.topCard.color]}">${this.game.topCard.name}</span></strong>`;
-=======
-		let top = `<strong>Top Card: <span style="color: ${textColors[this.game.topCard.changedColor || this.game.topCard.color]}">${this.game.topCard.name}</span></strong>`;
->>>>>>> 252f844592d26ff00c26a18622acc2acd977900b
 
 		// clear previous display and show new display
 		this.sendRoom("|uhtmlchange|uno-hand|");

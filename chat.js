@@ -415,11 +415,7 @@ class CommandContext {
 				message: this.message,
 			});
 			Rooms.global.reportCrash(err);
-<<<<<<< HEAD
-			this.sendReply(`|html|<div class="broadcast-red"><b>Exiled crashed!</b><br />Don't worry, we\'re working on fixing it.</div>`);
-=======
 			this.sendReply(`|html|<div class="broadcast-red"><b>Pokemon Showdown crashed!</b><br />Don't worry, we're working on fixing it.</div>`);
->>>>>>> 252f844592d26ff00c26a18622acc2acd977900b
 		}
 		if (result === undefined) result = false;
 

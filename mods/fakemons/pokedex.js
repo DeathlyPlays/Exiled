@@ -211,7 +211,7 @@ exports.BattlePokedex = {
 		},
 		abilities: {
 			0: "Compound Eyes",
-			1: "Magic Bounce",
+			H: "Magic Bounce",
 		},
 		color: "Yellow",
 		heightm: 1.1,

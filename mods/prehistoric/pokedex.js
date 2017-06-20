@@ -79,7 +79,7 @@ exports.BattlePokedex = {
 		forme: "Primal",
 		formeLetter: "P",
 		types: ["Dark", "Grass"],
-		baseStats: {hp: 88, atk: 177, def: 122, spa: 134, spd: 15, spe: 40},
+		baseStats: {hp: 88, atk: 133, def: 122, spa: 134, spd: 15, spe: 40},
 		abilities: {0: "Huge Power"},
 		heightm: 2.2,
 		weightkg: 103,

@@ -13330,7 +13330,7 @@ exports.BattleLearnsets = {
 		wideguard: ["7L46", "6L46", "5L46"],
 		workup: ["7M", "5M"],
 	}},
-		hitmontopalola: {learnset: {
+	hitmontopalola: {learnset: {
 		aerialace: ["7M", "6M", "5M", "4M"],
 		agility: ["7L37", "6L37", "5L37", "4L37", "3L37"],
 		attract: ["7M", "6M", "5M", "4M", "3M"],
@@ -60492,7 +60492,6 @@ exports.BattleLearnsets = {
 		hypnosis: ["7E"],
 		triattack: ["7M"],
 		revelationdance: ["7L52"],
-		energyball: ["7L31"],
 		teeterdance: ["6M"],
 		faketears: ["7L28", "6L28", "5L28", "4L25", "3L41"],
 		flash: ["6M", "5M", "4M", "3M"],

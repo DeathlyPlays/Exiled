@@ -14,18 +14,78 @@ exports.commands = {
 
 	'!statset': true,
 	statset: function () {
-		let statHP = Math.floor(Math.random() * 151);
-		let statAtk = Math.floor(Math.random() * 181);
-		let statDef = Math.floor(Math.random() * 151);
-		let statSpa = Math.floor(Math.random() * 181);
-		let statSpd = Math.floor(Math.random() * 151);
-		let statSpe = Math.floor(Math.random() * 181);
+		let statHP = Math.floor(Math.random() * 100) + 50;
+		let statAtk = Math.floor(Math.random() * 100) + 80;
+		let statDef = Math.floor(Math.random() * 100) + 50;
+		let statSpa = Math.floor(Math.random() * 100) + 80;
+		let statSpd = Math.floor(Math.random() * 100) + 50;
+		let statSpe = Math.floor(Math.random() * 100) + 80;
 		let statBst = statHP + statAtk + statDef + statSpa + statSpd + statSpe;
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox('Generated Statset: ' + statHP + ' / ' + statAtk + ' / ' + statDef + ' / ' + statSpa + ' / ' + statSpd + ' / ' + statSpe + ' | BST: ' + statBst);
+		if (statBst <= 200) {
+			return this.sendReplyBox('Tier: LC');
+		} else if (statBst > 200 && statBst < 400) {
+			return this.sendReplyBox('Tier: NFE');
+		} else if (statBst > 400 && statBst < 500) {
+			return this.sendReplyBox('Tier: NU');
+		} else if (statBst > 500 && statBst < 600) {
+			return this.sendReplyBox('Tier: UU');
+		} else if (statBst > 600 && statBst < 680) {
+			return this.sendReplyBox('Tier: OU');
+		} else if (statBst >= 680) {
+			return this.sendReplyBox('Tier: Ubers');
+		}
 	},
 	statsethelp: [
-		"/statset - Generates a random set of stats. Ideally used for creating Fakemon stats.",
+		"/statset - Generates a random spread of stats.",
+	],
+
+	'!type': true,
+	type: "randtype",
+	randtype: function () {
+		let gen = Math.floor(Math.random() * 18);
+		if (!this.runBroadcast()) return;
+		if (gen === 0) {
+			return this.sendReplyBox('Generated Type: Fire');
+		} else if (gen === 1) {
+			return this.sendReplyBox('Generated Type: Water');
+		} else if (gen === 2) {
+			return this.sendReplyBox('Generated Type: Grass');
+		} else if (gen === 3) {
+			return this.sendReplyBox('Generated Type: Electric');
+		} else if (gen === 4) {
+			return this.sendReplyBox('Generated Type: Ground');
+		} else if (gen === 5) {
+			return this.sendReplyBox('Generated Type: Rock');
+		} else if (gen === 6) {
+			return this.sendReplyBox('Generated Type: Flying');
+		} else if (gen === 7) {
+			return this.sendReplyBox('Generated Type: Poison');
+		} else if (gen === 8) {
+			return this.sendReplyBox('Generated Type: Fighting');
+		} else if (gen === 9) {
+			return this.sendReplyBox('Generated Type: Ice');
+		} else if (gen === 10) {
+			return this.sendReplyBox('Generated Type: Bug');
+		} else if (gen === 11) {
+			return this.sendReplyBox('Generated Type: Dragon');
+		} else if (gen === 12) {
+			return this.sendReplyBox('Generated Type: Psychic');
+		} else if (gen === 13) {
+			return this.sendReplyBox('Generated Type: Dark');
+		} else if (gen === 14) {
+			return this.sendReplyBox('Generated Type: Ghost');
+		} else if (gen === 15) {
+			return this.sendReplyBox('Generated Type: Steel');
+		} else if (gen === 16) {
+			return this.sendReplyBox('Generated Type: Fairy');
+		} else if (gen === 17) {
+			return this.sendReplyBox('Generated Type: Normal');
+		}
+	},
+	typehelp: [
+		"/type - Generates a random typing.",
 	],
 
 	'!groups': true,

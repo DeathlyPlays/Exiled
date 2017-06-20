@@ -7541,4 +7541,32 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Mamoswine, this item allows it to Mega Evolve in battle.",
 	},
+	"rapidashite": {
+		id: "rapidashite",
+		name: "Rapidashite",
+		spritenum: -624,
+		megaStone: "Rapidash-Mega",
+		megaEvolves: "Rapidash",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -764,
+		gen: 0,
+		desc: "If holder is a Rapidash, this item allows it to Mega Evolve in battle.",
+	},
+	"wigglytuffite": {
+		id: "wigglytuffite",
+		name: "Wigglytuffite",
+		spritenum: -624,
+		megaStone: "Wigglytuff-Mega",
+		megaEvolves: "Wigglytuff",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -764,
+		gen: 0,
+		desc: "If holder is a Wigglytuff, this item allows it to Mega Evolve in battle.",
+	},
 };

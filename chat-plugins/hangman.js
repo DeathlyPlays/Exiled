@@ -208,8 +208,8 @@ exports.commands = {
 			if (!params) return this.errorReply("No word entered.");
 			let word = params[0].replace(/[^A-Za-z '-]/g, '');
 			if (word.replace(/ /g, '').length < 1) return this.errorReply("Enter a valid word");
-			if (word.length > 50) return this.errorReply("Phrase must be less than 50 characters.");
-			if (word.split(' ').some(w => w.length > 20)) return this.errorReply("Each word in the phrase must be less than 20 characters.");
+			if (word.length > 100) return this.errorReply("Phrase must be less than 50 characters.");
+			if (word.split(' ').some(w => w.length > 100)) return this.errorReply("Each word in the phrase must be less than 20 characters.");
 			if (!/[a-zA-Z]/.test(word)) return this.errorReply("Word must contain at least one letter.");
 
 			let hint;

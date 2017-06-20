@@ -415,8 +415,6 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
-		section: "Mix and Mega",
-		column: 6,
 		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],
@@ -479,8 +477,6 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
-		section: "Mix and Mega",
-		column: 6,
 		searchShow: true,
 		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
 		banlist: ['Electrify', 'Beedrillite', 'Medichamite', 'Deoxys + Mawilite', 'Deoxys-Attack + Mawilite', 'Arceus + Mawilite', 'Blissey + Meganiumite', 'Blissey + Furretite'],
@@ -538,8 +534,6 @@ exports.Formats = [
 		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3605195/\">M&M Suspect #4</a>"],
 
 		mod: 'mixandmega',
-		column: 6,
-		section: "Mix and Mega",
 		challengeShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],

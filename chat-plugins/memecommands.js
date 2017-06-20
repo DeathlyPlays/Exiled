@@ -328,6 +328,16 @@ exports.commands = {
 		room.add(User + ' has bopped ' + target + ' in the face!');
 		targetUser.popup("Get bopped boi");
 	},
+	burn: 'disintegrate',
+	disintegrate: function (target, room, user) {
+		if (!target) return this.sendReply('/burn needs a target.');
+		if (!this.can('root', null, room)) return this.errorReply('Access Denied');
+		let targetUser = Users.get(target);
+		let User = user.userid;
+		room.add(target + ' was disintegrated by ' + User + '!');
+		targetUser.popup("Get burned!");
+		this.parse('/flogout ' + targetUser);
+	},
 	/*
 	MEME RANDOMIZER
 	Coded by:

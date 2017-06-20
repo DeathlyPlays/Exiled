@@ -6785,4 +6785,8 @@ exports.BattleFormatsData = {
 		requiredItem: "Furretite",
 		tier: "AG",
 	},
+	pachirisumega: {
+		requiredItem: "Pachite",
+		tier: "AG",
+	},
 };

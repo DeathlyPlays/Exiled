@@ -479,10 +479,14 @@ exports.BattleAliases = {
 	"yache": "Yache Berry",
 
 	// pokemon
-	"karp": "Magikarp",
 	"azure": "Trubbish",
 	"flufi": "Raichu",
-	"mewth": "Cutiefly",
+	"mewth": "Furret",
+	"horrific": "Arcanine",
+	"amber": "Ninetales-Alola",
+	"lassninetales": "Ninetales-Alola",
+	"princessteddiursa": "Teddiursa",
+	"exiled": "Cresselia",
 	"insist": "Ludicolo",
 	"hoeenhero": "Ludicolo",
 	"noviex": "Tyranitar",

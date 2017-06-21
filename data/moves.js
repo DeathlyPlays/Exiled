@@ -5646,6 +5646,30 @@ exports.BattleMovedex = {
 		zMovePower: 170,
 		contestType: "Tough",
 	},
+	"tundrasweep": { //signature move for Lanturn-Alola
+		num: -6000,
+		accuracy: 100,
+		basePower: 80,
+		category: "Special",
+		desc: "This move combines Flying in its type effectiveness against the target. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
+		shortDesc: "Combines Water in its type effectiveness. 20% frz chance.",
+		id: "tundrasweep",
+		name: "Tundra Sweep",
+		pp: 10,
+		flags: {contact: 1, protect: 1, mirror: 1, distance: 1},
+		onEffectiveness: function (typeMod, type, move) {
+			return typeMod + this.getEffectiveness('Water', type);
+		},
+		priority: 0,
+		secondary: {
+			chance: 20,
+			status: 'frz',
+		},
+		target: "allAdjacent",
+		type: "Ice",
+		zMovePower: 165,
+		contestType: "Beautiful",
+	},
 	"focusblast": {
 		num: 411,
 		accuracy: 70,

@@ -289,33 +289,12 @@ exports.BattleMovedex = {
 		target: "self",
 		type: "Normal",
 	},
-	"darkvoid": {
-		num: 464,
+	darkvoid: {
+		inherit: true,
+		desc: "Causes the target to fall asleep.",
+		shortDesc: "Puts the foe(s) to sleep.",
 		accuracy: 80,
-		basePower: 0,
-		category: "Status",
-		desc: "Causes the target to fall asleep. This move cannot be used successfully unless the user's current form, while considering Transform, is Darkrai.",
-		shortDesc: "Darkrai: Puts the foe(s) to sleep.",
-		id: "darkvoid",
-		isViable: true,
-		name: "Dark Void",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, reflectable: 1, mirror: 1},
-		status: 'slp',
-		onTryMove: function (pokemon, target, move) {
-			if (pokemon.template.species === 'Purrloin' || move.hasBounced) {
-				return;
-			}
-			this.add('-fail', pokemon, 'move: Dark Void');
-			this.add('-hint', "Only a Pokemon whose form is Purrloin can use this move.");
-			return null;
-		},
-		secondary: false,
-		target: "allAdjacentFoes",
-		type: "Dark",
-		zMoveEffect: 'clearnegativeboost',
-		contestType: "Clever",
+		onTryMove: function () {},
 	},
 	//Rainy Orb
 	rainyorb: {

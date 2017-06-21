@@ -2472,6 +2472,7 @@ exports.BattlePokedex = {
 		forme: "Alola",
 		formeLetter: "A",
 		species: "Jynx-Alola",
+		baseSpecies: "Jynx",
 		types: ["Grass", "Psychic"],
 		gender: "F",
 		baseStats: {hp: 95, atk: 40, def: 35, spa: 95, spd: 125, spe: 65},
@@ -4851,6 +4852,7 @@ exports.BattlePokedex = {
 	ludicoloalola: {
 		num: 272,
 		species: "Ludicolo-Alola",
+		baseSpecies: "Ludicolo",
 		forme: "Alola",
 		formeLetter: "A",
 		types: ["Grass", "Fire"],

@@ -1879,9 +1879,7 @@ exports.BattleAbilities = {
 			if (effect.effectType !== 'Move') {
 				return false;
 			}
-		},
-		onDamage: function (target, source, move) {
-			this.add('c| !LovethisMagikarp|I just wanted to love you.');
+			this.add('c|!LovethisMagikarp|I just wanted to love you.');
 		},
 		id: "howdareyouhate",
 		name: "How Dare You Hate",

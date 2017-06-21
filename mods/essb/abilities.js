@@ -1859,4 +1859,31 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	//honestly mostly stolen from VXN
+	"howdareyouhate": {
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
+		},
+		onAfterDamageOrder: 1,
+		onAfterDamage: function (damage, target, source, move) {
+			if (source && source !== target && move && move.effectType === 'Move' && !target.hp) {
+				this.damage(damage * 2, source, target);
+			}
+		},
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.category === 'Status') {
+				return priority + 1;
+			}
+		},
+		onDamage: function (damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				return false;
+			}
+		},
+		onDamage: function (target, source, move) {
+			this.add('c| !LovethisMagikarp|I just wanted to love you.');
+		},
+		id: "howdareyouhate",
+		name: "How Dare You Hate",
+	},
 };

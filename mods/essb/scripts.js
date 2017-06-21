@@ -602,6 +602,17 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			"!LovethisMagikarp": {
+				species: "Magikarp",
+				ability: "How Dare You Hate",
+				item: "Focus Sash",
+				moves: ['attract', 'charm', 'captivate', 'baby-dolleyes'],
+				evs: {
+					hp: 252,
+					spe: 252,
+				},
+				nature: "Jolly",
+			},
 		};
 		// Generate the team randomly.
 		let pool = Dex.shuffle(Object.keys(sets));

@@ -1777,6 +1777,12 @@ exports.Formats = [
 					spe: 1,
 				});
 			}
+			if (name === 'vxn' && !pokemon.illusion) {
+				this.boost({
+					spd: -12,
+					def: -12,
+				});
+			}
 			if (name === 'douglasgamer' && !pokemon.illusion) {
 				this.boost({
 					spa: 1,

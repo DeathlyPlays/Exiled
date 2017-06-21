@@ -75,7 +75,7 @@ exports.BattleAbilities = {
 	},
 	"lastlaugh": {
 		onStart: function (pokemon) {
-			this.boost({def: -12, spd: -12});
+			this.add('-ability', pokemon, 'Dark Aura');
 		},
 		onModifyMove: function (move) {
 			move.ignoreAbility = true;
@@ -1861,6 +1861,9 @@ exports.BattleAbilities = {
 	},
 	//honestly mostly stolen from VXN
 	"howdareyouhate": {
+		onStart: function (pokemon) {
+			this.add('-ability', pokemon, 'How Dare You Hate');
+		},
 		onModifyMove: function (move) {
 			move.ignoreAbility = true;
 		},

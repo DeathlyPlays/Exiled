@@ -602,6 +602,20 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
+			" DivineSaiyanScaris": {
+				species: "Infernape",
+				ability: "Fighters Heart",
+				item: "Life Orb",
+				moves: ['closecombat', 'moonblast', 'solarbeam'],
+				baseSignatureMove: "warriorsinferno",
+				signatureMove: "Warriors Inferno",
+				evs: {
+					atk: 126,
+					spe: 252,
+					spa: 126,
+				},
+				nature: "Hasty",
+			},
 			"!LovethisMagikarp": {
 				species: "Magikarp",
 				ability: "How Dare You Hate",

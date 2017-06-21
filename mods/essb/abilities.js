@@ -96,6 +96,11 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
+		onFoeTrapPokemon: function (pokemon) {
+			if (!pokemon.hasAbility('lastlaugh') && this.isAdjacent(pokemon, this.effectData.target)) {
+				pokemon.tryTrap(true);
+			}
+		},
 		id: "lastlaugh",
 		name: "Last Laugh",
 	},

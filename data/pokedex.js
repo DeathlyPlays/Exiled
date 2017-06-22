@@ -8721,7 +8721,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Psychic", "Fairy"],
 		baseStats: {hp: 120, atk: 70, def: 150, spa: 115, spd: 150, spe: 95},
-		abilities: {0: "Levitate"},
+		abilities: {0: "Psychic Surge"},
 		heightm: 1.6,
 		weightkg: 80.7,
 		color: "Yellow",

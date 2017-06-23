@@ -58,6 +58,29 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Water",
 	},
+	//Ransensei
+	"legendsambition": {
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		id: "legendsambition",
+		name: "Legend's Ambition",
+		pp: 10,
+		priority: 0,
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Outrage", target);
+			this.add('-anim', source, "V-Create", target);
+			this.add('-anim', source, "Psystrike", target);
+		},
+		target: "normal",
+		type: "Dragon",
+	},
 	//Jigglykong
 	"plasmablast": {
 		accuracy: 100,

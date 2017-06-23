@@ -1842,9 +1842,7 @@ exports.BattleAbilities = {
 	"Fighters Heart": {
 		shortDesc: "Boosts user's Attack Special Attack and Spe upon entry.",
 		onStart: function (pokemon) {
-			self: {
-				this.boost({atk: 1, spa: 1, spe: 1});
-			}
+			this.boost({atk: 1, spa: 1, spe: 1});
 		},
 		id: "fightersheart",
 		name: "Fighters Heart",

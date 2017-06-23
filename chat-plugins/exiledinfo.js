@@ -14,15 +14,96 @@ exports.commands = {
 
 	'!statset': true,
 	statset: function () {
-		let statHP = Math.floor(Math.random() * 100) + 50;
-		let statAtk = Math.floor(Math.random() * 100) + 80;
-		let statDef = Math.floor(Math.random() * 100) + 50;
-		let statSpa = Math.floor(Math.random() * 100) + 80;
-		let statSpd = Math.floor(Math.random() * 100) + 50;
-		let statSpe = Math.floor(Math.random() * 100) + 80;
+		let moveRollOne = Math.floor(Math.random() * 8);
+		let moveRollTwo = Math.floor(Math.random() * 8);
+		let moveRollThree = Math.floor(Math.random() * 8);
+		let moveRollFour = Math.floor(Math.random() * 8);
+		if (moveRollOne === 0) {
+			let moveOne = 'Stealth Rock'; /*global moveOne*/
+		} else if (moveRollOne === 1) {
+			let moveOne = 'Taunt';
+		} else if (moveRollOne === 2) {
+			let moveOne = 'Thunderbolt';
+		} else if (moveRollOne === 3) {
+			let moveOne = 'Rock Slide';
+		} else if (moveRollOne === 4) {
+			let moveOne = 'Roar';
+		} else if (moveRollOne === 5) {
+			let moveOne = 'Recover';
+		} else if (moveRollOne === 6) {
+			let moveOne = 'Scald';
+		} else if (moveRollOne === 7) {
+			let moveOne = 'Leaf Storm';
+		} else if (moveRollOne === 8) {
+			let moveOne = 'Double-Edge';
+		}
+		if (moveRollThree === 0) {
+			let moveThree = 'Stealth Rock'; /*global moveThree*/
+		} else if (moveRollThree === 1) {
+			let moveThree = 'Taunt';
+		} else if (moveRollThree === 2) {
+			let moveThree = 'Thunderbolt';
+		} else if (moveRollThree === 3) {
+			let moveThree = 'Rock Slide';
+		} else if (moveRollThree === 4) {
+			let moveThree = 'Roar';
+		} else if (moveRollThree === 5) {
+			let moveThree = 'Recover';
+		} else if (moveRollThree === 6) {
+			let moveThree = 'Scald';
+		} else if (moveRollThree === 7) {
+			let moveThree = 'Leaf Storm';
+		} else if (moveRollThree === 8) {
+			let moveThree = 'Double-Edge';
+		}
+		if (moveRollTwo === 0) {
+			let moveTwo = 'Stealth Rock'; /*global moveTwo*/
+		} else if (moveRollTwo === 1) {
+			let moveTwo = 'Taunt';
+		} else if (moveRollTwo === 2) {
+			let moveTwo = 'Thunderbolt';
+		} else if (moveRollTwo === 3) {
+			let moveTwo = 'Rock Slide';
+		} else if (moveRollTwo === 4) {
+			let moveTwo = 'Roar';
+		} else if (moveRollTwo === 5) {
+			let moveTwo = 'Recover';
+		} else if (moveRollTwo === 6) {
+			let moveTwo = 'Scald';
+		} else if (moveRollTwo === 7) {
+			let moveTwo = 'Leaf Storm';
+		} else if (moveRollTwo === 8) {
+			let moveTwo = 'Double-Edge';
+		}
+		if (moveRollFour === 0) {
+			let moveFour = 'Stealth Rock'; /*global moveFour*/
+		} else if (moveRollFour === 1) {
+			let moveFour = 'Taunt';
+		} else if (moveRollFour === 2) {
+			let moveFour = 'Thunderbolt';
+		} else if (moveRollFour === 3) {
+			let moveFour = 'Rock Slide';
+		} else if (moveRollFour === 4) {
+			let moveFour = 'Roar';
+		} else if (moveRollFour === 5) {
+			let moveFour = 'Recover';
+		} else if (moveRollFour === 6) {
+			let moveFour = 'Scald';
+		} else if (moveRollFour === 7) {
+			let moveFour = 'Leaf Storm';
+		} else if (moveRollFour === 8) {
+			let moveFour = 'Double-Edge';
+		}
+		let statHP = Math.floor(Math.random() * 100) + 30;
+		let statAtk = Math.floor(Math.random() * 100) + 70;
+		let statDef = Math.floor(Math.random() * 100) + 40;
+		let statSpa = Math.floor(Math.random() * 100) + 70;
+		let statSpd = Math.floor(Math.random() * 100) + 40;
+		let statSpe = Math.floor(Math.random() * 100) + 60;
 		let statBst = statHP + statAtk + statDef + statSpa + statSpd + statSpe;
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox('Generated Statset: ' + statHP + ' / ' + statAtk + ' / ' + statDef + ' / ' + statSpa + ' / ' + statSpd + ' / ' + statSpe + ' | BST: ' + statBst);
+		this.sendReplyBox(moveOne + ", " + moveTwo + ", " + moveThree + ", " + moveFour);
 		if (statBst <= 200) {
 			return this.sendReplyBox('Tier: LC');
 		} else if (statBst > 200 && statBst < 400) {

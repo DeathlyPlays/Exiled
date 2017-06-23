@@ -5652,19 +5652,17 @@ exports.BattleMovedex = {
 		basePower: 80,
 		category: "Special",
 		desc: "This move combines Flying in its type effectiveness against the target. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
-		shortDesc: "Combines Water in its type effectiveness. 20% frz chance.",
+		shortDesc: "Adds Water and Ground to type effectiveness.",
 		id: "tundrasweep",
 		name: "Tundra Sweep",
 		pp: 10,
 		flags: {contact: 1, protect: 1, mirror: 1, distance: 1},
 		onEffectiveness: function (typeMod, type, move) {
 			return typeMod + this.getEffectiveness('Water', type);
+			return typeMod + this.getEffectiveness('Ground', type);
 		},
 		priority: 0,
-		secondary: {
-			chance: 20,
-			status: 'frz',
-		},
+		secondary: false,
 		target: "allAdjacent",
 		type: "Ice",
 		zMovePower: 165,
@@ -14203,20 +14201,6 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		secondary: false,
-		onHit: function (target, pokemon) {
-			if (pokemon.baseTemplate.baseSpecies === 'Keldeo' && !pokemon.transformed) {
-				pokemon.addVolatile('secretsword');
-			}
-		},
-		effect: {
-			duration: 1,
-			onAfterMoveSecondarySelf: function (pokemon, target, move) {
-				if (pokemon.formeChange(pokemon.template.speciesid === 'keldeoresolute' ? 'Keldeo' : 'Keldeo-Resolute')) {
-					this.add('-formechange', pokemon, pokemon.illusion ? pokemon.illusion.template.species : pokemon.template.species, '[msg]');
-				}
-				pokemon.removeVolatile('secretsword');
-			},
-		},
 		target: "normal",
 		type: "Fighting",
 		zMovePower: 160,

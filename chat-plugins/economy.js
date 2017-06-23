@@ -55,7 +55,7 @@ let shop = [
 	['Profile Help', 'Staff members will help you set your profile. (responses may not be immediate)', 50],
 	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 50],
 	['Custom PM Box', 'A Custom Designed PM Box Created by LassNinetales for you. [can be refused]', 75],
-	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Exiled Super Staff Bros metagame. Insist will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 100],
+	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Exiled Super Staff Bros metagame. Insist will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 500],
 ];
 
 let shopDisplay = getShopDisplay(shop);

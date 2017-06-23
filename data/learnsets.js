@@ -20152,6 +20152,7 @@ exports.BattleLearnsets = {
 		blizzard: ["7M", "6M", "5M", "4M", "3M"],
 		bounce: ["6T", "5T", "4T"],
 		brine: ["4M"],
+		tundrasweep: ["7L1"],
 		bubble: ["7L1", "6L1", "5L1", "4L1", "3L1"],
 		bubblebeam: ["7L20", "6L20", "5L35", "4L30"],
 		captivate: ["4M"],

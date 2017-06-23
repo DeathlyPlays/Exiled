@@ -4285,6 +4285,24 @@ exports.BattleAbilities = {
 		rating: 3,
 		num: 0,
 	},
+	"resolutepower": {
+		desc: "If this Pokemon is a Keldeo, it transforms into Keldeo-Resolute after knocking out a Pokemon.",
+		shortDesc: "After KOing a Pokemon: becomes Keldeo-Resolute.",
+		onSourceFaint: function (target, source, effect) {
+			if (effect && effect.effectType === 'Move' && source.template.speciesid === 'keldeo' && source.hp && !source.transformed && source.side.foe.pokemonLeft) {
+				this.add('-activate', source, 'ability: Resolute Power');
+				let template = this.getTemplate('Keldeo-Resolute');
+				source.formeChange(template);
+				source.baseTemplate = template;
+				source.details = template.species + (source.level === 100 ? '' : ', L' + source.level) + (source.gender === '' ? '' : ', ' + source.gender) + (source.set.shiny ? ', shiny' : '');
+				this.add('detailschange', source, source.details);
+			}
+		},
+		id: "resolutepower",
+		name: "Resolute Power",
+		rating: 4,
+		num: 0,
+	},
 	"luster": {
 		id: "luster",
 		name: "Luster",

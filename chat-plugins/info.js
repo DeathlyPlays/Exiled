@@ -1505,10 +1505,10 @@ exports.commands = {
 		});
 
 		const ProcessManager = require('../process-manager');
-		ProcessManager.cache.forEach((processManager, execFile) => {
+		ProcessManager.cache.forEach((execFile, processManager) => {
 			let i = 0;
 			processManager.processes.forEach(process => {
-				buf += `<strong>${process.process.pid}</strong> - ${path.baseName(execFile)} ${i++}<br />`;
+				buf += `<strong>${process.process.pid}</strong> - ${path.basename(execFile)} ${i++}<br />`;
 			});
 		});
 
@@ -1733,6 +1733,8 @@ exports.commands = {
 	'!veekun': true,
 	veekun: function (target, broadcast, user) {
 		if (!this.runBroadcast()) return;
+
+		if (!target) return this.parse('/help veekun');
 
 		let baseLink = 'http://veekun.com/dex/';
 

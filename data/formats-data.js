@@ -353,6 +353,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 1, "nature": "Hardy", "moves":["thunderbolt", "quickattack", "thunder", "agility"]},
 		],
 		eventOnly: true,
+		gen: 7,
 		tier: "NU",
 	},
 	pikachuhoenn: {
@@ -360,6 +361,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 6, "nature": "Hardy", "moves":["thunderbolt", "quickattack", "thunder", "irontail"]},
 		],
 		eventOnly: true,
+		gen: 7,
 		tier: "NU",
 	},
 	pikachusinnoh: {
@@ -367,6 +369,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 10, "nature": "Hardy", "moves":["thunderbolt", "quickattack", "irontail", "volttackle"]},
 		],
 		eventOnly: true,
+		gen: 7,
 		tier: "NU",
 	},
 	pikachuunova: {
@@ -374,6 +377,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 14, "nature": "Hardy", "moves":["thunderbolt", "quickattack", "irontail", "volttackle"]},
 		],
 		eventOnly: true,
+		gen: 7,
 		tier: "NU",
 	},
 	pikachukalos: {
@@ -381,6 +385,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 17, "nature": "Hardy", "moves":["thunderbolt", "quickattack", "irontail", "electroball"]},
 		],
 		eventOnly: true,
+		gen: 7,
 		tier: "NU",
 	},
 	pikachualola: {
@@ -388,6 +393,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 20, "nature": "Hardy", "moves":["thunderbolt", "quickattack", "irontail", "electroball"]},
 		],
 		eventOnly: true,
+		gen: 7,
 		isUnreleased: true,
 		tier: "Unreleased",
 	},
@@ -2127,7 +2133,7 @@ exports.BattleFormatsData = {
 			{"generation": 4, "level": 30, "gender": "M", "nature": "Jolly", "moves":["fakeout", "iceshard", "nightslash", "brickbreak"], "pokeball": "cherishball"},
 			{"generation": 6, "level": 48, "gender": "M", "perfectIVs": 2, "isHidden": false, "moves":["nightslash", "icepunch", "brickbreak", "xscissor"], "pokeball": "cherishball"},
 		],
-		tier: "BL",
+		tier: "UU",
 	},
 	teddiursa: {
 		randomBattleMoves: ["swordsdance", "protect", "facade", "closecombat", "firepunch", "crunch", "playrough", "gunkshot"],
@@ -2240,7 +2246,7 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["nastyplot", "darkpulse", "taunt", "fireblast", "hiddenpowergrass"],
 		randomDoubleBattleMoves: ["nastyplot", "darkpulse", "taunt", "heatwave", "hiddenpowergrass", "protect"],
 		requiredItem: "Houndoominite",
-		tier: "UU",
+		tier: "BL",
 	},
 	phanpy: {
 		randomBattleMoves: ["stealthrock", "earthquake", "iceshard", "headsmash", "knockoff", "seedbomb", "superpower", "playrough"],

@@ -1430,6 +1430,7 @@ exports.BattleMovedex = {
 		type: "Fire",
 	},
 	//ProfessorBulbasaur
+<<<<<<< HEAD
 	"bulbalord": {
 		id: "bulbalord",
 		name: "Bulba Lord",
@@ -1462,6 +1463,8 @@ exports.BattleMovedex = {
 		contestType: "Cool",
 	},
 	//ProfessorBulbasaur
+=======
+>>>>>>> b920c359fc195d17c0e6a2ad40f5c171f4a3c6d1
 	"onebulbasaurhorde": {
 		id: "onebulbasaurhorde",
 		name: "One Bulbasaur Horde",

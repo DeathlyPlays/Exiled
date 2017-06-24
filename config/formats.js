@@ -1032,14 +1032,8 @@ exports.Formats = [
 		requirePentagon: true,
 	},
 	{
-<<<<<<< HEAD
-		name: "Triples Custom Game",
-		section: "ORAS Doubles/Triples",
-		mod: 'pmd',
-=======
 		name: "[Gen 6] Triples Custom Game",
-
->>>>>>> a78177899ca91d4bf728cacb10d97eedce0ffd88
+		mod: "pmd",
 		gameType: 'triples',
 		canUseRandomTeam: true,
 		maxLevel: 9999,

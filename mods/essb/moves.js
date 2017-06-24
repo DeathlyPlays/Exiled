@@ -6,6 +6,7 @@ exports.BattleMovedex = {
 		id: "aquasubscribe",
 		name: "Aqua Subscribe",
 		priority: 1,
+		desc: "Boosts user's SpA and Spe by one stage",
 		self: {
 			boosts: {
 				spa: 1,
@@ -40,6 +41,7 @@ exports.BattleMovedex = {
 		basePower: 150,
 		accuracy: 100,
 		pp: 0.625,
+		desc: "No additional information",
 		secondary: false,
 		category: "Special",
 		isViable: true,
@@ -75,6 +77,7 @@ exports.BattleMovedex = {
 			chance: 20,
 			status: 'brn',
 		}],
+		desc: "20% chance to burn, and Electric type effectiveness",
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Techno Blast", target);
@@ -204,6 +207,7 @@ exports.BattleMovedex = {
 		name: "Slowtown King",
 		pp: 20,
 		priority: 0,
+		boosts: "Boosts targets Spe by 2 stages",
 		flags: {protect: 1, mirror: 1},
 		boosts: {
 			spe: 2,
@@ -222,6 +226,7 @@ exports.BattleMovedex = {
 		name: "Meth, Memes, and Edgy Teens",
 		pp: 10,
 		priority: 0,
+		desc: "50% chance to boost Atk, Def, and SpD by 1 stage",
 		flags: {protect: 1, mirror: 1},
 		secondary: {
 			chance: 50,
@@ -315,6 +320,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		category: "Special",
 		id: "exile",
+		desc: "Changes forme to Cresselia (or back to Darkrai) and substitutes moves.",
 		isViable: true,
 		name: "Exile",
 		pp: 10,
@@ -367,6 +373,7 @@ exports.BattleMovedex = {
 		id: "roleplaying",
 		name: "Roleplaying",
 		basePower: 120,
+		def: "No additional information.",
 		accuracy: 100,
 		pp: 10,
 		priority: 0,
@@ -418,6 +425,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 90,
 		pp: 15,
+		desc: "Boosts user's SpA and Spe by 1 stage",
 		priority: 0,
 		self: {
 			boosts: {
@@ -447,6 +455,7 @@ exports.BattleMovedex = {
 		basePower: 180,
 		category: "Physical",
 		pp: 5,
+		def: "Psychic type V-Create",
 		priority: 0,
 		flags: {
 			contact: 1,
@@ -471,88 +480,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Psychic",
 	},
-	//philmiester
-	"heathcliffsrevenge": {
-		id: "heathcliffsrevenge",
-		name: "Heathcliff's Revenge",
-		category: "Status",
-		basePower: 0,
-		priority: 0,
-		accuracy: 100,
-		flags: {
-			snatch: 1,
-		},
-		boosts: {
-			atk: 2,
-			spe: 2,
-		},
-		pp: 20,
-		secondary: false,
-		onHit: function (target, source, move) {
-			this.add('c| Philmiester|I\'m here to avenge Heathcliff <3');
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Dragon Dance", target);
-		},
-		type: "Psychic",
-		target: "self",
-	},
-	//AB Starfox
-	"fuckthismatchup": {
-		accuracy: 70,
-		basePower: 110,
-		category: "Special",
-		id: "fuckthismatchup",
-		name: "Fuck This Matchup",
-		pp: 15,
-		priority: 1,
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		onTryHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Hurricane", target);
-		},
-		onEffectiveness: function (typeMod, type) {
-			if (type === 'Steel') return 1;
-		},
-		secondary: {
-			chance: 30,
-			volatileStatus: "confusion",
-		},
-		target: "normal",
-		type: "Flying",
-	},
-	//kairak
-	"bowingandblowing": {
-		id: "bowingandblowing",
-		name: "Bowing and Blowing",
-		category: "Physical",
-		basePower: 95,
-		accuracy: 100,
-		priority: 0,
-		flags: {
-			protect: 1,
-			mirror: 1,
-			contact: 1,
-		},
-		secondary: {
-			chance: 40,
-			status: "tox",
-		},
-		pp: 15,
-		onHit: function (target, source, move) {
-			this.add('c| Kairak|Bowing and blowing, gj squad.');
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Poison Jab", target);
-		},
-		type: "Poison",
-		target: "normal",
-	},
 	//volco
 	"volcanosrevenge": {
 		id: "volcanosrevenge",
@@ -565,6 +492,7 @@ exports.BattleMovedex = {
 			mirror: 1,
 			defrost: 1,
 		},
+		desc: "Hits on Physical Defense, 20% chance to confuse, 20% chance to raise SpA and SpD by 1 stage",
 		secondary: {
 			chance: 20,
 			volatileStatus: "confusion",
@@ -589,32 +517,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
-	//bronze0re
-	"dyingstar": {
-		id: "dyingstar",
-		name: "Dying Star",
-		basePower: 250,
-		category: "Special",
-		accuracy: true,
-		priority: 1,
-		pp: 5,
-		flags: {
-			protect: 1,
-			mirror: 1,
-			defrost: 1,
-		},
-		selfdestruct: "always",
-		onHit: function (target, source, move) {
-			this.add('c|&Bronze0re|RIP Star');
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Explosion", target);
-		},
-		type: "Fire",
-		target: "normal",
-		secondary: false,
-	},
 	"meditate": {
 		inherit: true,
 		boosts: {
@@ -638,6 +540,7 @@ exports.BattleMovedex = {
 	"rushofdragonbolt": {
 		accuracy: 100,
 		basePower: 80,
+		desc: "If the target faints from this move, the user's Atk and Spe raise one stage",
 		category: "Physical",
 		id: "rushofdragonbolt",
 		name: "Rush of Dragon Bolt",
@@ -663,6 +566,7 @@ exports.BattleMovedex = {
 		id: "rushofvolcanothunder",
 		name: "Rush Of Volcano Thunder",
 		pp: 0.625,
+		desc: "Does a lot of damage, at the price of recharging next turn",
 		isZ: 'playeriniumz',
 		flags: {contact: 1, recharge: 1, protect: 1, mirror: 1},
 		self: {
@@ -675,100 +579,12 @@ exports.BattleMovedex = {
 		zMovePower: 160,
 		contestType: "Tough",
 	},
-	//supanova
-	"supernova": {
-		id: "supernova",
-		name: "Supernova",
-		ohko: true,
-		accuracy: true,
-		selfdestruct: true,
-		basePower: 0,
-		category: "Physical",
-		priority: 1,
-		pp: 5,
-		flags: {
-			protect: 1,
-			mirror: 1,
-			defrost: 1,
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Explosion", target);
-		},
-		type: "Fire",
-		target: "normal",
-		secondary: false,
-	},
-	//speckeldorft
-	"fuckingnormies": {
-		id: "fuckingnormies",
-		name: "FUCKING NORMIES",
-		basePower: 70,
-		accuracy: true,
-		pp: 15,
-		category: "Special",
-		priority: 0,
-		drain: [1, 2],
-		self: {
-			boosts: {
-				def: 1,
-				spa: 1,
-				spd: 1,
-				spe: 1,
-			},
-		},
-		secondary: {
-			volatileStatus: 'confusion',
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Hyper Voice", target);
-		},
-		onHit: function (target, source, move) {
-			this.add('c| Speckeldorft|FUCKING NORMIES');
-			this.add('c| Speckeldorft|RRRRRRRRRRRRRRREEEEEEEEEEEEEEEEEEEEEEE');
-		},
-		target: "normal",
-		flags: {
-			snatch: 1,
-			protect: 1,
-		},
-		type: "Fairy",
-	},
-	//yoshonic
-	"downb": {
-		id: "downb",
-		name: "Down B",
-		pp: 15,
-		basePower: 120,
-		accuracy: 100,
-		category: "Special",
-		priority: 1,
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Extreme Speed", target);
-			this.add('-anim', source, "Storm Throw", target);
-			this.add('-anim', source, "Egg Bomb", target);
-		},
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		self: {
-			boosts: {
-				spa: 1,
-				spe: 1,
-			},
-		},
-		secondary: false,
-		target: "normal",
-		type: "Dark",
-	},
 	"cripplingkiss": {
 		id: "cripplingkiss",
 		name: "Crippling Kiss",
 		accuracy: 100,
 		basePower: 0,
+		desc: "Does many status involved things",
 		category: "Status",
 		pp: 10,
 		priority: 0,
@@ -825,155 +641,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fairy",
 	},
-	"evictus": {
-		id: "evictus",
-		name: "Evictus",
-		basePower: 120,
-		accuracy: 100,
-		pp: 15,
-		secondary: false,
-		category: "Physical",
-		self: {
-			boosts: {
-				atk: 1,
-				spe: 1,
-			},
-		},
-		priority: 1,
-		onHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, 'Quick Attack', target);
-		},
-		flags: {
-			protect: 1,
-			contact: 1,
-		},
-		target: "normal",
-		type: "Normal",
-	},
-	"repel": {
-		id: "repel",
-		name: "Repel",
-		basePower: 0,
-		accuracy: 100,
-		pp: 10,
-		secondary: false,
-		volatileStatus: 'confusion',
-		onHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, 'Teleport', target);
-		},
-		status: 'par',
-		priority: 0,
-		category: "Status",
-		ignoreImmunity: true,
-		onModifyMove: function (move, pokemon, target) {
-			move.type = '???';
-		},
-		flags: {
-			protect: 1,
-			sound: 1,
-			authentic: 1,
-			reflectable: 1,
-		},
-		type: "Normal",
-		target: "normal",
-	},
-	"fastasfucc": {
-		id: "fastasfucc",
-		name: "Fast as Fucc",
-		basePower: 60,
-		pp: 15,
-		accuracy: 100,
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		desc: "Base 60 Normal Type priority move which is super effective on steel types, 30% chance to raise Speed by 1",
-		priority: 1,
-		onTryHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Quick Attack", target);
-		},
-		onEffectiveness: function (typeMod, type) {
-			if (type === 'Steel') return 1;
-		},
-		secondary: {
-			chance: 30,
-			self: {
-				boosts: {
-					spe: 1,
-				},
-			},
-		},
-		onHit: function (target, source, move) {
-			this.add('c| AB Starfox|I don\'t think you have any idea how fast I really am, I\'m fast as fucc boiiiiii');
-		},
-		target: "normal",
-		type: "Normal",
-	},
-	"attitudeadjustment": {
-		id: "attitudeadjustment",
-		name: "Attitude Adjustment",
-		basePower: 0,
-		accuracy: 30,
-		category: "Physical",
-		onHit: function (target, source, move) {
-			this.add('c| THEMEMES69|**YOU CAN\'T SEE ME!!!!!!!!!!**');
-		},
-		ohko: true,
-		pp: 5,
-		priority: 0,
-		secondary: false,
-		flags: {
-			protect: 1,
-			contact: 1,
-		},
-		target: "normal",
-		type: "Fighting",
-		zMovePower: 150,
-	},
-	"acceptthememes": {
-		id: "acceptthememes",
-		name: "Accept The Memes",
-		basePower: 0,
-		accuracy: true,
-		category: "Physical",
-		onHit: function (target, source, move) {
-			this.add('c| THEMEMES69|GET MEMED OR DIE TRYING!');
-		},
-		ohko: true,
-		pp: 0.625,
-		secondary: false,
-		flags: {
-			protect: 1,
-			contact: 1,
-		},
-		priority: 0,
-		target: "normal",
-		type: "Fighting",
-		isZ: "thekidz",
-	},
-	//VXN
-	"insectplague": {
-		accuracy: 100,
-		basePower: 80,
-		category: "Physical",
-		id: "insectplague",
-		name: "Insect Plague",
-		pp: 10,
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Attack Order", target);
-		},
-		ignoreEvasion: true,
-		ignoreDefensive: true,
-		secondary: false,
-		target: "normal",
-		type: "Bug",
-	},
 	//HoeenHero
 	"scripting": {
 		category: "Special",
@@ -986,15 +653,13 @@ exports.BattleMovedex = {
 			chance: 100,
 			volatileStatus: 'confusion',
 		},
+		desc: "Boosts user's SpA by 2 stages, SpD by only 1 stage, and confuses foe",
 		priority: 0,
 		self: {
 			boosts: {
 				spa: 2,
 				spd: 1,
 			},
-		},
-		onHit: function (source) {
-			this.setWeather('raindance');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -1004,29 +669,6 @@ exports.BattleMovedex = {
 		},
 		target: "Normal",
 		type: "Psychic",
-	},
-	"superflyslaser": {
-		id: "superflyslaser",
-		name: "Super Flys Laser",
-		priority: 0,
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		secondary: {
-			chance: 30,
-			volatileStatus: "confusion",
-		},
-		category: "Special",
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Hyper Beam", target);
-		},
-		basePower: 120,
-		pp: 15,
-		accuracy: 95,
-		target: "normal",
-		type: "Electric",
 	},
 	//C7
 	"voodoomagic": {
@@ -1173,6 +815,7 @@ exports.BattleMovedex = {
 				spd: 1,
 			},
 		},
+		desc: "Boosts user's SpA SpD and Spe by one stage",
 		priority: 1,
 		onHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -1188,6 +831,7 @@ exports.BattleMovedex = {
 	"thepowerofpi": {
 		id: "thepowerofpi",
 		name: "The Power of Pi",
+		desc: "Traps and flinches foe, drains all damage dealt, boosts user's Atk by one stage",
 		basePower: 100,
 		pp: 0.625,
 		priority: 1,
@@ -1222,6 +866,7 @@ exports.BattleMovedex = {
 	"ooga": {
 		accuracy: true,
 		basePower: 0,
+		desc: "Charges turn one, and next turn boosts SpA Def SpD and Speed by 3 stages",
 		category: "Status",
 		id: "ooga",
 		name: "Ooga",
@@ -1242,9 +887,9 @@ exports.BattleMovedex = {
 			return null;
 		},
 		boosts: {
-			spa: 2,
-			spd: 2,
-			spe: 2,
+			spa: 3,
+			spd: 3,
+			spe: 3,
 			def: 3,
 		},
 		onPrepareHit: function (target, source) {
@@ -1261,6 +906,7 @@ exports.BattleMovedex = {
 	"soulreaper": {
 		id: "soulreaper",
 		name: "Soul Reaper",
+		desc: "Chance to frz, or flinch, Ice type Effectiveness",
 		basePower: 95,
 		secondaries: [
 			{
@@ -1289,68 +935,12 @@ exports.BattleMovedex = {
 		zMovePower: 150,
 		contestType: "Cool",
 	},
-	//Haxorus04
-	"haxe": {
-		accuracy: 100,
-		basePower: 70,
-		category: "Physical",
-		id: "haxe",
-		name: "H-Axe",
-		pp: 10,
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		multihit: 2,
-		secondary: false,
-		target: "normal",
-		type: "Steel",
-		zMovePower: 100,
-		contestType: "Tough",
-	},
-	"toomuchhax": {
-		id: "toomuchhax",
-		name: "Too Much Hax",
-		basePower: 100,
-		accuracy: 100,
-		category: "Physical",
-		pp: 0.625,
-		secondary: false,
-		flags: {
-			protect: 1,
-			contact: 1,
-		},
-		self: {
-			boosts: {
-				spe: 1,
-			},
-		},
-		stealsBoosts: true,
-		priority: 3,
-		target: "normal",
-		type: "Dragon",
-		isZ: "haxiumz",
-	},
-	"doublejawtackle": {
-		accuracy: 100,
-		basePower: 99,
-		category: "Physical",
-		id: "doublejawtackle",
-		name: "Double Jaw Tackle",
-		pp: 10,
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		willCrit: true,
-		multihit: 2,
-		secondary: false,
-		target: "normal",
-		type: "Steel",
-		zMovePower: 200,
-		contestType: "Tough",
-	},
 	//ches
 	"cookiestorm": {
 		accuracy: 100,
 		basePower: 180,
 		category: "Physical",
+		desc: "Strong move with 70% recoil",
 		id: "cookiestorm",
 		name: "Cookie Storm",
 		pp: 15,
@@ -1363,39 +953,10 @@ exports.BattleMovedex = {
 		zMovePower: 190,
 		contestType: "Cute",
 	},
-	"hinderance": {
-		accuracy: 100,
-		basePower: 0,
-		damageCallback: function (pokemon, target) {
-			return this.clampIntRange(Math.floor(target.hp / 2), 1);
-		},
-		category: "Special",
-		id: "hinderance",
-		name: "Hinderance",
-		pp: 10,
-		priority: 1,
-		flags: {protect: 1, mirror: 1},
-		self: {
-			boosts: {
-				spe: 1,
-				atk: 1,
-				def: 1,
-				spd: 1,
-				spa: 1,
-			},
-		},
-		secondary: {
-			chance: 30,
-			volatileStatus: "flinch",
-		},
-		target: "normal",
-		type: "Fairy",
-		zMovePower: 100,
-		contestType: "Tough",
-	},
 	"imdepressed": {
 		id: "imdepressed",
 		name: "Im Depressed",
+		desc: "Boosts SpA by two stages",
 		priority: 0,
 		self: {
 			boosts: {
@@ -1457,6 +1018,7 @@ exports.BattleMovedex = {
 		id: "itsmytimenow",
 		name: "It's My Time Now",
 		accuracy: 100,
+		desc: "Strong sound move that ignore subs",
 		basePower: 150,
 		category: "Special",
 		pp: 10,
@@ -1472,6 +1034,7 @@ exports.BattleMovedex = {
 		id: "cripplinghazards",
 		name: "Crippling Hazards",
 		basePower: 0,
+		desc: "Sets many types of hazards",
 		accuracy: true,
 		pp: 5,
 		priority: 0,
@@ -1499,6 +1062,7 @@ exports.BattleMovedex = {
 		id: "punchyfury",
 		name: "Punchy Fury",
 		basePower: 30,
+		desc: "Hits 2-5 times",
 		category: "Physical",
 		accuracy: 100,
 		multihit: [2, 5],
@@ -1522,6 +1086,7 @@ exports.BattleMovedex = {
 		id: "punchyrumassacrez",
 		name: "Punchyru Massacre Z",
 		basePower: 50,
+		desc: "Hits 2-3 times",
 		accuracy: 100,
 		pp: 0.625,
 		secondary: false,
@@ -1547,6 +1112,7 @@ exports.BattleMovedex = {
 	"holydance": {
 		id: "holydance",
 		name: "Holy Dance",
+		desc: "Typeless damage",
 		basePower: 80,
 		category: "Special",
 		accuracy: 100,
@@ -1625,34 +1191,11 @@ exports.BattleMovedex = {
 		zMovePower: 180,
 		contestType: "Cool",
 	},
-	// Kraken Mare
-	"megarage": {
-		category: "Special",
-		basePower: 150,
-		id: "megarage",
-		isNonstandard: true,
-		name: "Mega Rage",
-		pp: 15,
-		priority: 0,
-		self: {
-			boosts: {
-				def: -1,
-				spd: -1,
-			},
-		},
-		onPrepareHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Hyper Voice", source);
-		},
-		secondary: false,
-		target: "normal",
-		type: "Fairy",
-		zMovePower: 210,
-	},
 	//ggdaca
 	"lordswrath": {
 		id: "lordswrath",
 		name: "Lord's Wrath",
+		desc: "Boosts user's Attack but must recharge next turn.",
 		basePower: 90,
 		priority: 0,
 		accuracy: 100,
@@ -1680,6 +1223,7 @@ exports.BattleMovedex = {
 	"legendsdestruction": {
 		id: "legendsdestruction",
 		name: "Legend's Destruction",
+		desc: "User steals foes boosts, drains 1/2 damage dealt, but has to recharge.",
 		basePower: 130,
 		accuracy: 100,
 		category: "Physical",
@@ -1701,6 +1245,7 @@ exports.BattleMovedex = {
 	"horrificroasts": {
 		id: "horrificroasts",
 		name: "Horrific Roasts",
+		desc: "Sets weather to sunny day, 30% chance to burn, 33% recoil",
 		basePower: 150,
 		accuracy: 100,
 		category: "Physical",
@@ -1722,6 +1267,7 @@ exports.BattleMovedex = {
 	"horrificmemes": {
 		id: "horrificmemes",
 		name: "Horrific Memes",
+		desc: "Sets weather to intense sun, 30% chance to burn, 33% recoil.",
 		weather: "desolateland",
 		basePower: 200,
 		accuracy: 100,
@@ -1779,7 +1325,7 @@ exports.BattleMovedex = {
 		category: "Physical",
 		basePower: 100,
 		accuracy: true,
-		desc: 'Stabby\'s Signature move which always hits. Hits Twice.',
+		desc: 'Always hits, hits twice, 25% chance to flinch.',
 		id: "stabstab",
 		isNonstandard: true,
 		name: "Stab Stab",
@@ -1803,6 +1349,7 @@ exports.BattleMovedex = {
 		category: "Special",
 		accuracy: true,
 		basePower: 77000,
+		desc: "Does huge damage at the price of selfdestructing itself",
 		id: "revengeofkrakenmare",
 		isNonstandard: true,
 		name: "Revenge of Kraken Mare",
@@ -1814,7 +1361,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Surf", target);
 		},
 		onHit: function (target, source, move) {
-			this.add('c| Kraken Mare ☭|If I go down I\'m taking you with me!');
+			this.add('c|@Kraken Mare ☭|If I go down I\'m taking you with me!');
 		},
 		target: "Normal",
 		type: "Water",
@@ -1834,6 +1381,7 @@ exports.BattleMovedex = {
 		id: "superultraflamethrowerdestroyerofuniverses",
 		name: "Super Ultra Flamethrower Destroyer of Universes",
 		priority: 1,
+		desc: "Boosts user's SpA and Spe by one stage",
 		self: {
 			boosts: {
 				spa: 1,
@@ -1863,6 +1411,7 @@ exports.BattleMovedex = {
 		id: "ultramegasuperfantasticflamethrowerofthegods",
 		name: "ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS",
 		basePower: 150,
+		desc: "150 BP Fire Type Move",
 		accuracy: 100,
 		pp: 0.625,
 		secondary: false,
@@ -1884,6 +1433,8 @@ exports.BattleMovedex = {
 	"bulbalord": {
 		id: "bulbalord",
 		name: "Bulba Lord",
+		desc: "Lowers the target's stats by 1.",
+		shortDesc: "Lowers the target's stats by 1.",
 		priority: 0,
 		boosts: {
 			atk: -1,
@@ -1891,8 +1442,6 @@ exports.BattleMovedex = {
 			spa: -1,
 			spd: -1,
 			spe: -1,
-			accuracy: -1,
-			evasion: -1,
 		},
 		flags: {
 			protect: 1,
@@ -2123,31 +1672,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		zMovePower: 170,
 		contestType: "Cool",
-	},
-	"bulbalord": {
-		num: 568,
-		accuracy: 100,
-		basePower: 100,
-		category: "Special",
-		desc: "Lowers the target's stats by 1.",
-		shortDesc: "Lowers the target's stats by 1.",
-		id: "bulbalord",
-		name: "Bulbalord",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, reflectable: 1, mirror: 1, authentic: 1},
-		boosts: {
-			atk: -1,
-			spa: -1,
-			def: -1,
-			spd: -1,
-			spe: -1,
-		},
-		secondary: false,
-		target: "normal",
-		type: "Poison",
-		zMoveBoost: {spe: 1, spa: 1},
-		contestType: "Tough",
 	},
 	"thinking": {
 		id: "thinking",

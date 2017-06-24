@@ -280,7 +280,7 @@ class CommandContext {
 					this.room.log.push((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 					this.room.lastUpdate = this.room.log.length;
 					this.room.messageCount++;
-					Exiled.addExp(this.user, this.room, 2);
+					//Exiled.addExp(this.user, this.room, 2);
 				} else {
 					if (Users.ShadowBan.checkBanned(this.user)) {
 						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
@@ -289,7 +289,7 @@ class CommandContext {
 						this.room.add((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 						this.room.messageCount++;
 					}
-					Exiled.addExp(this.user, this.room, 2);
+					//Exiled.addExp(this.user, this.room, 2);
 				}
 				//this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`);
 			}

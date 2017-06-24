@@ -22,6 +22,21 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
+			"~AlfaStorm": {
+				species: "Hydreigon",
+				ability: "Attack Shield",
+				item: "Focus Sash",
+				gender: "M",
+				moves: ['flashcannon', 'dracometeor', 'dragonpulse'],
+				baseSignatureMove: "darkstorm",
+				signatureMove: "Dark Storm",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Timid",
+			},
 			"~Mewth": {
 				species: "Furret-Mega",
 				ability: "Roarplaying",
@@ -221,21 +236,6 @@ exports.BattleScripts = {
 				},
 				nature: "Quiet",
 			},
-			"%AlfaStorm": {
-				species: "Hydreigon",
-				ability: "Attack Shield",
-				item: "Focus Sash",
-				gender: "M",
-				moves: ['flashcannon', 'dracometeor', 'dragonpulse'],
-				baseSignatureMove: "darkstorm",
-				signatureMove: "Dark Storm",
-				evs: {
-					spa: 252,
-					spe: 252,
-					spd: 4,
-				},
-				nature: "Timid",
-			},
 			"%HoeenHero": {
 				species: "Ludicolo",
 				ability: "Programmers Domain",
@@ -366,6 +366,7 @@ exports.BattleScripts = {
 				ability: "Aerilate",
 				item: "Life Orb",
 				gender: "M",
+				shiny: true,
 				moves: ['extremespeed', 'surf', 'dragonpulse'],
 				signatureMove: "Legend's Ambition",
 				evs: {

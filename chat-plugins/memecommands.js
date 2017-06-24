@@ -356,7 +356,7 @@ exports.commands = {
 			"<img src='http://i.imgur.com/JlwSoqb.jpg' height='500' width='500'",
 			"<img src='http://i.imgur.com/XfEdVyg.jpg' height='500' width='500'",
 			"<img src='http://i.imgur.com/MvwSM5d.jpg' height='500' width='500'", //5
-			"<img src='https://img.ifcdn.com/images/1f1d76c0be60fdf36641cc2a954100a9c378efea8dfede50c65e6507fe9cf275_1.jpg' height='500' width='500'",
+			"<img src='http://i.imgur.com/nWMKbzZ.jpg' height='500' width='366'",
 			"<img src='https://img.ifcdn.com/images/9c068e5f8f66418cf28a33cff04d3882e903a91b181624f66866f26aa2a93679_1.jpg' height='500' width='500'",
 			"<img src='https://img.ifcdn.com/images/bdff319558072dce9c49f03033f125bac9022988fe4bc00cfe1afabbcafb1abb_1.jpg' height='500' width='500'",
 			"<img src='https://img.ifcdn.com/images/d6e3dad02df078b3e9f1f5beb243845af491dcfad7748bbd7cf15360fa31e757_1.jpg' height='500' width='500'",
@@ -365,7 +365,7 @@ exports.commands = {
 			"<img src='https://img.ifcdn.com/images/82c4a1c9a22937cb5aa975f5821ca2692c0152c54c346c3e56220c03751bd2df_1.jpg' height='500' width='500'",
 			"<img src='https://img.ifcdn.com/images/1acf6ec29057b69649125dd53ed46c31ae2970dc9f00c5152f9b71c10c7efcde_1.jpg' height='500' width='500'",
 			"<img src='https://img.ifcdn.com/images/61766dbba8d1afe44f8cd184605a887aeb6465dc05da45a09088271fc797150e_1.jpg' height='500' width='500'",
-			"<img src='https://img.ifcdn.com/images/6c8d9f27fb48dbf53c81dd289219c039ed701131a925dea2b855735882726a6f_1.jpg' height='500' width='500'", //15
+			"<img src='http://i.imgur.com/nWMKbzZ.jpg' height='366' width='500'", //15
 			"<img src='https://img.ifcdn.com/images/797451497d1abcebc4e80c4d25fd4c60cb817161bb2983e8fde097ee7196f82c_1.jpg' height='500' width='500'",
 			"<img src='https://img.ifcdn.com/images/a4d3cf3f8f571cb2556c09c2910cfa19480208f90095ec95b051b7f73286f611_1.jpg' height='500' width= '500'",
 			"<img src='https://img.ifcdn.com/images/82b12f823c649de6e08d55a7e17103730f33b0b1c65d1d7d65faa8aca04a028d_1.jpg' height='500' width='500'",
@@ -380,7 +380,7 @@ exports.commands = {
 			"<img src='https://img.ifcdn.com/images/57a6166b4062eb1b09f7ead8b5e8bd04fb2bb16242bce6b204d17c1bf982c62b_1.jpg' height='500' width='500'",
 			"<img src='https://img.ifcdn.com/images/83ec82332a92f3b9973dbbe9b94a7832dc6926db68add7ede50f22977d57b0ff_1.jpg' height='500' width='500'",
 			"<img src='https://img.ifcdn.com/images/1db327ff894679a626b371c39db46a807ceddaa5582ca8658dad05021a0e01e4_1.jpg' height='500' width='500'",
-			"<img src='https://img.ifcdn.com/images/c4bbef3f30230611f1c4e14e762e05d0cbdd39f44f0e64ba391e77e3ea67e594_1.jpg' height='500' width='500'", //30
+			"<img src='http://i.imgur.com/nWMKbzZ.jpg' height='366' width='500'", //30
 			"<img src='https://img.ifcdn.com/images/32e4f12882e8d67e54626815370b63497dfae78cbf20c315ef5cd6033456ad8a_1.jpg' height='500' width='500'",
 			"<img src='https://img.ifcdn.com/images/dd2002123230744285eff720435b8c97c29553787562460042b17fc62e67e9ff_1.jpg' height='500' width='500'",
 			"<img src='https://img.ifcdn.com/images/30c96e0c23f83b25b28f4325adbddba6c638ecbeefcd1d34f32aa0fd853fed2b_1.jpg' height='500' width='500'",
@@ -392,6 +392,7 @@ exports.commands = {
 			"<img src='http://i.imgur.com/SxwnMnp.jpg' height='500' width='500'",
 			"<img src='http://i.imgur.com/3O6RKJ5.jpg' height='500' width='500'", //40
 			"<img src='https://eus1-api.asm.skype.com/v1/objects/0-eus-d2-8e96e141d7ba2ee7c1577a673d36086b/views/imgpsh_fullsize' height='500' width='500'",
+			"<img src='http://i.imgur.com/nWMKbzZ.jpg' height='366' width='500'",
 		];
 		return this.sendReplyBox(results[Math.floor(41 * Math.random())]);
 	},

@@ -1,11 +1,11 @@
 'use strict';
 const fs = require('fs');
-let adWhitelist = ['exiled'];
+let adWhitelist = ['exiled', 'meadow', 'ember'];
 let adRegex = new RegExp("(play.pokemonshowdown.com\\/~~)(?!(" + adWhitelist.join('|') + "))", "g");
 Config.chatfilter = function (message, user, room, connection, targetUser) {
 	user.lastActiveTime = Date.now();
 	if (!room && !Users(targetUser)) targetUser = {name: 'unknown user'};
-	let pre_matches = (message.match(/psim|psim.us|psim us/g) || []).length;
+	let pre_matches = (message.match(/psim|psim.us|psim us|pokemonsimulator/g) || []).length;
 	let final_check = (pre_matches >= 1 ? adWhitelist.filter(server => ~message.indexOf(server)).length : 0);
 	if (!user.can('lock') && (pre_matches >= 1 && final_check === 0 || pre_matches >= 2 && final_check >= 1 || message.match(adRegex))) {
 		if (user.locked) return false;

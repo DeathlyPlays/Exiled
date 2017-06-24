@@ -3652,6 +3652,19 @@ exports.BattleAbilities = {
 		rating: 4,
 		num: 101,
 	},
+	"quickthinking": {
+		desc: "This Pokemon's moves of 60 power or less have their priority increased by +1.",
+		shortDesc: "This Pokemon's moves of 60 power or less have +1 priority. Includes Struggle.",
+		onModifyPriority: function (basePower, attacker, defender, move, priority) {
+			if (basePower <= 60) {
+				return priority + 1;
+			}
+		},
+		id: "quickthinking",
+		name: "Quick Thinking",
+		rating: 4,
+		num: 101,
+	},
 	"telepathy": {
 		shortDesc: "This Pokemon does not take damage from attacks made by its allies.",
 		onTryHit: function (target, source, move) {

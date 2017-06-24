@@ -34,6 +34,7 @@ This server requires the Node Js Version 6.6.0 or higher<br>
 * **Mewth** - Developer, Sysadmin, Co-Owner.
 * **HoeenCoder** - Sysop, Bug fixes, Mechanic assistance.
 * **Back At My Day** - Developments.
+* **flufi** - Code/Server Breaker, Developer.
 * **Mystifi** - Assistance, Developments.
 * **AlfaStorm** - Developer.
 * **megas4ever** - Developments.

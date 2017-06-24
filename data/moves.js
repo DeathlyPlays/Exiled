@@ -5649,16 +5649,16 @@ exports.BattleMovedex = {
 	"tundrasweep": { //signature move for Lanturn-Alola
 		num: -6000,
 		accuracy: 100,
-		basePower: 80,
+		basePower: 85,
 		category: "Special",
-		desc: "This move combines Water in its type effectiveness against the target. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
-		shortDesc: "Adds Water to type effectiveness.",
+		desc: "This move combines Ground in its type effectiveness against the target. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
+		shortDesc: "Adds Ground to type effectiveness.",
 		id: "tundrasweep",
 		name: "Tundra Sweep",
 		pp: 10,
 		flags: {contact: 1, protect: 1, mirror: 1, distance: 1},
 		onEffectiveness: function (typeMod, type, move) {
-			return typeMod + this.getEffectiveness('Water', type);
+			return typeMod + this.getEffectiveness('Ground', type);
 		},
 		priority: 0,
 		secondary: false,

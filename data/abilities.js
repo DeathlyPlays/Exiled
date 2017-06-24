@@ -4649,6 +4649,7 @@ exports.BattleAbilities = {
 				return this.chainModify([0x14CD, 0x1000]);
 			},
 		},
+		desc: "Huge Power + Sheer Force",
 		rating: 5,
 	},
 	"amplifier": {

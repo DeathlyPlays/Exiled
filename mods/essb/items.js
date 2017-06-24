@@ -71,10 +71,10 @@ exports.BattleItems = {
 		id: "playeriniumz",
 		name: "Playerinium Z",
 		zMove: "Rush Of Volcano Thunder",
-		zMoveFrom: "Rush of Dragon Bolt",
+		zMoveFrom: "Rush Of Dragon Bolt",
 		zMoveUser: ["Dragonite"],
-		num: -429,
-		gen: -7,
+		num: -5,
+		gen: -1,
 		desc: "If holder is a Rotom-Frost with Hail Storm, it can use Hyper Viper Beam.",
 	},
 	"haxiumz": {
@@ -199,7 +199,7 @@ exports.BattleItems = {
 		onModifyPriorityPriority: -1,
 		onModifyPriority: function (priority, pokemon) {
 			if (this.random(1) === 0) {
-				this.add('-activate', pokemon, 'item: Quick Claw');
+				this.add('-activate', pokemon, 'item: Super Quick Claw');
 				return Math.round(priority) + 2.9;
 			}
 		},
@@ -280,26 +280,6 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is an Ninetales with Super Ultra Flamethrower Destroyer of Universes, it can use ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS.",
 	},
-	"bigflower": {
-		id: "bigflower",
-		name: "Big Flower",
-		spritenum: 130,
-		onModifyDefPriority: 2,
-		onModifyDef: function (def, pokemon) {
-			return this.chainModify(1.2);
-		},
-		onModifySpDPriority: 2,
-		onModifySpD: function (spd, pokemon) {
-			return this.chainModify(1.2);
-		},
-		onModifySpAPriority: 2,
-		onModifySpA: function (spa, pokemon) {
-			return this.chainModify(1.2);
-		},
-		num: 538,
-		gen: 5,
-		desc: "Raises Defense, SpDefense and SpAttack by 20%.",
-	},
 	"bulbasauriumz": {
 		spritenum: 656,
 		onTakeItem: false,
@@ -362,5 +342,17 @@ exports.BattleItems = {
 		num: -17,
 		gen: -1,
 		desc: "Holder's attacks do 1.3x damage, and it loses 1/32 its max HP after the attack.",
+	},
+	"tarnationiumz": {
+		spritenum: 656,
+		onTakeItem: false,
+		id: "tarnationiumz",
+		name: "Tarnationium Z",
+		zMove: "doggo",
+		zMoveFrom: "thinking",
+		zMoveUser: ["Klefki"],
+		num: -18,
+		gen: -1,
+		desc: "If holder is an Klefki with thinking, it can use doggo.",
 	},
 };

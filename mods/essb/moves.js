@@ -58,29 +58,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Water",
 	},
-	//Ransensei
-	"legendsambition": {
-		accuracy: 100,
-		basePower: 120,
-		category: "Special",
-		id: "legendsambition",
-		name: "Legend's Ambition",
-		pp: 10,
-		priority: 0,
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		secondary: false,
-		onPrepareHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Outrage", target);
-			this.add('-anim', source, "V-Create", target);
-			this.add('-anim', source, "Psystrike", target);
-		},
-		target: "normal",
-		type: "Dragon",
-	},
 	//Jigglykong
 	"plasmablast": {
 		accuracy: 100,
@@ -2091,48 +2068,30 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 999999999999999999999999999999999999999999999999999999999999,
 	},
-	"megadoomofblooms": {
-		accuracy: 90,
-		basePower: 130,
+	"nightmareoblivion": {
+		accuracy: 100,
+		basePower: 100,
 		category: "Special",
-		id: "megadoomofblooms",
-		name: "Megadoom of Blooms",
-		pp: 20,
+		id: "nightmareoblivion",
+		name: "Nightmare Oblivion",
+		pp: 10,
 		priority: 0,
-		effect: {
-			onStart: function (target) {
-				this.add('-start', target, 'move: Leech Seed');
-			},
-			onResidualOrder: 8,
-			onResidual: function (pokemon) {
-				let target = this.effectData.source.side.active[pokemon.volatiles['leechseed'].sourcePosition];
-				if (!target || target.fainted || target.hp <= 0) {
-					this.debug('Nothing to leech into');
-					return;
-				}
-				let damage = this.damage(pokemon.maxhp / 8, pokemon, target);
-				if (damage) {
-					this.heal(damage, target, pokemon);
-				}
-			},
+		onBasePowerPriority: 4,
+		onBasePower: function (basePower, pokemon) {
+			if (pokemon.status === 'slp') {
+				return this.chainModify(2);
+			}
 		},
 		onPrepareHit: function (target, source, pokemon) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Grassy Terrain", pokemon);
-			this.add('-anim', source, "Scald", target);
-			this.add('-anim', source, "Bloom Doom", pokemon);
-		},
-		onTryHit: function (target) {
-			if (target.hasType('Grass')) {
-				this.add('-immune', target, '[msg]');
-				return null;
-			}
+			this.add('-anim', source, "Dark Pulse", target);
+			this.add('-anim', source, "Nightmare", pokemon);
+			this.add('-anim', source, "Dark Void", pokemon);
 		},
 		flags: {protect: 1, mirror: 1, contact: 1},
-		volatileStatus: 'leechseed',
 		secondary: false,
 		target: "allAdjacentFoes",
-		type: "Grass",
+		type: "Dark",
 	},
 	"triplepeakmegasmash": {
 		id: "triplepeakmegasmash",
@@ -2165,42 +2124,79 @@ exports.BattleMovedex = {
 		zMovePower: 170,
 		contestType: "Cool",
 	},
-	"warriorsinferno": {
-		id: "warriorsinferno",
-		name: "Warriors Inferno",
+	"bulbalord": {
+		num: 568,
+		accuracy: 100,
+		basePower: 100,
+		category: "Special",
+		desc: "Lowers the target's stats by 1.",
+		shortDesc: "Lowers the target's stats by 1.",
+		id: "bulbalord",
+		name: "Bulbalord",
+		pp: 10,
 		priority: 0,
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		category: function (pokemon, move) {
-			let foeactive = pokemon.side.foe.active;
-			let totaldef = 0;
-			let totalspd = 0;
-			for (let i = 0; i < foeactive.length; i++) {
-				if (!foeactive[i] || foeactive[i].fainted) continue;
-				totaldef += foeactive[i].getStat('def', false, true);
-				totalspd += foeactive[i].getStat('spd', false, true);
-			}
-			if (totaldef && totaldef >= totalspd) {
-				move.category = 'Special';
-			} else if (totalspd) {
-				move.category = 'Physical';
-			}
+		flags: {protect: 1, reflectable: 1, mirror: 1, authentic: 1},
+		boosts: {
+			atk: -1,
+			spa: -1,
+			def: -1,
+			spd: -1,
+			spe: -1,
 		},
 		secondary: false,
-		weather: "desolateland",
-		onPrepareHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Overheat", target);
-			this.add('-anim', source, "Flare Blitz", target);
-		},
-		basePower: 100,
-		pp: 5,
-		accuracy: 100,
 		target: "normal",
-		type: "Fire",
-		zMovePower: 180,
-		contestType: "Cool",
+		type: "Poison",
+		zMoveBoost: {spe: 1, spa: 1},
+		contestType: "Tough",
+	},
+	"thinking": {
+		id: "thinking",
+		name: "thinking",
+		desc: "Boosts Defense And Special Defense By Two Stages.",
+		basePower: 0,
+		accuracy: true,
+		boosts: {
+			def: 2,
+			spd: 2,
+		},
+		pp: 15,
+		category: "Status",
+		flags: {snatch: 1},
+		priority: 0,
+		secondary: false,
+		target: "self",
+		type: "Psychic",
+		contestType: "Cute",
+	},
+	"doggo": {
+		id: "doggo",
+		name: "doggo",
+		desc: "User Boosts SpD And Def By Four Stages, Sets Up Light Screen And Reflect, And Puts Toxic Spikes On the Opposing Team's Field",
+		basePower: 0,
+		boosts: {
+			def: 4,
+			spd: 4,
+		},
+		onHit: function (pokemon) {
+			this.useMove('Reflect', pokemon);
+			this.useMove('Light Screen', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+		},
+		accuracy: 100,
+		pp: 0.625,
+		secondary: false,
+		category: "Status",
+		isViable: true,
+		isZ: "tarnationiumz",
+		priority: 0,
+		flags: {snatch: 1},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Protect", source);
+			this.add('c|@Klefkei|YEEAAAAH BOOIIIIII!!!');
+		},
+		target: "self",
+		type: "Fairy",
 	},
 };

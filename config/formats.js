@@ -1752,10 +1752,13 @@ exports.Formats = [
 				this.add('c| EchoSierra|lol fite me irl');
 			}
 			if (name === 'horrific17') {
-				this.add('c|+Horrific17|It seems you\'ve made a __horrific__ mistake');
+				this.add('c|%Horrific17|It seems you\'ve made a __horrific__ mistake');
 			}
 			if (name === 'krakenmare') {
-				this.add('c|%Kraken Mare|Today, I prove Gardevoir is the best Pokemon!');
+				this.add('c|@Kraken Mare|Today, I prove Gardevoir is the best Pokemon!');
+			}
+			if (name === 'klefkei') {
+				this.add('c|@Klefkei|Hi Toxic Whore :) Ready To Die? kappa');
 			}
 
 			// Add here special typings, done for flavor mainly. (and stat boosts)
@@ -1853,7 +1856,7 @@ exports.Formats = [
 				this.add('c| EchoSierra|bbl fam');
 			}
 			if (name === 'krakenmare') {
-				this.add('c|%Kraken Mare|I shall spare you today, young one!');
+				this.add('c|@Kraken Mare|I shall spare you today, young one!');
 			}
 		},
 		// Add here salty tears, that is, custom faint phrases.
@@ -1893,13 +1896,16 @@ exports.Formats = [
 				this.add('c| EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
 			}
 			if (name === 'horrific17') {
-				this.add('c|+Horrific17|I never expected my death to be this... __horrific__');
+				this.add('c|%Horrific17|I never expected my death to be this... __horrific__');
 			}
 			if (name === 'douglasgamer') {
 				this.add('c| douglasgamer|I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');
 			}
 			if (name === 'krakenmare') {
-				this.add('c|%Kraken Mare|Trust me, I\'ll be back to prove how strong Gardevoir is. __splashes__');
+				this.add('c|@Kraken Mare|Trust me, I\'ll be back to prove how strong Gardevoir is. __splashes__');
+			}
+			if (name === 'klefkei') {
+				this.add('c|@Klefkei|/exile');
 			}
 		},
 		onHit: function (pokemon, target) {
@@ -1919,7 +1925,7 @@ exports.Formats = [
 					this.add('c| EchoSierra|dasWRIGHT.jpg');
 				}
 				if (name === 'krakenmare') {
-					this.add('c|%Kraken Mare|Told Ya Gardevoir is Strong!');
+					this.add('c|@Kraken Mare|Told Ya Gardevoir is Strong!');
 				}
 			}
 		},
@@ -1987,7 +1993,7 @@ exports.Formats = [
 				this.add('c| EchoSierra|lol fite me irl');
 			}
 			if (name === 'horrific17') {
-				this.add('c|+Horrific17|It seems you\'ve made a __horrific__ mistake');
+				this.add('c|%Horrific17|It seems you\'ve made a __horrific__ mistake');
 			}
 
 			// Add here special typings, done for flavor mainly. (and stat boosts)
@@ -2116,7 +2122,7 @@ exports.Formats = [
 				this.add('c| EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
 			}
 			if (name === 'horrific17') {
-				this.add('c|+Horrific17|I never expected my death to be this... __horrific__');
+				this.add('c|%Horrific17|I never expected my death to be this... __horrific__');
 			}
 			if (name === 'douglasgamer') {
 				this.add('c| douglasgamer|I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');

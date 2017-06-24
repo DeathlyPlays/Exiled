@@ -197,6 +197,21 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
+			"@Klefkei": {
+			   species: "Klefki",
+			   ability: "Deadass",
+			   item: "Tarnationium Z",
+			   gender: "F",
+			   moves: ['swagger', 'foulplay', 'toxic'],
+			   baseSignatureMove: "thinking",
+			   signatureMove: "thinking",
+			   evs: {
+				   hp: 252,
+				   def: 252,
+				   atk: 4,
+			   },
+			   nature: "Impish",
+			},
 			//Drivers
 			"%Horrific17": {
 				species: "Arcanine",

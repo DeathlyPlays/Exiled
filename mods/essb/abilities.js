@@ -1895,4 +1895,14 @@ exports.BattleAbilities = {
 		id: "howdareyouhate",
 		name: "How Dare You Hate",
 	},
+	"deadass": {
+		id: "deadass",
+		name: "Deadass",
+		desc: "Prankster",
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.category === 'Status') {
+				return priority + 1;
+			}
+		},
+	},
 };

@@ -1881,38 +1881,6 @@ exports.BattleMovedex = {
 		type: "Fire",
 	},
 	//ProfessorBulbasaur
-	"bulbalord": {
-		id: "bulbalord",
-		name: "Bulba Lord",
-		priority: 0,
-		boosts: {
-			atk: -1,
-			def: -1,
-			spa: -1,
-			spd: -1,
-			spe: -1,
-			accuracy: -1,
-			evasion: -1,
-		},
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		secondary: false,
-		category: "Special",
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Sludge Bomb", target);
-		},
-		basePower: 90,
-		pp: 15,
-		accuracy: 100,
-		target: "normal",
-		type: "Poison",
-		zMovePower: 150,
-		contestType: "Cool",
-	},
-	//ProfessorBulbasaur
 	"onebulbasaurhorde": {
 		id: "onebulbasaurhorde",
 		name: "One Bulbasaur Horde",

@@ -207,7 +207,7 @@ exports.BattleMovedex = {
 		name: "Slowtown King",
 		pp: 20,
 		priority: 0,
-		boosts: "Boosts targets Spe by 2 stages",
+		desc: "Boosts targets Spe by 2 stages",
 		flags: {protect: 1, mirror: 1},
 		boosts: {
 			spe: 2,

@@ -292,6 +292,38 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is an Bulbasaur with Bulba Lord, it can use One Bulbasaur Horde.",
 	},
+	"fluffytail": {
+		id: "fluffytail",
+		onModifyPriorityPriority: 5,
+		onModifyPriority: function (priority, pokemon) {
+			if (this.random(5) === 0) {
+				this.add('-activate', pokemon, 'item: Quick Claw');
+				return Math.round(priority) + 0.1;
+			}
+		},
+		onBasePowerPriority: 6,
+		onBasePower: function (basePower, user, target, move) {
+			if (move.type === 'Normal') {
+				return this.chainModify([0x1333, 0x1000]);
+			}
+		},
+		onModifyDamage: function (damage, source, target, move) {
+			return this.chainModify([0x14CC, 0x1000]);
+		},
+		onAfterMoveSecondarySelf: function (source, target, move) {
+			if (source && source !== target && move && move.category !== 'Status' && !move.ohko) {
+				this.damage(source.maxhp / 10, source, source, this.getItem('lifeorb'));
+			}
+		},
+		name: "Fluffy Tail",
+		spritenum: 373,
+		fling: {
+			basePower: 10,
+		},
+		num: 217,
+		gen: 0,
+		desc: "Quick Claw + Silk Scarf + Life Orb.",
+	},
 	"ultimateberry": {
 		id: "ultimateberry",
 		name: "Ultimate Berry",

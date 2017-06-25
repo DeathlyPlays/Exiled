@@ -4976,6 +4976,7 @@ exports.BattleLearnsets = {
 	raichu: {learnset: {
 		attract: ["7M", "6M", "5M", "4M", "3M"],
 		bide: ["7V"],
+		moonblast: ["7L1"],
 		bodyslam: ["7V", "3T"],
 		brickbreak: ["7M", "6M", "5M", "4M", "3M"],
 		captivate: ["4M"],
@@ -5013,6 +5014,7 @@ exports.BattleLearnsets = {
 		mimic: ["7V", "3T"],
 		mudslap: ["4T", "3T"],
 		naturalgift: ["4M"],
+		nobleroar: ["6T"],
 		payday: ["7V"],
 		protect: ["7M", "6M", "5M", "4M", "3M"],
 		quickattack: ["7L1", "6L1", "5L1", "4L1", "3L1"],

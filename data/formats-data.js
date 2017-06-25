@@ -3555,6 +3555,12 @@ exports.BattleFormatsData = {
 		eventOnly: true,
 		tier: "Uber",
 	},
+	raichumega: {
+		randomBattleMoves: ["thunderbolt", "moonblast", "grassknot", "hiddenpowerfire"],
+		randomDoubleBattleMoves: ["discharge", "moonblast", "volttackle", "grassknot", "hiddenpowerground", "irontail", "knockoff"],
+		requiredItem: "Raichite",
+		tier: "UU",
+	},
 	rayquazamega: {
 		// randomBattleMoves: ["vcreate", "extremespeed", "swordsdance", "earthquake", "dragonascent", "dragonclaw", "dragondance"],
 		randomDoubleBattleMoves: ["vcreate", "extremespeed", "swordsdance", "earthquake", "dragonascent", "dragonclaw", "dragondance", "protect"],

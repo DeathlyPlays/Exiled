@@ -1429,6 +1429,27 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
+	//flufi
+	"awailofatail": {
+		num: 541,
+		accuracy: 90,
+		basePower: 50,
+		category: "Physical",
+		desc: "Hits two to five times. Has a 1/3 chance to hit two or three times, and a 1/6 chance to hit four or five times. If one of the hits breaks the target's substitute, it will take damage for the remaining hits. If the user has the Ability Skill Link, this move will always hit five times.",
+		shortDesc: "Hits 2-5 times in one turn.",
+		id: "awailofatail",
+		isViable: true,
+		name: "A Wail of a Tail",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		multihit: [2, 5],
+		secondary: false,
+		target: "normal",
+		type: "Normal",
+		zMovePower: 155,
+		contestType: "Cute",
+	},
 	//ProfessorBulbasaur
 
 	"onebulbasaurhorde": {

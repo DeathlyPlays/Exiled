@@ -1825,18 +1825,43 @@ exports.BattleAbilities = {
 			}
 		},
 	},
-	"bigleaf": {
-		shortDesc: "Uses a variety of setup and support moves on switch-in. x1.1 accuracy.",
-		onStart: function (pokemon) {
-			this.useMove('Defog', pokemon);
-			this.useMove('Safeguard', pokemon);
-			this.useMove('Light Screen', pokemon);
-			this.useMove('Reflect', pokemon);
-			this.useMove('Magic Coat', pokemon);
+	"sneakyfluffer": {
+		shortDesc: "Normalize + Scrappy + Skill Link.",
+		onModifyMovePriority: 1,
+		onModifyMove: function (move, pokemon) {
+			if (!move.isZ && move.id !== 'struggle' && this.getMove(move.id).type !== 'Normal') {
+				move.type = 'Normal';
+			}
+			if (move.category !== 'Status') pokemon.addVolatile('normalize');
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Fighting'] = true;
+				move.ignoreImmunity['Normal'] = true;
+			}
+			if (move.multihit && move.multihit.length) {
+				move.multihit = move.multihit[1];
+			}
+			if (move.multiaccuracy) {
+				delete move.multiaccuracy;
+			}
 		},
-		id: "bigleaf",
-		name: "Big Leaf",
-		rating: 4.5,
+		effect: {
+			duration: 1,
+			onBasePowerPriority: 8,
+			onBasePower: function (basePower, pokemon, target, move) {
+				return this.chainModify([0x1333, 0x1000]);
+			},
+		},
+		onStart: function (pokemon) {
+			this.useMove('Wrap', pokemon);
+			this.useMove('Tail Whip', pokemon);
+			this.useMove('Cute Charm', pokemon);
+			this.useMove('Tearful Look', pokemon);
+			this.useMove('Play Nice', pokemon);
+		},
+		id: "sneakyfluffer",
+		name: "Sneaky Fluffer",
+		rating: 4,
 		num: 14,
 	},
 	"Fighters Heart": {

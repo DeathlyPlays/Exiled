@@ -3196,6 +3196,19 @@ exports.BattleItems = {
 		gen: 7,
 		desc: "If holder is Marshadow with Spectral Thief, it can use Soul-Stealing 7-Star Strike.",
 	},
+	"magikariumz": {
+		id: "magikariumz",
+		name: "Magikarium Z",
+		isUnreleased: true,
+		spritenum: -654,
+		onTakeItem: false,
+		zMove: "Epic Splash",
+		zMoveFrom: "Splash",
+		zMoveUser: ["Magikarp"],
+		num: -802,
+		gen: 7,
+		desc: "If holder is Magikarp with Splash, it can use Epic Splash.",
+	},
 	"masterball": {
 		id: "masterball",
 		name: "Master Ball",
@@ -7580,5 +7593,61 @@ exports.BattleItems = {
 		num: -764,
 		gen: 0,
 		desc: "If holder is a Liepard, this item allows it to Mega Evolve in battle.",
+	},
+	"raichite": {
+		id: "raichite",
+		name: "Raichite",
+		spritenum: -624,
+		megaStone: "Raichu-Mega",
+		megaEvolves: "Raichu",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -764,
+		gen: 0,
+		desc: "If holder is a Raichu, this item allows it to Mega Evolve in battle.",
+	},
+	"wailordite": {
+		id: "wailordite",
+		name: "Wailordite",
+		spritenum: -624,
+		megaStone: "Wailord-Mega",
+		megaEvolves: "Wailord",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -764,
+		gen: 0,
+		desc: "If holder is a Wailord, this item allows it to Mega Evolve in battle.",
+	},
+	"diggersbite": {
+		id: "diggersbite",
+		name: "Diggersbite",
+		spritenum: -624,
+		megaStone: "Diggersby-Mega",
+		megaEvolves: "Diggersby",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -764,
+		gen: 0,
+		desc: "If holder is a Diggersby, this item allows it to Mega Evolve in battle.",
+	},
+	"spindite": {
+		id: "spindite",
+		name: "Spindite",
+		spritenum: -624,
+		megaStone: "Spinda-Mega",
+		megaEvolves: "Spinda",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -764,
+		gen: 0,
+		desc: "If holder is a Spinda, this item allows it to Mega Evolve in battle.",
 	},
 };

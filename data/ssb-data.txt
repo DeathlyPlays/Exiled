@@ -38,18 +38,18 @@ Notes: Physical sweeper.
 Rank: B.
 
 flufi
-(Meganium-Mega)
-@ Big Flower
-   - Boosts Defense, SpDefense and SpAttack by 20%. (x1.2)
-EVs: 252 HP / 96 Def / 96 SpD / 60 SpA
-Modest Nature
-Ability: Big Leaf
-	- Uses Defog, Safeguard, Light Screen, Reflect, and Magic Coat on Switch-in.
-Moves: Synthesis, Toxic, Disable
-Special Move: Megadoom of Blooms
-  - Grass Type, Special, 90% Accuracy, 130 Base Power.
-  - Sets up Leech Seed.
-Notes: Annoying bulky attacker and support Pokemon.
+(Cinccino)
+@ Fluffy Tail
+   - Quick Claw + Life Orb + Silk Scarf
+EVs: 252 Atk / 252 Spe / 4 SpD
+Adamant Nature
+Ability: Sneaky Fluffer
+	- Uses a variety of unviable, stat-lowering moves on switch-in.
+	- Scrappy + Quick Thinking + Normalize
+Special Move: A Wail of a Tail
+  - Tail Slap with 500 BP instead of 25.
+Notes: Quick Revenge Killer. Unfortunately usually
+gets only 2-3 turns in battle before getting KO'd.
 Rank: B.
 
 Player Shadow BR

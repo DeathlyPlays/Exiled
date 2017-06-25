@@ -20,7 +20,7 @@ exports.commands = {
 		if (template.isMega || (template.evos && Object.keys(template.evos).length > 0)) { // Mega Pokemon cannot be mega evolved
 			return this.errorReply(`You cannot mega evolve ${template.name} in Mix and Mega.`);
 		}
-		let bannedStones = {'beedrillite':1, 'blazikenite':1, 'gengarite':1, 'kangaskhanite':1, 'mawilite':1, 'medichamite':1};
+		let bannedStones = {'pachite':1, 'beedrillite':1, 'blazikenite':1, 'gengarite':1, 'kangaskhanite':1, 'mawilite':1, 'medichamite':1};
 		if (stone.id in bannedStones && template.name !== stone.megaEvolves) {
 			return this.errorReply(`You cannot use ${stone.name} on anything besides ${stone.megaEvolves} in Mix and Mega.`);
 		}
@@ -144,10 +144,10 @@ exports.commands = {
 	},
 	'tiershifthelp': ["/ts OR /tiershift <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift."],
 
-	ubermnm: 'mixandmegauber',
-	mixandmegauber: function (target, room, user) {
+	agmnm: 'mnmag',
+	mnmag: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		if (!toId(target) || !target.includes('@')) return this.parse('/help mixandmegauber');
+		if (!toId(target) || !target.includes('@')) return this.parse('/help mnmag');
 		let sep = target.split('@');
 		let stone = toId(sep[1]);
 		let template = toId(sep[0]);
@@ -159,13 +159,6 @@ exports.commands = {
 		}
 		template = Object.assign({}, Dex.getTemplate(template));
 		stone = Object.assign({}, Dex.getItem(stone));
-		if (template.isMega || (template.evos && Object.keys(template.evos).length > 0)) { // Mega Pokemon cannot be mega evolved
-			return this.errorReply(`You cannot mega evolve ${template.name} in Mix and Mega.`);
-		}
-		let bannedStones = {'gengarite':1};
-		if (stone.id in bannedStones && template.name !== stone.megaEvolves) {
-			return this.errorReply(`You cannot use ${stone.name} on anything besides ${stone.megaEvolves} in Mix and Mega.`);
-		}
 		let baseTemplate = Dex.getTemplate(stone.megaEvolves);
 		let megaTemplate = Dex.getTemplate(stone.megaStone);
 		if (stone.id === 'redorb') { // Orbs do not have 'Item.megaStone' or 'Item.megaEvolves' properties.
@@ -190,7 +183,7 @@ exports.commands = {
 		} else if (megaTemplate.types[1] !== baseTemplate.types[1]) {
 			deltas.type = megaTemplate.types[1];
 		}
-		//////////////////////////////////////////
+		///////////////////////////////////////////////////////////
 		let ability = deltas.ability;
 		let types = template.types;
 		let baseStats = Object.assign({}, template.baseStats);
@@ -228,5 +221,5 @@ exports.commands = {
 		text = `${text}<b>Weight</b>: ${weightkg} kg (${gnbp} BP)`;
 		return this.sendReplyBox(text);
 	},
-	mixandmegauberhelp: ["/mnm <pokemon> @ <mega stone> - Shows the Mix and Mega evolved Pokemon's type and stats."],
+	mnmaghelp: ["/agmnm <pokemon> @ <mega stone> - Shows the Mix and Mega evolved Pokemon's type and stats. No stone/Pokemon restrictions."],
 };

@@ -5649,15 +5649,16 @@ exports.BattleMovedex = {
 	"tundrasweep": { //signature move for Lanturn-Alola
 		num: -6000,
 		accuracy: 100,
-		basePower: 85,
+		basePower: 80,
 		category: "Special",
-		desc: "This move combines Ground in its type effectiveness against the target. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
-		shortDesc: "Adds Ground to type effectiveness.",
+		desc: "This move combines Flying in its type effectiveness against the target. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
+		shortDesc: "Adds Water and Ground to type effectiveness.",
 		id: "tundrasweep",
 		name: "Tundra Sweep",
 		pp: 10,
 		flags: {contact: 1, protect: 1, mirror: 1, distance: 1},
 		onEffectiveness: function (typeMod, type, move) {
+			return typeMod + this.getEffectiveness('Water', type);
 			return typeMod + this.getEffectiveness('Ground', type);
 		},
 		priority: 0,
@@ -14482,7 +14483,7 @@ exports.BattleMovedex = {
 		accuracy: 30,
 		basePower: 0,
 		category: "Special",
-		desc: "Deals damage to the target equal to the target's maximum HP. Ignores accuracy and evasiveness modifiers. This attack's accuracy is equal to (user's level - target's level + X)%, where X is 30 if the user is an Ice type and 20 otherwise, and fails if the target is at a higher level. Ice-type Pokemon and Pokemon with the Ability Sturdy are immune.",
+		desc: "Deals damage to the target equal to the target's maximum HP. Ignores accuracy and evasiveness modifiers. This attack's accuracy is equal to (user's level - target's level + 30)%, and fails if the target is at a higher level. Pokemon with Ice typing or with the Ability Sturdy are immune.",
 		shortDesc: "OHKOs non-Ice targets. Fails if user's lower level.",
 		id: "sheercold",
 		name: "Sheer Cold",
@@ -15706,6 +15707,38 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Ghost",
+		contestType: "Cool",
+	},
+	"epicsplash": {
+		num: -699,
+		accuracy: true,
+		basePower: 225,
+		category: "Physical",
+		desc: "No additional effect.",
+		shortDesc: "Speed, Attack, and Special Attack are max.",
+		id: "epicsplash",
+		name: "Epic Splash",
+		pp: 1,
+		priority: 0,
+		flags: {contact: 1},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Outrage", source);
+			this.add('-anim', source, "Splash", source);
+		},
+		isZ: "magikarniumz",
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					atk: 6,
+					spa: 6,
+					spe: 6,
+				},
+			},
+		},
+		target: "normal",
+		type: "Water",
 		contestType: "Cool",
 	},
 	"spacialrend": {

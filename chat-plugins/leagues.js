@@ -8,7 +8,7 @@
 
 'use strict';
 
-const fs = require('fs');
+const FS = require('./fs');
 const Autolinker = require('autolinker');
 const url = require('url');
 const http = require('http');

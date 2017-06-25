@@ -9,7 +9,7 @@
 
 /* eslint no-restricted-modules: [0] */
 
-const fs = require('fs');
+const FS = require('./fs');
 const path = require('path');
 const request = require('request');
 

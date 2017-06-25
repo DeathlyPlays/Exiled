@@ -1,84 +1,33 @@
-<<<<<<< HEAD
-## Exiled Server
-[![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg)](https://travis-ci.org/DeathlyPlays/Exiled)<br />
-<a href="http://exiled.psim.us" target="_blank">_A server filled with memes, and well a lot of chat commands and metagames._</a>
-### Node Version:
-This server requires the Node Js Version 6.6.0 or higher<br>
-### To start:
-#### `Windows`
-
-* On Windows OS you can install a preferred Version of NodeJS easily from https://nodejs.org/en/download/
-* After installing your preffered version of NodeJS (>6.2), you can easily start up NodeJS Command Prompt then run
-``node app`` or ``node app.js`` you even might specify the port in which to run the server on eg:- ``node app.js 8080`` if you do not mention the port, the mentioned port from **Config.port** will be used to run the server
-
-#### `OS X`
-
-* On OS X you can install NodeJS with Homebrew (the easiest way) just like ``brew install node``.
-* If you do not have Homebew installed, firstly fire up the terminal and execute the following command:
-``ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"``
-* To verify if your node & npm installation with Homebrew wasn't corrupted use ``node -v`` & ``npm -v``.
-* Make sure you always use the latest version of Homebrew if you do not have the latest version simply type ``brew update``
-* To update Node use ``brew upgrade node`` on your terminal
-
-
-#### `Linux`
-
-* On Linux you need to have NodeJS installed (>6) if you do not have it installed simply open the terminal then run
-``nvm install 6.2`` (6 or your prefered version)
-* If you do not have ``nvm`` then run ``curl https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash`` then `` source ~/.profile`` to add ``nvm`` to the environment variables
-* You can easily intall more than one version of NodeJS on your PC/VM with ``nvm install 6`` and use that using ``nvm use 6``
-* Now your terminal is set to use nodejs 6 or your prefered version, now you can start up the server by running
-``node app`` or ``node app.js`` you even might specify the port in which to run the server on eg:- ``node app.js 8080`` if you do not mention the port, the mentioned port from **Config.port** will be used to run the server
-
-### Developers:
-* **Insist** - Main developer of Exiled files, Sysadmin, Owner.
-* **Mewth** - Developer, Sysadmin, Co-Owner.
-* **HoeenCoder** - Sysop, Bug fixes, Mechanic assistance.
-* **Back At My Day** - Developments.
-* **flufi** - Code/Server Breaker, Developer.
-* **Mystifi** - Assistance, Developments.
-* **AlfaStorm** - Developer.
-* **megas4ever** - Developments.
-* **Zarel** - The main workspace we used to begin Exiled off of.
-
-### Retired Developers
-* **Sukesha** - Former co-owner, HTML developments, and CSS creator.
-* **Volco** - Former Sysop + Former Admin + Former Owner.
-* **Alpha Hawk** - Former Developer.
-* **VXN** - Former Developer, Former Sysop.
-
-### Thanks for reading!  Hope you enjoy these codes, that are possible thanks to the above listed.
-=======
-Pokémon Showdown
+Exiled @ Pokemon Showdown
 ========================================================================
 
 Navigation: [Website][1] | **Server repository** | [Client repository][2] | [Dex repository][3]
 
-  [1]: http://pokemonshowdown.com/
-  [2]: https://github.com/Zarel/Pokemon-Showdown-Client
-  [3]: https://github.com/Zarel/Pokemon-Showdown-Dex
+	[1]: http://exiled.psim.us
+	[2]: https://github.com/Zarel/Pokemon-Showdown-Client
+	[3]: https://github.com/Zarel/Pokemon-Showdown-Dex
 
-[![Build Status](https://travis-ci.org/Zarel/Pokemon-Showdown.svg)](https://travis-ci.org/Zarel/Pokemon-Showdown)
+[![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg)](https://travis-ci.org/DeathlyPlays/Exiled)
 [![Dependency Status](https://david-dm.org/zarel/Pokemon-Showdown.svg)](https://david-dm.org/zarel/Pokemon-Showdown)
 [![devDependency Status](https://david-dm.org/zarel/Pokemon-Showdown/dev-status.svg)](https://david-dm.org/zarel/Pokemon-Showdown#info=devDependencies)
 
 Introduction
 ------------------------------------------------------------------------
 
-This is the source code for the game server of [Pokémon Showdown][4], a website for Pokémon battling. Pokémon Showdown simulates singles, doubles and triples battles in all the games out so far (Generations 1 through 7).
+This is the source code for the game server of [Exiled][4], a website for Pokémon battling. Pokémon Showdown simulates singles, doubles and triples battles in all the games out so far (Generations 1 through 7).
 
 This repository contains the files needed to set up your own Pokémon Showdown server. Note that to set up a server, you'll also need a server computer.
 
 You can use your own computer as a server, but for other people to connect to your computer, you'll need to expose a port (default is 8000 but you can choose a different one) to connect to, which sometimes requires [port forwarding][5] (note that this isn't possible on certain internet connections).
 
-  [4]: http://pokemonshowdown.com/
-  [5]: http://en.wikipedia.org/wiki/Port_forwarding
+	[4]: http://exiled.psim.us
+	[5]: http://en.wikipedia.org/wiki/Port_forwarding
 
 
 Installing
 ------------------------------------------------------------------------
 
-    ./pokemon-showdown
+		./pokemon-showdown
 
 (Requires Node.js 8+)
 
@@ -92,7 +41,7 @@ Next, obtain a copy of Pokémon Showdown. If you're reading this outside of GitH
 
 Pokémon Showdown is installed and run using a command line. In Mac OS X, open `Terminal` (it's in Utilities). In Windows, open `Command Prompt` (type `cmd` into the Start menu and it should be the first result). Type this into the command line:
 
-    cd LOCATION
+		cd LOCATION
 
 Replace `LOCATION` with the location Pokémon Showdown is in (ending up with, for instance, `cd "~/Downloads/Pokemon-Showdown"` or `cd "C:\Users\Bob\Downloads\Pokemon-Showdown\"`).
 
@@ -104,13 +53,13 @@ Congratulations, you're done setting up Pokémon Showdown.
 
 Now, to start Pokémon Showdown, run the command:
 
-    node pokemon-showdown
+		node pokemon-showdown
 
 (If you're not on Windows, we recommend doing `./pokemon-showdown` instead.)
 
 You can also specify a port:
 
-    node pokemon-showdown 8000
+		node pokemon-showdown 8000
 
 Visit your server at `http://SERVER:8000`
 
@@ -122,8 +71,8 @@ You will be redirected to `http://SERVER.psim.us`. The reason your server is vis
 
 If you truly want to host the client yourself, there is [a repository for the Pokémon Showdown Client][7]. It's not recommended for beginners, though.
 
-  [6]: https://nodejs.org/
-  [7]: https://github.com/Zarel/Pokemon-Showdown-Client
+	[6]: https://nodejs.org/
+	[7]: https://github.com/Zarel/Pokemon-Showdown-Client
 
 
 Setting up an Administrator account
@@ -135,7 +84,7 @@ Once your server is up, you probably want to make yourself an Administrator (~) 
 
 To become an Administrator, create a file named `config/usergroups.csv` containing
 
-    USER,~
+		USER,~
 
 Replace `USER` with the username that you would like to become an Administrator. Do not put a space between the comma and the tilde.
 
@@ -171,11 +120,11 @@ PS has a built-in chat service. Join our main server to talk to us!
 
 You can also visit the [Pokémon Showdown forums][8] for discussion and help.
 
-  [8]: http://www.smogon.com/forums/forums/pok%C3%A9mon-showdown.209/
+	[8]: http://www.smogon.com/forums/forums/pok%C3%A9mon-showdown.209/
 
 If you'd like to contribute to programming and don't know where to start, feel free to check out [Ideas for New Developers][9].
 
-  [9]: https://github.com/Zarel/Pokemon-Showdown/issues/2444
+	[9]: https://github.com/Zarel/Pokemon-Showdown/issues/2444
 
 
 License
@@ -183,7 +132,7 @@ License
 
 Pokémon Showdown's server is distributed under the terms of the [MIT License][10].
 
-  [10]: https://github.com/Zarel/Pokemon-Showdown/blob/master/LICENSE
+	[10]: https://github.com/Zarel/Pokemon-Showdown/blob/master/LICENSE
 
 
 Credits
@@ -231,4 +180,17 @@ Contributors
 Special thanks
 
 - See http://pokemonshowdown.com/credits
->>>>>>> 0143ae28dd5a702b4b3eb86eef886535b95b8794
+
+### Developers:
+* **Insist** - Main developer of Exiled files, Sysadmin, Owner.
+* **Mewth** - Developer, Sysadmin, Co-Owner.
+* **HoeenCoder** - Sysop, Bug fixes, Mechanic assistance.
+* **VXN** - Developer, Sysop.
+* **Back At My Day** - Developments.
+* **Mystifi** - Assistance, Developments.
+* **AlfaStorm** - Developer.
+* **megas4ever** - Developments.
+
+### Retired Developers
+* **Lass Ninetales** - Former co-owner, HTML developments, and CSS creator.
+* **Volco** - Former Sysop + Former Admin + Former Owner.

@@ -168,7 +168,7 @@ exports.BattleScripts = {
 			"@flufi": {
 				species: "Minccino",
 				ability: "Sneaky Fluffer",
-				item: "Fluffy Tail",
+				item: "Silk Scarf",
 				gender: "M",
 				moves: ['extremespeed', 'uturn', 'fakeout'],
 				baseSignatureMove: "awailofatail",

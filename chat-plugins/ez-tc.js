@@ -9,7 +9,7 @@
  */
 'use strict';
 
-const fs = require('fs');
+const FS = require('./fs');
 const serialize = require('node-serialize');
 let trainerCards = {};
 

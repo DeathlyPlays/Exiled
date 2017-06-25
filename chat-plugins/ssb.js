@@ -1,6 +1,6 @@
 'use strict';
 
-let fs = require('fs');
+const FS = require('./fs');
 let ssbWrite = true; //if false, do not write to json
 let noRead = false; //if true, do not read from json
 const MAX_MOVEPOOL_SIZE = 4;

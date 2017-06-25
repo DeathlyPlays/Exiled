@@ -5,7 +5,7 @@
 'use strict';
 
 let icons = {};
-const fs = require('fs');
+const FS = require('./fs');
 const color = require('../config/color');
 let http = require('http');
 

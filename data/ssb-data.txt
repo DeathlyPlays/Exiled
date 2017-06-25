@@ -39,13 +39,12 @@ Rank: B.
 
 flufi
 (Cinccino)
-@ Fluffy Tail
-   - Quick Claw + Life Orb + Silk Scarf
+@ Silk Scarf
 EVs: 252 Atk / 252 Spe / 4 SpD
 Adamant Nature
 Ability: Sneaky Fluffer
 	- Uses a variety of unviable, stat-lowering moves on switch-in.
-	- Scrappy + Quick Thinking + Normalize
+	- Scrappy + Skill Link + Normalize
 Special Move: A Wail of a Tail
   - Tail Slap with 500 BP instead of 25.
 Notes: Quick Revenge Killer. Unfortunately usually

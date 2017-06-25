@@ -8,7 +8,7 @@
 
 'use strict';
 
-let fs = require('fs');
+const fs = require('fs');
 
 let blackcss = 'background:#3C3B42;padding:10px;color:white;border:1px solid black; border-radius:6px;text-align:center;';
 

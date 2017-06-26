@@ -4472,6 +4472,20 @@ exports.BattleItems = {
 		gen: 3,
 		desc: "A Poke Ball that works well on Pokemon species that were previously caught.",
 	},
+	"ribombite": {
+		id: "ribombite",
+		name: "Ribombite",
+		spritenum: -342,
+		megaStone: "Ribombee-Mega",
+		megaEvolves: "Ribombee",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: 3333,
+		gen: 7,
+		desc: "If holder is a Ribombee, this item allows it to Mega Evolve in battle.",
+	},
 	"rindoberry": {
 		id: "rindoberry",
 		name: "Rindo Berry",
@@ -5051,6 +5065,20 @@ exports.BattleItems = {
 		num: 283,
 		gen: 4,
 		desc: "Holder's use of Sandstorm lasts 8 turns instead of 5.",
+	},
+	"snorlaxite": {
+		id: "snorlaxite",
+		name: "Snorlaxite",
+		spritenum: -634,
+		megaStone: "Snorlax-Mega",
+		megaEvolves: "Snorlax",
+		ontakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -765,
+		gen: 0,
+		desc: "If the holder is a Snorlax, this item allows it to Mega Evolve in battle.",
 	},
 	"snorliumz": {
 		id: "snorliumz",

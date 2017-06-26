@@ -1713,4 +1713,27 @@ exports.BattleMovedex = {
 		target: "self",
 		type: "Fairy",
 	},
+	"dragonblitz": {
+		id: "dragonblitz",
+		name: "Dragon Blitz",
+		basePower: 200,
+		priority: 2,
+		desc: "When used for the first time, Raises Attack and Speed by 2x",
+		pp: 5,
+		onTryHitSide: function (source) {
+			if (source.activeTurns === 1) {
+				this.boost({atk: 2, spe: 2});
+			}
+		},
+		category: "Physical",
+		flags: {protect: 1, mirror: 1, contact: 1},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Core Enforcer", source);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Dragon",
+		contestType: "Tough",
+	},
 };

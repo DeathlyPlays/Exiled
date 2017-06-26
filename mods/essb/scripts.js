@@ -211,6 +211,22 @@ exports.BattleScripts = {
 			   },
 			   nature: "Impish",
 			},
+			"@Revival Clair": {
+				species: "Garchomp",
+				ability: "Rough Skin",
+				item: "Leftovers",
+				shiny: true,
+				gender: "F",
+				moves: ['outrage', 'earthquake', 'swordsdance'],
+				baseSignatureMove: "dragonblitz",
+				signatureMove: "Dragon Blitz",
+				evs: {
+					atk: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Jolly",
+			},
 			//Drivers
 			"%Horrific17": {
 				species: "Arcanine",

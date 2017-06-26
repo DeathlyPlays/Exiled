@@ -10,7 +10,7 @@
 
 let newsRequests = {};
 
-const FS = require('./fs');
+const fs = require('fs');
 
 function generateNews(user) {
 	let newsData, newsDisplay = [];

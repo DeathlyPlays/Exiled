@@ -1,6 +1,6 @@
 'use strict';
 
-const FS = require('./fs');
+const FS = require('fs');
 
 // This should be the default amount of money users have.
 // Ideally, this should be zero.
@@ -138,12 +138,12 @@ let Economy = global.Economy = {
 	},
 	logTransaction: function (message) {
 		if (!message) return false;
-		fs.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+		FS.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
 	},
 
 	logDice: function (message) {
 		if (!message) return false;
-		fs.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+		FS.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
 	},
 };
 
@@ -280,10 +280,10 @@ exports.commands = {
 		if (!target) return this.sendReply("Usage: /moneylog [number] to view the last x lines OR /moneylog [text] to search for text.");
 		let word = false;
 		if (isNaN(Number(target))) word = true;
-		let lines = fs.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
+		let lines = FS.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
 		let output = '';
 		let count = 0;
-		let regex = new RegExp(target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), "gi");
+		let regex = new RegExp(target.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&'), "gi");
 
 		if (word) {
 			output += 'Displaying last 50 lines containing "' + target + '":\n';

@@ -1,6 +1,6 @@
 'use strict';
 
-const FS = require('./fs');
+const FS = require('fs');
 
 let adWhitelist = ['exiled', 'meadow', 'ember'];
 
@@ -17,7 +17,7 @@ Config.chatfilter = function (message, user, room, connection, targetUser) {
 		user.advWarns++;
 		if (user.advWarns > 1) {
 			Punishments.lock(user, Date.now() + 7 * 24 * 60 * 60 * 1000, null, "Advertising");
-			fs.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server. (Advertising) (' + connection.ip + ')\n');
+			FS.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server. (Advertising) (' + connection.ip + ')\n');
 			connection.sendTo(room, '|raw|<strong class="message-throttle-notice">You have been locked for attempting to advertise.</strong>');
 			Monitor.log("[AdMonitor] " + user.name + " has been locked for attempting to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + targetUser.name + ".") + " **Message:** " + message);
 			return false;

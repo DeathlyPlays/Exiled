@@ -10118,7 +10118,7 @@ exports.BattlePokedex = {
 		species: "Cofagrigus-Mega",
 		baseSpecies: "Cofagrigus",
 		types: ["Ghost"],
-		baseStats: {hp: 58, atk: 25, def: 215, spa: 131, spd: 211, spe: 15},
+		baseStats: {hp: 58, atk: 25, def: 175, spa: 155, spd: 170, spe: 15},
 		abilities: {0: "Mummy"},
 		heightm: 2,
 		weightkg: 104.5,

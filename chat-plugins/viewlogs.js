@@ -3,7 +3,7 @@
  */
 'use strict';
 
-const FS = require('./fs');
+const fs = require('fs');
 const MAX_LINES = 1000;
 
 exports.commands = {

@@ -11,7 +11,7 @@
 
 exports.commands = {
 	shrug: function () {
-		this.parse("¯\\_(ツ)_\/¯");
+		this.parse("¯\\_(ツ)_/¯");
 	},
 	murder: function (target, room, User) {
 		if (!target) return this.sendReply('/murder needs a target.');

@@ -4,7 +4,7 @@ This plugin allows you to use emoticons in both chat rooms (as long as they are 
 */
 'use strict';
 
-const FS = require('./fs');
+const fs = require('fs');
 let emoticons = {
 	'feelscri': 'http://i.imgur.com/QAuUW7u.jpg',
 	'#murica': 'http://i.imgur.com/d4XueEr.jpg',

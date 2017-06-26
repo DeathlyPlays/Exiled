@@ -1,6 +1,6 @@
 'use strict';
 
-const FS = require('./fs');
+const FS = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
 const http = require('http');
@@ -44,12 +44,12 @@ Exiled.font = function (text, color, bold) {
 Exiled.log = function (file, text) {
 	if (!file) return '<font color="maroon">ERROR : No file specified!</font>';
 	if (!text) return '<font color="maroon">ERROR : No text specified!</font>';
-	fs.appendFile(file, text);
+	FS.appendFile(file, text);
 };
 
 let urbanCache;
 try {
-	urbanCache = JSON.parse(fs.readFileSync('../config/udcache.json', 'utf8'));
+	urbanCache = JSON.parse(FS.readFileSync('../config/udcache.json', 'utf8'));
 } catch (e) {
 	urbanCache = {};
 }
@@ -60,12 +60,12 @@ function cacheUrbanWord(word, definition) {
 		"definition": definition,
 		"time": Date.now(),
 	};
-	fs.writeFile('config/udcache.json', JSON.stringify(urbanCache));
+	FS.writeFile('config/udcache.json', JSON.stringify(urbanCache));
 }
 
 function loadReports() {
 	try {
-		Reports = JSON.parse(fs.readFileSync('config/reports.json'));
+		Reports = JSON.parse(FS.readFileSync('config/reports.json'));
 	} catch (e) {
 		Reports = {};
 	}
@@ -73,7 +73,7 @@ function loadReports() {
 loadReports();
 
 function saveReports() {
-	fs.writeFile('config/reports.json', JSON.stringify(Reports));
+	FS.writeFile('config/reports.json', JSON.stringify(Reports));
 }
 
 function getLinkId(msg) {
@@ -113,7 +113,7 @@ function parseStatus(text, encoding) {
 
 let monData;
 try {
-	monData = fs.readFileSync("data/ssb-data.txt").toString().split("\n\n");
+	monData = FS.readFileSync("data/ssb-data.txt").toString().split("\n\n");
 } catch (e) {
 	console.error(e);
 }
@@ -180,13 +180,13 @@ Exiled.regdate = function (target, callback) {
 
 function loadRegdateCache() {
 	try {
-		regdateCache = JSON.parse(fs.readFileSync('config/regdate.json', 'utf8'));
+		regdateCache = JSON.parse(FS.readFileSync('config/regdate.json', 'utf8'));
 	} catch (e) {}
 }
 loadRegdateCache();
 
 function saveRegdateCache() {
-	fs.writeFileSync('config/regdate.json', JSON.stringify(regdateCache));
+	FS.writeFileSync('config/regdate.json', JSON.stringify(regdateCache));
 }
 
 exports.commands = {
@@ -599,9 +599,9 @@ exports.commands = {
 						room.update();
 					});
 			})
-		.catch(error => {
-			return this.errorReply("Anime not found.");
-		});
+			.catch(error => {
+				return this.errorReply("Anime not found.");
+			});
 	},
 
 	hc: function (room, user, cmd) {
@@ -792,7 +792,7 @@ exports.commands = {
 		if (statusLen > 14) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
 
 		if (user.isAway) {
-			let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/);
+			let statusIdx = newName.search(/\s-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/);
 			if (statusIdx > -1) newName = newName.substr(0, statusIdx);
 			if (user.name.substr(-statusLen) === status) return this.sendReply("Your away status is already set to \"" + target + "\".");
 		}
@@ -849,7 +849,7 @@ exports.commands = {
 
 	essbhelp: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		return this.sendReplyBox("/essb [staff member\'s name] - displays data for a staffmon\'s movepool, custom move, and custom ability.");
+		return this.sendReplyBox("/essb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.");
 	},
 
 	essbcredits: function (target, room, user) {

@@ -4,7 +4,7 @@
 */
 'use strict';
 
-const FS = require('./fs');
+const fs = require('fs');
 let writeJSON = true;
 let shopItems = ['Custom Symbol', 'Custom Avatar', 'Custom Color', 'Custom Title', 'Custom Icon'];
 const eventLeaders = ['insist', 'jigglykong'];

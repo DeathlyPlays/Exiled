@@ -9,13 +9,13 @@
  */
 'use strict';
 
-const FS = require('./fs');
+const FS = require('fs');
 const serialize = require('node-serialize');
 let trainerCards = {};
 
 function loadTrainerCards() {
 	try {
-		trainerCards = serialize.unserialize(fs.readFileSync('config/trainercards.json', 'utf8'));
+		trainerCards = serialize.unserialize(FS.readFileSync('config/trainercards.json', 'utf8'));
 		Object.assign(Chat.commands, trainerCards);
 	} catch (e) {}
 }
@@ -25,7 +25,7 @@ setTimeout(function load() {
 }, 1000);
 
 function saveTrainerCards() {
-	fs.writeFileSync('config/trainercards.json', serialize.serialize(trainerCards));
+	FS.writeFileSync('config/trainercards.json', serialize.serialize(trainerCards));
 	Object.assign(Chat.commands, trainerCards);
 }
 

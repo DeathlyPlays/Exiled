@@ -342,14 +342,14 @@ exports.commands = {
 		const divEnd = "</div>";
 		const definePopup = "|wide||html|<center><b>CardSearch</b></center><br />";
 		const generalMenu = "<center>" +
-			'<button name="send" value="/searchcard letter" style=\"background-color:aliceblue;height:30px\">Alphabetical</button>&nbsp;&nbsp;' + // alphabetical
-			'<button name="send" value="/searchcard category" style=\"background-color:aliceblue;height:30px\">Categories</button>&nbsp;&nbsp;' + // category
+			'<button name="send" value="/searchcard letter" style="background-color:aliceblue;height:30px">Alphabetical</button>&nbsp;&nbsp;' + // alphabetical
+			'<button name="send" value="/searchcard category" style="background-color:aliceblue;height:30px">Categories</button>&nbsp;&nbsp;' + // category
 			'</center><br />';
 		if (!target) {
 			return user.popup(definePopup + generalMenu);
 		}
 		// quick fix for when target ends with a comma
-		target = target.replace(/\,[\s]+$/i, "");
+		target = target.replace(/,[\s]+$/i, "");
 		let parts = target.split(",");
 		let actionCommand = parts.shift();
 		let cardDisplay;
@@ -424,7 +424,7 @@ exports.commands = {
 				// ignore rarity
 				if (/rarity$/i.test(param)) continue;
 				for (let c in paramCards) {
-					let cardParams = paramCards[c].collection.join("~").toLowerCase().replace(/[^a-z0-9\~]/g, "").split("~");
+					let cardParams = paramCards[c].collection.join("~").toLowerCase().replace(/[^a-z0-9~]/g, "").split("~");
 					if (cardParams.indexOf(param) === -1) delete paramCards[c]; // remove the card from the currently searched ones.
 				}
 			}
@@ -602,9 +602,9 @@ exports.commands = {
 
 		// show trade details
 		let displayTrade = userTrades[target];
-		const acceptReject = '<center>' + (displayTrade.from === user.userid ? "" : '<button name="send" value="/tradeaction accept, ' + displayTrade.id + '" style=\"background-color:green;height:30px\"><b>Accept</b></button>') + // accept button
+		const acceptReject = '<center>' + (displayTrade.from === user.userid ? "" : '<button name="send" value="/tradeaction accept, ' + displayTrade.id + '" style="background-color:green;height:30px"><b>Accept</b></button>') + // accept button
 			'&nbsp;&nbsp;' + // spacing
-			'<button name="send" value="/tradeaction ' + (displayTrade.from === user.userid ? "cancel" : "reject") + ', ' + displayTrade.id + '" style=\"background-color:red;height:30px\"><b>' + (displayTrade.from === user.userid ? "Cancel" : "Reject") + '</b></button></center>' + // reject button
+			'<button name="send" value="/tradeaction ' + (displayTrade.from === user.userid ? "cancel" : "reject") + ', ' + displayTrade.id + '" style="background-color:red;height:30px"><b>' + (displayTrade.from === user.userid ? "Cancel" : "Reject") + '</b></button></center>' + // reject button
 			'<br /><br />'; // new line
 
 		// build the user's card first
@@ -889,7 +889,7 @@ exports.commands = {
 			"<b>/card</b> - Shows data and information on any specifc card.<br>" +
 			"<b>/cardladder</b> - Shows the leaderboard of the users with the most card points.<br>" +
 			"<b>/cardsearch</b> - Opens a window allowing you to search through all the cards.<br>" +
-			"<b>/trade</b> - /trade [user\'s card], [targetUser], [targetUser\'s card] - starts a new trade request.<br>" +
+			"<b>/trade</b> - /trade [user's card], [targetUser], [targetUser's card] - starts a new trade request.<br>" +
 			"<b>/trades</b> - View your current pending trade requests.<br>" +
 			"<b>/transfercard</b> - /transfercard [targetUser], [card] - transfers a card to the target user.<br>" +
 			"<b>/transferallcards</b> - /transferallcards [user] - transfers all of your cards to the target user.<br>"

@@ -3728,5 +3728,5 @@ module.exports = {
 'magearnaexfull': {title: 'magearnaexfull', name: 'Magearna EX (Full)', card: 'https://cdn.shopify.com/s/files/1/1255/9047/products/Magearna_EX_FA_SS_1024x1024.jpg?v=1475934411', rarity: 'Mythic', collection: ['Mythical', 'Exiled'], points: 20},
 'magearnaex': {title: 'magearnaex', name: 'Magearna EX', card: 'http://940ee6dce6677fa01d25-0f55c9129972ac85d6b1f4e703468e6b.r99.cf2.rackcdn.com/products/pictures/1099922.jpg', rarity: 'Legendary', collection: ['Mythical', 'Exiled'], points: 15},
 'magearna': {title: 'magearna', name: 'Magearna', card: 'https://cdn6.bigcommerce.com/s-0kvv9/products/150403/images/210094/pokemonpromoxy186__74802.1484173467.500.750.jpg?c=2', rarity: 'Rare', collection: ['Mythical', 'Exiled'], points: 8},
-'megafurretex': {title: 'megafurretex', name: 'Mega Furret EX', card: 'http://www.mypokecard.com/my/tmp/9Z4O49Hih3.jpg?1498345056719', rarity: 'Legendary', collection: ['Colorless', 'Mega', 'OU-Pack', 'EX-Pack', 'XY-Promo', 'Gen2', 'Exiled'], points: 15},
+'megafurretex': {title: 'megafurretex', name: 'Mega Furret EX', card: 'http://i.imgur.com/aXbOAAW.png', rarity: 'Legendary', collection: ['Colorless', 'Mega', 'OU-Pack', 'EX-Pack', 'XY-Promo', 'Gen2', 'Exiled'], points: 15},
 };

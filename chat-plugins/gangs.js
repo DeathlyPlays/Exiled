@@ -8,7 +8,7 @@
 
 'use strict';
 
-const FS = require('./fs');
+const fs = require('fs');
 const Autolinker = require('autolinker');
 
 let database = new sqlite3.Database('config/gangs.db', function () {

@@ -5,12 +5,12 @@
 'use strict';
 
 let icons = {};
-const FS = require('./fs');
+const FS = require('fs');
 const color = require('../config/color');
 let http = require('http');
 
 function load() {
-	fs.readFile('config/icons.json', 'utf8', function (err, file) {
+	FS.readFile('config/icons.json', 'utf8', function (err, file) {
 		if (err) return;
 		icons = JSON.parse(file);
 	});
@@ -18,7 +18,7 @@ function load() {
 load();
 
 function updateIcons() {
-	fs.writeFileSync('config/icons.json', JSON.stringify(icons));
+	FS.writeFileSync('config/icons.json', JSON.stringify(icons));
 
 	let newCss = '/* ICONS START */\n';
 
@@ -27,9 +27,9 @@ function updateIcons() {
 	}
 	newCss += '/* ICONS END */\n';
 
-	let file = fs.readFileSync('config/custom.css', 'utf8').split('\n');
+	let file = FS.readFileSync('config/custom.css', 'utf8').split('\n');
 	if (~file.indexOf('/* ICONS START */')) file.splice(file.indexOf('/* ICONS START */'), (file.indexOf('/* ICONS END */') - file.indexOf('/* ICONS START */')) + 1);
-	fs.writeFileSync('config/custom.css', file.join('\n') + newCss);
+	FS.writeFileSync('config/custom.css', file.join('\n') + newCss);
 	reloadCSS();
 }
 

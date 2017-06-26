@@ -9,7 +9,7 @@
 
 /* eslint no-restricted-modules: [0] */
 
-const FS = require('./fs');
+const FS = require('fs');
 const path = require('path');
 const request = require('request');
 
@@ -30,12 +30,12 @@ function downloadImage(image_url, name, extension) {
 			let type = response.headers['content-type'].split('/');
 			if (type[0] !== 'image') return;
 
-			response.pipe(fs.createWriteStream(AVATAR_PATH + name + extension));
+			response.pipe(FS.createWriteStream(AVATAR_PATH + name + extension));
 		});
 }
 
 function loadCustomAvatars() {
-	fs.readdir(AVATAR_PATH, (err, files) => {
+	FS.readdir(AVATAR_PATH, (err, files) => {
 		if (err) console.log("Error loading custom avatars: " + err);
 		if (!files) files = [];
 		files
@@ -70,7 +70,7 @@ exports.commands = {
 
 			downloadImage(avatarUrl, name, ext);
 			this.sendReply("|raw|" + name + "'s avatar was successfully set. Avatar:<br /><img src='" + avatarUrl + "' width='80' height='80'>");
-			if (Users(name)) Users(name).popup("|html|" + Exiled.nameColor(user.name, true) + " set your custom avatar.<br /><center><img src='" + avatarUrl + "' width='80' height='80'></center><br /> Refresh your page if you don\'t see it.");
+			if (Users(name)) Users(name).popup("|html|" + Exiled.nameColor(user.name, true) + " set your custom avatar.<br /><center><img src='" + avatarUrl + "' width='80' height='80'></center><br /> Refresh your page if you don't see it.");
 		},
 
 		remove: 'delete',
@@ -83,7 +83,7 @@ exports.commands = {
 			if (!image) return this.errorReply(target + " does not have a custom avatar.");
 
 			delete Config.customavatars[userid];
-			fs.unlink(AVATAR_PATH + image, err => {
+			FS.unlink(AVATAR_PATH + image, err => {
 				if (err && err.code === 'ENOENT') {
 					this.errorReply(target + "'s avatar does not exist.");
 				} else if (err) {

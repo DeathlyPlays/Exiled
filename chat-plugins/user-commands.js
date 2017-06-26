@@ -105,7 +105,7 @@ exports.commands = {
 				"<center><b><u>List of commands (2/3):</u></b></center><br />" +
 				"<b>/hangman</b> help - Help on hangman specific commands.<br />" +
 				"<b>/poof</b> - Disconnects the user and leaves a message in the room.<br />" +
-				"<b>/profile</b> - Shows information regarding user\'s name, group, money, and when they were last seen.<br />" +
+				"<b>/profile</b> - Shows information regarding user's name, group, money, and when they were last seen.<br />" +
 				"<b>/regdate</b> <i>user</i> - Gets registration date of the user.<br />" +
 				"<br />Use /cmds <i>number (1-3)</i> to see more commands."
 			);
@@ -117,7 +117,7 @@ exports.commands = {
 				"<b>/richestusers</b> - Show the richest users.<br />" +
 				"<b>/seen</b> <i>username</i> - Shows when the user last connected on the server.<br />" +
 				"<b>/sell</b> <i>id</i> - Sells a card in the marketplace. Hover over your card to get the id.<br />" +
-				"<b>/shop</b> - Displays the server\'s main shop.<br />" +
+				"<b>/shop</b> - Displays the server's main shop.<br />" +
 				"<b>/stafflist</b> - Shows the staff.<br />" +
 				"<b>/tell</b> <i>username</i>, <i>message</i> - Send a message to an offline user that will be received when they log in.<br />" +
 				"<b>/transfer</b> <i>user</i>, <i>amount</i> - Transfer a certain amount of money to a user.<br />" +

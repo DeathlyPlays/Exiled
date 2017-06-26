@@ -176,7 +176,7 @@ class UNOgame extends Rooms.RoomGame {
 		this.sendToRoom(`|uhtmlchange|uno-${this.room.gameNumber}|<div class="infobox"><p>The game of UNO has started.</p>${(this.suppressMessages ? `<p style="font-size: 6pt">Game messages will be shown to only players.  If you would like to spectate the game, use <strong>/uno spectate</strong></p>` : '')}</div>`, true);
 		this.state = 'play';
 
-		this.onNextPlayer();  // determines the first player
+		this.onNextPlayer(); // determines the first player
 
 		// give cards to the players
 		for (let i in this.players) {
@@ -550,7 +550,7 @@ class UNOgamePlayer extends Rooms.RoomGamePlayer {
 
 	buildHand() {
 		return this.hand.sort((a, b) => a.color.localeCompare(b.color) || a.value.localeCompare(b.value))
-		.map((c, i) => cardHTML(c, i === this.hand.length - 1));
+			.map((c, i) => cardHTML(c, i === this.hand.length - 1));
 	}
 
 	sendDisplay() {

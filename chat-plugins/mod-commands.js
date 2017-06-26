@@ -318,11 +318,11 @@ exports.commands = {
 		this.privateModCommand('(' + Chat.escapeHTML(user.name) + ' mass PMd: ' + target + ')');
 	},
 
-/*************************
-  Permalock / Permaban
-  for side servers
-  coded by HoeenHero
-**************************/
+	/*************************
+	* Permalock / Permaban
+	* for side servers
+	* coded by HoeenHero
+	**************************/
 
 	forceofflinepermalock: 'permalock',
 	offlinepermalock: 'permalock',
@@ -418,23 +418,6 @@ exports.commands = {
 		return this.addModCommand(target + ' was unpermabanned by ' + user.name + '.');
 	},
 	unpermabanhelp: ['/unpermaban user - Unpermaban a user. Requires: ~'],
-
-	reauth: 'repromote',
-	repromote: function (target, room, user) {
-		if (!this.can('hotpatch')) return false;
-		if (!target) return this.errorReply("/repromote targetuser, demote message. Do not use this if you don\'t know what you are doing");
-		let parts = target.replace(/\, /g, ",").split(',');
-		let targetUser = toId(parts.shift());
-		parts.forEach(function (r) {
-			let tarRoom = Rooms.get(toId(r));
-			if (tarRoom) {
-				tarRoom.auth[targetUser] = r.charAt(0);
-			}
-		});
-		Rooms.global.writeChatRoomData();
-		Users(targetUser).updateIdentity();
-		this.sendReply("Succesfully repromoted " + targetUser + ".");
-	},
 
 	forceshart: 'shart',
 	shart: function (target, room, user, connection, cmd) {

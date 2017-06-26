@@ -1420,9 +1420,6 @@ exports.Formats = [
 		debug: true,
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
-		/* * * * * * * * *
-		 * EXILED METAS: *
-		 * * * * * * * * */
 	{
 		name: "[Gen 7] Clash of the Regions",
 		section: "Exiled's Custom Gamemodes",

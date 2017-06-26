@@ -113,31 +113,6 @@ exports.BattleMovedex = {
 		zMovePower: 185,
 		contestType: "Clever",
 	},
-	"electrocryption": {
-		accuracy: 100,
-		basePower: 200,
-		basePowerCallback: function (pokemon, target, move) {
-			return move.basePower * pokemon.hp / pokemon.maxhp;
-		},
-		category: "Special",
-		id: "electrocryption",
-		name: "Electrocryption",
-		pp: 5,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Discharge", target);
-		},
-		secondary: {
-			chance: 50,
-			status: 'par',
-		},
-		target: "allAdjacentFoes",
-		type: "Electric",
-		zMovePower: 999,
-		contestType: "Clever",
-	},
 	//cieltsnow
 	"pimpslap": {
 		id: "pimpslap",
@@ -242,24 +217,6 @@ exports.BattleMovedex = {
 		type: "Rock",
 		zMovePower: 120,
 		contestType: "Tough",
-	},
-	"shinkuhadoken": {
-		accuracy: 100,
-		basePower: 20,
-		basePowerCallback: function (pokemon, target, move) {
-			return move.basePower + 20 * pokemon.positiveBoosts();
-		},
-		defensiveCategory: "Special",
-		category: "Physical",
-		id: "shinkuhadoken",
-		name: "Shinku Hadoken",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		secondary: false,
-		target: "normal",
-		type: "Fighting",
-		zMovePower: 160,
 	},
 	//vividisagod
 	"jetblast": {
@@ -516,26 +473,6 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Fire",
-	},
-	"meditate": {
-		inherit: true,
-		boosts: {
-			def: -1,
-			spd: -1,
-			atk: 2,
-			spa: 2,
-			spe: 2,
-		},
-		pp: 10,
-		priority: 6,
-		stallingMove: true,
-		volatileStatus: 'protect',
-		onPrepareHit: function (pokemon) {
-			return !!this.willAct() && this.runEvent('StallMove', pokemon);
-		},
-		onHit: function (pokemon) {
-			pokemon.addVolatile('stall');
-		},
 	},
 	"rushofdragonbolt": {
 		accuracy: 100,
@@ -1596,7 +1533,7 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Makes foe use Guillotine on the user.",
+		desc: "Makes the foe use Guillotine on the user.",
 		id: "aggrodraw",
 		name: "Aggro Draw",
 		pp: 10,

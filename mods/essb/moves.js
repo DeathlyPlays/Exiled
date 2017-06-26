@@ -1450,35 +1450,67 @@ exports.BattleMovedex = {
 		zMovePower: 155,
 		contestType: "Cute",
 	},
-	//ProfessorBulbasaur
-
-	"onebulbasaurhorde": {
-		id: "onebulbasaurhorde",
-		name: "One Bulbasaur Horde",
-		basePower: 40,
-		self: {
-			boosts: {
-				atk: 2,
-				def: 2,
-				spa: 2,
-				spd: 2,
-				spe: 2,
-			},
-		},
+	//Ransensei
+	"legendsambition": {
 		accuracy: 100,
-		pp: 0.625,
-		secondary: false,
+		basePower: 120,
 		category: "Special",
-		isViable: true,
-		isZ: "bulbasauriumz",
+		id: "legendsambition",
+		name: "Legend's Ambition",
+		pp: 10,
 		priority: 0,
-		flags: {},
-		onPrepareHit: function (target, source) {
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Gunk Shot", target);
+			this.add('-anim', source, "Outrage", target);
+			this.add('-anim', source, "V-Create", target);
+			this.add('-anim', source, "Psystrike", target);
 		},
 		target: "normal",
-		type: "Poison",
+		type: "Dragon",
+	},
+	"warriorsinferno": {
+		id: "warriorsinferno",
+		name: "Warriors Inferno",
+		priority: 0,
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		desc: "Makes weather Intense Sun + Hits on Weaker Defense",
+		category: function (pokemon, move) {
+			let foeactive = pokemon.side.foe.active;
+			let totaldef = 0;
+			let totalspd = 0;
+			for (let i = 0; i < foeactive.length; i++) {
+				if (!foeactive[i] || foeactive[i].fainted) continue;
+				totaldef += foeactive[i].getStat('def', false, true);
+				totalspd += foeactive[i].getStat('spd', false, true);
+			}
+			if (totaldef && totaldef >= totalspd) {
+				move.category = 'Special';
+			} else if (totalspd) {
+				move.category = 'Physical';
+			}
+		},
+		secondary: false,
+		weather: "desolateland",
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Overheat", target);
+			this.add('-anim', source, "Flare Blitz", target);
+		},
+		basePower: 100,
+		pp: 5,
+		accuracy: 100,
+		target: "normal",
+		type: "Fire",
+		zMovePower: 180,
+		contestType: "Cool",
 	},
 	//douglasgamer
 	"copywaterclones": {
@@ -1493,6 +1525,7 @@ exports.BattleMovedex = {
 				spe: 1,
 			},
 		},
+		desc: "Hits twice, and raises user's speed by 1 stage",
 		multihit: 2,
 		secondary: false,
 		priority: 0,
@@ -1503,34 +1536,6 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Water",
-	},
-	//Bunnigail
-	"blindingflashes": {
-		id: "blindingflashes",
-		name: "Blinding Flashes",
-		priority: 1,
-		basePower: 100,
-		accuracy: 100,
-		category: "Physical",
-		flags: {contact: 1, protect: 1, mirror: 1},
-		secondary: {
-			chance: 30,
-			self: {
-				boosts: {
-					atk: 1,
-					spe: 1,
-				},
-			},
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Return", target);
-		},
-		pp: 15,
-		target: "normal",
-		type: "Normal",
-		zMovePower: 180,
-		contestType: "Tough",
 	},
 	//Alpha Shivam
 	"dragonify": {
@@ -1547,6 +1552,7 @@ exports.BattleMovedex = {
 				spe: 1,
 			},
 		},
+		desc: "Raises user's Atk and Spe by 1 and makes foe Dragon type.",
 		priority: 1,
 		onHit: function (target) {
 			if (!target.setType('Dragon')) return false;
@@ -1590,6 +1596,7 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
+		desc: "Makes foe use Guillotine on the user.",
 		id: "aggrodraw",
 		name: "Aggro Draw",
 		pp: 10,
@@ -1725,6 +1732,7 @@ exports.BattleMovedex = {
 				this.boost({atk: 2, spe: 2});
 			}
 		},
+		accuracy: 100,
 		category: "Physical",
 		flags: {protect: 1, mirror: 1, contact: 1},
 		onPrepareHit: function (source) {

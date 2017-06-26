@@ -659,6 +659,7 @@ exports.BattleScripts = {
 				species: "Infernape",
 				ability: "Fighters Heart",
 				item: "Life Orb",
+				gender: "M",
 				moves: ['closecombat', 'moonblast', 'solarbeam'],
 				baseSignatureMove: "warriorsinferno",
 				signatureMove: "Warriors Inferno",

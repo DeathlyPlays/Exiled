@@ -5,7 +5,7 @@
 
 const fs = require('fs');
 
-const selectors
+const selectors = {};
 
 function writeIconCSS() {
         fs.appendFile('config/custom.css', selectors);

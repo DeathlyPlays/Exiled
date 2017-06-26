@@ -2,7 +2,7 @@
 
 const FS = require('fs');
 
-// This should be the default amount of money users have.
+// This should be the default amount of money users have..
 // Ideally, this should be zero.
 const DEFAULT_AMOUNT = 0;
 

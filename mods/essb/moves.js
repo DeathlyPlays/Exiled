@@ -1664,7 +1664,7 @@ exports.BattleMovedex = {
 		priority: 2,
 		desc: "When used for the first time, Raises Attack and Speed by 2x",
 		pp: 5,
-		onTryHitSide: function (source) {
+		onAfterMoveSecondarySelf: function (source) {
 			if (source.activeTurns === 1) {
 				this.boost({atk: 2, spe: 2});
 			}

@@ -38,7 +38,7 @@ Notes: Physical sweeper.
 Rank: B.
 
 flufi
-(Cinccino)
+(Minccino)
 @ Silk Scarf
 EVs: 252 Atk / 252 Spe / 4 SpD
 Adamant Nature
@@ -46,10 +46,11 @@ Ability: Sneaky Fluffer
 	- Uses a variety of unviable, stat-lowering moves on switch-in.
 	- Scrappy + Skill Link + Normalize
 Special Move: A Wail of a Tail
-  - Tail Slap with 500 BP instead of 25.
-Notes: Quick Revenge Killer. Unfortunately usually
-gets only 2-3 turns in battle before getting KO'd.
-Rank: B.
+  - 50 BP Tail Slap
+Notes: Sweeper/Revenge Killer.
+Unfortunately, becausae of it's terrible defenses,
+anything that has priority or outspeeds destroys it.
+Rank: A.
 
 Player Shadow BR
 (Dragonite)

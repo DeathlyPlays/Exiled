@@ -1865,13 +1865,13 @@ exports.BattleAbilities = {
 		rating: 4,
 		num: 14,
 	},
-	"Fighters Heart": {
+	"fightersheart": {
+		id: "fightersheart",
+		name: "Fighters Heart",
 		shortDesc: "Boosts user's Attack Special Attack and Spe upon entry.",
 		onStart: function (pokemon) {
 			this.boost({atk: 1, spa: 1, spe: 1});
 		},
-		id: "fightersheart",
-		name: "Fighters Heart",
 	},
 	"dustkickup": {
 		id: "dustkickup",

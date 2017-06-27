@@ -1469,7 +1469,7 @@ exports.BattleAbilities = {
 	"lordsgrace": {
 		id: "lordsgrace",
 		name: "Lord's Grace",
-		//boosts own atk + def + spd + spe by 1 stage
+		desc: "Boosts own atk + def + spd + spe by 1 stage",
 		onStart: function (pokemon) {
 			this.boost({atk: 1, def: 1, spd: 1, spe: 1});
 		},
@@ -1478,6 +1478,7 @@ exports.BattleAbilities = {
 	"horrificplays": {
 		id: "horrificplays",
 		name: "Horrific Plays",
+		desc: "Fur Coat + Ignores Abilities + Magic Room",
 		//starts up Magic Room upon entry
 		onStart: function (pokemon) {
 			this.useMove('magicroom', pokemon);
@@ -1496,6 +1497,7 @@ exports.BattleAbilities = {
 	"readytostab": {
 		id: "readytostab",
 		name: "Ready to Stab",
+		desc: "Boosts user's Atk and Spe by 2 stages",
 		onStart: function (pokemon) {
 			let foeactive = pokemon.side.foe.active;
 			for (let i = 0; i < foeactive.length; i++) {
@@ -1511,6 +1513,7 @@ exports.BattleAbilities = {
 	"krakensboost": {
 		id: "krakensboost",
 		name: "Kraken's Boost",
+		desc: "Moody + No Guard",
 		onResidual: function (pokemon) {
 			let stats = [];
 			let boost = {};
@@ -1544,6 +1547,7 @@ exports.BattleAbilities = {
 	"programmersdomain": {
 		id: "programmersdomain",
 		name: "Programmers Domain",
+		desc: "Primordial Sea + Rain Dish + Swift Swim",
 		onStart: function (source) {
 			this.setWeather('primordialsea');
 		},
@@ -1585,6 +1589,7 @@ exports.BattleAbilities = {
 	"jooj": {
 		id: "jooj",
 		name: "JOOJ",
+		desc: "Deso Land + Flash Fire + Adaptability + Magic Guard + Dazzling",
 		//Deso Land
 		onStart: function (source) {
 			this.setWeather('desolateland');
@@ -1659,51 +1664,10 @@ exports.BattleAbilities = {
 			}
 		},
 	},
-	"immortality": {
-		id: "immortality",
-		name: "Immortality",
-		//sets up all hazards + uses Rapid Spin & Topsy Turvy + Protect
-		onStart: function (pokemon) {
-			this.useMove('Spikes', pokemon);
-			this.useMove('Spikes', pokemon);
-			this.useMove('Spikes', pokemon);
-			this.useMove('Toxic Spikes', pokemon);
-			this.useMove('Toxic Spikes', pokemon);
-			this.useMove('Stealth Rock', pokemon);
-			this.useMove('Sticky Web', pokemon);
-			this.useMove('Rapid Spin', pokemon);
-			this.useMove('Topsy Turvy', pokemon);
-			this.useMove('Protect', pokemon);
-		},
-		//magic bounce
-		onTryHitPriority: 1,
-		onTryHit: function (target, source, move) {
-			if (target === source || move.hasBounced || !move.flags['reflectable']) {
-				return;
-			}
-			let newMove = this.getMoveCopy(move.id);
-			newMove.hasBounced = true;
-			newMove.pranksterBoosted = false;
-			this.useMove(newMove, target, source);
-			return null;
-		},
-		onAllyTryHitSide: function (target, source, move) {
-			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
-				return;
-			}
-			let newMove = this.getMoveCopy(move.id);
-			newMove.hasBounced = true;
-			newMove.pranksterBoosted = false;
-			this.useMove(newMove, this.effectData.target, source);
-			return null;
-		},
-		effect: {
-			duration: 1,
-		},
-	},
 	"getbonded": {
 		id: "getbonded",
 		name: "Get Bonded",
+		desc: "Magic Bounce + Primordial Sea + 1 layer of spikes and toxic spikes",
 		//Magic Bounce
 		onTryHitPriority: 1,
 		onTryHit: function (target, source, move) {
@@ -1758,66 +1722,27 @@ exports.BattleAbilities = {
 			move.ignoreAbility = true;
 		},
 	},
-	"susanoo": {
-		id: "susanoo",
-		name: "Susanoo",
-		//Magic Bounce
-		onTryHitPriority: 1,
-		onTryHit: function (target, source, move) {
-			if (target === source || move.hasBounced || !move.flags['reflectable']) {
-				return;
-			}
-			let newMove = this.getMoveCopy(move.id);
-			newMove.hasBounced = true;
-			newMove.pranksterBoosted = false;
-			this.useMove(newMove, target, source);
-			return null;
-		},
-		onAllyTryHitSide: function (target, source, move) {
-			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
-				return;
-			}
-			let newMove = this.getMoveCopy(move.id);
-			newMove.hasBounced = true;
-			newMove.pranksterBoosted = false;
-			this.useMove(newMove, this.effectData.target, source);
-			return null;
-		},
-		effect: {
-			duration: 1,
-		},
-		//Scrappy
-		onModifyMovePriority: -5,
-		onModifyMove: function (move) {
-			if (!move.ignoreImmunity) move.ignoreImmunity = {};
-			if (move.ignoreImmunity !== true) {
-				move.ignoreImmunity['Fighting'] = true;
-				move.ignoreImmunity['Normal'] = true;
-			}
-		},
-		//Boosts upon entry
-		onStart: function (pokemon) {
-			this.boost({atk: 1, spe: 1});
-		},
-		//Rock Head
-		onDamage: function (damage, target, source, effect) {
-			if (effect.id === 'recoil' && this.activeMove.id !== 'struggle') return null;
-		},
-	},
 	"birdclaws": {
 		id: "birdclaws",
 		name: "Bird Claws",
+		desc: "Tough Claws + Immune to Ground",
 		//Tough Claws
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.flags['contact']) {
 				return this.chainModify([0x14CD, 0x1000]);
 			}
 		},
+		onTryHit: function (target, source, move) {
+			if (move.type === 'Ground' && !target.activeTurns) {
+				this.add('-immune', target, '[msg]', '[from] ability: Bird Claws');
+				return null;
+			}
+		},
 	},
 	"darkpower": {
 		id: "darkpower",
 		name: "Dark Power",
-		//boosts Dark moves by 2x
+		desc: "Boosts Dark moves by 2x",
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.type === 'Dark') {
 				this.debug('Dark Power boost');
@@ -1876,6 +1801,7 @@ exports.BattleAbilities = {
 	"dustkickup": {
 		id: "dustkickup",
 		name: "DustKickUp",
+		desc: "Lowers all foes stats by 1 (except acc & eva) upon entry",
 		onStart: function (pokemon) {
 			let foeactive = pokemon.side.foe.active;
 			let activated = false;
@@ -1895,6 +1821,7 @@ exports.BattleAbilities = {
 	},
 	//honestly mostly stolen from VXN
 	"howdareyouhate": {
+		desc: "Prankster, Ignores Ability + Innards Out",
 		onStart: function (pokemon) {
 			this.add('-ability', pokemon, 'How Dare You Hate');
 		},

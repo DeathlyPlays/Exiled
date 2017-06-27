@@ -218,6 +218,24 @@ exports.BattleMovedex = {
 		zMovePower: 120,
 		contestType: "Tough",
 	},
+	"shinkuhadoken": {
+		accuracy: 100,
+		basePower: 20,
+		basePowerCallback: function (pokemon, target, move) {
+			return move.basePower + 20 * pokemon.positiveBoosts();
+		},
+		defensiveCategory: "Special",
+		category: "Physical",
+		id: "shinkuhadoken",
+		name: "Shinku Hadoken",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: false,
+		target: "normal",
+		type: "Fighting",
+		zMovePower: 160,
+	},
 	//vividisagod
 	"jetblast": {
 		id: "jetblast",
@@ -474,13 +492,33 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
+	"meditate": {
+		inherit: true,
+		boosts: {
+			def: -1,
+			spd: -1,
+			atk: 2,
+			spa: 2,
+			spe: 2,
+		},
+		pp: 10,
+		priority: 6,
+		stallingMove: true,
+		volatileStatus: 'protect',
+		onPrepareHit: function (pokemon) {
+			return !!this.willAct() && this.runEvent('StallMove', pokemon);
+		},
+		onHit: function (pokemon) {
+			pokemon.addVolatile('stall');
+		},
+	},
 	"rushofdragonbolt": {
 		accuracy: 100,
 		basePower: 80,
 		desc: "If the target faints from this move, the user's Atk and Spe raise one stage",
 		category: "Physical",
 		id: "rushofdragonbolt",
-		name: "Rush of Dragon Bolt",
+		name: "Rush Of Dragon Bolt",
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},

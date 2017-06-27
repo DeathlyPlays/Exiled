@@ -1853,6 +1853,7 @@ exports.BattleAbilities = {
 			},
 		},
 		onStart: function (pokemon) {
+			this.boost({spe:1});
 			this.useMove('Wrap', pokemon);
 			this.useMove('Tail Whip', pokemon);
 			this.useMove('Cute Charm', pokemon);

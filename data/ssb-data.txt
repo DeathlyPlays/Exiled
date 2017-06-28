@@ -13,6 +13,46 @@ Special Move: Aqua Subscribe
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
 
+DivineSaiyanScaris
+(Infernape)
+@ Life Orb
+EVs: 128 Atk / 128 SpA / 252 Spe
+Hasty Nature
+Ability: Fighters Heart
+    - Boosts user's Attack, Special Attack and Speed by 1 stage.
+Moves: Close Combat, Moonblast, Solar Beam
+Special Move: Warriers Inferno
+        - Fire Type, 100 BP, 100% Accuracy, 5 PP, Intense Sun, Special if target's Defense is more than its Special Defense and vice versa.
+Notes: Mixed Sweeper.
+Rank: N/A.
+
+Klefkei
+(Klefki)
+@ Tarnationium Z
+        - Allows user to use doggo
+	        - Boosts user's Defense and Special Defense by 4 stages, sets up Light Screen and Reflect and two Toxic Spikes.
+EVs: 252 HP / 252 Def / 4 Atk
+Impish Nature
+Ability: Deadass
+    - Prankster.
+Moves: Swagger, Foul Play, Toxic
+Special Move: thinking
+        - Psychic Type, Status, 15 PP and boosts user's Defense and Special Defense by 2 stages.
+Notes: Hazard setting status inflicter.
+Rank: N/A.
+
+Revival Clair
+(Garchomp)
+@ Leftovers
+EVs: 252 Atk / 4 SpD / 252 Spe
+Jolly Nature
+Ability: Rough Skin
+Moves: Outrage, Earthquake, Swords Dance
+Special Move: Dragon Blitz
+        - Dragon Type, Physical, 200 BP, 100% Accuracy, 5 PP, boosts user's Attack and Speed by 2 stages for the first time, +2 Priority and Contact.
+Notes: Fast Physical Sweeper.
+Rank: N/A.
+
 Ransei
 (Rayquaza-Mega)
 @ Life Orb

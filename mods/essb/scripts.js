@@ -664,9 +664,9 @@ exports.BattleScripts = {
 				baseSignatureMove: "warriorsinferno",
 				signatureMove: "Warriors Inferno",
 				evs: {
-					atk: 126,
+					atk: 128,
 					spe: 252,
-					spa: 126,
+					spa: 128,
 				},
 				nature: "Hasty",
 			},

@@ -270,6 +270,7 @@ exports.Formats = [
 		requirePentagon: true,
 	},
 	{
+<<<<<<< HEAD
 		name: "[Gen 7] tiny tourney",
 		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3605226/\">tiny tourney Discussion</a>"],
 
@@ -289,6 +290,8 @@ exports.Formats = [
 		requirePentagon: true,
 	},
 	{
+=======
+>>>>>>> 7ed2ec04993910188ea15c1f17a9153e643fb2fe
 		name: "[Gen 7] Doubles Custom Game",
 
 		mod: 'gen7',

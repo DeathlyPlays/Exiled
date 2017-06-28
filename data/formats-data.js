@@ -394,8 +394,7 @@ exports.BattleFormatsData = {
 		],
 		eventOnly: true,
 		gen: 7,
-		isUnreleased: true,
-		tier: "Unreleased",
+		tier: "NU",
 	},
 	raichu: {
 		randomBattleMoves: ["nastyplot", "encore", "thunderbolt", "grassknot", "hiddenpowerice", "focusblast", "voltswitch"],
@@ -2626,7 +2625,7 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["calmmind", "hypervoice", "psyshock", "focusblast", "substitute", "taunt", "willowisp"],
 		randomDoubleBattleMoves: ["psyshock", "focusblast", "shadowball", "calmmind", "thunderbolt", "hypervoice", "protect"],
 		requiredItem: "Gardevoirite",
-		tier: "Unreleased",
+		tier: "OU",
 	},
 	gallade: {
 		randomBattleMoves: ["bulkup", "drainpunch", "icepunch", "shadowsneak", "closecombat", "zenheadbutt", "knockoff", "trick"],
@@ -2637,7 +2636,7 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["swordsdance", "closecombat", "drainpunch", "knockoff", "zenheadbutt", "substitute"],
 		randomDoubleBattleMoves: ["closecombat", "stoneedge", "drainpunch", "icepunch", "zenheadbutt", "swordsdance", "knockoff", "protect"],
 		requiredItem: "Galladite",
-		tier: "Unreleased",
+		tier: "OU",
 	},
 	surskit: {
 		randomBattleMoves: ["hydropump", "signalbeam", "hiddenpowerfire", "stickyweb", "gigadrain", "powersplit"],
@@ -3869,7 +3868,7 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["return", "highjumpkick", "substitute", "fakeout", "icepunch"],
 		randomDoubleBattleMoves: ["return", "highjumpkick", "protect", "fakeout", "icepunch", "encore"],
 		requiredItem: "Lopunnite",
-		tier: "Unreleased",
+		tier: "OU",
 	},
 	glameow: {
 		randomBattleMoves: ["fakeout", "uturn", "suckerpunch", "hypnosis", "quickattack", "return", "foulplay"],
@@ -6253,6 +6252,7 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["dragonpulse", "dracometeor", "fireblast", "shellsmash", "protect", "focusblast", "explosion"],
 		eventPokemon: [
 			{"generation": 7, "level": 1, "shiny": 1, "moves":["flamethrower", "bodyslam", "wideguard"], "pokeball": "cherishball"},
+			{"generation": 7, "level": 30, "gender": "M", "nature": "Brave", "moves":["flamethrower", "shelltrap", "dragontail"], "pokeball": "cherishball"},
 		],
 		tier: "NU",
 	},

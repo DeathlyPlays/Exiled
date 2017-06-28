@@ -3199,7 +3199,6 @@ exports.BattleItems = {
 	"magikariumz": {
 		id: "magikariumz",
 		name: "Magikarium Z",
-		isUnreleased: true,
 		spritenum: -654,
 		onTakeItem: false,
 		zMove: "Epic Splash",

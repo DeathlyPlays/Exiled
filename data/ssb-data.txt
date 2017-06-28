@@ -565,3 +565,16 @@ Signature Move: Triple Peak Mega Smash
 	- Normal type, Physical, 100 BP, Knocks off foe's item, 1.5x if target has an item
 Rank: N/A.
 Notes: Fast Physical Sweeper.
+
+GoodEggGalaxy
+(Togepi)
+@ Eviolite
+Ability: Best Egg
+	- Doubles Defense and Special Defense
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+Moves: Softboiled, Parting Shot, Moonblast
+Signature Move: GEG 4 LIFE
+	- Confuses and paralyzes the target. User then switches out.
+Rank: N/A.
+Notes: Annoying support and stall Pokemon.

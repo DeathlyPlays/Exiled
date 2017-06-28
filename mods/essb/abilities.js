@@ -1858,4 +1858,17 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"bestegg": {
+		id: "bestegg",
+		name: "Best Egg",
+		desc: "Doubles Defense and Special Defense.",
+		onModifyDefPriority: 6,
+		onModifyDef: function (def) {
+			return this.chainModify(2);
+		},
+		onModifySpdPriority: 6,
+		onModifySpd: function (spd) {
+			return this.chainModify(2);
+		},
+	},
 };

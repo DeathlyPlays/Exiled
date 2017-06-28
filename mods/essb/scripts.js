@@ -289,6 +289,21 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
+			"%GoodEggGalaxy": {
+				species: "Togepi",
+				ability: "Best Egg",
+				item: "Eviolite",
+				gender: "M",
+				moves: ['partingshot', 'softboiled', 'moonblast'],
+				baseSignatureMove: "geg4life",
+				signatureMove: "GEG 4 LIFE",
+				evs: {
+					hp: 252,
+					def: 252,
+					spd: 4,
+				},
+				nature: "Bold",
+			},
 			"%vxn": {
 				species: "Guzzlord",
 				ability: "Last Laugh",

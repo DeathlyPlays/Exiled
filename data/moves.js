@@ -15713,17 +15713,17 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 225,
 		category: "Physical",
-		desc: "No additional effect.",
+		desc: "Speed, Attack, and Special Attack are max.",
 		shortDesc: "Speed, Attack, and Special Attack are max.",
 		id: "epicsplash",
 		name: "Epic Splash",
 		pp: 1,
 		priority: 0,
 		flags: {contact: 1},
-		onPrepareHit: function (source) {
+		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Outrage", source);
-			this.add('-anim', source, "Splash", source);
+			this.add('-anim', source, "Outrage", target);
+			this.add('-anim', source, "Splash", target);
 		},
 		isZ: "magikarniumz",
 		secondary: {
@@ -19235,11 +19235,11 @@ exports.BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1, recharge: 5},
-		onPrepareHit: function (source) {
+		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Agility", source);
-			this.add('-anim', source, "Dark Void", source);
-			this.add('-anim', source, "Spectral Thief");
+			this.add('-anim', source, "Dark Void", target);
+			this.add('-anim', source, "Spectral Thief", target);
 		},
 		secondary: {
 			chance: 100,
@@ -19274,10 +19274,10 @@ exports.BattleMovedex = {
 		self: {
 			heal: [1, 4],
 		},
-		onPrepareHit: function (source) {
+		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Wish", source);
-			this.add('-anim', source, "Meteor Mash", source);
+			this.add('-anim', source, "Meteor Mash", target);
 		},
 		secondary: {
 			chance: 40,

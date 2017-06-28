@@ -4703,7 +4703,7 @@ exports.BattleFormatsData = {
 		tier: "UU",
 	},
 	darmanitanzen: {
-		requiredAbility: "Zen Mode",
+		requiredAbility: "Solid Rock",
 		tier: "UU",
 	},
 	maractus: {
@@ -5313,7 +5313,7 @@ exports.BattleFormatsData = {
 		tier: "OU",
 	},
 	keldeoresolute: {
-		eventOnly: true,
+		batleOnly: true,
 		requiredMove: "Secret Sword",
 	},
 	meloetta: {
@@ -6807,10 +6807,19 @@ exports.BattleFormatsData = {
 	furretmega: {
 		randomBattleMoves: ["oblivionbanisher", "suckerpunch", "return", "flamethrower", "icebeam", "focusblast"],
 		requiredItem: "Furretite",
-		tier: "AG",
+		tier: "OU",
 	},
 	pachirisumega: {
 		requiredItem: "Pachite",
-		tier: "AG",
+		tier: "OU",
+	},
+	hitmontopalola: {
+		tier: "RU",
+	},
+	volcaronaalola: {
+		tier: "OU",
+	},
+	kingleralola: {
+		tier: "RU",
 	},
 };

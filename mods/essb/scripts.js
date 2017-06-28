@@ -258,22 +258,6 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
-			"%Kraken Mare": {
-				species: "Gardevoir-Mega",
-				ability: "krakensboost",
-				shiny: true,
-				item: "Focus Sash",
-				gender: "F",
-				moves: ['moonblast', 'calmmind', 'psychic'],
-				baseSignatureMove: "revengeofkrakenmare",
-				signatureMove: "Revenge of Kraken Mare",
-				evs: {
-					hp: 248,
-					spa: 252,
-					def: 8,
-				},
-				nature: "Quiet",
-			},
 			"%HoeenHero": {
 				species: "Ludicolo",
 				ability: "Programmers Domain",

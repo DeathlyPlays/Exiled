@@ -85,6 +85,7 @@ Adamant Nature
 Ability: Sneaky Fluffer
 	- Uses a variety of unviable, stat-lowering moves on switch-in.
 	- Scrappy + Skill Link + Normalize
+	- Raises Speed by +1 on switch-in.
 Special Move: A Wail of a Tail
   - 50 BP Tail Slap
 Notes: Sweeper/Revenge Killer.

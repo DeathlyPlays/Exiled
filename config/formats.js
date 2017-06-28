@@ -270,28 +270,7 @@ exports.Formats = [
 		requirePentagon: true,
 	},
 	{
-<<<<<<< HEAD
-		name: "[Gen 7] tiny tourney",
-		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3605226/\">tiny tourney Discussion</a>"],
 
-		mod: 'gen7',
-		gameType: 'doubles',
-		forcedLevel: 50,
-		teamLength: {
-			validate: [4, 6],
-			battle: 4,
-		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
-		banlist: ['Mega'],
-		onValidateSet: function (set) {
-			let template = this.getTemplate(set.species || set.name);
-			if (template.heightm > 1) return [`${set.name || set.species} is over 1.0 m tall, which is banned in tiny tourney.`];
-		},
-		requirePentagon: true,
-	},
-	{
-=======
->>>>>>> 7ed2ec04993910188ea15c1f17a9153e643fb2fe
 		name: "[Gen 7] Doubles Custom Game",
 
 		mod: 'gen7',
@@ -405,6 +384,22 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Same Type Clause', 'Team Preview'],
+		banlist: [
+			'Aegislash', 'Arceus', 'Blaziken', 'Darkrai', 'Deoxys-Base', 'Deoxys-Attack', 'Dialga', 'Genesect', 'Giratina', 'Groudon', 'Ho-Oh', 'Hoopa-Unbound', 'Kartana', 'Kyogre',
+			'Kyurem-White', 'Lugia', 'Lunala', 'Mewtwo', 'Palkia', 'Pheromosa', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Solgaleo', 'Tapu Lele', 'Xerneas', 'Yveltal', 'Zekrom', 'Zygarde',
+			'Battle Bond', 'Damp Rock', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Mawilite', 'Medichamite', 'Metagrossite', 'Salamencite', 'Smooth Rock', 'Terrain Extender', 'Baton Pass',
+		],
+	},
+	{
+		name: "[Gen 7] Monotype RU",
+		desc: [
+			"All the Pok&eacute;mon on a team must share a type and must qualify for RU.",
+			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3587204/\">Monotype</a>",
+			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3589809/\">Monotype Viability Ranking</a>",
+		],
+
+		mod: 'gen7',
+		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Same Type Clause', 'Team Preview', '[Gen 7] RU'],
 		banlist: [
 			'Aegislash', 'Arceus', 'Blaziken', 'Darkrai', 'Deoxys-Base', 'Deoxys-Attack', 'Dialga', 'Genesect', 'Giratina', 'Groudon', 'Ho-Oh', 'Hoopa-Unbound', 'Kartana', 'Kyogre',
 			'Kyurem-White', 'Lugia', 'Lunala', 'Mewtwo', 'Palkia', 'Pheromosa', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Solgaleo', 'Tapu Lele', 'Xerneas', 'Yveltal', 'Zekrom', 'Zygarde',
@@ -1672,7 +1667,7 @@ exports.Formats = [
 		],
 		onSourceModifyAccuracy: function (pokemon, accuracy) {
 			if (typeof accuracy !== 'number' && pokemon.shiny) return;
-			this.debug('compoundeyes - enhancing accuracy');
+			this.debug('Infection - Decreasing accuracy');
 			return accuracy * 0.7;
 		},
 		onModifyAtkPriority: 6,
@@ -1683,12 +1678,12 @@ exports.Formats = [
 		onModifyDef: function (def, pokemon) {
 			if (pokemon.shiny) return this.chainModify(1.3);
 		},
-		onModifySpaPriority: 6,
-		onModifySpa: function (spa, pokemon) {
+		onModifySpAPriority: 6,
+		onModifySpA: function (spa, pokemon) {
 			if (pokemon.shiny) return this.chainModify(5);
 		},
-		onModifySpdPriority: 6,
-		onModifySpd: function (spd, pokemon) {
+		onModifySpDPriority: 6,
+		onModifySpD: function (spd, pokemon) {
 			if (pokemon.shiny) return this.chainModify(1.3);
 		},
 		onModifySpePriority: 6,

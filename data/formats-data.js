@@ -6805,21 +6805,16 @@ exports.BattleFormatsData = {
 		tier: "UU",
 	},
 	furretmega: {
-		randomBattleMoves: ["oblivionbanisher", "suckerpunch", "return", "flamethrower", "icebeam", "focusblast"],
+		randomBattleMoves: ["oblivionbanisher", "suckerpunch", "flamethrower", "icebeam", "focusblast"],
 		requiredItem: "Furretite",
 		tier: "OU",
 	},
 	pachirisumega: {
+		randomBattleMoves: ["thunderpunch", "darkvoid", "darkpulse", "thunderbolt", "voltswitch", "rest", "sleeptalk", "uturn", "gunkshot", "seedbomb"],
 		requiredItem: "Pachite",
 		tier: "OU",
 	},
 	hitmontopalola: {
-		tier: "RU",
-	},
-	volcaronaalola: {
-		tier: "OU",
-	},
-	kingleralola: {
 		tier: "RU",
 	},
 };

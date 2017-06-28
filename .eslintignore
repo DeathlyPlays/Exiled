@@ -8,3 +8,4 @@ chat-plugins/gangs.js
 chat-plugins/emoticons.js
 chat-plugins/ttt.js
 config/card-data.js
+chat-plugins/hex.js

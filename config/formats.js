@@ -1856,7 +1856,7 @@ exports.Formats = [
 			return ab1;
 		},
 		onSwitchInPriority: 1,
-		onSwitchIn: function(pokemon) {
+		onSwitchIn: function (pokemon) {
 			if (pokemon.abilitwo && this.getAbility(pokemon.abilitwo)) {
 				let statusability = {
 					"aerilate": true,
@@ -1869,13 +1869,13 @@ exports.Formats = [
 					"slowstart": true,
 					"truant": true,
 					"unburden": true,
-					"zenmode": true
+					"zenmode": true,
 				};
 				let sec = statusability[pokemon.abilitwo] ? "other" + pokemon.abilitwo : pokemon.abilitwo;
 				pokemon.addVolatile(sec, pokemon); //Second Ability! YAYAYAY
 			}
 		},
-		validateSet: function(set, teamHas) {
+		validateSet: function (set, teamHas) {
 			let abilities = this.format.getAbilities(set.ability), ability = set.ability;
 			if (Array.isArray(abilities)) {
 				set.ability = abilities[0];
@@ -1891,7 +1891,7 @@ exports.Formats = [
 					'shadowtag': true,
 					'simple': true,
 					'wonderguard': true,
-					'moody': true
+					'moody': true,
 				};
 				if (bans[toId(abilitwo.id)]) problems.push(set.species + "'s ability " + abilitwo.name + " is banned by Multibility.");
 				if (abilitwo.id === toId(set.ability)) problems.push("You cannot have two of " + abilitwo.name + " on the same Pokemon.");
@@ -1899,7 +1899,7 @@ exports.Formats = [
 				return problems;
 			}
 		},
-		onValidateTeam: function(team, format) {
+		onValidateTeam: function (team, format) {
 			let abilityTable = {};
 			for (let i = 0; i < team.length; i++) {
 				let abilities = format.getAbilities(team[i].ability), ability = this.getAbility(Array.isArray(abilities) ? abilities[0] : abilities);

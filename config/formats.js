@@ -1825,6 +1825,99 @@ exports.Formats = [
 		},
 	},
 	{
+		name: "[Gen 7] Multibility 2.0",
+		desc: [
+			"&bullet; Credit to DragonHeaven/GrainsOfSalt for the code!",
+			"Put your second ability with your first ability in the ability slot.",
+		],
+		mod: 'franticfusions',
+		ruleset: ['[Gen 7] OU'],
+		banlist: ["Illegal", 'Kyurem-Black', 'Manaphy', 'Porygon-Z', 'Shedinja', 'Togekiss', 'Chatter'],
+		onBegin: function () {
+			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
+			for (let i = 0, len = allPokemon.length; i < len; i++) {
+				let pokemon = allPokemon[i];
+				let ability = pokemon.ability;
+				let abilities = Dex.getFormat(this.format).getAbilities(ability);
+				if (this.getAbility(ability).exists || !Array.isArray(abilities)) continue;
+				pokemon.ability = pokemon.baseAbility = abilities[0];
+				pokemon.abilitwo = abilities[1];
+			}
+		},
+		getAbilities: function (slot) {
+			let ab1 = "", ab2 = "";
+			for (let i = 0; i < slot.length; i++) {
+				ab1 = ab1 + slot.charAt(i);
+				if (Dex.getAbility(ab1).exists) {
+					ab2 = slot.substring(i + 1);
+					if (Dex.getAbility(ab2).exists) return [ab1, ab2];
+				}
+			}
+			return ab1;
+		},
+		onSwitchInPriority: 1,
+		onSwitchIn: function(pokemon) {
+			if (pokemon.abilitwo && this.getAbility(pokemon.abilitwo)) {
+				let statusability = {
+					"aerilate": true,
+					"aurabreak": true,
+					"flashfire": true,
+					"parentalbond": true,
+					"pixilate": true,
+					"refrigerate": true,
+					"sheerforce": true,
+					"slowstart": true,
+					"truant": true,
+					"unburden": true,
+					"zenmode": true
+				};
+				let sec = statusability[pokemon.abilitwo] ? "other" + pokemon.abilitwo : pokemon.abilitwo;
+				pokemon.addVolatile(sec, pokemon); //Second Ability! YAYAYAY
+			}
+		},
+		validateSet: function(set, teamHas) {
+			let abilities = this.format.getAbilities(set.ability), ability = set.ability;
+			if (Array.isArray(abilities)) {
+				set.ability = abilities[0];
+				let problems = this.validateSet(set, teamHas) || [];
+				let abilitwo = Dex.getAbility(abilities[1]);
+				let bans = {
+					'arenatrap': true,
+					'contrary': true,
+					'furcoat': true,
+					'hugepower': true,
+					'imposter': true,
+					'purepower': true,
+					'shadowtag': true,
+					'simple': true,
+					'wonderguard': true,
+					'moody': true
+				};
+				if (bans[toId(abilitwo.id)]) problems.push(set.species + "'s ability " + abilitwo.name + " is banned by Multibility.");
+				if (abilitwo.id === toId(set.ability)) problems.push("You cannot have two of " + abilitwo.name + " on the same Pokemon.");
+				set.ability = ability;
+				return problems;
+			}
+		},
+		onValidateTeam: function(team, format) {
+			let abilityTable = {};
+			for (let i = 0; i < team.length; i++) {
+				let abilities = format.getAbilities(team[i].ability), ability = this.getAbility(Array.isArray(abilities) ? abilities[0] : abilities);
+				if (!abilityTable[ability.id]) abilityTable[ability.id] = 0;
+				if (++abilityTable[ability.id] > 2) {
+					return ["You are limited to two of each ability by Ability Clause.", "(You have more than two of " + ability.name + " or " + this.getAbility(toId(team[i].item)).name + " [Item])"];
+				}
+				if (!Array.isArray(abilities)) continue;
+				ability = this.getAbility(abilities[1]);
+				if (!ability.exists) continue;
+				if (!abilityTable[ability.id]) abilityTable[ability.id] = 0;
+				if (++abilityTable[ability.id] > 2) {
+					return ["You are limited to two of each ability by Ability Clause.", "(You have more than two of " + ability.name + ")"];
+				}
+			}
+		},
+	},
+	{
 		name: "[Gen 7] Infection",
 		section: "Exiled's Custom Gamemodes",
 		desc: [

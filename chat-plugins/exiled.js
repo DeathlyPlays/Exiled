@@ -820,7 +820,7 @@ exports.commands = {
 		user.isAway = false;
 
 		let newName = user.name;
-		let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/);
+		let statusIdx = newName.search(/\s\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/);
 		if (statusIdx < 0) {
 			user.isAway = false;
 			if (user.can('mute', null, room)) this.add("|raw|-- " + Exiled.nameColor(user.userid, true) + " is no longer away.");

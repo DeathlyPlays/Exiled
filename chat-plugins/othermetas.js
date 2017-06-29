@@ -22,13 +22,7 @@ exports.commands = {
 		if (template.isMega || (template.evos && Object.keys(template.evos).length > 0)) { // Mega Pokemon cannot be mega evolved
 			return this.errorReply(`You cannot mega evolve ${template.name} in Mix and Mega.`);
 		}
-<<<<<<< HEAD
-		let bannedStones = {'pachite':1, 'beedrillite':1, 'blazikenite':1, 'gengarite':1, 'kangaskhanite':1, 'mawilite':1, 'medichamite':1};
-		if (stone.id in bannedStones && template.name !== stone.megaEvolves) {
-			return this.errorReply(`You cannot use ${stone.name} on anything besides ${stone.megaEvolves} in Mix and Mega.`);
-		}
-=======
->>>>>>> 683506a70f8ba2a97456ef55167b11cf0912a3ce
+
 		if (Dex.mod("mixandmega").getTemplate(sep[0]).tier === "Uber") { // Separate messages because there's a difference between being already mega evolved / NFE and being banned from mega evolving
 			return this.errorReply(`${template.name} is banned from mega evolving in Mix and Mega.`);
 		}

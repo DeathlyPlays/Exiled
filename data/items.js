@@ -6516,6 +6516,20 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Minior, this item allows it to Mega Evolve in battle.",
 	},
+	"blissite": {
+		id: "blissite",
+		name: "Blissite",
+		spritenum: -243,
+		megaStone: "Blissey-Mega",
+		megaEvolves: "Blissey",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Blissey, this item allows it to Mega Evolve in battle.",
+	},
 	"mismagite": {
 		id: "mismagite",
 		name: "Mismagite",

@@ -13,6 +13,18 @@ Special Move: Aqua Subscribe
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
 
+LovethisMagikarp
+(Magikarp)
+@ Focus Sash
+EVs: 252 HP / 252 Spe
+Jolly Nature
+Ability: How Dare You Hate
+    - Prankster, Innards Out and ignores abilities.
+Moves: Charm, Captivate, Baby-Doll Eyes
+Special Move: Attract
+Notes: Better than a Mega Rayquaza.
+Rank: S.
+
 DivineSaiyanScaris
 (Infernape)
 @ Life Orb

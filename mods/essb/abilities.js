@@ -395,6 +395,10 @@ exports.BattleAbilities = {
 			let newMove = this.getMoveCopy(move.id);
 			newMove.hasBounced = true;
 			this.useMove(newMove, target, source);
+			if (move.type === 'Ground' && !target.activeTurns) {
+				this.add('-immune', target, '[msg]', '[from] ability: Volcanic Ash');
+				return null;
+			}
 			return null;
 		},
 		onAllyTryHitSide: function (target, source, move) {
@@ -418,13 +422,6 @@ exports.BattleAbilities = {
 		//adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
-		},
-		//immunity to ground
-		onTryHit: function (target, source, move) {
-			if (move.type === 'Ground' && !target.activeTurns) {
-				this.add('-immune', target, '[msg]', '[from] ability: Volcanic Ash');
-				return null;
-			}
 		},
 	},
 	//C7

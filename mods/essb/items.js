@@ -355,4 +355,20 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "If holder is an Klefki with thinking, it can use doggo.",
 	},
+	"ultraleftovers": {
+		id: "ultraleftovers",
+		name: "Ultra Leftovers",
+		spritenum: 242,
+		fling: {
+			basePower: 10,
+		},
+		onResidualOrder: 5,
+		onResidualSubOrder: 2,
+		onResidual: function (pokemon) {
+			this.heal(pokemon.maxhp / 8);
+		},
+		num: 234,
+		gen: 0,
+		desc: "At the end of every turn, holder restores 1/8 of its max HP.",
+	},
 };

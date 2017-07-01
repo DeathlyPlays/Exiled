@@ -2,6 +2,7 @@
 
 exports.BattleAliases = {
 	// formats
+	"ff": "[Gen 7] Frantic Fusions",
 	"randombattle": "[Gen 7] Random Battle",
 	"randbats": "[Gen 7] Random Battle",
 	"ag": "[Gen 7] Anything Goes",
@@ -110,12 +111,14 @@ exports.BattleAliases = {
 	"mray": "Rayquaza-Mega",
 	"zardx": "Charizard-Mega-X",
 	"zardy": "Charizard-Mega-y",
+	"fabio": "Ampharos-Mega",
 
 	// primal reversions
 	"primaldon": "Groudon-Primal",
 	"pdon": "Groudon-Primal",
 	"primalogre": "Kyogre-Primal",
 	"pogre": "Kyogre-Primal",
+	"palga": "Dialga-Primal",
 
 	// alolan formes
 	"rattataa": "Rattata-Alola",
@@ -746,4 +749,6 @@ exports.BattleAliases = {
 	"ssbffa": "[Gen 7] Exiled Super Staff Bros Free For All",
 	"astorm": "[Gen 7] Action Storm",
 	"sp": "[Gen 7] Swapping Powers",
+	"mono": "[Gen 7] Monotype",
+	"monoru": "[Gen 7] Monotype RU",
 };

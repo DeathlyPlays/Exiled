@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 exports.BattleAbilities = {
 	//Insist
@@ -1869,6 +1869,28 @@ exports.BattleAbilities = {
 		onModifySpdPriority: 6,
 		onModifySpd: function (spd) {
 			return this.chainModify(2);
+		},
+	},
+	"cuteface": {
+		id: "cuteface",
+		name: "Cute Face",
+		desc: "Contrary + Magic Guard + Soul Heart that raises Spa and Spd.",
+		//contrary
+		onBoost: function (boost, target, source, effect) {
+			if (effect && effect.id === 'zpower') return;
+			for (let i in boost) {
+				boost[i] *= -1;
+			}
+		},
+		//soulheart
+		onAnyFaint: function () {
+			this.boost({spa:1, spd: 1}, this.effectData.target);
+		},
+		//magicguard
+		onDamage: function (damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				return false;
+			}
 		},
 	},
 };

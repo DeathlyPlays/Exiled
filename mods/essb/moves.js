@@ -1772,4 +1772,31 @@ exports.BattleMovedex = {
 		zMoveEffect: 'heal',
 		contestType: "Cute",
 	},
+	"perfectend": {
+		num: 612,
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		desc: "Raises Defense and Special Defense by 1 stage.",
+		shortDesc: "Raises Defense and SpDefense by 1 stage.",
+		id: "perfectend",
+		isViable: true,
+		name: "Perfect End",
+		pp: 5,
+		priority: 1,
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					def: 1,
+					spe: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 160,
+		contestType: "Cute",
+	},
 };

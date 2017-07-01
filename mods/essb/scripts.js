@@ -22,6 +22,21 @@ exports.BattleScripts = {
 				},
 				nature: "Timid",
 			},
+			"&Back At My Day": {
+				species: "Camerupt-Mega",
+				ability: "Time Traveler",
+				item: "Rocky Helmet",
+				gender: "M",
+				moves: ['aeroblast', 'steameruption', 'freezedry'],
+				baseSignatureMove: "roleplaying",
+				signatureMove: "Roleplaying",
+				evs: {
+					def: 148,
+					spa: 252,
+					spd: 108,
+				},
+				nature: "Timid",
+			},
 			"~Mewth": {
 				species: "Furret-Mega",
 				ability: "Roarplaying",
@@ -243,21 +258,6 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"%Back At My Day": {
-				species: "Camerupt-Mega",
-				ability: "Time Traveler",
-				item: "Rocky Helmet",
-				gender: "M",
-				moves: ['aeroblast', 'steameruption', 'freezedry'],
-				baseSignatureMove: "roleplaying",
-				signatureMove: "Roleplaying",
-				evs: {
-					def: 148,
-					spa: 252,
-					spd: 108,
-				},
-				nature: "Timid",
-			},
 			"%HoeenHero": {
 				species: "Ludicolo",
 				ability: "Programmers Domain",
@@ -380,6 +380,20 @@ exports.BattleScripts = {
 					def: 4,
 				},
 				nature: "Timid",
+			},
+			"+Blooded❤Draco": {
+				species: "Kyurem-Black",
+				ability: "Poison Heal",
+				item: "Toxic Orb",
+				moves: ['dragonclaw', 'willowisp', 'dragonpulse'],
+				baseSignatureMove: "hellfire",
+				signatureMove: "Hellfire",
+				evs: {
+					hp: 4,
+					spa: 252,
+					spe: 252,
+				},
+				nature: "Naive",
 			},
 			//Regs
 			" Wobbleleez": {

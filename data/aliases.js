@@ -746,7 +746,7 @@ exports.BattleAliases = {
 	"cotr": "[Gen 7]: Clash of the Regions",
 	"monoubers": "[Gen 7] Monotype Ubers",
 	"mnmubers": "[Gen 7] Mix and Mega Ubers",
-	"ssbffa": "[Gen 7] Exiled Super Staff Bros Free For All",
+	"ssbffa": "[Gen 7] Super Staff Bros Free For All",
 	"astorm": "[Gen 7] Action Storm",
 	"sp": "[Gen 7] Swapping Powers",
 	"mono": "[Gen 7] Monotype",

@@ -1799,4 +1799,81 @@ exports.BattleMovedex = {
 		zMovePower: 160,
 		contestType: "Cute",
 	},
+	"reflect": {
+		inherit: true,
+		effect: {
+			duration: 5,
+			durationCallback: function (target, source, effect) {
+				if (source && source.hasItem('lightclay', 'marillium')) {
+					return 8;
+				}
+				return 5;
+			},
+			onAnyModifyDamage: function (damage, source, target, move) {
+				if (target !== source && target.side === this.effectData.target && this.getCategory(move) === 'Physical') {
+					if (!move.crit && !move.infiltrates) {
+						this.debug('Reflect weaken');
+						if (target.side.active.length > 1) return this.chainModify([0xAAC, 0x1000]);
+						return this.chainModify(0.5);
+					}
+				}
+			},
+			onStart: function (side) {
+				this.add('-sidestart', side, 'Reflect');
+			},
+			onResidualOrder: 21,
+			onEnd: function (side) {
+				this.add('-sideend', side, 'Reflect');
+			},
+		},
+	},
+	"lightscreen": {
+		inherit: true,
+		effect: {
+			duration: 5,
+			durationCallback: function (target, source, effect) {
+				if (source && source.hasItem('lightclay', 'marillium')) {
+					return 8;
+				}
+				return 5;
+			},
+			onAnyModifyDamage: function (damage, source, target, move) {
+				if (target !== source && target.side === this.effectData.target && this.getCategory(move) === 'Special') {
+					if (!move.crit && !move.infiltrates) {
+						this.debug('Light Screen weaken');
+						if (target.side.active.length > 1) return this.chainModify([0xAAC, 0x1000]);
+						return this.chainModify(0.5);
+					}
+				}
+			},
+			onStart: function (side) {
+				this.add('-sidestart', side, 'move: Light Screen');
+			},
+			onResidualOrder: 21,
+			onResidualSubOrder: 1,
+			onEnd: function (side) {
+				this.add('-sideend', side, 'move: Light Screen');
+			},
+		},
+	},
+	"shadowretreat": {
+		num: 6956,
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		desc: "If this move is successful and the user has not fainted, the user switches out even if it is trapped and is replaced immediately by a selected party member. The user does not switch out if there are no unfainted party members, or if the target switched out using an Eject Button.",
+		shortDesc: "User switches out after damaging the target.",
+		id: "shadowretreat",
+		isViable: true,
+		name: "Shadow Retreat",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		selfSwitch: true,
+		secondary: false,
+		target: "normal",
+		type: "Ghost",
+		zMovePower: 140,
+		contestType: "Cool",
+	},
 };

@@ -303,12 +303,13 @@ exports.commands = {
 			"<u><b>Major Contributors:</b></u><br />" +
 			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developer)<br />" +
 			"- " + Exiled.nameColor('Back At My Day', true) + " (Developer)<br />" +
+			"- " + Exiled.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
+			"- " + Exiled.nameColor('VXN', true) + " (Developer)<br />" +
 			"<br />" +
 			"<u><b>Retired Staff:</b></u><br />" +
-			"- " + Exiled.nameColor('Princess Teddiursa', true) + " (Former Owner, Developer, CSS Developments)<br />" +
+			"- " + Exiled.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
 			"- " + Exiled.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
 			"- " + Exiled.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
-			"- " + Exiled.nameColor('VXN', true) + " (Former Developer)<br />" +
 			"<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members<br />" +

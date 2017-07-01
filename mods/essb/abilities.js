@@ -1893,4 +1893,21 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	"callofthehaunted": {
+		id: "callofthehaunted",
+		name: "Call of the Haunted",
+		desc: "+1 Attack, +1 Defense, +1 Special Defense. Changes type to Water/Ghost. Activates Reflect and Light Screen on switchin. Doubles the user's Attack.",
+		shortDesc: "+1 Atk Def & SpD, Sets dual screens, Changes type.",
+		onStart: function (pokemon) {
+			this.add('-start', pokemon, 'typechange', 'Water/Ghost');
+			pokemon.types = ["Water", "Ghost"];
+			this.boost({atk: 1, def: 1, spd: 1});
+			this.useMove('Reflect', pokemon);
+			this.useMove('Light Screen', pokemon);
+		},
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (atk) {
+			return this.chainModify(2);
+		},
+	},
 };

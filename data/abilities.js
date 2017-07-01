@@ -4323,6 +4323,7 @@ exports.BattleAbilities = {
 			this.useMove('Reflect', pokemon);
 			this.useMove('Light Screen', pokemon);
 		},
+		shortDesc: "Sets up dual screens",
 	},
 	"deltafur": {
 		desc: "70% chance a Pokemon making contact with this Pokemon will be poisoned, paralyzed, fall asleep, freeze, or burned.",

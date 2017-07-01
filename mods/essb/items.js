@@ -371,4 +371,36 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "At the end of every turn, holder restores 1/8 of its max HP.",
 	},
+	"marillium": {
+		id: "marillium",
+		name: "Marillium",
+		desc: "A combination of Leftovers + Light Clay + Eviolite",
+		shortDesc: "Leftovers + Light Clay + Eviolite",
+		spritenum: 242,
+		fling: {
+			basePower: 10,
+		},
+		//Leftovers effects
+		onResidualOrder: 5,
+		onResidualSubOrder: 2,
+		onResidual: function (pokemon) {
+			this.heal(pokemon.maxhp / 16);
+		},
+		//Light Clay effects implemented in the moves file
+		//Eviolite effects
+		onModifyDefPriority: 2,
+		onModifyDef: function (def, pokemon) {
+			if (pokemon.baseTemplate.nfe) {
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpDPriority: 2,
+		onModifySpD: function (spd, pokemon) {
+			if (pokemon.baseTemplate.nfe) {
+				return this.chainModify(1.5);
+			}
+		},
+		num: 6956,
+		gen: -1,
+	},
 };

@@ -1984,7 +1984,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'vxn') {
-				this.add('c|+VXN|ok im here, what do you want me to break');
+				this.add('c|%VXN|ok im here, what do you want me to break');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -1993,7 +1993,7 @@ exports.Formats = [
 				this.add('c| AB Starfox|Hello, just here to clean up');
 			}
 			if (name === 'flufi') {
-				this.add('c|@flufi|Howdy');
+				this.add('c|&flufi|Howdy');
 			}
 			if (name === 'hoeenhero') {
 				this.add('c|%HoeenHero|Do I have to? I\'m in the middle of programming.');
@@ -2019,7 +2019,9 @@ exports.Formats = [
 			if (name === 'klefkei') {
 				this.add('c|@Klefkei|Hi Toxic Whore :) Ready To Die? kappa');
 			}
-
+			if (name === 'linkcode') {
+				this.add('c| LinkCode|I\'m a cool cat makin\' waves all over town! When they see me comin\', everybody\'s heads turn \'round!');
+			}
 			// Add here special typings, done for flavor mainly. (and stat boosts)
 			if (name === 'volco' && !pokemon.illusion) {
 				this.boost({
@@ -2117,6 +2119,9 @@ exports.Formats = [
 			if (name === 'krakenmare') {
 				this.add('c|@Kraken Mare|I shall spare you today, young one!');
 			}
+			if (name === 'linkcode') {
+				this.add('c| LinkCode|**𝐋𝐚𝐭𝐞𝐫, 𝐧𝐞𝐫𝐝.**');
+			}
 		},
 		// Add here salty tears, that is, custom faint phrases.
 		onFaint: function (pokemon) {
@@ -2131,7 +2136,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c|+VXN|the bug has been fixed');
+				this.add('c|%VXN|the bug has been fixed');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -2165,6 +2170,9 @@ exports.Formats = [
 			}
 			if (name === 'klefkei') {
 				this.add('c|@Klefkei|/exile');
+			}
+			if (name === 'linkcode') {
+				this.add('c| LinkCode|Yeah, well, you know, that\'s just, like, uh... your opinion, man.');
 			}
 		},
 		onHit: function (pokemon, target) {
@@ -2219,7 +2227,7 @@ exports.Formats = [
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'vxn') {
-				this.add('c|+VXN|ok im here, what do you want me to break');
+				this.add('c|%VXN|ok im here, what do you want me to break');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -2228,7 +2236,7 @@ exports.Formats = [
 				this.add('c| AB Starfox|Hello, just here to clean up');
 			}
 			if (name === 'flufi') {
-				this.add('c|@flufi|Howdy');
+				this.add('c|&flufi|Howdy');
 				this.add('-start', pokemon, 'typechange', 'Grass/Water');
 				pokemon.types = ["Grass", "Water"];
 				this.boost({
@@ -2357,7 +2365,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c|+VXN|the bug has been fixed');
+				this.add('c|%VXN|the bug has been fixed');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');

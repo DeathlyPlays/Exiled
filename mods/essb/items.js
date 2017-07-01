@@ -374,17 +374,17 @@ exports.BattleItems = {
 	"marillium": {
 		id: "marillium",
 		name: "Marillium",
-		desc: "A combination of Leftovers + Light Clay + Eviolite",
-		shortDesc: "Leftovers + Light Clay + Eviolite",
+		desc: "A combination of Leftovers that restore 1/8 + Light Clay + Eviolite + Big Root",
+		shortDesc: "1/8 health Leftovers + Light Clay + Eviolite + Big Root",
 		spritenum: 242,
 		fling: {
 			basePower: 10,
 		},
-		//Leftovers effects
+		//Edited Leftovers effects
 		onResidualOrder: 5,
 		onResidualSubOrder: 2,
 		onResidual: function (pokemon) {
-			this.heal(pokemon.maxhp / 16);
+			this.heal(pokemon.maxhp / 8);
 		},
 		//Light Clay effects implemented in the moves file
 		//Eviolite effects
@@ -398,6 +398,14 @@ exports.BattleItems = {
 		onModifySpD: function (spd, pokemon) {
 			if (pokemon.baseTemplate.nfe) {
 				return this.chainModify(1.5);
+			}
+		},
+		//Big Root effects
+		onTryHealPriority: 1,
+		onTryHeal: function (damage, target, source, effect) {
+			let heals = {drain: 1, leechseed: 1, ingrain: 1, aquaring: 1, strengthsap: 1};
+			if (heals[effect.id]) {
+				return Math.ceil((damage * 1.3) - 0.5); // Big Root rounds half down
 			}
 		},
 		num: 6956,

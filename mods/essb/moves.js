@@ -1876,4 +1876,26 @@ exports.BattleMovedex = {
 		zMovePower: 140,
 		contestType: "Cool",
 	},
+	// Desokoro
+	"tsunamicrash": {
+		category: "Physical",
+		basePower: 150,
+		id: "tsunamicrash",
+		isNonstandard: true,
+		name: "Tsunami Crash",
+		secondary: {
+			chance: 35,
+			volatileStatus: 'flinch',
+		},
+		desc: "35% chance to flinch",
+		pp: 5,
+		priority: 0,
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Water Pledge", source);
+			this.add('-anim', source, "Waterfall", target);
+		},
+		target: "Normal",
+		type: "Water",
+	},
 };

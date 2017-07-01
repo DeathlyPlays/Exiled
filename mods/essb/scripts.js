@@ -5,7 +5,7 @@ exports.BattleScripts = {
 		let userid = toId(side.name);
 		let team = [];
 		let sets = {
-			//Admins
+			//Admemes
 			"~Insist": {
 				species: "Ludicolo-Mega",
 				ability: "Crippling Depression",
@@ -19,21 +19,6 @@ exports.BattleScripts = {
 					spa: 252,
 					spe: 252,
 					hp: 4,
-				},
-				nature: "Timid",
-			},
-			"&Back At My Day": {
-				species: "Camerupt-Mega",
-				ability: "Time Traveler",
-				item: "Rocky Helmet",
-				gender: "M",
-				moves: ['aeroblast', 'steameruption', 'freezedry'],
-				baseSignatureMove: "roleplaying",
-				signatureMove: "Roleplaying",
-				evs: {
-					def: 148,
-					spa: 252,
-					spd: 108,
 				},
 				nature: "Timid",
 			},
@@ -70,7 +55,7 @@ exports.BattleScripts = {
 			//Gods
 			"☥Sota Higurashi": {
 				species: "Victini",
-				ability: "Contrary",
+				ability: "feelssota",
 				item: "Expert Belt",
 				gender: "M",
 				moves: ['vcreate', 'boltstrike', 'uturn'],
@@ -115,6 +100,36 @@ exports.BattleScripts = {
 					hp: 4,
 				},
 				nature: "Modest",
+			},
+			"&Back At My Day": {
+				species: "Camerupt-Mega",
+				ability: "Time Traveler",
+				item: "Rocky Helmet",
+				gender: "M",
+				moves: ['aeroblast', 'steameruption', 'freezedry'],
+				baseSignatureMove: "roleplaying",
+				signatureMove: "Roleplaying",
+				evs: {
+					def: 148,
+					spa: 252,
+					spd: 108,
+				},
+				nature: "Timid",
+			},
+			"&flufi": {
+				species: "Minccino",
+				ability: "Sneaky Fluffer",
+				item: "Silk Scarf",
+				gender: "M",
+				moves: ['extremespeed', 'uturn', 'fakeout'],
+				baseSignatureMove: "awailofatail",
+				signatureMove: "A Wail of a Tail",
+				evs: {
+					atk: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Adamant",
 			},
 			//Bots
 			"*The Exiler": {
@@ -179,21 +194,6 @@ exports.BattleScripts = {
 					def: 8,
 				},
 				nature: "Modest",
-			},
-			"@flufi": {
-				species: "Minccino",
-				ability: "Sneaky Fluffer",
-				item: "Silk Scarf",
-				gender: "M",
-				moves: ['extremespeed', 'uturn', 'fakeout'],
-				baseSignatureMove: "awailofatail",
-				signatureMove: "A Wail of a Tail",
-				evs: {
-					atk: 252,
-					spe: 252,
-					spd: 4,
-				},
-				nature: "Adamant",
 			},
 			"@Perison": {
 				species: "Xerneas",
@@ -288,7 +288,7 @@ exports.BattleScripts = {
 				},
 				nature: "Bold",
 			},
-			"%vxn": {
+			"%VXN": {
 				species: "Guzzlord",
 				ability: "Last Laugh",
 				item: "Perception",
@@ -307,20 +307,6 @@ exports.BattleScripts = {
 				nature: "Serious",
 			},
 			//Voices
-			"+cyt0pl4sm": {
-				species: "Zygarde-10%",
-				ability: "Energy Overflow",
-				item: "Choice Band",
-				gender: "M",
-				moves: ['extremespeed', 'playrough', 'crunch'],
-				signatureMove: "Thousand Arrows",
-				evs: {
-					atk: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Jolly",
-			},
 			"+Renfur": {
 				species: "Flygon-Mega",
 				ability: "DesertDragon",
@@ -351,21 +337,6 @@ exports.BattleScripts = {
 				},
 				nature: "Adamant",
 			},
-			"+Chesnaught90000": {
-				species: "Chesnaught",
-				ability: "Nice 0u0",
-				item: "Life Orb",
-				moves: ['doubleedge', 'drainpunch', 'woodhammer'],
-				gender: "F",
-				baseSignatureMove: "cookiestorm",
-				signatureMove: "Cookie Storm",
-				evs: {
-					atk: 252,
-					spd: 4,
-					spe: 252,
-				},
-				nature: "Jolly",
-			},
 			"+Almighty Judgment": {
 				species: "Arceus",
 				ability: "Almighty Presence",
@@ -395,8 +366,8 @@ exports.BattleScripts = {
 				},
 				nature: "Naive",
 			},
-			//Regs
-			" Wobbleleez": {
+			//Trusteds
+			"✓Wobbleleez": {
 				species: "Musharna",
 				ability: "WobzDoezJobz",
 				item: "Leftovers",
@@ -412,6 +383,36 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
+			"✓Desokoro": {
+				species: "Gyarados",
+				ability: "Wave Call",
+				item: "Leftovers",
+				gender: "M",
+				moves: ['substitute', 'dragondance', 'bounce'],
+				signatureMove: "Tsunami Crash",
+				evs: {
+					atk: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Adamant",
+			},
+			//Regs
+			" Chesnaught90000": {
+				species: "Chesnaught",
+				ability: "Nice 0u0",
+				item: "Life Orb",
+				moves: ['doubleedge', 'drainpunch', 'woodhammer'],
+				gender: "F",
+				baseSignatureMove: "cookiestorm",
+				signatureMove: "Cookie Storm",
+				evs: {
+					atk: 252,
+					spd: 4,
+					spe: 252,
+				},
+				nature: "Jolly",
+			},
 			" Ransei": {
 				species: "Rayquaza-Mega",
 				ability: "Aerilate",
@@ -426,21 +427,6 @@ exports.BattleScripts = {
 					spe: 252,
 				},
 				nature: "Naive",
-			},
-			" Noviex": {
-				species: "Tyranitar",
-				ability: "Phat Ass",
-				item: "Armor Vest",
-				gender: "M",
-				moves: ['stoneedge', 'crunch', 'earthquake'],
-				baseSignatureMove: "methmemesandedgyteens",
-				signatureMove: "Meth, Memes, and Edgy Teens",
-				evs: {
-					atk: 252,
-					hp: 248,
-					def: 8,
-				},
-				nature: "Jolly",
 			},
 			" ggdaca":{
 				species: "Rayquaza-Mega",
@@ -502,21 +488,6 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
-			" TheGodOfPie": {
-				species: "Mawile-Mega",
-				ability: "Mad Tings",
-				item: "Life Orb",
-				gender: "M",
-				moves: ['suckerpunch', 'quickattack', 'bulletpunch'],
-				baseSignatureMove: "thepowerofpi",
-				signatureMove: "The Power of Pi",
-				evs: {
-					atk: 252,
-					hp: 252,
-					def: 4,
-				},
-				nature: "Adamant",
-			},
 			" Failures": {
 				species: "Greninja-Ash",
 				ability: "Catch me in the Ball",
@@ -541,14 +512,11 @@ exports.BattleScripts = {
 				baseSignatureMove: "perfectend",
 				signatureMove: "Perfect End",
 				evs: {
-					hp: 64,
-					atk: 64,
-					def: 64,
-					spa: 64,
-					spd: 64,
-					spe: 188,
+					hp: 252,
+					def: 128,
+					spd: 128,
 				},
-				nature: "Timid",
+				nature: "Relaxed",
 			},
 			" GuiltasBR": {
 				species: "Conkeldurr",
@@ -560,10 +528,10 @@ exports.BattleScripts = {
 				signatureMove: "Punchy Fury",
 				evs: {
 					atk: 252,
-					spd: 252,
-					spe: 4,
+					hp: 252,
+					spd: 4,
 				},
-				nature: "Careful",
+				nature: "Adamant",
 			},
 			" 007Nilo": {
 				species: "Zoroark-Mega",
@@ -580,7 +548,7 @@ exports.BattleScripts = {
 				},
 				nature: "Modest",
 			},
-			" Princess Teddiursa": {
+			" LassNinetales": {
 				species: "Ninetales-Alola",
 				ability: "prfmlmao",
 				item: "Life Orb",
@@ -626,9 +594,9 @@ exports.BattleScripts = {
 				nature: "Modest",
 			},
 			" Volco": {
-				species: "Volcanion",
+				species: "Volcanion-Mega",
 				ability: "Volcanic Ash",
-				item: "Volcanionite",
+				item: "Assault Vest",
 				gender: "M",
 				moves: ['steameruption', 'gigadrain', 'earthpower'],
 				baseSignatureMove: "volcanosrevenge",
@@ -639,22 +607,6 @@ exports.BattleScripts = {
 					spd: 4,
 				},
 				nature: "Modest",
-			},
-			" UniversalCraftr": {
-				species: "Snorlax",
-				ability: "Gluttony",
-				item: "Iapapa Berry",
-				gender: "M",
-				moves: ['thousandarrows', 'recycle', 'curse'],
-				baseSignatureMove: "slowtownking",
-				signatureMove: "Slowtown King",
-				evs: {
-					hp: 252,
-					atk: 136,
-					spd: 52,
-					def: 68,
-				},
-				nature: "Brave",
 			},
 			" Mysticoz": {
 				species: "Absol-Mega",
@@ -688,7 +640,7 @@ exports.BattleScripts = {
 			},
 			" DivineSaiyanScaris": {
 				species: "Infernape",
-				ability: "Fighters Heart",
+				ability: "Fighter;s Heart",
 				item: "Life Orb",
 				gender: "M",
 				moves: ['closecombat', 'moonblast', 'solarbeam'],
@@ -733,7 +685,7 @@ exports.BattleScripts = {
 		};
 		// Generate the team randomly.
 		let pool = Dex.shuffle(Object.keys(sets));
-		let levels = {'~':99, '☥':98, '&':97, '*': 96, '@':96, '%':95, '+':95, ' ': 94};
+		let levels = {'~':99, '☥':98, '&':97, '*': 96, '@':96, '%':95, '+':95, '✓': 95, ' ': 94};
 		for (let i = 0; i < 6; i++) {
 			if (i === 1) {
 				let monIds = pool.slice(0, 6).map(function (p) {

@@ -260,7 +260,7 @@ exports.BattleScripts = {
 			},
 			"%HoeenHero": {
 				species: "Ludicolo",
-				ability: "Programmers Domain",
+				ability: "Programmer's Domain",
 				item: "Leftovers",
 				gender: "M",
 				moves: ['scald', 'icebeam', 'gigadrain'],

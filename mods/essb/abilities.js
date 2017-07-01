@@ -1139,8 +1139,8 @@ exports.BattleAbilities = {
 	//HoeenHero
 	"programmersdomain": {
 		id: "programmersdomain",
-		name: "Programmers Domain",
-		desc: "Primordial Sea + Rain Dish + Swift Swim",
+		name: "Programmer's Domain",
+		desc: "Primordial Sea + Rain Dish + Swift Swim + Adaptability",
 		onStart: function (source) {
 			this.setWeather('primordialsea');
 		},

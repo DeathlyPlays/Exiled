@@ -60,6 +60,36 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Water",
 	},
+	//Blooded❤Draco
+	"hellfire": {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		id: "hellfire",
+		name: "Hellfire",
+		pp: 10,
+		priority: 0,
+		self: {
+			boosts: {
+				atk: 2,
+				spa: 2,
+			},
+		},
+		secondary: false,
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Blue Flare", target);
+			this.add('-anim', source, "Blast Burn", target);
+			this.add('-anim', source, "Eruption", target);
+			this.add('-anim', source, "Sacred Fire", target);
+		},
+		target: "normal",
+		type: "Fire",
+	},
 	//Jigglykong
 	"plasmablast": {
 		accuracy: 100,

@@ -9,9 +9,21 @@ Ability: Crippling Depression
     - Primordial Sea effects + Rain Dish + Swift Swim
 Moves: Giga Drain, Freeze-Dry, Focus Blast
 Special Move: Aqua Subscribe
-	- Water Type, Special, 90 BP, 100% Accuracy, 15 PP, raises its SpA & Spe by one stage, +1 priority.
+	- Water Type, Special, 90 BP, 100% Accuracy, 15 PP, raises its SpA & Spe by 1 stage, +1 priority.
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
+
+Blooded❤Draco
+(Kyurem-Black)
+@ Toxic Orb
+EVs: 4 HP / 252 SpA / 252 Spe
+Naive Nature
+Ability: Poison Heal
+Moves: Dragon Claw, Will-O-Wisp, Dragon Pulse
+Special Move: Hellfire
+        - Fire Type, Special, 90 BP, 100% Accuracy, 10 PP, raises its Attack and Special Attack by 2 stages.
+Notes: Probably worse than HoeenHero.
+Rank: C.
 
 LovethisMagikarp
 (Magikarp)
@@ -304,7 +316,7 @@ Ability: Programmers Domain
 Moves: Scald, Ice Beam, Giga Drain
 Special Move: Scripting
     - Psychic Type, Special, 60 BP, 10 PP, Boosts Special Attack by 2 stages and Boosts Speed by 1 stage, 100% chance of Confusion.
-Notes: Weak Special Attacker within this meta unfortunately.
+Notes: Basically a shittier version of Insist.
 Rank: B.
 
 Failures

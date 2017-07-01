@@ -19198,6 +19198,7 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Water",
+		zMovePower: 190,
 		contestType: "Cute",
 	},
 	"spiralingtoxins": {

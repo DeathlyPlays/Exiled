@@ -769,7 +769,6 @@ exports.commands = {
 		let avatarID = parts[1];
 		if (parts.length < 2) return this.sendReply('/setavi [player], [avatar ID] - Set the avatar of another player. Requires: % @ # & ~');
 		if (parts.length > 2) return this.errorReply('Too many arguments.');
-		if (!name.connected) return this.errorReply(name + ' is either offline or not an existing user.');
 
 		Chat.parse("/avatar " + avatarID, Rooms('lobby'), Users(name), Users(name).connections[0]);
 		this.sendReply('Avatar of user ' + name + ' was successfully set.');

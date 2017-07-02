@@ -10,7 +10,7 @@ exports.BattleItems = {
 		},
 		onResidualOrder: 5,
 		onResidualSubOrder: 2,
-		onResidual: function(pokemon) {
+		onResidual: function (pokemon) {
 			this.heal(pokemon.maxhp / 2);
 		},
 		num: -100,
@@ -26,7 +26,7 @@ exports.BattleItems = {
 		},
 		onResidualOrder: 5,
 		onResidualSubOrder: 2,
-		onResidual: function(pokemon) {
+		onResidual: function (pokemon) {
 			this.damage(pokemon.maxhp / 10);
 		},
 		num: -101,
@@ -41,10 +41,10 @@ exports.BattleItems = {
 			basePower: 80,
 		},
 		onModifyDefPriority: 1,
-		onModifyDef: function(def) {
+		onModifyDef: function (def) {
 			return this.chainModify(1.5);
 		},
-		onDisableMove: function(pokemon) {
+		onDisableMove: function (pokemon) {
 			let moves = pokemon.moveset;
 			for (let i = 0; i < moves.length; i++) {
 				if (this.getMove(moves[i].move).category === 'Status') {
@@ -65,11 +65,11 @@ exports.BattleItems = {
 		},
 		onResidualOrder: 5,
 		onResidualSubOrder: 2,
-		onResidual: function(pokemon) {
+		onResidual: function (pokemon) {
 			this.heal(pokemon.maxhp / 16);
 		},
 		onTryHealPriority: 1,
-		onTryHeal: function(damage, target, source, effect) {
+		onTryHeal: function (damage, target, source, effect) {
 			let heals = {
 				drain: 1,
 				leechseed: 1,

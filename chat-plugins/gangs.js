@@ -139,13 +139,6 @@ if (!Rooms.global.pendingGvG) Rooms.global.pendingGvG = {};
 if (!Rooms.global.GvG) Rooms.global.GvG = {};
 if (!Rooms.global.pendingGvGRooms) Rooms.global.pendingGvGRooms = {};
 
-let typeChart = {
-	"bug":"Bug", "dark":"Dark", "dragon":"Dragon", "electric":"Electric",
-	"fairy":"Fairy", "fighting":"Fighting", "fire":"Fire", "flying":"Flying",
-	"ghost":"Ghost", "grass":"Grass", "ground":"Ground", "ice":"Ice", "normal":"Normal",
-	"poison":"Poison", "psychic":"Psychic", "rock":"Rock", "steel":"Steel", "water":"Water",
-};
-
 function gangTourPoints(winner, runnerup, tourSize, room) {
 	let winnerGang = toId(getGang(winner));
 	let secondGang = toId(getGang(runnerup));

@@ -4,8 +4,5 @@ dev-tools/globals.js
 config/color.js
 mods/opmetagame
 chat-plugins/profile.js
-chat-plugins/gangs.js
-chat-plugins/emoticons.js
-chat-plugins/ttt.js
 config/card-data.js
 chat-plugins/hex.js

@@ -56,7 +56,7 @@ exports.BattleScripts = {
 				evs: {
 					atk: 252,
 					spe: 252,
-					hp: 4
+					hp: 4,
 				},
 				ivs: {
 					hp: 31,

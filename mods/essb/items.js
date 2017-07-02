@@ -105,22 +105,6 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "At the end of every turn, holder restores 1/4 of its max HP.",
 	},
-	"bagofls": {
-		id: "bagofls",
-		name: "Bag of Ls",
-		spritenum: 537,
-		fling: {
-			basePower: 10,
-		},
-		onSourceModifyAccuracy: function (accuracy) {
-			if (typeof accuracy === 'number') {
-				return accuracy * 1.1;
-			}
-		},
-		num: -8,
-		gen: -1,
-		desc: "The accuracy of attacks by the holder is 1.1x.",
-	},
 	"perception": {
 		id: "perception",
 		name: "Perception",

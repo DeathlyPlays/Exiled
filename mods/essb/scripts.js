@@ -488,21 +488,6 @@ exports.BattleScripts = {
 				},
 				nature: "Jolly",
 			},
-			" Failures": {
-				species: "Greninja-Ash",
-				ability: "Catch me in the Ball",
-				item: "Bag of Ls",
-				moves: ['hydropump', 'blueflare', 'moongeistbeam'],
-				gender: "M",
-				baseSignatureMove: "imdepressed",
-				signatureMove: "Im Depressed",
-				evs: {
-					spa: 252,
-					def: 4,
-					spe: 252,
-				},
-				nature: "Modest",
-			},
 			" Ia♪♫Planets": {
 				species: "Audino-Mega",
 				ability: "Cute Face",

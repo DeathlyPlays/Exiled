@@ -675,7 +675,7 @@ exports.BattleMovedex = {
 		target: "Normal",
 		type: "Psychic",
 	},
-	//C7
+	//C733937 123
 	"voodoomagic": {
 		id: "voodoomagic",
 		name: "Voodoo Magic",
@@ -957,34 +957,6 @@ exports.BattleMovedex = {
 		type: "Fairy",
 		zMovePower: 190,
 		contestType: "Cute",
-	},
-	"imdepressed": {
-		id: "imdepressed",
-		name: "Im Depressed",
-		desc: "Boosts SpA by two stages",
-		priority: 0,
-		self: {
-			boosts: {
-				spa: 2,
-			},
-		},
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		secondary: false,
-		category: "Special",
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Moongeist Beam", target);
-		},
-		basePower: 120,
-		pp: 15,
-		accuracy: 100,
-		target: "normal",
-		type: "Dark",
-		zMovePower: 140,
-		contestType: "Cool",
 	},
 	"solareruption": {
 		id: "solareruption",

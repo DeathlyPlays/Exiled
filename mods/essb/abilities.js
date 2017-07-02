@@ -653,22 +653,6 @@ exports.BattleAbilities = {
 			if (!pokemon.showCure) delete pokemon.showCure;
 		},
 	},
-	"catchmeintheball": {
-		id: "catchmeintheball",
-		name: "Catch me in the Ball",
-		desc: "Adaptability + Protean",
-		onModifyMove: function (move) {
-			move.stab = 2;
-		},
-		onPrepareHit: function (source, target, move) {
-			if (move.hasBounced) return;
-			let type = move.type;
-			if (type && type !== '???' && source.getTypes().join() !== type) {
-				if (!source.setType(type)) return;
-				this.add('-start', source, 'typechange', type, '[from] Catch me in the Ball');
-			}
-		},
-	},
 	//alfastorm
 	"attackshield": {
 		id: "attackshield",

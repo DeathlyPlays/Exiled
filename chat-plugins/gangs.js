@@ -38,9 +38,10 @@ function logPoints(userid, amount, reason) {
 	userid = toId(userid);
 	database.run("INSERT INTO points(date, userid, gang, points, reason) VALUES ($date, $userid, $gang, $points, $reason)",
 		{$date: date, $userid: userid, $gang: gangid, $points: amount, $reason: reason},
-	function (err) {
-		if (err) return console.log("Gang logPoints: " + err);
-	});
+		function (err) {
+			if (err) return console.log("Gang logPoints: " + err);
+		}
+	);
 }
 
 function logPointsUser(user, gang, amount, reason) {
@@ -48,9 +49,10 @@ function logPointsUser(user, gang, amount, reason) {
 	let date = Date.now();
 	database.run("INSERT INTO points(date, userid, gang, points, reason) VALUES ($date, $userid, $gang, $points, $reason)",
 		{$date: date, $userid: "[" + user + "]", $gang: gangid, $points: amount, $reason: reason},
-	function (err) {
-		if (err) return console.log("Gang logPointsUser: " + err);
-	});
+		function (err) {
+			if (err) return console.log("Gang logPointsUser: " + err);
+		}
+	);
 }
 
 function log(message) {

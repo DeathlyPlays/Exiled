@@ -13,6 +13,34 @@ Special Move: Aqua Subscribe
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
 
+LinkCode
+(Marill)
+@ Marillium
+    - Restores 1/8th of its Max HP, Light Clay, Eviolite and Big Root.
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+Ability: Call of the Haunted
+    - Boosts user's Attack, Defense and Special Defense by 1 stage, Dual Screens, Huge Power and changes type to Water/Ghost.
+Moves: Spectral Thief, Liquidation, Drain Punch
+Signature Move: Shadow Retreat
+        - Ghost Type, Physical, 70 BP, 100% Accuracy, 20 PP and switches out.
+Notes: Insist didn't tell me what the notes should be so don't blame me blame flufi.
+Rank: N/A.
+
+Ia♪♫Planets
+(Audino-Mega)
+@ Ultra Leftovers
+    - Restores 1/8th of its Max HP.
+EVs: 252 HP / 128 Def / 128 SpD
+Relaxed Nature
+Ability: Cute Face
+    - Contrary, Magic Guard and Soul Heart that decreases SpA and SpD by 1 stage.
+Moves: V-Create, Draining Kiss, Judgment
+Signature Move: Perfect End
+    - Fairy Type, Special, 90 BP, 100% Accuracy, 5 PP and decreases user's Defense and Special Defense by 1 stage.
+Notes: It's a planet.
+Rank: N/A.
+
 Blooded❤Draco
 (Kyurem-Black)
 @ Toxic Orb

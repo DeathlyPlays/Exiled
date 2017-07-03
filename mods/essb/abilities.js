@@ -1469,7 +1469,7 @@ exports.BattleAbilities = {
 		},
 		//soulheart
 		onAnyFaint: function () {
-			this.boost({spa:1, spd: 1}, this.effectData.target);
+			this.boost({spa:-1, spd: -1}, this.effectData.target);
 		},
 		//magicguard
 		onDamage: function (damage, target, source, effect) {

@@ -124,6 +124,7 @@ global.Db = require('origindb')('config/db');
 
 delete process.send; // in case we're a child process
 global.Verifier = require('./verifier');
+Verifier.PM.spawn();
 
 global.Tournaments = require('./tournaments');
 
@@ -198,6 +199,7 @@ if (require.main === module) {
  *********************************************************/
 
 global.TeamValidator = require('./team-validator');
+TeamValidator.PM.spawn();
 
 /*********************************************************
  * Start up the githubhook server

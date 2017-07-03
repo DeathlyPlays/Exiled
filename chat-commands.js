@@ -774,6 +774,18 @@ exports.commands = {
 		this.sendReply('Avatar of user ' + name + ' was successfully set.');
 	},
 
+	popup: function (target, room, user) {
+		if (!this.can('eval')) return false;
+		let parts = target.split(',').map(param => param.trim());
+		let name = toId(parts[0]);
+		let message = parts[1];
+		if (parts.length < 2) return this.sendReply('/popup [user], [message] - Sends a popup box containing a message to a player. Requires ~');
+		if (parts.length > 2) return this.errorReply('Too many arguments.');
+
+		this.sendReply('Popup Box successfully sent to ' + name + '.');
+		Users('"' + name + '"').popup('"' + message + '"');
+	},
+
 	setterrain: 'setweather',
 	terrain: 'setweather',
 	weather: 'setweather',

@@ -851,11 +851,11 @@ exports.BattleAbilities = {
 		onImmunity: function (type, pokemon) {
 			if (type === 'frz') return false;
 		},
-		//3x Attack Guts
+		//1.5x Attack Guts
 		onModifyAtkPriority: 5,
 		onModifyAtk: function (atk, pokemon) {
 			if (pokemon.status) {
-				return this.chainModify(3);
+				return this.chainModify(1.5);
 			}
 		},
 		//Skill Link

@@ -423,7 +423,7 @@ GuiltasBR
 EVs: 252 Atk / 252 HP / 4 SpD
 Adamant Nature
 Ability: handsBurn
-	- Immune to being frozen, if status'ed this Pokemon's Attack is multiplied by 3x, Dazzling, uses Trick Room, and Skill Link effects.
+	- Immune to being frozen, if status'ed this Pokemon's Attack is multiplied by 1.5x, Dazzling, uses Trick Room, and Skill Link effects.
 Moves: Drain Punch, Thunder Punch, Poison Jab
 Special Move: Punchy Fury
 	- Fighting Type, Physical, 30 BP, 100% Accuracy, Hits 2-5 times.

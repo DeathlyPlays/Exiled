@@ -34,10 +34,10 @@ Ia♪♫Planets
 EVs: 252 HP / 128 Def / 128 SpD
 Relaxed Nature
 Ability: Cute Face
-    - Contrary, Magic Guard and Soul Heart that decreases SpA and SpD by 1 stage.
+    - Contrary, Magic Guard and Soul Heart that increases SpA and SpD by 1 stage.
 Moves: V-Create, Draining Kiss, Judgment
 Signature Move: Perfect End
-    - Fairy Type, Special, 90 BP, 100% Accuracy, 5 PP and decreases user's Defense and Special Defense by 1 stage.
+    - Fairy Type, Special, 90 BP, 100% Accuracy, 5 PP and increases user's Defense and Special Defense by 1 stage.
 Notes: It's a planet.
 Rank: N/A.
 

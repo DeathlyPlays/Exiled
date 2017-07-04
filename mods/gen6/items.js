@@ -64,6 +64,13 @@ exports.BattleItems = {
 		inherit: true,
 		desc: "Holder's use of Light Screen or Reflect lasts 8 turns instead of 5.",
 	},
+<<<<<<< HEAD
+=======
+	machobrace: {
+		inherit: true,
+		isUnreleased: false,
+	},
+>>>>>>> 710fb64f668504505357d3dc3f80d20d0329b6ea
 	magoberry: {
 		inherit: true,
 		onUpdate: function (pokemon) {

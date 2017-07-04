@@ -965,7 +965,6 @@ class BattleRoom extends Room {
 		}
 	}
 	async logBattle(p1score, p1rating, p2rating) {
-		if (this.battle.supplementaryBanlist) return;
 		let logData = this.battle.logData;
 		if (!logData) return;
 		this.battle.logData = null; // deallocate to save space
@@ -999,7 +998,7 @@ class BattleRoom extends Room {
 		const tier = this.format.toLowerCase().replace(/[^a-z0-9]+/g, '');
 		const logpath = `logs/${logfolder}/${tier}/${logsubfolder}/`;
 		await FS(logpath).mkdirp();
-		await FS(logpath + '/' + this.id + '.log.json').write(JSON.stringify(logData));
+		await FS(logpath + this.id + '.log.json').write(JSON.stringify(logData));
 		//console.log(JSON.stringify(logData));
 	}
 	tryExpire() {
@@ -1148,6 +1147,7 @@ class ChatRoom extends Room {
 
 		this.type = 'chat';
 
+		this.rollLogTimer = null;
 		if (Config.logchat) {
 			this.rollLogFile(true);
 			this.logEntry = function (entry, date) {
@@ -1198,7 +1198,8 @@ class ChatRoom extends Room {
 		// This could cause problems if the previous rollLogFile from an
 		// hour ago isn't done yet. But if that's the case, we have bigger
 		// problems anyway.
-		if (!sync) setTimeout(() => this.rollLogFile(), nextHour - currentTime);
+		if (this.rollLogTimer) clearTimeout(this.rollLogTimer);
+		this.rollLogTimer = setTimeout(() => this.rollLogFile(), nextHour - currentTime);
 
 		if (relpath + filename === this.logFilename) return;
 
@@ -1224,6 +1225,8 @@ class ChatRoom extends Room {
 	destroyLog(finalCallback) {
 		this.destroyingLog = true;
 		if (this.logFile) {
+			clearTimeout(this.rollLogTimer);
+			this.rollLogTimer = null;
 			this.logEntry = function () { };
 			this.logFile.end(finalCallback);
 		} else {
@@ -1420,12 +1423,16 @@ class ChatRoom extends Room {
 		// Clear any active timers for the room
 		if (this.muteTimer) {
 			clearTimeout(this.muteTimer);
+			this.muteTimer = null;
 		}
-		this.muteTimer = null;
 		if (this.expireTimer) {
 			clearTimeout(this.expireTimer);
+			this.expireTimer = null;
 		}
-		this.expireTimer = null;
+		if (this.rollLogTimer) {
+			clearTimeout(this.rollLogTimer);
+			this.rollLogTimer = null;
+		}
 		if (this.reportJoinsInterval) {
 			clearInterval(this.reportJoinsInterval);
 		}

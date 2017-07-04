@@ -9682,13 +9682,12 @@ exports.BattleMovedex = {
 		},
 		effect: {
 			duration: 5,
-			/*durationCallback: function (source, effect) {
-				// Persistent isn't updated for BW moves
-				if (source && source.hasAbility('Persistent')) {
+			durationCallback: function (source, effect) {
+				if (source && source.hasAbility('persistent')) {
 					return 7;
 				}
 				return 5;
-			},*/
+			},
 			onStart: function (target, source) {
 				this.add('-fieldstart', 'move: Magic Room', '[of] ' + source);
 			},
@@ -18860,6 +18859,12 @@ exports.BattleMovedex = {
 		},
 		effect: {
 			duration: 5,
+			durationCallback: function (source, effect) {
+				if (source && source.hasAbility('persistent')) {
+					return 7;
+				}
+				return 5;
+			},
 			onStart: function (side, source) {
 				this.add('-fieldstart', 'move: Wonder Room', '[of] ' + source);
 			},

@@ -518,7 +518,6 @@ exports.BattleAliases = {
 	"insist": "Ludicolo",
 	"hoeenhero": "Ludicolo",
 	"noviex": "Tyranitar",
-	"vxn": "Missingno",
 	"chandie": "Magearna",
 	"paradox": "Dodrio",
 	"linkcode": "Marill",

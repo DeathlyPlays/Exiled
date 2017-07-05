@@ -271,9 +271,6 @@ exports.Formats = [
 		requirePentagon: true,
 	},
 	{
-<<<<<<< HEAD
-
-=======
 		name: "[Gen 7] Weakness Cup",
 		desc: [
 			"Pokemon must be weak to at least five types to be allowed.",
@@ -303,7 +300,6 @@ exports.Formats = [
 		},
 	},
 	{
->>>>>>> a4e1b2692a5a00459b4a32345a198cbe6be3c0b6
 		name: "[Gen 7] Doubles Custom Game",
 
 		mod: 'gen7',

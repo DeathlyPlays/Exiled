@@ -485,6 +485,7 @@ exports.BattleLearnsets = {
 	}},
 	volkraken: {learnset: {
 		absorb: ["7L1"],
+		aquajet: ["7E"],
 		aquaring: ["7L46", "6L46"],
 		assurance: ["7E", "6E"],
 		attract: ["7M", "6M"],
@@ -994,6 +995,7 @@ exports.BattleLearnsets = {
 		wringout: ["7L66", "4L9"],
 	}},
 	pyroak: {learnset: {
+		amnesia: ["7L37"],
 		ancientpower: ["4T"],
 		aromatherapy: ["7E", "4E"],
 		aromaticmist: ["7L59"],
@@ -1677,6 +1679,7 @@ exports.BattleLearnsets = {
 		rest: ["7M", "4M"],
 		return: ["7M", "4M"],
 		round: ["7M"],
+		scald: ["7M"],
 		secretpower: ["7T", "4M"],
 		sheercold: ["7E", "4E"],
 		shockwave: ["7T", "4M"],
@@ -6595,7 +6598,7 @@ exports.BattleLearnsets = {
 		mist: ["7L20"],
 		moonblast: ["7E"],
 		payback: ["7M", "7L18"],
-		powdersnow: ["7L1"],
+		powdersnow: ["7L1", "7S1"],
 		powerswap: ["7E"],
 		protect: ["7M"],
 		psychup: ["7M"],

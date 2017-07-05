@@ -235,7 +235,7 @@ exports.Formats = [
 			'Marowak-Alola', 'Marshadow', 'Milotic', 'Mimikyu', 'Muk-Alola', 'Ninetales-Alola', 'Oranguru', 'Pelipper', 'Pheromosa', 'Politoed',
 			'Porygon2', 'Rotom-Wash', 'Scrafty', 'Snorlax', 'Suicune', 'Sylveon', 'Tapu Bulu', 'Tapu Fini', 'Tapu Koko', 'Tapu Lele',
 			'Terrakion', 'Torkoal', 'Tyranitar', 'Venusaur', 'Volcanion', 'Volcarona', 'Weavile', 'Whimsicott', 'Zapdos', 'Zygarde-Base',
-			'Battle Bond', 'Banettite', 'Blazikenite', 'Cameruptite', 'Charizardite Y', 'Gardevoirite', 'Gengarite', 'Gyaradosite', 'Kangaskhanite', 'Mawilite', 'Metagrossite', 'Salamencite', 'Sceptilite', 'Swampertite', 'Tyranitarite',
+			'Battle Bond', 'Banettite', 'Blazikenite', 'Cameruptite', 'Charizardite Y', 'Galladite', 'Gardevoirite', 'Gengarite', 'Gyaradosite', 'Kangaskhanite', 'Lopunnite', 'Mawilite', 'Metagrossite', 'Salamencite', 'Sceptilite', 'Swampertite', 'Tyranitarite',
 		],
 	},
 	{
@@ -271,7 +271,39 @@ exports.Formats = [
 		requirePentagon: true,
 	},
 	{
+<<<<<<< HEAD
 
+=======
+		name: "[Gen 7] Weakness Cup",
+		desc: [
+			"Pokemon must be weak to at least five types to be allowed.",
+			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3608162/\">Weakness Cup Discussion</a>",
+		],
+
+		mod: 'gen7',
+		gameType: 'doubles',
+		maxForcedLevel: 50,
+		teamLength: {
+			validate: [4, 6],
+			battle: 4,
+		},
+		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		onValidateSet: function (set) {
+			let item = this.getItem(set.item);
+			if (item.exists && !(item.onSourceModifyDamage || item.id === 'weaknesspolicy')) {
+				return [`${set.name || set.species} has ${item.name}, which is banned in Weakness Cup.`];
+			}
+			let template = this.getTemplate(set.species || set.name);
+			let weaknesses = 0;
+			for (let i in this.data.TypeChart) {
+				if (this.getImmunity(i, template) && this.getEffectiveness(i, template) > 0) weaknesses++;
+				if (weaknesses >= 5) return;
+			}
+			return [`${set.name || set.species} must be weak to at least five types to be allowed in Weakness Cup.`];
+		},
+	},
+	{
+>>>>>>> a4e1b2692a5a00459b4a32345a198cbe6be3c0b6
 		name: "[Gen 7] Doubles Custom Game",
 
 		mod: 'gen7',

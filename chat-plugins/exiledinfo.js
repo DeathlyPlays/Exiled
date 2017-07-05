@@ -304,7 +304,7 @@ exports.commands = {
 			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developer)<br />" +
 			"- " + Exiled.nameColor('Back At My Day', true) + " (Developer)<br />" +
 			"- " + Exiled.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
-			"- " + Exiled.nameColor('VXN', true) + " (Developer)<br />" +
+			"- " + Exiled.nameColor('Gligars', true) + " (Developer)<br />" +
 			"<br />" +
 			"<u><b>Retired Staff:</b></u><br />" +
 			"- " + Exiled.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +

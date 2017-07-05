@@ -336,7 +336,7 @@ Special Move: Solar Eruption
 Notes: Fast Special Sweeper.
 Rank: A.
 
-VXN
+Gligars
 (Guzzlord)
 @ Preception
      - Cures holder of Attract, Disable, Encore, Heal Block, Taunt, Torment, Confusion, and major status conditions.

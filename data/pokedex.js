@@ -11196,7 +11196,7 @@ exports.BattlePokedex = {
 		forme: "Alola",
 		formeLetter: "A",
 		species: "Volcarona-Alola",
-		types: ["Water", "Bug"],
+		types: ["Bug", "Water"],
 		baseStats: {hp: 95, atk: 50, def: 75, spa: 150, spd: 110, spe: 70},
 		abilities: {0: "Compound Eyes", H: "Drizzle"},
 		heightm: 1.4,

@@ -857,7 +857,7 @@ exports.commands = {
 			"<br />" +
 			"<u><b>Programmers:</u></b><br />" +
 			"- " + Exiled.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
-			"- " + Exiled.nameColor('VXN', true) + " (Assistant Developer)<br />" +
+			"- " + Exiled.nameColor('Gligars', true) + " (Assistant Developer)<br />" +
 			"- " + Exiled.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";

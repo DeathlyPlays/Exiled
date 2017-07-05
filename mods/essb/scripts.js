@@ -288,7 +288,7 @@ exports.BattleScripts = {
 				},
 				nature: "Bold",
 			},
-			"%VXN": {
+			"%Gligars": {
 				species: "Guzzlord",
 				ability: "Last Laugh",
 				item: "Perception",

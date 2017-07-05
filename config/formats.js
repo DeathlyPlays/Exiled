@@ -1993,8 +1993,8 @@ exports.Formats = [
 			if (name === 'insist') {
 				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
-			if (name === 'vxn') {
-				this.add('c|%VXN|ok im here, what do you want me to break');
+			if (name === 'gligars') {
+				this.add('c|%Gligars|Glhf...');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -2060,7 +2060,7 @@ exports.Formats = [
 					spe: 1,
 				});
 			}
-			if (name === 'vxn' && !pokemon.illusion) {
+			if (name === 'gligars' && !pokemon.illusion) {
 				this.boost({
 					spd: -12,
 					def: -12,
@@ -2082,9 +2082,11 @@ exports.Formats = [
 				pokemon.types = ["Dragon", "Water"];
 			}
 			//custom moves on switch while having a specific ability
+			/*
 			if (name === 'universalcraftr' && !pokemon.illusion) {
 				this.useMove('trickroom', pokemon);
 			}
+			*/
 		},
 		// Code for use specific moves
 		onModifyMove: function (move, pokemon) {
@@ -2146,7 +2148,7 @@ exports.Formats = [
 				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c|%VXN|the bug has been fixed');
+				this.add('c|%Gligars|RIP I lost');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -2498,7 +2500,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Slowtown",
 		desc: [
-			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by VXN. Coded by Insist.",
+			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Gligars. Coded by Insist.",
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
 		],
 		mod: "slowtown",

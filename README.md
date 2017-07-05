@@ -3,14 +3,14 @@ Exiled @ Pokemon Showdown
 
 Navigation: [Website][1] | **Server repository** | [Client repository][2] | [Dex repository][3]
 
-	[1]: http://exiled.psim.us
-	[2]: https://github.com/Zarel/Pokemon-Showdown-Client
-	[3]: https://github.com/Zarel/Pokemon-Showdown-Dex
-
 [![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg)](https://travis-ci.org/DeathlyPlays/Exiled)
 [![Dependency Status](https://david-dm.org/zarel/Pokemon-Showdown.svg)](https://david-dm.org/zarel/Pokemon-Showdown)
 [![devDependency Status](https://david-dm.org/zarel/Pokemon-Showdown/dev-status.svg)](https://david-dm.org/zarel/Pokemon-Showdown#info=devDependencies)
 
+	[1]: http://exiled.psim.us
+	[2]: https://github.com/Zarel/Pokemon-Showdown-Client
+	[3]: https://github.com/Zarel/Pokemon-Showdown-Dex
+	
 Introduction
 ------------------------------------------------------------------------
 
@@ -185,7 +185,7 @@ Special thanks
 * **Insist** - Main developer of Exiled files, Sysadmin, Owner.
 * **Mewth** - Developer, Sysadmin, Co-Owner.
 * **HoeenCoder** - Sysop, Bug fixes, Mechanic assistance.
-* **VXN** - Developer, Sysop.
+* **Gligars** - Developer, Sysop.
 * **Back At My Day** - Developments.
 * **Mystifi** - Assistance, Developments.
 * **AlfaStorm** - Developer.

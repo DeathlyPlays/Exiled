@@ -1219,7 +1219,7 @@ exports.BattleFormatsData = {
 		eventPokemon: [
 			{"generation": 5, "level": 10, "isHidden": true, "moves":["pound", "growl", "tailwhip", "refresh"]},
 		],
-		tier: "Ubers",
+		tier: "AG",
 		requiredItem: "Blissite",
 	},
 	tangela: {

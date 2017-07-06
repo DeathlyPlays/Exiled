@@ -10010,7 +10010,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Fire"],
 		baseStats: {hp: 105, atk: 180, def: 70, spa: 5, spd: 70, spe: 145},
-		abilities: {0: "Reckless"},
+		abilities: {0: "Sheer Force"},
 		heightm: 1.3,
 		weightkg: 92.9,
 		color: "Red",
@@ -11196,7 +11196,7 @@ exports.BattlePokedex = {
 		forme: "Alola",
 		formeLetter: "A",
 		species: "Volcarona-Alola",
-		types: ["Bug", "Water"],
+		types: ["Water", "Bug"],
 		baseStats: {hp: 95, atk: 50, def: 75, spa: 150, spd: 110, spe: 70},
 		abilities: {0: "Compound Eyes", H: "Drizzle"},
 		heightm: 1.4,
@@ -15338,4 +15338,6 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Undiscovered"],
 	},
+	
+	
 };

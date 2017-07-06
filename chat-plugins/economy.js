@@ -301,7 +301,7 @@ exports.commands = {
 		}
 		user.popup("|wide|" + output);
 	},
-
+/*
 	store: 'shop',
 	shop: function (target, room, user) {
 		if (!this.runBroadcast()) return;
@@ -321,7 +321,7 @@ exports.commands = {
 		handleBoughtItem.call(this, target.toLowerCase(), user, cost);
 	},
 	buyhelp: ["/buy [command] - Buys an item from the shop."],
-
+*/
 	'!richestuser': true,
 	richestusers: 'richestuser',
 	richestuser: function (target, room, user) {

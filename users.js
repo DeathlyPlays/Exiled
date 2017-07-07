@@ -977,6 +977,7 @@ class User {
 			this.avatar = Config.customavatars[this.userid];
 		}
 
+<<<<<<< HEAD
 		this.isStaff = (this.group in {
 			'%': 1,
 			'@': 1,
@@ -984,6 +985,9 @@ class User {
 			'☥': 1,
 			'~': 1,
 		});
+=======
+		this.isStaff = Config.groups[this.group] && Config.groups[this.group].lock;
+>>>>>>> ac1a48cc9089ad178966d3a90059dd0b40a8a3fd
 		if (!this.isStaff) {
 			let staffRoom = Rooms('staff');
 			this.isStaff = (staffRoom && staffRoom.auth && staffRoom.auth[this.userid]);

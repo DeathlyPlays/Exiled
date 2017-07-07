@@ -15338,6 +15338,4 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Undiscovered"],
 	},
-	
-	
 };

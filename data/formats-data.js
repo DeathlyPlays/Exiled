@@ -1768,6 +1768,7 @@ exports.BattleFormatsData = {
 			{"generation": 4, "level": 5, "moves":["pound"], "pokeball": "cherishball"},
 			{"generation": 6, "level": 100, "moves":["pound"], "pokeball": "cherishball"},
 			{"generation": 7, "level": 5, "moves":["pound"], "pokeball": "cherishball"},
+			{"generation": 7, "level": 50, "moves":["psychic", "barrier", "metronome", "transform"], "pokeball": "cherishball"},
 		],
 		eventOnly: true,
 		tier: "OU",
@@ -2434,6 +2435,7 @@ exports.BattleFormatsData = {
 			{"generation": 5, "level": 5, "isHidden": true, "moves":["whirlwind", "weatherball"], "pokeball": "dreamball"},
 			{"generation": 6, "level": 50, "shiny": 1, "isHidden": false, "moves":["sunnyday", "fireblast", "sacredfire", "punishment"]},
 			{"generation": 6, "level": 50, "shiny": true, "isHidden": false, "moves":["sacredfire", "bravebird", "recover", "celebrate"], "pokeball": "cherishball"},
+			{"generation": 7, "level": 100, "isHidden": false, "moves":["sacredfire", "bravebird", "recover", "safeguard"], "pokeball": "cherishball"},
 		],
 		eventOnly: true,
 		tier: "Uber",
@@ -3407,7 +3409,7 @@ exports.BattleFormatsData = {
 		tier: "NFE",
 	},
 	salamence: {
-		randomBattleMoves: ["outrage", "fireblast", "earthquake", "dracometeor", "dragondance", "dragonclaw"],
+		randomBattleMoves: ["outrage", "fireblast", "earthquake", "dracometeor", "dragondance", "dragonclaw", "fly"],
 		randomDoubleBattleMoves: ["protect", "fireblast", "earthquake", "dracometeor", "tailwind", "dragondance", "dragonclaw", "hydropump", "rockslide"],
 		eventPokemon: [
 			{"generation": 3, "level": 50, "moves":["protect", "dragonbreath", "scaryface", "fly"]},
@@ -4791,7 +4793,7 @@ exports.BattleFormatsData = {
 	cofagrigus: {
 		randomBattleMoves: ["nastyplot", "trickroom", "shadowball", "hiddenpowerfighting", "willowisp", "haze", "painsplit"],
 		randomDoubleBattleMoves: ["nastyplot", "trickroom", "shadowball", "hiddenpowerfighting", "willowisp", "protect", "painsplit"],
-		tier: "NU",
+		tier: "BL3",
 	},
 	tirtouga: {
 		randomBattleMoves: ["shellsmash", "aquajet", "waterfall", "stoneedge", "earthquake", "stealthrock"],
@@ -5303,7 +5305,7 @@ exports.BattleFormatsData = {
 		tier: "Uber",
 	},
 	landorustherian: {
-		randomBattleMoves: ["swordsdance", "rockpolish", "earthquake", "stoneedge", "uturn", "superpower", "stealthrock"],
+		randomBattleMoves: ["swordsdance", "rockpolish", "earthquake", "stoneedge", "uturn", "superpower", "stealthrock", "fly"],
 		randomDoubleBattleMoves: ["rockslide", "earthquake", "stoneedge", "uturn", "superpower", "knockoff", "protect"],
 		eventOnly: true,
 		tier: "OU",
@@ -6432,7 +6434,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 65, "moves":["counter", "hammerarm", "lunge", "dynamicpunch"]},
 		],
 		eventOnly: true,
-		tier: "UU",
+		tier: "BL",
 	},
 	pheromosa: {
 		randomBattleMoves: ["highjumpkick", "uturn", "icebeam", "poisonjab", "bugbuzz"],

@@ -1007,12 +1007,7 @@ class User {
 	setGroup(group, forceTrusted) {
 		if (!group) throw new Error(`Falsy value passed to setGroup`);
 		this.group = group.charAt(0);
-<<<<<<< HEAD
-
-		this.isStaff = Config.groups[this.group] && Config.groups[this.group].lock;
-=======
 		this.isStaff = Config.groups[this.group] && (Config.groups[this.group].lock || Config.groups[this.group].root);
->>>>>>> 1f983407e47099a425538ef570b91a656ae3d9f7
 		if (!this.isStaff) {
 			let staffRoom = Rooms('staff');
 			this.isStaff = (staffRoom && staffRoom.auth && staffRoom.auth[this.userid]);

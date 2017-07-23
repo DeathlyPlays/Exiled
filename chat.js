@@ -281,7 +281,6 @@ class CommandContext {
 					this.room.log.push((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 					this.room.lastUpdate = this.room.log.length;
 					this.room.messageCount++;
-					Exiled.addExp(this.user, this.room, 1);
 				} else {
 					if (Users.ShadowBan.checkBanned(this.user)) {
 						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
@@ -290,7 +289,6 @@ class CommandContext {
 						this.room.add((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 						this.room.messageCount++;
 					}
-					Exiled.addExp(this.user, this.room, 1);
 				}
 				//this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`);
 			}
@@ -595,6 +593,13 @@ class CommandContext {
 			if (!this.pmTarget && !this.user.can('broadcast', null, this.room)) {
 				this.errorReply("You need to be voiced to broadcast this command's information.");
 				this.errorReply("To see it for yourself, use: /" + this.message.substr(1));
+				return false;
+			}
+
+			if (Users.ShadowBan.checkBanned(this.user)) {
+				Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
+				this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
+				this.parse('/' + this.message.substr(1));
 				return false;
 			}
 

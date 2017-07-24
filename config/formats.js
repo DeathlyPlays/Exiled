@@ -93,13 +93,8 @@ exports.Formats = [
 
 		mod: 'gen7',
 		challengeShow: false,
-<<<<<<< HEAD
-		ruleset: ['[Gen 7] UU', 'Pokemon'],
-		banlist: ['UU', 'BL2', 'Carbite', 'Ludicolite', 'Butterfrite', 'Lilligite', 'Solite', 'Lunite'],
-=======
 		ruleset: ['[Gen 7] UU'],
-		banlist: ['UU', 'BL2'],
->>>>>>> a264c4f9555787fad65f68d1ce2518916309fdf5
+		banlist: ['UU', 'BL2', 'Carbite', 'Ludicolite', 'Butterfrite', 'Lilligite', 'Solite', 'Lunite'],
 	},
 	{
 		name: "[Gen 7] NU (beta)",

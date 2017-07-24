@@ -299,12 +299,6 @@ class UNOgame extends Rooms.RoomGame {
 		});
 	}
 
-<<<<<<< HEAD
-		this.timer = setTimeout(() => {
-			this.sendToRoom(`|html|${Exiled.nameColor(player.name, true, true)} has been automatically disqualified.`);
-			this.eliminate(this.currentPlayer);
-		}, this.maxTime * 1000);
-=======
 	nextTurn(starting) {
 		this.onAwaitUno()
 			.then(() => {
@@ -319,11 +313,10 @@ class UNOgame extends Rooms.RoomGame {
 				player.sendDisplay();
 
 				this.timer = setTimeout(() => {
-					this.sendToRoom(`${player.name} has been automatically disqualified.`);
+					this.sendToRoom(`${Exiled.nameColor(player.name, true, true)} has been automatically disqualified.`);
 					this.eliminate(this.currentPlayer);
 				}, this.maxTime * 1000);
 			});
->>>>>>> 8a70763a761743e9e5c063938631a34aca3fea86
 	}
 
 	onNextPlayer() {
@@ -489,11 +482,7 @@ class UNOgame extends Rooms.RoomGame {
 	onUno(user, unoId) {
 		// uno id makes spamming /uno uno impossible
 		if (this.unoId !== unoId || user.userid !== this.awaitUno) return false;
-<<<<<<< HEAD
-		this.sendToRoom(`|raw|<strong>UNO!</strong> ${Exiled.nameColor(user.name, true, true)} is down to their last card!`);
-=======
-		this.sendToRoom(Chat.html`|raw|<strong>UNO!</strong> ${user.name} is down to their last card!`);
->>>>>>> 8a70763a761743e9e5c063938631a34aca3fea86
+		this.sendToRoom(Chat.html`|raw|<strong>UNO!</strong> $${Exiled.nameColor(player.name, true, true)} is down to their last card!`);
 		delete this.awaitUno;
 		delete this.unoId;
 	}
@@ -517,7 +506,6 @@ class UNOgame extends Rooms.RoomGame {
 	}
 
 	onWin(player) {
-<<<<<<< HEAD
 		this.sendToRoom(`|raw|<div class="broadcast-green">Congratulations to ${Exiled.nameColor(player.name, true, true)} for winning the game of UNO!</div>`, true);
 		let targetUserid = toId(player.name);
 		let prize = 2;
@@ -537,9 +525,6 @@ class UNOgame extends Rooms.RoomGame {
 				if (Users(this.players[i].gameBoost)) Users(this.players[i]).gameBoost = false;
 			}
 		}
-=======
-		this.sendToRoom(Chat.html`|raw|<div class="broadcast-green">Congratulations to ${player.name} for winning the game of UNO!</div>`, true);
->>>>>>> 8a70763a761743e9e5c063938631a34aca3fea86
 		this.destroy();
 	}
 

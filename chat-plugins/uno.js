@@ -482,7 +482,7 @@ class UNOgame extends Rooms.RoomGame {
 	onUno(user, unoId) {
 		// uno id makes spamming /uno uno impossible
 		if (this.unoId !== unoId || user.userid !== this.awaitUno) return false;
-		this.sendToRoom(Chat.html`|raw|<strong>UNO!</strong> $${Exiled.nameColor(player.name, true, true)} is down to their last card!`);
+		this.sendToRoom(Chat.html`|raw|<strong>UNO!</strong> $${Exiled.nameColor(user.name, true, true)} is down to their last card!`);
 		delete this.awaitUno;
 		delete this.unoId;
 	}

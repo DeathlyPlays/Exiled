@@ -62,13 +62,8 @@ exports.Formats = [
 
 		mod: 'gen7',
 		searchShow: false,
-<<<<<<< HEAD
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['OU', 'BL', 'Drizzle', 'Power Construct', 'Mewnium Z', 'Flygonite'],
-=======
 		ruleset: ['[Gen 7] OU', 'Pokemon'],
 		banlist: ['OU', 'BL', 'Drizzle', 'Power Construct', 'Mewnium Z'],
->>>>>>> a9e28b0f459b71f61385daeb2db4e5ccd087ad8f
 	},
 	{
 		name: "[Gen 7] UU (suspect test)",
@@ -98,13 +93,8 @@ exports.Formats = [
 
 		mod: 'gen7',
 		challengeShow: false,
-<<<<<<< HEAD
-		ruleset: ['[Gen 7] UU'],
-		banlist: ['UU', 'BL2', 'Carbite', 'Ludicolite', 'Butterfrite', 'Lilligite', 'Solite', 'Lunite'],
-=======
 		ruleset: ['[Gen 7] UU', 'Pokemon'],
-		banlist: ['UU', 'BL2'],
->>>>>>> a9e28b0f459b71f61385daeb2db4e5ccd087ad8f
+		banlist: ['UU', 'BL2', 'Carbite', 'Ludicolite', 'Butterfrite', 'Lilligite', 'Solite', 'Lunite'],
 	},
 	{
 		name: "[Gen 7] NU (beta)",
@@ -114,13 +104,8 @@ exports.Formats = [
 		],
 
 		mod: 'gen7',
-<<<<<<< HEAD
-		ruleset: ['[Gen 7] RU'],
-		banlist: ['RU', 'BL3'],
-=======
 		ruleset: ['[Gen 7] RU', 'Pokemon'],
 		banlist: ['RU', 'BL3', 'Drought'],
->>>>>>> a9e28b0f459b71f61385daeb2db4e5ccd087ad8f
 	},
 	{
 		name: "[Gen 7] PU (alpha)",
@@ -382,13 +367,8 @@ exports.Formats = [
 
 		mod: 'gen7',
 		searchShow: false,
-<<<<<<< HEAD
-		ruleset: ['[Gen 7] Ubers'],
-		banlist: ['Blissey', 'Chansey', 'Uber > 1', 'Uber ++ Power Construct', 'Huge Power', 'Pure Power', 'Shadow Tag', 'Gengarite', 'Mawilite', 'Medichamite', 'Sablenite', 'Baton Pass'],
-=======
 		ruleset: ['[Gen 7] Ubers', 'Pokemon'],
 		banlist: ['Uber > 1', 'Uber ++ Power Construct', 'Blissey', 'Chansey', 'Deoxys-Attack', 'Toxapex', 'Huge Power', 'Pure Power', 'Shadow Tag', 'Gengarite', 'Mawilite', 'Medichamite', 'Sablenite', 'Baton Pass'],
->>>>>>> a9e28b0f459b71f61385daeb2db4e5ccd087ad8f
 		onModifyTemplate: function (template, target, source, effect) {
 			if (source || !target.side) return;
 			let uber = target.side.team.find(set => {

@@ -4,8 +4,8 @@ Exiled @ Pokemon Showdown
 Navigation: [Website][1] | **Server repository** | [Client repository][2] | [Dex repository][3]
 
 [![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg)](https://travis-ci.org/DeathlyPlays/Exiled)
-[![Dependency Status](https://david-dm.org/zarel/Pokemon-Showdown.svg)](https://david-dm.org/zarel/Pokemon-Showdown)
-[![devDependency Status](https://david-dm.org/zarel/Pokemon-Showdown/dev-status.svg)](https://david-dm.org/zarel/Pokemon-Showdown#info=devDependencies)
+[![Dependency Status](https://david-dm.org/DeathlyPlays/Exiled.svg)](https://david-dm.org/DeathlyPlays/Exiled)
+[![devDependency Status](https://david-dm.org/DeathlyPlays/Exiled/dev-status.svg)](https://david-dm.org/DeathlyPlays/Exiled#info=devDependencies)
 
 	[1]: http://exiled.psim.us
 	[2]: https://github.com/Zarel/Pokemon-Showdown-Client

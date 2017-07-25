@@ -1104,12 +1104,8 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 6] Triples Custom Game",
-<<<<<<< HEAD
-		mod: "pmd",
-=======
 
 		mod: 'gen6',
->>>>>>> 0e792dad8079e7a3d03bb4837964abf00cd6515c
 		gameType: 'triples',
 		canUseRandomTeam: true,
 		maxLevel: 9999,

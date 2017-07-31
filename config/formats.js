@@ -1753,7 +1753,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Type Illusion",
-		section: "Dewdrop's Custom Gamemodes",
+		section: "Exiled's Custom Gamemodes",
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Shedinja"],
@@ -3305,6 +3305,17 @@ exports.Formats = [
 		maxLevel: 50,
 		defaultLevel: 50,
 		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],
+	},
+	{
+		name: "[Gen 7] Perfected Pokemon [WIP]",
+		mod: "perfectedpokemon",
+		ruleset: ["Pokemon", "Standard", "Team Preview"],
+		desc: [
+			"Coded by Insist",
+			"Gligars and AlfaStorm contributed ideas towards the project",
+			"In this metagame, we have added a new type \"Cosmic\"",
+			"Along with buffing Pokemon deemed worthy of needing support.",
+		],
 	},
 	{
 		name: "[Gen 7] Prehistoric",

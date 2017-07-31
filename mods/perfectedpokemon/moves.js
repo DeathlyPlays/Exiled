@@ -1,0 +1,369 @@
+'use strict';
+
+exports.BattleMovedex = {
+	"cosmicpower": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"meteormash": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"cometpunch": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"healingwish": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"wish": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"magicalpunch": {
+		num: -9000,
+		accuracy: 100,
+		basePower: 20,
+		category: "Physical",
+		desc: "Hits two to five times. Has a 1/3 chance to hit two or three times, and a 1/6 chance to hit four or five times. If one of the hits breaks the target's substitute, it will take damage for the remaining hits. If the user has the Ability Skill Link, this move will always hit five times.",
+		shortDesc: "Hits 2-5 times in one turn.",
+		id: "magicalpunch",
+		name: "Magical Punch",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		multihit: [2, 5],
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Power-Up Punch", target);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 100,
+		contestType: "Beautiful",
+	},
+	"pitfall": {
+		num: -9001,
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		desc: "Has a 30% chance to flinch the target.",
+		shortDesc: "30% chance to flinch the target.",
+		id: "pitfall",
+		isViable: true,
+		name: "Pitfall",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, distance: 1},
+		secondary: {
+			chance: 30,
+			volatileStatus: 'flinch',
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dig", target);
+		},
+		target: "any",
+		type: "Ground",
+		zMovePower: 160,
+		contestType: "Tough",
+	},
+	"ultimatesupernova": {
+		num: -9004,
+		accuracy: true,
+		basePower: 1,
+		category: "Physical",
+		shortDesc: "Power is equal to the base move's Z-Power.",
+		id: "ultimatesupernova",
+		isViable: true,
+		name: "Ultimate Supernova",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Cosmic Power", target);
+			this.add('-anim', source, "Giga Impact", target);
+			this.add('-anim', target, "Explosion", source);
+		},
+		isZ: "cosmiumz",
+		secondary: false,
+		target: "normal",
+		type: "Cosmic",
+		contestType: "Clever",
+	},
+	"prismaticlaser": {
+		inherit: true,
+		type: "Cosmic",
+		contestType: "Clever",
+	},
+	"steampunkslam": {
+		num: -9002,
+		accuracy: 90,
+		basePower: 90,
+		category: "Physical",
+		desc: "Has a 20% chance to raise the user's Attack by 1 stage.",
+		shortDesc: "20% chance to raise the user's Attack by 1.",
+		id: "steampunkslam",
+		isViable: true,
+		name: "Steampunk Slam",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		secondary: {
+			chance: 20,
+			self: {
+				boosts: {
+					atk: 1,
+				},
+			},
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Shift Gear", target);
+			this.add('-anim', source, "Heavy Slam", target);
+		},
+		target: "normal",
+		type: "Steel",
+		zMovePower: 175,
+		contestType: "Cool",
+	},
+	"blindingbeam": {
+		num: -9003,
+		accuracy: 100,
+		basePower: 95,
+		category: "Special",
+		desc: "Has a 30% chance to lower the target's accuracy by 1 stage.",
+		shortDesc: "30% chance to lower the target's accuracy by 1.",
+		id: "blindingbeam",
+		isViable: true,
+		name: "Blinding Beam",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 30,
+			boosts: {
+				accuracy: -1,
+			},
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Light of Ruin", target);
+		},
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 175,
+		contestType: "Beautiful",
+	},
+	"spacialstrike": {
+		num: -9004,
+		accuracy: true,
+		basePower: 90,
+		category: "Special",
+		desc: "Has a 30% chance to lower the target's Special Defense by 1 stage.",
+		shortDesc: "30% chance to lower the target's SpD by 1.",
+		id: "spacialstrike",
+		isViable: true,
+		name: "Spacial Strike",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, contact: 1},
+		secondary: {
+			chance: 50,
+			boosts: {
+				spd: -1,
+			},
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Shadow Strike", target);
+		},
+		target: "normal",
+		type: "Cosmic",
+		zMovePower: 175,
+		contestType: "Beautiful",
+	},
+	"cosmickick": {
+		num: -9005,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		desc: "If this attack is not successful, the user loses a quarter of its maximum HP, rounded down, as crash damage. Pokemon with the Ability Magic Guard are unaffected by crash damage.",
+		shortDesc: "User is hurt by 25% of its max HP if it misses.",
+		id: "cosmickick",
+		isViable: true,
+		name: "Cosmic Kick",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, gravity: 1},
+		hasCustomRecoil: true,
+		onMoveFail: function (source) {
+			this.damage(source.maxhp / 2, source, source, 'cosmickick');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "High Jump Kick", target);
+			this.add('-anim', source, "Rollout", target);
+			this.add('-anim', source, "Low Kick", target);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Cosmic",
+		zMovePower: 180,
+		contestType: "Cool",
+	},
+	"nebulablast": {
+		num: -9006,
+		basePower: 150,
+		category: "Special",
+		accuracy: 100,
+		secondary: {
+			self: {
+				boosts: {
+					spa: -2,
+				},
+			},
+		},
+		desc: "Lowers the user's Special Attack by 2 stages.",
+		shortDesc: "Lowers the user's Sp. Atk by 2.",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Techno Blast", target);
+		},
+		isViable: true,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		target: "normal",
+		type: "Cosmic",
+		zMovePower: 200,
+		contestType: "Cool",
+	},
+	"supernovaslash": {
+		num: -9007,
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		desc: "Has a higher chance for a critical hit.",
+		shortDesc: "High critical hit ratio.",
+		id: "supernovaslash",
+		isViable: true,
+		name: "Supernova Slash",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		critRatio: 2,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Focus Energy", target);
+			this.add('-anim', source, "Night Slash", target);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Cosmic",
+		zMovePower: 140,
+		contestType: "Cool",
+	},
+	"eclipseforce": {
+		num: -9008,
+		accuracy: 100,
+		basePower: 120,
+		category: "Physical",
+		desc: "If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally. This attack charges on the first turn and executes on the second. On the first turn, the user avoids all attacks. If the user is holding a Power Herb, the move completes in one turn. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
+		shortDesc: "Disappears turn 1. Hits turn 2. Breaks protection.",
+		id: "eclipseforce",
+		isViable: true,
+		name: "Eclipse Force",
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, charge: 1, mirror: 1},
+		breaksProtect: true,
+		onTry: function (attacker, defender, move) {
+			if (attacker.removeVolatile(move.id)) {
+				return;
+			}
+			this.add('-prepare', attacker, move.name, defender);
+			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+				this.add('-anim', attacker, move.name, defender);
+				return;
+			}
+			attacker.addVolatile('twoturnmove', defender);
+			return null;
+		},
+		effect: {
+			duration: 2,
+			onAccuracy: function (target, source, move) {
+				if (move.id === 'helpinghand') {
+					return;
+				}
+				if (source.hasAbility('noguard') || target.hasAbility('noguard')) {
+					return;
+				}
+				if (source.volatiles['lockon'] && target === source.volatiles['lockon'].source) return;
+				return 0;
+			},
+		},
+		secondary: false,
+		target: "normal",
+		type: "Cosmic",
+		zMovePower: 190,
+		contestType: "Cool",
+	},
+	"asteroidpulse": {
+		num: -9009,
+		accuracy: 100,
+		basePower: 80,
+		category: "Special",
+		desc: "Has a 20% chance to flinch/burn the target.",
+		shortDesc: "20% chance to flinch/burn the target.",
+		id: "asteroidpulse",
+		isViable: true,
+		name: "Asteroid Pulse",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, pulse: 1, mirror: 1, distance: 1},
+		secondaries: [
+			{
+				chance: 20,
+				status: 'brn',
+			}, {
+				chance: 20,
+				volatileStatus: 'flinch',
+			},
+		],
+		target: "any",
+		type: "Cosmic",
+		zMovePower: 160,
+		contestType: "Cool",
+	},
+	"celestialbreak": {
+		num: 280,
+		accuracy: 100,
+		basePower: 75,
+		category: "Physical",
+		desc: "If this attack does not miss, the effects of Reflect, Light Screen, and Aurora Veil end for the target's side of the field before damage is calculated.",
+		shortDesc: "Destroys screens, unless the target is immune.",
+		id: "celestialbreak",
+		isViable: true,
+		name: "Celestial Break",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onTryHit: function (pokemon) {
+			// will shatter screens through sub, before you hit
+			if (pokemon.runImmunity('Cosmic')) {
+				pokemon.side.removeSideCondition('reflect');
+				pokemon.side.removeSideCondition('lightscreen');
+				pokemon.side.removeSideCondition('auroraveil');
+			}
+		},
+		secondary: false,
+		target: "normal",
+		type: "Cosmic",
+		zMovePower: 140,
+		contestType: "Cool",
+	},
+};

@@ -2328,6 +2328,9 @@ exports.BattleAbilities = {
 					return secondaries.filter(effect => effect.volatileStatus === 'flinch');
 				}
 			},
+			onAnyAfterMove: function () {
+				this.effectData.target.removeVolatile('parentalbond');
+			},
 		},
 		id: "parentalbond",
 		name: "Parental Bond",

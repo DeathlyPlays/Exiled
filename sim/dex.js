@@ -6,7 +6,7 @@
  * helper functions for using dex data.
  *
  * By default, nothing is loaded until you call Dex.mod(mod) or
- * Dex.format(format).
+ * Dex.forFormat(format).
  *
  * You may choose to preload some things:
  * - Dex.includeMods() ~10ms
@@ -182,7 +182,7 @@ class ModdedDex {
 	 * @param {Format | string} format
 	 * @return {ModdedDex}
 	 */
-	format(format) {
+	forFormat(format) {
 		if (!this.modsLoaded) this.includeMods();
 		const mod = this.getFormat(format).mod;
 		if (!mod) return dexes['gen7'];
@@ -475,8 +475,8 @@ class ModdedDex {
 			id = toId(name);
 		}
 		let effect;
-		if (this.data.Formats.hasOwnProperty(id)) {
-			let format = this.data.Formats[id];
+		if (this.data.Formats.hasOwnProperty(id) || this.data.Formats.hasOwnProperty(name)) {
+			let format = this.data.Formats[this.data.Formats.hasOwnProperty(id) ? id : name];
 			if (customBanlist) {
 				if (typeof customBanlist === 'string') customBanlist = customBanlist.split(',');
 				let customRules = [];
@@ -507,8 +507,6 @@ class ModdedDex {
 			} else {
 				effect = new Data.Format({name}, format);
 			}
-		} else if (this.data.Formats.hasOwnProperty(name)) {
-			effect = new Data.Format({name}, this.data.Formats[name]);
 		} else {
 			effect = new Data.Format({name, exists: false});
 		}
@@ -746,7 +744,7 @@ class ModdedDex {
 			}
 			const subRuleTable = this.getRuleTable(subformat, depth + 1);
 			subRuleTable.forEach((v, k) => {
-				ruleTable.set(k, v || subformat.name);
+				if (!ruleTable.has('!' + k)) ruleTable.set(k, v || subformat.name);
 			});
 			for (const [rule, source, limit, bans] of subRuleTable.complexBans) {
 				ruleTable.complexBans.push([rule, source || subformat.name, limit, bans]);
@@ -850,7 +848,7 @@ class ModdedDex {
 	 * @param {[number, number, number, number]} [seed]
 	 */
 	getTeamGenerator(format, seed) {
-		const TeamGenerator = require(this.format(format).dataDir + '/random-teams');
+		const TeamGenerator = require(dexes['base'].forFormat(format).dataDir + '/random-teams');
 		return new TeamGenerator(format, seed);
 	}
 	/**

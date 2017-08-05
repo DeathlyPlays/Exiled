@@ -10,6 +10,7 @@
 		"forever": "^0.15.2",
 		"geoip-ultralight": "^0.1.5",
 		"githubhook": "^1.7.1",
+		"json-stringify-safe": "^5.0.1",
 		"moment": "^2.18.1",
 		"nani": "^1.2.0",
 		"nano": "^6.3.0",

@@ -388,4 +388,94 @@ exports.BattleMovedex = {
 		zMovePower: 175,
 		contestType: "Cool",
 	},
+	"gravity": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"doomdesire": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"magicroom": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"miracleeye": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"swift": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"trickroom": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"wonderroom": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"lunardance": {
+		inherit: true,
+		type: "Cosmic",
+	},
+	"fireblast": {
+		inherit: true,
+		onModifyMove: function (move) {
+			if (this.isWeather(['sunnyday', 'desolateland'])) {
+				move.accuracy = true;
+			} else if (this.isWeather(['raindance', 'primordialsea'])) {
+				move.accuracy = 60;
+			}
+		},
+		desc: "10% chance to burn, never misses in sun, 60% accuracy in Rain.",
+	},
+	"hydropump": {
+		inherit: true,
+		onModifyMove: function (move) {
+			if (this.isWeather(['raindance', 'primordialsea'])) {
+				move.accuracy = true;
+			} else if (this.isWeather(['sunnyday', 'desolateland'])) {
+				move.accuracy = 60;
+			}
+		},
+		desc: "Never misses in Rain, 60% accuracy in Sun.",
+	},
+	"supernovaburst": {
+		num: -9012,
+		accuracy: 100,
+		basePower: 250,
+		category: "Special",
+		desc: "The user faints after using this move, even if this move fails for having no target. This move is prevented from executing if any active Pokemon has the Ability Damp.",
+		shortDesc: "Hits adjacent Pokemon. The user faints.",
+		id: "supernovaburst",
+		isViable: true,
+		name: "Supernova Burst",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		selfdestruct: "always",
+		secondary: false,
+		target: "allAdjacent",
+		type: "Cosmic",
+		zMovePower: 300,
+		contestType: "Beautiful",
+	},
+	"mysticalfire": {
+		inherit: true,
+		desc: "Has a 100% chance to lower target's Special Attack by one stage, gains Psychic effectiveness.",
+		shortDesc: "Lowers target's SpA by 1 stage, gains Psychic effectiveness.",
+		onEffectiveness: function (typeMod, type) {
+			return typeMod + this.getEffectiveness('Psychic', type);
+		},
+	},
+	"dragonascent": {
+		inherit: true,
+		onEffectiveness: function (typeMod, type) {
+			return typeMod + this.getEffectiveness('Dragon', type);
+		},
+		desc: "Lowers the user's Defense and Special Defense by 1 stage, Gains Dragon Effectiveness.",
+		shortDesc: "Lowers the user's Defense and Sp. Def by 1, Gains Dragon Effectiveness.",
+	},
 };

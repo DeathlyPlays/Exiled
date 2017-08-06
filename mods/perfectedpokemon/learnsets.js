@@ -50,4 +50,11 @@ exports.BattleLearnsets = {
 			nebulablast: ["7L54"],
 		},
 	},
+	cresselia: {
+		learnset: {
+			inherit: true,
+			asteroidpulse: ["7L23"],
+			blindingbeam: ["7L45"],
+		},
+	},
 };

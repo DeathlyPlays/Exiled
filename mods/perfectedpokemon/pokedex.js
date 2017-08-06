@@ -113,4 +113,8 @@ exports.BattlePokedex = {
 		inherit: true,
 		types: ["Cosmic"],
 	},
+	cresselia: {
+		inherit: true,
+		types: ["Psychic", "Cosmic"],
+	},
 };

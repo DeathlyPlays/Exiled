@@ -617,6 +617,65 @@ exports.Formats = [
 		},
 	},
 	{
+		name: "[Gen 7] LC Mix and Mega",
+		desc: [
+			"Mega Stones and Primal Orbs can be used on almost any little cup Pok&eacute;mon with no Mega Evolution limit.",
+			"&bullet; <a href=\"http://exiledps.boards.net/board/18/lc-mix-mega/\">Mix and Mega</a>",
+		],
+		mod: 'mixandmega',
+		section: "Mix and Mega",
+		defaultLevel: 5,
+		ruleset: ['Team Preview', 'Cancel Mod', 'Little Cup', 'Pokemon', 'Illegal', 'Sleep Clause Mod'],
+		banlist: ['Baton Pass', 'NFE', 'Cranidos', 'Eevium Z'],
+		onValidateTeam: function (team) {
+			let itemTable = {};
+			for (let i = 0; i < team.length; i++) {
+				let item = this.getItem(team[i].item);
+				if (!item) continue;
+				if (item in itemTable && itemTable[item] >= 2) {
+					if (item.megaStone) return ["You are limited to two of each Mega Stone.", "(You have more than two " + this.getItem(item).name + ")"];
+					if (item.id === 'blueorb' || item.id === 'redorb') return ["You are limited to two of each Primal Orb.", "(You have more than two " + this.getItem(item).name + ")"];
+					itemTable[item]++;
+				} else {
+					itemTable[item] = 1;
+				}
+			}
+		},
+		onValidateSet: function (set) {
+			let template = this.getTemplate(set.species || set.name);
+			let item = this.getItem(set.item);
+			if (!item.megaEvolves && item.id !== 'blueorb' && item.id !== 'redorb') return;
+			if (template.baseSpecies === item.megaEvolves || (template.baseSpecies === 'Groudon' && item.id === 'redorb') || (template.baseSpecies === 'Kyogre' && item.id === 'blueorb')) return;
+
+			let uberStones = ['kangaskhanite'];
+			if (template.tier === 'Uber' || template.tier === 'Bank-Uber' || set.ability === 'Power Construct' || uberStones.includes(item.id)) return;
+		},
+		onBegin: function () {
+			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
+			for (let i = 0, len = allPokemon.length; i < len; i++) {
+				let pokemon = allPokemon[i];
+				pokemon.originalSpecies = pokemon.baseTemplate.species;
+			}
+		},
+		onSwitchIn: function (pokemon) {
+			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
+			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
+				// Place volatiles on the Pokémon to show its mega-evolved condition and details
+				this.add('-start', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
+				let oTemplate = this.getTemplate(pokemon.originalSpecies);
+				if (oTemplate.types.length !== pokemon.template.types.length || oTemplate.types[1] !== pokemon.template.types[1]) {
+					this.add('-start', pokemon, 'typechange', pokemon.template.types.join('/'), '[silent]');
+				}
+			}
+		},
+		onSwitchOut: function (pokemon) {
+			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
+			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
+				this.add('-end', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
+			}
+		},
+	},
+	{
 		name: "[Gen 7] Almost Any Ability",
 		desc: [
 			"Pok&eacute;mon can use any ability, barring the few that are banned.",
@@ -2877,138 +2936,6 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "[Gen 7] CAP Super Staff Bros.",
-		section: "Exiled's Custom Gamemodes",
-		mod: 'cssb',
-		allowTies: true,
-		team: 'randomSeasonalMelee',
-		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		desc: [
-			"Credit to: Insist (head coder).",
-			"Thanks to all the auth whom cooperated in this process of making this.",
-		],
-		onBegin: function () {
-			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
-			this.add('message', "GET READY FOR THE NEXT BATTLE!");
-			// This variable saves the status of a spammy conversation to be played, so it's only played once.
-			this.convoPlayed = false;
-		},
-		// Edgy switch-in sentences go here.
-		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
-		onSwitchIn: function (pokemon) {
-			let name = toId(pokemon.name);
-
-			//Switch-in Quotes
-			if (name === 'exclaimer') {
-				this.add('c|%Exclaimer|I sexually identify as an Exclaimer.');
-			}
-			if (name === 'deckknight') {
-				this.add('c|@Deck Knight|Nice Project you got there, mind if I look around?');
-			}
-			if (name === 'animusmajulous') {
-				this.add('c|@Animus Majulous|Alo!');
-			}
-			if (name === 'cbrevan') {
-				this.add('c|@cbrevan|Hello children.');
-			}
-			if (name === 'healndeal') {
-				this.add('c|#HealNDeal|I\'m all alone.');
-			}
-			if (name === 'epicumbreon29') {
-				this.add('c|%EpicUmbreon29|I really like your team!');
-			}
-			if (name === 'quanyalis') {
-				this.add('c|+Quanyalis|Hi all! I hope you\'re having fun this match! :)');
-			}
-			if (name === 'snobalt') {
-				this.add('c|+Snobalt|By the power vested in me from the great Lord Tomohawk...');
-			}
-			if (name === 'giantwhirlpool') {
-				this.add('c|+GiantWhirlpool|Hi.');
-			}
-			if (name === 'bionicpuppy') {
-				this.add('c|+Bionic Puppy|Who did you call guy? I\'ll have you know I am a young strong individual who is a flexible and malleable and I don\'t care about you I am a fluid gender-equal person with extra cream frappuccino');
-			}
-			if (name === 'insist') {
-				this.add('c| Insist|MLG Snail is here m8!');
-				this.add('c| Insist|btw who tf says snails are slow :^)');
-			}
-
-			// Add here special typings, done for flavor mainly.
-			if (name === 'vulpixmayhem' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Fire/Fairy');
-				pokemon.types = ["Fire", "Fairy"];
-			}
-		},
-		//Switch-out Phrase
-		onSwitchOut: function (pokemon) {
-			let name = toId(pokemon.name);
-
-			if (name === 'exclaimer') {
-				this.add('c|%Exclaimer|/me has been kicked from CAP Project.');
-			}
-			if (name === 'deckknight') {
-				this.add('c|@Deck Knight|I\'m done with this section... for now.');
-			}
-			if (name === 'animusmajulous') {
-				this.add('c|@Animus Majulous|I\'ll be back for more.');
-			}
-			if (name === 'cbrevan') {
-				this.add('c|@cbrevan|be back in a few.');
-			}
-			if (name === 'healndeal') {
-				this.add('c|#HealNDeal|I need to go buy some milk, will be back in three hours.');
-			}
-			if (name === 'giantwhirlpool') {
-				this.add('c|+GiantWhirlpool|I\'ll be back eventually');
-			}
-			if (name === 'epicumbreon29') {
-				this.add('c|%EpicUmbreon29|Sorry about that...');
-			}
-			if (name === 'insist') {
-				this.add('c| Insist|brb I\'m gonna get some help.');
-			}
-		},
-		// Add here salty tears, that is, custom faint phrases.
-		onFaint: function (pokemon) {
-			let name = toId(pokemon.name);
-
-			if (name === 'exclaimer') {
-				this.add('c|%Exclaimer|If you can\'t accept me, you\'re a TRphobe and need to check your privileges.');
-			}
-			if (name === 'deckknight') {
-				this.add('c|@Deck Knight|I\'ll be back next CAP! Just you wait and see! Someday I\'ll make Administrator!');
-			}
-			if (name === 'animusmajulous') {
-				this.add('c|@Animus Majulous|My Stat spread is Godlike!');
-			}
-			if (name === 'cbrevan') {
-				this.add('c|@cbrevan|cya folks.');
-			}
-			if (name === 'healndeal') {
-				this.add('c|#HealNDeal|I was just a duck and now I\'m outta luck.');
-			}
-			if (name === 'quanyalis') {
-				this.add('c|+Quanyalis|Sorry. D:');
-			}
-			if (name === 'bionicpuppy') {
-				this.add('c|+Bionic Puppy|GGGGGGGGGGGGGgggggggggggggGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG**GGGGGGgggggggggggggggggggggggggggggggGGGGGGGG**GGGGGG');
-			}
-			if (name === 'snobalt') {
-				this.add('c|+Snobalt|Blasphemy!');
-			}
-			if (name === 'giantwhirlpool') {
-				this.add('c|+GiantWhirlpool|T_T dammit hEAl, why am i still here?');
-			}
-			if (name === 'epicumbreon29') {
-				this.add('c|%EpicUmbreon29|See! I knew you could do it! You just have to believe!');
-			}
-			if (name === 'insist') {
-				this.add('c| Insist|Death.... what a cool concept.');
-			}
-		},
-	},
-	{
 		name: "[Gen 7] Super Staff Bros Free For All",
 		desc: ['Duke it out with other users custom made pokemon.',
 			'Make your own as well! Get started with <button class="button" name="send" value="/ssb edit">/ssb edit</button>.',
@@ -3074,19 +3001,6 @@ exports.Formats = [
 			"Ahem, but in all seriousness, the following developers listed below created Digimon in Pok&eacute;mon Showdown, so why not just try it out :D",
 			"Ashley the Pikachu (Head Researcher, Began the project, Attack Manual, Type Chart Manual, Music Selection and Music HTML, Sprite Selection), Insist (Head Developer), AlfaStorm (Animations), VXN (Assisted other developers), HoeenHero (Assisted with Mechanics)",
 			"&bullet; <a href=\"https://1drv.ms/b/s!AvoD6RnUzzMvgmLcX1rqT8GTnEVK\">Digimon Manual</a>",
-		],
-	},
-	{
-		name: "[Gen 7] Advanced Wars (BETA)",
-		section: "Exiled's Custom Gamemodes",
-		mod: "advancedwars",
-		allowTies: true,
-		team: "randomAdvancedWars",
-		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
-		desc: [
-			"This metagame is about the game known as Advanced Wars, suggested by Back At My Day (and all information for this meta was supplied by him).",
-			"<b>Developers:</b> Insist and Back At My Day.",
-			"&bullet; <a href=\"https://pastebin.com/Nr5wRnD5\">Advanced Wars Manual</a>",
 		],
 	},
 	{
@@ -3335,94 +3249,5 @@ exports.Formats = [
 			"This is the Exiled Fakemons metagame, in which you use Exiled community created Pok&eacute.",
 			"Users may submit them via the form on <b>/fakemon<b>.",
 		],
-	},
-	{
-		name: "[Gen 7] The Mewth Saga",
-		section: "The Mewth Challenge",
-		column: 6,
-		mod: "mewth",
-		gameType: 'triples',
-		searchShow: false,
-		canUseRandomTeam: true,
-		debug: true,
-		ruleset: ['Team Preview', 'Cancel Mod'],
-		banlist: [''],
-		desc: [
-			"The first part of the series of challenges Mewth has created, can you complete them all and collect all the keys?",
-		],
-	},
-	{
-		name: "[Gen 7] The Mewth Spire",
-		section: "The Mewth Challenge",
-		column: 6,
-		searchShow: false,
-		mod: "mewth",
-		gameType: 'triples',
-		canUseRandomTeam: true,
-		debug: true,
-		ruleset: ['Team Preview', 'Cancel Mod'],
-		banlist: [''],
-		desc: [
-			"The second stage of The Mewth Challenge, prepare for the wrath of the regions Admins and the <b>MASTER!!!</b>",
-		],
-	},
-	{
-		name: "[Gen 7] LC Mix and Mega",
-		desc: [
-			"Mega Stones and Primal Orbs can be used on almost any little cup Pok&eacute;mon with no Mega Evolution limit.",
-			"&bullet; <a href=\"http://exiledps.boards.net/board/18/lc-mix-mega/\">Mix and Mega</a>",
-		],
-		mod: 'mixandmega',
-		section: "Mix and Mega",
-		defaultLevel: 5,
-		ruleset: ['Team Preview', 'Cancel Mod', 'Little Cup', 'Pokemon', 'Illegal', 'Sleep Clause Mod'],
-		banlist: ['Baton Pass', 'NFE', 'Cranidos', 'Eevium Z'],
-		onValidateTeam: function (team) {
-			let itemTable = {};
-			for (let i = 0; i < team.length; i++) {
-				let item = this.getItem(team[i].item);
-				if (!item) continue;
-				if (item in itemTable && itemTable[item] >= 2) {
-					if (item.megaStone) return ["You are limited to two of each Mega Stone.", "(You have more than two " + this.getItem(item).name + ")"];
-					if (item.id === 'blueorb' || item.id === 'redorb') return ["You are limited to two of each Primal Orb.", "(You have more than two " + this.getItem(item).name + ")"];
-					itemTable[item]++;
-				} else {
-					itemTable[item] = 1;
-				}
-			}
-		},
-		onValidateSet: function (set) {
-			let template = this.getTemplate(set.species || set.name);
-			let item = this.getItem(set.item);
-			if (!item.megaEvolves && item.id !== 'blueorb' && item.id !== 'redorb') return;
-			if (template.baseSpecies === item.megaEvolves || (template.baseSpecies === 'Groudon' && item.id === 'redorb') || (template.baseSpecies === 'Kyogre' && item.id === 'blueorb')) return;
-
-			let uberStones = ['kangaskhanite'];
-			if (template.tier === 'Uber' || template.tier === 'Bank-Uber' || set.ability === 'Power Construct' || uberStones.includes(item.id)) return;
-		},
-		onBegin: function () {
-			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
-			for (let i = 0, len = allPokemon.length; i < len; i++) {
-				let pokemon = allPokemon[i];
-				pokemon.originalSpecies = pokemon.baseTemplate.species;
-			}
-		},
-		onSwitchIn: function (pokemon) {
-			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
-			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
-				// Place volatiles on the Pokémon to show its mega-evolved condition and details
-				this.add('-start', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
-				let oTemplate = this.getTemplate(pokemon.originalSpecies);
-				if (oTemplate.types.length !== pokemon.template.types.length || oTemplate.types[1] !== pokemon.template.types[1]) {
-					this.add('-start', pokemon, 'typechange', pokemon.template.types.join('/'), '[silent]');
-				}
-			}
-		},
-		onSwitchOut: function (pokemon) {
-			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
-			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
-				this.add('-end', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
-			}
-		},
 	},
 ];

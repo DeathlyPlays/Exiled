@@ -47,7 +47,9 @@ exports.BattleLearnsets = {
 			magicalpunch: ["7L3"],
 			blindingbeam: ["7L13"],
 			prismaticlaser: ["7L23"],
+			asteroidpulse: ["7L35"],
 			nebulablast: ["7L54"],
+			moonblast: ["7L67"],
 		},
 	},
 	cresselia: {
@@ -55,6 +57,33 @@ exports.BattleLearnsets = {
 			inherit: true,
 			asteroidpulse: ["7L23"],
 			blindingbeam: ["7L45"],
+		},
+	},
+	growlithe: {
+		learnset: {
+			inherit: true,
+			growl: ["7L1"],
+			galacticfang: ["7M"],
+		},
+	},
+	arcanine: {
+		learnset: {
+			inherit: true,
+			growl: ["7L1"],
+			galacticfang: ["7M"],
+		},
+	},
+	pikachu: {
+		learnset: {
+			inherit: true,
+			tailglow: ["7L100"],
+		},
+	},
+	raichu: {
+		learnset: {
+			inherit: true,
+			electrohavoc: ["7L82"],
+			tailglow: ["7L100"],
 		},
 	},
 };

@@ -52,4 +52,21 @@ exports.BattleItems = {
 		gen: -100,
 		desc: "Holder's Cosmic-type attacks have 1.2x power. Judgment is Cosmic type.",
 	},
+	"oblivionorb": {
+		id: "oblivionorb",
+		name: "Oblivion Orb",
+		spritenum: 145,
+		fling: {
+			basePower: 30,
+			status: 'oblivion',
+		},
+		onResidualOrder: 26,
+		onResidualSubOrder: 2,
+		onResidual: function (pokemon) {
+			pokemon.trySetStatus('oblivion');
+		},
+		num: 273,
+		gen: 4,
+		desc: "At the end of every turn, this item attempts to inflict Oblivion onto the holder.",
+	},
 };

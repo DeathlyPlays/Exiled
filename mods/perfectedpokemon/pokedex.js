@@ -117,4 +117,26 @@ exports.BattlePokedex = {
 		inherit: true,
 		types: ["Psychic", "Cosmic"],
 	},
+	golduck: {
+		inherit: true,
+		types: ["Water", "Psychic"],
+	},
+	milotic: {
+		inherit: true,
+		types: ["Water", "Fairy"],
+	},
+	flygon: {
+		inherit: true,
+		types: ["Bug", "Dragon"],
+	},
+	audino: {
+		inherit: true,
+		types: ["Normal", "Fairy"],
+		abilities: {0: "Healer", 1: "Regenerator", H: "Triage"},
+	},
+	luxray: {
+		inherit: true,
+		types: ["Electric", "Dark"],
+		abilities: {0: "Strong Jaw", 1: "Intimidate", H: "Guts"},
+	},
 };

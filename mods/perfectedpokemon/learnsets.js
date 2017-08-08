@@ -86,4 +86,51 @@ exports.BattleLearnsets = {
 			tailglow: ["7L100"],
 		},
 	},
+	golduck: {
+		learnset: {
+			inherit: true,
+			aurasphere: ["7L45"],
+			dazzlinggleam: ["7M"],
+		},
+	},
+	milotic: {
+		learnset: {
+			inherit: true,
+			moonblast: ["7L54"],
+		},
+	},
+	flygon: {
+		learnset: {
+			inherit: true,
+			leechlife: ["7M"],
+			xscissor: ["7M"],
+		},
+	},
+	audino: {
+		learnset: {
+			inherit: true,
+			moonblast: ["7L67"],
+		},
+	},
+	blastoise: {
+		learnset: {
+			inherit: true,
+			asteroidpulse: ["7L1", "7M"],
+			shellsmash: ["7L66"],
+		},
+	},
+	accelgor: {
+		learnset: {
+			inherit: true,
+			aurasphere: ["7L1"],
+			quiverdance: ["7L46"],
+		},
+	},
+	luxray: {
+		learnset: {
+			inherit: true,
+			galacticfang: ["7L23"],
+			powercooldown: ["7L65"],
+		},
+	},
 };

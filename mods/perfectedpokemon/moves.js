@@ -527,4 +527,41 @@ exports.BattleMovedex = {
 		zMovePower: 200,
 		contestType: "Beautiful",
 	},
+	"darkvoid": {
+		inherit: true,
+		accuracy: 80,
+	},
+	"powercooldown": {
+		num: 554,
+		accuracy: 95,
+		basePower: 140,
+		category: "Physical",
+		desc: "Has a 30% chance to paralyze the target. This attack charges on the first turn and executes on the second. If the user is holding a Power Herb, the move completes in one turn.",
+		shortDesc: "Charges turn 1. Hits turn 2. 30% par.",
+		id: "powercooldown",
+		name: "Power Cooldown",
+		pp: 5,
+		priority: 0,
+		flags: {charge: 1, protect: 1, mirror: 1},
+		onTry: function (attacker, defender, move) {
+			if (attacker.removeVolatile(move.id)) {
+				return;
+			}
+			this.add('-prepare', attacker, move.name, defender);
+			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+				this.add('-anim', attacker, move.name, defender);
+				return;
+			}
+			attacker.addVolatile('twoturnmove', defender);
+			return null;
+		},
+		secondary: {
+			chance: 30,
+			status: 'par',
+		},
+		target: "normal",
+		type: "Electric",
+		zMovePower: 200,
+		contestType: "Beautiful",
+	},
 };

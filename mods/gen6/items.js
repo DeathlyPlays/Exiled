@@ -16,13 +16,10 @@ exports.BattleItems = {
 		},
 		desc: "Restores 1/8 max HP at 1/2 max HP or less; confuses if -SpD Nature. Single use.",
 	},
-<<<<<<< HEAD
-=======
 	belueberry: {
 		inherit: true,
 		isUnreleased: false,
 	},
->>>>>>> d3c863c7dd3894961bdad7e9c0bb7da076e17568
 	bigroot: {
 		inherit: true,
 		desc: "Holder gains 1.3x HP from draining moves, Aqua Ring, Ingrain, and Leech Seed.",

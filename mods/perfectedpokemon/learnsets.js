@@ -291,14 +291,18 @@ exports.BattleLearnsets = {
 	florges: {
 		learnset: {
 			inherit: true,
-			energyball: ["7M"],
-			gigadrain: ["7L23"],
+			ingrain: ["7L23"],
+			leafstorm: ["7L52"],
 		},
 	},
 	eelektross: {
 		learnset: {
 			inherit: true,
+			bugbite: ["7L1"],
 			bugbuzz: ["7L47"],
+			furycutter: ["7L5"],
+			leechlife: ["7M"],
+			strugglebug: ["7M"],
 			quiverdance: ["7L56"],
 		},
 	},
@@ -308,6 +312,12 @@ exports.BattleLearnsets = {
 			drainpunch: ["7L45"],
 			knockoff: ["L50"],
 			slackoff: ["7L23"],
+		},
+	},
+	chatot: {
+		learnset: {
+			inherit: true,
+			disarmingvoice: ["7L1"],
 		},
 	},
 };

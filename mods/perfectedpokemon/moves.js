@@ -11,6 +11,7 @@ exports.BattleMovedex = {
 	},
 	"cometpunch": {
 		inherit: true,
+		priority: 1,
 		type: "Cosmic",
 	},
 	"healingwish": {
@@ -532,7 +533,7 @@ exports.BattleMovedex = {
 		accuracy: 80,
 	},
 	"powercooldown": {
-		num: 554,
+		num: -9015,
 		accuracy: 95,
 		basePower: 140,
 		category: "Physical",
@@ -563,5 +564,85 @@ exports.BattleMovedex = {
 		type: "Electric",
 		zMovePower: 200,
 		contestType: "Beautiful",
+	},
+	"powergem": {
+		inherit: true,
+		basePower: 90,
+	},
+	"focusblast": {
+		inherit: true,
+		accuracy: 85,
+	},
+	"rapidspin": {
+		inherit: true,
+		onEffectiveness: function (typeMod, type, move) {
+			if (move.type !== 'Normal') return;
+			let target = this.activeTarget;
+			if (!target) return; // avoid crashing when called from a chat plugin
+			// ignore effectiveness if the target is Flying type and immune to Ground
+			if (!target.runImmunity('Normal')) {
+				if (target.hasType('Ghost')) return 0;
+			}
+		},
+		desc: "If this move is successful and the user has not fainted, the effects of Leech Seed and partial-trapping moves end for the user, and all hazards are removed from the user's side of the field. Ignores Ghost Immunity.",
+		shortDesc: "Frees user from hazards/partial trap/Leech Seed. Ignores Ghost immunity.",
+	},
+	"ancientpower": {
+		inherit: true,
+		basePower: 75,
+	},
+	"knockoff": {
+		inherit: true,
+		basePower: 60,
+	},
+	"drainingkiss": {
+		inherit: true,
+		basePower: 75,
+	},
+	"razorwind": {
+		inherit: true,
+		type: "Flying",
+	},
+	"disarmingvoice": {
+		inherit: true,
+		basePower: 65,
+	},
+	"hammerslammer": {
+		num: -9016,
+		basePower: 100,
+		accuracy: 100,
+		category: "Physical",
+		shortDesc: "No additional effects.",
+		id: "hammerslammer",
+		name: "Hammer Slammer",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: false,
+		target: "normal",
+		type: "Steel",
+		zMovePower: 180,
+		contestType: "Cool",
+	},
+	"pixiepunch": {
+		num: -9017,
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		desc: "Has a 20% chance to confuse the target.",
+		shortDesc: "20% chance to confuse the target.",
+		id: "pixiepunch",
+		name: "Pixie Punch",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		secondary: {
+			chance: 20,
+			volatileStatus: 'confusion',
+		},
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 170,
+		contestType: "Cute",
 	},
 };

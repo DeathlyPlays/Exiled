@@ -133,4 +133,181 @@ exports.BattleLearnsets = {
 			powercooldown: ["7L65"],
 		},
 	},
+	mismagius: {
+		learnset: {
+			inherit: true,
+			moonblast: ["7L43"],
+		},
+	},
+	sceptile: {
+		learnset: {
+			inherit: true,
+			dracometeor: ["7T"],
+			seedflare: ["7L87"],
+		},
+	},
+	aerodactyl: {
+		learnset: {
+			inherit: true,
+			bravebird: ["7L47"],
+			galacticfang: ["7L23"],
+		},
+	},
+	armaldo: {
+		learnset: {
+			inherit: true,
+			galacticfang: ["7L20"],
+			shellsmash: ["7L58"],
+			steampunkslam: ["7L44"],
+		},
+	},
+	torkoal: {
+		learnset: {
+			inherit: true,
+			cosmicpower: ["7M"],
+			shelltrap: ["7L48"],
+		},
+	},
+	arbok: {
+		learnset: {
+			inherit: true,
+			galacticfang: ["7L1"],
+		},
+	},
+	seviper: {
+		learnset: {
+			inherit: true,
+			galacticfang: ["7L1"],
+		},
+	},
+	zangoose: {
+		learnset: {
+			inherit: true,
+			magicalpunch: ["7L11"],
+		},
+	},
+	weezing: {
+		learnset: {
+			inherit: true,
+			cosmicpower: ["7M"],
+			recover: ["7L34"],
+		},
+	},
+	sunflora: {
+		learnset: {
+			inherit: true,
+			fireblast: ["7M"],
+			flamethrower: ["7M"],
+		},
+	},
+	furret: {
+		learnset: {
+			inherit: true,
+			curse: ["7L1"],
+			phantomforce: ["7L24"],
+		},
+	},
+	feraligatr: {
+		learnset: {
+			inherit: true,
+			dracometeor: ["7T"],
+			dragonpulse: ["7L23"],
+		},
+	},
+	dhelmise: {
+		learnset: {
+			inherit: true,
+			ironhead: ["7L32"],
+			meteormash: ["7L25"],
+			steampunkslam: ["7L52"],
+		},
+	},
+	ursaring: {
+		learnset: {
+			inherit: true,
+			machpunch: ["7L1"],
+			outrage: ["7L43"],
+			playrough: ["7L24"],
+			suckerpunch: ["7L55"],
+		},
+	},
+	electivire: {
+		learnset: {
+			inherit: true,
+			closecombat: ["7L56"],
+			drainpunch: ["6T"],
+			extremespeed: ["7L65"],
+		},
+	},
+	magmortar: {
+		learnset: {
+			inherit: true,
+			electroball: ["7L12"],
+			electrohavoc: ["7L22"],
+			powercooldown: ["7L34"],
+			thundershock: ["7L1"],
+			zapcannon: ["7L43"],
+			zingzap: ["7L17"],
+		},
+	},
+	bellossom: {
+		learnset: {
+			inherit: true,
+			spore: ["7L1"],
+			mistyterrain: ["7L1"],
+		},
+	},
+	avalugg: {
+		learnset: {
+			inherit: true,
+			steampunkslam: ["7L33"],
+		},
+	},
+	cherrim: {
+		learnset: {
+			inherit: true,
+			ember: ["7L1"],
+			fireblast: ["7M"],
+			flamethrower: ["7M"],
+		},
+	},
+	shedinja: {
+		learnset: {
+			inherit: true,
+			curse: ["7L20"],
+			phantomforce: ["7L44"],
+		},
+	},
+	pachirisu: {
+		learnset: {
+			inherit: true,
+			dazzlinggleam: ["7M"],
+			drainingkiss: ["7L15"],
+			galacticfang: ["7L22"],
+			playrough: ["7L44"],
+			recover: ["7L32"],
+		},
+	},
+	florges: {
+		learnset: {
+			inherit: true,
+			energyball: ["7M"],
+			gigadrain: ["7L23"],
+		},
+	},
+	eelektross: {
+		learnset: {
+			inherit: true,
+			bugbuzz: ["7L47"],
+			quiverdance: ["7L56"],
+		},
+	},
+	komala: {
+		learnset: {
+			inherit: true,
+			drainpunch: ["7L45"],
+			knockoff: ["L50"],
+			slackoff: ["7L23"],
+		},
+	},
 };

@@ -139,4 +139,81 @@ exports.BattlePokedex = {
 		types: ["Electric", "Dark"],
 		abilities: {0: "Strong Jaw", 1: "Intimidate", H: "Guts"},
 	},
+	arbok: {
+		inherit: true,
+		types: ["Poison", "Dark"],
+	},
+	seviper: {
+		inherit: true,
+		types: ["Poison", "Dark"],
+	},
+	weezing: {
+		inherit: true,
+		types: ["Poison", "Fire"],
+	},
+	zangoose: {
+		inherit: true,
+		types: ["Normal", "Fighting"],
+	},
+	mismagius: {
+		inherit: true,
+		types: ["Ghost", "Fairy"],
+	},
+	sceptile: {
+		inherit: true,
+		types: ["Grass", "Dragon"],
+	},
+	electivire: {
+		inherit: true,
+		types: ["Electric", "Fighting"],
+	},
+	magmortar: {
+		inherit: true,
+		types: ["Fire", "Electric"],
+	},
+	bellossom: {
+		inherit: true,
+		types: ["Grass", "Fairy"],
+	},
+	ursaring: {
+		inherit: true,
+		types: ["Normal", "Fighting"],
+	},
+	sunflora: {
+		inherit: true,
+		types: ["Grass", "Fire"],
+		abilities: {0: "Chlorophyll", 1: "Solar Power", H: "Drought"},
+	},
+	furret: {
+		inherit: true,
+		types: ["Normal", "Ghost"],
+	},
+	feraligatr: {
+		inherit: true,
+		types: ["Water", "Dragon"],
+	},
+	dhelmise: {
+		inherit: true,
+		types: ["Ghost", "Steel"],
+	},
+	avalugg: {
+		inherit: true,
+		types: ["Ice", "Steel"],
+	},
+	cherrim: {
+		inherit: true,
+		types: ["Grass", "Fire"],
+	},
+	pachirisu: {
+		inherit: true,
+		types: ["Electric", "Fairy"],
+	},
+	florges: {
+		inherit: true,
+		types: ["Fairy", "Grass"],
+	},
+	eelektross: {
+		inherit: true,
+		types: ["Electric", "Bug"],
+	},
 };

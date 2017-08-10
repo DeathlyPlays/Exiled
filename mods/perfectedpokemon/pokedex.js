@@ -170,6 +170,7 @@ exports.BattlePokedex = {
 	magmortar: {
 		inherit: true,
 		types: ["Fire", "Electric"],
+		abilities: {0: "Flame Body", 1: "Galvanize", H: "Vital Spirit"},
 	},
 	bellossom: {
 		inherit: true,
@@ -219,5 +220,53 @@ exports.BattlePokedex = {
 	chatot: {
 		inherit: true,
 		abilities: {0: "Keen Eye", 1: "Tangled Feet", H: "Amplifier"},
+	},
+	beautifly: {
+		inherit: true,
+		types: ["Bug", "Fairy"],
+	},
+	galvantula: {
+		inherit: true,
+		abilities: {0: "Compound Eyes", 1: "Galvanize", H: "Swarm"},
+	},
+	granbull: {
+		inherit: true,
+		types: ["Fairy", "Dragon"],
+	},
+	noctowl: {
+		inherit: true,
+		types: ["Normal", "Ghost"],
+	},
+	castform: {
+		inherit: true,
+		otherFormes: ["castformsunny", "castformrainy", "castformsnowy", "castformsandy", "castformcloudy"],
+	},
+	castformsandy: {
+		num: 351,
+		species: "Castform-Sandy",
+		baseSpecies: "Castform",
+		forme: "Sandy",
+		formeLetter: "S",
+		types: ["Ground"],
+		baseStats: {hp: 70, atk: 70, def: 70, spa: 70, spd: 70, spe: 70},
+		abilities: {0: "Forecast"},
+		heightm: 0.3,
+		weightkg: 0.8,
+		color: "Brown",
+		eggGroups: ["Fairy", "Amorphous"],
+	},
+	castformcloudy: {
+		num: 351,
+		species: "Castform-Cloudy",
+		baseSpecies: "Castform",
+		forme: "Cloudy",
+		formeLetter: "C",
+		types: ["Flying"],
+		baseStats: {hp: 70, atk: 70, def: 70, spa: 70, spd: 70, spe: 70},
+		abilities: {0: "Forecast"},
+		heightm: 0.3,
+		weightkg: 0.8,
+		color: "Blue",
+		eggGroups: ["Fairy", "Amorphous"],
 	},
 };

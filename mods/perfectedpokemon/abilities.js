@@ -68,4 +68,41 @@ exports.BattleAbilities = {
 		rating: 3.5,
 		num: -800,
 	},
+	"galewings": {
+		inherit: true,
+		onModifyPriority: function (priority, move, attacker) {
+			if (move && move.type === 'Flying' && attacker.hp <= attacker.maxhp / 2) return priority + 1;
+		},
+		shortDesc: "If this Pokemon is above 1/2 of its max HP, its Flying-type moves have their priority increased by 1.",
+	},
+	"forecast": {
+		inherit: true,
+		onUpdate: function (pokemon) {
+			if (pokemon.baseTemplate.baseSpecies !== 'Castform' || pokemon.transformed) return;
+			let forme = null;
+			switch (this.effectiveWeather()) {
+			case 'sunnyday':
+			case 'desolateland':
+				if (pokemon.template.speciesid !== 'castformsunny') forme = 'Castform-Sunny';
+				break;
+			case 'raindance':
+			case 'primordialsea':
+				if (pokemon.template.speciesid !== 'castformrainy') forme = 'Castform-Rainy';
+				break;
+			case 'hail':
+				if (pokemon.template.speciesid !== 'castformsnowy') forme = 'Castform-Snowy';
+				break;
+			case 'sandstorm':
+				if (pokemon.template.speciesid !== 'castformsandy') forme = 'Castform-Sandy';
+				break;
+			case 'deltastream':
+				if (pokemon.template.speciesid !== 'castformcloudy') forme = 'Castform-Cloudy';
+				break;
+			}
+			if (pokemon.isActive && forme) {
+				pokemon.formeChange(forme);
+				this.add('-formechange', pokemon, forme, '[msg]', '[from] ability: Forecast');
+			}
+		},
+	},
 };

@@ -242,6 +242,7 @@ exports.BattleLearnsets = {
 	magmortar: {
 		learnset: {
 			inherit: true,
+			boomburst: ["7L42"],
 			electroball: ["7L12"],
 			electrohavoc: ["7L22"],
 			powercooldown: ["7L34"],
@@ -318,6 +319,70 @@ exports.BattleLearnsets = {
 		learnset: {
 			inherit: true,
 			disarmingvoice: ["7L1"],
+		},
+	},
+	beautifly: {
+		learnset: {
+			inherit: true,
+			drainingkiss: ["7L12"],
+			moonblast: ["7L35"],
+		},
+	},
+	galvantula: {
+		learnset: {
+			inherit: true,
+			boomburst: ["7L43"],
+		},
+	},
+	granbull: {
+		learnset: {
+			inherit: true,
+			closecombat: ["7L56"],
+			dracometeor: ["7T"],
+			dragonclaw: ["7M"],
+			dragondance: ["7L23"],
+			magicalpunch: ["7L34"],
+			pixiepunch: ["7L34"],
+		},
+	},
+	noctowl: {
+		learnset: {
+			inherit: true,
+			cosmicpower: ["7M"],
+			shadowsneak: ["7L5"],
+			spacialstrike: ["7L21"],
+		},
+	},
+	carbink: {
+		learnset: {
+			inherit: true,
+			cosmicpower: ["7M"],
+			healbell: ["7L17"],
+			rapidspin: ["7L32"],
+			recover: ["7L40"],
+		},
+	},
+	incineroar: {
+		learnset: {
+			inherit: true,
+			knockoff: ["7L82"],
+			magicalpunch: ["7L1"],
+			suckerpunch: ["7L1"],
+		},
+	},
+	abomasnow: {
+		learnset: {
+			inherit: true,
+			iciclecrash: ["7L54"],
+			magicalpunch: ["7L25"],
+		},
+	},
+	hypno: {
+		learnset: {
+			inherit: true,
+			aurasphere: ["7L51"],
+			cosmicpower: ["7M"],
+			moonblast: ["7L37"],
 		},
 	},
 };

@@ -16,33 +16,12 @@ exports.BattleItems = {
 		},
 		desc: "Restores 1/8 max HP at 1/2 max HP or less; confuses if -SpD Nature. Single use.",
 	},
-	belueberry: {
-		inherit: true,
-		isUnreleased: false,
-	},
+
 	bigroot: {
 		inherit: true,
 		desc: "Holder gains 1.3x HP from draining moves, Aqua Ring, Ingrain, and Leech Seed.",
 	},
-<<<<<<< HEAD
-=======
-	cornnberry: {
-		inherit: true,
-		isUnreleased: false,
-	},
-	custapberry: {
-		inherit: true,
-		isUnreleased: false,
-	},
-	durinberry: {
-		inherit: true,
-		isUnreleased: false,
-	},
-	enigmaberry: {
-		inherit: true,
-		isUnreleased: false,
-	},
->>>>>>> b1de57b85a343ba4a03501dc2ddf8c3067748a3d
+
 	figyberry: {
 		inherit: true,
 		onUpdate: function (pokemon) {

@@ -55,8 +55,6 @@ exports.BattleMovedex = {
 				pokemon.removeVolatile('fellstinger');
 			},
 		},
-		desc: "Raises the user's Attack by 2 stages if this move knocks out the target.",
-		shortDesc: "Raises user's Attack by 2 if this KOes the target.",
 	},
 	flyingpress: {
 		inherit: true,

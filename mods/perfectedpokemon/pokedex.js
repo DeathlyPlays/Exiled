@@ -219,5 +219,5 @@ exports.BattlePokedex = {
 	chatot: {
 		inherit: true,
 		abilities: {0: "Keen Eye", 1: "Tangled Feet", H: "Amplifier"},
-	}
+	},
 };

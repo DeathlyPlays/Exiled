@@ -291,9 +291,7 @@ class GlobalRoom {
 			}, {
 				title: 'Upper Staff',
 				isPrivate: true,
-				leaderAutojoin: true,
-				godAutojoin: true,
-				adminAutojoin: true,
+				staffAutojoin: "&, ~",
 			}, {
 				title: 'Development',
 				isPrivate: true,

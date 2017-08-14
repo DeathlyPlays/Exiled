@@ -87,7 +87,6 @@ exports.BattleAliases = {
 	"mray": "Rayquaza-Mega",
 	"zardx": "Charizard-Mega-X",
 	"zardy": "Charizard-Mega-y",
-	"fabio": "Ampharos-Mega",
 
 	// primal reversions
 	"primaldon": "Groudon-Primal",

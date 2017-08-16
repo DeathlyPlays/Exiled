@@ -1,10 +1,10 @@
 'use strict';
 
 exports.BattleAbilities = {
-	"None": {
-		desc: "This Pokemon has no ability.",
-		shortDesc: "This Pokemon has no ability.",
+	"none": {
+		shortDesc: "This has no use.",
 		id: "none",
 		name: "None",
+		rating: 0,
 	},
 };

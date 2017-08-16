@@ -9,7 +9,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			"Mario": {
 				species: "Probopass",
 				gender: "M",
-				ability: 'Adaptability',
+				ability: "None",
 				moves: ['cape', 'fireball', 'superjumppunch'],
 				baseSignatureMove: "fludd",
 				signatureMove: "F.L.U.D.D.",

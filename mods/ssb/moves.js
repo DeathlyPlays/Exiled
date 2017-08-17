@@ -46,7 +46,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, contact: 1, mirror: 1, punch: 1},
 		hasCustomRecoil: true,
 		onMoveFail: function (target, source, move) {
-			this.damage(source.maxhp / 3, source, source, 'superjumpkick');
+			this.damage(source.maxhp / 3, source, source, 'superjumppunch');
 		},
 		isViable: true,
 		desc: "If this attack is not successful, the user loses a third of its maximum HP, rounded down, as crash damage. Pokemon with the Ability Magic Guard are unaffected by crash damage.",

@@ -18,7 +18,7 @@
 		"origindb": "^2.6.1",
 		"request": "^2.81.0",
 		"sockjs": "0.3.18",
-		"sqlite3": "^3.1.8",
+		"sqlite3": "^3.1.9",
 		"uuid": "^2.0.2"
 	},
 	"optionalDependencies": {

@@ -1605,6 +1605,7 @@ exports.BattleMovedex = {
 				return this.chainModify(2);
 			}
 		},
+		desc: "If the target is asleep, this attack does double the damage.",
 		onPrepareHit: function (target, source, pokemon) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Dark Pulse", target);
@@ -1639,6 +1640,7 @@ exports.BattleMovedex = {
 				}
 			}
 		},
+		desc: "Knocks off the target's item, if they did have one this does 1.5x the damage.",
 		priority: 0,
 		secondary: false,
 		flags: {protect: 1, mirror: 1, contact: 1},

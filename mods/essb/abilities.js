@@ -42,6 +42,7 @@ exports.BattleAbilities = {
 				return this.chainModify(2);
 			}
 		},
+		desc: "Primordial Sea, Rain Dish, and Swift Swim.",
 	},
 	//bedevil
 	"prfmlmao": {
@@ -77,6 +78,7 @@ exports.BattleAbilities = {
 				return this.chainModify(1.5);
 			}
 		},
+		desc: "Slush Rush, 1.5x boost in SpA in Hail, Pixilate, Summons Hail.",
 	},
 	"lastlaugh": {
 		onStart: function (pokemon) {
@@ -106,6 +108,7 @@ exports.BattleAbilities = {
 				pokemon.tryTrap(true);
 			}
 		},
+		desc: "Shadow Tag, Ignores Abilities, Innards Out, Prankster & Dark Aura.",
 		id: "lastlaugh",
 		name: "Last Laugh",
 	},
@@ -136,11 +139,12 @@ exports.BattleAbilities = {
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (this.isWeather('sandstorm')) {
 				if (move.type === 'Rock' || move.type === 'Ground' || move.type === 'Steel') {
-					this.debug('Sand Force boost');
+					this.debug('Phat Ass boost');
 					return this.chainModify([0x14CD, 0x1000]);
 				}
 			}
 		},
+		desc: "Sand Force, Summons Sand, Unaware, Immune to Sandstorm & Unaware.",
 		onImmunity: function (type, pokemon) {
 			if (type === 'sandstorm') return false;
 		},
@@ -150,6 +154,7 @@ exports.BattleAbilities = {
 		id: "3bawlky5u",
 		name: "3Bawlky5U",
 		isUnbreakable: true,
+		desc: "Prankster, Can't be Ignored, Unaware, Natural Cure, Regenerator, Magic Bounce, Magic Guard.",
 		//prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Status') {
@@ -283,7 +288,7 @@ exports.BattleAbilities = {
 		},
 	},
 	"lawofthedragon": {
-		shortDesc: "This Pokemon's contact moves have their power multiplied by 1.3.",
+		shortDesc: "Tough Claws, Multiscale, Sets a layer of T Spikes and Stealth Rocks, Magic Bounce.",
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.flags['contact']) {
@@ -336,6 +341,7 @@ exports.BattleAbilities = {
 	"timetraveler": {
 		id: "timetraveler",
 		name: "Time Traveler",
+		desc: "Sets Trick Room, Pressure, and Rough Skin.",
 		//trickroom
 		onStart: function (pokemon) {
 			this.useMove('trickroom', pokemon);
@@ -381,6 +387,7 @@ exports.BattleAbilities = {
 				boost[i] *= 2;
 			}
 		},
+		desc: "Technician, Serene Grace & Simple.",
 	},
 	//volco
 	"volcanicash": {
@@ -423,6 +430,7 @@ exports.BattleAbilities = {
 		onModifyMove: function (move) {
 			move.stab = 2;
 		},
+		desc: "Magic Bounce, Magic Guard & Adaptability.",
 	},
 	//C7
 	"chatoicarmor": {
@@ -464,6 +472,7 @@ exports.BattleAbilities = {
 		effect: {
 			duration: 1,
 		},
+		desc: "Magic Bounce, and Prankster.",
 	},
 	//TheGodOfPie
 	"madtings": {
@@ -493,6 +502,7 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.useMove('topsyturvy', pokemon);
 		},
+		desc: "Uses Topsy Turvy on switch-in, Pixilate and Huge Power effects.",
 	},
 	"lordofwinter": {
 		id: "lordofwinter",
@@ -505,6 +515,7 @@ exports.BattleAbilities = {
 		onStart: function (source) {
 			this.setWeather('hail');
 		},
+		desc: "Sets Hail, and moves don't need to charge.",
 	},
 	"nohax": {
 		id: "nohax",
@@ -525,6 +536,7 @@ exports.BattleAbilities = {
 		onModifyAtk: function (atk) {
 			return this.chainModify(2);
 		},
+		desc: "No Guard, Huge Power, and Shield Dust.",
 	},
 	"conflictofinterest": {
 		id: "conflictofinterest",
@@ -533,7 +545,7 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.useMove('magnetrise', pokemon);
 		},
-		//HeatProof and fliter other types
+		//Heatproof and filter other types
 		onBasePowerPriority: 7,
 		onSourceBasePower: function (basePower, attacker, defender, move) {
 			if (move.type === 'Fire' || move.type === 'Ghost' || move.type === 'Dark') {
@@ -545,6 +557,7 @@ exports.BattleAbilities = {
 				return damage / 2;
 			}
 		},
+		desc: "On switch-in, the user uses Magnet Rise, has Heatproof and reduces Ghost/Dark type moves by 0.5x, and burn does 1/2 normal damage.",
 	},
 	"nice0u0": {
 		id: "nice0u0",
@@ -552,7 +565,7 @@ exports.BattleAbilities = {
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.recoil || move.hasCustomRecoil) {
-				this.debug('Reckless boost');
+				this.debug('Nice 0u0 boost');
 				return this.chainModify([0x1333, 0x1000]);
 			}
 		},
@@ -561,97 +574,7 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-	},
-	"tradeoff": {
-		id: "tradeoff",
-		name: "Trade-Off",
-		onStart: function (pokemon) {
-			this.useMove('heartswap', pokemon);
-		},
-		onModifyPriority: function (priority, pokemon, target, move) {
-			if (move && move.category === 'Status') {
-				return priority + 1;
-			}
-		},
-		onCheckShow: function (pokemon) {
-			// This is complicated
-			// For the most part, in-game, it's obvious whether or not Natural Cure activated,
-			// since you can see how many of your opponent's pokemon are statused.
-			// The only ambiguous situation happens in Doubles/Triples, where multiple pokemon
-			// that could have Natural Cure switch out, but only some of them get cured.
-			if (pokemon.side.active.length === 1) return;
-			if (pokemon.showCure === true || pokemon.showCure === false) return;
-
-			let active = pokemon.side.active;
-			let cureList = [];
-			let noCureCount = 0;
-			for (let i = 0; i < active.length; i++) {
-				let curPoke = active[i];
-				// pokemon not statused
-				if (!curPoke || !curPoke.status) {
-					// this.add('-message', "" + curPoke + " skipped: not statused or doesn't exist");
-					continue;
-				}
-				if (curPoke.showCure) {
-					// this.add('-message', "" + curPoke + " skipped: Natural Cure already known");
-					continue;
-				}
-				let template = Dex.getTemplate(curPoke.species);
-				// pokemon can't get Natural Cure
-				if (Object.values(template.abilities).indexOf('Natural Cure') < 0) {
-					// this.add('-message', "" + curPoke + " skipped: no Natural Cure");
-					continue;
-				}
-				// pokemon's ability is known to be Natural Cure
-				if (!template.abilities['1'] && !template.abilities['H']) {
-					// this.add('-message', "" + curPoke + " skipped: only one ability");
-					continue;
-				}
-				// pokemon isn't switching this turn
-				if (curPoke !== pokemon && !this.willSwitch(curPoke)) {
-					// this.add('-message', "" + curPoke + " skipped: not switching");
-					continue;
-				}
-
-				if (curPoke.hasAbility('naturalcure')) {
-					// this.add('-message', "" + curPoke + " confirmed: could be Natural Cure (and is)");
-					cureList.push(curPoke);
-				} else {
-					// this.add('-message', "" + curPoke + " confirmed: could be Natural Cure (but isn't)");
-					noCureCount++;
-				}
-			}
-
-			if (!cureList.length || !noCureCount) {
-				// It's possible to know what pokemon were cured
-				for (let i = 0; i < cureList.length; i++) {
-					cureList[i].showCure = true;
-				}
-			} else {
-				// It's not possible to know what pokemon were cured
-
-				// Unlike a -hint, this is real information that battlers need, so we use a -message
-				this.add('-message', "(" + cureList.length + " of " + pokemon.side.name + "'s pokemon " + (cureList.length === 1 ? "was" : "were") + " cured by Natural Cure.)");
-
-				for (let i = 0; i < cureList.length; i++) {
-					cureList[i].showCure = false;
-				}
-			}
-		},
-		onSwitchOut: function (pokemon) {
-			if (!pokemon.status) return;
-
-			// if pokemon.showCure is undefined, it was skipped because its ability
-			// is known
-			if (pokemon.showCure === undefined) pokemon.showCure = true;
-
-			if (pokemon.showCure) this.add('-curestatus', pokemon, pokemon.status, '[from] ability: Natural Cure');
-			pokemon.setStatus('');
-
-			// only reset .showCure if it's false
-			// (once you know a Pokemon has Natural Cure, its cures are always known)
-			if (!pokemon.showCure) delete pokemon.showCure;
-		},
+		desc: "Reckless + Rock Head.",
 	},
 	//alfastorm
 	"attackshield": {
@@ -677,6 +600,7 @@ exports.BattleAbilities = {
 		onModifyMove: function (move) {
 			move.stab = 2;
 		},
+		desc: "Adaptability, Overcoat, and Magic Bounce.",
 	},
 	"magmaoverdrive": {
 		id: "magmaoverdrive",
@@ -764,6 +688,7 @@ exports.BattleAbilities = {
 	"desertdragon": {
 		id: "desertdragon",
 		name: "DesertDragon",
+		desc: "Normal type moves become Bug type and if the user makes a Pokemon faint, its SpA and Spe raise two stages.",
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({spa:2, spe: 2}, source);
@@ -836,6 +761,7 @@ exports.BattleAbilities = {
 				this.boost({def: 1, spd: 1});
 			}
 		},
+		desc: "Every turn, Def & SpD raise a stage, Unaware & Magic Bounce effects.",
 	},
 	"handsburn": {
 		id: "handsburn",
@@ -881,6 +807,7 @@ exports.BattleAbilities = {
 		},
 	},
 	"almightypresence": {
+		desc: "Adaptability, changes type every turn, and Dazzling.",
 		onModifyMove: function (move) {
 			move.stab = 2;
 		},
@@ -995,6 +922,7 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.useMove('topsyturvy', pokemon);
 		},
+		desc: "Dazzling, Infiltrator, Mold Breaker, Air Lock, Unaware, and this ability cannot be ignored.  On switch-in, the user uses Topsy Turvy.",
 	},
 	//EchoSierra
 	"nogutsnoglory": {
@@ -1041,6 +969,7 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
+		desc: "Reckless, Poison Heal, Adaptability, Scrappy, Gale Wings, Guts and Quick Feet.",
 	},
 	//ggdaca
 	"lordsgrace": {

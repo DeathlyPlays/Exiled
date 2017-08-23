@@ -487,7 +487,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			},
 			'Flannery': {
 				species: 'Torkoal',
-				ability: 'Shell Armor',
+				ability: 'Drought',
 				item: 'White Herb',
 				gender: 'F',
 				moves: ['flamethrower', 'earthpower', 'sludgewave'],
@@ -825,9 +825,9 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			'Cynthia': {
 				species: 'Garchomp',
 				ability: 'Rough Skin',
-				item: 'Life Orb',
+				item: 'Rocky Helmet',
 				gender: 'F',
-				moves: ['outrage', 'earthquake', 'rockslide'],
+				moves: ['outrage', 'earthquake', 'swordsdance'],
 				signatureMove: 'Stealth Rock',
 				evs: {
 					atk: 252,
@@ -1189,7 +1189,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: 'Bold',
 			},
 			'Olympia': {
-				species: 'Meowstic-F',
+				species: 'Meowstic',
 				ability: 'Competitive',
 				item: 'Life Orb',
 				gender: 'F',

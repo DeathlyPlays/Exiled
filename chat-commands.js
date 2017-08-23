@@ -2324,12 +2324,7 @@ exports.commands = {
 
 	hotpatch: function (target, room, user) {
 		if (!target) return this.parse('/help hotpatch');
-<<<<<<< HEAD
-		if (!this.can('hotpatch')) return false;
-		if (Monitor.hotpatchLock) return this.errorReply("Hotpatch is currently disabled by an administrator. (" + Monitor.hotpatchLock + ")");
-=======
 		if (!this.can('hotpatch')) return;
->>>>>>> 74656f9d84f0ee2009da015b7ec1b899bd03285a
 
 		const lock = Monitor.hotpatchLock;
 		const hotpatches = ['chat', 'tournaments', 'formats', 'loginserver', 'punishments', 'dnsbl'];

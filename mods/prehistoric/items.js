@@ -1,21 +1,6 @@
 'use strict';
 
 exports.BattleItems = {
-	"abomasite": {
-		id: "abomasite",
-		name: "Abomasite",
-		isUnreleased: true,
-		spritenum: 575,
-		megaStone: "Abomasnow-Mega",
-		megaEvolves: "Abomasnow",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: 674,
-		gen: 6,
-		desc: "If holder is an Abomasnow, this item allows it to Mega Evolve in battle.",
-	},
 	"stoneorb": {
 		id: "stoneorb",
 		name: "Stone Orb",

@@ -351,14 +351,14 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				species: 'Greninja',
 				ability: 'Battle Bond',
 				item: 'Life Orb',
-				moves: ['scald', 'uturn', 'icebeam'],
+				moves: ['scald', 'watershuriken', 'icebeam'],
 				signatureMove: 'Dark Pulse',
 				evs: {
 					spa: 252,
 					spe: 252,
-					atk: 4,
+					hp: 4,
 				},
-				nature: 'Hasty',
+				nature: 'Timid',
 			},
 			'Donphan': {
 				species: 'Donphan',
@@ -453,7 +453,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			},
 			'Torkoal': {
 				species: 'Torkoal',
-				ability: 'Shell Armor',
+				ability: 'Drought',
 				item: 'Leftovers',
 				moves: ['stealthrock', 'lavaplume', 'toxic'],
 				signatureMove: 'rapidspin',

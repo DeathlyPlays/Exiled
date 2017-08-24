@@ -9,6 +9,7 @@ exports.BattleMovedex = {
 		category: "Physical",
 		secondary: false,
 		pp: 5,
+		desc: "Has 1/3 recoil damage.",
 		flags: {
 			protect: 1,
 			mirror: 1,
@@ -32,6 +33,7 @@ exports.BattleMovedex = {
 		basePower: 150,
 		accuracy: 80,
 		pp: 10,
+		desc: "Has 1/2 recoil damage.",
 		flags: {
 			protect: 1,
 			mirror: 1,
@@ -67,6 +69,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Waterfall", target);
 		},
+		desc: "Has 1/2 recoil damage.",
 		type: "Water",
 	},
 	//Hydreigon
@@ -90,6 +93,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Draco Meteor", target);
 		},
+		desc: "Has 1/4 recoil damage.",
 		type: "Dragon",
 	},
 	//Hydreigon
@@ -111,6 +115,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Nasty Plot", target);
 		},
+		desc: "Has 1/4 recoil damage.",
 		priority: 0,
 		type: "Dark",
 	},
@@ -133,6 +138,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Hydro Pump", target);
 		},
+		desc: "Has 1/3 recoil damage.",
 		target: "normal",
 		type: "Water",
 	},
@@ -156,6 +162,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Earthquake", target);
 		},
+		desc: "Has 1/3 recoil damage.",
 		type: "Ground",
 	},
 	//Nidoking
@@ -181,6 +188,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Gunk Shot", target);
 		},
+		desc: "Has 1/4 recoil damage, and 30% chance to poison the target.",
 		type: "Poison",
 	},
 	//Gyaratoast
@@ -202,12 +210,13 @@ exports.BattleMovedex = {
 			volatileStatus: 'flinch',
 		},
 		onHit: function () {
-			this.add('c|~Gyaratoast|FUCKING SMASHING!');
+			this.add('c| Gyaratoast|FUCKING SMASHING!');
 		},
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Waterfall", target);
 		},
+		desc: "Has 1/2 recoil damage, and has 20% chance to flinch.",
 		recoil: [1, 2],
 		target: "normal",
 		type: "Water",
@@ -228,6 +237,11 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Shadow Sneak", target);
 		},
+		flags: {
+			mirror: 1,
+		},
+		breaksProtect: true,
+		desc: "Has 1/3 recoil damage, and breaks protect.",
 		type: "Ghost",
 	},
 	//Aegislash
@@ -247,7 +261,10 @@ exports.BattleMovedex = {
 		},
 		flags: {
 			protect: 1,
+			mirror: 1,
+			contact: 1,
 		},
+		desc: "Has 1/3 recoil damage.",
 		target: "normal",
 		type: "Steel",
 	},
@@ -269,7 +286,9 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			contact: 1,
+			mirror: 1,
 		},
+		desc: "Has 1/3 recoil damage.",
 		target: "normal",
 		type: "Dragon",
 	},

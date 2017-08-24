@@ -16,6 +16,7 @@ exports.BattleMovedex = {
 				volatileStatus: 'lockedmove',
 			},
 		},
+		desc: "Locks in (like Outrage), and sets up a Substitute.",
 		category: "Physical",
 		flags: {
 			protect: 1,
@@ -43,6 +44,7 @@ exports.BattleMovedex = {
 			protect: 1,
 			distance: 1,
 		},
+		desc: "Boosts user's SpA & Spe by 1 stage.",
 		target: "any",
 		type: "Normal",
 	},
@@ -82,6 +84,7 @@ exports.BattleMovedex = {
 				}
 			},
 		},
+		desc: "Rapid Spin effects + drains 1/2 damage dealt.",
 		target: "normal",
 		type: "Fighting",
 	},
@@ -100,6 +103,7 @@ exports.BattleMovedex = {
 		onEffectiveness: function (typeMod, type) {
 			if (type === 'Fire') return 1;
 		},
+		desc: "Fire type effectiveness, 30% chance to burn.",
 		secondary: {
 			chance: 30,
 			status: "brn",
@@ -121,6 +125,7 @@ exports.BattleMovedex = {
 		self: {
 			heal: [1, 2],
 		},
+		desc: "Heals user by 1/2 of its max HP, Rapid Spin effects.",
 		secondary: {
 			self: {
 				//remove hazards
@@ -165,6 +170,7 @@ exports.BattleMovedex = {
 				spe: 1,
 			},
 		},
+		desc: "Boosts user's Speed by one stage.",
 		priority: 0,
 		target: "normal",
 		type: "Dark",
@@ -184,6 +190,7 @@ exports.BattleMovedex = {
 			contact: 1,
 			distance: 1,
 		},
+		desc: "Ignores Immunities, Drains 1/3 of damage dealt.",
 		ignoreImmunity: true,
 		target: "any",
 		type: "Ground",
@@ -213,6 +220,7 @@ exports.BattleMovedex = {
 			chance: 30,
 			volatileStatus: 'confusion',
 		}],
+		desc: "30% chance to paralyze or confuse, traps target, and lowers their Def, SpD, and Spe by 1 stage.",
 		target: "any",
 		type: "Ghost",
 	},
@@ -261,6 +269,7 @@ exports.BattleMovedex = {
 				delete pokemon.volatiles.stall;
 			},
 		},
+		desc: "Transforms into a Lava Pup/Lava Hound.",
 		flags: {
 			protect: 1,
 			distance: 1,
@@ -282,6 +291,7 @@ exports.BattleMovedex = {
 			protect: 1,
 			contact: 1,
 		},
+		desc: "Drains 1/3 of damage dealt.",
 		secondary: false,
 		target: "normal",
 		type: "Steel",
@@ -325,6 +335,7 @@ exports.BattleMovedex = {
 				}
 			},
 		},
+		desc: "Aromatherapy, Rapid Spin, and heals all the user's team completely.",
 		secondary: false,
 		priority: 1,
 		flags: {
@@ -354,6 +365,7 @@ exports.BattleMovedex = {
 			protect: 1,
 			distance: 1,
 		},
+		desc: "Boosts user's Spe by 1 stage, Guaranteed Crit, High Crit Ratio.",
 		isNonstandard: true,
 		target: "any",
 		type: "Fairy",
@@ -387,6 +399,7 @@ exports.BattleMovedex = {
 		self: {
 			volatileStatus: "confusion",
 		},
+		desc: "Confuses user, in exchange the user attempts to steal the target's Item, and boosts its Atk & Spe by 3 stages.",
 		accuracy: 100,
 		category: "Physical",
 		pp: 10,
@@ -404,8 +417,7 @@ exports.BattleMovedex = {
 		name: "Explode",
 		selfdestruct: "always",
 		breaksProtect: true,
-		basePower: 0,
-		ohko: true,
+		basePower: 666666,
 		accuracy: true,
 		pp: 5,
 		category: "Physical",
@@ -413,6 +425,7 @@ exports.BattleMovedex = {
 		flags: {
 			distance: 1,
 		},
+		desc: "Selfdestructs, Breaks Protect.",
 		target: "allAdjacent",
 		type: "Dark",
 	},
@@ -435,6 +448,7 @@ exports.BattleMovedex = {
 			chance: 30,
 			volatileStatus: 'flinch',
 		},
+		desc: "Hits 2-5 times, 30% chance to flinch target.",
 		target: "normal",
 		type: "Fighting",
 	},
@@ -486,6 +500,7 @@ exports.BattleMovedex = {
 				}
 			},
 		},
+		desc: "Dig effects, 1/3 recoil damage, Boosts user's Atk & Def by 1 stage.",
 		flags: {
 			protect: 1,
 			mirror: 1,
@@ -509,6 +524,7 @@ exports.BattleMovedex = {
 		self: {
 			volatileStatus: "mustrecharge",
 		},
+		desc: "Breaks Protect.",
 		breaksProtect: true,
 		priority: -1,
 		secondary: false,
@@ -530,6 +546,7 @@ exports.BattleMovedex = {
 			distance: 1,
 			mirror: 1,
 		},
+		desc: "Freezes target.",
 		target: "any",
 		type: "Ice",
 	},
@@ -546,6 +563,7 @@ exports.BattleMovedex = {
 		self: {
 			volatileStatus: 'Substitute',
 		},
+		desc: "Has 1/3rd recoil damage, sets up a Substitute.",
 		flags: {
 			protect: 1,
 			contact: 1,
@@ -567,6 +585,7 @@ exports.BattleMovedex = {
 			protect: 1,
 			distance: 1,
 		},
+		desc: "Paralyzes target(s).",
 		target: "any",
 		type: "Electric",
 	},
@@ -590,6 +609,7 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 		},
+		desc: "Boosts user's Atk & Spe by 1 stage, ignores immunities, puts a curse on the target.",
 		target: "normal",
 		type: "Ghost",
 	},
@@ -599,7 +619,6 @@ exports.BattleMovedex = {
 		basePower: 90,
 		multihit: 2,
 		pp: 15,
-		ignoreImmunity: true,
 		accuracy: 100,
 		priority: 0,
 		secondary: false,
@@ -608,6 +627,7 @@ exports.BattleMovedex = {
 			protect: 1,
 			mirror: 1,
 		},
+		desc: "Hits twice.",
 		target: "normal",
 		type: "Dark",
 	},
@@ -627,6 +647,7 @@ exports.BattleMovedex = {
 			contact: 1,
 			nonsky: 1,
 		},
+		desc: "Heals 1/2 of user's max HP.",
 		self: {
 			heal: [1, 2],
 		},
@@ -652,6 +673,7 @@ exports.BattleMovedex = {
 			distance: 1,
 			defrost: 1,
 		},
+		desc: "Selfdestructs if this move lands, 40% chance to burn.",
 		type: "Fire",
 		target: "allPokemon",
 	},
@@ -673,6 +695,7 @@ exports.BattleMovedex = {
 			contact: 1,
 			distance: 1,
 		},
+		desc: "Selfdestructs if this move lands, 40% chance to freeze.",
 		type: "Ice",
 		target: "allPokemon",
 	},
@@ -721,6 +744,7 @@ exports.BattleMovedex = {
 				return null;
 			},
 		},
+		desc: "King Shield effects + Heals 1/4 max HP.",
 		isViable: true,
 		name: "Shield",
 		pp: 10,
@@ -746,6 +770,7 @@ exports.BattleMovedex = {
 			distance: 1,
 			mirror: 1,
 		},
+		desc: "Hits on the Special Defense side, traps the target.",
 		type: "Fighting",
 		target: "any",
 	},
@@ -765,6 +790,7 @@ exports.BattleMovedex = {
 			},
 		},
 		drain: [1, 2],
+		desc: "Raises user's Atk & Spe by 1 stage, drains 1/2 damage dealt.",
 		flags: {
 			protect: 1,
 			distance: 1,
@@ -785,6 +811,7 @@ exports.BattleMovedex = {
 			contact: 1,
 			distance: 1,
 		},
+		desc: "Ignores Immunities, Selfdestructs.",
 		secondary: false,
 		pp: 5,
 		basePower: 250,
@@ -809,6 +836,7 @@ exports.BattleMovedex = {
 				atk: 1,
 			},
 		},
+		desc: "Raises the user's Atk by 1 stage, drains 1/2 damage dealt, Ignores Immunities, Ignores Abilities, Ignores Defense boosts.",
 		secondary: false,
 		category: "Physical",
 		drain: [1, 2],
@@ -841,8 +869,9 @@ exports.BattleMovedex = {
 		accuracy: true,
 		pp: 15,
 		boosts: {
-			def: 1,
+			def: -1,
 		},
+		def: "Lowers the user's Def by 1 stage, Knock Off effects.",
 		flags: {
 			protect: 1,
 			distance: 1,
@@ -877,6 +906,7 @@ exports.BattleMovedex = {
 				},
 			},
 		},
+		desc: "Drains 1/2 damage dealt, Places Stealth Rocks on foe's field.",
 		drain: [1, 2],
 		category: "Special",
 		target: "allAdjacentFoes",

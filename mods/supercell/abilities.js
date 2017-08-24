@@ -431,7 +431,6 @@ exports.BattleAbilities = {
 		id: "rangedsniper",
 		name: "Ranged Sniper",
 		desc: "Sniper + Adaptability + Super Luck + Contact moves have no effect + uses Focus Energy, upon entry.",
-
 		onStart: function (pokemon) {
 			this.useMove('focusenergy', pokemon);
 		},
@@ -463,6 +462,7 @@ exports.BattleAbilities = {
 	"giantbomb": {
 		id: "giantbomb",
 		name: "Giant Bomb",
+		desc: "Moxie, Huge Power, Unaware, Adaptability, On faint, foe loses 1/2 of their max HP.",
 		onAfterDamageOrder: 1,
 		onAfterDamage: function (damage, target, source, move) {
 			if (source && source !== target && !target.hp) {
@@ -501,6 +501,7 @@ exports.BattleAbilities = {
 	"spearlink": {
 		id: "spearlink",
 		name: "Spear Link",
+		desc: "Skill Link, and Adaptability.",
 		onModifyMove: function (move) {
 			if (move.multihit && move.multihit.length) {
 				move.multihit = move.multihit[1];
@@ -545,10 +546,11 @@ exports.BattleAbilities = {
 		},
 		onTryHit: function (target, source, move) {
 			if (move.type === 'Rock' && !target.activeTurns) {
-				this.add('-immune', target, '[msg]', '[from] ability: Power Cooldown');
+				this.add('-immune', target, '[msg]', '[from] ability: Minefield');
 				return null;
 			}
 		},
+		desc: "Unaware, Huge Power, Infiltrator & Mountaineer.",
 	},
 	"powercooldown": {
 		id: "powercooldown",
@@ -576,6 +578,7 @@ exports.BattleAbilities = {
 		onStart: function (source) {
 			this.setTerrain('electricterrain');
 		},
+		desc: "Electric Surge, Adaptability, Recharge moves do 1.3x more & Truant.",
 	},
 	"glacierwizardry": {
 		id: "glacierwizardry",
@@ -600,6 +603,7 @@ exports.BattleAbilities = {
 				return this.chainModify(2);
 			}
 		},
+		desc: 'Slush Rush, Freeze "Flame Body", Ice Body & Summons Hail.',
 	},
 	"knightlyhonor": {
 		id: "knightlyhonor",
@@ -622,6 +626,7 @@ exports.BattleAbilities = {
 				return this.chainModify(1.5);
 			}
 		},
+		desc: "Adaptability, Infiltrator, Technician, Huge Power & Tough Claws.",
 	},
 	"timber": {
 		id: "timber",
@@ -650,6 +655,7 @@ exports.BattleAbilities = {
 		onModifyDef: function (pokemon) {
 			if (this.isTerrain('grassyterrain')) return this.chainModify(1.5);
 		},
+		desc: "Grassy Surge, Grass Pelt, Huge Power, Adaptability, Reckless & Rock Head.",
 	},
 	"zapwizardry": {
 		id: "zapwizardry",
@@ -669,6 +675,7 @@ exports.BattleAbilities = {
 		onModifySpA: function (spa) {
 			return this.chainModify(2);
 		},
+		desc: "Soul-Heart, Special Huge Power, Adaptability, Electric Surge.",
 	},
 	"graveyard": {
 		id: "graveyard",
@@ -704,6 +711,7 @@ exports.BattleAbilities = {
 				}, source);
 			}
 		},
+		desc: "Adaptability, Cursed Body, Doubles Speed, Speed Boost & Moxie.",
 	},
 	"fatality": {
 		id: "fatality",
@@ -722,6 +730,7 @@ exports.BattleAbilities = {
 		onModifyAtk: function (atk) {
 			return this.chainModify(2);
 		},
+		desc: "Moxie, Huge Power & Adaptability.",
 	},
 	"continentalrock": {
 		id: "continentalcrush",
@@ -773,6 +782,7 @@ exports.BattleAbilities = {
 				return this.chainModify([0x14CD, 0x1000]);
 			}
 		},
+		desc: "Sand Stream, Stakeout, Stamina, Iron Barbs, Solid Rock & Arena Trap.",
 	},
 	"infernoblaze": {
 		id: "infernoblaze",
@@ -852,6 +862,7 @@ exports.BattleAbilities = {
 				});
 			}
 		},
+		desc: "Modified Weak Armor, Vital Spirit, Speed Boost, Solar Power, Desolate Land & Blaze.",
 	},
 	"subzerofrost": {
 		id: "subzerofrost",
@@ -910,6 +921,7 @@ exports.BattleAbilities = {
 				});
 			}
 		},
+		desc: "Ice type Blaze, Modified Weak Armor, Vital Spirit, Speed Boost, Summons hail, Loses 1/16 of max HP during hail.",
 	},
 	"steelenforcedshield": {
 		id: "steelenforcedshield",
@@ -925,6 +937,7 @@ exports.BattleAbilities = {
 				return this.chainModify(1.5);
 			}
 		},
+		desc: "Steelworker, Adaptability, and Ignores Abilities.",
 	},
 	"cannonball": {
 		id: "cannonball",
@@ -960,6 +973,7 @@ exports.BattleAbilities = {
 			move.ignoreAbility = true;
 			move.stab = 2;
 		},
+		desc: "Simple, Stamina, Unaware, Adaptability & Ignores Abilities.",
 	},
 	"yeroyalejoust": {
 		id: "yeroyalejoust",
@@ -988,6 +1002,7 @@ exports.BattleAbilities = {
 				}, source);
 			}
 		},
+		desc: "Moxie, Unaware, Adaptability.",
 	},
 	"allahuakbar": {
 		id: "allahuakbar",
@@ -1029,6 +1044,7 @@ exports.BattleAbilities = {
 				});
 			}
 		},
+		desc: "Unaware, Aftermath, Huge Power, Speed Boost, Doubles Speed.",
 	},
 	"bravery": {
 		id: "bravery",
@@ -1072,6 +1088,7 @@ exports.BattleAbilities = {
 			}
 		},
 		onCriticalHit: false,
+		desc: "Unaware, Stamina, Simple, Long Reach, Adaptability, Ignores Abilities, Battle Armor & Tough Claws.",
 	},
 	"masterdetonator": {
 		id: "masterdetonator",
@@ -1092,6 +1109,7 @@ exports.BattleAbilities = {
 				});
 			}
 		},
+		desc: "Doubles SpA, Adaptability, Speed Boost.",
 	},
 	"championbowler": {
 		id: "championbowler",
@@ -1133,6 +1151,7 @@ exports.BattleAbilities = {
 				});
 			}
 		},
+		desc: "Adaptability, Ignores Abilities, Doubles SpA, Soul-Heart, Regenerator, Unaware, Stamina.",
 	},
 	"toptiermusketeer": {
 		id: "toptiermusketeer",
@@ -1166,5 +1185,6 @@ exports.BattleAbilities = {
 		onStart: function (source) {
 			this.setTerrain('psychicterrain');
 		},
+		desc: "Psychic Surge, Soul-Heart, Doubles SpA, Adaptability, Unaware.",
 	},
 };

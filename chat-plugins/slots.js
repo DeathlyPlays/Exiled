@@ -111,6 +111,6 @@ exports.commands = {
 		'Dragonite: 21 bucks' + '\n' +
 		'Mew: 24 bucks' + '\n' +
 		'Mewtwo: 27 bucks' + '\n' +
-		'Use "/slots spin" to play the game.'
+		'Use "/slots spin" to play the game.',
 	],
 };

@@ -3,7 +3,6 @@
  * Time Commands
  * This file contains commands that keep track of users activity.
  ********************/
-let color = require('../config/color');
 let rankLadder = require('../rank-ladder');
 
 function convertTime(time) {
@@ -42,9 +41,9 @@ exports.commands = {
 		if (isConnected && !Ontime[userid]) Ontime[userid] = Date.now();
 
 		if (isConnected) {
-			this.sendReplyBox('<b><font color="' + color(userid) + '">' + userid + '</font></b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Current ontime: <b>' + displayTime(convertTime((currentOntime))) + '</b>.');
+			this.sendReplyBox('<b>' + Exiled.nameColor(user) + '</b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Current ontime: <b>' + displayTime(convertTime((currentOntime))) + '</b>.');
 		} else {
-			this.sendReplyBox('<b><font color="' + color(userid) + '">' + userid + '</font></b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Currently not online.');
+			this.sendReplyBox('<b>' + Exiled.nameColor(user) + '</b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Currently not online.');
 		}
 	},
 	nolifeladder: 'ontimeladder',

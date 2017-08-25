@@ -7,9 +7,6 @@
 
 'use strict';
 
-// To get hash colors of the names
-const color = require('../config/color');
-
 // Available slots for the game
 const slots = {
 	'bulbasaur': 3,
@@ -57,11 +54,10 @@ function display(result, user, slotOne, slotTwo, slotThree) {
 	'<center><img style="padding: 3px; border: 1px inset gold; border-radius: 5px; box-shadow: inset 1px 1px 5px white;" src="' + slotsTrozei[slotOne] + '">&nbsp;&nbsp;&nbsp;' + '<img style="padding: 3px; border: 1px inset gold; border-radius: 5px; box-shadow: inset 1px 1px 5px white;" src="' + slotsTrozei[slotTwo] + '">&nbsp;&nbsp;&nbsp;' + '<img style="padding: 3px; border: 1px inset gold; border-radius: 5px; box-shadow: inset 1px 1px 5px white;" src="' + slotsTrozei[slotThree] + '"></center>' +
 	'<font style="color: white;"><br />';
 	if (!result) {
-		display += 'Aww... bad luck, <b><font color="' + color(user) + '">' + user + '</font></b>. Better luck next time!</font>';
+		display += 'Aww... bad luck, <b>' + Exiled.nameColor(user) + '</b>. Better luck next time!</font>';
 	}
 	if (result) {
-		display += 'Congratulations, <b><font color="' + color(user) + '">' + user + '</font></b>. You have won ' +
-		slots[slotOne] + ' bucks!!</font>';
+		display += 'Congratulations, <b>' + Exiled.nameColor(user) + '</b>. You have won ' + slots[slotOne] + ' bucks!!</font>';
 	}
 	return display + '</div>';
 }
@@ -102,17 +98,19 @@ exports.commands = {
 			return this.parse('/help slots');
 		},
 	},
-	slotshelp: ['Slots is a casino game. ' +
-	'It awards the user with varying amount of bucks depending on the streak of pokemon they user gets.' + '\n' +
-	'Following Are Slots Winnings: \n' +
-	'Bulbasaur: 3 bucks' + '\n' +
-	'Squirtle: 6 bucks' + '\n' +
-	'Charmander: 9 bucks' + '\n' +
-	'Pikachu: 12 bucks' + '\n' +
-	'Eevee: 15 bucks' + '\n' +
-	'Snorlax: 17 bucks' + '\n' +
-	'Dragonite: 21 bucks' + '\n' +
-	'Mew: 24 bucks' + '\n' +
-	'Mewtwo: 27 bucks' + '\n' +
-	'Use "/slots spin" to play the game.'],
+	slotshelp: [
+		'Slots is a casino game. ' +
+		'It awards the user with varying amount of bucks depending on the streak of pokemon they user gets.' + '\n' +
+		'Following Are Slots Winnings: \n' +
+		'Bulbasaur: 3 bucks' + '\n' +
+		'Squirtle: 6 bucks' + '\n' +
+		'Charmander: 9 bucks' + '\n' +
+		'Pikachu: 12 bucks' + '\n' +
+		'Eevee: 15 bucks' + '\n' +
+		'Snorlax: 17 bucks' + '\n' +
+		'Dragonite: 21 bucks' + '\n' +
+		'Mew: 24 bucks' + '\n' +
+		'Mewtwo: 27 bucks' + '\n' +
+		'Use "/slots spin" to play the game.'
+	],
 };

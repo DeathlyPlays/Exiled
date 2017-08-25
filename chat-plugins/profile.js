@@ -1,6 +1,6 @@
 'use strict';
 /*eslint no-restricted-modules: [0]*/
-
+/*
 let color = require('../config/color');
 let moment = require('moment');
 
@@ -26,7 +26,7 @@ let serverIp = '158.69.196.64';
  * @param {Boolean} isOnline
  * @param {Object|String} user - if isOnline then Object else String
  * @param {String} image
- */
+
 function Profile(isOnline, user, image) {
 	this.isOnline = isOnline || false;
 	this.user = user || null;
@@ -46,7 +46,7 @@ function Profile(isOnline, user, image) {
  * @param {String} color
  * @param {String} text
  * @return {String}
- */
+
 function bold(text) {
 	return '<b>' + text + '</b>';
 }
@@ -61,7 +61,7 @@ function bold(text) {
  * @param {String} color
  * @param {String} text
  * @return {String}
- */
+
 function font(color, text) {
 	return '<font color="' + color + '">' + text + '</font>';
 }
@@ -75,7 +75,7 @@ function font(color, text) {
  *
  * @param {String} link
  * @return {String}
- */
+
 function img(link) {
 	return '<img src="' + link + '" height="80" width="80">';
 }
@@ -91,7 +91,7 @@ function img(link) {
  *
  * @param {String} text
  * @return {String}
- */
+
 function label(text) {
 	return bold(font(profileColor, text + ':')) + SPACE;
 }
@@ -176,7 +176,7 @@ Profile.prototype.team = function (person) {
 	function iconize(link) {
 		return '<button id="kek" name="send" value="/dt ' + link + '" style="background:transparent;border:none;"><img src="http://www.serebii.net/pokedex-sm/icon/' + link + '.png"></button>';
 	}
-	//return '<div style="' + teamcss + '">' + '<br>' + iconize(one) + iconize(two) + iconize(three) + '<br>' + iconize(four) + iconize(five) + iconize(six) + '</div>';*/
+	//return '<div style="' + teamcss + '">' + '<br>' + iconize(one) + iconize(two) + iconize(three) + '<br>' + iconize(four) + iconize(five) + iconize(six) + '</div>';
 	let teamDisplay = '<center><div style="' + teamcss + '">';
 	if (Db('teams').has([person, 'one'])) {
 		teamDisplay += iconize(one);
@@ -831,3 +831,4 @@ exports.commands = {
 		this.sendReply('|html|' + display);
 	},
 };
+*/

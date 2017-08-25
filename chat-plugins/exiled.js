@@ -4,6 +4,7 @@ const FS = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
 const http = require('http');
+const Pokedex = require('../data/pokedex.js').BattlePokedex;
 let request = require('request');
 
 const bubbleLetterMap = new Map([
@@ -146,6 +147,14 @@ function clearRoom(room) {
 			Users(users[len]).joinRoom(room, Users(users[len]).connections[0]);
 		}
 	}, 1000);
+}
+
+function font(color, text) {
+	return '<font color="' + color + '">' + text + '</font>';
+}
+
+function bold(text) {
+	return '<b>' + text + '</b>';
 }
 
 Exiled.regdate = function (target, callback) {
@@ -1087,4 +1096,73 @@ exports.commands = {
 		this.sendReplyBox(Exiled.nameColor(target, true) + " was last seen <b>" + Chat.toDurationString(Date.now() - seen, {precision: true}) + "</b> ago.");
 	},
 	seenhelp: ["/seen - Shows when the user last connected on the server."],
+
+	chatcolour: 'chatcolor',
+	chatcolor: function (target, room, user) {
+		let group = user.getIdentity().charAt(0);
+		if (room.auth) group = room.auth[user.userid] || group;
+		if (user.hiding) group = ' ';
+		let targets = target.split(',');
+		if (targets.length < 2) return this.parse('/help chatcolor');
+		if (!this.can('vip') || !this.canBroadcast()) return;
+		if (!this.canTalk()) return this.errorReply("You may not use this command while unable to speak.");
+		this.add('|raw|' + "<small>" + group + "</small>" + "<button name='parseCommand' value='/user " + user.name + "' style='background: none ; border: 0 ; padding: 0 5px 0 0 ; font-family: &quot;verdana&quot; , &quot;helvetica&quot; , &quot;arial&quot; , sans-serif ; font-size: 9pt ; cursor: pointer'><font color='" + user.name + "'>" + bold(font(color(user), user.name + ":</font></button>" + '<b><font color="' + targets[0].toLowerCase().replace(/[^#a-z0-9]+/g, '') + '">' + Chat.escapeHTML(targets.slice(1).join(",")) + '</font></b>')));
+	},
+	chatcolorhelp: ["/chatcolor OR /chatcolour [colour], [message] - Outputs a message in a custom colour. Requires VIP."],
+
+	/* eslint-enable */
+	'!m8b': true,
+	helixfossil: 'm8b',
+	helix: 'm8b',
+	magic8ball: 'm8b',
+	m8b: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		let results = ['Signs point to yes.', 'Yes.', 'Reply hazy, try again.', 'Without a doubt.', 'My sources say no.', 'As I see it, yes.', 'You may rely on it.', 'Concentrate and ask again.', 'Outlook not so good.', 'It is decidedly so.', 'Better not tell you now.', 'Very doubtful.', 'Yes - definitely.', 'It is certain.', 'Cannot predict now.', 'Most likely.', 'Ask again later.', 'My reply is no.', 'Outlook good.', 'Don\'t count on it.'];
+		return this.sendReplyBox(results[Math.floor(20 * Math.random())]);
+	},
+	/* eslint-enable */
+	thefourthreplica: 'tfr',
+	tfr: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		let results = ['Here\'s some bright powder!', 'I sense a shiny in the near future, just keep trying!', 'If you\'re hungry, just eat some of your breedjects :D', 'BRIGHT POWDER!', 'Good luck!', '#ItsBreedingTime', '/pick is rigged!'];
+		return this.sendReplyBox(results[Math.floor(7 * Math.random())]);
+	},
+
+	randp: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		let shinyPoke = "";
+		let x;
+		if (/shiny/i.test(target)) shinyPoke = "-shiny";
+		if (/kanto/i.test(target) || /gen 1/i.test(target)) {
+			x = Math.floor(Math.random() * (174 - 1));
+		} else if (/johto/i.test(target) || /gen 2/i.test(target)) {
+			x = Math.floor(Math.random() * (281 - 173)) + 172;
+		} else if (/hoenn/i.test(target) || /gen 3/i.test(target)) {
+			x = Math.floor(Math.random() * (444 - 280)) + 279;
+		} else if (/sinnoh/i.test(target) || /gen 4/i.test(target)) {
+			x = Math.floor(Math.random() * (584 - 443)) + 442;
+		} else if (/kalos/i.test(target) || /gen 5/i.test(target)) {
+			x = Math.floor(Math.random() * (755 - 583)) + 582;
+		} else if (/unova/i.test(target) || /gen 6/i.test(target)) {
+			x = Math.floor(Math.random() * (834 - 752)) + 751;
+		}
+		x = x || Math.floor(Math.random() * (856 - 1));
+		let tarPoke = Object.keys(Pokedex)[x];
+		let pokeData = Pokedex[tarPoke];
+		let pokeId = pokeData.species.toLowerCase();
+		pokeId = pokeId.replace(/^basculinbluestriped$/i, "basculin-bluestriped").replace(/^pichuspikyeared$/i, "pichu-spikyeared").replace(/^floetteeternalflower$/i, "floette-eternalflower");
+		if (pokeId === "pikachu-cosplay") pokeId = ["pikachu-belle", "pikachu-phd", "pikachu-libre", "pikachu-popstar", "pikachu-rockstar"][~~(Math.random() * 6)];
+		let spriteLocation = "http://play.pokemonshowdown.com/sprites/bw" + shinyPoke + "/" + pokeId + ".png";
+		let missingnoSprites = ["http://cdn.bulbagarden.net/upload/9/98/Missingno_RB.png", "http://cdn.bulbagarden.net/upload/0/03/Missingno_Y.png", "http://cdn.bulbagarden.net/upload/a/aa/Spr_1b_141_f.png", "http://cdn.bulbagarden.net/upload/b/bb/Spr_1b_142_f.png", "http://cdn.bulbagarden.net/upload/9/9e/Ghost_I.png"];
+		if (pokeId === "missingno") spriteLocation = missingnoSprites[~~(Math.random() * 5)];
+
+		function getTypeFormatting(types) {
+			let text = [];
+			for (let i = 0; i < types.length; i++) {
+				text.push("<img src=\"http://play.pokemonshowdown.com/sprites/types/" + types[i] + ".png\" width=\"32\" height=\"14\">");
+			}
+			return text.join(" / ");
+		}
+		this.sendReplyBox("<table><tr><td><img src=\"" + spriteLocation + "\" height=\"96\" width=\"96\"></td><td><b>Name: </b>" + pokeData.species + "<br/><b>Type(s): </b>" + getTypeFormatting(pokeData.types) + "<br/><b>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </b>" + Object.values(pokeData.abilities).join(" / ") + "<br/><b>Stats: </b>" + Object.values(pokeData.baseStats).join(" / ") + "<br/><b>Colour: </b><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/><b>Egg Group(s): </b>" + pokeData.eggGroups.join(", ") + "</td></tr></table>");
+	},
 };

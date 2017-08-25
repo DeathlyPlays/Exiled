@@ -1,16 +1,14 @@
 /*
-* Originally Gold Server's userlist icons plugin
-* Edited by Lord Haji
+* icons.js
+* Credits: Lord Haji, panpawn
 */
 'use strict';
 
 let icons = {};
-const FS = require('fs');
-const color = require('../config/color');
-let http = require('http');
+const fs = require('fs');
 
 function load() {
-	FS.readFile('config/icons.json', 'utf8', function (err, file) {
+	fs.readFile('config/icons.json', 'utf8', function (err, file) {
 		if (err) return;
 		icons = JSON.parse(file);
 	});
@@ -18,7 +16,7 @@ function load() {
 load();
 
 function updateIcons() {
-	FS.writeFileSync('config/icons.json', JSON.stringify(icons));
+	fs.writeFileSync('config/icons.json', JSON.stringify(icons));
 
 	let newCss = '/* ICONS START */\n';
 
@@ -27,20 +25,10 @@ function updateIcons() {
 	}
 	newCss += '/* ICONS END */\n';
 
-	let file = FS.readFileSync('config/custom.css', 'utf8').split('\n');
+	let file = fs.readFileSync('config/custom.css', 'utf8').split('\n');
 	if (~file.indexOf('/* ICONS START */')) file.splice(file.indexOf('/* ICONS START */'), (file.indexOf('/* ICONS END */') - file.indexOf('/* ICONS START */')) + 1);
-	FS.writeFileSync('config/custom.css', file.join('\n') + newCss);
-	reloadCSS();
-}
-
-function reloadCSS() {
-	let options = {
-		host: 'play.pokemonshowdown.com',
-		port: 80,
-		path: '/customcss.php?server=' + Config.serverid,
-		method: 'GET',
-	};
-	http.get(options);
+	fs.writeFileSync('config/custom.css', file.join('\n') + newCss);
+	Exiled.reloadCSS();
 }
 
 function generateCSS(name, icon) {
@@ -53,39 +41,45 @@ function generateCSS(name, icon) {
 		rooms.push('#' + id + '-userlist-user-' + name);
 	});
 	css = rooms.join(', ');
-	css += '{\nbackground: transparent url("' + icon + '") no-repeat right\n}\n';
+	css += '{\nbackground: url("' + icon + '") no-repeat right\n}\n';
 	return css;
 }
 
 exports.commands = {
+	uli: 'icon',
+	userlisticon: 'icon',
 	customicon: 'icon',
-	icon: function (target, room, user) {
-		if (!this.can('lock')) return false;
-		target = target.split(',');
-		for (let u in target) target[u] = target[u].trim();
-		if (!target[1]) return this.parse('/help icon');
-		if (toId(target[0]).length > 19) return this.errorReply("Usernames are not this long...");
-		if (target[1] === 'delete') {
-			if (!icons[toId(target[0])]) return this.errorReply('/icon - ' + target[0] + ' does not have an icon.');
-			delete icons[toId(target[0])];
+	icon: {
+		set: function (target, room, user) {
+			if (!this.can('roomowner')) return false;
+			target = target.split(',');
+			for (let u in target) target[u] = target[u].trim();
+			if (target.length !== 2) return this.parse('/help icon');
+			if (toId(target[0]).length > 19) return this.errorReply("Usernames are not this long...");
+			if (icons[toId(target[0])]) return this.errorReply("This user already has a custom userlist icon.  Do /icon delete [user] and then set their new icon.");
+			this.sendReply("|raw|You have given " + Exiled.nameColor(target[0], true) + " an icon.");
+			Monitor.adminlog(target[0] + " has received an icon from " + user.name + ".");
+			this.privateModCommand("|raw|(" + target[0] + " has recieved icon: <img src='" + target[1] + "' width='32' height='32'> from " + user.name + ".)");
+			if (Users(target[0]) && Users(target[0]).connected) Users(target[0]).popup("|html|" + Exiled.nameColor(user.name, true) + " has set your userlist icon to: <img src='" + target[1] + "' width='32' height='32'><br><center>Refresh, If you don't see it.</center>");
+			icons[toId(target[0])] = target[1];
 			updateIcons();
-			this.sendReply("You removed " + target[0] + "'s icon.");
-			Rooms('staff').add(user.name + " removed " + target[0] + "'s icon.").update();
-			this.privateModCommand("(" + target[0] + "'s icon was removed by " + user.name + ".)");
-			if (Users(target[0]) && Users(target[0]).connected) Users(target[0]).popup(user.name + " removed your icon.");
-			return;
-		}
-		if (toId(target[0]) === 'delete') return this.errorReply("Did you mean: /icon " + target[1] + ", delete");
-		if (icons[toId(target[0])]) return this.errorReply("This user already has a custom userlist icon.  Do /icon [user], delete and then set their new icon.");
-		this.sendReply("|raw|You have given <b><font color=" + color(Chat.escapeHTML(target[0])) + ">" + Chat.escapeHTML(target[0]) + "</font></b> an icon.");
-		Rooms('staff').add('|raw|<b><font color="' + color(Chat.escapeHTML(target[0])) + '">' + Chat.escapeHTML(target[0]) + '</font> has received an icon from ' + Chat.escapeHTML(user.name) + '.</b>').update();
-		this.privateModCommand("(" + target[0] + " has recieved icon: '" + target[1] + "' from " + user.name + ".)");
-		icons[toId(target[0])] = target[1];
-		updateIcons();
+		},
+		remove: 'delete',
+		delete: function (target, room, user) {
+			if (!this.can('roomowner')) return false;
+			target = toId(target);
+			if (!icons[toId(target)]) return this.errorReply('/icon - ' + target + ' does not have an icon.');
+			delete icons[toId(target)];
+			updateIcons();
+			this.sendReply("You removed " + target + "'s icon.");
+			Monitor.adminlog(user.name + " removed " + target + "'s icon.");
+			this.privateModCommand("(" + target + "'s icon was removed by " + user.name + ".)");
+			if (Users(target) && Users(target).connected) Users(target).popup("|html|" + Exiled.nameColor(user.name, true) + " has removed your userlist icon.");
+		},
 	},
 	iconhelp: [
 		"Commands Include:",
-		"/icon [user], [image url] - Gives [user] an icon of [image url]",
-		"/icon [user], delete - Deletes a user's icon",
+		"/icon set [user], [image url] - Gives [user] an icon of [image url]",
+		"/icon delete [user] - Deletes a user's icon",
 	],
 };

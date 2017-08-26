@@ -116,8 +116,7 @@ function addExp(user, room, amount) {
 				}
 				let newLevel = Exiled.level(user);
 				user.sendTo(room, '|html|<center><font size=4><b><i>Level Up!</i></b></font><br />' +
-				'You have reached level ' + newLevel + '.' + /*' This will award you:<br /><b> ' + reward + */ '</b></center>'
-			);
+				'You have reached level ' + newLevel + '.' + /*' This will award you:<br /><b> ' + reward + */ '</b></center>');
 			}
 		});
 	}

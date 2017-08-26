@@ -77,7 +77,7 @@ class PingPong extends Console.Console {
 			return this.endRound(false, true);
 		}, this.kickTime);
 	}
-	
+
 	endGame(win) {
 		if (win) {
 			this.update(null, '<center style="background-color: green">Congratulations to ' + this.user.name + ' for winning the game of Ping Pong!<br/><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I wont play your stupid game again.</button></center>');

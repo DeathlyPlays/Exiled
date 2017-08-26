@@ -149,14 +149,6 @@ function clearRoom(room) {
 	}, 1000);
 }
 
-function font(color, text) {
-	return '<font color="' + color + '">' + text + '</font>';
-}
-
-function bold(text) {
-	return '<b>' + text + '</b>';
-}
-
 Exiled.regdate = function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);

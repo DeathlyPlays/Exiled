@@ -1,7 +1,5 @@
 'use strict';
 
-const color = require('../config/color');
-
 /**
  * Checks if the money input is actually money.
  *
@@ -139,7 +137,7 @@ let BJView = {
 		let output = "<div class='infobox'><center><b>The blackjack game has started!</b><br />";
 		output += "<b>There are " + players.length + " players.</b><br />";
 		players.forEach(function (player) {
-			output += "<b><font color='" + color(player) + "'>" + player + ": </font></b> " + getPlayer[player].hand.join(", ") + "<br />";
+			output += "<b>" + Exiled.nameColor(player) + "'>" + player + ": </font></b> " + getPlayer[player].hand.join(", ") + "<br />";
 		});
 		output += "</center></div>";
 		this.addRaw(output);

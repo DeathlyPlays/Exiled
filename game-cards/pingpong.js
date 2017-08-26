@@ -81,11 +81,12 @@ class PingPong extends Console.Console {
 	endGame(win) {
 		if (win) {
 			this.update(null, '<center style="background-color: green">Congratulations to ' + this.user.name + ' for winning the game of Ping Pong!<br/><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I wont play your stupid game again.</button></center>');
+			Exiled.addExp(this.user, this.room, 3);
 		} else {
 			this.update(null, '<center style="background-color: green">The COM won the game of ping pong...<br/><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I wont play your stupid game again.</button></center>');
 		}
 	}
-};
+}
 
 exports.box = {
 	startCommand: '/pingpong new',
@@ -134,6 +135,6 @@ exports.commands = {
 		'/pingpong new - Begins a match of ping pong.',
 		'/pingpong serve - Serve the ping pong ball.',
 		'/pingpong hit - Hit the ping pong ball back.',
-		'/pingpong end - End the match of ping pong.'
+		'/pingpong end - End the match of ping pong.',
 	],
 };

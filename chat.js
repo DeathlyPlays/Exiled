@@ -208,6 +208,7 @@ class CommandContext {
 			this.room = Rooms.global;
 		}
 
+		let giveExp = false;
 		let commandHandler = this.splitCommand(message);
 
 		if (typeof commandHandler === 'function') {
@@ -237,6 +238,7 @@ class CommandContext {
 				}
 			}
 
+			if (Date.now() > (this.user.lastMessageTime + 5000)) giveExp = true;
 			message = this.canTalk(message);
 		}
 
@@ -281,7 +283,6 @@ class CommandContext {
 					this.room.log.push((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 					this.room.lastUpdate = this.room.log.length;
 					this.room.messageCount++;
-					//Exiled.addExp(this.user, this.room, 1);
 				} else {
 					if (Users.ShadowBan.checkBanned(this.user)) {
 						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
@@ -290,12 +291,12 @@ class CommandContext {
 						this.room.add((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 						this.room.messageCount++;
 					}
-					//Exiled.addExp(this.user, this.room, 1);
 				}
 				//this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`);
 			}
 		}
 
+		if (giveExp) Exiled.addExp(this.user.userid, this.room, 1);
 		this.update();
 
 		return message;

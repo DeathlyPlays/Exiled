@@ -141,8 +141,8 @@ class Ambush {
 		let winner = this.getSurvivors()[0][0].name;
 		let msg = '|html|<div class = "infobox"><center>The winner of this game of ambush is <b>' + Chat.escapeHTML(winner) + '!</b> Congratulations!</center>';
 		if (this.room.id === 'marketplace') {
-			msg += '<center>' + Chat.escapeHTML(winner) + ' has also won <b>5</b> credits for winning!</center>';
-			Exiled.writeCredits(winner, 5, () => this.room.add(msg).update());
+			msg += '<center>' + Chat.escapeHTML(winner) + ' has also won <b>5</b> EXP for winning!</center>';
+			Exiled.addExp(winner, 5, () => this.room.add(msg).update());
 		} else {
 			this.room.add(msg).update();
 		}

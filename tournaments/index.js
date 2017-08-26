@@ -979,6 +979,7 @@ class Tournament {
 		for (let i in this.players) {
 			Users(this.players[i].userid).tourBoost = false;
 			Users(this.players[i].userid).gameBoost = false;
+			Exiled.addExp(this.players[i].userid, this.room, 20);
 			this.players[i].destroy();
 		}
 	}

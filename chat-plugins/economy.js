@@ -55,7 +55,7 @@ let shop = [
 	['Profile Help', 'Staff members will help you set your profile. (responses may not be immediate)', 50],
 	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 50],
 	['Custom PM Box', 'A Custom Designed PM Box Created by LassNinetales for you. [can be refused]', 75],
-	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Exiled Super Staff Bros metagame. Insist will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 500],
+	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Dewdrop Super Staff Bros metagame. Insist will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 500],
 ];
 
 let shopDisplay = getShopDisplay(shop);
@@ -177,11 +177,11 @@ function handleBoughtItem(item, user, cost) {
 		this.sendReply('You can now set your team!');
 	} else {
 		let msg = '**' + user.name + " has bought " + item + ".**";
-		Rooms.rooms.get("staff").add('|c|~Exiled Server|' + msg);
+		Rooms.rooms.get("staff").add('|c|~Dewdrop Server|' + msg);
 		Rooms.rooms.get("staff").update();
 		Users.users.forEach(function (user) {
 			if (user.group === '~' || user.group === '&' || user.group === '@') {
-				user.send('|pm|~Exiled Server|' + user.getIdentity() + '|' + msg);
+				user.send('|pm|~Dewdrop Server|' + user.getIdentity() + '|' + msg);
 			}
 		});
 	}
@@ -198,7 +198,7 @@ exports.commands = {
 		if (userid.length > 19) return this.sendReply("/wallet - [user] can't be longer than 19 characters.");
 
 		Economy.readMoney(userid, money => {
-			this.sendReplyBox(Exiled.nameColor(target, true) + " has " + money + ((money === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
+			this.sendReplyBox(Dew.nameColor(target, true) + " has " + money + ((money === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
 			//if (this.broadcasting) room.update();
 		});
 	},
@@ -339,7 +339,7 @@ exports.commands = {
 			let count = 1;
 			for (let u in rows) {
 				if (rows[u].amount < 1) continue;
-				output += '<tr><td>' + count + '</td><td>' + Exiled.nameColor(rows[u].name, true) + '</td><td>' + rows[u].amount + '</td></tr>';
+				output += '<tr><td>' + count + '</td><td>' + Dew.nameColor(rows[u].name, true) + '</td><td>' + rows[u].amount + '</td></tr>';
 				count++;
 			}
 			self.sendReplyBox(output);

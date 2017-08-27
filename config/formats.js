@@ -1497,7 +1497,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Clash of the Regions",
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		mod: 'clashoftheregions',
 		allowTies: true,
 		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
@@ -1683,7 +1683,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] SMASHING METAGAME",
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		mod: 'smashingmetagame',
 		allowTies: true,
 		ruleset: ['Cancel Mod', 'Exact HP Mod', 'Team Preview'],
@@ -1695,7 +1695,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Ash's Pokemon",
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		mod: 'ashspokemon',
 		allowTies: true,
 		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
@@ -1706,7 +1706,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] OP Metagame",
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		mod: "opmetagame",
 		allowTies: true,
 		ruleset: ['Exact HP Mod', 'Cancel Mod'],
@@ -1761,7 +1761,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Type Illusion",
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Shedinja"],
@@ -2546,7 +2546,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Infection",
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		allowTies: true,
 		desc: [
 			"&bullet; Credit to: flufi (Creator/Idea).",
@@ -2584,9 +2584,9 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Exiled Super Staff Bros.",
-		section: "Exiled's Custom Gamemodes",
-		mod: 'essb',
+		name: "[Gen 7] Dewdrop Super Staff Bros.",
+		section: "Dewdrop's Custom Gamemodes",
+		mod: 'dssb',
 		team: 'randomSeasonalMelee',
 		allowTies: true,
 		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
@@ -2594,7 +2594,6 @@ exports.Formats = [
 			"Credit to: Insist (head coder).",
 			"Thanks to all the auth whom cooperated in this process of making this.",
 			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
-			"&bullet; <a href=\"http://exiledps.boards.net/board/6/exiled-super-staff-bros\">ESSB Thread</a>",
 		],
 		onBegin: function () {
 			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
@@ -2892,7 +2891,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Holiday Metagame",
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		mod: "holiday",
 		allowTies: true,
 		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
@@ -2937,13 +2936,13 @@ exports.Formats = [
 		},
 		desc: [
 			"Pok&eacute Mystery Dungeon meets Pok&eacute Showdown.",
-			"Developed by SpacialGaze Developers/Exiled Developers contributed.",
-			"(Not originally Exiled's Project, SpacialGaze server (owned by HoeenHero and Mystifi) created it first, Exiled developers (Insist and Mewth) just edited and added stuff.",
+			"Developed by SpacialGaze Developers/Dewdrop Developers contributed.",
+			"(Not originally Dewdrop's Project, SpacialGaze server (owned by HoeenHero and Mystifi) created it first, Dewdrop developers (Insist and Mewth) just edited and added stuff.",
 		],
 	},
 	{
 		name: "[Gen 7] Supercell Games",
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		mod: "supercell",
 		allowTies: true,
 		team: "randomSeasonalMelee",
@@ -2955,7 +2954,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Digimon Showdown",
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		mod: "digimon",
 		allowTies: true,
 		team: "randomDigimon",
@@ -3196,25 +3195,25 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Fakemons Random Battle",
-		section: "Exiled Fakemons",
+		section: "Dewdrop Fakemons",
 		column: 5,
 		mod: "fakemons",
 		allowTies: true,
 		team: "random",
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		desc: [
-			"This is the Exiled Fakemons metagame, in which you use Exiled community created Pok&eacute.",
+			"This is the Dewdrop Fakemons metagame, in which you use Dewdrop community created Pok&eacute.",
 			"Users may submit them via the form on <b>/fakemon<b>.",
 		],
 	},
 	{
 		name: "[Gen 7] Fakemons",
 		mod: "fakemons",
-		section: "Exiled Fakemons",
+		section: "Dewdrop Fakemons",
 		allowTies: true,
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 		desc: [
-			"This is the Exiled Fakemons metagame, in which you use Exiled community created Pok&eacute.",
+			"This is the Dewdrop Fakemons metagame, in which you use Dewdrop community created Pok&eacute.",
 			"Users may submit them via the form on <b>/fakemon<b>.",
 		],
 	},

@@ -276,7 +276,7 @@ exports.commands = {
 		if (!this.can('pmall')) return false;
 		if (!target) return this.parse('/help pmall');
 
-		let pmName = '~Exiled Server';
+		let pmName = '~Dewdrop Server';
 
 		Users.users.forEach(function (user) {
 			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
@@ -291,7 +291,7 @@ exports.commands = {
 		if (!this.can('forcewin')) return false;
 		if (!target) return this.parse('/help pmallstaff');
 
-		let pmName = '~Exiled Server';
+		let pmName = '~Dewdrop Server';
 
 		Users.users.forEach(function (user) {
 			if (!user.isStaff) return;
@@ -309,7 +309,7 @@ exports.commands = {
 		if (!target) return this.sendReply("/rmall [message] - Sends a pm to all users in the room.");
 		target = target.replace(/<(?:.|\n)*?>/gm, '');
 
-		let pmName = '~Exiled Server';
+		let pmName = '~Dewdrop Server';
 
 		for (let i in room.users) {
 			let message = '|pm|' + pmName + '|' + room.users[i].getIdentity() + '| ' + target;

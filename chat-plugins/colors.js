@@ -33,7 +33,7 @@ function updateColor() {
 	let file = fs.readFileSync('config/custom.css', 'utf8').split('\n');
 	if (~file.indexOf('/* COLORS START */')) file.splice(file.indexOf('/* COLORS START */'), (file.indexOf('/* COLORS END */') - file.indexOf('/* COLORS START */')) + 1);
 	fs.writeFileSync('config/custom.css', file.join('\n') + newCss);
-	Exiled.reloadCSS();
+	Dew.reloadCSS();
 }
 
 function generateCSS(name, color) {
@@ -107,7 +107,7 @@ exports.commands = {
 	hex: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let targetUser = (target ? target : user.name);
-		this.sendReplyBox('The hex code of ' + Exiled.nameColor(targetUser, true) + ' is: <font color="' + Exiled.hashColor(targetUser) + '"><b>' + Exiled.hashColor(targetUser) + '</b></font>');
+		this.sendReplyBox('The hex code of ' + Dew.nameColor(targetUser, true) + ' is: <font color="' + Dew.hashColor(targetUser) + '"><b>' + Dew.hashColor(targetUser) + '</b></font>');
 	},
 };
 
@@ -183,7 +183,7 @@ function MD5(e) {
 let colorCache = {};
 
 // hashColor function
-Exiled.hashColor = function (name) {
+Dew.hashColor = function (name) {
 	name = toId(name);
 	if (customColors[name]) return customColors[name];
 	if (colorCache[name]) return colorCache[name];

@@ -68,7 +68,7 @@ function leaguePM(message, league) {
 	if (!leagues[leagueid]) return;
 	for (let u in leagues[leagueid].users) {
 		if (!Users(leagues[leagueid].users[u]) || !Users(leagues[leagueid].users[u]).connected) continue;
-		Users(leagues[leagueid].users[u]).send("|pm|~Exiled Server|~|/raw " + message);
+		Users(leagues[leagueid].users[u]).send("|pm|~Dewdrop Server|~|/raw " + message);
 	}
 }
 
@@ -93,7 +93,7 @@ function getBadges(user) {
 	}
 	return (Object.keys(badges).length > 0 ? badges : false);
 }
-Exiled.getBadges = getBadges;
+Dew.getBadges = getBadges;
 
 function getLeague(user) {
 	user = toId(user);
@@ -106,7 +106,7 @@ function getLeague(user) {
 	}
 	return reply;
 }
-Exiled.getLeague = getLeague;
+Dew.getLeague = getLeague;
 
 function getLeagueRank(user) {
 	user = toId(user);
@@ -117,7 +117,7 @@ function getLeagueRank(user) {
 		if (leagues[league].ranks[rank].users.includes(user)) return leagues[league].ranks[rank].title;
 	}
 }
-Exiled.getLeagueRank = getLeagueRank;
+Dew.getLeagueRank = getLeagueRank;
 
 // Storage.importTeam from https://github.com/Zarel/Pokemon-Showdown-Client/blob/master/js/storage.js#L969
 
@@ -369,7 +369,7 @@ function getTeam(link, callback) {
 		});
 	});
 }
-Exiled.getTeam = getTeam;
+Dew.getTeam = getTeam;
 
 function isOdd(number) {
 	return (number % 2) === 1;
@@ -423,16 +423,16 @@ function leagueTourPoints(winner, runnerup, tourSize, room) {
 		leagues[winnerLeague].points += winnerPoints;
 		save();
 		logPoints(winner, winnerPoints, "First place in a tournament in " + room.id);
-		room.addRaw("<b>" + Exiled.nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[winnerLeague].name) + "</b>");
+		room.addRaw("<b>" + Dew.nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[winnerLeague].name) + "</b>");
 	}
 	if (secondLeague && secondPoints > 0) {
 		leagues[secondLeague].points += secondPoints;
 		save();
 		logPoints(runnerup, secondPoints, "Second place in a tournament in " + room.id);
-		room.addRaw("<b>" + Exiled.nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[secondLeague].name) + "</b>");
+		room.addRaw("<b>" + Dew.nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[secondLeague].name) + "</b>");
 	}
 }
-Exiled.leagueTourPoints = leagueTourPoints;
+Dew.leagueTourPoints = leagueTourPoints;
 
 function isLvLBattle(p1, p2, id, status, types, score) {
 	let leagueId = toId(getLeague(p1));
@@ -460,8 +460,8 @@ function isLvLBattle(p1, p2, id, status, types, score) {
 				room.lvl.status[statusNumber] = id;
 			}
 			lvlDisplay(room);
-			room.add('|raw|<a href="/' + id + '">The League vs League battle between ' + Exiled.nameColor(p1, true) + ' (' + Chat.escapeHTML(leagues[leagueId].name) + ') and ' +
-				Exiled.nameColor(p2, true) + ' (' + Chat.escapeHTML(leagues[targetLeagueid].name) + ') has begun.</a>');
+			room.add('|raw|<a href="/' + id + '">The League vs League battle between ' + Dew.nameColor(p1, true) + ' (' + Chat.escapeHTML(leagues[leagueId].name) + ') and ' +
+				Dew.nameColor(p2, true) + ' (' + Chat.escapeHTML(leagues[targetLeagueid].name) + ') has begun.</a>');
 		} else if (status === 'types') {
 			if (room.lvl.mode === "normal") {
 				room.lvl.types[room.lvl.statusNumber] = types;
@@ -549,12 +549,12 @@ function isLvLBattle(p1, p2, id, status, types, score) {
 				room.lvl.status[statusNumber] = 2;
 			}
 			lvlDisplay(room);
-			room.add("|raw|The League vs League battle between " + Exiled.nameColor(p1, true) + " and " + Exiled.nameColor(p2, true) + " ended with a tie. They have to have a rematch.");
+			room.add("|raw|The League vs League battle between " + Dew.nameColor(p1, true) + " and " + Dew.nameColor(p2, true) + " ended with a tie. They have to have a rematch.");
 			room.update();
 		}
 	}
 }
-Exiled.isLvLBattle = isLvLBattle;
+Dew.isLvLBattle = isLvLBattle;
 
 function lvlDisplay(room) {
 	let output = '';
@@ -641,7 +641,7 @@ function lvlDisplay(room) {
 	room.add('|uhtml|lvl-' + room.lvl.lvlId + '|<div class="infobox">' + output + '</div>');
 	room.update();
 }
-Exiled.lvlDisplay = lvlDisplay;
+Dew.lvlDisplay = lvlDisplay;
 
 exports.commands = {
 	leagues: 'league',
@@ -755,7 +755,7 @@ exports.commands = {
 			leagues[leagueid].pendingInvites.push(targetUser.userid);
 			save();
 			leagueLog(user.name + " has invited " + targetUser.name + " to join the league.", leagueid);
-			leaguePM(Exiled.nameColor(user.name, true) + " has invited " + Exiled.nameColor(targetUser.name, true) + " to join the league.", leagueid);
+			leaguePM(Dew.nameColor(user.name, true) + " has invited " + Dew.nameColor(targetUser.name, true) + " to join the league.", leagueid);
 			let message = "/html has invited you to join the league " + Chat.escapeHTML(leagues[leagueid].name) + ". <br />" +
 				"<button name=\"send\" value=\"/league accept " + leagueid + "\">Click to accept</button> | <button name=\"send\" value=\"/league decline " + leagueid +
 				"\">Click to decline</button>";
@@ -778,7 +778,7 @@ exports.commands = {
 			leagues[leagueid].pendingInvites.splice(leagues[leagueid].pendingInvites.indexOf(user.userid), 1);
 			save();
 			leagueLog(user.name + " has accepted their invitation to join the league.", leagueid);
-			leaguePM(Exiled.nameColor(user.name, true) + " has accepted their invitation to join the league.", leagueid);
+			leaguePM(Dew.nameColor(user.name, true) + " has accepted their invitation to join the league.", leagueid);
 
 			user.popup("You've accepted the invitation to join " + leagues[leagueid].name + ".");
 		},
@@ -792,7 +792,7 @@ exports.commands = {
 			leagues[leagueid].pendingInvites.splice(leagues[leagueid].pendingInvites.indexOf(user.userid), 1);
 			save();
 			leagueLog(user.name + " has declined their invitation to join the league.", leagueid);
-			leaguePM(Exiled.nameColor(user.name, true) + " has declined their invitation to join the league.", leagueid);
+			leaguePM(Dew.nameColor(user.name, true) + " has declined their invitation to join the league.", leagueid);
 			user.popup("You've declined the invitation to join " + leagues[leagueid].name + ".");
 		},
 
@@ -815,9 +815,9 @@ exports.commands = {
 			leagues[leagueid].users.splice(leagues[leagueid].users.indexOf(targetid), 1);
 			save();
 			leagueLog(user.name + " has kicked " + target + " from the league.", leagueid);
-			leaguePM(Exiled.nameColor(user.name, true) + " has kicked " + Exiled.nameColor(target, true) + " from the league.", leagueid);
+			leaguePM(Dew.nameColor(user.name, true) + " has kicked " + Dew.nameColor(target, true) + " from the league.", leagueid);
 
-			if (Users(target) && Users(target).connected) Users(target).send("|popup||html|" + Exiled.nameColor(user.name, true) + " has kicked you from the league " + Chat.escapeHTML(leagues[leagueid].name) + ".");
+			if (Users(target) && Users(target).connected) Users(target).send("|popup||html|" + Dew.nameColor(user.name, true) + " has kicked you from the league " + Chat.escapeHTML(leagues[leagueid].name) + ".");
 			this.sendReply("You've kicked " + target + " from " + leagues[leagueid].name + ".");
 		},
 
@@ -833,7 +833,7 @@ exports.commands = {
 			leagues[leagueid].users.splice(leagues[leagueid].users.indexOf(user.userid), 1);
 			save();
 			leagueLog(user.name + " has left the league.", leagueid);
-			leaguePM(Exiled.nameColor(user.name, true) + " has left the league.", leagueid);
+			leaguePM(Dew.nameColor(user.name, true) + " has left the league.", leagueid);
 			this.sendReply("You have left " + leagues[leagueid].name + ".");
 		},
 
@@ -851,7 +851,7 @@ exports.commands = {
 			leagues[leagueid].desc = target;
 			save();
 			leagueLog(user.name + " has set the league description to '" + target + "'.", leagueid);
-			leaguePM(Exiled.nameColor(user.name, true) + " has set the league description to '" + Chat.escapeHTML(target) + "'.", leagueid);
+			leaguePM(Dew.nameColor(user.name, true) + " has set the league description to '" + Chat.escapeHTML(target) + "'.", leagueid);
 			this.sendReply("You've changed the league description.");
 		},
 
@@ -867,7 +867,7 @@ exports.commands = {
 			if (!hasPermission(user.userid, 'masspm')) return this.errorReply("You don't have permission to send a league pm.");
 
 			leagueLog(user.name + " has sent out a league pm: " + target, leagueid);
-			leaguePM("League announcement from " + Exiled.nameColor(user.name, true) + ":<br />" + Chat.escapeHTML(target), leagueid);
+			leaguePM("League announcement from " + Dew.nameColor(user.name, true) + ":<br />" + Chat.escapeHTML(target), leagueid);
 		},
 
 		members: function (target, room, user) {
@@ -883,7 +883,7 @@ exports.commands = {
 				output += Chat.escapeHTML(leagues[target].ranks[curRank].title) + " (" + leagues[target].ranks[curRank].users.length + "):\n";
 				for (let u in leagues[target].ranks[curRank].users) {
 					let curUser = leagues[target].ranks[curRank].users[u];
-					users.push(Exiled.nameColor(curUser, (Users(curUser) && Users(curUser).connected)));
+					users.push(Dew.nameColor(curUser, (Users(curUser) && Users(curUser).connected)));
 				}
 				output += users.join(',');
 				output += "\n\n";
@@ -950,8 +950,8 @@ exports.commands = {
 				save();
 				rank = leagues[leagueid].ranks[toId(rank)].title;
 				leagueLog(user.name + " has set " + targetUser.name + "'s rank to " + rank, leagueid);
-				leaguePM(Exiled.nameColor(user.name, true) + " has set " + Exiled.nameColor(targetUser.name, true) + "'s rank to " + Chat.escapeHTML(rank), leagueid);
-				targetUser.send("|popup||html|" + Exiled.nameColor(user.name, true) + " has set your league rank in " + Chat.escapeHTML(leagues[leagueid].name) + " to " +
+				leaguePM(Dew.nameColor(user.name, true) + " has set " + Dew.nameColor(targetUser.name, true) + "'s rank to " + Chat.escapeHTML(rank), leagueid);
+				targetUser.send("|popup||html|" + Dew.nameColor(user.name, true) + " has set your league rank in " + Chat.escapeHTML(leagues[leagueid].name) + " to " +
 				Chat.escapeHTML(rank) + ".");
 				this.sendReply("You've set " + targetUser.name + "'s league rank to " + rank + ".");
 			},
@@ -988,9 +988,9 @@ exports.commands = {
 				leagues[leagueid].ranks[toId(rank)].users.splice(leagues[leagueid].ranks[toId(rank)].users.indexOf(toId(targetUser)), 1);
 				save();
 				leagueLog(user.name + " has removed the rank " + rank + " from " + targetUser, leagueid);
-				leaguePM(Exiled.nameColor(user.name, true) + " has removed the rank " + Chat.escapeHTML(rank) + " from " + Exiled.nameColor(targetUser, true), leagueid);
+				leaguePM(Dew.nameColor(user.name, true) + " has removed the rank " + Chat.escapeHTML(rank) + " from " + Dew.nameColor(targetUser, true), leagueid);
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users(targetUser).send("|popup||html|" + Exiled.nameColor(user.name, true) + " has removed you from the league rank " + Chat.escapeHTML(rank) + " in " +
+					Users(targetUser).send("|popup||html|" + Dew.nameColor(user.name, true) + " has removed you from the league rank " + Chat.escapeHTML(rank) + " in " +
 					Chat.escapeHTML(leagues[leagueid].name) + ".");
 				}
 				this.sendReply("You've removed " + targetUser + " from the league rank " + rank + ".");
@@ -1034,7 +1034,7 @@ exports.commands = {
 				};
 				save();
 				leagueLog(user.name + " has added the rank '" + rank + "'.", leagueid);
-				leaguePM(Exiled.nameColor(user.name, true) + " has added the rank '" + Chat.escapeHTML(rank) + "'.", leagueid);
+				leaguePM(Dew.nameColor(user.name, true) + " has added the rank '" + Chat.escapeHTML(rank) + "'.", leagueid);
 				this.sendReply("You've added the rank '" + rank + "'.");
 			},
 
@@ -1074,7 +1074,7 @@ exports.commands = {
 				delete leagues[leagueid].ranks[toId(rank)];
 				save();
 				leagueLog(user.name + " has deleted the rank '" + rank + "'.", leagueid);
-				leagueLog(Exiled.nameColor(user.name, true) + " has deleted the rank '" + Chat.escapeHTML(rank) + "'.", leagueid);
+				leagueLog(Dew.nameColor(user.name, true) + " has deleted the rank '" + Chat.escapeHTML(rank) + "'.", leagueid);
 				this.sendReply("You've deleted the rank '" + rank + "'.");
 			},
 
@@ -1129,7 +1129,7 @@ exports.commands = {
 			getTeam(pastebin, (err, team) => {
 				if (err) return this.errorReply(err);
 				leagues[toId(league)].challengers[user.userid] = team;
-				leaguePM(Exiled.nameColor(user.name, true) + " has registered their team to become a challenger.", toId(league));
+				leaguePM(Dew.nameColor(user.name, true) + " has registered their team to become a challenger.", toId(league));
 				this.sendReply("Your team has been registered. You may now challenge league members with the '/league challenge' command.");
 				save();
 			});
@@ -1186,9 +1186,9 @@ exports.commands = {
 			user.prepBattle(Dex.getFormat('ubers').id, 'challenge', connection).then(result => {
 				if (result) {
 					user.makeChallenge(targetUser, 'monotype');
-					targetUser.send('|pm|' + user.getIdentity() + '|~|/raw <div class="infobox">' + Exiled.nameColor(user.name, true) + ' is challenging your league.</div>');
-					user.send('|pm|' + targetUser.getIdentity() + '|~|/raw <div class="infobox">You are challenging ' + Exiled.nameColor(targetUser.userid, true) + '\'s league.');
-					leaguePM(Exiled.nameColor(user.name, true) + " has challenged " + Exiled.nameColor(targetUser.name, true) + ".");
+					targetUser.send('|pm|' + user.getIdentity() + '|~|/raw <div class="infobox">' + Dew.nameColor(user.name, true) + ' is challenging your league.</div>');
+					user.send('|pm|' + targetUser.getIdentity() + '|~|/raw <div class="infobox">You are challenging ' + Dew.nameColor(targetUser.userid, true) + '\'s league.');
+					leaguePM(Dew.nameColor(user.name, true) + " has challenged " + Dew.nameColor(targetUser.name, true) + ".");
 				}
 			});
 		},
@@ -1228,7 +1228,7 @@ exports.commands = {
 				};
 				save();
 				leagueLog(user.name + " has added the badge '" + badgeName + "'.", leagueid);
-				leaguePM(Exiled.nameColor(user.name, true) + " has added the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
+				leaguePM(Dew.nameColor(user.name, true) + " has added the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
 				this.sendReply("Your badge has been added.");
 			},
 
@@ -1262,7 +1262,7 @@ exports.commands = {
 				leagues[leagueid].badges[toId(badgeName)].desc = badgeDesc;
 				save();
 				leagueLog(user.name + " has edited the badge '" + badgeName + "'.", leagueid);
-				leaguePM(Exiled.nameColor(user.name, true) + " has edited the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
+				leaguePM(Dew.nameColor(user.name, true) + " has edited the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
 				this.sendReply("That badge has been edited.");
 			},
 
@@ -1281,7 +1281,7 @@ exports.commands = {
 				delete leagues[leagueid].badges[toId(badgeName)];
 				save();
 				leagueLog(user.name + " has deleted the badge '" + badgeName + "'.", leagueid);
-				leaguePM(Exiled.nameColor(user.name, true) + " has deleted the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
+				leaguePM(Dew.nameColor(user.name, true) + " has deleted the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
 				this.sendReply("Your badge has been deleted.");
 			},
 
@@ -1306,9 +1306,9 @@ exports.commands = {
 				leagues[leagueid].badges[toId(badgeName)].users.push(toId(targetUser));
 				save();
 				leagueLog(user.name + " has given the badge '" + badgeName + "' to " + targetUser + ".", leagueid);
-				leaguePM(Exiled.nameColor(user.name, true) + " has given the badge '" + Chat.escapeHTML(badgeName) + "' to " + Exiled.nameColor(targetUser, true) + ".", leagueid);
+				leaguePM(Dew.nameColor(user.name, true) + " has given the badge '" + Chat.escapeHTML(badgeName) + "' to " + Dew.nameColor(targetUser, true) + ".", leagueid);
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users(targetUser).send("|popup||html|" + Exiled.nameColor(user.name, true) + " has given you the league badge " + Chat.escapeHTML(badgeName) + " in " + Chat.escapeHTML(leagues[leagueid].name) + ".");
+					Users(targetUser).send("|popup||html|" + Dew.nameColor(user.name, true) + " has given you the league badge " + Chat.escapeHTML(badgeName) + " in " + Chat.escapeHTML(leagues[leagueid].name) + ".");
 				}
 				this.sendReply("You've given " + targetUser + " the badge " + badgeName + ".");
 			},
@@ -1334,9 +1334,9 @@ exports.commands = {
 				leagues[leagueid].badges[toId(badgeName)].users.splice(leagues[leagueid].badges[toId(badgeName)].users.indexOf(toId(targetUser)), 1);
 				save();
 				leagueLog(user.name + " has taken the badge '" + badgeName + "' from " + targetUser + ".", leagueid);
-				leaguePM(Exiled.nameColor(user.name, true) + " has taken the badge '" + Chat.escapeHTML(badgeName) + "' from " + Exiled.nameColor(targetUser, true) + ".", leagueid);
+				leaguePM(Dew.nameColor(user.name, true) + " has taken the badge '" + Chat.escapeHTML(badgeName) + "' from " + Dew.nameColor(targetUser, true) + ".", leagueid);
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users(targetUser).send("|popup||html|" + Exiled.nameColor(user.name, true) + " has taken the league badge " + Chat.escapeHTML(badgeName) + " from you in " + Chat.escapeHTML(leagues[leagueid].name) + ".");
+					Users(targetUser).send("|popup||html|" + Dew.nameColor(user.name, true) + " has taken the league badge " + Chat.escapeHTML(badgeName) + " from you in " + Chat.escapeHTML(leagues[leagueid].name) + ".");
 				}
 				this.sendReply("You've taken the badge " + badgeName + " from " + targetUser + ".");
 			},
@@ -1363,9 +1363,9 @@ exports.commands = {
 				if (!target) return this.errorReply("Usage: /leagues badge view [user]");
 				if (toId(target).length > 19) return this.errorReply("That name is too long.");
 				if (!this.runBroadcast()) return;
-				let badges = Exiled.getBadges(target);
-				if (badges.length < 1) return this.sendReplyBox(Exiled.nameColor(target, true) + " has no league badges.");
-				let output = Exiled.nameColor(target, true) + "'s league badges:<br /><br />";
+				let badges = Dew.getBadges(target);
+				if (badges.length < 1) return this.sendReplyBox(Dew.nameColor(target, true) + " has no league badges.");
+				let output = Dew.nameColor(target, true) + "'s league badges:<br /><br />";
 				for (let u in badges) {
 					output += Chat.escapeHTML(u) + ":<br />";
 					for (let i in badges[u]) {
@@ -1408,8 +1408,8 @@ exports.commands = {
 				targetRoom.lvl.accepted = true;
 				lvlDisplay(targetRoom);
 
-				leaguePM(Exiled.nameColor(user.name, true) + ' has accepted the League vs League challenge against ' + Chat.escapeHTML(leagues[targetLeagueid].name), leagueId);
-				leaguePM(Exiled.nameColor(user.name, true) + ' (' + leagues[leagueId].name + ') has accepted the League vs League challenge against your league.', targetLeagueid);
+				leaguePM(Dew.nameColor(user.name, true) + ' has accepted the League vs League challenge against ' + Chat.escapeHTML(leagues[targetLeagueid].name), leagueId);
+				leaguePM(Dew.nameColor(user.name, true) + ' (' + leagues[leagueId].name + ') has accepted the League vs League challenge against your league.', targetLeagueid);
 
 				this.sendReply("You've accepted the League vs League against " + leagues[targetLeagueid].name + ".");
 			},
@@ -1431,8 +1431,8 @@ exports.commands = {
 					'<div class="infobox">(' + Chat.escapeHTML(leagues[leagueId].name) + ' has declined the League vs League challenge.)</div>'
 				);
 
-				leaguePM(Exiled.nameColor(user.name, true) + ' has declined the League vs League challenge against ' + Chat.escapeHTML(leagues[targetLeagueid].name), leagueId);
-				leaguePM(Exiled.nameColor(user.name, true) + ' (' + leagues[leagueId].name + ') has declined the League vs League challenge against your league.', targetLeagueid);
+				leaguePM(Dew.nameColor(user.name, true) + ' has declined the League vs League challenge against ' + Chat.escapeHTML(leagues[targetLeagueid].name), leagueId);
+				leaguePM(Dew.nameColor(user.name, true) + ' (' + leagues[leagueId].name + ') has declined the League vs League challenge against your league.', targetLeagueid);
 
 				delete Rooms.global.LvL[targetLeagueid];
 				delete Rooms.global.LvL[leagueId];
@@ -1459,7 +1459,7 @@ exports.commands = {
 				targetRoom.add('|uhtmlchange|lvl-' + targetRoom.lvl.lvlId + '|');
 				targetRoom.add('|uhtml|lvl-' + targetRoom.lvl.lvlId + '|(The League vs League has been forcibly ended by ' + Chat.escapeHTML(user.name) + ' (' + Chat.escapeHTML(leagues[leagueId].name) + '))');
 
-				leaguePM(Exiled.nameColor(user.name, true) + ' has forcibly ended the League vs League with ' + Chat.escapeHTML(leagues[targetLeagueid].name) + '.', leagueId);
+				leaguePM(Dew.nameColor(user.name, true) + ' has forcibly ended the League vs League with ' + Chat.escapeHTML(leagues[targetLeagueid].name) + '.', leagueId);
 
 				delete Rooms.global.LvL[targetLeagueid];
 				delete Rooms.global.LvL[leagueId];
@@ -1489,8 +1489,8 @@ exports.commands = {
 				if (league.invites.includes(targetUser.userid)) return this.errorReply("That user has already been invited to join the League vs League.");
 
 				league.invites.push(targetUser.userid);
-				leaguePM(Exiled.nameColor(user.name, true) + " has invited " + Exiled.nameColor(targetUser.name, true) + " to join the League vs League against " + Chat.escapeHTML(leagues[targetLeague.id].name), leagueId);
-				targetUser.send("|popup||modal||html|" + Exiled.nameColor(user.name, true) + " has invited you to join the League vs League against " + Chat.escapeHTML(leagues[targetLeague.id].name) +
+				leaguePM(Dew.nameColor(user.name, true) + " has invited " + Dew.nameColor(targetUser.name, true) + " to join the League vs League against " + Chat.escapeHTML(leagues[targetLeague.id].name), leagueId);
+				targetUser.send("|popup||modal||html|" + Dew.nameColor(user.name, true) + " has invited you to join the League vs League against " + Chat.escapeHTML(leagues[targetLeague.id].name) +
 					" in the room <button name=\"joinRoom\" value=\"" + targetRoom.id + "\">" + Chat.escapeHTML(targetRoom.title) + "</button>");
 				this.sendReply("You've invited " + targetUser.name + " to join the League vs League.");
 			},
@@ -1560,7 +1560,7 @@ exports.commands = {
 				if (!hasPermission(user.userid, 'lvl')) return this.errorReply("You don't have permission to start a league vs league.");
 				if (!user.can('broadcast', null, room)) return this.errorReply("You don't have permission to start a league vs league in that room.");
 
-				let lvlId = Exiled.randomString(10);
+				let lvlId = Dew.randomString(10);
 
 				Rooms.global.LvL[leagueId] = {
 					challenging: targetLeagueid,
@@ -1602,17 +1602,17 @@ exports.commands = {
 				for (let i = 0; i < size; i++) room.lvl.status.push((mode === "normal" ? 3 : 2));
 
 				leaguePM(
-					Exiled.nameColor(user.name, true) + ' (' + Chat.escapeHTML(getLeague(user.userid)) + ') has challenged your league to a League vs League (' +
+					Dew.nameColor(user.name, true) + ' (' + Chat.escapeHTML(getLeague(user.userid)) + ') has challenged your league to a League vs League (' +
 					size + 'v' + size + ') in' +
 					' <button name="joinRoom" value="' + room.id + '">' + Chat.escapeHTML(room.title) + '</button>.<br />' +
 					'<button name="send" value="/league lvl accept">Accept</button> | <button name="send" value="/league lvl deny">Decline</button>', targetLeagueid
 				);
 				leaguePM(
-					Exiled.nameColor(user.name, true) + ' has challenged ' + Chat.escapeHTML(leagues[targetLeagueid].name) + ' to a League vs League (' +
+					Dew.nameColor(user.name, true) + ' has challenged ' + Chat.escapeHTML(leagues[targetLeagueid].name) + ' to a League vs League (' +
 					size + 'v' + size + ') in <button name="joinRoom" value="' + room.id + '">' + Chat.escapeHTML(room.title) + '</button>'
 				);
 				room.add('|uhtml|lvl-' + lvlId + '|' +
-					'<div class="infobox"><center>' + Exiled.nameColor(user.name, true) + ' has challenged ' + Chat.escapeHTML(leagues[targetLeagueid].name) +
+					'<div class="infobox"><center>' + Dew.nameColor(user.name, true) + ' has challenged ' + Chat.escapeHTML(leagues[targetLeagueid].name) +
 					' to a League vs League. (' + size + 'v' + size + ')<br />Waiting for a response...</center></div>'
 				);
 			},
@@ -1654,7 +1654,7 @@ exports.commands = {
 				save();
 				logPointsUser("ADMIN", league, amount, "Points given by " + user.name);
 				this.sendReply("You've given " + leagues[league].name + " " + amount + (amount === 1 ? " point." : " points."));
-				leaguePM(Exiled.nameColor(user.name, true) + " has given your league " + amount + (amount === 1 ? " point." : " points."), league);
+				leaguePM(Dew.nameColor(user.name, true) + " has given your league " + amount + (amount === 1 ? " point." : " points."), league);
 			},
 
 			take: function (target, room, user) {
@@ -1674,7 +1674,7 @@ exports.commands = {
 				save();
 				logPointsUser("ADMIN", league, -amount, "Points taken by " + user.name);
 				this.sendReply("You've taken " + amount + (amount === 1 ? " point " : " points ") + " from " + leagues[league].name + ".");
-				leaguePM(Exiled.nameColor(user.name, true) + " has taken " + amount + (amount === 1 ? " point " : " points ") + " from your league.", league);
+				leaguePM(Dew.nameColor(user.name, true) + " has taken " + amount + (amount === 1 ? " point " : " points ") + " from your league.", league);
 			},
 
 			reset: function (target, room, user) {
@@ -1687,8 +1687,8 @@ exports.commands = {
 				}
 
 				this.logModCommand(user.name + " has reset all league points.");
-				Exiled.messageSeniorStaff("/html " + Exiled.nameColor(user.name, true) + " has reset all league points.");
-				Rooms('upperstaff').add("|raw|" + Exiled.nameColor(user.name, true) + " has reset all league points.").update();
+				Dew.messageSeniorStaff("/html " + Dew.nameColor(user.name, true) + " has reset all league points.");
+				Rooms('upperstaff').add("|raw|" + Dew.nameColor(user.name, true) + " has reset all league points.").update();
 				delete user.confirmLeaguePointsReset;
 				for (let u in leagues) leagues[u].points = 0;
 				save();
@@ -1723,7 +1723,7 @@ exports.commands = {
 
 					for (let u in rows) {
 						output += '<tr>';
-						output += '<td>' + Exiled.nameColor(rows[u].userid, (Users(rows[u].userid) && Users(rows[u].userid).connected)) + '</td>';
+						output += '<td>' + Dew.nameColor(rows[u].userid, (Users(rows[u].userid) && Users(rows[u].userid).connected)) + '</td>';
 						output += '<td>' + new Date(rows[u].date).toUTCString() + '</td>';
 						output += '<td>' + Chat.escapeHTML(rows[u].reason) + '</td>';
 						output += '<td>' + rows[u].points + '</td>';

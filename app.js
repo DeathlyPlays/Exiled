@@ -89,7 +89,7 @@ if (Config.watchconfig) {
  * Set up most of our globals
  *********************************************************/
 
-global.Exiled = {};
+global.Dew = {};
 
 global.Monitor = require('./monitor');
 

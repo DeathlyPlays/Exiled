@@ -65,7 +65,7 @@ function gangPM(message, Gang) {
 	if (!gangs[gangid]) return;
 	for (let u in gangs[gangid].users) {
 		if (!Users(gangs[gangid].users[u]) || !Users(gangs[gangid].users[u]).connected) continue;
-		Users(gangs[gangid].users[u]).send("|pm|~Exiled Server|~|/raw " + message);
+		Users(gangs[gangid].users[u]).send("|pm|~Dewdrop Server|~|/raw " + message);
 	}
 }
 
@@ -90,7 +90,7 @@ function getBadges(user) {
 	}
 	return (Object.keys(badges).length > 0 ? badges : false);
 }
-Exiled.getBadges = getBadges;
+Dew.getBadges = getBadges;
 
 function getGang(user) {
 	user = toId(user);
@@ -103,7 +103,7 @@ function getGang(user) {
 	}
 	return reply;
 }
-Exiled.getGang = getGang;
+Dew.getGang = getGang;
 
 function getGangRank(user) {
 	user = toId(user);
@@ -114,7 +114,7 @@ function getGangRank(user) {
 		if (gangs[gang].ranks[rank].users.includes(user)) return gangs[gang].ranks[rank].title;
 	}
 }
-Exiled.getGangRank = getGangRank;
+Dew.getGangRank = getGangRank;
 
 function hasPermission(user, permission) {
 	let gang = gangs[toId(getGang(user))];
@@ -150,16 +150,16 @@ function gangTourPoints(winner, runnerup, tourSize, room) {
 		gangs[winnerGang].points += winnerPoints;
 		save();
 		logPoints(winner, winnerPoints, "First place in a tournament in " + room.id);
-		room.addRaw("<b>" + Exiled.nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(gangs[winnerGang].name) + "</b>");
+		room.addRaw("<b>" + Dew.nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(gangs[winnerGang].name) + "</b>");
 	}
 	if (secondGang && secondPoints > 0) {
 		gangs[secondGang].points += secondPoints;
 		save();
 		logPoints(runnerup, secondPoints, "Second place in a tournament in " + room.id);
-		room.addRaw("<b>" + Exiled.nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(gangs[secondGang].name) + "</b>");
+		room.addRaw("<b>" + Dew.nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(gangs[secondGang].name) + "</b>");
 	}
 }
-Exiled.gangTourPoints = gangTourPoints;
+Dew.gangTourPoints = gangTourPoints;
 
 exports.commands = {
 	gangs: 'gang',
@@ -258,7 +258,7 @@ exports.commands = {
 			gangs[gangid].pendingInvites.push(targetUser.userid);
 			save();
 			gangLog(user.name + " has invited " + targetUser.name + " to join the gang.", gangid);
-			gangPM(Exiled.nameColor(user.name, true) + " has invited " + Exiled.nameColor(targetUser.name, true) + " to join the gang.", gangid);
+			gangPM(Dew.nameColor(user.name, true) + " has invited " + Dew.nameColor(targetUser.name, true) + " to join the gang.", gangid);
 			let message = "/html has invited you to join the gang " + Chat.escapeHTML(gangs[gangid].name) + ". <br />" +
 				"<button name=\"send\" value=\"/gang accept " + gangid + "\">Click to accept</button> | <button name=\"send\" value=\"/gang decline " + gangid +
 				"\">Click to decline</button>";
@@ -281,7 +281,7 @@ exports.commands = {
 			gangs[gangid].pendingInvites.splice(gangs[gangid].pendingInvites.indexOf(user.userid), 1);
 			save();
 			gangLog(user.name + " has accepted their invitation to join the gang.", gangid);
-			gangPM(Exiled.nameColor(user.name, true) + " has accepted their invitation to join the gang.", gangid);
+			gangPM(Dew.nameColor(user.name, true) + " has accepted their invitation to join the gang.", gangid);
 
 			user.popup("You've accepted the invitation to join " + gangs[gangid].name + ".");
 		},
@@ -295,7 +295,7 @@ exports.commands = {
 			gangs[gangid].pendingInvites.splice(gangs[gangid].pendingInvites.indexOf(user.userid), 1);
 			save();
 			gangLog(user.name + " has declined their invitation to join the gang.", gangid);
-			gangPM(Exiled.nameColor(user.name, true) + " has declined their invitation to join the gang.", gangid);
+			gangPM(Dew.nameColor(user.name, true) + " has declined their invitation to join the gang.", gangid);
 			user.popup("You've declined the invitation to join " + gangs[gangid].name + ".");
 		},
 
@@ -318,9 +318,9 @@ exports.commands = {
 			gangs[gangid].users.splice(gangs[gangid].users.indexOf(targetid), 1);
 			save();
 			gangLog(user.name + " has kicked " + target + " from the gang.", gangid);
-			gangPM(Exiled.nameColor(user.name, true) + " has kicked " + Exiled.nameColor(target, true) + " from the gang.", gangid);
+			gangPM(Dew.nameColor(user.name, true) + " has kicked " + Dew.nameColor(target, true) + " from the gang.", gangid);
 
-			if (Users(target) && Users(target).connected) Users(target).send("|popup||html|" + Exiled.nameColor(user.name, true) + " has kicked you from the gang " + Chat.escapeHTML(gangs[gangid].name) + ".");
+			if (Users(target) && Users(target).connected) Users(target).send("|popup||html|" + Dew.nameColor(user.name, true) + " has kicked you from the gang " + Chat.escapeHTML(gangs[gangid].name) + ".");
 			this.sendReply("You've kicked " + target + " from " + gangs[gangid].name + ".");
 		},
 
@@ -336,7 +336,7 @@ exports.commands = {
 			gangs[gangid].users.splice(gangs[gangid].users.indexOf(user.userid), 1);
 			save();
 			gangLog(user.name + " has left the gang.", gangid);
-			gangPM(Exiled.nameColor(user.name, true) + " has left the gang.", gangid);
+			gangPM(Dew.nameColor(user.name, true) + " has left the gang.", gangid);
 			this.sendReply("You have left " + gangs[gangid].name + ".");
 		},
 
@@ -354,7 +354,7 @@ exports.commands = {
 			gangs[gangid].desc = target;
 			save();
 			gangLog(user.name + " has set the gang description to '" + target + "'.", gangid);
-			gangPM(Exiled.nameColor(user.name, true) + " has set the gang description to '" + Chat.escapeHTML(target) + "'.", gangid);
+			gangPM(Dew.nameColor(user.name, true) + " has set the gang description to '" + Chat.escapeHTML(target) + "'.", gangid);
 			this.sendReply("You've changed the gang description.");
 		},
 
@@ -370,7 +370,7 @@ exports.commands = {
 			if (!hasPermission(user.userid, 'masspm')) return this.errorReply("You don't have permission to send a gang pm.");
 
 			gangLog(user.name + " has sent out a gang pm: " + target, gangid);
-			gangPM("gang announcement from " + Exiled.nameColor(user.name, true) + ":<br />" + Chat.escapeHTML(target), gangid);
+			gangPM("gang announcement from " + Dew.nameColor(user.name, true) + ":<br />" + Chat.escapeHTML(target), gangid);
 		},
 
 		members: function (target, room, user) {
@@ -386,7 +386,7 @@ exports.commands = {
 				output += Chat.escapeHTML(gangs[target].ranks[curRank].title) + " (" + gangs[target].ranks[curRank].users.length + "):\n";
 				for (let u in gangs[target].ranks[curRank].users) {
 					let curUser = gangs[target].ranks[curRank].users[u];
-					users.push(Exiled.nameColor(curUser, (Users(curUser) && Users(curUser).connected)));
+					users.push(Dew.nameColor(curUser, (Users(curUser) && Users(curUser).connected)));
 				}
 				output += users.join(',');
 				output += "\n\n";
@@ -453,8 +453,8 @@ exports.commands = {
 				save();
 				rank = gangs[gangid].ranks[toId(rank)].title;
 				gangLog(user.name + " has set " + targetUser.name + "'s rank to " + rank, gangid);
-				gangPM(Exiled.nameColor(user.name, true) + " has set " + Exiled.nameColor(targetUser.name, true) + "'s rank to " + Chat.escapeHTML(rank), gangid);
-				targetUser.send("|popup||html|" + Exiled.nameColor(user.name, true) + " has set your gang rank in " + Chat.escapeHTML(gangs[gangid].name) + " to " +
+				gangPM(Dew.nameColor(user.name, true) + " has set " + Dew.nameColor(targetUser.name, true) + "'s rank to " + Chat.escapeHTML(rank), gangid);
+				targetUser.send("|popup||html|" + Dew.nameColor(user.name, true) + " has set your gang rank in " + Chat.escapeHTML(gangs[gangid].name) + " to " +
 				Chat.escapeHTML(rank) + ".");
 				this.sendReply("You've set " + targetUser.name + "'s gang rank to " + rank + ".");
 			},
@@ -491,9 +491,9 @@ exports.commands = {
 				gangs[gangid].ranks[toId(rank)].users.splice(gangs[gangid].ranks[toId(rank)].users.indexOf(toId(targetUser)), 1);
 				save();
 				gangLog(user.name + " has removed the rank " + rank + " from " + targetUser, gangid);
-				gangPM(Exiled.nameColor(user.name, true) + " has removed the rank " + Chat.escapeHTML(rank) + " from " + Exiled.nameColor(targetUser, true), gangid);
+				gangPM(Dew.nameColor(user.name, true) + " has removed the rank " + Chat.escapeHTML(rank) + " from " + Dew.nameColor(targetUser, true), gangid);
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users(targetUser).send("|popup||html|" + Exiled.nameColor(user.name, true) + " has removed you from the gang rank " + Chat.escapeHTML(rank) + " in " +
+					Users(targetUser).send("|popup||html|" + Dew.nameColor(user.name, true) + " has removed you from the gang rank " + Chat.escapeHTML(rank) + " in " +
 					Chat.escapeHTML(gangs[gangid].name) + ".");
 				}
 				this.sendReply("You've removed " + targetUser + " from the gang rank " + rank + ".");
@@ -537,7 +537,7 @@ exports.commands = {
 				};
 				save();
 				gangLog(user.name + " has added the rank '" + rank + "'.", gangid);
-				gangPM(Exiled.nameColor(user.name, true) + " has added the rank '" + Chat.escapeHTML(rank) + "'.", gangid);
+				gangPM(Dew.nameColor(user.name, true) + " has added the rank '" + Chat.escapeHTML(rank) + "'.", gangid);
 				this.sendReply("You've added the rank '" + rank + "'.");
 			},
 
@@ -577,7 +577,7 @@ exports.commands = {
 				delete gangs[gangid].ranks[toId(rank)];
 				save();
 				gangLog(user.name + " has deleted the rank '" + rank + "'.", gangid);
-				gangLog(Exiled.nameColor(user.name, true) + " has deleted the rank '" + Chat.escapeHTML(rank) + "'.", gangid);
+				gangLog(Dew.nameColor(user.name, true) + " has deleted the rank '" + Chat.escapeHTML(rank) + "'.", gangid);
 				this.sendReply("You've deleted the rank '" + rank + "'.");
 			},
 
@@ -647,7 +647,7 @@ exports.commands = {
 				};
 				save();
 				gangLog(user.name + " has added the badge '" + badgeName + "'.", gangid);
-				gangPM(Exiled.nameColor(user.name, true) + " has added the badge '" + Chat.escapeHTML(badgeName) + "'.", gangid);
+				gangPM(Dew.nameColor(user.name, true) + " has added the badge '" + Chat.escapeHTML(badgeName) + "'.", gangid);
 				this.sendReply("Your badge has been added.");
 			},
 
@@ -681,7 +681,7 @@ exports.commands = {
 				gangs[gangid].badges[toId(badgeName)].desc = badgeDesc;
 				save();
 				gangLog(user.name + " has edited the badge '" + badgeName + "'.", gangid);
-				gangPM(Exiled.nameColor(user.name, true) + " has edited the badge '" + Chat.escapeHTML(badgeName) + "'.", gangid);
+				gangPM(Dew.nameColor(user.name, true) + " has edited the badge '" + Chat.escapeHTML(badgeName) + "'.", gangid);
 				this.sendReply("That badge has been edited.");
 			},
 
@@ -700,7 +700,7 @@ exports.commands = {
 				delete gangs[gangid].badges[toId(badgeName)];
 				save();
 				gangLog(user.name + " has deleted the badge '" + badgeName + "'.", gangid);
-				gangPM(Exiled.nameColor(user.name, true) + " has deleted the badge '" + Chat.escapeHTML(badgeName) + "'.", gangid);
+				gangPM(Dew.nameColor(user.name, true) + " has deleted the badge '" + Chat.escapeHTML(badgeName) + "'.", gangid);
 				this.sendReply("Your badge has been deleted.");
 			},
 
@@ -725,9 +725,9 @@ exports.commands = {
 				gangs[gangid].badges[toId(badgeName)].users.push(toId(targetUser));
 				save();
 				gangLog(user.name + " has given the badge '" + badgeName + "' to " + targetUser + ".", gangid);
-				gangPM(Exiled.nameColor(user.name, true) + " has given the badge '" + Chat.escapeHTML(badgeName) + "' to " + Exiled.nameColor(targetUser, true) + ".", gangid);
+				gangPM(Dew.nameColor(user.name, true) + " has given the badge '" + Chat.escapeHTML(badgeName) + "' to " + Dew.nameColor(targetUser, true) + ".", gangid);
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users(targetUser).send("|popup||html|" + Exiled.nameColor(user.name, true) + " has given you the gang badge " + Chat.escapeHTML(badgeName) + " in " + Chat.escapeHTML(gangs[gangid].name) + ".");
+					Users(targetUser).send("|popup||html|" + Dew.nameColor(user.name, true) + " has given you the gang badge " + Chat.escapeHTML(badgeName) + " in " + Chat.escapeHTML(gangs[gangid].name) + ".");
 				}
 				this.sendReply("You've given " + targetUser + " the badge " + badgeName + ".");
 			},
@@ -753,9 +753,9 @@ exports.commands = {
 				gangs[gangid].badges[toId(badgeName)].users.splice(gangs[gangid].badges[toId(badgeName)].users.indexOf(toId(targetUser)), 1);
 				save();
 				gangLog(user.name + " has taken the badge '" + badgeName + "' from " + targetUser + ".", gangid);
-				gangPM(Exiled.nameColor(user.name, true) + " has taken the badge '" + Chat.escapeHTML(badgeName) + "' from " + Exiled.nameColor(targetUser, true) + ".", gangid);
+				gangPM(Dew.nameColor(user.name, true) + " has taken the badge '" + Chat.escapeHTML(badgeName) + "' from " + Dew.nameColor(targetUser, true) + ".", gangid);
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users(targetUser).send("|popup||html|" + Exiled.nameColor(user.name, true) + " has taken the gang badge " + Chat.escapeHTML(badgeName) + " from you in " + Chat.escapeHTML(gangs[gangid].name) + ".");
+					Users(targetUser).send("|popup||html|" + Dew.nameColor(user.name, true) + " has taken the gang badge " + Chat.escapeHTML(badgeName) + " from you in " + Chat.escapeHTML(gangs[gangid].name) + ".");
 				}
 				this.sendReply("You've taken the badge " + badgeName + " from " + targetUser + ".");
 			},
@@ -782,9 +782,9 @@ exports.commands = {
 				if (!target) return this.errorReply("Usage: /gangs badge view [user]");
 				if (toId(target).length > 19) return this.errorReply("That name is too long.");
 				if (!this.runBroadcast()) return;
-				let badges = Exiled.getBadges(target);
-				if (badges.length < 1) return this.sendReplyBox(Exiled.nameColor(target, true) + " has no gang badges.");
-				let output = Exiled.nameColor(target, true) + "'s gang badges:<br /><br />";
+				let badges = Dew.getBadges(target);
+				if (badges.length < 1) return this.sendReplyBox(Dew.nameColor(target, true) + " has no gang badges.");
+				let output = Dew.nameColor(target, true) + "'s gang badges:<br /><br />";
 				for (let u in badges) {
 					output += Chat.escapeHTML(u) + ":<br />";
 					for (let i in badges[u]) {
@@ -830,7 +830,7 @@ exports.commands = {
 				save();
 				logPointsUser("ADMIN", gang, amount, "Points given by " + user.name);
 				this.sendReply("You've given " + gangs[gang].name + " " + amount + (amount === 1 ? " point." : " points."));
-				gangPM(Exiled.nameColor(user.name, true) + " has given your gang " + amount + (amount === 1 ? " point." : " points."), gang);
+				gangPM(Dew.nameColor(user.name, true) + " has given your gang " + amount + (amount === 1 ? " point." : " points."), gang);
 			},
 
 			take: function (target, room, user) {
@@ -850,7 +850,7 @@ exports.commands = {
 				save();
 				logPointsUser("ADMIN", gang, -amount, "Points taken by " + user.name);
 				this.sendReply("You've taken " + amount + (amount === 1 ? " point " : " points ") + " from " + gangs[gang].name + ".");
-				gangPM(Exiled.nameColor(user.name, true) + " has taken " + amount + (amount === 1 ? " point " : " points ") + " from your gang.", gang);
+				gangPM(Dew.nameColor(user.name, true) + " has taken " + amount + (amount === 1 ? " point " : " points ") + " from your gang.", gang);
 			},
 
 			reset: function (target, room, user) {
@@ -863,8 +863,8 @@ exports.commands = {
 				}
 
 				this.logModCommand(user.name + " has reset all gang points.");
-				Exiled.messageSeniorStaff("/html " + Exiled.nameColor(user.name, true) + " has reset all gang points.");
-				Rooms('upperstaff').add("|raw|" + Exiled.nameColor(user.name, true) + " has reset all gang points.").update();
+				Dew.messageSeniorStaff("/html " + Dew.nameColor(user.name, true) + " has reset all gang points.");
+				Rooms('upperstaff').add("|raw|" + Dew.nameColor(user.name, true) + " has reset all gang points.").update();
 				delete user.confirmGangPointsReset;
 				for (let u in gangs) gangs[u].points = 0;
 				save();
@@ -899,7 +899,7 @@ exports.commands = {
 
 					for (let u in rows) {
 						output += '<tr>';
-						output += '<td>' + Exiled.nameColor(rows[u].userid, (Users(rows[u].userid) && Users(rows[u].userid).connected)) + '</td>';
+						output += '<td>' + Dew.nameColor(rows[u].userid, (Users(rows[u].userid) && Users(rows[u].userid).connected)) + '</td>';
 						output += '<td>' + new Date(rows[u].date).toUTCString() + '</td>';
 						output += '<td>' + Chat.escapeHTML(rows[u].reason) + '</td>';
 						output += '<td>' + rows[u].points + '</td>';

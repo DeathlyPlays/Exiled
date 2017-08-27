@@ -641,7 +641,7 @@ class GlobalRoom {
 			user.joinRoom(this.autojoin[i], connection);
 			if (this.autojoin[i] === 'lobby') includesLobby = true;
 		}
-		if (!includesLobby && Config.serverid !== 'exiled') user.send(`>lobby\n|deinit`);
+		if (!includesLobby && Config.serverid !== 'dewdrop') user.send(`>lobby\n|deinit`);
 	}
 	checkAutojoin(user, connection) {
 		if (!user.named) return;

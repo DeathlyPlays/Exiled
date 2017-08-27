@@ -212,8 +212,8 @@ function parseMessage(message, user) {
 		div = "chat";
 		if (lineSplit.slice(3).join('|').match(highlight)) div = "chat highlighted";
 		message = '<span class="' + div + '"><small>[' + timestamp + ']</small> ' + '<small>' + name.substr(0, 1) +
-		'</small><b><font color="' + Exiled.nameColor(name.substr(1)) + '">' + name.substr(1, name.length) + ':</font></b><em>' +
-		Exiled.parseMessage(lineSplit.slice(3).join('|')) + '</em></span>';
+		'</small><b><font color="' + Dew.nameColor(name.substr(1)) + '">' + name.substr(1, name.length) + ':</font></b><em>' +
+		Dew.parseMessage(lineSplit.slice(3).join('|')) + '</em></span>';
 		break;
 	case 'c:':
 		name = lineSplit[3];
@@ -229,8 +229,8 @@ function parseMessage(message, user) {
 		timestamp = components.map(function (x) { return (x < 10) ? '0' + x : x;}).join(':');
 
 		message = '<span class="' + div + '"><small>[' + timestamp + ']</small> ' + '<small>' + name.substr(0, 1) +
-		'</small>' + Exiled.nameColor(toId(name), true) + '<em>' +
-		Exiled.parseMessage(lineSplit.slice(4).join('|')) + '</em></span>';
+		'</small>' + Dew.nameColor(toId(name), true) + '<em>' +
+		Dew.parseMessage(lineSplit.slice(4).join('|')) + '</em></span>';
 		break;
 	case 'uhtml':
 		message = '<span class="notice">' + lineSplit.slice(3).join('|').trim() + '</span>';

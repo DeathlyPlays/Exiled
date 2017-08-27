@@ -708,8 +708,8 @@ class User {
 		Db('rooms').get(userid, []).forEach(curRoom => {
 			if (!this.inRooms.has(curRoom)) this.tryJoinRoom(curRoom, connection);
 		});
-		Exiled.showNews(userid, this);
-		Exiled.giveDailyReward(userid, this);
+		Dew.showNews(userid, this);
+		Dew.giveDailyReward(userid, this);
 
 		return false;
 	}

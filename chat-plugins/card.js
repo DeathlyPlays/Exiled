@@ -28,9 +28,9 @@ const shop = [
 	['XY-Roaring Skies', 'Get three cards from the Roaring Skies pack released in the Pokemon XY set.', 4],
 	['XY-Ancient Origins', 'Get three cards from the Ancient Origins pack released in the Pokemon XY set.', 4],
 	['XY-Promo', 'Get three cards from the Promo pack released in the Pokemon XY set.', 10],
-	['Exiled', 'Get three cards from our custom made Exiled expansion.', 10],
+	['Dewdrop', 'Get three cards from our custom made Dewdrop expansion.', 10],
 ];
-let packShop = ['XY-Base', 'XY-Flashfire', 'XY-Furious Fists', 'XY-Phantom Forces', 'XY-Primal Clash', 'XY-Roaring Skies', 'XY-Ancient Origins', 'XY-Promo', 'Exiled', 'Double Crisis', 'Water', 'Fire', 'Fighting', 'Fairy', 'Dragon', 'Colorless', 'Psychic', 'Lightning', 'Darkness', 'Grass', 'OU-Pack', 'UU-Pack', 'Uber-Pack', 'PU-Pack', 'NU-Pack', 'RU-Pack', 'LC-Pack', 'BL-Pack', 'BL2-Pack', 'BL3-Pack', 'Gen1', 'Gen2', 'Gen3', 'Gen4', 'Gen5', 'Gen6', 'Metal', 'Trainer', 'Supporter', 'Item', 'Stadium', 'EX-Pack', 'Legendary', 'Full', 'Event'];
+let packShop = ['XY-Base', 'XY-Flashfire', 'XY-Furious Fists', 'XY-Phantom Forces', 'XY-Primal Clash', 'XY-Roaring Skies', 'XY-Ancient Origins', 'XY-Promo', 'Dewdrop', 'Double Crisis', 'Water', 'Fire', 'Fighting', 'Fairy', 'Dragon', 'Colorless', 'Psychic', 'Lightning', 'Darkness', 'Grass', 'OU-Pack', 'UU-Pack', 'Uber-Pack', 'PU-Pack', 'NU-Pack', 'RU-Pack', 'LC-Pack', 'BL-Pack', 'BL2-Pack', 'BL3-Pack', 'Gen1', 'Gen2', 'Gen3', 'Gen4', 'Gen5', 'Gen6', 'Metal', 'Trainer', 'Supporter', 'Item', 'Stadium', 'EX-Pack', 'Legendary', 'Full', 'Event'];
 const tourCardRarity = ['No Card', 'Common', 'Uncommon', 'Rare', 'Epic', 'Epic', 'Legendary', 'Legendary', 'Mythic'];
 const cardRarity = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic'];
 let cleanShop = [];
@@ -69,7 +69,7 @@ function cacheRarity() {
 	}
 }
 
-Exiled.tourCard = function (tourSize, userid) {
+Dew.tourCard = function (tourSize, userid) {
 	if (tourSize > 32) tourSize = 32;
 	let tourRarity = tourCardRarity[Math.floor(tourSize / 4)];
 	let cacheValue = rareCache[cleanCard.indexOf(toId(tourRarity))];
@@ -206,7 +206,7 @@ exports.commands = {
 		let amount = Db('money').get(user.userid, 0);
 		if (cleanShop.indexOf(packId) < 0) return self.sendReply("This is not a valid pack. Use /packshop to see all packs.");
 		let shopIndex = cleanShop.indexOf(toId(target));
-		if (packId !== 'xybase' && packId !== 'xyfuriousfists' && packId !== 'xyflashfire' && packId !== 'xyphantomforces' && packId !== 'xyroaringskies' && packId !== 'xyprimalclash' && packId !== 'xyancientorigins' && packId !== 'xygenerations' && packId !== 'xypromo' && packId !== 'exiled') return self.sendReply("This pack is not currently in circulation.  Please use /packshop to see the current packs.");
+		if (packId !== 'xybase' && packId !== 'xyfuriousfists' && packId !== 'xyflashfire' && packId !== 'xyphantomforces' && packId !== 'xyroaringskies' && packId !== 'xyprimalclash' && packId !== 'xyancientorigins' && packId !== 'xygenerations' && packId !== 'xypromo' && packId !== 'dewdrop') return self.sendReply("This pack is not currently in circulation.  Please use /packshop to see the current packs.");
 		let cost = shop[shopIndex][2];
 		if (cost > amount) return self.sendReply("You need " + (cost - amount) + " more bucks to buy this pack.");
 		Economy.writeMoney(user.userid, Number(-cost));
@@ -241,7 +241,7 @@ exports.commands = {
 			addCard(user.userid, card);
 			let cardName = cards[card].name;
 			let packName = packShop[cleanShop.indexOf(toId(target))];
-			this.sendReplyBox(Exiled.nameColor(user.name, true) + ' got <font color="' + colors[cards[card].rarity] + '">' + cards[card].rarity + '</font> ' +
+			this.sendReplyBox(Dew.nameColor(user.name, true) + ' got <font color="' + colors[cards[card].rarity] + '">' + cards[card].rarity + '</font> ' +
 			'<button name="send" value="/card ' + card + '"><b>' + cardName + '</b></button> from a ' +
 			'<button name="send" value="/buypack ' + packName + '">' + packName + ' Pack</button>.');
 		}
@@ -293,11 +293,11 @@ exports.commands = {
 		let userid = user.userid;
 		if (target) userid = toId(target);
 		const cards = Db('cards').get(userid, []);
-		if (!cards.length || userid === "constructor") return this.sendReplyBox(Exiled.nameColor(userid, false) + " has no cards.");
+		if (!cards.length || userid === "constructor") return this.sendReplyBox(Dew.nameColor(userid, false) + " has no cards.");
 		const cardsMapping = cards.map(function (card) {
 			return '<button name="send" value="/card ' + card.title + '" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;" class="card-button"><img src="' + card.card + '" width="80" title="' + card.name + '"></button>';
 		});
-		this.sendReplyBox('<div style="max-height: 300px; overflow-y: scroll;">' + cardsMapping.join('') + '</div><br><center><b>' + Exiled.nameColor(userid, false) + ' has ' + cards.length + ' cards and ' + getPointTotal(userid) + ' points.</b></center>');
+		this.sendReplyBox('<div style="max-height: 300px; overflow-y: scroll;">' + cardsMapping.join('') + '</div><br><center><b>' + Dew.nameColor(userid, false) + ' has ' + cards.length + ' cards and ' + getPointTotal(userid) + ' points.</b></center>');
 	},
 
 	card: function (target, room, user) {
@@ -318,7 +318,7 @@ exports.commands = {
 	cardladder: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let keys = Object.keys(Db('points').object()).map(function (name) {
-			return {name: Exiled.nameColor(name, false), points: getPointTotal(name)};
+			return {name: Dew.nameColor(name, false), points: getPointTotal(name)};
 		});
 		if (!keys.length) return this.sendReplyBox("Card ladder is empty.");
 		keys.sort(function (a, b) { return b.points - a.points; });
@@ -564,8 +564,8 @@ exports.commands = {
 
 		// send messages
 		this.sendReply("Your trade has been taken submitted.");
-		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~Exiled Server|" + targetUser + "|/raw <div class=\"broadcast-green\">" + Exiled.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
-		user.send("|pm|~Exiled Server|" + user.userid + "|/raw <div class=\"broadcast-green\">Your trade with " + Exiled.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
+		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~Dewdrop Server|" + targetUser + "|/raw <div class=\"broadcast-green\">" + Dew.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
+		user.send("|pm|~Dewdrop Server|" + user.userid + "|/raw <div class=\"broadcast-green\">Your trade with " + Dew.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
 	},
 
 	trades: 'viewcardtrades',
@@ -613,7 +613,7 @@ exports.commands = {
 		let cardImage = '<img src="' + card.card + '" height=250>';
 		// rarity display
 		let cardRarityPoints = '(<font color="' + colors[card.rarity] + '">' + card.rarity + '</font> - ' + card.points + ')<br />';
-		let userSideDisplay = '<center>' + Exiled.nameColor(user.userid, true) + '<br />' + cardImage + "<br />" + cardRarityPoints + '</center>';
+		let userSideDisplay = '<center>' + Dew.nameColor(user.userid, true) + '<br />' + cardImage + "<br />" + cardRarityPoints + '</center>';
 
 		// now build the target's side
 		card = cards[(displayTrade.from !== user.userid ? displayTrade.fromExchange : displayTrade.toExchange)];
@@ -621,7 +621,7 @@ exports.commands = {
 		cardImage = '<img src="' + card.card + '" height=250>';
 		// rarity display
 		cardRarityPoints = '(<font color="' + colors[card.rarity] + '">' + card.rarity + '</font> - ' + card.points + ')<br />';
-		let targetSideDisplay = "<center>" + (displayTrade.from !== user.userid ? Exiled.nameColor(displayTrade.from, true) : Exiled.nameColor(displayTrade.to, true)) + '<br />' + cardImage + "<br />" + cardRarityPoints + "</center>";
+		let targetSideDisplay = "<center>" + (displayTrade.from !== user.userid ? Dew.nameColor(displayTrade.from, true) : Dew.nameColor(displayTrade.to, true)) + '<br />' + cardImage + "<br />" + cardRarityPoints + "</center>";
 
 		// now build the entire popup
 		let tradeScreen = popup + // base popup
@@ -756,11 +756,11 @@ exports.commands = {
 			// and a button to view the card they just received
 			let targetUsers = [Users.get(trade.to), Users.get(trade.from)];
 			if (targetUsers[0]) {
-				targetUsers[0].popup("|html|" + backButton + "<center>Your trade with " + Exiled.nameColor(trade.from, true) + " has gone through." +
+				targetUsers[0].popup("|html|" + backButton + "<center>Your trade with " + Dew.nameColor(trade.from, true) + " has gone through." +
 				"<br /><button name=\"send\" value=\"/cs card, " + trade.fromExchange + "\">View Traded Card</button></center>"); // show card
 			}
 			if (targetUsers[1]) {
-				targetUsers[1].popup("|html|<center>Your trade with " + Exiled.nameColor(trade.to, true) + " has gone through." +
+				targetUsers[1].popup("|html|<center>Your trade with " + Dew.nameColor(trade.to, true) + " has gone through." +
 				"<br /><button name=\"send\" value=\"/cs card, " + trade.toExchange + "\">View Traded Card</button></center>");
 			}
 

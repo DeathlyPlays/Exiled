@@ -952,13 +952,13 @@ class Tournament {
 			this.room.addRaw("<b><font color='" + color + "'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='" + color + "'>" + firstMoney + " </font>" + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + " for winning the tournament!</b>");
 
 			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
-				Exiled.gangTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
+				Dew.gangTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
 			}
 			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
-				Exiled.leagueTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
+				Dew.leagueTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
 			}
 			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
-				let tourRarity = Exiled.tourCard(tourSize, toId(winner));
+				let tourRarity = Dew.tourCard(tourSize, toId(winner));
 				if (tourRarity) this.room.addRaw("<b>" + Chat.escapeHTML(winner) + " has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
 			}
 			if (runnerUp) {
@@ -979,7 +979,7 @@ class Tournament {
 		for (let i in this.players) {
 			Users(this.players[i].userid).tourBoost = false;
 			Users(this.players[i].userid).gameBoost = false;
-			Exiled.addExp(this.players[i].userid, this.room, 20);
+			Dew.addExp(this.players[i].userid, this.room, 20);
 			this.players[i].destroy();
 		}
 	}
@@ -1279,7 +1279,7 @@ let commands = {
 					offlineUsers.push(targetUser.userid);
 					continue;
 				} else {
-					let pmName = '~Exiled Server';
+					let pmName = '~Dewdrop Server';
 					let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + 'You have a tournament battle in the room "' + tournament.room.title + '". If you do not start soon you may be disqualified.';
 					targetUser.send(message);
 				}

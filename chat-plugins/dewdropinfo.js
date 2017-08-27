@@ -1,5 +1,5 @@
 /*
-The following commands were coded specifically for Exiled
+The following commands were coded specifically for Dewdrop
 Made by Insist
 feelscool
 Basically just edits to main's info.js, and adds more, removes stuff, etc.
@@ -152,19 +152,7 @@ exports.commands = {
 	'!discord': true,
 	discord: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Exiled Discord</a>");
-	},
-
-	'!reddit': true,
-	reddit: function () {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://www.reddit.com/me/m/exiled_ps/\">The Official Exiled Reddit</a>");
-	},
-
-	'!facebook': true,
-	facebook: function () {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://www.facebook.com/exiledserver/\">The Official Exiled Facebook Page</a>");
+		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Dewdrop Discord</a>");
 	},
 
 	//Credits to Snaquaza on these feature and other DragonHeaven developers/contributers
@@ -294,22 +282,22 @@ exports.commands = {
 
 	servercredits: 'credits',
 	credits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Exiled Credits:</b></u></font><br />" +
+		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Dewdrop Credits:</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Server Maintainers:</u></b><br />" +
-			"- " + Exiled.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
-			"- " + Exiled.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
+			"- " + Dew.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
+			"- " + Dew.nameColor('Insist', true) + " (Main Developer)<br />" +
 			"<br />" +
 			"<u><b>Major Contributors:</b></u><br />" +
-			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developer)<br />" +
-			"- " + Exiled.nameColor('Back At My Day', true) + " (Developer)<br />" +
-			"- " + Exiled.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
-			"- " + Exiled.nameColor('Gligars', true) + " (Developer)<br />" +
+			"- " + Dew.nameColor('AlfaStorm', true) + " (Developer)<br />" +
+			"- " + Dew.nameColor('Back At My Day', true) + " (Developer)<br />" +
+			"- " + Dew.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
+			"- " + Dew.nameColor('Gligars', true) + " (Developer)<br />" +
 			"<br />" +
 			"<u><b>Retired Staff:</b></u><br />" +
-			"- " + Exiled.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
-			"- " + Exiled.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
-			"- " + Exiled.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
+			"- " + Dew.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
+			"- " + Dew.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
+			"- " + Dew.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
 			"<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members<br />" +

@@ -41,9 +41,9 @@ exports.commands = {
 		if (isConnected && !Ontime[userid]) Ontime[userid] = Date.now();
 
 		if (isConnected) {
-			this.sendReplyBox('<b>' + Exiled.nameColor(user) + '</b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Current ontime: <b>' + displayTime(convertTime((currentOntime))) + '</b>.');
+			this.sendReplyBox('<b>' + Dew.nameColor(user) + '</b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Current ontime: <b>' + displayTime(convertTime((currentOntime))) + '</b>.');
 		} else {
-			this.sendReplyBox('<b>' + Exiled.nameColor(user) + '</b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Currently not online.');
+			this.sendReplyBox('<b>' + Dew.nameColor(user) + '</b>\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Currently not online.');
 		}
 	},
 	nolifeladder: 'ontimeladder',

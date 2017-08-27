@@ -1084,7 +1084,7 @@ exports.commands = {
 			(Config.groups[b] || {rank:0}).rank - (Config.groups[a] || {rank:0}).rank
 		).map(r => {
 			let roomRankList = rankLists[r].sort();
-			roomRankList = roomRankList.map(s => ((Users(s) && Users(s).connected) ? Exiled.nameColor(s, true) : Exiled.nameColor(s)));
+			roomRankList = roomRankList.map(s => ((Users(s) && Users(s).connected) ? Dew.nameColor(s, true) : Dew.nameColor(s)));
 			return (Config.groups[r] ? Chat.escapeHTML(Config.groups[r].name) + "s (" + Chat.escapeHTML(r) + ")" : r) + ":\n" + roomRankList.join(", ");
 		});
 
@@ -1093,7 +1093,7 @@ exports.commands = {
 			return;
 		}
 		if (targetRoom.founder) {
-			buffer.unshift((targetRoom.founder ? "Room Founder:\n" + ((Users(targetRoom.founder) && Users(targetRoom.founder).connected) ? Exiled.nameColor(targetRoom.founder, true) : Exiled.nameColor(targetRoom.founder)) : ''));
+			buffer.unshift((targetRoom.founder ? "Room Founder:\n" + ((Users(targetRoom.founder) && Users(targetRoom.founder).connected) ? Dew.nameColor(targetRoom.founder, true) : Dew.nameColor(targetRoom.founder)) : ''));
 		}
 		if (room.autorank) buffer.unshift("Autorank is currently set to " + Config.groups[room.autorank].name + " (" + room.autorank + ")");
 		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");

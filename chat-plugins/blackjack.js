@@ -137,7 +137,7 @@ let BJView = {
 		let output = "<div class='infobox'><center><b>The blackjack game has started!</b><br />";
 		output += "<b>There are " + players.length + " players.</b><br />";
 		players.forEach(function (player) {
-			output += "<b>" + Exiled.nameColor(player) + "'>" + player + ": </font></b> " + getPlayer[player].hand.join(", ") + "<br />";
+			output += "<b>" + Dew.nameColor(player) + "'>" + player + ": </font></b> " + getPlayer[player].hand.join(", ") + "<br />";
 		});
 		output += "</center></div>";
 		this.addRaw(output);

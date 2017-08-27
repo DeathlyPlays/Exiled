@@ -306,9 +306,9 @@ let emoticons = {
 	'feelsshrek': 'https://i.gyazo.com/f5868547d79a085e16121fae303bc7c7.png',
 };
 let emoteRegex = new RegExp('feelsbd', 'g');
-Exiled.ignoreEmotes = {};
+Dew.ignoreEmotes = {};
 try {
-	Exiled.ignoreEmotes = JSON.parse(fs.readFileSync('config/ignoreemotes.json', 'utf8'));
+	Dew.ignoreEmotes = JSON.parse(fs.readFileSync('config/ignoreemotes.json', 'utf8'));
 } catch (e) {}
 
 function loadEmoticons() {
@@ -334,14 +334,14 @@ function saveEmoticons() {
 
 function parseEmoticons(message) {
 	if (emoteRegex.test(message)) {
-		message = Exiled.parseMessage(message).replace(emoteRegex, function (match) {
+		message = Dew.parseMessage(message).replace(emoteRegex, function (match) {
 			return '<img src="' + emoticons[match] + '" title="' + match + '" height="50" width="50">';
 		});
 		return message;
 	}
 	return false;
 }
-Exiled.parseEmoticons = parseEmoticons;
+Dew.parseEmoticons = parseEmoticons;
 
 exports.commands = {
 	blockemote: 'ignoreemotes',
@@ -376,9 +376,9 @@ exports.commands = {
 			emoticons[parts[1]] = parts[2];
 			saveEmoticons();
 			this.sendReply('|raw|The emoticon "' + Chat.escapeHTML(parts[1]) + '" has been added: <img src="' + parts[2] + '">');
-			Rooms('upperstaff').add('|raw|' + Exiled.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
+			Rooms('upperstaff').add('|raw|' + Dew.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
 				'": <img width="50" height="50" src="' + parts[2] + '">').update();
-			Exiled.messageSeniorStaff('/html ' + Exiled.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
+			Dew.messageSeniorStaff('/html ' + Dew.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
 				'": <img width="50" height="50" src="' + parts[2] + '">');
 			break;
 
@@ -416,16 +416,16 @@ exports.commands = {
 			break;
 
 		case 'ignore':
-			if (Exiled.ignoreEmotes[user.userid]) return this.errorReply("You are already ignoring emoticons.");
-			Exiled.ignoreEmotes[user.userid] = true;
-			fs.writeFileSync('config/ignoreemotes.json', JSON.stringify(Exiled.ignoreEmotes));
+			if (Dew.ignoreEmotes[user.userid]) return this.errorReply("You are already ignoring emoticons.");
+			Dew.ignoreEmotes[user.userid] = true;
+			fs.writeFileSync('config/ignoreemotes.json', JSON.stringify(Dew.ignoreEmotes));
 			this.sendReply("You are now ignoring emoticons.");
 			break;
 
 		case 'unignore':
-			if (!Exiled.ignoreEmotes[user.userid]) return this.errorReply("You aren't ignoring emoticons.");
-			delete Exiled.ignoreEmotes[user.userid];
-			fs.writeFileSync('config/ignoreemotes.json', JSON.stringify(Exiled.ignoreEmotes));
+			if (!Dew.ignoreEmotes[user.userid]) return this.errorReply("You aren't ignoring emoticons.");
+			delete Dew.ignoreEmotes[user.userid];
+			fs.writeFileSync('config/ignoreemotes.json', JSON.stringify(Dew.ignoreEmotes));
 			this.sendReply("You are no longer ignoring emoticons.");
 			break;
 

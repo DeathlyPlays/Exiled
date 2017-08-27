@@ -838,23 +838,23 @@ exports.commands = {
 	},
 	backhelp: ["/back - Sets a users away status back to normal."],
 
-	'!essb': true,
-	essb: function (target, room, user) {
+	'!dssb': true,
+	dssb: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
-		if (!target || target === 'help') return this.parse('/help essb');
-		if (target === 'credits') return this.parse('/essbcredits');
+		if (!target || target === 'help') return this.parse('/help dssb');
+		if (target === 'credits') return this.parse('/dssbcredits');
 		let targetData = getMonData(toId(target));
 		if (!targetData) return this.errorReply("The staffmon '" + toId(target) + "' could not be found.");
 		return this.sendReplyBox(targetData);
 	},
 
-	essbhelp: function (target, room, user) {
+	dssbhelp: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		return this.sendReplyBox("/essb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.");
+		return this.sendReplyBox("/dssb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.");
 	},
 
-	essbcredits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5 color=#000080><u><b>ESSB Credits</b></u></font><br />" +
+	dssbcredits: function (target, room, user) {
+		let popup = "|html|" + "<font size=5 color=#000080><u><b>DSSB Credits</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Programmers:</u></b><br />" +
 			"- " + Dew.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +

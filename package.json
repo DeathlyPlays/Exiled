@@ -35,7 +35,7 @@
 	},
 	"main": "app.js",
 	"scripts": {
-		"start": "node app.js",
+		"start": "pokemon-showdown",
 		"test": "eslint --rulesdir=dev-tools/eslint --cache *.js chat-plugins/ config/ data/ dev-tools/ game-cards/ mods/ tournaments/ test/"
 	},
 	"bin": "./pokemon-showdown",

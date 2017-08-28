@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
 	"name": "pokemon-showdown",
 	"preferGlobal": true,
 	"description": "The server for the Pokémon Showdown battle simulator",
@@ -36,7 +35,7 @@
 	},
 	"main": "app.js",
 	"scripts": {
-		"start": "node app.js",
+		"start": "pokemon-showdown",
 		"test": "eslint --rulesdir=dev-tools/eslint --cache *.js chat-plugins/ config/ data/ dev-tools/ game-cards/ mods/ tournaments/ test/"
 	},
 	"bin": "./pokemon-showdown",
@@ -71,60 +70,4 @@
 		"@types/nodemailer": "^1.3.33",
 		"typescript": "^2.5.0-dev.20170622"
 	}
-=======
-  "name": "pokemon-showdown",
-  "preferGlobal": true,
-  "description": "The server for the Pokémon Showdown battle simulator",
-  "version": "0.11.1",
-  "dependencies": {
-    "sockjs": "0.3.18"
-  },
-  "optionalDependencies": {
-    "cloud-env": "0.2.2",
-    "node-static": "0.7.9"
-  },
-  "nonDefaultDependencies": {
-    "nodemailer": "4.0.1",
-    "ofe": "0.5.1"
-  },
-  "engines": {
-    "node": ">=7.7.0"
-  },
-  "scripts": {
-    "start": "node pokemon-showdown",
-    "test": "eslint --rulesdir=dev-tools/eslint --cache *.js chat-plugins/ config/ data/ dev-tools/ mods/ sim/ tournaments/ test/ && mocha"
-  },
-  "bin": "./pokemon-showdown",
-  "homepage": "http://pokemonshowdown.com",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Zarel/Pokemon-Showdown.git"
-  },
-  "author": {
-    "name": "Guangcong Luo",
-    "email": "guangcongluo@gmail.com",
-    "url": "http://guangcongluo.com"
-  },
-  "contributors": [
-    {
-      "name": "Cathy J. Fitzpatrick",
-      "email": "cathy@cathyjf.com",
-      "url": "https://cathyjf.com"
-    },
-    {
-      "name": "Bill Meltsner",
-      "email": "bill@meltsner.com",
-      "url": "http://www.meltsner.com"
-    }
-  ],
-  "private": true,
-  "license": "MIT",
-  "devDependencies": {
-    "eslint": "^4.0.0",
-    "mocha": "^3.0.0",
-    "@types/node": "^8.0.1",
-    "@types/nodemailer": "^1.3.33",
-    "typescript": "^2.5.0-dev.20170622"
-  }
->>>>>>> 74ff102794a0d2638031f7b293a81a4ea11d2d25
 }

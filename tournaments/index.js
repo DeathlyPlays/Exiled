@@ -140,13 +140,12 @@ class Tournament {
 		for (let i = 0; i < this.customRules.length; i++) {
 			let ban = this.customRules[i];
 			let charAt0 = ban.charAt(0);
-			ban = ban.substr(1);
 			if (charAt0 === '+') {
-				unbans.push(ban);
+				unbans.push(ban.substr(1));
 			} else if (charAt0 === '-') {
-				bans.push(ban);
+				bans.push(ban.substr(1));
 			} else if (charAt0 === '!') {
-				removedRules.push(ban);
+				removedRules.push(ban.substr(1));
 			} else {
 				addedRules.push(ban);
 			}
@@ -1401,7 +1400,7 @@ let commands = {
 	},
 };
 
-Chat.loadCommands();
+Chat.loadPlugins();
 Chat.commands.tour = 'tournament';
 Chat.commands.tours = 'tournament';
 Chat.commands.tournaments = 'tournament';

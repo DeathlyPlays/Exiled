@@ -7090,7 +7090,7 @@ exports.BattleItems = {
 		name: "Bearticite",
 		spritenum: -401,
 		megaStone: "Beartic-Mega",
-		megaEvolves: "Bearic",
+		megaEvolves: "Beartic",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;

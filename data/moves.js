@@ -15961,8 +15961,21 @@ exports.BattleMovedex = {
 		id: "splash",
 		name: "Splash",
 		pp: 40,
-		priority: 0,
+		priority: 2,
 		flags: {gravity: 1},
+		volatileStatus: 'focusenergy',
+		effect: {
+			onStart: function (target, source, effect) {
+				if (effect && effect.id === 'zpower') {
+					this.add('-start', target, 'move: Focus Energy', '[zeffect]');
+				} else {
+					this.add('-start', target, 'move: Focus Energy');
+				}
+			},
+			onModifyCritRatio: function (critRatio) {
+				return critRatio + 2;
+			},
+		},
 		onTryHit: function (target, source) {
 			this.add('-nothing');
 			return null;

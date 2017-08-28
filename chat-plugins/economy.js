@@ -6,8 +6,8 @@ const FS = require('fs');
 // Ideally, this should be zero.
 const DEFAULT_AMOUNT = 0;
 
-global.moneyName = 'Buck';
-global.moneyPlural = 'Bucks';
+global.moneyName = 'Soul Dew';
+global.moneyPlural = 'Soul Dews';
 
 /**
  * Gets an amount and returns the amount with the name of the money.
@@ -67,18 +67,18 @@ let shopDisplay = getShopDisplay(shop);
  * @return {String} display
  */
 function getShopDisplay(shop) {
-	let display = "<center><img src=https://play.pokemonshowdown.com/sprites/xyani/darkrai.gif><img src=http://i.imgur.com/WOewQZw.gif width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/cresselia.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #000; border-color: #DF0101; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
-		"<tbody><tr><th><font color=#DF0101 face=courier>Item</font></th><th><font color=#DF0101 face=courier>Description</font></th><th><font color=#DF0101 face=courier>Price</font></th></tr>";
+	let display = "<center><img src=https://play.pokemonshowdown.com/sprites/xyani/masquerain.gif><img src=http://i.imgur.com/7jnZePO.png width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/masquerain.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #2ae10e; border-color: #2e6dd8; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
+		"<tbody><tr><th><font color=#2e6dd8 face=courier>Item</font></th><th><font color=#2e6dd8 face=courier>Description</font></th><th><font color=#2e6dd8 face=courier>Price</font></th></tr>";
 	let start = 0;
 	while (start < shop.length) {
 		display += "<tr>" +
-			"<td align='center'><button name='send' style='background: #000; border-radius: 5px; border: solid, 1px, #DF0101; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#DF0101 face=courier><b>" + shop[start][0] + "</b></font></button>" + "</td>" +
-			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][1] + "</font></td>" +
-			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][2] + "</font></td>" +
+			"<td align='center'><button name='send' style='background: #2ae10e; border-radius: 5px; border: solid, 1px, #2e6dd8; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#2e6dd8 face=courier><b>" + shop[start][0] + "</b></font></button>" + "</td>" +
+			"<td align='center'><font color=#2e6dd8 face=courier>" + shop[start][1] + "</font></td>" +
+			"<td align='center'><font color=#2e6dd8 face=courier>" + shop[start][2] + "</font></td>" +
 			"</tr>";
 		start++;
 	}
-	display += "</tbody></table></div><br><center><font color=#000 face=courier>To buy an item from the shop, use /buy <em>Item</em>.</font></center>";
+	display += "</tbody></table></div><br><center><font color=#2ae10e face=courier>To buy an item from the shop, use /buy <em>Item</em>.</font></center>";
 	return display;
 }
 

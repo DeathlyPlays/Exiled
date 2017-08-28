@@ -15721,12 +15721,12 @@ exports.BattleMovedex = {
 		contestType: "Cool",
 	},
 	"epicsplash": {
-		num: -699,
+		num: -7000,
 		accuracy: true,
 		basePower: 225,
 		category: "Physical",
-		desc: "Speed, Attack, and Special Attack are max.",
-		shortDesc: "Speed, Attack, and Special Attack are max.",
+		desc: "Boosts the user's Speed, Attack, and Special Attack by six stages.",
+		shortDesc: "Boosts Speed, Attack, and Special Attack by 6 stages.",
 		id: "epicsplash",
 		name: "Epic Splash",
 		pp: 1,
@@ -15737,7 +15737,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Outrage", target);
 			this.add('-anim', source, "Splash", target);
 		},
-		isZ: "magikarniumz",
+		isZ: "magikariumz",
 		secondary: {
 			chance: 100,
 			self: {

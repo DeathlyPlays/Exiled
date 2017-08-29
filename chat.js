@@ -341,17 +341,12 @@ class CommandContext {
 
 		return message;
 	}
-<<<<<<< HEAD
-
-	splitCommand(message = this.message, recursing) {
-=======
 	/**
 	 * @param {string} message
 	 * @param {boolean} recursing
 	 * @return string
 	 */
 	splitCommand(message = this.message, recursing = false) {
->>>>>>> 523bb9f6dfd7ae5d9cf33666f1ece5bb15b875d4
 		this.cmd = '';
 		this.cmdToken = '';
 		this.target = '';

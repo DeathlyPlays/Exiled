@@ -175,17 +175,22 @@ exports.Formats = [
 		requirePentagon: true,
 	},
 	{
-		name: "[Gen 7] 2017 No Holds Barred",
-		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3610937/\">2017 No Holds Barred</a>"],
+		name: "[Gen 7] Mega Melee",
+		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3613480/\">Mega Melee</a>"],
 
 		mod: 'gen7',
-		forcedLevel: 100,
+		maxForcedLevel: 50,
 		teamLength: {
 			validate: [3, 6],
-			battle: 3,
+			battle: 1,
 		},
-		ruleset: ['Pokemon', 'Nickname Clause', 'Team Preview', 'Cancel Mod'],
-		banlist: ['Illegal', 'Unreleased', 'Mewtwo', 'Lugia', 'Ho-Oh', 'Kyogre', 'Groudon', 'Rayquaza', 'Dialga', 'Palkia', 'Giratina', 'Arceus', 'Reshiram', 'Zekrom', 'Kyurem', 'Xerneas', 'Yveltal', 'Solgaleo', 'Lunala'],
+		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		onValidateSet(set, format) {
+			let template = this.getTemplate(set.species || set.name);
+			if (!template.otherFormes || !this.getTemplate(template.otherFormes[0]).isMega) {
+				return [`${set.name || set.species} can't Mega Evolve and is banned in ${format.name}.`];
+			}
+		},
 	},
 	{
 		name: "[Gen 7] Custom Game",
@@ -403,7 +408,10 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
+<<<<<<< HEAD
 
+=======
+>>>>>>> c7335a39045dfba507a9b450cfd93df80660f4eb
 		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],
@@ -575,6 +583,7 @@ exports.Formats = [
 		},
 	},
 	{
+<<<<<<< HEAD
 		name: "[Gen 7] LC Mix and Mega",
 		desc: [
 			"Mega Stones and Primal Orbs can be used on almost any little cup Pok&eacute;mon with no Mega Evolution limit.",
@@ -585,11 +594,20 @@ exports.Formats = [
 		defaultLevel: 5,
 		ruleset: ['Team Preview', 'Cancel Mod', 'Little Cup', 'Pokemon', 'Illegal', 'Sleep Clause Mod'],
 		banlist: ['Baton Pass', 'NFE', 'Cranidos', 'Eevium Z'],
+=======
+		name: "[Gen 7] Mix and Mega (suspect test)",
+		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3587740/\">Mix and Mega Suspect #5: Marshadow</a>"],
+
+		mod: 'mixandmega',
+		challengeShow: false,
+		ruleset: ['[Gen 7] Mix and Mega'],
+>>>>>>> c7335a39045dfba507a9b450cfd93df80660f4eb
 		onValidateTeam: function (team) {
 			let itemTable = {};
 			for (let i = 0; i < team.length; i++) {
 				let item = this.getItem(team[i].item);
 				if (!item) continue;
+<<<<<<< HEAD
 				if (item in itemTable && itemTable[item] >= 2) {
 					if (item.megaStone) return ["You are limited to two of each Mega Stone.", "(You have more than two " + this.getItem(item).name + ")"];
 					if (item.id === 'blueorb' || item.id === 'redorb') return ["You are limited to two of each Primal Orb.", "(You have more than two " + this.getItem(item).name + ")"];
@@ -597,6 +615,11 @@ exports.Formats = [
 				} else {
 					itemTable[item] = 1;
 				}
+=======
+				if (itemTable[item] && item.megaStone) return ["You are limited to one of each Mega Stone.", "(You have more than one " + this.getItem(item).name + ")"];
+				if (itemTable[item] && (item.id === 'blueorb' || item.id === 'redorb')) return ["You are limited to one of each Primal Orb.", "(You have more than one " + this.getItem(item).name + ")"];
+				itemTable[item] = true;
+>>>>>>> c7335a39045dfba507a9b450cfd93df80660f4eb
 			}
 		},
 		onValidateSet: function (set) {
@@ -604,9 +627,15 @@ exports.Formats = [
 			let item = this.getItem(set.item);
 			if (!item.megaEvolves && item.id !== 'blueorb' && item.id !== 'redorb') return;
 			if (template.baseSpecies === item.megaEvolves || (template.baseSpecies === 'Groudon' && item.id === 'redorb') || (template.baseSpecies === 'Kyogre' && item.id === 'blueorb')) return;
+<<<<<<< HEAD
 
 			let uberStones = ['kangaskhanite'];
 			if (template.tier === 'Uber' || template.tier === 'Bank-Uber' || set.ability === 'Power Construct' || uberStones.includes(item.id)) return;
+=======
+			if (template.evos.length) return ["" + template.species + " is not allowed to hold " + item.name + " because it's not fully evolved."];
+			let uberStones = ['beedrillite', 'blazikenite', 'gengarite', 'kangaskhanite', 'mawilite', 'medichamite'];
+			if (template.tier === 'Uber' || template.species === 'Marshadow' || set.ability === 'Power Construct' || uberStones.includes(item.id)) return ["" + template.species + " is not allowed to hold " + item.name + "."];
+>>>>>>> c7335a39045dfba507a9b450cfd93df80660f4eb
 		},
 		onBegin: function () {
 			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);

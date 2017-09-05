@@ -3177,7 +3177,6 @@ exports.commands = {
 	 *********************************************************/
 
 	'!search': true,
-	cancelsearch: 'search',
 	search: function (target, room, user) {
 		if (target) {
 			if (Config.laddermodchat) {
@@ -3190,7 +3189,16 @@ exports.commands = {
 			}
 			Ladders.matchmaker.searchBattle(user, target);
 		} else {
+			Ladders.matchmaker.cancelSearches(user);
+		}
+	},
+
+	'!cancelsearch': true,
+	cancelsearch: function (target, room, user) {
+		if (target) {
 			Ladders.matchmaker.cancelSearch(user, target);
+		} else {
+			Ladders.matchmaker.cancelSearches(user);
 		}
 	},
 
@@ -3218,6 +3226,9 @@ exports.commands = {
 				this.popupReply("Because moderated chat is set, you must be of rank " + groupName + " or higher to challenge users.");
 				return false;
 			}
+		}
+		if (targetUser === user) {
+			return this.popupReply("You can't battle yourself. The best you can do is open PS in Private Browsing (or another browser) and log into a different username, and battle that username.");
 		}
 		user.prepBattle(Dex.getFormat(target).id, 'challenge', connection).then(validTeam => {
 			if (validTeam === false) return;

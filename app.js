@@ -91,13 +91,8 @@ if (Config.watchconfig) {
  * Set up most of our globals
  *********************************************************/
 
-<<<<<<< HEAD
 global.Exiled = {};
 
-global.Monitor = require('./monitor');
-
-=======
->>>>>>> 7f026e7e6092ceeac3936d55885a5169787feb8c
 global.Dex = require('./sim/dex');
 global.toId = Dex.getId;
 

@@ -71,6 +71,8 @@ try {
 
 global.Config = require('./config/config');
 
+global.Monitor = require('./monitor');
+
 if (Config.watchconfig) {
 	let configPath = require.resolve('./config/config');
 	FS(configPath).onModify(() => {
@@ -78,9 +80,9 @@ if (Config.watchconfig) {
 			delete require.cache[configPath];
 			global.Config = require('./config/config');
 			if (global.Users) Users.cacheGroupData();
-			console.log('Reloaded config/config.js');
+			Monitor.notice('Reloaded config/config.js');
 		} catch (e) {
-			console.error(`Error reloading config/config.js: ${e.stack}`);
+			Monitor.adminlog(`Error reloading config/config.js: ${e.stack}`);
 		}
 	});
 }
@@ -89,10 +91,13 @@ if (Config.watchconfig) {
  * Set up most of our globals
  *********************************************************/
 
+<<<<<<< HEAD
 global.Exiled = {};
 
 global.Monitor = require('./monitor');
 
+=======
+>>>>>>> 7f026e7e6092ceeac3936d55885a5169787feb8c
 global.Dex = require('./sim/dex');
 global.toId = Dex.getId;
 

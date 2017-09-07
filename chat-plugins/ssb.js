@@ -1,11 +1,10 @@
 'use strict';
 
-const fs = require('fs');
+let fs = require('fs');
 let ssbWrite = true; //if false, do not write to json
 let noRead = false; //if true, do not read from json
 const MAX_MOVEPOOL_SIZE = 4;
 let customMovepool = ['Stretch', 'Flame Tower', 'Rain Spear', 'Healing Herbs', 'Electro Drive', 'Hailstorm', 'Beat Down', 'Nuclear Waste', 'Terratremor', 'Ventilation', 'Psychic Shield', 'Swarm Charge', 'Rock Cannon', 'Spook', 'Imperial Rampage', 'Shadow Run', 'Magnorang', 'Majestic Dust']; //Add defual custom move names here.
-let customDescs = ['+1 Atk, +1 SpA, +1 Spe', '75 power Special attack, traps opponent for 4-5 turns and damages, 50% chance of burn', '50 power special move, 100 accuracy, summons rain, 20% chance to flinch', 'Heal your whole team of status conditions and heal 25% of your HP.', 'More power the faster the user is than the target, rasies speed by 1 after use.', 'Hail + Blizzard', '200 Base Power, has a 50% chance to paralyze target, must recharge after use', 'Inflict toxic on foe, and lower foes attack by 1. Lower accuracy.', '150BP Physical move, 15% chance to flinch', 'Remove entry hazards and set the weather to clear.', 'Sets Light Screen, Reflect, and Quick Guard.', '100 power physical attack, 90 accuracy, 30% chance to raise speed and attack.', 'Special attack, 95 power, 100 accuracy, 30% chance to Flinch', '70BP, 10% flinch chance, Always crits', '175BP outrage, also lowers your atk by 2 after it ends.', '100BP knock off', '100BP Physical move, if the foe is a steel type they will be trapped.', '120BP Special move. 10% par chance, power based move.'];
 let typeList = ['Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'];
 
 global.writeSSB = function () {
@@ -63,7 +62,7 @@ function validate(me, targetUser, quiet) {
 	let valid = true;
 	//species
 	let species = Dex.getTemplate(targetUser.species);
-	if (!species.exists || (!species.learnset && species.id !== 'oricoriosensu' && species.id !== 'oricoriopau' && species.id !== 'oricoriopompom') || species.gen < 1 || species.tier === 'Uber' || species.tier === 'Bank-Uber' || species.battleOnly) {
+	if (!species.exists || (!species.learnset && species.id !== 'oricoriosensu' && species.id !== 'oricoriopau' && species.id !== 'oricoriopompom') || species.gen < 1 || species.tier === 'Uber' || species.battleOnly) {
 		valid = false;
 		if (!quiet) me.errorReply(targetUser.name + '\'s species was invalid.');
 		species = Dex.getTemplate('unown');
@@ -71,9 +70,9 @@ function validate(me, targetUser, quiet) {
 		targetUser.ability = species.abilities['0']; //Force legal ability
 		targetUser.movepool = []; //force legal normal moves
 	}
-	if (species.tier === 'Uber' || species.tier === 'Bank-Uber') {
+	if (species.tier === 'Uber') {
 		//Most are banned a few arent
-		if (species.id !== 'aegislash' && species.id !== 'blaziken' && species.id !== 'greninja') {
+		if (species.id !== 'aegislash' && species.id !== 'blaziken') {
 			if (!quiet && valid) me.errorReply(targetUser.name + '\'s species was invalid.');
 			valid = false;
 			species = Dex.getTemplate('unown');
@@ -99,6 +98,11 @@ function validate(me, targetUser, quiet) {
 		if (!Dex.mod('ssbffa').getMove(targetUser.movepool[i]).exists) {
 			valid = false;
 			if (!quiet) me.errorReply(targetUser.name + '\'s move "' + targetUser.movepool[i] + '" does not exist.');
+			targetUser.removeMove(targetUser.movepool[i]);
+		}
+		if (Dex.getMove(targetUser.movepool[i]).ohko) {
+			valid = false;
+			if (!quiet) me.errorReply(targetUser.name + '\'s move "' + targetUser.movepool[i] + '" is banned because its an OHKO move.');
 			targetUser.removeMove(targetUser.movepool[i]);
 		}
 	}
@@ -210,7 +214,7 @@ function detailMenu(userid) {
 function customMenu() {
 	let output = '<div class="setchart" style="text-align:center; height:140px"><div style="max-height: 135px; overflow-y: scroll"><h3><u>Custom Moves</u></h3><button class="button" name="send" value="/ssb edit main">Main Menu</button>';
 	for (let i = 0; i < customMovepool.length; i++) {
-		output += '<div><b><u>' + customMovepool[i] + '</u></b>: Type: <i>' + typeList[i] + '</i>, Description: ' + customDescs[i] + ' <button class="button" name="send" value="/ssb edit move custom, ' + customMovepool[i] + '">Set as custom move</button></div><br/>';
+		output += '<div><b><u>' + customMovepool[i] + '</u></b>: Type: <i>' + typeList[i] + '</i>, Description: <button class="button" name="send" value="/dt ' + customMovepool[i] + ', ssbffa">Effects</button><button class="button" name="send" value="/ssb edit move custom, ' + customMovepool[i] + '">Set as custom move</button></div><br/>';
 	}
 	output += '<button class="button" name="send" value="/ssb edit main">Main Menu</button></div></div>';
 	return output;
@@ -273,9 +277,9 @@ class SSB {
 		if (!species.learnset && species.id !== 'oricoriosensu' && species.id !== 'oricoriopau' && species.id !== 'oricoriopompom') return false;
 		if (species.gen < 1) return false;
 		if (species.battleOnly) return false;
-		if (species.tier === 'Uber' || species.tier === 'Bank-Uber') {
+		if (species.tier === 'Uber') {
 			//Most are banned a few arent
-			if (species.id !== 'aegislash' && species.id !== 'blaziken' && species.id !== 'greninja') return false;
+			if (species.id !== 'aegislash' && species.id !== 'blaziken') return false;
 		}
 		this.species = species.species;
 		this.ability = species.abilities['0']; //Force legal ability
@@ -365,7 +369,7 @@ class SSB {
 				return false;
 			}
 		} else {
-			if (item.id === 'mawilite' || item.id === 'salamencite' || item.id === 'gengarite' || item.id === 'kangaskhanite' || item.id === 'lucarionite' || item.id === 'blazikenite') return false;
+			if (item.id === 'salamencite' || item.id === 'gengarite' || item.id === 'kangaskhanite' || item.id === 'lucarionite' || item.id === 'blazikenite') return false;
 			this.item = item.name;
 		}
 		return true;
@@ -394,14 +398,10 @@ class SSB {
 		move = Dex.getMove(toId(move));
 		if (!move.exists) return false; //Only normal moves here.
 		if (this.movepool.length + (this.cMove === false ? 0 : 1) >= MAX_MOVEPOOL_SIZE) return false;
-		/*let learnpool = [];
-		for(let i in Dex.getTemplate(this.species).learnset) {
-		  learnpool.push(i);
-		}
-		if (learnpool.indexOf(move.id) === -1) return false;*/
 		if (TeamValidator('gen7ou').checkLearnset(move, this.species, {
 			set: {},
 		})) return false;
+		if (move.ohko) return false;
 		if (this.movepool.indexOf(move.name) > -1) return false;
 		this.movepool.push(move.name);
 		return true;
@@ -660,7 +660,7 @@ exports.commands = {
 						if (cmd !== 'statsq') this.sendReply(target[1] + ' IV was set to ' + target[2] + '.');
 						return user.sendTo(room, '|uhtmlchange|ssb' + user.userid + '|' + statMenu(user.userid));
 					} else {
-						return this.errorReply('Ivs can only be between 0 and 31.');
+						return this.errorReply('Make sure your IVs are between 0 and 31 and that you spelled the stat name correctly.');
 					}
 					//break;
 				case 'nature':
@@ -937,7 +937,7 @@ exports.commands = {
 				return this.sendReply('All SSBFFA pokemon have been validated.');
 			}
 		},
-		validatehelp: ['/ssb validate [user] - Validate a users SSBFFA pokemon and if anything invalid is found, set to to its default value. Requires: &, ~'],
+		validatehelp: ['/ssb validate [user] - Validate a users SSBFFA pokemon and if anything invalid is found, set ti to its default value. Requires: &, ~'],
 		'': function (target, room, user, connection, cmd, message) {
 			return this.parse('/help ssb');
 		},
@@ -945,7 +945,7 @@ exports.commands = {
 	ssbhelp: ['/ssb - Commands for editing your custom super staff bros pokemon. Includes the following commands: ',
 		'/ssb edit - pulls up the general menu, allowing you to edit species and contains buttons to access other menus.',
 		'/ssb edit species - change the pokemon\'s species, not a menu',
-		'/ssb edit move - pulls up the move selection menu, allowing selection of 16 pre-created custom moves (1 per type) and (if purchased) your own custom-made custom move, As well as instructions for selecting normal moves.',
+		'/ssb edit move - pulls up the move selection menu, allowing selection of 16 pre-created custom moves (1 per type) and (if purchased) your own custom-made custom move, as well as instructions for selecting normal moves.',
 		'/ssb edit stats - pulls up the stat selection menu, allowing edits of evs, ivs, and nature.',
 		'/ssb edit ability - pulls up the ability selection menu, showing the pokemons legal abilities and (if purchased) your custom ability for you to choose from.',
 		'/ssb edit item - pulls up the item editing menu, giving instructions for setting a normal item, and (if purchased) a button to set your custom item.',
@@ -953,7 +953,7 @@ exports.commands = {
 		'/ssb toggle - Attempts to active or deactive your pokemon. Acitve pokemon can be seen in the tier. If your pokemon cannot be activated, you will see a popup explaining why.',
 		'/ssb custom - Shows all the default custom moves, with details.',
 		'/ssb log - Shows purchase details for SSBFFA.',
-		'/ssb [validate|validateall] (user) - validate a users SSBFFA pokemon, or validate all SSBFFA pokemon. If the pokemon is invalid it will be fixed and decativated. Requires: &, ~',
-		'Programed by HoeenHero.',
+		'/ssb [validate|validateall] (user) - validates a user\'s SSBFFA pokemon, or validates all SSBFFA pokemon. If the pokemon is invalid it will be fixed and decativated. Requires: &, ~',
+		'Programmed by HoeenHero.',
 	],
 };

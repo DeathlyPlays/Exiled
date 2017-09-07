@@ -865,6 +865,26 @@ exports.commands = {
 		}
 	},
 
+	psplwinnerroom: function (target, room, user) {
+		if (!this.can('makeroom')) return;
+		if (!room.chatRoomData) {
+			return this.errorReply(`/psplwinnerroom - This room can't be marked as a PSPL Winner room`);
+		}
+		if (target === 'off') {
+			if (!room.pspl) return this.errorReply(`This chat room is already not a PSPL Winner room.`);
+			delete room.pspl;
+			this.addModCommand(`${user.name} made this chat room no longer a PSPL Winner room.`);
+			delete room.chatRoomData.pspl;
+			Rooms.global.writeChatRoomData();
+		} else {
+			if (room.pspl) return this.errorReply("This chat room is already a PSPL Winner room.");
+			room.pspl = true;
+			this.addModCommand(`${user.name} made this chat room a PSPL Winner room.`);
+			room.chatRoomData.pspl = true;
+			Rooms.global.writeChatRoomData();
+		}
+	},
+
 	roomdesc: function (target, room, user) {
 		if (!target) {
 			if (!this.runBroadcast()) return;
@@ -3177,7 +3197,6 @@ exports.commands = {
 	 *********************************************************/
 
 	'!search': true,
-	cancelsearch: 'search',
 	search: function (target, room, user) {
 		if (target) {
 			if (Config.laddermodchat) {
@@ -3190,7 +3209,16 @@ exports.commands = {
 			}
 			Ladders.matchmaker.searchBattle(user, target);
 		} else {
+			Ladders.matchmaker.cancelSearches(user);
+		}
+	},
+
+	'!cancelsearch': true,
+	cancelsearch: function (target, room, user) {
+		if (target) {
 			Ladders.matchmaker.cancelSearch(user, target);
+		} else {
+			Ladders.matchmaker.cancelSearches(user);
 		}
 	},
 
@@ -3218,6 +3246,9 @@ exports.commands = {
 				this.popupReply("Because moderated chat is set, you must be of rank " + groupName + " or higher to challenge users.");
 				return false;
 			}
+		}
+		if (targetUser === user) {
+			return this.popupReply("You can't battle yourself. The best you can do is open PS in Private Browsing (or another browser) and log into a different username, and battle that username.");
 		}
 		user.prepBattle(Dex.getFormat(target).id, 'challenge', connection).then(validTeam => {
 			if (validTeam === false) return;

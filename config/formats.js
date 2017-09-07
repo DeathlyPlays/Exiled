@@ -315,7 +315,7 @@ exports.Formats = [
 		column: 2,
 	},
 	{
-		name: "[Gen 7] Tier Shift",
+		name: "[Gen 7] OM Tier Shift",
 		desc: [
 			"Pok&eacute;mon get +10 to each stat per tier below OU they are in. UU gets +10, RU +20, NU +30, and PU +40.",
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3610073/\">Tier Shift</a>",
@@ -3236,5 +3236,36 @@ exports.Formats = [
 			"This is the Dewdrop Fakemons metagame, in which you use Dewdrop community created Pok&eacute.",
 			"Users may submit them via the form on <b>/fakemon<b>.",
 		],
+	},
+	{
+		name: "[Gen 7] Tier Shift",
+		desc: [
+			"Pok&eacute;mon get +10 to each stat per tier below OU they are in. UU gets +10, RU +20, NU +30, and PU +40.",
+			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3610073/\">Tier Shift</a>",
+		],
+
+		mod: 'gen7',
+		ruleset: ['[Gen 7] OU'],
+		banlist: ['Tangela'],
+		onModifyTemplate: function (template, pokemon) {
+			if (pokemon.tierShifted) return;
+			let tsTemplate = Object.assign({}, template);
+			const boosts = {'UU': 10, 'BL2': 10, 'RU': 20, 'BL3': 20, 'NU': 30, 'BL4': 30, 'PU': 40, 'NFE': 40, 'LC Uber': 40, 'LC': 40};
+			let tier = tsTemplate.tier;
+			if (pokemon.set.item) {
+				let item = this.getItem(pokemon.set.item);
+				if (item.megaEvolves === tsTemplate.species) tier = this.getTemplate(item.megaStone).tier;
+			}
+			if (tier.charAt(0) === '(') tier = tier.slice(1, -1);
+			let boost = (tier in boosts) ? boosts[tier] : 0;
+			if (boost > 0 && (pokemon.set.ability === 'Drizzle' || pokemon.set.item === 'Mewnium Z')) boost = 0;
+			if (boost > 20 && pokemon.set.ability === 'Drought') boost = 20;
+			tsTemplate.baseStats = Object.assign({}, tsTemplate.baseStats);
+			for (let statName in tsTemplate.baseStats) {
+				tsTemplate.baseStats[statName] = this.clampIntRange(tsTemplate.baseStats[statName] + boost, 1, 255);
+			}
+			pokemon.tierShifted = true;
+			return tsTemplate;
+		},
 	},
 ];

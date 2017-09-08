@@ -878,9 +878,9 @@ exports.commands = {
 		}
 		let topMsg = "Displaying the last " + numLines + " lines of transactions:\n";
 		let file = path.join('logs/errors.txt');
-		fs.exists(file, function (exists) {
+		FS.exists(file, function (exists) {
 			if (!exists) return connection.popup("There are no errors.");
-			fs.readFile(file, 'utf8', function (err, data) {
+			FS.readFile(file, 'utf8', function (err, data) {
 				data = data.split('\n');
 				if (target && matching) {
 					data = data.filter(function (line) {

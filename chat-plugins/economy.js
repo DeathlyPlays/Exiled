@@ -368,6 +368,7 @@ exports.commands = {
 		if (isNaN(target)) target = 100;
 		if (!this.runBroadcast()) return;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (this.broadcasting && target > 10) target = 10; // limit to 10 while broadcasting
 		if (target > 500) target = 500;
 
@@ -389,6 +390,9 @@ exports.commands = {
 			return b.amount - a.amount;
 =======
 		let keys = Object.keys(Db('ontime').object()).map(function (name) {
+=======
+		let keys = Object.keys(Db("money").object()).map(function (name) {
+>>>>>>> cf2fa401731773fa457b69305f2df54699eb2799
 			return {name: name, money: Db("money").get(name)};
 >>>>>>> 78c9ce374eaca05d6301a941b6b3ac41a6c4ce1d
 		});

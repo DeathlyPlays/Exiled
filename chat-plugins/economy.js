@@ -367,7 +367,7 @@ exports.commands = {
 		target = Number(target);
 		if (isNaN(target)) target = 100;
 		if (!this.runBroadcast()) return;
-		let keys = Object.keys(Db('ontime').object()).map(function (name) {
+		let keys = Object.keys(Db("money").object()).map(function (name) {
 			return {name: name, money: Db("money").get(name)};
 		});
 		if (!keys.length) return this.sendReplyBox("Money ladder is empty.");

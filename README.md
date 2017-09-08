@@ -1,13 +1,13 @@
-Exiled @ Pokemon Showdown
+Dewdrop @ Pokemon Showdown
 ========================================================================
 
 Navigation: [Website][1] | **Server repository** | [Client repository][2] | [Dex repository][3]
 
-[![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg)](https://travis-ci.org/DeathlyPlays/Exiled)
-[![Dependency Status](https://david-dm.org/DeathlyPlays/Exiled.svg)](https://david-dm.org/DeathlyPlays/Exiled)
-[![devDependency Status](https://david-dm.org/DeathlyPlays/Exiled/dev-status.svg)](https://david-dm.org/DeathlyPlays/Exiled#info=devDependencies)
+[![Build Status](https://travis-ci.org/Dewdrop-PS/Dewdrop.svg)](https://travis-ci.org/Dewdrop-PS/Dewdrop)
+[![Dependency Status](https://david-dm.org/Dewdrop-PS/Dewdrop.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop)
+[![devDependency Status](https://david-dm.org/Dewdrop-PS/Dewdrop/dev-status.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop#info=devDependencies)
 
-	[1]: http://exiled.psim.us
+	[1]: http://dewdrop.psim.us
 	[2]: https://github.com/Zarel/Pokemon-Showdown-Client
 	[3]: https://github.com/Zarel/Pokemon-Showdown-Dex
 	
@@ -20,7 +20,7 @@ This repository contains the files needed to set up your own Pokémon Showdown s
 
 You can use your own computer as a server, but for other people to connect to your computer, you'll need to expose a port (default is 8000 but you can choose a different one) to connect to, which sometimes requires [port forwarding][5] (note that this isn't possible on certain internet connections).
 
-	[4]: http://exiled.psim.us
+	[4]: http://dewdrop.psim.us
 	[5]: http://en.wikipedia.org/wiki/Port_forwarding
 
 

@@ -4,6 +4,7 @@ const FS = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
 const http = require('http');
+const path = require('path');
 const Pokedex = require('../data/pokedex.js').BattlePokedex;
 let request = require('request');
 
@@ -863,6 +864,32 @@ exports.commands = {
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";
 		user.popup(popup);
+	},
+
+	'!errorlog': true,
+	errorlog: function (target, room, user, connection) {
+		if (!this.can('modchat')) return;
+		target = toId(target);
+		let numLines = 1000;
+		let matching = true;
+		if (target.match(/\d/g) && !isNaN(target)) {
+			numLines = Number(target);
+			matching = false;
+		}
+		let topMsg = "Displaying the last " + numLines + " lines of transactions:\n";
+		let file = path.join('logs/errors.txt');
+		FS.exists(file, function (exists) {
+			if (!exists) return connection.popup("There are no errors.");
+			FS.readFile(file, 'utf8', function (err, data) {
+				data = data.split('\n');
+				if (target && matching) {
+					data = data.filter(function (line) {
+						return line.toLowerCase().indexOf(target.toLowerCase()) >= 0;
+					});
+				}
+				connection.popup('|wide|' + topMsg + data.slice(-(numLines + 1)).join('\n'));
+			});
+		});
 	},
 	'!dub': true,
 	dub: 'dubtrack',

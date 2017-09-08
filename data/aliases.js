@@ -2,11 +2,6 @@
 
 exports.BattleAliases = {
 	// formats
-<<<<<<< HEAD
-	"ff": "[Gen 7] Frantic Fusions",
-	"randombattle": "[Gen 7] Random Battle",
-=======
->>>>>>> 8a47ea6ad9adb00e915a21ad70b84bba19717d16
 	"randbats": "[Gen 7] Random Battle",
 	"uber": "[Gen 7] Ubers",
 	"ag": "[Gen 7] Anything Goes",
@@ -747,4 +742,5 @@ exports.BattleAliases = {
 	"sp": "[Gen 7] Swapping Powers",
 	"mono": "[Gen 7] Monotype",
 	"monoru": "[Gen 7] Monotype RU",
+	"ff": "[Gen 7] Frantic Fusions",
 };

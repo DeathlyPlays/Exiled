@@ -771,17 +771,19 @@ class User {
 		//   6: permabanned
 		if (userType !== '1') {
 			registered = true;
-		} else if (userType === '3') {
-			this.isSysop = true;
-			this.trusted = userid;
-			this.autoconfirmed = userid;
-		} else if (userType === '4') {
-			this.autoconfirmed = userid;
-		} else if (userType === '5' || Db('perma').get(userid) === 5) {
-			this.permalocked = userid;
-			Punishments.lock(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permalocked as ${name}`);
-		} else if (userType === '6' || Db('perma').get(userid) === 6) {
-			Punishments.ban(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permabanned as ${name}`);
+
+			if (userType === '3') {
+				this.isSysop = true;
+				this.trusted = userid;
+				this.autoconfirmed = userid;
+			} else if (userType === '4') {
+				this.autoconfirmed = userid;
+			} else if (userType === '5' || Db('perma').get(userid) === 5) {
+				this.permalocked = userid;
+				Punishments.lock(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permalocked as ${name}`);
+			} else if (userType === '6' || Db('perma')get(userid) === 6) {
+				Punishments.ban(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permabanned as ${name}`);
+			}
 		}
 		let user = users.get(userid);
 		if (user && user !== this) {

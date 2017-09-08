@@ -2649,10 +2649,10 @@ exports.Formats = [
 
 			//Switch-in Quotes
 			if (name === 'insist') {
-				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
+				this.add('c|@Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 			}
 			if (name === 'gligars') {
-				this.add('c|%Gligars|Glhf...');
+				this.add('c| Gligars|Glhf...');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
@@ -2664,13 +2664,13 @@ exports.Formats = [
 				this.add('c|&flufi|Howdy');
 			}
 			if (name === 'hoeenhero') {
-				this.add('c|%HoeenHero|Do I have to? I\'m in the middle of programming.');
+				this.add('c| HoeenHero|Do I have to? I\'m in the middle of programming.');
 			}
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
 			}
 			if (name === 'almightyjudgment') {
-				this.add('c|+Almighty Judgment|M3RP');
+				this.add('c| Almighty Judgment|M3RP');
 			}
 			if (name === 'guiltasbr') {
 				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
@@ -2682,10 +2682,10 @@ exports.Formats = [
 				this.add('c|%Horrific17|It seems you\'ve made a __horrific__ mistake');
 			}
 			if (name === 'krakenmare') {
-				this.add('c|@Kraken Mare|Today, I prove Gardevoir is the best Pokemon!');
+				this.add('c|&Kraken Mare|Today, I prove Gardevoir is the best Pokemon!');
 			}
 			if (name === 'klefkei') {
-				this.add('c|@Klefkei|Hi Toxic Whore :) Ready To Die? kappa');
+				this.add('c| Klefkei|Hi Toxic Whore :) Ready To Die? kappa');
 			}
 			if (name === 'linkcode') {
 				this.add('c| LinkCode|I\'m a cool cat makin\' waves all over town! When they see me comin\', everybody\'s heads turn \'round!');
@@ -2769,7 +2769,7 @@ exports.Formats = [
 			let name = toId(pokemon.name);
 			//switchout
 			if (name === 'insist') {
-				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
+				this.add('c|@Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|fuck you');
@@ -2778,7 +2778,7 @@ exports.Formats = [
 				this.add('c| AB Starfox|Time for me to get a life');
 			}
 			if (name === 'hoeenhero') {
-				this.add('c|%HoeenHero|I can\'t battle now, I\'m too busy.');
+				this.add('c| HoeenHero|I can\'t battle now, I\'m too busy.');
 			}
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
@@ -2787,7 +2787,7 @@ exports.Formats = [
 				this.add('c| EchoSierra|bbl fam');
 			}
 			if (name === 'krakenmare') {
-				this.add('c|@Kraken Mare|I shall spare you today, young one!');
+				this.add('c|&Kraken Mare|I shall spare you today, young one!');
 			}
 			if (name === 'linkcode') {
 				this.add('c| LinkCode|**𝐋𝐚𝐭𝐞𝐫, 𝐧𝐞𝐫𝐝.**');
@@ -2798,15 +2798,15 @@ exports.Formats = [
 			let name = toId(pokemon.name);
 			//le faint
 			if (name === 'insist') {
-				this.add('c|~Insist|Death.... what a cool concept.');
-				this.add('c|~Insist|Wait wot!');
-				this.add('c|~Insist|>~Insist fainted.');
-				this.add('c|~Insist|That\'s obviously hax m8!');
-				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
-				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
+				this.add('c|@Insist|Death.... what a cool concept.');
+				this.add('c|@Insist|Wait wot!');
+				this.add('c|@Insist|>@Insist fainted.');
+				this.add('c|@Insist|That\'s obviously hax m8!');
+				this.add('c|@Insist|T-T-That\'s IMPOSSIBRU!');
+				this.add('c|@Insist|~~__**^^walks off......^^**__~~');
 			}
 			if (name === 'vxn') {
-				this.add('c|%Gligars|RIP I lost');
+				this.add('c| Gligars|RIP I lost');
 			}
 			if (name === 'speckeldorft') {
 				this.add('c| Speckeldorft|__I was a ded meme.......__');
@@ -2815,13 +2815,13 @@ exports.Formats = [
 				this.add('c| AB Starfox|Once again I get lucked out smh');
 			}
 			if (name === 'hoeenhero') {
-				this.add('c|%HoeenHero|Hey! Thats more hax than I get to use >:(');
+				this.add('c| HoeenHero|Hey! Thats more hax than I get to use >:(');
 			}
 			if (name === 'thegodofpie') {
 				this.add('c| TheGodOfPie|ur mom');
 			}
 			if (name === 'almightyjudgment') {
-				this.add('c|+Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
+				this.add('c| Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
 			}
 			if (name === 'guiltasbr') {
 				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
@@ -2836,10 +2836,10 @@ exports.Formats = [
 				this.add('c| douglasgamer|I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');
 			}
 			if (name === 'krakenmare') {
-				this.add('c|@Kraken Mare|Trust me, I\'ll be back to prove how strong Gardevoir is. __splashes__');
+				this.add('c|&Kraken Mare|Trust me, I\'ll be back to prove how strong Gardevoir is. __splashes__');
 			}
 			if (name === 'klefkei') {
-				this.add('c|@Klefkei|/exile');
+				this.add('c| Klefkei|/exile');
 			}
 			if (name === 'linkcode') {
 				this.add('c| LinkCode|Yeah, well, you know, that\'s just, like, uh... your opinion, man.');
@@ -2853,16 +2853,16 @@ exports.Formats = [
 					this.add('c| TheGodOfPie|lmao dora fights better than you');
 				}
 				if (name === 'insist') {
-					this.add('c|~Insist|**FOH, THIS IS MY HOUSE!!!**');
+					this.add('c|@Insist|**FOH, THIS IS MY HOUSE!!!**');
 				}
 				if (name === 'almightyjudgment') {
-					this.add('c|+Almighty Judgment|You Have Been Judged!');
+					this.add('c| Almighty Judgment|You Have Been Judged!');
 				}
 				if (name === 'echosierra') {
 					this.add('c| EchoSierra|dasWRIGHT.jpg');
 				}
 				if (name === 'krakenmare') {
-					this.add('c|@Kraken Mare|Told Ya Gardevoir is Strong!');
+					this.add('c|&Kraken Mare|Told Ya Gardevoir is Strong!');
 				}
 			}
 		},

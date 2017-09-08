@@ -20,7 +20,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		category: "Special",
 		onHit: function (target, source, move) {
-			this.add('c|~Insist|Subscribe to http://youtube.com/DeathlyPlays');
+			this.add('c|@Insist|Subscribe to http://youtube.com/DeathlyPlays');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -51,7 +51,7 @@ exports.BattleMovedex = {
 			protect: 1,
 		},
 		onHit: function (target, source, move) {
-			this.add('c|~Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
+			this.add('c|@Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -1100,7 +1100,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('c|+Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
+			this.add('c| Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
 		},
 		flags: {protect: 1, mirror: 1},
 		secondary: false,
@@ -1338,7 +1338,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Surf", target);
 		},
 		onHit: function (target, source, move) {
-			this.add('c|@Kraken Mare ☭|If I go down I\'m taking you with me!');
+			this.add('c|&Kraken Mare ☭|If I go down I\'m taking you with me!');
 		},
 		target: "Normal",
 		type: "Water",
@@ -1694,7 +1694,7 @@ exports.BattleMovedex = {
 		onPrepareHit: function (source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Protect", source);
-			this.add('c|@Klefkei|YEEAAAAH BOOIIIIII!!!');
+			this.add('c| Klefkei|YEEAAAAH BOOIIIIII!!!');
 		},
 		target: "self",
 		type: "Fairy",

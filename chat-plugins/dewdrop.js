@@ -4,6 +4,7 @@ const FS = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
 const http = require('http');
+const path = require('path');
 const Pokedex = require('../data/pokedex.js').BattlePokedex;
 let request = require('request');
 
@@ -867,7 +868,7 @@ exports.commands = {
 
 	'!errorlog': true,
 	errorlog: function (target, room, user, connection) {
-		if (!this.can('hotpatch')) return;
+		if (!this.can('modchat')) return;
 		target = toId(target);
 		let numLines = 1000;
 		let matching = true;

@@ -113,14 +113,14 @@ exports.commands = {
 	opensource: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-			"Exiled's Github's:<br />" +
+			"Dewdrop's Github's:<br />" +
 			"- Language: JavaScript (Node.js)<br />" +
-			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">Exiled Server Code</a><br />" +
-			"- <a href=\"https://github.com/ExiledPS\">Team Exiled Organization</a><br />"
+			"- <a href=\"https://github.com/Dewdrop-PS/Dewdrop\">Dewdrop Server Code</a><br />" +
+			"- <a href=\"https://github.com/Dewdrop-PS\">Team Dewdrop Organization</a><br />"
 		);
 	},
 	opensourcehelp: [
-		"/opensource - Links to Exiled's source code repository.",
+		"/opensource - Links to Dewdrop's source code repository.",
 		"!opensource - Show everyone that information. Requires: + % @ * # & ~",
 	],
 

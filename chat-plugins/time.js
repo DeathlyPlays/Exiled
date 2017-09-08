@@ -3,7 +3,6 @@
  * Time Commands
  * This file contains commands that keep track of users activity.
  ********************/
-let rankLadder = require('../rank-ladder');
 
 function convertTime(time) {
 	time = time / 1000;

@@ -367,34 +367,8 @@ exports.commands = {
 		target = Number(target);
 		if (isNaN(target)) target = 100;
 		if (!this.runBroadcast()) return;
-<<<<<<< HEAD
-<<<<<<< HEAD
-		if (this.broadcasting && target > 10) target = 10; // limit to 10 while broadcasting
-		if (target > 500) target = 500;
-
-		let self = this;
-
-		function showResults(rows) {
-			let output = '<table border="1" cellspacing ="0" cellpadding="3"><tr><th>Rank</th><th>Name</th><th>' + moneyPlural + '</th></tr>';
-			let count = 1;
-			for (let u in rows) {
-				if (rows[u].amount < 1) continue;
-				output += '<tr><td>' + count + '</td><td>' + Dew.nameColor(rows[u].name, true) + '</td><td>' + rows[u].amount + '</td></tr>';
-				count++;
-			}
-			self.sendReplyBox(output);
-			if (room) room.update();
-		}
-		let obj = Db('money').keys().map(function (name) {return {name: name, amount: Db('money').get(name)};});
-		let results = obj.sort(function (a, b) {
-			return b.amount - a.amount;
-=======
-		let keys = Object.keys(Db('ontime').object()).map(function (name) {
-=======
 		let keys = Object.keys(Db("money").object()).map(function (name) {
->>>>>>> cf2fa401731773fa457b69305f2df54699eb2799
 			return {name: name, money: Db("money").get(name)};
->>>>>>> 78c9ce374eaca05d6301a941b6b3ac41a6c4ce1d
 		});
 		if (!keys.length) return this.sendReplyBox("Money ladder is empty.");
 		keys.sort(function (a, b) { return b.money - a.money; });

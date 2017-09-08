@@ -18,16 +18,16 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Wrap", source);
 		},
 		pp: 10,
-		self: {
-			boosts: {
-				atk: 1,
-				spa: 1,
-				spe: 1,
-			},
+		boosts: {
+			atk: 1,
+			spa: 1,
+			spe: 1,
 		},
-		target: "Self",
+		zMoveEffect: 'heal',
+		target: "self",
 		type: "Normal",
-		desc: "Raises the user's Attack, Sp. Attack and Speed by 1.",
+		desc: "Raises the user's Attack, Special Attack and Speed by 1.",
+		shortDesc: "+1 Atk, SpA, and Spe.",
 	},
 	//Fire
 	flametower: {
@@ -52,9 +52,11 @@ exports.BattleMovedex = {
 			chance: 50,
 			status: 'brn',
 		},
+		zMovePower: 140,
 		target: "normal",
 		type: "Fire",
-		desc: "Traps and damages the target for 4-5 turns and 50% chance to burn the target.",
+		desc: "Traps the target for 4-5 turns and 50% chance to burn the target.",
+		shortDesc: "Traps target; 50% chance to burn.",
 	},
 	//Water
 	rainspear: {
@@ -77,11 +79,13 @@ exports.BattleMovedex = {
 		weather: 'raindance',
 		secondary: {
 			chance: 20,
-			volatileStatus: 'Flinch',
+			volatileStatus: 'flinch',
 		},
+		zMovePower: 110,
 		target: "normal",
 		type: "Water",
-		desc: "Summons Rain and has 20% chance to flinch the target.",
+		desc: "Summons Rain Dance and has 20% chance to flinch the target.",
+		shortDesc: "Sets Rain Dance; 20% chance to flinch.",
 	},
 	//Grass
 	healingherbs: {
@@ -101,14 +105,14 @@ exports.BattleMovedex = {
 		onHit: function (target, pokemon, move) {
 			this.useMove('Aromatherapy', pokemon);
 		},
-		self: {
-			heal: [1, 2],
-		},
+		heal: [1, 2],
 		pp: 5,
 		priority: 0,
-		target: "Self",
+		target: "self",
 		type: "Grass",
-		desc: "Cures the user's party of all status conditions and heals the user by 25% of its max HP.",
+		zMoveEffect: 'heal',
+		desc: "Cures the user's party of all status conditions and heals the user by 50% of its max HP.",
+		shortDesc: "Heals 1/2 of max HP; uses Aromatherapy.",
 	},
 	//Electric
 	electrodrive: {
@@ -149,11 +153,13 @@ exports.BattleMovedex = {
 				spe: 1,
 			},
 		},
+		zMovePower: 120,
 		pp: 10,
 		priority: 0,
 		target: "normal",
 		type: "Electric",
 		desc: "More power the faster the user is than the target and raises the user's speed by 1.",
+		shortDesc: "More power faster user is; raises Spe by 1.",
 	},
 	//Ice
 	hailstorm: {
@@ -177,6 +183,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		target: "normal",
 		type: "Ice",
+		zMoveEffect: 'heal',
 		desc: "Summons Hail and uses Blizzard.",
 	},
 	//Fighting
@@ -207,7 +214,9 @@ exports.BattleMovedex = {
 		priority: -1,
 		target: "normal",
 		type: "Fighting",
-		desc: "50% chance to paralyze the target and user cannot move next turn.",
+		zMovePower: 250,
+		desc: "50% chance to paralyze the target. User must recharge next turn, if this move is successful.",
+		shortDesc: "50% chance to par; must recharge.",
 	},
 	//Poison
 	nuclearwaste: {
@@ -233,7 +242,9 @@ exports.BattleMovedex = {
 		priority: 0,
 		target: "normal",
 		type: "Poison",
+		zMoveEffect: 'heal',
 		desc: "Badly poisons the target and lowers the foe's attack by 1.",
+		shortDesc: "Badly poisons target; lowers Atk by 1.",
 	},
 	//Ground
 	terratremor: {
@@ -254,10 +265,11 @@ exports.BattleMovedex = {
 		priority: 0,
 		secondary: {
 			chance: 15,
-			volatileStatus: 'Flinch',
+			volatileStatus: 'flinch',
 		},
 		target: "normal",
 		type: "Ground",
+		zMovePower: 190,
 		desc: "15% chance to flinch the target.",
 	},
 	//Flying
@@ -308,7 +320,9 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Flying",
-		desc: "Clears user and target side's hazards and sets the weather to clear skies.",
+		zMoveEffect: 'heal',
+		desc: "Clears user and target side's hazards and removes weather. This move infiltrates substitutes.",
+		shortDesc: "Removes hazards, and weather.",
 	},
 	//Psychic
 	psychicshield: {
@@ -328,7 +342,8 @@ exports.BattleMovedex = {
 		pp: 5,
 		target: "self",
 		type: "Psychic",
-		desc: "For 5 turns, damage to allies is halved and protects allies from priority attacks this turn.",
+		zMoveEffect: 'heal',
+		desc: "Sets Light Screen and Reflect.",
 	},
 	//Bug
 	swarmcharge: {
@@ -358,6 +373,8 @@ exports.BattleMovedex = {
 		pp: 10,
 		target: "normal",
 		type: "Bug",
+		zMovePower: 180,
+		shortDesc: "30% chance to raise Atk & Spe by 1.",
 		desc: "30% chance to raise the user's Attack and Speed by 1.",
 	},
 	//Rock
@@ -378,12 +395,13 @@ exports.BattleMovedex = {
 		},
 		secondary: {
 			chance: 30,
-			volatileStatus: 'Flinch',
+			volatileStatus: 'flinch',
 		},
 		pp: 10,
 		priority: 0,
 		target: "normal",
 		type: "Rock",
+		zMovePower: 195,
 		desc: "30% chance to flinch the target.",
 	},
 	//Ghost
@@ -405,13 +423,15 @@ exports.BattleMovedex = {
 		willCrit: true,
 		secondary: {
 			chance: 30,
-			volatileStatus: 'Flinch',
+			volatileStatus: 'flinch',
 		},
 		pp: 10,
 		priority: 0,
 		target: "normal",
 		type: "Ghost",
+		zMovePower: 160,
 		desc: "30% chance to flinch the target and always crits.",
+		shortDesc: "30% chance to flinch; always crits.",
 	},
 	//Dragon
 	imperialrampage: {
@@ -445,7 +465,9 @@ exports.BattleMovedex = {
 		priority: 0,
 		target: "normal",
 		type: "Dragon",
+		zMovePower: 220,
 		desc: "Lasts 2-3 turns, confuses the user afterwards and lowers the user's Attack by 2.",
+		shortDesc: "2-3 turns, confuses user, lowers Atk by 2.",
 	},
 	//Dark
 	shadowrun: {
@@ -477,6 +499,7 @@ exports.BattleMovedex = {
 		priority: 1,
 		target: "normal",
 		type: "Dark",
+		zMovePower: 180,
 		desc: "1.5x damage if foe holds an item. Removes item.",
 	},
 	//Steel
@@ -505,6 +528,7 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Steel",
+		zMovePower: 210,
 		desc: "Traps Steel Types from choosing to switch.",
 	},
 	//Fairy
@@ -529,129 +553,8 @@ exports.BattleMovedex = {
 		},
 		pp: 10,
 		target: "normal",
-		type: "Fairy",
-		desc: "10% chance to paralyze the target.",
-	},
-	// CUSTOM MADE CUSTOM MOVES
-	// Ashley the Pikachu
-	rocketpunch: {
-		accuracy: 100,
-		basePower: 100,
-		category: "Special",
-		id: "rocketpunch",
-		isNonstandard: true,
-		flags: {
-			protect: 1,
-			punch: 1,
-		},
-		name: "Rocket Punch",
-		pp: 10,
-		priority: 1,
-		target: "normal",
-		type: "Fire",
-		zMovePower: 180,
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Flare Blitz", source);
-			this.add('-anim', source, "Mach Punch", target);
-		},
-		desc: "No additional effects.",
-	},
-	// Stellation
-	toxicendeavors: {
-		accuracy: 100,
-		basePower: 0,
-		damageCallback: function (pokemon, target) {
-			return target.hp - pokemon.hp;
-		},
-		category: "Physical",
-		id: "toxicendeavors",
-		name: "Toxic Endeavors",
-		pp: 1,
-		noPPBoosts: true,
-		isNonstandard: true,
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		onTry: function (pokemon, target) {
-			if (pokemon.hp >= target.hp) {
-				this.add('-immune', target, '[msg]');
-				return null;
-			}
-		},
-		onPrepareHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Poison Jab", target);
-		},
-		secondary: {
-			chance: 33,
-			status: 'tox',
-		},
-		desc: "Sets foe's HP to the user's HP, 33% chance to badly poison.",
-		target: "normal",
-		type: "Bug",
-		zMovePower: 180,
-		contestType: "Tough",
-	},
-	// Eelek
-	electrofryer: {
-		accuracy: 100,
-		basePower: 100,
-		category: "Special",
-		id: "electrofryer",
-		name: "Electro-Fryer",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		onEffectiveness: function (typeMod, type, move) {
-			return typeMod + this.getEffectiveness('Fire', type);
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Discharge", target);
-			this.add('-anim', target, "Sacred Fire", target);
-		},
-		onAfterHit: function (target, source) {
-			if (source.hp) {
-				let item = target.takeItem();
-				if (item) {
-					this.add('-enditem', target, item.name, '[from] move: Electro-Fryer', '[of] ' + source);
-				}
-			}
-		},
-		secondary: {
-			chance: 20,
-			onHit: function (target, source) {
-				let result = this.random(2);
-				if (result === 0) {
-					target.trySetStatus('brn', source);
-				} else {
-					target.trySetStatus('par', source);
-				}
-			},
-		},
-		desc: "Fire type Effectiveness, Takes foe's item, 20% chance to burn or paralyze.",
-		target: "normal",
-		type: "Electric",
-		zMovePower: 180,
-		ignoreImmunity: {'Electric': true},
-	},
-	// Gest1000
-	diamonddust: {
-		accuracy: 100,
-		basePower: 130,
-		category: "Special",
-		id: "diamonddust",
-		name: "Diamond Dust",
-		pp: 5,
-		priority: 0,
-		flags: {charge: 1, protect: 1, mirror: 1},
-		secondary: {
-			chance: 30,
-			status: "frz",
-		},
-		desc: "30% chance to freeze",
-		target: "normal",
-		type: "Ice",
 		zMovePower: 210,
+		type: "Fairy",
+		desc: "30% chance to paralyze the target.",
 	},
 };

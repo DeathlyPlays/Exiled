@@ -3,3 +3,4 @@ logs/
 dev-tools/globals.js
 mods/opmetagame
 config/card-data.js
+chat-plugins/hex.js

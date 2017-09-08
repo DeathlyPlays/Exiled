@@ -99,7 +99,7 @@ exports.commands = {
 				return user.send("|popup||wide||html|" + output);
 			}
 
-			data = targetRoom + "|" + date + "|" + JSON.stringify(Exiled.customColors) + "\n" + data;
+			data = targetRoom + "|" + date + "|" + JSON.stringify(Dew.customColors) + "\n" + data;
 
 			fs.writeFile('static/logs/' + filename, data, err => {
 				if (err) return this.errorReply("/viewlogs - " + err);

@@ -58,6 +58,14 @@ function showBadges(user) {
 	return '';
 }
 
+function isDev(user) {
+	if (!user) return;
+	if (typeof user === 'object') user = user.userid;
+	let dev = Db('devs').get(toId(user));
+	if (dev === 1) return true;
+	return false;
+}
+
 exports.commands = {
 	vip: {
 		give: function (target, room, user) {

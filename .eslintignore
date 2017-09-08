@@ -1,8 +1,5 @@
 tournaments/lib/
 logs/
 dev-tools/globals.js
-config/color.js
 mods/opmetagame
-chat-plugins/profile.js
 config/card-data.js
-chat-plugins/hex.js

@@ -9,7 +9,7 @@
 		"concat-stream": "^1.6.0",
 		"dem-feels": "^1.8.1",
 		"forever": "^0.15.2",
-		"geoip-ultralight": "^0.1.5",
+		"geoip-lite-country": "1.1.5",
 		"githubhook": "^1.9.1",
 		"json-stringify-safe": "^5.0.1",
 		"moment": "^2.18.1",

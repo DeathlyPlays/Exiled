@@ -19263,7 +19263,7 @@ exports.BattleMovedex = {
 		name: "Oblivion Banisher",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, recharge: 5},
+		flags: {protect: 1, mirror: 1, recharge: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Agility", source);
@@ -19363,7 +19363,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 40,
 		category: "Special",
-		shortDesc: "+1 Priority. 20% chance to burn.",
+		shortDesc: "20% chance to burn.",
 		id: "quickcombustion",
 		isViable: true,
 		name: "Quick Combustion",
@@ -19384,7 +19384,8 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
-		shortDesc: "Target is trapped. Raises Def and Spd by 1.",
+		desc: "Traps the target, and raises the user's Defense and Special Defense by one stage.",
+		shortDesc: "Traps target; raises Def and Spd by 1.",
 		id: "lockdown",
 		isViable: true,
 		name: "Lockdown",
@@ -19421,7 +19422,7 @@ exports.BattleMovedex = {
 		accuracy: 90,
 		basePower: 100,
 		category: "Physical",
-		desc: "20% chance to flinch.",
+		desc: "20% chance to flinch the target.",
 		shortDesc: "20% chance to flinch.",
 		id: "terrordrop",
 		isViable: true,

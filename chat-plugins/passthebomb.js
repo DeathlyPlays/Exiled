@@ -69,7 +69,7 @@ class PassTheBomb {
 	}
 	getMsg() {
 		let msg = 'bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center><b>Round ' + this.round + '</b><br>' +
-			'Players: ' + this.getSurvivors().map(player => Chat.escapeHTML(player[1].name)).join(', ') +
+			'Players: ' + this.getSurvivors().map(player => Exiled.nameColor(player[1].name)).join(', ') +
 			'<br><small>Use /pb or /passbomb [player] to pass the bomb to another player!</small>';
 		return msg;
 	}
@@ -123,14 +123,14 @@ class PassTheBomb {
 
 		this.madeMove = true;
 		this.setBomb(targetId);
-		this.room.add('|html|' + user.name + ' passed the bomb to <b style = "' + Exiled.hashColor(targetId) + '">' + this.players.get(targetId).name + '</b>!');
+		this.room.add('|html|' + Exiled.nameColor(user.name) + ' passed the bomb to ' + Exiled.nameColor(targetId, true) + this.players.get(targetId).name + '</b>!');
 
 		if (this.checkWinner()) this.getWinner();
 	}
 	resetTimer() {
 		this.timer = setTimeout(() => {
 			let player = this.players.get(this.holder).name;
-			this.room.add('|html|<b>The bomb exploded and killed <span style = "' + Exiled.hashColor(this.holder) + '">' + player + '</span>').update();
+			this.room.add('|html|The bomb exploded and killed <span style = "' + Exiled.nameColor(this.holder, true) + '">' + player + '</span>').update();
 			this.players.get(this.holder).status = 'dead';
 			this.canPass = false;
 			setTimeout(() => {
@@ -153,7 +153,7 @@ class PassTheBomb {
 	removeUser(userid, left) {
 		if (!this.players.has(userid)) return;
 
-		this.room.add('|html|<b>' + Chat.escapeHTML(this.players.get(userid).name) + ' has ' + (left ? 'left' : 'been disqualified from') + ' the game.</b>');
+		this.room.add('|html|' + Exiled.nameColor(this.players.get(userid).name, true) + ' has ' + (left ? 'left' : 'been disqualified from') + ' the game.');
 		this.players.delete(userid);
 		this.madeMove = true;
 		if (this.checkWinner()) {
@@ -163,7 +163,7 @@ class PassTheBomb {
 		} else if (this.holder === userid) {
 			this.setBomb();
 			let player = this.players.get(this.holder).name;
-			this.room.add('|html|The bomb has been passed to <b>' + Chat.escapeHTML(player) + '!</b>').update();
+			this.room.add('|html|The bomb has been passed to ' + Exiled.nameColor(player, true) + '!').update();
 		}
 	}
 	checkWinner() {
@@ -177,7 +177,7 @@ class PassTheBomb {
 	}
 	end(user) {
 		if (user) {
-			let msg = '<div class = "infobox"><center>This game of Pass the Bomb has been forcibly ended by <b>' + Chat.escapeHTML(user.name) + '</b>.</center></div>';
+			let msg = '<div class = "infobox"><center>This game of Pass the Bomb has been forcibly ended by ' + Exiled.nameColor(user.name, true) + '.</center></div>';
 			if (!this.madeMove) {
 				this.room.add('|uhtmlchange|bomb' + this.room.bombCount + this.round + '|' + msg).update();
 			} else {

@@ -51,7 +51,7 @@ class Ambush {
 		if (!this.round) {
 			this.updateJoins();
 		} else {
-			this.room.add('|html|<b>' + Chat.escapeHTML(user.name) + ' has left the game!</b>');
+			this.room.add('|html|' + Exiled.nameColor(user.name, true) + ' has left the game!');
 		}
 	}
 	getSurvivors() {
@@ -99,12 +99,12 @@ class Ambush {
 		this.players.get(user).rounds--;
 		this.madeMove = true;
 		if (targetUser === user) {
-			this.room.add('|html|<b>' + user.name + ' shot themself!</b>');
+			this.room.add('|html|' + Exiled.nameColor(user.name, true) + ' shot themself!');
 		} else if (!this.players.get(targetUser).rounds) {
-			this.room.add('|html|<b>' + Chat.escapeHTML(user.name) + ' fired at ' + Chat.escapeHTML(targetUser.name) + ', but ' + Chat.escapeHTML(targetUser.name) + ' has an active shield!</b>');
+			this.room.add('|html|' + Exiled.nameColor(user.name, true) + ' fired at ' + Exiled.nameColor(targetUser.name, true) + ', but ' + Exiled.nameColor(targetUser.name, true) + ' has an active shield!');
 			return;
 		} else {
-			this.room.add('|html|<b>' + Chat.escapeHTML(user.name) + ' fired at ' + Chat.escapeHTML(targetUser.name) + '!</b>');
+			this.room.add('|html|' + Exiled.nameColor(user.name, true) + ' fired at ' + Exiled.nameColor(targetUser.name, true) + '!');
 		}
 		this.players.get(targetUser).status = 'dead';
 
@@ -131,7 +131,7 @@ class Ambush {
 		if (getUser.status === 'dead') return self.sendReply(targetUser.name + ' has already been killed!');
 
 		this.players.delete(targetUser);
-		this.room.add('|html|<b>' + Chat.escapeHTML(targetUser.name) + ' has been disqualified from the game.</b>');
+		this.room.add('|html|' + Exiled.nameColor(targetUser.name, true) + ' has been disqualified from the game.');
 		if (this.checkWinner()) this.getWinner();
 	}
 	checkWinner() {
@@ -139,7 +139,7 @@ class Ambush {
 	}
 	getWinner() {
 		let winner = this.getSurvivors()[0][0].name;
-		let msg = '|html|<div class = "infobox"><center>The winner of this game of ambush is <b>' + Chat.escapeHTML(winner) + '!</b> Congratulations!</center>';
+		let msg = '|html|<div class = "infobox"><center>The winner of this game of ambush is ' + Exiled.nameColor(winner, true) + '! Congratulations!</center>';
 		if (this.room.id === 'marketplace') {
 			msg += '<center>' + Chat.escapeHTML(winner) + ' has also won <b>5</b> EXP for winning!</center>';
 			Exiled.addExp(winner, 5, () => this.room.add(msg).update());

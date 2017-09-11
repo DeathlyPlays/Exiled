@@ -201,14 +201,14 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			if (!room.chatRoomData.user) return this.sendReplyBox("The User of the Week has not been set.");
 			return this.sendReplyBox(
-				"The current <strong>User of the Week</strong>  is: " + room.chatRoomData.user
+				"The current <strong>User of the Week</strong>  is: " + Exiled.nameColor(room.chatRoomData.user)
 			);
 		}
 		if (!this.can('lock', null, room)) return false;
 		if (target === 'off' || target === 'disable' || target === 'reset') {
 			if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
 			delete room.chatRoomData.user;
-			this.sendReply("The User of the Week was reset by " + Chat.escapeHTML(user.name) + ".");
+			this.sendReply("The User of the Week was reset by " + Exiled.nameColor(user.name) + ".");
 			this.logModCommand(user.name + " reset the User of the Week.");
 			Rooms.global.writeChatRoomData();
 			return;
@@ -216,7 +216,7 @@ exports.commands = {
 		room.chatRoomData.user = Chat.escapeHTML(target);
 		Rooms.global.writeChatRoomData();
 		room.addRaw(
-			"<div class=\"broadcast-green\"><strong>The User of the week is: " + room.chatRoomData.user + ".</strong></div>"
+			"<div class=\"broadcast-green\"><strong>The User of the Week is: " + Exiled.nameColor(room.chatRoomData.user) + ".</strong></div>"
 		);
 		this.logModCommand(Chat.escapeHTML(user.name) + " updated the User of the Week to \"" + room.chatRoomData.user + "\".");
 	},

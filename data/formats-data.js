@@ -712,9 +712,6 @@ exports.BattleFormatsData = {
 	arcaninemega: {
 		randomBattleMoves: ["flareblitz", "wildcharge", "extremespeed", "closecombat", "morningsun", "willowisp", "toxic", "crunch", "roar"],
 		randomDoubleBattleMoves: ["flareblitz", "wildcharge", "closecombat", "willowisp", "snarl", "protect", "extremespeed"],
-		eventPokemon: [
-			{"generation": 4, "level": 50, "abilities":["intimidate"], "moves":["flareblitz", "thunderfang", "crunch", "extremespeed"], "pokeball": "cherishball"},
-		],
 		tier: "OU",
 		requiredItem: "Arcanite",
 	},
@@ -1650,10 +1647,7 @@ exports.BattleFormatsData = {
 	snorlaxmega: {
 		randomBattleMoves: ["rest", "curse", "sleeptalk", "bodyslam", "earthquake", "return", "firepunch", "crunch", "pursuit", "whirlwind"],
 		randomDoubleBattleMoves: ["curse", "protect", "bodyslam", "earthquake", "return", "firepunch", "icepunch", "crunch", "selfdestruct"],
-		eventPokemon: [
-			{"generation": 3, "level": 43, "moves":["refresh", "fissure", "curse", "bodyslam"]},
-		],
-		tier: "OU",
+		tier: "Uber",
 		requiredItem: "Snorlaxite",
 	},
 	articuno: {
@@ -1875,7 +1869,7 @@ exports.BattleFormatsData = {
 	},
 	rapidashmega: {
 		randomBattleMoves: ["flareblitz", "drillrun", "wildcharge", "protect"],
-		tier: "OU",
+		tier: "UU",
 	},
 	lanturnalola: {
 		randomBattleMoves: ["gigadrain", "icebeam", "scald", "psyshock", "haze", "bugbuzz"],
@@ -5594,7 +5588,7 @@ exports.BattleFormatsData = {
 	pangoromega: {
 		randomBattleMoves: ["knockoff", "superpower", "gunkshot", "icepunch", "partingshot", "drainpunch"],
 		randomDoubleBattleMoves: ["partingshot", "hammerarm", "crunch", "circlethrow", "icepunch", "earthquake", "poisonjab", "protect"],
-		tier: "Ubers",
+		tier: "Uber",
 		requiredItem: "Pangorite",
 	},
 	furfrou: {
@@ -6894,9 +6888,212 @@ exports.BattleFormatsData = {
 	pachirisumega: {
 		randomBattleMoves: ["thunderpunch", "darkvoid", "darkpulse", "thunderbolt", "voltswitch", "rest", "sleeptalk", "uturn", "gunkshot", "seedbomb"],
 		requiredItem: "Pachite",
-		tier: "OU",
+		tier: "Uber",
 	},
 	hitmontopalola: {
 		tier: "RU",
+	},
+	decidueyemega: {
+		randomBattleMoves: ["spiritshackle", "suckerpunch", "roost", "leafblade", "swordsdance"],
+		requiredItem: "Deciduite",
+		tier: "OU",
+	},
+	wailordmega: {
+		randomBattleMoves: ["waterspout", "icebeam", "hydropump", "scald", "rest", "sleeptalk"],
+		requiredItem: "Wailordite",
+		tier: "OU",
+	},
+	luxraymega: {
+		randomBattleMoves: ["thunderfang", "icefang", "crunch", "firefang", "superpower"],
+		requiredItem: "Luxrite",
+		tier: "Uber",
+	},
+	taurosmega: {
+		randomBattleMoves: ["earthquake", "doubleedge", "bodyslam", "wildcharge", "zenheadbutt"],
+		requiredItem: "Taurosite",
+		tier: "Uber",
+	},
+	ursaringmega: {
+		randomBattleMoves: ["swordsdance", "return", "earthquake", "closecombat", "crunch", "icepunch", "bulkup", "playrough"],
+		requiredItem: "Ursarite",
+		tier: "OU",
+	},
+	frosslassmega: {
+		randomBattleMoves: ["icebeam", "shadowball", "psychic", "thunderwave", "destinybond", "painsplit"],
+		requiredItem: "Froslite",
+		tier: "OU",
+	},
+	kingdramega: {
+		randomBattleMoves: ["dragondance", "outrage", "ironhead", "waterfall", "flashcannon", "scald", "icebeam", "dracometeor", "dragonpulse"],
+		requiredItem: "Kingdrite",
+		tier: "OU",
+	},
+	chandeluremega: {
+		randomBattleMoves: ["calmmind", "shadowball", "energyball", "fireblast", "hiddenpowerground", "substitute", "painsplit"],
+		requiredItem: "Chandelite",
+		tier: "OU",
+	},
+	hydreigonmega: {
+		randomBattleMoves: ["uturn", "dracometeor", "dragonpulse", "earthpower", "fireblast", "darkpulse", "roost", "flashcannon", "superpower"],
+		requiredItem: "Hydreigonite",
+		tier: "OU",
+	},
+	gliscormega: {
+		randomBattleMoves: ["roost", "substitute", "taunt", "earthquake", "protect", "spiralingtoxins", "stealthrock", "knockoff"],
+		requiredItem: "Gliscorite",
+		tier: "OU",
+	},
+	cresseliamega: {
+		randomBattleMoves: ["moonlight", "psychic", "icebeam", "thunderwave", "toxic", "substitute", "psyshock", "moonblast", "calmmind"],
+		requiredItem: "Cresselite",
+		tier: "OU",
+	},
+	victinimega: {
+		randomBattleMoves: ["vcreate", "boltstrike", "uturn", "zenheadbutt", "grassknot", "focusblast", "blueflare"],
+		requiredItem: "Victinite",
+		tier: "Uber",
+	},
+	flygonmega: {
+		randomBattleMoves: ["boomburst", "earthpower", "dragonpulse", "dracometeor", "bugbuzz", "gigadrain", "flamethrower", "fireblast"],
+		requiredItem: "Flygonite",
+		tier: "Uber",
+	},
+	magearnamega: {
+		randomBattleMoves: ["shiftgear", "flashcannon", "aurasphere", "fleurcannon", "ironhead", "thunderbolt", "icebeam"],
+		requiredItem: "Magearnite",
+		tier: "Uber",
+	},
+	darkraimega: {
+		randomBattleMoves: ["hypnosis", "darkpulse", "focusblast", "nastyplot", "substitute", "sludgebomb"],
+		randomDoubleBattleMoves: ["darkpulse", "focusblast", "nastyplot", "substitute", "snarl", "icebeam", "protect"],
+		requiredItem: "Darkrite",
+		tier: "Uber",
+	},
+	hawluchamega: {
+		randomBattleMoves: ["substitute", "swordsdance", "highjumpkick", "acrobatics", "roost", "stoneedge"],
+		randomDoubleBattleMoves: ["swordsdance", "highjumpkick", "uturn", "stoneedge", "skydrop", "encore", "protect"],
+		requiredItem: "Hawluchite",
+		tier: "OU",
+	},
+	feraligatrmega: {
+		randomBattleMoves: ["aquajet", "waterfall", "crunch", "icepunch", "dragondance", "swordsdance", "earthquake"],
+		randomDoubleBattleMoves: ["aquajet", "waterfall", "crunch", "icepunch", "dragondance", "swordsdance", "earthquake", "protect"],
+		requiredItem: "Feralite",
+		tier: "Uber",
+	},
+	greninjamega: {
+		randomBattleMoves: ["hydropump", "icebeam", "darkpulse", "gunkshot", "uturn", "spikes", "toxicspikes", "taunt"],
+		randomDoubleBattleMoves: ["hydropump", "uturn", "surf", "icebeam", "matblock", "taunt", "darkpulse", "protect"],
+		requiredItem: "greninjite",
+		tier: "Uber",
+	},
+	dialgaprimal: {
+		randomBattleMoves: ["stealthrock", "toxic", "dracometeor", "fireblast", "flashcannon", "roar", "thunderbolt"],
+		randomDoubleBattleMoves: ["dracometeor", "dragonpulse", "protect", "thunderbolt", "flashcannon", "earthpower", "fireblast", "aurasphere"],
+		requiredItem: "Time Gear",
+		tier: "Uber",
+	},
+	weavilemega: {
+		randomBattleMoves: ["iceshard", "iciclecrash", "knockoff", "pursuit", "swordsdance", "lowkick"],
+		randomDoubleBattleMoves: ["iceshard", "iciclecrash", "knockoff", "fakeout", "swordsdance", "lowkick", "taunt", "protect", "feint"],
+		requiredItem: "Weavite",
+		tier: "Uber",
+	},
+	miloticmega: {
+		randomBattleMoves: ["recover", "scald", "toxic", "icebeam", "dragontail", "rest", "sleeptalk", "moonblast"],
+		randomDoubleBattleMoves: ["recover", "scald", "hydropump", "icebeam", "dragontail", "hypnosis", "protect", "hiddenpowergrass", "moonblast"],
+		requiredItem: "Milotite",
+		tier: "OU",
+	},
+	nidokingmega: {
+		randomBattleMoves: ["substitute", "fireblast", "icebeam", "earthpower", "sludgewave", "superpower"],
+		randomDoubleBattleMoves: ["protect", "fireblast", "thunderbolt", "icebeam", "earthpower", "sludgebomb", "focusblast"],
+		requiredItem: "Nidokingite",
+		tier: "OU",
+	},
+	nidoqueenmega: {
+		randomBattleMoves: ["toxicspikes", "stealthrock", "fireblast", "icebeam", "earthpower", "sludgewave"],
+		randomDoubleBattleMoves: ["protect", "fireblast", "icebeam", "earthpower", "sludgebomb", "thunderbolt"],
+		requiredItem: "Nidoqueenite",
+		tier: "OU",
+	},
+	whimsicottmega: {
+		randomBattleMoves: ["encore", "taunt", "substitute", "leechseed", "uturn", "toxic", "stunspore", "memento", "tailwind", "moonblast", "gigadrain", "hurricane", "psychic", "hiddenpowerground", "hiddenpowerfire"],
+		randomDoubleBattleMoves: ["encore", "taunt", "substitute", "leechseed", "uturn", "helpinghand", "stunspore", "moonblast", "tailwind", "dazzlinggleam", "gigadrain", "protect"],
+		requiredItem: "Whimsicottite",
+		tier: "UU",
+	},
+	mamoswinemega: {
+		randomBattleMoves: ["iceshard", "earthquake", "endeavor", "iciclecrash", "stealthrock", "superpower", "knockoff"],
+		randomDoubleBattleMoves: ["iceshard", "earthquake", "rockslide", "iciclecrash", "protect", "superpower", "knockoff"],
+		requiredItem: "Mamoswite",
+		tier: "OU",
+	},
+	volcanionmega: {
+		randomBattleMoves: ["substitute", "steameruption", "fireblast", "sludgewave", "hiddenpowerice", "earthpower", "superpower"],
+		randomDoubleBattleMoves: ["substitute", "steameruption", "heatwave", "sludgebomb", "rockslide", "earthquake", "protect"],
+		requiredItem: "Volcanionite",
+		tier: "OU",
+	},
+	honchkrowmega: {
+		randomBattleMoves: ["substitute", "superpower", "suckerpunch", "bravebird", "roost", "heatwave", "pursuit"],
+		randomDoubleBattleMoves: ["substitute", "superpower", "suckerpunch", "bravebird", "roost", "heatwave", "protect"],
+		requiredItem: "Honchkrite",
+		tier: "OU",
+	},
+	tangrowthmega: {
+		randomBattleMoves: ["gigadrain", "leafstorm", "knockoff", "earthquake", "hiddenpowerfire", "rockslide", "sleeppowder", "leechseed", "synthesis"],
+		randomDoubleBattleMoves: ["gigadrain", "sleeppowder", "hiddenpowerice", "leechseed", "knockoff", "ragepowder", "focusblast", "protect", "powerwhip", "earthquake"],
+		requiredItem: "Tangrowthite",
+		tier: "OU",
+	},
+	spindamega: {
+		randomBattleMoves: ["return", "superpower", "suckerpunch", "trickroom", "fakeout"],
+		randomDoubleBattleMoves: ["doubleedge", "return", "superpower", "suckerpunch", "trickroom", "fakeout", "protect"],
+		requiredItem: "Spindite",
+		tier: "RU",
+	},
+	kecleonmega: {
+		randomBattleMoves: ["fakeout", "knockoff", "drainpunch", "suckerpunch", "shadowsneak", "stealthrock", "recover", "colorschemeslash"],
+		randomDoubleBattleMoves: ["knockoff", "fakeout", "trickroom", "recover", "drainpunch", "suckerpunch", "shadowsneak", "protect", "colorschemeslash"],
+		requiredItem: "Kecleonite",
+		requiredMove: "Color Scheme Slash",
+		tier: "UU",
+	},
+	carbinkmega: {
+		randomBattleMoves: ["stealthrock", "psychic", "explosion", "powergem", "moonblast", "trickroom"],
+		randomDoubleBattleMoves: ["trickroom", "explosion", "powergem", "moonblast", "protect", "psychic"],
+		requiredItem: "Carbite",
+		tier: "UU",
+	},
+	torterramega: {
+		randomBattleMoves: ["stealthrock", "earthquake", "woodhammer", "stoneedge", "synthesis", "rockpolish"],
+		randomDoubleBattleMoves: ["protect", "earthquake", "woodhammer", "stoneedge", "rockslide", "wideguard", "rockpolish"],
+		requiredItem: "Torterrite",
+		tier: "RU",
+	},
+	meganiummega: {
+		randomBattleMoves: ["reflect", "lightscreen", "aromatherapy", "leechseed", "toxic", "gigadrain", "synthesis", "dragontail"],
+		randomDoubleBattleMoves: ["reflect", "lightscreen", "leechseed", "leafstorm", "gigadrain", "synthesis", "dragontail", "healpulse", "toxic", "protect"],
+		requiredItem: "Meganiumite",
+		tier: "UU",
+	},
+	typhlosionmega: {
+		randomBattleMoves: ["eruption", "fireblast", "hiddenpowergrass", "extrasensory", "focusblast", "flamethrower"],
+		randomDoubleBattleMoves: ["eruption", "fireblast", "hiddenpowergrass", "extrasensory", "focusblast", "heatwave", "protect", "flamethrower"],
+		requiredItem: "Typhlosite",
+		tier: "BL",
+	},
+	dragalgemega: {
+		randomBattleMoves: ["dracometeor", "sludgewave", "focusblast", "scald", "hiddenpowerfire", "toxicspikes", "dragonpulse"],
+		randomDoubleBattleMoves: ["dracometeor", "sludgebomb", "focusblast", "scald", "hiddenpowerfire", "protect", "dragonpulse"],
+		requiredItem: "Dragalgite",
+		tier: "UU",
+	},
+	bewearmega: {
+		randomBattleMoves: ["hammerarm", "icepunch", "swordsdance", "return", "shadowclaw", "doubleedge"],
+		randomDoubleBattleMoves: ["hammerarm", "icepunch", "doubleedge", "protect", "wideguard"],
+		requiredItem: "Bewearite",
+		tier: "UU",
 	},
 };

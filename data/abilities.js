@@ -4404,7 +4404,7 @@ exports.BattleAbilities = {
 			}
 		},
 		id: "belligerent",
-		name: "Belligerant",
+		name: "Belligerent",
 		rating: 3,
 		num: -202,
 	},

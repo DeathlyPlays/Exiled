@@ -6493,6 +6493,34 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Minior, this item allows it to Mega Evolve in battle.",
 	},
+	"drapionite": {
+		id: "drapionite",
+		name: "Drapionite",
+		spritenum: -243,
+		megaStone: "Drapion-Mega",
+		megaEvolves: "Drapion",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -118,
+		gen: 0,
+		desc: "If holder is a Drapion, this item allows it to Mega Evolve in battle.",
+	},
+	"pyroarite": {
+		id: "pyroarite",
+		name: "Pyroarite",
+		spritenum: -243,
+		megaStone: "Pyroar-Mega",
+		megaEvolves: "Pyroar",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Pyroar, this item allows it to Mega Evolve in battle.",
+	},
 	"blissite": {
 		id: "blissite",
 		name: "Blissite",

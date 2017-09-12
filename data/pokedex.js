@@ -15197,13 +15197,8 @@ exports.BattlePokedex = {
 		baseSpecies: "Delibird",
 		forme: "Mega",
 		formeLetter: "M",
-<<<<<<< HEAD
-		types: ["Ice"],
-		baseStats: {hp: 45, atk: 80, def: 60, spa: 80, spd: 60, spe: 100},
-=======
 		types: ["Ice", "Flying"],
 		baseStats: {hp: 45, atk: 85, def: 60, spa: 80, spd: 60, spe: 100},
->>>>>>> 1dbed2c141fec7bca54b79b6cdb17da4de736d2e
 		abilities: {0: "Blizzard Rush"},
 		heightm: 1.4,
 		weightkg: 31.3,

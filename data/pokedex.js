@@ -2836,6 +2836,7 @@ exports.BattlePokedex = {
 		prevo: "munchlax",
 		evoLevel: 1,
 		eggGroups: ["Monster"],
+		otherFormes: ["snorlaxmega"],
 	},
 	snorlaxmega: {
 		num: 142,
@@ -4000,7 +4001,7 @@ exports.BattlePokedex = {
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Normal", "Fighting"],
-		baseStats: {hp: 90, atk: 175, def: 75, spa: 75, spd: 75, spe: 125},
+		baseStats: {hp: 90, atk: 155, def: 90, spa: 75, spd: 90, spe: 115},
 		abilities: {0: "Tough Claws"},
 		heightm: 1.8,
 		weightkg: 125.8,
@@ -5132,7 +5133,7 @@ exports.BattlePokedex = {
 		baseSpecies: "Slaking",
 		forme: "Mega",
 		formeLetter: "M",
-		types: ["Normal"],
+		types: ["Normal", "Fighting"],
 		baseStats: {hp: 150, atk: 185, def: 110, spa: 95, spd: 110, spe: 120},
 		abilities: {0: "Slow Start"},
 		heightm: 2.6,
@@ -11653,7 +11654,7 @@ exports.BattlePokedex = {
 		prevo: "frogadier",
 		evoLevel: 36,
 		eggGroups: ["Water 1"],
-		otherFormes: ["greninjaash"],
+		otherFormes: ["greninjaash", "greninjamega"],
 	},
 	greninjamega: {
 		num: 658,
@@ -13496,7 +13497,7 @@ exports.BattlePokedex = {
 		heightm: 3.4,
 		weightkg: 600,
 		color: "Pink",
-		eggGroups: "Field",
+		eggGroups: ["Field"],
 	},
 	bounsweet: {
 		num: 761,

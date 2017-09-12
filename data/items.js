@@ -7651,4 +7651,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Spinda, this item allows it to Mega Evolve in battle.",
 	},
+	"nidoqueenite": {
+		id: "nidoqueenite",
+		name: "Nidoqueenite",
+		spritenum: -624,
+		megaStone: "Nidoqueen-Mega",
+		megaEvolves: "Nidoqueen",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -764,
+		gen: 0,
+		desc: "If holder is a Nidoqueen, this item allows it to Mega Evolve in battle.",
+	},
 };

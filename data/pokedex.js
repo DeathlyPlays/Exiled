@@ -5133,7 +5133,7 @@ exports.BattlePokedex = {
 		baseSpecies: "Slaking",
 		forme: "Mega",
 		formeLetter: "M",
-		types: ["Normal", "Fighting"],
+		types: ["Normal"],
 		baseStats: {hp: 150, atk: 185, def: 110, spa: 95, spd: 110, spe: 120},
 		abilities: {0: "Slow Start"},
 		heightm: 2.6,
@@ -5782,7 +5782,11 @@ exports.BattlePokedex = {
 		num: 330,
 		species: "Flygon",
 		types: ["Ground", "Dragon"],
+<<<<<<< HEAD
 		baseStats: {hp: 80, atk: 100, def: 80, spa: 80, spd: 80, spe: 100},
+=======
+		baseStats: {hp: 80, atk: 110, def: 100, spa: 110, spd: 100, spe: 120},
+>>>>>>> 1dbed2c141fec7bca54b79b6cdb17da4de736d2e
 		abilities: {0: "Levitate"},
 		heightm: 2,
 		weightkg: 82,
@@ -5996,6 +6000,7 @@ exports.BattlePokedex = {
 		prevo: "barboach",
 		evoLevel: 30,
 		eggGroups: ["Water 2"],
+		otherFormes: ["whiscashmega"],
 	},
 	whiscashmega: {
 		num: 340,
@@ -6004,7 +6009,11 @@ exports.BattlePokedex = {
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Water", "Ground"],
+<<<<<<< HEAD
 		baseStats: {hp: 110, atk: 110, def: 83, spa: 76, spd: 93, spe: 90},
+=======
+		baseStats: {hp: 110, atk: 110, def: 89, spa: 76, spd: 81, spe: 90},
+>>>>>>> 1dbed2c141fec7bca54b79b6cdb17da4de736d2e
 		abilities: {0: "Multiscale"},
 		heightm: 1,
 		weightkg: 25.6,
@@ -7652,7 +7661,7 @@ exports.BattlePokedex = {
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Ghost", "Fairy"],
-		baseStats: {hp: 60, atk: 61, def: 100, spa: 145, spd: 125, spe: 125},
+		baseStats: {hp: 60, atk: 60, def: 100, spa: 135, spd: 115, spe: 125},
 		abilities: {0: "Levitate"},
 		heightm: 1.3,
 		weightkg: 8.3,
@@ -7995,6 +8004,20 @@ exports.BattlePokedex = {
 		color: "Purple",
 		prevo: "skorupi",
 		evoLevel: 40,
+		eggGroups: ["Bug", "Water 3"],
+	},
+	drapionmega: {
+		num: 452,
+		species: "Drapion-Mega",
+		baseSpecies: "Drapion",
+		forme: "Mega",
+		formeLetter: "M",
+		types: ["Poison", "Dark"],
+		baseStats: {hp: 70, atk: 120, def: 130, spa: 50, spd: 115, spe: 115},
+		abilities: {0: "Merciless"},
+		heightm: 1.4,
+		weightkg: 64.5,
+		color: "Purple",
 		eggGroups: ["Bug", "Water 3"],
 	},
 	croagunk: {
@@ -8672,6 +8695,7 @@ exports.BattlePokedex = {
 		weightkg: 420,
 		color: "White",
 		eggGroups: ["Undiscovered"],
+		otherFormes: ["regigigasmega"],
 	},
 	regigigasmega: {
 		num: 486,
@@ -8679,7 +8703,7 @@ exports.BattlePokedex = {
 		baseSpecies: "Regigigas",
 		forme: "Mega",
 		formeLetter: "M",
-		types: ["Normal"],
+		types: ["Normal", "Fighting"],
 		baseStats: {hp: 110, atk: 190, def: 140, spa: 80, spd: 140, spe: 110},
 		abilities: {0: "Truant"},
 		heightm: 5.6,
@@ -10692,6 +10716,7 @@ exports.BattlePokedex = {
 		prevo: "eelektrik",
 		evoLevel: 39,
 		eggGroups: ["Amorphous"],
+		otherFormes: ["eelektrossmega"],
 	},
 	eelektrossmega: {
 		num: 604,
@@ -10700,7 +10725,7 @@ exports.BattlePokedex = {
 		forme: "Mega",
 		formeLetter: "M",
 		types: ["Electric"],
-		baseStats: {hp: 85, atk: 135, def: 100, spa: 115, spd: 100, spe: 70},
+		baseStats: {hp: 85, atk: 135, def: 100, spa: 115, spd: 100, spe: 80},
 		abilities: {0: "Levitate"},
 		heightm: 2.6,
 		weightkg: 82.4,
@@ -14396,7 +14421,7 @@ exports.BattlePokedex = {
 		eggGroups: ["Undiscovered"],
 	},
 	missingno: {
-		num: 0,
+		num: 803,
 		species: "Missingno.",
 		types: ["Bird", "Normal"],
 		baseStats: {hp: 33, atk: 136, def: 0, spa: 6, spd: 6, spe: 29},
@@ -15172,8 +15197,13 @@ exports.BattlePokedex = {
 		baseSpecies: "Delibird",
 		forme: "Mega",
 		formeLetter: "M",
+<<<<<<< HEAD
 		types: ["Ice"],
 		baseStats: {hp: 45, atk: 80, def: 60, spa: 80, spd: 60, spe: 100},
+=======
+		types: ["Ice", "Flying"],
+		baseStats: {hp: 45, atk: 85, def: 60, spa: 80, spd: 60, spe: 100},
+>>>>>>> 1dbed2c141fec7bca54b79b6cdb17da4de736d2e
 		abilities: {0: "Blizzard Rush"},
 		heightm: 1.4,
 		weightkg: 31.3,
@@ -15290,7 +15320,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Water"],
 		baseStats: {hp: 85, atk: 145, def: 110, spa: 79, spd: 93, spe: 118},
-		abilities: {0: "Water Bubble"},
+		abilities: {0: "Tough Claws"},
 		heightm: 2.3,
 		weightkg: 88.8,
 		color: "Blue",
@@ -15318,7 +15348,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Poison", "Ground"],
 		gender: "F",
-		baseStats: {hp: 90, atk: 102, def: 132, spa: 75, spd: 130, spe: 76},
+		baseStats: {hp: 90, atk: 72, def: 132, spa: 105, spd: 130, spe: 76},
 		abilities: {0: "Sheer Force"},
 		heightm: 1.3,
 		weightkg: 60,

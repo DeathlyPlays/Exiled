@@ -5783,10 +5783,14 @@ exports.BattlePokedex = {
 		species: "Flygon",
 		types: ["Ground", "Dragon"],
 <<<<<<< HEAD
+<<<<<<< HEAD
 		baseStats: {hp: 80, atk: 100, def: 80, spa: 80, spd: 80, spe: 100},
 =======
 		baseStats: {hp: 80, atk: 110, def: 100, spa: 110, spd: 100, spe: 120},
 >>>>>>> 1dbed2c141fec7bca54b79b6cdb17da4de736d2e
+=======
+		baseStats: {hp: 80, atk: 100, def: 80, spa: 80, spd: 80, spe: 100},
+>>>>>>> d6c2f1d024761096448eaab40a9e41f690a813d7
 		abilities: {0: "Levitate"},
 		heightm: 2,
 		weightkg: 82,
@@ -6010,10 +6014,14 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Water", "Ground"],
 <<<<<<< HEAD
+<<<<<<< HEAD
 		baseStats: {hp: 110, atk: 110, def: 83, spa: 76, spd: 93, spe: 90},
 =======
 		baseStats: {hp: 110, atk: 110, def: 89, spa: 76, spd: 81, spe: 90},
 >>>>>>> 1dbed2c141fec7bca54b79b6cdb17da4de736d2e
+=======
+		baseStats: {hp: 110, atk: 110, def: 83, spa: 76, spd: 93, spe: 90},
+>>>>>>> d6c2f1d024761096448eaab40a9e41f690a813d7
 		abilities: {0: "Multiscale"},
 		heightm: 1,
 		weightkg: 25.6,

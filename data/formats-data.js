@@ -7385,4 +7385,10 @@ exports.BattleFormatsData = {
 		requiredItem: "Talonflite",
 		tier: "BL2",
 	},
+	keldeoabsolute: {
+		randomBattleMoves: ["hydropump", "icywind", "secretsword", "hiddenpowerground", "hiddenpowerelectric", "scald", "calmmind"],
+		requiredAbility: "Resolute Power",
+		battleOnly: true,
+		tier: "OU",
+	},
 };

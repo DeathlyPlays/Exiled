@@ -5202,6 +5202,21 @@ exports.BattlePokedex = {
 		prevo: "surskit",
 		evoLevel: 22,
 		eggGroups: ["Water 1", "Bug"],
+		otherFormes: ["masquerainmega"]
+	},
+	masquerainmega: {
+		num: 284,
+		species: "Masquerain-Mega",
+		baseSpecies: "Masquerain",
+		forme: "Mega",
+		formeLetter: "M",
+		types: ["Bug", "Flying"],
+		baseStats: {hp: 70, atk: 50, def: 82, spa: 135, spd: 102, spe: 115},
+		abilities: {0: "Intimidate"},
+		heightm: 0.8,
+		weightkg: 3.6,
+		color: "Blue",
+		eggGroups: ["Water 1", "Bug"],
 	},
 	shroomish: {
 		num: 285,
@@ -8263,6 +8278,7 @@ exports.BattlePokedex = {
 		prevo: "finneon",
 		evoLevel: 31,
 		eggGroups: ["Water 2"],
+		otherFormes: ["lumineonmega"],
 	},
 	lumineonmega: {
 		num: 457,
@@ -8524,6 +8540,7 @@ exports.BattlePokedex = {
 		prevo: "gligar",
 		evoLevel: 2,
 		eggGroups: ["Bug"],
+		otherFormes: ["gliscormega"],
 	},
 	gliscormega: {
 		num: 472,
@@ -8552,6 +8569,7 @@ exports.BattlePokedex = {
 		evoLevel: 34,
 		evoMove: "AncientPower",
 		eggGroups: ["Field"],
+		otherFormes: ["mamoswinemega"],
 	},
 	mamoswinemega: {
 		num: 473,
@@ -11801,6 +11819,7 @@ exports.BattlePokedex = {
 		prevo: "quilladin",
 		evoLevel: 36,
 		eggGroups: ["Field"],
+		otherFormes: ["chesnaughtmega"],
 	},
 	chesnaughtmega: {
 		num: 652,
@@ -11955,6 +11974,7 @@ exports.BattlePokedex = {
 		prevo: "bunnelby",
 		evoLevel: 20,
 		eggGroups: ["Field"],
+		otherFormes: ["diggersbymega"],
 	},
 	diggersbymega: {
 		num: 660,
@@ -12008,6 +12028,7 @@ exports.BattlePokedex = {
 		prevo: "fletchinder",
 		evoLevel: 35,
 		eggGroups: ["Flying"],
+		otherFormes: ["talonflamemega"],
 	},
 	talonflamemega: {
 		num: 663,
@@ -12194,7 +12215,7 @@ exports.BattlePokedex = {
 		prevo: "floette",
 		evoLevel: 19,
 		eggGroups: ["Fairy"],
-		otherForms: ["florgesblue", "florgesorange", "florgeswhite", "florgesyellow"],
+		otherForms: ["florgesblue", "florgesorange", "florgeswhite", "florgesyellow", "florgesmega"],
 	},
 	florgesmega: {
 		num: 671,
@@ -12576,6 +12597,7 @@ exports.BattlePokedex = {
 		prevo: "helioptile",
 		evoLevel: 1,
 		eggGroups: ["Monster", "Dragon"],
+		otherFormes: ["helioliskmega"],
 	},
 	helioliskmega: {
 		num: 695,
@@ -12669,6 +12691,7 @@ exports.BattlePokedex = {
 		weightkg: 21.5,
 		color: "Green",
 		eggGroups: ["Human-Like"],
+		otherFormes: ["hawluchamega"],
 	},
 	hawluchamega: {
 		num: 701,
@@ -12706,6 +12729,7 @@ exports.BattlePokedex = {
 		weightkg: 5.7,
 		color: "Gray",
 		eggGroups: ["Fairy", "Mineral"],
+		otherFormes: ["carbinkmega"],
 	},
 	carbinkmega: {
 		num: 703,
@@ -12760,6 +12784,7 @@ exports.BattlePokedex = {
 		prevo: "sliggoo",
 		evoLevel: 50,
 		eggGroups: ["Dragon"],
+		otherFormes: ["goodraalola"],
 	},
 	goodraalola: {
 		num: 706,
@@ -13134,6 +13159,7 @@ exports.BattlePokedex = {
 		weightkg: 195,
 		color: "Brown",
 		eggGroups: ["Undiscovered"],
+		otherFormes: ["volcanionmega"],
 	},
 	volcanionmega: {
 		num: 721,
@@ -13527,6 +13553,7 @@ exports.BattlePokedex = {
 		prevo: "cutiefly",
 		evoLevel: 25,
 		eggGroups: ["Bug", "Fairy"],
+		otherFormes: ["ribombeemega"],
 	},
 	ribombeemega: {
 		num: 743,
@@ -13686,6 +13713,21 @@ exports.BattlePokedex = {
 		prevo: "dewpider",
 		evoLevel: 22,
 		eggGroups: ["Water 1", "Bug"],
+		otherFormes: ["araquanidmega"],
+	},
+	araquanidmega: {
+		num: 752,
+		species: "Araquanid-Mega",
+		baseSpecies: "Araquanid",
+		forme: "Mega",
+		formeLetter: "M",
+		types: ["Water", "Bug"],
+		baseStats: {hp: 68, atk: 100, def: 122, spa: 50, spd: 142, spe: 62},
+		abilities: {0: "Water Bubble", H: "Water Absorb"},
+		heightm: 1.8,
+		weightkg: 82,
+		color: "Green",
+		eggGroups: ["Water 1", "Bug"],
 	},
 	fomantis: {
 		num: 753,
@@ -13788,6 +13830,7 @@ exports.BattlePokedex = {
 		prevo: "stufful",
 		evoLevel: 27,
 		eggGroups: ["Field"],
+		otherFormes: ["bewearmega"],
 	},
 	bewearmega: {
 		num: 760,
@@ -14269,7 +14312,7 @@ exports.BattlePokedex = {
 		weightkg: 0.3,
 		color: "Red",
 		eggGroups: ["Mineral"],
-		otherFormes: ["miniormeteor"],
+		otherFormes: ["miniormeteor", "miniormega"],
 		otherForms: ["miniororange", "minioryellow", "miniorgreen", "miniorblue", "miniorindigo", "miniorviolet"],
 	},
 	miniormeteor: {
@@ -14656,7 +14699,7 @@ exports.BattlePokedex = {
 		weightkg: 80.5,
 		color: "Gray",
 		eggGroups: ["Undiscovered"],
-		otherFormes: ["magearnaoriginal"],
+		otherFormes: ["magearnaoriginal", "magearnamega"],
 	},
 	magearnamega: {
 		num: 801,

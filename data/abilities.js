@@ -4212,7 +4212,7 @@ exports.BattleAbilities = {
 		rating: 3.5,
 		num: -4,
 	},
-	//Exiled Custom Pokemon
+	//Custom Pokemon
 	"insectize": {
 		desc: "This Pokemon's Normal-type moves become Bug-type moves and have their power multiplied by 1.2. This effect comes after other effects that change a move's type, but before Ion Deluge and Electrify's effects.",
 		shortDesc: "This Pokemon's Normal-type moves become Bug Type and have 1.2x power.",
@@ -4278,12 +4278,12 @@ exports.BattleAbilities = {
 		num: 0,
 	},
 	"resolutepower": {
-		desc: "If this Pokemon is a Keldeo, it transforms into Keldeo-Resolute after knocking out a Pokemon.",
-		shortDesc: "After KOing a Pokemon: becomes Keldeo-Resolute.",
-		onSourceFaint: function (target, source, effect) {
-			if (effect && effect.effectType === 'Move' && source.template.speciesid === 'keldeo' && source.hp && !source.transformed && source.side.foe.pokemonLeft) {
+		desc: "If this Pokemon is a Keldeo or Keldeo-Resolute, it transforms into Keldeo-Absolute after knocking out a Pokemon.",
+		shortDesc: "After KOing a Pokemon, becomes Keldeo-Absolute.",
+		onSourceFaint: function (source, effect) {
+			if (effect && effect.effectType === 'Move' && source.template.speciesid === 'keldeo' || source.template.speciesid === 'keldeoresolute' && source.hp && !source.transformed && source.side.foe.pokemonLeft) {
 				this.add('-activate', source, 'ability: Resolute Power');
-				let template = this.getTemplate('Keldeo-Resolute');
+				let template = this.getTemplate('Keldeo-Absolute');
 				source.formeChange(template);
 				source.baseTemplate = template;
 				source.details = template.species + (source.level === 100 ? '' : ', L' + source.level) + (source.gender === '' ? '' : ', ' + source.gender) + (source.set.shiny ? ', shiny' : '');
@@ -4293,7 +4293,7 @@ exports.BattleAbilities = {
 		id: "resolutepower",
 		name: "Resolute Power",
 		rating: 4,
-		num: 0,
+		num: -956,
 	},
 	"luster": {
 		id: "luster",
@@ -4303,6 +4303,8 @@ exports.BattleAbilities = {
 			this.useMove('Light Screen', pokemon);
 		},
 		shortDesc: "Sets up dual screens",
+		rating: 5,
+		num: -957,
 	},
 	"deltafur": {
 		desc: "70% chance a Pokemon making contact with this Pokemon will be poisoned, paralyzed, fall asleep, freeze, or burned.",
@@ -4440,14 +4442,14 @@ exports.BattleAbilities = {
 		rating: 4,
 		num: 117,
 	},
-	"oldgalewings": {
+	"primitivewings": {
 		inherit: true,
 		shortDesc: "This Pokemon's Flying-type moves have their priority increased by 1.",
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.type === 'Flying') return priority + 1;
 		},
-		id: "oldgalewings",
-		name: "Old Gale Wings",
+		id: "primitivewings",
+		name: "Primitive Wings",
 		rating: 4.5,
 		num: -115,
 	},
@@ -4513,6 +4515,7 @@ exports.BattleAbilities = {
 				}
 			}
 		},
+		shortDesc: "Every turn, a new weather is set; improved Forecast.",
 		id: "climatechange",
 		name: "Climate Change",
 		rating: 5,
@@ -4598,6 +4601,7 @@ exports.BattleAbilities = {
 			this.setTerrain('psychicterrain');
 		},
 		rating: 5,
+		num: -546,
 	},
 	"barrierrise": {
 		id: "barrierrise",
@@ -4607,6 +4611,7 @@ exports.BattleAbilities = {
 			this.setWeather('steelbarrier');
 		},
 		rating: 3.5,
+		num: -800,
 	},
 	"stampede": {
 		id: "stampede",
@@ -4631,6 +4636,7 @@ exports.BattleAbilities = {
 		},
 		desc: "Huge Power + Sheer Force",
 		rating: 5,
+		num: -801,
 	},
 	"amplifier": {
 		shortDesc: "This Pokemon's sound moves have their power multiplied by 1.3.",
@@ -4643,6 +4649,6 @@ exports.BattleAbilities = {
 		id: "amplifier",
 		name: "Amplifier",
 		rating: 3.5,
-		num: -800,
+		num: -802,
 	},
 };

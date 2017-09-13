@@ -7472,7 +7472,7 @@ exports.BattleItems = {
 	"hitmonlite": {
 		id: "hitmonlite",
 		name: "Hitmonlite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Hitmonlee-Mega",
 		megaEvolves: "Hitmonlee",
 		onTakeItem: function (item, source) {
@@ -7486,7 +7486,7 @@ exports.BattleItems = {
 	"hitmonchite": {
 		id: "hitmonchite",
 		name: "Hitmonchite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Hitmonchan-Mega",
 		megaEvolves: "Hitmonchan",
 		onTakeItem: function (item, source) {
@@ -7500,7 +7500,7 @@ exports.BattleItems = {
 	"hitmontite": {
 		id: "hitmontite",
 		name: "Hitmontite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Hitmontop-Mega",
 		megaEvolves: "Hitmontop",
 		onTakeItem: function (item, source) {
@@ -7514,7 +7514,7 @@ exports.BattleItems = {
 	"primarinite": {
 		id: "primarinite",
 		name: "Primarinite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Primarina-Mega",
 		megaEvolves: "Primarina",
 		onTakeItem: function (item, source) {
@@ -7528,7 +7528,7 @@ exports.BattleItems = {
 	"deciduite": {
 		id: "deciduite",
 		name: "Deciduite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Decidueye-Mega",
 		megaEvolves: "Decidueye",
 		onTakeItem: function (item, source) {
@@ -7542,7 +7542,7 @@ exports.BattleItems = {
 	"incinerite": {
 		id: "incinerite",
 		name: "Incinerite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Incineroar-Mega",
 		megaEvolves: "Incineroar",
 		onTakeItem: function (item, source) {
@@ -7556,7 +7556,7 @@ exports.BattleItems = {
 	"heliolite": {
 		id: "heliolite",
 		name: "Heliolite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Heliolisk-Mega",
 		megaEvolves: "Heliolisk",
 		onTakeItem: function (item, source) {
@@ -7570,7 +7570,7 @@ exports.BattleItems = {
 	"mamoswite": {
 		id: "mamoswite",
 		name: "Mamoswite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Mamoswine-Mega",
 		megaEvolves: "Mamoswine",
 		onTakeItem: function (item, source) {
@@ -7584,7 +7584,7 @@ exports.BattleItems = {
 	"rapidashite": {
 		id: "rapidashite",
 		name: "Rapidashite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Rapidash-Mega",
 		megaEvolves: "Rapidash",
 		onTakeItem: function (item, source) {
@@ -7598,7 +7598,7 @@ exports.BattleItems = {
 	"wigglytuffite": {
 		id: "wigglytuffite",
 		name: "Wigglytuffite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Wigglytuff-Mega",
 		megaEvolves: "Wigglytuff",
 		onTakeItem: function (item, source) {
@@ -7612,7 +7612,7 @@ exports.BattleItems = {
 	"liepardite": {
 		id: "liepardite",
 		name: "Liepardite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Liepard-Mega",
 		megaEvolves: "Liepard",
 		onTakeItem: function (item, source) {
@@ -7626,7 +7626,7 @@ exports.BattleItems = {
 	"raichite": {
 		id: "raichite",
 		name: "Raichite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Raichu-Mega",
 		megaEvolves: "Raichu",
 		onTakeItem: function (item, source) {
@@ -7640,7 +7640,7 @@ exports.BattleItems = {
 	"wailordite": {
 		id: "wailordite",
 		name: "Wailordite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Wailord-Mega",
 		megaEvolves: "Wailord",
 		onTakeItem: function (item, source) {
@@ -7654,7 +7654,7 @@ exports.BattleItems = {
 	"diggersbite": {
 		id: "diggersbite",
 		name: "Diggersbite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Diggersby-Mega",
 		megaEvolves: "Diggersby",
 		onTakeItem: function (item, source) {
@@ -7668,7 +7668,7 @@ exports.BattleItems = {
 	"spindite": {
 		id: "spindite",
 		name: "Spindite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Spinda-Mega",
 		megaEvolves: "Spinda",
 		onTakeItem: function (item, source) {
@@ -7682,15 +7682,43 @@ exports.BattleItems = {
 	"nidoqueenite": {
 		id: "nidoqueenite",
 		name: "Nidoqueenite",
-		spritenum: -624,
+		spritenum: 624,
 		megaStone: "Nidoqueen-Mega",
 		megaEvolves: "Nidoqueen",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;
 		},
-		num: -764,
+		num: -765,
 		gen: 0,
 		desc: "If holder is a Nidoqueen, this item allows it to Mega Evolve in battle.",
+	},
+	"araquanite": {
+		id: "araquanite",
+		name: "Araquanite",
+		spritenum: 624,
+		megaStone: "Araquanid-Mega",
+		megaEvolves: "Araquanid",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -766,
+		gen: 0,
+		desc: "If holder is a Araquanid, this item allows it to Mega Evolve in battle.",
+	},
+	"masquerite": {
+		id: "masquerite",
+		name: "Masquerite",
+		spritenum: 624,
+		megaStone: "Masquerain-Mega",
+		megaEvolves: "Masquerain",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Masquerain, this item allows it to Mega Evolve in battle.",
 	},
 };

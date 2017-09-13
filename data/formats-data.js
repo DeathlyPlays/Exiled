@@ -7391,4 +7391,22 @@ exports.BattleFormatsData = {
 		battleOnly: true,
 		tier: "OU",
 	},
+	ribombeemega: {
+		randomBattleMoves: ["quiverdance", "bugbuzz", "moonblast", "hiddenpowerfire", "roost", "batonpass"],
+		randomDoubleBattleMoves: ["quiverdance", "pollenpuff", "moonblast", "protect", "batonpass"],
+		tier: "UU",
+		requiredItem: "Ribombite",
+	},
+	araquanidmega: {
+		randomBattleMoves: ["liquidation", "leechlife", "lunge", "toxic", "crunch"],
+		randomDoubleBattleMoves: ["liquidation", "leechlife", "lunge", "poisonjab", "protect", "wideguard"],
+		tier: "UU",
+		requiredItem: "Araquanite",
+	},
+	masquerainmega: {
+		randomBattleMoves: ["quiverdance", "bugbuzz", "airslash", "hydropump", "roost", "stickyweb"],
+		randomDoubleBattleMoves: ["hydropump", "bugbuzz", "airslash", "quiverdance", "tailwind", "roost", "protect"],
+		tier: "BL2",
+		requiredItem: "Masquerite",
+	},
 };

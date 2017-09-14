@@ -317,11 +317,7 @@ exports.commands = {
 	cardladder: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let keys = Object.keys(Db('points').object()).map(function (name) {
-<<<<<<< HEAD
-			return {name: Dew.nameColor(name, false), points: getPointTotal(name)};
-=======
 			return {name: name, points: getPointTotal(name)};
->>>>>>> 222dbb09e0a2ba33576df3393e68a6fb757e5b32
 		});
 		if (!keys.length) return this.sendReplyBox("Card ladder is empty.");
 		keys.sort(function (a, b) { return b.points - a.points; });

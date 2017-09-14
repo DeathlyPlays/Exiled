@@ -220,7 +220,7 @@ exports.commands = {
 		if (!target) return this.parse('/help declaremod');
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (!this.can('receiveauthmessages', null, room)) return false;
-		return this.privateModCommand('|raw|<div class="broadcast-red"><b><font size=1><i>Private Auth (Driver +) declare from ' + Exiled.nameColor(user.name) + '<br /></i></font size>' + target + '</b></div>');
+		return this.privateModCommand('|raw|<div class="broadcast-red"><b><font size=1><i>Private Auth (Driver +) declare from ' + Dew.nameColor(user.name) + '<br /></i></font size>' + target + '</b></div>');
 	},
 	declaremodhelp: ["/declaremod [note] - Adds a staff readable declare. Requires: % @ # & ~"],
 

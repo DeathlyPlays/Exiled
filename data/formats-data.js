@@ -1869,7 +1869,7 @@ exports.BattleFormatsData = {
 		tier: "UU",
 	},
 	lanturnalola: {
-		randomBattleMoves: ["gigadrain", "icebeam", "scald", "psyshock", "haze", "bugbuzz"],
+		randomBattleMoves: ["gigadrain", "dazzlinggleam", "scald", "psyshock", "haze", "bugbuzz", "tundrasweep", "thunderbolt", "freezedry"],
 		tier: "RU",
 	},
 	ledyba: {
@@ -3375,12 +3375,21 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	kingleralola: {
-		randomBattleMoves: ["stoneedge", "rockslide", "crabhammer", "metalclaw", "swordsdance", "superpower", "substitute"],
-		tier: "RU",
+		randomBattleMoves: ["stoneedge", "rockslide", "crabhammer", "metalclaw", "swordsdance", "superpower", "substitute", "rockwrecker", "knockoff"],
+		tier: "BL3",
 	},
 	volcaronaalola: {
-		randomBattleMoves: ["waterspout", "surf", "aquaticdance", "hurricane", "bugbuzz", "hiddenpowerground", "raindance"],
+		randomBattleMoves: ["waterspout", "aquaticdance", "hurricane", "bugbuzz", "hiddenpowerground", "flamethrower", "roost", "quiverdance"],
 		tier: "OU",
+	},
+	ludicoloalola: {
+		randomBattleMoves: ["fireblast", "sunnyday", "flamethrower", "scald", "gigadrain", "icebeam", "focusblast"],
+		randomDoubleBattleMoves: ["sunnyday", "fireblast", "flamethrower", "gigadrain", "icebeam", "fakeout", "protect"],
+		tier: "NU",
+	},
+	jynxalola: {
+		randomBattleMoves: ["icebeam", "psychic", "focusblast", "trick", "nastyplot", "lovelykiss", "substitute", "psystrike", "teeterdance", "hiddenpowerfire", "solarbeam"],
+		tier: "NU",
 	},
 	huntail: {
 		randomBattleMoves: ["shellsmash", "waterfall", "icebeam", "batonpass", "suckerpunch"],
@@ -3609,8 +3618,8 @@ exports.BattleFormatsData = {
 		tier: "Uber",
 	},
 	raichumega: {
-		randomBattleMoves: ["thunderbolt", "moonblast", "grassknot", "hiddenpowerfire"],
-		randomDoubleBattleMoves: ["discharge", "moonblast", "volttackle", "grassknot", "hiddenpowerground", "irontail", "knockoff"],
+		randomBattleMoves: ["thunderbolt", "moonblast", "grassknot", "hiddenpowerfire", "focusblast", "voltswitch"],
+		randomDoubleBattleMoves: ["discharge", "moonblast", "volttackle", "grassknot", "hiddenpowerground", "irontail", "knockoff", "focusblast", "voltswitch", "protect"],
 		requiredItem: "Raichite",
 		tier: "UU",
 	},
@@ -4114,6 +4123,11 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["leafstorm", "thunderbolt", "voltswitch", "painsplit", "hiddenpowerfire", "willowisp", "trick"],
 		randomDoubleBattleMoves: ["leafstorm", "thunderbolt", "voltswitch", "substitute", "painsplit", "hiddenpowerfire", "willowisp", "trick", "electroweb", "protect"],
 		tier: "NU",
+	},
+	rotomdex: {
+		randomBattleMoves: ["thunderbolt", "voltswitch", "shadowball", "substitute", "painsplit", "hiddenpowerice", "trick", "willowisp", "flashcannon"],
+		randomDoubleBattleMoves: ["thunderbolt", "voltswitch", "shadowball", "substitute", "painsplit", "hiddenpowerice", "trick", "willowisp", "electroweb", "protect", "flashcannon"],
+		tier: "UU",
 	},
 	uxie: {
 		randomBattleMoves: ["stealthrock", "thunderwave", "psychic", "uturn", "healbell", "knockoff", "yawn"],
@@ -6888,7 +6902,14 @@ exports.BattleFormatsData = {
 		tier: "OU",
 	},
 	hitmontopalola: {
+		randomBattleMoves: ["flareblitz", "rapidspin", "highjumpkick", "earthquake", "suckerpunch", "stoneedge", "fakeout", "bulletpunch", "machpunch"],
+		randomDoubleBattleMoves: ["flareblitz", "rapidspin", "highjumpkick", "earthquake", "suckerpunch", "stoneedge", "fakeout", "bulletpunch", "machpunch", "protect"],
 		tier: "RU",
+	},
+	goodraalola: {
+		randomBattleMoves: ["dracometeor", "dragonpulse", "fireblast", "sludgebomb", "thunderbolt", "gigadrain"],
+		randomDoubleBattleMoves: ["thunderbolt", "icebeam", "dragonpulse", "fireblast", "muddywater", "dracometeor", "focusblast", "protect", "gigadrain"],
+		tier: "UU",
 	},
 	decidueyemega: {
 		randomBattleMoves: ["spiritshackle", "suckerpunch", "roost", "leafblade", "swordsdance"],
@@ -7196,10 +7217,10 @@ exports.BattleFormatsData = {
 		requiredItem: "Bearticite",
 	},
 	zangoosemega: {
-		randomBattleMoves: ["swordsdance", "closecombat", "knockoff", "quickattack", "facade"],
-		randomDoubleBattleMoves: ["protect", "closecombat", "knockoff", "quickattack", "facade"],
+		randomBattleMoves: ["swordsdance", "closecombat", "knockoff", "quickattack"],
+		randomDoubleBattleMoves: ["protect", "closecombat", "knockoff", "quickattack"],
 		requiredItem: "Zangoosite",
-		tier: "UU",
+		tier: "BL",
 	},
 	sevipermega: {
 		randomBattleMoves: ["flamethrower", "gigadrain", "coil", "earthquake", "poisonjab", "suckerpunch", "crunch", "poisonfang"],
@@ -7408,5 +7429,32 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["hydropump", "bugbuzz", "airslash", "quiverdance", "tailwind", "roost", "protect"],
 		tier: "BL2",
 		requiredItem: "Masquerite",
+	},
+	golduckmega: {
+		randomBattleMoves: ["hydropump", "scald", "icebeam", "psyshock", "calmmind", "poweruppunch", "waterfall", "icepunch", "zenheadbutt", "aquajet", "focusblast"],
+		randomDoubleBattleMoves: ["hydropump", "scald", "icebeam", "hiddenpowergrass", "focusblast", "encore", "psychic", "poweruppunch", "aquajet", "waterfall", "icepunch", "zenheadbutt", "protect"],
+		requiredItem: "Golduckite",
+		tier: "RU",
+	},
+	grumpigmega: {
+		randomBattleMoves: ["psychic", "thunderwave", "healbell", "whirlwind", "toxic", "focusblast", "reflect", "lightscreen"],
+		randomDoubleBattleMoves: ["psychic", "psyshock", "thunderwave", "trickroom", "taunt", "protect", "focusblast", "reflect", "lightscreen"],
+		requiredItem: "Grumpigite",
+		tier: "RU",
+	},
+	lumineonmega: {
+		randomBattleMoves: ["scald", "icebeam", "uturn", "toxic", "defog"],
+		randomDoubleBattleMoves: ["surf", "uturn", "icebeam", "toxic", "raindance", "tailwind", "scald", "protect"],
+		tier: "NU",
+	},
+	lilligantmega: {
+		randomBattleMoves: ["sleeppowder", "quiverdance", "gigadrain", "hiddenpowerfire", "hiddenpowerrock"],
+		randomDoubleBattleMoves: ["quiverdance", "gigadrain", "sleeppowder", "hiddenpowerice", "hiddenpowerfire", "hiddenpowerrock", "protect"],
+		tier: "UU",
+	},
+	wigglytuffmega: {
+		randomBattleMoves: ["wish", "protect", "fireblast", "stealthrock", "dazzlinggleam", "hypervoice", "return", "playrough", "icepunch", "drainpunch", "painsplit"],
+		randomDoubleBattleMoves: ["thunderwave", "reflect", "lightscreen", "protect", "dazzlinggleam", "fireblast", "icebeam", "hypervoice", "return", "playrough", "icepunch", "drainpunch", "painsplit"],
+		tier: "BL3",
 	},
 };

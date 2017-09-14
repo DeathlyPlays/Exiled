@@ -19,15 +19,19 @@ Config.chatfilter = function (message, user, room, connection, targetUser) {
 			Punishments.lock(user, Date.now() + 7 * 24 * 60 * 60 * 1000, null, "Advertising");
 			FS.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server. (Advertising) (' + connection.ip + ')\n');
 			connection.sendTo(room, '|raw|<strong class="message-throttle-notice">You have been locked for attempting to advertise.</strong>');
-			Monitor.log("[AdMonitor] " + Exiled.nameColor(user.name) + " has been locked for attempting to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + Exiled.nameColor(targetUser.name) + ".") + " **Message:** " + message);
+			Monitor.log("[AdMonitor] " + user.name + " has been locked for attempting to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + targetUser.name + ".") + " **Message:** " + message);
 			return false;
 		}
+<<<<<<< HEAD
 <<<<<<< HEAD
 		Monitor.log("[AdMonitor] " + user.name + " has attempted to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + targetUser.name + ".") + " **Message:** " + message);
 		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and Dewdrop global authorities have been notified.' + '<br />Further attempts to advertise in a chat OR PMs will result in being locked.</strong>');
 		connection.user.popup("|modal|Advertising detected, your message has not been sent and Dewdrop global authorities have been notified.\n" + "Further attempts to advertise in a chat OR in PMs will result in being locked.");
 =======
 		Monitor.log("[AdMonitor] " + Exiled.nameColor(user.name) + " has attempted to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + Exiled.nameColor(targetUser.name) + ".") + " **Message:** " + message);
+=======
+		Monitor.log("[AdMonitor] " + user.name + " has attempted to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + targetUser.name + ".") + " **Message:** " + message);
+>>>>>>> b742c02e9de02fdebdd7ba5a97af29f6697a9757
 		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and Exiled global authorities have been notified.' + '<br />Further attempts to advertise in a chat OR PMs will result in being locked.</strong>');
 		connection.user.popup("|modal|Advertising detected, your message has not been sent and Exiled global authorities have been notified.\n" + "Further attempts to advertise in a chat OR in PMs will result in being locked.");
 >>>>>>> 222dbb09e0a2ba33576df3393e68a6fb757e5b32

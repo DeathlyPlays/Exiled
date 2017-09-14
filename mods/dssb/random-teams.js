@@ -247,7 +247,27 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Serious",
 			},
+<<<<<<< HEAD:mods/dssb/random-teams.js
 			" Alpha Shivam": {
+=======
+			//Voices
+			"+Renfur": {
+				species: "Flygon-Mega",
+				ability: "DesertDragon",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['flamethrower', 'earthpower', 'dragonpulse'],
+				baseSignatureMove: "itsmytimenow",
+				signatureMove: "It's My Time Now",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Mild",
+			},
+			"+Shivay": {
+>>>>>>> 12e12888d4bab467a55873f3eb193041adbfe606:mods/essb/random-teams.js
 				species: "Charizard-Mega-X",
 				ability: "Bird Claws",
 				item: "Health Orb",

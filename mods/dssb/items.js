@@ -214,7 +214,7 @@ exports.BattleItems = {
 		onTakeItem: false,
 		num: -12,
 		gen: -1,
-		desc: "7.8/10 too much code.",
+		desc: "Every turn, the user's HP restores 1/8 of their max HP. STAB moves get boosted by 1.3x. This item can not be knocked off.",
 	},
 	"hydriumz": {
 		spritenum: 656,

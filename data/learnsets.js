@@ -40978,7 +40978,7 @@ exports.BattleLearnsets = {
 	rotommow: {learnset: {
 		leafstorm: ["7L1", "6L1", "5T", "4T"],
 	}},
-	rotommow: {learnset: {
+	rotomdex: {learnset: {
 		flashcannon: ["7L1", "6L1", "5T", "4T"],
 	}},
 	uxie: {learnset: {

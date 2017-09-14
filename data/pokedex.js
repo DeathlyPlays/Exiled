@@ -13752,7 +13752,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Water", "Bug"],
 		baseStats: {hp: 68, atk: 100, def: 122, spa: 50, spd: 142, spe: 62},
-		abilities: {0: "Water Bubble", H: "Water Absorb"},
+		abilities: {0: "Water Bubble"},
 		heightm: 1.8,
 		weightkg: 82,
 		color: "Green",

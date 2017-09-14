@@ -554,7 +554,7 @@ Signature Move: Copy Water Clones
 Notes: Fast Special Sweeper.
 Rank: A.
 
-Alpha Shivam
+Shivay
 (Charizard-Mega-X)
 @ Health Orb
 	- 1.3x Attacking Moves + Loses 1/32 of maximum health every turn.

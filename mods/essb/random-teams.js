@@ -323,7 +323,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Mild",
 			},
-			"+Alpha Shivam": {
+			"+Shivay": {
 				species: "Charizard-Mega-X",
 				ability: "Bird Claws",
 				item: "Health Orb",

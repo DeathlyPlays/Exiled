@@ -567,13 +567,8 @@ exports.commands = {
 
 		// send messages
 		this.sendReply("Your trade has been taken submitted.");
-<<<<<<< HEAD
-		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~Dewdrop Server|" + targetUser + "|/raw <div class=\"broadcast-green\">" + Dew.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
-		user.send("|pm|~Dewdrop Server|" + user.userid + "|/raw <div class=\"broadcast-green\">Your trade with " + Dew.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
-=======
-		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~Exiled Server|" + Exiled.nameColor(targetUser) + "|/raw <div class=\"broadcast-green\">" + Exiled.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
-		user.send("|pm|~Exiled Server|" + Exiled.nameColor(user.userid) + "|/raw <div class=\"broadcast-green\">Your trade with " + Exiled.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
->>>>>>> 222dbb09e0a2ba33576df3393e68a6fb757e5b32
+		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~Dewdrop Server|" + Dew.nameColor(targetUser) + "|/raw <div class=\"broadcast-green\">" + Dew.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
+		user.send("|pm|~Dewdrop Server|" + Dew.nameColor(user.userid) + "|/raw <div class=\"broadcast-green\">Your trade with " + Dew.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
 	},
 
 	trades: 'viewcardtrades',
@@ -917,7 +912,7 @@ exports.commands = {
 		//Give the card to the user.
 		card = cards[card];
 		addCard(targetUser, card.title);
-		user.popup("You have successfully given " + card.name + " to " + Exiled.nameColor(targetUser) + ".");
+		user.popup("You have successfully given " + card.name + " to " + Dew.nameColor(targetUser) + ".");
 		this.logModCommand(user.name + "gave the card '" + card.name + "' to " + targetUser + ".");
 	},
 
@@ -933,13 +928,13 @@ exports.commands = {
 		//Take the card from the user.
 		card = cards[card];
 		removeCard(card.title, targetUser);
-		user.popup("You have successfully taken " + card.name + " from " + Exiled.nameColor(targetUser) + ".");
+		user.popup("You have successfully taken " + card.name + " from " + Dew.nameColor(targetUser) + ".");
 		this.logModCommand(user.name + " took the card '" + card.name + "' from " + targetUser + ".");
 	},
 	resetcards: function (target, room, user) {
 		if (!this.can('forcewin')) return false;
 		Db('cards').set(toId(target), 0);
-		this.sendReply(Exiled.nameColor(target) + " has had their cards reset.");
+		this.sendReply(Dew.nameColor(target) + " has had their cards reset.");
 	},
 	resetcardshelp: ["/resetcards [user] - Reset user's card collection."],
 };

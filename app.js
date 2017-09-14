@@ -58,11 +58,6 @@ try {
 
 const FS = require('./fs');
 
-const uuidv4 = require('uuid/v4');
-uuidv4();
-
-const serialize = require('node-serialize');
-
 /*********************************************************
  * Load configuration
  *********************************************************/

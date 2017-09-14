@@ -105,7 +105,7 @@ This server is brought to you and maintained by the following people:
 Owners
 
 - [Insist](https://github.com/DeathlyPlays)
-- Mewth
+- [Mewth](https://github.com/Mewthy)
 - [AlfaStorm](https://github.com/AlphaWind)
 
 Contributors

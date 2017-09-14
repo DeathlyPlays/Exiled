@@ -479,8 +479,6 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
-
-		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],
 		onValidateTeam: function (team) {

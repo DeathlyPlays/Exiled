@@ -4216,7 +4216,7 @@ exports.BattlePokedex = {
 		weightkg: 16,
 		color: "Red",
 		eggGroups: ["Water 1", "Field"],
-		otherFormes: ["delibirdmega"]
+		otherFormes: ["delibirdmega"],
 	},
 	delibirdmega: {
 		num: 225,
@@ -5205,7 +5205,7 @@ exports.BattlePokedex = {
 		prevo: "surskit",
 		evoLevel: 22,
 		eggGroups: ["Water 1", "Bug"],
-		otherFormes: ["masquerainmega"]
+		otherFormes: ["masquerainmega"],
 	},
 	masquerainmega: {
 		num: 284,
@@ -7847,7 +7847,7 @@ exports.BattlePokedex = {
 		prevo: "misdreavus",
 		evoLevel: 1,
 		eggGroups: ["Amorphous"],
-		otherFormes: ["mismagiusmega"]
+		otherFormes: ["mismagiusmega"],
 	},
 	mismagiusmega: {
 		num: 429,
@@ -13241,6 +13241,7 @@ exports.BattlePokedex = {
 		prevo: "dartrix",
 		evoLevel: 34,
 		eggGroups: ["Flying"],
+		otherFormes: ["decidueyemega"],
 	},
 	decidueyemega: {
 		num: 724,
@@ -13297,6 +13298,7 @@ exports.BattlePokedex = {
 		prevo: "torracat",
 		evoLevel: 34,
 		eggGroups: ["Field"],
+		otherFormes: ["incineroarmega"],
 	},
 	incineroarmega: {
 		num: 727,
@@ -13353,6 +13355,7 @@ exports.BattlePokedex = {
 		prevo: "brionne",
 		evoLevel: 34,
 		eggGroups: ["Water 1", "Field"],
+		otherFormes: ["primarinamega"],
 	},
 	primarinamega: {
 		num: 730,
@@ -14355,6 +14358,7 @@ exports.BattlePokedex = {
 		weightkg: 40,
 		color: "Brown",
 		eggGroups: ["Mineral"],
+		otherFormes: ["minior", "miniormega"],
 	},
 	miniormega: {
 		num: 774,
@@ -14402,6 +14406,7 @@ exports.BattlePokedex = {
 		weightkg: 3.3,
 		color: "Gray",
 		eggGroups: ["Field", "Fairy"],
+		otherFormes: ["togedemarumega"],
 	},
 	togedemarumega: {
 		num: 777,

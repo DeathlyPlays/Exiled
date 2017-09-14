@@ -201,14 +201,22 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			if (!room.chatRoomData.user) return this.sendReplyBox("The User of the Week has not been set.");
 			return this.sendReplyBox(
+<<<<<<< HEAD:chat-plugins/dewdrop.js
 				"The current <strong>User of the Week</strong>  is: " + Dew.nameColor(room.chatRoomData.user)
+=======
+				"The current <strong>User of the Week</strong>  is: " + Exiled.nameColor(room.chatRoomData.user, true)
+>>>>>>> 97129442e65664bfe9ce52c8a1b26cb835f760ae:chat-plugins/exiled.js
 			);
 		}
 		if (!this.can('lock', null, room)) return false;
 		if (target === 'off' || target === 'disable' || target === 'reset') {
 			if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
 			delete room.chatRoomData.user;
+<<<<<<< HEAD:chat-plugins/dewdrop.js
 			this.sendReply("The User of the Week was reset by " + Dew.nameColor(user.name) + ".");
+=======
+			this.sendReply("The User of the Week was reset by " + Exiled.nameColor(user.name, true) + ".");
+>>>>>>> 97129442e65664bfe9ce52c8a1b26cb835f760ae:chat-plugins/exiled.js
 			this.logModCommand(user.name + " reset the User of the Week.");
 			Rooms.global.writeChatRoomData();
 			return;
@@ -216,7 +224,11 @@ exports.commands = {
 		room.chatRoomData.user = Chat.escapeHTML(target);
 		Rooms.global.writeChatRoomData();
 		room.addRaw(
+<<<<<<< HEAD:chat-plugins/dewdrop.js
 			"<div class=\"broadcast-green\"><strong>The User of the Week is: " + Dew.nameColor(room.chatRoomData.user) + ".</strong></div>"
+=======
+			"<div class=\"broadcast-green\"><strong>The User of the Week is: " + Exiled.nameColor(room.chatRoomData.user, true) + ".</strong></div>"
+>>>>>>> 97129442e65664bfe9ce52c8a1b26cb835f760ae:chat-plugins/exiled.js
 		);
 		this.logModCommand(Chat.escapeHTML(user.name) + " updated the User of the Week to \"" + room.chatRoomData.user + "\".");
 	},

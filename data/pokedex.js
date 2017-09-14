@@ -4216,7 +4216,7 @@ exports.BattlePokedex = {
 		weightkg: 16,
 		color: "Red",
 		eggGroups: ["Water 1", "Field"],
-		otherFormes: ["delibirdmega"]
+		otherFormes: ["delibirdmega"],
 	},
 	delibirdmega: {
 		num: 225,
@@ -5205,7 +5205,7 @@ exports.BattlePokedex = {
 		prevo: "surskit",
 		evoLevel: 22,
 		eggGroups: ["Water 1", "Bug"],
-		otherFormes: ["masquerainmega"]
+		otherFormes: ["masquerainmega"],
 	},
 	masquerainmega: {
 		num: 284,
@@ -7343,7 +7343,7 @@ exports.BattlePokedex = {
 		prevo: "staravia",
 		evoLevel: 34,
 		eggGroups: ["Flying"],
-		otherFormes: ["Staraptor-Alola"],
+		otherFormes: ["staraptoralola"],
 	},
 	staraptoralola: {
 		num: 398,
@@ -7893,7 +7893,7 @@ exports.BattlePokedex = {
 		prevo: "misdreavus",
 		evoLevel: 1,
 		eggGroups: ["Amorphous"],
-		otherFormes: ["mismagiusmega"]
+		otherFormes: ["mismagiusmega"],
 	},
 	mismagiusmega: {
 		num: 429,
@@ -14463,10 +14463,6 @@ exports.BattlePokedex = {
 		types: ["Electric", "Steel"],
 		baseStats: {hp: 65, atk: 98, def: 63, spa: 40, spd: 73, spe: 96},
 		abilities: {0: "Iron Barbs", 1: "Lightning Rod", H: "Sturdy"},
-		heightm: 0.3,
-		weightkg: 3.3,
-		color: "Gray",
-		eggGroups: ["Field", "Fairy"],
 		heightm: 0.3,
 		weightkg: 3.3,
 		color: "Gray",

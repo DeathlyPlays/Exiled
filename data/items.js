@@ -7721,4 +7721,46 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Masquerain, this item allows it to Mega Evolve in battle.",
 	},
+	"delphite": {
+		id: "delphite",
+		name: "Delphite",
+		spritenum: 624,
+		megaStone: "Delphox-Mega",
+		megaEvolves: "Delphox",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Delphox, this item allows it to Mega Evolve in battle.",
+	},
+	"empoleonite": {
+		id: "empoleonite",
+		name: "Empoleonite",
+		spritenum: 624,
+		megaStone: "Empoleon-Mega",
+		megaEvolves: "Empoleon",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Empoleon, this item allows it to Mega Evolve in battle.",
+	},
+	"infernite": {
+		id: "infernite",
+		name: "Infernite",
+		spritenum: 624,
+		megaStone: "Infernape-Mega",
+		megaEvolves: "Infernape",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Infernape, this item allows it to Mega Evolve in battle.",
+	},
 };

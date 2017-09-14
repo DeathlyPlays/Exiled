@@ -1,39 +1,22 @@
-<<<<<<< HEAD
 Dewdrop Server @ Pokémon Showdown
 ========================================================================
 
 Navigation: [Dewdrop][1] | [PS Server repository][10] | [PS Client repository][2] | [PS Dex repository][3]
 
   [1]: http://dewdrop.psim.us/
-=======
-Exiled Server @ Pokémon Showdown
-========================================================================
-
-Navigation: [Exiled][1] | [PS Server repository][10] | [PS Client repository][2] | [PS Dex repository][3]
-
-  [1]: http://exiled.psim.us/
->>>>>>> 97129442e65664bfe9ce52c8a1b26cb835f760ae
   [2]: https://github.com/Zarel/Pokemon-Showdown-Client
   [3]: https://github.com/Zarel/Pokemon-Showdown-Dex
   [10]: https://github.com/Zarel/Pokemon-Showdown
 
-<<<<<<< HEAD
 [![Build Status](https://travis-ci.org/Dewdrop-PS/Dewdrop.svg?branch=master)](https://travis-ci.org/Dewdrop-PS/Dewdrop)
 [![dependencies Status](https://david-dm.org/Dewdrop-PS/Dewdrop/status.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop)
 [![devDependencies Status](https://david-dm.org/Dewdrop-PS/Dewdrop/dev-status.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop?type=dev)
 [![optionalDependencies Status](https://david-dm.org/Dewdrop-PS/Dewdrop/optional-status.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop?type=optional)
-=======
-[![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg?branch=master)](https://travis-ci.org/DeathlyPlays/Exiled)
-[![dependencies Status](https://david-dm.org/DeathlyPlays/Exiled/status.svg)](https://david-dm.org/DeathlyPlays/Exiled)
-[![devDependencies Status](https://david-dm.org/DeathlyPlays/Exiled/dev-status.svg)](https://david-dm.org/DeathlyPlays/Exiled?type=dev)
-[![optionalDependencies Status](https://david-dm.org/DeathlyPlays/Exiled/optional-status.svg)](https://david-dm.org/DeathlyPlays/Exiled?type=optional)
->>>>>>> 97129442e65664bfe9ce52c8a1b26cb835f760ae
 
 
 Introduction
 ------------------------------------------------------------------------
 
-<<<<<<< HEAD
 This is the source code for the Pokémon Showdown server [Dewdrop][4], a website for Pokémon battling. Pokémon Showdown simulates singles, doubles and triples battles in all the games out so far (Generations 1 through 7).
 
 This repository contains the files needed to set up your own Pokémon Showdown server. The Dewdrop server also comes with some custom additions not found on the main repo. This repo will still have all the features from the main server. Note that to set up a server, you'll also need a server computer.
@@ -41,15 +24,6 @@ This repository contains the files needed to set up your own Pokémon Showdown s
 You can use your own computer as a server, but for other people to connect to your computer, you'll need to expose a port (default is 8000 but you can choose a different one) to connect to, which sometimes requires [port forwarding][5] (note that this isn't possible on certain internet connections).
 
   [4]: http://dewdrop.psim.us/
-=======
-This is the source code for the Pokémon Showdown server [Exiled][4], a website for Pokémon battling. Pokémon Showdown simulates singles, doubles and triples battles in all the games out so far (Generations 1 through 7).
-
-This repository contains the files needed to set up your own Pokémon Showdown server. The Exiled server also comes with some custom additions not found on the main repo. This repo will still have all the features from the main server. Note that to set up a server, you'll also need a server computer.
-
-You can use your own computer as a server, but for other people to connect to your computer, you'll need to expose a port (default is 8000 but you can choose a different one) to connect to, which sometimes requires [port forwarding][5] (note that this isn't possible on certain internet connections).
-
-  [4]: http://exiled.psim.us/
->>>>>>> 97129442e65664bfe9ce52c8a1b26cb835f760ae
   [5]: http://en.wikipedia.org/wiki/Port_forwarding
 
 
@@ -67,13 +41,8 @@ Detailed installation instructions
 Pokémon Showdown requires you to have [Node.js][6] installed, 8.x or later (7.7 or later can work, but you might as well be on the latest stable).
 
 ```bash
-<<<<<<< HEAD
 $ git clone https://github.com/Dewdrop-PS/Dewdrop.git
 cd dewdrop && npm install
-=======
-$ git clone https://github.com/DeathlyPlays/Exiled.git
-cd exiled && npm install
->>>>>>> 97129442e65664bfe9ce52c8a1b26cb835f760ae
 node app.js
 ```
 
@@ -123,22 +92,15 @@ Once you're an administrator, you can promote/demote others easily with the `/gl
 License
 ------------------------------------------------------------------------
 
-<<<<<<< HEAD
 Dewdrop's and Pokémon Showdown's server is distributed under the terms of the [MIT License][9].
 
   [9]: https://github.com/Dewdrop-PS/Dewdrop/blob/master/LICENSE
-=======
-Exiled's and Pokémon Showdown's server is distributed under the terms of the [MIT License][9].
-
-  [9]: https://github.com/DeathlyPlays/Exiled/blob/master/LICENSE
->>>>>>> 97129442e65664bfe9ce52c8a1b26cb835f760ae
 
 
 Maintainers
 ------------------------------------------------------------------------
 
 This server is brought to you and maintained by the following people:
-<<<<<<< HEAD
 
 Owners
 
@@ -149,8 +111,6 @@ Owners
 Contributors
 
 - [Gligars](https://github.com/Gligar)
-=======
->>>>>>> 97129442e65664bfe9ce52c8a1b26cb835f760ae
 
 Special thanks
 

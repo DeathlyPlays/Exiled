@@ -228,6 +228,7 @@ exports.BattlePokedex = {
 		prevo: "metapod",
 		evoLevel: 10,
 		eggGroups: ["Bug"],
+		otherFormes: ["butterfreemega"],
 	},
 	butterfreemega: {
 		num: 12,
@@ -2207,7 +2208,7 @@ exports.BattlePokedex = {
 		prevo: "tyrogue",
 		evoLevel: 20,
 		eggGroups: ["Human-Like"],
-		otherFormes: ["hitmonlee"],
+		otherFormes: ["hitmonleemega"],
 	},
 	hitmonleemega: {
 		num: 106,
@@ -4101,6 +4102,7 @@ exports.BattlePokedex = {
 		prevo: "teddiursa",
 		evoLevel: 30,
 		eggGroups: ["Field"],
+		otherFormes: ["ursaringmega"],
 	},
 	ursaringmega: {
 		num: 217,
@@ -4346,6 +4348,7 @@ exports.BattlePokedex = {
 		prevo: "phanpy",
 		evoLevel: 25,
 		eggGroups: ["Field"],
+		otherFormes: ["donphanmega"],
 	},
 	donphanmega: {
 		num: 232,
@@ -5896,6 +5899,7 @@ exports.BattlePokedex = {
 		prevo: "spoink",
 		evoLevel: 32,
 		eggGroups: ["Field"],
+		otherFormes: ["grumpigmega"],
 	},
 	grumpigmega: {
 		num: 326,
@@ -5975,6 +5979,7 @@ exports.BattlePokedex = {
 		prevo: "vibrava",
 		evoLevel: 45,
 		eggGroups: ["Bug"],
+		otherFormes: ["flygonmega"],
 	},
 	flygonmega: {
 		num: 330,
@@ -6065,6 +6070,7 @@ exports.BattlePokedex = {
 		weightkg: 40.3,
 		color: "White",
 		eggGroups: ["Field"],
+		otherFormes: ["zangoosemega"],
 	},
 	zangoosemega: {
 		num: 335,
@@ -6090,6 +6096,7 @@ exports.BattlePokedex = {
 		weightkg: 52.5,
 		color: "Black",
 		eggGroups: ["Field", "Dragon"],
+		otherFormes: ["sevipermega"],
 	},
 	sevipermega: {
 		num: 336,
@@ -6116,6 +6123,7 @@ exports.BattlePokedex = {
 		weightkg: 168,
 		color: "Yellow",
 		eggGroups: ["Mineral"],
+		otherFormes: ["lunatonemega"],
 	},
 	lunatonemega: {
 		num: 337,
@@ -6142,6 +6150,7 @@ exports.BattlePokedex = {
 		weightkg: 154,
 		color: "Red",
 		eggGroups: ["Mineral"],
+		otherFormes: ["solrockmega"],
 	},
 	solrockmega: {
 		num: 337,
@@ -6275,6 +6284,7 @@ exports.BattlePokedex = {
 		prevo: "lileep",
 		evoLevel: 40,
 		eggGroups: ["Water 3"],
+		otherFormes: ["cradilymega"],
 	},
 	cradilymega: {
 		num: 346,
@@ -6342,6 +6352,7 @@ exports.BattlePokedex = {
 		prevo: "feebas",
 		evoLevel: 1,
 		eggGroups: ["Water 1", "Dragon", "Fairy"],
+		otherFormes: ["miloticmega"],
 	},
 	miloticmega: {
 		num: 350,
@@ -6685,6 +6696,7 @@ exports.BattlePokedex = {
 		prevo: "sealeo",
 		evoLevel: 44,
 		eggGroups: ["Water 1", "Field"],
+		otherFormes: ["walreinmega"],
 	},
 	walreinmega: {
 		num: 365,
@@ -7163,6 +7175,7 @@ exports.BattlePokedex = {
 		prevo: "grotle",
 		evoLevel: 32,
 		eggGroups: ["Monster", "Grass"],
+		otherFormes: ["torterramega"],
 	},
 	torterramega: {
 		num: 389,
@@ -8668,6 +8681,7 @@ exports.BattlePokedex = {
 		prevo: "snorunt",
 		evoLevel: 1,
 		eggGroups: ["Fairy", "Mineral"],
+		otherFormes: ["froslassmega"],
 	},
 	froslassmega: {
 		num: 478,
@@ -8873,6 +8887,7 @@ exports.BattlePokedex = {
 		weightkg: 430,
 		color: "Brown",
 		eggGroups: ["Undiscovered"],
+		otherFormes: ["heatranmega"],
 	},
 	heatranmega: {
 		num: 485,
@@ -8955,6 +8970,7 @@ exports.BattlePokedex = {
 		weightkg: 85.6,
 		color: "Yellow",
 		eggGroups: ["Undiscovered"],
+		otherFormes: ["cresseliamega"],
 	},
 	cresseliamega: {
 		num: 488,
@@ -9005,6 +9021,7 @@ exports.BattlePokedex = {
 		weightkg: 50.5,
 		color: "Black",
 		eggGroups: ["Undiscovered"],
+		otherFormes: ["darkraimega"],
 	},
 	darkraimega: {
 		num: 491,
@@ -9560,6 +9577,7 @@ exports.BattlePokedex = {
 		prevo: "purrloin",
 		evoLevel: 20,
 		eggGroups: ["Field"],
+		otherFormes: ["liepardmega"],
 	},
 	liepardmega: {
 		num: 510,
@@ -10067,6 +10085,7 @@ exports.BattlePokedex = {
 		prevo: "cottonee",
 		evoLevel: 1,
 		eggGroups: ["Fairy", "Grass"],
+		otherFormes: ["whimsicottmega"],
 	},
 	whimsicottmega: {
 		num: 547,
@@ -10108,6 +10127,7 @@ exports.BattlePokedex = {
 		prevo: "petilil",
 		evoLevel: 1,
 		eggGroups: ["Grass"],
+		otherFormes: ["lilligantmega"],
 	},
 	lilligantmega: {
 		num: 549,
@@ -10214,7 +10234,7 @@ exports.BattlePokedex = {
 		prevo: "darumaka",
 		evoLevel: 35,
 		eggGroups: ["Field"],
-		otherFormes: ["darmanitanzen"],
+		otherFormes: ["darmanitanzen", "darmanitanmega"],
 	},
 	darmanitanzen: {
 		num: 555,
@@ -10306,6 +10326,7 @@ exports.BattlePokedex = {
 		prevo: "scraggy",
 		evoLevel: 39,
 		eggGroups: ["Field", "Dragon"],
+		otherFormes: ["scraftymega"],
 	},
 	scraftymega: {
 		num: 560,
@@ -10356,6 +10377,7 @@ exports.BattlePokedex = {
 		prevo: "yamask",
 		evoLevel: 34,
 		eggGroups: ["Mineral", "Amorphous"],
+		otherFormes: ["cofagrigusmega"],
 	},
 	cofagrigusmega: {
 		num: 563,
@@ -10476,6 +10498,7 @@ exports.BattlePokedex = {
 		prevo: "zorua",
 		evoLevel: 30,
 		eggGroups: ["Field"],
+		otherFormes: ["zoroarkmega"],
 	},
 	zoroarkmega: {
 		num: 571,
@@ -10599,6 +10622,7 @@ exports.BattlePokedex = {
 		prevo: "duosion",
 		evoLevel: 41,
 		eggGroups: ["Amorphous"],
+		otherFormes: ["reuniclusmega"],
 	},
 	reuniclusmega: {
 		num: 579,
@@ -11014,6 +11038,7 @@ exports.BattlePokedex = {
 		prevo: "lampent",
 		evoLevel: 41,
 		eggGroups: ["Amorphous"],
+		otherFormes: ["chandeluremega"],
 	},
 	chandeluremega: {
 		num: 609,
@@ -11092,6 +11117,7 @@ exports.BattlePokedex = {
 		prevo: "cubchoo",
 		evoLevel: 37,
 		eggGroups: ["Field"],
+		otherFormes: ["bearticmega"],
 	},
 	bearticmega: {
 		num: 614,

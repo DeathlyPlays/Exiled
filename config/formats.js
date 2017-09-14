@@ -479,8 +479,11 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
+<<<<<<< HEAD
 
 		searchShow: false,
+=======
+>>>>>>> 56a61b3f2f0c2112996d6fa327b857a7f40fb577
 		ruleset: ['Pokemon', 'Standard', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],
 		onValidateTeam: function (team) {
@@ -533,6 +536,7 @@ exports.Formats = [
 		},
 	},
 	{
+<<<<<<< HEAD
 		name: "[Gen 7] Mix and Mega Ubers",
 		desc: [
 			"Mega Stones and Primal Orbs can be used on almost any fully evolved Pok&eacute;mon with no Mega Evolution limit.",
@@ -710,6 +714,8 @@ exports.Formats = [
 		},
 	},
 	{
+=======
+>>>>>>> 56a61b3f2f0c2112996d6fa327b857a7f40fb577
 		name: "[Gen 7] Almost Any Ability",
 		desc: [
 			"Pok&eacute;mon can use any ability, barring the few that are banned.",

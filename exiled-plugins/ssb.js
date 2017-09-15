@@ -908,7 +908,7 @@ exports.commands = {
 		forceupdate: 'validate',
 		validateall: 'validate',
 		validate: function (target, room, user, connection, cmd, message) {
-			if (!this.can('roomowner')) return;
+			if (!this.can('hotpatch')) return;
 			if (!target && toId(cmd) !== 'validateall') return this.parse('/help ssb validate');
 			let targetUser = Exiled.ssb[toId(target)];
 			if (!targetUser && toId(cmd) !== 'validateall') return this.errorReply(target + ' does not have a SSBFFA pokemon yet.');

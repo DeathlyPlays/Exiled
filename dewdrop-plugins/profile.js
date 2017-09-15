@@ -69,7 +69,7 @@ function isDev(user) {
 exports.commands = {
 	vip: {
 		give: function (target, room, user) {
-			if (!this.can('declare')) return false;
+			if (!this.can('modchat')) return false;
 			if (!target) return this.parse('/help', true);
 			let vipUsername = toId(target);
 			if (vipUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -79,7 +79,7 @@ exports.commands = {
 			if (Users.get(vipUsername)) Users(vipUsername).popup("|html|You have been given VIP status by " + Dew.nameColor(user.name, true) + ".");
 		},
 		take: function (target, room, user) {
-			if (!this.can('declare')) return false;
+			if (!this.can('modchat')) return false;
 			if (!target) return this.parse('/help', true);
 			let vipUsername = toId(target);
 			if (vipUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -116,7 +116,7 @@ exports.commands = {
 	customtitle: {
 		set: 'give',
 		give: function (target, room, user) {
-			if (!this.can('declare')) return false;
+			if (!this.can('modchat')) return false;
 			target = target.split(',');
 			if (!target || target.length < 3) return this.parse('/help', true);
 			let userid = toId(target[0]);
@@ -142,7 +142,7 @@ exports.commands = {
 		delete: 'remove',
 		take: 'remove',
 		remove: function (target, room, user) {
-			if (!this.can('declare')) return false;
+			if (!this.can('modchat')) return false;
 			if (!target) return this.parse('/help', true);
 			let userid = toId(target);
 			if (!Db("titles").has(userid) && !Db("titlecolors").has(userid)) {

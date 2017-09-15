@@ -2982,8 +2982,10 @@ exports.Formats = [
 				pokemon.originalSpecies = pokemon.baseTemplate.species;
 			}
 		},
+		onSwitchInPriority: 1,
 		onSwitchIn: function (pokemon) {
 			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
+			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);
 			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
 				// Place volatiles on the Pokémon to show its mega-evolved condition and details
 				this.add('-start', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');

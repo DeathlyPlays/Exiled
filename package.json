@@ -36,7 +36,7 @@
 	"main": "app.js",
 	"scripts": {
 		"start": "pokemon-showdown",
-		"test": "eslint --rulesdir=dev-tools/eslint --cache *.js chat-plugins/ config/ data/ dev-tools/ game-cards/ mods/ tournaments/ test/"
+		"test": "eslint --rulesdir=dev-tools/eslint --cache *.js chat-plugins/ config/ data/ dev-tools/ exiled-plugins/ game-cards/ mods/ tournaments/ test/"
 	},
 	"bin": "./pokemon-showdown",
 	"homepage": "http://pokemonshowdown.com",

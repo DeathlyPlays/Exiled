@@ -249,8 +249,8 @@ exports.commands = {
 			if (params.some(parameter => !parameter)) return;
 
 			const options = params.splice(1);
-			if (options.length > 8) {
-				return this.errorReply("Too many options for poll (maximum is 8).");
+			if (options.length > 12) {
+				return this.errorReply("Too many options for poll (maximum is 12).");
 			}
 			if (room.poll && room.pollNumber) room.pollNumber++;
 			if (room.poll && room.poll.pollArray[0] && room.poll.pollArray[1] && room.poll.pollArray[2] && room.poll.pollArray[3] && !room.poll.pollArray[4]) {
@@ -342,7 +342,7 @@ exports.commands = {
 					options: new Map(),
 				};
 				for (let i = 0; i < options.length; i++) {
-					if (room.poll && room.poll.pollArray[0] && Object.keys(room.poll.pollArray[0].options.entries().next()) && (!room.poll.pollArray[0].options.entries().next().value || room.poll.pollArray[0].options.entries().next().value.length < 8)) room.poll.pollArray[0].options.set(i + 1, {name: options[i], votes: 0});
+					if (room.poll && room.poll.pollArray[0] && Object.keys(room.poll.pollArray[0].options.entries().next()) && (!room.poll.pollArray[0].options.entries().next().value || room.poll.pollArray[0].options.entries().next().value.length < 12)) room.poll.pollArray[0].options.set(i + 1, {name: options[i], votes: 0});
 				}
 				room.poll.displaySpecific(0);
 			}

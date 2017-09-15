@@ -476,7 +476,6 @@ exports.commands = {
 		"/poll display [poll id number] - Displays the poll. The poll id number is optional for this command and displays only the poll with the matching id number.",
 		"/poll end [poll id number] - Ends a poll and displays the results. The poll id number is optional for this command and ends only the poll with the matching id number. and Requires: % @ * # & ~",
 	],
-
 	pr: 'pollremind',
 	pollremind: function (target, room, user) {
 		if (!room.poll) return this.errorReply("There is no poll running in this room.");

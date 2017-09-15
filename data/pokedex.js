@@ -4464,7 +4464,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Fighting"],
 		gender: "M",
-		baseStats: {hp: 50, atk: 115, def: 125, spa: 35, spd: 140, spe: 100},
+		baseStats: {hp: 50, atk: 115, def: 125, spa: 35, spd: 130, spe: 100},
 		abilities: {0: "Intimidate"},
 		heightm: 1.7,
 		weightkg: 51.3,

@@ -3,8 +3,4 @@ logs/
 dev-tools/globals.js
 mods/opmetagame
 config/card-data.js
-<<<<<<< HEAD
-chat-plugins/hex.js
-=======
-exiled-plugins/hex.js
->>>>>>> ceaf8e6f760ffd4cebe992f17dcf514693ff681d
+dewdrop-plugins/hex.js

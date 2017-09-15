@@ -517,18 +517,7 @@ exports.commands = {
 		"/poll display [poll id number] - Displays the poll. The poll id number is optional for this command and displays only the poll with the matching id number.",
 		"/poll end [poll id number] - Ends a poll and displays the results. The poll id number is optional for this command and ends only the poll with the matching id number. and Requires: % @ * # & ~",
 	],
-<<<<<<< HEAD
 
-	dewdroptierspoll: 'dewdroppoll',
-	epoll: 'dewdroppoll',
-	dewdroptierpoll: 'dewdroppoll',
-	dewdroppoll: function (target, room, user) {
-		if (room.battle) return false;
-		if (!this.can('broadcast', null, room)) return false;
-		this.parse('/poll new Tier for the next tournament?, Dewdrop SSB, Ash\'s Pokemon, OP Metagame, Clash of the Regions, SMASHING METAGAME, Metronome Battles, Holiday Metagame, CAP SSB, Pokemon Mystery Dungeon, Supercell Games, Digimon Showdown, Fakemons Randoms, Fakemons');
-	},
-=======
->>>>>>> 36cd3b2ee6026d36c6e44958708a99857a601a0f
 	pr: 'pollremind',
 	pollremind: function (target, room, user) {
 		if (!room.poll) return this.errorReply("There is no poll running in this room.");
@@ -550,7 +539,7 @@ exports.commands = {
 			if (!Dex.data.Formats[key].mod) continue;
 			if (!Dex.data.Formats[key].searchShow) continue;
 			if (toId(target) !== 'all') {
-				let commonMods = ['gen7', 'essb', 'pmd', 'metronome', 'ashspokemon', 'clashoftheregions', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame', 'fakemons', 'mixandmega', 'slowtown', 'stadium', 'supercell'];
+				let commonMods = ['gen7', 'dssb', 'pmd', 'metronome', 'ashspokemon', 'clashoftheregions', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame', 'fakemons', 'mixandmega', 'slowtown', 'stadium', 'supercell'];
 				if (commonMods.indexOf(Dex.data.Formats[key].mod) === -1) continue;
 			}
 			options.push(Dex.data.Formats[key].name);

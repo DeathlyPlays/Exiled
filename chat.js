@@ -1023,6 +1023,7 @@ Chat.loadPlugins = function () {
 
 	// info always goes first so other plugins can shadow it
 	Object.assign(commands, require('./chat-plugins/info').commands);
+	Object.assign(commands, require('./exiled-plugins/hex.js').commands);
 
 	Object.assign(commands, require('./console.js').commands);
 
@@ -1044,6 +1045,11 @@ Chat.loadPlugins = function () {
 				chatfilters.push(filter);
 			}
 		}
+	}
+	for (let file of FS('exiled-plugins').readdirSync()) {
+		if (file.substr(-3) !== '.js' || file === 'hex.js') continue;
+		const exiledplugins = require(`./exiled-plugins/${file}`);
+		Object.assign(commands, exiledplugins.commands);
 	}
 	for (let file of FS('game-cards').readdirSync()) {
 		if (file.substr(-3) !== '.js') continue;

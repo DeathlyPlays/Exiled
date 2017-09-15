@@ -1966,6 +1966,26 @@ exports.commands = {
 	},
 	globaldeclarehelp: ["/globaldeclare [message] - Anonymously announces a message to every room on the server. Requires: ~"],
 
+	'!ship': true,
+	ship: function (target, room, user) {
+		if (!this.runBroadcast()) return false;
+		let parts = target.split(',').map(param => param.trim());
+		let nameone = toId(parts[0]);
+		let nametwo = parts[1];
+		let compatibility = Math.floor(Math.random() * 101);
+		if (parts.length < 2) return this.parse('/shiphelp');
+		if (parts.length > 2) return this.errorReply('Too many arguments.');
+
+		if (nameone.length === nametwo.length) {
+			compatibility = compatibility + 8;
+		} else if (nameone.length !== nametwo.length) {
+			compatibility = compatibility - 8;
+		}
+
+		this.sendReplyBox(nameone + ' x ' + nametwo + ': ' + compatibility + '%');
+	},
+	shiphelp: ["/ship [user], [user] - Check the compatibility between two users."],
+
 	cdeclare: 'chatdeclare',
 	chatdeclare: function (target, room, user) {
 		if (!target) return this.parse('/help chatdeclare');

@@ -365,6 +365,20 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If held by a Banette, this item allows it to Mega Evolve in battle.",
 	},
+	"basculinite": {
+		id: "basculinite",
+		name: "Basculinite",
+		spritenum: -373,
+		megaStone: "Basculin-Mega",
+		megaEvolves: ["Basculin", "Basculin-Blue-Striped"],
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -3733,
+		gen: 0,
+		desc: "If held by a Basculin, this item allows it to Mega Evolve in battle.",
+	},
 	"beastball": {
 		id: "beastball",
 		name: "Beast Ball",

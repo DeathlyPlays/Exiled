@@ -1,7 +1,7 @@
 /**
 * The Happy Place: Quote of the Day Plugin
 * This is a command that allows a room owner to set an inspirational "quote" of the day.
-* Others may braodcast this at any time to remind the room of such.
+* Others may broadcast this at any time to remind the room of such.
 * Only works in a room with the id "thehappyplace"
 * Credits: panpawn, TalkTakesTime, Morfent, and sirDonovan
 */
@@ -25,7 +25,7 @@ exports.commands = {
 		if (target === 'off' || target === 'disable' || target === 'reset') {
 			if (!room.chatRoomData.quote) return this.sendReply("The Quote of the Day has already been reset.");
 			delete room.chatRoomData.quote;
-			this.sendReply("The Quote of the Day was reset by " + Chat.escapeHTML(user.name) + ".");
+			this.sendReply("The Quote of the Day was reset by " + user.name + ".");
 			this.logModCommand(user.name + " reset the Quote of the Day.");
 			Rooms.global.writeChatRoomData();
 			return;
@@ -33,7 +33,7 @@ exports.commands = {
 		room.chatRoomData.quote = Chat.escapeHTML(target);
 		Rooms.global.writeChatRoomData();
 		room.addRaw(
-			"<div class=\"broadcast-blue\"><strong>The Inspirational Quote of the Day has been updated by " + Chat.escapeHTML(user.name) + ".</strong><br />" +
+			"<div class=\"broadcast-blue\"><strong>The Inspirational Quote of the Day has been updated by " + Exiled.nameColor(user.name, true, true) + ".</strong><br />" +
 			"Quote: " + room.chatRoomData.quote + "</div>"
 		);
 		this.logModCommand(Chat.escapeHTML(user.name) + " updated the quote of the day to \"" + room.chatRoomData.quote + "\".");

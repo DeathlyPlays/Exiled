@@ -7343,25 +7343,7 @@ exports.BattlePokedex = {
 		prevo: "staravia",
 		evoLevel: 34,
 		eggGroups: ["Flying"],
-<<<<<<< HEAD
-		otherFormes: ["staraptoralola"],
-	},
-	staraptormega: {
-		num: 398,
-		species: "Staraptor-Mega",
-		formeLetter: "M",
-		forme: "Mega",
-		baseSpecies: "Staraptor",
-		types: ["Normal", "Flying"],
-		baseStats: {hp: 85, atk: 140, def: 95, spa: 50, spd: 95, spe: 115},
-		abilties: {0: "Stakeout"},
-		heightm: 1.3,
-		weightkg: 25.7,
-		color: "Brown",
-		eggGroups: ["Flying"],
-=======
 		otherFormes: ["staraptoralola", "staraptormega"],
->>>>>>> 869b522bee8804a5ece7a92055bb007397fd9944
 	},
 	staraptoralola: {
 		num: 398,
@@ -7377,10 +7359,6 @@ exports.BattlePokedex = {
 		evoLevel: 34,
 		eggGroups: ["Flying"],
 		otherFormes: ["Staraptor"],
-<<<<<<< HEAD
-
-=======
->>>>>>> 869b522bee8804a5ece7a92055bb007397fd9944
 	},
 	staraptormega: {
 		num: 398,

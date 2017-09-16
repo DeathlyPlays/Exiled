@@ -1358,6 +1358,7 @@ class ChatRoom extends Room {
 				Rooms.global.writeChatRoomData();
 			}
 			this.auth[user.userid] = this.autorank;
+			user.updateIdentity();
 		}
 		if (this.survey) this.survey.onConnect(user, connection);
 		if (this.game && this.game.onConnect) this.game.onConnect(user, connection);

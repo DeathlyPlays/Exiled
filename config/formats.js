@@ -2657,6 +2657,7 @@ exports.Formats = [
 		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
 		onSwitchIn: function (pokemon, source) {
 			let name = toId(pokemon.name);
+			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);
 
 			//Switch-in Quotes
 			if (name === 'insist') {
@@ -2968,30 +2969,10 @@ exports.Formats = [
 			this.add("raw|<h3>2</h3>");
 			this.add("raw|<h3>1</h3>");
 			this.add("raw|<h1>BATTLE!</h1>");
-			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
-			for (let i = 0, len = allPokemon.length; i < len; i++) {
-				let pokemon = allPokemon[i];
-				pokemon.originalSpecies = pokemon.baseTemplate.species;
-			}
 		},
 		onSwitchInPriority: 1,
 		onSwitchIn: function (pokemon) {
-			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
 			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);
-			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
-				// Place volatiles on the Pokémon to show its mega-evolved condition and details
-				this.add('-start', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
-				let oTemplate = this.getTemplate(pokemon.originalSpecies);
-				if (oTemplate.types.length !== pokemon.template.types.length || oTemplate.types[1] !== pokemon.template.types[1]) {
-					this.add('-start', pokemon, 'typechange', pokemon.template.types.join('/'), '[silent]');
-				}
-			}
-		},
-		onSwitchOut: function (pokemon) {
-			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
-			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
-				this.add('-end', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
-			}
 		},
 	},
 	{

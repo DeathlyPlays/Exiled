@@ -60968,6 +60968,7 @@ exports.BattleLearnsets = {
 		energyball: ["7M", "6M", "5M", "4M"],
 		facade: ["7M", "6M", "5M", "4M", "3M"],
 		fakeout: ["7E"],
+		growth: ["7E"],
 		hypnosis: ["7E"],
 		triattack: ["7M"],
 		revelationdance: ["7L52"],

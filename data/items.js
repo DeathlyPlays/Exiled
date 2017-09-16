@@ -365,6 +365,34 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If held by a Banette, this item allows it to Mega Evolve in battle.",
 	},
+	"basculite": {
+		id: "basculite",
+		name: "Basculite",
+		spritenum: -373,
+		megaStone: "Basculin-Blue-Striped-Mega",
+		megaEvolves: ["Basculin-Blue-Striped"],
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -3732,
+		gen: 0,
+		desc: "If held by a Basculin-Blue-Striped, this item allows it to Mega Evolve in battle.",
+	},
+	"basculinite": {
+		id: "basculinite",
+		name: "Basculinite",
+		spritenum: -373,
+		megaStone: "Basculin-Mega",
+		megaEvolves: ["Basculin"],
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -3733,
+		gen: 0,
+		desc: "If held by a Basculin, this item allows it to Mega Evolve in battle.",
+	},
 	"beastball": {
 		id: "beastball",
 		name: "Beast Ball",
@@ -7762,5 +7790,19 @@ exports.BattleItems = {
 		num: -767,
 		gen: 0,
 		desc: "If holder is a Infernape, this item allows it to Mega Evolve in battle.",
+	},
+	"staraptite": {
+		id: "staraptite",
+		name: "Staraptite",
+		spritenum: 624,
+		megaStone: "Staraptor-Mega",
+		megaEvolves: "Staraptor",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Staraptor, this item allows it to Mega Evolve in battle.",
 	},
 };

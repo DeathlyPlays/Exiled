@@ -149,10 +149,10 @@ class Tournament {
 			}
 		}
 		let html = [];
-		if (bans.length) html.push("<b>Bans</b> - " + Chat.escapeHTML(bans.join(", ")));
-		if (unbans.length) html.push("<b>Unbans</b> - " + Chat.escapeHTML(unbans.join(", ")));
-		if (addedRules.length) html.push("<b>Added rules</b> - " + Chat.escapeHTML(addedRules.join(", ")));
-		if (removedRules.length) html.push("<b>Removed rules</b> - " + Chat.escapeHTML(removedRules.join(", ")));
+		if (bans.length) html.push("<strong>Bans</strong> - " + Chat.escapeHTML(bans.join(", ")));
+		if (unbans.length) html.push("<strong>Unbans</strong> - " + Chat.escapeHTML(unbans.join(", ")));
+		if (addedRules.length) html.push("<strong>Added rules</strong> - " + Chat.escapeHTML(addedRules.join(", ")));
+		if (removedRules.length) html.push("<strong>Removed rules</strong> - " + Chat.escapeHTML(removedRules.join(", ")));
 		return html.join("<br />");
 	}
 
@@ -162,7 +162,7 @@ class Tournament {
 			this.inProgressMatches.forEach(match => {
 				if (match) {
 					delete match.room.tour;
-					match.room.addRaw("<div class=\"broadcast-red\"><b>The tournament was forcefully ended.</b><br />You can finish playing, but this battle is no longer considered a tournament battle.</div>");
+					match.room.addRaw("<div class=\"broadcast-red\"><strong>The tournament was forcefully ended.</strong><br />You can finish playing, but this battle is no longer considered a tournament battle.</div>");
 				}
 			});
 		} else if (this.autoStartTimer) {
@@ -953,7 +953,7 @@ class Tournament {
 					Economy.logTransaction(Chat.escapeHTML(winner) + ' has won ' + firstMoney + ' ' + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + ' from a tournament.');
 				});
 			});
-			this.room.addRaw("<b><font color='" + color + "'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='" + color + "'>" + firstMoney + " </font>" + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + " for winning the tournament!</b>");
+			this.room.addRaw("<strong><font color='" + color + "'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='" + color + "'>" + firstMoney + " </font>" + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + " for winning the tournament!</strong>");
 
 			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
 				Exiled.gangTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
@@ -963,7 +963,7 @@ class Tournament {
 			}
 			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
 				let tourRarity = Exiled.tourCard(tourSize, toId(winner));
-				if (tourRarity) this.room.addRaw("<b>" + Chat.escapeHTML(winner) + " has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
+				if (tourRarity) this.room.addRaw("<strong>" + Chat.escapeHTML(winner) + " has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
 			}
 			if (runnerUp) {
 				Economy.writeMoney(rid, secondMoney, () => {
@@ -974,7 +974,7 @@ class Tournament {
 						Economy.logTransaction(Chat.escapeHTML(runnerUp) + ' has won ' + secondMoney + ' ' + (secondMoney === 1 ? global.moneyName : global.moneyPlural) + ' from a tournament.');
 					});
 				});
-				this.room.addRaw("<b><font color='" + color + "'>" + Chat.escapeHTML(runnerUp) + "</font> has won " + "<font color='" + color + "'> " + secondMoney + "</font>" + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + " for winning the tournament!</b>");
+				this.room.addRaw("<strong><font color='" + color + "'>" + Chat.escapeHTML(runnerUp) + "</font> has won " + "<font color='" + color + "'> " + secondMoney + "</font>" + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + " for winning the tournament!</strong>");
 			}
 		}
 
@@ -1209,7 +1209,7 @@ let commands = {
 			}
 			tournament.customRules = [];
 			tournament.teambuilderFormat = tournament.originalFormat;
-			this.room.addRaw("<b>The tournament's custom rules were cleared.</b>");
+			this.room.addRaw("<strong>The tournament's custom rules were cleared.</strong>");
 			this.privateModCommand("(" + user.name + " cleared the tournament's custom rules.)");
 		},
 		name: 'setname',
@@ -1327,8 +1327,8 @@ let commands = {
 				}
 			}
 			if (tournament.isTournamentStarted) {
-				tournament.room.addRaw('<b>Players have been reminded of their tournament battles by ' + user.name + '.</b>');
-				if (offlineUsers.length > 0 && offlineUsers !== '') tournament.room.addRaw('<b>The following users are currently offline: ' + offlineUsers + '.</b>');
+				tournament.room.addRaw('<strong>Players have been reminded of their tournament battles by</strong> ' + Exiled.nameColor(user.name, true) + '.');
+				if (offlineUsers.length > 0 && offlineUsers !== '') tournament.room.addRaw('<strong>The following users are currently offline: ' + offlineUsers + '.</strong>');
 			} else {
 				this.errorReply('The tournament hasen\'t started yet.');
 			}

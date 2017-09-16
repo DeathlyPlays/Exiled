@@ -365,12 +365,33 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If held by a Banette, this item allows it to Mega Evolve in battle.",
 	},
+<<<<<<< HEAD
+=======
+	"basculite": {
+		id: "basculite",
+		name: "Basculite",
+		spritenum: -373,
+		megaStone: "Basculin-Blue-Striped-Mega",
+		megaEvolves: ["Basculin-Blue-Striped"],
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -3732,
+		gen: 0,
+		desc: "If held by a Basculin-Blue-Striped, this item allows it to Mega Evolve in battle.",
+	},
+>>>>>>> 869b522bee8804a5ece7a92055bb007397fd9944
 	"basculinite": {
 		id: "basculinite",
 		name: "Basculinite",
 		spritenum: -373,
 		megaStone: "Basculin-Mega",
+<<<<<<< HEAD
 		megaEvolves: ["Basculin", "Basculin-Blue-Striped"],
+=======
+		megaEvolves: ["Basculin"],
+>>>>>>> 869b522bee8804a5ece7a92055bb007397fd9944
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;

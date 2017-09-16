@@ -7343,6 +7343,7 @@ exports.BattlePokedex = {
 		prevo: "staravia",
 		evoLevel: 34,
 		eggGroups: ["Flying"],
+<<<<<<< HEAD
 		otherFormes: ["staraptoralola"],
 	},
 	staraptormega: {
@@ -7358,6 +7359,9 @@ exports.BattlePokedex = {
 		weightkg: 25.7,
 		color: "Brown",
 		eggGroups: ["Flying"],
+=======
+		otherFormes: ["staraptoralola", "staraptormega"],
+>>>>>>> 869b522bee8804a5ece7a92055bb007397fd9944
 	},
 	staraptoralola: {
 		num: 398,
@@ -7373,7 +7377,10 @@ exports.BattlePokedex = {
 		evoLevel: 34,
 		eggGroups: ["Flying"],
 		otherFormes: ["Staraptor"],
+<<<<<<< HEAD
 
+=======
+>>>>>>> 869b522bee8804a5ece7a92055bb007397fd9944
 	},
 	staraptormega: {
 		num: 398,
@@ -10229,7 +10236,21 @@ exports.BattlePokedex = {
 		weightkg: 18,
 		color: "Green",
 		eggGroups: ["Water 2"],
-		otherFormes: ["basculinbluestriped"],
+		otherFormes: ["basculinbluestriped", "basculinmega", "basculinbluestripedmega"],
+	},
+	basculinmega: {
+		num: 550,
+		species:"Basculin-Mega",
+		baseSpecies:"Basculin",
+		forme: "Mega",
+		formeLetter:"M",
+		types: ["Water"],
+		baseStats: {hp: 70, atk: 122, def: 85, spa: 80, spd: 75, spe: 128},
+		abilities: {0: "Sheer Force"},
+		heightm: 1.2,
+		weightkg: 22,
+		color: "Green",
+		eggGroups: ["Water 2"],
 	},
 	basculinmega: {
 		num: 550,
@@ -10256,6 +10277,21 @@ exports.BattlePokedex = {
 		abilities: {0: "Rock Head", 1: "Adaptability", H: "Mold Breaker"},
 		heightm: 1,
 		weightkg: 18,
+		color: "Green",
+		eggGroups: ["Water 2"],
+		otherFormes: ["basculinbluestripedmega"],
+	},
+	basculinbluestripedmega: {
+		num: 550,
+		species: "Basculin-Blue-Striped-Mega",
+		baseSpecies: "Basculin-Blue-Striped",
+		forme: "Mega",
+		formeLetter:"M",
+		types: ["Water"],
+		baseStats: {hp: 70, atk: 112, def: 95, spa: 80, spd: 85, spe: 118},
+		abilities: {0: "Rock Head"},
+		heightm: 1.2,
+		weightkg: 22,
 		color: "Green",
 		eggGroups: ["Water 2"],
 	},

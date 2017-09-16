@@ -370,7 +370,7 @@ exports.BattleItems = {
 		name: "Basculite",
 		spritenum: -373,
 		megaStone: "Basculin-Blue-Striped-Mega",
-		megaEvolves: ["Basculin-Blue-Striped"],
+		megaEvolves: "Basculin-Blue-Striped",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;
@@ -384,7 +384,7 @@ exports.BattleItems = {
 		name: "Basculinite",
 		spritenum: -373,
 		megaStone: "Basculin-Mega",
-		megaEvolves: ["Basculin"],
+		megaEvolves: "Basculin",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;

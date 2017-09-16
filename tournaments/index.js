@@ -962,13 +962,8 @@ class Tournament {
 				Dew.leagueTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
 			}
 			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
-<<<<<<< HEAD
 				let tourRarity = Dew.tourCard(tourSize, toId(winner));
-				if (tourRarity) this.room.addRaw("<b>" + Chat.escapeHTML(winner) + " has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
-=======
-				let tourRarity = Exiled.tourCard(tourSize, toId(winner));
 				if (tourRarity) this.room.addRaw("<strong>" + Chat.escapeHTML(winner) + " has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
->>>>>>> f50186a9ff4f97bc553dbb3a23bcfb63b422a5c4
 			}
 			if (runnerUp) {
 				Economy.writeMoney(rid, secondMoney, () => {
@@ -1332,7 +1327,7 @@ let commands = {
 				}
 			}
 			if (tournament.isTournamentStarted) {
-				tournament.room.addRaw('<strong>Players have been reminded of their tournament battles by</strong> ' + Exiled.nameColor(user.name, true) + '.');
+				tournament.room.addRaw('<strong>Players have been reminded of their tournament battles by</strong> ' + Dew.nameColor(user.name, true) + '.');
 				if (offlineUsers.length > 0 && offlineUsers !== '') tournament.room.addRaw('<strong>The following users are currently offline: ' + offlineUsers + '.</strong>');
 			} else {
 				this.errorReply('The tournament hasen\'t started yet.');

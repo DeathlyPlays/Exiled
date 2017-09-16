@@ -150,8 +150,8 @@ class Giveaway {
 
 	generateWindow(rightSide) {
 		return `<p style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:2px;">It's giveaway time!</p>` +
-			`<p style="text-align:center;font-size:7pt;">Giveaway started by ${Exiled.nameColor(this.host.name, true, true)}</p>` +
-			`<table style="margin-left:auto;margin-right:auto;"><tr><td style="text-align:center;width:45%">${this.sprite}<p style="font-weight:bold;">Giver: ${Exiled.nameColor(this.giver)}</p>${Chat.parseText(this.prize)}<br />OT: ${Chat.escapeHTML(this.ot)}, TID: ${this.tid}</td>` +
+			`<p style="text-align:center;font-size:7pt;">Giveaway started by ${Dew.nameColor(this.host.name, true, true)}</p>` +
+			`<table style="margin-left:auto;margin-right:auto;"><tr><td style="text-align:center;width:45%">${this.sprite}<p style="font-weight:bold;">Giver: ${Dew.nameColor(this.giver)}</p>${Chat.parseText(this.prize)}<br />OT: ${Chat.escapeHTML(this.ot)}, TID: ${this.tid}</td>` +
 			`<td style="text-align:center;width:45%">${rightSide}</td></tr></table><p style="text-align:center;font-size:7pt;font-weight:bold;"><u>Note:</u> Please do not join if you don't have a 3DS, a copy of Pokémon Sun/Moon, or are currently unable to receive the prize.</p>`;
 	}
 }
@@ -235,10 +235,10 @@ class QuestionGiveaway extends Giveaway {
 				this.changeUhtml('<p style="text-align:center;font-size:13pt;font-weight:bold;">The giveaway has ended! Scroll down to see the answer.</p>');
 				this.phase = 'ended';
 				this.clearTimer();
-				this.room.modlog(`${Exiled.nameColor(this.winner.name)} won ${Exiled.nameColor(this.giver.name, true, true)}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
-				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Exiled.nameColor(this.winner.name, true, true)} won the giveaway! Congratulations!</p>` +
+				this.room.modlog(`${Dew.nameColor(this.winner.name)} won ${Dew.nameColor(this.giver.name, true, true)}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
+				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Dew.nameColor(this.winner.name, true, true)} won the giveaway! Congratulations!</p>` +
 				`<p style="text-align:center;">${this.question}<br />Correct answer${Chat.plural(this.answers)}: ${this.answers.join(', ')}</p>`));
-				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM ${Exiled.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
+				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM ${Dew.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
 				if (this.winner.connected) this.winner.popup(`You have won the giveaway. PM ${(this.giver.name)} (FC: ${this.fc}) to claim your prize!`);
 				if (this.giver.connected) this.giver.popup(`${(this.winner.name)} has won your question giveaway!`);
 			}
@@ -349,10 +349,10 @@ class LotteryGiveaway extends Giveaway {
 			this.room.modlog(`${winnerNames} won ${this.giver.name}'s giveaway for "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
 			this.send(this.generateWindow(`<p style="text-align:center;font-size:10pt;font-weight:bold;">Lottery Draw</p><p style="text-align:center;">${Object.keys(this.joined).length} users joined the giveaway.<br />Our lucky winner${Chat.plural(this.winners)}: <b>${Chat.escapeHTML(winnerNames)}!</b> Congratulations!</p>`));
 			for (let i = 0; i < this.winners.length; i++) {
-				this.winners[i].sendTo(this.room, `|raw|You have won the lottery giveaway! PM <b>${Exiled.nameColor(this.giver.name)}</b> (FC: ${this.fc}) to claim your prize!`);
-				if (this.winners[i].connected) this.winners[i].popup(`You have won the lottery giveaway! PM ` + Exiled.nameColor(this.giver.name, true, true) + `(FC: ${this.fc}) to claim your prize!`);
+				this.winners[i].sendTo(this.room, `|raw|You have won the lottery giveaway! PM <b>${Dew.nameColor(this.giver.name)}</b> (FC: ${this.fc}) to claim your prize!`);
+				if (this.winners[i].connected) this.winners[i].popup(`You have won the lottery giveaway! PM ` + Dew.nameColor(this.giver.name, true, true) + `(FC: ${this.fc}) to claim your prize!`);
 			}
-			if (this.giver.connected) this.giver.popup(`The following users have won your lottery giveaway:\n ` + Exiled.nameColor(winnerNames, true, true));
+			if (this.giver.connected) this.giver.popup(`The following users have won your lottery giveaway:\n ` + Dew.nameColor(winnerNames, true, true));
 		}
 		delete this.room.giveaway;
 	}
@@ -401,7 +401,7 @@ class GtsGiveaway {
 		let sentModifier = this.sent.length ? 5 : 0;
 		let rightSide = this.noDeposits ? `<strong>More Pokémon have been deposited than there are prizes in this giveaway and new deposits will not be accepted. If you have already deposited a Pokémon, please be patient, and do not withdraw your Pokémon.</strong>` : `To participate, deposit <strong>${this.deposit}</strong> into the GTS and look for <strong>${Chat.escapeHTML(this.lookfor)}</strong>`;
 		return `<p style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:2px;">There is a GTS giveaway going on!</p>` +
-			`<p style="text-align:center;font-size:10pt;margin-top:0px;">Hosted by: ${Exiled.nameColor(this.giver.name, true, true)} | Left: <b>${this.left}</b></p>` +
+			`<p style="text-align:center;font-size:10pt;margin-top:0px;">Hosted by: ${Dew.nameColor(this.giver.name, true, true)} | Left: <b>${this.left}</b></p>` +
 			`<table style="margin-left:auto;margin-right:auto;"><tr>` +
 			(sentModifier ? `<td style="text-align:center;width:10%"><b>Last winners:</b><br/>${this.sent.join('<br/>')}</td>` : '') +
 			`<td style="text-align:center;width:15%">${this.sprite}</td><td style="text-align:center;width:${40 - sentModifier}%">${Chat.parseText(this.summary)}</td>` +

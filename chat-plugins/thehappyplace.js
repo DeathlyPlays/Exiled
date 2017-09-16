@@ -33,7 +33,7 @@ exports.commands = {
 		room.chatRoomData.quote = Chat.escapeHTML(target);
 		Rooms.global.writeChatRoomData();
 		room.addRaw(
-			"<div class=\"broadcast-blue\"><strong>The Inspirational Quote of the Day has been updated by " + Exiled.nameColor(user.name, true, true) + ".</strong><br />" +
+			"<div class=\"broadcast-blue\"><strong>The Inspirational Quote of the Day has been updated by " + Dew.nameColor(user.name, true, true) + ".</strong><br />" +
 			"Quote: " + room.chatRoomData.quote + "</div>"
 		);
 		this.logModCommand(Chat.escapeHTML(user.name) + " updated the quote of the day to \"" + room.chatRoomData.quote + "\".");

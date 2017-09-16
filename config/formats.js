@@ -3070,6 +3070,15 @@ exports.Formats = [
 		},
 	},
 	{
+		name: "[Gen 7] Five Move Frenzy",
+		desc: [
+			"Pokemon can use five moves instead of four! Coded by Glgars",
+		],
+
+		mod: 'fivemovefrenzy',
+		ruleset: ['[Gen 7] OU'],
+	},
+	{
 		name: "[Gen 7] Swapping Powers",
 		desc: [
 			"Power trick that's constantly there, not only swapping Attack and Defense, but Special Attack and Special Defense also.",

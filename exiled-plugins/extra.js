@@ -217,26 +217,6 @@ exports.commands = {
 		room.mute(targetUser, muteDuration, false);
 	},
 
-	rk: 'kick',
-	roomkick: 'kick',
-	kick: function (target, room, user) {
-		if (!target) return this.parse('/help kick');
-		if (!this.canTalk() && !user.can('bypassall')) {
-			return this.sendReply("You cannot do this while unable to talk.");
-		}
-
-		target = this.splitTarget(target);
-		let targetUser = this.targetUser;
-		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
-		if (!this.can('mute', targetUser, room)) return false;
-
-		this.addModCommand(targetUser.name + " was kicked from the room by " + user.name + ".");
-		targetUser.popup("You were kicked from " + room.id + " by " + user.name + ".");
-		targetUser.leaveRoom(room.id);
-	},
-	kickhelp: ["/kick - Kick a user out of a room. Requires: % @ # & ~"],
-
-
 	d: 'poof',
 	cpoof: 'poof',
 	poof: function (target, room, user) {

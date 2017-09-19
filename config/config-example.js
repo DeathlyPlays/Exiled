@@ -27,8 +27,6 @@ exports.serverIp = '';
 
 // TODO: allow SSL to actually be possible to use for third-party servers at
 // some point.
-//serverIp for parsing of custom avatars, put your server's ip here
-exports.serverIp = '';
 
 // proxyip - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array

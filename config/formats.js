@@ -83,11 +83,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] UU'],
-<<<<<<< HEAD
-		banlist: ['UU', 'BL2', 'Carbite', 'Ludicolite', 'Butterfrite', 'Lilligite', 'Solite', 'Lunite'],
-=======
 		banlist: ['UU', 'BL2', 'Aurora Veil'],
->>>>>>> 8315e8a64106ed0d0bab162b99c70f675d609eec
 	},
 	{
 		name: "[Gen 7] NU",

@@ -7791,4 +7791,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Staraptor, this item allows it to Mega Evolve in battle.",
 	},
+	"giratinite": {
+		id: "giratinite",
+		name: "Giratinite",
+		spritenum: 624,
+		megaStone: "Giratina-Mega",
+		megaEvolves: "Giratina",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Giratina, this item allows it to Mega Evolve in battle.",
+	},
 };

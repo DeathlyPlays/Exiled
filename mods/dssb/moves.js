@@ -19,8 +19,13 @@ exports.BattleMovedex = {
 		},
 		secondary: false,
 		category: "Special",
+<<<<<<< HEAD:mods/dssb/moves.js
 		onHit: function (target, source, move) {
 			this.add('c|@Insist|Subscribe to http://youtube.com/DeathlyPlays');
+=======
+		onHit: function () {
+			this.add('c|~Insist|Subscribe to http://youtube.com/DeathlyPlays');
+>>>>>>> cee2e9e3c4aa81d811f55fcc03c888197cc8e36d:mods/essb/moves.js
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');

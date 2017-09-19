@@ -322,4 +322,5 @@ exports.commands = {
 			return '<font color="#686868">' + detail + ':</font> ' + details[detail];
 		}).join("&nbsp;|&ThickSpace;") + '</font>');
 	},
+	fusehelp: ["/fuse [Pokemon], [Other Pokemon] - Fuses the two Pokemon together, combining weight, typings, and abilities."],
 };

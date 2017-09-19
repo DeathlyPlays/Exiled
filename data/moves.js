@@ -19460,4 +19460,57 @@ exports.BattleMovedex = {
 		zMovePower: 200,
 		contestType: "Cool",
 	},
+	"distortionworld": {
+		num: 678,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "For 5 turns, the terrain becomes Distortion World. Healing fails while this is active. Fails if the current terrain is Distortion World.",
+		shortDesc: "5 turns. +Ghost power, healing is canceled.",
+		id: "distortionworld",
+		name: "Distortion World",
+		pp: 10,
+		priority: 0,
+		flags: {nonsky: 1},
+		terrain: 'distortionworld',
+		effect: {
+			duration: 5,
+			durationCallback: function (source, effect) {
+				if (source && source.hasItem('terrainextender')) {
+					return 8;
+				}
+				return 5;
+			},
+			onBasePower: function (basePower, attacker, defender, move) {
+				if (move.type === 'Ghost' && !attacker.isSemiInvulnerable()) {
+					this.debug('Distortion World boost');
+					return this.chainModify(1.5);
+				}
+			},
+			onStart: function (battle, source, effect) {
+				if (effect && effect.effectType === 'Ability') {
+					this.add('-fieldstart', 'move: Distortion World', '[from] ability: ' + effect, '[of] ' + source);
+				} else {
+					this.add('-fieldstart', 'move: Distortion World');
+				}
+			},
+			onTryHitPriority: 6,
+			onTryHit: function (pokemon, target, move) {
+				if (move.flags['heal']) {
+					this.add('cant', pokemon, 'move: Distortion World', move);
+					return false;
+				}
+			},
+			onResidualOrder: 21,
+			onResidualSubOrder: 2,
+			onEnd: function () {
+				this.add('-fieldend', 'move: Distortion World');
+			},
+		},
+		secondary: false,
+		target: "all",
+		type: "Ghost",
+		zMoveBoost: {spa: 1},
+		contestType: "Clever",
+	},
 };

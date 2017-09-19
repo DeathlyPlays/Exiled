@@ -367,6 +367,20 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Naive",
 			},
+			"+Randbat Spam": {
+				species: "Giratina",
+				ability: "Distorted Dimensions",
+				item: "Giratinite",
+				moves: ["sunsteelstrike", "shadowforce", "dragonrush"],
+				baseSignatureMove: "thousandarrows",
+				signatureMove: "Thousand Arrows",
+				evs: {
+					atk: 252,
+					def: 4,
+					spe: 252,
+				},
+				nature: "Jolly",
+			},
 			//Trusteds
 			"✓Wobbleleez": {
 				species: "Musharna",

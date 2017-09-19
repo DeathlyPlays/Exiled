@@ -4244,6 +4244,12 @@ exports.BattleFormatsData = {
 		requiredItem: "Griseous Orb",
 		tier: "Uber",
 	},
+	giratinamega: {
+		randomBattleMoves: ["dracometeor", "rest", "dragontail", "roar", "willowisp", "shadowball", "dragonpulse"],
+		randomDoubleBattleMoves: ["tailwind", "shadowsneak", "protect", "dragontail", "willowisp", "calmmind", "dragonpulse", "shadowball"],
+		requiredItem: "Giratinite",
+		tier: "Uber",
+	},
 	cresselia: {
 		randomBattleMoves: ["moonlight", "psychic", "icebeam", "thunderwave", "toxic", "substitute", "psyshock", "moonblast", "calmmind"],
 		randomDoubleBattleMoves: ["psyshock", "icywind", "thunderwave", "trickroom", "moonblast", "moonlight", "skillswap", "reflect", "lightscreen", "icebeam", "protect", "helpinghand"],

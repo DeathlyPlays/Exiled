@@ -4445,7 +4445,7 @@ exports.BattleAbilities = {
 	"primitivewings": {
 		inherit: true,
 		shortDesc: "This Pokemon's Flying-type moves have their priority increased by 1.",
-		onModifyPriority: function (priority, pokemon, target, move) {
+		onModifyPriority: function (priority, move) {
 			if (move && move.type === 'Flying') return priority + 1;
 		},
 		id: "primitivewings",
@@ -4456,7 +4456,7 @@ exports.BattleAbilities = {
 	"lightflow": {
 		inherit: true,
 		shortDesc: "This Pokemon's Normal-type moves have their priority increased by 1.",
-		onModifyPriority: function (priority, pokemon, target, move) {
+		onModifyPriority: function (priority, move) {
 			if (move && move.type === 'Normal') return priority + 1;
 		},
 		id: "lightflow",
@@ -4597,7 +4597,7 @@ exports.BattleAbilities = {
 		onModifyMove: function (move) {
 			move.stab = 2;
 		},
-		onStart: function (source) {
+		onStart: function () {
 			this.setTerrain('psychicterrain');
 		},
 		rating: 5,
@@ -4607,7 +4607,7 @@ exports.BattleAbilities = {
 		id: "barrierrise",
 		name: "Barrier Rise",
 		desc: "Summons Steel Barrier on start.",
-		onStart: function (source) {
+		onStart: function () {
 			this.setWeather('steelbarrier');
 		},
 		rating: 3.5,
@@ -4617,7 +4617,7 @@ exports.BattleAbilities = {
 		id: "stampede",
 		name: "Stampede",
 		onModifyAtkPriority: 5,
-		onModifyAtk: function (atk) {
+		onModifyAtk: function () {
 			return this.chainModify(2);
 		},
 		onModifyMove: function (move, pokemon) {
@@ -4630,7 +4630,7 @@ exports.BattleAbilities = {
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
-			onBasePower: function (basePower, pokemon, target, move) {
+			onBasePower: function () {
 				return this.chainModify([0x14CD, 0x1000]);
 			},
 		},
@@ -4641,7 +4641,7 @@ exports.BattleAbilities = {
 	"amplifier": {
 		shortDesc: "This Pokemon's sound moves have their power multiplied by 1.3.",
 		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
+		onBasePower: function (move) {
 			if (move.flags['sound']) {
 				return this.chainModify([0x14CD, 0x1000]);
 			}
@@ -4650,5 +4650,15 @@ exports.BattleAbilities = {
 		name: "Amplifier",
 		rating: 3.5,
 		num: -802,
+	},
+	"distorteddimensions": {
+		desc: "Summons Distortion World.",
+		id: "distorteddimensions",
+		name: "Distorted Dimensions",
+		onStart: function () {
+			this.setTerrain('distorteddimensions');
+		},
+		rating: 3.5,
+		num: -803,
 	},
 };

@@ -19,7 +19,7 @@ exports.BattleMovedex = {
 		},
 		secondary: false,
 		category: "Special",
-		onHit: function (target, source, move) {
+		onHit: function () {
 			this.add('c|~Insist|Subscribe to http://youtube.com/DeathlyPlays');
 		},
 		onPrepareHit: function (target, source) {

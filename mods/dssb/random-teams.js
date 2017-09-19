@@ -228,6 +228,20 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Adamant",
 			},
+			"+Randbat Spam": {
+				species: "Giratina",
+				ability: "Distorted Dimensions",
+				item: "Giratinite",
+				moves: ["sunsteelstrike", "shadowforce", "dragonrush"],
+				baseSignatureMove: "thousandarrows",
+				signatureMove: "Thousand Arrows",
+				evs: {
+					atk: 252,
+					def: 4,
+					spe: 252,
+				},
+				nature: "Jolly",
+			},
 			//Regs
 			" Gligars": {
 				species: "Guzzlord",
@@ -292,40 +306,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Timid",
 			},
-<<<<<<< HEAD:mods/dssb/random-teams.js
 			" Wobbleleez": {
-=======
-			"+Blooded❤Draco": {
-				species: "Kyurem-Black",
-				ability: "Poison Heal",
-				item: "Toxic Orb",
-				moves: ['dragonclaw', 'willowisp', 'dragonpulse'],
-				baseSignatureMove: "hellfire",
-				signatureMove: "Hellfire",
-				evs: {
-					hp: 4,
-					spa: 252,
-					spe: 252,
-				},
-				nature: "Naive",
-			},
-			"+Randbat Spam": {
-				species: "Giratina",
-				ability: "Distorted Dimensions",
-				item: "Giratinite",
-				moves: ["sunsteelstrike", "shadowforce", "dragonrush"],
-				baseSignatureMove: "thousandarrows",
-				signatureMove: "Thousand Arrows",
-				evs: {
-					atk: 252,
-					def: 4,
-					spe: 252,
-				},
-				nature: "Jolly",
-			},
-			//Trusteds
-			"✓Wobbleleez": {
->>>>>>> cee2e9e3c4aa81d811f55fcc03c888197cc8e36d:mods/essb/random-teams.js
 				species: "Musharna",
 				ability: "WobzDoezJobz",
 				item: "Leftovers",

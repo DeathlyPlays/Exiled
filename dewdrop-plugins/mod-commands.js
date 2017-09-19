@@ -183,23 +183,26 @@ exports.commands = {
 	},
 	forcejoinhelp: ["/forcejoin [target], [room] - Forces a user to join a room"],
 
-	k: 'kick',
+	rk: 'kick',
 	roomkick: 'kick',
 	kick: function (target, room, user) {
 		if (!target) return this.parse('/help kick');
-		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
+		if (!this.canTalk() && !user.can('bypassall')) {
+			return this.sendReply("You cannot do this while unable to talk.");
+		}
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
-		if (!targetUser || !targetUser.connected) return this.sendReply("User '" + this.targetUsername + "' not found.");
-		if (!(targetUser in room.users)) return this.sendReply("User " + this.targetUsername + " is not in the room " + room.id + ".");
-		if (!this.can('mute', targetUser, room) || targetUser.can('rangeban') && !user.can('rangeban')) return false;
+		if (target.length > 300) return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
+		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
+		if (!this.can('mute', targetUser, room)) return false;
+		if (!room.users[targetUser.userid]) return this.errorReply("User \"" + this.targetUsername + "\" is not in this room.");
 
-		this.addModCommand(targetUser.name + " was kicked from the room by " + user.name + ".");
-		targetUser.popup("You were kicked from " + room.id + " by " + user.name + ".");
+		this.addModCommand(targetUser.name + " was kicked from the room by " + user.name + ". (" + target + ")");
+		targetUser.popup("You were kicked from " + room.id + " by " + user.name + ". (" + target + ")");
 		targetUser.leaveRoom(room.id);
 	},
-	kickhelp: ["/kick - Kick a user out of a room. Requires: % @ # & ~"],
+	kickhelp: ["/kick [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
 
 	kickall: function (target, room, user) {
 		if (!this.can('declare')) return this.errorReply("/kickall - Access denied.");

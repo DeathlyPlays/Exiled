@@ -212,6 +212,47 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: 'Jolly',
 			},
+			'Basculin': {
+				species: "Basculin",
+				ability: "Reckless",
+				item: "Choice Band",
+				moves: ['headsmash', 'bravebird', 'wildcharge'],
+				baseSignatureMove: "piranhaattack",
+				signatureMove: "Piranha Attack",
+				evs: {
+					atk: 252,
+					def: 4,
+					spe: 252,
+				},
+				nature: "Jolly",
+			},
+			"Sudowoodo": {
+				species: "Sudowoodo",
+				ability: "Rock Head",
+				item: "Leftovers",
+				moves: ['headsmash', 'woodhammer', 'highjumpkick'],
+				signatureMove: "Flare Blitz",
+				evs: {
+					atk: 252,
+					def: 4,
+					hp: 252,
+				},
+				nature: "Adamant",
+			},
+			"Turtonator": {
+				species: "Turtonator",
+				ability: "Rock Head",
+				item: "Life Orb",
+				moves: ['headsmash', 'flareblitz', 'woodhammer'],
+				baseSignatureMove: "draconicblitz",
+				signatureMove: "Draconic Blitz",
+				evs: {
+					atk: 252,
+					def: 4,
+					hp: 252,
+				},
+				nature: "Adamant",
+			},
 		};
 		// convert moves to ids.
 		for (let k in sets) {

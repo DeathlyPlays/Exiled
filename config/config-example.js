@@ -3,10 +3,6 @@
 // The server port - the port to run Pokemon Showdown under
 exports.port = 8000;
 
-<<<<<<< HEAD
-//serverIp for parsing of custom avatars, put your server's ip here
-exports.serverIp = '';
-=======
 // The server address - the address at which Pokemon Showdown should be hosting
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
 exports.bindaddress = '0.0.0.0';
@@ -28,7 +24,8 @@ exports.workers = 1;
 
 // TODO: allow SSL to actually be possible to use for third-party servers at
 // some point.
->>>>>>> 28b4cbec7edfecd68ff0c522741a6c88d71ea8e9
+//serverIp for parsing of custom avatars, put your server's ip here
+exports.serverIp = '';
 
 // proxyip - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array

@@ -24,8 +24,7 @@ function endDisplay(arr) {
 exports.commands = {
 	newsentence: 'sentence',
 	sentence: function (target, room, user) {
-		if (!this.can('lock', null, room)) return this.errorReply("/sentence - Access denied.");
-		if (room.id === 'lobby') return this.errorReply("This command cannot be used in Lobby.");
+		if (!this.can('mute', null, room)) return this.errorReply("/sentence - Access denied.");
 		if (room.sentence) return this.errorReply("There is already a sentence game in this room.");
 		if (room.battle) return this.errorReply("You cannot play sentence game in battle rooms.");
 		if (!target) return this.errorReply("You must specify a sentence length.");
@@ -55,7 +54,7 @@ exports.commands = {
 		if (room.sentence.result.length === room.sentence.size - 1 && badEndings.indexOf(word) > -1) return this.errorReply("Nobody wants the sentence to end with '" + word + "'.");
 		room.sentence.result.push(word);
 
-		room.addRaw('<div class="sentence-container"><font size="3">' + Exiled.nameColor(user.userid, true) + ' has added the word "<font color="red">' + word + '</font>" to the sentence.</font></div>');
+		room.addRaw('<div class="sentence-container"><font size="3">' + Dew.nameColor(user.userid, true) + ' has added the word "<font color="red">' + word + '</font>" to the sentence.</font></div>');
 
 		if (room.sentence.result.length === room.sentence.size) {
 			let end = endDisplay(room.sentence.result);
@@ -68,13 +67,14 @@ exports.commands = {
 	},
 
 	endsentence: function (target, room, user) {
-		if (!this.can('lock', null, room)) return this.errorReply("/endsentence - Access denied.");
+		if (!this.can('mute', null, room)) return this.errorReply("/endsentence - Access denied.");
 		if (!room.sentence) return this.errorReply("There is not a sentence game in this room.");
 		delete room.sentence;
-		room.addRaw('<div class="sentence-container"><font size="3">The Sentence Game was ended by ' + Exiled.nameColor(user.userid, true) + '.</font></div>');
+		room.addRaw('<div class="sentence-container"><font size="3">The Sentence Game was ended by ' + Dew.nameColor(user.userid, true) + '.</font></div>');
 	},
 
 	sentencehelp: ["- /sentence [length] - Begins a game of sentence game.",
 		"- /addword [word] - Adds a word to the sentence.",
-		"- /endsentence - Ends sentence game."],
+		"- /endsentence - Ends sentence game.",
+	],
 };

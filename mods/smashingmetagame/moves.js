@@ -292,4 +292,56 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Dragon",
 	},
+	//Basculin
+	"piranhaattack": {
+		id: "piranhaattack",
+		name: "Piranha Attack",
+		recoil: [1, 3],
+		priority: 0,
+		pp: 10,
+		basePower: 130,
+		accuracy: 95,
+		secondary: false,
+		category: "Physical",
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Waterfall", target);
+		},
+		flags: {
+			protect: 1,
+			contact: 1,
+			mirror: 1,
+		},
+		desc: "Has 1/3 recoil damage.",
+		target: "normal",
+		type: "Water",
+	},
+	//Turtonator
+	"draconicblitz": {
+		id: "draconicblitz",
+		name: "Draconic Blitz",
+		recoil: [1, 3],
+		priority: 0,
+		pp: 10,
+		basePower: 140,
+		accuracy: 100,
+		secondary: {
+			chance: 30,
+			status: "brn",
+		},
+		category: "Physical",
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Waterfall", target);
+		},
+		flags: {
+			protect: 1,
+			contact: 1,
+			mirror: 1,
+		},
+		desc: "Has 1/3 recoil damage. 30% chance to burn the target.",
+		shortDesc: "1/3 recoil; 30% chance to burn.",
+		target: "normal",
+		type: "Fire",
+	},
 };

@@ -370,7 +370,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			"+Randbat Spam": {
 				species: "Giratina",
 				ability: "Distorted Dimensions",
-				item: "Giratinite",
+				item: "Distorted Rock",
 				moves: ["sunsteelstrike", "shadowforce", "dragonrush"],
 				baseSignatureMove: "thousandarrows",
 				signatureMove: "Thousand Arrows",

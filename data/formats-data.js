@@ -1216,9 +1216,6 @@ exports.BattleFormatsData = {
 	blisseymega: {
 		randomBattleMoves: ["toxic", "flamethrower", "seismictoss", "softboiled", "wish", "healbell", "protect", "thunderwave", "stealthrock"],
 		randomDoubleBattleMoves: ["wish", "softboiled", "protect", "toxic", "aromatherapy", "seismictoss", "helpinghand", "thunderwave", "flamethrower", "icebeam"],
-		eventPokemon: [
-			{"generation": 5, "level": 10, "isHidden": true, "moves":["pound", "growl", "tailwhip", "refresh"]},
-		],
 		tier: "AG",
 		requiredItem: "Blissite",
 	},
@@ -1884,6 +1881,11 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["protect", "lightscreen", "encore", "reflect", "knockoff", "bugbuzz", "uturn", "tailwind"],
 		tier: "PU",
 	},
+	ledianmega: {
+		randomBattleMoves: ["roost", "drainpunch", "icepunch", "machpunch", "knockoff", "uturn"],
+		randomDoubleBattleMoves: ["protect", "roost", "drainpunch", "icepunch", "machpunch", "knockoff", "uturn"],
+		tier: "BL3",
+	},
 	spinarak: {
 		randomBattleMoves: ["agility", "toxic", "xscissor", "toxicspikes", "poisonjab", "batonpass", "stickyweb"],
 		eventPokemon: [
@@ -1895,6 +1897,12 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["megahorn", "toxicspikes", "poisonjab", "suckerpunch", "stickyweb"],
 		randomDoubleBattleMoves: ["protect", "megahorn", "stringshot", "poisonjab", "stickyweb", "ragepowder"],
 		tier: "PU",
+	},
+	ariadosmega: {
+		randomBattleMoves: ["megahorn", "toxicspikes", "poisonjab", "suckerpunch", "stickyweb"],
+		randomDoubleBattleMoves: ["protect", "megahorn", "stringshot", "poisonjab", "stickyweb", "ragepowder"],
+		requiredItem: "Ariadosite",
+		tier: "BL3",
 	},
 	chinchou: {
 		randomBattleMoves: ["voltswitch", "thunderbolt", "hiddenpowergrass", "hydropump", "icebeam", "surf", "thunderwave", "scald", "discharge", "healbell"],
@@ -3780,6 +3788,17 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["bravebird", "closecombat", "uturn", "quickattack", "doubleedge", "tailwind", "protect"],
 		tier: "BL",
 	},
+	staraptormega: {
+		randomBattleMoves: ["bravebird", "closecombat", "uturn", "quickattack", "roost", "doubleedge"],
+		randomDoubleBattleMoves: ["bravebird", "closecombat", "uturn", "quickattack", "doubleedge", "protect"],
+		tier: "OU",
+		requiredItem: "Staraptite",
+	},
+	staraptoralola: {
+		randomBattleMoves: ["bravebird", "closecombat", "uturn", "quickattack", "roost"],
+		randomDoubleBattleMoves: ["bravebird", "closecombat", "uturn", "quickattack", "protect"],
+		tier: "OU",
+	},
 	bidoof: {
 		randomBattleMoves: ["return", "aquatail", "curse", "quickattack", "stealthrock", "superfang"],
 		eventPokemon: [
@@ -4752,6 +4771,12 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["waterfall", "aquajet", "superpower", "crunch", "headsmash"],
 		randomDoubleBattleMoves: ["waterfall", "aquajet", "superpower", "crunch", "doubleedge", "protect"],
 		tier: "PU",
+	},
+	basculinmega: {
+		randomBattleMoves: ["waterfall", "aquajet", "superpower", "crunch", "zenheadbutt", "bounce"],
+		randomDoubleBattleMoves: ["waterfall", "aquajet", "superpower", "crunch", "zenheadbutt", "bounce", "protect"],
+		requiredItem: "Basculinite",
+		tier: "BL3",
 	},
 	sandile: {
 		randomBattleMoves: ["earthquake", "stoneedge", "pursuit", "crunch"],

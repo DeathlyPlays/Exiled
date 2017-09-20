@@ -255,7 +255,7 @@ exports.BattleItems = {
 		},
 		num: -1001,
 		gen: 0,
-		desc: "If holder is a Arbok, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Arbok, this item allows it to Mega Evolve in battle.",
 	},
 	"armorfossil": {
 		id: "armorfossil",
@@ -7397,7 +7397,7 @@ exports.BattleItems = {
 		},
 		num: 764,
 		gen: 6,
-		desc: "If holder is a Ambipom, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Ambipom, this item allows it to Mega Evolve in battle.",
 	},
 	"meganiumite": {
 		id: "meganiumite",
@@ -7481,7 +7481,7 @@ exports.BattleItems = {
 		},
 		num: 764,
 		gen: 6,
-		desc: "If holder is a Arcanine, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Arcanine, this item allows it to Mega Evolve in battle.",
 	},
 	"hitmonlite": {
 		id: "hitmonlite",
@@ -7719,7 +7719,7 @@ exports.BattleItems = {
 		},
 		num: -766,
 		gen: 0,
-		desc: "If holder is a Araquanid, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Araquanid, this item allows it to Mega Evolve in battle.",
 	},
 	"masquerite": {
 		id: "masquerite",
@@ -7804,5 +7804,33 @@ exports.BattleItems = {
 		num: -767,
 		gen: 0,
 		desc: "If holder is a Giratina, this item allows it to Mega Evolve in battle.",
+	},
+	"ledianite": {
+		id: "ledianite",
+		name: "Ledianite",
+		spritenum: 624,
+		megaStone: "Ledian-Mega",
+		megaEvolves: "Ledian",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Ledian, this item allows it to Mega Evolve in battle.",
+	},
+	"ariadosite": {
+		id: "ariadosite",
+		name: "Ariadosite",
+		spritenum: 624,
+		megaStone: "Ariados-Mega",
+		megaEvolves: "Ariados",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is an Ariados, this item allows it to Mega Evolve in battle.",
 	},
 };

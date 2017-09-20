@@ -16,13 +16,8 @@ class Voucher {
 		this.goodFor = voucher;
 		this.expires = (expires ? expires : (expiresIn !== false ? (expiresIn * 24 * 60 * 60 * 1000 + Date.now()) : null));
 		this.item = (item ? item : null); //item from shop / amount of money
-<<<<<<< HEAD:dewdrop-plugins/vouchers.js
-		this.id = (id ? id : Dew.vouchers.storageForVocuherIds);
-		if (!id) Dew.vouchers.storageForVocuherIds++;
-=======
-		this.id = (id ? id : Exiled.vouchers.storageForVoucherIds);
-		if (!id) Exiled.vouchers.storageForVoucherIds++;
->>>>>>> 969e970ea4265f2e6532921a0e99d39363a379c5:exiled-plugins/vouchers.js
+		this.id = (id ? id : Dew.vouchers.storageForVoucherIds);
+		if (!id) Dew.vouchers.storageForVoucherIds++;
 	}
 
 	redeem() {
@@ -102,13 +97,8 @@ try {
 	fs.writeFile('config/vouchers.json', "{}", function (err) {
 		if (err) {
 			console.error('Error while loading vouchers: ' + err);
-<<<<<<< HEAD:dewdrop-plugins/vouchers.js
 			Dew.vouchers = {
-				storageForVocuherIds: -1,
-=======
-			Exiled.vouchers = {
 				storageForVoucherIds: -1,
->>>>>>> 969e970ea4265f2e6532921a0e99d39363a379c5:exiled-plugins/vouchers.js
 			};
 			writeJSON = false;
 		} else {
@@ -122,13 +112,8 @@ try {
 	let raw = JSON.parse(fs.readFileSync('config/vouchers.json', 'utf8'));
 	Dew.vouchers = {};
 	for (let key in raw) {
-<<<<<<< HEAD:dewdrop-plugins/vouchers.js
-		if (key === 'storageForVocuherIds') {
-			Dew.vouchers.storageForVocuherIds = raw[key];
-=======
 		if (key === 'storageForVoucherIds') {
-			Exiled.vouchers.storageForVoucherIds = raw[key];
->>>>>>> 969e970ea4265f2e6532921a0e99d39363a379c5:exiled-plugins/vouchers.js
+			Dew.vouchers.storageForVoucherIds = raw[key];
 			continue;
 		}
 		Dew.vouchers[key] = [];
@@ -137,19 +122,11 @@ try {
 			Dew.vouchers[key].push(reVouch);
 		}
 	}
-<<<<<<< HEAD:dewdrop-plugins/vouchers.js
-	if (!Dew.vouchers.storageForVocuherIds) Dew.vouchers.storageForVocuherIds = 1;
+	if (!Dew.vouchers.storageForVoucherIds) Dew.vouchers.storageForVoucherIds = 1;
 } catch (e) {
 	console.error('Error loading Vouchers: ' + e.stack);
 	Dew.vouchers = {
-		storageForVocuherIds: -1,
-=======
-	if (!Exiled.vouchers.storageForVoucherIds) Exiled.vouchers.storageForVoucherIds = 1;
-} catch (e) {
-	console.error('Error loading Vouchers: ' + e.stack);
-	Exiled.vouchers = {
 		storageForVoucherIds: -1,
->>>>>>> 969e970ea4265f2e6532921a0e99d39363a379c5:exiled-plugins/vouchers.js
 	};
 	writeJSON = false;
 }
@@ -160,11 +137,7 @@ exports.commands = {
 	vouchers: 'voucher',
 	voucher: {
 		give: function (target, room, user, connection, cmd, message) {
-<<<<<<< HEAD:dewdrop-plugins/vouchers.js
-			if (Dew.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
-=======
-			if (Exiled.storageForVoucherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
->>>>>>> 969e970ea4265f2e6532921a0e99d39363a379c5:exiled-plugins/vouchers.js
+			if (Dew.storageForVoucherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
 			if (!user.can('roomowner')) {
 				if (eventLeaders.indexOf(user.userid) === -1) return false;
 			}
@@ -224,11 +197,7 @@ exports.commands = {
 		givehelp: ['/voucher give [user], [voucher], (item/amount) - Give a user a voucher. Valid vouchers are: money, item, boostUno, boostTour, and boostGame. Valid items are Custom Symbol, Custom Avatar, Custom Title, Custom Icon, and Custom Color. Requires Server Event Leader, &, or ~.'],
 
 		take: function (target, room, user, connection, cmd, message) {
-<<<<<<< HEAD:dewdrop-plugins/vouchers.js
-			if (Dew.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
-=======
-			if (Exiled.storageForVoucherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
->>>>>>> 969e970ea4265f2e6532921a0e99d39363a379c5:exiled-plugins/vouchers.js
+			if (Dew.storageForVoucherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
 			if (!user.can('roomowner')) {
 				if (eventLeaders.indexOf(user.userid) === -1) return false;
 			}
@@ -252,11 +221,7 @@ exports.commands = {
 		takehelp: ['/voucher take [user], [id] - Take a user\'s voucher away. Requires Server Event Leader, &, or ~'],
 
 		list: function (target, room, user, connection, cmd, message) {
-<<<<<<< HEAD:dewdrop-plugins/vouchers.js
-			if (Dew.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
-=======
-			if (Exiled.storageForVoucherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
->>>>>>> 969e970ea4265f2e6532921a0e99d39363a379c5:exiled-plugins/vouchers.js
+			if (Dew.storageForVoucherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
 			if (!target) target = user.userid;
 			if (user.userid === toId(target)) {
 				if (!this.runBroadcast()) return;
@@ -280,11 +245,7 @@ exports.commands = {
 		listhelp: ['/voucher list (user) - List the vouchers of a user, requires Server Event Leader, &, or ~ for viewing vouchers for other users.'],
 
 		redeem: function (target, room, user, connection, cmd, message) {
-<<<<<<< HEAD:dewdrop-plugins/vouchers.js
-			if (Dew.storageForVocuherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
-=======
-			if (Exiled.storageForVoucherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
->>>>>>> 969e970ea4265f2e6532921a0e99d39363a379c5:exiled-plugins/vouchers.js
+			if (Dew.storageForVoucherIds === -1) return this.errorReply('An error occured while loading vouchers. They cannot be used at this time.');
 			if (!target) return this.parse('/help voucher redeem');
 			target = Number(target);
 			if (isNaN(target)) return this.errorReply('Ids must be a number.');

@@ -3,7 +3,6 @@
  * Mod Commands
  * This file contains all custom commands used to moderate the server.
 ********************/
-const MAX_REASON_LENGTH = 300;
 
 function clearRoom(room) {
 	let len = (room.log && room.log.length) || 0;

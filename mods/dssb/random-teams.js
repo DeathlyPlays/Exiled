@@ -180,23 +180,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Adamant",
 			},
-			"%Jigglykong": {
-				species: "Porygon2",
-				ability: "3Bawlky5U",
-				item: "Eviolite",
-				gender: "M",
-				shiny: true,
-				moves: ['recover', 'hex', 'toxic'],
-				baseSignatureMove: "plasmablast",
-				signatureMove: "Plasma Blast",
-				evs: {
-					hp: 252,
-					def: 100,
-					spa: 60,
-					spd: 92,
-				},
-				nature: "Bold",
-			},
 			"%Shivay": {
 				species: "Charizard-Mega-X",
 				ability: "Bird Claws",
@@ -228,10 +211,11 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Adamant",
 			},
-			"+Randbat Spam": {
+			//Regs
+			" Randbat Spam": {
 				species: "Giratina",
 				ability: "Distorted Dimensions",
-				item: "Giratinite",
+				item: "Distorted Rock",
 				moves: ["sunsteelstrike", "shadowforce", "dragonrush"],
 				baseSignatureMove: "thousandarrows",
 				signatureMove: "Thousand Arrows",
@@ -242,7 +226,23 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Jolly",
 			},
-			//Regs
+			"Jigglykong": {
+				species: "Porygon2",
+				ability: "3Bawlky5U",
+				item: "Eviolite",
+				gender: "M",
+				shiny: true,
+				moves: ['recover', 'hex', 'toxic'],
+				baseSignatureMove: "plasmablast",
+				signatureMove: "Plasma Blast",
+				evs: {
+					hp: 252,
+					def: 100,
+					spa: 60,
+					spd: 92,
+				},
+				nature: "Bold",
+			},
 			" Gligars": {
 				species: "Guzzlord",
 				ability: "Last Laugh",
@@ -306,40 +306,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Timid",
 			},
-<<<<<<< HEAD:mods/dssb/random-teams.js
 			" Wobbleleez": {
-=======
-			"+Blooded❤Draco": {
-				species: "Kyurem-Black",
-				ability: "Poison Heal",
-				item: "Toxic Orb",
-				moves: ['dragonclaw', 'willowisp', 'dragonpulse'],
-				baseSignatureMove: "hellfire",
-				signatureMove: "Hellfire",
-				evs: {
-					hp: 4,
-					spa: 252,
-					spe: 252,
-				},
-				nature: "Naive",
-			},
-			"+Randbat Spam": {
-				species: "Giratina",
-				ability: "Distorted Dimensions",
-				item: "Distorted Rock",
-				moves: ["sunsteelstrike", "shadowforce", "dragonrush"],
-				baseSignatureMove: "thousandarrows",
-				signatureMove: "Thousand Arrows",
-				evs: {
-					atk: 252,
-					def: 4,
-					spe: 252,
-				},
-				nature: "Jolly",
-			},
-			//Trusteds
-			"✓Wobbleleez": {
->>>>>>> bf9b45c4e0bd1763dbd7f388ff96de8f0cfb5022:mods/essb/random-teams.js
 				species: "Musharna",
 				ability: "WobzDoezJobz",
 				item: "Leftovers",

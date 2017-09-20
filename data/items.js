@@ -6743,7 +6743,7 @@ exports.BattleItems = {
 		},
 		num: -118,
 		gen: 0,
-		desc: "If holder is a Eelektross, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Eelektross, this item allows it to Mega Evolve in battle.",
 	},
 	"regigigite": {
 		id: "regigigite",
@@ -6845,7 +6845,7 @@ exports.BattleItems = {
 		},
 		num: -118,
 		gen: 0,
-		desc: "If holder is a Omastar, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Omastar, this item allows it to Mega Evolve in battle.",
 	},
 	"luminite": {
 		id: "luminite",
@@ -7125,7 +7125,7 @@ exports.BattleItems = {
 		},
 		num: -119,
 		gen: 0,
-		desc: "If holder is a Ursaring, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Ursaring, this item allows it to Mega Evolve in battle.",
 	},
 	"bearticite": {
 		id: "bearticite",
@@ -7271,7 +7271,7 @@ exports.BattleItems = {
 		},
 		num: -119,
 		gen: 0,
-		desc: "If holder is a Unown, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Unown, this item allows it to Mega Evolve in battle.",
 	},
 	"nidokingite": {
 		id: "nidokingite",
@@ -7565,7 +7565,7 @@ exports.BattleItems = {
 		},
 		num: -764,
 		gen: 0,
-		desc: "If holder is a Incineroar, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Incineroar, this item allows it to Mega Evolve in battle.",
 	},
 	"heliolite": {
 		id: "heliolite",
@@ -7761,7 +7761,7 @@ exports.BattleItems = {
 		},
 		num: -767,
 		gen: 0,
-		desc: "If holder is a Empoleon, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Empoleon, this item allows it to Mega Evolve in battle.",
 	},
 	"infernite": {
 		id: "infernite",
@@ -7775,7 +7775,7 @@ exports.BattleItems = {
 		},
 		num: -767,
 		gen: 0,
-		desc: "If holder is a Infernape, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is an Infernape, this item allows it to Mega Evolve in battle.",
 	},
 	"staraptite": {
 		id: "staraptite",
@@ -7832,5 +7832,19 @@ exports.BattleItems = {
 		num: -767,
 		gen: 0,
 		desc: "If holder is an Ariados, this item allows it to Mega Evolve in battle.",
+	},
+	"toucanite": {
+		id: "toucanite",
+		name: "Toucanite",
+		spritenum: 624,
+		megaStone: "Toucannon-Mega",
+		megaEvolves: "Toucannon",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Toucannon, this item allows it to Mega Evolve in battle.",
 	},
 };

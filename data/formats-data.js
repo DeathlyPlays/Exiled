@@ -859,6 +859,11 @@ exports.BattleFormatsData = {
 		],
 		tier: "PU",
 	},
+	rapidashmega: {
+		randomBattleMoves: ["flareblitz", "drillrun", "wildcharge", "protect", "morningsun"],
+		requiredItem: "Rapidashite",
+		tier: "UU",
+	},
 	slowpoke: {
 		randomBattleMoves: ["scald", "aquatail", "zenheadbutt", "thunderwave", "toxic", "slackoff", "trickroom"],
 		randomDoubleBattleMoves: ["scald", "aquatail", "zenheadbutt", "thunderwave", "slackoff", "trickroom", "protect"],
@@ -1858,12 +1863,9 @@ exports.BattleFormatsData = {
 		tier: "PU",
 	},
 	noctowlmega: {
-		randomBattleMoves: ["hypnosis", "oblivionwing", "darkpulse", "roost"],
+		randomBattleMoves: ["hypnosis", "oblivionwing", "darkpulse", "roost", "defog"],
 		tier: "UU",
-	},
-	rapidashmega: {
-		randomBattleMoves: ["flareblitz", "drillrun", "wildcharge", "protect"],
-		tier: "UU",
+		requiredItem: "Noctowlite",
 	},
 	lanturnalola: {
 		randomBattleMoves: ["gigadrain", "dazzlinggleam", "scald", "psyshock", "haze", "bugbuzz", "tundrasweep", "thunderbolt", "freezedry"],
@@ -6026,6 +6028,12 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["substitute", "beakblast", "swordsdance", "roost", "brickbreak", "bulletseed", "rockblast"],
 		randomDoubleBattleMoves: ["bulletseed", "rockblast", "bravebird", "tailwind", "protect"],
 		tier: "PU",
+	},
+	toucannonmega: {
+		randomBattleMoves: ["substitute", "beakblast", "swordsdance", "roost", "brickbreak", "bulletseed", "rockblast"],
+		randomDoubleBattleMoves: ["bulletseed", "rockblast", "bravebird", "tailwind", "protect"],
+		tier: "BL2",
+		requiredItem: "Toucanite",
 	},
 	yungoos: {
 		tier: "LC",

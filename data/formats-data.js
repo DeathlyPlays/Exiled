@@ -1221,7 +1221,7 @@ exports.BattleFormatsData = {
 	blisseymega: {
 		randomBattleMoves: ["toxic", "flamethrower", "seismictoss", "softboiled", "wish", "healbell", "protect", "thunderwave", "stealthrock"],
 		randomDoubleBattleMoves: ["wish", "softboiled", "protect", "toxic", "aromatherapy", "seismictoss", "helpinghand", "thunderwave", "flamethrower", "icebeam"],
-		tier: "AG",
+		tier: "BL",
 		requiredItem: "Blissite",
 	},
 	tangela: {
@@ -1849,6 +1849,12 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["uturn", "trick", "aquatail", "firepunch", "knockoff", "doubleedge"],
 		randomDoubleBattleMoves: ["uturn", "suckerpunch", "icepunch", "firepunch", "knockoff", "doubleedge", "superfang", "followme", "helpinghand", "protect"],
 		tier: "PU",
+	},
+	furretmega: {
+		randomBattleMoves: ["oblivionbanisher", "suckerpunch", "flamethrower", "icebeam", "focusblast", "hypervoice", "thunderbolt"],
+		randomDoubleBattleMoves: ["oblivionbanisher", "suckerpunch", "flamethrower", "icebeam", "focusblast", "hypervoice", "thunderbolt", "protect"],
+		requiredItem: "Furretite",
+		tier: "OU",
 	},
 	hoothoot: {
 		randomBattleMoves: ["reflect", "toxic", "roost", "whirlwind", "nightshade", "magiccoat"],
@@ -2615,6 +2621,17 @@ exports.BattleFormatsData = {
 			{"generation": 5, "level": 30, "gender": "M", "nature": "Calm", "isHidden": false, "abilities":["swiftswim"], "moves":["scald", "gigadrain", "icebeam", "sunnyday"]},
 		],
 		tier: "PU",
+	},
+	ludicoloalola: {
+		randomBattleMoves: ["fireblast", "sunnyday", "flamethrower", "scald", "gigadrain", "icebeam", "focusblast"],
+		randomDoubleBattleMoves: ["sunnyday", "fireblast", "flamethrower", "gigadrain", "icebeam", "fakeout", "protect"],
+		tier: "NU",
+	},
+	ludicolomega: {
+		randomBattleMoves: ["scald", "gigadrain", "icebeam", "focusblast", "knockoff", "hydropump"],
+		randomDoubleBattleMoves: ["surf", "gigadrain", "icebeam", "focusblast", "knockoff", "hydropump", "protect", "fakeout"],
+		requiredItem: "Ludicolite",
+		tier: "UU",
 	},
 	seedot: {
 		randomBattleMoves: ["defog", "naturepower", "seedbomb", "explosion", "foulplay"],
@@ -3391,11 +3408,6 @@ exports.BattleFormatsData = {
 	volcaronaalola: {
 		randomBattleMoves: ["waterspout", "aquaticdance", "hurricane", "bugbuzz", "hiddenpowerground", "flamethrower", "roost", "quiverdance"],
 		tier: "OU",
-	},
-	ludicoloalola: {
-		randomBattleMoves: ["fireblast", "sunnyday", "flamethrower", "scald", "gigadrain", "icebeam", "focusblast"],
-		randomDoubleBattleMoves: ["sunnyday", "fireblast", "flamethrower", "gigadrain", "icebeam", "fakeout", "protect"],
-		tier: "NU",
 	},
 	jynxalola: {
 		randomBattleMoves: ["icebeam", "psychic", "focusblast", "trick", "nastyplot", "lovelykiss", "substitute", "psystrike", "teeterdance", "hiddenpowerfire", "solarbeam"],
@@ -6924,16 +6936,6 @@ exports.BattleFormatsData = {
 		],
 		gen: 5,
 		tier: "Illegal",
-	},
-	ludicolomega: {
-		randomBattleMoves: ["scald", "gigadrain", "icebeam", "focusblast", "knockoff"],
-		requiredItem: "Ludicolite",
-		tier: "UU",
-	},
-	furretmega: {
-		randomBattleMoves: ["oblivionbanisher", "suckerpunch", "flamethrower", "icebeam", "focusblast"],
-		requiredItem: "Furretite",
-		tier: "OU",
 	},
 	pachirisumega: {
 		randomBattleMoves: ["thunderpunch", "darkvoid", "darkpulse", "thunderbolt", "voltswitch", "rest", "sleeptalk", "uturn", "gunkshot", "seedbomb"],

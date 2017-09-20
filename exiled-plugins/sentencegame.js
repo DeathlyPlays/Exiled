@@ -54,7 +54,7 @@ exports.commands = {
 		if (room.sentence.result.length === room.sentence.size - 1 && badEndings.indexOf(word) > -1) return this.errorReply("Nobody wants the sentence to end with '" + word + "'.");
 		room.sentence.result.push(word);
 
-		room.addRaw('<div class="sentence-container"><font size="3">' + Dew.nameColor(user.userid, true) + ' has added the word "<font color="red">' + word + '</font>" to the sentence.</font></div>');
+		room.addRaw('<div class="sentence-container"><font size="3">' + Exiled.nameColor(user.userid, true) + ' has added the word "<font color="red">' + word + '</font>" to the sentence.</font></div>');
 
 		if (room.sentence.result.length === room.sentence.size) {
 			let end = endDisplay(room.sentence.result);
@@ -70,10 +70,11 @@ exports.commands = {
 		if (!this.can('mute', null, room)) return this.errorReply("/endsentence - Access denied.");
 		if (!room.sentence) return this.errorReply("There is not a sentence game in this room.");
 		delete room.sentence;
-		room.addRaw('<div class="sentence-container"><font size="3">The Sentence Game was ended by ' + Dew.nameColor(user.userid, true) + '.</font></div>');
+		room.addRaw('<div class="sentence-container"><font size="3">The Sentence Game was ended by ' + Exiled.nameColor(user.userid, true) + '.</font></div>');
 	},
 
-	sentencehelp: ["- /sentence [length] - Begins a game of sentence game.",
+	sentencehelp: [
+		"- /sentence [length] - Begins a game of sentence game.",
 		"- /addword [word] - Adds a word to the sentence.",
 		"- /endsentence - Ends sentence game.",
 	],

@@ -7791,19 +7791,37 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Staraptor, this item allows it to Mega Evolve in battle.",
 	},
-	"giratinite": {
-		id: "giratinite",
-		name: "Giratinite",
-		spritenum: 624,
-		megaStone: "Giratina-Mega",
-		megaEvolves: "Giratina",
+	"distortedrock": {
+		id: "distortedrock",
+		name: "Distorted Rock",
+		spritenum: -390,
+		onSwitchIn: function (pokemon) {
+			if (pokemon.isActive && pokemon.baseTemplate.species === 'Giratina') {
+				this.insertQueue({pokemon: pokemon, choice: 'runPrimal'});
+			}
+		},
+		onPrimal: function (pokemon) {
+			let template = this.getTemplate('Giratina-Primal');
+			pokemon.formeChange(template);
+			pokemon.baseTemplate = template;
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			if (pokemon.illusion) {
+				pokemon.ability = ''; // Don't allow Illusion to wear off
+				this.add('-primal', pokemon.illusion);
+			} else {
+				this.add('detailschange', pokemon, pokemon.details);
+				this.add('-primal', pokemon);
+			}
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+		},
 		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			if (source.baseTemplate.baseSpecies === 'Giratina') return false;
 			return true;
 		},
-		num: -767,
+		num: -534,
 		gen: 0,
-		desc: "If holder is a Giratina, this item allows it to Mega Evolve in battle.",
+		desc: "If holder is a Giratina, this item triggers its Primal Reversion in battle.",
 	},
 	"ledianite": {
 		id: "ledianite",
@@ -7819,20 +7837,6 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Ledian, this item allows it to Mega Evolve in battle.",
 	},
-	"ariadosite": {
-		id: "ariadosite",
-		name: "Ariadosite",
-		spritenum: 624,
-		megaStone: "Ariados-Mega",
-		megaEvolves: "Ariados",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: -767,
-		gen: 0,
-		desc: "If holder is an Ariados, this item allows it to Mega Evolve in battle.",
-	},
 	"toucanite": {
 		id: "toucanite",
 		name: "Toucanite",
@@ -7846,5 +7850,33 @@ exports.BattleItems = {
 		num: -767,
 		gen: 0,
 		desc: "If holder is a Toucannon, this item allows it to Mega Evolve in battle.",
+	},
+	"stanlite": {
+		id: "stanlite",
+		name: "Stanlite",
+		spritenum: 624,
+		megaStone: "Stantler-Mega",
+		megaEvolves: "Stantler",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Stantler, this item allows it to Mega Evolve in battle.",
+	},
+	"sawsbite": {
+		id: "sawsbite",
+		name: "Sawsbite",
+		spritenum: 624,
+		megaStone: "Sawsbite-Mega",
+		megaEvolves: "Sawsbuck",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Sawsbuck, this item allows it to Mega Evolve in battle.",
 	},
 };

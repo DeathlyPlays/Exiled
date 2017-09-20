@@ -2328,6 +2328,12 @@ exports.BattleFormatsData = {
 		],
 		tier: "PU",
 	},
+	stantlermega: {
+		randomBattleMoves: ["doubleedge", "megahorn", "jumpkick", "earthquake", "suckerpunch", "zenheadbutt"],
+		randomDoubleBattleMoves: ["return", "megahorn", "jumpkick", "earthquake", "suckerpunch", "protect", "zenheadbutt"],
+		requiredItem: "Stanlite",
+		tier: "OU",
+	},
 	smeargle: {
 		randomBattleMoves: ["spore", "spikes", "stealthrock", "destinybond", "whirlwind", "stickyweb"],
 		randomDoubleBattleMoves: ["spore", "fakeout", "wideguard", "helpinghand", "followme", "tailwind", "kingsshield", "transform"],
@@ -4277,10 +4283,10 @@ exports.BattleFormatsData = {
 		requiredItem: "Griseous Orb",
 		tier: "Uber",
 	},
-	giratinamega: {
+	giratinaprimal: {
 		randomBattleMoves: ["dracometeor", "rest", "dragontail", "roar", "willowisp", "shadowball", "dragonpulse"],
 		randomDoubleBattleMoves: ["tailwind", "shadowsneak", "protect", "dragontail", "willowisp", "calmmind", "dragonpulse", "shadowball"],
-		requiredItem: "Giratinite",
+		requiredItem: "Distorted Rock",
 		tier: "Uber",
 	},
 	cresselia: {
@@ -4983,6 +4989,12 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["swordsdance", "hornleech", "jumpkick", "return", "substitute", "batonpass"],
 		randomDoubleBattleMoves: ["swordsdance", "hornleech", "jumpkick", "return", "substitute", "synthesis", "protect"],
 		tier: "PU",
+	},
+	sawsbuckmega: {
+		randomBattleMoves: ["swordsdance", "hornleech", "jumpkick", "return", "substitute", "batonpass"],
+		randomDoubleBattleMoves: ["swordsdance", "hornleech", "jumpkick", "return", "substitute", "synthesis", "protect"],
+		requiredItem: "Sawsbite",
+		tier: "OU",
 	},
 	emolga: {
 		randomBattleMoves: ["encore", "chargebeam", "batonpass", "substitute", "thunderbolt", "airslash", "roost"],

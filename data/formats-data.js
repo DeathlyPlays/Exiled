@@ -7561,4 +7561,8 @@ exports.BattleFormatsData = {
 		requiredItem: "Incinerite",
 		tier: "UU",
 	},
+	cletorcax: {
+		randomBattleMoves: ["sludgebomb", "icebeam", "calmmind", "thunderbolt", "earthquake"],
+		tier: "OU",
+	},
 };

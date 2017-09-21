@@ -3264,39 +3264,36 @@ exports.Formats = [
 		name: "[Gen 7] Infection",
 		section: "Exiled's Custom Gamemodes",
 		allowTies: true,
+		ruleset: ['[Gen 7] OU'],
+		banlist: ["Illegal", 'Kyurem-Black', 'Pidgeotite'],
 		desc: [
 			"&bullet; Credit to: flufi (Creator/Idea).",
 			"You can choose to either make each of your Pokemon",
 			"Normal or Infected. Not Shiny being Normal, and Shiny",
 			"being Infected. When a Pokemon is infected, all of",
 			"it's stats are increased by 30% (multiplied by x1.3),",
-			"but it's accuracy is decreased by 30% (multiplied by x0.7).",
+			"but it's accuracy is decreased by 20% (multiplied by x0.8).",
 			"(30% Stat Boost does NOT include evasion/evasiveness)",
 		],
-		onSourceModifyAccuracy: function (pokemon, accuracy) {
+		onSourceModifyAccuracy: function (accuracy, pokemon) {
 			if (typeof accuracy !== 'number' && pokemon.shiny) return;
-			this.debug('Infection - Decreasing accuracy');
-			return accuracy * 0.7;
+			this.debug('infected - decreasing accuracy');
+			return accuracy * 0.8;
 		},
-		onModifyAtkPriority: 6,
 		onModifyAtk: function (atk, pokemon) {
-			if (pokemon.shiny) return this.chainModify(1.3);
+			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifyDefPriority: 6,
 		onModifyDef: function (def, pokemon) {
-			if (pokemon.shiny) return this.chainModify(1.3);
+			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifySpAPriority: 6,
 		onModifySpA: function (spa, pokemon) {
-			if (pokemon.shiny) return this.chainModify(5);
+			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifySpDPriority: 6,
 		onModifySpD: function (spd, pokemon) {
-			if (pokemon.shiny) return this.chainModify(1.3);
+			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifySpePriority: 6,
 		onModifySpe: function (spe, pokemon) {
-			if (pokemon.shiny) return this.chainModify(1.3);
+			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
 	},
 	{
@@ -3915,20 +3912,6 @@ exports.Formats = [
 			"Gligars and AlfaStorm contributed ideas towards the project",
 			"In this metagame, we have added a new type \"Cosmic\"",
 			"Along with buffing Pokemon deemed worthy of needing support.",
-		],
-	},
-	{
-		name: "[Gen 7] Prehistoric",
-		section: "Pet Mods",
-		mod: "prehistoric",
-		ruleset: ['[Gen 7] Ubers'],
-		banlist: ["Blue Orb"],
-		desc: [
-			"&bullet; Coded by flufi.",
-			"A format that takes place in prehistoric times.",
-			"Over 100 Pokemon get not only a new primal form, but a new signature move.",
-			"",
-			"NOTE: This is a long-term project and probably won't be done until June/July.",
 		],
 	},
 	{

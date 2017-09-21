@@ -3768,6 +3768,12 @@ exports.BattleFormatsData = {
 		],
 		tier: "UU",
 	},
+	infernapemega: {
+		randomBattleMoves: ["uturn", "earthquake", "closecombat", "flareblitz", "stoneedge", "machpunch", "nastyplot", "fireblast", "vacuumwave", "grassknot", "hiddenpowerice", "fakeout"],
+		randomDoubleBattleMoves: ["fakeout", "heatwave", "closecombat", "uturn", "grassknot", "stoneedge", "machpunch", "feint", "taunt", "flareblitz", "hiddenpowerice", "thunderpunch", "protect", "fakeout"],
+		requiredItem: "Infernite",
+		tier: "OU",
+	},
 	piplup: {
 		randomBattleMoves: ["stealthrock", "hydropump", "scald", "icebeam", "hiddenpowerelectric", "hiddenpowerfire", "yawn", "defog"],
 		eventPokemon: [
@@ -3791,6 +3797,12 @@ exports.BattleFormatsData = {
 			{"generation": 5, "level": 100, "gender": "M", "isHidden": false, "moves":["hydropump", "icebeam", "aquajet", "grassknot"], "pokeball": "cherishball"},
 		],
 		tier: "UU",
+	},
+	empoleonmega: {
+		randomBattleMoves: ["hydropump", "flashcannon", "grassknot", "hiddenpowerfire", "icebeam", "scald", "toxic", "roar", "stealthrock"],
+		randomDoubleBattleMoves: ["icywind", "scald", "surf", "icebeam", "hiddenpowerelectric", "protect", "grassknot", "flashcannon"],
+		requiredItem: "Empoleonite",
+		tier: "BL",
 	},
 	starly: {
 		randomBattleMoves: ["bravebird", "return", "uturn", "pursuit"],
@@ -4232,6 +4244,12 @@ exports.BattleFormatsData = {
 			{"generation": 6, "level": 100, "nature": "Timid", "isHidden": true, "moves":["earthpower", "aurasphere", "spacialrend", "hydropump"], "pokeball": "cherishball"},
 		],
 		eventOnly: true,
+		tier: "Uber",
+	},
+	palkiaprimal: {
+		randomBattleMoves: ["spacialrend", "dracometeor", "hydropump", "thunderwave", "dragontail", "fireblast"],
+		randomDoubleBattleMoves: ["spacialrend", "dracometeor", "surf", "hydropump", "thunderbolt", "fireblast", "protect"],
+		requiredItem: "Spacial Rift",
 		tier: "Uber",
 	},
 	heatran: {
@@ -5147,6 +5165,12 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["icebeam", "recover", "icywind", "protect", "reflect", "freezedry", "hiddenpowerground"],
 		tier: "NU",
 	},
+	cryogonalmega: {
+		randomBattleMoves: ["icebeam", "recover", "toxic", "rapidspin", "haze", "freezedry", "hiddenpowerground", "flashcannon"],
+		randomDoubleBattleMoves: ["icebeam", "recover", "icywind", "protect", "reflect", "freezedry", "hiddenpowerground", "flashcannon"],
+		requiredItem: "Cryogonite",
+		tier: "UU",
+	},
 	shelmet: {
 		randomBattleMoves: ["spikes", "yawn", "substitute", "acidarmor", "batonpass", "recover", "toxic", "bugbuzz", "infestation"],
 		eventPokemon: [
@@ -5523,6 +5547,12 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["calmmind", "fireblast", "psyshock", "grassknot", "switcheroo", "shadowball"],
 		randomDoubleBattleMoves: ["calmmind", "fireblast", "psyshock", "grassknot", "switcheroo", "shadowball", "heatwave", "dazzlinggleam", "protect"],
 		tier: "NU",
+	},
+	delphoxmega: {
+		randomBattleMoves: ["calmmind", "fireblast", "psyshock", "grassknot", "switcheroo", "shadowball"],
+		randomDoubleBattleMoves: ["calmmind", "fireblast", "psyshock", "grassknot", "switcheroo", "shadowball", "heatwave", "dazzlinggleam", "protect"],
+		requiredItem: "Delphite",
+		tier: "BL2",
 	},
 	froakie: {
 		randomBattleMoves: ["quickattack", "hydropump", "icebeam", "waterfall", "toxicspikes", "poweruppunch", "uturn"],
@@ -6405,6 +6435,12 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["zingzap", "nuzzle", "spikyshield", "encore", "fakeout", "uturn"],
 		tier: "PU",
 	},
+	togedemarumega: {
+		randomBattleMoves: ["spikyshield", "zingzap", "nuzzle", "uturn", "wish", "protect"],
+		randomDoubleBattleMoves: ["zingzap", "nuzzle", "spikyshield", "encore", "fakeout", "uturn"],
+		requiredItem: "Togedemarite",
+		tier: "BL3",
+	},
 	mimikyu: {
 		randomBattleMoves: ["swordsdance", "shadowsneak", "playrough", "woodhammer", "shadowclaw"],
 		randomDoubleBattleMoves: ["trickroom", "shadowclaw", "playrough", "woodhammer", "willowisp", "shadowsneak", "swordsdance", "protect"],
@@ -7271,7 +7307,7 @@ exports.BattleFormatsData = {
 	},
 	zangoosemega: {
 		randomBattleMoves: ["swordsdance", "closecombat", "knockoff", "quickattack"],
-		randomDoubleBattleMoves: ["protect", "closecombat", "knockoff", "quickattack"],
+		randomDoubleBattleMoves: ["protect", "closecombat", "knockoff", "quickattack", "swordsdance"],
 		requiredItem: "Zangoosite",
 		tier: "BL",
 	},
@@ -7524,29 +7560,5 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["fakeout", "darkestlariat", "flareblitz", "crosschop", "willowisp", "taunt", "snarl"],
 		requiredItem: "Incinerite",
 		tier: "UU",
-	},
-	togedemarumega: {
-		randomBattleMoves: ["spikyshield", "zingzap", "nuzzle", "uturn", "wish"],
-		randomDoubleBattleMoves: ["zingzap", "nuzzle", "spikyshield", "encore", "fakeout", "uturn"],
-		requiredItem: "Togedemarite",
-		tier: "BL3",
-	},
-	delphoxmega: {
-		randomBattleMoves: ["calmmind", "fireblast", "psyshock", "grassknot", "switcheroo", "shadowball"],
-		randomDoubleBattleMoves: ["calmmind", "fireblast", "psyshock", "grassknot", "switcheroo", "shadowball", "heatwave", "dazzlinggleam", "protect"],
-		requiredItem: "Delphite",
-		tier: "BL2",
-	},
-	empoleonmega: {
-		randomBattleMoves: ["hydropump", "flashcannon", "grassknot", "hiddenpowerfire", "icebeam", "scald", "toxic", "roar", "stealthrock"],
-		randomDoubleBattleMoves: ["icywind", "scald", "surf", "icebeam", "hiddenpowerelectric", "protect", "grassknot", "flashcannon"],
-		requiredItem: "Empoleonite",
-		tier: "BL",
-	},
-	infernapemega: {
-		randomBattleMoves: ["uturn", "earthquake", "closecombat", "flareblitz", "stoneedge", "machpunch", "nastyplot", "fireblast", "vacuumwave", "grassknot", "hiddenpowerice", "fakeout"],
-		randomDoubleBattleMoves: ["fakeout", "heatwave", "closecombat", "uturn", "grassknot", "stoneedge", "machpunch", "feint", "taunt", "flareblitz", "hiddenpowerice", "thunderpunch", "protect", "fakeout"],
-		requiredItem: "Infernite",
-		tier: "OU",
 	},
 };

@@ -7869,7 +7869,7 @@ exports.BattleItems = {
 		id: "sawsbite",
 		name: "Sawsbite",
 		spritenum: 624,
-		megaStone: "Sawsbite-Mega",
+		megaStone: "Sawsbuck-Mega",
 		megaEvolves: "Sawsbuck",
 		onTakeItem: function (item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
@@ -7878,5 +7878,51 @@ exports.BattleItems = {
 		num: -767,
 		gen: 0,
 		desc: "If holder is a Sawsbuck, this item allows it to Mega Evolve in battle.",
+	},
+	"spacialrift": {
+		id: "spacialrift",
+		name: "Spacial Rift",
+		spritenum: -390,
+		onSwitchIn: function (pokemon) {
+			if (pokemon.isActive && pokemon.baseTemplate.species === 'Palkia') {
+				this.insertQueue({pokemon: pokemon, choice: 'runPrimal'});
+			}
+		},
+		onPrimal: function (pokemon) {
+			let template = this.getTemplate('Palkia-Primal');
+			pokemon.formeChange(template);
+			pokemon.baseTemplate = template;
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			if (pokemon.illusion) {
+				pokemon.ability = ''; // Don't allow Illusion to wear off
+				this.add('-primal', pokemon.illusion);
+			} else {
+				this.add('detailschange', pokemon, pokemon.details);
+				this.add('-primal', pokemon);
+			}
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+		},
+		onTakeItem: function (item, source) {
+			if (source.baseTemplate.baseSpecies === 'Palkia') return false;
+			return true;
+		},
+		num: -534,
+		gen: 0,
+		desc: "If holder is a Palkia, this item triggers its Primal Reversion in battle.",
+	},
+	"cryogonite": {
+		id: "cryogonite",
+		name: "Cryogonite",
+		spritenum: 624,
+		megaStone: "Cryogonal-Mega",
+		megaEvolves: "Cryogonal",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Cryogonal, this item allows it to Mega Evolve in battle.",
 	},
 };

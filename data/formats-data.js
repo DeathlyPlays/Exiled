@@ -4851,6 +4851,11 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["grassyterrain", "gigadrain", "leechseed", "hiddenpowerfire", "helpinghand", "suckerpunch", "spikyshield"],
 		tier: "PU",
 	},
+	maractusmega: {
+		randomBattleMoves: ["spikes", "gigadrain", "leechseed", "hiddenpowerfire", "toxic", "suckerpunch", "spikyshield"],
+		randomDoubleBattleMoves: ["grassyterrain", "gigadrain", "leechseed", "hiddenpowerfire", "helpinghand", "suckerpunch", "spikyshield"],
+		tier: "BL2",
+	},
 	dwebble: {
 		randomBattleMoves: ["stealthrock", "spikes", "shellsmash", "earthquake", "rockblast", "xscissor", "stoneedge"],
 		tier: "LC",
@@ -7560,5 +7565,9 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["fakeout", "darkestlariat", "flareblitz", "crosschop", "willowisp", "taunt", "snarl"],
 		requiredItem: "Incinerite",
 		tier: "UU",
+	},
+	cletorcax: {
+		randomBattleMoves: ["sludgebomb", "icebeam", "calmmind", "thunderbolt", "earthquake"],
+		tier: "OU",
 	},
 };

@@ -7925,4 +7925,32 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Cryogonal, this item allows it to Mega Evolve in battle.",
 	},
+	"roseradite": {
+		id: "roseradite",
+		name: "Roseradite",
+		spritenum: 624,
+		megaStone: "Roserade-Mega",
+		megaEvolves: "Roserade",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Roserade, this item allows it to Mega Evolve in battle.",
+	},
+	"maractite": {
+		id: "maractite",
+		name: "Maractite",
+		spritenum: 624,
+		megaStone: "Maractus-Mega",
+		megaEvolves: "Maractus",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Maractus, this item allows it to Mega Evolve in battle.",
+	},
 };

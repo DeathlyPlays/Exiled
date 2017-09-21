@@ -4661,4 +4661,14 @@ exports.BattleAbilities = {
 		rating: 3.5,
 		num: -803,
 	},
+	"toxictriumph": {
+		desc: "Pokemon uses Toxic Spikes twice after it knocks out opponent",
+		onSourceFaint: function (pokemon) {
+			this.useMove("Toxic Spikes", pokemon, pokemon, pokemon);
+		},
+		id: "toxictriumph",
+		name: "Toxic Triumph",
+		rating: 3,
+		num: -201,
+	},
 };

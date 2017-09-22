@@ -19476,7 +19476,7 @@ exports.BattleMovedex = {
 		effect: {
 			duration: 5,
 			durationCallback: function (source, effect) {
-				if (source && source.hasItem('terrainextender')) {
+				if (source && source.hasItem('distortedrock')) {
 					return 8;
 				}
 				return 5;

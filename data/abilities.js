@@ -4652,11 +4652,11 @@ exports.BattleAbilities = {
 		num: -802,
 	},
 	"distorteddimensions": {
-		desc: "Summons Distortion World.",
+		desc: "Summons the Distortion World.",
 		id: "distorteddimensions",
 		name: "Distorted Dimensions",
 		onStart: function () {
-			this.setTerrain('distortedworld');
+			this.setTerrain('distortionworld');
 		},
 		rating: 3.5,
 		num: -803,

@@ -9131,7 +9131,7 @@ exports.BattlePokedex = {
 		baseSpecies: "Giratina",
 		formeLetter: "M",
 		forme: "Mega",
-		types: ["Ghost", "Fighting"],
+		types: ["Ghost", "Dragon"],
 		gender: "N",
 		baseStats: {hp: 150, atk: 187, def: 143, spa: 81, spd: 101, spe: 118},
 		abilities: {0: "Distorted Dimensions"},

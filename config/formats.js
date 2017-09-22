@@ -3913,31 +3913,6 @@ exports.Formats = [
 			"Along with buffing Pokemon deemed worthy of needing support.",
 		],
 	},
-<<<<<<< HEAD
-	{
-		name: "[Gen 7] Fakemons Random Battle",
-		section: "Dewdrop Fakemons",
-		column: 5,
-		mod: "fakemons",
-		allowTies: true,
-		team: "random",
-		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		desc: [
-			"This is the Dewdrop Fakemons metagame, in which you use Dewdrop community created Pok&eacute.",
-			"Users may submit them via the form on <b>/fakemon<b>.",
-		],
-	},
-	{
-		name: "[Gen 7] Fakemons",
-		mod: "fakemons",
-		section: "Dewdrop Fakemons",
-		allowTies: true,
-		ruleset: ['Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-		desc: [
-			"This is the Dewdrop Fakemons metagame, in which you use Dewdrop community created Pok&eacute.",
-			"Users may submit them via the form on <b>/fakemon<b>.",
-		],
-	},
 	{
 		name: "[Gen 7] Tier Shift",
 		desc: [
@@ -3969,6 +3944,5 @@ exports.Formats = [
 			return tsTemplate;
 		},
 	},
-=======
->>>>>>> bf20caafd48c9b47d5a195535d02a31ad3a9a06d
+
 ];

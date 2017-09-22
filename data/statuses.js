@@ -656,6 +656,64 @@ exports.BattleStatuses = {
 			this.add('-weather', 'none');
 		},
 	},
+	yangblaze: {
+		effectType: 'Weather',
+		duration: 5,
+		durationCallback: function (source) {
+			if (source && source.hasItem('heatrock')) {
+				return 8;
+			}
+			return 5;
+		},
+		onStart: function (source, effect) {
+			if (effect && effect.effectType === 'Ability') {
+				if (this.gen <= 5) this.effectData.duration = 0;
+				this.add('-weather', 'Yang Blaze', '[from] ability: ' + effect, '[of] ' + source);
+			} else {
+				this.add('-weather', 'Yang Blaze');
+			}
+		},
+		onResidualOrder: 1,
+		onResidual: function () {
+			this.add('-weather', 'Yang Blaze', '[upkeep]');
+			if (this.isWeather('yangblaze')) this.eachEvent('Weather');
+		},
+		onWeather: function (target) {
+			this.damage(target.maxhp / 16);
+		},
+		onEnd: function () {
+			this.add('-weather', 'none');
+		},
+	},
+	yinvolt: {
+		effectType: 'Weather',
+		duration: 5,
+		durationCallback: function (source) {
+			if (source && source.hasItem('damprock')) {
+				return 8;
+			}
+			return 5;
+		},
+		onStart: function (source, effect) {
+			if (effect && effect.effectType === 'Ability') {
+				if (this.gen <= 5) this.effectData.duration = 0;
+				this.add('-weather', 'Yin Volt', '[from] ability: ' + effect, '[of] ' + source);
+			} else {
+				this.add('-weather', 'Yin Volt');
+			}
+		},
+		onResidualOrder: 1,
+		onResidual: function () {
+			this.add('-weather', 'Yin Volt', '[upkeep]');
+			if (this.isWeather('yinvolt')) this.eachEvent('Weather');
+		},
+		onWeather: function (target) {
+			this.damage(target.maxhp / 16);
+		},
+		onEnd: function () {
+			this.add('-weather', 'none');
+		},
+	},
 	deltastream: {
 		effectType: 'Weather',
 		duration: 0,

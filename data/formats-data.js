@@ -810,6 +810,12 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["swordsdance", "sleeppowder", "sunnyday", "growth", "solarbeam", "gigadrain", "sludgebomb", "weatherball", "suckerpunch", "powerwhip", "protect", "knockoff"],
 		tier: "PU",
 	},
+	victreebelmega: {
+		randomBattleMoves: ["sunnyday", "solarbeam", "gigadrain", "sludgebomb", "weatherball", "suckerpunch", "powerwhip", "knockoff", "swordsdance"],
+		randomDoubleBattleMoves: ["swordsdance", "sunnyday", "solarbeam", "gigadrain", "sludgebomb", "weatherball", "suckerpunch", "powerwhip", "protect", "knockoff"],
+		tier: "UU",
+		requiredItem: "Victrite",
+	},
 	tentacool: {
 		randomBattleMoves: ["toxicspikes", "rapidspin", "scald", "sludgebomb", "icebeam", "knockoff", "gigadrain", "toxic", "dazzlinggleam"],
 		randomDoubleBattleMoves: ["muddywater", "scald", "sludgebomb", "icebeam", "knockoff", "gigadrain", "protect", "dazzlinggleam"],
@@ -819,6 +825,12 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["toxicspikes", "rapidspin", "scald", "sludgebomb", "acidspray", "knockoff"],
 		randomDoubleBattleMoves: ["muddywater", "scald", "sludgebomb", "acidspray", "icebeam", "knockoff", "gigadrain", "protect", "dazzlinggleam"],
 		tier: "UU",
+	},
+	tentacruelmega: {
+		randomBattleMoves: ["toxicspikes", "rapidspin", "scald", "sludgebomb", "acidspray", "knockoff"],
+		randomDoubleBattleMoves: ["muddywater", "scald", "sludgebomb", "acidspray", "icebeam", "knockoff", "gigadrain", "protect", "dazzlinggleam"],
+		tier: "BL",
+		requiredItem: "Tentacrite",
 	},
 	geodude: {
 		randomBattleMoves: ["stealthrock", "earthquake", "stoneedge", "suckerpunch", "hammerarm", "firepunch", "rockblast"],
@@ -2476,6 +2488,7 @@ exports.BattleFormatsData = {
 			{"generation": 4, "level": 50, "moves":["leafstorm", "recover", "nastyplot", "healingwish"], "pokeball": "cherishball"},
 			{"generation": 6, "level": 10, "moves":["recover", "healbell", "safeguard", "holdback"], "pokeball": "luxuryball"},
 			{"generation": 6, "level": 100, "moves":["confusion", "recover", "healbell", "safeguard"], "pokeball": "cherishball"},
+			{"generation": 7, "level": 30, "moves":["healbell", "safeguard", "ancientpower", "futuresight"], "pokeball": "cherishball"},
 		],
 		eventOnly: true,
 		tier: "UU",
@@ -6301,7 +6314,7 @@ exports.BattleFormatsData = {
 	},
 	typenull: {
 		eventPokemon: [
-			{"generation": 7, "level": 40, "shiny": 1, "moves":["crushclaw", "scaryface", "xscissor", "takedown"]},
+			{"generation": 7, "level": 40, "shiny": 1, "perfectIVs": 3, "moves":["crushclaw", "scaryface", "xscissor", "takedown"]},
 		],
 		eventOnly: true,
 		tier: "NFE",
@@ -6309,6 +6322,9 @@ exports.BattleFormatsData = {
 	silvally: {
 		randomBattleMoves: ["swordsdance", "return", "doubleedge", "crunch", "flamecharge", "flamethrower", "icebeam", "uturn", "ironhead"],
 		randomDoubleBattleMoves: ["protect", "doubleedge", "uturn", "crunch", "icebeam", "partingshot", "flamecharge", "swordsdance", "explosion"],
+		eventPokemon: [
+			{"generation": 7, "level": 100, "shiny": true, "moves":["multiattack", "partingshot", "punishment", "scaryface"]},
+		],
 		tier: "PU",
 	},
 	silvallybug: {

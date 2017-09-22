@@ -4747,5 +4747,31 @@ exports.BattleAbilities = {
 				return this.chainModify(3);
 			}
 		},
+		rating: 3,
+		desc: "If the target is a Rock or Steel type, this move is 3x more accurate.",
+	},
+	"yangblaze": {
+		id: "yangblaze",
+		name: "Yang Blaze",
+		desc: "Summons Yang Blaze; damages non-Fire types by 1/16 of their max HP.",
+		onStart: function () {
+			this.setWeather("yangblaze");
+		},
+		isUnbreakable: true,
+		onImmunity: function (type) {
+			if (type === 'yangblaze') return false;
+		},
+	},
+	"yinvolt": {
+		id: "yinvolt",
+		name: "Yin Volt",
+		desc: "Summons Yin Volt; damages non-Electric types by 1/16 of their max HP.",
+		onStart: function () {
+			this.setWeather("yinvolt");
+		},
+		isUnbreakable: true,
+		onImmunity: function (type) {
+			if (type === 'yinvolt') return false;
+		},
 	},
 };

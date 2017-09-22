@@ -3913,6 +3913,7 @@ exports.Formats = [
 			"Along with buffing Pokemon deemed worthy of needing support.",
 		],
 	},
+<<<<<<< HEAD
 	{
 		name: "[Gen 7] Fakemons Random Battle",
 		section: "Dewdrop Fakemons",
@@ -3968,4 +3969,6 @@ exports.Formats = [
 			return tsTemplate;
 		},
 	},
+=======
+>>>>>>> bf20caafd48c9b47d5a195535d02a31ad3a9a06d
 ];

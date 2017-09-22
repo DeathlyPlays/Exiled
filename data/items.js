@@ -7953,4 +7953,16 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Maractus, this item allows it to Mega Evolve in battle.",
 	},
+	"ampharniumz": {
+		id: "ampharniumz",
+		name: "Ampharnium Z",
+		spritenum: 659,
+		onTakeItem: false,
+		zMove: "Colossal Volt Thunderbolt",
+		zMoveFrom: "Thunderbolt",
+		zMoveUser: ["Ampharos"],
+		num: -836,
+		gen: 7,
+		desc: "If held by Ampharos with Thunderbolt, it can use Colossal Volt Thunderbolt.",
+	},
 };

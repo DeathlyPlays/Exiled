@@ -8057,4 +8057,69 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If held by a Zekrom, this item triggers its Primal Reversion in battle.",
 	},
+
+	"oceanicorb": {
+		id: "oceanicorb",
+		name: "Oceanic Orb",
+		spritenum: -390,
+		onSwitchIn: function (pokemon) {
+			if (pokemon.isActive && pokemon.baseTemplate.species === 'Lugia') {
+				this.insertQueue({pokemon: pokemon, choice: 'runPrimal'});
+			}
+		},
+		onPrimal: function (pokemon) {
+			let template = this.getTemplate('Lugia-Primal');
+			pokemon.formeChange(template);
+			pokemon.baseTemplate = template;
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			if (pokemon.illusion) {
+				pokemon.ability = ''; // Don't allow Illusion to wear off
+				this.add('-primal', pokemon.illusion);
+			} else {
+				this.add('detailschange', pokemon, pokemon.details);
+				this.add('-primal', pokemon);
+			}
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+		},
+		onTakeItem: function (source) {
+			if (source.baseTemplate.baseSpecies === 'Lugia') return false;
+			return true;
+		},
+		num: -600,
+		gen: 0,
+		desc: "If holder is a Lugia, this item triggers its Primal Reversion in battle.",
+	},
+	"infernoorb": {
+		id: "infernoorb",
+		name: "Inferno Orb",
+		spritenum: -390,
+		onSwitchIn: function (pokemon) {
+			if (pokemon.isActive && pokemon.baseTemplate.species === 'Ho-Oh') {
+				this.insertQueue({pokemon: pokemon, choice: 'runPrimal'});
+			}
+		},
+		onPrimal: function (pokemon) {
+			let template = this.getTemplate('Ho-Oh-Primal');
+			pokemon.formeChange(template);
+			pokemon.baseTemplate = template;
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			if (pokemon.illusion) {
+				pokemon.ability = ''; // Don't allow Illusion to wear off
+				this.add('-primal', pokemon.illusion);
+			} else {
+				this.add('detailschange', pokemon, pokemon.details);
+				this.add('-primal', pokemon);
+			}
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+		},
+		onTakeItem: function (source) {
+			if (source.baseTemplate.baseSpecies === 'Ho-Oh') return false;
+			return true;
+		},
+		num: -601,
+		gen: 0,
+		desc: "If holder is a Ho-Oh, this item triggers its Primal Reversion in battle.",
+	},
 };

@@ -7903,7 +7903,7 @@ exports.BattleItems = {
 			pokemon.setAbility(template.abilities['0']);
 			pokemon.baseAbility = pokemon.ability;
 		},
-		onTakeItem: function (item, source) {
+		onTakeItem: function (source) {
 			if (source.baseTemplate.baseSpecies === 'Palkia') return false;
 			return true;
 		},
@@ -7964,5 +7964,97 @@ exports.BattleItems = {
 		num: -836,
 		gen: 7,
 		desc: "If held by Ampharos with Thunderbolt, it can use Colossal Volt Thunderbolt.",
+	},
+	"tentacrite": {
+		id: "tentacrite",
+		name: "Tentacrite",
+		spritenum: 624,
+		megaStone: "Tentacruel-Mega",
+		megaEvolves: "Tentacruel",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Tentacruel, this item allows it to Mega Evolve in battle.",
+	},
+	"victrite": {
+		id: "victrite",
+		name: "Victrite",
+		spritenum: 624,
+		megaStone: "Victreebel-Mega",
+		megaEvolves: "Victreebel",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -767,
+		gen: 0,
+		desc: "If holder is a Victreebel, this item allows it to Mega Evolve in battle.",
+	},
+	"lightstone": {
+		id: "lightstone",
+		name: "Light Stone",
+		spritenum: 390,
+		onSwitchIn: function (pokemon) {
+			if (pokemon.isActive && pokemon.baseTemplate.species === 'Reshiram') {
+				this.insertQueue({pokemon: pokemon, choice: 'runPrimal'});
+			}
+		},
+		onPrimal: function (pokemon) {
+			let template = this.getTemplate('Reshiram-Primal');
+			pokemon.formeChange(template);
+			pokemon.baseTemplate = template;
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			if (pokemon.illusion) {
+				pokemon.ability = ''; // Don't allow Illusion to wear off
+				this.add('-primal', pokemon.illusion);
+			} else {
+				this.add('detailschange', pokemon, pokemon.details);
+				this.add('-primal', pokemon);
+			}
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+		},
+		onTakeItem: function (source) {
+			if (source.baseTemplate.baseSpecies === 'Reshiram') return false;
+			return true;
+		},
+		num: 534,
+		gen: 6,
+		desc: "If held by a Reshiram, this item triggers its Primal Reversion in battle.",
+	},
+	"darkstone": {
+		id: "darkstone",
+		name: "Dark Stone",
+		spritenum: 390,
+		onSwitchIn: function (pokemon) {
+			if (pokemon.isActive && pokemon.baseTemplate.species === 'Zekrom') {
+				this.insertQueue({pokemon: pokemon, choice: 'runPrimal'});
+			}
+		},
+		onPrimal: function (pokemon) {
+			let template = this.getTemplate('Zekrom-Primal');
+			pokemon.formeChange(template);
+			pokemon.baseTemplate = template;
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			if (pokemon.illusion) {
+				pokemon.ability = ''; // Don't allow Illusion to wear off
+				this.add('-primal', pokemon.illusion);
+			} else {
+				this.add('detailschange', pokemon, pokemon.details);
+				this.add('-primal', pokemon);
+			}
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+		},
+		onTakeItem: function (source) {
+			if (source.baseTemplate.baseSpecies === 'Zekrom') return false;
+			return true;
+		},
+		num: 534,
+		gen: 6,
+		desc: "If held by a Zekrom, this item triggers its Primal Reversion in battle.",
 	},
 };

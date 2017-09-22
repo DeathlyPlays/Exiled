@@ -19238,6 +19238,10 @@ exports.BattleMovedex = {
 		// No Guard-like effect for Poison-type users implemented in BattleScripts#tryMoveHit
 		status: 'tox',
 		secondary: false,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Toxic", target);
+		},
 		target: "all",
 		type: "Poison",
 		zMoveBoost: {def: 3, spd: 3},
@@ -19366,6 +19370,10 @@ exports.BattleMovedex = {
 			chance: 20,
 			status: 'brn',
 		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Ember", target);
+		},
 		target: "normal",
 		type: "Fire",
 		zMovePower: 100,
@@ -19471,6 +19479,10 @@ exports.BattleMovedex = {
 		name: "Distortion World",
 		pp: 10,
 		priority: 0,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dark Void", target);
+		},
 		flags: {nonsky: 1},
 		terrain: 'distortionworld',
 		effect: {
@@ -19535,6 +19547,10 @@ exports.BattleMovedex = {
 				},
 			},
 		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Gunk Shot", target);
+		},
 		target: "normal",
 		type: "Poison",
 		zMovePower: 180,
@@ -19586,6 +19602,10 @@ exports.BattleMovedex = {
 		},
 		secondary: {
 			volatileStatus: 'trapped',
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Memento", target);
 		},
 		boosts: {atk: -6, def: -6, spa: -6, spd: -6, spe: -6, accuracy: -6, evasion: -6},
 		target: "normal",

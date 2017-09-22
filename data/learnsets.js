@@ -41679,6 +41679,7 @@ exports.BattleLearnsets = {
 		defog: ["4M"],
 		destinybond: ["7L24", "6L24", "5L24", "4L24"],
 		doubleteam: ["7M", "6M", "5M", "4M"],
+		distortionworld: ["7L1"],
 		dracometeor: ["7T", "6T", "6S6", "5T", "4T"],
 		dragonbreath: ["7L1", "6L1", "5L1", "5S3", "4L1", "4S2"],
 		dragonclaw: ["7M", "7L28", "6M", "6L28", "5M", "5L28", "5S4", "4M", "4L28", "4S1"],

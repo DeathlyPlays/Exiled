@@ -19482,7 +19482,7 @@ exports.BattleMovedex = {
 				return 5;
 			},
 			onBasePower: function (basePower, attacker, defender, move) {
-				if (move.type === 'Ghost' && !attacker.isSemiInvulnerable()) {
+				if (move.type === 'Ghost') {
 					this.debug('Distortion World boost');
 					return this.chainModify(1.5);
 				}

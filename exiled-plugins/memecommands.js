@@ -10,6 +10,7 @@
 'use strict';
 
 exports.commands = {
+	"!shrug" : true,
 	shrug: function () {
 		this.parse("¯\\_(ツ)_/¯");
 	},

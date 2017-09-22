@@ -19513,4 +19513,31 @@ exports.BattleMovedex = {
 		zMoveBoost: {spa: 1},
 		contestType: "Clever",
 	},
+	"sewersmash": {
+		num: 15000,
+		accuracy: 100,
+		basePower: 75,
+		category: "Physical",
+		desc: "Has a 10% chance to raise the user's Attack and Speed by 1 stage.",
+		shortDesc: "10% chance to raise the user's Atk and Spe by 1.",
+		id: "sewersmash",
+		isViable: true,
+		name: "Sewer Smash",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: {
+			chance: 10,
+			self: {
+				boosts: {
+					atk: 1,
+					spe: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Poison",
+		zMovePower: 180,
+		contestType: "Cool",
+	},
 };

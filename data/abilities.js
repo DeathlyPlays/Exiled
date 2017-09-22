@@ -4656,7 +4656,7 @@ exports.BattleAbilities = {
 		id: "distorteddimensions",
 		name: "Distorted Dimensions",
 		onStart: function () {
-			this.setTerrain('distorteddimensions');
+			this.setTerrain('distortedworld');
 		},
 		rating: 3.5,
 		num: -803,

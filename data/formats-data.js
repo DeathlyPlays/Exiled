@@ -4305,7 +4305,7 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["dracometeor", "rest", "dragontail", "roar", "willowisp", "shadowball", "dragonpulse"],
 		randomDoubleBattleMoves: ["tailwind", "shadowsneak", "protect", "dragontail", "willowisp", "calmmind", "dragonpulse", "shadowball"],
 		requiredItem: "Distorted Rock",
-		tier: "Uber",
+		tier: "AG",
 	},
 	cresselia: {
 		randomBattleMoves: ["moonlight", "psychic", "icebeam", "thunderwave", "toxic", "substitute", "psyshock", "moonblast", "calmmind"],

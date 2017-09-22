@@ -7570,4 +7570,44 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["sludgebomb", "icebeam", "calmmind", "thunderbolt", "earthquake"],
 		tier: "OU",
 	},
+	smk: {
+		randomBattleMoves: ["outrage", "headsmash", "drinkbleach", "crunch", "knockoff", "spectralthief"],
+		tier: "OU",
+	},
+	musteltank: {
+		randomBattleMoves: ["poisonjab", "ironhead", "earthquake", "bulkup", "superpower", "heavyslam", "protect", "trickroom", "toxic", "irondefense", "banefulbunker", "rapidspin", "rest", "sleeptalk", "suckerpunch"],
+		tier: "OU",
+	},
+	pence: {
+		randomBattleMoves: ["playrough", "earthquake", "closecombat", "knockoff", "suckerpunch", "icepunch", "drainpunch", "superpower", "moonblast", "focusblast", "aurasphere"],
+		tier: "BL",
+	},
+	frioth: {
+		randomBattleMoves: ["iciclecrash", "knockoff", "swordsdance", "aquaring", "iceshard", "bugbuzz", "mirrorcoat", "hail", "aurorabeam", "iciclespear", "blizzard", "workup", "toxic", "taunt", "icebeam", "protect", "roost", "return", "frostbreath", "xscissor", "uturn", "substitute", "flashcannon", "surf", "waterfall", "dazzlinggleam", "icehammer", "spikes", "leechlife", "crosspoison", "acupressure"],
+		tier: "BL",
+	},
+	octanko: {
+		randomBattleMoves: ["recover", "scald", "hurricane", "flashcannon"],
+		tier: "BL2",
+	},
+	spectreon: {
+		randomBattleMoves: ["fakeout", "dazzlinggleam", "boomburst", "workup", "frostbreath", "shadowball", "darkpulse", "hypnosis", "knockoff", "shadowclaw", "frustration", "reversal", "suckerpunch", "willowisp", "focusblast", "sacredfire", "nastyplot"],
+		tier: "OU",
+	},
+	hydring: {
+		randomBattleMoves: ["scald", "magnetbomb", "thunderbolt", "grassknot", "ironhead"],
+		tier: "UU",
+	},
+	yinyang: {
+		randomBattleMoves: ["overheat", "flamethrower", "willowisp", "iciclecrash", "freezedry", "icefang", "auroraveil", "hypervoice", "weatherball", "fakeout", "bugbuzz", "shadowball", "shadowforce", "confuseray", "earthpower", "zenheadbutt", "surf", "aquajet"],
+		tier: "OU",
+	},
+	reainein: {
+		randomBattleMoves: ["uturn", "firepunch", "leechlife", "dragonclaw", "dragondance", "outrage"],
+		tier: "BL",
+	},
+	bezzoseal: {
+		randomBattleMoves: ["uturn", "terrordrop", "rocktomb", "phantomforce", "shadowforce", "xscissor", "sleeptalk", "lunge", "shadowsneak", "finalgambit", "sacredsword", "smartstrike", "iceshard", "iciclespear"],
+		tier: "Fakemons",
+	},
 };

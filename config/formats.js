@@ -3914,28 +3914,4 @@ exports.Formats = [
 			"Along with buffing Pokemon deemed worthy of needing support.",
 		],
 	},
-	{
-		name: "[Gen 7] Fakemons Random Battle",
-		section: "Exiled Fakemons",
-		column: 5,
-		mod: "fakemons",
-		allowTies: true,
-		team: "random",
-		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		desc: [
-			"This is the Exiled Fakemons metagame, in which you use Exiled community created Pok&eacute.",
-			"Users may submit them via the form on <b>/fakemon<b>.",
-		],
-	},
-	{
-		name: "[Gen 7] Fakemons",
-		mod: "fakemons",
-		section: "Exiled Fakemons",
-		allowTies: true,
-		ruleset: ['Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-		desc: [
-			"This is the Exiled Fakemons metagame, in which you use Exiled community created Pok&eacute.",
-			"Users may submit them via the form on <b>/fakemon<b>.",
-		],
-	},
 ];

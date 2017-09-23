@@ -3630,7 +3630,7 @@ exports.Formats = [
 		name: "[Gen 7] Savage OU",
 		unbanlist: ["Pheromosa", "Metagrossite", "Gengarite", "Shadow Tag", "Arena Trap", "Blaziken", "Genesect", "Landorus", "Deoxys-Defense", "Baton Pass", "Shaymin-Sky", "Deoxys-Speed", "Moody", "Power Construct", "Aegislash"],
 		desc: ["Oh, no! The Savages that were banned have managed to escape! Will you be able to fight them once again?"],
-		section: "Exiled's Custom Gamemodes",
+		section: "Dewdrop's Custom Gamemodes",
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Freeze Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: ["Eevium Z", "Uber"],
 	},

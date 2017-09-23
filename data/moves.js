@@ -19501,7 +19501,7 @@ exports.BattleMovedex = {
 		effect: {
 			duration: 5,
 			durationCallback: function (source, effect) {
-				if (source && source.hasItem('distortedrock')) {
+				if (source && source.hasItem('terrainextender')) {
 					return 8;
 				}
 				return 5;
@@ -19519,8 +19519,8 @@ exports.BattleMovedex = {
 					this.add('-fieldstart', 'move: Distortion World');
 				}
 			},
-			onTryHitPriority: 6,
-			onTryHit: function (pokemon, target, move) {
+			onBeforeMovePriority: 6,
+			onBeforeMove: function (pokemon, target, move) {
 				if (move.flags['heal']) {
 					this.add('cant', pokemon, 'move: Distortion World', move);
 					return false;

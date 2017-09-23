@@ -276,6 +276,7 @@ exports.commands = {
 	},
 	mnmaghelp: ["/agmnm <pokemon> @ <mega stone> - Shows the Mix and Mega evolved Pokemon's type and stats. No stone/Pokemon restrictions."],
 
+	'!fuse': true,
 	fuse: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!target || target === ' ' || !target.includes(',')) return this.errorReply('Error: Invalid Argument(s).');

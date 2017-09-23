@@ -336,11 +336,7 @@ class CommandContext {
 			}
 		}
 
-<<<<<<< HEAD
-		if (giveExp) Dew.addExp(this.user.userid, this.room, 1);
-=======
-		if (this.user.registered && giveExp) Exiled.addExp(this.user.userid, this.room, 1);
->>>>>>> b1e5a8c61149d1f760633872541e05a14a6ce5eb
+		if (this.user.registered && giveExp) Dew.addExp(this.user.userid, this.room, 1);
 		this.update();
 
 		return message;

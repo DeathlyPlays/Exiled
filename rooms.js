@@ -789,6 +789,9 @@ class GlobalRoom {
 		if (this.lockdown) return;
 		const time = Date.now();
 		if (time - this.lastReportedCrash < CRASH_REPORT_THROTTLE) {
+			const stackUS = (err ? Chat.escapeHTML(err.stack).split(`\n`).slice(0, 2).join(`.`) : ``);
+			const crashMessageUS = `**The server has crashed:** ${stackUS}`;
+			Exiled.messageSeniorStaff(crashMessageUS, '~Exiled Server');
 			return;
 		}
 		this.lastReportedCrash = time;

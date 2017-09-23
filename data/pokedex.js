@@ -473,7 +473,7 @@ exports.BattlePokedex = {
 		evos: ["raichu", "raichualola"],
 		evoLevel: 1,
 		eggGroups: ["Field", "Fairy"],
-		otherFormes: ["pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola"],
+		otherFormes: ["pikachuash", "pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola"],
 	},
 	pikachuash: {
 		num: 25,
@@ -2726,7 +2726,7 @@ exports.BattlePokedex = {
 		heightm: 0.3,
 		weightkg: 6.5,
 		color: "Brown",
-		evos: ["vaporeon", "jolteon", "flareon", "espeon", "umbreon", "leafeon", "glaceon", "sylveon"],
+		evos: ["vaporeon", "jolteon", "flareon", "espeon", "umbreon", "leafeon", "glaceon", "sylveon", "spectreon"],
 		eggGroups: ["Field"],
 	},
 	vaporeon: {
@@ -4249,6 +4249,7 @@ exports.BattlePokedex = {
 		color: "Red",
 		prevo: "remoraid",
 		evoLevel: 25,
+		evos: ["octanko"],
 		eggGroups: ["Water 1", "Water 2"],
 	},
 	delibird: {

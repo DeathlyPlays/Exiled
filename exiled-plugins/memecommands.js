@@ -26,7 +26,7 @@ exports.commands = {
 		if (!target) return this.sendReply("/slap needs a target.");
 		return this.parse('/me slaps ' + target + ' in the face with a slipper!');
 	},
-	'!slap': true,
+	'!eat': true,
 	eat: function (target) {
 		if (!target) return this.sendReply("Eat needs a target.");
 		return this.parse('/me eats ' + target + '!');

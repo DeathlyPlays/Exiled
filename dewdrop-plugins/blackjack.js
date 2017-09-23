@@ -137,7 +137,11 @@ let BJView = {
 		let output = "<div class='infobox'><center><b>The blackjack game has started!</b><br />";
 		output += "<b>There are " + players.length + " players.</b><br />";
 		players.forEach(function (player) {
+<<<<<<< HEAD:dewdrop-plugins/blackjack.js
 			output += "<b>" + Dew.nameColor(player) + "'>" + player + ": </font></b> " + getPlayer[player].hand.join(", ") + "<br />";
+=======
+			output += "<b>" + player + "'>" + player + ": </font></b> " + getPlayer[player].hand.join(", ") + "<br />";
+>>>>>>> b1e5a8c61149d1f760633872541e05a14a6ce5eb:exiled-plugins/blackjack.js
 		});
 		output += "</center></div>";
 		this.addRaw(output);

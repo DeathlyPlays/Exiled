@@ -19500,8 +19500,8 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 215,
 		category: "Special",
-		desc: "Super effective against Ground type Pokemon",
-		shortDesc: "Super effective against Ground type Pokemon",
+		desc: "Super effective against Ground type Pokemon.",
+		shortDesc: "Super effective against Ground type Pokemon.",
 		id: "colossalvolthunderbolt",
 		name: "Colossal Volt Thunderbolt",
 		pp: 1,
@@ -19510,6 +19510,7 @@ exports.BattleMovedex = {
 		onEffectiveness: function (typeMod, type) {
 			if (type === 'Ground') return 1;
 		},
+		ignoreImmunity: {'Electric': true},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Thunder", target);

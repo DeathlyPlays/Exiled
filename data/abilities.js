@@ -1920,6 +1920,31 @@ exports.BattleAbilities = {
 		rating: 4.5,
 		num: 42,
 	},
+
+	"manipulate": {
+		desc: "On switch-in, this Pokemon lowers the Special Attack of adjacent opposing Pokemon by 1 stage. Pokemon behind a substitute are immune.",
+		shortDesc: "On switch-in, this Pokemon lowers the Special Attack of adjacent opponents by 1 stage.",
+		onStart: function (pokemon) {
+			let foeactive = pokemon.side.foe.active;
+			let activated = false;
+			for (let i = 0; i < foeactive.length; i++) {
+				if (!foeactive[i] || !this.isAdjacent(foeactive[i], pokemon)) continue;
+				if (!activated) {
+					this.add('-ability', pokemon, 'Manipulate', 'boost');
+					activated = true;
+				}
+				if (foeactive[i].volatiles['substitute']) {
+					this.add('-immune', foeactive[i], '[msg]');
+				} else {
+					this.boost({spa: -1}, foeactive[i], pokemon);
+				}
+			}
+		},
+		id: "manipulate",
+		name: "Manipulate",
+		rating: 3.5,
+		num: -22,
+	},
 	"marvelscale": {
 		desc: "If this Pokemon has a major status condition, its Defense is multiplied by 1.5.",
 		shortDesc: "If this Pokemon is statused, its Defense is 1.5x.",
@@ -4164,7 +4189,6 @@ exports.BattleAbilities = {
 		rating: -1,
 		num: 161,
 	},
-
 	// CAP
 	"mountaineer": {
 		shortDesc: "On switch-in, this Pokemon avoids all Rock-type attacks and Stealth Rock.",

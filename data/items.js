@@ -7965,6 +7965,18 @@ exports.BattleItems = {
 		gen: 7,
 		desc: "If held by Ampharos with Thunderbolt, it can use Colossal Volt Thunderbolt.",
 	},
+	"ferroniumz": {
+		id: "ferroniumz",
+		name: "Ferronium Z",
+		spritenum: -659,
+		onTakeItem: false,
+		zMove: "Body Exchange Operandi",
+		zMoveFrom: "Substitute",
+		zMoveUser: ["Ferroseed"],
+		num: -836,
+		gen: 7,
+		desc: "If held by Ferroseed with Substitute, it can use Body Exchange Operandi.",
+	},
 	"tentacrite": {
 		id: "tentacrite",
 		name: "Tentacrite",

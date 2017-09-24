@@ -17738,6 +17738,34 @@ exports.BattleMovedex = {
 		zMoveEffect: 'heal',
 		contestType: "Clever",
 	},
+	"bodyexchangeoperandi": {
+		num: -144,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "Both Pokemon transform into the foe; target falls sleep.",
+		id: "bodyexchangeoperandi",
+		name: "Body Exchange Operandi",
+		pp: 1,
+		priority: 0,
+		flags: {mystery: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Heart Swap", target);
+		},
+		onHit: function (target, source) {
+			let newPosition = (source.position === target.position);
+			if (!target.side.active[newPosition]) return false;
+			if (target.side.active[newPosition].fainted) return false;
+			this.swapPosition(target, newPosition, '[from] move: Body Exchange Operandi');
+		},
+		status: "slp",
+		secondary: false,
+		target: "normal",
+		type: "Ghost",
+		isZ: "ferroniumz",
+		contestType: "Clever",
+	},
 	"triattack": {
 		num: 161,
 		accuracy: 100,

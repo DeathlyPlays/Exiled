@@ -8,7 +8,7 @@ Timid Nature
 Ability: Crippling Depression
     - Primordial Sea effects + Rain Dish + Swift Swim
 Moves: Giga Drain, Freeze-Dry, Focus Blast
-Special Move: Aqua Subscribe
+Special Move: npm test
 	- Water Type, Special, 90 BP, 100% Accuracy, 15 PP, raises its SpA & Spe by 1 stage, +1 priority.
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.

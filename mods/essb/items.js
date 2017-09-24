@@ -7,11 +7,11 @@ exports.BattleItems = {
 		id: "playniumz",
 		name: "Playnium Z",
 		zMove: "EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER",
-		zMoveFrom: "Aqua Subscribe",
+		zMoveFrom: "npm test",
 		zMoveUser: ["Ludicolo-Mega"],
 		num: -1,
 		gen: -1,
-		desc: "If holder is a Ludicolo with Aqua Subscribe, it can use EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER.",
+		desc: "If holder is a Ludicolo-Mega with npm test, it can use EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER.",
 	},
 	"flarez": {
 		spritenum: 656,

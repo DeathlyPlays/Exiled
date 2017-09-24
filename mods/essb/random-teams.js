@@ -14,8 +14,8 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				gender: "M",
 				shiny: true,
 				moves: ['freezedry', 'gigadrain', 'focusblast'],
-				baseSignatureMove: "aquasubscribe",
-				signatureMove: "Aqua Subscribe",
+				baseSignatureMove: "npmtest",
+				signatureMove: "npm test",
 				evs: {
 					spa: 252,
 					spe: 252,

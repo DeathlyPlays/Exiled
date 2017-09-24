@@ -3656,6 +3656,21 @@ exports.BattlePokedex = {
 		evoLevel: 1,
 		evoMove: "Mimic",
 		eggGroups: ["Mineral"],
+		otherFormes: ["sudowoodomega"],
+	},
+	sudowoodomega: {
+		num: 185,
+		species: "Sudowoodo-Mega",
+		baseSpecies: "Sudowoodo",
+		formeLetter: "M",
+		forme: "Mega",
+		types: ["Rock", "Grass"],
+		baseStats: {hp: 70, atk: 120, def: 145, spa: 30, spd: 115, spe: 30},
+		abilities: {0: "Rock Head"},
+		heightm: 1.2,
+		weightkg: 38,
+		color: "Brown",
+		eggGroups: ["Mineral"],
 	},
 	politoed: {
 		num: 186,
@@ -7497,7 +7512,6 @@ exports.BattlePokedex = {
 		prevo: "staravia",
 		evoLevel: 34,
 		eggGroups: ["Flying"],
-		otherFormes: ["Staraptor"],
 	},
 	staraptormega: {
 		num: 398,
@@ -11798,7 +11812,6 @@ exports.BattlePokedex = {
 		prevo: "larvesta",
 		evoLevel: 59,
 		eggGroups: ["Bug", "Water 2"],
-		otherFormes: ["volcarona"],
 	},
 	cobalion: {
 		num: 638,

@@ -8149,4 +8149,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Kricketune, this item allows it to Mega Evolve in battle.",
 	},
+	"sudowoodite": {
+		id: "sudowoodite",
+		name: "Sudowoodite",
+		spritenum: -400,
+		megaStone: "Sudowoodo-Mega",
+		megaEvolves: "Sudowoodo",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Sudowoodo, this item allows it to Mega Evolve in battle.",
+	},
 };

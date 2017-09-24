@@ -2018,6 +2018,12 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["headsmash", "earthquake", "suckerpunch", "woodhammer", "explosion", "stealthrock", "rockslide", "helpinghand", "protect"],
 		tier: "PU",
 	},
+	sudowoodomega: {
+		randomBattleMoves: ["headsmash", "earthquake", "suckerpunch", "woodhammer", "stealthrock"],
+		randomDoubleBattleMoves: ["headsmash", "earthquake", "suckerpunch", "woodhammer", "explosion", "stealthrock", "rockslide", "protect"],
+		tier: "UU",
+		requiredItem: "Sudowoodite",
+	},
 	hoppip: {
 		randomBattleMoves: ["encore", "sleeppowder", "uturn", "toxic", "leechseed", "substitute", "protect"],
 		tier: "LC",

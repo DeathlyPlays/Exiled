@@ -1965,6 +1965,12 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["thunderwave", "tailwind", "roost", "psychic", "uturn", "reflect", "lightscreen", "grassknot", "heatwave", "protect"],
 		tier: "NU",
 	},
+	xatumega: {
+		randomBattleMoves: ["thunderwave", "toxic", "roost", "psychic", "uturn", "reflect", "calmmind", "heatwave"],
+		randomDoubleBattleMoves: ["thunderwave", "tailwind", "roost", "psychic", "uturn", "reflect", "lightscreen", "grassknot", "heatwave", "protect"],
+		tier: "UU",
+		requiredItem: "Xatite",
+	},
 	mareep: {
 		randomBattleMoves: ["reflect", "lightscreen", "thunderbolt", "discharge", "thunderwave", "toxic", "hiddenpowerice", "cottonguard", "powergem"],
 		eventPokemon: [
@@ -3000,6 +3006,12 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["sludgebomb", "gigadrain", "sleeppowder", "leafstorm", "protect", "hiddenpowerfire"],
 		tier: "RU",
 	},
+	roserademega: {
+		randomBattleMoves: ["sludgebomb", "gigadrain", "sleeppowder", "leafstorm", "spikes", "toxicspikes", "synthesis", "hiddenpowerfire"],
+		randomDoubleBattleMoves: ["sludgebomb", "gigadrain", "sleeppowder", "leafstorm", "protect", "hiddenpowerfire"],
+		tier: "BL",
+		requiredItem: "Roseradite",
+	},
 	gulpin: {
 		randomBattleMoves: ["stockpile", "sludgebomb", "sludgewave", "icebeam", "toxic", "painsplit", "yawn", "encore"],
 		eventPokemon: [
@@ -3864,6 +3876,12 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["leechlife", "endeavor", "taunt", "toxic", "stickyweb", "knockoff"],
 		randomDoubleBattleMoves: ["leechlife", "protect", "taunt", "stickyweb", "knockoff"],
 		tier: "PU",
+	},
+	kricketunemega: {
+		randomBattleMoves: ["leechlife", "fellstinger", "swordsdance", "stickyweb", "knockoff"],
+		randomDoubleBattleMoves: ["leechlife", "protect", "swordsdance", "stickyweb", "knockoff", "fellstinger"],
+		tier: "RU",
+		requiredItem: "Kricketite",
 	},
 	shinx: {
 		randomBattleMoves: ["wildcharge", "icefang", "firefang", "crunch"],
@@ -7521,7 +7539,7 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["knockoff", "encore", "suckerpunch", "thunderwave", "uturn", "substitute", "nastyplot", "darkpulse", "copycat"],
 		randomDoubleBattleMoves: ["encore", "thunderwave", "substitute", "knockoff", "playrough", "uturn", "suckerpunch", "fakeout", "protect"],
 		requiredItem: "Liepardite",
-		tier: "NU",
+		tier: "(NU)",
 	},
 	talonflamemega: {
 		randomBattleMoves: ["bravebird", "flareblitz", "roost", "swordsdance", "uturn", "willowisp", "tailwind"],
@@ -7587,7 +7605,7 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["hydropump", "moonblast", "hypervoice", "psychic", "hiddenpowerfire"],
 		randomDoubleBattleMoves: ["hypervoice", "moonblast", "substitute", "protect", "icebeam"],
 		requiredItem: "Primarinite",
-		tier: "UU",
+		tier: "(UU)",
 	},
 	incineroarmega: {
 		randomBattleMoves: ["fakeout", "darkestlariat", "flareblitz", "uturn", "earthquake"],

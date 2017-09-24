@@ -8147,4 +8147,18 @@ exports.BattleItems = {
 		gen: 0,
 		desc: "If holder is a Xatu, this item allows it to Mega Evolve in battle.",
 	},
+	"kricketite": {
+		id: "kricketite",
+		name: "Kricketite",
+		spritenum: -400,
+		megaStone: "Kricketune-Mega",
+		megaEvolves: "Kricketune",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Kricketune, this item allows it to Mega Evolve in battle.",
+	},
 };

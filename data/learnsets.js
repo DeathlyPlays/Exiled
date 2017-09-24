@@ -25017,7 +25017,7 @@ exports.BattleLearnsets = {
 		whirlwind: ["7E", "6E", "5E", "4E", "3E"],
 		xscissor: ["7M", "6M", "5M", "4M"],
 	}},
-	skarmory: {learnset: {
+	skarmoryalola: {learnset: {
 		aerialace: ["7M", "6M", "5M", "4M", "3M"],
 		agility: ["7L31", "6L12", "5L12", "4L12", "3L16"],
 		aircutter: ["7L12", "6L12", "5L23", "4T", "4L23", "3L29"],

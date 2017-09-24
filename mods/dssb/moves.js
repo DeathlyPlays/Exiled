@@ -1,10 +1,10 @@
 'use strict';
 
 exports.BattleMovedex = {
-	//insist
-	"aquasubscribe": {
-		id: "aquasubscribe",
-		name: "Aqua Subscribe",
+	//Insist
+	"npmtest": {
+		id: "npmtest",
+		name: "npm test",
 		priority: 1,
 		desc: "Boosts user's SpA and Spe by one stage",
 		self: {
@@ -20,7 +20,11 @@ exports.BattleMovedex = {
 		secondary: false,
 		category: "Special",
 		onHit: function () {
+<<<<<<< HEAD:mods/dssb/moves.js
 			this.add('c|@Insist|Subscribe to http://youtube.com/DeathlyPlays');
+=======
+			this.add('c|~Insist|Don\'t fucking ``npm test`` me.....');
+>>>>>>> 86b429d6da72c88ed21dec5460d747f6a6f20a65:mods/essb/moves.js
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -40,7 +44,8 @@ exports.BattleMovedex = {
 		name: "EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER",
 		basePower: 150,
 		accuracy: 100,
-		pp: 0.625,
+		pp: 1,
+		noPPBoosts: true,
 		desc: "No additional information",
 		secondary: false,
 		category: "Special",
@@ -50,8 +55,13 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 		},
+<<<<<<< HEAD:mods/dssb/moves.js
 		onHit: function (target, source, move) {
 			this.add('c|@Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
+=======
+		onHit: function () {
+			this.add('c|~Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
+>>>>>>> 86b429d6da72c88ed21dec5460d747f6a6f20a65:mods/essb/moves.js
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');

@@ -8057,7 +8057,6 @@ exports.BattleItems = {
 		gen: 6,
 		desc: "If held by a Zekrom, this item triggers its Primal Reversion in battle.",
 	},
-
 	"oceanicorb": {
 		id: "oceanicorb",
 		name: "Oceanic Orb",
@@ -8121,5 +8120,19 @@ exports.BattleItems = {
 		num: -601,
 		gen: 0,
 		desc: "If holder is a Ho-Oh, this item triggers its Primal Reversion in battle.",
+	},
+	"xatite": {
+		id: "xatite",
+		name: "Xatite",
+		spritenum: -401,
+		megaStone: "Xatu-Mega",
+		megaEvolves: "Xatu",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -119,
+		gen: 0,
+		desc: "If holder is a Xatu, this item allows it to Mega Evolve in battle.",
 	},
 };

@@ -3755,6 +3755,9 @@ exports.Formats = [
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
+		onMegaIn: function (pokemon) {
+			this.useMove("Power Trick", pokemon, pokemon, pokemon);
+		},
 	},
 	{
 		name: "[Gen 7] Action Storm",

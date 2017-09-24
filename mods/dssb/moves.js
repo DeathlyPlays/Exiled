@@ -20,11 +20,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		category: "Special",
 		onHit: function () {
-<<<<<<< HEAD:mods/dssb/moves.js
-			this.add('c|@Insist|Subscribe to http://youtube.com/DeathlyPlays');
-=======
-			this.add('c|~Insist|Don\'t fucking ``npm test`` me.....');
->>>>>>> 86b429d6da72c88ed21dec5460d747f6a6f20a65:mods/essb/moves.js
+			this.add('c|@Insist|Don\'t fucking ``npm test`` me.....');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -55,13 +51,8 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 		},
-<<<<<<< HEAD:mods/dssb/moves.js
-		onHit: function (target, source, move) {
-			this.add('c|@Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
-=======
 		onHit: function () {
-			this.add('c|~Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
->>>>>>> 86b429d6da72c88ed21dec5460d747f6a6f20a65:mods/essb/moves.js
+			this.add('c|@Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');

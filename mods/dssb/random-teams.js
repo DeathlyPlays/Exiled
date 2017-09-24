@@ -7,25 +7,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 		let team = [];
 		let sets = {
 			//Admemes
-<<<<<<< HEAD:mods/dssb/random-teams.js
-=======
-			"~Insist": {
-				species: "Ludicolo-Mega",
-				ability: "Crippling Depression",
-				item: "Playnium Z",
-				gender: "M",
-				shiny: true,
-				moves: ['freezedry', 'gigadrain', 'focusblast'],
-				baseSignatureMove: "npmtest",
-				signatureMove: "npm test",
-				evs: {
-					spa: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Timid",
-			},
->>>>>>> 86b429d6da72c88ed21dec5460d747f6a6f20a65:mods/essb/random-teams.js
 			"~Mewth": {
 				species: "Furret-Mega",
 				ability: "Roarplaying",
@@ -174,8 +155,8 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				gender: "M",
 				shiny: true,
 				moves: ['freezedry', 'gigadrain', 'focusblast'],
-				baseSignatureMove: "aquasubscribe",
-				signatureMove: "Aqua Subscribe",
+				baseSignatureMove: "npmtest",
+				signatureMove: "npm test",
 				evs: {
 					spa: 252,
 					spe: 252,

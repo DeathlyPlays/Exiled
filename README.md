@@ -3,7 +3,7 @@ Exiled Server @ Pokémon Showdown
 
 Navigation: [Exiled][1] | [PS Server repository][10] | [PS Client repository][2] | [PS Dex repository][3]
 
-  [1]: http://exiled.psim.us/
+  [1]: http://exiled.psim.us/
   [2]: https://github.com/Zarel/Pokemon-Showdown-Client
   [3]: https://github.com/Zarel/Pokemon-Showdown-Dex
   [10]: https://github.com/Zarel/Pokemon-Showdown
@@ -23,7 +23,7 @@ This repository contains the files needed to set up your own Pokémon Showdown s
 
 You can use your own computer as a server, but for other people to connect to your computer, you'll need to expose a port (default is 8000 but you can choose a different one) to connect to, which sometimes requires [port forwarding][5] (note that this isn't possible on certain internet connections).
 
-  [4]: http://exiled.psim.us/
+  [4]: http://exiled.psim.us/
   [5]: http://en.wikipedia.org/wiki/Port_forwarding
 
 
@@ -94,7 +94,7 @@ License
 
 Exiled's and Pokémon Showdown's server is distributed under the terms of the [MIT License][9].
 
-  [9]: https://github.com/DeathlyPlays/Exiled/blob/master/LICENSE
+  [9]: https://github.com/DeathlyPlays/Exiled/blob/master/LICENSE
 
 
 Maintainers

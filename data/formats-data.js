@@ -7620,8 +7620,8 @@ exports.BattleFormatsData = {
 		tier: "UU",
 	},
 	cletorcax: {
-		randomBattleMoves: ["sludgebomb", "icebeam", "calmmind", "thunderbolt", "earthquake", "gunkshot", "sewersmash"],
-		randomDoubleBattleMoves: ["sludgebomb", "icebeam", "calmmind", "thunderbolt", "earthquake", "gunkshot", "sewersmash"],
+		randomBattleMoves: ["sludgebomb", "icebeam", "calmmind", "thunderbolt", "earthquake", "gunkshot", "sewersmash", "iciclecrash", "swordsdance", "workup"],
+		randomDoubleBattleMoves: ["sludgebomb", "icebeam", "calmmind", "thunderbolt", "earthquake", "gunkshot", "sewersmash", "iciclecrash", "swordsdance", "workup", "protect"],
 		tier: "OU",
 	},
 	smk: {

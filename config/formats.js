@@ -3254,7 +3254,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Infection",
-		section: "Exiled's Custom Gamemodes",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Illegal", 'Kyurem-Black', 'Pidgeotite'],
 		desc: [
@@ -3289,7 +3288,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Exiled Super Staff Bros.",
-		section: "Exiled's Custom Gamemodes",
 		mod: 'essb',
 		team: 'randomSeasonalMelee',
 		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
@@ -3378,7 +3376,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Holiday Metagame",
-		section: "Exiled's Custom Gamemodes",
 		mod: "holiday",
 		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
 		team: "randomSeasonalMelee",
@@ -3392,7 +3389,6 @@ exports.Formats = [
 		name: "[Gen 7] Savage OU",
 		unbanlist: ["Pheromosa", "Metagrossite", "Gengarite", "Shadow Tag", "Arena Trap", "Blaziken", "Genesect", "Landorus", "Deoxys-Defense", "Baton Pass", "Shaymin-Sky", "Deoxys-Speed", "Moody", "Power Construct", "Aegislash"],
 		desc: ["Oh, no! The Savages that were banned have managed to escape! Will you be able to fight them once again?"],
-		section: "Exiled's Custom Gamemodes",
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Freeze Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: ["Eevium Z", "Uber"],
 	},
@@ -3438,7 +3434,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Supercell Games",
-		section: "Exiled's Custom Gamemodes",
 		mod: "supercell",
 		team: "randomSeasonalMelee",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
@@ -3449,7 +3444,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Digimon Showdown",
-		section: "Exiled's Custom Gamemodes",
 		mod: "digimon",
 		team: "randomDigimon",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],

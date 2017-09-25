@@ -3287,8 +3287,13 @@ exports.Formats = [
 		},
 	},
 	{
+<<<<<<< HEAD
 		name: "[Gen 7] Dewdrop Super Staff Bros.",
 		mod: 'dssb',
+=======
+		name: "[Gen 7] Exiled Super Staff Bros.",
+		mod: 'essb',
+>>>>>>> 802b32657621615e9eb224433b35f6af16477dda
 		team: 'randomSeasonalMelee',
 		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		desc: [

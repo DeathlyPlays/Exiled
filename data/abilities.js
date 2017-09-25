@@ -1249,6 +1249,23 @@ exports.BattleAbilities = {
 		rating: 0.5,
 		num: 179,
 	},
+	"forestation": {
+		shortDesc: "Grassy Terrain + Grass Pelt + SpD",
+		onStart: function (source) {
+			this.setTerrain('grassyterrain');
+		},
+		onModifyDefPriority: 6,
+		onModifyDef: function (pokemon) {
+			if (this.isTerrain('grassyterrain')) return this.chainModify(1.5);
+		},
+		onModifySpDPriority: 6,
+		onModifySpD: function (pokemon) {
+			if (this.isTerrain('grassyterrain')) return this.chainModify(1.5);
+		},
+		id: "forestation",
+		name: "Forestation",
+		rating: 2.5,
+		num: -179,
 	"grassysurge": {
 		shortDesc: "On switch-in, this Pokemon summons Grassy Terrain.",
 		onStart: function (source) {
@@ -4367,12 +4384,12 @@ exports.BattleAbilities = {
 		num: -28,
 	},
 	"macrocosm": {
-		shortDesc: "This Pokemon's Fire-type attacks have their power multiplied by 1.5.",
+		shortDesc: "This Pokemon's Fire-type attacks have their power multiplied by 2.",
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.type === 'Fire') {
 				this.debug('Macrocosm boost');
-				return this.chainModify(1.5);
+				return this.chainModify(2);
 			}
 		},
 		id: "macrocosm",
@@ -4381,12 +4398,12 @@ exports.BattleAbilities = {
 		num: -200,
 	},
 	"microcosm": {
-		shortDesc: "This Pokemon's Fairy-type attacks have their power multiplied by 1.5.",
+		shortDesc: "This Pokemon's Fairy-type attacks have their power multiplied by 2.",
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.type === 'Fairy') {
 				this.debug('Microcosm boost');
-				return this.chainModify(1.5);
+				return this.chainModify(2);
 			}
 		},
 		id: "microcosm",
@@ -4680,8 +4697,8 @@ exports.BattleAbilities = {
 	},
 	"toxictriumph": {
 		desc: "Pokemon uses Toxic Spikes twice after it knocks out opponent",
-		onSourceFaint: function (pokemon) {
-			this.useMove("Toxic Spikes", pokemon, pokemon, pokemon);
+		onAnyFaint: function (pokemon) {
+			this.useMove("Toxic Spikes", pokemon);
 		},
 		id: "toxictriumph",
 		name: "Toxic Triumph",

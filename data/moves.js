@@ -17743,7 +17743,7 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Both Pokemon transform into the foe; target falls sleep.",
+		desc: "Both Pokemon transform into the foe; target sleep.",
 		id: "bodyexchangeoperandi",
 		name: "Body Exchange Operandi",
 		pp: 1,

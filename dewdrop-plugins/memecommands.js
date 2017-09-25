@@ -245,6 +245,12 @@ exports.commands = {
 		room.add(user + ' has broken ' + targetUser + '.');
 		targetUser.popup(user + ' has smashed you 2 bits.');
 	},
+	spank: function (target, room, user) {
+		if (!target) return this.sendReply('/spank needs a target.');
+		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
+		let targetUser = Users.get(target);
+		room.add(user + ' has spanked ' + targetUser + '!');
+	},
 	swat: function (target, room, user) {
 		if (!target) return this.sendReply('/swat needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');

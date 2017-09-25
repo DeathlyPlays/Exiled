@@ -367,8 +367,6 @@ Signature Move: GEG 4 LIFE
 	- Confuses and paralyzes the target. User then switches out.
 Rank: N/A.
 Notes: Annoying support and stall Pokemon.
-<<<<<<< HEAD
-=======
 
 Desokoro
 (Gyarados)
@@ -395,4 +393,3 @@ Jolly Nature
 Moves: Sunsteel Strike, Shadow Force, Dragon Rush, Thousand Arrows
 Rank: N/A.
 Notes: Strong attacking Pokemon.
->>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70

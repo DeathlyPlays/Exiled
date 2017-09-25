@@ -302,7 +302,7 @@ exports.BattleMovedex = {
 		category: "Status",
 		secondary: false,
 		onHit: function (target, source, move) {
-			this.add('c|&Jigglykong|Spheal with It!');
+			this.add('c| Jigglykong|Spheal with It!');
 		},
 		boosts: {
 			def: 2,
@@ -386,7 +386,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		category: "Special",
 		onHit: function (target, source, move) {
-			this.add('c|&Back At My Day|Am I the only one who roleplays?');
+			this.add('c| Back At My Day|Am I the only one who roleplays?');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -1695,7 +1695,7 @@ exports.BattleMovedex = {
 		onPrepareHit: function (source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Protect", source);
-			this.add('c| Klefkei|YEEAAAAH BOOIIIIII!!!');
+			this.add('c|+Klefkei|YEEAAAAH BOOIIIIII!!!');
 		},
 		target: "self",
 		type: "Fairy",

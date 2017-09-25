@@ -54,21 +54,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Adamant",
 			},
 			//Leaders
-			"&Chandie": {
-				species: "Chandelure-Mega",
-				ability: "Magma Overdrive",
-				item: "Life Orb",
-				gender: "M",
-				moves: ['secretsword', 'moongeistbeam', 'ember'],
-				baseSignatureMove: "solareruption",
-				signatureMove: "Solar Eruption",
-				evs: {
-					spa: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Modest",
-			},
 			"&flufi": {
 				species: "Minccino",
 				ability: "Sneaky Fluffer",
@@ -101,22 +86,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Modest",
 			},
 			//Bots
-			"*The Exiler": {
-				species: "Darkrai",
-				ability: "The Exiled Ones",
-				item: "Leftovers",
-				gender: "M",
-				shiny: true,
-				moves: ['aurasphere', 'sludgewave', 'psychic'],
-				baseSignatureMove: "exile",
-				signatureMove: "Exile",
-				evs: {
-					spa: 252,
-					spe: 252,
-					hp: 4,
-				},
-				nature: "Timid",
-			},
 			'*Stabby the Krabby': {
 				species: 'Krabby',
 				ability: 'Ready to Stab',
@@ -210,6 +179,36 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 					def: 4,
 				},
 				nature: "Adamant",
+			},
+			"+Chandie": {
+				species: "Chandelure-Mega",
+				ability: "Magma Overdrive",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['secretsword', 'moongeistbeam', 'ember'],
+				baseSignatureMove: "solareruption",
+				signatureMove: "Solar Eruption",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Modest",
+			},
+			"+Klefkei": {
+			   species: "Klefki",
+			   ability: "Deadass",
+			   item: "Tarnationium Z",
+			   gender: "F",
+			   moves: ['swagger', 'foulplay', 'toxic'],
+			   baseSignatureMove: "thinking",
+			   signatureMove: "thinking",
+			   evs: {
+				   hp: 252,
+				   def: 252,
+				   atk: 4,
+			   },
+			   nature: "Impish",
 			},
 			//Regs
 			" Randbat Spam": {

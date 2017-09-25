@@ -3,26 +3,26 @@ exports.BattleStatuses = {
 	insist: {
 		exists: true,
 		onStart: function () {
-			this.add('c', '~Insist', '__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
+			this.add('c', '@Insist', '__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
 		},
 		onSwitchOut: function () {
-			this.add('c', '~Insist', '/away coding');
+			this.add('c', '@Insist', '/away coding');
 		},
 		onFaint: function () {
-			this.add('c', '~Insist', 'Oh now that I\'m dead, I guess that just means more time to code.');
+			this.add('c', '@Insist', 'Oh now that I\'m dead, I guess that just means more time to code.');
 		},
 		onSourceFaint: function () {
-			this.add('c', '~Insist', '**FOH HERE THIS IS MY HOUSE KIDDO**');
+			this.add('c', '@Insist', '**FOH HERE THIS IS MY HOUSE KIDDO**');
 		},
 	},
-	gligars: {
+	lycaniumz: {
 		exists: true,
 		onStart: function () {
-			this.add('c', '%Gligars', 'Glhf...');
+			this.add('c', ' Lycanium Z', 'Glhf...');
 			this.boost({def: -12, spd: -12});
 		},
 		onFaint: function () {
-			this.add('c', '%Gligars', 'RIP I lost');
+			this.add('c', ' Lycanium Z', 'RIP I lost');
 		},
 	},
 	speckeldorft: {
@@ -85,13 +85,13 @@ exports.BattleStatuses = {
 	almightyjudgment: {
 		exists: true,
 		onStart: function () {
-			this.add('c', '+Almighty Judgment', 'M3RP');
+			this.add('c', ' Almighty Judgment', 'M3RP');
 		},
 		onFaint: function () {
-			this.add('c', '+Almighty Judgment', 'YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
+			this.add('c', ' Almighty Judgment', 'YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
 		},
 		onSourceFaint: function () {
-			this.add('c', '+Almighty Judgment', 'You Have Been Judged!');
+			this.add('c', ' Almighty Judgment', 'You Have Been Judged!');
 		},
 	},
 	guiltasbr: {
@@ -124,16 +124,16 @@ exports.BattleStatuses = {
 	krakenmare: {
 		exists: true,
 		onStart: function () {
-			this.add('c', '@Kraken Mare', 'Today, I prove Gardevoir is the best Pokemon!');
+			this.add('c', '&Kraken Mare', 'Today, I prove Gardevoir is the best Pokemon!');
 		},
 		onFaint: function () {
-			this.add('c', '@Kraken Mare', 'Trust me, I\'ll be back to prove how strong Gardevoir is. __splashes__');
+			this.add('c', '&Kraken Mare', 'Trust me, I\'ll be back to prove how strong Gardevoir is. __splashes__');
 		},
 		onSwitchOut: function () {
-			this.add('c', '@Kraken Mare', 'I shall spare you today, young one!');
+			this.add('c', '&Kraken Mare', 'I shall spare you today, young one!');
 		},
 		onSourceFaint: function () {
-			this.add('c', '@Kraken Mare', 'Told Ya Gardevoir is Strong!');
+			this.add('c', '&Kraken Mare', 'Told Ya Gardevoir is Strong!');
 		},
 	},
 	horrific17: {
@@ -148,22 +148,22 @@ exports.BattleStatuses = {
 	klefkei: {
 		exists: true,
 		onStart: function () {
-			this.add('c', '@Klefkei', 'Hi Toxic Whore :) Ready To Die? kappa');
+			this.add('c', '+Klefkei', 'Hi Toxic Whore :) Ready To Die? kappa');
 		},
 		onFaint: function () {
-			this.add('c', '@Klefkei', '/exile');
+			this.add('c', '+Klefkei', '/exile');
 		},
 	},
 	linkcode: {
 		exists: true,
 		onStart: function () {
-			this.add('c', ' LinkCode', 'I\'m a cool cat makin\' waves all over town! When they see me comin\', everybody\'s heads turn \'round!');
+			this.add('c', '+LinkCode', 'I\'m a cool cat makin\' waves all over town! When they see me comin\', everybody\'s heads turn \'round!');
 		},
 		onSwitchOut: function () {
-			this.add('c', ' LinkCode', '**Later, Nerd.**');
+			this.add('c', '+LinkCode', '**Later, Nerd.**');
 		},
 		onFaint: function () {
-			this.add('c', ' LinkCode', 'Yeah, well, you know, that\'s just, like, uh... your opinion, man.');
+			this.add('c', '+LinkCode', 'Yeah, well, you know, that\'s just, like, uh... your opinion, man.');
 		},
 	},
 	douglasgamer: {

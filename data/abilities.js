@@ -3917,7 +3917,6 @@ exports.BattleAbilities = {
 	},
 	"venomousfangs": {
 		shortDesc: "This Pokemon's bite moves have a 50% chance of badly poisoning.",
-		// upokecenter says this is implemented as an added secondary effect
 		onModifyMove: function (move) {
 			if (!move || !move.flags['bite']) return;
 			if (!move.secondaries) {
@@ -4435,7 +4434,7 @@ exports.BattleAbilities = {
 		},
 		//toughclaws
 		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
+		onBasePower: function (move) {
 			if (move.flags['contact']) {
 				return this.chainModify([0x15CD, 0x1000]);
 			}
@@ -4448,11 +4447,11 @@ exports.BattleAbilities = {
 	"blizzardrush": {
 		shortDesc: "Snow Warning + Slush Rush + Refrigerate",
 		//snow warning
-		onStart: function (source) {
+		onStart: function () {
 			this.setWeather('hail');
 		},
 		//slush rush
-		onModifySpe: function (spe, pokemon) {
+		onModifySpe: function () {
 			if (this.isWeather('hail')) {
 				return this.chainModify(1.5);
 			}
@@ -4468,7 +4467,7 @@ exports.BattleAbilities = {
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
-			onBasePower: function (basePower, pokemon, target, move) {
+			onBasePower: function () {
 				return this.chainModify([0x1333, 0x1000]);
 			},
 		},
@@ -4699,9 +4698,11 @@ exports.BattleAbilities = {
 	"toxictriumph": {
 		desc: "If this Pokemon knocks out an opposing Pokemon, this Pokemon uses Toxic Spikes twice.",
 		shortDesc: "If KO's opponent, uses Toxic Spikes twice.",
-		onSourceFaint: function (source, target) {
-			this.useMove(source, "Toxic Spikes", target);
-			this.useMove(source, "Toxic Spikes", target);
+		onSourceFaint: function (target, source, effect) {
+			if (effect && effect.effectType === 'Move') {
+				this.useMove("toxicspikes", source);
+				this.useMove("toxicspikes", source);
+			}
 		},
 		id: "toxictriumph",
 		name: "Toxic Triumph",

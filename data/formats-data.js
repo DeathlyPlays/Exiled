@@ -2021,7 +2021,7 @@ exports.BattleFormatsData = {
 	sudowoodomega: {
 		randomBattleMoves: ["headsmash", "earthquake", "suckerpunch", "woodhammer", "stealthrock"],
 		randomDoubleBattleMoves: ["headsmash", "earthquake", "suckerpunch", "woodhammer", "explosion", "stealthrock", "rockslide", "protect"],
-		tier: "UU",
+		tier: "RU",
 		requiredItem: "Sudowoodite",
 	},
 	hoppip: {
@@ -7551,7 +7551,7 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["bravebird", "flareblitz", "roost", "swordsdance", "uturn", "willowisp", "tailwind"],
 		randomDoubleBattleMoves: ["bravebird", "flareblitz", "roost", "swordsdance", "uturn", "willowisp", "tailwind", "taunt", "protect"],
 		requiredItem: "Talonflite",
-		tier: "BL2",
+		tier: "(BL2)",
 	},
 	keldeoabsolute: {
 		randomBattleMoves: ["hydropump", "icywind", "secretsword", "hiddenpowerground", "hiddenpowerelectric", "scald", "calmmind"],
@@ -7672,6 +7672,6 @@ exports.BattleFormatsData = {
 	bezzoseal: {
 		randomBattleMoves: ["uturn", "terrordrop", "rocktomb", "phantomforce", "shadowforce", "xscissor", "sleeptalk", "lunge", "shadowsneak", "finalgambit", "sacredsword", "smartstrike", "iceshard", "iciclespear"],
 		randomDoubleBattleMoves: ["uturn", "terrordrop", "rocktomb", "phantomforce", "shadowforce", "xscissor", "sleeptalk", "lunge", "shadowsneak", "finalgambit", "sacredsword", "smartstrike", "iceshard", "iciclespear"],
-		tier: "Fakemons",
+		tier: "OU",
 	},
 };

@@ -1334,25 +1334,20 @@ exports.BattleMovedex = {
 		pp: 0.625,
 		priority: 5,
 		selfdestruct: "always",
-		onPrepareHit: function (target, source, move) {
+		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Surf", target);
 		},
+<<<<<<< HEAD:mods/dssb/moves.js
 		onHit: function (target, source, move) {
 			this.add('c|&Kraken Mare ☭|If I go down I\'m taking you with me!');
+=======
+		onHit: function () {
+			this.add('c|@Kraken Mare ☭|If I go down I\'m taking you with me!');
+>>>>>>> 745c6fcc0fcb8ef40487173e23a3e74853fb13de:mods/essb/moves.js
 		},
 		target: "Normal",
 		type: "Water",
-	},
-	"ember": {
-		inherit: true,
-		basePower: 85,
-		pp: 10,
-		priority: 2,
-		onPrepareHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Blue Flare", source);
-		},
 	},
 	//kaneki
 	"superultraflamethrowerdestroyerofuniverses": {

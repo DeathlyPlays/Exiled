@@ -217,4 +217,18 @@ exports.BattleStatuses = {
 			pokemon.types = ["Dragon", "Water"];
 		},
 	},
+	chandie: {
+		exists: true,
+		onModifyMove: function (move) {
+			if (move.id === 'ember') {
+				move.name = 'Fast Flame';
+				move.basePower = 85;
+				move.priority = 2;
+				move.onTryHit = function (target, source) {
+					this.attrLastMove('[still]');
+					this.add('-anim', source, "Flame Burst", target);
+				};
+			}
+		},
+	},
 };

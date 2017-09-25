@@ -4696,25 +4696,13 @@ exports.BattleAbilities = {
 		num: -803,
 	},
 	"toxictriumph": {
-<<<<<<< HEAD
-		desc: "Pokemon uses Toxic Spikes twice after it knocks out opponent",
-		onAnyFaint: function (pokemon) {
-			this.useMove("Toxic Spikes", pokemon);
-=======
 		desc: "If this Pokemon knocks out an opposing Pokemon, this Pokemon uses Toxic Spikes twice.",
 		shortDesc: "If KO's opponent, uses Toxic Spikes twice.",
-<<<<<<< HEAD
-		onSourceFaint: function (source, target) {
-			this.useMove(source, "Toxic Spikes", target);
-			this.useMove(source, "Toxic Spikes", target);
->>>>>>> fe642b79265293ed33f16bb8e087f723f15f9231
-=======
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.useMove("toxicspikes", source);
 				this.useMove("toxicspikes", source);
 			}
->>>>>>> 745c6fcc0fcb8ef40487173e23a3e74853fb13de
 		},
 		id: "toxictriumph",
 		name: "Toxic Triumph",

@@ -1539,15 +1539,11 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
-		section: 'Exiled\'s Custom Gamemodes',
+		section: 'Dewdrop\'s Custom Gamemodes',
 		column: 5,
 	},
 	{
 		name: "[Gen 7] Clash of the Regions",
-<<<<<<< HEAD
-		section: "Dewdrop's Custom Gamemodes",
-=======
->>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		mod: 'clashoftheregions',
 		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
 		desc: [
@@ -1730,10 +1726,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] SMASHING METAGAME",
-<<<<<<< HEAD
-		section: "Dewdrop's Custom Gamemodes",
-=======
->>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		mod: 'smashingmetagame',
 		ruleset: ['Cancel Mod', 'Exact HP Mod', 'Team Preview'],
 		desc: [
@@ -1744,10 +1736,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Ash's Pokemon",
-<<<<<<< HEAD
-		section: "Dewdrop's Custom Gamemodes",
-=======
->>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		mod: 'ashspokemon',
 		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
 		team: 'randomSeasonalMelee',
@@ -1757,10 +1745,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] OP Metagame",
-<<<<<<< HEAD
-		section: "Dewdrop's Custom Gamemodes",
-=======
->>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		mod: "opmetagame",
 		ruleset: ['Exact HP Mod', 'Cancel Mod'],
 		team: 'randomSeasonalMelee',
@@ -1814,11 +1798,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Type Illusion",
-<<<<<<< HEAD
-		section: "Dewdrop's Custom Gamemodes",
-		mod: "gen7",
-=======
->>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Shedinja"],
 		desc: [
@@ -3275,12 +3254,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Infection",
-<<<<<<< HEAD
-		section: "Dewdrop's Custom Gamemodes",
-		allowTies: true,
-=======
-		section: "Exiled's Custom Gamemodes",
->>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Illegal", 'Kyurem-Black', 'Pidgeotite'],
 		desc: [
@@ -3315,7 +3288,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Dewdrop Super Staff Bros.",
-		section: "Dewdrop's Custom Gamemodes",
 		mod: 'dssb',
 		team: 'randomSeasonalMelee',
 		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
@@ -3404,7 +3376,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Holiday Metagame",
-		section: "Dewdrop's Custom Gamemodes",
 		mod: "holiday",
 		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
 		team: "randomSeasonalMelee",
@@ -3418,7 +3389,6 @@ exports.Formats = [
 		name: "[Gen 7] Savage OU",
 		unbanlist: ["Pheromosa", "Metagrossite", "Gengarite", "Shadow Tag", "Arena Trap", "Blaziken", "Genesect", "Landorus", "Deoxys-Defense", "Baton Pass", "Shaymin-Sky", "Deoxys-Speed", "Moody", "Power Construct", "Aegislash"],
 		desc: ["Oh, no! The Savages that were banned have managed to escape! Will you be able to fight them once again?"],
-		section: "Dewdrop's Custom Gamemodes",
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Freeze Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: ["Eevium Z", "Uber"],
 	},
@@ -3464,7 +3434,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Supercell Games",
-		section: "Dewdrop's Custom Gamemodes",
 		mod: "supercell",
 		team: "randomSeasonalMelee",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
@@ -3475,7 +3444,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Digimon Showdown",
-		section: "Dewdrop's Custom Gamemodes",
 		mod: "digimon",
 		team: "randomDigimon",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],

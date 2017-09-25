@@ -1266,6 +1266,7 @@ exports.BattleAbilities = {
 		name: "Forestation",
 		rating: 2.5,
 		num: -179,
+	},
 	"grassysurge": {
 		shortDesc: "On switch-in, this Pokemon summons Grassy Terrain.",
 		onStart: function (source) {

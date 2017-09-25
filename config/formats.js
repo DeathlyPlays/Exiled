@@ -1539,24 +1539,24 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
+		section: 'Exiled\'s Custom Gamemodes',
+		column: 5,
+	},
+	{
 		name: "[Gen 7] Clash of the Regions",
-		section: "Exiled's Custom Gamemodes",
 		mod: 'clashoftheregions',
-		allowTies: true,
 		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
 		desc: [
 			"This metagame is about every rival/gym leader/",
 			"Credit to: Insist (main coder and inspired by), Vivid is a God (side coder and set adviser), Alpha Hawk (extra ideas)",
 			"&bullet; <a href=\"http://squadps.boards.net/post/51/thread\">Clash of the Regions Information</a>",
 		],
-		column: 5,
 		team: 'randomSeasonalMelee',
 	},
 	{
 		name: "[Gen 7] Frantic Fusions",
-		allowTies: true,
 		desc: [
-			"&bullet; <a href=https://github.com/XpRienzo/DragonHeaven/blob/master/mods/franticfusions/README.md>Frantic Fusions</a> <br> &bullet; A metagame where you are able to fuse two Pokemon. <BR /> &bullet; The resultant Pokemon has the primary type of the base mon. If the base mon is shiny, it will get the secondary type of the second mon, else the primary type of the second mon. It will get the averaged stats.<br />&bullet;You can choose any ability from the original Pokemon, and you also get the primary ability of the second Pokemon (The one you put in the nickname). <br />&bullet; Use !fuse for theorymonning purposes",
+			"&bullet; <a href=https://github.com/DeathlyPlays/Exiled/blob/master/mods/franticfusions/README.md>Frantic Fusions</a> <br> &bullet; A metagame where you are able to fuse two Pokemon. <BR /> &bullet; The resultant Pokemon has the primary type of the base mon. If the base mon is shiny, it will get the secondary type of the second mon, else the primary type of the second mon. It will get the averaged stats.<br />&bullet;You can choose any ability from the original Pokemon, and you also get the primary ability of the second Pokemon (The one you put in the nickname). <br />&bullet; Use !fuse for theorymonning purposes",
 		],
 		mod: 'franticfusions',
 		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
@@ -1726,9 +1726,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] SMASHING METAGAME",
-		section: "Exiled's Custom Gamemodes",
 		mod: 'smashingmetagame',
-		allowTies: true,
 		ruleset: ['Cancel Mod', 'Exact HP Mod', 'Team Preview'],
 		desc: [
 			"Credit to: Insist (coded and inspired by), and Kairak (gave ideas for custom moves names).",
@@ -1738,20 +1736,16 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Ash's Pokemon",
-		section: "Exiled's Custom Gamemodes",
 		mod: 'ashspokemon',
-		allowTies: true,
 		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
 		team: 'randomSeasonalMelee',
 		desc: [
-			"This metagame covers every Pok&eacute that Ash caught in the anime (since XY), some were evolved for viability etc.",
+			"This metagame covers every Pok&eacute that Ash caught in the anime, some were evolved for viability etc.",
 		],
 	},
 	{
 		name: "[Gen 7] OP Metagame",
-		section: "Exiled's Custom Gamemodes",
 		mod: "opmetagame",
-		allowTies: true,
 		ruleset: ['Exact HP Mod', 'Cancel Mod'],
 		team: 'randomSeasonalMelee',
 		desc: [
@@ -1804,8 +1798,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Type Illusion",
-		section: "Exiled's Custom Gamemodes",
-		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Shedinja"],
 		desc: [
@@ -3174,7 +3166,6 @@ exports.Formats = [
 			"Put your second ability with your first ability in the ability slot.",
 		],
 		mod: 'franticfusions',
-		allowTies: true,
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Illegal", 'Kyurem-Black', 'Manaphy', 'Porygon-Z', 'Shedinja', 'Togekiss', 'Chatter'],
 		onBegin: function () {
@@ -3264,7 +3255,6 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Infection",
 		section: "Exiled's Custom Gamemodes",
-		allowTies: true,
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Illegal", 'Kyurem-Black', 'Pidgeotite'],
 		desc: [
@@ -3281,19 +3271,19 @@ exports.Formats = [
 			this.debug('infected - decreasing accuracy');
 			return accuracy * 0.8;
 		},
-		onModifyAtk: function (atk, pokemon) {
+		onModifyAtk: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifyDef: function (def, pokemon) {
+		onModifyDef: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifySpA: function (spa, pokemon) {
+		onModifySpA: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifySpD: function (spd, pokemon) {
+		onModifySpD: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifySpe: function (spe, pokemon) {
+		onModifySpe: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
 	},
@@ -3302,7 +3292,6 @@ exports.Formats = [
 		section: "Exiled's Custom Gamemodes",
 		mod: 'essb',
 		team: 'randomSeasonalMelee',
-		allowTies: true,
 		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		desc: [
 			"Credit to: Insist (head coder).",
@@ -3314,232 +3303,19 @@ exports.Formats = [
 			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
 			this.add('message', "GET READY FOR THE NEXT BATTLE!");
 			this.add('message', "For more information on a user's staffmon, use /essb (authed user's name)!");
-			// This variable saves the status of a spammy conversation to be played, so it's only played once.
-			this.convoPlayed = false;
 		},
-		// Edgy switch-in sentences go here.
-		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
-		onSwitchIn: function (pokemon, source) {
-			let name = toId(pokemon.name);
+		onSwitchIn: function (pokemon) {
 			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);
-
-			//Switch-in Quotes
-			if (name === 'insist') {
-				this.add('c|~Insist|__**^^Let\'s get roooooiiiiiiight into le noose!^^**__');
-			}
-			if (name === 'gligars') {
-				this.add('c|%Gligars|Glhf...');
-			}
-			if (name === 'speckeldorft') {
-				this.add('c| Speckeldorft|**YYYEEAAHHHHHHHH BBBBBBBBBBBBBBBBOOOOOOOOOOOOOOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIII**');
-			}
-			if (name === 'abstarfox') {
-				this.add('c| AB Starfox|Hello, just here to clean up');
-			}
-			if (name === 'flufi') {
-				this.add('c|&flufi|Howdy');
-			}
-			if (name === 'hoeenhero') {
-				this.add('c|%HoeenHero|Do I have to? I\'m in the middle of programming.');
-			}
-			if (name === 'thegodofpie') {
-				this.add('c| TheGodOfPie|my HP literally represents the amount of stupidity you have lol');
-			}
-			if (name === 'almightyjudgment') {
-				this.add('c|+Almighty Judgment|M3RP');
-			}
-			if (name === 'guiltasbr') {
-				this.add('c| GuiltasBR|Prepare to get JOOJ!!!');
-			}
-			if (name === 'echosierra') {
-				this.add('c| EchoSierra|lol fite me irl');
-			}
-			if (name === 'horrific17') {
-				this.add('c|%Horrific17|It seems you\'ve made a __horrific__ mistake');
-			}
-			if (name === 'krakenmare') {
-				this.add('c|@Kraken Mare|Today, I prove Gardevoir is the best Pokemon!');
-			}
-			if (name === 'klefkei') {
-				this.add('c|@Klefkei|Hi Toxic Whore :) Ready To Die? kappa');
-			}
-			if (name === 'linkcode') {
-				this.add('c| LinkCode|I\'m a cool cat makin\' waves all over town! When they see me comin\', everybody\'s heads turn \'round!');
-			}
-			// Add here special typings, done for flavor mainly. (and stat boosts)
-			if (name === 'volco' && !pokemon.illusion) {
-				this.boost({
-					spe: 1,
-				});
-			}
-			if (name === 'wobbleleez' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Psychic/Fairy');
-				pokemon.types = ["Psychic", "Fairy"];
-				this.boost({
-					def: 1,
-					spd: 1,
-				});
-			}
-			if (name === 'failures' && !pokemon.illusion) {
-				this.boost({
-					spe: 1,
-				});
-			}
-			if (name === 'cyt0pl4sm' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dark/Fairy');
-				pokemon.types = ["Dark", "Fairy"];
-			}
-			if (name === 'chesnaught90000' && !pokemon.illusion) {
-				this.boost({
-					spe: 1,
-				});
-			}
-			if (name === 'gligars' && !pokemon.illusion) {
-				this.boost({
-					spd: -12,
-					def: -12,
-				});
-			}
-			if (name === 'douglasgamer' && !pokemon.illusion) {
-				this.boost({
-					spa: 1,
-				});
-				this.add('-start', pokemon, 'typechange', 'Water/Electric');
-				pokemon.types = ["Water", "Electric"];
-			}
-			if (name === 'backatmyday' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Ground/Water');
-				pokemon.types = ["Ground", "Water"];
-			}
-			if (name === 'playershadowbr' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dragon/Water');
-				pokemon.types = ["Dragon", "Water"];
-			}
-			//custom moves on switch while having a specific ability
-			/*
-			if (name === 'universalcraftr' && !pokemon.illusion) {
-				this.useMove('trickroom', pokemon);
-			}
-			*/
 		},
 		// Code for use specific moves
 		onModifyMove: function (move, pokemon) {
 			let name = toId(pokemon.illusion ? pokemon.illusion.name : pokemon.name);
-			if (move.id === 'storedpower' && name === 'vxn') {
-				move.defensiveCategory = 'Special';
-				move.category = 'Physical';
-			}
-			if (move.id === 'meditate' && name === 'vxn') {
-				move.name = 'Ultimate Setup';
-			}
 			if (move.id === 'ember' && name === 'chandie') {
 				move.name = 'Fast Flame';
-				move.onTryHit = function (target, source, move) {
+				move.onTryHit = function (target, source) {
 					this.attrLastMove('[still]');
 					this.add('-anim', source, "Flame Burst", target);
 				};
-			}
-		},
-		//Switch-out Phrase
-		onSwitchOut: function (pokemon) {
-			let name = toId(pokemon.name);
-			//switchout
-			if (name === 'insist') {
-				this.add('c|~Insist|Errrr I\'ll see you later, just sayin\' this is me just uhhh running away from my problems.... I errr just need a walk! Geez, why are you on to me on everything I do ughhhhhhhhhhh you\'re not my mom!');
-			}
-			if (name === 'speckeldorft') {
-				this.add('c| Speckeldorft|fuck you');
-			}
-			if (name === 'abstarfox') {
-				this.add('c| AB Starfox|Time for me to get a life');
-			}
-			if (name === 'hoeenhero') {
-				this.add('c|%HoeenHero|I can\'t battle now, I\'m too busy.');
-			}
-			if (name === 'thegodofpie') {
-				this.add('c| TheGodOfPie|you\'re not using me properly ~~wait what~~');
-			}
-			if (name === 'echosierra') {
-				this.add('c| EchoSierra|bbl fam');
-			}
-			if (name === 'krakenmare') {
-				this.add('c|@Kraken Mare|I shall spare you today, young one!');
-			}
-			if (name === 'linkcode') {
-				this.add('c| LinkCode|**𝐋𝐚𝐭𝐞𝐫, 𝐧𝐞𝐫𝐝.**');
-			}
-		},
-		// Add here salty tears, that is, custom faint phrases.
-		onFaint: function (pokemon) {
-			let name = toId(pokemon.name);
-			//le faint
-			if (name === 'insist') {
-				this.add('c|~Insist|Death.... what a cool concept.');
-				this.add('c|~Insist|Wait wot!');
-				this.add('c|~Insist|>~Insist fainted.');
-				this.add('c|~Insist|That\'s obviously hax m8!');
-				this.add('c|~Insist|T-T-That\'s IMPOSSIBRU!');
-				this.add('c|~Insist|~~__**^^walks off......^^**__~~');
-			}
-			if (name === 'vxn') {
-				this.add('c|%Gligars|RIP I lost');
-			}
-			if (name === 'speckeldorft') {
-				this.add('c| Speckeldorft|__I was a ded meme.......__');
-			}
-			if (name === 'abstarfox') {
-				this.add('c| AB Starfox|Once again I get lucked out smh');
-			}
-			if (name === 'hoeenhero') {
-				this.add('c|%HoeenHero|Hey! Thats more hax than I get to use >:(');
-			}
-			if (name === 'thegodofpie') {
-				this.add('c| TheGodOfPie|ur mom');
-			}
-			if (name === 'almightyjudgment') {
-				this.add('c|+Almighty Judgment|YOU THINK YOU HAVE BESTED ME? HAH, DON\'T MAKE ME LAUGH! I WILL BE BACK AND I WILL BE BACK STRONGER THAN EVER BEFORE!');
-			}
-			if (name === 'guiltasbr') {
-				this.add('c| GuiltasBR|oh wow now i became a Ghost,Fighting type and be biatch');
-			}
-			if (name === 'echosierra') {
-				this.add('c| EchoSierra|~~IIIINNNNSSSSIIISSSTTT~~ i mean gg wp');
-			}
-			if (name === 'horrific17') {
-				this.add('c|%Horrific17|I never expected my death to be this... __horrific__');
-			}
-			if (name === 'douglasgamer') {
-				this.add('c| douglasgamer|I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');
-			}
-			if (name === 'krakenmare') {
-				this.add('c|@Kraken Mare|Trust me, I\'ll be back to prove how strong Gardevoir is. __splashes__');
-			}
-			if (name === 'klefkei') {
-				this.add('c|@Klefkei|/exile');
-			}
-			if (name === 'linkcode') {
-				this.add('c| LinkCode|Yeah, well, you know, that\'s just, like, uh... your opinion, man.');
-			}
-		},
-		onHit: function (pokemon, target) {
-			if (pokemon.hp <= 0 || pokemon.fainted) {
-			//When a staffmon knocks out an enemy
-				let name = toId(target.name);
-				if (name === 'thegodofpie') {
-					this.add('c| TheGodOfPie|lmao dora fights better than you');
-				}
-				if (name === 'insist') {
-					this.add('c|~Insist|**FOH, THIS IS MY HOUSE!!!**');
-				}
-				if (name === 'almightyjudgment') {
-					this.add('c|+Almighty Judgment|You Have Been Judged!');
-				}
-				if (name === 'echosierra') {
-					this.add('c| EchoSierra|dasWRIGHT.jpg');
-				}
-				if (name === 'krakenmare') {
-					this.add('c|@Kraken Mare|Told Ya Gardevoir is Strong!');
-				}
 			}
 		},
 	},
@@ -3551,9 +3327,7 @@ exports.Formats = [
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3589809/\">Monotype Viability Ranking</a>",
 			"&bullet; <a href=\"http://exiledps.boards.net/board/21/monotype-ubers\">Monotype Ubers Thread</a>",
 		],
-		allowTies: true,
 
-		mod: 'gen7',
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Clause', 'Same Type Clause'],
 	},
 	{
@@ -3562,13 +3336,12 @@ exports.Formats = [
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Aguav Berry', 'Assault Vest', 'Berry Juice', 'Cheek Pouch', 'Dry Skin', 'Ice Body', 'Poison Heal', 'Regenerator', 'Volt Absorb', 'Water Absorb', 'Rain Dish', 'Black Sludge', 'Enigma Berry', 'Figy Berry', 'Iapapa Berry', 'Mago Berry', 'Oran Berry', 'Shell Bell', 'Sitrus Berry', 'Wiki Berry', 'Leftovers'],
 		mod: 'metronome',
-		allowTies: true,
 		onValidateSet: function (set) {
 			if (set.moves.length !== 1 || toId(set.moves[0]) !== 'metronome') {
 				return [(set.name || set.species) + " can only have Metronome."];
 			}
 		},
-		onEffectiveness: function (typeMod, target, type, move) {
+		onEffectiveness: function (type, move) {
 			//change no effect to not very effective
 			if (move && !this.getImmunity(move, type)) return 2;
 		},
@@ -3578,8 +3351,6 @@ exports.Formats = [
 		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
 		ruleset: ['[Gen 7] OU'],
 		team: 'random',
-		allowTies: true,
-		mod: 'gen7',
 		onBegin: function () {
 			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
 			allPokemon.forEach(pokemon => {
@@ -3600,7 +3371,7 @@ exports.Formats = [
 				}
 			});
 		},
-		onEffectiveness: function (typeMod, target, type, move) {
+		onEffectiveness: function (type, move) {
 			//change no effect to not very effective
 			if (move && !this.getImmunity(move, type)) return 2;
 		},
@@ -3609,7 +3380,6 @@ exports.Formats = [
 		name: "[Gen 7] Holiday Metagame",
 		section: "Exiled's Custom Gamemodes",
 		mod: "holiday",
-		allowTies: true,
 		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
 		team: "randomSeasonalMelee",
 		desc: [
@@ -3650,7 +3420,6 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Pokemon Mystery Dungeon",
 
-		allowTies: true,
 		mod: 'pmd',
 		team: 'randomPmd',
 		ruleset: ['HP Percentage Mod', 'Cancel Mod'],
@@ -3671,7 +3440,6 @@ exports.Formats = [
 		name: "[Gen 7] Supercell Games",
 		section: "Exiled's Custom Gamemodes",
 		mod: "supercell",
-		allowTies: true,
 		team: "randomSeasonalMelee",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
 		desc: [
@@ -3683,7 +3451,6 @@ exports.Formats = [
 		name: "[Gen 7] Digimon Showdown",
 		section: "Exiled's Custom Gamemodes",
 		mod: "digimon",
-		allowTies: true,
 		team: "randomDigimon",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
 		onBegin: function () {
@@ -3704,7 +3471,6 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
 		],
 		mod: "slowtown",
-		allowTies: true,
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Sablenite', 'Snorlax'],
 		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite', 'Blazkenite'],
@@ -3739,7 +3505,6 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/thread/24/welcome-swapping-powers\">Swapping Powers Thread</a>",
 			"Concept by Mewth. Coded by Insist/HoeenHero.",
 		],
-		allowTies: true,
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Kings Shield'],
@@ -3760,11 +3525,9 @@ exports.Formats = [
 			"condition can be set, a random stat can be raised,",
 			"etc.",
 		],
-		allowTies: true,
 		mod: "gen7",
 		team: "random",
 		ruleset: ['[Gen 7] Anything Goes', 'Team Preview'],
-		banlist: ['Furretite'],
 		onSwitchIn: function (pokemon) {
 			let n = this.random(55);
 			if (n === 1) {
@@ -3901,8 +3664,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Ashmons",
-		mod: 'gen7',
-		allowTies: true,
 		maxLevel: 50,
 		defaultLevel: 50,
 		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],

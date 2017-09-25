@@ -3299,7 +3299,7 @@ exports.Formats = [
 		onBegin: function () {
 			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
 			this.add('message', "GET READY FOR THE NEXT BATTLE!");
-			this.add('message', "For more information on a user's staffmon, use /essb (authed user's name)!");
+			this.add('message', "For more information on a user's staffmon, use /dssb (authed user's name)!");
 		},
 		onSwitchIn: function (pokemon) {
 			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);

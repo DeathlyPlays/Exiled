@@ -565,6 +565,7 @@ exports.BattleAliases = {
 	"mandi": "Mandibuzz",
 	"mence": "Salamence",
 	"milo": "Milotic",
+	"morfentshusbando": "Gengar",
 	"nape": "Infernape",
 	"nebby": "Cosmog",
 	"obama": "Abomasnow",

@@ -1539,24 +1539,28 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
+		section: 'Exiled\'s Custom Gamemodes',
+		column: 5,
+	},
+	{
 		name: "[Gen 7] Clash of the Regions",
+<<<<<<< HEAD
 		section: "Dewdrop's Custom Gamemodes",
+=======
+>>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		mod: 'clashoftheregions',
-		allowTies: true,
 		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
 		desc: [
 			"This metagame is about every rival/gym leader/",
 			"Credit to: Insist (main coder and inspired by), Vivid is a God (side coder and set adviser), Alpha Hawk (extra ideas)",
 			"&bullet; <a href=\"http://squadps.boards.net/post/51/thread\">Clash of the Regions Information</a>",
 		],
-		column: 5,
 		team: 'randomSeasonalMelee',
 	},
 	{
 		name: "[Gen 7] Frantic Fusions",
-		allowTies: true,
 		desc: [
-			"&bullet; <a href=https://github.com/XpRienzo/DragonHeaven/blob/master/mods/franticfusions/README.md>Frantic Fusions</a> <br> &bullet; A metagame where you are able to fuse two Pokemon. <BR /> &bullet; The resultant Pokemon has the primary type of the base mon. If the base mon is shiny, it will get the secondary type of the second mon, else the primary type of the second mon. It will get the averaged stats.<br />&bullet;You can choose any ability from the original Pokemon, and you also get the primary ability of the second Pokemon (The one you put in the nickname). <br />&bullet; Use !fuse for theorymonning purposes",
+			"&bullet; <a href=https://github.com/DeathlyPlays/Exiled/blob/master/mods/franticfusions/README.md>Frantic Fusions</a> <br> &bullet; A metagame where you are able to fuse two Pokemon. <BR /> &bullet; The resultant Pokemon has the primary type of the base mon. If the base mon is shiny, it will get the secondary type of the second mon, else the primary type of the second mon. It will get the averaged stats.<br />&bullet;You can choose any ability from the original Pokemon, and you also get the primary ability of the second Pokemon (The one you put in the nickname). <br />&bullet; Use !fuse for theorymonning purposes",
 		],
 		mod: 'franticfusions',
 		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
@@ -1726,9 +1730,11 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] SMASHING METAGAME",
+<<<<<<< HEAD
 		section: "Dewdrop's Custom Gamemodes",
+=======
+>>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		mod: 'smashingmetagame',
-		allowTies: true,
 		ruleset: ['Cancel Mod', 'Exact HP Mod', 'Team Preview'],
 		desc: [
 			"Credit to: Insist (coded and inspired by), and Kairak (gave ideas for custom moves names).",
@@ -1738,20 +1744,24 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Ash's Pokemon",
+<<<<<<< HEAD
 		section: "Dewdrop's Custom Gamemodes",
+=======
+>>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		mod: 'ashspokemon',
-		allowTies: true,
 		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
 		team: 'randomSeasonalMelee',
 		desc: [
-			"This metagame covers every Pok&eacute that Ash caught in the anime (since XY), some were evolved for viability etc.",
+			"This metagame covers every Pok&eacute that Ash caught in the anime, some were evolved for viability etc.",
 		],
 	},
 	{
 		name: "[Gen 7] OP Metagame",
+<<<<<<< HEAD
 		section: "Dewdrop's Custom Gamemodes",
+=======
+>>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		mod: "opmetagame",
-		allowTies: true,
 		ruleset: ['Exact HP Mod', 'Cancel Mod'],
 		team: 'randomSeasonalMelee',
 		desc: [
@@ -1804,8 +1814,11 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Type Illusion",
+<<<<<<< HEAD
 		section: "Dewdrop's Custom Gamemodes",
 		mod: "gen7",
+=======
+>>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Shedinja"],
 		desc: [
@@ -3174,7 +3187,6 @@ exports.Formats = [
 			"Put your second ability with your first ability in the ability slot.",
 		],
 		mod: 'franticfusions',
-		allowTies: true,
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Illegal", 'Kyurem-Black', 'Manaphy', 'Porygon-Z', 'Shedinja', 'Togekiss', 'Chatter'],
 		onBegin: function () {
@@ -3263,8 +3275,12 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Infection",
+<<<<<<< HEAD
 		section: "Dewdrop's Custom Gamemodes",
 		allowTies: true,
+=======
+		section: "Exiled's Custom Gamemodes",
+>>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		ruleset: ['[Gen 7] OU'],
 		banlist: ["Illegal", 'Kyurem-Black', 'Pidgeotite'],
 		desc: [
@@ -3281,19 +3297,19 @@ exports.Formats = [
 			this.debug('infected - decreasing accuracy');
 			return accuracy * 0.8;
 		},
-		onModifyAtk: function (atk, pokemon) {
+		onModifyAtk: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifyDef: function (def, pokemon) {
+		onModifyDef: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifySpA: function (spa, pokemon) {
+		onModifySpA: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifySpD: function (spd, pokemon) {
+		onModifySpD: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
-		onModifySpe: function (spe, pokemon) {
+		onModifySpe: function (pokemon) {
 			if (pokemon.set.shiny) return this.chainModify(1.3);
 		},
 	},
@@ -3302,7 +3318,6 @@ exports.Formats = [
 		section: "Dewdrop's Custom Gamemodes",
 		mod: 'dssb',
 		team: 'randomSeasonalMelee',
-		allowTies: true,
 		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		desc: [
 			"Credit to: Insist (head coder).",
@@ -3313,14 +3328,10 @@ exports.Formats = [
 			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
 			this.add('message', "GET READY FOR THE NEXT BATTLE!");
 			this.add('message', "For more information on a user's staffmon, use /essb (authed user's name)!");
-			// This variable saves the status of a spammy conversation to be played, so it's only played once.
-			this.convoPlayed = false;
 		},
-		// Edgy switch-in sentences go here.
-		// Sentences vary in style and how they are presented, so each Pokémon has its own way of sending them.
-		onSwitchIn: function (pokemon, source) {
-			let name = toId(pokemon.name);
+		onSwitchIn: function (pokemon) {
 			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);
+<<<<<<< HEAD
 
 			//Switch-in Quotes
 			if (name === 'insist') {
@@ -3420,25 +3431,21 @@ exports.Formats = [
 				this.useMove('trickroom', pokemon);
 			}
 			*/
+=======
+>>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 		},
 		// Code for use specific moves
 		onModifyMove: function (move, pokemon) {
 			let name = toId(pokemon.illusion ? pokemon.illusion.name : pokemon.name);
-			if (move.id === 'storedpower' && name === 'vxn') {
-				move.defensiveCategory = 'Special';
-				move.category = 'Physical';
-			}
-			if (move.id === 'meditate' && name === 'vxn') {
-				move.name = 'Ultimate Setup';
-			}
 			if (move.id === 'ember' && name === 'chandie') {
 				move.name = 'Fast Flame';
-				move.onTryHit = function (target, source, move) {
+				move.onTryHit = function (target, source) {
 					this.attrLastMove('[still]');
 					this.add('-anim', source, "Flame Burst", target);
 				};
 			}
 		},
+<<<<<<< HEAD
 		//Switch-out Phrase
 		onSwitchOut: function (pokemon) {
 			let name = toId(pokemon.name);
@@ -3541,6 +3548,8 @@ exports.Formats = [
 				}
 			}
 		},
+=======
+>>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70
 	},
 	{
 		name: "[Gen 7] Monotype Ubers",
@@ -3550,9 +3559,7 @@ exports.Formats = [
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3589809/\">Monotype Viability Ranking</a>",
 			"&bullet; <a href=\"http://exiledps.boards.net/board/21/monotype-ubers\">Monotype Ubers Thread</a>",
 		],
-		allowTies: true,
 
-		mod: 'gen7',
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Clause', 'Same Type Clause'],
 	},
 	{
@@ -3561,13 +3568,12 @@ exports.Formats = [
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Aguav Berry', 'Assault Vest', 'Berry Juice', 'Cheek Pouch', 'Dry Skin', 'Ice Body', 'Poison Heal', 'Regenerator', 'Volt Absorb', 'Water Absorb', 'Rain Dish', 'Black Sludge', 'Enigma Berry', 'Figy Berry', 'Iapapa Berry', 'Mago Berry', 'Oran Berry', 'Shell Bell', 'Sitrus Berry', 'Wiki Berry', 'Leftovers'],
 		mod: 'metronome',
-		allowTies: true,
 		onValidateSet: function (set) {
 			if (set.moves.length !== 1 || toId(set.moves[0]) !== 'metronome') {
 				return [(set.name || set.species) + " can only have Metronome."];
 			}
 		},
-		onEffectiveness: function (typeMod, target, type, move) {
+		onEffectiveness: function (type, move) {
 			//change no effect to not very effective
 			if (move && !this.getImmunity(move, type)) return 2;
 		},
@@ -3577,8 +3583,6 @@ exports.Formats = [
 		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
 		ruleset: ['[Gen 7] OU'],
 		team: 'random',
-		allowTies: true,
-		mod: 'gen7',
 		onBegin: function () {
 			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
 			allPokemon.forEach(pokemon => {
@@ -3599,7 +3603,7 @@ exports.Formats = [
 				}
 			});
 		},
-		onEffectiveness: function (typeMod, target, type, move) {
+		onEffectiveness: function (type, move) {
 			//change no effect to not very effective
 			if (move && !this.getImmunity(move, type)) return 2;
 		},
@@ -3608,7 +3612,6 @@ exports.Formats = [
 		name: "[Gen 7] Holiday Metagame",
 		section: "Dewdrop's Custom Gamemodes",
 		mod: "holiday",
-		allowTies: true,
 		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
 		team: "randomSeasonalMelee",
 		desc: [
@@ -3649,7 +3652,6 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Pokemon Mystery Dungeon",
 
-		allowTies: true,
 		mod: 'pmd',
 		team: 'randomPmd',
 		ruleset: ['HP Percentage Mod', 'Cancel Mod'],
@@ -3670,7 +3672,6 @@ exports.Formats = [
 		name: "[Gen 7] Supercell Games",
 		section: "Dewdrop's Custom Gamemodes",
 		mod: "supercell",
-		allowTies: true,
 		team: "randomSeasonalMelee",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
 		desc: [
@@ -3682,7 +3683,6 @@ exports.Formats = [
 		name: "[Gen 7] Digimon Showdown",
 		section: "Dewdrop's Custom Gamemodes",
 		mod: "digimon",
-		allowTies: true,
 		team: "randomDigimon",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
 		onBegin: function () {
@@ -3703,7 +3703,6 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
 		],
 		mod: "slowtown",
-		allowTies: true,
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Sablenite', 'Snorlax'],
 		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite', 'Blazkenite'],
@@ -3738,7 +3737,6 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/thread/24/welcome-swapping-powers\">Swapping Powers Thread</a>",
 			"Concept by Mewth. Coded by Insist/HoeenHero.",
 		],
-		allowTies: true,
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Kings Shield'],
@@ -3759,11 +3757,9 @@ exports.Formats = [
 			"condition can be set, a random stat can be raised,",
 			"etc.",
 		],
-		allowTies: true,
 		mod: "gen7",
 		team: "random",
 		ruleset: ['[Gen 7] Anything Goes', 'Team Preview'],
-		banlist: ['Furretite'],
 		onSwitchIn: function (pokemon) {
 			let n = this.random(55);
 			if (n === 1) {
@@ -3900,8 +3896,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Ashmons",
-		mod: 'gen7',
-		allowTies: true,
 		maxLevel: 50,
 		defaultLevel: 50,
 		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],

@@ -367,3 +367,32 @@ Signature Move: GEG 4 LIFE
 	- Confuses and paralyzes the target. User then switches out.
 Rank: N/A.
 Notes: Annoying support and stall Pokemon.
+<<<<<<< HEAD
+=======
+
+Desokoro
+(Gyarados)
+@ Leftovers
+Ability: Wave Call
+    - If either the user is statused or its HP is below 1/2 of its maximum hp, the user's Water type moves get boosted by 2x.
+EVs: 252 Atk / 4 HP / 252 Spe
+Adamant Nature
+Moves: Dragon Dance, Bounce, Substitute
+Signature Move: Tsunami Crash
+	- Water Type, Physical, 150 BP, 35% chance to flinch target.
+Rank: N/A.
+Notes: Strong attacking revenge killer.
+
+Randbat Spam
+(Giratina)
+@ Distorted Rock
+	- Allows Giratina to Primal Evolve.
+Ability: Distorted Dimensions
+	- Summons Distorted World Terrain
+		- Distorted World: 5 turns, Ghost type moves do 1.5x more damage, Healing moves do not work while this is active.
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+Moves: Sunsteel Strike, Shadow Force, Dragon Rush, Thousand Arrows
+Rank: N/A.
+Notes: Strong attacking Pokemon.
+>>>>>>> 6b75037dc0b9509fddca32690156debb2cf44f70

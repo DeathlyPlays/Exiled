@@ -7646,7 +7646,7 @@ exports.BattleFormatsData = {
 	},
 	octanko: {
 		randomBattleMoves: ["recover", "scald", "hurricane", "flashcannon"],
-		randomDoubleBattleMoves: ["recover", "scald", "hurricane", "flashcannon"],
+		randomDoubleBattleMoves: ["recover", "scald", "hurricane", "flashcannon", "protect"],
 		tier: "BL2",
 	},
 	spectreon: {
@@ -7656,12 +7656,12 @@ exports.BattleFormatsData = {
 	},
 	hydring: {
 		randomBattleMoves: ["scald", "magnetbomb", "thunderbolt", "grassknot", "ironhead"],
-		randomDoubleBattleMoves: ["scald", "magnetbomb", "thunderbolt", "grassknot", "ironhead"],
+		randomDoubleBattleMoves: ["scald", "magnetbomb", "thunderbolt", "grassknot", "ironhead", "protect"],
 		tier: "UU",
 	},
 	yinyang: {
 		randomBattleMoves: ["overheat", "flamethrower", "willowisp", "iciclecrash", "freezedry", "icefang", "auroraveil", "hypervoice", "weatherball", "fakeout", "bugbuzz", "shadowball", "shadowforce", "confuseray", "earthpower", "zenheadbutt", "surf", "aquajet"],
-		randomDoubleBattleMoves: ["overheat", "flamethrower", "willowisp", "iciclecrash", "freezedry", "icefang", "auroraveil", "hypervoice", "weatherball", "fakeout", "bugbuzz", "shadowball", "shadowforce", "confuseray", "earthpower", "zenheadbutt", "surf", "aquajet"],
+		randomDoubleBattleMoves: ["overheat", "flamethrower", "willowisp", "iciclecrash", "freezedry", "icefang", "auroraveil", "hypervoice", "weatherball", "fakeout", "bugbuzz", "shadowball", "shadowforce", "confuseray", "earthpower", "zenheadbutt", "surf", "aquajet", "protect"],
 		tier: "OU",
 	},
 	reainein: {
@@ -7672,6 +7672,11 @@ exports.BattleFormatsData = {
 	bezzoseal: {
 		randomBattleMoves: ["uturn", "terrordrop", "rocktomb", "phantomforce", "shadowforce", "xscissor", "sleeptalk", "lunge", "shadowsneak", "finalgambit", "sacredsword", "smartstrike", "iceshard", "iciclespear"],
 		randomDoubleBattleMoves: ["uturn", "terrordrop", "rocktomb", "phantomforce", "shadowforce", "xscissor", "sleeptalk", "lunge", "shadowsneak", "finalgambit", "sacredsword", "smartstrike", "iceshard", "iciclespear"],
+		tier: "OU",
+	},
+	moboreum: {
+		randomBattleMoves: ["thunderpunch", "closecombat", "gunkshot", "earthquake", "swordsdance", "machpunch", "knockoff"],
+		randomDoubleBattleMoves: ["thunderpunch", "closecombat", "gunkshot", "earthquake", "swordsdance", "machpunch", "knockoff", "protect"],
 		tier: "OU",
 	},
 };

@@ -1338,13 +1338,8 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Surf", target);
 		},
-<<<<<<< HEAD:mods/dssb/moves.js
-		onHit: function (target, source, move) {
-			this.add('c|&Kraken Mare ☭|If I go down I\'m taking you with me!');
-=======
 		onHit: function () {
-			this.add('c|@Kraken Mare ☭|If I go down I\'m taking you with me!');
->>>>>>> 745c6fcc0fcb8ef40487173e23a3e74853fb13de:mods/essb/moves.js
+			this.add('c|&Kraken Mare ☭|If I go down I\'m taking you with me!');
 		},
 		target: "Normal",
 		type: "Water",

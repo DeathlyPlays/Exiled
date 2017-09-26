@@ -289,23 +289,20 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Bold",
 			},
-			"%Gligars": {
-				species: "Guzzlord",
-				ability: "Last Laugh",
-				item: "Perception",
+			'%Lycanium Z': {
+				species: "Lycanroc",
+				ability: "Snow Warning",
+				item: "Not the Lycanium Z i swear",
 				gender: "M",
-				moves: ['partingshot', 'rest', 'taunt'],
-				baseSignatureMove: "aggrodraw",
-				signatureMove: "Aggro Draw",
+				moves: ['diamondstorm', 'earthquake', 'auroraveil'],
+				baseSignatureMove: "altstorm",
+				signatureMove: "Alt Storm",
 				evs: {
-					hp: 252,
+					atk: 252,
+					def: 4,
+					spe: 252,
 				},
-				ivs: {
-					atk: 0,
-					def: 0,
-					spd: 0,
-				},
-				nature: "Serious",
+				nature: "Jolly",
 			},
 			//Voices
 			"+Renfur": {

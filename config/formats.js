@@ -1748,7 +1748,7 @@ exports.Formats = [
 		desc: [
 			"You may have thought this was Pok&eacute;mon Showdown, but I must reassure you that you were mistaken, welcome to <b>DIGIMON SHOWDOWN!!!</b>",
 			"Ahem, but in all seriousness, the following developers listed below created Digimon in Pok&eacute;mon Showdown, so why not just try it out :D",
-			"Ashley the Pikachu (Head Researcher, Began the project, Attack Manual, Type Chart Manual, Music Selection and Music HTML, Sprite Selection), Insist (Head Developer), AlfaStorm (Animations), VXN (Assisted other developers), HoeenHero (Assisted with Mechanics)",
+			"Ashley the Pikachu (Head Researcher, Began the project, Attack Manual, Type Chart Manual, Music Selection and Music HTML, Sprite Selection), Insist (Head Developer), AlfaStorm (Animations), Lycanium Z (Assisted other developers), HoeenHero (Assisted with Mechanics)",
 			"&bullet; <a href=\"https://1drv.ms/b/s!AvoD6RnUzzMvgmLcX1rqT8GTnEVK\">Digimon Manual</a>",
 		],
 	},
@@ -1793,7 +1793,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Five Move Frenzy",
 		desc: [
-			"Pokemon can use five moves instead of four! Coded by Glgars",
+			"Pokemon can use five moves instead of four! Coded by Lycanium Z",
 		],
 		mod: 'fivemovefrenzy',
 		ruleset: ['[Gen 7] OU'],
@@ -2150,7 +2150,7 @@ exports.Formats = [
 		ruleset: ["Pokemon", "Standard", "Team Preview"],
 		desc: [
 			"Coded by Insist",
-			"Gligars and AlfaStorm contributed ideas towards the project",
+			"Lycanium Z and AlfaStorm contributed ideas towards the project",
 			"In this metagame, we have added a new type \"Cosmic\"",
 			"Along with buffing Pokemon deemed worthy of needing support.",
 		],
@@ -2214,7 +2214,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Slowtown",
 		desc: [
-			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Gligars. Coded by Insist.",
+			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Lycanium Z. Coded by Insist.",
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
 		],
 		mod: "slowtown",

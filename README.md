@@ -110,7 +110,7 @@ Special thanks
 * **Insist** - Main developer of Exiled files, Sysadmin, Owner.
 * **Mewth** - Developer, Sysadmin, Co-Owner.
 * **HoeenCoder** - Sysop, Bug fixes, Mechanic assistance.
-* **Gligars** - Developer, Sysop.
+* **Lycanium Z** - Developer, Sysop.
 * **Back At My Day** - Developments.
 * **Mystifi** - Assistance, Developments.
 * **AlfaStorm** - Developer.

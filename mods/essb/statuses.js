@@ -15,14 +15,16 @@ exports.BattleStatuses = {
 			this.add('c', '~Insist', '**FOH HERE THIS IS MY HOUSE KIDDO**');
 		},
 	},
-	gligars: {
+	lycaniumz: {
 		exists: true,
 		onStart: function () {
-			this.add('c', '%Gligars', 'Glhf...');
-			this.boost({def: -12, spd: -12});
+			this.add('c', '%Lycanium Z', 'Hi. Im that random guy noone thinks about');
 		},
-		onFaint: function () {
-			this.add('c', '%Gligars', 'RIP I lost');
+		onSwitchOut: function (pokemon) {
+			this.add('c', '%Autograph', 'brb gonna change alts');
+		},
+		onFaint: function (pokemon) {
+			this.add('c', '%Bellhop', 'lol im dead. Back to alt hunting');
 		},
 	},
 	speckeldorft: {

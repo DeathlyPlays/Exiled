@@ -1769,7 +1769,25 @@ exports.Formats = [
 			this.add('message', "For more information on a user's staffmon, use /essb (authed user's name)!");
 		},
 		onSwitchIn: function (pokemon) {
+			let name = toId(pokemon.name);
 			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);
+			//Type changes
+			if (name === 'wobbleleez' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Psychic/Fairy');
+				pokemon.types = ["Psychic", "Fairy"];
+			}
+			if (name === 'douglasgamer' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Water/Electric');
+				pokemon.types = ["Water", "Electric"];
+			}
+			if (name === 'backatmyday' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Ground/Water');
+				pokemon.types = ["Ground", "Water"];
+			}
+			if (name === 'playershadowbr' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dragon/Water');
+				pokemon.types = ["Dragon", "Water"];
+			}
 		},
 	},
 	{
@@ -2274,37 +2292,6 @@ exports.Formats = [
 		},
 		onMegaIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
-		},
-	},
-	{
-		name: "[Gen 7] Tier Shift",
-		desc: [
-			"Pok&eacute;mon get +10 to each stat per tier below OU they are in. UU gets +10, RU +20, NU +30, and PU +40.",
-			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3610073/\">Tier Shift</a>",
-		],
-
-		mod: 'gen7',
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Tangela'],
-		onModifyTemplate: function (template, pokemon) {
-			if (pokemon.tierShifted) return;
-			let tsTemplate = Object.assign({}, template);
-			const boosts = {'UU': 10, 'BL2': 10, 'RU': 20, 'BL3': 20, 'NU': 30, 'BL4': 30, 'PU': 40, 'NFE': 40, 'LC Uber': 40, 'LC': 40};
-			let tier = tsTemplate.tier;
-			if (pokemon.set.item) {
-				let item = this.getItem(pokemon.set.item);
-				if (item.megaEvolves === tsTemplate.species) tier = this.getTemplate(item.megaStone).tier;
-			}
-			if (tier.charAt(0) === '(') tier = tier.slice(1, -1);
-			let boost = (tier in boosts) ? boosts[tier] : 0;
-			if (boost > 0 && (pokemon.set.ability === 'Drizzle' || pokemon.set.item === 'Mewnium Z')) boost = 0;
-			if (boost > 20 && pokemon.set.ability === 'Drought') boost = 20;
-			tsTemplate.baseStats = Object.assign({}, tsTemplate.baseStats);
-			for (let statName in tsTemplate.baseStats) {
-				tsTemplate.baseStats[statName] = this.clampIntRange(tsTemplate.baseStats[statName] + boost, 1, 255);
-			}
-			pokemon.tierShifted = true;
-			return tsTemplate;
 		},
 	},
 	{

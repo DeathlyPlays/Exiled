@@ -15996,12 +15996,12 @@ exports.BattlePokedex = {
 		species: "Spectreon",
 		types: ["Ghost"],
 		baseStats: {
-			hp: 80,
+			hp: 75,
 			atk: 110,
-			def: 95,
+			def: 45,
 			spa: 120,
-			spd: 95,
-			spe: 120,
+			spd: 45,
+			spe: 130,
 		},
 		abilities: {
 			0: "Vengeful",

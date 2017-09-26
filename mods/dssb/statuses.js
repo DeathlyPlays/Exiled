@@ -171,10 +171,8 @@ exports.BattleStatuses = {
 		onFaint: function () {
 			this.add('c', ' douglasgamer', 'I\'ve lost! But I have a message! I AM NOT A NINETALES AMATEUR');
 		},
-		onStart: function (pokemon) {
+		onStart: function () {
 			this.boost({spa: 1});
-			this.add('-start', pokemon, 'typechange', 'Water/Electric');
-			pokemon.types = ["Water", "Electric"];
 		},
 	},
 	volco: {
@@ -185,9 +183,7 @@ exports.BattleStatuses = {
 	},
 	wobbleleez: {
 		exists: true,
-		onStart: function (pokemon) {
-			this.add('-start', pokemon, 'typechange', 'Psychic/Fairy');
-			pokemon.types = ["Psychic", "Fairy"];
+		onStart: function () {
 			this.boost({def: 1, spd: 1});
 		},
 	},
@@ -201,20 +197,6 @@ exports.BattleStatuses = {
 		exists: true,
 		onStart: function () {
 			this.boost({spe: 1});
-		},
-	},
-	backatmyday: {
-		exists: true,
-		onStart: function (pokemon) {
-			this.add('-start', pokemon, 'typechange', 'Ground/Water');
-			pokemon.types = ["Ground", "Water"];
-		},
-	},
-	playershadowbr: {
-		exists: true,
-		onStart: function (pokemon) {
-			this.add('-start', pokemon, 'typechange', 'Dragon/Water');
-			pokemon.types = ["Dragon", "Water"];
 		},
 	},
 	chandie: {

@@ -2284,12 +2284,12 @@ exports.Formats = [
 			"Concept by Mewth. Coded by Insist/HoeenHero.",
 		],
 		ruleset: ['[Gen 7] OU'],
-		banlist: ['Kings Shield'],
+		banlist: [''],
 		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow', 'Genesect', 'Shaymin-Sky', 'Landorus', 'Blaziken', 'Pheromosa'],
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
-		onMegaIn: function (pokemon) {
+		onMega: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
 	},

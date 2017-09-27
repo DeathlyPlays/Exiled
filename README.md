@@ -103,35 +103,18 @@ Maintainers
 
 This server is brought to you and maintained by the following people:
 
-<<<<<<< HEAD
 Owners
 
 - [Insist](https://github.com/DeathlyPlays)
 - [Mewth](https://github.com/Mewthy)
 - [AlfaStorm](https://github.com/AlphaWind)
-=======
-Owner
-
-- [Insist](https://github.com/DeathlyPlays)
->>>>>>> 2af77f9ab91d8a8b184495fa86a701ad66ab7dea
 
 Contributors
 
 - [Lycanium Z](https://github.com/Lycanium-Z)
-<<<<<<< HEAD
-=======
-- [flufi](https://github.com/HiTechFlufi)
-- [Mewth](https://github.com/Mewthy)
-- [AlfaStorm](https://github.com/AlphaWind)
-- [megas4ever](https://github.com/Megas4ever)
-- [Back At My Day](https://github.com/BamdTheClueless)
-- [HoeenHero](https://github.com/HoeenCoder)
->>>>>>> 2af77f9ab91d8a8b184495fa86a701ad66ab7dea
+
 
 Special thanks
 
 - See http://pokemonshowdown.com/credits
-<<<<<<< HEAD
 
-=======
->>>>>>> 2af77f9ab91d8a8b184495fa86a701ad66ab7dea

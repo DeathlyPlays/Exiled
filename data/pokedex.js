@@ -7339,7 +7339,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Grass", "Ground"],
 		baseStats: {hp: 95, atk: 129, def: 125, spa: 85, spd: 115, spe: 76},
-		abilities: {0: "Grassy Surge"},
+		abilities: {0: "Forestation"},
 		heightm: 3.2,
 		weightkg: 340.6,
 		color: "Green",

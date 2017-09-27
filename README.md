@@ -106,16 +106,25 @@ Special thanks
 
 - See http://pokemonshowdown.com/credits
 
-### Developers:
-* **Insist** - Main developer of Exiled files, Sysadmin, Owner.
-* **Mewth** - Developer, Sysadmin, Co-Owner.
-* **HoeenCoder** - Sysop, Bug fixes, Mechanic assistance.
-* **Lycanium Z** - Developer, Sysop.
-* **Back At My Day** - Developments.
-* **Mystifi** - Assistance, Developments.
-* **AlfaStorm** - Developer.
-* **megas4ever** - Developments.
+Maintainers
+------------------------------------------------------------------------
 
-### Retired Developers
-* **Lass Ninetales** - Former co-owner, HTML developments, and CSS creator.
-* **Volco** - Former Sysop + Former Admin + Former Owner.
+This server is brought to you and maintained by the following people:
+
+Owner
+
+- [Insist](https://github.com/DeathlyPlays)
+
+Contributors
+
+- [Lycanium Z](https://github.com/Lycanium-Z)
+- [flufi](https://github.com/HiTechFlufi)
+- [Mewth](https://github.com/Mewthy)
+- [AlfaStorm](https://github.com/AlphaWind)
+- [megas4ever](https://github.com/Megas4ever)
+- [Back At My Day](https://github.com/BamdTheClueless)
+- [HoeenHero](https://github.com/HoeenCoder)
+
+Special thanks
+
+- See http://pokemonshowdown.com/credits

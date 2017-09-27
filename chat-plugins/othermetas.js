@@ -281,8 +281,9 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target || target === ' ' || !target.includes(',')) return this.errorReply('Error: Invalid Argument(s).');
 		let separated = target.split(",");
+		let templateone = Object.assign({}, Dex.getTemplate(separated[0]));
 		let name = toId(separated[0]), name2 = toId(separated[1]);
-		if (!Dex.data.Pokedex[name] || !Dex.data.Pokedex[name2]) {
+		if (!Dex.data.Pokedex[name] || !Dex.data.Pokedex[name2] || !templateone.exists) {
 			return this.errorReply("Error: Pokemon not found");
 		}
 		let baseStats = {}, fusedTemplate = Object.assign({}, Dex.getTemplate(name)), template = Object.assign({}, Dex.getTemplate(name2));

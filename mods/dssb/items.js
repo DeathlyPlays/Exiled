@@ -105,34 +105,16 @@ exports.BattleItems = {
 		gen: -1,
 		desc: "At the end of every turn, holder restores 1/4 of its max HP.",
 	},
-	"perception": {
-		id: "perception",
-		name: "Perception",
-		spritenum: 285,
-		fling: {
-			basePower: 10,
-		},
-		onUpdate: function (pokemon) {
-			let conditions = ['attract', 'taunt', 'encore', 'torment', 'disable', 'healblock'];
-			for (let i = 0; i < conditions.length; i++) {
-				if (pokemon.volatiles[conditions[i]]) {
-					for (let j = 0; j < conditions.length; j++) {
-						pokemon.removeVolatile(conditions[j]);
-						if (conditions[i] === 'attract' && conditions[j] === 'attract') {
-							this.add('-end', pokemon, 'move: Attract', '[from] item: Perception');
-						}
-					}
-					return;
-				}
-			}
-			if (pokemon.status || pokemon.volatiles['confusion']) {
-				pokemon.cureStatus();
-				pokemon.removeVolatile('confusion');
-			}
-		},
-		num: -20,
-		gen: -1,
-		desc: "Cures holder of Attract, Disable, Encore, Heal Block, Taunt, Torment, Confusion, and major status conditions.",
+	notthelycaniumziswear: {
+		spritenum: 656,
+		onTakeItem: false,
+		id: "notthelycaniumziswear",
+		name: "Not the Lycanium Z i swear",
+		isNonStandard: true,
+		zMove: "Wreak Havoc",
+		zMoveFrom: "Alt Storm",
+		zMoveUser: ["Lycanroc"],
+		desc: "If holder is a Lycanroc with Alt Storm, it can use Wreak Havoc.",
 	},
 	"armorvest": {
 		id: "armorvest",

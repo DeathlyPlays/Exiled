@@ -1560,27 +1560,56 @@ exports.BattleMovedex = {
 		zMovePower: 150,
 		contestType: "Cool",
 	},
-	"aggrodraw": {
+	// Lycanium Z
+	altstorm: {
+		accuracy: 100,
+		basePower: 30,
+		category: "Physical",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Uproar", target);
+		},
+		desc: "Hits 3-5 times. Confuses the target after.",
+		id: "altstorm",
+		isNonStandard: true,
+		name: "Alt Storm",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		multihit: [3, 5],
+		secondary: {
+			chance: 100,
+			volatileStatus: 'confusion',
+		},
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 100,
+		contestType: "Cool",
+	},
+	// Lycanium Z
+	wreakhavoc: {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Makes the foe use Guillotine on the user.",
-		id: "aggrodraw",
-		name: "Aggro Draw",
-		pp: 10,
-		priority: 3,
-		onHit: function (target, source, move, pokemon) {
-			this.useMove('Guillotine', target);
+		id: "wreakhavoc",
+		isNonstandard: true,
+		name: "Wreak Havoc",
+		pp: 1,
+		isZ: "notthelycaniumziswear",
+		noPPBoosts: true,
+		priority: 0,
+		flags: {authentic: 1},
+		onHit: function (pokemon) {
+			let oldAbility = pokemon.setAbility('virus');
+			if (oldAbility) {
+				this.add('-ability', pokemon, 'Virus', '[from] move: Wreak Havoc');
+				return;
+			}
+			return false;
 		},
-		flags: {protect: 1, mirror: 1},
 		secondary: false,
 		target: "normal",
-		type: "Dark",
-	},
-	"guillotine": {
-		inherit: true,
-		accuracy: true,
-		basePower: 999999999999999999999999999999999999999999999999999999999999,
+		type: "Fairy",
 	},
 	"nightmareoblivion": {
 		accuracy: 100,

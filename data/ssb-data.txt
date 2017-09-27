@@ -202,19 +202,20 @@ Special Move: Solar Eruption
 Notes: Fast Special Sweeper.
 Rank: A.
 
-Gligars
-(Guzzlord)
-@ Preception
-     - Cures holder of Attract, Disable, Encore, Heal Block, Taunt, Torment, Confusion, and major status conditions.
-EVs: 252 HP
-Serious Nature
-Ability: Last Laugh
-	- Upon death, user deals double the damage it took on foe, Prankster, Ignores Abilities, and Lowers all defenses to the lowest point.
-Moves: Taunt, Parting Shot, Rest
-Special Move: Aggro Draw
-    - Status. Dark Type, Causes the foe to use Guillotine on user, +3 Priority.
-Notes: Troll for both sides.
-Rank: B.
+Lycanium Z
+(Lycanroc)
+@ Not the Lycanium Z i swear
+	- Allows user to use Wreak Havoc.
+		- Wreak Havoc: Changes the pokemon's ability to Virus, Z-Move.
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+Ability: Snow Warning
+Moves: Earthquake, Diamond Storm and Aurora Veil.
+Signature Move: Alt Storm
+	- Fairy Type, Physical, 30 BP, 100% Accuracy, 10 PP, hits 3-5 times, always confuses the opponent.
+Notes: Watch out for the virus.
+Rank: N/A.
+
 
 C733937 123
 (Gengar-Mega)

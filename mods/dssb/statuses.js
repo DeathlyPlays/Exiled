@@ -18,21 +18,13 @@ exports.BattleStatuses = {
 	lycaniumz: {
 		exists: true,
 		onStart: function () {
-<<<<<<< HEAD:mods/dssb/statuses.js
-			this.add('c', ' Lycanium Z', 'Glhf...');
-			this.boost({def: -12, spd: -12});
-		},
-		onFaint: function () {
-			this.add('c', ' Lycanium Z', 'RIP I lost');
-=======
-			this.add('c', '%Lycanium Z', 'Hi. Im that random guy noone thinks about');
+			this.add('c', ' Lycanium Z', 'Hi. Im that random guy noone thinks about');
 		},
 		onSwitchOut: function (pokemon) {
-			this.add('c', '%Autograph', 'brb gonna change alts');
+			this.add('c', ' Autograph', 'brb gonna change alts');
 		},
 		onFaint: function (pokemon) {
-			this.add('c', '%Bellhop', 'lol im dead. Back to alt hunting');
->>>>>>> fe24fb76cc513cdb65113781c0c078c10653b211:mods/essb/statuses.js
+			this.add('c', ' Bellhop', 'lol im dead. Back to alt hunting');
 		},
 	},
 	speckeldorft: {

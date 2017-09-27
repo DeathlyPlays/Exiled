@@ -289,17 +289,10 @@ exports.commands = {
 			"- " + Dew.nameColor('Insist', true) + " (Main Developer)<br />" +
 			"<br />" +
 			"<u><b>Major Contributors:</b></u><br />" +
-<<<<<<< HEAD:dewdrop-plugins/dewdropinfo.js
-			"- " + Dew.nameColor('AlfaStorm', true) + " (Developer)<br />" +
-			"- " + Dew.nameColor('Back At My Day', true) + " (Developer)<br />" +
-			"- " + Dew.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
-			"- " + Dew.nameColor('Gligars', true) + " (Developer)<br />" +
-=======
 			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developer)<br />" +
 			"- " + Exiled.nameColor('Back At My Day', true) + " (Developer)<br />" +
 			"- " + Exiled.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
 			"- " + Exiled.nameColor('Lycanium Z', true) + " (Developer)<br />" +
->>>>>>> fe24fb76cc513cdb65113781c0c078c10653b211:exiled-plugins/exiledinfo.js
 			"<br />" +
 			"<u><b>Retired Staff:</b></u><br />" +
 			"- " + Dew.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +

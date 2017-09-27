@@ -858,15 +858,9 @@ exports.commands = {
 		let popup = "|html|" + "<font size=5 color=#000080><u><b>DSSB Credits</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Programmers:</u></b><br />" +
-<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
-			"- " + Dew.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
-			"- " + Dew.nameColor('Gligars', true) + " (Assistant Developer)<br />" +
-			"- " + Dew.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
-=======
 			"- " + Exiled.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
 			"- " + Exiled.nameColor('Lycanium Z', true) + " (Assistant Developer)<br />" +
 			"- " + Exiled.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
->>>>>>> fe24fb76cc513cdb65113781c0c078c10653b211:exiled-plugins/exiled.js
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";
 		user.popup(popup);

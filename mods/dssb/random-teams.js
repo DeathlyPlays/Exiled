@@ -242,17 +242,10 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Bold",
 			},
-<<<<<<< HEAD:mods/dssb/random-teams.js
-			" Gligars": {
-				species: "Guzzlord",
-				ability: "Last Laugh",
-				item: "Perception",
-=======
 			'%Lycanium Z': {
 				species: "Lycanroc",
 				ability: "Snow Warning",
 				item: "Not the Lycanium Z i swear",
->>>>>>> fe24fb76cc513cdb65113781c0c078c10653b211:mods/essb/random-teams.js
 				gender: "M",
 				moves: ['diamondstorm', 'earthquake', 'auroraveil'],
 				baseSignatureMove: "altstorm",

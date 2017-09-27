@@ -110,25 +110,9 @@ Owners
 
 Contributors
 
-- [Gligars](https://github.com/Gligar)
+- [Lycanium Z](https://github.com/Lycanium-Z)
 
 Special thanks
 
 - See http://pokemonshowdown.com/credits
-<<<<<<< HEAD
-=======
 
-### Developers:
-* **Insist** - Main developer of Exiled files, Sysadmin, Owner.
-* **Mewth** - Developer, Sysadmin, Co-Owner.
-* **HoeenCoder** - Sysop, Bug fixes, Mechanic assistance.
-* **Lycanium Z** - Developer, Sysop.
-* **Back At My Day** - Developments.
-* **Mystifi** - Assistance, Developments.
-* **AlfaStorm** - Developer.
-* **megas4ever** - Developments.
-
-### Retired Developers
-* **Lass Ninetales** - Former co-owner, HTML developments, and CSS creator.
-* **Volco** - Former Sysop + Former Admin + Former Owner.
->>>>>>> fe24fb76cc513cdb65113781c0c078c10653b211

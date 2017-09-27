@@ -854,7 +854,7 @@ exports.BattleFormatsData = {
 		tier: "PU",
 	},
 	golemalola: {
-		randomBattleMoves: ["stealthrock", "stoneedge", "thunderpunch", "earthquake", "toxic"],
+		randomBattleMoves: ["stealthrock", "stoneedge", "return", "thunderpunch", "earthquake", "toxic"],
 		randomDoubleBattleMoves: ["doubleedge", "stoneedge", "rockslide", "earthquake", "protect"],
 		tier: "PU",
 	},
@@ -3641,7 +3641,7 @@ exports.BattleFormatsData = {
 		requiredItem: "Blue Orb",
 	},
 	groudon: {
-		randomBattleMoves: ["precipiceblades", "earthquake", "stealthrock", "lavaplume", "stoneedge", "dragontail", "roar", "toxic", "swordsdance", "rockpolish", "firepunch"],
+		randomBattleMoves: ["earthquake", "stealthrock", "lavaplume", "stoneedge", "roar", "toxic", "thunderwave", "dragonclaw", "firepunch"],
 		randomDoubleBattleMoves: ["precipiceblades", "rockslide", "protect", "stoneedge", "swordsdance", "rockpolish", "dragonclaw", "firepunch"],
 		eventPokemon: [
 			{"generation": 3, "level": 45, "shiny": 1, "moves":["slash", "bulkup", "earthquake", "fireblast"]},
@@ -3656,7 +3656,7 @@ exports.BattleFormatsData = {
 		tier: "Uber",
 	},
 	groudonprimal: {
-		randomBattleMoves: ["stealthrock", "precipiceblades", "earthquake", "lavaplume", "stoneedge", "overheat", "rockpolish", "thunderwave"],
+		randomBattleMoves: ["stealthrock", "precipiceblades", "lavaplume", "stoneedge", "dragontail", "rockpolish", "swordsdance", "firepunch"],
 		randomDoubleBattleMoves: ["precipiceblades", "lavaplume", "rockslide", "stoneedge", "swordsdance", "overheat", "rockpolish", "firepunch", "protect"],
 		requiredItem: "Red Orb",
 	},
@@ -3717,7 +3717,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 15, "moves":["swift", "wish", "healingwish", "rest"], "pokeball": "cherishball"},
 		],
 		eventOnly: true,
-		tier: "UU",
+		tier: "BL",
 	},
 	deoxys: {
 		randomBattleMoves: ["psychoboost", "stealthrock", "spikes", "firepunch", "superpower", "extremespeed", "knockoff", "taunt"],
@@ -5874,8 +5874,8 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	aurorus: {
-		randomBattleMoves: ["ancientpower", "thunderbolt", "encore", "thunderwave", "earthpower", "freezedry", "hypervoice", "stealthrock"],
-		randomDoubleBattleMoves: ["hypervoice", "ancientpower", "thunderbolt", "encore", "thunderwave", "flashcannon", "freezedry", "icywind", "protect"],
+		randomBattleMoves: ["ancientpower", "blizzard", "thunderwave", "earthpower", "freezedry", "hypervoice", "stealthrock"],
+		randomDoubleBattleMoves: ["hypervoice", "ancientpower", "thunderwave", "flashcannon", "freezedry", "icywind", "protect"],
 		tier: "NU",
 	},
 	sylveon: {

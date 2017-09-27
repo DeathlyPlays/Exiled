@@ -2290,7 +2290,7 @@ exports.Formats = [
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
-		onMegaIn: function (pokemon) {
+		onAfterMega: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
 	},

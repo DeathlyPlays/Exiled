@@ -97,14 +97,6 @@ Exiled's and Pokémon Showdown's server is distributed under the terms of the [M
   [9]: https://github.com/DeathlyPlays/Exiled/blob/master/LICENSE
 
 
-Maintainers
-------------------------------------------------------------------------
-
-This server is brought to you and maintained by the following people:
-
-Special thanks
-
-- See http://pokemonshowdown.com/credits
 
 Maintainers
 ------------------------------------------------------------------------

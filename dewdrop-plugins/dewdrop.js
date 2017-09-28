@@ -43,15 +43,7 @@ Dew.font = function (text, color, bold) {
 	return '<font color="' + (color ? color : 'black') + '">' + (bold ? '<b>' : '') + text + (bold ? '</b>' : '') + '</font>';
 };
 
-<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
-Dew.log = function (file, text) {
-	if (!file) return '<font color="maroon">ERROR : No file specified!</font>';
-	if (!text) return '<font color="maroon">ERROR : No text specified!</font>';
-	FS.appendFile(file, text);
-};
 
-=======
->>>>>>> 9d517efcd3ea225843a88c22059240b5e75e8eba:exiled-plugins/exiled.js
 let urbanCache;
 try {
 	urbanCache = JSON.parse(fs.readFileSync('../config/udcache.json', 'utf8'));
@@ -861,9 +853,9 @@ exports.commands = {
 		let popup = "|html|" + "<font size=5 color=#000080><u><b>DSSB Credits</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Programmers:</u></b><br />" +
-			"- " + Exiled.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
-			"- " + Exiled.nameColor('Lycanium Z', true) + " (Assistant Developer)<br />" +
-			"- " + Exiled.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
+			"- " + Dew.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
+			"- " + Dew.nameColor('Lycanium Z', true) + " (Assistant Developer)<br />" +
+			"- " + Dew.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";
 		user.popup(popup);

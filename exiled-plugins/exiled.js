@@ -188,7 +188,7 @@ exports.commands = {
 	useroftheweek: 'uotw',
 	uotw: function (target, room, user) {
 		if (toId(target.length) >= 19) return this.errorReply("Usernames have to be 18 characters or less");
-		if (!this.can('lock')) return false;
+		if (!this.can('mute', null, room)) return false;
 		if (!room.chatRoomData) return;
 		if (!target) {
 			if (!this.runBroadcast()) return;
@@ -636,7 +636,7 @@ exports.commands = {
 		Reports[reportId].status = 'Pending';
 		Reports[reportId].reportTime = MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + "th, " + d.getUTCFullYear() + ", " + (d.getUTCHours() < 10 ? "0" + d.getUTCHours() : d.getUTCHours()) + ":" + (d.getUTCMinutes() < 10 ? "0" + d.getUTCMinutes() : d.getUTCMinutes()) + " UTC";
 		saveReports();
-		Rooms('staff').add('A new report has been submitted by ' + user.name + '. ID: ' + reportId + ' Message: ' + target.trim());
+		Monitor.log('A new report has been submitted by ' + user.name + '. ID: ' + reportId + ' Message: ' + target.trim());
 		Rooms('staff').update();
 		return this.sendReply("Your report has been sent to Exiled global authorities..");
 	},
@@ -676,7 +676,7 @@ exports.commands = {
 				Users(Reports[id].reporter).popup("Your report has been accepted by " + user.name);
 			}
 			this.sendReply("You've accepted the report by " + Reports[id].reporter);
-			Rooms('staff').add(user.name + " accepted the report by " + Reports[id].reporter + ". (ID: " + id + ")");
+			Monitor.log(user.name + " accepted the report by " + Reports[id].reporter + ". (ID: " + id + ")");
 			Rooms('staff').update();
 			break;
 		case 'decline':
@@ -689,7 +689,7 @@ exports.commands = {
 				Users(Reports[id].reporter).popup("|modal|" + "Your report has been denied by " + user.name);
 			}
 			this.sendReply("You've denied the report by " + Reports[id].reporter);
-			Rooms('staff').add(user.name + " denied the report by " + Reports[id].reporter + ". (ID: " + id + ")");
+			Monitor.log(user.name + " denied the report by " + Reports[id].reporter + ". (ID: " + id + ")");
 			Rooms('staff').update();
 			delete Reports[id];
 			saveReports();
@@ -699,7 +699,7 @@ exports.commands = {
 			if (params.length < 1) return this.errorReply("Usage: /reports delete [id]");
 			id = params.shift();
 			if (!Reports[id]) return this.errorReply("There's no report with that id.");
-			Rooms('staff').add(user.name + " deleted the report by " + Reports[id].reporter + ". (ID: " + id + ")");
+			Monitor.log(user.name + " deleted the report by " + Reports[id].reporter + ". (ID: " + id + ")");
 			Rooms('staff').update();
 			delete Reports[id];
 			saveReports();

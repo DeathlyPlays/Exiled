@@ -68,13 +68,8 @@ class PassTheBomb {
 		}
 	}
 	getMsg() {
-<<<<<<< HEAD:dewdrop-plugins/passthebomb.js
-		let msg = 'bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center><b>Round ' + this.round + '</b><br>' +
-			'Players: ' + this.getSurvivors().map(player => Dew.nameColor(player[1].name)).join(', ') +
-=======
 		let msg = 'bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center><strong>Round ' + this.round + '</strong><br>' +
-			'Players: ' + this.getSurvivors().map(player => Exiled.nameColor(player[1].name)).join(', ') +
->>>>>>> da85d5d80711d6370955d3e26a265d149ac78398:exiled-plugins/passthebomb.js
+			'Players: ' + this.getSurvivors().map(player => Dew.nameColor(player[1].name)).join(', ') +
 			'<br><small>Use /pb or /passbomb [player] to pass the bomb to another player!</small>';
 		return msg;
 	}
@@ -95,11 +90,7 @@ class PassTheBomb {
 		this.release = setTimeout(() => {
 			this.setBomb();
 			let player = this.players.get(this.holder).name;
-<<<<<<< HEAD:dewdrop-plugins/passthebomb.js
-			this.room.add('|uhtmlchange|' + this.getMsg() + '<br><b style = "font-size: 10pt;">The bomb has been passed to <span style = "color:' + Dew.hashColor(this.holder) + '">' + Chat.escapeHTML(player) + '</span>!</b></div>').update();
-=======
-			this.room.add('|uhtmlchange|' + this.getMsg() + '<br><strong style = "font-size: 10pt;">The bomb has been passed to </strong>' + Exiled.nameColor(this.holder, true) + '">' + Exiled.nameColor(player, true) + '</div>').update();
->>>>>>> da85d5d80711d6370955d3e26a265d149ac78398:exiled-plugins/passthebomb.js
+			this.room.add('|uhtmlchange|' + this.getMsg() + '<br><strong style = "font-size: 10pt;">The bomb has been passed to </strong>' + Dew.nameColor(this.holder, true) + '">' + Dew.nameColor(player, true) + '</div>').update();
 			this.canPass = true;
 			this.resetTimer();
 		}, (Math.floor(Math.random() * 12) + 3) * 1000);
@@ -132,11 +123,7 @@ class PassTheBomb {
 
 		this.madeMove = true;
 		this.setBomb(targetId);
-<<<<<<< HEAD:dewdrop-plugins/passthebomb.js
-		this.room.add('|html|' + Dew.nameColor(user.name) + ' passed the bomb to ' + Dew.nameColor(targetId, true) + this.players.get(targetId).name + '</b>!');
-=======
-		this.room.add('|html|' + Exiled.nameColor(user.name) + ' passed the bomb to ' + Exiled.nameColor(targetId, true) + this.players.get(targetId).name + '</strong>!');
->>>>>>> da85d5d80711d6370955d3e26a265d149ac78398:exiled-plugins/passthebomb.js
+		this.room.add('|html|' + Dew.nameColor(user.name) + ' passed the bomb to ' + Dew.nameColor(targetId, true) + this.players.get(targetId).name + '</strong>!');
 
 		if (this.checkWinner()) this.getWinner();
 	}
@@ -184,11 +171,7 @@ class PassTheBomb {
 	}
 	getWinner() {
 		let winner = this.getSurvivors()[0][1].name;
-<<<<<<< HEAD:dewdrop-plugins/passthebomb.js
-		let msg = '|html|<div class = "infobox"><center>The winner of this game of Pass the Bomb is <b style = "color:' + Dew.hashColor(winner) + '">' + Chat.escapeHTML(winner) + '!</b> Congratulations!</center>';
-=======
-		let msg = '|html|<div class = "infobox"><center>The winner of this game of Pass the Bomb is ' + Exiled.nameColor(winner, true) + Chat.escapeHTML(winner, true) + '! Congratulations!</center>';
->>>>>>> da85d5d80711d6370955d3e26a265d149ac78398:exiled-plugins/passthebomb.js
+		let msg = '|html|<div class = "infobox"><center>The winner of this game of Pass the Bomb is ' + Dew.nameColor(winner, true) + Chat.escapeHTML(winner, true) + '! Congratulations!</center>';
 		this.room.add(msg).update();
 		this.end();
 	}

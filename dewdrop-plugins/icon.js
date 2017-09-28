@@ -57,13 +57,8 @@ exports.commands = {
 			if (target.length !== 2) return this.parse('/help icon');
 			if (toId(target[0]).length > 19) return this.errorReply("Usernames are not this long...");
 			if (icons[toId(target[0])]) return this.errorReply("This user already has a custom userlist icon.  Do /icon delete [user] and then set their new icon.");
-<<<<<<< HEAD:dewdrop-plugins/icon.js
 			this.sendReply("|raw|You have given " + Dew.nameColor(target[0], true) + " an icon.");
-			Monitor.adminlog(target[0] + " has received an icon from " + user.name + ".");
-=======
-			this.sendReply("|raw|You have given " + Exiled.nameColor(target[0], true) + " an icon.");
 			Monitor.log(target[0] + " has received an icon from " + user.name + ".");
->>>>>>> da85d5d80711d6370955d3e26a265d149ac78398:exiled-plugins/icon.js
 			this.privateModCommand("|raw|(" + target[0] + " has recieved icon: <img src='" + target[1] + "' width='32' height='32'> from " + user.name + ".)");
 			if (Users(target[0]) && Users(target[0]).connected) Users(target[0]).popup("|html|" + Dew.nameColor(user.name, true) + " has set your userlist icon to: <img src='" + target[1] + "' width='32' height='32'><br><center>Refresh, If you don't see it.</center>");
 			icons[toId(target[0])] = target[1];

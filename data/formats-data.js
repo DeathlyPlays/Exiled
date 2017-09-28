@@ -234,7 +234,7 @@ exports.BattleFormatsData = {
 		],
 		tier: "PU",
 	},
-	arbok: {
+	arbokmega: {
 		randomBattleMoves: ["coil", "gunkshot", "suckerpunch", "aquatail", "earthquake", "rest"],
 		randomDoubleBattleMoves: ["gunkshot", "suckerpunch", "aquatail", "crunch", "earthquake", "rest", "rockslide", "protect"],
 		requiredItem: "Arbokite",

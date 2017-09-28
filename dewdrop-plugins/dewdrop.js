@@ -863,7 +863,7 @@ exports.commands = {
 
 	'!errorlog': true,
 	errorlog: function (target, room, user, connection) {
-		if (!this.can('modchat')) return;
+		if (!this.can('lock')) return;
 		target = toId(target);
 		let numLines = 1000;
 		let matching = true;
@@ -873,9 +873,9 @@ exports.commands = {
 		}
 		let topMsg = "Displaying the last " + numLines + " lines of transactions:\n";
 		let file = path.join('logs/errors.txt');
-		FS.exists(file, function (exists) {
+		fs.exists(file, function (exists) {
 			if (!exists) return connection.popup("There are no errors.");
-			FS.readFile(file, 'utf8', function (err, data) {
+			fs.readFile(file, 'utf8', function (err, data) {
 				data = data.split('\n');
 				if (target && matching) {
 					data = data.filter(function (line) {

@@ -108,7 +108,7 @@ exports.BattleAbilities = {
 	"toxictriumph": {
 		desc: "If this Pokemon knocks out an opposing Pokemon, this Pokemon uses Toxic Spikes twice.",
 		shortDesc: "If KO's opponent, uses Toxic Spikes twice.",
-		onSourceFaint: function (target, source, effect) {
+		onSourceFaint: function (source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.useMove("toxicspikes", source);
 				this.useMove("toxicspikes", source);
@@ -190,12 +190,14 @@ exports.BattleAbilities = {
 		num: 9005,
 		onModifyAccuracyPriority: 10,
 		onModifyAccuracy: function (target, move) {
-			if (move.category === 'Physical' && target.hasType('Rock', 'Steel')) {
+			if (!move.category === 'Status' && target.hasType('Rock') || target.hasType('Steel')) {
 				this.debug('Jewel Crack makes this move 3x more accurate');
+				this.add("The Pokemon tosses its jewel at the target with fantastic accuracy.");
 				return this.chainModify(3);
 			}
 		},
 		rating: 3,
-		desc: "If the target is a Rock or Steel type, this move is 3x more accurate.",
+		desc: "If the target is a Rock or Steel type, this Pokemon's moves are 3x more accurate.",
+		shortDesc: "If the foe is a Rock/Steel type, moves are 3x accurate.",
 	},
 };

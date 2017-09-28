@@ -12,8 +12,8 @@ class PassTheBomb {
 		}
 		this.timeLeft = Date.now() + seconds * 1000;
 
-		this.room.add('|uhtml|bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center>A game of <b>Pass the Bomb</b> has been started!<br>' +
-			'The game will begin in <b>' + seconds + '</b> seconds!<br>' +
+		this.room.add('|uhtml|bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center>A game of <strong>Pass the Bomb</strong> has been started!<br>' +
+			'The game will begin in <strong>' + seconds + '</strong> seconds!<br>' +
 			'<button name = "send" value = "/passthebomb join">Join!</button></center></div>'
 		);
 		this.timer = setTimeout(() => {
@@ -25,11 +25,11 @@ class PassTheBomb {
 		}, seconds * 1000);
 	}
 	updateJoins() {
-		let msg = 'bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center>A game of <b>Pass the Bomb</b> has been started!<br>' +
-			'The game will begin in <b>' + Math.round((this.timeLeft - Date.now()) / 1000) + '</b> seconds<br>' +
+		let msg = 'bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center>A game of <strong>Pass the Bomb</strong> has been started!<br>' +
+			'The game will begin in <strong>' + Math.round((this.timeLeft - Date.now()) / 1000) + '</strong> seconds<br>' +
 			'<button name = "send" value = "/passthebomb join">Join!</button></center>';
 		if (this.players.size > 0) {
-			msg += '<center><b>' + this.players.size + '</b> ' + (this.players.size === 1 ? 'user has' : 'users have') + ' joined: ' + Array.from(this.players).map(player => Chat.escapeHTML(player[1].name)).join(', ') + '</center>';
+			msg += '<center><strong>' + this.players.size + '</strong> ' + (this.players.size === 1 ? 'user has' : 'users have') + ' joined: ' + Array.from(this.players).map(player => Chat.escapeHTML(player[1].name)).join(', ') + '</center>';
 		}
 		this.room.add('|uhtmlchange|' + msg + '</div>');
 	}
@@ -68,7 +68,7 @@ class PassTheBomb {
 		}
 	}
 	getMsg() {
-		let msg = 'bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center><b>Round ' + this.round + '</b><br>' +
+		let msg = 'bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center><strong>Round ' + this.round + '</strong><br>' +
 			'Players: ' + this.getSurvivors().map(player => Exiled.nameColor(player[1].name)).join(', ') +
 			'<br><small>Use /pb or /passbomb [player] to pass the bomb to another player!</small>';
 		return msg;
@@ -90,7 +90,7 @@ class PassTheBomb {
 		this.release = setTimeout(() => {
 			this.setBomb();
 			let player = this.players.get(this.holder).name;
-			this.room.add('|uhtmlchange|' + this.getMsg() + '<br><b style = "font-size: 10pt;">The bomb has been passed to <span style = "color:' + Exiled.hashColor(this.holder) + '">' + Chat.escapeHTML(player) + '</span>!</b></div>').update();
+			this.room.add('|uhtmlchange|' + this.getMsg() + '<br><strong style = "font-size: 10pt;">The bomb has been passed to </strong>' + Exiled.nameColor(this.holder, true) + '">' + Exiled.nameColor(player, true) + '</div>').update();
 			this.canPass = true;
 			this.resetTimer();
 		}, (Math.floor(Math.random() * 12) + 3) * 1000);
@@ -123,7 +123,7 @@ class PassTheBomb {
 
 		this.madeMove = true;
 		this.setBomb(targetId);
-		this.room.add('|html|' + Exiled.nameColor(user.name) + ' passed the bomb to ' + Exiled.nameColor(targetId, true) + this.players.get(targetId).name + '</b>!');
+		this.room.add('|html|' + Exiled.nameColor(user.name) + ' passed the bomb to ' + Exiled.nameColor(targetId, true) + this.players.get(targetId).name + '</strong>!');
 
 		if (this.checkWinner()) this.getWinner();
 	}
@@ -171,7 +171,7 @@ class PassTheBomb {
 	}
 	getWinner() {
 		let winner = this.getSurvivors()[0][1].name;
-		let msg = '|html|<div class = "infobox"><center>The winner of this game of Pass the Bomb is <b style = "color:' + Exiled.hashColor(winner) + '">' + Chat.escapeHTML(winner) + '!</b> Congratulations!</center>';
+		let msg = '|html|<div class = "infobox"><center>The winner of this game of Pass the Bomb is ' + Exiled.nameColor(winner, true) + Chat.escapeHTML(winner, true) + '! Congratulations!</center>';
 		this.room.add(msg).update();
 		this.end();
 	}

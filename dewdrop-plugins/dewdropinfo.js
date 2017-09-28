@@ -192,7 +192,7 @@ exports.commands = {
 			this.sendReplyBox("<center><button name=\"saveReplay\"><i class=\"fa fa-upload\"></i> Save Replay</button> &mdash; <a href=\"https://www.smogon.com/forums/threads/3520646/\">Questions</a> &mdash; <a href=\"https://www.smogon.com/forums/threads/3469932/\">Bug Reports</a></center>");
 		} else {
 			this.sendReplyBox(
-				"Have a replay showcasing a bug on Exiled?<br />" +
+				"Have a replay showcasing a bug on Dewdrop?<br />" +
 				"- <a href=\"http://exiledps.boards.net/thread/5/bug-reports/\">Bug Reports</a>"
 			);
 		}
@@ -289,10 +289,10 @@ exports.commands = {
 			"- " + Dew.nameColor('Insist', true) + " (Main Developer)<br />" +
 			"<br />" +
 			"<u><b>Major Contributors:</b></u><br />" +
-			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developer)<br />" +
-			"- " + Exiled.nameColor('Back At My Day', true) + " (Developer)<br />" +
-			"- " + Exiled.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
-			"- " + Exiled.nameColor('Lycanium Z', true) + " (Developer)<br />" +
+			"- " + Dew.nameColor('AlfaStorm', true) + " (Developer)<br />" +
+			"- " + Dew.nameColor('Back At My Day', true) + " (Developer)<br />" +
+			"- " + Dew.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
+			"- " + Dew.nameColor('Lycanium Z', true) + " (Developer)<br />" +
 			"<br />" +
 			"<u><b>Retired Staff:</b></u><br />" +
 			"- " + Dew.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +

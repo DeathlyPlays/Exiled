@@ -189,10 +189,10 @@ exports.BattleAbilities = {
 		name: "Jewel Crack",
 		num: 9005,
 		onModifyAccuracyPriority: 10,
-		onModifyAccuracy: function (target, move, pokemon) {
-			if (!move.category === 'Status' && pokemon.hasType('Rock') || pokemon.hasType('Steel')) {
+		onModifyAccuracy: function (source, move, pokemon) {
+			if (!move.category === 'Status' && source.hasType('Rock') || source.hasType('Steel')) {
 				this.debug('Jewel Crack makes this move 3x more accurate');
-				this.add('-activate', pokemon, 'ability: Jewel Crack');
+				this.add('-activate', source, 'ability: Jewel Crack');
 				return this.chainModify(3);
 			}
 		},

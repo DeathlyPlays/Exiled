@@ -61405,7 +61405,6 @@ exports.BattleLearnsets = {
 			fakeout: ["7M"],
 			dazzlinggleam: ["7M"],
 			boomburst: ["7M"],
-			frostbreath: ["7M"],
 			shadowball: ["7M"],
 			darkpulse: ["7M"],
 			hypnosis: ["7M"],

@@ -7626,13 +7626,13 @@ exports.BattleFormatsData = {
 		tier: "UU",
 	},
 	cletorcax: {
-		randomBattleMoves: ["sludgebomb", "icebeam", "calmmind", "thunderbolt", "earthquake", "gunkshot", "sewersmash", "iciclecrash", "swordsdance", "workup"],
-		randomDoubleBattleMoves: ["sludgebomb", "icebeam", "calmmind", "thunderbolt", "earthquake", "gunkshot", "sewersmash", "iciclecrash", "swordsdance", "workup", "protect"],
+		randomBattleMoves: ["sewersmash", "iciclecrash", "earthquake", "swordsdance", "leechlife"],
+		randomDoubleBattleMoves: ["sewersmash", "iciclecrash", "swordsdance", "protect", "earthquake", "leechlife", "protect"],
 		tier: "OU",
 	},
 	smk: {
 		randomBattleMoves: ["outrage", "headsmash", "drinkbleach", "crunch", "knockoff", "spectralthief"],
-		randomDoubleBattleMoves: ["outrage", "headsmash", "drinkbleach", "crunch", "knockoff", "spectralthief"],
+		randomDoubleBattleMoves: ["outrage", "headsmash", "drinkbleach", "crunch", "knockoff", "spectralthief", "protect"],
 		tier: "OU",
 	},
 	musteltank: {
@@ -7642,12 +7642,12 @@ exports.BattleFormatsData = {
 	},
 	pence: {
 		randomBattleMoves: ["playrough", "earthquake", "closecombat", "knockoff", "suckerpunch", "icepunch", "drainpunch", "superpower", "moonblast", "focusblast", "aurasphere"],
-		randomDoubleBattleMoves: ["playrough", "earthquake", "closecombat", "knockoff", "suckerpunch", "icepunch", "drainpunch", "superpower", "moonblast", "focusblast", "aurasphere"],
+		randomDoubleBattleMoves: ["playrough", "earthquake", "closecombat", "knockoff", "suckerpunch", "icepunch", "drainpunch", "superpower", "moonblast", "focusblast", "aurasphere", "protect"],
 		tier: "BL",
 	},
 	frioth: {
-		randomBattleMoves: ["iciclecrash", "knockoff", "swordsdance", "aquaring", "iceshard", "bugbuzz", "mirrorcoat", "hail", "aurorabeam", "iciclespear", "blizzard", "workup", "toxic", "taunt", "icebeam", "protect", "roost", "return", "frostbreath", "xscissor", "uturn", "substitute", "flashcannon", "surf", "waterfall", "dazzlinggleam", "icehammer", "spikes", "leechlife", "crosspoison", "acupressure"],
-		randomDoubleBattleMoves: ["iciclecrash", "knockoff", "swordsdance", "aquaring", "iceshard", "bugbuzz", "mirrorcoat", "hail", "aurorabeam", "iciclespear", "blizzard", "workup", "toxic", "taunt", "icebeam", "protect", "roost", "return", "frostbreath", "xscissor", "uturn", "substitute", "flashcannon", "surf", "waterfall", "dazzlinggleam", "icehammer", "spikes", "leechlife", "crosspoison", "acupressure"],
+		randomBattleMoves: ["iciclecrash", "knockoff", "swordsdance", "iceshard", "leechlife", "crosspoison"],
+		randomDoubleBattleMoves: ["iciclecrash", "knockoff", "swordsdance", "iceshard", "leechlife", "crosspoison", "protect"],
 		tier: "BL",
 	},
 	octanko: {
@@ -7656,8 +7656,8 @@ exports.BattleFormatsData = {
 		tier: "BL2",
 	},
 	spectreon: {
-		randomBattleMoves: ["fakeout", "dazzlinggleam", "boomburst", "workup", "frostbreath", "shadowball", "darkpulse", "hypnosis", "knockoff", "shadowclaw", "frustration", "reversal", "suckerpunch", "willowisp", "focusblast", "sacredfire", "nastyplot"],
-		randomDoubleBattleMoves: ["fakeout", "dazzlinggleam", "boomburst", "workup", "frostbreath", "shadowball", "darkpulse", "hypnosis", "knockoff", "shadowclaw", "frustration", "reversal", "suckerpunch", "willowisp", "focusblast", "sacredfire", "nastyplot"],
+		randomBattleMoves: ["fakeout", "dazzlinggleam", "boomburst", "workup", "shadowball", "darkpulse", "hypnosis", "knockoff", "shadowclaw", "frustration", "reversal", "suckerpunch", "willowisp", "focusblast", "sacredfire", "nastyplot"],
+		randomDoubleBattleMoves: ["fakeout", "dazzlinggleam", "boomburst", "workup", "shadowball", "darkpulse", "hypnosis", "knockoff", "shadowclaw", "frustration", "reversal", "suckerpunch", "willowisp", "focusblast", "sacredfire", "nastyplot", "protect"],
 		tier: "OU",
 	},
 	hydring: {
@@ -7672,12 +7672,12 @@ exports.BattleFormatsData = {
 	},
 	reainein: {
 		randomBattleMoves: ["uturn", "firepunch", "leechlife", "dragonclaw", "dragondance", "outrage"],
-		randomDoubleBattleMoves: ["uturn", "firepunch", "leechlife", "dragonclaw", "dragondance", "outrage"],
+		randomDoubleBattleMoves: ["uturn", "firepunch", "leechlife", "dragonclaw", "dragondance", "outrage", "protect"],
 		tier: "BL",
 	},
 	bezzoseal: {
 		randomBattleMoves: ["uturn", "terrordrop", "rocktomb", "phantomforce", "shadowforce", "xscissor", "sleeptalk", "lunge", "shadowsneak", "finalgambit", "sacredsword", "smartstrike", "iceshard", "iciclespear"],
-		randomDoubleBattleMoves: ["uturn", "terrordrop", "rocktomb", "phantomforce", "shadowforce", "xscissor", "sleeptalk", "lunge", "shadowsneak", "finalgambit", "sacredsword", "smartstrike", "iceshard", "iciclespear"],
+		randomDoubleBattleMoves: ["uturn", "terrordrop", "rocktomb", "phantomforce", "shadowforce", "xscissor", "sleeptalk", "lunge", "shadowsneak", "finalgambit", "sacredsword", "smartstrike", "iceshard", "iciclespear", "protect"],
 		tier: "OU",
 	},
 	moboreum: {

@@ -69,6 +69,7 @@ exports.BattleMovedex = {
 		id: "hellfire",
 		name: "Hellfire",
 		pp: 10,
+		desc: "The user's Atk & SpA raise by 2 stages.",
 		priority: 0,
 		self: {
 			boosts: {
@@ -439,7 +440,9 @@ exports.BattleMovedex = {
 				spe: 1,
 			},
 		},
-		status: "frz",
+		onHit: function (target, source) {
+			target.trySetStatus('frz', source);
+		},
 		category: "Special",
 		flags: {
 			protect: 1,
@@ -571,8 +574,9 @@ exports.BattleMovedex = {
 		category: "Physical",
 		id: "rushofvolcanothunder",
 		name: "Rush Of Volcano Thunder",
-		pp: 0.625,
-		desc: "Does a lot of damage, at the price of recharging next turn",
+		pp: 1,
+		noPPBoosts: true,
+		desc: "Must recharge next turn.",
 		isZ: 'playeriniumz',
 		flags: {contact: 1, recharge: 1, protect: 1, mirror: 1},
 		self: {
@@ -613,7 +617,6 @@ exports.BattleMovedex = {
 		secondary: {
 			volatileStatus: "confusion",
 		},
-		status: "tox",
 		volatileStatus: "leechseed",
 		effect: {
 			onStart: function (target) {
@@ -632,7 +635,9 @@ exports.BattleMovedex = {
 				}
 			},
 		},
-		onTryHit: function (target) {
+		onTryHitPriority: 8,
+		onTryHit: function (target, source) {
+			target.trySetStatus('tox', source);
 			if (target.hasType('Grass')) {
 				this.add('-immune', target, '[msg]');
 				return null;
@@ -839,7 +844,8 @@ exports.BattleMovedex = {
 		name: "The Power of Pi",
 		desc: "Traps and flinches foe, drains all damage dealt, boosts user's Atk by one stage",
 		basePower: 100,
-		pp: 0.625,
+		pp: 1,
+		noPPBoosts: true,
 		priority: 1,
 		category: "Physical",
 		secondary: {
@@ -980,7 +986,10 @@ exports.BattleMovedex = {
 					spe: 1,
 				},
 			},
-			status: 'brn',
+		},
+		onTryHitPriority: 8,
+		onTryHit: function (target, source) {
+			target.trySetStatus('brn', source);
 		},
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
@@ -1066,7 +1075,8 @@ exports.BattleMovedex = {
 		basePower: 50,
 		desc: "Hits 2-3 times",
 		accuracy: 100,
-		pp: 0.625,
+		pp: 1,
+		noPPBoosts: true,
 		secondary: false,
 		category: "Physical",
 		isViable: true,
@@ -1205,7 +1215,8 @@ exports.BattleMovedex = {
 		basePower: 130,
 		accuracy: 100,
 		category: "Physical",
-		pp: 0.625,
+		pp: 1,
+		noPPBoosts: true,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1, heal: 1, recharge: 1},
 		self: {
@@ -1250,7 +1261,8 @@ exports.BattleMovedex = {
 		basePower: 200,
 		accuracy: 100,
 		category: "Physical",
-		pp: 0.625,
+		pp: 1,
+		noPPBoosts: true,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1, defrost: 1},
 		recoil: [33, 100],
@@ -1331,7 +1343,8 @@ exports.BattleMovedex = {
 		id: "revengeofkrakenmare",
 		isNonstandard: true,
 		name: "Revenge of Kraken Mare",
-		pp: 0.625,
+		pp: 1,
+		noPPBoosts: true,
 		priority: 5,
 		selfdestruct: "always",
 		onPrepareHit: function (target, source) {
@@ -1381,7 +1394,8 @@ exports.BattleMovedex = {
 		basePower: 150,
 		desc: "150 BP Fire Type Move",
 		accuracy: 100,
-		pp: 0.625,
+		pp: 1,
+		noPPBoosts: true,
 		secondary: false,
 		category: "Special",
 		isViable: true,
@@ -1705,7 +1719,8 @@ exports.BattleMovedex = {
 			this.useMove('Toxic Spikes', pokemon);
 		},
 		accuracy: 100,
-		pp: 0.625,
+		pp: 1,
+		noPPBoosts: true,
 		secondary: false,
 		category: "Status",
 		isViable: true,
@@ -1758,9 +1773,9 @@ exports.BattleMovedex = {
 		volatileStatus: 'confusion',
 		selfSwitch: true,
 		flags: {protect: 1, mirror: 1, reflectable: 1, authentic: 1},
-		secondary: {
-			chance: 100,
-			status: 'par',
+		onTryHitPriority: 8,
+		onTryHit: function (target, source) {
+			target.trySetStatus('par', source);
 		},
 		target: "normal",
 		type: "Fairy",
@@ -1772,8 +1787,8 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 90,
 		category: "Special",
-		desc: "Raises Defense and Special Defense by 1 stage.",
-		shortDesc: "Raises Defense and SpDefense by 1 stage.",
+		desc: "Raises the user's Defense and Special Defense by 1 stage.",
+		shortDesc: "Raises the user's Def and SpD by 1 stage.",
 		id: "perfectend",
 		isViable: true,
 		name: "Perfect End",
@@ -1799,7 +1814,7 @@ exports.BattleMovedex = {
 		effect: {
 			duration: 5,
 			durationCallback: function (target, source, effect) {
-				if (source && source.hasItem('lightclay', 'marillium')) {
+				if (source && source.hasItem('lightclay') || source.hasItem('marillium')) {
 					return 8;
 				}
 				return 5;
@@ -1827,7 +1842,7 @@ exports.BattleMovedex = {
 		effect: {
 			duration: 5,
 			durationCallback: function (target, source, effect) {
-				if (source && source.hasItem('lightclay', 'marillium')) {
+				if (source && source.hasItem('lightclay') || source.hasItem('marillium')) {
 					return 8;
 				}
 				return 5;

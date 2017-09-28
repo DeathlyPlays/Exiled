@@ -234,6 +234,12 @@ exports.BattleFormatsData = {
 		],
 		tier: "PU",
 	},
+	arbok: {
+		randomBattleMoves: ["coil", "gunkshot", "suckerpunch", "aquatail", "earthquake", "rest"],
+		randomDoubleBattleMoves: ["gunkshot", "suckerpunch", "aquatail", "crunch", "earthquake", "rest", "rockslide", "protect"],
+		requiredItem: "Arbokite",
+		tier: "RU",
+	},
 	pichu: {
 		randomBattleMoves: ["fakeout", "volttackle", "encore", "irontail", "toxic", "thunderbolt"],
 		randomDoubleBattleMoves: ["fakeout", "volttackle", "encore", "irontail", "protect", "thunderbolt"],
@@ -5331,6 +5337,11 @@ exports.BattleFormatsData = {
 		],
 		tier: "UU",
 	},
+	hydreigonmega: {
+		randomBattleMoves: ["uturn", "dracometeor", "dragonpulse", "earthpower", "fireblast", "darkpulse", "roost", "flashcannon", "superpower"],
+		requiredItem: "Hydreigonite",
+		tier: "OU",
+	},
 	larvesta: {
 		randomBattleMoves: ["flareblitz", "uturn", "wildcharge", "zenheadbutt", "morningsun", "willowisp"],
 		tier: "LC",
@@ -7097,11 +7108,6 @@ exports.BattleFormatsData = {
 		randomBattleMoves: ["calmmind", "shadowball", "energyball", "fireblast", "hiddenpowerground", "substitute", "painsplit"],
 		requiredItem: "Chandelite",
 		tier: "Uber",
-	},
-	hydreigonmega: {
-		randomBattleMoves: ["uturn", "dracometeor", "dragonpulse", "earthpower", "fireblast", "darkpulse", "roost", "flashcannon", "superpower"],
-		requiredItem: "Hydreigonite",
-		tier: "OU",
 	},
 	gliscormega: {
 		randomBattleMoves: ["roost", "substitute", "taunt", "earthquake", "protect", "spiralingtoxins", "stealthrock", "knockoff"],

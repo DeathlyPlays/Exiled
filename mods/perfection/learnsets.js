@@ -677,6 +677,8 @@ exports.BattleLearnsets = {
 	},
 	hydring: {
 		learnset: {
+			flashcannon: ["7M"],
+			hydropump: ["7L44"],
 			magnetbomb: ["7L1"],
 			ironhead: ["7L23"],
 			thunderbolt: ["7M"],
@@ -690,6 +692,7 @@ exports.BattleLearnsets = {
 			raindance: ["7M"],
 			icebeam: ["7M"],
 			blizzard: ["7M"],
+			watergun: ["7L1"],
 		},
 	},
 	yinyang: {

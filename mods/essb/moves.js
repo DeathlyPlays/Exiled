@@ -1561,7 +1561,7 @@ exports.BattleMovedex = {
 		contestType: "Cool",
 	},
 	// Lycanium Z
-	altstorm: {
+	"altstorm": {
 		accuracy: 100,
 		basePower: 30,
 		category: "Physical",
@@ -1587,13 +1587,14 @@ exports.BattleMovedex = {
 		contestType: "Cool",
 	},
 	// Lycanium Z
-	wreakhavoc: {
+	"wreakhavoc": {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
 		id: "wreakhavoc",
 		isNonstandard: true,
 		name: "Wreak Havoc",
+		desc: "Changes the pokemon's ability to Virus.",
 		pp: 1,
 		isZ: "notthelycaniumziswear",
 		noPPBoosts: true,

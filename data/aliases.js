@@ -829,6 +829,9 @@ exports.BattleAliases = {
 	"megaoma": "Omastar-Mega",
 	"megapachi": "Pachirisu-Mega",
 	"megapanda": "Pangoro-Mega",
+	"megarai": "Raichu-Mega",
+	"megachu": "Raichu-Mega",
+	"megaflufi": "Raichu-Mega",
 	"megadash": "Rapidash-Mega",
 	"megaregi": "Regigigas-Mega",
 	"megaclus": "Reuniclus-Mega",
@@ -865,4 +868,13 @@ exports.BattleAliases = {
 	"megazan": "Zangoose-Mega",
 	"megagoose": "Zangoose-Mega",
 	"megazoro": "Zoroark-Mega",
+
+	//Custom Z-Moves
+	"zmagikarp": "Epic Splash",
+	"zamp": "Colossal Volt Thunderbolt",
+	"zampharos": "Colossal Volt Thunderbolt",
+
+	//Custom Fakemons
+	"mobo": "Moboreum",
+
 };

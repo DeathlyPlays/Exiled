@@ -2158,7 +2158,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon [WIP]",
-		mod: "perfectedpokemon",
+		mod: "perfection",
 		ruleset: ["Pokemon", "Standard", "Team Preview"],
 		desc: [
 			"Coded by Insist",

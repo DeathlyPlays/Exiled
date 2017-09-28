@@ -1,6 +1,6 @@
 'use strict';
 
-const FS = require('fs');
+const fs = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
 const http = require('http');
@@ -43,15 +43,18 @@ Dew.font = function (text, color, bold) {
 	return '<font color="' + (color ? color : 'black') + '">' + (bold ? '<b>' : '') + text + (bold ? '</b>' : '') + '</font>';
 };
 
+<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
 Dew.log = function (file, text) {
 	if (!file) return '<font color="maroon">ERROR : No file specified!</font>';
 	if (!text) return '<font color="maroon">ERROR : No text specified!</font>';
 	FS.appendFile(file, text);
 };
 
+=======
+>>>>>>> 9d517efcd3ea225843a88c22059240b5e75e8eba:exiled-plugins/exiled.js
 let urbanCache;
 try {
-	urbanCache = JSON.parse(FS.readFileSync('../config/udcache.json', 'utf8'));
+	urbanCache = JSON.parse(fs.readFileSync('../config/udcache.json', 'utf8'));
 } catch (e) {
 	urbanCache = {};
 }
@@ -62,12 +65,12 @@ function cacheUrbanWord(word, definition) {
 		"definition": definition,
 		"time": Date.now(),
 	};
-	FS.writeFile('config/udcache.json', JSON.stringify(urbanCache));
+	fs.writeFile('config/udcache.json', JSON.stringify(urbanCache));
 }
 
 function loadReports() {
 	try {
-		Reports = JSON.parse(FS.readFileSync('config/reports.json'));
+		Reports = JSON.parse(fs.readFileSync('config/reports.json'));
 	} catch (e) {
 		Reports = {};
 	}
@@ -75,7 +78,7 @@ function loadReports() {
 loadReports();
 
 function saveReports() {
-	FS.writeFile('config/reports.json', JSON.stringify(Reports));
+	fs.writeFile('config/reports.json', JSON.stringify(Reports));
 }
 
 function getLinkId(msg) {
@@ -115,7 +118,7 @@ function parseStatus(text, encoding) {
 
 let monData;
 try {
-	monData = FS.readFileSync("data/ssb-data.txt").toString().split("\n\n");
+	monData = fs.readFileSync("data/ssb-data.txt").toString().split("\n\n");
 } catch (e) {
 	console.error(e);
 }
@@ -182,13 +185,13 @@ Dew.regdate = function (target, callback) {
 
 function loadRegdateCache() {
 	try {
-		regdateCache = JSON.parse(FS.readFileSync('config/regdate.json', 'utf8'));
+		regdateCache = JSON.parse(fs.readFileSync('config/regdate.json', 'utf8'));
 	} catch (e) {}
 }
 loadRegdateCache();
 
 function saveRegdateCache() {
-	FS.writeFileSync('config/regdate.json', JSON.stringify(regdateCache));
+	fs.writeFileSync('config/regdate.json', JSON.stringify(regdateCache));
 }
 
 exports.commands = {

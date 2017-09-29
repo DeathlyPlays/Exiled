@@ -637,7 +637,6 @@ exports.commands = {
 		Reports[reportId].reportTime = MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + "th, " + d.getUTCFullYear() + ", " + (d.getUTCHours() < 10 ? "0" + d.getUTCHours() : d.getUTCHours()) + ":" + (d.getUTCMinutes() < 10 ? "0" + d.getUTCMinutes() : d.getUTCMinutes()) + " UTC";
 		saveReports();
 		Monitor.log('A new report has been submitted by ' + user.name + '. ID: ' + reportId + ' Message: ' + target.trim());
-		Rooms('staff').update();
 		return this.sendReply("Your report has been sent to Server global authorities..");
 	},
 
@@ -677,7 +676,6 @@ exports.commands = {
 			}
 			this.sendReply("You've accepted the report by " + Reports[id].reporter);
 			Monitor.log(user.name + " accepted the report by " + Reports[id].reporter + ". (ID: " + id + ")");
-			Rooms('staff').update();
 			break;
 		case 'decline':
 		case 'deny':
@@ -690,7 +688,6 @@ exports.commands = {
 			}
 			this.sendReply("You've denied the report by " + Reports[id].reporter);
 			Monitor.log(user.name + " denied the report by " + Reports[id].reporter + ". (ID: " + id + ")");
-			Rooms('staff').update();
 			delete Reports[id];
 			saveReports();
 			break;
@@ -700,7 +697,6 @@ exports.commands = {
 			id = params.shift();
 			if (!Reports[id]) return this.errorReply("There's no report with that id.");
 			Monitor.log(user.name + " deleted the report by " + Reports[id].reporter + ". (ID: " + id + ")");
-			Rooms('staff').update();
 			delete Reports[id];
 			saveReports();
 			this.sendReply("That report has been deleted.");

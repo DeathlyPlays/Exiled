@@ -1688,7 +1688,7 @@ exports.commands = {
 
 				this.logModCommand(user.name + " has reset all league points.");
 				Server.messageSeniorStaff("/html " + Server.nameColor(user.name, true) + " has reset all league points.");
-				Rooms('upperstaff').add("|raw|" + Server.nameColor(user.name, true) + " has reset all league points.").update();
+				Monitor.adminlog("|raw|" + Server.nameColor(user.name, true) + " has reset all league points.");
 				delete user.confirmLeaguePointsReset;
 				for (let u in leagues) leagues[u].points = 0;
 				save();

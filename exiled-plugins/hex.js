@@ -10,7 +10,7 @@ Server.nameColor = function (name, bold, userGroup) {
 // usage: Server.nameColor(user.name, true) for bold OR Server.nameColor(user.name, false) for non-bolded.
 
 Server.messageSeniorStaff = function (message, pmName, from) {
-	pmName = (pmName ? pmName : '~Server Server');
+	pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
 	from = (from ? ' (PM from ' + from + ')' : '');
 	Users.users.forEach(curUser => {
 		if (curUser.group === '~' || curUser.group === '☥' || curUser.group === '&') {

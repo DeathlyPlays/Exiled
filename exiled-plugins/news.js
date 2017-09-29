@@ -136,7 +136,6 @@ exports.commands = {
 			newsRequests[newsId].reportTime = MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + "th, " + d.getUTCFullYear() + ", " + (d.getUTCHours() < 10 ? "0" + d.getUTCHours() : d.getUTCHours()) + ":" + (d.getUTCMinutes() < 10 ? "0" + d.getUTCMinutes() : d.getUTCMinutes()) + " UTC";
 			saveNewsRequests();
 			Monitor.log('A news request has been submitted by ' + user.name + '. ID: ' + newsId + ' Request Message: ' + target.trim());
-			Rooms('staff').update();
 			Server.messageSeniorStaff('A news requested has been submitted by ' + user.name + '. ID: ' + newsId + ' Request Message: ' + target.trim());
 			return this.sendReply("Your request has been sent to the Server global authorities..");
 		},

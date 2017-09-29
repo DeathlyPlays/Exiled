@@ -172,7 +172,6 @@ function handleBoughtItem(item, user, cost) {
 	} else {
 		let msg = '**' + user.name + " has bought " + item + ".**";
 		Monitor.log('|c|~' + Config.serverName + ' Server|' + msg);
-		Rooms.rooms.get("staff").update();
 		Users.users.forEach(function (user) {
 			if (user.group === '~' || user.group === '&' || user.group === '@') {
 				user.send('|pm|~' + Config.serverName + ' Server|' + user.getIdentity() + '|' + msg);

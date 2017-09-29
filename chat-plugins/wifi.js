@@ -388,12 +388,8 @@ class LotteryGiveaway extends Giveaway {
 				this.winners[i].sendTo(this.room, `|raw|You have won the lottery giveaway! PM <b>${Server.nameColor(this.giver.name)}</b> (FC: ${this.fc}) to claim your prize!`);
 				if (this.winners[i].connected) this.winners[i].popup(`You have won the lottery giveaway! PM ` + Server.nameColor(this.giver.name, true, true) + `(FC: ${this.fc}) to claim your prize!`);
 			}
-<<<<<<< HEAD
-			if (this.giver.connected) this.giver.popup(`The following users have won your lottery giveaway:\n ` + Server.nameColor(winnerNames, true, true));
-=======
 			if (this.giver.connected) this.giver.popup(`The following users have won your lottery giveaway:\n${Chat.escapeHTML(winnerNames)}`);
 			Giveaway.updateStats(this.monIds);
->>>>>>> 74cc4dd5dc190c6b6d54e92519d3d02361780c9d
 		}
 		delete this.room.giveaway;
 	}

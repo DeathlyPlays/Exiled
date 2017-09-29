@@ -267,16 +267,10 @@ class QuestionGiveaway extends Giveaway {
 				this.room.modlog(`${Server.nameColor(this.winner.name)} won ${Server.nameColor(this.giver.name, true, true)}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
 				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Server.nameColor(this.winner.name, true, true)} won the giveaway! Congratulations!</p>` +
 				`<p style="text-align:center;">${this.question}<br />Correct answer${Chat.plural(this.answers)}: ${this.answers.join(', ')}</p>`));
-<<<<<<< HEAD
 				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM ${Server.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
-				if (this.winner.connected) this.winner.popup(`You have won the giveaway. PM ${(this.giver.name)} (FC: ${this.fc}) to claim your prize!`);
-				if (this.giver.connected) this.giver.popup(`${(this.winner.name)} has won your question giveaway!`);
-=======
-				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM <b>${Chat.escapeHTML(this.giver.name)}</b> (FC: ${this.fc}) to claim your prize!`);
 				if (this.winner.connected) this.winner.popup(`You have won the giveaway. PM **${Chat.escapeHTML(this.giver.name)}** (FC: ${this.fc}) to claim your prize!`);
 				if (this.giver.connected) this.giver.popup(`${Chat.escapeHTML(this.winner.name)} has won your question giveaway!`);
 				Giveaway.updateStats(this.monIds);
->>>>>>> 74cc4dd5dc190c6b6d54e92519d3d02361780c9d
 			}
 		}
 

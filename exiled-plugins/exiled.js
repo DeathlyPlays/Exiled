@@ -32,12 +32,12 @@ let Reports = {};
 
 let regdateCache = {};
 
-Exiled.img = function (link, height, width) {
+Server.img = function (link, height, width) {
 	if (!link) return '<font color="maroon">ERROR : You must supply a link.</font>';
 	return '<img src="' + link + '"' + (height ? ' height="' + height + '"' : '') + (width ? ' width="' + width + '"' : '') + '/>';
 };
 
-Exiled.font = function (text, color, bold) {
+Server.font = function (text, color, bold) {
 	if (!text) return '<font color="maroon">ERROR : Please provide some text.</font>';
 	return '<font color="' + (color ? color : 'black') + '">' + (bold ? '<b>' : '') + text + (bold ? '</b>' : '') + '</font>';
 };
@@ -143,7 +143,7 @@ function clearRoom(room) {
 	}, 1000);
 }
 
-Exiled.regdate = function (target, callback) {
+Server.regdate = function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);
 	let options = {
@@ -194,14 +194,14 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			if (!room.chatRoomData.user) return this.sendReplyBox("The User of the Week has not been set.");
 			return this.sendReplyBox(
-				"The current <strong>User of the Week</strong>  is: " + Exiled.nameColor(room.chatRoomData.user, true)
+				"The current <strong>User of the Week</strong>  is: " + Server.nameColor(room.chatRoomData.user, true)
 			);
 		}
 		if (!this.can('lock', null, room)) return false;
 		if (target === 'off' || target === 'disable' || target === 'reset') {
 			if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
 			delete room.chatRoomData.user;
-			this.sendReply("The User of the Week was reset by " + Exiled.nameColor(user.name, true) + ".");
+			this.sendReply("The User of the Week was reset by " + Server.nameColor(user.name, true) + ".");
 			this.logModCommand(user.name + " reset the User of the Week.");
 			Rooms.global.writeChatRoomData();
 			return;
@@ -209,7 +209,7 @@ exports.commands = {
 		room.chatRoomData.user = Chat.escapeHTML(target);
 		Rooms.global.writeChatRoomData();
 		room.addRaw(
-			"<div class=\"broadcast-green\"><strong>The User of the Week is: " + Exiled.nameColor(room.chatRoomData.user, true) + ".</strong></div>"
+			"<div class=\"broadcast-green\"><strong>The User of the Week is: " + Server.nameColor(room.chatRoomData.user, true) + ".</strong></div>"
 		);
 		this.logModCommand(Chat.escapeHTML(user.name) + " updated the User of the Week to \"" + room.chatRoomData.user + "\".");
 	},
@@ -280,7 +280,7 @@ exports.commands = {
 	checkbonus: 'dailybonus',
 	dailybonus: function (target, room, user) {
 		let nextBonus = Date.now() - Db('DailyBonus').get(user.userid, [1, Date.now()])[1];
-		if ((86400000 - nextBonus) <= 0) return Exiled.giveDailyReward(user.userid, user);
+		if ((86400000 - nextBonus) <= 0) return Server.giveDailyReward(user.userid, user);
 		return this.sendReply('Your next bonus is ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db('DailyBonus').get(user.userid, [1, Date.now()])[0]) + ' ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural) + ' in ' + Chat.toDurationString(Math.abs(86400000 - nextBonus)));
 	},
 	sota: function (room, user) {
@@ -406,7 +406,7 @@ exports.commands = {
 		room.founder = userid;
 		this.addModCommand(`${name} was appointed Room Founder by ${user.name}.`);
 		if (targetUser) {
-			targetUser.popup(`|html|You were appointed Room Founder by ${Exiled.nameColor(user.name, true)} in ${room.title}.`);
+			targetUser.popup(`|html|You were appointed Room Founder by ${Server.nameColor(user.name, true)} in ${room.title}.`);
 			room.onUpdateIdentity(targetUser);
 		}
 		Rooms.global.writeChatRoomData();
@@ -451,7 +451,7 @@ exports.commands = {
 		room.auth[userid] = '#';
 		this.addModCommand(`${name} was appointed Room Owner by ${user.name}.`);
 		if (targetUser) {
-			targetUser.popup(`|html|You were appointed Room Owner by ${Exiled.nameColor(user.name, true)} in ${room.title}.`);
+			targetUser.popup(`|html|You were appointed Room Owner by ${Server.nameColor(user.name, true)} in ${room.title}.`);
 			room.onUpdateIdentity(targetUser);
 		}
 		Rooms.global.writeChatRoomData();
@@ -619,8 +619,8 @@ exports.commands = {
 	requesthelp: function (target, room, user) {
 		if (user.can('lock')) return this.parse('/reports ' + (target || ''));
 		if (!this.canTalk()) return this.errorReply("You can't use this command while unable to speak.");
-		if (!target) return this.sendReply("/requesthelp [message] - Requests help from Exiled global authorities. Please be specific in your situation.");
-		if (target.length < 1) return this.sendReply("/requesthelp [message] - Requests help from Exiled global authorities. Please be specific in your situation.");
+		if (!target) return this.sendReply("/requesthelp [message] - Requests help from " + Config.serverName + "global authorities. Please be specific in your situation.");
+		if (target.length < 1) return this.sendReply("/requesthelp [message] - Requests help from " + Config.serverName + "global authorities. Please be specific in your situation.");
 
 		let reportId = (Object.keys(Reports).length + 1);
 		let d = new Date();
@@ -638,7 +638,7 @@ exports.commands = {
 		saveReports();
 		Monitor.log('A new report has been submitted by ' + user.name + '. ID: ' + reportId + ' Message: ' + target.trim());
 		Rooms('staff').update();
-		return this.sendReply("Your report has been sent to Exiled global authorities..");
+		return this.sendReply("Your report has been sent to Server global authorities..");
 	},
 
 	reports: function (target, room, user, connection, cmd) {
@@ -727,8 +727,8 @@ exports.commands = {
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (isDev(devUsername)) return this.errorReply(devUsername + " is already a DEV user.");
 			Db('devs').set(devUsername, 1);
-			this.sendReply('|html|' + Exiled.nameColor(devUsername, true) + " has been given DEV status.");
-			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Exiled.nameColor(user.name, true) + ".");
+			this.sendReply('|html|' + Server.nameColor(devUsername, true) + " has been given DEV status.");
+			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
 		take: function (target, room, user) {
 			if (!this.can('declare')) return false;
@@ -737,15 +737,15 @@ exports.commands = {
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (!isDev(devUsername)) return this.errorReply(devUsername + " isn't a DEV user.");
 			Db('devs').delete(devUsername);
-			this.sendReply("|html|" + Exiled.nameColor(devUsername, true) + " has been demoted from DEV status.");
-			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been demoted from DEV status by " + Exiled.nameColor(user.name, true) + ".");
+			this.sendReply("|html|" + Server.nameColor(devUsername, true) + " has been demoted from DEV status.");
+			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been demoted from DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
 		users: 'list',
 		list: function (target, room, user) {
 			if (!Db('devs').keys().length) return this.errorReply('There seems to be no user with DEV status.');
 			let display = [];
 			Db('devs').keys().forEach(devUser => {
-				display.push(Exiled.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
+				display.push(Server.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
 			});
 			this.popupReply('|html|<b><u><font size="3"><center>DEV Users:</center></font></u></b>' + display.join(','));
 		},
@@ -802,7 +802,7 @@ exports.commands = {
 			targetUser.send("|nametaken||Your name conflicts with " + user.name + (user.name.substr(-1) === "s" ? "'" : "'s") + " new away status.");
 		}
 
-		if (user.can('mute', null, room)) this.add("|raw|-- " + Exiled.nameColor(user.name, true) + " is now " + target.toLowerCase() + ".");
+		if (user.can('mute', null, room)) this.add("|raw|-- " + Server.nameColor(user.name, true) + " is now " + target.toLowerCase() + ".");
 		if (user.can('lock')) this.parse('/hide');
 		user.forceRename(newName, user.registered);
 		user.updateIdentity();
@@ -818,7 +818,7 @@ exports.commands = {
 		let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
 		if (statusIdx < 0) {
 			user.isAway = false;
-			if (user.can('mute', null, room)) this.add("|raw|-- " + Exiled.nameColor(user.userid, true) + " is no longer away.");
+			if (user.can('mute', null, room)) this.add("|raw|-- " + Server.nameColor(user.userid, true) + " is no longer away.");
 			return false;
 		}
 
@@ -827,7 +827,7 @@ exports.commands = {
 		user.forceRename(newName, user.registered);
 		user.updateIdentity();
 		user.isAway = false;
-		if (user.can('mute', null, room)) this.add("|raw|-- " + Exiled.nameColor(user.userid, true) + " is no longer " + status.toLowerCase() + ".");
+		if (user.can('mute', null, room)) this.add("|raw|-- " + Server.nameColor(user.userid, true) + " is no longer " + status.toLowerCase() + ".");
 		if (user.can('lock')) this.parse('/show');
 	},
 	backhelp: ["/back - Sets a users away status back to normal."],
@@ -851,9 +851,9 @@ exports.commands = {
 		let popup = "|html|" + "<font size=5 color=#000080><u><b>ESSB Credits</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Programmers:</u></b><br />" +
-			"- " + Exiled.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
-			"- " + Exiled.nameColor('Lycanium Z', true) + " (Assistant Developer)<br />" +
-			"- " + Exiled.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
+			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
+			"- " + Server.nameColor('Lycanium Z', true) + " (Assistant Developer)<br />" +
+			"- " + Server.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";
 		user.popup(popup);
@@ -1014,13 +1014,13 @@ exports.commands = {
 				targetUser.send(">" + room.id + "\n(You were demoted to Room " + groupName + " by " + user.name + ".)");
 			}
 			this.privateModCommand(`(${name} was demoted to Room ${groupName} by ${user.name}.)`);
-			if (needsPopup) targetUser.popup(`|html|You were demoted to Room ${groupName} by ${Exiled.nameColor(user.name, true)} in ${room.title}.`);
+			if (needsPopup) targetUser.popup(`|html|You were demoted to Room ${groupName} by ${Server.nameColor(user.name, true)} in ${room.title}.`);
 		} else if (nextGroup === '#') {
 			this.addModCommand(`${'' + name} was promoted to ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`|html|You were promoted to ${groupName} by ${Exiled.nameColor(user.name, true)} in ${room.title}.`);
+			if (needsPopup) targetUser.popup(`|html|You were promoted to ${groupName} by ${Server.nameColor(user.name, true)} in ${room.title}.`);
 		} else {
 			this.addModCommand(`${'' + name} was promoted to Room ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`|html|You were promoted to Room ${groupName} by ${Exiled.nameColor(user.name, true)} in ${room.title}.`);
+			if (needsPopup) targetUser.popup(`|html|You were promoted to Room ${groupName} by ${Server.nameColor(user.name, true)} in ${room.title}.`);
 		}
 
 		if (targetUser) targetUser.updateIdentity(room.id);
@@ -1048,7 +1048,7 @@ exports.commands = {
 			return this.sendReply("Usernames can not be less than one character or longer than 19 characters. (Current length: " + target.length + ".)");
 		}
 		if (!this.runBroadcast()) return;
-		Exiled.regdate(target, date => {
+		Server.regdate(target, date => {
 			if (date) {
 				this.sendReplyBox(regdateReply(date));
 			}
@@ -1056,14 +1056,14 @@ exports.commands = {
 
 		function regdateReply(date) {
 			if (date === 0) {
-				return Exiled.nameColor(target, true) + " <b><font color='red'>is not registered.</font></b>";
+				return Server.nameColor(target, true) + " <b><font color='red'>is not registered.</font></b>";
 			} else {
 				let d = new Date(date);
 				let MonthNames = ["January", "February", "March", "April", "May", "June",
 					"July", "August", "September", "October", "November", "December",
 				];
 				let DayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-				return Exiled.nameColor(target, true) + " was registered on <b>" + DayNames[d.getUTCDay()] + ", " + MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + ", " + d.getUTCFullYear() + "</b> at <b>" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC.</b>";
+				return Server.nameColor(target, true) + " was registered on <b>" + DayNames[d.getUTCDay()] + ", " + MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + ", " + d.getUTCFullYear() + "</b> at <b>" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC.</b>";
 			}
 			//room.update();
 		}
@@ -1075,11 +1075,11 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help seen');
 		let targetUser = Users.get(target);
-		if (targetUser && targetUser.connected) return this.sendReplyBox(Exiled.nameColor(targetUser.name, true) + " is <b><font color='limegreen'>Currently Online</b></font>.");
+		if (targetUser && targetUser.connected) return this.sendReplyBox(Server.nameColor(targetUser.name, true) + " is <b><font color='limegreen'>Currently Online</b></font>.");
 		target = Chat.escapeHTML(target);
 		let seen = Db('seen').get(toId(target));
-		if (!seen) return this.sendReplyBox(Exiled.nameColor(target, true) + " has <b><font color='red'>never been online</font></b> on this server.");
-		this.sendReplyBox(Exiled.nameColor(target, true) + " was last seen <b>" + Chat.toDurationString(Date.now() - seen, {precision: true}) + "</b> ago.");
+		if (!seen) return this.sendReplyBox(Server.nameColor(target, true) + " has <b><font color='red'>never been online</font></b> on this server.");
+		this.sendReplyBox(Server.nameColor(target, true) + " was last seen <b>" + Chat.toDurationString(Date.now() - seen, {precision: true}) + "</b> ago.");
 	},
 	seenhelp: ["/seen - Shows when the user last connected on the server."],
 

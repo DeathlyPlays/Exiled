@@ -16,9 +16,9 @@ class Console {
 		this.prevScreen = [null, null, null];
 		this.screenCSS = css || 'background-color: #000; font-size: 12px';
 		let defaultInfo = '<div style="display: inline-block; color: white; font-family: monospace;">#####################<br/>## PS Game Console ##<br/>#####################<br/><br/>This is the default screen. You probably meant to launch a game.<br/>General Options:<br/><br/>';
-		for (let game in Exiled.gameList) {
-			if (!Exiled.gameList[game].startCommand) continue;
-			defaultInfo += '<button name="send" value="/console forcestart ' + game + '" style="border: none; background: none; color: #FFF; font-family: monospace;"><u>' + (Exiled.gameList[game].name ? Exiled.gameList[game].name : game) + '</u></button>';
+		for (let game in Server.gameList) {
+			if (!Server.gameList[game].startCommand) continue;
+			defaultInfo += '<button name="send" value="/console forcestart ' + game + '" style="border: none; background: none; color: #FFF; font-family: monospace;"><u>' + (Server.gameList[game].name ? Server.gameList[game].name : game) + '</u></button>';
 		}
 		defaultInfo += '<br/><button name="send" value="/console kill" style="border: none; background: none; color: #FFF; font-family: monospace;"><u>Shutdown</u></button></div>';
 		this.defaultHTML = html || defaultInfo;
@@ -94,11 +94,11 @@ exports.commands = {
 			if (room.battle) return this.errorReply('The game console is not designed to be used in battle rooms.');
 			if (user.console && cmd !== 'forcestart') return;
 			if (cmd === 'forcestart') this.parse('/console kill');
-			if (!target || Object.keys(Exiled.gameList).indexOf(toId(target)) === -1) {
+			if (!target || Object.keys(Server.gameList).indexOf(toId(target)) === -1) {
 				user.console = new Console(user, room);
 				return user.console.init();
 			}
-			return this.parse(Exiled.gameList[toId(target)].startCommand);
+			return this.parse(Server.gameList[toId(target)].startCommand);
 		},
 		kill: function (target, room, user) {
 			if (!user.console) return;

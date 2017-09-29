@@ -75,8 +75,8 @@ exports.commands = {
 			if (vipUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (isVIP(vipUsername)) return this.errorReply(vipUsername + " is already a VIP user.");
 			Db("vips").set(vipUsername, 1);
-			this.sendReply("|html|" + Exiled.nameColor(vipUsername, true) + " has been given VIP status.");
-			if (Users.get(vipUsername)) Users(vipUsername).popup("|html|You have been given VIP status by " + Exiled.nameColor(user.name, true) + ".");
+			this.sendReply("|html|" + Server.nameColor(vipUsername, true) + " has been given VIP status.");
+			if (Users.get(vipUsername)) Users(vipUsername).popup("|html|You have been given VIP status by " + Server.nameColor(user.name, true) + ".");
 		},
 		take: function (target, room, user) {
 			if (!this.can('forcerename')) return false;
@@ -85,15 +85,15 @@ exports.commands = {
 			if (vipUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (!isVIP(vipUsername)) return this.errorReply(vipUsername + " isn't a VIP user.");
 			Db("vips").delete(vipUsername);
-			this.sendReply("|html|" + Exiled.nameColor(vipUsername, true) + " has been demoted from VIP status.");
-			if (Users.get(vipUsername)) Users(vipUsername).popup("|html|You have been demoted from VIP status by " + Exiled.nameColor(user.name, true) + ".");
+			this.sendReply("|html|" + Server.nameColor(vipUsername, true) + " has been demoted from VIP status.");
+			if (Users.get(vipUsername)) Users(vipUsername).popup("|html|You have been demoted from VIP status by " + Server.nameColor(user.name, true) + ".");
 		},
 		users: 'list',
 		list: function (target, room, user) {
 			if (!Db("vips").keys().length) return this.errorReply('There seems to be no user with VIP status.');
 			let display = [];
 			Db("vips").keys().forEach(vipUser => {
-				display.push(Exiled.nameColor(vipUser, (Users(vipUser) && Users(vipUser).connected)));
+				display.push(Server.nameColor(vipUser, (Users(vipUser) && Users(vipUser).connected)));
 			});
 			this.popupReply('|html|<b><u><font size="3"><center>VIP Users:</center></font></u></b>' + display.join(','));
 		},
@@ -130,7 +130,7 @@ exports.commands = {
 			Db("titles").set(userid, [title, color]);
 			if (Users.get(targetUser)) {
 				Users(targetUser).popup(
-					'|html|You have recieved a custom title from ' + Exiled.nameColor(user.name, true) + '.' +
+					'|html|You have recieved a custom title from ' + Server.nameColor(user.name, true) + '.' +
 					'<br />Title: ' + showTitle(toId(targetUser)) +
 					'<br />Title Hex Color: ' + color
 				);
@@ -152,7 +152,7 @@ exports.commands = {
 			Db("titles").delete(userid);
 			if (Users.get(userid)) {
 				Users(userid).popup(
-					'|html|' + Exiled.nameColor(user.name, true) + " has removed your custom title."
+					'|html|' + Server.nameColor(user.name, true) + " has removed your custom title."
 				);
 			}
 			this.logModCommand(user.name + " removed " + userid + "'s custom title.");
@@ -238,7 +238,7 @@ exports.commands = {
 		let userSymbol = (Users.usergroups[userid] ? Users.usergroups[userid].substr(0, 1) : "Regular User");
 		let userGroup = (Config.groups[userSymbol] ? 'Global ' + Config.groups[userSymbol].name : "Regular User");
 		let regdate = '(Unregistered)';
-		Exiled.regdate(userid, date => {
+		Server.regdate(userid, date => {
 			if (date) {
 				let d = new Date(date);
 				let MonthNames = ["January", "February", "March", "April", "May", "June",
@@ -267,7 +267,7 @@ exports.commands = {
 				let profile = '';
 				profile += showBadges(toId(username));
 				profile += '<img src="' + avatar + '" height="80" width="80" align="left">';
-				profile += '&nbsp;<font color="#24678d"><b>Name:</b></font> ' + Exiled.nameColor(username, true) + '&nbsp;' + getFlag(toId(username)) + ' ' + showTitle(username) + '<br />';
+				profile += '&nbsp;<font color="#24678d"><b>Name:</b></font> ' + Server.nameColor(username, true) + '&nbsp;' + getFlag(toId(username)) + ' ' + showTitle(username) + '<br />';
 				profile += '&nbsp;<font color="#24678d"><b>Group:</b></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
 				profile += '&nbsp;<font color="#24678d"><b>Registered:</b></font> ' + regdate + '<br />';
 				profile += '&nbsp;<font color="#24678d"><b>' + global.moneyPlural + ':</b></font> ' + money + '<br />';

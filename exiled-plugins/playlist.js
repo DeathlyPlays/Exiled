@@ -28,7 +28,7 @@ function save() {
 
 function playlistGenerator(user) {
 	let playlistData = data[user];
-	if (!data[user] || data[user].length < 1) return Exiled.font('This user does not have any playlist data.', 'maroon', true);
+	if (!data[user] || data[user].length < 1) return Server.font('This user does not have any playlist data.', 'maroon', true);
 	let display = '<div style="' + blackcss + '">';
 	for (let i = 0; i < playlistData.length; i++) {
 		display += '<button name="send" value="/playlist play, ' + playlistData[i][0] + ', ' + user + '">' + playlistData[i][1] + '</button>';

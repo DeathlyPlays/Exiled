@@ -21,7 +21,7 @@ class Poll {
 		this.timeout = null;
 		this.timeoutMins = 0;
 		this.startTime = Date.now();
-		this.startedUser = Exiled.nameColor(questionData.username, true, true);
+		this.startedUser = Server.nameColor(questionData.username, true, true);
 
 		this.options = new Map();
 		for (let i = 0; i < options.length; i++) {
@@ -427,14 +427,6 @@ exports.commands = {
 		"/poll end - Ends a poll and displays the results. Requires: % @ * # & ~",
 	],
 
-	exiledtierspoll: 'exiledpoll',
-	epoll: 'exiledpoll',
-	exiledtierpoll: 'exiledpoll',
-	exiledpoll: function (target, room, user) {
-		if (room.battle) return false;
-		if (!this.can('broadcast', null, room)) return false;
-		this.parse('/poll new Tier for the next tournament?, Exiled SSB, Ash\'s Pokemon, OP Metagame, Clash of the Regions, SMASHING METAGAME, Metronome Battles, Holiday Metagame, CAP SSB, Pokemon Mystery Dungeon, Supercell Games, Digimon Showdown, Fakemons Randoms, Fakemons');
-	},
 	pr: 'pollremind',
 	pollremind: function (target, room, user) {
 		if (!room.poll) return this.errorReply("There is no poll running in this room.");

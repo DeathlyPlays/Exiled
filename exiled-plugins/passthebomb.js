@@ -69,7 +69,7 @@ class PassTheBomb {
 	}
 	getMsg() {
 		let msg = 'bomb' + this.room.bombCount + this.round + '|<div class = "infobox"><center><strong>Round ' + this.round + '</strong><br>' +
-			'Players: ' + this.getSurvivors().map(player => Exiled.nameColor(player[1].name)).join(', ') +
+			'Players: ' + this.getSurvivors().map(player => Server.nameColor(player[1].name)).join(', ') +
 			'<br><small>Use /pb or /passbomb [player] to pass the bomb to another player!</small>';
 		return msg;
 	}
@@ -90,7 +90,7 @@ class PassTheBomb {
 		this.release = setTimeout(() => {
 			this.setBomb();
 			let player = this.players.get(this.holder).name;
-			this.room.add('|uhtmlchange|' + this.getMsg() + '<br><strong style = "font-size: 10pt;">The bomb has been passed to </strong>' + Exiled.nameColor(this.holder, true) + '">' + Exiled.nameColor(player, true) + '</div>').update();
+			this.room.add('|uhtmlchange|' + this.getMsg() + '<br><strong style = "font-size: 10pt;">The bomb has been passed to </strong>' + Server.nameColor(this.holder, true) + '">' + Server.nameColor(player, true) + '</div>').update();
 			this.canPass = true;
 			this.resetTimer();
 		}, (Math.floor(Math.random() * 12) + 3) * 1000);
@@ -123,14 +123,14 @@ class PassTheBomb {
 
 		this.madeMove = true;
 		this.setBomb(targetId);
-		this.room.add('|html|' + Exiled.nameColor(user.name) + ' passed the bomb to ' + Exiled.nameColor(targetId, true) + this.players.get(targetId).name + '</strong>!');
+		this.room.add('|html|' + Server.nameColor(user.name) + ' passed the bomb to ' + Server.nameColor(targetId, true) + this.players.get(targetId).name + '</strong>!');
 
 		if (this.checkWinner()) this.getWinner();
 	}
 	resetTimer() {
 		this.timer = setTimeout(() => {
 			let player = this.players.get(this.holder).name;
-			this.room.add('|html|The bomb exploded and killed <span style = "' + Exiled.nameColor(this.holder, true) + '">' + player + '</span>').update();
+			this.room.add('|html|The bomb exploded and killed <span style = "' + Server.nameColor(this.holder, true) + '">' + player + '</span>').update();
 			this.players.get(this.holder).status = 'dead';
 			this.canPass = false;
 			setTimeout(() => {
@@ -153,7 +153,7 @@ class PassTheBomb {
 	removeUser(userid, left) {
 		if (!this.players.has(userid)) return;
 
-		this.room.add('|html|' + Exiled.nameColor(this.players.get(userid).name, true) + ' has ' + (left ? 'left' : 'been disqualified from') + ' the game.');
+		this.room.add('|html|' + Server.nameColor(this.players.get(userid).name, true) + ' has ' + (left ? 'left' : 'been disqualified from') + ' the game.');
 		this.players.delete(userid);
 		this.madeMove = true;
 		if (this.checkWinner()) {
@@ -163,7 +163,7 @@ class PassTheBomb {
 		} else if (this.holder === userid) {
 			this.setBomb();
 			let player = this.players.get(this.holder).name;
-			this.room.add('|html|The bomb has been passed to ' + Exiled.nameColor(player, true) + '!').update();
+			this.room.add('|html|The bomb has been passed to ' + Server.nameColor(player, true) + '!').update();
 		}
 	}
 	checkWinner() {
@@ -171,13 +171,13 @@ class PassTheBomb {
 	}
 	getWinner() {
 		let winner = this.getSurvivors()[0][1].name;
-		let msg = '|html|<div class = "infobox"><center>The winner of this game of Pass the Bomb is ' + Exiled.nameColor(winner, true) + Chat.escapeHTML(winner, true) + '! Congratulations!</center>';
+		let msg = '|html|<div class = "infobox"><center>The winner of this game of Pass the Bomb is ' + Server.nameColor(winner, true) + Chat.escapeHTML(winner, true) + '! Congratulations!</center>';
 		this.room.add(msg).update();
 		this.end();
 	}
 	end(user) {
 		if (user) {
-			let msg = '<div class = "infobox"><center>This game of Pass the Bomb has been forcibly ended by ' + Exiled.nameColor(user.name, true) + '.</center></div>';
+			let msg = '<div class = "infobox"><center>This game of Pass the Bomb has been forcibly ended by ' + Server.nameColor(user.name, true) + '.</center></div>';
 			if (!this.madeMove) {
 				this.room.add('|uhtmlchange|bomb' + this.room.bombCount + this.round + '|' + msg).update();
 			} else {

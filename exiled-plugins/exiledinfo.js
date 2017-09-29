@@ -294,22 +294,22 @@ exports.commands = {
 
 	servercredits: 'credits',
 	credits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Exiled Credits:</b></u></font><br />" +
+		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Server Credits:</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Server Maintainers:</u></b><br />" +
-			"- " + Exiled.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
-			"- " + Exiled.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
+			"- " + Server.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
+			"- " + Server.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
 			"<br />" +
 			"<u><b>Major Contributors:</b></u><br />" +
-			"- " + Exiled.nameColor('AlfaStorm', true) + " (Developer)<br />" +
-			"- " + Exiled.nameColor('Back At My Day', true) + " (Developer)<br />" +
-			"- " + Exiled.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
-			"- " + Exiled.nameColor('Lycanium Z', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('Back At My Day', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
+			"- " + Server.nameColor('Lycanium Z', true) + " (Developer)<br />" +
 			"<br />" +
 			"<u><b>Retired Staff:</b></u><br />" +
-			"- " + Exiled.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
-			"- " + Exiled.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
-			"- " + Exiled.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
+			"- " + Server.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
+			"- " + Server.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
+			"- " + Server.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
 			"<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members<br />" +

@@ -44,7 +44,7 @@ exports.commands = {
 			if (ranks.includes(rank)) {
 				let name = Users.usergroups[u].substr(1);
 				if (!rankLists[rank]) rankLists[rank] = [];
-				if (name) rankLists[rank].push(Exiled.nameColor(name, (Users(name) && Users(name).connected)));
+				if (name) rankLists[rank].push(Server.nameColor(name, (Users(name) && Users(name).connected)));
 			}
 		}
 

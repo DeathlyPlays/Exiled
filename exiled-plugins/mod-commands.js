@@ -222,7 +222,7 @@ exports.commands = {
 		if (!target) return this.parse('/help declaremod');
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (!this.can('receiveauthmessages', null, room)) return false;
-		return this.privateModCommand('|raw|<div class="broadcast-red"><b><font size=1><i>Private Auth (Driver +) declare from ' + Exiled.nameColor(user.name) + '<br /></i></font size>' + target + '</b></div>');
+		return this.privateModCommand('|raw|<div class="broadcast-red"><b><font size=1><i>Private Auth (Driver +) declare from ' + Server.nameColor(user.name) + '<br /></i></font size>' + target + '</b></div>');
 	},
 	declaremodhelp: ["/declaremod [note] - Adds a staff readable declare. Requires: % @ # & ~"],
 
@@ -278,7 +278,7 @@ exports.commands = {
 		if (!this.can('pmall')) return false;
 		if (!target) return this.parse('/help pmall');
 
-		let pmName = '~Exiled Server';
+		let pmName = '~' + Config.serverName + ' Server';
 
 		Users.users.forEach(function (user) {
 			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
@@ -293,7 +293,7 @@ exports.commands = {
 		if (!this.can('forcewin')) return false;
 		if (!target) return this.parse('/help pmallstaff');
 
-		let pmName = '~Exiled Server';
+		let pmName = '~' + Config.serverName + ' Server';
 
 		Users.users.forEach(function (user) {
 			if (!user.isStaff) return;
@@ -311,7 +311,7 @@ exports.commands = {
 		if (!target) return this.sendReply("/rmall [message] - Sends a pm to all users in the room.");
 		target = target.replace(/<(?:.|\n)*?>/gm, '');
 
-		let pmName = '~Exiled Server';
+		let pmName = '~' + Config.serverName + ' Server';
 
 		for (let i in room.users) {
 			let message = '|pm|' + pmName + '|' + room.users[i].getIdentity() + '| ' + target;

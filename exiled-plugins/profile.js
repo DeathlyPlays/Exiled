@@ -29,6 +29,14 @@ function showTitle(userid) {
 	return '';
 }
 
+function isDev(user) {
+	if (!user) return;
+	if (typeof user === 'object') user = user.userid;
+	let dev = Db('devs').get(toId(user));
+	if (dev === 1) return true;
+	return false;
+}
+
 function devCheck(user) {
 	if (isDev(user)) return '<font color="#009320">(<b>Developer</b>)</font>';
 	return '';

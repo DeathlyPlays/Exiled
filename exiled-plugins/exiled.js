@@ -1133,4 +1133,11 @@ exports.commands = {
 		}
 		this.sendReplyBox("<table><tr><td><img src=\"" + spriteLocation + "\" height=\"96\" width=\"96\"></td><td><b>Name: </b>" + pokeData.species + "<br/><b>Type(s): </b>" + getTypeFormatting(pokeData.types) + "<br/><b>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </b>" + Object.values(pokeData.abilities).join(" / ") + "<br/><b>Stats: </b>" + Object.values(pokeData.baseStats).join(" / ") + "<br/><b>Colour: </b><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/><b>Egg Group(s): </b>" + pokeData.eggGroups.join(", ") + "</td></tr></table>");
 	},
+	'!digidex': true,
+	dd: 'digidex',
+	digidex: function (target, room, user) {
+		if (!target) return this.parse("/help digidex");
+		this.parse("/dt " + target + ", digimon");
+	},
+	digidexhelp: ["/digidex [Digimon] - Checks for a Digimon's data from Digimon Showdown."],
 };

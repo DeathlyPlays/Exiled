@@ -286,11 +286,6 @@ class GlobalRoom {
 				isPrivate: true,
 				staffRoom: true,
 				staffAutojoin: true,
-				godAutojoin: true,
-			}, {
-				title: 'Upper Staff',
-				isPrivate: true,
-				staffAutojoin: "&, ~",
 			}, {
 				title: 'Development',
 				isPrivate: true,

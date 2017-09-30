@@ -6,9 +6,26 @@
 
 'use strict';
 
+const FS = require('../fs');
+
 Punishments.roomPunishmentTypes.set('GIVEAWAYBAN', 'banned from giveaways');
 
 const BAN_DURATION = 7 * 24 * 60 * 60 * 1000;
+const RECENT_THRESHOLD = 30 * 24 * 60 * 1000;
+
+const STATS_FILE = 'config/chat-plugins/wifi.json';
+
+let stats = {};
+try {
+	stats = require(`../${STATS_FILE}`);
+} catch (e) {
+	if (e.code !== 'MODULE_NOT_FOUND') throw e;
+}
+if (!stats || typeof stats !== 'object') stats = {};
+
+function saveStats() {
+	FS(STATS_FILE).write(JSON.stringify(stats));
+}
 
 function toPokemonId(str) {
 	return str.toLowerCase().replace(/é/g, 'e').replace(/[^a-z0-9 /]/g, '');
@@ -33,7 +50,7 @@ class Giveaway {
 
 		this.joined = {};
 
-		this.sprite = Giveaway.getSprite(prize);
+		[this.monIds, this.sprite] = Giveaway.getSprite(prize);
 	}
 
 	send(content) {
@@ -92,6 +109,7 @@ class Giveaway {
 		text = toPokemonId(text);
 		let mons = new Map();
 		let output = '';
+		let monIds = new Set();
 		for (let i in Dex.data.Pokedex) {
 			let id = i;
 			if (!Dex.data.Pokedex[i].baseSpecies && (Dex.data.Pokedex[i].species.includes(' '))) {
@@ -137,6 +155,7 @@ class Giveaway {
 						}
 					}
 				}
+				monIds.add(spriteid);
 				if (mons.size > 1) {
 					output += `<psicon pokemon="${spriteid}" />`;
 				} else {
@@ -145,13 +164,23 @@ class Giveaway {
 				}
 			});
 		}
-		return output;
+		return [monIds, output];
+	}
+
+	static updateStats(monIds) {
+		for (let mon of monIds) {
+			if (!stats[mon]) stats[mon] = [];
+
+			stats[mon].push(Date.now());
+		}
+
+		saveStats();
 	}
 
 	generateWindow(rightSide) {
 		return `<p style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:2px;">It's giveaway time!</p>` +
-			`<p style="text-align:center;font-size:7pt;">Giveaway started by ${Dew.nameColor(this.host.name, true, true)}</p>` +
-			`<table style="margin-left:auto;margin-right:auto;"><tr><td style="text-align:center;width:45%">${this.sprite}<p style="font-weight:bold;">Giver: ${Dew.nameColor(this.giver)}</p>${Chat.parseText(this.prize)}<br />OT: ${Chat.escapeHTML(this.ot)}, TID: ${this.tid}</td>` +
+			`<p style="text-align:center;font-size:7pt;">Giveaway started by ${Server.nameColor(this.host.name, true, true)}</p>` +
+			`<table style="margin-left:auto;margin-right:auto;"><tr><td style="text-align:center;width:45%">${this.sprite}<p style="font-weight:bold;">Giver: ${Server.nameColor(this.giver)}</p>${Chat.parseText(this.prize)}<br />OT: ${Chat.escapeHTML(this.ot)}, TID: ${this.tid}</td>` +
 			`<td style="text-align:center;width:45%">${rightSide}</td></tr></table><p style="text-align:center;font-size:7pt;font-weight:bold;"><u>Note:</u> Please do not join if you don't have a 3DS, a copy of Pokémon Sun/Moon, or are currently unable to receive the prize.</p>`;
 	}
 }
@@ -235,12 +264,13 @@ class QuestionGiveaway extends Giveaway {
 				this.changeUhtml('<p style="text-align:center;font-size:13pt;font-weight:bold;">The giveaway has ended! Scroll down to see the answer.</p>');
 				this.phase = 'ended';
 				this.clearTimer();
-				this.room.modlog(`${Dew.nameColor(this.winner.name)} won ${Dew.nameColor(this.giver.name, true, true)}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
-				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Dew.nameColor(this.winner.name, true, true)} won the giveaway! Congratulations!</p>` +
+				this.room.modlog(`${Server.nameColor(this.winner.name)} won ${Server.nameColor(this.giver.name, true, true)}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
+				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Server.nameColor(this.winner.name, true, true)} won the giveaway! Congratulations!</p>` +
 				`<p style="text-align:center;">${this.question}<br />Correct answer${Chat.plural(this.answers)}: ${this.answers.join(', ')}</p>`));
-				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM ${Dew.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
-				if (this.winner.connected) this.winner.popup(`You have won the giveaway. PM ${(this.giver.name)} (FC: ${this.fc}) to claim your prize!`);
-				if (this.giver.connected) this.giver.popup(`${(this.winner.name)} has won your question giveaway!`);
+				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM ${Server.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
+				if (this.winner.connected) this.winner.popup(`You have won the giveaway. PM **${Chat.escapeHTML(this.giver.name)}** (FC: ${this.fc}) to claim your prize!`);
+				if (this.giver.connected) this.giver.popup(`${Chat.escapeHTML(this.winner.name)} has won your question giveaway!`);
+				Giveaway.updateStats(this.monIds);
 			}
 		}
 
@@ -349,10 +379,11 @@ class LotteryGiveaway extends Giveaway {
 			this.room.modlog(`${winnerNames} won ${this.giver.name}'s giveaway for "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
 			this.send(this.generateWindow(`<p style="text-align:center;font-size:10pt;font-weight:bold;">Lottery Draw</p><p style="text-align:center;">${Object.keys(this.joined).length} users joined the giveaway.<br />Our lucky winner${Chat.plural(this.winners)}: <b>${Chat.escapeHTML(winnerNames)}!</b> Congratulations!</p>`));
 			for (let i = 0; i < this.winners.length; i++) {
-				this.winners[i].sendTo(this.room, `|raw|You have won the lottery giveaway! PM <b>${Dew.nameColor(this.giver.name)}</b> (FC: ${this.fc}) to claim your prize!`);
-				if (this.winners[i].connected) this.winners[i].popup(`You have won the lottery giveaway! PM ` + Dew.nameColor(this.giver.name, true, true) + `(FC: ${this.fc}) to claim your prize!`);
+				this.winners[i].sendTo(this.room, `|raw|You have won the lottery giveaway! PM <b>${Server.nameColor(this.giver.name)}</b> (FC: ${this.fc}) to claim your prize!`);
+				if (this.winners[i].connected) this.winners[i].popup(`You have won the lottery giveaway! PM ` + Server.nameColor(this.giver.name, true, true) + `(FC: ${this.fc}) to claim your prize!`);
 			}
-			if (this.giver.connected) this.giver.popup(`The following users have won your lottery giveaway:\n ` + Dew.nameColor(winnerNames, true, true));
+			if (this.giver.connected) this.giver.popup(`The following users have won your lottery giveaway:\n${Chat.escapeHTML(winnerNames)}`);
+			Giveaway.updateStats(this.monIds);
 		}
 		delete this.room.giveaway;
 	}
@@ -372,7 +403,7 @@ class GtsGiveaway {
 		this.deposit = GtsGiveaway.linkify(Chat.escapeHTML(deposit));
 		this.lookfor = lookfor;
 
-		this.sprite = Giveaway.getSprite(this.summary);
+		[this.monIds, this.sprite] = Giveaway.getSprite(this.summary);
 		this.sent = [];
 		this.noDeposits = false;
 
@@ -401,7 +432,7 @@ class GtsGiveaway {
 		let sentModifier = this.sent.length ? 5 : 0;
 		let rightSide = this.noDeposits ? `<strong>More Pokémon have been deposited than there are prizes in this giveaway and new deposits will not be accepted. If you have already deposited a Pokémon, please be patient, and do not withdraw your Pokémon.</strong>` : `To participate, deposit <strong>${this.deposit}</strong> into the GTS and look for <strong>${Chat.escapeHTML(this.lookfor)}</strong>`;
 		return `<p style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:2px;">There is a GTS giveaway going on!</p>` +
-			`<p style="text-align:center;font-size:10pt;margin-top:0px;">Hosted by: ${Dew.nameColor(this.giver.name, true, true)} | Left: <b>${this.left}</b></p>` +
+			`<p style="text-align:center;font-size:10pt;margin-top:0px;">Hosted by: ${Server.nameColor(this.giver.name, true, true)} | Left: <b>${this.left}</b></p>` +
 			`<table style="margin-left:auto;margin-right:auto;"><tr>` +
 			(sentModifier ? `<td style="text-align:center;width:10%"><b>Last winners:</b><br/>${this.sent.join('<br/>')}</td>` : '') +
 			`<td style="text-align:center;width:15%">${this.sprite}</td><td style="text-align:center;width:${40 - sentModifier}%">${Chat.parseText(this.summary)}</td>` +
@@ -442,6 +473,7 @@ class GtsGiveaway {
 			this.changeUhtml(`<p style="text-align:center;font-size:13pt;font-weight:bold;">The GTS giveaway has finished.</p>`);
 			this.room.modlog(`${this.giver.name} has finished their GTS giveaway for "${this.summary}"`);
 			this.send(`<p style="text-align:center;font-size:11pt">The GTS giveaway for a "<strong>${Chat.escapeHTML(this.lookfor)}</strong>" has finished.</p>`);
+			Giveaway.updateStats(this.monIds);
 		}
 		delete this.room.gtsga;
 	}
@@ -698,6 +730,19 @@ let commands = {
 		} else {
 			room.giveaway.display();
 		}
+	},
+	count: function (target, room, user) {
+		if (room.id !== 'wifi') return this.errorReply("This command can only be used in the Wi-Fi room.");
+		target = Array.from(Giveaway.getSprite(target)[0])[0];
+		if (!target) return this.errorReply("No mon entered - /giveaway count pokemon.");
+		if (!this.runBroadcast()) return;
+
+		let count = stats[target];
+
+		if (!count) return this.sendReplyBox("This Pokémon has never been given away.");
+		let recent = count.filter(val => val + RECENT_THRESHOLD > Date.now()).length;
+
+		this.sendReplyBox(`This Pokémon has been given away ${count.length} time${Chat.plural(count)}, a total of ${recent} time${Chat.plural(recent)} in the past month.`);
 	},
 	'': 'help',
 	help: function (target, room, user) {

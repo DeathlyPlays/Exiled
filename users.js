@@ -703,8 +703,8 @@ class User {
 		Db('rooms').get(userid, []).forEach(curRoom => {
 			if (!this.inRooms.has(curRoom)) this.tryJoinRoom(curRoom, connection);
 		});
-		Dew.showNews(userid, this);
-		Dew.giveDailyReward(userid, this);
+		Server.showNews(userid, this);
+		Server.giveDailyReward(userid, this);
 
 		return false;
 	}

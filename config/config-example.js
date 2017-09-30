@@ -3,6 +3,9 @@
 // The server port - the port to run Pokemon Showdown under
 exports.port = 8000;
 
+// The server name (this will speed up the process of renaming some features)
+exports.serverName = "Server";
+
 // The server address - the address at which Pokemon Showdown should be hosting
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
 exports.bindaddress = '0.0.0.0';

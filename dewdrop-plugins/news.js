@@ -17,7 +17,7 @@ function generateNews(user) {
 	user = toId(user);
 	Db('news').keys().forEach(announcement => {
 		newsData = Db('news').get(announcement);
-		newsDisplay.push(`<h4>${announcement}</h4>${newsData[1]}<br /><br />—${Dew.nameColor(newsData[0], true)} <small>on ${newsData[2]}</small>`);
+		newsDisplay.push(`<h4>${announcement}</h4>${newsData[1]}<br /><br />—${Server.nameColor(newsData[0], true)} <small>on ${newsData[2]}</small>`);
 	});
 	return newsDisplay;
 }
@@ -34,7 +34,7 @@ function showSubButton(user) {
 	output = "<hr><center><button class = \"button\" name=\"send\" value=\"/news " + (hasSubscribed(user) ? "unsubscribe" : "subscribe") + "\">" + (hasSubscribed(user) ? "Unsubscribe from the news" : "Subscribe to the news") + "</button></center>";
 	return output;
 }
-Dew.showNews = function (userid, user) {
+Server.showNews = function (userid, user) {
 	if (!user || !userid) return false;
 	userid = toId(userid);
 	let newsDisplay = generateNews(user);
@@ -119,8 +119,8 @@ exports.commands = {
 		request: function (target, room, user) {
 			if (!user.named) return this.errorReply('You must have a name before requesting an announcement.');
 			if (!this.canTalk()) return this.errorReply("You can't use this command while unable to speak.");
-			if (!target) return this.sendReply("/news request [message] - Requests a news announcement from Dewdrop Staff.");
-			if (target.length < 1) return this.sendReply("/news request [message] - Requests a news announcement from Dewdrop Staff.");
+			if (!target) return this.sendReply("/news request [message] - Requests a news announcement from the Server Staff.");
+			if (target.length < 1) return this.sendReply("/news request [message] - Requests a news announcement from the Server Staff.");
 			let newsId = (Object.keys(newsRequests).length + 1);
 			let d = new Date();
 			let MonthNames = ["January", "February", "March", "April", "May", "June",
@@ -135,10 +135,9 @@ exports.commands = {
 			newsRequests[newsId].status = 'Pending';
 			newsRequests[newsId].reportTime = MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + "th, " + d.getUTCFullYear() + ", " + (d.getUTCHours() < 10 ? "0" + d.getUTCHours() : d.getUTCHours()) + ":" + (d.getUTCMinutes() < 10 ? "0" + d.getUTCMinutes() : d.getUTCMinutes()) + " UTC";
 			saveNewsRequests();
-			Rooms('staff').add('A news request has been submitted by ' + user.name + '. ID: ' + newsId + ' Request Message: ' + target.trim());
-			Rooms('staff').update();
-			Dew.messageSeniorStaff('A news requested has been submitted by ' + user.name + '. ID: ' + newsId + ' Request Message: ' + target.trim());
-			return this.sendReply("Your request has been sent to Dewdrop global authorities..");
+			Monitor.log('A news request has been submitted by ' + user.name + '. ID: ' + newsId + ' Request Message: ' + target.trim());
+			Server.messageSeniorStaff('A news requested has been submitted by ' + user.name + '. ID: ' + newsId + ' Request Message: ' + target.trim());
+			return this.sendReply("Your request has been sent to the Server global authorities..");
 		},
 	},
 	serverannouncementshelp: ["/news view - Views current Server news.",

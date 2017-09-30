@@ -45,17 +45,14 @@ let shop = [
 	['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
 	['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 5],
 	['Custom Title', 'Buys a title to be added on your /profile (can be refused).', 10],
-	['Profile Team', 'Allows you to choose which Pokemon you want to be displayed on your /profile. PM Insist, after purchasing it to have it set. (can be denied)', 20],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 25],
 	['Custom Color', 'Changes the color of your name (can be denied)', 25],
 	['POTD', 'Allows you to change the Pokemon of the Day that shows up guaranteed in Random Battles (can be refused, or held off if one is already active)', 25],
 	['Room', 'Buys a chatroom for you to own. (within reason, can be refused).', 30],
-	['Trainer Card', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 40],
 	['Custom Emoticon', 'You provide an image (50x50) to be added as an emote on the server. (Can be refused)', 40],
-	['Profile Help', 'Staff members will help you set your profile. (responses may not be immediate)', 50],
 	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 50],
-	['Custom PM Box', 'A Custom Designed PM Box Created by LassNinetales for you. [can be refused]', 75],
-	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Dewdrop Super Staff Bros metagame. Insist will code it, so PM a pastebin/hastebin of what you want the staffmon to have. (can be refused/edited)', 500],
+	['Custom PM Box', 'A Custom Designed PM Box. [can be refused]', 75],
+	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Super Staff Bros metagame. (can be refused/edited)', 100],
 ];
 
 let shopDisplay = getShopDisplay(shop);
@@ -172,16 +169,12 @@ function handleBoughtItem(item, user, cost) {
 		this.sendReply("If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.");
 	} else if (item === 'icon') {
 		this.sendReply('You purchased an icon, contact an administrator to obtain the article.');
-	} else if (item === 'profileteam') {
-		Db('hasteam').set(user);
-		this.sendReply('You can now set your team!');
 	} else {
 		let msg = '**' + user.name + " has bought " + item + ".**";
-		Rooms.rooms.get("staff").add('|c|~Dewdrop Server|' + msg);
-		Rooms.rooms.get("staff").update();
+		Monitor.log('|c|~' + Config.serverName + ' Server|' + msg);
 		Users.users.forEach(function (user) {
 			if (user.group === '~' || user.group === '&' || user.group === '@') {
-				user.send('|pm|~Dewdrop Server|' + user.getIdentity() + '|' + msg);
+				user.send('|pm|~' + Config.serverName + ' Server|' + user.getIdentity() + '|' + msg);
 			}
 		});
 	}
@@ -210,16 +203,16 @@ function rankLadder(title, type, array, prop, group) {
 	for (let i = 0; i < array.length; i++) {
 		if (i === 0) {
 			midColumn = '</td><td ' + first + '>';
-			tableRows += '<tr><td ' + first + '>' + (i + 1) + midColumn + Dew.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			tableRows += '<tr><td ' + first + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
 		} else if (i === 1) {
 			midColumn = '</td><td ' + second + '>';
-			tableRows += '<tr><td ' + second + '>' + (i + 1) + midColumn + Dew.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			tableRows += '<tr><td ' + second + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
 		} else if (i === 2) {
 			midColumn = '</td><td ' + third + '>';
-			tableRows += '<tr><td ' + third + '>' + (i + 1) + midColumn + Dew.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			tableRows += '<tr><td ' + third + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
 		} else {
 			midColumn = '</td><td ' + tdStyle + '>';
-			tableRows += '<tr><td ' + tdStyle + '>' + (i + 1) + midColumn + Dew.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			tableRows += '<tr><td ' + tdStyle + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
 		}
 	}
 	return ladderTitle + tableTop + tableRows + tableBottom;
@@ -236,7 +229,7 @@ exports.commands = {
 		if (userid.length > 19) return this.sendReply("/wallet - [user] can't be longer than 19 characters.");
 
 		Economy.readMoney(userid, money => {
-			this.sendReplyBox(Dew.nameColor(target, true) + " has " + money + ((money === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
+			this.sendReplyBox(Server.nameColor(target, true) + " has " + money + ((money === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
 			//if (this.broadcasting) room.update();
 		});
 	},

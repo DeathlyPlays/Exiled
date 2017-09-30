@@ -287,7 +287,7 @@ class CommandContext {
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
 				let noEmotes = message;
-				let emoticons = Dew.parseEmoticons(message);
+				let emoticons = Server.parseEmoticons(message);
 				if (emoticons) {
 					noEmotes = message;
 					message = "/html " + emoticons;
@@ -302,19 +302,19 @@ class CommandContext {
 				this.pmTarget.lastPM = this.user.userid;
 				this.user.lastPM = this.pmTarget.userid;
 			} else {
-				let emoticons = Dew.parseEmoticons(message);
+				let emoticons = Server.parseEmoticons(message);
 				if (emoticons && !this.room.disableEmoticons) {
 					if (Users.ShadowBan.checkBanned(this.user)) {
 						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
-						if (!Dew.ignoreEmotes[this.user.userid]) this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|/html ' + emoticons);
-						if (Dew.ignoreEmotes[this.user.userid]) this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
+						if (!Server.ignoreEmotes[this.user.userid]) this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|/html ' + emoticons);
+						if (Server.ignoreEmotes[this.user.userid]) this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 						this.room.update();
 						return false;
 					}
 					for (let u in this.room.users) {
 						let curUser = Users(u);
 						if (!curUser || !curUser.connected) continue;
-						if (Dew.ignoreEmotes[curUser.userid]) {
+						if (Server.ignoreEmotes[curUser.userid]) {
 							curUser.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 							continue;
 						}
@@ -336,7 +336,7 @@ class CommandContext {
 			}
 		}
 
-		if (this.user.registered && giveExp) Dew.addExp(this.user.userid, this.room, 1);
+		if (this.user.registered && giveExp) Server.addExp(this.user.userid, this.room, 1);
 		this.update();
 
 		return message;
@@ -1066,12 +1066,12 @@ Chat.loadPlugins = function () {
 		Object.assign(commands, require('./game-cards/' + file).commands);
 	}
 	// Load games for Console
-	Dew.gameList = {};
+	Server.gameList = {};
 	for (let file of FS('game-cards').readdirSync()) {
 		if (file.substr(-3) !== '.js') continue;
 		let obj = require('./game-cards/' + file).box;
 		if (obj && obj.name) obj.id = toId(obj.name);
-		Dew.gameList[obj.id] = obj;
+		Server.gameList[obj.id] = obj;
 	}
 };
 

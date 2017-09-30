@@ -69,7 +69,7 @@ function cacheRarity() {
 	}
 }
 
-Dew.tourCard = function (tourSize, userid) {
+Server.tourCard = function (tourSize, userid) {
 	if (tourSize > 32) tourSize = 32;
 	let tourRarity = tourCardRarity[Math.floor(tourSize / 4)];
 	let cacheValue = rareCache[cleanCard.indexOf(toId(tourRarity))];
@@ -160,16 +160,16 @@ function rankLadder(title, type, array, prop, group) {
 	for (let i = 0; i < array.length; i++) {
 		if (i === 0) {
 			midColumn = '</td><td ' + first + '>';
-			tableRows += '<tr><td ' + first + '>' + (i + 1) + midColumn + Dew.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			tableRows += '<tr><td ' + first + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
 		} else if (i === 1) {
 			midColumn = '</td><td ' + second + '>';
-			tableRows += '<tr><td ' + second + '>' + (i + 1) + midColumn + Dew.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			tableRows += '<tr><td ' + second + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
 		} else if (i === 2) {
 			midColumn = '</td><td ' + third + '>';
-			tableRows += '<tr><td ' + third + '>' + (i + 1) + midColumn + Dew.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			tableRows += '<tr><td ' + third + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
 		} else {
 			midColumn = '</td><td ' + tdStyle + '>';
-			tableRows += '<tr><td ' + tdStyle + '>' + (i + 1) + midColumn + Dew.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			tableRows += '<tr><td ' + tdStyle + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
 		}
 	}
 	return ladderTitle + tableTop + tableRows + tableBottom;
@@ -240,7 +240,7 @@ exports.commands = {
 			addCard(user.userid, card);
 			let cardName = cards[card].name;
 			let packName = packShop[cleanShop.indexOf(toId(target))];
-			this.sendReplyBox(Dew.nameColor(user.name, true) + ' got <font color="' + colors[cards[card].rarity] + '">' + cards[card].rarity + '</font> ' +
+			this.sendReplyBox(Server.nameColor(user.name, true) + ' got <font color="' + colors[cards[card].rarity] + '">' + cards[card].rarity + '</font> ' +
 			'<button name="send" value="/card ' + card + '"><b>' + cardName + '</b></button> from a ' +
 			'<button name="send" value="/buypack ' + packName + '">' + packName + ' Pack</button>.');
 		}
@@ -292,11 +292,11 @@ exports.commands = {
 		let userid = user.userid;
 		if (target) userid = toId(target);
 		const cards = Db('cards').get(userid, []);
-		if (!cards.length || userid === "constructor") return this.sendReplyBox(Dew.nameColor(userid, false) + " has no cards.");
+		if (!cards.length || userid === "constructor") return this.sendReplyBox(Server.nameColor(userid, false) + " has no cards.");
 		const cardsMapping = cards.map(function (card) {
 			return '<button name="send" value="/card ' + card.title + '" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;" class="card-button"><img src="' + card.card + '" width="80" title="' + card.name + '"></button>';
 		});
-		this.sendReplyBox('<div style="max-height: 300px; overflow-y: scroll;">' + cardsMapping.join('') + '</div><br><center><b>' + Dew.nameColor(userid, false) + ' has ' + cards.length + ' cards and ' + getPointTotal(userid) + ' points.</b></center>');
+		this.sendReplyBox('<div style="max-height: 300px; overflow-y: scroll;">' + cardsMapping.join('') + '</div><br><center><b>' + Server.nameColor(userid, false) + ' has ' + cards.length + ' cards and ' + getPointTotal(userid) + ' points.</b></center>');
 	},
 
 	card: function (target, room, user) {
@@ -563,8 +563,8 @@ exports.commands = {
 
 		// send messages
 		this.sendReply("Your trade has been taken submitted.");
-		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~Dewdrop Server|" + Dew.nameColor(targetUser) + "|/raw <div class=\"broadcast-green\">" + Dew.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
-		user.send("|pm|~Dewdrop Server|" + Dew.nameColor(user.userid) + "|/raw <div class=\"broadcast-green\">Your trade with " + Dew.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
+		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~" + Config.serverName + " Server|" + Server.nameColor(targetUser) + "|/raw <div class=\"broadcast-green\">" + Server.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
+		user.send("|pm|~" + Config.serverName + " Server|" + Server.nameColor(user.userid) + "|/raw <div class=\"broadcast-green\">Your trade with " + Server.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
 	},
 
 	trades: 'viewcardtrades',
@@ -612,7 +612,7 @@ exports.commands = {
 		let cardImage = '<img src="' + card.card + '" height=250>';
 		// rarity display
 		let cardRarityPoints = '(<font color="' + colors[card.rarity] + '">' + card.rarity + '</font> - ' + card.points + ')<br />';
-		let userSideDisplay = '<center>' + Dew.nameColor(user.userid, true) + '<br />' + cardImage + "<br />" + cardRarityPoints + '</center>';
+		let userSideDisplay = '<center>' + Server.nameColor(user.userid, true) + '<br />' + cardImage + "<br />" + cardRarityPoints + '</center>';
 
 		// now build the target's side
 		card = cards[(displayTrade.from !== user.userid ? displayTrade.fromExchange : displayTrade.toExchange)];
@@ -620,7 +620,7 @@ exports.commands = {
 		cardImage = '<img src="' + card.card + '" height=250>';
 		// rarity display
 		cardRarityPoints = '(<font color="' + colors[card.rarity] + '">' + card.rarity + '</font> - ' + card.points + ')<br />';
-		let targetSideDisplay = "<center>" + (displayTrade.from !== user.userid ? Dew.nameColor(displayTrade.from, true) : Dew.nameColor(displayTrade.to, true)) + '<br />' + cardImage + "<br />" + cardRarityPoints + "</center>";
+		let targetSideDisplay = "<center>" + (displayTrade.from !== user.userid ? Server.nameColor(displayTrade.from, true) : Server.nameColor(displayTrade.to, true)) + '<br />' + cardImage + "<br />" + cardRarityPoints + "</center>";
 
 		// now build the entire popup
 		let tradeScreen = popup + // base popup
@@ -755,11 +755,11 @@ exports.commands = {
 			// and a button to view the card they just received
 			let targetUsers = [Users.get(trade.to), Users.get(trade.from)];
 			if (targetUsers[0]) {
-				targetUsers[0].popup("|html|" + backButton + "<center>Your trade with " + Dew.nameColor(trade.from, true) + " has gone through." +
+				targetUsers[0].popup("|html|" + backButton + "<center>Your trade with " + Server.nameColor(trade.from, true) + " has gone through." +
 				"<br /><button name=\"send\" value=\"/cs card, " + trade.fromExchange + "\">View Traded Card</button></center>"); // show card
 			}
 			if (targetUsers[1]) {
-				targetUsers[1].popup("|html|<center>Your trade with " + Dew.nameColor(trade.to, true) + " has gone through." +
+				targetUsers[1].popup("|html|<center>Your trade with " + Server.nameColor(trade.to, true) + " has gone through." +
 				"<br /><button name=\"send\" value=\"/cs card, " + trade.toExchange + "\">View Traded Card</button></center>");
 			}
 
@@ -908,7 +908,7 @@ exports.commands = {
 		//Give the card to the user.
 		card = cards[card];
 		addCard(targetUser, card.title);
-		user.popup("You have successfully given " + card.name + " to " + Dew.nameColor(targetUser) + ".");
+		user.popup("You have successfully given " + card.name + " to " + Server.nameColor(targetUser) + ".");
 		this.logModCommand(user.name + "gave the card '" + card.name + "' to " + targetUser + ".");
 	},
 
@@ -924,13 +924,13 @@ exports.commands = {
 		//Take the card from the user.
 		card = cards[card];
 		removeCard(card.title, targetUser);
-		user.popup("You have successfully taken " + card.name + " from " + Dew.nameColor(targetUser) + ".");
+		user.popup("You have successfully taken " + card.name + " from " + Server.nameColor(targetUser) + ".");
 		this.logModCommand(user.name + " took the card '" + card.name + "' from " + targetUser + ".");
 	},
 	resetcards: function (target, room, user) {
 		if (!this.can('forcewin')) return false;
 		Db('cards').set(toId(target), 0);
-		this.sendReply(Dew.nameColor(target) + " has had their cards reset.");
+		this.sendReply(Server.nameColor(target) + " has had their cards reset.");
 	},
 	resetcardshelp: ["/resetcards [user] - Reset user's card collection."],
 };

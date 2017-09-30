@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 const ROUND_DURATION = 8 * 1000; //8 seconds nice
@@ -51,7 +52,7 @@ class Ambush {
 		if (!this.round) {
 			this.updateJoins();
 		} else {
-			this.room.add('|html|' + Dew.nameColor(user.name, true) + ' has left the game!');
+			this.room.add('|html|' + Server.nameColor(user.name, true) + ' has left the game!');
 		}
 	}
 	getSurvivors() {
@@ -99,12 +100,12 @@ class Ambush {
 		this.players.get(user).rounds--;
 		this.madeMove = true;
 		if (targetUser === user) {
-			this.room.add('|html|' + Dew.nameColor(user.name, true) + ' shot themself!');
+			this.room.add('|html|' + Server.nameColor(user.name, true) + ' shot themself!');
 		} else if (!this.players.get(targetUser).rounds) {
-			this.room.add('|html|' + Dew.nameColor(user.name, true) + ' fired at ' + Dew.nameColor(targetUser.name, true) + ', but ' + Dew.nameColor(targetUser.name, true) + ' has an active shield!');
+			this.room.add('|html|' + Server.nameColor(user.name, true) + ' fired at ' + Server.nameColor(targetUser.name, true) + ', but ' + Server.nameColor(targetUser.name, true) + ' has an active shield!');
 			return;
 		} else {
-			this.room.add('|html|' + Dew.nameColor(user.name, true) + ' fired at ' + Dew.nameColor(targetUser.name, true) + '!');
+			this.room.add('|html|' + Server.nameColor(user.name, true) + ' fired at ' + Server.nameColor(targetUser.name, true) + '!');
 		}
 		this.players.get(targetUser).status = 'dead';
 
@@ -131,7 +132,7 @@ class Ambush {
 		if (getUser.status === 'dead') return self.sendReply(targetUser.name + ' has already been killed!');
 
 		this.players.delete(targetUser);
-		this.room.add('|html|' + Dew.nameColor(targetUser.name, true) + ' has been disqualified from the game.');
+		this.room.add('|html|' + Server.nameColor(targetUser.name, true) + ' has been disqualified from the game.');
 		if (this.checkWinner()) this.getWinner();
 	}
 	checkWinner() {
@@ -140,9 +141,10 @@ class Ambush {
 	getWinner() {
 		let winner = this.getSurvivors()[0][0].name;
 		let msg = '|html|<div class = "infobox"><center>The winner of this game of ambush is ' + Dew.nameColor(winner, true) + '! Congratulations!</center>';
+		let msg = '|html|<div class = "infobox"><center>The winner of this game of ambush is ' + Server.nameColor(winner, true) + '! Congratulations!</center>';
 		if (this.room.id === 'marketplace') {
 			msg += '<center>' + Chat.escapeHTML(winner) + ' has also won <b>5</b> EXP for winning!</center>';
-			Dew.addExp(winner, 5, () => this.room.add(msg).update());
+			Server.addExp(winner, 5, () => this.room.add(msg).update());
 		} else {
 			this.room.add(msg).update();
 		}
@@ -240,3 +242,4 @@ exports.commands = {
 		'/ambush rules - Displays the rules of the game.',
 	],
 };
+*/

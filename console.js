@@ -94,11 +94,11 @@ exports.commands = {
 			if (room.battle) return this.errorReply('The game console is not designed to be used in battle rooms.');
 			if (user.console && cmd !== 'forcestart') return;
 			if (cmd === 'forcestart') this.parse('/console kill');
-			if (!target || Object.keys(Dew.gameList).indexOf(toId(target)) === -1) {
+			if (!target || Object.keys(Server.gameList).indexOf(toId(target)) === -1) {
 				user.console = new Console(user, room);
 				return user.console.init();
 			}
-			return this.parse(Dew.gameList[toId(target)].startCommand);
+			return this.parse(Server.gameList[toId(target)].startCommand);
 		},
 		kill: function (target, room, user) {
 			if (!user.console) return;

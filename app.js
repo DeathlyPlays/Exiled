@@ -91,7 +91,7 @@ if (Config.watchconfig) {
  * Set up most of our globals
  *********************************************************/
 
-global.Dew = {};
+global.Server = {};
 
 global.Dex = require('./sim/dex');
 global.toId = Dex.getId;

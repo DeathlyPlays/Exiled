@@ -282,6 +282,7 @@ exports.commands = {
 
 	servercredits: 'credits',
 	credits: function (target, room, user) {
+<<<<<<< HEAD:dewdrop-plugins/dewdropinfo.js
 		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Dewdrop Credits:</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Server Maintainers:</u></b><br />" +
@@ -298,6 +299,24 @@ exports.commands = {
 			"- " + Dew.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
 			"- " + Dew.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
 			"- " + Dew.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
+=======
+		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Server Credits:</b></u></font><br />" +
+			"<br />" +
+			"<u><b>Server Maintainers:</u></b><br />" +
+			"- " + Server.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
+			"- " + Server.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
+			"<br />" +
+			"<u><b>Major Contributors:</b></u><br />" +
+			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('Back At My Day', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
+			"- " + Server.nameColor('Lycanium Z', true) + " (Developer)<br />" +
+			"<br />" +
+			"<u><b>Retired Staff:</b></u><br />" +
+			"- " + Server.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
+			"- " + Server.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
+			"- " + Server.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
+>>>>>>> 0635b7d2acd9b282bd03da4c0f63a57c459380b9:exiled-plugins/exiledinfo.js
 			"<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members<br />" +

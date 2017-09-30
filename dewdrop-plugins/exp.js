@@ -14,9 +14,9 @@ function isExp(exp) {
 	if (numExp < 1) return "Cannot be less than one EXP.";
 	return numExp;
 }
-Dew.isExp = isExp;
+Server.isExp = isExp;
 
-let EXP = Dew.EXP = {
+let EXP = Server.EXP = {
 	readExp: function (userid, callback) {
 		userid = toId(userid);
 
@@ -53,10 +53,10 @@ function addExp(user, room, amount) {
 	} else {
 		user = Users(toId(user));
 		EXP.readExp(user.userid, totalExp => {
-			let oldLevel = Dew.level(user);
+			let oldLevel = Server.level(user);
 			EXP.writeExp(user.userid, amount);
 			if (!user || !room) return;
-			let level = Dew.level(user);
+			let level = Server.level(user);
 			if (oldLevel < level) {
 				//let reward;
 				if (oldLevel < 3 && 3 <= level) {
@@ -114,14 +114,14 @@ function addExp(user, room, amount) {
 					Db("money").set(user.userid, Db("money").get(user.userid, 0) + 5);
 					//user.sendTo(room, 'You have earned ' + reward + ' for level up!');
 				}
-				let newLevel = Dew.level(user);
+				let newLevel = Server.level(user);
 				user.sendTo(room, '|html|<center><font size=4><b><i>Level Up!</i></b></font><br />' +
 				'You have reached level ' + newLevel + '.' + /*' This will award you:<br /><b> ' + reward + */ '</b></center>');
 			}
 		});
 	}
 }
-Dew.addExp = addExp;
+Server.addExp = addExp;
 
 function level(user) {
 	let curExp = Db('exp').get(user, 0);
@@ -135,7 +135,7 @@ function level(user) {
 		}
 	}
 }
-Dew.level = level;
+Server.level = level;
 
 function nextLevel(user) {
 	let curExp = Db('exp').get(user, 0);
@@ -149,7 +149,7 @@ function nextLevel(user) {
 		}
 	}
 }
-Dew.nextLevel = nextLevel;
+Server.nextLevel = nextLevel;
 
 exports.commands = {
 	'!exp': true,
@@ -162,7 +162,7 @@ exports.commands = {
 		const targetId = toId(target);
 
 		EXP.readExp(targetId, exp => {
-			this.sendReplyBox('<b>' + Dew.nameColor(targetId, true) + '</b> has ' + exp + ' exp and is level ' + Dew.level(targetId) + ' and needs ' + Dew.nextLevel(targetId) + ' to reach the next level.');
+			this.sendReplyBox('<b>' + Server.nameColor(targetId, true) + '</b> has ' + exp + ' exp and is level ' + Server.level(targetId) + ' and needs ' + Server.nextLevel(targetId) + ' to reach the next level.');
 		});
 	},
 
@@ -182,7 +182,7 @@ exports.commands = {
 		if (!Users.get(username)) return this.errorReply("The target user could not be found");
 
 
-		Dew.addExp(uid, this.room, amount);
+		Server.addExp(uid, this.room, amount);
 		this.sendReply(uid + " has received " + amount + ((amount === 1) ? " exp." : " exp."));
 	},
 	giveexphelp: ["/giveexp [user], [amount] - Give a user a certain amount of exp."],
@@ -195,12 +195,12 @@ exports.commands = {
 		let targetUser = parts[0].toLowerCase().trim();
 		if (!this.can('roomowner')) return false;
 		if (cmd !== 'confirmresetexp') {
-			return this.popupReply('|html|<center><button name="send" value="/confirmresetexp ' + targetUser + '"style="background-color:red;height:300px;width:150px"><b><font color="white" size=3>Confirm XP reset of ' + Dew.nameColor(targetUser, true) + '; this is only to be used in emergencies, cannot be undone!</font></b></button>');
+			return this.popupReply('|html|<center><button name="send" value="/confirmresetexp ' + targetUser + '"style="background-color:red;height:300px;width:150px"><b><font color="white" size=3>Confirm XP reset of ' + Server.nameColor(targetUser, true) + '; this is only to be used in emergencies, cannot be undone!</font></b></button>');
 		}
 		Db('exp').set(toId(target), 0);
 		if (Users.get(target)) Users.get(target).popup('Your XP was reset by an Administrator. This cannot be undone and nobody below the rank of Administrator can assist you or answer questions about this.');
-		user.popup("|html|You have reset the XP of " + Dew.nameColor(targetUser, true) + ".");
-		Rooms('staff').add('|html|[EXP Monitor] ' + Dew.nameColor(user.name, true) + ' has reset the XP of ' + Dew.nameColor(target, true));
+		user.popup("|html|You have reset the XP of " + Server.nameColor(targetUser, true) + ".");
+		Rooms('staff').add('|html|[EXP Monitor] ' + Server.nameColor(user.name, true) + ' has reset the XP of ' + Server.nameColor(target, true));
 		room.update();
 	},
 

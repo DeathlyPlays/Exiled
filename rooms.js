@@ -286,11 +286,6 @@ class GlobalRoom {
 				isPrivate: true,
 				staffRoom: true,
 				staffAutojoin: true,
-				godAutojoin: true,
-			}, {
-				title: 'Upper Staff',
-				isPrivate: true,
-				staffAutojoin: "&, ~",
 			}, {
 				title: 'Development',
 				isPrivate: true,
@@ -653,7 +648,7 @@ class GlobalRoom {
 			user.joinRoom(roomName, connection);
 			if (roomName === 'lobby') includesLobby = true;
 		}
-		if (!includesLobby && Config.serverid !== 'dewdrop') user.send(`>lobby\n|deinit`);
+		if (!includesLobby && Config.serverid !== 'showdown') user.send(`>lobby\n|deinit`);
 	}
 	checkAutojoin(user, connection) {
 		if (!user.named) return;
@@ -788,7 +783,7 @@ class GlobalRoom {
 		if (time - this.lastReportedCrash < CRASH_REPORT_THROTTLE) {
 			const stackUS = (err ? Chat.escapeHTML(err.stack).split(`\n`).slice(0, 2).join(`.`) : ``);
 			const crashMessageUS = `**The server has crashed:** ${stackUS}`;
-			Dew.messageSeniorStaff(crashMessageUS, '~Dewdrop Server');
+			Server.messageSeniorStaff(crashMessageUS, '~' + Config.serverName + ' Server');
 			return;
 		}
 		this.lastReportedCrash = time;

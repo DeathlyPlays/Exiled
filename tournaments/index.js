@@ -956,14 +956,10 @@ class Tournament {
 			this.room.addRaw("<strong><font color='" + color + "'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='" + color + "'>" + firstMoney + " </font>" + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + " for winning the tournament!</strong>");
 
 			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
-				Dew.gangTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
-			}
-			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
-				Dew.leagueTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
-			}
-			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
-				let tourRarity = Dew.tourCard(tourSize, toId(winner));
+				let tourRarity = Server.tourCard(tourSize, toId(winner));
 				if (tourRarity) this.room.addRaw("<strong>" + Chat.escapeHTML(winner) + " has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
+				Server.gangTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
+				Server.leagueTourPoints(toId(winner), toId(runnerUp), tourSize, this.room);
 			}
 			if (runnerUp) {
 				Economy.writeMoney(rid, secondMoney, () => {
@@ -983,7 +979,7 @@ class Tournament {
 		for (let i in this.players) {
 			Users(this.players[i].userid).tourBoost = false;
 			Users(this.players[i].userid).gameBoost = false;
-			Dew.addExp(this.players[i].userid, this.room, 20);
+			Server.addExp(this.players[i].userid, this.room, 20);
 			this.players[i].destroy();
 		}
 	}
@@ -1321,13 +1317,13 @@ let commands = {
 					offlineUsers.push(targetUser.userid);
 					continue;
 				} else {
-					let pmName = '~Dewdrop Server';
+					let pmName = '~' + Config.serverName + ' Server';
 					let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + 'You have a tournament battle in the room "' + tournament.room.title + '". If you do not start soon you may be disqualified.';
 					targetUser.send(message);
 				}
 			}
 			if (tournament.isTournamentStarted) {
-				tournament.room.addRaw('<strong>Players have been reminded of their tournament battles by</strong> ' + Dew.nameColor(user.name, true) + '.');
+				tournament.room.addRaw('<strong>Players have been reminded of their tournament battles by</strong> ' + Server.nameColor(user.name, true) + '.');
 				if (offlineUsers.length > 0 && offlineUsers !== '') tournament.room.addRaw('<strong>The following users are currently offline: ' + offlineUsers + '.</strong>');
 			} else {
 				this.errorReply('The tournament hasen\'t started yet.');

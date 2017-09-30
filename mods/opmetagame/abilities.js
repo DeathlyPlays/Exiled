@@ -372,15 +372,13 @@ exports.BattleAbilities = {
 		id: "barrierchange",
 		name: "Barrier Change",
 		//wonder guard
-		onTryHit: function (target, source, move) {
+		onTryHit: function (target, source, move, pokemon) {
 			if (target === source || move.category === 'Status' || move.type === '???' || move.id === 'struggle') return;
 			this.debug('Barrier Change immunity: ' + move.id);
 			if (target.runEffectiveness(move) <= 0) {
 				this.add('-immune', target, '[msg]', '[from] ability: Barrier Change');
 				return null;
 			}
-		},
-		onTryHit: function (pokemon, target, move) {
 			if (move.ohko) {
 				this.add('-immune', pokemon, '[msg]', '[from] ability: Barrier Change');
 				return null;
@@ -405,7 +403,7 @@ exports.BattleAbilities = {
 			if (this.getWeather().id === 'desolateland' && !(weather.id in {
 					desolateland: 1,
 					primordialsea: 1,
-					deltastream: 1
+					deltastream: 1,
 				})) return false;
 		},
 		onEnd: function (pokemon) {
@@ -430,9 +428,6 @@ exports.BattleAbilities = {
 				}
 				return null;
 			}
-		},
-		//wonder guard
-		onTryHit: function (target, source, move) {
 			if (target === source || move.category === 'Status' || move.type === '???' || move.id === 'struggle') return;
 			this.debug('Wonder Guard immunity: ' + move.id);
 			if (target.runEffectiveness(move) <= 0) {
@@ -451,22 +446,31 @@ exports.BattleAbilities = {
 				this.debug('Too Stronk boost');
 				return this.chainModify([0x1333, 0x1000]);
 			}
-		},
-		//tough claws
-		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.flags['contact']) {
 				return this.chainModify([0x14CD, 0x1000]);
+			}
+			if (move.recoil || move.hasCustomRecoil) {
+				this.debug('Too Stronk boost');
+				return this.chainModify([0x1333, 0x1000]);
 			}
 		},
 		//huge power
 		onModifyAtkPriority: 5,
 		onModifyAtk: function (atk) {
+			if (pokemon.status) {
+				return this.chainModify(1.5);
+			}
 			return this.chainModify(2);
 		},
 		//adaptability
-		onModifyMove: function (move) {
+		onModifyMove: function (move, pokemon) {
 			move.stab = 2;
+			move.infiltrates = true;
+			if (move.secondaries) {
+				delete move.secondaries;
+				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
+				pokemon.addVolatile('sheerforce');
+			}
 		},
 		//unaware
 		onAnyModifyBoost: function (boosts, target) {
@@ -483,28 +487,12 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//mold breaker and air lock
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Air Lock');
-			this.add('-ability', pokemon, 'Mold Breaker');
-		},
 		stopattackevents: true,
 		suppressweather: true,
-		onModifyMove: function (move) {
-			move.infiltrates = true;
-		},
-		//sheer force
-		onModifyMove: function (move, pokemon) {
-			if (move.secondaries) {
-				delete move.secondaries;
-				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
-				pokemon.addVolatile('sheerforce');
-			}
-		},
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
-			onBasePower: function (basePower, pokemon, target, move) {
+			onBasePower: function () {
 				return this.chainModify([0x14CD, 0x1000]);
 			},
 		},
@@ -515,7 +503,7 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				});
 			}
 		},
@@ -524,20 +512,11 @@ exports.BattleAbilities = {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				}, source);
 			}
 		},
-		//reckless
-		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
-			if (move.recoil || move.hasCustomRecoil) {
-				this.debug('Too Stronk boost');
-				return this.chainModify([0x1333, 0x1000]);
-			}
-		},
-		//rock head
-		onDamage: function (damage, target, source, effect) {
+		onDamage: function (effect) {
 			if (effect.id === 'recoil' && this.activeMove.id !== 'struggle') return null;
 		},
 		//super luck
@@ -545,16 +524,9 @@ exports.BattleAbilities = {
 			return critRatio + 1;
 		},
 		//sniper
-		onModifyDamage: function (damage, source, target, move) {
+		onModifyDamage: function (move) {
 			if (move.crit) {
 				this.debug('Too Stronk boost');
-				return this.chainModify(1.5);
-			}
-		},
-		//guts
-		onModifyAtkPriority: 5,
-		onModifyAtk: function (atk, pokemon) {
-			if (pokemon.status) {
 				return this.chainModify(1.5);
 			}
 		},
@@ -584,6 +556,7 @@ exports.BattleAbilities = {
 			if (move && move.category === 'Status') {
 				return priority + 1;
 			}
+			if (move && move.type === 'Flying') return priority + 1;
 		},
 		//unaware
 		onAnyModifyBoost: function (boosts, target) {
@@ -605,6 +578,10 @@ exports.BattleAbilities = {
 			if (move.typeMod > 0) {
 				this.debug('OP BIRBS neutralize');
 				return this.chainModify(0.75);
+			}
+			if (target.hp >= target.maxhp) {
+				this.debug('OP BIRBS weaken');
+				return this.chainModify(0.5);
 			}
 		},
 		//magic bounce
@@ -636,13 +613,6 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('OP BIRBS weaken');
-				return this.chainModify(0.5);
-			}
-		},
 		//serene grace
 		onModifyMovePriority: -2,
 		onModifyMove: function (move) {
@@ -652,10 +622,23 @@ exports.BattleAbilities = {
 					move.secondaries[i].chance *= 2;
 				}
 			}
+			move.stab = 2;
 		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
 			pokemon.heal(pokemon.maxhp / 3);
+			if (!pokemon.status) return;
+
+			// if pokemon.showCure is undefined, it was skipped because its ability
+			// is known
+			if (pokemon.showCure === undefined) pokemon.showCure = true;
+
+			if (pokemon.showCure) this.add('-curestatus', pokemon, pokemon.status, '[from] ability: OP BIRBS');
+			pokemon.setStatus('');
+
+			// only reset .showCure if it's false
+			// (once you know a Pokemon has Natural Cure, its cures are always known)
+			if (!pokemon.showCure) delete pokemon.showCure;
 		},
 		//deltastream
 		onStart: function (source) {
@@ -665,7 +648,7 @@ exports.BattleAbilities = {
 			if (this.getWeather().id === 'deltastream' && !(weather.id in {
 					desolateland: 1,
 					primordialsea: 1,
-					deltastream: 1
+					deltastream: 1,
 				})) return false;
 		},
 		onEnd: function (pokemon) {
@@ -748,32 +731,6 @@ exports.BattleAbilities = {
 				}
 			}
 		},
-		onSwitchOut: function (pokemon) {
-			if (!pokemon.status) return;
-
-			// if pokemon.showCure is undefined, it was skipped because its ability
-			// is known
-			if (pokemon.showCure === undefined) pokemon.showCure = true;
-
-			if (pokemon.showCure) this.add('-curestatus', pokemon, pokemon.status, '[from] ability: OP BIRBS');
-			pokemon.setStatus('');
-
-			// only reset .showCure if it's false
-			// (once you know a Pokemon has Natural Cure, its cures are always known)
-			if (!pokemon.showCure) delete pokemon.showCure;
-		},
-		//adaptability
-		onModifyMove: function (move) {
-			move.stab = 2;
-		},
-		//galewings
-		onModifyPriority: function (priority, pokemon, target, move) {
-			if (move && move.type === 'Flying') return priority + 1;
-		},
-		//moldbreaker
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Mold Breaker');
-		},
 		stopattackevents: true,
 	},
 	"2hotforu": {
@@ -786,10 +743,6 @@ exports.BattleAbilities = {
 					source.trySetStatus('brn', target);
 				}
 			}
-		},
-		//rough skin and iron barbs
-		onAfterDamageOrder: 1,
-		onAfterDamage: function (damage, target, source, move) {
 			if (source && source !== target && move && move.flags['contact']) {
 				this.damage(source.maxhp / 4, source, target, null, true);
 			}
@@ -825,6 +778,10 @@ exports.BattleAbilities = {
 				this.debug('2 Hot For U neutralize');
 				return this.chainModify(0.75);
 			}
+			if (target.hp >= target.maxhp) {
+				this.debug('2 Hot For U weaken');
+				return this.chainModify(0.5);
+			}
 		},
 		//magic bounce
 		onTryHitPriority: 1,
@@ -855,13 +812,6 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('2 Hot For U weaken');
-				return this.chainModify(0.5);
-			}
-		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
 			pokemon.heal(pokemon.maxhp / 3);
@@ -873,7 +823,7 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					def: 1,
-					spd: 1
+					spd: 1,
 				});
 			}
 		},
@@ -895,7 +845,13 @@ exports.BattleAbilities = {
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
-					atk: 1
+					atk: 1,
+				}, source);
+			}
+			if (effect && effect.effectType === 'Move') {
+				this.boost({
+					atk: 1,
+					spe: 1,
 				}, source);
 			}
 		},
@@ -915,17 +871,8 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				});
-			}
-		},
-		//boosts attack and speed when it faints its target
-		onSourceFaint: function (target, source, effect) {
-			if (effect && effect.effectType === 'Move') {
-				this.boost({
-					atk: 1,
-					spe: 1
-				}, source);
 			}
 		},
 	},
@@ -970,6 +917,10 @@ exports.BattleAbilities = {
 				this.debug('Barrel Roll neutralize');
 				return this.chainModify(0.75);
 			}
+			if (target.hp >= target.maxhp) {
+				this.debug('Barrel Roll weaken');
+				return this.chainModify(0.5);
+			}
 		},
 		//magic bounce
 		onTryHitPriority: 1,
@@ -1000,13 +951,6 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('Barrel Roll weaken');
-				return this.chainModify(0.5);
-			}
-		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
 			pokemon.heal(pokemon.maxhp / 3);
@@ -1018,7 +962,7 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					def: 1,
-					spd: 1
+					spd: 1,
 				});
 			}
 		},
@@ -1115,6 +1059,10 @@ exports.BattleAbilities = {
 				this.debug('Durp neutralize');
 				return this.chainModify(0.75);
 			}
+			if (target.hp >= target.maxhp) {
+				this.debug('Durp weaken');
+				return this.chainModify(0.5);
+			}
 		},
 		//magic bounce
 		onTryHitPriority: 1,
@@ -1145,13 +1093,6 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('Durp weaken');
-				return this.chainModify(0.5);
-			}
-		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
 			pokemon.heal(pokemon.maxhp / 3);
@@ -1164,7 +1105,7 @@ exports.BattleAbilities = {
 				this.boost({
 					atk: 1,
 					def: 1,
-					spd: 1
+					spd: 1,
 				});
 			}
 		},
@@ -1186,10 +1127,6 @@ exports.BattleAbilities = {
 		//adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
-		},
-		//serene grace
-		onModifyMovePriority: -2,
-		onModifyMove: function (move) {
 			if (move.secondaries) {
 				this.debug('doubling secondary chance');
 				for (let i = 0; i < move.secondaries.length; i++) {
@@ -1212,7 +1149,7 @@ exports.BattleAbilities = {
 			if (this.getWeather().id === 'primordialsea' && !(weather.id in {
 					desolateland: 1,
 					primordialsea: 1,
-					deltastream: 1
+					deltastream: 1,
 				})) return false;
 		},
 		onEnd: function (pokemon) {
@@ -1240,11 +1177,30 @@ exports.BattleAbilities = {
 			if (effect.id === 'raindance' || effect.id === 'primordialsea') {
 				this.heal(target.maxhp / 16);
 			}
+			if (effect.id === 'raindance' || effect.id === 'primordialsea') {
+				this.heal(target.maxhp / 8);
+			} else if (effect.id === 'sunnyday' || effect.id === 'desolateland') {
+				this.damage(target.maxhp / 8, target, target);
+			}
 		},
 		//water absorb
 		onTryHit: function (target, source, move) {
 			if (target !== source && move.type === 'Water') {
 				if (!this.heal(target.maxhp / 4)) {
+					this.add('-immune', target, '[msg]', '[from] ability: Be Nonchalant');
+				}
+				return null;
+			}
+			if (target !== source && move.type === 'Water') {
+				if (!this.heal(target.maxhp / 4)) {
+					this.add('-immune', target, '[msg]', '[from] ability: Be Nonchalant');
+				}
+				return null;
+			}
+			if (target !== source && move.type === 'Water') {
+				if (!this.boost({
+						spa: 1,
+					})) {
 					this.add('-immune', target, '[msg]', '[from] ability: Be Nonchalant');
 				}
 				return null;
@@ -1273,15 +1229,6 @@ exports.BattleAbilities = {
 				pokemon.cureStatus();
 			}
 		},
-		//dry skin
-		onTryHit: function (target, source, move) {
-			if (target !== source && move.type === 'Water') {
-				if (!this.heal(target.maxhp / 4)) {
-					this.add('-immune', target, '[msg]', '[from] ability: Be Nonchalant');
-				}
-				return null;
-			}
-		},
 		onBasePowerPriority: 7,
 		onFoeBasePower: function (basePower, attacker, defender, move) {
 			if (this.effectData.target !== defender) return;
@@ -1289,29 +1236,11 @@ exports.BattleAbilities = {
 				return this.chainModify(1.25);
 			}
 		},
-		onWeather: function (target, source, effect) {
-			if (effect.id === 'raindance' || effect.id === 'primordialsea') {
-				this.heal(target.maxhp / 8);
-			} else if (effect.id === 'sunnyday' || effect.id === 'desolateland') {
-				this.damage(target.maxhp / 8, target, target);
-			}
-		},
-		//storm drain
-		onTryHit: function (target, source, move) {
-			if (target !== source && move.type === 'Water') {
-				if (!this.boost({
-						spa: 1
-					})) {
-					this.add('-immune', target, '[msg]', '[from] ability: Be Nonchalant');
-				}
-				return null;
-			}
-		},
-		onAnyRedirectTarget: function (target, source, source2, move) {
+		onAnyRedirectTarget: function (target, source, move) {
 			if (move.type !== 'Water' || move.id in {
 					firepledge: 1,
 					grasspledge: 1,
-					waterpledge: 1
+					waterpledge: 1,
 				}) return;
 			if (this.validTarget(this.effectData.target, source, move.target)) {
 				if (this.effectData.target !== target) {
@@ -1359,13 +1288,16 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					spa: 1,
-					spe: 1
+					spe: 1,
 				});
 			}
 		},
 		//special huge power
 		onModifySpAPriority: 5,
 		onModifySpA: function (spa) {
+			if (this.isWeather(['hail'])) {
+				return this.chainModify(1.5);
+			}
 			return this.chainModify(2);
 		},
 		//adaptability
@@ -1377,14 +1309,8 @@ exports.BattleAbilities = {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
 					spa: 1,
-					spe: 1
+					spe: 1,
 				}, source);
-			}
-		},
-		//snow solar power
-		onModifySpA: function (spa, pokemon) {
-			if (this.isWeather(['hail'])) {
-				return this.chainModify(1.5);
 			}
 		},
 		//cute charm
@@ -1408,8 +1334,6 @@ exports.BattleAbilities = {
 		//airlock and moldbreaker and uses substitute
 		onStart: function (pokemon) {
 			this.useMove('substitute', pokemon);
-			this.add('-ability', pokemon, 'Air Lock');
-			this.add('-ability', pokemon, 'Mold Breaker');
 		},
 		stopattackevents: true,
 		suppressweather: true,
@@ -1447,6 +1371,7 @@ exports.BattleAbilities = {
 		name: "Volcanic Embers",
 		onModifyMove: function (move) {
 			move.infiltrates = true;
+			move.stab = 2;
 		},
 		//unaware
 		onAnyModifyBoost: function (boosts, target) {
@@ -1499,7 +1424,7 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					spa: 1,
-					spe: 1
+					spe: 1,
 				});
 			}
 		},
@@ -1508,16 +1433,12 @@ exports.BattleAbilities = {
 		onModifySpA: function (spa) {
 			return this.chainModify(2);
 		},
-		//adaptability
-		onModifyMove: function (move) {
-			move.stab = 2;
-		},
 		//special and speed moxie
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
 					spa: 1,
-					spe: 1
+					spe: 1,
 				}, source);
 			}
 		},
@@ -1565,6 +1486,10 @@ exports.BattleAbilities = {
 				this.debug('Jet Fumes Can\'t Melt Steel Beams neutralize');
 				return this.chainModify(0.75);
 			}
+			if (target.hp >= target.maxhp) {
+				this.debug('Jet Fumes Can\'t Melt Steel Beams weaken');
+				return this.chainModify(0.5);
+			}
 		},
 		//magic bounce
 		onTryHitPriority: 1,
@@ -1595,13 +1520,6 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('Jet Fumes Can\'t Melt Steel Beams weaken');
-				return this.chainModify(0.5);
-			}
-		},
 		//immune to critical hits
 		onCriticalHit: false,
 		//boost attack, defense, and special defense every turn
@@ -1612,7 +1530,7 @@ exports.BattleAbilities = {
 				this.boost({
 					atk: 1,
 					def: 1,
-					spd: 1
+					spd: 1,
 				});
 			}
 		},
@@ -1626,21 +1544,21 @@ exports.BattleAbilities = {
 		onModifySpD: function (spd) {
 			return this.chainModify(2);
 		},
-	},
-	onAfterDamage: function (damage, target, source, move) {
-		if (move && move.flags['contact']) {
-			if (this.random(10) < 3) {
-				source.trySetStatus('brn', target);
+		onAfterDamage: function (damage, target, source, move) {
+			if (move && move.flags['contact']) {
+				if (this.random(10) < 3) {
+					source.trySetStatus('brn', target);
+				}
 			}
-		}
-	},
-	onTryHit: function (target, source, move) {
-		if (target !== source && move.type === 'Fire') {
-			if (!this.heal(target.maxhp / 4)) {
-				this.add('-immune', target, '[msg]', '[from] ability: Jet Fumes Can\'t Melt Steel Beams');
+		},
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Fire') {
+				if (!this.heal(target.maxhp / 4)) {
+					this.add('-immune', target, '[msg]', '[from] ability: Jet Fumes Can\'t Melt Steel Beams');
+				}
+				return null;
 			}
-			return null;
-		}
+		},
 	},
 	"jigglybuff": {
 		id: "jigglybuff",
@@ -1657,9 +1575,6 @@ exports.BattleAbilities = {
 		},
 		onModifyMove: function (move) {
 			move.infiltrates = true;
-		},
-		//adaptability
-		onModifyMove: function (move) {
 			move.stab = 2;
 		},
 		//special huge power
@@ -1682,11 +1597,6 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//airlock and moldbreaker
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Air Lock');
-			this.add('-ability', pokemon, 'Mold Breaker');
-		},
 		stopattackevents: true,
 		suppressweather: true,
 		//simple
@@ -1703,10 +1613,8 @@ exports.BattleAbilities = {
 		shortDesc: "Welcome to HaxRUs kek",
 		//adaptability
 		onModifyMove: function (move) {
-			move.stab = 2;
-		},
-		onModifyMove: function (move) {
 			move.infiltrates = true;
+			move.stab = 2;
 		},
 		//huge power
 		onModifyAtkPriority: 5,
@@ -1739,7 +1647,7 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				});
 			}
 		},
@@ -1748,7 +1656,7 @@ exports.BattleAbilities = {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				}, source);
 			}
 		},
@@ -1796,6 +1704,10 @@ exports.BattleAbilities = {
 				this.debug('ICEE neutralize');
 				return this.chainModify(0.75);
 			}
+			if (target.hp >= target.maxhp) {
+				this.debug('ICEE weaken');
+				return this.chainModify(0.5);
+			}
 		},
 		//rough skin and iron barbs
 		onAfterDamageOrder: 1,
@@ -1806,6 +1718,11 @@ exports.BattleAbilities = {
 			//aftermath
 			if (source && source !== target && move && move.flags['contact'] && !target.hp) {
 				this.damage(source.maxhp / 4, source, target, null, true);
+			}
+			if (move && move.flags['contact']) {
+				if (this.random(10) < 3) {
+					source.trySetStatus('frz', target);
+				}
 			}
 		},
 		//magic bounce
@@ -1846,13 +1763,6 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('ICEE weaken');
-				return this.chainModify(0.5);
-			}
-		},
 		//battle armor
 		onCriticalHit: false,
 		//regenerator
@@ -1866,22 +1776,9 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					def: 1,
-					spd: 1
+					spd: 1,
 				});
 			}
-		},
-		//freeze chance if hit by contact
-		onAfterDamage: function (damage, target, source, move) {
-			if (move && move.flags['contact']) {
-				if (this.random(10) < 3) {
-					source.trySetStatus('frz', target);
-				}
-			}
-		},
-		//mold breaker and air lock
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Air Lock');
-			this.add('-ability', pokemon, 'Mold Breaker');
 		},
 		stopattackevents: true,
 		suppressweather: true,
@@ -1897,7 +1794,7 @@ exports.BattleAbilities = {
 			if (this.getWeather().id === 'desolateland' && !(weather.id in {
 					desolateland: 1,
 					primordialsea: 1,
-					deltastream: 1
+					deltastream: 1,
 				})) return false;
 		},
 		onEnd: function (pokemon) {
@@ -1921,17 +1818,21 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					spa: 1,
-					spe: 1
+					spe: 1,
 				});
 			}
 		},
 		//special huge power
 		onModifySpAPriority: 5,
 		onModifySpA: function (spa) {
+			if (this.isWeather(['sunnyday', 'desolateland'])) {
+				return this.chainModify(2);
+			}
 			return this.chainModify(2);
 		},
 		//adaptability
 		onModifyMove: function (move) {
+			move.infiltrates = true;
 			move.stab = 2;
 		},
 		//special and speed moxie
@@ -1939,21 +1840,12 @@ exports.BattleAbilities = {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
 					spa: 1,
-					spe: 1
+					spe: 1,
 				}, source);
 			}
 		},
-		onModifyMove: function (move) {
-			move.infiltrates = true;
-		},
 		//chlorophyll
 		onModifySpe: function (spe) {
-			if (this.isWeather(['sunnyday', 'desolateland'])) {
-				return this.chainModify(2);
-			}
-		},
-		//special attack chlorophyll
-		onModifySpA: function (spa) {
 			if (this.isWeather(['sunnyday', 'desolateland'])) {
 				return this.chainModify(2);
 			}
@@ -1966,24 +1858,21 @@ exports.BattleAbilities = {
 		shortDesc: "RumpADump I fna!",
 		isNonstandard: true,
 		//infiltrator
-		onModifyMove: function (move) {
-			move.infiltrates = true;
-		},
-		//Persistent Mold Breaker and Trick Room used upon entry
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Mold Breaker');
-			this.add('-ability', pokemon, 'Persistent');
-			this.useMove('trickroom', pokemon);
-		},
-		stopattackevents: true,
-		//sheer force
 		onModifyMove: function (move, pokemon) {
+			move.infiltrates = true;
 			if (move.secondaries) {
 				delete move.secondaries;
 				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
 				pokemon.addVolatile('sheerforce');
 			}
+			move.stab = 2;
 		},
+		//Persistent Mold Breaker and Trick Room used upon entry
+		onStart: function (pokemon) {
+			this.add('-ability', pokemon, 'Persistent');
+			this.useMove('trickroom', pokemon);
+		},
+		stopattackevents: true,
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
@@ -1998,18 +1887,17 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					spa: 1,
-					spe: -1
+					spe: -1,
 				});
 			}
 		},
 		//special huge power
 		onModifySpAPriority: 5,
 		onModifySpA: function (spa) {
+			if (this.isWeather(['sunnyday', 'desolateland'])) {
+				return this.chainModify(2);
+			}
 			return this.chainModify(2);
-		},
-		//adaptability
-		onModifyMove: function (move) {
-			move.stab = 2;
 		},
 		//special attack moxie
 		onSourceFaint: function (target, source, effect) {
@@ -2017,12 +1905,6 @@ exports.BattleAbilities = {
 				this.boost({
 					spa: 1,
 				}, source);
-			}
-		},
-		//special attack chlorophyll
-		onModifySpA: function (spa) {
-			if (this.isWeather(['sunnyday', 'desolateland'])) {
-				return this.chainModify(2);
 			}
 		},
 		//no guard
@@ -2046,8 +1928,6 @@ exports.BattleAbilities = {
 		},
 		//mold breaker airlock levitate and uses Magnet Rise
 		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Air Lock');
-			this.add('-ability', pokemon, 'Mold Breaker');
 			this.add('-ability', pokemon, 'Levitate');
 			this.useMove('magnetrise', pokemon);
 		},
@@ -2062,10 +1942,19 @@ exports.BattleAbilities = {
 		//adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
+			move.infiltrates = true;
+			if (move.secondaries) {
+				delete move.secondaries;
+				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
+				pokemon.addVolatile('sheerforce');
+			}
 		},
 		//huge power
 		onModifyAtkPriority: 5,
 		onModifyAtk: function (atk) {
+			if (pokemon.status) {
+				return this.chainModify(1.5);
+			}
 			return this.chainModify(2);
 		},
 		//unaware
@@ -2095,19 +1984,16 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				});
 			}
-		},
-		onModifyMove: function (move) {
-			move.infiltrates = true;
 		},
 		//boosts attack and speed when it faints its target
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				}, source);
 			}
 		},
@@ -2129,14 +2015,6 @@ exports.BattleAbilities = {
 				return this.chainModify([0x14CD, 0x1000]);
 			}
 		},
-		//sheer force
-		onModifyMove: function (move, pokemon) {
-			if (move.secondaries) {
-				delete move.secondaries;
-				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
-				pokemon.addVolatile('sheerforce');
-			}
-		},
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
@@ -2144,24 +2022,10 @@ exports.BattleAbilities = {
 				return this.chainModify([0x14CD, 0x1000]);
 			},
 		},
-		//guts
-		onModifyAtkPriority: 5,
-		onModifyAtk: function (atk, pokemon) {
-			if (pokemon.status) {
-				return this.chainModify(1.5);
-			}
-		},
 		//quick feet
 		onModifySpe: function (spe, pokemon) {
 			if (pokemon.status) {
 				return this.chainModify(1.5);
-			}
-		},
-		//tough claws
-		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
-			if (move.flags['contact']) {
-				return this.chainModify([0x14CD, 0x1000]);
 			}
 		},
 	},
@@ -2169,15 +2033,22 @@ exports.BattleAbilities = {
 		id: "demonicmascot",
 		name: "Demonic Mascot",
 		//adaptability
-		onModifyMove: function (move) {
+		onModifyMove: function (move, pokemon) {
 			move.stab = 2;
-		},
-		onModifyMove: function (move) {
+			move.infiltrates = true;
+			if (move.secondaries) {
+				delete move.secondaries;
+				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
+				pokemon.addVolatile('sheerforce');
+			}
 			move.infiltrates = true;
 		},
 		//huge power
 		onModifyAtkPriority: 5,
-		onModifyAtk: function (atk) {
+		onModifyAtk: function (atk, pokemon) {
+			if (pokemon.status) {
+				return this.chainModify(1.5);
+			}
 			return this.chainModify(2);
 		},
 		//unaware
@@ -2207,7 +2078,7 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				});
 			}
 		},
@@ -2216,7 +2087,7 @@ exports.BattleAbilities = {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				}, source);
 			}
 		},
@@ -2237,13 +2108,9 @@ exports.BattleAbilities = {
 			if (move.flags['contact']) {
 				return this.chainModify([0x14CD, 0x1000]);
 			}
-		},
-		//sheer force
-		onModifyMove: function (move, pokemon) {
-			if (move.secondaries) {
-				delete move.secondaries;
-				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
-				pokemon.addVolatile('sheerforce');
+			if (move.recoil || move.hasCustomRecoil) {
+				this.debug('Demonic Mascot boost');
+				return this.chainModify([0x1333, 0x1000]);
 			}
 		},
 		effect: {
@@ -2253,36 +2120,10 @@ exports.BattleAbilities = {
 				return this.chainModify([0x14CD, 0x1000]);
 			},
 		},
-		//guts
-		onModifyAtkPriority: 5,
-		onModifyAtk: function (atk, pokemon) {
-			if (pokemon.status) {
-				return this.chainModify(1.5);
-			}
-		},
 		//quick feet
 		onModifySpe: function (spe, pokemon) {
 			if (pokemon.status) {
 				return this.chainModify(1.5);
-			}
-		},
-		//tough claws
-		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
-			if (move.flags['contact']) {
-				return this.chainModify([0x14CD, 0x1000]);
-			}
-		},
-		//infiltrator
-		onModifyMove: function (move) {
-			move.infiltrates = true;
-		},
-		//reckless
-		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
-			if (move.recoil || move.hasCustomRecoil) {
-				this.debug('Demonic Mascot boost');
-				return this.chainModify([0x1333, 0x1000]);
 			}
 		},
 		//disguise
@@ -2293,6 +2134,7 @@ exports.BattleAbilities = {
 				this.effectData.busted = true;
 				return 0;
 			}
+			if (effect.id === 'recoil' && this.activeMove.id !== 'struggle') return null;
 		},
 		onUpdate: function (pokemon) {
 			if (pokemon.template.speciesid === 'mimikyu' && this.effectData.busted) {
@@ -2303,21 +2145,26 @@ exports.BattleAbilities = {
 				this.add('detailschange', pokemon, pokemon.details);
 			}
 		},
-		//rock head
-		onDamage: function (damage, target, source, effect) {
-			if (effect.id === 'recoil' && this.activeMove.id !== 'struggle') return null;
-		},
 	},
 	"warhorse": {
 		id: "warhorse",
 		name: "War Horse",
 		//adaptability
-		onModifyMove: function (move) {
+		onModifyMove: function (move, pokemon) {
 			move.stab = 2;
+			if (move.secondaries) {
+				delete move.secondaries;
+				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
+				pokemon.addVolatile('sheerforce');
+			}
+			move.infiltrates = true;
 		},
 		//huge power
 		onModifyAtkPriority: 5,
-		onModifyAtk: function (atk) {
+		onModifyAtk: function (pokemon) {
+			if (pokemon.status) {
+				return this.chainModify(1.5);
+			}
 			return this.chainModify(2);
 		},
 		//unaware
@@ -2335,10 +2182,6 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//mold breaker
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Mold Breaker');
-		},
 		stopattackevents: true,
 		//attack and speed boost every turn
 		onResidualOrder: 26,
@@ -2347,7 +2190,7 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				});
 			}
 		},
@@ -2356,7 +2199,7 @@ exports.BattleAbilities = {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
 					atk: 1,
-					spe: 1
+					spe: 1,
 				}, source);
 			}
 		},
@@ -2370,20 +2213,16 @@ exports.BattleAbilities = {
 				this.debug('War Horse boost');
 				return this.chainModify(1.5);
 			}
+			if (!target.activeTurns) {
+				this.debug('War Horse boost');
+				return this.chainModify(2);
+			}
 		},
 		//tough claws
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.flags['contact']) {
 				return this.chainModify([0x14CD, 0x1000]);
-			}
-		},
-		//sheer force
-		onModifyMove: function (move, pokemon) {
-			if (move.secondaries) {
-				delete move.secondaries;
-				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
-				pokemon.addVolatile('sheerforce');
 			}
 		},
 		effect: {
@@ -2393,28 +2232,10 @@ exports.BattleAbilities = {
 				return this.chainModify([0x14CD, 0x1000]);
 			},
 		},
-		//guts
-		onModifyAtkPriority: 5,
-		onModifyAtk: function (atk, pokemon) {
-			if (pokemon.status) {
-				return this.chainModify(1.5);
-			}
-		},
 		//quick feet
 		onModifySpe: function (spe, pokemon) {
 			if (pokemon.status) {
 				return this.chainModify(1.5);
-			}
-		},
-		//infiltrator
-		onModifyMove: function (move) {
-			move.infiltrates = true;
-		},
-		//tough claws
-		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
-			if (move.flags['contact']) {
-				return this.chainModify([0x14CD, 0x1000]);
 			}
 		},
 		//stamina
@@ -2422,15 +2243,8 @@ exports.BattleAbilities = {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
 					atk: 1,
-					def: 1
+					def: 1,
 				});
-			}
-		},
-		//stakeout
-		onModifyDamage: function (damage, source, target) {
-			if (!target.activeTurns) {
-				this.debug('War Horse boost');
-				return this.chainModify(2);
 			}
 		},
 	},
@@ -2451,6 +2265,10 @@ exports.BattleAbilities = {
 			if (target === source || move.hasBounced || !move.flags['reflectable']) {
 				return;
 			}
+			if (move.flags['bullet']) {
+				this.add('-immune', pokemon, '[msg]', '[from] ability: Gear Up');
+				return null;
+			}
 			let newMove = this.getMoveCopy(move.id);
 			newMove.hasBounced = true;
 			this.useMove(newMove, target, source);
@@ -2468,23 +2286,11 @@ exports.BattleAbilities = {
 		effect: {
 			duration: 1,
 		},
-		//airlock and moldbreaker
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Air Lock');
-			this.add('-ability', pokemon, 'Mold Breaker');
-		},
 		suppressweather: true,
 		stopattackevents: true,
 		//infiltrator
 		onModifyMove: function (move) {
 			move.infiltrates = true;
-		},
-		//bulletproof
-		onTryHit: function (pokemon, target, move) {
-			if (move.flags['bullet']) {
-				this.add('-immune', pokemon, '[msg]', '[from] ability: Gear Up');
-				return null;
-			}
 		},
 	},
 	"fungus": {
@@ -2493,9 +2299,6 @@ exports.BattleAbilities = {
 		//Air Lock Corrosion and Mold Breaker and uses Leech Seed upon entry
 		onStart: function (pokemon) {
 			this.useMove('leechseed', pokemon);
-			this.add('-ability', pokemon, 'Air Lock');
-			this.add('-ability', pokemon, 'Mold Breaker');
-			this.add('-ability', pokemon, 'Corrosion');
 		},
 		stopattackevents: true,
 		suppressweather: true,
@@ -2506,7 +2309,7 @@ exports.BattleAbilities = {
 				drain: 1,
 				leechseed: 1,
 				ingrain: 1,
-				aquaring: 1
+				aquaring: 1,
 			};
 			if (heals[effect.id]) {
 				return Math.ceil((damage * 1.3) - 0.5); // Big Root rounds half down
@@ -2569,6 +2372,9 @@ exports.BattleAbilities = {
 				this.debug('Fungus neutralize');
 				return this.chainModify(0.75);
 			}
+			if (target.hp >= target.maxhp) {
+				this.debug('Fungus weaken');
+			}
 		},
 		//magic bounce
 		onTryHitPriority: 1,
@@ -2599,13 +2405,6 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('Fungus weaken');
-				return this.chainModify(0.5);
-			}
-		},
 		//immune to critical hits
 		onCriticalHit: false,
 		//boost defense and special defense every turn
@@ -2615,7 +2414,7 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					def: 1,
-					spd: 1
+					spd: 1,
 				});
 			}
 		},
@@ -2625,10 +2424,6 @@ exports.BattleAbilities = {
 		name: "Bookfish",
 		shortDesc: "Not a Bookworm",
 		desc: "The bookworm version but for a fishy kek",
-		//Mold Breaker
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Mold Breaker');
-		},
 		stopAttackEvents: true,
 		//prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
@@ -2640,6 +2435,8 @@ exports.BattleAbilities = {
 			if (move && move.category === 'Status') {
 				move.pranksterBoosted = true;
 			}
+			move.infiltrates = true;
+			move.stab = 2;
 		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
@@ -2657,13 +2454,19 @@ exports.BattleAbilities = {
 		},
 		//rough skin and iron barbs
 		onAfterDamageOrder: 1,
-		onAfterDamage: function (damage, target, source, move) {
+		onAfterDamage: function (damage, target, source, move, effect) {
 			if (source && source !== target && move && move.flags['contact']) {
 				this.damage(source.maxhp / 4, source, target, null, true);
 			}
 			//aftermath
 			if (source && source !== target && move && move.flags['contact'] && !target.hp) {
 				this.damage(source.maxhp / 4, source, target, null, true);
+			}
+			if (effect && effect.effectType === 'Move') {
+				this.boost({
+					atk: 1,
+					def: 1,
+				});
 			}
 		},
 		//unaware
@@ -2687,6 +2490,10 @@ exports.BattleAbilities = {
 				this.debug('Bookfish neutralize');
 				return this.chainModify(0.75);
 			}
+			if (target.hp >= target.maxhp) {
+				this.debug('Bookfish weaken');
+				return this.chainModify(0.5);
+			}
 		},
 		//magic bounce
 		onTryHitPriority: 1,
@@ -2717,13 +2524,6 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('Bookfish weaken');
-				return this.chainModify(0.5);
-			}
-		},
 		//immune to critical hits
 		onCriticalHit: false,
 		//boost defense and special defense every turn
@@ -2733,7 +2533,7 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					def: 1,
-					spd: 1
+					spd: 1,
 				});
 			}
 		},
@@ -2749,39 +2549,18 @@ exports.BattleAbilities = {
 				return this.chainModify(2);
 			}
 		},
-		//infiltrator
-		onModifyMove: function (move) {
-			move.infiltrates = true;
-		},
-		//adaptability
-		onModifyMove: function (move) {
-			move.stab = 2;
-		},
 		//special and speed moxie
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
-					atk: 1
-				}, source);
-			}
-		},
-		//stamina
-		onAfterDamage: function (damage, target, source, effect) {
-			if (effect && effect.effectType === 'Move') {
-				this.boost({
 					atk: 1,
-					def: 1
-				});
+				}, source);
 			}
 		},
 	},
 	"clownsightings": {
 		id: "clownsightings",
 		name: "Clown Sightings",
-		//Mold Breaker
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Mold Breaker');
-		},
 		stopAttackEvents: true,
 		//prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
@@ -2793,6 +2572,8 @@ exports.BattleAbilities = {
 			if (move && move.category === 'Status') {
 				move.pranksterBoosted = true;
 			}
+			move.stab = 2;
+			move.infiltrates = true;
 		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
@@ -2810,13 +2591,20 @@ exports.BattleAbilities = {
 		},
 		//rough skin and iron barbs
 		onAfterDamageOrder: 1,
-		onAfterDamage: function (damage, target, source, move) {
+		onAfterDamage: function (damage, target, source, move, effect) {
 			if (source && source !== target && move && move.flags['contact']) {
 				this.damage(source.maxhp / 4, source, target, null, true);
 			}
 			//aftermath
 			if (source && source !== target && move && move.flags['contact'] && !target.hp) {
 				this.damage(source.maxhp / 4, source, target, null, true);
+			}
+			if (effect && effect.effectType === 'Move') {
+				this.boost({
+					spa: 1,
+					def: 1,
+					spd: 1,
+				});
 			}
 		},
 		//unaware
@@ -2840,12 +2628,33 @@ exports.BattleAbilities = {
 				this.debug('Clown Sightings neutralize');
 				return this.chainModify(0.75);
 			}
+			if (target.hp >= target.maxhp) {
+				this.debug('Clown Sightings weaken');
+				return this.chainModify(0.5);
+			}
 		},
 		//magic bounce
 		onTryHitPriority: 1,
 		onTryHit: function (target, source, move) {
 			if (target === source || move.hasBounced || !move.flags['reflectable']) {
 				return;
+			}
+			if (!this.heal(target.maxhp / 4)) {
+				this.add('-immune', target, '[msg]', '[from] ability: Clown Sightings');
+			}
+			if (target !== source && move.type === 'Water') {
+				if (!this.heal(target.maxhp / 4)) {
+					this.add('-immune', target, '[msg]', '[from] ability: Clown Sightings');
+				}
+				return null;
+			}
+			if (target !== source && move.type === 'Water') {
+				if (!this.boost({
+						spa: 1,
+					})) {
+					this.add('-immune', target, '[msg]', '[from] ability: Clown Sightings');
+				}
+				return null;
 			}
 			let newMove = this.getMoveCopy(move.id);
 			newMove.hasBounced = true;
@@ -2870,13 +2679,6 @@ exports.BattleAbilities = {
 				return false;
 			}
 		},
-		//multiscale
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (target.hp >= target.maxhp) {
-				this.debug('Clown Sightings weaken');
-				return this.chainModify(0.5);
-			}
-		},
 		//immune to critical hits
 		onCriticalHit: false,
 		//boost defense and special defense every turn
@@ -2886,8 +2688,13 @@ exports.BattleAbilities = {
 			if (pokemon.activeTurns) {
 				this.boost({
 					def: 1,
-					spd: 1
+					spd: 1,
 				});
+			}
+			if (pokemon.status && this.isWeather(['raindance', 'primordialsea'])) {
+				this.debug('hydration');
+				this.add('-activate', pokemon, 'ability: Clown Sightings');
+				pokemon.cureStatus();
 			}
 		},
 		//special huge power
@@ -2898,34 +2705,16 @@ exports.BattleAbilities = {
 		//stakeout
 		onModifyDamage: function (damage, source, target) {
 			if (!target.activeTurns) {
-				this.debug('Bookfish boost');
+				this.debug('Clown Sightings boost');
 				return this.chainModify(2);
 			}
-		},
-		//infiltrator
-		onModifyMove: function (move) {
-			move.infiltrates = true;
-		},
-		//adaptability
-		onModifyMove: function (move) {
-			move.stab = 2;
 		},
 		//special moxie
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
 				this.boost({
-					spa: 1
-				}, source);
-			}
-		},
-		//stamina
-		onAfterDamage: function (damage, target, source, effect) {
-			if (effect && effect.effectType === 'Move') {
-				this.boost({
 					spa: 1,
-					def: 1,
-					spd: 1
-				});
+				}, source);
 			}
 		},
 		//primordial sea
@@ -2936,7 +2725,7 @@ exports.BattleAbilities = {
 			if (this.getWeather().id === 'primordialsea' && !(weather.id in {
 					desolateland: 1,
 					primordialsea: 1,
-					deltastream: 1
+					deltastream: 1,
 				})) return false;
 		},
 		onEnd: function (pokemon) {
@@ -2964,14 +2753,10 @@ exports.BattleAbilities = {
 			if (effect.id === 'raindance' || effect.id === 'primordialsea') {
 				this.heal(target.maxhp / 16);
 			}
-		},
-		//water absorb
-		onTryHit: function (target, source, move) {
-			if (target !== source && move.type === 'Water') {
-				if (!this.heal(target.maxhp / 4)) {
-					this.add('-immune', target, '[msg]', '[from] ability: Clown Sightings');
-				}
-				return null;
+			if (effect.id === 'raindance' || effect.id === 'primordialsea') {
+				this.heal(target.maxhp / 8);
+			} else if (effect.id === 'sunnyday' || effect.id === 'desolateland') {
+				this.damage(target.maxhp / 8, target, target);
 			}
 		},
 		//water veil
@@ -2987,25 +2772,6 @@ exports.BattleAbilities = {
 			this.add('-immune', target, '[msg]', '[from] ability: Clown Sightings');
 			return false;
 		},
-		//hydration
-		onResidualOrder: 5,
-		onResidualSubOrder: 1,
-		onResidual: function (pokemon) {
-			if (pokemon.status && this.isWeather(['raindance', 'primordialsea'])) {
-				this.debug('hydration');
-				this.add('-activate', pokemon, 'ability: Clown Sightings');
-				pokemon.cureStatus();
-			}
-		},
-		//dry skin
-		onTryHit: function (target, source, move) {
-			if (target !== source && move.type === 'Water') {
-				if (!this.heal(target.maxhp / 4)) {
-					this.add('-immune', target, '[msg]', '[from] ability: Clown Sightings');
-				}
-				return null;
-			}
-		},
 		onBasePowerPriority: 7,
 		onFoeBasePower: function (basePower, attacker, defender, move) {
 			if (this.effectData.target !== defender) return;
@@ -3013,29 +2779,11 @@ exports.BattleAbilities = {
 				return this.chainModify(1.25);
 			}
 		},
-		onWeather: function (target, source, effect) {
-			if (effect.id === 'raindance' || effect.id === 'primordialsea') {
-				this.heal(target.maxhp / 8);
-			} else if (effect.id === 'sunnyday' || effect.id === 'desolateland') {
-				this.damage(target.maxhp / 8, target, target);
-			}
-		},
-		//storm drain
-		onTryHit: function (target, source, move) {
-			if (target !== source && move.type === 'Water') {
-				if (!this.boost({
-						spa: 1
-					})) {
-					this.add('-immune', target, '[msg]', '[from] ability: Clown Sightings');
-				}
-				return null;
-			}
-		},
 		onAnyRedirectTarget: function (target, source, source2, move) {
 			if (move.type !== 'Water' || move.id in {
 					firepledge: 1,
 					grasspledge: 1,
-					waterpledge: 1
+					waterpledge: 1,
 				}) return;
 			if (this.validTarget(this.effectData.target, source, move.target)) {
 				if (this.effectData.target !== target) {
@@ -3057,9 +2805,7 @@ exports.BattleAbilities = {
 		},
 		//Persistent Mold Breaker and Trick Room used upon entry
 		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Mold Breaker');
 			this.add('-ability', pokemon, 'Persistent');
-			this.add('-ability', pokemon, 'Air Lock');
 			this.useMove('trickroom', pokemon);
 		},
 		stopattackevents: true,

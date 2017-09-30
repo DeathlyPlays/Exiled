@@ -2156,6 +2156,7 @@ exports.BattlePokedex = {
 	exeggcutealola: {
 		num: 102,
 		species: "Exeggcute-Alola",
+		baseSpecies: "Exeggcute",
 		forme: "Alola",
 		formeLetter: "A",
 		types: ["Grass", "Dragon"],
@@ -4543,7 +4544,7 @@ exports.BattlePokedex = {
 		heightm: 0.7,
 		weightkg: 21,
 		color: "Purple",
-		evos: ["hitmonlee", "hitmonchan", "hitmontop", "hitmontop-alola"],
+		evos: ["hitmonlee", "hitmonchan", "hitmontop", "hitmontopalola"],
 		eggGroups: ["Undiscovered"],
 	},
 	hitmontop: {
@@ -4559,6 +4560,7 @@ exports.BattlePokedex = {
 		prevo: "tyrogue",
 		evoLevel: 20,
 		eggGroups: ["Human-Like"],
+		otherFormes: ["hitmontopalola", "hitmontopmega"],
 	},
 	hitmontopalola: {
 		num: 237,
@@ -4574,7 +4576,6 @@ exports.BattlePokedex = {
 		prevo: "tyrogue",
 		evoLevel: 20,
 		eggGroups: ["Human-Like"],
-		otherFormes: ["Hitmontop"],
 	},
 	hitmontopmega: {
 		num: 107,
@@ -7517,6 +7518,8 @@ exports.BattlePokedex = {
 		num: 398,
 		species: "Staraptor-Alola",
 		baseSpecies: "Staraptor",
+		forme: "Alola",
+		formeLetter: "A",
 		types: ["Flying", "Fighting"],
 		baseStats: {hp: 80, atk: 130, def: 55, spa: 40, spd: 75, spe: 105},
 		abilities: {0: "Reckless", 1: "Sheer Force", H: "Aura Break"},

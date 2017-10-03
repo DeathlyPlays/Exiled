@@ -61,4 +61,8 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["thunderpunch", "closecombat", "gunkshot", "earthquake", "swordsdance", "machpunch", "knockoff", "protect"],
 		tier: "OU",
 	},
+	minoral: {
+		randomBattleMoves: ["recover", "rockpolish", "scald", "icebeam", "powergem"],
+		tier: "LC",
+	},
 };

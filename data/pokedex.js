@@ -2741,7 +2741,7 @@ exports.BattlePokedex = {
 		heightm: 0.3,
 		weightkg: 6.5,
 		color: "Brown",
-		evos: ["vaporeon", "jolteon", "flareon", "espeon", "umbreon", "leafeon", "glaceon", "sylveon", "spectreon"],
+		evos: ["vaporeon", "jolteon", "flareon", "espeon", "umbreon", "leafeon", "glaceon", "sylveon"],
 		eggGroups: ["Field"],
 	},
 	vaporeon: {
@@ -4294,7 +4294,6 @@ exports.BattlePokedex = {
 		color: "Red",
 		prevo: "remoraid",
 		evoLevel: 25,
-		evos: ["octanko"],
 		eggGroups: ["Water 1", "Water 2"],
 	},
 	delibird: {

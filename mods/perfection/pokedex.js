@@ -325,6 +325,10 @@ exports.BattlePokedex = {
 		color: "Blue",
 		eggGroups: ["Bug", "Water 3"],
 	},
+	octillery: {
+		inherit: true,
+		evos: ["octanko"],
+	},
 	octanko: {
 		num: -9005,
 		species: "Octanko",
@@ -338,6 +342,10 @@ exports.BattlePokedex = {
 		evoLevel: 53,
 		eggGroups: ["Water 3"],
 	},
+	eevee: {
+		inherit: true,
+		evos: ["vaporeon", "jolteon", "flareon", "espeon", "umbreon", "leafeon", "glaceon", "sylveon", "spectreon"],
+	},
 	spectreon: {
 		num: -9006,
 		species: "Spectreon",
@@ -349,7 +357,7 @@ exports.BattlePokedex = {
 		weightkg: 0.5,
 		prevo: "eevee",
 		color: "Purple",
-		eggGroups: ["Field, Amorphous"],
+		eggGroups: ["Field", "Amorphous"],
 	},
 	hydring: {
 		num: -9007,
@@ -405,5 +413,21 @@ exports.BattlePokedex = {
 		heightm: 5.7,
 		weightkg: 134.6,
 		eggGroups: ["Human-like"],
+	},
+	corsola: {
+		inherit: true,
+		prevo: "minoral",
+	},
+	minoral: {
+		num: -9012,
+		species: "Minoral",
+		types: ["Water", "Rock"],
+		baseStats: {hp: 45, atk: 45, def: 70, spa: 45, spd: 70, spe: 20},
+		abilities: {0: "Hustle", 1: "Natural Cure", H: "Regenerator"},
+		heightm: 0.6,
+		weightkg: 5,
+		color: "Pink",
+		evos: ["corsola"],
+		eggGroups: ["Water 1", "Water 3"],
 	},
 };

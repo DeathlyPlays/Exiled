@@ -3,6 +3,7 @@ exports.BattleAbilities = {
 	"blissful": {
 		id: "blissful",
 		name: "Blissful",
+		desc: "This Pokemon's special moves have priority raised by 6.",
 		//priority to special attacks
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Special') {

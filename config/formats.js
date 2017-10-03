@@ -2139,6 +2139,14 @@ exports.Formats = [
 			"Inspired by BAMD, coded and extra ideas from Insist.",
 			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pok&eacutemon</a>",
 		],
+		onSwitchInPriority: 8,
+		onSwitchIn: function (pokemon) {
+			let name = toId(pokemon.name);
+			if (name === 'haxrus' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dragon/Steel');
+				pokemon.types = ["Dragon", "Steel"];
+			}
+		},
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon [WIP]",
@@ -2283,9 +2291,11 @@ exports.Formats = [
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Kings Shield'],
 		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow', 'Genesect', 'Shaymin-Sky', 'Landorus', 'Blaziken', 'Pheromosa'],
+		onSwitchInPriority: 8,
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
+		onAfterMegaPriority: 8,
 		onAfterMega: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
@@ -2302,6 +2312,7 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/board/20/type-illusions\">Type Illusion Thread</a>",
 			"&bullet; <a href=\"https://pastebin.com/DMYFMmmy\">Nickname Typings</a>",
 		],
+		onSwitchInPriority: 8,
 		onSwitchIn: function (pokemon) {
 			let name = toId(pokemon.name);
 			if (name === 'fire' && !pokemon.illusion) {
@@ -2977,7 +2988,8 @@ exports.Formats = [
 				pokemon.types = ["Steel", "Fairy"];
 			}
 		},
-		onMega: function (pokemon) {
+		onAfterMegaPriority: 8,
+		onAfterMega: function (pokemon) {
 			let name = toId(pokemon.name);
 			if (name === 'fire' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fire');

@@ -51,12 +51,12 @@ exports.BattleAbilities = {
 		name: "Bad Time",
 		//mold breaker and air lock and sets HP to 1
 		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Mold Breaker');
-			this.add('-ability', pokemon, 'Air Lock');
 			this.add('-sethp', pokemon, 1);
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
+		},
+		suppressWeather: true,
 		//sturdy
 		onTryHit: function (pokemon, target, move) {
 			if (move.ohko) {
@@ -101,11 +101,6 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//airlock and moldbreaker
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Air Lock');
-			this.add('-ability', pokemon, 'Mold Breaker');
-		},
 		//moody
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
@@ -137,7 +132,9 @@ exports.BattleAbilities = {
 				boost[i] *= 2;
 			}
 		},
-		stopAttackEvents: true,
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
+		},
 		suppressWeather: true,
 	},
 	"sanik": {
@@ -338,6 +335,8 @@ exports.BattleAbilities = {
 		//adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
+			move.ignoreAbility = true;
+			move.infiltrates = true;
 		},
 		//unaware
 		onAnyModifyBoost: function (boosts, target) {
@@ -354,8 +353,7 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 	},
 	"barrierchange": {
 		id: "barrierchange",
@@ -385,8 +383,10 @@ exports.BattleAbilities = {
 		id: "lifeforce",
 		name: "Life Force",
 		//desolate land
-		onStart: function (source) {
+		onStart: function (pokemon) {
 			this.setWeather('desolateland');
+			this.add('-start', pokemon, 'typechange', 'Fire/Dragon');
+			pokemon.types = ["Fire", "Dragon"];
 		},
 		onAnySetWeather: function (target, source, weather) {
 			if (this.getWeather().id === 'desolateland' && !(weather.id in {
@@ -460,6 +460,7 @@ exports.BattleAbilities = {
 				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
 				pokemon.addVolatile('sheerforce');
 			}
+			move.ignoreAbility = true;
 		},
 		//unaware
 		onAnyModifyBoost: function (boosts, target) {
@@ -476,8 +477,7 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
@@ -612,6 +612,7 @@ exports.BattleAbilities = {
 				}
 			}
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
@@ -720,7 +721,6 @@ exports.BattleAbilities = {
 				}
 			}
 		},
-		stopattackevents: true,
 	},
 	"2hotforu": {
 		id: "2hotforu",
@@ -843,6 +843,10 @@ exports.BattleAbilities = {
 					spe: 1,
 				}, source);
 			}
+		},
+		onStart: function (pokemon) {
+			this.add('-start', pokemon, 'typechange', 'Poison/Dark');
+			pokemon.types = ["Poison", "Dark"];
 		},
 		//huge power
 		onModifyAtkPriority: 5,
@@ -978,9 +982,10 @@ exports.BattleAbilities = {
 	"forecastv2": {
 		id: "forecastv2",
 		name: "forecastv2",
+		desc: "Ultimate Sandstorm Ability",
 		//sand stream, rush, veil, and force
 		onBasePowerPriority: 8,
-		onBasePower: function (basePower, attacker, defender, move) {
+		onBasePower: function (move) {
 			if (this.isWeather('sandstorm')) {
 				if (move.type === 'Rock' || move.type === 'Ground' || move.type === 'Steel') {
 					this.debug('Forecast V2 boost');
@@ -988,12 +993,12 @@ exports.BattleAbilities = {
 				}
 			}
 		},
-		onModifySpe: function (spe, pokemon) {
+		onModifySpe: function () {
 			if (this.isWeather('sandstorm')) {
 				return this.chainModify(2);
 			}
 		},
-		onStart: function (source) {
+		onStart: function () {
 			this.setWeather('sandstorm');
 		},
 		onModifyAccuracy: function (accuracy) {
@@ -1003,8 +1008,20 @@ exports.BattleAbilities = {
 				return accuracy * 0.8;
 			}
 		},
-		onImmunity: function (type, pokemon) {
+		onImmunity: function (type) {
 			if (type === 'sandstorm') return false;
+		},
+		//huge power
+		onModifyAtkPriority: 5,
+		onModifyAtk: function () {
+			return this.chainModify(2);
+		},
+		isUnbreakable: true,
+		//adaptability infiltrator ignores abilities
+		onModifyMove: function (move) {
+			move.stab = 2;
+			move.infiltrates = true;
+			move.ignoreAbility = true;
 		},
 	},
 	'durp': {
@@ -1242,10 +1259,11 @@ exports.BattleAbilities = {
 	"retweet": {
 		id: "retweet",
 		name: "Retweet",
+		shortDesc: "SpA Huge Power, 1.3x Sound Moves, Adaptability, Gale Wings.",
 		//boosts power of sound moves
-		onbasepowerpriority: 8,
+		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
-			if (move.flags['sound']) {
+			if (move.flags['sound'] || move.flags['authentic']) {
 				return this.chainModify([0x14CD, 0x1000]);
 			}
 		},
@@ -1324,8 +1342,10 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.useMove('substitute', pokemon);
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
+		},
+		suppressWeather: true,
 		//bad dreams
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
@@ -1561,6 +1581,7 @@ exports.BattleAbilities = {
 		onModifyMove: function (move) {
 			move.infiltrates = true;
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
 		//special huge power
 		onModifySpAPriority: 5,
@@ -1582,8 +1603,7 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		//simple
 		onBoost: function (boost) {
 			for (let i in boost) {
@@ -1600,6 +1620,7 @@ exports.BattleAbilities = {
 		onModifyMove: function (move) {
 			move.infiltrates = true;
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
 		//huge power
 		onModifyAtkPriority: 5,
@@ -1621,9 +1642,9 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//mold breaker
 		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Mold Breaker');
+			this.add('-start', pokemon, 'typechange', 'Dragon/Steel');
+			pokemon.types = ["Dragon", "Steel"];
 		},
 		//attack and speed boost every turn
 		onResidualOrder: 26,
@@ -1765,8 +1786,10 @@ exports.BattleAbilities = {
 				});
 			}
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
+		},
+		suppressWeather: true,
 	},
 	"blueeyeswhitedragon": {
 		id: "blueeyeswhitedragon",
@@ -1851,13 +1874,13 @@ exports.BattleAbilities = {
 				pokemon.addVolatile('sheerforce');
 			}
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
 		//Persistent Mold Breaker and Trick Room used upon entry
 		onStart: function (pokemon) {
 			this.add('-ability', pokemon, 'Persistent');
 			this.useMove('trickroom', pokemon);
 		},
-		stopattackevents: true,
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
@@ -1911,13 +1934,16 @@ exports.BattleAbilities = {
 				return null;
 			}
 		},
-		//mold breaker airlock levitate and uses Magnet Rise
+		//uses Magnet Rise; type change
 		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Levitate');
 			this.useMove('magnetrise', pokemon);
+			this.add('-start', pokemon, 'typechange', 'Electric/Psychic');
+			pokemon.types = ["Electric", "Psychic"];
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		onModifyMove: function (move) {
+			move.ignoreAbility = true;
+		},
+		suppressWeather: true,
 	},
 	"wall": {
 		id: "wall",
@@ -1933,6 +1959,7 @@ exports.BattleAbilities = {
 				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
 				pokemon.addVolatile('sheerforce');
 			}
+			move.ignoreAbility = true;
 		},
 		//huge power
 		onModifyAtkPriority: 5,
@@ -1957,7 +1984,6 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		stopattackevents: true,
 		//attack and speed boost every turn
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
@@ -2023,6 +2049,7 @@ exports.BattleAbilities = {
 				pokemon.addVolatile('sheerforce');
 			}
 			move.infiltrates = true;
+			move.ignoreAbility = true;
 		},
 		//huge power
 		onModifyAtkPriority: 5,
@@ -2047,11 +2074,6 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//mold breaker
-		onStart: function (pokemon) {
-			this.add('-ability', pokemon, 'Mold Breaker');
-		},
-		stopattackevents: true,
 		//attack and speed boost every turn
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
@@ -2139,6 +2161,7 @@ exports.BattleAbilities = {
 				pokemon.addVolatile('sheerforce');
 			}
 			move.infiltrates = true;
+			move.ignoreAbility = true;
 		},
 		//huge power
 		onModifyAtkPriority: 5,
@@ -2163,7 +2186,6 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		stopattackevents: true,
 		//attack and speed boost every turn
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
@@ -2267,11 +2289,11 @@ exports.BattleAbilities = {
 		effect: {
 			duration: 1,
 		},
-		suppressweather: true,
-		stopattackevents: true,
+		suppressWeather: true,
 		//infiltrator
 		onModifyMove: function (move) {
 			move.infiltrates = true;
+			move.ignoreAbility = true;
 		},
 	},
 	"fungus": {
@@ -2281,8 +2303,7 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.useMove('leechseed', pokemon);
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		//power-up healing moves
 		onTryHealPriority: 1,
 		onTryHeal: function (damage, target, source, effect) {
@@ -2306,6 +2327,7 @@ exports.BattleAbilities = {
 			if (move && move.category === 'Status') {
 				move.pranksterBoosted = true;
 			}
+			move.ignoreAbility = true;
 		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
@@ -2405,7 +2427,6 @@ exports.BattleAbilities = {
 		name: "Bookfish",
 		shortDesc: "Not a Bookworm",
 		desc: "The bookworm version but for a fishy kek",
-		stopAttackEvents: true,
 		//prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Status') {
@@ -2418,6 +2439,7 @@ exports.BattleAbilities = {
 			}
 			move.infiltrates = true;
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
 		//regenerator
 		onSwitchOut: function (pokemon) {
@@ -2542,7 +2564,6 @@ exports.BattleAbilities = {
 	"clownsightings": {
 		id: "clownsightings",
 		name: "Clown Sightings",
-		stopAttackEvents: true,
 		//prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Status') {
@@ -2553,6 +2574,7 @@ exports.BattleAbilities = {
 			if (move && move.category === 'Status') {
 				move.pranksterBoosted = true;
 			}
+			move.ignoreAbility = true;
 			move.stab = 2;
 			move.infiltrates = true;
 		},
@@ -2789,14 +2811,14 @@ exports.BattleAbilities = {
 				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
 				pokemon.addVolatile('sheerforce');
 			}
+			move.ignoreAbility = true;
 		},
 		//Persistent Mold Breaker and Trick Room used upon entry
 		onStart: function (pokemon) {
 			this.add('-ability', pokemon, 'Persistent');
 			this.useMove('trickroom', pokemon);
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
@@ -2848,9 +2870,9 @@ exports.BattleAbilities = {
 				pokemon.addVolatile('sheerforce');
 			}
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
@@ -2910,9 +2932,9 @@ exports.BattleAbilities = {
 				pokemon.addVolatile('sheerforce');
 			}
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
@@ -2964,6 +2986,7 @@ exports.BattleAbilities = {
 		//adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
 		//unaware
 		onAnyModifyBoost: function (boosts, target) {
@@ -2980,8 +3003,7 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		//special huge power
 		onModifySpAPriority: 5,
 		onModifySpA: function (spa) {
@@ -3281,6 +3303,7 @@ exports.BattleAbilities = {
 			move.stab = 2;
 			move.infiltrates = true;
 			delete move.flags["contact"];
+			move.ignoreAbility = true;
 		},
 		//special huge power
 		onModifySpAPriority: 5,
@@ -3302,8 +3325,7 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		//special attack boost every turn
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
@@ -3485,9 +3507,9 @@ exports.BattleAbilities = {
 				pokemon.addVolatile('sheerforce');
 			}
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
@@ -3565,8 +3587,7 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		//sheer force
 		onModifyMove: function (move, pokemon) {
 			if (move.secondaries) {
@@ -3576,6 +3597,7 @@ exports.BattleAbilities = {
 			}
 			move.stab = 2;
 			move.infiltrates = true;
+			move.ignoreAbility = true;
 		},
 		effect: {
 			duration: 1,
@@ -3646,6 +3668,7 @@ exports.BattleAbilities = {
 				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
 				pokemon.addVolatile('sheerforce');
 			}
+			move.ignoreAbility = true;
 			delete move.flags['contact'];
 		},
 		//unaware
@@ -3666,8 +3689,7 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.useMove('Protect', pokemon);
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
@@ -3739,11 +3761,11 @@ exports.BattleAbilities = {
 			this.useMove('Protect', pokemon);
 			this.add('-ability', pokemon, 'Mold Breaker');
 		},
-		stopattackevents: true,
-		suppressweather: true,
+		suppressWeather: true,
 		//adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
 	},
 	"guardianofmelemele": {
@@ -3768,8 +3790,6 @@ exports.BattleAbilities = {
 		onModifyAtk: function (atk) {
 			return this.chainModify(2);
 		},
-		//mold breaker
-		stopattackevents: true,
 		//speed boost
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
@@ -3795,6 +3815,7 @@ exports.BattleAbilities = {
 		onModifyMove: function (move) {
 			delete move.flags['contact'];
 			move.stab = 2;
+			move.ignoreAbility = true;
 		},
 		//unaware
 		onAnyModifyBoost: function (boosts, target) {
@@ -3956,6 +3977,7 @@ exports.BattleAbilities = {
 					move.secondaries[i].chance *= 2;
 				}
 			}
+			move.ignoreAbility = true;
 		},
 		//rough skin iron barbs and aftermath
 		onAfterDamageOrder: 1,
@@ -4049,8 +4071,6 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//mold breaker
-		stopAttackEvents: true,
 	},
 	"toucannonsam": {
 		id: "toucannonsam",
@@ -4077,6 +4097,7 @@ exports.BattleAbilities = {
 			if (move.multiaccuracy) {
 				delete move.multiaccuracy;
 			}
+			move.ignoreAbility = true;
 		},
 		//moxie
 		onSourceFaint: function (target, source, effect) {
@@ -4115,8 +4136,6 @@ exports.BattleAbilities = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		//mold breaker
-		stopAttackEvents: true,
 		//gen 6 gale wings
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.type === 'Flying') return priority + 1;
@@ -4380,8 +4399,6 @@ exports.BattleAbilities = {
 		onModifyAtk: function (atk) {
 			return this.chainModify(2);
 		},
-		//mold breaker
-		stopattackevents: true,
 		//speed boost
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
@@ -4398,6 +4415,7 @@ exports.BattleAbilities = {
 			delete move.flags['contact'];
 			move.stab = 2;
 			move.infiltrates = true;
+			move.ignoreAbility = true;
 		},
 		//unaware
 		onAnyModifyBoost: function (boosts, target) {
@@ -4431,6 +4449,8 @@ exports.BattleAbilities = {
 					}, foeactive[i], pokemon);
 				}
 			}
+			this.add('-start', pokemon, 'typechange', 'Steel/Psychic/Fire');
+			pokemon.types = ["Steel", "Psychic", "Fire"];
 		},
 		//magnet pull
 		onFoeTrapPokemon: function (pokemon) {

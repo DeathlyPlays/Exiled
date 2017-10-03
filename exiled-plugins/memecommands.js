@@ -24,12 +24,12 @@ exports.commands = {
 	'!slap': true,
 	slap: function (target) {
 		if (!target) return this.sendReply("/slap needs a target.");
-		return this.parse('/me slaps ' + target + ' in the face with a slipper!');
+		this.parse('/me slaps ' + target + ' in the face with a slipper!');
 	},
 	'!eat': true,
 	eat: function (target) {
 		if (!target) return this.sendReply("Eat needs a target.");
-		return this.parse('/me eats ' + target + '!');
+		this.parse('/me eats ' + target + '!');
 	},
 	foh: function (target, room, User) {
 		if (!target) return this.sendReply('/foh needs a target.');

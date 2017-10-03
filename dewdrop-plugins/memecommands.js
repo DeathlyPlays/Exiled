@@ -244,12 +244,15 @@ exports.commands = {
 		let targetUser = Users.get(target);
 		room.add(user.name + ' has broken ' + targetUser + '.');
 		targetUser.popup(user.name + ' has smashed you 2 bits.');
+<<<<<<< HEAD:dewdrop-plugins/memecommands.js
 	},
 	spank: function (target, room, user) {
 		if (!target) return this.sendReply('/spank needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		room.add(user + ' has spanked ' + targetUser + '!');
+=======
+>>>>>>> bec17e120bcccac40d1e4a46a48dad51359ffc20:exiled-plugins/memecommands.js
 	},
 	swat: function (target, room, user) {
 		if (!target) return this.sendReply('/swat needs a target.');

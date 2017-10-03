@@ -2139,14 +2139,6 @@ exports.Formats = [
 			"Inspired by BAMD, coded and extra ideas from Insist.",
 			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pok&eacutemon</a>",
 		],
-		onSwitchInPriority: 8,
-		onSwitchIn: function (pokemon) {
-			let name = toId(pokemon.name);
-			if (name === 'haxrus' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dragon/Steel');
-				pokemon.types = ["Dragon", "Steel"];
-			}
-		},
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon [WIP]",

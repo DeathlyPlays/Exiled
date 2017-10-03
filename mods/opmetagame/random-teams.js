@@ -910,7 +910,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Adamant",
 			},
 			"Castform": {
-				species: "Castform",
+				species: "Castform-Dirty",
 				ability: "Forecast V2",
 				item: "Focus Sash",
 				shiny: true,
@@ -1714,7 +1714,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				species: "Solgaleo",
 				ability: "Stainless Steel",
 				item: "Leftovers",
-				moves: ['meteormash', 'zenheadbutt', 'thousandarrows'],
+				moves: ['sunsteelstrike', 'zenheadbutt', 'thousandarrows'],
 				baseSignatureMove: "nowimfire",
 				signatureMove: "Now I'm Fire",
 				evs: {

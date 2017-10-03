@@ -2216,11 +2216,11 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Savage OU",
-		unbanlist: ["Pheromosa", "Metagrossite", "Gengarite", "Shadow Tag", "Arena Trap", "Blaziken", "Genesect", "Landorus", "Deoxys-Defense", "Baton Pass", "Shaymin-Sky", "Deoxys-Speed", "Moody", "Power Construct", "Aegislash"],
-		desc: ["Oh, no! The Savages that were banned have managed to escape! Will you be able to fight them once again?"],
-		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Freeze Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		banlist: ["Eevium Z", "Uber"],
+		name: "[Gen 7] OU Chaos",
+		unbanlist: ["Pheromosa", "Metagrossite", "Blaziken", "Genesect", "Landorus", "Deoxys-Defense", "Shaymin-Sky", "Deoxys-Speed", "Aegislash", "Deoxys", "Darkrai", "Metagross-Mega",],
+		desc: ["The nightmares that we had in OU once are back, and the chaos is everywhere. Balance is no longer a thing."],
+		ruleset: ['[Gen 7] OU'],
+		banlist: ["Uber"],
 	},
 	{
 		name: "[Gen 7] Slowtown",

@@ -2879,7 +2879,7 @@ exports.BattlePokedex = {
 		types: ["Rock", "Water"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 60, atk: 135, def: 105, spa: 65, spd: 110, spe: 120},
-		abilities: {0: "Tough Claws"},
+		abilities: {0: "Hustle"},
 		heightm: 1.5,
 		weightkg: 41.7,
 		color: "Brown",

@@ -1,5 +1,5 @@
 /*
-The following commands were coded specifically for Dewdrop
+The following commands were coded specifically for Serverdrop
 Made by Insist
 feelscool
 Basically just edits to main's info.js, and adds more, removes stuff, etc.
@@ -113,14 +113,14 @@ exports.commands = {
 	opensource: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-			"Dewdrop's Github's:<br />" +
+			"Serverdrop's Github's:<br />" +
 			"- Language: JavaScript (Node.js)<br />" +
-			"- <a href=\"https://github.com/Dewdrop-PS/Dewdrop\">Dewdrop Server Code</a><br />" +
-			"- <a href=\"https://github.com/Dewdrop-PS\">Team Dewdrop Organization</a><br />"
+			"- <a href=\"https://github.com/Serverdrop-PS/Serverdrop\">Serverdrop Server Code</a><br />" +
+			"- <a href=\"https://github.com/Serverdrop-PS\">Team Serverdrop Organization</a><br />"
 		);
 	},
 	opensourcehelp: [
-		"/opensource - Links to Dewdrop's source code repository.",
+		"/opensource - Links to Serverdrop's source code repository.",
 		"!opensource - Show everyone that information. Requires: + % @ * # & ~",
 	],
 
@@ -152,7 +152,7 @@ exports.commands = {
 	'!discord': true,
 	discord: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Dewdrop Discord</a>");
+		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Serverdrop Discord</a>");
 	},
 
 	//Credits to Snaquaza on these feature and other DragonHeaven developers/contributers
@@ -192,7 +192,7 @@ exports.commands = {
 			this.sendReplyBox("<center><button name=\"saveReplay\"><i class=\"fa fa-upload\"></i> Save Replay</button> &mdash; <a href=\"https://www.smogon.com/forums/threads/3520646/\">Questions</a> &mdash; <a href=\"https://www.smogon.com/forums/threads/3469932/\">Bug Reports</a></center>");
 		} else {
 			this.sendReplyBox(
-				"Have a replay showcasing a bug on Dewdrop?<br />" +
+				"Have a replay showcasing a bug on Serverdrop?<br />" +
 				"- <a href=\"http://exiledps.boards.net/thread/5/bug-reports/\">Bug Reports</a>"
 			);
 		}
@@ -282,29 +282,11 @@ exports.commands = {
 
 	servercredits: 'credits',
 	credits: function (target, room, user) {
-<<<<<<< HEAD:dewdrop-plugins/dewdropinfo.js
-		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Dewdrop Credits:</b></u></font><br />" +
+		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Serverdrop Credits:</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Server Maintainers:</u></b><br />" +
-			"- " + Dew.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
-			"- " + Dew.nameColor('Insist', true) + " (Main Developer)<br />" +
-			"<br />" +
-			"<u><b>Major Contributors:</b></u><br />" +
-			"- " + Dew.nameColor('AlfaStorm', true) + " (Developer)<br />" +
-			"- " + Dew.nameColor('Back At My Day', true) + " (Developer)<br />" +
-			"- " + Dew.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
-			"- " + Dew.nameColor('Lycanium Z', true) + " (Developer)<br />" +
-			"<br />" +
-			"<u><b>Retired Staff:</b></u><br />" +
-			"- " + Dew.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
-			"- " + Dew.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
-			"- " + Dew.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
-=======
-		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Server Credits:</b></u></font><br />" +
-			"<br />" +
-			"<u><b>Server Maintainers:</u></b><br />" +
-			"- " + Server.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
-			"- " + Server.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
+			"- " + Server.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
+			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
 			"<br />" +
 			"<u><b>Major Contributors:</b></u><br />" +
 			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +
@@ -316,7 +298,6 @@ exports.commands = {
 			"- " + Server.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
 			"- " + Server.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
 			"- " + Server.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
->>>>>>> 0635b7d2acd9b282bd03da4c0f63a57c459380b9:exiled-plugins/exiledinfo.js
 			"<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members<br />" +

@@ -18,7 +18,7 @@ exports.commands = {
 		if (!target) return this.sendReply('/murder needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has murdered  ' + target + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has murdered  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("WASTED!");
 	},
 	'!slap': true,
@@ -28,117 +28,117 @@ exports.commands = {
 	},
 	'!eat': true,
 	eat: function (target) {
-		if (!target) return this.sendReply("Eat needs a target.");
+		if (!target) return this.sendReply("/eat needs a target.");
 		this.parse('/me eats ' + target + '!');
 	},
 	foh: function (target, room, user) {
 		if (!target) return this.sendReply('/foh needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has just told  ' + target + ' to get the fuck outta here!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has just told  ' + Server.nameColor(target, true, true) + ' to get the fuck outta here!');
 		targetUser.popup("GET THE FUCK OUTTA HERE BOI!");
 	},
 	hid: function (target, room, user) {
 		if (!target) return this.sendReply('/hid needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
-		room.add(user.name + ' has hid behind ' + target + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has hid behind ' + Server.nameColor(target, true, true) + '.');
 	},
 	idgaf: function (target, room, user) {
 		if (!target) return this.sendReply('/idgaf needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' doesn\'t give a fuck about  ' + target + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' doesn\'t give a fuck about  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("Idgaf!");
 	},
 	smash: function (target, room, user) {
 		if (!target) return this.sendReply('/smash needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has head smashed  ' + target + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has head smashed  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("FUCKING SMASHING!");
 	},
 	outrage: function (target, room, user) {
 		if (!target) return this.sendReply('/outrage needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' uses Outrage on the opposing  ' + target + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' uses Outrage on the opposing  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("Watch out for the wrath!");
 	},
 	catch: function (target, room, user) {
 		if (!target) return this.sendReply('/catch needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has caught  ' + target + ' in their Pokeball.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has caught  ' + Server.nameColor(target, true, true) + ' in their Pokeball.');
 		targetUser.popup("FUCKING SMASHING!");
 	},
 	explode: function (target, room, user) {
 		if (!target) return this.sendReply('/explode needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has exploded on  ' + target + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has exploded on  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("ALLY AKBAR!!!!!!");
 	},
 	slam: function (target, room, user) {
 		if (!target) return this.sendReply('/slam needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Boi get slammed!');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has Body Slammed  ' + target + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has Body Slammed  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("FUCKING BODIED!");
 	},
 	chal: function (target, room, user) {
 		if (!target) return this.sendReply('/chal needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Pffft your challenge meant nothing!');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has challenged  ' + target + ' to a battle!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has challenged  ' + Server.nameColor(target, true, true) + ' to a battle!');
 		targetUser.popup("You were just challenged to a battle!");
 	},
 	poke: function (target, room, user) {
 		if (!target) return this.sendReply('/poke needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('No you get poked! You cannot master the capability of the epicness that is using the POKE.');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has poked  ' + target + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has poked  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("You were just poked!");
 	},
 	sweep: function (target, room, user) {
 		if (!target) return this.sendReply('/sweep needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Why you always lying!?!?!');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has just swept  ' + target + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has just swept  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("You were ANNIHILATED!");
 	},
 	rko: function (target, room, user) {
 		if (!target) return this.sendReply('/rko needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Hey, you, you aren\'t tough enough to express the usage of this!');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has RKO\'ed  ' + target + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has RKO\'ed  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("RKO OUTTA NOWHERE!");
 	},
 	analyze: function (target, room, user) {
 		if (!target) return this.sendReply('/analyze needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('You lack the psychological powers to use this.');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' is analyzing  ' + target + '\'s intentions.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' is analyzing  ' + Server.nameColor(target, true, true) + '\'s intentions.');
 		targetUser.popup("You are being analyzed!");
 	},
 	whip: function (target, room, user) {
 		if (!target) return this.sendReply('/whip needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has whipped ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has whipped ' + Server.nameColor(targetUser, true, true) + '.');
 		targetUser.popup(user.name + ' has whipped you.');
 	},
 	smack: function (target, room, user) {
 		if (!target) return this.sendReply('/smack needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has smacked ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has smacked ' + Server.nameColor(targetUser, true, true) + '.');
 		targetUser.popup(user.name + ' has just smacked you.');
 	},
 	memed: function (target, room, user) {
 		if (!target) return this.sendReply('/memed needs a target.');
 		if (!this.can('declare')) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has memed ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has memed ' + Server.nameColor(targetUser, true, true) + '.');
 		this.parse('/declare NIIIIICE MEEEEME');
 	},
 	banhammer: function (target, room, user) {
@@ -146,7 +146,7 @@ exports.commands = {
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		if (targetUser.can('root')) return this.sendReply('You cannot ban an Admin - nice try. Chump.');
-		room.add(user.name + ' has gave the hammer to ' + target + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has gave the hammer to ' + Server.nameColor(target, true, true) + '.');
 		targetUser.popup("The Hammer has been dropped");
 	},
 	rekt: function (target, room, user) {
@@ -157,7 +157,7 @@ exports.commands = {
 		if (!target) return this.sendReply('/bombing needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' bombed ' + target + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' bombed ' + Server.nameColor(target, true, true) + '.');
 		targetUser.popup("The bomb has exploded");
 	},
 	noscope: function (target, room, user) {
@@ -168,42 +168,42 @@ exports.commands = {
 		if (!target) return this.sendReply('/roflstomp needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has roflstomped ' + target + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has roflstomped ' + Server.nameColor(target, true, true) + '.');
 		targetUser.popup("GIT ROFLSTOMPED BOII!");
 	},
 	tip: function (target, room, user) {
 		if (!target) return this.sendReply('/tip needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has tipped their fedora to ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has tipped their fedora to ' + Server.nameColor(targetUser, true, true) + '.');
 		targetUser.popup('Someone has tipped their fedora to you');
 	},
 	bow: function (target, room, user) {
 		if (!target) return this.sendReply('/bow needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has bowed to ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has bowed to ' + Server.nameColor(targetUser, true, true) + '.');
 		targetUser.popup('Someone has bowed to you');
 	},
 	rekted: function (target, room, user) {
 		if (!target) return this.sendReply('/rekted needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has destroyed ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has destroyed ' + Server.nameColor(targetUser, true, true) + '.');
 		targetUser.popup('Someone has destroyed you');
 	},
 	smite: function (target, room, user) {
 		if (!target) return this.sendReply('/smite needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has smited ' + targetUser + ' with their wrath.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has smited ' + Server.nameColor(targetUser, true, true) + ' with their wrath.');
 		targetUser.popup('A GOD has made you feel their wrath');
 	},
 	fired: function (target, room, user) {
 		if (!target) return this.sendReply('/fired needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' fired ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' fired ' + Server.nameColor(targetUser, true, true) + '.');
 		targetUser.popup('YOU HAVE BEEN FIRED!');
 	},
 	broke: function (target, room, user) {
@@ -214,14 +214,14 @@ exports.commands = {
 		if (!target) return this.sendReply('/dunked needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('GET DUNKED ON!(access denied)');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' just dunked on ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' just dunked on ' + Server.nameColor(targetUser, true, true) + '.');
 		targetUser.popup('GET DUNKED ON FOOL!!!!');
 	},
 	dank: function (target, room, user) {
 		if (!target) return this.sendReply('/dank needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('YOU ARENT DANK ENOUGH! (Access Denied!)');
 		let targetUser = Users.get(target);
-		room.add(targetUser + ' has received a dank meme from ' + user.name + '.');
+		room.addRaw(Server.nameColor(targetUser, true, true) + ' has received a dank meme from ' + Server.nameColor(user.name, true, true) + '.');
 		targetUser.popup('You have received a dank meme (legend of zelda treasure found music plays)');
 	},
 	sans: function (target, room, user) {
@@ -235,32 +235,32 @@ exports.commands = {
 	sans2: function (target, room, user) {
 		if (!target) return this.sendReply('/sans2 needs a target.');
 		let targetUser = Users.get(target);
-		room.add(targetUser + ' JUST GOT DUNKED ON!!!!!');
+		room.addRaw(Server.nameColor(targetUser, true, true) + ' JUST GOT DUNKED ON!!!!!');
 		targetUser.popup('|html|<center><img src="http://lpix.org/2269600/4000.gif" height="300" width="300"</center><br>GEEEEEET DUNKED ON!!!');
 	},
 	break: function (target, room, user) {
 		if (!target) return this.sendReply('/break needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has broken ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has broken ' + Server.nameColor(targetUser, true, true) + '.');
 		targetUser.popup(user.name + ' has smashed you 2 bits.');
 	},
 	swat: function (target, room, user) {
 		if (!target) return this.sendReply('/swat needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has swatted ' + targetUser + ' out of the sky');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has swatted ' + Server.nameColor(targetUser, true, true) + ' out of the sky');
 	},
 	donger: function (target, room, user) {
 		if (!target) return this.sendReply('/donger needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has begun a riot against ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has begun a riot against ' + Server.nameColor(targetUser, true, true) + '.');
 		this.parse('ᕙ༼ຈل͜ຈ༽ᕗ flex your dongers ᕙ༼ຈل͜ຈ༽ᕗ');
 	},
 	dongers: function (target, room, user) {
 		if (!this.can('declare')) return this.errorReply('Access Denied');
-		room.add(user.name + ' has begun a Donger ambush!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has begun a Donger ambush!');
 		this.parse('/declare ᕙ༼ຈل͜ຈ༽ᕗ flex your dongers ᕙ༼ຈل͜ຈ༽ᕗ');
 		this.parse('/declare ╚═། ◑ ▃ ◑ །═╝ do you like my dongers? ╚═། ◑ ▃ ◑ །═╝');
 		this.parse('/declare ᕙ༼ຈل͜ຈ༽ᕗ I made my dongers just for you ᕙ༼ຈل͜ຈ༽ᕗ');
@@ -286,49 +286,49 @@ exports.commands = {
 		if (!target) return this.sendReply('/splat needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has splatted ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has splatted ' + Server.nameColor(targetUser, true, true) + '.');
 		this.parse('You were splatted by the Aerospray PG');
 	},
 	roasted: function (target, room, user) {
 		if (!target) return this.sendReply('/roasted needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has burned  ' + target + ' (Better put some ice on that)');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has burned  ' + Server.nameColor(target, true, true) + ' (Better put some ice on that)');
 		targetUser.popup("My nigga you just got roasted");
 	},
 	behave: function (target, room, user) {
 		if (!target) return this.sendReply('/behave needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has told ' + target + ' to get their shit together');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has told ' + Server.nameColor(target, true, true) + ' to get their shit together');
 		targetUser.popup("Nigga Behave!");
 	},
 	bhunt: function (target, room, user) {
 		if (!target) return this.sendReply('/their needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has hunted ' + target + ' for the booty');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has hunted ' + Server.nameColor(target, true, true) + ' for the booty');
 		targetUser.popup("( ͡° ͜ʖ ͡°)Gimme That Booty( ͡° ͜ʖ ͡°)");
 	},
 	senpai: function (target, room, user) {
 		if (!target) return this.sendReply('/senpai needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has once again failed to notice ' + targetUser + '.');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has once again failed to notice ' + Server.nameColor(targetUser, true, true) + '.');
 		targetUser.popup('Senpai gives no shits about you');
 	},
 	badtime: function (target, room, user) {
 		if (!target) return this.sendReply('/badtime needs a target');
 		if (!this.can('mute', null, room)) return this.errorReply('kids like you should be burning in hell');
 		let targetUser = Users.get(target);
-		room.add(targetUser + ' felt their sins crawling on their back ');
+		room.addRaw(Server.nameColor(targetUser, true, true) + ' felt their sins crawling on their back ');
 		targetUser.popup('Do you want to have a bad time?');
 	},
 	bop: function (target, room, user) {
 		if (!target) return this.sendReply('/bop needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user.name + ' has bopped ' + target + ' in the face!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has bopped ' + Server.nameColor(target, true, true) + ' in the face!');
 		targetUser.popup("Get bopped boi");
 	},
 	burn: 'disintegrate',
@@ -336,7 +336,7 @@ exports.commands = {
 		if (!target) return this.sendReply('/burn needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(target + ' was disintegrated by ' + user.name + '!');
+		room.addRaw(Server.nameColor(target, true, true) + ' was disintegrated by ' + Server.nameColor(user.name, true, true) + '!');
 		targetUser.popup("Get burned!");
 		this.parse('/flogout ' + targetUser);
 	},
@@ -401,21 +401,21 @@ exports.commands = {
 	randomsurvey: 'randsurvey',
 	randsurvey: function (target, room, user) {
 		let results = [
-			"/survey create What do you want to see added or updated in Exiled?",
-			"/survey create What's your most memorable experience on Exiled?",
-			"/survey create How much time do you spend on Exiled daily?",
-			"/survey create What is your favorite custom mechanic on Exiled?",
-			"/survey create Was Exiled your first Pokemon Showdown side-server?", //5
+			"/survey create What do you want to see added or updated in " + Config.serverName + "?",
+			"/survey create What's your most memorable experience on " + Config.serverName + "?",
+			"/survey create How much time do you spend on " + Config.serverName + " daily?",
+			"/survey create What is your favorite custom mechanic on " + Config.serverName + "?",
+			"/survey create Was" + Config.serverName + " your first Pokemon Showdown side-server?", //5
 			"/survey create Do you like the league system?",
-			"/survey create Do you like the idea of us adding custom megas on Exiled that you can use in regular formats? (OU, UU, Ubers, Etc)",
-			"/survey create What was your worst experience so far on Exiled?",
+			"/survey create Do you like the idea of us adding custom megas on " + Config.serverName + " that you can use in regular formats? (OU, UU, Ubers, Etc)",
+			"/survey create What was your worst experience so far on " + Config.serverName + "?",
 			"/survey create What's your favorite food?",
 			"/survey create What's your favorite activity on a hot summer day?", //10
 			"/survey create What's your favorite drink",
 			"/survey create What's your favorite color?",
 			"/survey create What's the most embarrassing thing that's ever happened to you in real life?",
 			"/survey create Have you ever been banned/locked on main? (play.pokemonshowdown.com)",
-			"/survey create Do you want to see more events on Exiled?", //15
+			"/survey create Do you want to see more events on " + Config.serverName + "?", //15
 		];
 		return this.parse(results[Math.floor(15 * Math.random())]);
 	},

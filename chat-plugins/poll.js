@@ -21,7 +21,7 @@ class Poll {
 		this.timeout = null;
 		this.timeoutMins = 0;
 		this.startTime = Date.now();
-		this.startedUser = Dew.nameColor(questionData.username, true, true);
+		this.startedUser = Server.nameColor(questionData.username, true, true);
 
 		this.options = new Map();
 		for (let i = 0; i < options.length; i++) {

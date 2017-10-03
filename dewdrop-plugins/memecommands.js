@@ -14,196 +14,196 @@ exports.commands = {
 	shrug: function () {
 		this.parse("¯\\_(ツ)_/¯");
 	},
-	murder: function (target, room, User) {
+	murder: function (target, room, user) {
 		if (!target) return this.sendReply('/murder needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has murdered  ' + target + '!');
+		room.add(user.name + ' has murdered  ' + target + '!');
 		targetUser.popup("WASTED!");
 	},
 	'!slap': true,
 	slap: function (target) {
 		if (!target) return this.sendReply("/slap needs a target.");
-		return this.parse('/me slaps ' + target + ' in the face with a slipper!');
+		this.parse('/me slaps ' + target + ' in the face with a slipper!');
 	},
 	'!eat': true,
 	eat: function (target) {
 		if (!target) return this.sendReply("Eat needs a target.");
-		return this.parse('/me eats ' + target + '!');
+		this.parse('/me eats ' + target + '!');
 	},
-	foh: function (target, room, User) {
+	foh: function (target, room, user) {
 		if (!target) return this.sendReply('/foh needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has just told  ' + target + ' to get the fuck outta here!');
+		room.add(user.name + ' has just told  ' + target + ' to get the fuck outta here!');
 		targetUser.popup("GET THE FUCK OUTTA HERE BOI!");
 	},
-	hid: function (target, room, User) {
+	hid: function (target, room, user) {
 		if (!target) return this.sendReply('/hid needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
-		room.add(User + ' has hid behind ' + target + '.');
+		room.add(user.name + ' has hid behind ' + target + '.');
 	},
-	idgaf: function (target, room, User) {
+	idgaf: function (target, room, user) {
 		if (!target) return this.sendReply('/idgaf needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' doesn\'t give a fuck about  ' + target + '!');
+		room.add(user.name + ' doesn\'t give a fuck about  ' + target + '!');
 		targetUser.popup("Idgaf!");
 	},
-	smash: function (target, room, User) {
+	smash: function (target, room, user) {
 		if (!target) return this.sendReply('/smash needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has head smashed  ' + target + '!');
+		room.add(user.name + ' has head smashed  ' + target + '!');
 		targetUser.popup("FUCKING SMASHING!");
 	},
-	outrage: function (target, room, User) {
+	outrage: function (target, room, user) {
 		if (!target) return this.sendReply('/outrage needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' uses Outrage on the opposing  ' + target + '!');
+		room.add(user.name + ' uses Outrage on the opposing  ' + target + '!');
 		targetUser.popup("Watch out for the wrath!");
 	},
-	catch: function (target, room, User) {
+	catch: function (target, room, user) {
 		if (!target) return this.sendReply('/catch needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has caught  ' + target + ' in their Pokeball.');
+		room.add(user.name + ' has caught  ' + target + ' in their Pokeball.');
 		targetUser.popup("FUCKING SMASHING!");
 	},
-	explode: function (target, room, User) {
+	explode: function (target, room, user) {
 		if (!target) return this.sendReply('/explode needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has exploded on  ' + target + '!');
+		room.add(user.name + ' has exploded on  ' + target + '!');
 		targetUser.popup("ALLY AKBAR!!!!!!");
 	},
-	slam: function (target, room, User) {
+	slam: function (target, room, user) {
 		if (!target) return this.sendReply('/slam needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Boi get slammed!');
 		let targetUser = Users.get(target);
-		room.add(User + ' has Body Slammed  ' + target + '!');
+		room.add(user.name + ' has Body Slammed  ' + target + '!');
 		targetUser.popup("FUCKING BODIED!");
 	},
-	chal: function (target, room, User) {
+	chal: function (target, room, user) {
 		if (!target) return this.sendReply('/chal needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Pffft your challenge meant nothing!');
 		let targetUser = Users.get(target);
-		room.add(User + ' has challenged  ' + target + ' to a battle!');
+		room.add(user.name + ' has challenged  ' + target + ' to a battle!');
 		targetUser.popup("You were just challenged to a battle!");
 	},
-	poke: function (target, room, User) {
+	poke: function (target, room, user) {
 		if (!target) return this.sendReply('/poke needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('No you get poked! You cannot master the capability of the epicness that is using the POKE.');
 		let targetUser = Users.get(target);
-		room.add(User + ' has poked  ' + target + '!');
+		room.add(user.name + ' has poked  ' + target + '!');
 		targetUser.popup("You were just poked!");
 	},
-	sweep: function (target, room, User) {
+	sweep: function (target, room, user) {
 		if (!target) return this.sendReply('/sweep needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Why you always lying!?!?!');
 		let targetUser = Users.get(target);
-		room.add(User + ' has just swept  ' + target + '!');
+		room.add(user.name + ' has just swept  ' + target + '!');
 		targetUser.popup("You were ANNIHILATED!");
 	},
-	rko: function (target, room, User) {
+	rko: function (target, room, user) {
 		if (!target) return this.sendReply('/rko needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Hey, you, you aren\'t tough enough to express the usage of this!');
 		let targetUser = Users.get(target);
-		room.add(User + ' has RKO\'ed  ' + target + '!');
+		room.add(user.name + ' has RKO\'ed  ' + target + '!');
 		targetUser.popup("RKO OUTTA NOWHERE!");
 	},
-	analyze: function (target, room, User) {
+	analyze: function (target, room, user) {
 		if (!target) return this.sendReply('/analyze needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('You lack the psychological powers to use this.');
 		let targetUser = Users.get(target);
-		room.add(User + ' is analyzing  ' + target + '\'s intentions.');
+		room.add(user.name + ' is analyzing  ' + target + '\'s intentions.');
 		targetUser.popup("You are being analyzed!");
 	},
 	whip: function (target, room, user) {
 		if (!target) return this.sendReply('/whip needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user + ' has whipped ' + targetUser + '.');
-		targetUser.popup(user + ' has whipped you.');
+		room.add(user.name + ' has whipped ' + targetUser + '.');
+		targetUser.popup(user.name + ' has whipped you.');
 	},
 	smack: function (target, room, user) {
 		if (!target) return this.sendReply('/smack needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user + ' has smacked ' + targetUser + '.');
-		targetUser.popup(user + ' has just smacked you.');
+		room.add(user.name + ' has smacked ' + targetUser + '.');
+		targetUser.popup(user.name + ' has just smacked you.');
 	},
-	memed: function (target, room, User) {
+	memed: function (target, room, user) {
 		if (!target) return this.sendReply('/memed needs a target.');
 		if (!this.can('declare')) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has memed ' + targetUser + '.');
+		room.add(user.name + ' has memed ' + targetUser + '.');
 		this.parse('/declare NIIIIICE MEEEEME');
 	},
-	banhammer: function (target, room, User) {
+	banhammer: function (target, room, user) {
 		if (!target) return this.sendReply('/banhammer needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		if (targetUser.can('root')) return this.sendReply('You cannot ban an Admin - nice try. Chump.');
-		room.add(User + ' has gave the hammer to ' + target + '.');
+		room.add(user.name + ' has gave the hammer to ' + target + '.');
 		targetUser.popup("The Hammer has been dropped");
 	},
 	rekt: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center><img src="http://i.imgur.com/C26ZRE6.gif" width="600" height="300"</center>');
 	},
-	bombing: function (target, room, User) {
+	bombing: function (target, room, user) {
 		if (!target) return this.sendReply('/bombing needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' bombed ' + target + '.');
+		room.add(user.name + ' bombed ' + target + '.');
 		targetUser.popup("The bomb has exploded");
 	},
 	noscope: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center><img src=http://stream1.gifsoup.com/view3/20140324/5006332/360-noscope-chicken-o.gif width="600" height="300"</center>');
 	},
-	roflstomp: function (target, room, User) {
+	roflstomp: function (target, room, user) {
 		if (!target) return this.sendReply('/roflstomp needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has roflstomped ' + target + '.');
+		room.add(user.name + ' has roflstomped ' + target + '.');
 		targetUser.popup("GIT ROFLSTOMPED BOII!");
 	},
-	tip: function (target, room, User) {
+	tip: function (target, room, user) {
 		if (!target) return this.sendReply('/tip needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has tipped their fedora to ' + targetUser + '.');
+		room.add(user.name + ' has tipped their fedora to ' + targetUser + '.');
 		targetUser.popup('Someone has tipped their fedora to you');
 	},
-	bow: function (target, room, User) {
+	bow: function (target, room, user) {
 		if (!target) return this.sendReply('/bow needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has bowed to ' + targetUser + '.');
+		room.add(user.name + ' has bowed to ' + targetUser + '.');
 		targetUser.popup('Someone has bowed to you');
 	},
-	rekted: function (target, room, User) {
+	rekted: function (target, room, user) {
 		if (!target) return this.sendReply('/rekted needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has destroyed ' + targetUser + '.');
+		room.add(user.name + ' has destroyed ' + targetUser + '.');
 		targetUser.popup('Someone has destroyed you');
 	},
-	smite: function (target, room, User) {
+	smite: function (target, room, user) {
 		if (!target) return this.sendReply('/smite needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has smited ' + targetUser + ' with their wrath.');
+		room.add(user.name + ' has smited ' + targetUser + ' with their wrath.');
 		targetUser.popup('A GOD has made you feel their wrath');
 	},
-	fired: function (target, room, User) {
+	fired: function (target, room, user) {
 		if (!target) return this.sendReply('/fired needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' fired ' + targetUser + '.');
+		room.add(user.name + ' fired ' + targetUser + '.');
 		targetUser.popup('YOU HAVE BEEN FIRED!');
 	},
 	broke: function (target, room, user) {
@@ -214,15 +214,15 @@ exports.commands = {
 		if (!target) return this.sendReply('/dunked needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('GET DUNKED ON!(access denied)');
 		let targetUser = Users.get(target);
-		room.add(user + ' just dunked on ' + targetUser + '.');
+		room.add(user.name + ' just dunked on ' + targetUser + '.');
 		targetUser.popup('GET DUNKED ON FOOL!!!!');
 	},
 	dank: function (target, room, user) {
 		if (!target) return this.sendReply('/dank needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('YOU ARENT DANK ENOUGH! (Access Denied!)');
 		let targetUser = Users.get(target);
-		room.add(targetUser + ' has recieved a dank meme from ' + user + '.');
-		targetUser.popup('You have recieved a dank meme (legend of zelda treasure found music plays)');
+		room.add(targetUser + ' has received a dank meme from ' + user.name + '.');
+		targetUser.popup('You have received a dank meme (legend of zelda treasure found music plays)');
 	},
 	sans: function (target, room, user) {
 		if (!this.runBroadcast()) return;
@@ -242,8 +242,8 @@ exports.commands = {
 		if (!target) return this.sendReply('/break needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user + ' has broken ' + targetUser + '.');
-		targetUser.popup(user + ' has smashed you 2 bits.');
+		room.add(user.name + ' has broken ' + targetUser + '.');
+		targetUser.popup(user.name + ' has smashed you 2 bits.');
 	},
 	spank: function (target, room, user) {
 		if (!target) return this.sendReply('/spank needs a target.');
@@ -255,18 +255,18 @@ exports.commands = {
 		if (!target) return this.sendReply('/swat needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(user + ' has swatted ' + targetUser + ' out of the sky');
+		room.add(user.name + ' has swatted ' + targetUser + ' out of the sky');
 	},
-	donger: function (target, room, User) {
+	donger: function (target, room, user) {
 		if (!target) return this.sendReply('/donger needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has begun a riot against ' + targetUser + '.');
+		room.add(user.name + ' has begun a riot against ' + targetUser + '.');
 		this.parse('ᕙ༼ຈل͜ຈ༽ᕗ flex your dongers ᕙ༼ຈل͜ຈ༽ᕗ');
 	},
-	dongers: function (target, room, User) {
+	dongers: function (target, room, user) {
 		if (!this.can('declare')) return this.errorReply('Access Denied');
-		room.add(User + ' has begun a Donger ambush!');
+		room.add(user.name + ' has begun a Donger ambush!');
 		this.parse('/declare ᕙ༼ຈل͜ຈ༽ᕗ flex your dongers ᕙ༼ຈل͜ຈ༽ᕗ');
 		this.parse('/declare ╚═། ◑ ▃ ◑ །═╝ do you like my dongers? ╚═། ◑ ▃ ◑ །═╝');
 		this.parse('/declare ᕙ༼ຈل͜ຈ༽ᕗ I made my dongers just for you ᕙ༼ຈل͜ຈ༽ᕗ');
@@ -288,40 +288,40 @@ exports.commands = {
 		this.parse('/declare (ノ͡° ͜ʖ ͡°)ノ︵┻┻ flip your dongers all around');
 		this.parse('/declare ᕙ༼ຈل͜ຈ༽ᕗ flex your dongers ᕙ༼ຈل͜ຈ༽ᕗ');
 	},
-	splat: function (target, room, User) {
+	splat: function (target, room, user) {
 		if (!target) return this.sendReply('/splat needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has Splatted ' + targetUser + '.');
-		this.parse('you were splatted by the Aerospray PG');
+		room.add(user.name + ' has splatted ' + targetUser + '.');
+		this.parse('You were splatted by the Aerospray PG');
 	},
-	roasted: function (target, room, User) {
+	roasted: function (target, room, user) {
 		if (!target) return this.sendReply('/roasted needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has burned  ' + target + ' (Better put some ice on that)');
+		room.add(user.name + ' has burned  ' + target + ' (Better put some ice on that)');
 		targetUser.popup("My nigga you just got roasted");
 	},
-	behave: function (target, room, User) {
+	behave: function (target, room, user) {
 		if (!target) return this.sendReply('/behave needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has told ' + target + ' to get their shit together');
+		room.add(user.name + ' has told ' + target + ' to get their shit together');
 		targetUser.popup("Nigga Behave!");
 	},
-	bhunt: function (target, room, User) {
+	bhunt: function (target, room, user) {
 		if (!target) return this.sendReply('/their needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has hunted ' + target + ' for the booty');
+		room.add(user.name + ' has hunted ' + target + ' for the booty');
 		targetUser.popup("( ͡° ͜ʖ ͡°)Gimme That Booty( ͡° ͜ʖ ͡°)");
 	},
-	senpai: function (target, room, User) {
+	senpai: function (target, room, user) {
 		if (!target) return this.sendReply('/senpai needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has once again failed to notice ' + targetUser + '.');
-		targetUser.popup('senpai gives no shits about you');
+		room.add(user.name + ' has once again failed to notice ' + targetUser + '.');
+		targetUser.popup('Senpai gives no shits about you');
 	},
 	badtime: function (target, room, user) {
 		if (!target) return this.sendReply('/badtime needs a target');
@@ -330,11 +330,11 @@ exports.commands = {
 		room.add(targetUser + ' felt their sins crawling on their back ');
 		targetUser.popup('Do you want to have a bad time?');
 	},
-	bop: function (target, room, User) {
+	bop: function (target, room, user) {
 		if (!target) return this.sendReply('/bop needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		room.add(User + ' has bopped ' + target + ' in the face!');
+		room.add(user.name + ' has bopped ' + target + ' in the face!');
 		targetUser.popup("Get bopped boi");
 	},
 	burn: 'disintegrate',
@@ -342,8 +342,7 @@ exports.commands = {
 		if (!target) return this.sendReply('/burn needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
-		let User = user.userid;
-		room.add(target + ' was disintegrated by ' + User + '!');
+		room.add(target + ' was disintegrated by ' + user.name + '!');
 		targetUser.popup("Get burned!");
 		this.parse('/flogout ' + targetUser);
 	},

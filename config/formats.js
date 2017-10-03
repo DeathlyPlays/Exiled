@@ -364,11 +364,7 @@ exports.Formats = [
 		column: 2,
 	},
 	{
-<<<<<<< HEAD
-		name: "[Gen 7] OM Tier Shift",
-=======
 		name: "[Gen 7] Ultimate Z",
->>>>>>> 11ad97dc7fe0884ab8ba307f980f9cb15547b8cc
 		desc: [
 			"Use any type of Z-Crystal on any move and as many times per battle as desired.",
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3609393/\">Ultimate Z</a>",

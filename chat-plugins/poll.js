@@ -456,7 +456,11 @@ exports.commands = {
 			if (!Dex.data.Formats[key].mod) continue;
 			if (!Dex.data.Formats[key].searchShow) continue;
 			if (toId(target) !== 'all') {
+<<<<<<< HEAD
 				let commonMods = ['gen7', 'dssb', 'pmd', 'cssb', 'metronome', 'ashspokemon', 'clashoftheregions', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame', 'fakemons', 'mixandmega', 'slowtown', 'stadium', 'supercell'];
+=======
+				let commonMods = ['gen7', 'essb', 'pmd', 'cssb', 'metronome', 'ashspokemon', 'clashoftheregions', 'advancedwars', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame', 'fakemons', 'mixandmega', 'slowtown', 'stadium', 'theorymon', 'supercell', 'fivemovefrenzy'];
+>>>>>>> 11ad97dc7fe0884ab8ba307f980f9cb15547b8cc
 				if (commonMods.indexOf(Dex.data.Formats[key].mod) === -1) continue;
 			}
 			options.push(Dex.data.Formats[key].name);

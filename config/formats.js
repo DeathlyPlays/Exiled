@@ -364,55 +364,30 @@ exports.Formats = [
 		column: 2,
 	},
 	{
+<<<<<<< HEAD
 		name: "[Gen 7] OM Tier Shift",
+=======
+		name: "[Gen 7] Ultimate Z",
+>>>>>>> 11ad97dc7fe0884ab8ba307f980f9cb15547b8cc
 		desc: [
-			"Pok&eacute;mon get +10 to each stat per tier below OU they are in. UU gets +10, RU +20, NU +30, and PU +40.",
-			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3610073/\">Tier Shift</a>",
+			"Use any type of Z-Crystal on any move and as many times per battle as desired.",
+			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3609393/\">Ultimate Z</a>",
 		],
 
-		mod: 'gen7',
+		mod: 'ultimatez',
 		ruleset: ['[Gen 7] OU'],
-		banlist: ['Tangela', 'Damp Rock', 'Deep Sea Tooth'],
-		onModifyTemplate: function (template, pokemon) {
-			let tsTemplate = Object.assign({}, template);
-			const boosts = {'UU': 10, 'BL2': 10, 'RU': 20, 'BL3': 20, 'NU': 30, 'BL4': 30, 'PU': 40, 'NFE': 40, 'LC Uber': 40, 'LC': 40};
-			let tier = tsTemplate.tier;
-			if (pokemon.set.item) {
-				let item = this.getItem(pokemon.set.item);
-				if (item.megaEvolves === tsTemplate.species) tier = this.getTemplate(item.megaStone).tier;
-			}
-			if (tier.charAt(0) === '(') tier = tier.slice(1, -1);
-			let boost = (tier in boosts) ? boosts[tier] : 0;
-			if (boost > 0 && (pokemon.set.ability === 'Drizzle' || pokemon.set.item === 'Mewnium Z')) boost = 0;
-			if (boost > 10 && pokemon.set.moves.includes('auroraveil')) boost = 10;
-			if (boost > 20 && pokemon.set.ability === 'Drought') boost = 20;
-			tsTemplate.baseStats = Object.assign({}, tsTemplate.baseStats);
-			for (let statName in tsTemplate.baseStats) {
-				tsTemplate.baseStats[statName] = this.clampIntRange(tsTemplate.baseStats[statName] + boost, 1, 255);
-			}
-			return tsTemplate;
-		},
+		banlist: ['Celebrate', 'Happy Hour'],
 	},
 	{
-		name: "[Gen 7] AAA Sketchmons",
-		desc: ["Mashup of <a href=\"https://www.smogon.com/forums/threads/3587901/\">Almost Any Ability</a> and <a href=\"https://www.smogon.com/forums/threads/3587743/\">Sketchmons</a>."],
+		name: "[Gen 6] Balanced Hackmons",
+		desc: ["&bullet; <a href=\"https://www.smogon.com/dex/xy/formats/bh/\">ORAS Balanced Hackmons</a>"],
 
-		mod: 'gen7',
+		mod: 'gen6',
 		searchShow: false,
-		ruleset: ['[Gen 7] Almost Any Ability', '[Gen 7] Sketchmons'],
-		banlist: [],
-		noSketch: ['Belly Drum', 'Celebrate', 'Conversion', "Forest's Curse", 'Geomancy', 'Happy Hour', 'Hold Hands', 'Lovely Kiss', 'Purify', 'Shell Smash', 'Shift Gear', 'Sketch', 'Spore', 'Sticky Web', 'Trick-or-Treat'],
-		onValidateSet: function (set) {
-			let bannedAbilities = {'Arena Trap': 1, 'Comatose': 1, 'Contrary': 1, 'Fluffy': 1, 'Fur Coat': 1, 'Huge Power': 1, 'Illusion': 1, 'Imposter': 1, 'Innards Out': 1, 'Parental Bond': 1, 'Protean': 1, 'Pure Power': 1, 'Simple':1, 'Speed Boost': 1, 'Stakeout': 1, 'Water Bubble': 1, 'Wonder Guard': 1};
-			if (set.ability in bannedAbilities) {
-				let template = this.getTemplate(set.species || set.name);
-				let legalAbility = false;
-				for (let i in template.abilities) {
-					if (set.ability === template.abilities[i]) legalAbility = true;
-				}
-				if (!legalAbility) return ['The ability ' + set.ability + ' is banned on Pok\u00e9mon that do not naturally have it.'];
-			}
-		},
+		ruleset: ['Pokemon', 'Ability Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Groudon-Primal', 'Kyogre-Primal', 'Aerilate + Pixilate + Refrigerate > 1',
+			'Arena Trap', 'Huge Power', 'Moody', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Wonder Guard', 'Assist', 'Chatter',
+		],
 	},
 	{
 		section: "Other Metagames",
@@ -442,6 +417,7 @@ exports.Formats = [
 		],
 
 		mod: 'gen7',
+		searchShow: false,
 		teamLength: {
 			validate: [1, 3],
 			battle: 1,
@@ -453,6 +429,18 @@ exports.Formats = [
 			'Power Construct', 'Perish Song', 'Focus Sash', 'Kangaskhanite', 'Salamencite', 'Chansey + Charm + Seismic Toss', 'Chansey + Charm + Psywave',
 			'Flash', 'Kinesis', 'Leaf Tornado', 'Mirror Shot', 'Mud Bomb', 'Mud-Slap', 'Muddy Water', 'Night Daze', 'Octazooka', 'Sand Attack', 'Smokescreen',
 		],
+	},
+	{
+		name: "[Gen 7] 1v1 (suspect test)",
+		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/posts/7530494/\">1v1 Suspect Test</a>"],
+
+		mod: 'gen7',
+		teamLength: {
+			validate: [1, 3],
+			battle: 1,
+		},
+		ruleset: ['[Gen 7] 1v1'],
+		banlist: ['Kyurem-Black'],
 	},
 	{
 		name: "[Gen 7] Mix and Mega",
@@ -704,13 +692,13 @@ exports.Formats = [
 		mod: 'gen7',
 		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Ability Clause', 'Ignore Illegal Abilities', 'Team Preview'],
-		banlist: ['Arceus', 'Archeops', 'Blaziken', 'Darkrai', 'Deoxys', 'Dialga', 'Dragonite', 'Dugtrio-Base', 'Giratina', 'Groudon', 'Ho-Oh',
-			'Hoopa-Unbound', 'Kartana', 'Keldeo', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Marshadow', 'Mewtwo', 'Palkia',
-			'Pheromosa', 'Rayquaza', 'Regigigas', 'Reshiram', 'Shaymin-Sky', 'Shedinja', 'Slaking', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zekrom',
-			'Power Construct', 'Shadow Tag', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Salamencite', 'Baton Pass',
+		banlist: ['Arceus', 'Archeops', 'Blaziken', 'Darkrai', 'Deoxys', 'Dialga', 'Dragonite', 'Giratina', 'Groudon', 'Ho-Oh', 'Hoopa-Unbound',
+			'Kartana', 'Keldeo', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Marshadow', 'Mewtwo', 'Palkia', 'Pheromosa',
+			'Rayquaza', 'Regigigas', 'Reshiram', 'Shaymin-Sky', 'Shedinja', 'Slaking', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zekrom',
+			'Arena Trap', 'Power Construct', 'Shadow Tag', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Salamencite', 'Baton Pass',
 		],
 		onValidateSet: function (set) {
-			let bannedAbilities = {'Arena Trap': 1, 'Comatose': 1, 'Contrary': 1, 'Fluffy': 1, 'Fur Coat': 1, 'Huge Power': 1, 'Illusion': 1, 'Imposter': 1, 'Innards Out': 1, 'Parental Bond': 1, 'Protean': 1, 'Pure Power': 1, 'Simple':1, 'Speed Boost': 1, 'Stakeout': 1, 'Water Bubble': 1, 'Wonder Guard': 1};
+			let bannedAbilities = {'Arena Trap': 1, 'Comatose': 1, 'Contrary': 1, 'Fluffy': 1, 'Fur Coat': 1, 'Huge Power': 1, 'Illusion': 1, 'Imposter': 1, 'Innards Out': 1, 'Parental Bond': 1, 'Power Construct': 1, 'Protean': 1, 'Pure Power': 1, 'Shadow Tag':1, 'Simple':1, 'Speed Boost': 1, 'Stakeout': 1, 'Water Bubble': 1, 'Wonder Guard': 1};
 			if (set.ability in bannedAbilities) {
 				let template = this.getTemplate(set.species || set.name);
 				let legalAbility = false;
@@ -730,7 +718,7 @@ exports.Formats = [
 		ruleset: ['[Gen 7] Almost Any Ability'],
 		banlist: [],
 		onValidateSet: function (set) {
-			let bannedAbilities = {'Arena Trap': 1, 'Comatose': 1, 'Contrary': 1, 'Fluffy': 1, 'Fur Coat': 1, 'Huge Power': 1, 'Illusion': 1, 'Imposter': 1, 'Innards Out': 1, 'Parental Bond': 1, 'Protean': 1, 'Pure Power': 1, 'Simple':1, 'Speed Boost': 1, 'Stakeout': 1, 'Water Bubble': 1, 'Wonder Guard': 1};
+			let bannedAbilities = {'Comatose': 1, 'Contrary': 1, 'Fluffy': 1, 'Fur Coat': 1, 'Huge Power': 1, 'Illusion': 1, 'Imposter': 1, 'Innards Out': 1, 'Parental Bond': 1, 'Protean': 1, 'Pure Power': 1, 'Simple':1, 'Speed Boost': 1, 'Stakeout': 1, 'Water Bubble': 1, 'Wonder Guard': 1};
 			if (set.ability in bannedAbilities) {
 				let template = this.getTemplate(set.species || set.name);
 				let legalAbility = false;
@@ -752,8 +740,8 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] OU', 'Allow One Sketch', 'Sketch Clause'],
-		banlist: ['Dugtrio-Base'],
-		noSketch: ['Belly Drum', 'Celebrate', 'Conversion', "Forest's Curse", 'Geomancy', 'Happy Hour', 'Hold Hands', 'Lovely Kiss', 'Purify', 'Shell Smash', 'Shift Gear', 'Sketch', 'Spore', 'Trick-or-Treat'],
+		banlist: [],
+		noSketch: ['Belly Drum', 'Celebrate', 'Conversion', "Forest's Curse", 'Geomancy', 'Happy Hour', 'Hold Hands', 'Lovely Kiss', 'Purify', 'Shell Smash', 'Shift Gear', 'Sketch', 'Spore', 'Sticky Web', 'Trick-or-Treat'],
 	},
 	{
 		name: "[Gen 7] Hidden Type",
@@ -869,12 +857,12 @@ exports.Formats = [
 		column: 3,
 	},
 	{
-		name: "[Gen 3] BL",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/dex/rs/formats/bl/\">ADV BL</a>"],
+		name: "[Gen 4] Doubles OU",
 
-		mod: 'gen3',
-		ruleset: ['[Gen 3] OU'],
-		banlist: ['OU'],
+		mod: 'gen4',
+		gameType: 'doubles',
+		ruleset: ['[Gen 4] OU'],
+		banlist: [],
 	},
 
 	// ORAS Singles

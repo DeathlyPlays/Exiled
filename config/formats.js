@@ -83,18 +83,8 @@ exports.Formats = [
 		],
 
 		mod: 'gen7',
-		searchShow: false,
 		ruleset: ['[Gen 7] UU'],
 		banlist: ['UU', 'BL2', 'Aurora Veil'],
-	},
-	{
-		name: "[Gen 7] RU (suspect test)",
-		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3615711/\">RU Suspect Test</a>"],
-
-		mod: 'gen7',
-		challengeShow: false,
-		ruleset: ['[Gen 7] RU'],
-		banlist: [],
 	},
 	{
 		name: "[Gen 7] NU",
@@ -372,7 +362,7 @@ exports.Formats = [
 
 		mod: 'ultimatez',
 		ruleset: ['[Gen 7] OU'],
-		banlist: ['Celebrate', 'Happy Hour'],
+		banlist: ['Celebrate', 'Happy Hour', 'Hold Hands'],
 	},
 	{
 		name: "[Gen 6] Balanced Hackmons",
@@ -401,7 +391,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['Pokemon', 'Ability Clause', 'OHKO Clause', 'Evasion Moves Clause', 'CFZ Clause', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
-		banlist: ['Arena Trap', 'Huge Power', 'Innards Out', 'Magnet Pull', 'Moody', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard', 'Gengarite', 'Chatter', 'Comatose + Sleep Talk'],
+		banlist: ['Groudon-Primal', 'Arena Trap', 'Huge Power', 'Innards Out', 'Magnet Pull', 'Moody', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard', 'Gengarite', 'Chatter', 'Comatose + Sleep Talk'],
 	},
 	{
 		name: "[Gen 7] 1v1",

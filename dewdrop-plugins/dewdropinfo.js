@@ -113,12 +113,6 @@ exports.commands = {
 	opensource: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-<<<<<<< HEAD:dewdrop-plugins/dewdropinfo.js
-			"Serverdrop's Github's:<br />" +
-			"- Language: JavaScript (Node.js)<br />" +
-			"- <a href=\"https://github.com/Serverdrop-PS/Serverdrop\">Serverdrop Server Code</a><br />" +
-			"- <a href=\"https://github.com/Serverdrop-PS\">Team Serverdrop Organization</a><br />"
-=======
 			Config.serverName + "'s Github's:<br />" +
 			"- Language: JavaScript (Node.js)<br />" +
 			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">" + Config.serverName + " Server Code</a><br />" +
@@ -126,7 +120,6 @@ exports.commands = {
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown\">Main's source code</a><br />" +
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Client\">Client source code</a><br />" +
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Dex\">Dex source code</a>"
->>>>>>> 5bab5a2906abd257711dc457fe8a47952dd92ee1:exiled-plugins/exiledinfo.js
 		);
 	},
 	opensourcehelp: [
@@ -137,13 +130,13 @@ exports.commands = {
 	'!forums': true,
 	forums: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">Exiled Forums</a>");
+		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">Dewdrop Forums</a>");
 	},
 
 	'!suggestions': true,
 	suggestions: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for Exiled</a>");
+		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for Dewdrop</a>");
 	},
 
 	'!fakemon': true,
@@ -162,11 +155,7 @@ exports.commands = {
 	'!discord': true,
 	discord: function () {
 		if (!this.runBroadcast()) return;
-<<<<<<< HEAD:dewdrop-plugins/dewdropinfo.js
-		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Serverdrop Discord</a>");
-=======
-		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Exiled Discord</a>");
->>>>>>> 5bab5a2906abd257711dc457fe8a47952dd92ee1:exiled-plugins/exiledinfo.js
+		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Dewdrop Discord</a>");
 	},
 
 	//Credits to Snaquaza on these feature and other DragonHeaven developers/contributers
@@ -209,11 +198,7 @@ exports.commands = {
 			this.sendReplyBox("<center><button name=\"saveReplay\"><i class=\"fa fa-upload\"></i> Save Replay</button> &mdash; <a href=\"https://www.smogon.com/forums/threads/3520646/\">Questions</a> &mdash; <a href=\"https://www.smogon.com/forums/threads/3469932/\">Bug Reports</a></center>");
 		} else {
 			this.sendReplyBox(
-<<<<<<< HEAD:dewdrop-plugins/dewdropinfo.js
-				"Have a replay showcasing a bug on Serverdrop?<br />" +
-=======
 				"Have a replay showcasing a bug on " + Config.serverName + "?<br />" +
->>>>>>> 5bab5a2906abd257711dc457fe8a47952dd92ee1:exiled-plugins/exiledinfo.js
 				"- <a href=\"http://exiledps.boards.net/thread/5/bug-reports/\">Bug Reports</a>"
 			);
 		}
@@ -302,13 +287,8 @@ exports.commands = {
 		"/rules [url] - Change the room rules URL. Requires: # & ~"],
 
 	servercredits: 'credits',
-<<<<<<< HEAD:dewdrop-plugins/dewdropinfo.js
-	credits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Serverdrop Credits:</b></u></font><br />" +
-=======
 	credits: function (user) {
 		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>" + Config.serverName + " Credits:</b></u></font><br />" +
->>>>>>> 5bab5a2906abd257711dc457fe8a47952dd92ee1:exiled-plugins/exiledinfo.js
 			"<br />" +
 			"<u><b>Server Maintainers:</u></b><br />" +
 			"- " + Server.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +

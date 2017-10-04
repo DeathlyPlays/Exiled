@@ -16,11 +16,7 @@
 		"Users": false, "Punishments": false, "Rooms": false, "Verifier": false, "Chat": false,
 		"Tournaments": false, "Dnsbl": false, "Sockets": false, "TeamValidator": false, "Ladders": false,
 		"Tells": false, "Db": false, "Economy": false, "sqlite3": false, "moneyName": false, "currencyName": false, "moneyPlural": false, "writeSSB": false,
-<<<<<<< HEAD
-		"Dew": false, "Ontime": false, "rankLadder": false, "runDexSearch": false, "runMoveSearch": false,
-=======
 		"Server": false, "Ontime": false, "rankLadder": false, "runDexSearch": false, "runMoveSearch": false,
->>>>>>> 0635b7d2acd9b282bd03da4c0f63a57c459380b9
 		"runItemSearch": false, "runLearn": false, "amCache": false, "Console": false, "colorCache": false, "isDev": false
 	},
 	"extends": "eslint:recommended",

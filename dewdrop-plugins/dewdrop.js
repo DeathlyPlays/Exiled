@@ -221,13 +221,13 @@ exports.commands = {
 		"/uotw [user] - Set the User of the Week. Requires: % or higher.",
 	],
 
-	etour: function (target, room, user) {
+	etour: function (target) {
 		if (!target) return this.parse("/help etour");
 		this.parse("/tour create " + target + ", elimination");
 	},
 	etourhelp: ["/etour [format] - Creates an elimination tournament."],
 
-	rtour: function (target, room, user) {
+	rtour: function (target) {
 		if (!target) return this.parse("/help rtour");
 		this.parse("/tour create " + target + ", roundrobin");
 	},
@@ -238,7 +238,7 @@ exports.commands = {
 	automod: 'autorank',
 	autoowner: 'autorank',
 	autopromote: 'autorank',
-	autorank: function (target, room, user, connection, cmd) {
+	autorank: function (target, room, user, cmd) {
 		switch (cmd) {
 		case 'autovoice':
 			target = '+';
@@ -280,24 +280,18 @@ exports.commands = {
 	},
 	bonus: 'dailybonus',
 	checkbonus: 'dailybonus',
-	dailybonus: function (target, room, user) {
+	dailybonus: function (user) {
 		let nextBonus = Date.now() - Db('DailyBonus').get(user.userid, [1, Date.now()])[1];
 		if ((86400000 - nextBonus) <= 0) return Server.giveDailyReward(user.userid, user);
 		return this.sendReply('Your next bonus is ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db('DailyBonus').get(user.userid, [1, Date.now()])[0]) + ' ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural) + ' in ' + Chat.toDurationString(Math.abs(86400000 - nextBonus)));
 	},
-	sota: function (room, user) {
-		return this.parse('feelssota feelstini tinitini sotalove');
+	sota: function () {
+		return this.parse('feelssotafeelstinitinitinisotalove');
 	},
-
-	devs: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox('<div style="background-color: red ; border: pink solid 2px ; height: 100px"><center><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="left"><img src="http://i.imgur.com/PgQAAI1.png" height="74" width="250"><img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/491.gif" height="84" width="95" align="right"></center></div><table style="text-align: center ; background-color: Black ; border: Red solid 2px ; width: 100% ; border-collapse: collapse"><tbody><tr><td style="border: Red solid 2px ; color: White ; width: 22%"><img style="transform: scaleX(-1);" src="https://avatars2.githubusercontent.com/u/20971990?v=3&s=460" height="80" width="80"><br>Insist</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img src="http://i.imgur.com/C3bFaZT.png" height="80" width="80"><br>Ninetales >n<</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img style="transform: scaleX(-1);" src="https://files.graphiq.com/620/media/images/Volcanion_5208962.png" height="80" width="80"><br>Volco</td><td style="border: Red solid 2px ; color: White ; width: 22%"><img src="http://i.imgur.com/IXS2qYX.png" height="80" width="80"><br>HoeenHero</td></tr></tbody></table>');
-	},
-	devshelp: ["/devs - Shows the coders of the server."],
 
 	'!define': true,
 	def: 'define',
-	define: function (target, room, user) {
+	define: function (target, room) {
 		if (!target) return this.parse('/help define');
 		target = toId(target);
 		if (target > 50) return this.errorReply("Word can not be longer than 50 characters.");
@@ -337,7 +331,7 @@ exports.commands = {
 	'!ud': true,
 	u: 'ud',
 	urbandefine: 'ud',
-	ud: function (target, room, user, connection, cmd) {
+	ud: function (target, room) {
 		if (!target) return this.parse('/help ud');
 		if (target.toString().length > 50) return this.errorReply("Phrase cannot be longer than 50 characters.");
 		if (!this.runBroadcast()) return;
@@ -416,7 +410,7 @@ exports.commands = {
 	roomfounderhelp: ["/roomfounder [username] - Appoints [username] as a room founder. Requires: & ~"],
 
 	deroomfounder: 'roomdefounder',
-	roomdefounder: function (target, room, user) {
+	roomdefounder: function (target, room) {
 		if (!room.chatRoomData) {
 			return this.sendReply("/roomdefounder - This room isn't designed for per-room moderation.");
 		}
@@ -526,7 +520,7 @@ exports.commands = {
 		}
 	},
 
-	anime: function (target, room, user) {
+	anime: function (target, room) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.errorReply("No target.");
 		let targetAnime = Chat.escapeHTML(target.trim());
@@ -563,7 +557,7 @@ exports.commands = {
 				return this.errorReply("Anime not found.");
 			});
 	},
-	manga: function (target, room, user) {
+	manga: function (target, room) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.errorReply("No target.");
 		let targetAnime = Chat.escapeHTML(target.trim());
@@ -601,24 +595,24 @@ exports.commands = {
 			});
 	},
 
-	hc: function (room, user, cmd) {
+	hc: function () {
 		return this.parse('/hotpatch chat');
 	},
 
-	hf: function (room, user, cmd) {
+	hf: function () {
 		return this.parse('/hotpatch formats');
 	},
 
-	hb: function (room, user, cmd) {
+	hb: function () {
 		return this.parse('/hotpatch battles');
 	},
 
-	hv: function (room, user, cmd) {
+	hv: function () {
 		return this.parse('/hotpatch validator');
 	},
 	complain: 'requesthelp',
 	report: 'requesthelp',
-	requesthelp: function (target, room, user) {
+	requesthelp: function (target, user) {
 		if (user.can('lock')) return this.parse('/reports ' + (target || ''));
 		if (!this.canTalk()) return this.errorReply("You can't use this command while unable to speak.");
 		if (!target) return this.sendReply("/requesthelp [message] - Requests help from Serverdrop global authorities. Please be specific in your situation.");
@@ -643,7 +637,7 @@ exports.commands = {
 		return this.sendReply("Your report has been sent to Serverdrop global authorities..");
 	},
 
-	reports: function (target, room, user, connection, cmd) {
+	reports: function (target, user, cmd) {
 		if (!user.can('lock')) return this.errorReply('/reports - Access denied.');
 		if (!target) target = '';
 		target = target.trim();
@@ -719,8 +713,8 @@ exports.commands = {
 		}
 	},
 	dev: {
-		give: function (target, room, user) {
-			if (!this.can('declare')) return false;
+		give: function (target, user) {
+			if (!this.can('hotpatch')) return false;
 			if (!target) return this.parse('/help', true);
 			let devUsername = toId(target);
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -729,8 +723,8 @@ exports.commands = {
 			this.sendReply('|html|' + Server.nameColor(devUsername, true) + " has been given DEV status.");
 			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
-		take: function (target, room, user) {
-			if (!this.can('declare')) return false;
+		take: function (target, user) {
+			if (!this.can('hotpatch')) return false;
 			if (!target) return this.parse('/help', true);
 			let devUsername = toId(target);
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -740,7 +734,7 @@ exports.commands = {
 			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been demoted from DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
 		users: 'list',
-		list: function (target, room, user) {
+		list: function () {
 			if (!Db('devs').keys().length) return this.errorReply('There seems to be no user with DEV status.');
 			let display = [];
 			Db('devs').keys().forEach(devUser => {
@@ -749,7 +743,7 @@ exports.commands = {
 			this.popupReply('|html|<strong><u><font size="3"><center>DEV Users:</center></font></u></strong>' + display.join(','));
 		},
 		'': 'help',
-		help: function (target, room, user) {
+		help: function () {
 			this.sendReplyBox(
 				'<div style="padding: 3px 5px;"><center>' +
 				'<code>/dev</code> commands.<br />These commands are nestled under the namespace <code>dev</code>.</center>' +
@@ -774,7 +768,7 @@ exports.commands = {
 	nerd: 'away',
 	nerding: 'away',
 	mimis: 'away',
-	away: function (target, room, user, connection, cmd) {
+	away: function (target, room, user, cmd) {
 		if (!user.isAway && user.name.length > 30 && !user.can('lock')) return this.sendReply("Your username is too long for any kind of use of this command.");
 		if (!this.canTalk()) return false;
 
@@ -809,7 +803,7 @@ exports.commands = {
 	},
 	awayhelp: ["/away [message] - Sets a user's away status."],
 
-	back: function (target, room, user) {
+	back: function (room, user) {
 		if (!user.isAway) return this.sendReply("You are not set as away.");
 		user.isAway = false;
 
@@ -831,8 +825,13 @@ exports.commands = {
 	},
 	backhelp: ["/back - Sets a users away status back to normal."],
 
+<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
 	'!dssb': true,
 	dssb: function (target, room, user) {
+=======
+	'!essb': true,
+	essb: function (target) {
+>>>>>>> 5917fec40435821edd0bc0715e8a505aa34aa485:exiled-plugins/exiled.js
 		if (!this.runBroadcast()) return false;
 		if (!target || target === 'help') return this.parse('/help dssb');
 		if (target === 'credits') return this.parse('/dssbcredits');
@@ -841,13 +840,22 @@ exports.commands = {
 		return this.sendReplyBox(targetData);
 	},
 
+<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
 	dssbhelp: function (target, room, user) {
+=======
+	essbhelp: function () {
+>>>>>>> 5917fec40435821edd0bc0715e8a505aa34aa485:exiled-plugins/exiled.js
 		if (!this.runBroadcast()) return;
 		return this.sendReplyBox("/dssb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.");
 	},
 
+<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
 	dssbcredits: function (target, room, user) {
 		let popup = "|html|" + "<font size=5 color=#000080><u><strong>DSSB Credits</strong></u></font><br />" +
+=======
+	essbcredits: function (user) {
+		let popup = "|html|" + "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
+>>>>>>> 5917fec40435821edd0bc0715e8a505aa34aa485:exiled-plugins/exiled.js
 			"<br />" +
 			"<u><strong>Programmers:</u></strong><br />" +
 			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
@@ -888,7 +896,7 @@ exports.commands = {
 	music: 'dubtrack',
 	radio: 'dubtrack',
 	dubtrackfm: 'dubtrack',
-	dubtrack: function (target, room, user) {
+	dubtrack: function (room) {
 		if (!this.runBroadcast()) return;
 		let nowPlaying = "";
 		let options = {
@@ -913,7 +921,7 @@ exports.commands = {
 	},
 	'!youtube': true,
 	yt: 'youtube',
-	youtube: function (target, room, user) {
+	youtube: function (target, room) {
 		if (!this.runBroadcast()) return false;
 		if (!target) return false;
 		let params_spl = target.split(' '), g = ' ';
@@ -952,7 +960,7 @@ exports.commands = {
 		});
 		req.end();
 	},
-	clearall: function (target, room, user) {
+	clearall: function (room, user) {
 		if (!this.can('declare')) return false;
 		if (room.battle) return this.sendReply("You cannot clearall in battle rooms.");
 
@@ -963,7 +971,7 @@ exports.commands = {
 
 	'!roompromote': true,
 	roomdemote: 'roompromote',
-	roompromote: function (target, room, user, connection, cmd) {
+	roompromote: function (target, room, user, cmd) {
 		if (!room) {
 			// this command isn't marked as room-only because it's usable in PMs through /invite
 			return this.errorReply("This command is only available in rooms");
@@ -1058,7 +1066,7 @@ exports.commands = {
 	],
 
 	gclearall: 'globalclearall',
-	globalclearall: function (target, room, user) {
+	globalclearall: function (user) {
 		if (!this.can('gdeclare')) return false;
 
 		Rooms.rooms.forEach(room => clearRoom(room));
@@ -1066,7 +1074,7 @@ exports.commands = {
 		this.privateModCommand(`(${user.name} used /globalclearall.)`);
 	},
 	'!regdate': true,
-	regdate: function (target, room, user, connection) {
+	regdate: function (target, user) {
 		if (!target) target = user.name;
 		target = toId(target);
 		if (target.length < 1 || target.length > 19) {
@@ -1096,7 +1104,7 @@ exports.commands = {
 	regdatehelp: ["/regdate - Gets the regdate (register date) of a username."],
 
 	'!seen': true,
-	seen: function (target, room, user) {
+	seen: function (target) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help seen');
 		let targetUser = Users.get(target);
@@ -1112,20 +1120,13 @@ exports.commands = {
 	helixfossil: 'm8b',
 	helix: 'm8b',
 	magic8ball: 'm8b',
-	m8b: function (target, room, user) {
+	m8b: function () {
 		if (!this.runBroadcast()) return;
 		let results = ['Signs point to yes.', 'Yes.', 'Reply hazy, try again.', 'Without a doubt.', 'My sources say no.', 'As I see it, yes.', 'You may rely on it.', 'Concentrate and ask again.', 'Outlook not so good.', 'It is decidedly so.', 'Better not tell you now.', 'Very doubtful.', 'Yes - definitely.', 'It is certain.', 'Cannot predict now.', 'Most likely.', 'Ask again later.', 'My reply is no.', 'Outlook good.', 'Don\'t count on it.'];
 		return this.sendReplyBox(results[Math.floor(20 * Math.random())]);
 	},
-	/* eslint-enable */
-	thefourthreplica: 'tfr',
-	tfr: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		let results = ['Here\'s some bright powder!', 'I sense a shiny in the near future, just keep trying!', 'If you\'re hungry, just eat some of your breedjects :D', 'BRIGHT POWDER!', 'Good luck!', '#ItsBreedingTime', '/pick is rigged!'];
-		return this.sendReplyBox(results[Math.floor(7 * Math.random())]);
-	},
 
-	randp: function (target, room, user) {
+	randp: function (target) {
 		if (!this.runBroadcast()) return;
 		let shinyPoke = "";
 		let x;
@@ -1164,9 +1165,32 @@ exports.commands = {
 	},
 	'!digidex': true,
 	dd: 'digidex',
-	digidex: function (target, room, user) {
+	digidex: function (target) {
 		if (!target) return this.parse("/help digidex");
 		this.parse("/dt " + target + ", digimon");
 	},
 	digidexhelp: ["/digidex [Digimon] - Checks for a Digimon's data from Digimon Showdown."],
+
+
+	randomsurvey: 'randsurvey',
+	randsurvey: function () {
+		let results = [
+			"/survey create What do you want to see added or updated in " + Config.serverName + "?",
+			"/survey create What's your most memorable experience on " + Config.serverName + "?",
+			"/survey create How much time do you spend on " + Config.serverName + " daily?",
+			"/survey create What is your favorite custom mechanic on " + Config.serverName + "?",
+			"/survey create Was" + Config.serverName + " your first Pokemon Showdown side-server?", //5
+			"/survey create Do you like the league system?",
+			"/survey create Do you like the idea of us adding custom megas on " + Config.serverName + " that you can use in regular formats? (OU, UU, Ubers, Etc)",
+			"/survey create What was your worst experience so far on " + Config.serverName + "?",
+			"/survey create What's your favorite food?",
+			"/survey create What's your favorite activity on a hot summer day?", //10
+			"/survey create What's your favorite drink",
+			"/survey create What's your favorite color?",
+			"/survey create What's the most embarrassing thing that's ever happened to you in real life?",
+			"/survey create Have you ever been banned/locked on main? (play.pokemonshowdown.com)",
+			"/survey create Do you want to see more events on " + Config.serverName + "?", //15
+		];
+		return this.parse(results[Math.floor(15 * Math.random())]);
+	},
 };

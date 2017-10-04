@@ -4,6 +4,7 @@ exports.BattleMovedex = {
 	"supahawtmixtape": {
 		id: "supahawtmixtape",
 		name: "SUPA HAWT MIXTAPE",
+		desc: "A mixtape said to be so hot that it boosts user's Special Attack, Speed and Evasion by 2 stages.",
 		pp: 5,
 		priority: 1,
 		category: "Special",
@@ -32,6 +33,7 @@ exports.BattleMovedex = {
 	"flowergarden": {
 		id: "flowergarden",
 		name: "Flower Garden",
+		desc: "Said to be related with Bad Time. Boosts user's Special Attack and Speed by 1 stage.",
 		pp: 10,
 		priority: 1,
 		category: "Special",
@@ -59,6 +61,7 @@ exports.BattleMovedex = {
 	"ignite": {
 		id: "ignite",
 		name: "Ignite",
+		desc: "Said to be the signature move of Pignite. Always causes roasts.",
 		pp: 10,
 		basePower: 20,
 		category: "Special",
@@ -82,6 +85,7 @@ exports.BattleMovedex = {
 	"fastclaw": {
 		id: "fastclaw",
 		name: "Fast Claw",
+		desc: "Said to be the fastest claw. 20% chance to flinch.",
 		pp: 10,
 		basePower: 60,
 		category: "Special",
@@ -106,6 +110,7 @@ exports.BattleMovedex = {
 	"fieryoutburst": {
 		id: "fieryoutburst",
 		name: "Fiery Outburst",
+		desc: "Said to be able to cause forest fires. Reduces user's Attack and Special Attack by 1 stage and boosts user's Speed by 1 stage.",
 		pp: 5,
 		basePower: 135,
 		category: "Physical",
@@ -137,6 +142,7 @@ exports.BattleMovedex = {
 	"tailswipe": {
 		id: "tailswipe",
 		name: "Tail Swipe",
+		desc: "It is so boring that it only boosts the user's speed by 1 stage.",
 		pp: 20,
 		basePower: 50,
 		category: "Physical",
@@ -163,6 +169,7 @@ exports.BattleMovedex = {
 	"badtime": {
 		id: "badtime",
 		name: "Bad Time",
+		desc: "Cringy and unoriginal move that is so bad it causes toxic, confusion, boosts user's Attack by 6 stages and reduces user's Defense by 6 stages.",
 		pp: 20,
 		priority: 0,
 		basePower: 1,
@@ -307,6 +314,7 @@ exports.BattleMovedex = {
 	"passengermode": {
 		id: "passengermode",
 		name: "Passenger Mode",
+		desc: "Said to be the signature move of Pilot Gamma. 30% chance to flinch.",
 		pp: 15,
 		basePower: 90,
 		category: "Special",
@@ -331,6 +339,7 @@ exports.BattleMovedex = {
 	"gamble": {
 		id: "gamble",
 		name: "Gamble",
+		desc: "The more you risk your life the more meaningful your gambles get.",
 		pp: 15,
 		basePower: 60,
 		basePowerCallback: function (pokemon, target, move) {
@@ -372,6 +381,7 @@ exports.BattleMovedex = {
 	"error404": {
 		id: "error404",
 		name: "ERROR 404",
+		desc: "Four hundred and four.",
 		pp: 15,
 		self: {
 			boosts: {
@@ -407,6 +417,7 @@ exports.BattleMovedex = {
 	"murrinslash": {
 		id: "murrinslash",
 		name: "Murrin Slash",
+		desc: "Said to be able to cut anything in half. Boosts user's Speed by 6 stages and evasion by 2 stages.",
 		ohko: true,
 		accuracy: true,
 		target: "any",
@@ -435,6 +446,7 @@ exports.BattleMovedex = {
 	"shade": {
 		id: "shade",
 		name: "Shade",
+		desc: "It might be a shade but it's a boring one.",
 		basePower: 130,
 		accuracy: 90,
 		priority: 0,
@@ -458,6 +470,7 @@ exports.BattleMovedex = {
 	"luckyprediction": {
 		id: "luckyprediction",
 		name: "Lucky Prediction",
+		desc: "Said to be Gamble's sexier sister. Boosts critical hit rate.",
 		accuracy: true,
 		basePower: 90,
 		category: "Physical",
@@ -488,6 +501,7 @@ exports.BattleMovedex = {
 	"ultima": {
 		id: "ultima",
 		name: "Ultima",
+		desc: "Said to be the ultimate magic in another world.",
 		basePower: 150,
 		priority: 0,
 		accuracy: true,
@@ -510,6 +524,7 @@ exports.BattleMovedex = {
 	"northerncross": {
 		id: "northerncross",
 		name: "Northern Cross",
+		desc: "Said to be a cross. Freezes enemies.",
 		basePower: 0,
 		accuracy: 90,
 		pp: 15,
@@ -533,6 +548,7 @@ exports.BattleMovedex = {
 	"curaga": {
 		id: "curaga",
 		name: "Curaga",
+		desc: "Said to be able to fully heal.",
 		basePower: 0,
 		accuracy: true,
 		category: "Status",
@@ -554,6 +570,7 @@ exports.BattleMovedex = {
 	"dispel": {
 		id: "dispel",
 		name: "Dispel",
+		desc: "Removes useful things from enemies.",
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
@@ -587,6 +604,7 @@ exports.BattleMovedex = {
 	"meltdown": {
 		id: "meltdown",
 		name: "Meltdown",
+		desc: "Said to be the meltdown of a kid.",
 		basePower: 150,
 		accuracy: true,
 		category: "Physical",
@@ -611,6 +629,7 @@ exports.BattleMovedex = {
 	"mightyguard": {
 		id: "mightyguard",
 		name: "Mighty Guard",
+		desc: "Useless defensive move.",
 		basePower: 0,
 		category: "Status",
 		accuracy: 100,
@@ -634,6 +653,7 @@ exports.BattleMovedex = {
 	"death": {
 		id: "death",
 		name: "Death",
+		desc: "Said to be Murrin Slash's uglier brother.",
 		basePower: 0,
 		ohko: true,
 		pp: 5,
@@ -655,6 +675,7 @@ exports.BattleMovedex = {
 	"eraser": {
 		id: "eraser",
 		name: "Eraser",
+		desc: "Said to be the Eraser of Doom.",
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",

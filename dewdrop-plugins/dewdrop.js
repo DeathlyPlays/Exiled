@@ -846,13 +846,8 @@ exports.commands = {
 		return this.sendReplyBox("/dssb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.");
 	},
 
-<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
 	dssbcredits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5 color=#000080><u><b>DSSB Credits</b></u></font><br />" +
-=======
-	essbcredits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
->>>>>>> 94219139530c20b5b653d3ec6afec7ed7b5085d9:exiled-plugins/exiled.js
+		let popup = "|html|" + "<font size=5 color=#000080><u><strong>DSSB Credits</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Programmers:</u></strong><br />" +
 			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +

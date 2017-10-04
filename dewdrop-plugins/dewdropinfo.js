@@ -290,15 +290,9 @@ exports.commands = {
 	credits: function (user) {
 		let popup = "|html|" + "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
 			"<br />" +
-<<<<<<< HEAD:dewdrop-plugins/dewdropinfo.js
-			"<u><b>Server Maintainers:</u></b><br />" +
+			"<u><strong>Server Maintainers:</u></strong><br />" +
 			"- " + Server.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
 			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
-=======
-			"<u><strong>Server Maintainers:</u></strong><br />" +
-			"- " + Server.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
-			"- " + Server.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
->>>>>>> 94219139530c20b5b653d3ec6afec7ed7b5085d9:exiled-plugins/exiledinfo.js
 			"<br />" +
 			"<u><strong>Major Contributors:</strong></u><br />" +
 			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +

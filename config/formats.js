@@ -1706,7 +1706,7 @@ exports.Formats = [
 		name: "[Gen 7] Ash's Pokemon",
 		mod: 'ashspokemon',
 		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
-		team: 'randomSeasonalMelee',
+		team: 'randomAsh',
 		desc: [
 			"This metagame covers every Pok&eacute that Ash caught in the anime, some were evolved for viability etc.",
 		],
@@ -1720,7 +1720,7 @@ exports.Formats = [
 			"Credit to: Insist (main coder and inspired by), Vivid is a God (side coder and set adviser), Alpha Hawk (extra ideas)",
 			"&bullet; <a href=\"http://squadps.boards.net/post/51/thread\">Clash of the Regions Information</a>",
 		],
-		team: 'randomSeasonalMelee',
+		team: 'randomCOTR',
 	},
 	{
 		name: "[Gen 7] Digimon Showdown",
@@ -1959,7 +1959,7 @@ exports.Formats = [
 		name: "[Gen 7] Holiday Metagame",
 		mod: "holiday",
 		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
-		team: "randomSeasonalMelee",
+		team: "randomHoliday",
 		desc: [
 			"Idea, concept, coded, and created by Insist",
 			"Also, Astral Wobz helped with the ideas for more holidays :D",
@@ -2124,7 +2124,7 @@ exports.Formats = [
 		name: "[Gen 7] OP Metagame",
 		mod: "opmetagame",
 		ruleset: ['Exact HP Mod', 'Cancel Mod'],
-		team: 'randomSeasonalMelee',
+		team: 'randomOPMeta',
 		desc: [
 			"Inspired by BAMD, coded and extra ideas from Insist.",
 			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pok&eacutemon</a>",
@@ -2230,12 +2230,12 @@ exports.Formats = [
 			"Credit to: Insist (coded and inspired by), and Kairak (gave ideas for custom moves names).",
 			"Made for Gyaratoast, my (Insist) best friend.",
 		],
-		team: 'randomSeasonalMelee',
+		team: 'randomSmash',
 	},
 	{
 		name: "[Gen 7] Supercell Games",
 		mod: "supercell",
-		team: "randomSeasonalMelee",
+		team: "randomSupercell",
 		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
 		desc: [
 			"This metagame is about games like Clash of Clans, Clash Royale, and in the future possibly Boom Beach.",

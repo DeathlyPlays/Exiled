@@ -113,10 +113,13 @@ exports.commands = {
 	opensource: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-			"Exiled's Github's:<br />" +
+			Config.serverName + "'s Github's:<br />" +
 			"- Language: JavaScript (Node.js)<br />" +
-			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">Exiled Server Code</a><br />" +
-			"- <a href=\"https://github.com/ExiledPS\">Team Exiled Organization</a><br />"
+			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">" + Config.serverName + " Server Code</a><br />" +
+			"- <a href=\"https://github.com/DeathlyPlays/Exiled/commits/master\">What's new?</a><br />" +
+			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown\">Main's source code</a><br />" +
+			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Client\">Client source code</a><br />" +
+			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Dex\">Dex source code</a>"
 		);
 	},
 	opensourcehelp: [
@@ -155,46 +158,37 @@ exports.commands = {
 		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Exiled Discord</a>");
 	},
 
-	'!reddit': true,
-	reddit: function () {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://www.reddit.com/me/m/exiled_ps/\">The Official Exiled Reddit</a>");
-	},
-
-	'!facebook': true,
-	facebook: function () {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://www.facebook.com/exiledserver/\">The Official Exiled Facebook Page</a>");
-	},
-
 	//Credits to Snaquaza on these feature and other DragonHeaven developers/contributers
-	'fakemonlist': 'fakemonslist',
-	fakemonslist: function () {
+	'perfectedlist': 'perfectionlist',
+	perfectionlist: function () {
 		if (!this.runBroadcast()) return;
-		let buf = `<div class=infobox-limited><center><h2>List Of Fakemons</h2></center>`;
-		let fakemonsDex = require('../mods/fakemons/pokedex.js').BattlePokedex;
-		if (!fakemonsDex) return this.errorReply("Error Fetching Fakemons Data.");
-		Object.values(fakemonsDex).forEach(mon => {
-			buf += `<button name="send" value="/fakemondata ${mon.species}" style="background:none;border:none;">${mon.species}</button><br>`;
+		let buf = `<div class=infobox-limited><center><h2>List Of Perfected Pokemon</h2></center>`;
+		let perfectionDex = require('../mods/perfection/pokedex.js').BattlePokedex;
+		if (!perfectionDex) return this.errorReply("Error Fetching Perfected Pokemon Data.");
+		Object.values(perfectionDex).forEach(mon => {
+			buf += `<button name="send" value="/dt ${mon.species}, perfection" style="background:none;border:none;">${mon.species}</button><br>`;
 		});
 		this.sendReplyBox(`${buf}</div>`);
 	},
-	fakemonslisthelp: ["/fakemonslist - Shows the list of Fakemons."],
+	perfectionlisthelp: ["/perfectionlist - Shows the list of Pokemon that have been made/edited in Perfected Pokemon."],
 
-	learnfakemons: function (target) {
+	'perfectionlearn': 'learnperfected',
+	'learnperfection': 'learnperfected',
+	'perfectedlearn': 'learnperfected',
+	learnperfected: function (target) {
 		if (!this.runBroadcast()) return;
-		let learnfakemons = Dex.mod('fakemons').data.Learnsets, movefakemons = Dex.mod('fakemons').data.Movedex, dexfakemons = Dex.mod('fakemons').data.Pokedex;
-		if (!target || toId(target) === '') return this.sendReply("/learnfakemons: Shows the whether a Pokemon can learn a move, including Pokemon and Moves from fakemons.");
+		let learnperfected = Dex.mod('perfection').data.Learnsets, moveperfected = Dex.mod('perfection').data.Movedex, dexperfected = Dex.mod('perfection').data.Pokedex;
+		if (!target || toId(target) === '') return this.sendReply("/learnperfected: Shows the whether a Pokemon can learn a move, including Pokemon and Moves from Perfected Pokemon.");
 		let targets = target.split(','), mon = targets[0], move = targets[1];
-		if (!mon || !dexfakemons[toId(mon)]) return this.errorReply("Error: Pokemon not found");
-		if (!learnfakemons[toId(mon)]) return this.errorReply("Error: Learnset not found");
-		if (!move || !movefakemons[toId(move)]) return this.errorReply("Error: Move not found");
-		mon = dexfakemons[toId(mon)];
-		move = movefakemons[toId(move)];
-		if (learnfakemons[toId(mon.species)].learnset[toId(move.name)]) {
-			return this.sendReplyBox("In Fakemons, " + mon.species + ' <font color="green"><u><b>can<b><u></font> learn ' + move.name);
+		if (!mon || !dexperfected[toId(mon)]) return this.errorReply("Error: Pokemon not found");
+		if (!learnperfected[toId(mon)]) return this.errorReply("Error: Learnset not found");
+		if (!move || !moveperfected[toId(move)]) return this.errorReply("Error: Move not found");
+		mon = dexperfected[toId(mon)];
+		move = moveperfected[toId(move)];
+		if (learnperfected[toId(mon.species)].learnset[toId(move.name)]) {
+			return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="green"><u><b>can<b><u></font> learn ' + move.name);
 		}
-		return this.sendReplyBox("In Fakemons, " + mon.species + ' <font color="red"><u><b>can\'t<b><u></font> learn ' + move.name);
+		return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="red"><u><b>can\'t<b><u></font> learn ' + move.name);
 	},
 
 	'!bugs': true,
@@ -204,7 +198,7 @@ exports.commands = {
 			this.sendReplyBox("<center><button name=\"saveReplay\"><i class=\"fa fa-upload\"></i> Save Replay</button> &mdash; <a href=\"https://www.smogon.com/forums/threads/3520646/\">Questions</a> &mdash; <a href=\"https://www.smogon.com/forums/threads/3469932/\">Bug Reports</a></center>");
 		} else {
 			this.sendReplyBox(
-				"Have a replay showcasing a bug on Exiled?<br />" +
+				"Have a replay showcasing a bug on " + Config.serverName + "?<br />" +
 				"- <a href=\"http://exiledps.boards.net/thread/5/bug-reports/\">Bug Reports</a>"
 			);
 		}
@@ -293,8 +287,8 @@ exports.commands = {
 		"/rules [url] - Change the room rules URL. Requires: # & ~"],
 
 	servercredits: 'credits',
-	credits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>Server Credits:</b></u></font><br />" +
+	credits: function (user) {
+		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>" + Config.serverName + " Credits:</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Server Maintainers:</u></b><br />" +
 			"- " + Server.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +

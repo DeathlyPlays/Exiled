@@ -96,8 +96,8 @@ class Poll {
 			i = iter.next();
 			c++;
 		}
-		if (option === 0 && !ended) output += '<div><small>(You can\'t vote after viewing results)</small></div>';
-		output += '</div>';
+		if (option === 0 && !ended) output += '<div style="text-align:center; color:maroon;"<small>(You can\'t vote after viewing results)</small></div>';
+		output += '</table>';
 
 		return output;
 	}
@@ -444,14 +444,14 @@ exports.commands = {
 		if (!this.can('minigame', null, room)) return false;
 		if (room.poll) return this.errorReply("There is already a poll in progress in this room.");
 		let options = [];
-		for (let key in Dex.data.Formats) {
-			if (!Dex.data.Formats[key].mod) continue;
-			if (!Dex.data.Formats[key].searchShow) continue;
+		for (let key in Dex.formats) {
+			if (!Dex.formats[key].mod) continue;
+			if (!Dex.formats[key].searchShow) continue;
 			if (toId(target) !== 'all') {
 				let commonMods = ['gen7', 'essb', 'pmd', 'metronome', 'ashspokemon', 'clashoftheregions', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame', 'perfection', 'mixandmega', 'slowtown', 'stadium', 'supercell', 'fivemovefrenzy'];
-				if (commonMods.indexOf(Dex.data.Formats[key].mod) === -1) continue;
+				if (commonMods.indexOf(Dex.formats[key].mod) === -1) continue;
 			}
-			options.push(Dex.data.Formats[key].name);
+			options.push(Dex.formats[key].name);
 		}
 		room.poll = new Poll(room, {
 			source: 'What should the next tournament tier be?',

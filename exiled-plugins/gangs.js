@@ -150,13 +150,13 @@ function gangTourPoints(winner, runnerup, tourSize, room) {
 		gangs[winnerGang].points += winnerPoints;
 		save();
 		logPoints(winner, winnerPoints, "First place in a tournament in " + room.id);
-		room.addRaw("<b>" + Server.nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(gangs[winnerGang].name) + "</b>");
+		room.addRaw("<strong>" + Server.nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(gangs[winnerGang].name) + "</strong>");
 	}
 	if (secondGang && secondPoints > 0) {
 		gangs[secondGang].points += secondPoints;
 		save();
 		logPoints(runnerup, secondPoints, "Second place in a tournament in " + room.id);
-		room.addRaw("<b>" + Server.nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(gangs[secondGang].name) + "</b>");
+		room.addRaw("<strong>" + Server.nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(gangs[secondGang].name) + "</strong>");
 	}
 }
 Server.gangTourPoints = gangTourPoints;

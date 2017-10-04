@@ -64,7 +64,7 @@ exports.commands = {
 			if (!target[1]) return this.parse('/help customcolor');
 			if (toId(target[0]).length > 19) return this.errorReply("Usernames are not this long...");
 
-			this.sendReply("|raw|You have given <b><font color=" + target[1] + ">" + Chat.escapeHTML(target[0]) + "</font></b> a custom color.");
+			this.sendReply("|raw|You have given <strong><font color=" + target[1] + ">" + Chat.escapeHTML(target[0]) + "</font></strong> a custom color.");
 			this.privateModCommand("(" + target[0] + " has recieved custom color: '" + target[1] + "' from " + user.name + ".)");
 			customColors[toId(target[0])] = target[1];
 			updateColor();
@@ -85,7 +85,7 @@ exports.commands = {
 			target = target.split(',');
 			for (let u = 0; u < target.length; u++) target[u] = target[u].trim();
 			if (!target[1]) return this.parse('/help customcolor');
-			return this.sendReplyBox('<b><font size="3" color="' + target[1] + '">' + Chat.escapeHTML(target[0]) + '</font></b>');
+			return this.sendReplyBox('<strong><font size="3" color="' + target[1] + '">' + Chat.escapeHTML(target[0]) + '</font></strong>');
 		},
 		reload: function (target, room, user) {
 			if (!this.can('hotpatch')) return false;
@@ -107,7 +107,7 @@ exports.commands = {
 	hex: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let targetUser = (target ? target : user.name);
-		this.sendReplyBox('The hex code of ' + Server.nameColor(targetUser, true) + ' is: <font color="' + Server.hashColor(targetUser) + '"><b>' + Server.hashColor(targetUser) + '</b></font>');
+		this.sendReplyBox('The hex code of ' + Server.nameColor(targetUser, true) + ' is: <font color="' + Server.hashColor(targetUser) + '"><strong>' + Server.hashColor(targetUser) + '</strong></font>');
 	},
 };
 

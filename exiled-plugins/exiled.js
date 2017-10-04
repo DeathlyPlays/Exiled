@@ -39,7 +39,7 @@ Server.img = function (link, height, width) {
 
 Server.font = function (text, color, bold) {
 	if (!text) return '<font color="maroon">ERROR : Please provide some text.</font>';
-	return '<font color="' + (color ? color : 'black') + '">' + (bold ? '<b>' : '') + text + (bold ? '</b>' : '') + '</font>';
+	return '<font color="' + (color ? color : 'black') + '">' + (bold ? '<strong>' : '') + text + (bold ? '</strong>' : '') + '</font>';
 };
 
 let urbanCache;
@@ -312,15 +312,15 @@ exports.commands = {
 		function callback(error, response, body) {
 			if (!error && response.statusCode === 200) {
 				let page = JSON.parse(body);
-				let output = "<font color=#24678d><b>Definitions for " + target + ":</b></font><br />";
+				let output = "<font color=#24678d><strong>Definitions for " + target + ":</strong></font><br />";
 				if (!page[0]) {
-					self.sendReplyBox("No results for <b>\"" + target + "\"</b>.");
+					self.sendReplyBox("No results for <strong>\"" + target + "\"</strong>.");
 					return room.update();
 				} else {
 					let count = 1;
 					for (let u in page) {
 						if (count > 3) break;
-						output += "(<b>" + count + "</b>) " + Chat.escapeHTML(page[u]['text']) + "<br />";
+						output += "(<strong>" + count + "</strong>) " + Chat.escapeHTML(page[u]['text']) + "<br />";
 						count++;
 					}
 					self.sendReplyBox(output);
@@ -353,7 +353,7 @@ exports.commands = {
 		};
 
 		if (urbanCache[target.toLowerCase().replace(/ /g, '')] && Math.round(Math.abs((urbanCache[target.toLowerCase().replace(/ /g, '')].time - Date.now()) / (24 * 60 * 60 * 1000))) < 31) {
-			return this.sendReplyBox("<b>" + Chat.escapeHTML(target) + ":</b> " + urbanCache[target.toLowerCase().replace(/ /g, '')].definition.substr(0, 400));
+			return this.sendReplyBox("<strong>" + Chat.escapeHTML(target) + ":</strong> " + urbanCache[target.toLowerCase().replace(/ /g, '')].definition.substr(0, 400));
 		}
 
 		let self = this;
@@ -363,14 +363,14 @@ exports.commands = {
 				let page = JSON.parse(body);
 				let definitions = page['list'];
 				if (page['result_type'] === 'no_results') {
-					self.sendReplyBox("No results for <b>\"" + Chat.escapeHTML(target) + "\"</b>.");
+					self.sendReplyBox("No results for <strong>\"" + Chat.escapeHTML(target) + "\"</strong>.");
 					return room.update();
 				} else {
 					if (!definitions[0]['word'] || !definitions[0]['definition']) {
-						self.sendReplyBox("No results for <b>\"" + Chat.escapeHTML(target) + "\"</b>.");
+						self.sendReplyBox("No results for <strong>\"" + Chat.escapeHTML(target) + "\"</strong>.");
 						return room.update();
 					}
-					let output = "<b>" + Chat.escapeHTML(definitions[0]['word']) + ":</b> " + Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
+					let output = "<strong>" + Chat.escapeHTML(definitions[0]['word']) + ":</strong> " + Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
 					if (output.length > 400) output = output.slice(0, 400) + '...';
 					cacheUrbanWord(target, Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' '));
 					self.sendReplyBox(output);
@@ -543,14 +543,14 @@ exports.commands = {
 						let description = data.description.replace(/(\r\n|\n|\r)/gm, "").split('<br><br>').join('<br>');
 						if (description.indexOf('&lt;br&gt;&lt;br&gt;') >= 0) description = description.substr(0, description.indexOf('&lt;br&gt;&lt;br&gt;'));
 						if (description.indexOf('<br>') >= 0) description = description.substr(0, description.indexOf('<br>'));
-						output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><b>' + data.title_romaji + '</b></td>';
+						output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><strong>' + data.title_romaji + '</strong></td>';
 						output += '<td rowspan="6"><img src="' + data.image_url_lge + '" height="320" width="225" alt="' + data.title_romaji + '" title="' + data.title_romaji + '" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>';
-						output += '<tr><td style="' + css + '"><b>Genre(s): </b>' + data.genres + '</td></tr>';
-						output += '<tr><td style="' + css + '"><b>Air Date: </b>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
-						output += '<tr><td style="' + css + '"><b>Status: </b>' + data.airing_status + '</td></tr>';
-						output += '<tr><td style="' + css + '"><b>Episode Count: </b>' + data.total_episodes + '</td></tr>';
-						output += '<tr><td style="' + css + '"><b>Rating: </b> ' + data.average_score + '/100</td></tr>';
-						output += '<tr><td colspan="2" style="' + css + '"><b>Description: </b>' + description + '</td></tr>';
+						output += '<tr><td style="' + css + '"><strong>Genre(s): </strong>' + data.genres + '</td></tr>';
+						output += '<tr><td style="' + css + '"><strong>Air Date: </strong>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
+						output += '<tr><td style="' + css + '"><strong>Status: </strong>' + data.airing_status + '</td></tr>';
+						output += '<tr><td style="' + css + '"><strong>Episode Count: </strong>' + data.total_episodes + '</td></tr>';
+						output += '<tr><td style="' + css + '"><strong>Rating: </strong> ' + data.average_score + '/100</td></tr>';
+						output += '<tr><td colspan="2" style="' + css + '"><strong>Description: </strong>' + description + '</td></tr>';
 						output += '</table></div>';
 						amCache.anime[id] = output;
 						this.sendReply('|raw|' + output);
@@ -580,14 +580,14 @@ exports.commands = {
 						let description = data.description.replace(/(\r\n|\n|\r)/gm, " ").split('<br><br>').join('<br>');
 						if (description.indexOf('&lt;br&gt;&lt;br&gt;') >= 0) description = description.substr(0, description.indexOf('&lt;br&gt;&lt;br&gt;'));
 						if (description.indexOf('<br>') >= 0) description = description.substr(0, description.indexOf('<br>'));
-						output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><b>' + data.title_romaji + '</b></td>';
+						output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><strong>' + data.title_romaji + '</strong></td>';
 						output += '<td rowspan="6"><img src="' + data.image_url_lge + '" height="320" width="225" alt="' + data.title_romaji + '" title="' + data.title_romaji + '" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>';
-						output += '<tr><td style="' + css + '"><b>Genre(s): </b>' + data.genres + '</td></tr>';
-						output += '<tr><td style="' + css + '"><b>Release Date: </b>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
-						output += '<tr><td style="' + css + '"><b>Status: </b>' + data.publishing_status + '</td></tr>';
-						output += '<tr><td style="' + css + '"><b>Chapter Count: </b>' + data.total_chapters + '</td></tr>';
-						output += '<tr><td style="' + css + '"><b>Rating: </b> ' + data.average_score + '/100</td></tr>';
-						output += '<tr><td colspan="2" style="' + css + '"><b>Description: </b>' + description + '</td></tr>';
+						output += '<tr><td style="' + css + '"><strong>Genre(s): </strong>' + data.genres + '</td></tr>';
+						output += '<tr><td style="' + css + '"><strong>Release Date: </strong>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
+						output += '<tr><td style="' + css + '"><strong>Status: </strong>' + data.publishing_status + '</td></tr>';
+						output += '<tr><td style="' + css + '"><strong>Chapter Count: </strong>' + data.total_chapters + '</td></tr>';
+						output += '<tr><td style="' + css + '"><strong>Rating: </strong> ' + data.average_score + '/100</td></tr>';
+						output += '<tr><td colspan="2" style="' + css + '"><strong>Description: </strong>' + description + '</td></tr>';
 						output += '</table></div>';
 						amCache.manga[id] = output;
 						this.sendReply('|raw|' + output);
@@ -743,7 +743,7 @@ exports.commands = {
 			Db('devs').keys().forEach(devUser => {
 				display.push(Server.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
 			});
-			this.popupReply('|html|<b><u><font size="3"><center>DEV Users:</center></font></u></b>' + display.join(','));
+			this.popupReply('|html|<strong><u><font size="3"><center>DEV Users:</center></font></u></strong>' + display.join(','));
 		},
 		'': 'help',
 		help: function (target, room, user) {
@@ -844,13 +844,13 @@ exports.commands = {
 	},
 
 	essbcredits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5 color=#000080><u><b>ESSB Credits</b></u></font><br />" +
+		let popup = "|html|" + "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
 			"<br />" +
-			"<u><b>Programmers:</u></b><br />" +
+			"<u><strong>Programmers:</u></strong><br />" +
 			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
 			"- " + Server.nameColor('Lycanium Z', true) + " (Assistant Developer)<br />" +
 			"- " + Server.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
-			"<u><b>Special Thanks:</b></u><br />" +
+			"<u><strong>Special Thanks:</strong></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";
 		user.popup(popup);
 	},
@@ -875,7 +875,7 @@ exports.commands = {
 			}).on('end', () => {
 				if (data.charAt(0) === '{') {
 					data = JSON.parse(data);
-					if (data['data'] && data['data']['currentSong']) nowPlaying = "<br /><b>Now Playing:</b> " + Chat.escapeHTML(data['data']['currentSong'].name);
+					if (data['data'] && data['data']['currentSong']) nowPlaying = "<br /><strong>Now Playing:</strong> " + Chat.escapeHTML(data['data']['currentSong'].name);
 				}
 				this.sendReplyBox('Join our dubtrack.fm room <a href="https://www.dubtrack.fm/join/exiled_147873230374424">here!</a>' + nowPlaying);
 				room.update();
@@ -917,7 +917,7 @@ exports.commands = {
 				}
 				let id = getLinkId(target);
 				const image = '<button style="background: none; border: none;"><img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg?custom=true&w=168&h=94&stc=true&jpg444=true&jpgq=90&sp=68&sigh=tbq7TDTjFXD_0RtlFUMGz-k3JiQ" height="180" width="180"></button>';
-				self.sendReplyBox('<center>' + image + '<br><a href="https://www.youtube.com/watch?v=' + d.items[0].id.videoId + '"><b> ' + d.items[0].snippet.title + '</b></center>');
+				self.sendReplyBox('<center>' + image + '<br><a href="https://www.youtube.com/watch?v=' + d.items[0].id.videoId + '"><strong> ' + d.items[0].snippet.title + '</strong></center>');
 				room.update();
 			});
 		});
@@ -1052,14 +1052,14 @@ exports.commands = {
 
 		function regdateReply(date) {
 			if (date === 0) {
-				return Server.nameColor(target, true) + " <b><font color='red'>is not registered.</font></b>";
+				return Server.nameColor(target, true) + " <strong><font color='red'>is not registered.</font></strong>";
 			} else {
 				let d = new Date(date);
 				let MonthNames = ["January", "February", "March", "April", "May", "June",
 					"July", "August", "September", "October", "November", "December",
 				];
 				let DayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-				return Server.nameColor(target, true) + " was registered on <b>" + DayNames[d.getUTCDay()] + ", " + MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + ", " + d.getUTCFullYear() + "</b> at <b>" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC.</b>";
+				return Server.nameColor(target, true) + " was registered on <strong>" + DayNames[d.getUTCDay()] + ", " + MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + ", " + d.getUTCFullYear() + "</strong> at <strong>" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC.</strong>";
 			}
 			//room.update();
 		}
@@ -1071,11 +1071,11 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help seen');
 		let targetUser = Users.get(target);
-		if (targetUser && targetUser.connected) return this.sendReplyBox(Server.nameColor(targetUser.name, true) + " is <b><font color='limegreen'>Currently Online</b></font>.");
+		if (targetUser && targetUser.connected) return this.sendReplyBox(Server.nameColor(targetUser.name, true) + " is <strong><font color='limegreen'>Currently Online</strong></font>.");
 		target = Chat.escapeHTML(target);
 		let seen = Db('seen').get(toId(target));
-		if (!seen) return this.sendReplyBox(Server.nameColor(target, true) + " has <b><font color='red'>never been online</font></b> on this server.");
-		this.sendReplyBox(Server.nameColor(target, true) + " was last seen <b>" + Chat.toDurationString(Date.now() - seen, {precision: true}) + "</b> ago.");
+		if (!seen) return this.sendReplyBox(Server.nameColor(target, true) + " has <strong><font color='red'>never been online</font></strong> on this server.");
+		this.sendReplyBox(Server.nameColor(target, true) + " was last seen <strong>" + Chat.toDurationString(Date.now() - seen, {precision: true}) + "</strong> ago.");
 	},
 	seenhelp: ["/seen - Shows when the user last connected on the server."],
 
@@ -1131,7 +1131,7 @@ exports.commands = {
 			}
 			return text.join(" / ");
 		}
-		this.sendReplyBox("<table><tr><td><img src=\"" + spriteLocation + "\" height=\"96\" width=\"96\"></td><td><b>Name: </b>" + pokeData.species + "<br/><b>Type(s): </b>" + getTypeFormatting(pokeData.types) + "<br/><b>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </b>" + Object.values(pokeData.abilities).join(" / ") + "<br/><b>Stats: </b>" + Object.values(pokeData.baseStats).join(" / ") + "<br/><b>Colour: </b><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/><b>Egg Group(s): </b>" + pokeData.eggGroups.join(", ") + "</td></tr></table>");
+		this.sendReplyBox("<table><tr><td><img src=\"" + spriteLocation + "\" height=\"96\" width=\"96\"></td><td><strong>Name: </strong>" + pokeData.species + "<br/><strong>Type(s): </strong>" + getTypeFormatting(pokeData.types) + "<br/><strong>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </strong>" + Object.values(pokeData.abilities).join(" / ") + "<br/><strong>Stats: </strong>" + Object.values(pokeData.baseStats).join(" / ") + "<br/><strong>Colour: </strong><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/><strong>Egg Group(s): </strong>" + pokeData.eggGroups.join(", ") + "</td></tr></table>");
 	},
 	'!digidex': true,
 	dd: 'digidex',

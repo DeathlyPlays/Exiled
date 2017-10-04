@@ -69,7 +69,7 @@ function getShopDisplay(shop) {
 	let start = 0;
 	while (start < shop.length) {
 		display += "<tr>" +
-			"<td align='center'><button name='send' style='background: #000; border-radius: 5px; border: solid, 1px, #DF0101; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#DF0101 face=courier><b>" + shop[start][0] + "</b></font></button>" + "</td>" +
+			"<td align='center'><button name='send' style='background: #000; border-radius: 5px; border: solid, 1px, #DF0101; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#DF0101 face=courier><strong>" + shop[start][0] + "</strong></font></button>" + "</td>" +
 			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][1] + "</font></td>" +
 			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][2] + "</font></td>" +
 			"</tr>";
@@ -347,7 +347,7 @@ exports.commands = {
 		if (!cost) return;
 		let total = Db('money').set(user.userid, amount - cost).get(user.userid);
 		this.sendReply("You have bought " + target + " for " + cost + currencyName(cost) + ". You now have " + total + currencyName(total) + " left.");
-		room.addRaw(user.name + " has bought <b>" + target + "</b> from the shop.");
+		room.addRaw(user.name + " has bought <strong>" + target + "</strong> from the shop.");
 		Economy.logTransaction(user.name + " has bought " + target + " from the shop. This user now has " + total + currencyName(total) + ".");
 		handleBoughtItem.call(this, target.toLowerCase(), user, cost);
 	},

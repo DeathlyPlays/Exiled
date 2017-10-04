@@ -153,14 +153,14 @@ exports.commands = {
 			let keys = Object.keys(db('roomshop').object()[room.id]);
 
 			function display(keys) {
-				let display = '<center><u><b>' + room.title + '\'s Shop</b></u></center><br><table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>Item</th><th>Description</th><th>Price</th></tr>';
+				let display = '<center><u><strong>' + room.title + '\'s Shop</strong></u></center><br><table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>Item</th><th>Description</th><th>Price</th></tr>';
 
 				if (keys.indexOf('Bank') >= 0) keys.splice(keys.indexOf('Bank'), 1);
-				if (!keys.length) return '<center><h2><b><u>This Shop Has No Items!</u></b></h2></center>';
+				if (!keys.length) return '<center><h2><strong><u>This Shop Has No Items!</u></strong></h2></center>';
 
 				for (let i = 0; i < keys.length; i++) {
 					let item = db('roomshop').object()[room.id][keys[i]];
-					display += '<tr><td align="center"><button name="send" value="/roomshop buy ' + keys[i] + '"><b>' + item['Item Name'] + '</b></button></td>';
+					display += '<tr><td align="center"><button name="send" value="/roomshop buy ' + keys[i] + '"><strong>' + item['Item Name'] + '</strong></button></td>';
 					display += '<td align="center">' + item['Description'] + '</td>';
 					display += '<td align="center">' + item['Price'] + '</td></tr>';
 				}

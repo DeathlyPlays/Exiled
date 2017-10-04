@@ -118,7 +118,7 @@ function validate(me, targetUser, quiet) {
 }
 
 function buildMenu(userid) {
-	if (!Server.ssb[userid]) return '<span style="color:red"><b>Error: </b>User "' + userid + '" not found in ssb.</span>';
+	if (!Server.ssb[userid]) return '<span style="color:red"><strong>Error: </strong>User "' + userid + '" not found in ssb.</span>';
 	let speciesName = toId(Server.ssb[userid].species);
 	/*if (speciesName.substring(0, 8) === 'oricorio') {
 	  speciesName = 'oricorio-' + toId(speciesName.substring(8));
@@ -198,7 +198,7 @@ function statMenu(userid) {
 		output += '<tr><td><button class="button" name="send" value="/ssb edit statsq ev, ' + values[i] + ', 0">Set 0</button></td><th>' + values[i] + ': ' + Server.ssb[userid].evs[toId(values[i])] + '</th><td style="border-right:1px solid black"><button class="button" name="send" value="/ssb edit statsq ev, ' + values[i] + ', 252">Set 252</button></td>';
 		output += '<td style="border-left:1px solid black"><button class="button" name="send" value="/ssb edit statsq iv, ' + values[i] + ', 0">Set 0</button></td><th>' + values[i] + ': ' + Server.ssb[userid].ivs[toId(values[i])] + '</th><td><button class="button" name="send" value="/ssb edit statsq iv, ' + values[i] + ', 31">Set 31</button></td></tr>';
 	}
-	output += '<div style="float: right; display: inline-block; width: 40%"><b><u>Stat Menu</u></b><br/><br/><button class="button" name="send" value="/ssb edit stats help">Set EVs or IVs to a custom value</button><br/><br/><i>Current Nature:</i> ' + Server.ssb[userid].nature + '<br/><br/><button class="button" name="send" value="/ssb edit stats nature help">Set Nature</button><br/><br/><button class="button" name="send" value="/ssb edit main">Main Menu</button></div></div>';
+	output += '<div style="float: right; display: inline-block; width: 40%"><strong><u>Stat Menu</u></strong><br/><br/><button class="button" name="send" value="/ssb edit stats help">Set EVs or IVs to a custom value</button><br/><br/><i>Current Nature:</i> ' + Server.ssb[userid].nature + '<br/><br/><button class="button" name="send" value="/ssb edit stats nature help">Set Nature</button><br/><br/><button class="button" name="send" value="/ssb edit main">Main Menu</button></div></div>';
 	return output;
 }
 
@@ -214,7 +214,7 @@ function detailMenu(userid) {
 function customMenu() {
 	let output = '<div class="setchart" style="text-align:center; height:140px"><div style="max-height: 135px; overflow-y: scroll"><h3><u>Custom Moves</u></h3><button class="button" name="send" value="/ssb edit main">Main Menu</button>';
 	for (let i = 0; i < customMovepool.length; i++) {
-		output += '<div><b><u>' + customMovepool[i] + '</u></b>: Type: <i>' + typeList[i] + '</i>, Description: <button class="button" name="send" value="/dt ' + customMovepool[i] + ', ssbffa">Effects</button><button class="button" name="send" value="/ssb edit move custom, ' + customMovepool[i] + '">Set as custom move</button></div><br/>';
+		output += '<div><strong><u>' + customMovepool[i] + '</u></strong>: Type: <i>' + typeList[i] + '</i>, Description: <button class="button" name="send" value="/dt ' + customMovepool[i] + ', ssbffa">Effects</button><button class="button" name="send" value="/ssb edit move custom, ' + customMovepool[i] + '">Set as custom move</button></div><br/>';
 	}
 	output += '<button class="button" name="send" value="/ssb edit main">Main Menu</button></div></div>';
 	return output;

@@ -212,7 +212,7 @@ function parseMessage(message, user) {
 		div = "chat";
 		if (lineSplit.slice(3).join('|').match(highlight)) div = "chat highlighted";
 		message = '<span class="' + div + '"><small>[' + timestamp + ']</small> ' + '<small>' + name.substr(0, 1) +
-		'</small><b><font color="' + Server.nameColor(name.substr(1)) + '">' + name.substr(1, name.length) + ':</font></b><em>' +
+		'</small><strong><font color="' + Server.nameColor(name.substr(1)) + '">' + name.substr(1, name.length) + ':</font></strong><em>' +
 		Server.parseMessage(lineSplit.slice(3).join('|')) + '</em></span>';
 		break;
 	case 'c:':

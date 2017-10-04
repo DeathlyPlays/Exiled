@@ -410,7 +410,7 @@ exports.commands = {
 		case 'view':
 		case 'list':
 			if (!this.runBroadcast()) return;
-			let reply = "<b><u>Emoticons (" + Object.keys(emoticons).length + ")</u></b><br />";
+			let reply = "<strong><u>Emoticons (" + Object.keys(emoticons).length + ")</u></strong><br />";
 			for (let emote in emoticons) reply += "(" + emote + " <img src=\"" + emoticons[emote] + "\" height=\"50\" width=\"50\">) ";
 			this.sendReply('|raw|<div class="infobox infobox-limited">' + reply + '</div>');
 			break;

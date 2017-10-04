@@ -57,7 +57,7 @@ class RPSLSGame {
 
 	sendGameInformation(player, opponent) {
 		let pmPost = "/html <div class=\"broadcast-green\"><center> You have been matched up with <span class=\"username\">" + Chat.escapeHTML(opponent.name) + "</span><br>" +
-			"<b>What is your choice?</b><br>" +
+			"<strong>What is your choice?</strong><br>" +
 			'<button name="send" value="/rpsls choose R ' + this.gameId + '">Rock</button>' +
 			'<button name="send" value="/rpsls choose P ' + this.gameId + '">Paper</button>' +
 			'<button name="send" value="/rpsls choose S ' + this.gameId + '">Scissors</button>' +
@@ -283,12 +283,12 @@ exports.commands = {
 			if (!this.runBroadcast()) return false;
 			target = (toId(target) ? (Users.get(target) ? Users.get(target).name : target) : user.name);
 			let userRank = Db('rpslsrank').get(toId(target), 1000);
-			this.sendReplyBox("Rank - <b>" + target + "</b>: " + userRank);
+			this.sendReplyBox("Rank - <strong>" + target + "</strong>: " + userRank);
 		},
 
 		ladder: function (target, room, user) {
 			if (!this.runBroadcast()) return false;
-			let html = '<center><b><font size="2">Rock/Paper/Scissors/Lizard/Spock Ladder</font><b></center><br><div style="max-height: 310px; overflow-y: scroll">';
+			let html = '<center><strong><font size="2">Rock/Paper/Scissors/Lizard/Spock Ladder</font><strong></center><br><div style="max-height: 310px; overflow-y: scroll">';
 			let index = 1;
 			let table = Object.keys(Db("rpsrank").object()).sort(function (a, b) {
 				if (Db('rpslsrank').get(a, 1000) > Db('rpslsrank').get(b, 1000)) return -1;

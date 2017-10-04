@@ -78,9 +78,9 @@ exports.commands = {
 		if (isConnected && !Ontime[userid]) Ontime[userid] = Date.now();
 
 		if (isConnected) {
-			this.sendReplyBox(Server.nameColor(userid, true) + '\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Current ontime: <b>' + displayTime(convertTime((currentOntime))) + '</b>.');
+			this.sendReplyBox(Server.nameColor(userid, true) + '\'s total ontime is <strong>' + displayTime(convertTime(totalOntime)) + '</strong>.' + ' Current ontime: <strong>' + displayTime(convertTime((currentOntime))) + '</strong>.');
 		} else {
-			this.sendReplyBox(Server.nameColor(userid, true) + '\'s total ontime is <b>' + displayTime(convertTime(totalOntime)) + '</b>.' + ' Currently not online.');
+			this.sendReplyBox(Server.nameColor(userid, true) + '\'s total ontime is <strong>' + displayTime(convertTime(totalOntime)) + '</strong>.' + ' Currently not online.');
 		}
 	},
 

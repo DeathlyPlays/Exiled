@@ -24,7 +24,7 @@ function showTitle(userid) {
 	userid = toId(userid);
 	if (Db("titles").has(userid)) {
 		return '<font color="' + Db("titles").get(userid)[1] +
-			'">(<b>' + Db("titles").get(userid)[0] + '</b>)</font>';
+			'">(<strong>' + Db("titles").get(userid)[0] + '</strong>)</font>';
 	}
 	return '';
 }
@@ -38,12 +38,12 @@ function isDev(user) {
 }
 
 function devCheck(user) {
-	if (isDev(user)) return '<font color="#009320">(<b>Developer</b>)</font>';
+	if (isDev(user)) return '<font color="#009320">(<strong>Developer</strong>)</font>';
 	return '';
 }
 
 function vipCheck(user) {
-	if (isVIP(user)) return '<font color="#6390F0">(<b>VIP User</b>)</font>';
+	if (isVIP(user)) return '<font color="#6390F0">(<strong>VIP User</strong>)</font>';
 	return '';
 }
 
@@ -103,7 +103,7 @@ exports.commands = {
 			Db("vips").keys().forEach(vipUser => {
 				display.push(Server.nameColor(vipUser, (Users(vipUser) && Users(vipUser).connected)));
 			});
-			this.popupReply('|html|<b><u><font size="3"><center>VIP Users:</center></font></u></b>' + display.join(','));
+			this.popupReply('|html|<strong><u><font size="3"><center>VIP Users:</center></font></u></strong>' + display.join(','));
 		},
 		'': 'help',
 		help: function (target, room, user) {
@@ -275,13 +275,13 @@ exports.commands = {
 				let profile = '';
 				profile += showBadges(toId(username));
 				profile += '<img src="' + avatar + '" height="80" width="80" align="left">';
-				profile += '&nbsp;<font color="#24678d"><b>Name:</b></font> ' + Server.nameColor(username, true) + '&nbsp;' + getFlag(toId(username)) + ' ' + showTitle(username) + '<br />';
-				profile += '&nbsp;<font color="#24678d"><b>Group:</b></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
-				profile += '&nbsp;<font color="#24678d"><b>Registered:</b></font> ' + regdate + '<br />';
-				profile += '&nbsp;<font color="#24678d"><b>' + global.moneyPlural + ':</b></font> ' + money + '<br />';
-				profile += '&nbsp;<font color="#24678d"><b>Last Seen:</b></font> ' + getLastSeen(toId(username)) + '</font><br />';
+				profile += '&nbsp;<font color="#24678d"><strong>Name:</strong></font> ' + Server.nameColor(username, true) + '&nbsp;' + getFlag(toId(username)) + ' ' + showTitle(username) + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>Group:</strong></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ' + regdate + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>' + global.moneyPlural + ':</strong></font> ' + money + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>Last Seen:</strong></font> ' + getLastSeen(toId(username)) + '</font><br />';
 				if (Db("friendcode").has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db("friendcode").get(toId(username));
+					profile += '&nbsp;<font color="#24678d"><strong>Friend Code:</strong></font> ' + Db("friendcode").get(toId(username));
 				}
 				profile += '<br clear="all">';
 				self.sendReplyBox(profile);

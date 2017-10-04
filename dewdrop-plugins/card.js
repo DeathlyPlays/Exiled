@@ -127,7 +127,7 @@ function getShopDisplay(shop) {
 		"<tr><th class='card-th' style='background-image: -moz-linear-gradient(center top , #EBF3FC, #DCE9F9); box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset;'>Command</th><th class='card-th' style='background-image: -moz-linear-gradient(center top , #EBF3FC, #DCE9F9); box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset;'>Description</th><th class='card-th' style='background-image: -moz-linear-gradient(center top , #EBF3FC, #DCE9F9); box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset;'>Cost</th></tr>";
 	let start = 0;
 	while (start < shop.length) {
-		display += "<tr>" + "<td class='card-td'><button name='send' value='/buypack " + shop[start][0] + "' style='border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;'><b>" + shop[start][0] + "</b></button></td>" +
+		display += "<tr>" + "<td class='card-td'><button name='send' value='/buypack " + shop[start][0] + "' style='border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;'><strong>" + shop[start][0] + "</strong></button></td>" +
 			"<td class='card-td'>" + shop[start][1] + "</td>" +
 			"<td class='card-td'>" + shop[start][2] + "</td>" +
 			"</tr>";
@@ -191,9 +191,9 @@ exports.commands = {
 		if (!target) target = user.name;
 		target = toId(target);
 		if (!userPacks[target] || userPacks[target].length === 0) return this.sendReply((target === user.userid ? 'You have' : target + ' has') + ' no packs.');
-		this.sendReply('|raw|<u><b>List of packs:</b></u>');
+		this.sendReply('|raw|<u><strong>List of packs:</strong></u>');
 		for (let i = 0; i < userPacks[target].length; i++) {
-			this.sendReply('|raw| <button name="send" value="/openpack ' + userPacks[target][i] + '"> Press to open <b>' + toTitleCase(userPacks[target][i]) + '</b> pack</button>');
+			this.sendReply('|raw| <button name="send" value="/openpack ' + userPacks[target][i] + '"> Press to open <strong>' + toTitleCase(userPacks[target][i]) + '</strong> pack</button>');
 		}
 	},
 
@@ -210,7 +210,7 @@ exports.commands = {
 		if (cost > amount) return self.sendReply("You need " + (cost - amount) + " more bucks to buy this pack.");
 		Economy.writeMoney(user.userid, Number(-cost));
 		let pack = toId(target);
-		self.sendReply('|raw|You have bought ' + target + ' pack for ' + cost + ' bucks. Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
+		self.sendReply('|raw|You have bought ' + target + ' pack for ' + cost + ' bucks. Use <button name="send" value="/openpack ' + pack + '"><strong>/openpack ' + pack + '</strong></button> to open your pack.');
 		self.sendReply("You have until the server restarts to open your pack.");
 		if (!userPacks[user.userid]) userPacks[user.userid] = [];
 		userPacks[user.userid].push(pack);
@@ -241,7 +241,7 @@ exports.commands = {
 			let cardName = cards[card].name;
 			let packName = packShop[cleanShop.indexOf(toId(target))];
 			this.sendReplyBox(Server.nameColor(user.name, true) + ' got <font color="' + colors[cards[card].rarity] + '">' + cards[card].rarity + '</font> ' +
-			'<button name="send" value="/card ' + card + '"><b>' + cardName + '</b></button> from a ' +
+			'<button name="send" value="/card ' + card + '"><strong>' + cardName + '</strong></button> from a ' +
 			'<button name="send" value="/buypack ' + packName + '">' + packName + ' Pack</button>.');
 		}
 		let usrIndex = userPacks[user.userid].indexOf(newPack);
@@ -263,7 +263,7 @@ exports.commands = {
 		this.sendReply(this.targetUsername + " was given " + pack + " pack. This user now has " + userPacks[user.name].length + " pack(s).");
 		Users.get(this.targetUsername).connections[0].sendTo(room.id,
 			'|raw|' + user.name + ' has given you ' + pack + ' pack. You have until the server restarts to open your pack.' +
-			'Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
+			'Use <button name="send" value="/openpack ' + pack + '"><strong>/openpack ' + pack + '</strong></button> to open your pack.');
 	},
 
 	takepacks: 'takepack',
@@ -296,7 +296,7 @@ exports.commands = {
 		const cardsMapping = cards.map(function (card) {
 			return '<button name="send" value="/card ' + card.title + '" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;" class="card-button"><img src="' + card.card + '" width="80" title="' + card.name + '"></button>';
 		});
-		this.sendReplyBox('<div style="max-height: 300px; overflow-y: scroll;">' + cardsMapping.join('') + '</div><br><center><b>' + Server.nameColor(userid, false) + ' has ' + cards.length + ' cards and ' + getPointTotal(userid) + ' points.</b></center>');
+		this.sendReplyBox('<div style="max-height: 300px; overflow-y: scroll;">' + cardsMapping.join('') + '</div><br><center><strong>' + Server.nameColor(userid, false) + ' has ' + cards.length + ' cards and ' + getPointTotal(userid) + ' points.</strong></center>');
 	},
 
 	card: function (target, room, user) {
@@ -339,7 +339,7 @@ exports.commands = {
 
 		const scrollable = "<div style=\"max-height: 300px; overflow-y: scroll\">"; // code for scrollable html
 		const divEnd = "</div>";
-		const definePopup = "|wide||html|<center><b>CardSearch</b></center><br />";
+		const definePopup = "|wide||html|<center><strong>CardSearch</strong></center><br />";
 		const generalMenu = "<center>" +
 			'<button name="send" value="/searchcard letter" style="background-color:aliceblue;height:30px">Alphabetical</button>&nbsp;&nbsp;' + // alphabetical
 			'<button name="send" value="/searchcard category" style="background-color:aliceblue;height:30px">Categories</button>&nbsp;&nbsp;' + // category
@@ -391,7 +391,7 @@ exports.commands = {
 			// create category menu
 			let categoryMenu = "";
 			for (let c in categories) {
-				categoryMenu += '<b>' + c + ' -</b> ' + categories[c].map(k => {
+				categoryMenu += '<strong>' + c + ' -</strong> ' + categories[c].map(k => {
 					let m = toId(k);
 					// add a special search condition for rarity
 					if (c === "Rarity") m += "rarity";
@@ -449,7 +449,7 @@ exports.commands = {
 
 			// no cards left
 			if (!Object.keys(paramCards).length) {
-				return user.popup(definePopup + generalMenu + categoryMenu + '<br /><center><font color="red"><b>Nothing matches your search</b></font></center>');
+				return user.popup(definePopup + generalMenu + categoryMenu + '<br /><center><font color="red"><strong>Nothing matches your search</strong></font></center>');
 			}
 			user.lastCardSearch = target;
 			// build the display
@@ -462,7 +462,7 @@ exports.commands = {
 		case 'card':
 			let backButton = '<button name="send" value="/cardsearch ' + user.lastCardSearch + '" style="background-color:aliceblue;height:30px;width:35">&lt;&nbsp;Back</button><br /><br />';
 			if (!parts[0] || !(toId(parts[0]) in cards) || toId(parts[0]) === "constructor") {
-				return user.popup(definePopup + backButton + '<center><font color="red"><b>Invalid Card</b></font></center>');
+				return user.popup(definePopup + backButton + '<center><font color="red"><strong>Invalid Card</strong></font></center>');
 			}
 
 			// build the display screen for the card
@@ -470,13 +470,13 @@ exports.commands = {
 			// the image
 			let cardImage = '<img src="' + card.card + '" height=250>';
 			// the name of the card
-			let cardName = "<b>Name:</b> " + card.name + "<br />";
+			let cardName = "<strong>Name:</strong> " + card.name + "<br />";
 			// the id of the card
 			let cardId = "<font color=\"gray\">(" + card.title + ")</font><br />";
 			// rarity display
-			let cardRarityPoints = '<b>Rarity: </b><font color="' + colors[card.rarity] + '">' + card.rarity + '</font> (' + card.points + ')<br />';
+			let cardRarityPoints = '<strong>Rarity: </strong><font color="' + colors[card.rarity] + '">' + card.rarity + '</font> (' + card.points + ')<br />';
 			// collections
-			let cardCollection = '<b>Packs: </b>' + card.collection.join(", ") + "<br />";
+			let cardCollection = '<strong>Packs: </strong>' + card.collection.join(", ") + "<br />";
 			// get users that have the card
 			let allCardUsers = Db('cards').object();
 			let cardHolders = [];
@@ -501,7 +501,7 @@ exports.commands = {
 				"<td>" + cardImage + "</td>" + // Card on the left
 				"<td>" + // details now
 				cardName + cardId + cardRarityPoints + cardCollection +
-				"<b>Users with this card:</b><br />" + // card holders
+				"<strong>Users with this card:</strong><br />" + // card holders
 				"<div style=\"max-height: 130px; overflow-y: scroll\">" + // scrollable
 				cardHolders.join("<br />") + "<br />" +
 				"</td></tr></table></center>"; // close the table
@@ -510,7 +510,7 @@ exports.commands = {
 			break;
 		case 'error':
 		default:
-			user.popup(definePopup + generalMenu + '<br /><center><font color="red"><b>Invalid Command action for CardSearch</b></font></center>');
+			user.popup(definePopup + generalMenu + '<br /><center><font color="red"><strong>Invalid Command action for CardSearch</strong></font></center>');
 			break;
 		}
 	},
@@ -563,14 +563,14 @@ exports.commands = {
 
 		// send messages
 		this.sendReply("Your trade has been taken submitted.");
-		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~" + Config.serverName + " Server|" + Server.nameColor(targetUser) + "|/raw <div class=\"broadcast-green\">" + Server.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
-		user.send("|pm|~" + Config.serverName + " Server|" + Server.nameColor(user.userid) + "|/raw <div class=\"broadcast-green\">Your trade with " + Server.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <b>/trades</b> to view your pending trade requests.</div>");
+		if (Users.get(targetUser)) Users.get(targetUser).send("|pm|~" + Config.serverName + " Server|" + Server.nameColor(targetUser) + "|/raw <div class=\"broadcast-green\">" + Server.nameColor(user.name, true) + " has initiated a trade with you.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <strong>/trades</strong> to view your pending trade requests.</div>");
+		user.send("|pm|~" + Config.serverName + " Server|" + Server.nameColor(user.userid) + "|/raw <div class=\"broadcast-green\">Your trade with " + Server.nameColor(targetUser, true) + " has been initiated.  Click <button name=\"send\" value=\"/trades last\">here</button> or use <strong>/trades</strong> to view your pending trade requests.</div>");
 	},
 
 	trades: 'viewcardtrades',
 	viewcardtrades: function (target, room, user) {
 		// popup variables
-		const popup = "|html|<center><b><font color=\"blue\">Trade Manager</font></b></center><br />";
+		const popup = "|html|<center><strong><font color=\"blue\">Trade Manager</font></strong></center><br />";
 
 		// get the user's trades
 		let allTrades = Db('cardtrades').object();
@@ -601,9 +601,9 @@ exports.commands = {
 
 		// show trade details
 		let displayTrade = userTrades[target];
-		const acceptReject = '<center>' + (displayTrade.from === user.userid ? "" : '<button name="send" value="/tradeaction accept, ' + displayTrade.id + '" style="background-color:green;height:30px"><b>Accept</b></button>') + // accept button
+		const acceptReject = '<center>' + (displayTrade.from === user.userid ? "" : '<button name="send" value="/tradeaction accept, ' + displayTrade.id + '" style="background-color:green;height:30px"><strong>Accept</strong></button>') + // accept button
 			'&nbsp;&nbsp;' + // spacing
-			'<button name="send" value="/tradeaction ' + (displayTrade.from === user.userid ? "cancel" : "reject") + ', ' + displayTrade.id + '" style="background-color:red;height:30px"><b>' + (displayTrade.from === user.userid ? "Cancel" : "Reject") + '</b></button></center>' + // reject button
+			'<button name="send" value="/tradeaction ' + (displayTrade.from === user.userid ? "cancel" : "reject") + ', ' + displayTrade.id + '" style="background-color:red;height:30px"><strong>' + (displayTrade.from === user.userid ? "Cancel" : "Reject") + '</strong></button></center>' + // reject button
 			'<br /><br />'; // new line
 
 		// build the user's card first
@@ -682,7 +682,7 @@ exports.commands = {
 		let parts = target.split(",").map(p => p.trim());
 		let action = toId(parts.shift());
 		const backButton = '<button name="send" value="' + (user.lastTradeCommand || '/viewcardtrades') + '" style="background-color:aliceblue;height:30px">< Back</button><br /><br />';
-		const tradeError = "|html|" + backButton + '<center><font color="red"><b>ERROR: Invalid Trade / You cannot accept your own trade request!</b></font><center>';
+		const tradeError = "|html|" + backButton + '<center><font color="red"><strong>ERROR: Invalid Trade / You cannot accept your own trade request!</strong></font><center>';
 		let trade;
 		switch (action) {
 		case 'confirmaccept':
@@ -692,7 +692,7 @@ exports.commands = {
 				// make the user confirm the decision
 				// build a back button
 				return user.popup("|html|" + backButton + // back button
-				'<center><button name="send" value="/tradeaction confirmaccept, ' + parts[0] + '" style="background-color:red;height:65px;width:150px"><b>Confirm Trade</b></button></center>');
+				'<center><button name="send" value="/tradeaction confirmaccept, ' + parts[0] + '" style="background-color:red;height:65px;width:150px"><strong>Confirm Trade</strong></button></center>');
 			}
 			// finalize trade
 			// get the trade
@@ -818,7 +818,7 @@ exports.commands = {
 		if (!targetUser || !card) return this.errorReply("/transfercard [user], [card ID]");
 
 		if (cmd === "transfercard") {
-			return user.popup('|html|<center><button name="send" value="/confirmtransfercard ' + target + '" style="background-color:red;height:65px;width:150px"><b><font color="white" size=3>Confirm Transfer to ' + targetUser + '</font></b></button>');
+			return user.popup('|html|<center><button name="send" value="/confirmtransfercard ' + target + '" style="background-color:red;height:65px;width:150px"><strong><font color="white" size=3>Confirm Transfer to ' + targetUser + '</font></strong></button>');
 		}
 		// check if card can been removed
 		let canTransfer = removeCard(card, user.userid);
@@ -854,7 +854,7 @@ exports.commands = {
 
 		// confirmation
 		if (cmd === "transferallcards") {
-			return user.popup('|html|<center><button name="send" value="/confirmtransferallcards ' + target + '" style="background-color:red;height:65px;width:150px"><b><font color="white" size=3>Confirm Transfer to ' + targetUser + '</font></b></button>');
+			return user.popup('|html|<center><button name="send" value="/confirmtransferallcards ' + target + '" style="background-color:red;height:65px;width:150px"><strong><font color="white" size=3>Confirm Transfer to ' + targetUser + '</font></strong></button>');
 		}
 
 		// now the real work
@@ -879,19 +879,19 @@ exports.commands = {
 	psgo: 'cardshelp',
 	cardshelp: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		return this.sendReplyBox("<center><b><u>PSGO Help:</u></b></center><br>" +
-			"<b>/buypack</b> - Buys a pack from the pack shop.<br>" +
-			"<b>/packshop</b> - Shows the shop for buying packs.<br>" +
-			"<b>/openpack</b> - Opens a pack that has been purchased from the shop.<br>" +
-			"<b>/packs</b> - Shows a display of all your unopened packs.<br>" +
-			"<b>/showcase</b> - Shows a display of all cards that you have.<br>" +
-			"<b>/card</b> - Shows data and information on any specifc card.<br>" +
-			"<b>/cardladder</b> - Shows the leaderboard of the users with the most card points.<br>" +
-			"<b>/cardsearch</b> - Opens a window allowing you to search through all the cards.<br>" +
-			"<b>/trade</b> - /trade [user's card], [targetUser], [targetUser's card] - starts a new trade request.<br>" +
-			"<b>/trades</b> - View your current pending trade requests.<br>" +
-			"<b>/transfercard</b> - /transfercard [targetUser], [card] - transfers a card to the target user.<br>" +
-			"<b>/transferallcards</b> - /transferallcards [user] - transfers all of your cards to the target user.<br>"
+		return this.sendReplyBox("<center><strong><u>PSGO Help:</u></strong></center><br>" +
+			"<strong>/buypack</strong> - Buys a pack from the pack shop.<br>" +
+			"<strong>/packshop</strong> - Shows the shop for buying packs.<br>" +
+			"<strong>/openpack</strong> - Opens a pack that has been purchased from the shop.<br>" +
+			"<strong>/packs</strong> - Shows a display of all your unopened packs.<br>" +
+			"<strong>/showcase</strong> - Shows a display of all cards that you have.<br>" +
+			"<strong>/card</strong> - Shows data and information on any specifc card.<br>" +
+			"<strong>/cardladder</strong> - Shows the leaderboard of the users with the most card points.<br>" +
+			"<strong>/cardsearch</strong> - Opens a window allowing you to search through all the cards.<br>" +
+			"<strong>/trade</strong> - /trade [user's card], [targetUser], [targetUser's card] - starts a new trade request.<br>" +
+			"<strong>/trades</strong> - View your current pending trade requests.<br>" +
+			"<strong>/transfercard</strong> - /transfercard [targetUser], [card] - transfers a card to the target user.<br>" +
+			"<strong>/transferallcards</strong> - /transferallcards [user] - transfers all of your cards to the target user.<br>"
 		);
 	},
 

@@ -94,14 +94,14 @@ exports.commands = {
 	groups: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-			"+ <b>Voice</b> - They can use ! commands like !groups, and talk during moderated chat.<br />" +
-			"% <b>Driver</b> - The above, and they can mute. Global % can also lock users and check for alts.<br />" +
-			"@ <b>Moderator</b> - The above, and they can ban users.<br />" +
-			"* <b>Bot</b> - Like Moderator, but makes it clear that this user is a bot.<br />" +
-			"&amp; <b>Leader</b> - The above, and they can promote to moderator and force ties.<br />" +
-			"# <b>Room Owner</b> - They are leaders of the room and can almost totally control it.<br />" +
-			"☥ <b>Gods</b> - The rank of the dankest users ever! They have infinite power, like Administrators.<br />" +
-			"~ <b>Administrator</b> - They can do anything, like change what this message says."
+			"+ <strong>Voice</strong> - They can use ! commands like !groups, and talk during moderated chat.<br />" +
+			"% <strong>Driver</strong> - The above, and they can mute. Global % can also lock users and check for alts.<br />" +
+			"@ <strong>Moderator</strong> - The above, and they can ban users.<br />" +
+			"* <strong>Bot</strong> - Like Moderator, but makes it clear that this user is a bot.<br />" +
+			"&amp; <strong>Leader</strong> - The above, and they can promote to moderator and force ties.<br />" +
+			"# <strong>Room Owner</strong> - They are leaders of the room and can almost totally control it.<br />" +
+			"☥ <strong>Gods</strong> - The rank of the dankest users ever! They have infinite power, like Administrators.<br />" +
+			"~ <strong>Administrator</strong> - They can do anything, like change what this message says."
 		);
 	},
 	groupshelp: [
@@ -186,9 +186,9 @@ exports.commands = {
 		mon = dexperfected[toId(mon)];
 		move = moveperfected[toId(move)];
 		if (learnperfected[toId(mon.species)].learnset[toId(move.name)]) {
-			return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="green"><u><b>can<b><u></font> learn ' + move.name);
+			return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="green"><u><strong>can<strong><u></font> learn ' + move.name);
 		}
-		return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="red"><u><b>can\'t<b><u></font> learn ' + move.name);
+		return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="red"><u><strong>can\'t<strong><u></font> learn ' + move.name);
 	},
 
 	'!bugs': true,
@@ -288,24 +288,30 @@ exports.commands = {
 
 	servercredits: 'credits',
 	credits: function (user) {
-		let popup = "|html|" + "<font size=5 color=#F7189F><u><b>" + Config.serverName + " Credits:</b></u></font><br />" +
+		let popup = "|html|" + "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
 			"<br />" +
+<<<<<<< HEAD:dewdrop-plugins/dewdropinfo.js
 			"<u><b>Server Maintainers:</u></b><br />" +
 			"- " + Server.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
 			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
+=======
+			"<u><strong>Server Maintainers:</u></strong><br />" +
+			"- " + Server.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
+			"- " + Server.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
+>>>>>>> 94219139530c20b5b653d3ec6afec7ed7b5085d9:exiled-plugins/exiledinfo.js
 			"<br />" +
-			"<u><b>Major Contributors:</b></u><br />" +
+			"<u><strong>Major Contributors:</strong></u><br />" +
 			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +
 			"- " + Server.nameColor('Back At My Day', true) + " (Developer)<br />" +
 			"- " + Server.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
 			"- " + Server.nameColor('Lycanium Z', true) + " (Developer)<br />" +
 			"<br />" +
-			"<u><b>Retired Staff:</b></u><br />" +
+			"<u><strong>Retired Staff:</strong></u><br />" +
 			"- " + Server.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
 			"- " + Server.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
 			"- " + Server.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
 			"<br />" +
-			"<u><b>Special Thanks:</b></u><br />" +
+			"<u><strong>Special Thanks:</strong></u><br />" +
 			"- Our Staff Members<br />" +
 			"- Our Regular Users<br />";
 		user.popup(popup);

@@ -55,7 +55,7 @@ class Survey {
 	generateQuestion() {
 		let output = '<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Survey</span> <strong style="font-size:11pt">' + (this.allowHTML ? this.question : Chat.escapeHTML(this.question)) + '</strong></p>';
 		output += '<div style="margin-top: 3px">Please note that anyone can see what you reply.</div>';
-		output += '<div style="margin-top: 5px"><button class="button" value="/survey answer" name="send" title="Answer the survey."><b>Answer the survey</b></button></div>';
+		output += '<div style="margin-top: 5px"><button class="button" value="/survey answer" name="send" title="Answer the survey."><strong>Answer the survey</strong></button></div>';
 		output += '<div style="margin-top: 7px; padding-left: 12px"><button class="button" value="/survey results" name="send" title="View results - you will not be able to answer the survey after viewing results"><small>(View Results)</small></button><small>(you will not be able to answer the survey after viewing results)</small></div>';
 		output += '</div>';
 		return output;

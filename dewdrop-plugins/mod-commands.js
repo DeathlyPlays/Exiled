@@ -139,7 +139,7 @@ exports.commands = {
 		if (!target) return this.parse('/help declare');
 		if (!this.can('declare', null, room)) return false;
 		if (!this.canTalk() && !user.can('bypassall')) return this.errorReply("You cannot do this while unable to talk.");
-		room.addRaw('<div class="broadcast-' + cmd.substr(7) + '"><b>' + target + '</b></div>');
+		room.addRaw('<div class="broadcast-' + cmd.substr(7) + '"><strong>' + target + '</strong></div>');
 		room.update();
 		this.room.modlog(user.name + ' declared ' + target);
 	},
@@ -151,7 +151,7 @@ exports.commands = {
 		if (!parts[4]) return this.parse('/help customgdeclare');
 		if (!this.can('gdeclare')) return false;
 		for (let id in Rooms.rooms) {
-			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-blue" style="border-radius: 5px;"><b>We are hosting a <font color="#57194A"><b>' + parts[0] + '</b></font> in <button name="send" value="/join ' + parts[1] + '" style="border-radius: 3px; margin: 3px; padding: 2px 5px; font-weight: bold; font-style: italic; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.35); color: #57194A; text-shadow: none;">' + parts[1] + '</button> !<br />The tier is <font style="color: #57194A; font-weight: bold;"><b>' + parts[2] + '</b></font>! Join up and have fun!<br /><br />The prize for the winner is <font style="color: #57194A; font-weight: bold;"><b>' + parts[3] + '</b></font> bucks, while the runner-up will get <font style="color: #57194A; font-weight: bold;"><b>' + parts[4] + '</b></font> bucks!<br /><small><i>~' + user.name + '</i></small></b></div>');
+			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-blue" style="border-radius: 5px;"><strong>We are hosting a <font color="#57194A"><strong>' + parts[0] + '</strong></font> in <button name="send" value="/join ' + parts[1] + '" style="border-radius: 3px; margin: 3px; padding: 2px 5px; font-weight: bold; font-style: italic; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.35); color: #57194A; text-shadow: none;">' + parts[1] + '</button> !<br />The tier is <font style="color: #57194A; font-weight: bold;"><strong>' + parts[2] + '</strong></font>! Join up and have fun!<br /><br />The prize for the winner is <font style="color: #57194A; font-weight: bold;"><strong>' + parts[3] + '</strong></font> bucks, while the runner-up will get <font style="color: #57194A; font-weight: bold;"><strong>' + parts[4] + '</strong></font> bucks!<br /><small><i>~' + user.name + '</i></small></strong></div>');
 		}
 		this.room.modlog(user.name + " globally custom declared " + target);
 	},
@@ -222,7 +222,7 @@ exports.commands = {
 		if (!target) return this.parse('/help declaremod');
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (!this.can('receiveauthmessages', null, room)) return false;
-		return this.privateModCommand('|raw|<div class="broadcast-red"><b><font size=1><i>Private Auth (Driver +) declare from ' + Server.nameColor(user.name) + '<br /></i></font size>' + target + '</b></div>');
+		return this.privateModCommand('|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ' + Server.nameColor(user.name) + '<br /></i></font size>' + target + '</strong></div>');
 	},
 	declaremodhelp: ["/declaremod [note] - Adds a staff readable declare. Requires: % @ # & ~"],
 
@@ -232,12 +232,12 @@ exports.commands = {
 	},
 
 	roomlist: function (target, room, user) {
-		let header = ['<b><font color="#1aff1a" size="2">Total users connected: ' + Rooms.global.userCount + '</font></b><br />'],
-			official = ['<b><font color="#ff9900" size="2"><u>Official Rooms:</u></font></b><br />'],
-			nonOfficial = ['<hr><b><u><font color="#005ce6" size="2">Public Rooms:</font></u></b><br />'],
-			privateRoom = ['<hr><b><u><font color="#ff0066" size="2">Private Rooms:</font></u></b><br />'],
-			groupChats = ['<hr><b><u><font color="#00b386" size="2">Group Chats:</font></u></b><br />'],
-			battleRooms = ['<hr><b><u><font color="#cc0000" size="2">Battle Rooms:</font></u></b><br />'];
+		let header = ['<strong><font color="#1aff1a" size="2">Total users connected: ' + Rooms.global.userCount + '</font></strong><br />'],
+			official = ['<strong><font color="#ff9900" size="2"><u>Official Rooms:</u></font></strong><br />'],
+			nonOfficial = ['<hr><strong><u><font color="#005ce6" size="2">Public Rooms:</font></u></strong><br />'],
+			privateRoom = ['<hr><strong><u><font color="#ff0066" size="2">Private Rooms:</font></u></strong><br />'],
+			groupChats = ['<hr><strong><u><font color="#00b386" size="2">Group Chats:</font></u></strong><br />'],
+			battleRooms = ['<hr><strong><u><font color="#cc0000" size="2">Battle Rooms:</font></u></strong><br />'];
 
 		let rooms = [];
 
@@ -432,7 +432,7 @@ exports.commands = {
 		if (!declare) return;
 		 setTimeout(f => {
 			 for (let id in Rooms.rooms) {
-				 if (id !== 'global' && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw('<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><b>' + declare + '</b></div>');
+				 if (id !== 'global' && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw('<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><strong>' + declare + '</strong></div>');
 			 }
 		 }, delayInMins);
 		this.room.modlog(toId(user) + 'scheduled a timed declare: ' + declare);

@@ -423,13 +423,13 @@ function leagueTourPoints(winner, runnerup, tourSize, room) {
 		leagues[winnerLeague].points += winnerPoints;
 		save();
 		logPoints(winner, winnerPoints, "First place in a tournament in " + room.id);
-		room.addRaw("<b>" + Server.nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[winnerLeague].name) + "</b>");
+		room.addRaw("<strong>" + Server.nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[winnerLeague].name) + "</strong>");
 	}
 	if (secondLeague && secondPoints > 0) {
 		leagues[secondLeague].points += secondPoints;
 		save();
 		logPoints(runnerup, secondPoints, "Second place in a tournament in " + room.id);
-		room.addRaw("<b>" + Server.nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[secondLeague].name) + "</b>");
+		room.addRaw("<strong>" + Server.nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[secondLeague].name) + "</strong>");
 	}
 }
 Server.leagueTourPoints = leagueTourPoints;
@@ -617,9 +617,9 @@ function lvlDisplay(room) {
 				output += '<td><font color="green"><center>' + room.lvl.leagues[1].players[u] + '</center></font></td>';
 				break;
 			case 2:
-				output += '<td><center><b>' + room.lvl.leagues[0].players[u] + '</b></center></td>';
+				output += '<td><center><strong>' + room.lvl.leagues[0].players[u] + '</strong></center></td>';
 				output += '<td>vs</td>';
-				output += '<td><center><b>' + room.lvl.leagues[1].players[u] + '</b></center></td>';
+				output += '<td><center><strong>' + room.lvl.leagues[1].players[u] + '</strong></center></td>';
 				break;
 			case 3:
 				output += '<td><center>' + room.lvl.leagues[0].players[u] + '</center></td>';

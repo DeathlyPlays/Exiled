@@ -14,6 +14,7 @@ exports.BattleAbilities = {
 	"torch": {
 		id: "torch",
 		name: "Torch",
+		desc: "Boosts user's Attack, Special Attack and Speed by 1 stage and while this Pokemon is active, a Fire move used by any pokemon has 1.33x power.",
 		onStart: function (pokemon) {
 			this.add('-ability', pokemon, 'Fire Aura');
 			this.boost({atk: 1, spa: 1, spe: 1});
@@ -28,6 +29,7 @@ exports.BattleAbilities = {
 	"wynaut": {
 		id: "Wynaut",
 		name: "Wynaut",
+		desc: "Prankster and Shadow Tag.",
 		//shadowtag
 		onFoeTrapPokemon: function (pokemon) {
 			if (!pokemon.hasAbility('shadowtag') && this.isAdjacent(pokemon, this.effectData.target)) {
@@ -50,6 +52,7 @@ exports.BattleAbilities = {
 	"badtime": {
 		id: "badtime",
 		name: "Bad Time",
+		desc: "Cringy and unoriginal ability that has Mold Breaker, Air Lock, Sturdy, Iron Barbs, Rough Skin, Aftermath and for whatever reason sets the user's HP to 1.",
 		//mold breaker and air lock and sets HP to 1
 		onStart: function (pokemon) {
 			this.add('-sethp', pokemon, 1);
@@ -87,6 +90,7 @@ exports.BattleAbilities = {
 	"risk": {
 		id: "risk",
 		name: "Risk",
+		desc: "Unaware, Moody and Simple.",
 		//unaware
 		onAnyModifyBoost: function (boosts, target) {
 			let source = this.effectData.target;
@@ -141,6 +145,7 @@ exports.BattleAbilities = {
 	"sanik": {
 		id: "sanik",
 		name: "Sanik",
+		desc: "Boosts user's Attack and Speed every turn and has Unburden and Gale Wings.",
 		//boosts attack and speed every turn
 		onResidualOrder: 26,
 		onResidualSubOrder: 1,
@@ -191,6 +196,7 @@ exports.BattleAbilities = {
 	"bawlky": {
 		id: "bawlky",
 		name: "BAWLKY",
+		desc: "Rough Skin, Iron Barbs, Prankster, Unaware, Filter, Multiscale, Magic Bounce, Bulletproof, Soundproof, Magic Guard, makes the user immune to critical hits and most importantly of all, makes the user BAWLKY.",
 		//rough skin and iron barbs
 		onAfterDamageOrder: 1,
 		onAfterDamage: function (damage, target, source, move) {
@@ -273,6 +279,7 @@ exports.BattleAbilities = {
 	"sunshine": {
 		id: "sunshine",
 		name: "Sunshine",
+		desc: "Desolate Land, Special Huge Power, Chlorophyll and Unaware.",
 		//desolate land
 		onStart: function (source) {
 			this.setWeather('desolateland');
@@ -303,7 +310,7 @@ exports.BattleAbilities = {
 		onModifySpA: function (spa) {
 			return this.chainModify(2);
 		},
-		//chlorrophyll
+		//chlorophyll
 		onModifySpe: function (spe) {
 			if (this.isWeather(['sunnyday', 'desolateland'])) {
 				return this.chainModify(2);
@@ -328,6 +335,7 @@ exports.BattleAbilities = {
 	"memes": {
 		id: "memes",
 		name: "Memes",
+		desc: "Includes memes such as Huge Power, Adaptability, Unaware, Air Lock and Bamd.",
 		//huge power
 		onModifyAtkPriority: 5,
 		onModifyAtk: function (atk) {
@@ -359,6 +367,7 @@ exports.BattleAbilities = {
 	"barrierchange": {
 		id: "barrierchange",
 		name: "Barrier Change",
+		desc: "Useless Wonder Guard and changes user's Type.",
 		//wonder guard
 		onTryHit: function (target, source, move, pokemon) {
 			if (target === source || move.category === 'Status' || move.type === '???' || move.id === 'struggle') return;
@@ -383,6 +392,7 @@ exports.BattleAbilities = {
 	"lifeforce": {
 		id: "lifeforce",
 		name: "Life Force",
+		desc: "Said to be the life force of a Fire Dragon.Desolate Land, Wonder Guard, Absorbtion to Fire and makes the user Fire/Dragon.",
 		//desolate land
 		onStart: function (pokemon) {
 			this.setWeather('desolateland');
@@ -429,6 +439,7 @@ exports.BattleAbilities = {
 	"toostronk": {
 		id: "toostronk",
 		name: "Too Stronk",
+		desc: "Iron Fist, Huge Power, Adaptability, Unaware, Air Lock, Super Luck, Sniper, Quick Feet, boosts the user's Attack and Speed by 1 stage every turn and makes the user overpowered, broken and unfair.",
 		//iron fist
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
@@ -530,6 +541,7 @@ exports.BattleAbilities = {
 	"opbirbs": {
 		id: "opbirbs",
 		name: "OP BIRBS",
+		desc: "Signature ability for species we like to call BIRBS. Rough Skin, Iron Barbs, Aftermath, Prankster, Unaware, Delta Stream, Filter, Natural Cure, Regenerator, Magic Bounce, Magic Guard and Serene Grace.",
 		//rough skin and iron barbs
 		onAfterDamageOrder: 1,
 		onAfterDamage: function (damage, target, source, move) {
@@ -726,6 +738,7 @@ exports.BattleAbilities = {
 	"2hotforu": {
 		id: "2hotforu",
 		name: "2 Hot for U",
+		desc: "Makes the user sexy. Flame Body, Aftermath, Prankster, Unaware, Filter, Magic Bounce, Magic Guard, Regenerator, Fur Coat, Special Fur Coat and boosts the user's Defense and Special Defense by 1 stage every turn.",
 		//flamebody
 		onAfterDamage: function (damage, target, source, move) {
 			if (move && move.flags['contact']) {
@@ -831,6 +844,7 @@ exports.BattleAbilities = {
 	"drenched": {
 		id: "drenched",
 		name: "Drenched",
+		desc: "Said to be drenched fangs of a viper. Strong Jaw, Huge Power, Adaptability and boosts the user's Attack and Speed by 1 stage every turn.",
 		//strong jaw
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
@@ -873,6 +887,7 @@ exports.BattleAbilities = {
 	"barrelroll": {
 		id: "barrelroll",
 		name: "Barrel Roll",
+		desc: "Said to be a sacred technique of a Fox. Rough Skin, Iron Barbs, Aftermath, Prankster, Unaware, Filter, Magic Bounce, Magic Guard, Regenerator, Fur Coat, Special Fur Coat, Huge Power and Adaptability. and boosts the user's Defense and Special Defense by 1 stage every turn.",
 		//rough skin and iron barbs
 		onAfterDamageOrder: 1,
 		onAfterDamage: function (damage, target, source, move) {
@@ -983,7 +998,7 @@ exports.BattleAbilities = {
 	"forecastv2": {
 		id: "forecastv2",
 		name: "forecastv2",
-		desc: "Ultimate Sandstorm Ability",
+		desc: "Said to be a sacred meme of a sandstorm. Ultimate Sandstorm Ability.",
 		//sand stream, rush, veil, and force
 		onBasePowerPriority: 8,
 		onBasePower: function (move) {
@@ -1028,6 +1043,7 @@ exports.BattleAbilities = {
 	'durp': {
 		id: "durp",
 		name: "Durp",
+		desc: "Rough Skin, Iron Barbs, Aftermath, Prankster, Unaware, Filter, Magic Bounce, Magic Guard, Regenerator, Fur Coat, Special Fur Coat, Huge Power, Adaptability and boosts the user's Attack, Defense and Special Defense by 1 stage every turn.",
 		//rough skin and iron barbs
 		onAfterDamageOrder: 1,
 		onAfterDamage: function (damage, target, source, move) {
@@ -1144,7 +1160,8 @@ exports.BattleAbilities = {
 	},
 	"benonchalant": {
 		id: "benonchalant",
-		name: "Be Nonchalant",
+		name: "Be Nonchalant.",
+		desc: "Primordial Sea, Swift Swim, Rain Dish, Water Absorb, Water Veil and Hydration.",
 		onModifyMove: function (move) {
 			move.infiltrates = true;
 		},
@@ -1285,6 +1302,7 @@ exports.BattleAbilities = {
 	"prfmador": {
 		id: "prfmador",
 		name: "prfmador",
+		desc: "Said to have no meaning. Special Huge Power, Adaptability, Moxie that boosts Special Attack and Speed, Cute Charm, Hail Chlorophyll and Boosts user's Special Attack and Speed by 1 stage every turn,",
 		//snow warning
 		onStart: function (source) {
 			this.setWeather('hail');
@@ -1339,6 +1357,7 @@ exports.BattleAbilities = {
 	"elluminate": {
 		id: "elluminate",
 		name: "Elluminate",
+		desc: "Said to have been renamed from Eliminate to Elluminate. Air Lock, Mold Breaker, Substitute at start, Air Lock, Bad Dreams and Unaware.",
 		//airlock and moldbreaker and uses substitute
 		onStart: function (pokemon) {
 			this.useMove('substitute', pokemon);
@@ -1379,6 +1398,7 @@ exports.BattleAbilities = {
 	"volcanicembers": {
 		id: "volcanicembers",
 		name: "Volcanic Embers",
+		desc: "Said to have been mispronounced by Bamd and looked like Volcanicembers to Bamd. Adaptability, Unaware, Magic Bounce, Magic Guard, Special Huge Power, Moxie that boosts user's Special Attack and Speed by 1 stage and boosts user's Special Attack and Speed by 1 stage every turn.",
 		onModifyMove: function (move) {
 			move.infiltrates = true;
 			move.stab = 2;

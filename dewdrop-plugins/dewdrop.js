@@ -825,13 +825,8 @@ exports.commands = {
 	},
 	backhelp: ["/back - Sets a users away status back to normal."],
 
-<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
 	'!dssb': true,
-	dssb: function (target, room, user) {
-=======
-	'!essb': true,
-	essb: function (target) {
->>>>>>> 5917fec40435821edd0bc0715e8a505aa34aa485:exiled-plugins/exiled.js
+	dssb: function (target) {
 		if (!this.runBroadcast()) return false;
 		if (!target || target === 'help') return this.parse('/help dssb');
 		if (target === 'credits') return this.parse('/dssbcredits');
@@ -840,22 +835,13 @@ exports.commands = {
 		return this.sendReplyBox(targetData);
 	},
 
-<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
-	dssbhelp: function (target, room, user) {
-=======
 	essbhelp: function () {
->>>>>>> 5917fec40435821edd0bc0715e8a505aa34aa485:exiled-plugins/exiled.js
 		if (!this.runBroadcast()) return;
 		return this.sendReplyBox("/dssb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.");
 	},
 
-<<<<<<< HEAD:dewdrop-plugins/dewdrop.js
-	dssbcredits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5 color=#000080><u><strong>DSSB Credits</strong></u></font><br />" +
-=======
 	essbcredits: function (user) {
-		let popup = "|html|" + "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
->>>>>>> 5917fec40435821edd0bc0715e8a505aa34aa485:exiled-plugins/exiled.js
+		let popup = "|html|" + "<font size=5 color=#000080><u><strong>DSSB Credits</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Programmers:</u></strong><br />" +
 			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +

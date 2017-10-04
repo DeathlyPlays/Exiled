@@ -28,8 +28,13 @@ exports.commands = {
 	},
 	'!eat': true,
 	eat: function (target) {
+<<<<<<< HEAD:dewdrop-plugins/memecommands.js
 		if (!target) return this.sendReply("Eat needs a target.");
 		this.parse('/me eats ' + Server.nameColor(target, true, true) + '!');
+=======
+		if (!target) return this.sendReply("/eat needs a target.");
+		this.parse('/me eats ' + target + '!');
+>>>>>>> 5bab5a2906abd257711dc457fe8a47952dd92ee1:exiled-plugins/memecommands.js
 	},
 	foh: function (target, room, user) {
 		if (!target) return this.sendReply('/foh needs a target.');
@@ -401,6 +406,7 @@ exports.commands = {
 	randomsurvey: 'randsurvey',
 	randsurvey: function (target, room, user) {
 		let results = [
+<<<<<<< HEAD:dewdrop-plugins/memecommands.js
 			"/survey create What do you want to see added or updated in Dewdrop?",
 			"/survey create What's your most memorable experience on Dewdrop?",
 			"/survey create How much time do you spend on Dewdrop daily?",
@@ -409,13 +415,27 @@ exports.commands = {
 			"/survey create Do you like the league system?",
 			"/survey create Do you like the idea of us adding custom megas on Dewdrop that you can use in regular formats? (OU, UU, Ubers, Etc)",
 			"/survey create What was your worst experience so far on Dewdrop?",
+=======
+			"/survey create What do you want to see added or updated in " + Config.serverName + "?",
+			"/survey create What's your most memorable experience on " + Config.serverName + "?",
+			"/survey create How much time do you spend on " + Config.serverName + " daily?",
+			"/survey create What is your favorite custom mechanic on " + Config.serverName + "?",
+			"/survey create Was" + Config.serverName + " your first Pokemon Showdown side-server?", //5
+			"/survey create Do you like the league system?",
+			"/survey create Do you like the idea of us adding custom megas on " + Config.serverName + " that you can use in regular formats? (OU, UU, Ubers, Etc)",
+			"/survey create What was your worst experience so far on " + Config.serverName + "?",
+>>>>>>> 5bab5a2906abd257711dc457fe8a47952dd92ee1:exiled-plugins/memecommands.js
 			"/survey create What's your favorite food?",
 			"/survey create What's your favorite activity on a hot summer day?", //10
 			"/survey create What's your favorite drink",
 			"/survey create What's your favorite color?",
 			"/survey create What's the most embarrassing thing that's ever happened to you in real life?",
 			"/survey create Have you ever been banned/locked on main? (play.pokemonshowdown.com)",
+<<<<<<< HEAD:dewdrop-plugins/memecommands.js
 			"/survey create Do you want to see more events on Dewdrop?", //15
+=======
+			"/survey create Do you want to see more events on " + Config.serverName + "?", //15
+>>>>>>> 5bab5a2906abd257711dc457fe8a47952dd92ee1:exiled-plugins/memecommands.js
 		];
 		return this.parse(results[Math.floor(15 * Math.random())]);
 	},

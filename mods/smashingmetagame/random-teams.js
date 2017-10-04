@@ -2,8 +2,8 @@
 
 const RandomTeams = require('../../data/random-teams');
 
-class RandomSeasonalMeleeTeams extends RandomTeams {
-	randomSeasonalMeleeTeam() {
+class RandomSmashTeams extends RandomTeams {
+	randomSmashTeam() {
 		let team = [];
 		let sets = {
 			'Scrafty': {
@@ -282,4 +282,4 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 	}
 }
 
-module.exports = RandomSeasonalMeleeTeams;
+module.exports = RandomSmashTeams;

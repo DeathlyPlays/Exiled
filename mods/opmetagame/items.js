@@ -11,11 +11,15 @@ exports.BattleItems = {
 		onResidualOrder: 5,
 		onResidualSubOrder: 2,
 		onResidual: function (pokemon) {
-			this.heal(pokemon.maxhp / 2);
+			if (this.random(2) === 0) {
+				this.damage(pokemon.maxhp / 4);
+			} else {
+				this.heal(pokemon.maxhp / 4);
+			}
 		},
 		num: -100,
 		gen: -1,
-		desc: "At the end of every turn, holder restores 1/2 of its max HP.",
+		desc: "Every turn the holder 50% to heal or damage itself 25%.",
 	},
 	"riskyorb": {
 		id: "riskyorb",

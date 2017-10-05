@@ -25,8 +25,10 @@ function diceImg(num) {
 
 class Dice extends Rooms.RoomGame {
 	constructor(room, amount, starter) {
-		this.gameid = "dice",
-		this.title = "Dice Game",
+		super(room);
+
+		this.gameid = "dice";
+		this.title = "Dice Game";
 		this.room = room;
 		if (!this.room.diceCount) this.room.diceCount = 0;
 		this.bet = amount;

@@ -2,6 +2,8 @@
 
 class PassTheBomb extends Rooms.RoomGame {
 	constructor(room, seconds) {
+		super(room);
+
 		this.gameid = 'ptb';
 		this.title = 'Pass The Bomb';
 		this.players = new Map();

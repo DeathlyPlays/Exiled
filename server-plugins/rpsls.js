@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * *
  * Rock/Paper/Scissors/Lizard/Spock    *
- * by Insist (sparky's rps as a base)  *
+ * by Insist (sparky's RPS as a base)  *
  * * * * * * * * * * * * * * * * * * * */
 
 'use strict';
@@ -21,8 +21,12 @@ let choiceNames = {
 	"SP": "Spock",
 };
 
-class RPSLSGame {
+class RPSLSGame extends Rooms.RoomGame {
 	constructor(player1, player2, gameType) {
+		super(room);
+
+		this.gameid = "rpsls";
+		this.title = "Rock Paper Scissors Lizard Spock";
 		this.p1 = player1;
 		this.p2 = player2;
 		this.p1choice = null;

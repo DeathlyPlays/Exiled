@@ -5,7 +5,7 @@ const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5
 const https = require('https');
 const http = require('http');
 const Pokedex = require('../data/pokedex.js').BattlePokedex;
-let request = require('request');
+const request = require('request');
 
 const bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
@@ -754,7 +754,7 @@ exports.commands = {
 			);
 		},
 	},
-	afk: 'away',
+afk: 'away',
 	busy: 'away',
 	work: 'away',
 	working: 'away',
@@ -765,11 +765,11 @@ exports.commands = {
 	nerd: 'away',
 	nerding: 'away',
 	mimis: 'away',
-	away: function (target, room, user, cmd) {
-		if (!user.isAway && user.name.length > 30 && !user.can('lock')) return this.sendReply("Your username is too long for any kind of use of this command.");
+	away: function (target, room, user, connection, cmd) {
+		if (!user.isAway && user.name.length > 19 && !user.can('lock')) return this.sendReply("Your username is too long for any kind of use of this command.");
 		if (!this.canTalk()) return false;
-
-		target = target ? target.replace(/[^a-zA-Z0-9]/g, '') : 'AWAY';
+		target = toId(target);
+		if (/^\s*$/.test(target)) target = 'away';
 		if (cmd !== 'away') target = cmd;
 		let newName = user.name;
 		let status = parseStatus(target, true);
@@ -777,13 +777,13 @@ exports.commands = {
 		if (statusLen > 14) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
 
 		if (user.isAway) {
-			let statusIdx = newName.search(/\s-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/);
+			let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
 			if (statusIdx > -1) newName = newName.substr(0, statusIdx);
 			if (user.name.substr(-statusLen) === status) return this.sendReply("Your away status is already set to \"" + target + "\".");
 		}
 
 		newName += ' - ' + status;
-		if (newName.length > 30 && !user.can('lock')) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
+		if (newName.length > 18 && !user.can('lock')) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
 
 		// forcerename any possible impersonators
 		let targetUser = Users.getExact(user.userid + target);
@@ -800,7 +800,7 @@ exports.commands = {
 	},
 	awayhelp: ["/away [message] - Sets a user's away status."],
 
-	back: function (room, user) {
+	back: function (target, room, user) {
 		if (!user.isAway) return this.sendReply("You are not set as away.");
 		user.isAway = false;
 
@@ -808,7 +808,7 @@ exports.commands = {
 		let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
 		if (statusIdx < 0) {
 			user.isAway = false;
-			if (user.can('mute', null, room)) this.add("|raw|-- " + Server.nameColor(user.userid, true) + " is no longer away.");
+			if (user.can('mute', null, room)) this.add("|raw|-- " + SG.nameColor(user.userid, true) + " is no longer away.");
 			return false;
 		}
 
@@ -917,7 +917,7 @@ exports.commands = {
 		});
 		req.end();
 	},
-	clearall: function (room, user) {
+	clearall: function (target, room, user) {
 		if (!this.can('declare')) return false;
 		if (room.battle) return this.sendReply("You cannot clearall in battle rooms.");
 

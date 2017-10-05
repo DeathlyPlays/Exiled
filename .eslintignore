@@ -2,4 +2,4 @@ tournaments/lib/
 logs/
 dev-tools/globals.js
 config/card-data.js
-exiled-plugins/hex.js
+server-plugins/hex.js

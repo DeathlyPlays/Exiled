@@ -1033,11 +1033,7 @@ Chat.loadPlugins = function () {
 
 	// info always goes first so other plugins can shadow it
 	Object.assign(commands, require('./chat-plugins/info').commands);
-<<<<<<< HEAD
-	Object.assign(commands, require('./dewdrop-plugins/hex.js').commands);
-=======
 	Object.assign(commands, require('./server-plugins/hex.js').commands);
->>>>>>> 1158b7f3835f2e5fdfee7e791da01ed2397c1bb1
 
 	Object.assign(commands, require('./console.js').commands);
 
@@ -1060,17 +1056,10 @@ Chat.loadPlugins = function () {
 			}
 		}
 	}
-<<<<<<< HEAD
-	for (let file of FS('dewdrop-plugins').readdirSync()) {
-		if (file.substr(-3) !== '.js' || file === 'hex.js') continue;
-		const dewdropplugins = require(`./dewdrop-plugins/${file}`);
-		Object.assign(commands, dewdropplugins.commands);
-=======
 	for (let file of FS('server-plugins').readdirSync()) {
 		if (file.substr(-3) !== '.js' || file === 'hex.js') continue;
 		const serverplugins = require(`./server-plugins/${file}`);
 		Object.assign(commands, serverplugins.commands);
->>>>>>> 1158b7f3835f2e5fdfee7e791da01ed2397c1bb1
 	}
 	for (let file of FS('game-cards').readdirSync()) {
 		if (file.substr(-3) !== '.js') continue;

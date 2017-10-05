@@ -2,8 +2,4 @@ tournaments/lib/
 logs/
 dev-tools/globals.js
 config/card-data.js
-<<<<<<< HEAD
-dewdrop-plugins/hex.js
-=======
 server-plugins/hex.js
->>>>>>> 1158b7f3835f2e5fdfee7e791da01ed2397c1bb1

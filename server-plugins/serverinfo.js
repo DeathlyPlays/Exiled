@@ -1,5 +1,5 @@
 /*
-The following commands were coded specifically for Exiled
+The following commands were coded specifically for Dewdrop
 Made by Insist
 feelscool
 Basically just edits to main's info.js, and adds more, removes stuff, etc.
@@ -123,20 +123,20 @@ exports.commands = {
 		);
 	},
 	opensourcehelp: [
-		"/opensource - Links to Exiled's source code repository.",
+		"/opensource - Links to Serverdrop's source code repository.",
 		"!opensource - Show everyone that information. Requires: + % @ * # & ~",
 	],
 
 	'!forums': true,
 	forums: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">Exiled Forums</a>");
+		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">Dewdrop Forums</a>");
 	},
 
 	'!suggestions': true,
 	suggestions: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for Exiled</a>");
+		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for Dewdrop</a>");
 	},
 
 	'!fakemon': true,
@@ -155,7 +155,7 @@ exports.commands = {
 	'!discord': true,
 	discord: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Exiled Discord</a>");
+		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Dewdrop Discord</a>");
 	},
 
 	//Credits to Snaquaza on these feature and other DragonHeaven developers/contributers
@@ -287,12 +287,12 @@ exports.commands = {
 		"/rules [url] - Change the room rules URL. Requires: # & ~"],
 
 	servercredits: 'credits',
-	credits: function (user, target, room) {
+	credits: function (user) {
 		let popup = "|html|" + "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Server Maintainers:</u></strong><br />" +
-			"- " + Server.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
-			"- " + Server.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
+			"- " + Server.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
+			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
 			"<br />" +
 			"<u><strong>Major Contributors:</strong></u><br />" +
 			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +

@@ -22,7 +22,7 @@ let choiceNames = {
 };
 
 class RPSLSGame extends Rooms.RoomGame {
-	constructor(player1, player2, gameType) {
+	constructor(player1, player2, gameType, room) {
 		super(room);
 
 		this.gameid = "rpsls";

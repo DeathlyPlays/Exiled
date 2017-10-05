@@ -18,8 +18,12 @@ let choiceNames = {
 	"S": "Scissors",
 };
 
-class RPSGame {
-	constructor(player1, player2, gameType) {
+class RPSGame extends Rooms.RoomGame {
+	constructor(player1, player2, gameType, room) {
+		super(room);
+
+		this.gameid = "rps";
+		this.title = "Rock Paper Scissors";
 		this.p1 = player1;
 		this.p2 = player2;
 		this.p1choice = null;

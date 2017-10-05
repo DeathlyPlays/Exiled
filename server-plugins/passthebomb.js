@@ -1,7 +1,9 @@
 'use strict';
 
-class PassTheBomb {
+class PassTheBomb extends Rooms.RoomGame {
 	constructor(room, seconds) {
+		this.gameid = 'ptb';
+		this.title = 'Pass The Bomb';
 		this.players = new Map();
 		this.round = 0;
 		this.room = room;

@@ -4,7 +4,7 @@ const ROUND_DURATION = 8 * 1000; //8 seconds nice
 
 class Ambush extends Rooms.RoomGame {
 	constructor(room, seconds) {
-		room(super);
+		super(room);
 
 		if (this.room.ambushCount) {
 			this.room.ambushCount++;

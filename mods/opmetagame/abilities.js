@@ -392,7 +392,7 @@ exports.BattleAbilities = {
 	"lifeforce": {
 		id: "lifeforce",
 		name: "Life Force",
-		desc: "Said to be the life force of a Fire Dragon.Desolate Land, Wonder Guard, Absorbtion to Fire and makes the user Fire/Dragon.",
+		desc: "Said to be the life force of a Fire Dragon. Desolate Land, Wonder Guard, Absorbtion to Fire and makes the user Fire/Dragon.",
 		//desolate land
 		onStart: function (pokemon) {
 			this.setWeather('desolateland');
@@ -844,7 +844,7 @@ exports.BattleAbilities = {
 	"drenched": {
 		id: "drenched",
 		name: "Drenched",
-		desc: "Said to be drenched fangs of a viper. Strong Jaw, Huge Power, Adaptability and boosts the user's Attack and Speed by 1 stage every turn.",
+		desc: "Said to be the drenched fangs of a viper. Strong Jaw, Huge Power, Adaptability and boosts the user's Attack and Speed by 1 stage every turn.",
 		//strong jaw
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
@@ -1160,7 +1160,7 @@ exports.BattleAbilities = {
 	},
 	"benonchalant": {
 		id: "benonchalant",
-		name: "Be Nonchalant.",
+		name: "Be Nonchalant",
 		desc: "Primordial Sea, Swift Swim, Rain Dish, Water Absorb, Water Veil and Hydration.",
 		onModifyMove: function (move) {
 			move.infiltrates = true;
@@ -1709,6 +1709,7 @@ exports.BattleAbilities = {
 	"icee": {
 		id: "icee",
 		name: "ICEE",
+		desc: "The coolest ability. Fur Coat, Special Fur Coat, Magic Guard, Filter, Unaware, Magic Bounce, Rough Skin, Iron Barbs, Battle Armor and boosts the user's Defense and Special Defense by 1 stage every turn.",
 		//fur coat
 		onModifyDefPriority: 6,
 		onModifyDef: function (def) {
@@ -1815,6 +1816,7 @@ exports.BattleAbilities = {
 	"blueeyeswhitedragon": {
 		id: "blueeyeswhitedragon",
 		name: "Blue Eyes White Dragon",
+		desc: "Said to be the eyes of a White Dragon. Desolate Land, Special Huge Power, Adaptability, Moxie that boosts the user's Special Attack and Speed by 1 stage, Chlorophyll and boosts the user's Special Attack and Speed by 1 stage every turn.",
 		//desolate land
 		onStart: function (source) {
 			this.setWeather('desolateland');
@@ -1883,7 +1885,7 @@ exports.BattleAbilities = {
 	"thetruegod": {
 		id: "thetruegod",
 		name: "The True God",
-		desc: "RumpADump is the one true God, kiddos.",
+		desc: "RumpADump is the one true retard.",
 		shortDesc: "RumpADump I fna!",
 		isNonstandard: true,
 		//infiltrator
@@ -1947,6 +1949,7 @@ exports.BattleAbilities = {
 	"tmgi": {
 		id: "tmgi",
 		name: "TMGI",
+		desc: "Said to be related to prfmador. Air Lock, Makes the user immune to contact, use  Magnet Rise and changes the user's type to Electric/Psychic.",
 		//immune to contact
 		onTryHitPriority: 1,
 		onTryHit: function (target, source, move) {
@@ -1969,8 +1972,8 @@ exports.BattleAbilities = {
 	"wall": {
 		id: "wall",
 		name: "WALL",
-		desc: "Liek jew build da wall and bam",
-		shortDesc: "xD rawr",
+		desc: "Cringy and unoriginal ability that makes the user a brick wall so that you can't talk to it.",
+		shortDesc: "insert ecks dee raw lolz so random ecks dee so funny i am original",
 		//adaptability
 		onModifyMove: function (move, pokemon) {
 			move.stab = 2;
@@ -2060,6 +2063,7 @@ exports.BattleAbilities = {
 	"demonicmascot": {
 		id: "demonicmascot",
 		name: "Demonic Mascot",
+		desc: "Makes the user an edgelord.",
 		//adaptability
 		onModifyMove: function (move, pokemon) {
 			move.stab = 2;
@@ -2173,6 +2177,7 @@ exports.BattleAbilities = {
 	"warhorse": {
 		id: "warhorse",
 		name: "War Horse",
+		desc: "Makes the user a trojan horse.",
 		//adaptability
 		onModifyMove: function (move, pokemon) {
 			move.stab = 2;
@@ -2320,6 +2325,7 @@ exports.BattleAbilities = {
 	"fungus": {
 		id: "fungus",
 		name: "Fungus",
+		desc: "Fucked up ability.",
 		//Air Lock Corrosion and Mold Breaker and uses Leech Seed upon entry
 		onStart: function (pokemon) {
 			this.useMove('leechseed', pokemon);
@@ -2446,7 +2452,7 @@ exports.BattleAbilities = {
 	"bookfish": {
 		id: "bookfish",
 		name: "Bookfish",
-		shortDesc: "Not a Bookworm",
+		shortDesc: "Actually a Bookworm",
 		desc: "The bookworm version but for a fishy kek",
 		//prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
@@ -2585,6 +2591,7 @@ exports.BattleAbilities = {
 	"clownsightings": {
 		id: "clownsightings",
 		name: "Clown Sightings",
+		desc: "SCARY CLOWN SIGHTED 2017 (NOT CLICKBAIT)",
 		//prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Status') {
@@ -2820,8 +2827,8 @@ exports.BattleAbilities = {
 	"timetraveler": {
 		id: "timetraveler",
 		name: "Time Traveler",
-		desc: "If you could change the past, wouldya?",
-		shortDesc: "Wish we could turn back time... time.... to the good ole' days.....",
+		desc: "If you could change the past, wouldya? Well, yea so that I wouldn't be a cringy retarded edgelord anymore.",
+		shortDesc: "Wish we could turn back time... to the good ole' days..... sigh... so true...",
 		isNonstandard: true,
 		//infiltrator adaptability sheerforce
 		onModifyMove: function (move, pokemon) {
@@ -2882,6 +2889,7 @@ exports.BattleAbilities = {
 	"dankrai": {
 		id: "dankrai",
 		name: "Dankrai",
+		desc: "Makes the user dank.",
 		//infiltrator sheerforce
 		onModifyMove: function (move, pokemon) {
 			move.infiltrates = true;
@@ -2944,6 +2952,7 @@ exports.BattleAbilities = {
 	"anorexia": {
 		id: "anorexia",
 		name: "Anorexia",
+		desc: "Whatever the fuck this ability is.",
 		//infiltrator
 		onModifyMove: function (move, pokemon) {
 			move.infiltrates = true;
@@ -3004,6 +3013,7 @@ exports.BattleAbilities = {
 	"ninja": {
 		id: "ninja",
 		name: "Ninja",
+		desc: "Boring ability that makes the user a ninja.",
 		//adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
@@ -3077,6 +3087,7 @@ exports.BattleAbilities = {
 	"flappyrowlet": {
 		id: "flappyrowlet",
 		name: "Flappy Rowlet",
+		desc: "Makes Rowlets very flappy.",
 		//regenerator
 		onSwitchOut: function (pokemon) {
 			pokemon.heal(pokemon.maxhp / 3);
@@ -3296,6 +3307,7 @@ exports.BattleAbilities = {
 	"fuckingsmashing": {
 		id: "fuckingsmashing",
 		name: "FUCKING SMASHING",
+		desc: "Would you fucking pass or fucking smash?",
 		//regenerator
 		onSwitchOut: function (pokemon) {
 			pokemon.heal(pokemon.maxhp / 3);
@@ -3519,6 +3531,7 @@ exports.BattleAbilities = {
 	"melodicharmony": {
 		id: "melodicharmony",
 		name: "Melodic Harmony",
+		desc: "Infiltrator, Adaptability, Air Lock, Mold Breaker, Special Huge Power, Special Moxie, No Guard and boosts the user's Special Attack and Speed by 1 stage every turn.",
 		//infiltrator
 		onModifyMove: function (move, pokemon) {
 			move.infiltrates = true;
@@ -3581,6 +3594,7 @@ exports.BattleAbilities = {
 	"cellmanipulation": {
 		id: "cellmanipulation",
 		name: "Cell Manipulation",
+		desc: "Said to have been the signature ability of Zygarde.",
 		//tough claws
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
@@ -3668,6 +3682,7 @@ exports.BattleAbilities = {
 	"masterevolutionlord": {
 		id: "masterevolutionlord",
 		name: "Master Evolution Lord",
+		desc: "Makes the user a master at being an edgelord.",
 		//tough claws
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
@@ -3768,6 +3783,7 @@ exports.BattleAbilities = {
 	"originality": {
 		id: "originality",
 		name: "Originality",
+		desc: "Original ability that makes the user original.",
 		//sets up all hazards + uses Rapid Spin & Topsy Turvy + Protect + Mold Breaker activates + Adaptability
 		onStart: function (pokemon) {
 			this.useMove('Spikes', pokemon);
@@ -4165,6 +4181,7 @@ exports.BattleAbilities = {
 	"fairyprincess": {
 		id: "fairyprincess",
 		name: "Fairy Princess",
+		desc: "Said to have been the signature ability of a fairy princess.",
 		//rough skin and iron barbs
 		onAfterDamageOrder: 1,
 		onAfterDamage: function (damage, target, source, move) {
@@ -4317,6 +4334,7 @@ exports.BattleAbilities = {
 	"sharpsprayer": {
 		id: "sharpsprayer",
 		name: "Sharp's Prayer",
+		desc: "Prayer unanswered.",
 		//noguard
 		onAnyAccuracy: function (accuracy, target, source, move) {
 			if (move && (source === this.effectData.target || target === this.effectData.target)) {
@@ -4335,6 +4353,7 @@ exports.BattleAbilities = {
 	"stainlesssteel": {
 		id: "stainlesssteel",
 		name: "Stainless Steel",
+		desc: "What's the point of being stainless?",
 		//iron barbs and rough skin
 		onAfterDamageOrder: 1,
 		onAfterDamage: function (damage, target, source, move, effect) {

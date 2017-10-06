@@ -709,6 +709,7 @@ exports.BattleMovedex = {
 	"zenpunch": {
 		id: "zenpunch",
 		name: "Zen Punch",
+		desc: "A boring Zen Punch.",
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Drain Punch", target);
@@ -733,6 +734,7 @@ exports.BattleMovedex = {
 	"armytank": {
 		id: "armytank",
 		name: "Army Tank",
+		desc: "Makes the user a one tank army. Boosts user's Attack, Defense and Special Defense by 2 stages and reduces user's speed by 2 stages.",
 		basePower: 0,
 		basePowerCallback: function (pokemon, target) {
 			let power = (Math.floor(25 * target.getStat('spe') / pokemon.getStat('spe')) || 1);
@@ -768,6 +770,7 @@ exports.BattleMovedex = {
 	"spitfire": {
 		id: "spitfire",
 		name: "Spitfire",
+		desc: "A boring Spitfire. Always burns.",
 		basePower: 120,
 		pp: 15,
 		accuracy: 100,
@@ -792,6 +795,7 @@ exports.BattleMovedex = {
 	"immabitechu": {
 		id: "immabitechu",
 		name: "Immabitechu",
+		desc: "Always causes toxic and boosts the user's Attack, Defense, Special Defense and Speed by 1 stage.",
 		basePower: 150,
 		accuracy: true,
 		pp: 20,
@@ -829,6 +833,7 @@ exports.BattleMovedex = {
 	"bibarelroll": {
 		id: "bibarelroll",
 		name: "BIBAREL ROLL",
+		desc: "Said to be related to barrelroll and the signature move of Bibarel. Boosts all stats (other than Special Attack and including accuracy and evasion) by 1 stage.",
 		basePower: 90,
 		basePowerCallback: function (pokemon, target, move) {
 			if (!pokemon.volatiles.furycutter) {
@@ -884,6 +889,7 @@ exports.BattleMovedex = {
 	"sandydestruction": {
 		id: "sandydestruction",
 		name: "Sandy Destruction",
+		desc: "Destroys sand. Boosts user's Attack, Defense, Special Defense, Speed and Accuracy by 1 stage.",
 		basePower: 100,
 		accuracy: 100,
 		category: "Physical",
@@ -932,6 +938,7 @@ exports.BattleMovedex = {
 	"derp": {
 		id: "derp",
 		name: "DERP",
+		desc: "Said to be related to durp. Reduces user's Defense and Special Defense by 1 stage.",
 		basePower: 180,
 		accuracy: true,
 		pp: 15,
@@ -972,6 +979,7 @@ exports.BattleMovedex = {
 	"dancehappily": {
 		id: "dancehappily",
 		name: "Dance Happily",
+		desc: "Makes the user dance happily. Boosts user's Special Attack and Speed by 2 stages.",
 		pp: 15,
 		basePower: 120,
 		accuracy: true,
@@ -1009,6 +1017,7 @@ exports.BattleMovedex = {
 	"tweet": {
 		id: "tweet",
 		name: "Tweet",
+		desc: "Makes a birb tweet. Always causes confusion and boosts user's Defense, Special Attack, Special Defense and Speed by 1 stage.",
 		pp: 20,
 		basePower: 120,
 		onPrepareHit: function (target, source) {
@@ -1045,6 +1054,7 @@ exports.BattleMovedex = {
 	"prfmayy": {
 		id: "prfmayy",
 		name: "prfmayy",
+		desc: "Said to be related to prfmador. Boosts user's Defense, Special Attack, Special Defense and Speed by 2 stages.",
 		category: "Special",
 		self: {
 			boosts: {
@@ -1075,6 +1085,7 @@ exports.BattleMovedex = {
 	"expose": {
 		id: "expose",
 		name: "Expose",
+		desc: "(YOUTUBER) EXPOSED 2017 (NOT CLICKBAIT)",
 		pp: 15,
 		category: "Status",
 		basePower: 0,
@@ -1133,6 +1144,7 @@ exports.BattleMovedex = {
 	"eye": {
 		id: "eye",
 		name: "Eye",
+		desc: "Makes the opponent have a bad... nightmare.",
 		basePower: 0,
 		accuracy: 100,
 		category: "Status",
@@ -1175,6 +1187,7 @@ exports.BattleMovedex = {
 	"illuminaticonfirmed": {
 		id: "illuminaticonfirmed",
 		name: "Illuminati Confirmed",
+		desc: "Cringy and unoriginal move that confirms the Illuminati is real.",
 		basePower: 0,
 		category: "Status",
 		accuracy: true,
@@ -1202,6 +1215,7 @@ exports.BattleMovedex = {
 	"tridisaster": {
 		id: "tridisaster",
 		name: "Tri Disaster",
+		desc: "Coincidentally it has 333 BP and is Fire, Electric and Ice type.",
 		basePower: 333,
 		accuracy: true,
 		onPrepareHit: function (target, source) {
@@ -1368,6 +1382,7 @@ exports.BattleMovedex = {
 	"frosty": {
 		id: "frosty",
 		name: "Frosty",
+		desc: "Said to be related to ICEE. Boosts user's Defense and Special Defense by 1 stage and recovers half of user's HP.",
 		basePower: 90,
 		accuracy: 100,
 		pp: 15,
@@ -1399,6 +1414,7 @@ exports.BattleMovedex = {
 	"dracoblast": {
 		id: "dracoblast",
 		name: "Draco Blast",
+		desc: "Blast version of Draco Meteor.",
 		basePower: 140,
 		accuracy: 100,
 		pp: 5,
@@ -1427,6 +1443,7 @@ exports.BattleMovedex = {
 	"superearthpower": {
 		id: "superearthpower",
 		name: "Super Earth Power",
+		desc: "Super version of Earth Power.",
 		basePower: 120,
 		accuracy: true,
 		pp: 15,
@@ -1449,6 +1466,7 @@ exports.BattleMovedex = {
 	"groundbreaker": {
 		id: "groundbreaker",
 		name: "Ground Breaker",
+		desc: "Fissure wannabe.",
 		ohko: true,
 		accuracy: true,
 		basePower: 0,
@@ -1468,6 +1486,7 @@ exports.BattleMovedex = {
 	"gtfo": {
 		id: "gtfo",
 		name: "gtfo",
+		desc: "gtfo",
 		accuracy: 100,
 		category: "Special",
 		basePower: 100,
@@ -1499,6 +1518,7 @@ exports.BattleMovedex = {
 	"nomansland": {
 		id: "nomansland",
 		name: "No Man's Land",
+		desc: "No Man's cringy and unoriginal ability.",
 		basePower: 100,
 		pp: 15,
 		accuracy: 100,
@@ -1529,6 +1549,7 @@ exports.BattleMovedex = {
 	"wdtdttm": {
 		id: "wdtdttm",
 		name: "WDTDTTM",
+		desc: "Said to have no meaning.",
 		basePower: 250,
 		accuracy: 100,
 		pp: 10,
@@ -1547,6 +1568,7 @@ exports.BattleMovedex = {
 	"makeexiledgreatagain": {
 		id: "makeexiledgreatagain",
 		name: "Make Exiled Great Again",
+		desc: "Unfortunately it didn't.",
 		basePower: 120,
 		priority: 3,
 		accuracy: true,
@@ -1639,6 +1661,7 @@ exports.BattleMovedex = {
 		id: "guard",
 		isViable: true,
 		name: "Guard",
+		desc: "Makes the user guard.",
 		pp: 10,
 		priority: 4,
 		flags: {
@@ -1698,6 +1721,7 @@ exports.BattleMovedex = {
 	"stab": {
 		id: "stab",
 		name: "Stab",
+		desc: "Said to be related to a certain backstabbing Krabby",
 		onTryHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Sacred Sword", target);
@@ -1723,6 +1747,7 @@ exports.BattleMovedex = {
 	"megalixir": {
 		id: "megalixir",
 		name: "Megalixir",
+		desc: "Said to be the best item in another world.",
 		basePower: 0,
 		category: "Status",
 		pp: 15,
@@ -1752,6 +1777,7 @@ exports.BattleMovedex = {
 	"spook": {
 		id: "spook",
 		name: "Spook",
+		desc: "Heal Block, Confusion, Paralysis and reduces opponent's Attack, Special Attack and Speed by 2 stages.",
 		volatileStatus: "healblock",
 		status: 'par',
 		secondary: {
@@ -1812,6 +1838,7 @@ exports.BattleMovedex = {
 	"virus": {
 		id: "virus",
 		name: "Virus",
+		desc: "A plague.",
 		basePower: 120,
 		accuracy: true,
 		category: "Special",
@@ -1901,6 +1928,7 @@ exports.BattleMovedex = {
 	"timetravel": {
 		id: "timetravel",
 		name: "Time Travel",
+		desc: "Makes the user Time Travel.",
 		basePower: 120,
 		accuracy: 100,
 		pp: 20,
@@ -1927,6 +1955,7 @@ exports.BattleMovedex = {
 	"exile": {
 		id: "exile",
 		name: "Exile",
+		desc: "Not exiled anymore.",
 		basePower: 140,
 		accuracy: 100,
 		pp: 15,
@@ -1958,6 +1987,7 @@ exports.BattleMovedex = {
 		category: "Special",
 		id: "megastoredpower",
 		name: "Mega Stored Power",
+		desc: "Mega version of Stored Power.",
 		pp: 20,
 		priority: 0,
 		flags: {
@@ -1981,6 +2011,7 @@ exports.BattleMovedex = {
 	"eternalbond": {
 		id: "eternalbond",
 		name: "Eternal Bond",
+		desc: "There's no such thing as an Eternal Bond.",
 		basePower: 130,
 		accuracy: true,
 		pp: 15,
@@ -2007,6 +2038,7 @@ exports.BattleMovedex = {
 	"extremeleech": {
 		id: "extremeleech",
 		name: "Extreme Leech",
+		desc: "Extreme Speed + Leech Seed?",
 		basePower: 130,
 		accuracy: true,
 		pp: 15,
@@ -2143,6 +2175,7 @@ exports.BattleMovedex = {
 	"melody": {
 		id: "melody",
 		name: "Melody",
+		desc: "Makes the user sing a melody.",
 		basePower: 130,
 		accuracy: 100,
 		pp: 15,
@@ -2192,6 +2225,7 @@ exports.BattleMovedex = {
 	"ultradrain": {
 		id: "ultradrain",
 		name: "Ultra Drain",
+		desc: "Ultra version of Giga Drain.",
 		basePower: 120,
 		//revenge boost
 		basePowerCallback: function (pokemon, target, move) {
@@ -2219,6 +2253,7 @@ exports.BattleMovedex = {
 	"cellmutation": {
 		id: "cellmutation",
 		name: "Cell Mutation",
+		desc: "Said to be the signature move of Zygarde.",
 		basePower: 120,
 		accuracy: 100,
 		ignoreImmunity: true,
@@ -2244,6 +2279,7 @@ exports.BattleMovedex = {
 	"itslit": {
 		id: "itslit",
 		name: "It's Lit",
+		desc: "It's so lit it roasts the opponent and boosts user's Attack by 2 stages.",
 		basePower: 130,
 		accuracy: true,
 		status: "brn",
@@ -2482,6 +2518,7 @@ exports.BattleMovedex = {
 	"topkeko": {
 		id: "topkeko",
 		name: "top keko",
+		desc: "topkek",
 		basePower: 100,
 		accuracy: true,
 		pp: 15,
@@ -2555,6 +2592,7 @@ exports.BattleMovedex = {
 		id: "secretservice",
 		isViable: true,
 		name: "Secret Service",
+		desc: "A super secret service.",
 		pp: 5,
 		priority: 5,
 		basePower: 80,
@@ -2604,6 +2642,7 @@ exports.BattleMovedex = {
 	"nowimfire": {
 		id: "nowimfire",
 		name: "Now I'm Fire",
+		desc: "Lits the user on fire boosting it's Attack, Defense, Special Defense and Speed by 1 stage.",
 		basePower: 120,
 		accuracy: 100,
 		pp: 15,

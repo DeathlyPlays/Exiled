@@ -14,8 +14,8 @@ class Ambush extends Rooms.RoomGame {
 		this.players = new Map();
 		this.round = 0;
 		this.room = room;
-		this.gameid = 'ambush',
-		this.title = 'Ambush',
+		this.gameid = 'ambush';
+		this.title = 'Ambush';
 		this.timeLeft = Date.now() + seconds * 1000;
 
 		this.room.add('|uhtml|ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000000 ; border: 12px double #860000 ; color: #DF0101"><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>A game of Ambush has created!</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +

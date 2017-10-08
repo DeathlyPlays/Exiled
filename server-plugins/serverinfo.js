@@ -155,7 +155,7 @@ exports.commands = {
 	'!discord': true,
 	discord: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Exiled Discord</a>");
+		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official " + Config.serverName + " Discord</a>");
 	},
 
 	//Credits to Snaquaza on these feature and other DragonHeaven developers/contributers

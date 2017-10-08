@@ -1133,8 +1133,13 @@ exports.commands = {
 	'!digidex': true,
 	dd: 'digidex',
 	digidex: function (target) {
+		if (!this.runBroadcast()) return;
 		if (!target) return this.parse("/help digidex");
-		this.parse("/dt " + target + ", digimon");
+		if (this.broadcasting) {
+			this.parse("!dt " + target + ", digimon");
+		} else {
+			this.parse("/dt " + target + ", digimon");
+		}
 	},
 	digidexhelp: ["/digidex [Digimon] - Checks for a Digimon's data from Digimon Showdown."],
 

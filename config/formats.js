@@ -1537,7 +1537,7 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
-		section: 'Exiled\'s Custom Gamemodes',
+		section: "" + Config.serverName + "'s Custom Gamemodes",
 		column: 5,
 	},
 	{

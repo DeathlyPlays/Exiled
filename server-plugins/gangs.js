@@ -274,7 +274,7 @@ exports.commands = {
 
 			if (getGang(user.userid)) return this.errorReply("You've already joined a gang.");
 
-			let sortedRanks = Object.keys(gangs[gangid].ranks).sort(function (a, b) {return gangs[gangid].ranks[b].rank - gangs[gangid].ranks[a].rank;});
+			let sortedRanks = Object.keys(gangs[gangid].ranks).sort(function (a, b) { return gangs[gangid].ranks[b].rank - gangs[gangid].ranks[a].rank; });
 			let rank = sortedRanks.pop();
 			gangs[gangid].users.push(user.userid);
 			gangs[gangid].ranks[rank].users.push(user.userid);
@@ -378,7 +378,7 @@ exports.commands = {
 			target = toId(target);
 			if (!gangs[target]) return this.errorReply("That gang does not exist.");
 			let output = Chat.escapeHTML(gangs[target].name) + " members:\n\n";
-			let sortedRanks = Object.keys(gangs[target].ranks).sort(function (a, b) {return gangs[target].ranks[b].sortBy - gangs[target].ranks[a].sortBy;});
+			let sortedRanks = Object.keys(gangs[target].ranks).sort(function (a, b) { return gangs[target].ranks[b].sortBy - gangs[target].ranks[a].sortBy; });
 
 			for (let rank in sortedRanks) {
 				let users = [];

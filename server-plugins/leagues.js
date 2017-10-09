@@ -771,7 +771,7 @@ exports.commands = {
 
 			if (getLeague(user.userid)) return this.errorReply("You've already joined a league.");
 
-			let sortedRanks = Object.keys(leagues[leagueid].ranks).sort(function (a, b) {return leagues[leagueid].ranks[b].rank - leagues[leagueid].ranks[a].rank;});
+			let sortedRanks = Object.keys(leagues[leagueid].ranks).sort(function (a, b) { return leagues[leagueid].ranks[b].rank - leagues[leagueid].ranks[a].rank; });
 			let rank = sortedRanks.pop();
 			leagues[leagueid].users.push(user.userid);
 			leagues[leagueid].ranks[rank].users.push(user.userid);
@@ -875,7 +875,7 @@ exports.commands = {
 			target = toId(target);
 			if (!leagues[target]) return this.errorReply("That league does not exist.");
 			let output = Chat.escapeHTML(leagues[target].name) + " members:\n\n";
-			let sortedRanks = Object.keys(leagues[target].ranks).sort(function (a, b) {return leagues[target].ranks[b].sortBy - leagues[target].ranks[a].sortBy;});
+			let sortedRanks = Object.keys(leagues[target].ranks).sort(function (a, b) { return leagues[target].ranks[b].sortBy - leagues[target].ranks[a].sortBy; });
 
 			for (let rank in sortedRanks) {
 				let users = [];

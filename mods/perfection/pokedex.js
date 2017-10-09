@@ -417,6 +417,7 @@ exports.BattlePokedex = {
 	corsola: {
 		inherit: true,
 		prevo: "minoral",
+		evoLevel: 24,
 	},
 	minoral: {
 		num: -9012,

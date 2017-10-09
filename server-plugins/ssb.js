@@ -108,7 +108,7 @@ function validate(me, targetUser, quiet) {
 	}
 	//Check customs to make sure the user can use them.
 	if (targetUser.cMove) {
-		if (customMovepool.map(i => {return toId(i);}).indexOf(toId(targetUser.cMove)) === -1 && (toId(targetUser.selfCustomMove) !== toId(targetUser.cMove) || !targetUser.bought.cMove)) {
+		if (customMovepool.map(i => { return toId(i); }).indexOf(toId(targetUser.cMove)) === -1 && (toId(targetUser.selfCustomMove) !== toId(targetUser.cMove) || !targetUser.bought.cMove)) {
 			valid = false;
 			if (!quiet) me.errorReply(targetUser.name + '\'s move "' + targetUser.cMove + '" is a self-made custom move exclusive to another user.');
 			targetUser.cMove = false;
@@ -369,7 +369,7 @@ class SSB {
 				return false;
 			}
 		} else {
-			if (item.id === 'salamencite' || item.id === 'gengarite' || item.id === 'kangaskhanite' || item.id === 'lucarionite' || item.id === 'blazikenite') return false;
+			if (item.id === 'salamencite' || item.id === 'gengarite' || item.id === 'kangaskhanite' || item.id === 'lucarionite' || item.id === 'blazikenite' || item.id === 'metagrossite') return false;
 			this.item = item.name;
 		}
 		return true;
@@ -422,7 +422,7 @@ class SSB {
 	}
 	setCustomMove(move) {
 		move = toId(move);
-		let customIds = customMovepool.map(move => {return toId(move);});
+		let customIds = customMovepool.map(move => { return toId(move); });
 		if (customIds.indexOf(move) < 0) {
 			//check for self-made custom move
 			if (this.selfCustomMove && toId(this.selfCustomMove) === move && this.bought.cMove) {

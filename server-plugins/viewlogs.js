@@ -226,7 +226,7 @@ function parseMessage(message, user) {
 
 		let date = new Date(Number(lineSplit[2]));
 		let components = [date.getHours(), date.getMinutes(), date.getSeconds()];
-		timestamp = components.map(function (x) { return (x < 10) ? '0' + x : x;}).join(':');
+		timestamp = components.map(function (x) { return (x < 10) ? '0' + x : x; }).join(':');
 
 		message = '<span class="' + div + '"><small>[' + timestamp + ']</small> ' + '<small>' + name.substr(0, 1) +
 		'</small>' + Server.nameColor(toId(name), true) + '<em>' +

@@ -11,32 +11,32 @@ function extend(obj, src) {
 	return obj;
 }
 
-let ESSB = JSON.parse(fs.readFileSync('config/ssb.json', 'utf-8'));
+let SSBFFA = JSON.parse(fs.readFileSync('config/ssb.json', 'utf-8'));
 
 class RandomCustomSSBTeams extends RandomTeams {
 	randomCustomSSBTeam() {
-		//let ESSB = JSON.parse(fs.readFileSync('config/ssb.json', 'utf-8'));
+		//let SSBFFA = JSON.parse(fs.readFileSync('config/ssb.json', 'utf-8'));
 		let team = [];
 		let variant = this.random(2);
 
 		//Parse player objects into sets.
 		let ssbSets = {};
-		for (let key in ESSB) {
-			if (!ESSB[key].active) continue; //This pokemon is not to be used yet.
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)] = {};
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].name = ESSB[key].name;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].species = ESSB[key].species;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].ability = ESSB[key].ability;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].item = ESSB[key].item;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].gender = (ESSB[key].gender === 'random' ? ((variant === 1) ? 'M' : 'F') : ESSB[key].gender);
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].moves = ESSB[key].movepool;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].signatureMove = ESSB[key].cMove;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].evs = ESSB[key].evs;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].ivs = ESSB[key].ivs;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].nature = ESSB[key].nature;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].level = parseInt(ESSB[key].level);
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].shiny = ESSB[key].shiny;
-			ssbSets[(ESSB[key].symbol + ESSB[key].name)].happiness = ESSB[key].happiness;
+		for (let key in SSBFFA) {
+			if (!SSBFFA[key].active) continue; //This pokemon is not to be used yet.
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)] = {};
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].name = SSBFFA[key].name;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].species = SSBFFA[key].species;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].ability = SSBFFA[key].ability;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].item = SSBFFA[key].item;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].gender = (SSBFFA[key].gender === 'random' ? ((variant === 1) ? 'M' : 'F') : SSBFFA[key].gender);
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].moves = SSBFFA[key].movepool;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].signatureMove = SSBFFA[key].cMove;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].evs = SSBFFA[key].evs;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].ivs = SSBFFA[key].ivs;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].nature = SSBFFA[key].nature;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].level = parseInt(SSBFFA[key].level);
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].shiny = SSBFFA[key].shiny;
+			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].happiness = SSBFFA[key].happiness;
 		}
 
 		//var sets = extend(baseSets, ssbSets);
@@ -70,9 +70,9 @@ class RandomCustomSSBTeams extends RandomTeams {
 		let pool = Object.keys(sets);
 		for (let i = 0; i < (Object.keys(sets).length < 6 ? Object.keys(sets).length : 6); i++) {
 			let name = this.sampleNoReplace(pool);
-			/*if (i === 1 && ESSB[toId(side.name)] && ESSB[toId(side.name)].active && sets[(ESSB[toId(side.name)].symbol + ESSB[toId(side.name)].name)] && pool.indexOf((ESSB[toId(side.name)].symbol + ESSB[toId(side.name)].name)) !== -1) {
+			/*if (i === 1 && SSBFFA[toId(side.name)] && SSBFFA[toId(side.name)].active && sets[(SSBFFA[toId(side.name)].symbol + SSBFFA[toId(side.name)].name)] && pool.indexOf((SSBFFA[toId(side.name)].symbol + SSBFFA[toId(side.name)].name)) !== -1) {
 				pool.push(name); //re-add
-				name = pool[pool.indexOf((ESSB[toId(side.name)].symbol + ESSB[toId(side.name)].name))];
+				name = pool[pool.indexOf((SSBFFA[toId(side.name)].symbol + SSBFFA[toId(side.name)].name))];
 				pool.splice(pool.indexOf(name), 1);
 			}*/
 			let set = sets[name];

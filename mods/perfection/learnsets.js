@@ -977,4 +977,10 @@ exports.BattleLearnsets = {
 		waterpulse: ["7E", "6T", "6E", "5E", "4M", "3M"],
 		whirlpool: ["4M"],
 	}},
+	azumarill: {
+		learnset: {
+			inherit: true,
+			pixiepunch: ["7L1"],
+		},
+	},
 };

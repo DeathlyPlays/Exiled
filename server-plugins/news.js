@@ -42,7 +42,7 @@ Server.showNews = function (userid, user) {
 	if (newsDisplay.length > 0) {
 		newsDisplay = newsDisplay.join('<hr>');
 		newsDisplay += showSubButton(userid);
-		return user.send(`|pm| Server News|${user.getIdentity()}|/raw ${newsDisplay}`);
+		return user.send(`|pm|` + Config.serverName + ` News|${user.getIdentity()}|/raw ${newsDisplay}`);
 	}
 };
 

@@ -20,6 +20,8 @@ let messages = [
 	"{{user}}'s mama accidently kicked {{user}} from the server!",
 	"felt Insist's wrath.",
 	"got rekt by Travis CI!",
+	"exited life.exe.",
+	"found a species called \"friends\" (whatever that means).",
 ];
 
 exports.commands = {

@@ -109,13 +109,16 @@ exports.commands = {
 		"!groups - Shows everyone that information. Requires: + % @ * # & ~",
 	],
 
+	'!opensource': true,
+	github: "opensource",
+	os: "opensource",
 	git: "opensource",
 	opensource: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
 			Config.serverName + "'s Github's:<br />" +
 			"- Language: JavaScript (Node.js)<br />" +
-			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">" + Config.serverName + " Server Code</a><br />" +
+			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">" + Config.serverName + "'s Server Code</a><br />" +
 			"- <a href=\"https://github.com/DeathlyPlays/Exiled/commits/master\">What's new?</a><br />" +
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown\">Main's source code</a><br />" +
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Client\">Client source code</a><br />" +
@@ -136,7 +139,7 @@ exports.commands = {
 	'!suggestions': true,
 	suggestions: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for Exiled</a>");
+		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for " + Config.serverName + "</a>");
 	},
 
 	'!fakemon': true,

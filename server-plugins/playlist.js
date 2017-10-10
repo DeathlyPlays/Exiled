@@ -47,7 +47,7 @@ exports.commands = {
 			let link = parts[1].trim();
 			let title = parts[2].trim();
 			if (!data[user.userid]) data[user.userid] = [];
-			if (data[user.userid].length > 9) return this.errorReply('You already exceded the maxium amount of songs a user may have in a playlist.');
+			if (data[user.userid].length > 9) return this.errorReply('You already have exceeded the maximum amount of songs a user may have in their playlist.');
 			for (let i = 0; i < data[user.userid].length; i++) {
 				if (data[user.userid][i][0] === link) return this.errorReply('You already have this song in your playlist.');
 				continue;
@@ -90,4 +90,10 @@ exports.commands = {
 			return this.sendReply('|uhtml|' + toId(parts[0]) + 'playlist|' + playlistGenerator(toId(parts[0])));
 		}
 	},
+	playlisthelp: [
+		"/playlist add, [song mp3 url], [title of the song] - Adds a song to your playlist [Limit of 9 songs].",
+		"/playlist delete, [title of the song] - Deletes a song from your playlist.",
+		"/playlist reset - Removes all songs from your playlist.",
+		"/playlist - Displays your playlist.",
+	],
 };

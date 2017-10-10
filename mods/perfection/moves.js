@@ -645,4 +645,93 @@ exports.BattleMovedex = {
 		zMovePower: 170,
 		contestType: "Cute",
 	},
+	"sewersmash": {
+		num: 15000,
+		accuracy: 100,
+		basePower: 75,
+		category: "Physical",
+		desc: "Has a 10% chance to raise the user's Attack and Speed by 1 stage.",
+		shortDesc: "10% chance to raise the user's Atk and Spe by 1.",
+		id: "sewersmash",
+		isViable: true,
+		name: "Sewer Smash",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: {
+			chance: 10,
+			self: {
+				boosts: {
+					atk: 1,
+					spe: 1,
+				},
+			},
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Gunk Shot", target);
+		},
+		target: "normal",
+		type: "Poison",
+		zMovePower: 145,
+		contestType: "Cool",
+	},
+	"colossalvoltthunderbolt": {
+		num: -719,
+		accuracy: true,
+		basePower: 215,
+		category: "Special",
+		desc: "Super effective against Ground type Pokemon.",
+		shortDesc: "Super effective against Ground type Pokemon.",
+		id: "colossalvolthunderbolt",
+		name: "Colossal Volt Thunderbolt",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onEffectiveness: function (typeMod, type) {
+			if (type === 'Ground') return 1;
+		},
+		ignoreImmunity: {'Electric': true},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Thunder", target);
+			this.add('-anim', source, "Thunderbolt", target);
+			this.add('-anim', source, "Gigavolt Havoc", target);
+		},
+		isZ: "ampharniumz",
+		secondary: false,
+		target: "normal",
+		type: "Electric",
+		contestType: "Cool",
+	},
+	"drinkbleach": {
+		num: 9001,
+		accuracy: 100,
+		basePower: 0,
+		selfdestruct: "ifHit",
+		category: "Status",
+		desc: "Lowers target's stats by -6, and locks target from switching, but faints user.",
+		shortDesc: "Target's stats go down by -6, get locked in, faints user.",
+		id: "drinkbleach",
+		isViable: true,
+		name: "Drink Bleach",
+		pp: 10,
+		priority: 0,
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: {
+			volatileStatus: 'trapped',
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Memento", target);
+		},
+		boosts: {atk: -6, def: -6, spa: -6, spd: -6, spe: -6, accuracy: -6, evasion: -6},
+		target: "normal",
+		type: "Dark",
+		zMoveBoost: {atk: 6},
+		contestType: "Cool",
+	},
 };

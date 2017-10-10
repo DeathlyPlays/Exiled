@@ -231,7 +231,7 @@ exports.BattlePokedex = {
 	},
 	granbull: {
 		inherit: true,
-		types: ["Fairy", "Dragon"],
+		types: ["Fairy", "Fighting"],
 	},
 	noctowl: {
 		inherit: true,

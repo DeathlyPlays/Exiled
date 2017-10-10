@@ -142,6 +142,7 @@ exports.BattleLearnsets = {
 	sceptile: {
 		learnset: {
 			inherit: true,
+			dragondance: ["7L39"],
 			dracometeor: ["7T"],
 			seedflare: ["7L87"],
 		},
@@ -256,6 +257,7 @@ exports.BattleLearnsets = {
 			inherit: true,
 			spore: ["7L1"],
 			mistyterrain: ["7L1"],
+			drainingkiss: ["7L17"],
 		},
 	},
 	avalugg: {
@@ -311,6 +313,7 @@ exports.BattleLearnsets = {
 		learnset: {
 			inherit: true,
 			drainpunch: ["7L45"],
+			hammerslammer: ["7L67"],
 			knockoff: ["L50"],
 			slackoff: ["7L23"],
 		},
@@ -337,8 +340,6 @@ exports.BattleLearnsets = {
 	granbull: {
 		learnset: {
 			inherit: true,
-			closecombat: ["7L56"],
-			dracometeor: ["7T"],
 			dragonclaw: ["7M"],
 			dragondance: ["7L23"],
 			magicalpunch: ["7L34"],

@@ -12,7 +12,7 @@ exports.BattleStatuses = {
 			this.add('c', '~Insist', 'Oh now that I\'m dead, I guess that just means more time to code.');
 		},
 		onSourceFaint: function () {
-			this.add('c', '~Insist', '**FOH HERE THIS IS MY HOUSE KIDDO**');
+			this.add('c', '~Insist', '**FOH THIS IS MY HOUSE KIDDO**');
 		},
 	},
 	lycaniumz: {

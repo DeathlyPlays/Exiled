@@ -734,4 +734,624 @@ exports.BattleMovedex = {
 		zMoveBoost: {atk: 6},
 		contestType: "Cool",
 	},
+	aerialace: {
+		inherit: true,
+		basePower: 90,
+	},
+	feintattack: {
+		inherit: true,
+		basePower: 90,
+	},
+	shadowpunch: {
+		inherit: true,
+		basePower: 90,
+	},
+	magnetbomb: {
+		inherit: true,
+		basePower: 90,
+	},
+	magicalleaf: {
+		inherit: true,
+		basePower: 90,
+	},
+	bonemerang: {
+		inherit: true,
+		ignoreImmunity: true,
+		accuracy: true,
+	},
+	bonerush: {
+		inherit: true,
+		basePower: 20,
+		ignoreImmunity: true,
+		accuracy: true,
+	},
+	boneclub: {
+		inherit: true,
+		ignoreImmunity: true,
+		accuracy: 90,
+	},
+	silverwind: {
+		inherit: true,
+		basePowerCallback: function () {
+			if (this.isWeather('hail')) {
+				return 90;
+			}
+			return 60;
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				onHit: function (target, source) {
+					let stats = [];
+					for (let stat in target.boosts) {
+						if (stat !== 'accuracy' && stat !== 'evasion' && stat !== 'atk' && target.boosts[stat] < 6) {
+							stats.push(stat);
+						}
+					}
+					if (stats.length) {
+						let randomStat = stats[this.random(stats.length)];
+						let boost = {};
+						boost[randomStat] = 1;
+						this.boost(boost);
+					} else {
+						return false;
+					}
+				},
+			},
+		},
+		desc: "Has a 100% chance to raise the user's Attack, Defense, Special Attack, Special Defense, and Speed by 1 stage. This attack's base power becomes 90, if the weather is set to Hail.",
+		shortDesc: "Raises all stats by 1 (not acc/eva).",
+	},
+	ominouswind: {
+		inherit: true,
+		basePowerCallback: function () {
+			if (this.isWeather('hail')) {
+				return 90;
+			}
+			return 60;
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				onHit: function (target, source) {
+					let stats = [];
+					for (let stat in target.boosts) {
+						if (stat !== 'accuracy' && stat !== 'evasion' && stat !== 'atk' && target.boosts[stat] < 6) {
+							stats.push(stat);
+						}
+					}
+					if (stats.length) {
+						let randomStat = stats[this.random(stats.length)];
+						let boost = {};
+						boost[randomStat] = 1;
+						this.boost(boost);
+					} else {
+						return false;
+					}
+				},
+			},
+		},
+		desc: "Has a 100% chance to raise the user's Attack, Defense, Special Attack, Special Defense, and Speed by 1 stage. This attack's base power becomes 90, if the weather is set to Hail.",
+		shortDesc: "Raises all stats by 1 (not acc/eva).",
+	},
+	ancientpower: {
+		inherit: true,
+		secondary: {
+			chance: 100,
+			self: {
+				onHit: function (target, source) {
+					let stats = [];
+					for (let stat in target.boosts) {
+						if (stat !== 'accuracy' && stat !== 'evasion' && stat !== 'atk' && target.boosts[stat] < 6) {
+							stats.push(stat);
+						}
+					}
+					if (stats.length) {
+						let randomStat = stats[this.random(stats.length)];
+						let boost = {};
+						boost[randomStat] = 1;
+						this.boost(boost);
+					} else {
+						return false;
+					}
+				},
+			},
+		},
+		desc: "Has a 100% chance to raise the user's Attack, Defense, Special Attack, Special Defense, and Speed by 1 stage.",
+		shortDesc: "Raises all stats by 1 (not acc/eva).",
+	},
+	relicsong: {
+		inherit: true,
+		basePower: 60,
+		ignoreImmunity: true,
+		onHit: function (target, pokemon) {
+			if (pokemon.baseTemplate.species !== 'Meloetta' || pokemon.transformed) {
+				return;
+			}
+			let natureChange = {
+				'Modest': 'Adamant',
+				'Adamant': 'Modest',
+				'Timid': 'Jolly',
+				'Jolly': 'Timid',
+			};
+			let tmpAtkEVs;
+			let Atk2SpA;
+			if (pokemon.template.speciesid === 'meloettapirouette' && pokemon.formeChange('Meloetta')) {
+				this.add('-formechange', pokemon, 'Meloetta');
+				tmpAtkEVs = pokemon.set.evs.atk;
+				pokemon.set.evs.atk = pokemon.set.evs.spa;
+				pokemon.set.evs.spa = tmpAtkEVs;
+				if (natureChange[pokemon.set.nature]) pokemon.set.nature = natureChange[pokemon.set.nature];
+				Atk2SpA = (pokemon.boosts.spa || 0) - (pokemon.boosts.atk || 0);
+				this.boost({
+					atk: Atk2SpA,
+					spa: -Atk2SpA,
+				}, pokemon);
+			} else if (pokemon.formeChange('Meloetta-Pirouette')) {
+				this.add('-formechange', pokemon, 'Meloetta-Pirouette');
+				tmpAtkEVs = pokemon.set.evs.atk;
+				pokemon.set.evs.atk = pokemon.set.evs.spa;
+				pokemon.set.evs.spa = tmpAtkEVs;
+				if (natureChange[pokemon.set.nature]) pokemon.set.nature = natureChange[pokemon.set.nature];
+				Atk2SpA = (pokemon.boosts.spa || 0) - (pokemon.boosts.atk || 0);
+				this.boost({
+					atk: Atk2SpA,
+					spa: -Atk2SpA,
+				}, pokemon);
+			}
+			// renderer takes care of this for us
+			pokemon.transformed = false;
+		},
+		priority: 1,
+		secondary: null,
+		desc: "Has a 10% chance to cause the target to fall asleep. If this move is successful on at least one target and the user is a Meloetta, it changes to Pirouette Forme if it is currently in Aria Forme, or changes to Aria Forme if it is currently in Pirouette Forme. This forme change does not happen if the Meloetta has the Ability Sheer Force. The Pirouette Forme reverts to Aria Forme when Meloetta is not active. This move also switches Meloetta's SpA and Atk EVs, boosts, and certain natures, specifically: Modest <-> Adamant, Jolly <-> Timid, other natures are left untouched.",
+	},
+	//Signature Pokemon Move Boost Things - GEN Next Concept
+	avalanche: {
+		inherit: true,
+		basePowerCallback: function (pokemon, source, user, power) {
+			if ((source.lastDamage > 0 && pokemon.lastAttackedBy && pokemon.lastAttackedBy.thisTurn)) {
+				this.debug('Boosted for getting hit by ' + pokemon.lastAttackedBy.move);
+				return this.isWeather('hail') ? 180 : 120;
+			}
+			if (user.template.id === 'avalugg') return power * 1.5;
+			return this.isWeather('hail') ? 90 : 60;
+		},
+		desc: "Power doubles if the user was hit by the target this turn. If the weather is set to hail, this move does 1.5x more damage.  If the user is an Avalugg, this move does 1.5x more damage.",
+		shortDesc: "Power doubles if user is damaged by the target.",
+	},
+	snore: {
+		inherit: true,
+		basePower: 100,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'snorlax') return power * 1.5;
+		},
+		ignoreImmunity: true,
+		desc: "Has a 30% chance to flinch the target. Fails if the user is not asleep. If the user is a Snorlax, this move does 1.5x more damage.",
+	},
+	doublehit: {
+		inherit: true,
+		accuracy: true,
+	},
+	armthrust: {
+		inherit: true,
+		accuracy: true,
+	},
+	barrage: {
+		inherit: true,
+		accuracy: true,
+	},
+	beatup: {
+		inherit: true,
+		accuracy: true,
+	},
+	bulletseed: {
+		inherit: true,
+		accuracy: true,
+	},
+	cometpunch: {
+		inherit: true,
+		accuracy: true,
+	},
+	doublekick: {
+		inherit: true,
+		accuracy: true,
+	},
+	doubleslap: {
+		inherit: true,
+		accuracy: true,
+	},
+	dualchop: {
+		inherit: true,
+		accuracy: true,
+	},
+	furyattack: {
+		inherit: true,
+		accuracy: true,
+	},
+	furyswipes: {
+		inherit: true,
+		accuracy: true,
+	},
+	geargrind: {
+		inherit: true,
+		accuracy: true,
+	},
+	iciclespear: {
+		inherit: true,
+		accuracy: true,
+	},
+	pinmissile: {
+		inherit: true,
+		accuracy: true,
+	},
+	rockblast: {
+		inherit: true,
+		accuracy: true,
+	},
+	spikecannon: {
+		inherit: true,
+		accuracy: true,
+	},
+	tailslap: {
+		inherit: true,
+		accuracy: true,
+	},
+	watershuriken: {
+		inherit: true,
+		accuracy: true,
+	},
+	wingattack: {
+		inherit: true,
+		basePower: 40,
+		accuracy: true,
+		multihit: [2, 2],
+		desc: "This move hits twice.",
+		shortDesc: "Hits twice.",
+	},
+	steameruption: {
+		inherit: true,
+		accuracy: 100,
+		onModifyMove: function (move) {
+			switch (this.effectiveWeather()) {
+			case 'sunnyday':
+				move.secondary.chance = 60;
+				break;
+			}
+		},
+		desc: "Has a 30% chance to burn the target. The target thaws out if it is frozen. If the weather is set to Sunny Day, there is a 60% chance to burn the target.",
+	},
+	rapidspin: {
+		inherit: true,
+		basePower: 30,
+		onBasePower: function (power, user) {
+			let doubled = false;
+			if (user.removeVolatile('leechseed')) {
+				this.add('-end', user, 'Leech Seed', '[from] move: Rapid Spin', '[of] ' + user);
+				doubled = true;
+			}
+			let sideConditions = {spikes:1, toxicspikes:1, stealthrock:1};
+			for (let i in sideConditions) {
+				if (user.side.removeSideCondition(i)) {
+					this.add('-sideend', user.side, this.getEffect(i).name, '[from] move: Rapid Spin', '[of] ' + user);
+					doubled = true;
+				}
+			}
+			if (user.volatiles['partiallytrapped']) {
+				this.add('-remove', user, user.volatiles['partiallytrapped'].sourceEffect.name, '[from] move: Rapid Spin', '[of] ' + user, '[partiallytrapped]');
+				doubled = true;
+				delete user.volatiles['partiallytrapped'];
+			}
+			if (doubled) return power * 2;
+		},
+		self: undefined,
+		desc: "If this move is successful the user removes hazards before it attacks, the effects of Leech Seed and partial-trapping moves end for the user, and all hazards are removed from the user's side of the field. This move does double the damage, if a hazard is removed.",
+	},
+	rockthrow: {
+		inherit: true,
+		accuracy: 100,
+		onBasePower: function (power, user) {
+			if (user.side.removeSideCondition('stealthrock')) {
+				this.add('-sideend', user.side, "Stealth Rock", '[from] move: Rapid Spin', '[of] ' + user);
+				return power * 2;
+			}
+		},
+		desc: "This move attempts to remove Stealth Rocks from the user's side, if Stealth Rocks are removed this move does double the damage.",
+		shortDesc: "Frees the user of Stealth Rock, does 2x damage if it does.",
+	},
+	firefang: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'flareon') return this.chainModify(1.5);
+		},
+		accuracy: 100,
+		secondaries: [
+			{chance:20, status:'brn'},
+			{chance:30, volatileStatus:'flinch'},
+		],
+		desc: "Has a 20% chance to burn the target and a 30% chance to flinch it. If the user is a Flareon, this move does 1.5x more damage.",
+		shortDesc: "20% chance to burn. 30% chance to flinch.",
+	},
+	icefang: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'walrein') return this.chainModify(1.5);
+		},
+		accuracy: 100,
+		secondaries: [
+			{chance:20, status:'frz'},
+			{chance:30, volatileStatus:'flinch'},
+		],
+		desc: "Has a 20% chance to freeze the target and a 30% chance to flinch it. If the user is a Walrein, this move does 1.5x more damage.",
+		shortDesc: "20% chance to freeze. 30% chance to flinch.",
+	},
+	thunderfang: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'luxray') return this.chainModify(1.5);
+		},
+		accuracy: 100,
+		secondaries: [
+			{chance:20, status:'par'},
+			{chance:30, volatileStatus:'flinch'},
+		],
+		desc: "Has a 20% chance to paralyze the target and a 30% chance to flinch it. If the user is a Luxray, this move does 1.5x more damage.",
+		shortDesc: "20% chance to paralyze. 30% chance to flinch.",
+	},
+	poisonfang: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'drapion') return this.chainModify(1.5);
+		},
+		accuracy: 100,
+		secondaries: [
+			{chance:100, status:'tox'},
+			{chance:30, volatileStatus:'flinch'},
+		],
+		desc: "Has a 100% chance to badly poison the target and a 30% chance to flinch it. If the user is a Drapion, this move does 1.5x more damage.",
+		shortDesc: "100% chance to badly poison. 30% chance to flinch.",
+	},
+	poisontail: {
+		inherit: true,
+		basePower: 60,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'seviper') return this.chainModify(1.5);
+		},
+		accuracy: 100,
+		secondary: {
+			chance: 60,
+			status: 'tox',
+		},
+		desc: "Has a 60% chance to badly poison the target and a higher chance for a critical hit. If the user is a Seviper, this move does 1.5x more damage.",
+		shortDesc: "High critical hit ratio. 60% chance to badly poison.",
+	},
+	slash: {
+		inherit: true,
+		basePower: 60,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'persian') return this.chainModify(1.5);
+		},
+		secondary: {
+			chance: 30,
+			boosts: {
+				def: -1,
+			},
+		},
+		desc: "Has a higher chance for a critical hit. 30% chance to lower the target's Defense by one stage. If the user is a Persian, this move does 1.5x more damage.",
+		shortDesc: "High critical hit ratio. 30% chance to lower Def by 1.",
+	},
+	sludge: {
+		inherit: true,
+		basePower: 60,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'muk') return this.chainModify(1.5);
+		},
+		secondary: {
+			chance: 100,
+			status: 'psn',
+		},
+		desc: "Has a 100% chance to poison the target. If the user is a Muk, this move does 1.5x more damage.",
+		shortDesc: "100% chance to poison the target.",
+	},
+	smog: {
+		inherit: true,
+		basePower: 75,
+		accuracy: 100,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'weezing') return this.chainModify(1.5);
+		},
+		secondary: {
+			chance: 100,
+			status: 'psn',
+		},
+		desc: "Has a 100% chance to poison the target. If the user is a Weezing, this move does 1.5x more damage.",
+		shortDesc: "100% chance to poison the target.",
+	},
+	flamecharge: {
+		inherit: true,
+		basePower: 60,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'rapidash') return this.chainModify(1.5);
+		},
+		desc: "Has a 100% chance to raise the user's Speed by 1 stage. If the user is a Rapidash, this move does 1.5x more damage.",
+	},
+	flamewheel: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'darmanitan') return this.chainModify(1.5);
+		},
+		desc: "Has a 10% chance to burn the target. If the user is a Darmanitan, this move does 1.5x more damage.",
+	},
+	spark: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'eelektross') return this.chainModify(1.5);
+		},
+		desc: "Has a 30% chance to paralyze the target. If the user is an Eelektross, this move does 1.5x more damage.",
+	},
+	triplekick: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'hitmontop') return this.chainModify(1.5);
+		},
+		accuracy: true,
+		desc: "Hits three times. Power increases to 20 for the second hit and 30 for the third. This move checks accuracy for each hit, and the attack ends if the target avoids any of the hits. If one of the hits breaks the target's substitute, it will take damage for the remaining hits. If the user has the Ability Skill Link, this move will always hit three times. If the user is a Hitmontop, this move does 1.5x more damage.",
+	},
+	bubblebeam: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'kingdra') return this.chainModify(1.5);
+		},
+		secondary: {
+			chance: 30,
+			boosts: {
+				spe: -1,
+			},
+		},
+		desc: "Has a 30% chance to lower the target's Speed by 1 stage. If the user is a Kingdra, this move does 1.5x more damage.",
+		shortDesc: "30% chance to lower the target's Speed by 1.",
+	},
+	electroweb: {
+		inherit: true,
+		basePower: 60,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'galvantula') return this.chainModify(1.5);
+		},
+		desc: "Has a 100% chance to lower the target's Speed by 1 stage. If the user is a Galvantula, this move does 1.5x more damage.",
+		accuracy: 100,
+	},
+	gigadrain: {
+		inherit: true,
+		basePower: 60,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'beautifly') return this.chainModify(1.5);
+		},
+		desc: "The user recovers 1/2 the HP lost by the target, rounded half up. If Big Root is held by the user, the HP recovered is 1.3x normal, rounded half down. If the user is a Beautifly, this move does 1.5x more damage.",
+		accuracy: 100,
+	},
+	icywind: {
+		inherit: true,
+		basePower: 60,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'glaceon') return this.chainModify(1.5);
+		},
+		desc: "Has a 100% chance to lower the target's Speed by 1 stage. If the user is a Glaceon, this move does 1.5x more damage.",
+		accuracy: 100,
+	},
+	mudshot: {
+		inherit: true,
+		basePower: 60,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'swampert') return this.chainModify(1.5);
+		},
+		desc: "Has a 100% chance to lower the target's Speed by 1 stage. If the user is a Swampert, this move does 1.5x more damage.",
+		accuracy: 100,
+	},
+	glaciate: {
+		inherit: true,
+		basePower: 80,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'kyurem') return this.chainModify(1.5);
+		},
+		desc: "Has a 100% chance to lower the target's Speed by 1 stage. If the user is a Kyurem, this move does 1.5x more damage.",
+		accuracy: 100,
+	},
+	octazooka: {
+		inherit: true,
+		basePower: 75,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'octillery') return this.chainModify(1.5);
+		},
+		accuracy: 90,
+		secondary: {
+			chance: 100,
+			boosts: {
+				accuracy: -1,
+			},
+		},
+		desc: "Has a 100% chance to lower the target's accuracy by 1 stage. If the user is a Octillery, this move does 1.5x more damage.",
+		shortDesc: "100% chance to lower the target's accuracy by 1.",
+	},
+	leaftornado: {
+		inherit: true,
+		basePower: 75,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'serperior') return this.chainModify(1.5);
+		},
+		accuracy: 90,
+		secondary: {
+			chance: 100,
+			boosts: {
+				accuracy: -1,
+			},
+		},
+		desc: "Has a 100% chance to lower the target's accuracy by 1 stage. If the user is a Serperior, this move does 1.5x more damage.",
+		shortDesc: "100% chance to lower the target's accuracy by 1.",
+	},
+	iceshard: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'weavile') return this.chainModify(1.5);
+		},
+		desc: "If the user is a Weavile, this move does 1.5x more damage.",
+	},
+	aquajet: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'sharpedo') return this.chainModify(1.5);
+		},
+		desc: "If the user is a Sharpedo, this move does 1.5x more damage.",
+	},
+	machpunch: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'hitmonchan') return this.chainModify(1.5);
+		},
+		desc: "If the user is a Hitmonchan, this move does 1.5x more damage.",
+	},
+	shadowsneak: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'banette') return this.chainModify(1.5);
+		},
+		desc: "If the user is a Banette, this move does 1.5x more damage.",
+	},
+	steelwing: {
+		inherit: true,
+		basePower: 60,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'skarmory') return this.chainModify(1.5);
+		},
+		accuracy: 100,
+		secondary: {
+			chance: 50,
+			self: {
+				boosts: {
+					def: 1,
+				},
+			},
+		},
+		desc: "Has a 50% chance to raise the user's Defense by 1 stage. If the user is a Skarmory, this move does 1.5x more damage.",
+		shortDesc: "50% chance to raise the user's Defense by 1.",
+	},
+	surf: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'masquerain') return this.chainModify(1.5);
+		},
+		secondary: {
+			chance: 10,
+			boosts: {
+				spe: -1,
+			},
+		},
+		desc: "Damage doubles if the target is using Dive. 10% chance to lower the target's Speed by one stage. If the user is a Masquerain, this move does 1.5x more damage.",
+		shortDesc: "Power doubles on Dive. 10% chance to lower Spe by 1.",
+	},
+	hiddenpower: {
+		inherit: true,
+		onBasePower: function (power, user) {
+			if (user.template.id === 'unown') return this.chainModify(1.5);
+		},
+	},
 };

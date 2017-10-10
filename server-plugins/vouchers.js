@@ -78,7 +78,7 @@ class Voucher {
 			Users(this.userid).gameBoost = true;
 			break;
 		default:
-			return false; //Unrecoginzed voucher
+			return false; //unrecognized voucher
 		}
 		//Redeemed, delete this voucher
 		return true;
@@ -267,7 +267,7 @@ exports.commands = {
 				return true;
 				//break;
 			case false:
-				console.error('Voucher ID ' + target + '\'s goodFor value was Unrecoginzed.');
+				console.error('Voucher ID ' + target + '\'s goodFor value was unrecognized.');
 				return this.errorReply('An error occured while redeeming. Contact an Upper Staff member.');
 				//break;
 			case 'expired':

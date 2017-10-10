@@ -11,6 +11,7 @@ exports.BattleMovedex = {
 	},
 	"cometpunch": {
 		inherit: true,
+		accuracy: true,
 		priority: 1,
 		type: "Cosmic",
 	},
@@ -584,12 +585,30 @@ exports.BattleMovedex = {
 				if (target.hasType('Ghost')) return 0;
 			}
 		},
-		desc: "If this move is successful and the user has not fainted, the effects of Leech Seed and partial-trapping moves end for the user, and all hazards are removed from the user's side of the field. Ignores Ghost Immunity.",
+		basePower: 30,
+		onBasePower: function (power, user) {
+			let doubled = false;
+			if (user.removeVolatile('leechseed')) {
+				this.add('-end', user, 'Leech Seed', '[from] move: Rapid Spin', '[of] ' + user);
+				doubled = true;
+			}
+			let sideConditions = {spikes:1, toxicspikes:1, stealthrock:1};
+			for (let i in sideConditions) {
+				if (user.side.removeSideCondition(i)) {
+					this.add('-sideend', user.side, this.getEffect(i).name, '[from] move: Rapid Spin', '[of] ' + user);
+					doubled = true;
+				}
+			}
+			if (user.volatiles['partiallytrapped']) {
+				this.add('-remove', user, user.volatiles['partiallytrapped'].sourceEffect.name, '[from] move: Rapid Spin', '[of] ' + user, '[partiallytrapped]');
+				doubled = true;
+				delete user.volatiles['partiallytrapped'];
+			}
+			if (doubled) return power * 2;
+		},
+		self: undefined,
+		desc: "If this move is successful the user removes hazards before it attacks, the effects of Leech Seed and partial-trapping moves end for the user, and all hazards are removed from the user's side of the field. This move does double the damage, if a hazard is removed.",
 		shortDesc: "Frees user from hazards/partial trap/Leech Seed. Ignores Ghost immunity.",
-	},
-	"ancientpower": {
-		inherit: true,
-		basePower: 75,
 	},
 	"knockoff": {
 		inherit: true,
@@ -836,6 +855,7 @@ exports.BattleMovedex = {
 	},
 	ancientpower: {
 		inherit: true,
+		basePower: 75,
 		secondary: {
 			chance: 100,
 			self: {
@@ -949,10 +969,6 @@ exports.BattleMovedex = {
 		inherit: true,
 		accuracy: true,
 	},
-	cometpunch: {
-		inherit: true,
-		accuracy: true,
-	},
 	doublekick: {
 		inherit: true,
 		accuracy: true,
@@ -1020,32 +1036,6 @@ exports.BattleMovedex = {
 			}
 		},
 		desc: "Has a 30% chance to burn the target. The target thaws out if it is frozen. If the weather is set to Sunny Day, there is a 60% chance to burn the target.",
-	},
-	rapidspin: {
-		inherit: true,
-		basePower: 30,
-		onBasePower: function (power, user) {
-			let doubled = false;
-			if (user.removeVolatile('leechseed')) {
-				this.add('-end', user, 'Leech Seed', '[from] move: Rapid Spin', '[of] ' + user);
-				doubled = true;
-			}
-			let sideConditions = {spikes:1, toxicspikes:1, stealthrock:1};
-			for (let i in sideConditions) {
-				if (user.side.removeSideCondition(i)) {
-					this.add('-sideend', user.side, this.getEffect(i).name, '[from] move: Rapid Spin', '[of] ' + user);
-					doubled = true;
-				}
-			}
-			if (user.volatiles['partiallytrapped']) {
-				this.add('-remove', user, user.volatiles['partiallytrapped'].sourceEffect.name, '[from] move: Rapid Spin', '[of] ' + user, '[partiallytrapped]');
-				doubled = true;
-				delete user.volatiles['partiallytrapped'];
-			}
-			if (doubled) return power * 2;
-		},
-		self: undefined,
-		desc: "If this move is successful the user removes hazards before it attacks, the effects of Leech Seed and partial-trapping moves end for the user, and all hazards are removed from the user's side of the field. This move does double the damage, if a hazard is removed.",
 	},
 	rockthrow: {
 		inherit: true,

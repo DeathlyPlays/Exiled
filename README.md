@@ -11,14 +11,6 @@ Navigation: [Exiled][1] | [PS Server repository][10] | [PS Client repository][2]
 [![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg?branch=master)](https://travis-ci.org/DeathlyPlays/Exiled)
 [![dependencies Status](https://david-dm.org/DeathlyPlays/Exiled/status.svg)](https://david-dm.org/DeathlyPlays/Exiled)
 [![devDependencies Status](https://david-dm.org/DeathlyPlays/Exiled/dev-status.svg)](https://david-dm.org/DeathlyPlays/Exiled?type=dev)
-[![optionalDependencies Status](https://david-dm.org/DeathlyPlays/Exiled/optional-status.svg)](https://david-dm.org/DeathlyPlays/Exiled?type=optional)
-
-<<<<<<< HEAD
-=======
-[![Build Status](https://travis-ci.org/Zarel/Pokemon-Showdown.svg)](https://travis-ci.org/Zarel/Pokemon-Showdown)
-[![Dependency Status](https://david-dm.org/zarel/Pokemon-Showdown.svg)](https://david-dm.org/zarel/Pokemon-Showdown)
-[![devDependency Status](https://david-dm.org/zarel/Pokemon-Showdown/dev-status.svg)](https://david-dm.org/zarel/Pokemon-Showdown?type=dev)
->>>>>>> 2697814e71fe3c423ca8226b3b239f335944c9f5
 
 Introduction
 ------------------------------------------------------------------------

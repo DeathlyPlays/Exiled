@@ -6,22 +6,22 @@ const FS = require('fs');
 // Ideally, this should be zero.
 const DEFAULT_AMOUNT = 0;
 
-global.moneyName = 'Buck';
-global.moneyPlural = 'Bucks';
+global.moneyName = 'Eon Ticket';
+global.moneyPlural = 'Eon Tickets';
 
 /**
  * Gets an amount and returns the amount with the name of the money.
  *
  * @examples
- * currencyName(0); // 0 bucks
- * currencyName(1); // 1 buck
- * currencyName(5); // 5 bucks
+ * currencyName(0); // 0 Eon Tickets
+ * currencyName(1); // 1 Eon Ticket
+ * currencyName(5); // 5 Eon Tickets
  *
  * @param {Number} amount
  * @returns {String}
  */
 function currencyName(amount) {
-	let name = " buck";
+	let name = " Eon Ticket";
 	return amount === 1 ? name : name + "s";
 }
 
@@ -35,24 +35,25 @@ function isMoney(money) {
 	let numMoney = Number(money);
 	if (isNaN(money)) return "Must be a number.";
 	if (String(money).includes('.')) return "Cannot contain a decimal.";
-	if (numMoney < 1) return "Cannot be less than one buck.";
+	if (numMoney < 1) return "Cannot be less than one Eon Ticket.";
 	return numMoney;
 }
 
 let shop = [
-	['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly).', 5],
-	['League Room', 'Purchases a room for league usage.', 5],
-	['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
-	['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 5],
-	['Custom Title', 'Buys a title to be added on your /profile (can be refused).', 10],
+	['Avatar', 'Buys an custom avatar to be applied to your name [You supply. Images larger than 80x80 may not show correctly].', 5],
+	['Custom Color', 'Changes the color of your name [Can be denied]', 25],
+	['Custom Emoticon', 'You provide an image (50x50 Pixels) to be added as an emote on the server. [Can be denied]', 40],
+	['Custom PM Box', 'A Custom Designed Personal Messaging Box. [Can be denied]', 75],
+	['Custom Title', 'Buys a title to be added on to your profile. [Can be denied].', 10],
+	['Fix', 'Buys the ability to alter your current custom avatar or trainer card.', 5],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 25],
-	['Custom Color', 'Changes the color of your name (can be denied)', 25],
-	['POTD', 'Allows you to change the Pokemon of the Day that shows up guaranteed in Random Battles (can be refused, or held off if one is already active)', 25],
-	['Room', 'Buys a chatroom for you to own. (within reason, can be refused).', 30],
-	['Custom Emoticon', 'You provide an image (50x50) to be added as an emote on the server. (Can be refused)', 40],
+	['Kick', 'Kick a user from the chatroom. "Let the NaCl buildup commence" ', 5],
+	['League Room', 'Purchases a room for league usage.', 5],
+	['POTD', 'Allows you to change the Pokemon of the Day that shows up guaranteed in Random Battles [Can be refused, or held off if one is already active]', 25],
+	['Room', 'Buys a chatroom for you to own. [Within reason, can be denied].', 30],
 	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 50],
-	['Custom PM Box', 'A Custom Designed PM Box. [can be refused]', 75],
-	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Super Staff Bros metagame. (can be refused/edited)', 100],
+	['Staffmon', 'Buys a Pokemon with your name on it to be added in the Super Staff Bros Metagame. [Can be denied/edited]', 100],
+	['Symbol', 'Buys a custom symbol to go infront of your username and puts you at top of userlist. [Temporary until restart,certain symbols are blocked]', 5],
 ];
 
 let shopDisplay = getShopDisplay(shop);
@@ -64,14 +65,14 @@ let shopDisplay = getShopDisplay(shop);
  * @return {String} display
  */
 function getShopDisplay(shop) {
-	let display = "<center><img src=https://play.pokemonshowdown.com/sprites/xyani/darkrai.gif><img src=http://i.imgur.com/WOewQZw.gif width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/cresselia.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #000; border-color: #DF0101; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
-		"<tbody><tr><th><font color=#DF0101 face=courier>Item</font></th><th><font color=#DF0101 face=courier>Description</font></th><th><font color=#DF0101 face=courier>Price</font></th></tr>";
+	let display = "<center><img src=https://image.prntscr.com/image/wO_tNEvmQTqr0gNVkEJtSQ.gif><img src=http://i.imgur.com/WOewQZw.gif width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/latias.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #e8e8e8; border-color: #0f27ff; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
+		"<tbody><tr><th><font color=#ff0f0f face=courier>Item</font></th><th><font color=#ff0f0f face=courier>Description</font></th><th><font color=#ff0f0f face=courier>Price</font></th></tr>";
 	let start = 0;
 	while (start < shop.length) {
 		display += "<tr>" +
-			"<td align='center'><button name='send' style='background: #000; border-radius: 5px; border: solid, 1px, #DF0101; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#DF0101 face=courier><strong>" + shop[start][0] + "</strong></font></button>" + "</td>" +
-			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][1] + "</font></td>" +
-			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][2] + "</font></td>" +
+			"<td align='center'><button name='send' style='background: #e8e8e8; border-radius: 5px; border: solid, 1px, #0f27ff; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#ff0f0f face=courier><strong>" + shop[start][0] + "</strong></font></button>" + "</td>" +
+			"<td align='center'><font color=#ff0f0f face=courier>" + shop[start][1] + "</font></td>" +
+			"<td align='center'><font color=#ff0f0f face=courier>" + shop[start][2] + "</font></td>" +
 			"</tr>";
 		start++;
 	}
@@ -234,10 +235,10 @@ exports.commands = {
 		});
 	},
 
-	givebuck: 'givemoney',
-	givebucks: 'givemoney',
+	giveeonticket: 'givemoney',
+	giveeontickets: 'givemoney',
 	givemoney: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help givemoney');
 
 		let parts = target.split(',');
@@ -255,10 +256,10 @@ exports.commands = {
 	},
 	givemoneyhelp: ["/givemoney [user], [amount] - Give a user a certain amount of money."],
 
-	takebuck: 'takemoney',
-	takebucks: 'takemoney',
+	takeeonticket: 'takemoney',
+	takeeontickets: 'takemoney',
 	takemoney: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help takemoney');
 
 		let parts = target.split(',');
@@ -277,8 +278,8 @@ exports.commands = {
 	takemoneyhelp: ["/takemoney [user], [amount] - Take a certain amount of money from a user."],
 
 	transfer: 'transfermoney',
-	transferbuck: 'transfermoney',
-	transferbucks: 'transfermoney',
+	transfereonticket: 'transfermoney',
+	transfereontickets: 'transfermoney',
 	transfermoney: function (target, room, user) {
 		if (!target || target.indexOf(',') < 0) return this.parse('/help transfermoney');
 
@@ -307,7 +308,7 @@ exports.commands = {
 	transfermoneyhelp: ["/transfer [user], [amount] - Transfer a certain amount of money to a user."],
 
 	moneylog: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target) return this.sendReply("Usage: /moneylog [number] to view the last x lines OR /moneylog [text] to search for text.");
 		let word = false;
 		if (isNaN(Number(target))) word = true;
@@ -368,12 +369,12 @@ exports.commands = {
 		this.sendReplyBox(rankLadder('Richest Users', moneyPlural, keys.slice(0, target), 'money') + '</div>');
 	},
 
-	resetbuck: 'resetmoney',
-	resetbucks: 'resetmoney',
+	reseteonticket: 'resetmoney',
+	reseteontickets: 'resetmoney',
 	resetmoney: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		Db('money').set(toId(target), 0);
-		this.sendReply(target + " now has 0 bucks.");
+		this.sendReply(target + " has just gone into crippling debt after buying too many dank memes.");
 		Economy.logTransaction(user.name + " reset the money of " + target + ".");
 	},
 	resetmoneyhelp: ["/resetmoney [user] - Reset user's money to zero."],
@@ -400,7 +401,7 @@ exports.commands = {
 		this.sendReply('Your symbol has been removed.');
 	},
 
-	bucks: 'economystats',
+	eontickets: 'economystats',
 	economystats: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		const users = Object.keys(Db('money').object());

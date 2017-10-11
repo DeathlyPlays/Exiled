@@ -314,14 +314,11 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Battle Spot Doubles",
-<<<<<<< HEAD
-=======
 		desc: [
 			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3595001/\">Battle Spot Doubles Discussion</a>",
 			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3593890/\">Battle Spot Doubles Viability Rankings</a>",
 			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3595859/\">Battle Spot Doubles Sample Teams</a>",
 		],
->>>>>>> 2697814e71fe3c423ca8226b3b239f335944c9f5
 
 		mod: 'gen7',
 		gameType: 'doubles',

@@ -1505,6 +1505,23 @@ Rooms.createBattle = function (format, options) {
 
 	const roomid = Rooms.global.prepBattleRoom(format);
 	const room = Rooms.createBattleRoom(roomid, format, p1, p2, options);
+
+	let inviteOnly = (options.inviteOnly || []);
+	if (p1.inviteOnlyNextBattle) {
+		inviteOnly.push(p1.userid);
+		p1.inviteOnlyNextBattle = false;
+	}
+	if (p2.inviteOnlyNextBattle) {
+		inviteOnly.push(p2.userid);
+		p2.inviteOnlyNextBattle = false;
+	}
+	if (inviteOnly.length) {
+		room.modjoin = '+';
+		room.isPrivate = 'hidden';
+		room.privacySetter = new Set(inviteOnly);
+		room.add(`|raw|<div class="broadcast-red"><strong>This battle is invite-only!</strong><br />Users must be rank + or invited with <code>/invite</code> to join</div>`);
+	}
+
 	room.battle.addPlayer(p1, options.p1team);
 	room.battle.addPlayer(p2, options.p2team);
 	p1.joinRoom(room);

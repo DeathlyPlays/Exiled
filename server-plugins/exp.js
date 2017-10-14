@@ -264,4 +264,15 @@ exports.commands = {
 		keys.sort(function (a, b) { return b.exp - a.exp; });
 		this.sendReplyBox(rankLadder('Exp Ladder', "EXP", keys.slice(0, target), 'exp') + '</div>');
 	},
+
+	exphelp: [
+		"/exp [user] - Displays the user's exp; defaults to your username.",
+		"/expladder - Displays the user's rankings, according to their amount of exp.",
+		"/giveexp [user], [amount] - Gives a specified amount of exp to the user.",
+		"/takeexp [user], [amount] - Takes a specified amount of exp from the user.",
+		"/expoff - Turns off gaining exp for yourself.",
+		"/expon - Turns on gaining exp for yourself.",
+		"/doubleexp [ON/OFF] - Makes every text message worth double exp.",
+		"/resetexp [user] - Resets a user's exp to 0.",
+	],
 };

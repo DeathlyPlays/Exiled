@@ -434,6 +434,6 @@ exports.commands = {
 			"<img src='https://eus1-api.asm.skype.com/v1/objects/0-eus-d2-8e96e141d7ba2ee7c1577a673d36086b/views/imgpsh_fullsize' height='500' width='500'",
 			"<img src='http://i.imgur.com/nWMKbzZ.jpg' height='366' width='500'",
 		];
-		return this.sendReplyBox(results[Math.floor(41 * Math.random())]);
+		return this.sendReplyBox(results[Math.floor(Math.random() * results.length)]);
 	},
 };

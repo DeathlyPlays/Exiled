@@ -891,7 +891,10 @@ exports.commands = {
 			"<strong>/trade</strong> - /trade [user's card], [targetUser], [targetUser's card] - starts a new trade request.<br>" +
 			"<strong>/trades</strong> - View your current pending trade requests.<br>" +
 			"<strong>/transfercard</strong> - /transfercard [targetUser], [card] - transfers a card to the target user.<br>" +
-			"<strong>/transferallcards</strong> - /transferallcards [user] - transfers all of your cards to the target user.<br>"
+			"<strong>/transferallcards</strong> - /transferallcards [user] - transfers all of your cards to the target user.<br>" +
+			"<strong>/spawncard</strong> - /spawncard [user], [card] - Gives a user a specific card from console.<br>" +
+			"<strong>/takecard</strong> - /takecard [user], [card] - Forcefully deletes a user's specified card.<br>" +
+			"<strong>/resetcards</strong> - /resetcards [user] - Forcefully resets a user's card collection.<br>"
 		);
 	},
 

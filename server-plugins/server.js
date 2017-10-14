@@ -1323,7 +1323,7 @@ exports.commands = {
 		targetUser.popup("You were kicked from " + room.id + " by " + user.name + ". (" + target + ")");
 		targetUser.leaveRoom(room.id);
 	},
-	kickhelp: ["/kick [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
+	kickhelp: ["/kick [user], [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
 
 	kickall: function (target, room, user) {
 		if (!this.can('declare')) return this.errorReply("/kickall - Access denied.");

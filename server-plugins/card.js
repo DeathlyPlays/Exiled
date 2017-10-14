@@ -250,7 +250,7 @@ exports.commands = {
 
 	givepacks: 'givepack',
 	givepack: function (target, room, user) {
-		if (!user.can('pban')) return this.errorReply("/givepack - Access denied.");
+		if (!user.can('ban')) return this.errorReply("/givepack - Access denied.");
 		if (!target) return this.sendReply("/givepack [user], [pack] - Give a user a pack.");
 		let parts = target.split(',');
 		this.splitTarget(parts[0]);
@@ -268,7 +268,7 @@ exports.commands = {
 
 	takepacks: 'takepack',
 	takepack: function (target, room, user) {
-		if (!user.can('pban')) return this.errorReply("/takepack - Access denied.");
+		if (!user.can('ban')) return this.errorReply("/takepack - Access denied.");
 		if (!target) return this.sendReply("/takepack [user], [pack] - Take a pack from a user.");
 		let parts = target.split(',');
 		this.splitTarget(parts[0]);
@@ -900,7 +900,7 @@ exports.commands = {
 
 	givecard: 'spawncard',
 	spawncard: function (target, room, user, connection, cmd) {
-		if (!this.can('pban')) return false;
+		if (!this.can('ban')) return false;
 		if (!target) return this.errorReply("/givecard [user], [card ID]");
 		let parts = target.split(",").map(p => toId(p));
 		// find targetUser and the card being given.
@@ -916,7 +916,7 @@ exports.commands = {
 	},
 
 	takecard: function (target, room, user, connection, cmd) {
-		if (!this.can('pban')) return false;
+		if (!this.can('ban')) return false;
 		if (!target) return this.errorReply("/takecard [user], [card ID]");
 		let parts = target.split(",").map(p => toId(p));
 		// find targetUser and the card being taken.

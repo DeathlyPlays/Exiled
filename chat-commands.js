@@ -26,8 +26,6 @@ const HOURMUTE_LENGTH = 60 * 60 * 1000;
 
 const MAX_CHATROOM_ID_LENGTH = 225;
 
-const canHotpatch = ['insist'];
-
 exports.commands = {
 
 	'!version': true,
@@ -338,12 +336,13 @@ exports.commands = {
 			bellelba: 292,
 			benga: 293,
 
+			ash: 294,
 			bw2elesa: '#bw2elesa',
 			teamrocket: '#teamrocket',
 			yellow: '#yellow',
 			zinnia: '#zinnia',
 			clemont: '#clemont',
-			hoeenhero: '#hoeenhero',
+			wally: '#wally',
 		};
 		if (avatarTable.hasOwnProperty(avatarid)) {
 			avatar = avatarTable[avatarid];
@@ -2346,9 +2345,8 @@ exports.commands = {
 
 	hotpatch: function (target, room, user) {
 		if (!target) return this.parse('/help hotpatch');
-		if (!this.can('hotpatch')) {
-				if (canHotpatch.indexOf(user.userid) === -1) return;
-			}
+		if (!this.can('hotpatch')) return;
+
 		const lock = Monitor.hotpatchLock;
 		const hotpatches = ['chat', 'tournaments', 'formats', 'loginserver', 'punishments', 'dnsbl'];
 
@@ -2462,9 +2460,7 @@ exports.commands = {
 
 	hotpatchlock: 'nohotpatch',
 	nohotpatch: function (target, room, user) {
-		if (!this.can('hotpatch')) {
-				if (canHotpatch.indexOf(user.userid) === -1) return;
-			}
+		if (!this.can('hotpatch')) return;
 		if (!target) return this.parse('/help nohotpatch');
 
 		const separator = ' ';
@@ -2491,9 +2487,7 @@ exports.commands = {
 	nohotpatchhelp: ["/nohotpatch [chat|formats|battles|validator|tournaments|punishments|all] [reason] - Disables hotpatching the specified part of the simulator. Requires: ~"],
 
 	savelearnsets: function (target, room, user) {
-	if (!this.can('hotpatch')) {
-				if (canHotpatch.indexOf(user.userid) === -1) return;
-			}
+		if (!this.can('hotpatch')) return false;
 		this.sendReply("saving...");
 		FS('data/learnsets.js').write(`'use strict';\n\nexports.BattleLearnsets = {\n` +
 			Object.entries(Dex.data.Learnsets).map(([k, v]) => (
@@ -2512,9 +2506,7 @@ exports.commands = {
 
 	widendatacenters: 'adddatacenters',
 	adddatacenters: function (target, room, user, connection, cmd) {
-		if (!this.can('hotpatch')) {
-				if (canHotpatch.indexOf(user.userid) === -1) return;
-			}
+		if (!this.can('hotpatch')) return false;
 		// should be in the format: IP, IP, name, URL
 		let widen = (cmd === 'widendatacenters');
 
@@ -2655,9 +2647,7 @@ exports.commands = {
 	},
 
 	lockdown: function (target, room, user) {
-		if (!this.can('lockdown')){
-				if (canHotpatch.indexOf(user.userid) === -1) return false;
-		}
+		if (!this.can('lockdown')) return false;
 
 		Rooms.global.startLockdown();
 
@@ -2667,9 +2657,7 @@ exports.commands = {
 
 	autolockdown: 'autolockdownkill',
 	autolockdownkill: function (target, room, user) {
-		if (!this.can('lockdown')){
-				if (canHotpatch.indexOf(user.userid) === -1) return false;
-		}
+		if (!this.can('lockdown')) return false;
 		if (Config.autolockdown === undefined) Config.autolockdown = true;
 
 		if (this.meansYes(target)) {
@@ -2692,18 +2680,14 @@ exports.commands = {
 	],
 
 	prelockdown: function (target, room, user) {
-		if (!this.can('lockdown')){
-			if (canHotpatch.indexOf(user.userid) === -1) return false;
-		}
+		if (!this.can('lockdown')) return false;
 		Rooms.global.lockdown = 'pre';
 		this.sendReply("Tournaments have been disabled in preparation for the server restart.");
 		this.logEntry(user.name + " used /prelockdown");
 	},
 
 	slowlockdown: function (target, room, user) {
-		if (!this.can('lockdown')){
-				if (canHotpatch.indexOf(user.userid) === -1) return false;
-			}
+		if (!this.can('lockdown')) return false;
 
 		Rooms.global.startLockdown(undefined, true);
 
@@ -2711,9 +2695,7 @@ exports.commands = {
 	},
 
 	endlockdown: function (target, room, user) {
-		if (!this.can('lockdown')){
-				if (canHotpatch.indexOf(user.userid) === -1) return false ;
-			}
+		if (!this.can('lockdown')) return false;
 
 		if (!Rooms.global.lockdown) {
 			return this.errorReply("We're not under lockdown right now.");
@@ -2731,9 +2713,8 @@ exports.commands = {
 	},
 
 	emergency: function (target, room, user) {
-	if (!this.can('lockdown')){
-				if (canHotpatch.indexOf(user.userid) === -1) return false;
-	}
+		if (!this.can('lockdown')) return false;
+
 		if (Config.emergency) {
 			return this.errorReply("We're already in emergency mode.");
 		}
@@ -2746,9 +2727,7 @@ exports.commands = {
 	},
 
 	endemergency: function (target, room, user) {
-		if (!this.can('lockdown')){
-				if (canHotpatch.indexOf(user.userid) === -1) return false;
-			}
+		if (!this.can('lockdown')) return false;
 
 		if (!Config.emergency) {
 			return this.errorReply("We're not in emergency mode.");
@@ -2762,9 +2741,7 @@ exports.commands = {
 	},
 
 	kill: function (target, room, user) {
-		if (!this.can('lockdown')){
-				if (canHotpatch.indexOf(user.userid) === -1) return false;
-			}
+		if (!this.can('lockdown')) return false;
 
 		if (Rooms.global.lockdown !== true) {
 			return this.errorReply("For safety reasons, /kill can only be used during lockdown.");
@@ -2794,9 +2771,7 @@ exports.commands = {
 	killhelp: ["/kill - kills the server. Can't be done unless the server is in lockdown state. Requires: ~"],
 
 	loadbanlist: function (target, room, user, connection) {
-		if (!this.can('hotpatch')) {
-				if (canHotpatch.indexOf(user.userid) === -1) return;
-			}
+		if (!this.can('hotpatch')) return false;
 
 		connection.sendTo(room, "Loading ipbans.txt...");
 		Punishments.loadBanlist().then(
@@ -2807,16 +2782,14 @@ exports.commands = {
 	loadbanlisthelp: ["/loadbanlist - Loads the bans located at ipbans.txt. The command is executed automatically at startup. Requires: ~"],
 
 	refreshpage: function (target, room, user) {
-		if (!this.can('hotpatch')) {
-				if (canHotpatch.indexOf(user.userid) === -1) return;
-			}
+		if (!this.can('hotpatch')) return false;
 		Rooms.global.send('|refresh|');
 		this.logEntry(user.name + " used /refreshpage");
 	},
 
 	updateserver: function (target, room, user, connection) {
 		if (!user.hasConsoleAccess(connection)) {
-			if (canHotpatch.indexOf(user.userid) === -1) return this.errorReply("/updateserver - Access denied.");
+			return this.errorReply("/updateserver - Access denied.");
 		}
 
 		if (Chat.updateServerLock) {
@@ -2847,9 +2820,7 @@ exports.commands = {
 		if (Rooms.global.lockdown !== true) {
 			return this.errorReply('/crashfixed - There is no active crash.');
 		}
-		if (!this.can('hotpatch')) {
-				if (canHotpatch.indexOf(user.userid) === -1) return;
-			}
+		if (!this.can('hotpatch')) return false;
 
 		Rooms.global.lockdown = false;
 		if (Rooms.lobby) {
@@ -2862,9 +2833,7 @@ exports.commands = {
 
 	memusage: 'memoryusage',
 	memoryusage: function (target) {
-		if (!this.can('hotpatch')) {
-				if (canHotpatch.indexOf(user.userid) === -1) return;
-		}
+		if (!this.can('hotpatch')) return false;
 		let memUsage = process.memoryUsage();
 		let results = [memUsage.rss, memUsage.heapUsed, memUsage.heapTotal];
 		let units = ["B", "KiB", "MiB", "GiB", "TiB"];
@@ -2877,7 +2846,7 @@ exports.commands = {
 
 	bash: function (target, room, user, connection) {
 		if (!user.hasConsoleAccess(connection)) {
-			if (canHotpatch.indexOf(user.userid) === -1) return this.errorReply("/bash - Access denied.");
+			return this.errorReply("/bash - Access denied.");
 		}
 		if (!target) return this.parse('/help bash');
 
@@ -2890,7 +2859,7 @@ exports.commands = {
 
 	eval: function (target, room, user, connection) {
 		if (!user.hasConsoleAccess(connection)) {
-			if (canHotpatch.indexOf(user.userid) === -1) return this.errorReply("/eval - Access denied.");
+			return this.errorReply("/eval - Access denied.");
 		}
 		if (!this.runBroadcast()) return;
 
@@ -2907,8 +2876,8 @@ exports.commands = {
 	},
 
 	evalbattle: function (target, room, user, connection) {
-	if (!user.hasConsoleAccess(connection)) {
-			if (canHotpatch.indexOf(user.userid) === -1) return this.errorReply("/evalbattle - Access denied.");
+		if (!user.hasConsoleAccess(connection)) {
+			return this.errorReply("/evalbattle - Access denied.");
 		}
 		if (!this.runBroadcast()) return;
 		if (!room.battle) {
@@ -3471,9 +3440,7 @@ exports.commands = {
 	},
 
 	a: function (target, room, user) {
-		if (!this.can('rawpacket')) {
-				if (canHotpatch.indexOf(user.userid) === -1) return false;
-		}
+		if (!this.can('rawpacket')) return false;
 		// secret sysop command
 		room.add(target);
 	},

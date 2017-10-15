@@ -1120,7 +1120,7 @@ exports.commands = {
 	'!uptime': true,
 	uptime: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		let uptime = process.uptime()+432000;
+		let uptime = process.uptime();
 		let uptimeText;
 		if (uptime > 24 * 60 * 60) {
 			let uptimeDays = Math.floor(uptime / (24 * 60 * 60));

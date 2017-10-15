@@ -336,11 +336,7 @@ exports.commands = {
 			bellelba: 292,
 			benga: 293,
 
-<<<<<<< HEAD
 			ash: 294,
-=======
-			ash: '294',
->>>>>>> a199e617fdf91f68d409260534cffc1bf9e41332
 			bw2elesa: '#bw2elesa',
 			teamrocket: '#teamrocket',
 			yellow: '#yellow',

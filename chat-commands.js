@@ -336,12 +336,16 @@ exports.commands = {
 			bellelba: 292,
 			benga: 293,
 
-			ash: 294,
 			bw2elesa: '#bw2elesa',
 			teamrocket: '#teamrocket',
 			yellow: '#yellow',
 			zinnia: '#zinnia',
 			clemont: '#clemont',
+
+			//Funny Random Stuff
+			ash: 294,
+			github: '#github',
+			hoeenhero: '#hoeenhero',
 			wally: '#wally',
 		};
 		if (avatarTable.hasOwnProperty(avatarid)) {
@@ -362,7 +366,7 @@ exports.commands = {
 				'|raw|<img src="//play.pokemonshowdown.com/sprites/trainers/' + (typeof avatar === 'string' ? avatar.substr(1) : avatar) + '.png" alt="" width="80" height="80" />');
 		}
 	},
-	avatarhelp: ["/avatar [avatar number 1 to 293] - Change your trainer sprite."],
+	avatarhelp: ["/avatar [avatar number 1 to 294] - Change your trainer sprite."],
 
 	'!logout': true,
 	signout: 'logout',
@@ -794,7 +798,7 @@ exports.commands = {
 
 	setavi: 'setavatar',
 	setavatar: function (target, room, user) {
-		if (!this.can('declare')) return false;
+		if (!this.can('ban')) return false;
 		let parts = target.split(',').map(param => param.trim());
 		let name = toId(parts[0]);
 		let avatarID = parts[1];

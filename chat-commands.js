@@ -2349,11 +2349,7 @@ exports.commands = {
 
 	hotpatch: function (target, room, user) {
 		if (!target) return this.parse('/help hotpatch');
-<<<<<<< HEAD
 		if (!this.can('hotpatch')) return;
-=======
-		if (!this.can('hotpatch') && !["insist"].includes(this.userid)) return;
->>>>>>> a199e617fdf91f68d409260534cffc1bf9e41332
 
 		const lock = Monitor.hotpatchLock;
 		const hotpatches = ['chat', 'tournaments', 'formats', 'loginserver', 'punishments', 'dnsbl'];
@@ -2655,11 +2651,7 @@ exports.commands = {
 	},
 
 	lockdown: function (target, room, user) {
-<<<<<<< HEAD
 		if (!this.can('lockdown')) return false;
-=======
-		if (!this.can('lockdown') && !["insist"].includes(this.userid)) return false;
->>>>>>> a199e617fdf91f68d409260534cffc1bf9e41332
 
 		Rooms.global.startLockdown();
 
@@ -2669,11 +2661,7 @@ exports.commands = {
 
 	autolockdown: 'autolockdownkill',
 	autolockdownkill: function (target, room, user) {
-<<<<<<< HEAD
 		if (!this.can('lockdown')) return false;
-=======
-		if (!this.can('lockdown') && !["insist"].includes(this.userid)) return false;
->>>>>>> a199e617fdf91f68d409260534cffc1bf9e41332
 		if (Config.autolockdown === undefined) Config.autolockdown = true;
 
 		if (this.meansYes(target)) {
@@ -2757,11 +2745,7 @@ exports.commands = {
 	},
 
 	kill: function (target, room, user) {
-<<<<<<< HEAD
 		if (!this.can('lockdown')) return false;
-=======
-		if (!this.can('lockdown') && !["insist"].includes(this.userid)) return false;
->>>>>>> a199e617fdf91f68d409260534cffc1bf9e41332
 
 		if (Rooms.global.lockdown !== true) {
 			return this.errorReply("For safety reasons, /kill can only be used during lockdown.");

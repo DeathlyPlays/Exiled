@@ -14337,7 +14337,8 @@ exports.BattlePokedex = {
 		weightkg: 21.4,
 		color: "Purple",
 		prevo: "steenee",
-		evoLevel: 29,
+		evoLevel: 19,
+		evoMove: "Stomp",
 		eggGroups: ["Grass"],
 	},
 	comfey: {

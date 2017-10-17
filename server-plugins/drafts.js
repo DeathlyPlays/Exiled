@@ -268,7 +268,7 @@ exports.commands = {
 					'<strong>/draft reset</strong> - Deletes all the data of a draft.<br/>' +
 					'<strong>/draft start</strong> - Starts the draft.<br>' +
 					'<strong>/draft stats</strong> - Displays every team participating in the draft with their respective manager, and every pokemon they have drafted up until that point.<br/>' +
-					'<strong>/draft change, (teamname), (draftpick), (desired Pokemon)</strong> - Allows the league manager to rewrite draft data. This should be used when a particpant makes a mistake. <i>This shouldn\'t</i> ever be the case seeing as draft script automatically rejects any spelling errors in a pokemon\'s name, but this command is here if it is ever needed. <br/> ' +
+					'<strong>/draft change, (teamname), (draftpick), (desired Pokemon)</strong> - Allows the league manager to rewrite draft data. This should be used when a participant makes a mistake. <i>This shouldn\'t</i> ever be the case seeing as draft script automatically rejects any spelling errors in a pokemon\'s name, but this command is here if it is ever needed. <br/> ' +
 					'<strong>/draft drafted</strong> - Displays the pool of pokemon already drafted. These pokemon are not able to be claimed by anyone else after they are drafted. <br/>' +
 					'<strong>/draft end</strong> - Ends a draft league instantly. Unless you really need to end it, you <i>shouldn\'t</i> use this command, as the draft automatically ends when every player has finished drafting.<br><br/>' +
 					'<strong>/draftmon (pokemonname)</strong> - Allows a draft member to draft a pokemon onto their team.');

@@ -402,6 +402,7 @@ class SSB {
 			set: {},
 		})) return false;
 		if (move.ohko) return false;
+		if (move.id === "batonpass") return false;
 		if (this.movepool.indexOf(move.name) > -1) return false;
 		this.movepool.push(move.name);
 		return true;
@@ -903,7 +904,7 @@ exports.commands = {
 		},
 		loghelp: ['/ssb log - Accepts the following commands:',
 			'/ssb log view, [all|user] - View the purchases of a user or all users. Requires &, ~ unless viewing your own.',
-			'/ssb log mark, [user], [cItem|cAbility|cMove], [complete|pending|remove] - Update the status for a users SSBFFA purchase.',
+			'/ssb log mark, [user], [cItem|cAbility|cMove], [complete|pending|remove] - Update the status for a user\'s SSBFFA purchase.',
 		],
 		forceupdate: 'validate',
 		validateall: 'validate',
@@ -937,7 +938,7 @@ exports.commands = {
 				return this.sendReply('All SSBFFA pokemon have been validated.');
 			}
 		},
-		validatehelp: ['/ssb validate [user] - Validate a users SSBFFA pokemon and if anything invalid is found, set ti to its default value. Requires: &, ~'],
+		validatehelp: ['/ssb validate [user] - Validate a user\'s SSBFFA pokemon and if anything invalid is found, it sets to its default value. Requires: &, ~'],
 		'': function (target, room, user, connection, cmd, message) {
 			return this.parse('/help ssb');
 		},

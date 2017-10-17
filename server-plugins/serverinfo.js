@@ -282,6 +282,6 @@ exports.commands = {
 			"<u><strong>Special Thanks:</strong></u><br />" +
 			"- Our Staff Members<br />" +
 			"- Our Regular Users<br />";
-		this.add('|raw|' + popup);
+		this.sendReplyBox(popup);
 	},
 };

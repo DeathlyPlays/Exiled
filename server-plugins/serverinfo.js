@@ -258,6 +258,7 @@ exports.commands = {
 
 	servercredits: 'credits',
 	credits: function (user, target, room) {
+		if (!this.runBroadcast()) return;
 		let popup = "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Server Maintainers:</u></strong><br />" +

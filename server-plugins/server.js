@@ -846,7 +846,8 @@ exports.commands = {
 	},
 
 	essbcredits: function (user) {
-		let popup = "|html|" + "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
+		if (!this.runBroadcast()) return;
+		let popup = "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Programmers:</u></strong><br />" +
 			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
@@ -854,7 +855,7 @@ exports.commands = {
 			"- " + Server.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
 			"<u><strong>Special Thanks:</strong></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";
-		user.popup(popup);
+		this.add('|raw|' + popup);
 	},
 	'!dub': true,
 	dub: 'dubtrack',

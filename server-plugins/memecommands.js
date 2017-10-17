@@ -290,7 +290,7 @@ exports.commands = {
 	},
 	dongers: function (room, user) {
 		if (!this.can('declare')) return this.errorReply('Access Denied');
-		room.addRaw(Server.nameColor(user.name, true, true) + ' has begun a Donger ambush!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has begun a donger ambush.');
 		this.parse('/declare ᕙ༼ຈل͜ຈ༽ᕗ flex your dongers ᕙ༼ຈل͜ຈ༽ᕗ');
 		this.parse('/declare ╚═། ◑ ▃ ◑ །═╝ do you like my dongers? ╚═། ◑ ▃ ◑ །═╝');
 		this.parse('/declare ᕙ༼ຈل͜ຈ༽ᕗ I made my dongers just for you ᕙ༼ຈل͜ຈ༽ᕗ');
@@ -371,12 +371,12 @@ exports.commands = {
 	burn: 'disintegrate',
 	disintegrate: function (target, room, user) {
 		if (!target) return this.sendReply('/burn needs a target.');
-		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
+		if (!this.can('mute', null, room) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
 		room.addRaw(Server.nameColor(target, true, true) + ' was disintegrated by ' + Server.nameColor(user.name, true, true) + '!');
 		targetUser.popup("Get burned!");
-		this.parse('/flogout ' + targetUser);
+		if (user.can('hotpatch')) this.parse('/forcelogout' + targetUser);
 	},
 	/*
 	MEME RANDOMIZER

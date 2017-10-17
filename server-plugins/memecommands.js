@@ -371,7 +371,7 @@ exports.commands = {
 	burn: 'disintegrate',
 	disintegrate: function (target, room, user) {
 		if (!target) return this.sendReply('/burn needs a target.');
-		if (!this.can('mute', null, room) return this.errorReply('Access Denied');
+		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
 		room.addRaw(Server.nameColor(target, true, true) + ' was disintegrated by ' + Server.nameColor(user.name, true, true) + '!');

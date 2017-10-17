@@ -258,26 +258,29 @@ exports.commands = {
 
 	servercredits: 'credits',
 	credits: function (user, target, room) {
-		let popup = "|html|" + "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
+		let popup = "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Server Maintainers:</u></strong><br />" +
-			"- " + Server.nameColor('Insist', true) + " (Owner, Sysadmin, Main Developer)<br />" +
-			"- " + Server.nameColor('Mewth', true) + " (Co-Owner, Sysadmin, Developer)<br />" +
+			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
+			"- " + Server.nameColor('Lycanium Z', true) + " (Owner, Sysadmin, Developer)<br />" +
+			"<br />" +
+			"<u><strong>Server Hosterino:</u></strong><br />" +
+			"- " + Server.nameColor('gyaratoast', true) + " (Owner, Hosterino Toasterino)<br />" +
 			"<br />" +
 			"<u><strong>Major Contributors:</strong></u><br />" +
 			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +
 			"- " + Server.nameColor('Back At My Day', true) + " (Developer)<br />" +
 			"- " + Server.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
-			"- " + Server.nameColor('Lycanium Z', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('HoeenHero', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('megas4ever', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
 			"<br />" +
 			"<u><strong>Retired Staff:</strong></u><br />" +
-			"- " + Server.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
-			"- " + Server.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
 			"- " + Server.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
 			"<br />" +
 			"<u><strong>Special Thanks:</strong></u><br />" +
 			"- Our Staff Members<br />" +
 			"- Our Regular Users<br />";
-		user.popup(popup);
+		this.add('|raw|' + popup);
 	},
 };

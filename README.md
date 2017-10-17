@@ -62,13 +62,15 @@ Configuring your server
 ------------------------------------------------------------------------
 
 You will probably want to configure your servers settings to your liking.
-Heres some of the configurations you can change in `config/config.js`
+Here's some of the configurations you can change in `config/config.js`
 
 - port - The port to run the server on.
 
 - serverIp - The ip of your server, used to parse custom avatars.
 
 - tellrank - The minimum rank to use /tell for offline messaging.
+
+- serverName - Sets the name for several things to whatever you set it as.
 
 Setting up an Administrator account
 ------------------------------------------------------------------------
@@ -107,13 +109,15 @@ Owner
 
 Contributors
 
-- [Lycanium Z](https://github.com/Lycanium-Z)
-- [flufi](https://github.com/HiTechFlufi)
-- [Mewth](https://github.com/Mewthy)
 - [AlfaStorm](https://github.com/AlphaWind)
-- [megas4ever](https://github.com/Megas4ever)
 - [Back At My Day](https://github.com/BamdTheClueless)
+- [flufi](https://github.com/HiTechFlufi)
+- [gyaratoast](https://github.com/gyaratoast)
 - [HoeenHero](https://github.com/HoeenCoder)
+- [Lycanium Z](https://github.com/Lycanium-Z)
+- [megas4ever](https://github.com/Megas4ever)
+- [Mewth](https://github.com/Mewthy)
+- [Volco](https://github.com/Volco)
 
 Special thanks
 

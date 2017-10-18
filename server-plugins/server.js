@@ -31,6 +31,8 @@ let regdateCache = {};
 let udCache = {};
 let defCache = {};
 
+let pmName = '~' + Config.serverName + ' Server';
+
 Server.img = function (link, height, width) {
 	if (!link) return '<font color="maroon">ERROR : You must supply a link.</font>';
 	return '<img src="' + link + '"' + (height ? ' height="' + height + '"' : '') + (width ? ' width="' + width + '"' : '') + '/>';
@@ -1286,33 +1288,29 @@ exports.commands = {
 
 	masspm: 'pmall',
 	pmall: function (target, room, user) {
-		if (!this.can('pmall')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmall');
-
-		let pmName = '~' + Config.serverName + ' Server';
-
-		Users.users.forEach(function (user) {
-			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
-			user.send(message);
-		});
+		Server.pmAll(target, pmName, user.name);
 	},
 	pmallhelp: ["/pmall [message] - PM all users in the server."],
 
 	staffpm: 'pmallstaff',
 	pmstaff: 'pmallstaff',
 	pmallstaff: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmallstaff');
-
-		let pmName = '~' + Config.serverName + ' Server';
-
-		Users.users.forEach(function (user) {
-			if (!user.isStaff) return;
-			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
-			user.send(message);
-		});
+		Server.pmStaff(target, pmName, user.name);
 	},
 	pmallstaffhelp: ["/pmallstaff [message] - Sends a PM to every staff member online."],
+
+	pus: 'pmupperstaff',
+	pmupperstaff: function (target, room, user) {
+		if (!target) return this.sendReply('/pmupperstaff [message] - Sends a PM to every upper staff');
+		if (!this.can('hotpatch')) return false;
+		if (!target) return this.parse('/help pmupperstaff');
+		Server.messageSeniorStaff(target, pmName, user.name);
+	},
+	pmupperstaffhelp: ["/pmupperstaff [message] - Sends a PM to every Upper Staff member online."],
 
 	pmroom: 'rmall',
 	roompm: 'rmall',
@@ -1321,8 +1319,6 @@ exports.commands = {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in Lobby.");
 		if (!target) return this.sendReply("/rmall [message] - Sends a pm to all users in the room.");
 		target = target.replace(/<(?:.|\n)*?>/gm, '');
-
-		let pmName = '~' + Config.serverName + ' Server';
 
 		for (let i in room.users) {
 			let message = '|pm|' + pmName + '|' + room.users[i].getIdentity() + '| ' + target;

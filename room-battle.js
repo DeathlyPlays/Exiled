@@ -558,11 +558,11 @@ class Battle {
 			if (this.format !== 'OU' && this.format !== 'UU' && this.format !== 'RU' && this.format !== 'NU' && this.format !== 'PU' && this.format !== 'CAP' && this.format !== 'LC') {
 				let wid = toId(winner);
 				Db('money').set(wid, Db('money').get(wid, 0) + 2);
-				this.push("|raw|" + Server.nameColor(winner, true, true) + " has won " + Server.font("2", black, true) + " bucks for winning an Official Format Rated Battle!");
+				this.push("|raw|" + Server.nameColor(winner, true, true) + " has won " + Server.font("2", "black", true) + " bucks for winning an Official Format Rated Battle!");
 			} else if (this.format !== 'randombattle' && this.format !== 'cc1v1' && this.format !== 'randomdoublesbattle' && this.format !== 'hackmonscup' && this.format !== 'randomtriplesbattle' && this.format !== 'battlefactory' && this.format !== 'gen1randombattle') {
 				let wid = toId(winner);
 				Db('money').set(wid, Db('money').get(wid, 0) + 1);
-				this.push("|raw|" + Server.nameColor(winner, true, true) + " has won " + Server.font("1", black, true) + moneyName + " for winning an Random Format Rated Battle!");
+				this.push("|raw|" + Server.nameColor(winner, true, true) + " has won " + Server.font("1", "black", true) + moneyName + " for winning an Random Format Rated Battle!");
 			}
 		} else if (Config.logchallenges) {
 			// Log challenges if the challenge logging config is enabled.

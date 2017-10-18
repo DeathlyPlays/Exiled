@@ -47,11 +47,12 @@ let shop = [
 	['Custom Title', 'Buys a title to be added on to your profile. [Can be denied].', 10],
 	['Fix', 'Buys the ability to alter your current custom avatar or trainer card.', 5],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 25],
-	['Kick', 'Kick a user from the chatroom. "Let the NaCl buildup commence" ', 5],
+	['Kick', 'Kick a user from the chatroom.', 5],
 	['League Room', 'Purchases a room for league usage.', 5],
+	['Mystery', 'Purchases a Mystery Box [no refunds]', 15],
 	['POTD', 'Allows you to change the Pokemon of the Day that shows up guaranteed in Random Battles [Can be refused, or held off if one is already active]', 25],
 	['Room', 'Buys a chatroom for you to own. [Within reason, can be denied].', 30],
-	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 50],
+	['Roomshop', 'Buys a Roomshop for your League or Room. [Will be removed if abused.]', 50],
 	['Staffmon', 'Buys a Pokemon with your name on it to be added in the Super Staff Bros Metagame. [Can be denied/edited]', 100],
 	['Symbol', 'Buys a custom symbol to go infront of your username and puts you at top of userlist. [Temporary until restart,certain symbols are blocked]', 5],
 ];
@@ -170,9 +171,12 @@ function handleBoughtItem(item, user, cost) {
 		this.sendReply("If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.");
 	} else if (item === 'icon') {
 		this.sendReply('You purchased an icon, contact an administrator to obtain the article.');
+	} else if (item === 'mystery') {
+		user.canOpenMysteryBox = true;
+		this.sendReply("Good luck! Happy unboxing :)");
 	} else {
 		let msg = '**' + user.name + " has bought " + item + ".**";
-		Monitor.log('|c|~' + Config.serverName + ' Server|' + msg);
+		Monitor.log(Config.serverName + ' Server|' + msg);
 		Users.users.forEach(function (user) {
 			if (user.group === '~' || user.group === '&' || user.group === '@') {
 				user.send('|pm|~' + Config.serverName + ' Server|' + user.getIdentity() + '|' + msg);
@@ -412,5 +416,88 @@ exports.commands = {
 		let output = "There " + (total > 1 ? "are " : "is ") + total + currencyName(total) + " circulating in the economy. ";
 		output += "The average user has " + average + currencyName(average) + ".";
 		this.sendReplyBox(output);
+	},
+
+	mysterybox: function (target, room, user) {
+		if (room.id !== 'lobby') return this.errorReply("You must buy this item in the Lobby!");
+		if (!user.canOpenMysteryBox) return this.sendReply('You need to buy this item from the shop to use.');
+		let randomNumber = Math.floor((Math.random() * 100) + 1);
+		let prize = '';
+		let goodBad = '';
+		let opts;
+		if (randomNumber < 70) {
+			goodBad = 'bad';
+			opts = ['nothing', 'rick rolled', 'kick from Lobby', 'lol 45 sec mute'];
+			prize = opts[Math.floor(Math.random() * opts.length)];
+		} else if (randomNumber > 70) {
+			goodBad = 'good';
+			opts = ['smallmoneyprize', 'mediummoneyprize', 'largemoneyprize', 'jackpot', 'custom symbol', 'ability to set the PotD', 'custom color', 'a new mystery box', 'custom icon'];
+			prize = opts[Math.floor(Math.random() * opts.length)];
+		}
+		switch (prize) {
+		//Cash Prizes
+		case 'smallmoneyprize':
+			Economy.writeMoney(user.userid, 5);
+			this.sendReply('Well, it\'s not the worst thing.... You received 5 ' + moneyPlural + '.');
+			break;
+		case 'mediummoneyprize':
+			Economy.writeMoney(user.userid, 15);
+			this.sendReply('Not bad, you received 15 ' + moneyPlural + '.');
+			break;
+		case 'largemoneyprize':
+			Economy.writeMoney(user.userid, 30);
+			this.sendReply('Nice! You received 30 ' + moneyPlural + '!');
+			break;
+		case 'jackpot':
+			Economy.writeMoney(user.userid, 50);
+			this.sendReply("CONGRATULATIONS!!!! YOU JUST HIT THE JACKPOT!!!! HERE'S 50 " + moneyPlural + "!!!!!");
+			break;
+		case 'custom color':
+		case 'ability to set the PotD':
+			Server.pmStaff("/raw" + Server.nameColor(user.name, true) + " has won a(n) " + prize + ". Please PM them to proceed with giving them this.", "~" + Config.serverName + " Server");
+			break;
+		case 'custom symbol':
+			user.canCustomSymbol = true;
+			this.sendReply("Do /customsymbol [symbol] to set a FREE custom symbol! (Do /rs to reset your custom symbol when you want to remove it later.)");
+			break;
+		case 'custom icon':
+			this.sendReply("PM a Global Driver or higher to claim this prize!");
+			Server.pmStaff("/raw" + Server.nameColor(user.name, true) + "has received a custom icon from the Mystery Box. Please assist them as soon as possible", "~" + Config.serverName + "Server");
+			break;
+		case 'a new mystery box':
+			user.canOpenMysteryBox = true;
+			this.sendReply("Yay, fun! You received another Mystery Box.");
+			break;
+		//Meme Rewards/Bad Rewards
+		case 'nothing':
+			break;
+		case 'rick rolled':
+			Rooms('lobby').add(
+				"|raw|<blink>" +
+				"Never gonna give you up<br />" +
+				"Never gonna let you down<br />" +
+				"Never gonna run around and desert you<br />" +
+				"Never gonna make you cry<br />" +
+				"Never gonna say goodbye<br />" +
+				"Never gonna tell a lie and hurt you</blink>"
+			).update();
+			break;
+		case 'kick from Lobby':
+			try {
+				user.leaveRoom('lobby');
+				user.popup("You have been kicked from the Lobby by the Mystery Box!");
+			} catch (e) {}
+			break;
+		case 'lol 45 sec mute':
+			try {
+				Rooms('lobby').mute(user, 0.45 * 60 * 1000, false);
+			} catch (e) {}
+			break;
+		default:
+			this.sendReply("Oh oh... this shouldn't of happened.  Please message an Administrator and take a screencap of this. (Problem with mysterybox)");
+			break;
+		}
+		user.canOpenMysteryBox = false;
+		Rooms('lobby').add("|raw|" + Server.nameColor(user.name, true) + " has bought a Mystery Box from the shop! " + (goodBad === 'good' ? "They have won a(n) <strong>" + prize + "</strong>!" : "Oh no!  They got a " + prize + " from their pack :(")).update();
 	},
 };

@@ -2,6 +2,7 @@
 
 let http = require('http');
 const Autolinker = require('autolinker');
+const pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
 
 Server.nameColor = function (name, bold, userGroup) {
 	let userGroupSymbol = Users.usergroups[toId(name)] ? '<strong><font color=#948A88>' + Users.usergroups[toId(name)].substr(0, 1) + '</font></strong>' : "";
@@ -9,8 +10,34 @@ Server.nameColor = function (name, bold, userGroup) {
 };
 // usage: Server.nameColor(user.name, true) for bold OR Server.nameColor(user.name, false) for non-bolded.
 
+Server.pmAll = function (message) {
+	Users.users.forEach(curUser => {
+		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
+	});
+};
+
+// format: Server.pmAll('message', 'person')
+//
+// usage: Server.pmAll('Event in Lobby in 5 minutes!', '~Server')
+//
+// this makes a PM from ~Server stating the message.
+
+Server.pmStaff = function (message, pmName, from) {
+	from = (from ? ' (PM from ' + from + ')' : '');
+	Users.users.forEach(function (user) {
+		if (!user.isStaff) return;
+		let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
+		user.send(message);
+	});
+}
+
+// format: Server.pmStaff('message', 'person')
+//
+// usage: Server.pmStaff('Hey, Staff Meeting time', '~Server')
+//
+// this makes a PM from ~Server stating the message.
+
 Server.messageSeniorStaff = function (message, pmName, from) {
-	pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
 	from = (from ? ' (PM from ' + from + ')' : '');
 	Users.users.forEach(curUser => {
 		if (curUser.group === '~' || curUser.group === '☥' || curUser.group === '&') {
@@ -22,7 +49,7 @@ Server.messageSeniorStaff = function (message, pmName, from) {
 //
 // usage: Server.messageSeniorStaff('Mystifi is a confirmed user and they were banned from a public room. Assess the situation immediately.', '~Server')
 //
-// this makes a PM from ~Server stating the message
+// this makes a PM from ~Server stating the message.
 
 Server.parseMessage = function (message) {
 	if (message.substr(0, 5) === "/html") {

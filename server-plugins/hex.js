@@ -25,10 +25,9 @@ Server.pmAll = function (message, pmName) {
 Server.pmStaff = function (message, pmName, from) {
 	pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
 	from = (from ? ' (PM from ' + from + ')' : '');
-	Users.users.forEach(function (user) {
-		if (!user.isStaff) return;
-		let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
-		user.send(message);
+	Users.users.forEach(curUser => {
+		if (!curUser.isStaff) return;
+		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
 	});
 }
 

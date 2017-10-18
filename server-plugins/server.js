@@ -1586,4 +1586,12 @@ exports.commands = {
 		};
 	})(),
 	transferauthorityhelp: ["/transferauthority [old alt], [new alt] - Transfers a user's global/room authority onto their new alt. Requires & ~"],
+
+	errorlogs: 'crashlogs',
+	crashlogs: function (target, room, user) {
+		if (!this.can("hotpatch")) return false;
+		let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
+		user.send('|popup|' + crashes);
+		return;
+	},
 };

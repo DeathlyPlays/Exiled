@@ -149,6 +149,14 @@ class RoomSettings {
 			return `${this.button('Hangman enabled', true)} ${this.button('off', null, 'hangman disable')}`;
 		}
 	}
+	ambush() {
+		if (!this.user.can('editroom', null, this.room)) return this.button(this.room.ambushDisabled ? 'off' : 'Ambush enabled', true);
+		if (this.room.ambushDisabled) {
+			return `${this.button('Ambush enabled', null, 'ambush enable')} ${this.button('off', true)}`;
+		} else {
+			return `${this.button('Ambush enabled', true)} ${this.button('off', null, 'ambush disable')}`;
+		}
+	}
 	generateDisplay(user, room, connection) {
 		let output = Chat.html`<div class="infobox">Room Settings for ${this.room.title}<br />`;
 		output += `<strong>Modchat:</strong> <br />${this.modchat()}<br />`;
@@ -160,6 +168,7 @@ class RoomSettings {
 		output += `<strong>Tournaments:</strong> <br />${this.tourStatus()}<br />`;
 		output += `<strong>UNO:</strong> <br />${this.uno()}<br />`;
 		output += `<strong>Hangman:</strong> <br />${this.hangman()}<br />`;
+		output += `<strong>Ambush:</strong> <br />${this.ambush()}<br />`;
 		output += '</div>';
 
 		this.user.sendTo(this.room, `|uhtml${(this.sameCommand ? '' : 'change')}|roomsettings|${output}`);

@@ -13,13 +13,12 @@ class Ambush extends Rooms.RoomGame {
 		}
 		this.players = new Map();
 		this.round = 0;
-		this.room = room;
 		this.gameid = 'ambush';
 		this.title = 'Ambush';
 		this.timeLeft = Date.now() + seconds * 1000;
 
-		this.room.add('|uhtml|ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000000 ; border: 12px double #860000 ; color: #DF0101"><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>A game of Ambush has created!</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
-			'The game will begin in <b>' + seconds + '</b> seconds!' +
+		this.room.add('|uhtml|ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000000 ; border: 12px double #860000 ; color: #DF0101"><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><strong>A game of Ambush has created!</strong></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
+			'The game will begin in <strong>' + seconds + '</strong> seconds!' +
 			'<br><br><button style="border: 4px solid #000 ; background: White ; box-shadow: 0px 1px 1px rgba(255 , 255 , 255 , 0.3) inset ; color: #DF0101 ; margin: 1px 6px ; padding: 8px 40px" name = "send" value = "/ambush join"><font size="3">Join!</font></button><br><br></center></div>'
 		);
 
@@ -32,18 +31,18 @@ class Ambush extends Rooms.RoomGame {
 		}, seconds * 1000);
 	}
 	updateJoins() {
-		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000000; border: 12px double #860000 ; color: #DF0101"><center><h3><img style="transform: scaleX(-1);" src="https://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>A game of Ambush has been started!</b></u></font><img src="https://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
-			'The game will begin in <b>' + Math.round((this.timeLeft - Date.now()) / 1000) + '</b> seconds' +
+		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000000; border: 12px double #860000 ; color: #DF0101"><center><h3><img style="transform: scaleX(-1);" src="https://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><strong>A game of Ambush has been started!</strong></u></font><img src="https://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
+			'The game will begin in <strong>' + Math.round((this.timeLeft - Date.now()) / 1000) + '</strong> seconds' +
 			'<br><br><button style="border: 4px solid #000 ; background: White ; box-shadow: 0px 1px 1px rgba(255 , 255 , 255 , 0.3) inset ; color: #DF0101 ; margin: 1px 6px ; padding: 8px 40px" name = "send" value = "/ambush join"><font size="3">Join!</font></button><br><br>';
 		if (this.players.size > 0) {
-			msg += '<center><b>' + this.players.size + '</b> ' + (this.players.size === 1 ? 'user has' : 'users have') + ' joined: ' + Array.from(this.players).map(player => Chat.escapeHTML(player[0].name)).join(', ') + '</center>';
+			msg += '<center><strong>' + this.players.size + '</strong> ' + (this.players.size === 1 ? 'user has' : 'users have') + ' joined: ' + Array.from(this.players).map(player => Server.nameColor(player[0].name, true)).join(', ') + '</center>';
 		}
 		this.room.add('|uhtmlchange|' + msg + '</center></div>');
 	}
-	join(user, self) {
-		if (!user.named) return self.errorReply("You must choose a name before joining a game of ambush.");
-		if (this.players.has(user)) return self.sendReply('You have already joined this game of ambush.');
-		if (this.round > 0) return self.sendReply('You cannot join a game of ambush after it has started.');
+	joinGame(user, self) {
+		if (!user.named) return self.errorReply("You must choose a name before joining a game of Ambush.");
+		if (this.players.has(user)) return self.sendReply('You have already joined this game of Ambush.');
+		if (this.round > 0) return self.sendReply('You cannot join a game of Ambush after it has started.');
 
 		this.players.set(user, {status:'alive', rounds:0});
 		this.updateJoins();
@@ -67,20 +66,20 @@ class Ambush extends Rooms.RoomGame {
 		if (this.checkWinner()) return this.getWinner();
 		let survivors = this.getSurvivors();
 		if (this.lastRoundSurvivors === survivors.length) {
-			this.room.add('|html|<div class = "infobox"><center>This game of ambush has ended due to inactivity, with <b>' + survivors.length + '</b> survivors.</center></div>');
+			this.room.add('|html|<div class = "infobox"><center>This game of ambush has ended due to inactivity, with <strong>' + survivors.length + '</strong> survivors.</center></div>');
 			return this.end();
 		}
 		this.lastRoundSurvivors = survivors.length;
 
 		this.round++;
 		this.loadGuns();
-		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000 ; border: 12px double #860000 ; color: #DF0101"><center><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>Round ' + this.round + '</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><br>' +
-			'Players: ' + this.getSurvivors().map(player => Chat.escapeHTML(player[0].name)).join(', ') +
+		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000 ; border: 12px double #860000 ; color: #DF0101"><center><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><strong>Round ' + this.round + '</strong></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><br>' +
+			'Players: ' + this.getSurvivors().map(player => Server.nameColor(player[0].name, true)).join(', ') +
 			'<br><br><small>Use /fire [player] to shoot another player!</small>';
 		this.room.add('|uhtml|' + msg + '<br><br><i>Wait for it...</i>').update();
 
 		this.release = setTimeout(() => {
-			this.room.add('|uhtmlchange|' + msg + '<br><br><b style = "color:red; font-size: 12pt;">FIRE!</b><br><br></div></div>').update();
+			this.room.add('|uhtmlchange|' + msg + '<br><br><strong style = "color:red; font-size: 12pt;">FIRE!</strong><br><br></div></div>').update();
 			this.canShoot = true;
 			this.resetTimer();
 		}, (Math.floor(Math.random() * 12) + 3) * 1000);
@@ -143,18 +142,15 @@ class Ambush extends Rooms.RoomGame {
 	}
 	getWinner() {
 		let winner = this.getSurvivors()[0][0].name;
-		let msg = '|html|<div class = "infobox"><center>The winner of this game of ambush is ' + Server.nameColor(winner, true) + '! Congratulations!</center>';
-		if (this.room.id === 'marketplace') {
-			msg += '<center>' + Chat.escapeHTML(winner) + ' has also won <b>5</b> EXP for winning!</center>';
-			Server.addExp(winner, 5, () => this.room.add(msg).update());
-		} else {
-			this.room.add(msg).update();
-		}
+		let msg = '|html|<div class = "infobox"><center>The winner of this game of Ambush is ' + Server.nameColor(winner, true) + '! Congratulations!</center>';
+		msg += '<center>' + Server.nameColor(winner, true) + ' has also won <strong>5 EXP</strong> for winning!</center>';
+		Server.addExp(winner, 5, () => this.room.add(msg).update());
+		this.room.add(msg).update();
 		this.end();
 	}
 	end(user) {
 		if (user) {
-			let msg = '<div class = "infobox"><center>This game of ambush has been forcibly ended by <b>' + Chat.escapeHTML(user.name) + '</b></center></div>';
+			let msg = '<div class = "infobox"><center>This game of Ambush has been forcibly ended by ' + Server.nameColor(user.name, true) + '</center></div>';
 			if (!this.madeMove) {
 				this.room.add('|uhtmlchange|ambush' + this.room.ambushCount + this.round + '|' + msg).update();
 			} else {
@@ -163,7 +159,7 @@ class Ambush extends Rooms.RoomGame {
 		}
 		if (this.release) clearTimeout(this.release);
 		clearTimeout(this.timer);
-		delete this.room.ambush;
+		delete this.room.game;
 	}
 }
 
@@ -172,22 +168,26 @@ let commands = {
 	'start': 'new',
 	'begin': 'new',
 	'new': function (target, room, user) {
-		if (room.ambush) return this.sendReply("There is already a game of ambush going on in this room.");
-		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
-		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to start a game of ambush.");
+		if (room.game) return this.errorReply("There is already a game in progress in this room.");
+		if (room.ambushDisabled) return this.errorReply("Ambush is currently disabled for this room.");
+		if (!this.canTalk()) return false;
+		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to start a game of Ambush.");
 
 		if (!target || !target.trim()) target = '60';
 		if (isNaN(target)) return this.sendReply('\'' + target + '\' is not a valid number.');
 		if (target.includes('.') || target > 180 || target < 10) return this.sendReply('The number of seconds needs to be a non-decimal number between 10 and 180.');
 
-		room.ambush = new Ambush(room, Number(target));
+		room.game = new Ambush(room, Number(target));
 	},
+
 	join: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
-		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
+		if (!room.game || room.game.gameid !== 'ambush') return this.errorReply("There is no Ambush game going on in this room right now.");
+		if (!this.canTalk()) return false;
+		if (!room.game.joinGame(user)) return this.errorReply("Unable to join the game.");
 
 		room.ambush.join(user, this);
 	},
+
 	leave: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
 
@@ -195,7 +195,7 @@ let commands = {
 	},
 	proceed: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
-		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
+		if (!this.canTalk()) return false;
 		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to forcibly begin the first round of a game of ambush.");
 
 		if (room.ambush.round) return this.sendReply('This game of ambush has already begun!');
@@ -206,7 +206,7 @@ let commands = {
 	disqualify: 'dq',
 	dq: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
-		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
+		if (!this.canTalk()) return false;
 		if (!user.can('mute', null, room)) return this.sendReply("You must be ranked % or higher in this room to disqualify a user from a game of ambush.");
 
 		room.ambush.dq(target, this);
@@ -214,7 +214,7 @@ let commands = {
 	shoot: 'fire',
 	fire: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
-		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
+		if (!this.canTalk()) return false;
 
 		room.ambush.fire(user, target, this);
 	},
@@ -225,6 +225,34 @@ let commands = {
 
 		room.ambush.end(user);
 	},
+	off: 'disable',
+	disable: function (target, room, user) {
+		if (!this.can('gamemanagement', null, room)) return;
+		if (room.ambushDisabled) {
+			return this.errorReply("Ambush is already disabled in this room.");
+		}
+		room.ambushDisabled = true;
+		if (room.chatRoomData) {
+			room.chatRoomData.ambushDisabled = true;
+			Rooms.global.writeChatRoomData();
+		}
+		return this.sendReply("Ambush has been disabled for this room.");
+	},
+
+	on: 'enable',
+	enable: function (target, room, user) {
+		if (!this.can('gamemanagement', null, room)) return;
+		if (!room.ambushDisabled) {
+			return this.errorReply("Ambush is already enabled in this room.");
+		}
+		delete room.ambushDisabled;
+		if (room.chatRoomData) {
+			delete room.chatRoomData.ambushDisabled;
+			Rooms.global.writeChatRoomData();
+		}
+		return this.sendReply("Ambush has been enabled for this room.");
+	},
+
 	help: function () {
 		this.parse('/help ambush');
 	},

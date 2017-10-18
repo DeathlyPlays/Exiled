@@ -850,73 +850,7 @@ class GameRoom extends Room {
 			this.log = this.log.concat(message);
 		}
 	}
-<<<<<<< HEAD
 
-	win(winner) {
-		// Declare variables here in case we need them for non-rated battles logging.
-		let p1score = 0.5;
-		let winnerid = toId(winner);
-
-		// Check if the battle was rated to update the ladder, return its response, and log the battle.
-		if (this.rated) {
-			this.rated = false;
-			let p1 = this.battle.p1;
-			let p2 = this.battle.p2;
-
-			if (winnerid === p1.userid) {
-				p1score = 1;
-			} else if (winnerid === p2.userid) {
-				p1score = 0;
-			}
-
-			let p1name = p1.name;
-			let p2name = p2.name;
-
-			//update.updates.push('[DEBUG] uri: ' + Config.loginserver + 'action.php?act=ladderupdate&serverid=' + Config.serverid + '&p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2) + '&score=' + p1score + '&format=' + toId(rated.format) + '&servertoken=[token]');
-
-			winner = Users.get(winnerid);
-			if (winner && !winner.registered) {
-				this.sendUser(winner, '|askreg|' + winner.userid);
-			}
-			// update rankings
-			Ladders(this.battle.format).updateRating(p1name, p2name, p1score, this);
-			//
-			// Buck Winnings
-			//
-			if (this.format !== 'OU' && this.format !== 'UU' && this.format !== 'RU' && this.format !== 'NU' && this.format !== 'PU' && this.format !== 'CAP' && this.format !== 'LC') {
-				let wid = toId(winner);
-				Db('money').set(wid, Db('money').get(wid, 0) + 2);
-				this.push("|raw|<b><font color='#cc0099'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='#cc0099'>2</font> bucks for winning an Official Format Rated Battle!</b>");
-			} else if (this.format !== 'randombattle' && this.format !== 'cc1v1' && this.format !== 'randomdoublesbattle' && this.format !== 'hackmonscup' && this.format !== 'randomtriplesbattle' && this.format !== 'battlefactory' && this.format !== 'gen1randombattle') {
-				let wid = toId(winner);
-				Db('money').set(wid, Db('money').get(wid, 0) + 1);
-				this.push("|raw|<b><font color='#cc0099'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='#cc0099'>1</font> buck for winning an Random Format Rated Battle!</b>");
-			}
-		} else if (Config.logchallenges) {
-			// Log challenges if the challenge logging config is enabled.
-			if (winnerid === this.p1.userid) {
-				p1score = 1;
-			} else if (winnerid === this.p2.userid) {
-				p1score = 0;
-			}
-			this.update();
-			this.logBattle(p1score);
-		} else {
-			this.battle.logData = null;
-		}
-		if (Config.autosavereplays) {
-			let uploader = Users.get(winnerid);
-			if (uploader && uploader.connections[0]) {
-				Chat.parse('/savereplay', this, uploader, uploader.connections[0]);
-			}
-		}
-		if (this.tour) {
-			this.tour.onBattleWin(this, winnerid);
-		}
-		this.update();
-	}
-=======
->>>>>>> a207147a4821e79c060cf32f8faaf8bff91888b0
 	// logNum = 0    : spectator log (no exact HP)
 	// logNum = 1, 2 : player log (exact HP for that player)
 	// logNum = 3    : debug log (exact HP for all players)

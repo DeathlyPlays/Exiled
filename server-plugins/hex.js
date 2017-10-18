@@ -2,7 +2,6 @@
 
 let http = require('http');
 const Autolinker = require('autolinker');
-const pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
 
 Server.nameColor = function (name, bold, userGroup) {
 	let userGroupSymbol = Users.usergroups[toId(name)] ? '<strong><font color=#948A88>' + Users.usergroups[toId(name)].substr(0, 1) + '</font></strong>' : "";
@@ -10,7 +9,8 @@ Server.nameColor = function (name, bold, userGroup) {
 };
 // usage: Server.nameColor(user.name, true) for bold OR Server.nameColor(user.name, false) for non-bolded.
 
-Server.pmAll = function (message) {
+Server.pmAll = function (message, pmName) {
+	pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
 	Users.users.forEach(curUser => {
 		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
 	});
@@ -23,6 +23,7 @@ Server.pmAll = function (message) {
 // this makes a PM from ~Server stating the message.
 
 Server.pmStaff = function (message, pmName, from) {
+	pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
 	from = (from ? ' (PM from ' + from + ')' : '');
 	Users.users.forEach(function (user) {
 		if (!user.isStaff) return;
@@ -38,6 +39,7 @@ Server.pmStaff = function (message, pmName, from) {
 // this makes a PM from ~Server stating the message.
 
 Server.messageSeniorStaff = function (message, pmName, from) {
+	pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
 	from = (from ? ' (PM from ' + from + ')' : '');
 	Users.users.forEach(curUser => {
 		if (curUser.group === '~' || curUser.group === '☥' || curUser.group === '&') {

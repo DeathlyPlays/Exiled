@@ -418,6 +418,7 @@ exports.commands = {
 		this.sendReplyBox(output);
 	},
 
+	//Inspired from Gold
 	mysterybox: function (target, room, user) {
 		if (room.id !== 'lobby') return this.errorReply("You must buy this item in the Lobby!");
 		if (!user.canOpenMysteryBox) return this.sendReply('You need to buy this item from the shop to use.');

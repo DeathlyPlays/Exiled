@@ -17,12 +17,12 @@ exports.commands = {
 		let statHP = Math.floor(Math.random() * 100) + 30;
 		let statAtk = Math.floor(Math.random() * 100) + 70;
 		let statDef = Math.floor(Math.random() * 100) + 40;
-		let statSpa = Math.floor(Math.random() * 100) + 70;
-		let statSpd = Math.floor(Math.random() * 100) + 40;
+		let statSpA = Math.floor(Math.random() * 100) + 70;
+		let statSpD = Math.floor(Math.random() * 100) + 40;
 		let statSpe = Math.floor(Math.random() * 100) + 60;
-		let statBst = statHP + statAtk + statDef + statSpa + statSpd + statSpe;
+		let statBst = statHP + statAtk + statDef + statSpA + statSpD + statSpe;
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox('Generated Statset: ' + statHP + ' / ' + statAtk + ' / ' + statDef + ' / ' + statSpa + ' / ' + statSpd + ' / ' + statSpe + ' | BST: ' + statBst);
+		this.sendReplyBox('Generated Statset: ' + statHP + ' / ' + statAtk + ' / ' + statDef + ' / ' + statSpA + ' / ' + statSpD + ' / ' + statSpe + ' | BST: ' + statBst);
 		if (statBst <= 200) {
 			return this.sendReplyBox('Tier: LC');
 		} else if (statBst > 200 && statBst < 400) {
@@ -41,6 +41,7 @@ exports.commands = {
 	},
 	statsethelp: [
 		"/statset - Generates a random spread of stats.",
+		"!statset - Broadcasts the generated random spread of stats.",
 	],
 
 	'!type': true,
@@ -88,6 +89,7 @@ exports.commands = {
 	},
 	typehelp: [
 		"/type - Generates a random typing.",
+		"!type - Broadcasts the generated typing.",
 	],
 
 	'!groups': true,
@@ -126,14 +128,14 @@ exports.commands = {
 		);
 	},
 	opensourcehelp: [
-		"/opensource - Links to Exiled's source code repository.",
+		"/opensource - Links to " + Config.serverName + "'s source code repository.",
 		"!opensource - Show everyone that information. Requires: + % @ * # & ~",
 	],
 
 	'!forums': true,
 	forums: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">Exiled Forums</a>");
+		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">" + Config.serverName + " Forums</a>");
 	},
 
 	'!suggestions': true,
@@ -283,5 +285,49 @@ exports.commands = {
 			"- Our Staff Members<br />" +
 			"- Our Regular Users<br />";
 		this.sendReplyBox(popup);
+	},
+
+	servercommands: 'customcommands',
+	serverhelp: 'customcommands',
+	customcommands: function (room, user) {
+		if (!this.runBroadcast()) return;
+		this.sendReply(
+			'|raw|<div class="infobox infobox-limited"><div style="background-image: url(https://i.imgur.com/rzNdRCh.jpg); background-position: center; auto; background-repeat:no-repeat; background-size:cover; color: blue;"><strong><h1>Custom Commands on ' + Config.serverName + '</h1></strong><br />' +
+			'<h2>Game Commands:</h2><br />' +
+			'<ul><li><button class="button" name="send" value="/sentencehelp">Sentence Game</button></li><br />' +
+			'<li><button class="button" name="send" value="/passthebombhelp">Pass The Bomb</button></li><br />' +
+			'<li><button class="button" name="send" value="/dicegamehelp">Dice Game</button></li><br />' +
+			'<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors</button></li><br />' +
+			'<li><button class="button" name="send" value="/rpslshelp">Rock Paper Scissors Lizard Spock</button></li><br />' +
+			'<li><button class="button" name="send" value="/ambushhelp">Ambush</button></li><br />' +
+			'<li><button class="button" name="send" value="/blackjackhelp">Blackjack</button></li><br />' +
+			'<li><button class="button" name="send" value="/draft">Draft</button></li><br />' +
+			'<li><button class="button" name="send" value="/slotshelp">Slots</button></ul></li><br />' +
+			'<h2>Chat Features:</h2><br />' +
+			'<ul><li><button class="button" name="send" value="/league help">League</button></li><br />' +
+			'<li><button class="button" name="send" value="/gangs help">Gangs</button></li><br />' +
+			'<li><button class="button" name="send" value="/exphelp">EXP</button></li><br />' +
+			'<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li><br />' +
+			'<li><button class="button" name="send" value="/emotes help">Emotes</button></li><br />' +
+			'<li><button class="button" name="send" value="/atm">Economy</button></li><br />' +
+			'<li><button class="button" name="send" value="/cardshelp">Cards</button></li><br />' +
+			'<li><button class="button" name="send" value="/hex">Hex Code</button></li><br />' +
+			'<li><button class="button" name="send" value="/jobshelp">Jobs</button></li><br />' +
+			'<li><button class="button" name="send" value="/meme">Meme Randomizer</button></li><br />' +
+			'<li><button class="button" name="send" value="/news">News</button></li><br />' +
+			'<li><button class="button" name="send" value="/shop">Shop</button></li><br />' +
+			'<li><button class="button" name="send" value="/ontime">Ontime</button></li><br />' +
+			'<li><button class="button" name="send" value="/playlisthelp">Playlist</button></li><br />' +
+			'<li><button class="button" name="send" value="/profile">Profile</button></li><br />' +
+			'<li><button class="button" name="send" value="/surveyhelp">Surveys</button></ul></li><br />' +
+			'<h2>Social Medias/Links:</h2><br />' +
+			'<ul><li><a href="https://discord.gg/chfz65A" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Discord</button></a><br />' +
+			'<li><a href="http://exiledps.boards.net/" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Forums</button></a><br />' +
+			'<li><a href="https://github.com/DeathlyPlays/Exiled" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">GitHub</button></a><br />' +
+			'<li><a href="https://join.skype.com/Eo5DCq8nCh1j" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Join Our Skype</button></a><br />' +
+			'<li><a href="https://goo.gl/forms/ho9YhvxrnXMY2QLI3" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Submit A Fakemon</button></a><br />' +
+			'</ul>' +
+			'</div></div>'
+		);
 	},
 };

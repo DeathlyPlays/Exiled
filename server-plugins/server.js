@@ -4,7 +4,6 @@ const fs = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
 const http = require('http');
-const Pokedex = require('../data/pokedex.js').BattlePokedex;
 
 const bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
@@ -256,6 +255,7 @@ exports.commands = {
 		}
 		return this.sendReply("Group \"" + target + "\" not found.");
 	},
+
 	bonus: 'dailybonus',
 	checkbonus: 'dailybonus',
 	dailybonus: function (user) {
@@ -263,8 +263,9 @@ exports.commands = {
 		if ((86400000 - nextBonus) <= 0) return Server.giveDailyReward(user.userid, user);
 		return this.sendReply('Your next bonus is ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db('DailyBonus').get(user.userid, [1, Date.now()])[0]) + ' ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural) + ' in ' + Chat.toDurationString(Math.abs(86400000 - nextBonus)));
 	},
+
 	sota: function () {
-		return this.parse('feelssotafeelstinitinitinisotalove');
+		this.parse('feelssotafeelstinitinitinisotalove');
 	},
 
 	'!define': true,
@@ -554,6 +555,7 @@ exports.commands = {
 				return this.errorReply("Anime not found.");
 			});
 	},
+
 	manga: function (target, room) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.errorReply("No target.");
@@ -607,6 +609,7 @@ exports.commands = {
 	hv: function () {
 		return this.parse('/hotpatch validator');
 	},
+
 	dev: {
 		give: function (target, user) {
 			if (!this.can('hotpatch')) return false;
@@ -652,6 +655,7 @@ exports.commands = {
 			);
 		},
 	},
+
 	afk: 'away',
 	busy: 'away',
 	work: 'away',
@@ -729,24 +733,25 @@ exports.commands = {
 		if (!targetData) return this.errorReply("The staffmon '" + toId(target) + "' could not be found.");
 		return this.sendReplyBox(targetData);
 	},
-
-	essbhelp: function () {
-		if (!this.runBroadcast()) return;
-		return this.sendReplyBox("/essb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.");
-	},
+	essbhelp: [
+		"/essb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.",
+		"/essbcredits - Displays the credits of the primary creators of ESSB.",
+	],
 
 	essbcredits: function (user) {
 		if (!this.runBroadcast()) return;
 		let popup = "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Programmers:</u></strong><br />" +
-			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
+			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries)<br />" +
 			"- " + Server.nameColor('Lycanium Z', true) + " (Assistant Developer)<br />" +
-			"- " + Server.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
+			"- " + Server.nameColor('Back At My Day', true) + " (Entries, Developments)<br />" +
+			"- " + Server.nameColor('flufi', true) + " (Development)<br />" +
 			"<u><strong>Special Thanks:</strong></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";
 		this.sendReplyBox(popup);
 	},
+
 	'!dub': true,
 	dub: 'dubtrack',
 	music: 'dubtrack',
@@ -775,6 +780,7 @@ exports.commands = {
 			});
 		});
 	},
+
 	'!youtube': true,
 	yt: 'youtube',
 	youtube: function (target, room) {
@@ -982,44 +988,6 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		let results = ['Signs point to yes.', 'Yes.', 'Reply hazy, try again.', 'Without a doubt.', 'My sources say no.', 'As I see it, yes.', 'You may rely on it.', 'Concentrate and ask again.', 'Outlook not so good.', 'It is decidedly so.', 'Better not tell you now.', 'Very doubtful.', 'Yes - definitely.', 'It is certain.', 'Cannot predict now.', 'Most likely.', 'Ask again later.', 'My reply is no.', 'Outlook good.', 'Don\'t count on it.'];
 		return this.sendReplyBox(results[Math.floor(Math.random() * results.length)]);
-	},
-
-	randp: function (target) {
-		if (!this.runBroadcast()) return;
-		let shinyPoke = "";
-		let x;
-		if (/shiny/i.test(target)) shinyPoke = "-shiny";
-		if (/kanto/i.test(target) || /gen 1/i.test(target)) {
-			x = Math.floor(Math.random() * (174 - 1));
-		} else if (/johto/i.test(target) || /gen 2/i.test(target)) {
-			x = Math.floor(Math.random() * (281 - 173)) + 172;
-		} else if (/hoenn/i.test(target) || /gen 3/i.test(target)) {
-			x = Math.floor(Math.random() * (444 - 280)) + 279;
-		} else if (/sinnoh/i.test(target) || /gen 4/i.test(target)) {
-			x = Math.floor(Math.random() * (584 - 443)) + 442;
-		} else if (/kalos/i.test(target) || /gen 5/i.test(target)) {
-			x = Math.floor(Math.random() * (755 - 583)) + 582;
-		} else if (/unova/i.test(target) || /gen 6/i.test(target)) {
-			x = Math.floor(Math.random() * (834 - 752)) + 751;
-		}
-		x = x || Math.floor(Math.random() * (856 - 1));
-		let tarPoke = Object.keys(Pokedex)[x];
-		let pokeData = Pokedex[tarPoke];
-		let pokeId = pokeData.species.toLowerCase();
-		pokeId = pokeId.replace(/^basculinbluestriped$/i, "basculin-bluestriped").replace(/^pichuspikyeared$/i, "pichu-spikyeared").replace(/^floetteeternalflower$/i, "floette-eternalflower");
-		if (pokeId === "pikachu-cosplay") pokeId = ["pikachu-belle", "pikachu-phd", "pikachu-libre", "pikachu-popstar", "pikachu-rockstar"][~~(Math.random() * 6)];
-		let spriteLocation = "http://play.pokemonshowdown.com/sprites/bw" + shinyPoke + "/" + pokeId + ".png";
-		let missingnoSprites = ["http://cdn.bulbagarden.net/upload/9/98/Missingno_RB.png", "http://cdn.bulbagarden.net/upload/0/03/Missingno_Y.png", "http://cdn.bulbagarden.net/upload/a/aa/Spr_1b_141_f.png", "http://cdn.bulbagarden.net/upload/b/bb/Spr_1b_142_f.png", "http://cdn.bulbagarden.net/upload/9/9e/Ghost_I.png"];
-		if (pokeId === "missingno") spriteLocation = missingnoSprites[~~(Math.random() * 5)];
-
-		function getTypeFormatting(types) {
-			let text = [];
-			for (let i = 0; i < types.length; i++) {
-				text.push("<img src=\"http://play.pokemonshowdown.com/sprites/types/" + types[i] + ".png\" width=\"32\" height=\"14\">");
-			}
-			return text.join(" / ");
-		}
-		this.sendReplyBox("<table><tr><td><img src=\"" + spriteLocation + "\" height=\"96\" width=\"96\"></td><td><strong>Name: </strong>" + pokeData.species + "<br/><strong>Type(s): </strong>" + getTypeFormatting(pokeData.types) + "<br/><strong>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </strong>" + Object.values(pokeData.abilities).join(" / ") + "<br/><strong>Stats: </strong>" + Object.values(pokeData.baseStats).join(" / ") + "<br/><strong>Colour: </strong><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/><strong>Egg Group(s): </strong>" + pokeData.eggGroups.join(", ") + "</td></tr></table>");
 	},
 
 	'!digidex': true,
@@ -1484,50 +1452,6 @@ exports.commands = {
 		default:
 			return this.errorReply("Invalid command. `/ads add, room, message`.");
 		}
-	},
-
-	servercommands: 'customcommands',
-	serverhelp: 'customcommands',
-	customcommands: function (room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReply(
-			'|raw|<div class="infobox infobox-limited"><div style="background-image: url(https://i.pinimg.com/736x/f6/28/c0/f628c05ebce98be4e6672fbc08238d23--mega-pokemon-pokemon-fan.jpg); background-position: center; auto; background-repeat:no-repeat; background-size:cover"><strong><h1>Custom Commands on ' + Config.serverName + '</h1></strong><br />' +
-			'<h2>Game Commands:</h2><br />' +
-			'<ul><li><button class="button" name="send" value="/sentencehelp">Sentence Game</button></li><br />' +
-			'<li><button class="button" name="send" value="/passthebombhelp">Pass The Bomb</button></li><br />' +
-			'<li><button class="button" name="send" value="/dicegamehelp">Dice Game</button></li><br />' +
-			'<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors</button></li><br />' +
-			'<li><button class="button" name="send" value="/rpslshelp">Rock Paper Scissors Lizard Spock</button></li><br />' +
-			'<li><button class="button" name="send" value="/ambushhelp">Ambush</button></li><br />' +
-			'<li><button class="button" name="send" value="/blackjackhelp">Blackjack</button></li><br />' +
-			'<li><button class="button" name="send" value="/draft">Draft</button></li><br />' +
-			'<li><button class="button" name="send" value="/slotshelp">Slots</button></ul></li><br />' +
-			'<h2>Chat Features:</h2><br />' +
-			'<ul><li><button class="button" name="send" value="/league help">League</button></li><br />' +
-			'<li><button class="button" name="send" value="/gangs help">Gangs</button></li><br />' +
-			'<li><button class="button" name="send" value="/exphelp">EXP</button></li><br />' +
-			'<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li><br />' +
-			'<li><button class="button" name="send" value="/emotes help">Emotes</button></li><br />' +
-			'<li><button class="button" name="send" value="/atm">Economy</button></li><br />' +
-			'<li><button class="button" name="send" value="/cardshelp">Cards</button></li><br />' +
-			'<li><button class="button" name="send" value="/hex">Hex Code</button></li><br />' +
-			'<li><button class="button" name="send" value="/jobshelp">Jobs</button></li><br />' +
-			'<li><button class="button" name="send" value="/meme">Meme Randomizer</button></li><br />' +
-			'<li><button class="button" name="send" value="/news">News</button></li><br />' +
-			'<li><button class="button" name="send" value="/shop">Shop</button></li><br />' +
-			'<li><button class="button" name="send" value="/ontime">Ontime</button></li><br />' +
-			'<li><button class="button" name="send" value="/playlisthelp">Playlist</button></li><br />' +
-			'<li><button class="button" name="send" value="/profile">Profile</button></li><br />' +
-			'<li><button class="button" name="send" value="/surveyhelp">Surveys</button></ul></li><br />' +
-			'<h2>Social Medias/Links:</h2><br />' +
-			'<ul><li><a href="https://discord.gg/chfz65A" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Discord</button></a><br />' +
-			'<li><a href="http://exiledps.boards.net/" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Forums</button></a><br />' +
-			'<li><a href="https://github.com/DeathlyPlays/Exiled" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">GitHub</button></a><br />' +
-			'<li><a href="https://join.skype.com/Eo5DCq8nCh1j" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Join Our Skype</button></a><br />' +
-			'<li><a href="https://goo.gl/forms/ho9YhvxrnXMY2QLI3" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Submit A Fakemon</button></a><br />' +
-			'</ul>' +
-			'</div></div>'
-		);
 	},
 
 	transferaccount: 'transferauthority',

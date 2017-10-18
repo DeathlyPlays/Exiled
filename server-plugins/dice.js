@@ -130,8 +130,8 @@ exports.commands = {
 	startdice: 'dicegame',
 	dicegame: function (target, room, user) {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
-		if (!user.can('broadcast', null, room) && room.id !== 'casino' && room.id !== 'coldfrontcasino') return this.errorReply("You must be ranked + or higher in this room to start a game of dice outside the Casino.");
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.errorReply("You cannot use this command while unable to talk.");
+		if (!user.can('broadcast', null, room) && room.id !== 'casino') return this.errorReply("You must be ranked + or higher in this room to start a game of dice outside the Casino.");
+		if (!this.canTalk()) return;
 		if (room.dice) return this.errorReply("There is already a game of dice going on in this room.");
 
 		let amount = Number(target) || 1;
@@ -147,7 +147,7 @@ exports.commands = {
 	dicejoin: 'joindice',
 	joindice: function (target, room, user) {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.sendReply("You cannot use this command while unable to talk.");
+		if (!this.canTalk()) return;
 		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
 
 		room.dice.join(user, this);
@@ -164,7 +164,7 @@ exports.commands = {
 	diceend: 'enddice',
 	enddice: function (target, room, user) {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.sendReply("You cannot use this command while unable to talk.");
+		if (!this.canTalk()) return;
 		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
 		if (!user.can('broadcast', null, room) && !room.dice.players.includes(user)) return this.errorReply("You must be ranked + or higher in this room to end a game of dice.");
 

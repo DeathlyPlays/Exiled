@@ -432,20 +432,20 @@ exports.commands = {
 			prize = opts[Math.floor(Math.random() * opts.length)];
 		} else if (randomNumber > 70) {
 			goodBad = 'good';
-			opts = ['smallmoneyprize', 'mediummoneyprize', 'largemoneyprize', 'jackpot', 'custom symbol', 'ability to set the PotD', 'custom color', 'a new mystery box', 'custom icon'];
+			opts = ['small money prize', 'medium money prize', 'large money prize', 'jackpot', 'custom symbol', 'ability to set the PotD', 'custom color', 'a new mystery box', 'custom icon'];
 			prize = opts[Math.floor(Math.random() * opts.length)];
 		}
 		switch (prize) {
-		//Cash Prizes
-		case 'smallmoneyprize':
+		//Good Prizes
+		case 'small money prize':
 			Economy.writeMoney(user.userid, 5);
 			this.sendReply('Well, it\'s not the worst thing.... You received 5 ' + moneyPlural + '.');
 			break;
-		case 'mediummoneyprize':
+		case 'medium money prize':
 			Economy.writeMoney(user.userid, 15);
 			this.sendReply('Not bad, you received 15 ' + moneyPlural + '.');
 			break;
-		case 'largemoneyprize':
+		case 'large money prize':
 			Economy.writeMoney(user.userid, 30);
 			this.sendReply('Nice! You received 30 ' + moneyPlural + '!');
 			break;
@@ -455,7 +455,7 @@ exports.commands = {
 			break;
 		case 'custom color':
 		case 'ability to set the PotD':
-			Server.pmStaff("/raw" + Server.nameColor(user.name, true) + " has won a(n) " + prize + ". Please PM them to proceed with giving them this.", "~" + Config.serverName + " Server");
+			Server.pmStaff(user.name + " has won a(n) " + prize + ". Please PM them to proceed with giving them this.", "~" + Config.serverName + " Server");
 			break;
 		case 'custom symbol':
 			user.canCustomSymbol = true;
@@ -471,6 +471,7 @@ exports.commands = {
 			break;
 		//Meme Rewards/Bad Rewards
 		case 'nothing':
+			this.sendReplyBox('<strong>RIP</strong><br /><div style="background: url(http://moziru.com/images/tombstone-clipart-20.png); background-size: 100% 100%; height: 200px"></div>');
 			break;
 		case 'rick rolled':
 			Rooms('lobby').add(

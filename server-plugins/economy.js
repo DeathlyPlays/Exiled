@@ -453,36 +453,37 @@ exports.commands = {
 			Economy.writeMoney(user.userid, 50);
 			this.sendReply("CONGRATULATIONS!!!! YOU JUST HIT THE JACKPOT!!!! HERE'S 50 " + moneyPlural + "!!!!!");
 			break;
-		case 'custom color':
-		case 'ability to set the PotD':
-			Server.pmStaff(user.name + " has won a(n) " + prize + ". Please PM them to proceed with giving them this.", "~" + Config.serverName + " Server");
-			break;
 		case 'custom symbol':
 			user.canCustomSymbol = true;
 			this.sendReply("Do /customsymbol [symbol] to set a FREE custom symbol! (Do /rs to reset your custom symbol when you want to remove it later.)");
 			break;
-		case 'custom icon':
-			this.sendReply("PM a Global Driver or higher to claim this prize!");
-			Server.pmStaff("/raw" + Server.nameColor(user.name, true) + "has received a custom icon from the Mystery Box. Please assist them as soon as possible", "~" + Config.serverName + "Server");
+		case 'ability to set the PotD':
+			Server.pmStaff(user.name + " has won the " + prize + ". Please PM them to proceed with giving them this.", "~" + Config.serverName + " Server");
+			break;
+		case 'custom color':
+			Server.pmStaff(user.name + " has won a " + prize + ". Please PM them to proceed with giving them this.", "~" + Config.serverName + " Server");
 			break;
 		case 'a new mystery box':
 			user.canOpenMysteryBox = true;
 			this.sendReply("Yay, fun! You received another Mystery Box.");
+			break;
+		case 'custom icon':
+			this.sendReply("PM a Global Driver or higher to claim this prize!");
+			Server.pmStaff(user.name + " has received a " + prize + " from the Mystery Box. Please assist them as soon as possible", "~" + Config.serverName + "Server");
 			break;
 		//Meme Rewards/Bad Rewards
 		case 'nothing':
 			this.sendReplyBox('<strong>RIP</strong><br /><div style="background: url(http://moziru.com/images/tombstone-clipart-20.png); background-size: 100% 100%; height: 200px"></div>');
 			break;
 		case 'rick rolled':
-			Rooms('lobby').add(
-				"|raw|<blink>" +
+			this.sendReplyBox("<blink>" +
 				"Never gonna give you up<br />" +
 				"Never gonna let you down<br />" +
 				"Never gonna run around and desert you<br />" +
 				"Never gonna make you cry<br />" +
 				"Never gonna say goodbye<br />" +
 				"Never gonna tell a lie and hurt you</blink>"
-			).update();
+			);
 			break;
 		case 'kick from Lobby':
 			try {
@@ -496,10 +497,9 @@ exports.commands = {
 			} catch (e) {}
 			break;
 		default:
-			this.sendReply("Oh oh... this shouldn't of happened.  Please message an Administrator and take a screencap of this. (Problem with mysterybox)");
 			break;
 		}
 		user.canOpenMysteryBox = false;
-		Rooms('lobby').add("|raw|" + Server.nameColor(user.name, true) + " has bought a Mystery Box from the shop! " + (goodBad === 'good' ? "They have won a(n) <strong>" + prize + "</strong>!" : "Oh no!  They got a " + prize + " from their pack :(")).update();
+		Rooms('lobby').add("|raw|" + Server.nameColor(user.name, true) + " has bought a Mystery Box from the shop! " + (goodBad === 'good' ? "They have won a <strong>" + prize + "</strong>!" : "Oh no!  They got a " + prize + " from their pack :(")).update();
 	},
 };

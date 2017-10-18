@@ -241,7 +241,7 @@ exports.commands = {
 	poofhelp: ["/poof - Disconnects the user and leaves a message in the room."],
 
 	poofon: function () {
-		if (!this.can('poofoff')) return false;
+		if (!this.can('hotpatch')) return false;
 		Config.poofOff = false;
 		return this.sendReply("Poof is now enabled.");
 	},
@@ -249,7 +249,7 @@ exports.commands = {
 
 	nopoof: 'poofoff',
 	poofoff: function () {
-		if (!this.can('poofoff')) return false;
+		if (!this.can('hotpatch')) return false;
 		Config.poofOff = true;
 		return this.sendReply("Poof is now disabled.");
 	},

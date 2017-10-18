@@ -321,6 +321,7 @@ exports.commands = {
 			});
 		});
 	},
+	definehelp: ["/define [word] - Gives the definition to a word."],
 
 	'!urbandefine': true,
 	u: 'urbandefine',
@@ -375,6 +376,7 @@ exports.commands = {
 			});
 		});
 	},
+	urbandefinehelp: ["/u [word] - Gives the Urban Definition for a word."],
 
 	rf: 'roomfounder',
 	roomfounder: function (target, room, user) {
@@ -1455,6 +1457,11 @@ exports.commands = {
 			return this.errorReply("Invalid command. `/ads add, room, message`.");
 		}
 	},
+	advertisehelp: [
+		"/advertise add, [room], [message] - Adds your room advertisement with a message into the queue [Must be Room Moderator in the room].",
+		"/advertise enable - Enables Advertisements.",
+		"/advertise disable - Disables Advertisements.",
+	],
 
 	transferaccount: 'transferauthority',
 	transferauth: 'transferauthority',

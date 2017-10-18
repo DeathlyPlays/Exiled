@@ -555,6 +555,7 @@ exports.commands = {
 				return this.errorReply("Anime not found.");
 			});
 	},
+	animehelp: ['/anime [query] - Searches for an anime series based on the given search query.'],
 
 	manga: function (target, room) {
 		if (!this.runBroadcast()) return;
@@ -590,9 +591,10 @@ exports.commands = {
 					});
 			})
 			.catch(error => {
-				return this.errorReply("Anime not found.");
+				return this.errorReply("Manga not found.");
 			});
 	},
+	mangahelp: ['/manga [query] - Searches for a manga series based on the given search query.'],
 
 	hc: function () {
 		return this.parse('/hotpatch chat');
@@ -824,7 +826,7 @@ exports.commands = {
 	},
 
 	clearall: function (target, room, user) {
-		if (!this.can('declare')) return false;
+		if (!this.can('ban')) return false;
 		if (room.battle) return this.sendReply("You cannot clearall in battle rooms.");
 
 		clearRoom(room);
@@ -834,7 +836,7 @@ exports.commands = {
 
 	gclearall: 'globalclearall',
 	globalclearall: function (user) {
-		if (!this.can('gdeclare')) return false;
+		if (!this.can('hotpatch')) return false;
 
 		Rooms.rooms.forEach(room => clearRoom(room));
 		Users.users.forEach(user => user.popup('All rooms have been cleared.'));
@@ -1518,4 +1520,27 @@ exports.commands = {
 		user.send('|popup|' + crashes);
 		return;
 	},
+
+	'!uptime': true,
+	uptime: (function () {
+		function formatUptime(uptime) {
+			if (uptime > 24 * 60 * 60) {
+				let uptimeText = "";
+				let uptimeDays = Math.floor(uptime / (24 * 60 * 60));
+				uptimeText = uptimeDays + " " + (uptimeDays === 1 ? "day" : "days");
+				let uptimeHours = Math.floor(uptime / (60 * 60)) - uptimeDays * 24;
+				if (uptimeHours) uptimeText += ", " + uptimeHours + " " + (uptimeHours === 1 ? "hour" : "hours");
+				return uptimeText;
+			} else {
+				return Chat.toDurationString(uptime * 1000);
+			}
+		}
+
+		return function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			let uptime = process.uptime();
+			this.sendReplyBox("Uptime: </strong>" + formatUptime(uptime) + "</strong>" +
+				(global.uptimeRecord ? "<br /><font color=\"green\">Record: </strong>" + formatUptime(global.uptimeRecord) + "</strong></font>" : ""));
+		};
+	})(),
 };

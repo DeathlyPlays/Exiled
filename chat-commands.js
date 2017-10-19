@@ -344,8 +344,6 @@ exports.commands = {
 
 			//Funny Random Stuff
 			ash: 294,
-			github: '#github',
-			hoeenhero: '#hoeenhero',
 			wally: '#wally',
 		};
 		if (avatarTable.hasOwnProperty(avatarid)) {
@@ -2154,7 +2152,7 @@ exports.commands = {
 
 		if (targetUser in room.users || user.can('lock')) {
 			targetUser.popup(
-				"|modal||html|<p>" + Exiled.nameColor(user.name, true, true) + " has blacklisted you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
+				"|modal||html|<p>" + Server.nameColor(user.name, true, true) + " has blacklisted you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
 				"<p>To appeal the ban, PM the staff member that blacklisted you" + (!room.battle && room.auth ? " or a room owner. </p><p><button name=\"send\" value=\"/roomauth " + room.id + "\">List Room Staff</button></p>" : ".</p>")
 			);
 		}

@@ -258,7 +258,7 @@ exports.commands = {
 		}
 		return this.sendReply("Group \"" + target + "\" not found.");
 	},
-	autorank: ["/autorank [rank] - Automatically promotes user to the specified rank when they join the room."],
+	autorankhelp: ["/autorank [rank] - Automatically promotes user to the specified rank when they join the room."],
 
 	bonus: 'dailybonus',
 	checkbonus: 'dailybonus',

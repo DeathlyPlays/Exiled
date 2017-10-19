@@ -1149,7 +1149,7 @@ exports.commands = {
 	groupshelp: [
 		"/groups - Explains what the symbols (like % and @) before people's names mean.",
 		"/groups [global|room] - Explains only global or room symbols.",
-		"!groups - Shows everyone that information. Requires: + % @ * # & ~"
+		"!groups - Shows everyone that information. Requires: + % @ * # & ~",
 	],
 
 	'!punishments': true,

@@ -1081,9 +1081,6 @@ class User {
 		let userid = toId(name);
 		if (this.named) Db('seen').set(this.userid, Date.now());
 		if (this.registered && this.userid !== userid) {
-			this.inRooms.forEach(function (room) {
-				if (['global', 'lobby', 'staff'].indexOf(room) === -1) rooms.push(room);
-			});
 			if (Ontime[this.userid]) {
 				Db('ontime').set(this.userid, Db('ontime').get(this.userid, 0) + (Date.now() - Ontime[this.userid]));
 				delete Ontime[this.userid];

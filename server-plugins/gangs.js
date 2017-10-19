@@ -165,7 +165,7 @@ exports.commands = {
 	gangs: 'gang',
 	gang: {
 		create: function (target, room, user) {
-			if (!this.can('gangadmin')) return false;
+			if (!this.can('hotpatch')) return false;
 			if (!target) return this.errorReply("Usage: /gang create [gang name], [user]");
 			let targets = target.split(',');
 			for (let u in targets) targets[u] = targets[u].trim();
@@ -228,7 +228,7 @@ exports.commands = {
 		},
 
 		delete: function (target, room, user) {
-			if (!this.can('gangadmin')) return false;
+			if (!this.can('hotpatch')) return false;
 			if (!target) return this.errorReply("Usage: /gang delete [gang name].");
 			if (!gangs[toId(target)]) return this.errorReply("That gang does not exist.");
 
@@ -814,7 +814,7 @@ exports.commands = {
 		'point': 'points',
 		points: {
 			give: function (target, room, user) {
-				if (!this.can('gangadmin')) return false;
+				if (!this.can('hotpatch')) return false;
 				if (!target) return this.errorReply("Usage: /gang points give [gang], [points]");
 				let targets = target.split(',');
 				for (let u in targets) targets[u] = targets[u].trim();
@@ -834,7 +834,7 @@ exports.commands = {
 			},
 
 			take: function (target, room, user) {
-				if (!this.can('gangadmin')) return false;
+				if (!this.can('hotpatch')) return false;
 				if (!target) return this.errorReply("Usage: /gang points take [gang], [points]");
 				let targets = target.split(',');
 				for (let u in targets) targets[u] = targets[u].trim();
@@ -854,7 +854,7 @@ exports.commands = {
 			},
 
 			reset: function (target, room, user) {
-				if (!this.can('gangadmin')) return false;
+				if (!this.can('hotpatch')) return false;
 				if (!user.confirmGangPointsReset) {
 					this.errorReply("WARNING: THIS WILL RESET ALL GANG POINTS");
 					this.errorReply("Run this command again if you are sure this is what you want to do.");

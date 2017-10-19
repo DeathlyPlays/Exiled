@@ -132,7 +132,7 @@ exports.commands = {
 			Db('roomshop').set();
 
 			if (!fs.existsSync('logs/roomshops')) fs.mkdirSync('logs/roomshops');
-			fs.appendFile('logs/roomshops/roomshop_' + room.id + '.txt', '[' + new Date().toUTCString() + '] ' + user.name + ' has bought ' + itemID + ' from the roomshop.' + '\n');
+			fs.appendFile('logs/roomshops/roomshop_' + room.id + '.txt', '[' + new Date().toUTCString() + '] ' + user.name + ' has bought ' + itemID + ' from the roomshop.' + '\n', () => {});
 
 			let msg = user.name + ' has purchased ' + itemID + '.';
 
@@ -142,8 +142,7 @@ exports.commands = {
 				}
 			});
 
-			//this.sendReply('You have bought ' + itemID + ' for ' + cost + currencyName(cost) + '.'); //currencyName(cost)
-			  this.sendReply('You have bought ' + itemID + ' for ' + cost + ' bucks.');
+			this.sendReply('You have bought ' + itemID + ' for ' + cost + moneyName + '.');
 		},
 		'': function (target, room, user) {
 			if (!this.runBroadcast()) return;

@@ -1050,6 +1050,15 @@ class ChatRoom extends Room {
 		} else {
 			this.modlogStream = FS('logs/modlog/modlog_' + roomid + '.txt').createAppendStream();
 		}
+		this.deleteInactive = setTimeout(function () {
+			if (!this.protect && !this.isOfficial && !this.isPrivate && !this.isPersonal && !this.isStaff && this.messageCount < 40) {
+				Rooms.global.deregisterChatRoom(this.id);
+				this.addRaw('<font color=red><strong>This room has been automatically deleted due to inactivity.  It will be removed upon the next server restart.</strong></font>');
+				if (this.id !== 'global') this.update();
+				this.modchat = '~';
+				Rooms('staff').add("|raw|<font color=red><strong>" + this.title + " has been automatically deleted from the server due to inactivity.</strong></font>").update();
+			}
+		}.bind(this), 2 * 24 * 60 * 60 * 1000); //48 hours
 	}
 
 	reportRecentJoins() {

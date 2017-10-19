@@ -187,7 +187,7 @@ exports.commands = {
 
 	sbanlist: function (target, room, user) {
 		if (!target && !this.can('lock')) return this.sendReply("The command '/sbanlist' was unrecognized.  To send a message starting with '/sbanlist', type '//sbanlist'.");
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.sendReply("You cannot do this while unable to talk.");
+		if (!this.canTalk() && !user.can('bypassall')) return this.sendReply("You cannot do this while unable to talk.");
 		if (!this.can('lock')) return false;
 		let result = [];
 		let data = Rooms(toId(ROOM_NAME)).chatRoomData.addedUsers;

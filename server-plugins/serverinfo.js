@@ -92,25 +92,6 @@ exports.commands = {
 		"!type - Broadcasts the generated typing.",
 	],
 
-	'!groups': true,
-	groups: function () {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox(
-			"+ <strong>Voice</strong> - They can use ! commands like !groups, and talk during moderated chat.<br />" +
-			"% <strong>Driver</strong> - The above, and they can mute. Global % can also lock users and check for alts.<br />" +
-			"@ <strong>Moderator</strong> - The above, and they can ban users.<br />" +
-			"* <strong>Bot</strong> - Like Moderator, but makes it clear that this user is a bot.<br />" +
-			"&amp; <strong>Leader</strong> - The above, and they can promote to moderator and force ties.<br />" +
-			"# <strong>Room Owner</strong> - They are leaders of the room and can almost totally control it.<br />" +
-			"☥ <strong>Gods</strong> - The rank of the dankest users ever! They have infinite power, like Administrators.<br />" +
-			"~ <strong>Administrator</strong> - They can do anything, like change what this message says."
-		);
-	},
-	groupshelp: [
-		"/groups - Explains what the + % @ # & next to people's names mean.",
-		"!groups - Shows everyone that information. Requires: + % @ * # & ~",
-	],
-
 	'!opensource': true,
 	github: "opensource",
 	os: "opensource",

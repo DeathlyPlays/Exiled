@@ -177,7 +177,7 @@ exports.commands = {
 			);
 		}
 		if (!this.can('lock', null, room)) return false;
-		if (target === 'off' || target === 'disable' || target === 'reset') {
+		if (this.meansNo(target)) {
 			if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
 			delete room.chatRoomData.user;
 			this.sendReply("The User of the Week was reset by " + Server.nameColor(user.name, true) + ".");
@@ -226,17 +226,20 @@ exports.commands = {
 		case 'automod':
 			target = '@';
 			break;
+		case 'autpleader':
+			target = '&';
+			break;
 		case 'autoowner':
 			target = '#';
 			break;
 		}
 
-		if (!target) return this.sendReply("Usage: /autorank [rank] - Automatically promotes user to the specified rank when they join the room.");
+		if (!target) return this.parse("/autorankhelp");
 		if (!this.can('roommod', null, room)) return false;
 		if (room.isPersonal) return this.sendReply('Autorank is not currently a feature in groupchats.');
 		target = target.trim();
 
-		if (target === 'off' && room.autorank) {
+		if (this.meansNo(target) && room.autorank) {
 			delete room.autorank;
 			delete room.chatRoomData.autorank;
 			Rooms.global.writeChatRoomData();
@@ -255,6 +258,7 @@ exports.commands = {
 		}
 		return this.sendReply("Group \"" + target + "\" not found.");
 	},
+	autorank: ["/autorank [rank] - Automatically promotes user to the specified rank when they join the room."],
 
 	bonus: 'dailybonus',
 	checkbonus: 'dailybonus',
@@ -406,6 +410,7 @@ exports.commands = {
 			room.onUpdateIdentity(targetUser);
 		}
 		Rooms.global.writeChatRoomData();
+		room.protect = true;
 	},
 	roomfounderhelp: ["/roomfounder [username] - Appoints [username] as a room founder. Requires: & ~"],
 
@@ -452,7 +457,7 @@ exports.commands = {
 		}
 		Rooms.global.writeChatRoomData();
 	},
-	roomownerhelp: ["/roomowner [username] - Appoints [username] as a room owner. Requires: & ~"],
+	roomownerhelp: ["/roomowner [username] - Appoints [username] as a Room Owner. Requires: Room Founder, &, ~"],
 
 	roomdeowner: 'deroomowner',
 	deroomowner: function (target, room, user) {
@@ -470,33 +475,42 @@ exports.commands = {
 
 		delete room.auth[userid];
 		this.sendReply("(" + name + " is no longer Room Owner.)");
-		if (targetUser) targetUser.updateIdentity();
+		if (targetUser) {
+			targetUser.popup(`|html|You were demoted from Room Owner by ${Server.nameColor(user.name, true, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
 		if (room.chatRoomData) {
 			Rooms.global.writeChatRoomData();
 		}
 	},
+	roomdeownerhelp: ["/roomdeowner [username] - Demotes [username] from Room Owner. Requires: Room Founder, &, ~"],
 
 	roomleader: function (target, room, user) {
 		if (!room.chatRoomData) {
-			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
+			return this.sendReply("/roomleader - This room isn't designed for per-room moderation to be added");
 		}
 		target = this.splitTarget(target, true);
 		let targetUser = this.targetUser;
 
 		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' is not online.");
 
-		if (!room.founder) return this.sendReply('The room needs a room founder before it can have a room owner.');
-		if (room.founder !== user.userid && !this.can('makeroom')) return this.sendReply('/roomowner - Access denied.');
+		if (!room.founder) return this.sendReply('The room needs a Room Founder before it can have a Room Leader.');
+		if (room.founder !== user.userid && !this.can('makeroom')) return this.sendReply('/roomleader - Access denied.');
 
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
 
 		let name = targetUser.name;
 
+		if (targetUser) {
+			targetUser.popup(`|html|You were appointed Room Leader by ${Server.nameColor(user.name, true, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
 		room.auth[targetUser.userid] = '&';
 		this.addModCommand("" + name + " was appointed Room Leader by " + user.name + ".");
 		room.onUpdateIdentity(targetUser);
 		Rooms.global.writeChatRoomData();
 	},
+	roomleaderhelp: ["/roomleader [username] - Appoints [username] as a Room Leader. Requires: Room Founder, &, ~"],
 
 	roomdeleader: 'deroomowner',
 	deroomleader: function (target, room, user) {
@@ -512,6 +526,10 @@ exports.commands = {
 		if (room.auth[userid] !== '&') return this.sendReply("User '" + name + "' is not a room leader.");
 		if (!room.founder || user.userid !== room.founder && !this.can('makeroom', null, room)) return false;
 
+		if (targetUser) {
+			targetUser.popup(`|html|You were demoted from Room Leader by ${Server.nameColor(user.name, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
 		delete room.auth[userid];
 		this.sendReply("(" + name + " is no longer Room Leader.)");
 		if (targetUser) targetUser.updateIdentity();
@@ -519,6 +537,7 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 		}
 	},
+	roomdeleaderhelp: ["/roomdeleader [username] - Demotes [username] from Room Leader. Requires: Room Founder, &, ~"],
 
 	anime: function (target, room) {
 		if (!this.runBroadcast()) return;
@@ -807,7 +826,7 @@ exports.commands = {
 
 		let self = this;
 		let data = '';
-		let req = require('https').request(reqOpts, function (res) {
+		let req = https.request(reqOpts, function (res) {
 			res.on('data', function (chunk) {
 				data += chunk;
 			});
@@ -1546,8 +1565,26 @@ exports.commands = {
 		return function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			let uptime = process.uptime();
-			this.sendReplyBox("Uptime: </strong>" + formatUptime(uptime) + "</strong>" +
-				(global.uptimeRecord ? "<br /><font color=\"green\">Record: </strong>" + formatUptime(global.uptimeRecord) + "</strong></font>" : ""));
+			this.sendReplyBox("Uptime: <strong>" + formatUptime(uptime) + "</strong>" +
+				(global.uptimeRecord ? "<br /><font color=\"green\">Record: <strong>" + formatUptime(global.uptimeRecord) + "</strong></font>" : ""));
 		};
 	})(),
+
+	protectroom: function (target, room, user) {
+		if (!this.can('hotpatch')) return false;
+		if (room.type !== 'chat' || room.isOfficial) return this.errorReply("This room does not need to be protected.");
+		if (this.meansNo(target)) {
+			if (!room.protect) return this.errorReply("This room is already unprotected.");
+			room.protect = false;
+			room.chatRoomData.protect = room.protect;
+			Rooms.global.writeChatRoomData();
+			this.privateModCommand("(" + user.name + " has unprotected this room from being automatically deleted.)");
+		} else {
+			if (room.protect) return this.errorReply("This room is already protected.");
+			room.protect = true;
+			room.chatRoomData.protect = room.protect;
+			Rooms.global.writeChatRoomData();
+			this.privateModCommand("(" + user.name + " has protected this room from being automatically deleted.)");
+		}
+	},
 };

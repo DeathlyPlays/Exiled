@@ -1117,22 +1117,6 @@ exports.commands = {
 	 * Informational commands
 	 *********************************************************/
 
-	'!uptime': true,
-	uptime: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		let uptime = process.uptime();
-		let uptimeText;
-		if (uptime > 24 * 60 * 60) {
-			let uptimeDays = Math.floor(uptime / (24 * 60 * 60));
-			uptimeText = uptimeDays + " " + (uptimeDays === 1 ? "day" : "days");
-			let uptimeHours = Math.floor(uptime / (60 * 60)) - uptimeDays * 24;
-			if (uptimeHours) uptimeText += ", " + uptimeHours + " " + (uptimeHours === 1 ? "hour" : "hours");
-		} else {
-			uptimeText = Chat.toDurationString(uptime * 1000);
-		}
-		this.sendReplyBox("Uptime: <b>" + uptimeText + "</b>");
-	},
-
 	'!servertime': true,
 	servertime: function (target, room, user) {
 		if (!this.runBroadcast()) return;
@@ -1162,9 +1146,11 @@ exports.commands = {
 			`~ <strong>Global Administrator</strong> -  They can do anything, like change what this message says` : ``)
 		);
 	},
-	groupshelp: ["/groups - Explains what the symbols (like % and @) before people's names mean.",
+	groupshelp: [
+		"/groups - Explains what the symbols (like % and @) before people's names mean.",
 		"/groups [global|room] - Explains only global or room symbols.",
-		"!groups - Shows everyone that information. Requires: + % @ * # & ~"],
+		"!groups - Shows everyone that information. Requires: + % @ * # & ~"
+	],
 
 	'!punishments': true,
 	punishments: function (target, room, user) {
@@ -1174,6 +1160,10 @@ exports.commands = {
 			"<strong>warn</strong> - Displays a popup with the rules.<br />" +
 			"<strong>mute</strong> - Mutes a user (makes them unable to talk) for 7 minutes.<br />" +
 			"<strong>hourmute</strong> - Mutes a user for 60 minutes.<br />" +
+			"<strong>daymute</strong> - Mutes a user for 24 hours.<br />" +
+			"<strong>weekmute</strong> - Mutes a user for 1 week.<br />" +
+			"<strong>monthmute</strong> - Mutes a user for 1 month.<br />" +
+			"<strong>yearmute</strong> - Mutes a user for 1 year.<br />" +
 			"<strong>ban</strong> - Bans a user (makes them unable to join the room) for 2 days.<br />" +
 			"<strong>blacklist</strong> - Bans a user for a year.<br />" +
 			"<br />" +

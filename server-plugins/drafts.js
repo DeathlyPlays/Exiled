@@ -122,7 +122,7 @@ class Draft {
 	log(message) {
 		let file = path.join(__dirname, '../logs/' + this.room + 'DraftLogs.txt');
 		let text = '[' + Date() + ']' + message + '\n';
-		fs.appendFile(file, text);
+		fs.appendFile(file, text, () => {});
 	}
 	overWrite(self, team, pick, mon) {
 		let oldpick = this.teams[team].draftpicks[pick - 1];

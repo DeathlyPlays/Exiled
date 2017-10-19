@@ -127,6 +127,7 @@ exports.commands = {
 
 		room.mute(targetUser, muteDuration, false);
 	},
+
 	mm: 'monthmute',
 	monthmute: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("Usage: /mm [user], [reason].");
@@ -158,6 +159,7 @@ exports.commands = {
 
 		room.mute(targetUser, muteDuration, false);
 	},
+
 	ym: 'yearmute',
 	yearmute: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("Usage: /ym [user], [reason].");
@@ -188,6 +190,7 @@ exports.commands = {
 
 		room.mute(targetUser, muteDuration, false);
 	},
+
 	staffmute: "authoritymute",
 	authoritymute: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("Usage: /authoritymute [user], [reason].");

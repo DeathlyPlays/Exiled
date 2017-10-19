@@ -9,7 +9,7 @@ let typeList = ['Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting
 
 global.writeSSB = function () {
 	if (!ssbWrite) return false; //Prevent corruptions
-	fs.writeFile('config/ssb.json', JSON.stringify(Server.ssb));
+	fs.writeFile('config/ssb.json', JSON.stringify(Server.ssb), () => {});
 };
 
 //Shamlessly ripped from teambuilder client.

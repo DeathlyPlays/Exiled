@@ -57,7 +57,7 @@ function logPointsUser(user, gang, amount, reason) {
 
 function log(message) {
 	if (!message) return false;
-	fs.appendFile('logs/gangs.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+	fs.appendFile('logs/gangs.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 }
 
 function gangPM(message, Gang) {
@@ -71,7 +71,7 @@ function gangPM(message, Gang) {
 
 function gangLog(message, Gang) {
 	let gangid = toId(gangs);
-	fs.appendFile('logs/gangs/' + gangid + '.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+	fs.appendFile('logs/gangs/' + gangid + '.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 }
 
 function getBadges(user) {

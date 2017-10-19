@@ -8,7 +8,7 @@
 
 'use strict';
 
-const FS = require('fs');
+const fs = require('fs');
 const Autolinker = require('autolinker');
 const url = require('url');
 const http = require('http');
@@ -19,20 +19,20 @@ let database = new sqlite3.Database('config/leagues.db', function () {
 
 let leagues = {};
 try {
-	leagues = JSON.parse(FS.readFileSync('config/leagues.json', 'utf8'));
+	leagues = JSON.parse(fs.readFileSync('config/leagues.json', 'utf8'));
 } catch (e) {
 	if (e.code !== 'ENOENT') throw e;
 }
 
 function save() {
-	if (Object.keys(leagues).length < 1) return FS.writeFileSync('config/leagues.json', JSON.stringify(leagues));
+	if (Object.keys(leagues).length < 1) return fs.writeFileSync('config/leagues.json', JSON.stringify(leagues));
 	let data = "{\n";
 	for (let u in leagues) {
 		data += '\t"' + u + '": ' + JSON.stringify(leagues[u]) + ",\n";
 	}
 	data = data.substr(0, data.length - 2); // remove the last comma
 	data += "\n}";
-	FS.writeFileSync('config/leagues.json', data);
+	fs.writeFileSync('config/leagues.json', data);
 }
 
 function logPoints(userid, amount, reason) {
@@ -60,7 +60,7 @@ function logPointsUser(user, league, amount, reason) {
 
 function log(message) {
 	if (!message) return false;
-	FS.appendFile('logs/leagues.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+	fs.appendFile('logs/leagues.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 }
 
 function leaguePM(message, league) {
@@ -74,7 +74,7 @@ function leaguePM(message, league) {
 
 function leagueLog(message, league) {
 	let leagueid = toId(league);
-	FS.appendFile('logs/leagues/' + leagueid + '.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+	fs.appendFile('logs/leagues/' + leagueid + '.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 }
 
 function getBadges(user) {

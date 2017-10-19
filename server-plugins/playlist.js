@@ -18,12 +18,12 @@ try {
 	data = JSON.parse(fs.readFileSync('config/playlist.json', 'utf8'));
 } catch (e) {
 	console.log('Error reading playlist data, resorting to resetting all data entries....');
-	fs.writeFile('config/playlist.json', JSON.stringify(data));
+	fs.writeFile('config/playlist.json', JSON.stringify(data), () => {});
 	console.log('Playlist data erased.');
 }
 
 function save() {
-	fs.writeFile('config/playlist.json', JSON.stringify(data));
+	fs.writeFile('config/playlist.json', JSON.stringify(data), () => {});
 }
 
 function playlistGenerator(user) {

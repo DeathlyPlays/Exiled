@@ -376,7 +376,7 @@ exports.commands = {
 		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
 		room.addRaw(Server.nameColor(target, true, true) + ' was disintegrated by ' + Server.nameColor(user.name, true, true) + '!');
 		targetUser.popup("Get burned!");
-		if (user.can('hotpatch')) this.parse('/forcelogout' + targetUser);
+		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
 	},
 	/*
 	MEME RANDOMIZER

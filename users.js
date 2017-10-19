@@ -701,9 +701,6 @@ class User {
 		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 		Ontime[userid] = Date.now();
 
-		Db('rooms').get(userid, []).forEach(curRoom => {
-			if (!this.inRooms.has(curRoom)) this.tryJoinRoom(curRoom, connection);
-		});
 		Server.showNews(userid, this);
 		Server.giveDailyReward(userid, this);
 
@@ -1084,11 +1081,9 @@ class User {
 		let userid = toId(name);
 		if (this.named) Db('seen').set(this.userid, Date.now());
 		if (this.registered && this.userid !== userid) {
-			let rooms = [];
 			this.inRooms.forEach(function (room) {
 				if (['global', 'lobby', 'staff'].indexOf(room) === -1) rooms.push(room);
 			});
-			if (rooms.length) Db('rooms').set(this.userid, rooms);
 			if (Ontime[this.userid]) {
 				Db('ontime').set(this.userid, Db('ontime').get(this.userid, 0) + (Date.now() - Ontime[this.userid]));
 				delete Ontime[this.userid];

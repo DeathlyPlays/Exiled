@@ -194,7 +194,7 @@ exports.commands = {
 	},
 	useroftheweekhelp: 'uotwhelp',
 	uotwhelp: [
-		"/uotw - View the current User of the Week",
+		"/uotw - View the current User of the Week.",
 		"/uotw [user] - Set the User of the Week. Requires: % or higher.",
 	],
 
@@ -271,7 +271,7 @@ exports.commands = {
 	'!define': true,
 	def: 'define',
 	define: function (target, room, user) {
-		if (!target) return this.sendReply('Usage: /define <word>');
+		if (!target) return this.parse('/help define');
 		target = toId(target);
 		if (target > 50) return this.sendReply('/define <word> - word can not be longer than 50 characters.');
 		if (!this.runBroadcast()) return;

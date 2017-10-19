@@ -299,7 +299,7 @@ exports.commands = {
 	forcelogout: function (target, room, user) {
 		if (!user.can('hotpatch')) return;
 		if (!this.canTalk()) return false;
-		if (!target) return this.sendReply('/forcelogout [username], [reason] OR /flogout [username], [reason] - You do not have to add a reason');
+		if (!target) if (!target) return this.parse('/help forcelogout');
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) {
@@ -308,6 +308,8 @@ exports.commands = {
 		this.logModCommand('' + targetUser.name + ' was forcibly logged out by ' + user.name + '.' + (target ? " (" + target + ")" : ""));
 		targetUser.resetName();
 	},
+	forcelogouthelp: ["/forcelogout [user] - Forcefully logs out the target user."],
+
 	hide: 'hideauth',
 	hideauth: function (target, room, user) {
 		if (!this.can('lock')) return false;

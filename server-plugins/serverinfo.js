@@ -314,10 +314,10 @@ exports.commands = {
 			'<li><button class="button" name="send" value="/digidexhelp">Digidex</button></li><br />' +
 			'<li><button class="button" name="send" value="/atm">Economy</button></li><br />' +
 			'<li><button class="button" name="send" value="/emotes help">Emotes</button></li><br />' +
-			'<li><button class="button" name="send" value="/essbhelp">ESSB Data</button></li>' +
+			'<li><button class="button" name="send" value="/essbhelp">ESSB Data</button></li><br />' +
 			'<li><button class="button" name="send" value="/exphelp">EXP</button></li><br />' +
 			'<li><button class="button" name="send" value="/gangs help">Gangs</button></li><br />' +
-			'<li><button class="button" name="send" value="/hex">Hex Code</button></li><br />' +
+			'<li><button class="button" name="send" value="/hexhelp">Hex Code</button></li><br />' +
 			'<li><button class="button" name="send" value="/jobshelp">Jobs</button></li><br />' +
 			'<li><button class="button" name="send" value="/league help">League</button></li><br />' +
 			'<li><button class="button" name="send" value="/mangahelp">Manga</button></li><br />' +
@@ -330,7 +330,7 @@ exports.commands = {
 			'<li><button class="button" name="send" value="/roomlist">Room List</button></li><br />' +
 			'<li><button class="button" name="send" value="/seenhelp">Seen</button></li><br />' +
 			'<li><button class="button" name="send" value="/shop">Shop</button></li><br />' +
-			'<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li>>br />' +
+			'<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li><br />' +
 			'<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li><br />' +
 			'<li><button class="button" name="send" value="/tellhelp">Tells</button></li><br />' +
 			'<li><button class="button" name="send" value="/urbandefinehelp">Urban Define</button></li><br />' +

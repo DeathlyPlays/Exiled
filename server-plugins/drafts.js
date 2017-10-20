@@ -67,26 +67,26 @@ class Draft {
 		this.draftedMons.push(pk);
 		if (this.order.length === this.order.indexOf(this.turn) + 1) {
 			if (this.teams[this.turn].draftpicks.length === this.maxMons) {
-				this.room.add('|html|<div style="' + greencss + '"><strong>' + user + '</strong> has drafted the pokemon : <strong>' + pk + '</strong></div>');
-				this.room.add('|html|<div style="' + redcss + '">Everyone has recieved ' + this.maxMons + ' Draft Picks.<br> The Draft is over! We hope you are happy with your draft picks :)');
+				this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' has drafted the pokemon : <strong>' + pk + '</strong></div>');
+				this.room.add('|html|<div style="' + redcss + '">Everyone has received ' + this.maxMons + ' Draft Picks.<br> The Draft is over! We hope you are happy with your draft picks :)');
 				this.room.add('|html|<div style="' + greencss + '"><strong>Final Picks : </strong><br>' + this.show() + '</div>');
 				delete drafts[this.room];
 				this.log('Everyone has recieved ' + this.maxMons + ' Draft Picks, therefore the draft has ended.');
 			} else if (this.snake === true) {
 				let reverseOrder = this.order.reverse();
 				this.turn = reverseOrder[0];
-				this.room.add('|html|<div style="' + greencss + '"><strong>' + user + '</strong> Has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
+				this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' Has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
 				this.room.add('|html|<div style="' + greencss + '"><strong>' + this.turn + '</strong> currently has : ' + this.iconize(this.teams[this.turn].draftpicks) + '</div>');
 				this.log(user + ' has drafted ' + pk);
 			} else {
 				this.turn = this.order[0];
-				this.room.add('|html|<div style="' + greencss + '"><strong>' + user + '</strong> Has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
+				this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' Has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
 				this.room.add('|html|<div style="' + greencss + '"><strong>' + this.turn + '</strong> currently has : ' + this.iconize(this.teams[this.turn].draftpicks) + '</div>');
 				this.log(user + ' has drafted ' + pk);
 			}
 		} else {
 			this.turn = this.order[this.order.indexOf(this.turn) + 1];
-			this.room.add('|html|<div style="' + greencss + '"><strong>' + user + '</strong> Has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
+			this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' Has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
 			this.room.add('|html|<div style="' + greencss + '"><strong>' + this.turn + '</strong> currently has : ' + this.iconize(this.teams[this.turn].draftpicks) + '</div>');
 			this.log(user + ' has drafted ' + pk);
 		}
@@ -271,7 +271,8 @@ exports.commands = {
 					'<strong>/draft change, (teamname), (draftpick), (desired Pokemon)</strong> - Allows the league manager to rewrite draft data. This should be used when a participant makes a mistake. <i>This shouldn\'t</i> ever be the case seeing as draft script automatically rejects any spelling errors in a pokemon\'s name, but this command is here if it is ever needed. <br/> ' +
 					'<strong>/draft drafted</strong> - Displays the pool of pokemon already drafted. These pokemon are not able to be claimed by anyone else after they are drafted. <br/>' +
 					'<strong>/draft end</strong> - Ends a draft league instantly. Unless you really need to end it, you <i>shouldn\'t</i> use this command, as the draft automatically ends when every player has finished drafting.<br><br/>' +
-					'<strong>/draftmon (pokemonname)</strong> - Allows a draft member to draft a pokemon onto their team.');
+					'<strong>/draftmon (pokemonname)</strong> - Allows a draft member to draft a pokemon onto their team.'
+			);
 		}
 	},
 	draftmon: function (target, room, user) {

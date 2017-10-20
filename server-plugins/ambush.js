@@ -31,7 +31,7 @@ class Ambush extends Rooms.RoomGame {
 		}, seconds * 1000);
 	}
 	updateJoins() {
-		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div style="background-color: #000000; border: 12px double #860000 ; color: #DF0101"><center><h3><img style="transform: scaleX(-1);" src="https://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><strong>A game of Ambush has been started!</strong></u></font><img src="https://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
+		let msg = 'ambush' + this.room.ambushCount + this.round + '<div style="background-color: #000000; border: 12px double #860000 ; color: #DF0101"><center><h3><img style="transform: scaleX(-1);" src="https://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><strong>A game of Ambush has been started!</strong></u></font><img src="https://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><center>' +
 			'The game will begin in <strong>' + Math.round((this.timeLeft - Date.now()) / 1000) + '</strong> seconds' +
 			'<br><br><button style="border: 4px solid #000 ; background: White ; box-shadow: 0px 1px 1px rgba(255 , 255 , 255 , 0.3) inset ; color: #DF0101 ; margin: 1px 6px ; padding: 8px 40px" name = "send" value = "/ambush join"><font size="3">Join!</font></button><br><br>';
 		if (this.players.size > 0) {
@@ -167,7 +167,7 @@ let commands = {
 	'': 'new',
 	'start': 'new',
 	'begin': 'new',
-	'new': function (target, room, user) {
+	new: function (target, room, user) {
 		if (room.game) return this.errorReply("There is already a game in progress in this room.");
 		if (room.ambushDisabled) return this.errorReply("Ambush is currently disabled for this room.");
 		if (!this.canTalk()) return false;
@@ -185,45 +185,45 @@ let commands = {
 		if (!this.canTalk()) return false;
 		if (!room.game.joinGame(user)) return this.errorReply("Unable to join the game.");
 
-		room.ambush.join(user, this);
+		room.game.join(user, this);
 	},
 
 	leave: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.game || room.game.gameid !== 'ambush') return this.sendReply("There is no game of Ambush going on in this room.");
 
-		room.ambush.leave(user, this);
+		room.game.leave(user, this);
 	},
 	proceed: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.gamen|| room.game.gameid !== 'ambush') return this.sendReply("There is no game of Ambush going on in this room.");
 		if (!this.canTalk()) return false;
 		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to forcibly begin the first round of a game of ambush.");
 
-		if (room.ambush.round) return this.sendReply('This game of ambush has already begun!');
-		if (room.ambush.players.size < 3) return this.sendReply('There aren\'t enough players yet. Wait for more to join!');
+		if (room.game.round) return this.sendReply('This game of Ambush has already begun!');
+		if (room.game.players.size < 3) return this.sendReply('There aren\'t enough players yet. Wait for more to join!');
 		room.add('(' + user.name + ' forcibly started round 1)');
-		room.ambush.nextRound();
+		room.game.nextRound();
 	},
 	disqualify: 'dq',
 	dq: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.game || room.game.gameid !== 'ambush') return this.sendReply("There is no game of Ambush going on in this room.");
 		if (!this.canTalk()) return false;
 		if (!user.can('mute', null, room)) return this.sendReply("You must be ranked % or higher in this room to disqualify a user from a game of ambush.");
 
-		room.ambush.dq(target, this);
+		room.game.dq(target, this);
 	},
 	shoot: 'fire',
 	fire: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.game || room.game.gameid !== 'ambush') return this.sendReply("There is no game of Ambush going on in this room.");
 		if (!this.canTalk()) return false;
 
-		room.ambush.fire(user, target, this);
+		room.game.fire(user, target, this);
 	},
 	cancel: 'end',
 	end: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.game || room.game.gameid !== 'ambush') return this.sendReply("There is no game of ambush going on in this room.");
 		if (!user.can('mute', null, room)) return this.sendReply("You must be ranked % or higher in this room to end a game of ambush.");
 
-		room.ambush.end(user);
+		room.game.end(user);
 	},
 	off: 'disable',
 	disable: function (target, room, user) {

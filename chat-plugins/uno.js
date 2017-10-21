@@ -205,7 +205,7 @@ class UNOgame extends Rooms.RoomGame {
 
 	leaveGame(user) {
 		if (this.state === 'signups' && this.removePlayer(user)) {
-			this.sendToRoom(`${user.name} has left the game of UNO.`);
+			this.sendToRoom(`|html|${Server.nameColor(user.name, true, true)} has left the game of UNO.`);
 			return true;
 		}
 		return false;

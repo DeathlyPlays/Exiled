@@ -255,13 +255,14 @@ exports.commands = {
 		amount = amount + currencyName(amount);
 		total = total + currencyName(total);
 		this.sendReply(username + " was given " + amount + ". " + username + " now has " + total + ".");
-		if (Users.get(username)) Users(username).popup(user.name + " has given you " + amount + ". You now have " + total + ".");
+		if (Users.get(username)) Users(username).popup("|raw|" + Server.nameColor(user.name) + " has given you " + amount + ". You now have " + total + ".");
 		Economy.logTransaction(username + " was given " + amount + " by " + user.name + ". " + username + " now has " + total);
 	},
 	givemoneyhelp: ["/givemoney [user], [amount] - Give a user a certain amount of money."],
 
 	takeeonticket: 'takemoney',
 	takeeontickets: 'takemoney',
+	takebucks: 'takemoney',
 	takemoney: function (target, room, user) {
 		if (!this.can('hotpatch')) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help takemoney');
@@ -284,6 +285,7 @@ exports.commands = {
 	transfer: 'transfermoney',
 	transfereonticket: 'transfermoney',
 	transfereontickets: 'transfermoney',
+	transferbucks: 'transfermoney',
 	transfermoney: function (target, room, user) {
 		if (!target || target.indexOf(',') < 0) return this.parse('/help transfermoney');
 
@@ -306,7 +308,7 @@ exports.commands = {
 		amount = amount + currencyName(amount);
 
 		this.sendReply("You have successfully transferred " + amount + ". You now have " + userTotal + ".");
-		if (Users.get(username)) Users(username).popup(user.name + " has transferred " + amount + ". You now have " + targetTotal + ".");
+		if (Users.get(username)) Users(username).popup('|raw|' + Server.nameColor(user.name) + " has transferred " + amount + ". You now have " + targetTotal + ".");
 		Economy.logTransaction(user.name + " transferred " + amount + " to " + username + ". " + user.name + " now has " + userTotal + " and " + username + " now has " + targetTotal + ".");
 	},
 	transfermoneyhelp: ["/transfer [user], [amount] - Transfer a certain amount of money to a user."],
@@ -387,7 +389,7 @@ exports.commands = {
 		let bannedSymbols = ['!', '|', '‽', '\u2030', '\u534D', '\u5350', '\u223C'];
 		for (let u in Config.groups) if (Config.groups[u].symbol) bannedSymbols.push(Config.groups[u].symbol);
 		if (!user.canCustomSymbol && !user.can('vip')) return this.sendReply('You need to buy this item from the shop to use.');
-		if (!target || target.length > 1) return this.sendReply('/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character');
+		if (!target || target.length > 1) return this.parse('/customsymbolhelp');
 		if (target.match(/([a-zA-Z ^0-9])/g) || bannedSymbols.indexOf(target) >= 0) {
 			return this.sendReply('This symbol is banned.');
 		}
@@ -396,6 +398,7 @@ exports.commands = {
 		user.canCustomSymbol = false;
 		this.sendReply('Your symbol is now ' + target + '. It will be saved until you log off for more than an hour, or the server restarts. You can remove it with /resetsymbol');
 	},
+	customsymbolhelp: ["/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character"],
 
 	removesymbol: 'resetsymbol',
 	resetsymbol: function (target, room, user) {

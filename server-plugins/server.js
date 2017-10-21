@@ -226,7 +226,7 @@ exports.commands = {
 		case 'automod':
 			target = '@';
 			break;
-		case 'autpleader':
+		case 'autoleader':
 			target = '&';
 			break;
 		case 'autoowner':

@@ -34,7 +34,7 @@ class Dice extends Rooms.RoomGame {
 		this.players = [];
 		this.timer = setTimeout(() => {
 			this.room.add('|uhtmlchange|' + this.room.diceCount + '|<div class = "infobox">(This game of dice has been ended due to inactivity.)</div>').update();
-			delete this.room.dice;
+			delete this.room.game;
 		}, INACTIVE_END_TIME);
 
 		let buck = (this.bet === 1 ? 'buck' : 'bucks');
@@ -91,13 +91,12 @@ class Dice extends Rooms.RoomGame {
 				let winner = this.players[0],
 					loser = this.players[1];
 
-
 				let taxedAmt = Math.round(this.bet * TAX);
 				setTimeout(() => {
 					let buck = (this.bet === 1 ? 'buck' : 'bucks');
 					this.room.add('|uhtmlchange|' + this.room.diceCount + '|<div class="infobox"><center>' + players + ' have joined the game!<br /><br />' +
 						'The game has been started! Rolling the dice...<br />' +
-						'<img src = "' + diceImg(roll1) + '" align = "left" title = "' + Chat.escapeHTML(p1.name) + '\'s roll"><img src = "' + diceImg(roll2) + '" align = "right" title = "' + p2.name + '\'s roll"><br />' +
+						'<img src = "' + diceImg(roll1) + '" align = "left" title = "' + Server.nameColor(p1.name) + '\'s roll"><img src = "' + diceImg(roll2) + '" align = "right" title = "' + Server.nameColor(p2.name) + '\'s roll"><br />' +
 						Server.nameColor(p1.name, true) + ' rolled ' + (roll1 + 1) + '!<br />' +
 						Server.nameColor(p2.name, true) + ' rolled ' + (roll2 + 1) + '!<br />' +
 						Server.nameColor(winner.name, true) + ' has won <b style="color:green">' + (this.bet - taxedAmt) + '</b> ' + buck + '!<br />' +
@@ -108,7 +107,7 @@ class Dice extends Rooms.RoomGame {
 							Economy.readMoney(winner.userid, winnerMoney => {
 								Economy.readMoney(loser.userid, loserMoney => {
 									Economy.logDice(winner.userid + " has won a dice against " + loser.userid + ". They now have " + winnerMoney + (winnerMoney === 1 ? " buck." : " bucks."));
-									Economy.logDice(loser.userid + " has lost a dice against " + winner.userid + ". T hey now have " + loserMoney + (loserMoney === 1 ? " buck." : " bucks."));
+									Economy.logDice(loser.userid + " has lost a dice against " + winner.userid + ". They now have " + loserMoney + (loserMoney === 1 ? " buck." : " bucks."));
 									this.end();
 								});
 							});
@@ -120,9 +119,9 @@ class Dice extends Rooms.RoomGame {
 	}
 
 	end(user) {
-		if (user) this.room.add('|uhtmlchange|' + this.room.diceCount + '|<div class = "infobox">(This game of dice has been forcibly ended by ' + Chat.escapeHTML(user.name) + '.)</div>').update();
+		if (user) this.room.add('|uhtmlchange|' + this.room.diceCount + '|<div class = "infobox">(This game of dice has been forcibly ended by ' + Server.nameColor(user.name) + '.)</div>').update();
 		clearTimeout(this.timer);
-		delete this.room.dice;
+		delete this.room.game;
 	}
 }
 
@@ -132,14 +131,14 @@ exports.commands = {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
 		if (!user.can('broadcast', null, room) && room.id !== 'casino') return this.errorReply("You must be ranked + or higher in this room to start a game of dice outside the Casino.");
 		if (!this.canTalk()) return;
-		if (room.dice) return this.errorReply("There is already a game of dice going on in this room.");
+		if (room.game) return this.errorReply("There is already a game of dice going on in this room.");
 
 		let amount = Number(target) || 1;
 		if (isNaN(target)) return this.errorReply('"' + target + '" isn\'t a valid number.');
-		if (target.includes('.') || amount < 1 || amount > 5000) return this.sendReply('The number of bucks must be between 1 and 5,000 and cannot contain a decimal.');
-		Economy.readMoney(user.userid, bucks => {
-			if (bucks < amount) return this.sendReply("You don't have " + amount + " " + (amount === 1 ? "buck" : "bucks") + ".");
-			room.dice = new Dice(room, amount, user.name);
+		if (target.includes('.') || amount < 1 || amount > 5000) return this.sendReply('The number of ' + moneyPlural + ' must be between 1 and 5,000 and cannot contain a decimal.');
+		Economy.readMoney(user.userid, money => {
+			if (money < amount) return this.sendReply("You don't have " + amount + " " + ((money === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
+			room.game = new Dice(room, amount, user.name);
 			this.parse("/joindice");
 		});
 	},
@@ -148,27 +147,27 @@ exports.commands = {
 	joindice: function (target, room, user) {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
 		if (!this.canTalk()) return;
-		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
+		if (!room.game) return this.errorReply('There is no game of dice going on in this room.');
 
-		room.dice.join(user, this);
+		room.game.join(user, this);
 	},
 
 	diceleave: 'leavedice',
 	leavedice: function (target, room, user) {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
-		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
+		if (!room.game) return this.errorReply('There is no game of dice going on in this room.');
 
-		room.dice.leave(user, this);
+		room.game.leave(user, this);
 	},
 
 	diceend: 'enddice',
 	enddice: function (target, room, user) {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
 		if (!this.canTalk()) return;
-		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
-		if (!user.can('broadcast', null, room) && !room.dice.players.includes(user)) return this.errorReply("You must be ranked + or higher in this room to end a game of dice.");
+		if (!room.game) return this.errorReply('There is no game of dice going on in this room.');
+		if (!user.can('broadcast', null, room) && !room.game.players.includes(user)) return this.errorReply("You must be ranked + or higher in this room to end a game of dice.");
 
-		room.dice.end(user);
+		room.game.end(user);
 	},
 	dicegamehelp: [
 		'/startdice or /dicegame [amount] - Starts a game of dice in the room for a given number of bucks, 1 by default (NOTE: There is a 10% tax on bucks you win from dice games).',

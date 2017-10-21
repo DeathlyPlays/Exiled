@@ -115,13 +115,7 @@ exports.BattleItems = {
 			basePower: 80,
 			type: "Dragon",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -237,13 +231,7 @@ exports.BattleItems = {
 			basePower: 100,
 			type: "Ground",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -434,13 +422,7 @@ exports.BattleItems = {
 		fling: {
 			basePower: 30,
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 2) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 2) {
 				if (this.runEvent('TryHeal', pokemon) && pokemon.useItem()) {
 					this.heal(20);
@@ -1718,13 +1700,7 @@ exports.BattleItems = {
 			basePower: 80,
 			type: "Bug",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -1991,13 +1967,7 @@ exports.BattleItems = {
 			basePower: 100,
 			type: "Ice",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -2423,13 +2393,7 @@ exports.BattleItems = {
 			basePower: 80,
 			type: "Dark",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -2766,13 +2730,7 @@ exports.BattleItems = {
 			basePower: 100,
 			type: "Flying",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -2914,13 +2872,7 @@ exports.BattleItems = {
 			basePower: 100,
 			type: "Grass",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -3151,13 +3103,7 @@ exports.BattleItems = {
 			basePower: 80,
 			type: "Ghost",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -3491,13 +3437,7 @@ exports.BattleItems = {
 			basePower: 100,
 			type: "Rock",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onResidual: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -3766,13 +3706,7 @@ exports.BattleItems = {
 			basePower: 80,
 			type: "Poison",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 2) {
 				pokemon.eatItem();
 			}
@@ -3908,13 +3842,7 @@ exports.BattleItems = {
 			basePower: 100,
 			type: "Poison",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -4787,13 +4715,7 @@ exports.BattleItems = {
 			basePower: 100,
 			type: "Fighting",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -5060,13 +4982,7 @@ exports.BattleItems = {
 			basePower: 80,
 			type: "Psychic",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 2) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 2) {
 				pokemon.eatItem();
 			}
@@ -5307,13 +5223,7 @@ exports.BattleItems = {
 			basePower: 100,
 			type: "Psychic",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}
@@ -5845,13 +5755,7 @@ exports.BattleItems = {
 			basePower: 80,
 			type: "Rock",
 		},
-		onStart: function (pokemon) {
-			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
-				pokemon.eatItem();
-			}
-		},
-		onAfterDamage: function (damage, pokemon, source, effect) {
-			if (effect.id === 'confused') return;
+		onUpdate: function (pokemon) {
 			if (pokemon.hp <= pokemon.maxhp / 4 || (pokemon.hp <= pokemon.maxhp / 2 && pokemon.hasAbility('gluttony'))) {
 				pokemon.eatItem();
 			}

@@ -32,7 +32,16 @@ describe('Sitrus Berry', function () {
 		assert.strictEqual(holder.hp, hpgain + hpgain + 1);
 	});
 
-	it('should not heal 25% hp if a confusion self-hit triggers the healing', function () {
+	it('should not heal if Knocked Off', function () {
+		battle = common.createBattle([
+			[{species: 'Deoxys-Attack', ability: 'sturdy', item: 'sitrusberry', moves: ['sleeptalk']}],
+			[{species: 'Krookodile', ability: 'intimidate', moves: ['knockoff']}],
+		]);
+		battle.commitDecisions();
+		assert.strictEqual(battle.p1.active[0].hp, 1);
+	});
+
+	it.skip('should not heal 25% hp if a confusion self-hit triggers the healing', function () {
 		battle = common.createBattle([
 			[{species: 'Deoxys-Attack', ability: 'pressure', item: 'sitrusberry', moves: ['sleeptalk']}],
 			[{species: 'Sableye', ability: 'prankster', moves: ['confuseray']}],

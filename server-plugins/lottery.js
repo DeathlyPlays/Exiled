@@ -101,7 +101,7 @@ exports.commands = {
 		j: "join",
 		join: function (user, room) {
 			if (!this.canTalk()) return;
-			if (room.lottery && this.state !== "signups") return this.sendReply("There is no joinable Lottery drawing going on right now.");
+			if (!room.lottery || this.state !== "signups") return this.sendReply("There is no joinable Lottery drawing going on right now.");
 			if (!room.lottery.joinLottery(user)) return this.sendReply("Unable to join this drawing.");
 			room.lottery.joinLottery(user, this);
 		},

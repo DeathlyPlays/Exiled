@@ -555,9 +555,7 @@ class Battle {
 			if (winner && !winner.registered) {
 				this.room.sendUser(winner, '|askreg|' + winner.userid);
 			}
-<<<<<<< HEAD
-			// update rankings
-			Ladders(this.format).updateRating(p1name, p2name, p1score, this.room);
+			const result = await Ladders(this.format).updateRating(p1name, p2name, p1score, this.room);
 			//
 			// Buck Winnings
 			//
@@ -570,10 +568,7 @@ class Battle {
 				Db('money').set(wid, Db('money').get(wid, 0) + 1);
 				this.push("|raw|" + Server.nameColor(winner, true, true) + " has won " + Server.font("1", "black", true) + moneyName + " for winning an Random Format Rated Battle!");
 			}
-=======
-			const result = await Ladders(this.format).updateRating(p1name, p2name, p1score, this.room);
 			this.logBattle(...result);
->>>>>>> 6a6bc18d44c1005a7bfff3fa067cc2cf90794307
 		} else if (Config.logchallenges) {
 			if (winnerid === this.room.p1.userid) {
 				p1score = 1;

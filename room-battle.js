@@ -177,7 +177,6 @@ class BattleTimer {
 			this.turnTicksLeft.push(-1);
 			this.dcTicksLeft.push(NOT_DISCONNECTED);
 		}
-		if (Config.forcetimer) this.timer.start();
 	}
 	start(requester) {
 		let userid = requester ? requester.userid : 'staff';
@@ -329,7 +328,7 @@ class Battle {
 		this.room = room;
 		this.title = format.name;
 		if (!this.title.endsWith(" Battle")) this.title += " Battle";
-		this.allowRenames = !options.rated;
+		this.allowRenames = (!options.rated && !options.tour);
 
 		this.format = formatid;
 		this.rated = options.rated;
@@ -343,6 +342,11 @@ class Battle {
 		this.p1 = null;
 		this.p2 = null;
 
+		/**
+		 * p1 and p2 may be null in unrated games, but playerNames retains
+		 * the most recent usernames in those slots, for use by various
+		 * functions that need names for the slots.
+		 */
 		this.playerNames = ["Player 1", "Player 2"];
 		/** {playerid: [rqid, request, isWait, choice]} */
 		this.requests = {
@@ -371,6 +375,7 @@ class Battle {
 
 		this.send('init', this.format, ratedMessage);
 		this.process.pendingTasks.set(room.id, this);
+		if (Config.forcetimer) this.timer.start();
 	}
 
 	send(...args) {
@@ -526,7 +531,7 @@ class Battle {
 		}
 		Monitor.activeIp = null;
 	}
-	onEnd(winner) {
+	async onEnd(winner) {
 		// Declare variables here in case we need them for non-rated battles logging.
 		let p1score = 0.5;
 		const winnerid = toId(winner);
@@ -550,6 +555,7 @@ class Battle {
 			if (winner && !winner.registered) {
 				this.room.sendUser(winner, '|askreg|' + winner.userid);
 			}
+<<<<<<< HEAD
 			// update rankings
 			Ladders(this.format).updateRating(p1name, p2name, p1score, this.room);
 			//
@@ -564,8 +570,11 @@ class Battle {
 				Db('money').set(wid, Db('money').get(wid, 0) + 1);
 				this.push("|raw|" + Server.nameColor(winner, true, true) + " has won " + Server.font("1", "black", true) + moneyName + " for winning an Random Format Rated Battle!");
 			}
+=======
+			const result = await Ladders(this.format).updateRating(p1name, p2name, p1score, this.room);
+			this.logBattle(...result);
+>>>>>>> 6a6bc18d44c1005a7bfff3fa067cc2cf90794307
 		} else if (Config.logchallenges) {
-			// Log challenges if the challenge logging config is enabled.
 			if (winnerid === this.room.p1.userid) {
 				p1score = 1;
 			} else if (winnerid === this.room.p2.userid) {
@@ -588,6 +597,7 @@ class Battle {
 		this.room.update();
 	}
 	async logBattle(p1score, p1rating, p2rating) {
+		if (Dex.getFormat(this.format).noLog) return;
 		let logData = this.logData;
 		if (!logData) return;
 		this.logData = null; // deallocate to save space
@@ -741,7 +751,6 @@ class Battle {
 		let player = this.makePlayer(user, team);
 		if (!player) return false;
 		this.players[user.userid] = player;
-		this.playerNames[this.playerCount] = player.name;
 		this.playerCount++;
 		this.room.auth[user.userid] = '\u2606';
 		if (this.playerCount >= 2) {
@@ -759,12 +768,14 @@ class Battle {
 
 		let player = new BattlePlayer(user, this, slot);
 		this[slot] = player;
+		this.playerNames[slotNum] = player.name;
 
 		let message = '' + user.avatar;
 		if (!this.started) {
 			message += "\n" + team;
 		}
 		player.simSend('join', user.name, message);
+		if (this.started) this.onUpdateConnection(user);
 		if (this.p1 && this.p2) this.started = true;
 		return player;
 	}

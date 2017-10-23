@@ -23,18 +23,14 @@ function diceImg(num) {
 	}
 }
 
-class Dice extends Rooms.RoomGame {
+class Dice {
 	constructor(room, amount, starter) {
-		super(room);
-
-		this.gameid = "dice";
-		this.title = "Dice Game";
 		if (!this.room.diceCount) this.room.diceCount = 0;
 		this.bet = amount;
 		this.players = [];
 		this.timer = setTimeout(() => {
 			this.room.add('|uhtmlchange|' + this.room.diceCount + '|<div class = "infobox">(This game of dice has been ended due to inactivity.)</div>').update();
-			delete this.room.game;
+			delete this.room.dice;
 		}, INACTIVE_END_TIME);
 
 		let buck = (this.bet === 1 ? 'buck' : 'bucks');
@@ -121,7 +117,7 @@ class Dice extends Rooms.RoomGame {
 	end(user) {
 		if (user) this.room.add('|uhtmlchange|' + this.room.diceCount + '|<div class = "infobox">(This game of dice has been forcibly ended by ' + Server.nameColor(user.name) + '.)</div>').update();
 		clearTimeout(this.timer);
-		delete this.room.game;
+		delete this.room.dice;
 	}
 }
 
@@ -131,14 +127,14 @@ exports.commands = {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
 		if (!user.can('broadcast', null, room) && room.id !== 'casino') return this.errorReply("You must be ranked + or higher in this room to start a game of dice outside the Casino.");
 		if (!this.canTalk()) return;
-		if (room.game) return this.errorReply("There is already a game of dice going on in this room.");
+		if (room.dice) return this.errorReply("There is already a game of dice going on in this room.");
 
 		let amount = Number(target) || 1;
 		if (isNaN(target)) return this.errorReply('"' + target + '" isn\'t a valid number.');
 		if (target.includes('.') || amount < 1 || amount > 5000) return this.sendReply('The number of ' + moneyPlural + ' must be between 1 and 5,000 and cannot contain a decimal.');
 		Economy.readMoney(user.userid, money => {
 			if (money < amount) return this.sendReply("You don't have " + amount + " " + ((money === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
-			room.game = new Dice(room, amount, user.name);
+			room.dice = new Dice(room, amount, user.name);
 			this.parse("/joindice");
 		});
 	},
@@ -147,27 +143,27 @@ exports.commands = {
 	joindice: function (target, room, user) {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
 		if (!this.canTalk()) return;
-		if (!room.game) return this.errorReply('There is no game of dice going on in this room.');
+		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
 
-		room.game.join(user, this);
+		room.dice.join(user, this);
 	},
 
 	diceleave: 'leavedice',
 	leavedice: function (target, room, user) {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
-		if (!room.game) return this.errorReply('There is no game of dice going on in this room.');
+		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
 
-		room.game.leave(user, this);
+		room.dice.leave(user, this);
 	},
 
 	diceend: 'enddice',
 	enddice: function (target, room, user) {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in the Lobby.");
 		if (!this.canTalk()) return;
-		if (!room.game) return this.errorReply('There is no game of dice going on in this room.');
-		if (!user.can('broadcast', null, room) && !room.game.players.includes(user)) return this.errorReply("You must be ranked + or higher in this room to end a game of dice.");
+		if (!room.dice) return this.errorReply('There is no game of dice going on in this room.');
+		if (!user.can('broadcast', null, room) && !room.dice.players.includes(user)) return this.errorReply("You must be ranked + or higher in this room to end a game of dice.");
 
-		room.game.end(user);
+		room.dice.end(user);
 	},
 	dicegamehelp: [
 		'/startdice or /dicegame [amount] - Starts a game of dice in the room for a given number of bucks, 1 by default (NOTE: There is a 10% tax on bucks you win from dice games).',

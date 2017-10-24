@@ -4,7 +4,7 @@ let fs = require('fs');
 let ssbWrite = true; //if false, do not write to json
 let noRead = false; //if true, do not read from json
 const MAX_MOVEPOOL_SIZE = 4;
-let customMovepool = ['Stretch', 'Flame Tower', 'Rain Spear', 'Healing Herbs', 'Electro Drive', 'Hailstorm', 'Beat Down', 'Nuclear Waste', 'Terratremor', 'Ventilation', 'Psychic Shield', 'Swarm Charge', 'Rock Cannon', 'Spook', 'Imperial Rampage', 'Shadow Run', 'Magnorang', 'Majestic Dust']; //Add defual custom move names here.
+let customMovepool = ['Stretch', 'Flame Tower', 'Rain Spear', 'Healing Herbs', 'Electro Drive', 'Hailstorm', 'Beat Down', 'Nuclear Waste', 'Terratremor', 'Ventilation', 'Psychic Shield', 'Swarm Charge', 'Rock Cannon', 'Spook', 'Imperial Rampage', 'Shadow Run', 'Magnorang', 'Majestic Dust']; //Add default custom move names here.
 let typeList = ['Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'];
 
 global.writeSSB = function () {
@@ -234,7 +234,7 @@ class SSB {
 		this.species = 'Unown';
 		this.item = false; //false = no item
 		this.cItem = false; //set this to the user's cItem when its purchased and implemented.
-		this.bought = {}; //Did you buy something, but not recieve it yet? prevents duplicate purchases.
+		this.bought = {}; //Did you buy something, but not receive it yet? prevents duplicate purchases.
 		this.ability = 'Levitate'; //Default to the first ability of the selected species
 		this.cAbility = false; //set this to the user's cAbility when its purchased and implemented.
 		this.movepool = []; //Pool of normal moves, draw 3 from here (4 if no c move).

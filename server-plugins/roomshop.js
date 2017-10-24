@@ -15,7 +15,7 @@ exports.commands = {
 	roomshop: 'leagueshop',
 	leagueshop: {
 		enable: function (target, room, user) {
-			if (!this.can('eval')) return false;
+			if (!this.can('hotpatch')) return false;
 			if (Db('roomshop').has(room.id)) return this.errorReply('Roomshop is already enabled here.');
 
 			Db('roomshop')
@@ -24,7 +24,7 @@ exports.commands = {
 			this.sendReply('Roomshop has been enabled here.');
 		},
 		disable: function (target, room, user) {
-			if (!this.can('eval')) return false;
+			if (!this.can('hotpatch')) return false;
 			if (!Db('roomshop').has(room.id)) return this.errorReply('Roomshop is not enabled here.');
 
 			Db('roomshop').delete(room.id);

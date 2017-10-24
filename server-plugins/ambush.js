@@ -169,7 +169,11 @@ let commands = {
 	'begin': 'new',
 	'new': function (target, room, user) {
 		if (room.ambush) return this.sendReply("There is already a game of ambush going on in this room.");
+<<<<<<< HEAD
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+=======
+		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to start a game of ambush.");
 
 		if (!target || !target.trim()) target = '60';
@@ -180,7 +184,11 @@ let commands = {
 	},
 	join: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+<<<<<<< HEAD
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+=======
+		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 
 		room.ambush.join(user, this);
 	},
@@ -191,7 +199,11 @@ let commands = {
 	},
 	proceed: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+<<<<<<< HEAD
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+=======
+		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to forcibly begin the first round of a game of ambush.");
 
 		if (room.ambush.round) return this.sendReply('This game of ambush has already begun!');
@@ -202,7 +214,11 @@ let commands = {
 	disqualify: 'dq',
 	dq: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+<<<<<<< HEAD
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+=======
+		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 		if (!user.can('mute', null, room)) return this.sendReply("You must be ranked % or higher in this room to disqualify a user from a game of ambush.");
 
 		room.ambush.dq(target, this);
@@ -210,7 +226,11 @@ let commands = {
 	shoot: 'fire',
 	fire: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+<<<<<<< HEAD
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+=======
+		if (room.isMuted(user) || user.locked) return this.errorReply("You cannot use this while unable to speak.");
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 
 		room.ambush.fire(user, target, this);
 	},

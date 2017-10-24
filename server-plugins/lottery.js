@@ -6,12 +6,18 @@
 
 "use strict";
 
+<<<<<<< HEAD
+=======
+const timeUntilEnd = 1000 * 60 * 60 * 24;
+
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 class Lottery {
 	constructor(room) {
 		this.room = room;
 		this.costToJoin = 3;
 		this.state = "signups";
 		this.players = new Map();
+<<<<<<< HEAD
 		this.room.add(`<div style="broadcast-blue"><p style="text-align: center; font-size: 14pt>A Lottery Drawing has started looking for players!<hr /><br />For the price of 3 ${moneyPlural}, you can earn 5 ${moneyPlural} plus one ${moneyName} per user who joins.</p><br /><button name="send" value="/lottery join">Click here to join the Lottery</button></div>`);
 		this.timer = setTimeout(() => {
 			if (this.players.size < 2) {
@@ -20,6 +26,16 @@ class Lottery {
 			}
 			this.drawWinner();
 		}, 1000 * 60 * 60 * 24);
+=======
+		this.timer = setTimeout(() => {
+			if (this.players.size < 2) {
+				room.add('|html|<div style="broadcast-red"><p style="text-align: center; font-size: 14pt>This Lottery drawing has ended due to lack of users.</p</div>');
+				return this.end();
+			}
+			this.drawWinner();
+		}, timeUntilEnd);
+		this.display = `<div style="broadcast-blue"><p style="text-align: center; font-size: 14pt>A Lottery Drawing has started looking for players!<hr /><br />For the price of 3 ${moneyPlural}, you can earn 5 ${moneyPlural} plus one ${moneyName} per user who joins.</p><br /><button name="send" value="/lottery join">Click here to join the Lottery</button></div>`;
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 	}
 
 	onConnect(user, connection, room) {
@@ -43,17 +59,23 @@ class Lottery {
 	}
 
 	joinLottery(user, self) {
+<<<<<<< HEAD
 		if (!user.named) return self.errorReply("You must choose a name before joining a Lottery drawing.");
 		if (this.players.has(user)) return self.sendReply('You have already joined this Lottery drawing.');
 		if (this.state !== "signups") return self.sendReply('You cannot join a Lottery drawing after it has started.');
 		this.players.set(user);
 		this.updateJoins();
 		Economy.readMoney(user.userid, money => {
+=======
+		Economy.readMoney(user.userid, money => {
+			if (this.players.has(user)) return self.sendReply('You have already joined this Lottery drawing.');
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 			if (money < this.costToJoin) return self.sendReply(`You do not have enough ${moneyName} to join the Lottery drawing.`);
 		});
 		Economy.writeMoney(user.userid, this.costToJoin * -1, () => {
 			Economy.logTransaction(`${user.name} has spent ${this.costToJoin} ${moneyPlural}, and entered the Lottery drawing.`);
 		});
+<<<<<<< HEAD
 	}
 
 	leaveLottery(user, self) {
@@ -64,10 +86,27 @@ class Lottery {
 			this.updateJoins();
 		} else {
 			this.room.add('|html|' + Server.nameColor(user.name, true) + ' has left the game!');
+=======
+		this.players.set(user);
+		this.updateJoins();
+		console.log(user);
+	}
+
+	leaveLottery(user, room) {
+		if (!this.players.has(user)) return user.sendTo(this.room, "You have not joined the Lottery.");
+		if (this.state === "signups") {
+			this.updateJoins();
+		} else {
+			this.room.add(`|html|${Server.nameColor(user.name, true)} has left the Lottery.`);
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 		}
 		Economy.writeMoney(user.userid, this.costToJoin, () => {
 			Economy.logTransaction(`${user.name} has been refunded their ${this.costToJoin} ${moneyPlural} Lottery join fee, and left the drawing.`);
 		});
+<<<<<<< HEAD
+=======
+		this.players.delete(user);
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 	}
 
 	updateJoins(user, room) {
@@ -77,11 +116,16 @@ class Lottery {
 		this.room.add(`|uhtmlchange|${this.display}</center></div>`);
 	}
 
+<<<<<<< HEAD
 	end(user) {
 		if (user) {
 			let msg = '<div class = "infobox"><center>This Lottery drawing has been forcibly ended by ' + Server.nameColor(user.name, true) + '.</center></div>';
 		}
 		clearTimeout(this.timer);
+=======
+	end(room) {
+		room.add(`|uhtmlchange|<div class="infobox">The Lottery drawing has ended.</div>`);
+>>>>>>> 8c616a99b98e7a6762bf0e1c2e55a9cd69f38d56
 		delete this.room.lottery;
 	}
 }

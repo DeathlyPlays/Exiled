@@ -37,15 +37,15 @@ class Ambush {
 		this.room.add('|uhtmlchange|' + msg + '</center></div>');
 	}
 	join(user, self) {
-		if (!user.named) return self.errorReply("You must choose a name before joining a game of ambush.");
-		if (this.players.has(user)) return self.sendReply('You have already joined this game of ambush.');
-		if (this.round > 0) return self.sendReply('You cannot join a game of ambush after it has started.');
+		if (!user.named) return self.errorReply("You must choose a name before joining a game of Ambush.");
+		if (this.players.has(user)) return self.sendReply('You have already joined this game of Ambush.');
+		if (this.round > 0) return self.sendReply('You cannot join a game of Ambush after it has started.');
 
 		this.players.set(user, {status:'alive', rounds:0});
 		this.updateJoins();
 	}
 	leave(user, self) {
-		if (!this.players.has(user)) return self.sendReply('You haven\'t joined this game of ambush yet.');
+		if (!this.players.has(user)) return self.sendReply('You haven\'t joined this game of Ambush yet.');
 
 		this.players.delete(user);
 		if (!this.round) {
@@ -139,7 +139,7 @@ class Ambush {
 	}
 	getWinner() {
 		let winner = this.getSurvivors()[0][0].name;
-		let msg = '|html|<div class = "infobox"><center>The winner of this game of ambush is ' + Server.nameColor(winner, true) + '! Congratulations!</center>';
+		let msg = '|html|<div class = "infobox"><center>The winner of this game of Ambush is ' + Server.nameColor(winner, true) + '! Congratulations!</center>';
 		if (this.room.isOfficial) {
 			msg += '<center>' + Server.nameColor(winner, true) + ' has also won <strong>5</strong> EXP for winning!</center>';
 			Server.addExp(winner, 5, () => this.room.add(msg).update());
@@ -168,9 +168,9 @@ let commands = {
 	'start': 'new',
 	'begin': 'new',
 	'new': function (target, room, user) {
-		if (room.ambush) return this.sendReply("There is already a game of ambush going on in this room.");
+		if (room.ambush) return this.sendReply("There is already a game of Ambush going on in this room.");
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
-		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to start a game of ambush.");
+		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to start a game of Ambush.");
 
 		if (!target || !target.trim()) target = '60';
 		if (isNaN(target)) return this.sendReply('\'' + target + '\' is not a valid number.');
@@ -179,45 +179,45 @@ let commands = {
 		room.ambush = new Ambush(room, Number(target));
 	},
 	join: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
 
 		room.ambush.join(user, this);
 	},
 	leave: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
 
 		room.ambush.leave(user, this);
 	},
 	proceed: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
-		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to forcibly begin the first round of a game of ambush.");
+		if (!user.can('broadcast', null, room)) return this.sendReply("You must be ranked + or higher in this room to forcibly begin the first round of a game of Ambush.");
 
-		if (room.ambush.round) return this.sendReply('This game of ambush has already begun!');
+		if (room.ambush.round) return this.sendReply('This game of Ambush has already begun!');
 		if (room.ambush.players.size < 3) return this.sendReply('There aren\'t enough players yet. Wait for more to join!');
 		room.add('(' + user.name + ' forcibly started round 1)');
 		room.ambush.nextRound();
 	},
 	disqualify: 'dq',
 	dq: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
-		if (!user.can('mute', null, room)) return this.sendReply("You must be ranked % or higher in this room to disqualify a user from a game of ambush.");
+		if (!user.can('mute', null, room)) return this.sendReply("You must be ranked % or higher in this room to disqualify a user from a game of Ambush.");
 
 		room.ambush.dq(target, this);
 	},
 	shoot: 'fire',
 	fire: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
+		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
 
 		room.ambush.fire(user, target, this);
 	},
 	cancel: 'end',
 	end: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of ambush going on in this room.");
-		if (!user.can('mute', null, room)) return this.sendReply("You must be ranked % or higher in this room to end a game of ambush.");
+		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
+		if (!user.can('mute', null, room)) return this.sendReply("You must be ranked % or higher in this room to end a game of Ambush.");
 
 		room.ambush.end(user);
 	},
@@ -231,12 +231,12 @@ exports.commands = {
 	fire: 'shoot',
 	shoot: commands.fire,
 	ambushhelp: [
-		'/ambush start [seconds] - Starts a game of ambush in the room. The first round will begin after the mentioned number of seconds (1 minute by default). Requires + or higher to use.',
-		'/ambush join/leave - Joins/Leaves a game of ambush.',
+		'/ambush start [seconds] - Starts a game of Ambush in the room. The first round will begin after the mentioned number of seconds (1 minute by default). Requires + or higher to use.',
+		'/ambush join/leave - Joins/Leaves a game of Ambush.',
 		'/ambush proceed - Forcibly starts the first round of the game. Requires + or higher to use',
-		'/ambush dq [user] - Disqualifies a player from a game of ambush. Requires % or higher to use',
+		'/ambush dq [user] - Disqualifies a player from a game of Ambush. Requires % or higher to use',
 		'/ambush shoot/fire [user] - Shoots another player (you can shoot yourself too)',
-		'/ambush end - Forcibly ends a game of ambush. Requires % or higher to use.',
+		'/ambush end - Forcibly ends a game of Ambush. Requires % or higher to use.',
 		'/ambush rules - Displays the rules of the game.',
 	],
 };

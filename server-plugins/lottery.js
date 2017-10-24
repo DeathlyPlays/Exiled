@@ -12,7 +12,7 @@ class Lottery {
 		this.costToJoin = 3;
 		this.state = "signups";
 		this.players = new Map();
-		this.room.add(`<div style="broadcast-blue"><p style="text-align: center; font-size: 14pt>A Lottery Drawing has started looking for players!<hr /><br />For the price of 3 ${moneyPlural}, you can earn 5 ${moneyPlural} plus one ${moneyName} per user who joins.</p><br /><button name="send" value="/lottery join">Click here to join the Lottery</button></div>`);
+		this.room.add('|uhtml|<div style="broadcast-blue"><p style="text-align: center; font-size: 14pt>A Lottery Drawing has started looking for players!<hr /><br />For the price of 3 ' + moneyPlural + ', you can earn 5 ' + moneyPlural + ' plus one ' + moneyName + ' per user who joins.</p><br /><button name="send" value="/lottery join">Click here to join the Lottery</button></div>');
 		this.timer = setTimeout(() => {
 			if (this.players.size < 2) {
 				this.room.add('|uhtmlchange|<div style="broadcast-red"><p style="text-align: center; font-size: 14pt>This Lottery drawing has ended due to lack of users.</p</div>');
@@ -23,10 +23,10 @@ class Lottery {
 	}
 
 	onConnect(user, connection, room) {
-		if (this.state === 'signups') {
-			room.add(`|uhtml|${this.display}`);
+		if (this.state === "signups") {
+			this.room.add('|uhtml|<div style="broadcast-blue"><p style="text-align: center; font-size: 14pt>A Lottery Drawing has started looking for players!<hr /><br />For the price of 3 ' + moneyPlural + ', you can earn 5 ' + moneyPlural + ' plus one ' + moneyName + ' per user who joins.</p><br /><button name="send" value="/lottery join">Click here to join the Lottery</button></div>');
 		} else {
-			room.add(`|uhtml|<div class="infobox"><p>A lottery game is about to announce the winner!</p></div>`);
+			this.room.add('|uhtmlchange|<div style="broadcast-green"><p style="text-align: center; font-size: 14pt>This Lottery drawing is about to announce a winner!!!');
 		}
 	}
 
@@ -72,9 +72,9 @@ class Lottery {
 
 	updateJoins(user, room) {
 		if (this.players.size > 0) {
-			this.display += `<center><strong>${this.players.size}</strong> ${(this.players.size === 1 ? 'user has' : 'user have')} joined: ${Array.from(this.players).map(player => Server.nameColor(player[0], true)).join(', ')}</center>`;
+			msg += '<center><strong>' + this.players.size + '</strong> ' + (this.players.size === 1 ? 'user has' : 'users have') + ' joined: ' + Array.from(this.players).map(player => Server.nameColor(player[0].name)).join(', ') + '</center>';
 		}
-		this.room.add(`|uhtmlchange|${this.display}</center></div>`);
+		this.room.add('|uhtmlchange|' + msg + '</center></div>');
 	}
 
 	end(user) {

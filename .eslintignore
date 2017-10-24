@@ -1,0 +1,5 @@
+tournaments/lib/
+logs/
+dev-tools/globals.js
+config/card-data.js
+server-plugins/hex.js

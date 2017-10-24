@@ -1,0 +1,193 @@
+HealNDeal
+(Magmar)
+EVs: 248 HP / 92 SpA / 168 Spe
+Modest Nature
+Item: Eviolite
+Ability: Fluffy
+    -Sticky Hold + Fur Coat
+Moves: Seed Flare, Substitute, Quiver Dance
+Custom Move: Uber Boober
+    -80 BP, 100% accuracy, Fire Type, Special, Heals self by 1/2 damage inflicted on opponent.
+
+cbrevan
+(Revenankh)
+EVs: 252 Atk / 252 Spe / 4 HP
+Adamant Nature
+Item: Choice Band
+Ability: Speed Boost
+Moves: Diamond Storm, Close Combat, Meteor Mash
+Custom Move: randsalad
+    -120 BP, 90% accuracy, 50% chance to burn target, Ghost type, Physical.
+
+gday
+(Jigglypuff)
+EVs: 252 SpA / 252 Spe / 4 SpD
+Modest Nature
+Item: Eviolite
+Ability: gday gday
+    -Simple
+Moves: Moonblast, Stored Power, Recover
+Custom Move: feelsjig
+    -Fairy, Boosts SpA, Spe, SpD, Def, and Accuracy by one stage, only works on 1st turn, never misses.
+
+Deck Knight
+(Cyclohm)
+EVs: 252 HP / 144 Def / 112 SpD
+Bold Nature
+Item: Binding Band
+Ability: Fluffy
+    -Sticky Hold + Fur Coat
+Moves: Discharge, Draco Meteor, Slack Off
+Custom Move: Pirated Firewall
+    -Fire, Special, 90 BP, 100% accuracy, Boosts our Def and SpD one stage, traps opponent.
+
+Animus Majulous
+(Sunkern)
+EVs: 252 Spe / 252 HP / 4 SpA
+Timid Nature
+Item: Bright Powder
+Ability: Chlorrophyll
+Moves: Leech Seed, Earth Power, Sunny Day
+Custom Move: Empowered Endeavor
+    -Grass, Special, 50% chance to make targets HP 1.
+
+Exclaimer
+(Camerupt)
+EVs: 252 SpA / 252 HP / 4 SpD
+Quiet Nature
+Item: Cameruptite
+Ability: Persistent (Sheer Force upon mega evolving)
+Moves: Trick Room, Fire Blast, Paleo Wave
+Custom Move: Sticky Earth Power
+    -Ground, Special, 100% accuracy, 10% chance to drop target's SpD by one stage, temporarily locks target in.
+
+Sunfished
+(Stunfisk)
+EVs: 252 SpA / 252 Spe / 4 SpD
+Modest Nature
+Item: Leftovers
+Ability: Prankster
+Moves: Thunder Wave, Toxic, Thunderbolt, Earth Power
+
+Khosro
+(Sceptile-Mega)
+EVs: 252 Atk / 252 Spe / 4 Def
+Jolly Nature
+Item: Life Orb
+Ability: Tough Claws
+Moves: Leaf Blade, Precipice Blades, Close Combat
+Custom Move: Choke
+    -Dragon, Physical, Contact, 100% accuracy, 100 BP.
+
+EpicUmbreon29
+(Umbreon)
+EVs: 248 HP / 252 SpD / 8 Def
+Calm Nature
+ItemL Leftovers
+Ability: Simple
+Moves: Stored Power, Cosmic Power
+Custom Move #1: Trick Power
+    -Swaps Special Attack with the Special Defense stat, Dark, Status, 100% accuracy.
+Custom Move: #2: Sorry :c
+    -Gives opponent the user's boosts, and takes opponent's boosts, Status, Dark, 100% accuracy.
+
+JigglykongisFUM16
+(Spheal)
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+Item: Eviolite
+Ability: MLG Sunglasses
+    -Iron Barbs, Prankster, Unaware, Filter, and Aftermath effects.
+Moves: Scald, Recover, Toxic
+Custom Move: Spheal with It
+    -Water, Status, Boosts own Def, SpA, SpD, Spe, and Accuracy by two stages.
+
+vulpix mayhem
+(Vulpix)
+EVs: 252 SpA / 252 Spe / 4 HP
+Timid Nature
+Item: Focus Sash
+Ability: Prepare for Mayhem
+    -Adaptability, and Desolate Land effects.
+Moves: Moonblast, Aura Sphere, Protect
+Custom Move: MAYHEM
+    -120 BP, 100% accuracy, Fire, Special, Boosts own Def, SpA, SpD, Spe, and Accuracy by one stage upon usage.
+
+DJTHED
+(Leafeon)
+EVs: 252 Atk / 252 Spe / 4 HP
+Adamant Nature
+Item: Life Orb
+Ability: Adaptability
+Moves: Knock Off, Stone Edge, Leaf Blade, Swords Dance
+
+boxofkangaroos
+(Kangaskhan)
+EVs: 252 Atk / 252 Spe / 4 HP
+Adamant Nature
+Item: Silk Scarf
+Ability: Scrappy
+Moves: Double-Edge, Fake Out, Close Combat
+Custom Move: Box Cutter
+    -Steel, Physical, Contact, 95 BP, 100% accuracy, High crit ratio.c
+
+Snobalt
+(Voodoom)
+EVs: 252 SpA / 252 Spe / 4 HP
+Timid Nature
+Item: Life Orb
+Ability: Amity Absorb
+    -If this Pokemon is attacked by a Fairy type move, it is immune and is healed by 25% maximum health.
+Moves: Vacuum Wave, Aura Sphere, Quiver Dance
+Custom Move: CAP Bust
+    -Dark, Special, 90 BP, 100% accuracy, Restores health by 1/2 damage inflicted upon the target, Poison type effectiveness.
+
+Tamas
+(Paras)
+EVs: 252 SpA / 252 Spe / 4 HP
+Timid Nature
+Item: Life Orb
+Ability: Dank Sunlord
+    -Desolate Land, and Special Huge Power effects.
+Moves: Blue Flare, Bug Buzz, Giga Drain
+Custom Move: Smoke Weed Erry Day
+    -Status, Grass, Places Sticky Web on target's field, puts target to sleep, and traps opponent from switching.
+
+GiantWhirlpool
+(Slowbro-Mega)
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+Item: Leftovers
+Ability: Regenerator
+Moves: Whirlpool, Calm Mind, Slack Off, Toxic
+
+Bionic Puppy
+(Amoonguss)
+EVs: 252 SpA / 252 HP / 4 Spe
+Modest Nature
+Item: Mental Herb
+Ability: Shadow Tag
+Moves: Spore, Nightmare, Dream Eater
+Custom Move: Mushroom Ascent
+    -Grass, Special, OHKOs Pokemon that are either Grass or Poison types.
+
+Quanyalis
+(Ninetales)
+EVs: 252 SpA / 252 Spe / 4 SpD
+Timid Nature
+Item: Life Orb
+Ability: Pixilate
+Moves: Techno Blast, Spacial Rend, Nasty Plot
+Custom Move: Raycast
+    -Hits 2 to 8 times, Fire, Special, Each hit has a 10% chance to lower target's accuracy by one stage, 25 BP, 50% accuracy.
+
+ReturningAvenger
+(Mollux)
+EVs: 252 SpA / 252 Spe / 4 HP
+Timid Nature
+Item: Choice Scarf
+Ability: Turbo
+    -No Guard + Speed Boost + Sheer Force
+Moves: Thunder, Fire Blast, Hydro Pump
+Custom Move: Bork the Code
+    -Special, Poison, 70% accuracy, 130 BP, 40% chance to badly poison.

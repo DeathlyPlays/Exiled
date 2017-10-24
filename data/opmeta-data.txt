@@ -1,0 +1,65 @@
+Blissey
+Timid Nature
+Item: Choice Scarf
+Ability: Blissful
+    -Gives +6 priority to Special Attack.
+EVs: 252 HP / 252 Spe / 4 Def
+Moves: Shadow Ball, Tri Attack, Psystrike, Final Gambit
+Notes: Meant as a sacrifice Pokemon, using Final Gambit, if it does land its attack, it is almost guaranteed to OHKO.
+
+Blissey 2.0
+Hasty Nature
+Item: Choice Scarf
+Ability: Imposter
+EVs: 252 HP / 252 Spe / 4 SpD
+Moves: Transform, Recover, Heal Bell, Tri Attack
+Notes: Transform.
+
+Slaking
+Adamant Nature
+Item: Choice Band
+Ability: Too Stronk
+    -Iron Fist + Huge Power + Adaptability + Unaware + Mold Breaker + Air Lock + Sheer Force + Boosts Attack and Speed at the end of every turn, by one stage + Boosts Attack & Speed if user makes the target faint, by one stage + Rock Head + Reckless + Super Luck + Sniper + Guts + Quick Feet.
+EVs: 252 Atk / 252 Spe / 4 HP
+Moves: Return, Knock Off, Earthquake, Explosion
+Notes: Powerhouse.
+
+Sunkern
+Timid Nature
+Item: Focus Sash
+Ability: Sunshine
+    -Desolate Land + Special Huge Power + Chlorophyll + Unaware
+EVs: 252 SpA / 252 Spe / 4 HP
+Moves: Solar Beam, Earth Power, Blue Flare
+Custom Move: SUPA HAWT MIXTAPE
+    -Grass, Special, 250 BP, Special, Boosts user's Special Attack, Speed, and Evasion by two stages, defrosts.
+Notes: Fast Special Evasive Sweeper.
+
+Regigigas
+Jolly Nature
+Item: Life Orb
+Ability: Too Stronk
+    -Iron Fist + Huge Power + Adaptability + Unaware + Mold Breaker + Air Lock + Sheer Force + Boosts Attack and Speed at the end of every turn, by one stage + Boosts Attack & Speed if user makes the target faint, by one stage + Rock Head + Reckless + Super Luck + Sniper + Guts + Quick Feet.
+EVs: 252 Atk / 252 Spe / 4 HP
+Moves: Return, Psycho Cut, Earthquake, Knock OFf
+Notes: Fast Physical Sweeper.
+
+Wynaut
+Hasty Nature
+Item: Eviolite
+Ability: Wynaut
+    -Shadow Tag + Prankster (+6 priority for Status, rather than +1)
+EVs: 252 HP / 252 Spe / 4 SpD
+Moves: Transform, Recover, Final Gambit, Destiny Bond
+Notes: Sacrifice.
+
+Sunflora
+Timid Nature
+Item: Focus Sash
+Ability: Sunshine
+    -Desolate Land + Special Huge Power + Chlorophyll + Unaware
+EVs: 252 SpA / 252 Spe / 4 HP
+Moves: Earth Power, Sludge Wave, Solar Beam
+Custom Move: Flower Garden
+    -Fire type, Special, Boosts user's Special Attack and Speed by one stage, 150 BP, never misses, +1 Priority, Defrosts user if frozen.
+Notes: Fast Special Sweeper.

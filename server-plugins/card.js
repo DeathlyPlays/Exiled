@@ -8,7 +8,7 @@
  * Dex Number, (for multiple pokemon: DEX[lowercase letter, a, b, c, d])
 ********************/
 const uuid = require('uuid');
-const cards = require('../config/card-data.js');
+const cards = require('../config/card-data');
 
 const colors = {
 	Mythic: '#D82A2A',

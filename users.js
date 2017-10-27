@@ -463,14 +463,11 @@ class User {
 			if ((!room.auth || !room.auth[this.userid]) && this.customSymbol) return this.customSymbol + this.name;
 			return room.getAuth(this) + this.name;
 		}
-<<<<<<< HEAD
-		if (this.customSymbol) return this.customSymbol + this.name;
-=======
 		if (this.semilocked) {
 			const mutedSymbol = (Config.punishgroups && Config.punishgroups.muted ? Config.punishgroups.muted.symbol : '!');
 			return mutedSymbol + this.name;
 		}
->>>>>>> 7acc291fe2dd2c938c11dc57ff3c88d7ffbb8186
+		if (this.customSymbol) return this.customSymbol + this.name;
 		return this.group + this.name;
 	}
 	authAtLeast(minAuth, room) {

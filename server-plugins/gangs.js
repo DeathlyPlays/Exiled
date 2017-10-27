@@ -6,6 +6,7 @@
 * @license MIT license
 */
 
+/*
 'use strict';
 
 const fs = require('fs');
@@ -971,3 +972,4 @@ exports.commands = {
 		return this.parse('/gang help');
 	},
 };
+*/

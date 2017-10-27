@@ -1407,6 +1407,7 @@ Rooms.createBattle = function (formatid, options) {
 		inviteOnly.push(p2.userid);
 		p2.inviteOnlyNextBattle = false;
 	}
+	if (options.tour && !room.tour.modjoin) inviteOnly = [];
 	if (inviteOnly.length) {
 		room.modjoin = '+';
 		room.isPrivate = 'hidden';

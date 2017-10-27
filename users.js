@@ -32,6 +32,8 @@ const THROTTLE_MULTILINE_WARN_STAFF = 6;
 
 const PERMALOCK_CACHE_TIME = 30 * 24 * 60 * 60 * 1000;
 
+const DEFAULT_TRAINER_SPRITES = [1, 2, 101, 102, 169, 170, 265, 266];
+
 const FS = require('./fs');
 
 let Users = module.exports = getUser;
@@ -373,8 +375,7 @@ class User {
 		this.userid = '';
 		this.group = Config.groupsranking[0];
 
-		let trainersprites = [1, 2, 101, 102, 169, 170, 265, 266];
-		this.avatar = trainersprites[Math.floor(Math.random() * trainersprites.length)];
+		this.avatar = DEFAULT_TRAINER_SPRITES[Math.floor(Math.random() * DEFAULT_TRAINER_SPRITES.length)];
 
 		this.connected = true;
 
@@ -388,6 +389,7 @@ class User {
 		//       the `ips` object, not just the latest IP.
 		this.latestIp = connection.ip;
 		this.locked = false;
+		this.semilocked = false;
 		this.namelocked = false;
 		this.prevNames = Object.create(null);
 		this.inRooms = new Set();
@@ -461,7 +463,14 @@ class User {
 			if ((!room.auth || !room.auth[this.userid]) && this.customSymbol) return this.customSymbol + this.name;
 			return room.getAuth(this) + this.name;
 		}
+<<<<<<< HEAD
 		if (this.customSymbol) return this.customSymbol + this.name;
+=======
+		if (this.semilocked) {
+			const mutedSymbol = (Config.punishgroups && Config.punishgroups.muted ? Config.punishgroups.muted.symbol : '!');
+			return mutedSymbol + this.name;
+		}
+>>>>>>> 7acc291fe2dd2c938c11dc57ff3c88d7ffbb8186
 		return this.group + this.name;
 	}
 	authAtLeast(minAuth, room) {

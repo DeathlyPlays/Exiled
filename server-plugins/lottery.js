@@ -8,10 +8,11 @@
 
 class Lottery {
 	constructor(room) {
+		
+		this.players = new Map();
 		this.room = room;
 		this.costToJoin = 3;
 		this.state = "signups";
-		this.players = new Map();
 		this.room.add('|uhtml|<div style="broadcast-blue"><p style="text-align: center; font-size: 14pt>A Lottery Drawing has started looking for players!<hr /><br />For the price of 3 ' + moneyPlural + ', you can earn 5 ' + moneyPlural + ' plus one ' + moneyName + ' per user who joins.</p><br /><button name="send" value="/lottery join">Click here to join the Lottery</button></div>');
 		this.timer = setTimeout(() => {
 			if (this.players.size < 2) {
@@ -56,7 +57,7 @@ class Lottery {
 		});
 	}
 
-	leaveLottery(user, self) {
+	leaveLottery(user, self, room) {
 		if (!this.players.has(user)) return self.sendReply('You haven\'t joined this Lottery drawing yet.');
 
 		this.players.delete(user);

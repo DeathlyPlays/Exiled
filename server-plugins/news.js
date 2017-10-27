@@ -42,7 +42,7 @@ Server.showNews = function (userid, user) {
 	if (newsDisplay.length > 0) {
 		newsDisplay = newsDisplay.join('<hr>');
 		newsDisplay += showSubButton(userid);
-		return user.send(`|pm|~` + Config.serverName + ` News|${user.getIdentity()}|/raw ${newsDisplay}`);
+		return user.send(`|pm|~${Config.serverName} News|${user.getIdentity()}|/raw ${newsDisplay}`);
 	}
 };
 
@@ -67,7 +67,7 @@ exports.commands = {
 		display: 'view',
 		view: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			let output = "<center><strong>Server News:</strong></center>";
+			let output = "<center><strong>" + Config.serverName + " News:</strong></center>";
 			output += generateNews().join('<hr>') + showSubButton(user.userid);
 			if (this.broadcasting) return this.sendReplyBox("<div class =\"infobox-limited\"" + output + "</div>");
 			return user.send('|popup||wide||html|' + output);
@@ -103,18 +103,18 @@ exports.commands = {
 			this.privateModCommand(`(${user.name} added server announcement: ${parts[0]})`);
 		},
 		subscribe: function (target, room, user) {
-			if (!user.named) return this.errorReply('You must choose a name before subscribing');
-			if (hasSubscribed(user.userid)) return this.errorReply("You are alreading subscribed to Server News.");
+			if (!user.named) return this.errorReply('You must choose a name before subscribing.');
+			if (hasSubscribed(user.userid)) return this.errorReply("You are already subscribed to the Server News.");
 			Db('NewsSubscribers').set(user.userid, true);
-			this.sendReply("You have subscribed to Server News.");
-			this.popupReply("|wide||html|You will receive Server News automatically once you connect to the Server next time.<br><hr><button class='button' name = 'send' value = '/news'>Go Back</button>");
+			this.sendReply("You have subscribed to the Server News.");
+			this.popupReply("|wide||html|You will receive the Server News automatically once you connect to the Server next time.<br><hr><button class='button' name = 'send' value = '/news'>Go Back</button>");
 		},
 		unsubscribe: function (target, room, user) {
-			if (!user.named) return this.errorReply('You must choose a name before unsubscribing');
+			if (!user.named) return this.errorReply('You must choose a name before unsubscribing.');
 			if (!hasSubscribed(user.userid)) return this.errorReply("You have not subscribed to Server News.");
 			Db('NewsSubscribers').delete(user.userid);
-			this.sendReply("You have unsubscribed to Server News.");
-			this.popupReply("|wide||html|You will no longer automatically receive Server News.<br><hr><button class='button' name='send' value='/news'>Go Back</button>");
+			this.sendReply("You have unsubscribed to the Server News.");
+			this.popupReply("|wide||html|You will no longer automatically receive the Server News.<br><hr><button class='button' name='send' value='/news'>Go Back</button>");
 		},
 		request: function (target, room, user) {
 			if (!user.named) return this.errorReply('You must have a name before requesting an announcement.');
@@ -140,11 +140,12 @@ exports.commands = {
 			return this.sendReply("Your request has been sent to the Server global authorities..");
 		},
 	},
-	serverannouncementshelp: ["/news view - Views current Server news.",
+	serverannouncementshelp: [
+		"/news view - Views current Server news.",
 		"/news delete [news title] - Deletes announcement with the [title]. Requires @, &, ~",
 		"/news add [news title], [news desc] - Adds news [news]. Requires @, &, ~",
-		"/news subscribe - Subscribes to Server News.",
-		"/news unsubscribe - Unsubscribes to Server News.",
+		"/news subscribe - Subscribes to the Server News.",
+		"/news unsubscribe - Unsubscribes from the Server News.",
 		"/news request [message] - A user may request for a news announcement to be made.",
 	],
 };

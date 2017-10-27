@@ -162,7 +162,7 @@ exports.commands = {
 					if (Number(target[2]) < 1 || Number(target[2]) > 50) return this.errorReply('You cannot create a voucher for less than 1 ' + global.moneyName + ' or more than 50 ' + global.moneyPlural + '.');
 					let voucher = new Voucher(targetUser.userid, vouchers[index], Number(target[2]));
 					Server.vouchers[targetUser.userid].push(voucher);
-					targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
+					targetUser.popup('|html|' + Server.nameColor(user.name) + ' has given you a voucher for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
 					writeFile();
 					Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.');
 					this.sendReply('You gave ' + targetUser.name + ' a voucher for ' + target[2] + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.');
@@ -178,7 +178,7 @@ exports.commands = {
 					if (shopIndex === -1) return this.errorReply('Invalid item. Use /help voucher give for a list of valid items.');
 					let voucher = new Voucher(targetUser.userid, vouchers[index], shopItems[shopIndex]);
 					Server.vouchers[targetUser.userid].push(voucher);
-					targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for a ' + shopItems[shopIndex] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
+					targetUser.popup('|html|' + Server.nameColor(user.name) + ' has given you a voucher for a ' + shopItems[shopIndex] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
 					writeFile();
 					Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for a ' + shopItems[shopIndex] + '.');
 					this.sendReply('You gave ' + targetUser.name + ' a voucher for a ' + shopItems[shopIndex] + '.');
@@ -187,7 +187,7 @@ exports.commands = {
 			} else {
 				let voucher = new Voucher(targetUser.userid, vouchers[index], null);
 				Server.vouchers[targetUser.userid].push(voucher);
-				targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for a ' + vouchers[index] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
+				targetUser.popup('|html|' + Server.nameColor(user.name) + ' has given you a voucher for a ' + vouchers[index] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
 				writeFile();
 				Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for a ' + vouchers[index] + '.');
 				this.sendReply('You gave ' + targetUser.name + ' a voucher for a ' + vouchers[index] + '.');

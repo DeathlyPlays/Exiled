@@ -71,6 +71,9 @@ class Lottery {
 	}
 
 	updateJoins(user, room) {
+		let msg = '<div style="broadcast-green">' +
+			'The game will begin in <strong>' + Math.round((this.timeLeft - Date.now()) / 1000) + '</strong> seconds' +
+			'<br><br><button style="name = "send" value = "/lottery join"><font size="3">Join!</font></button><br><br>';
 		if (this.players.size > 0) {
 			msg += '<center><strong>' + this.players.size + '</strong> ' + (this.players.size === 1 ? 'user has' : 'users have') + ' joined: ' + Array.from(this.players).map(player => Server.nameColor(player[0].name)).join(', ') + '</center>';
 		}

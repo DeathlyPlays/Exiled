@@ -297,7 +297,7 @@ exports.commands = {
 	},
 	dongers: function (room, user) {
 		if (!this.can('declare')) return this.errorReply('Access Denied');
-		room.addRaw(Server.nameColor(user.name, true, true) + ' has begun a Donger ambush!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has begun a donger ambush.');
 		this.parse('/declare ᕙ༼ຈل͜ຈ༽ᕗ flex your dongers ᕙ༼ຈل͜ຈ༽ᕗ');
 		this.parse('/declare ╚═། ◑ ▃ ◑ །═╝ do you like my dongers? ╚═། ◑ ▃ ◑ །═╝');
 		this.parse('/declare ᕙ༼ຈل͜ຈ༽ᕗ I made my dongers just for you ᕙ༼ຈل͜ຈ༽ᕗ');
@@ -383,7 +383,7 @@ exports.commands = {
 		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
 		room.addRaw(Server.nameColor(target, true, true) + ' was disintegrated by ' + Server.nameColor(user.name, true, true) + '!');
 		targetUser.popup("Get burned!");
-		this.parse('/flogout ' + targetUser);
+		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
 	},
 	/*
 	MEME RANDOMIZER
@@ -441,6 +441,6 @@ exports.commands = {
 			"<img src='https://eus1-api.asm.skype.com/v1/objects/0-eus-d2-8e96e141d7ba2ee7c1577a673d36086b/views/imgpsh_fullsize' height='500' width='500'",
 			"<img src='http://i.imgur.com/nWMKbzZ.jpg' height='366' width='500'",
 		];
-		return this.sendReplyBox(results[Math.floor(41 * Math.random())]);
+		return this.sendReplyBox(results[Math.floor(Math.random() * results.length)]);
 	},
 };

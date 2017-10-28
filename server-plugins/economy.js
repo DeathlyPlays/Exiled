@@ -1,27 +1,27 @@
 'use strict';
 
-const FS = require('fs');
+const fs = require('fs');
 
 // This should be the default amount of money users have..
 // Ideally, this should be zero.
 const DEFAULT_AMOUNT = 0;
 
-global.moneyName = 'Buck';
-global.moneyPlural = 'Bucks';
+global.moneyName = 'Eon Ticket';
+global.moneyPlural = 'Eon Tickets';
 
 /**
  * Gets an amount and returns the amount with the name of the money.
  *
  * @examples
- * currencyName(0); // 0 bucks
- * currencyName(1); // 1 buck
- * currencyName(5); // 5 bucks
+ * currencyName(0); // 0 Eon Tickets
+ * currencyName(1); // 1 Eon Ticket
+ * currencyName(5); // 5 Eon Tickets
  *
  * @param {Number} amount
  * @returns {String}
  */
 function currencyName(amount) {
-	let name = " buck";
+	let name = " Eon Ticket";
 	return amount === 1 ? name : name + "s";
 }
 
@@ -35,24 +35,26 @@ function isMoney(money) {
 	let numMoney = Number(money);
 	if (isNaN(money)) return "Must be a number.";
 	if (String(money).includes('.')) return "Cannot contain a decimal.";
-	if (numMoney < 1) return "Cannot be less than one buck.";
+	if (numMoney < 1) return "Cannot be less than one Eon Ticket.";
 	return numMoney;
 }
 
 let shop = [
-	['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly).', 5],
-	['League Room', 'Purchases a room for league usage.', 5],
-	['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
-	['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 5],
-	['Custom Title', 'Buys a title to be added on your /profile (can be refused).', 10],
+	['Avatar', 'Buys an custom avatar to be applied to your name [You supply. Images larger than 80x80 may not show correctly].', 5],
+	['Custom Color', 'Changes the color of your name [Can be denied]', 25],
+	['Custom Emoticon', 'You provide an image (50x50 Pixels) to be added as an emote on the server. [Can be denied]', 40],
+	['Custom PM Box', 'A Custom Designed Personal Messaging Box. [Can be denied]', 75],
+	['Custom Title', 'Buys a title to be added on to your profile. [Can be denied].', 10],
+	['Fix', 'Buys the ability to alter your current custom avatar or trainer card.', 5],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 25],
-	['Custom Color', 'Changes the color of your name (can be denied)', 25],
-	['POTD', 'Allows you to change the Pokemon of the Day that shows up guaranteed in Random Battles (can be refused, or held off if one is already active)', 25],
-	['Room', 'Buys a chatroom for you to own. (within reason, can be refused).', 30],
-	['Custom Emoticon', 'You provide an image (50x50) to be added as an emote on the server. (Can be refused)', 40],
-	['Roomshop', 'Buys a Roomshop for your League or Room. Will be removed if abused.', 50],
-	['Custom PM Box', 'A Custom Designed PM Box. [can be refused]', 75],
-	['Staffmon', 'Buys a Pokemon with your name on it etc to be added in the Super Staff Bros metagame. (can be refused/edited)', 100],
+	['Kick', 'Kick a user from the chatroom.', 5],
+	['League Room', 'Purchases a room for league usage.', 5],
+	['Mystery', 'Purchases a Mystery Box [no refunds]', 15],
+	['POTD', 'Allows you to change the Pokemon of the Day that shows up guaranteed in Random Battles [Can be refused, or held off if one is already active]', 25],
+	['Room', 'Buys a chatroom for you to own. [Within reason, can be denied].', 30],
+	['Roomshop', 'Buys a Roomshop for your League or Room. [Will be removed if abused.]', 50],
+	['Staffmon', 'Buys a Pokemon with your name on it to be added in the Super Staff Bros Metagame. [Can be denied/edited]', 100],
+	['Symbol', 'Buys a custom symbol to go infront of your username and puts you at top of userlist. [Temporary until restart,certain symbols are blocked]', 5],
 ];
 
 let shopDisplay = getShopDisplay(shop);
@@ -64,14 +66,14 @@ let shopDisplay = getShopDisplay(shop);
  * @return {String} display
  */
 function getShopDisplay(shop) {
-	let display = "<center><img src=https://play.pokemonshowdown.com/sprites/xyani/darkrai.gif><img src=http://i.imgur.com/WOewQZw.gif width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/cresselia.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #000; border-color: #DF0101; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
-		"<tbody><tr><th><font color=#DF0101 face=courier>Item</font></th><th><font color=#DF0101 face=courier>Description</font></th><th><font color=#DF0101 face=courier>Price</font></th></tr>";
+	let display = "<center><img src=https://image.prntscr.com/image/wO_tNEvmQTqr0gNVkEJtSQ.gif><img src=http://i.imgur.com/WOewQZw.gif width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/latias.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #e8e8e8; border-color: #0f27ff; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
+		"<tbody><tr><th><font color=#ff0f0f face=courier>Item</font></th><th><font color=#ff0f0f face=courier>Description</font></th><th><font color=#ff0f0f face=courier>Price</font></th></tr>";
 	let start = 0;
 	while (start < shop.length) {
 		display += "<tr>" +
-			"<td align='center'><button name='send' style='background: #000; border-radius: 5px; border: solid, 1px, #DF0101; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#DF0101 face=courier><strong>" + shop[start][0] + "</strong></font></button>" + "</td>" +
-			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][1] + "</font></td>" +
-			"<td align='center'><font color=#DF0101 face=courier>" + shop[start][2] + "</font></td>" +
+			"<td align='center'><button name='send' style='background: #e8e8e8; border-radius: 5px; border: solid, 1px, #0f27ff; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#ff0f0f face=courier><strong>" + shop[start][0] + "</strong></font></button>" + "</td>" +
+			"<td align='center'><font color=#ff0f0f face=courier>" + shop[start][1] + "</font></td>" +
+			"<td align='center'><font color=#ff0f0f face=courier>" + shop[start][2] + "</font></td>" +
 			"</tr>";
 		start++;
 	}
@@ -135,12 +137,12 @@ let Economy = global.Economy = {
 	},
 	logTransaction: function (message) {
 		if (!message) return false;
-		FS.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+		fs.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 	},
 
 	logDice: function (message) {
 		if (!message) return false;
-		FS.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+		fs.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 	},
 };
 
@@ -169,9 +171,12 @@ function handleBoughtItem(item, user, cost) {
 		this.sendReply("If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.");
 	} else if (item === 'icon') {
 		this.sendReply('You purchased an icon, contact an administrator to obtain the article.');
+	} else if (item === 'mystery') {
+		user.canOpenMysteryBox = true;
+		this.sendReply("Good luck! Happy unboxing :)");
 	} else {
 		let msg = '**' + user.name + " has bought " + item + ".**";
-		Monitor.log('|c|~' + Config.serverName + ' Server|' + msg);
+		Monitor.log(Config.serverName + ' Server|' + msg);
 		Users.users.forEach(function (user) {
 			if (user.group === '~' || user.group === '&' || user.group === '@') {
 				user.send('|pm|~' + Config.serverName + ' Server|' + user.getIdentity() + '|' + msg);
@@ -234,10 +239,10 @@ exports.commands = {
 		});
 	},
 
-	givebuck: 'givemoney',
-	givebucks: 'givemoney',
+	giveeonticket: 'givemoney',
+	giveeontickets: 'givemoney',
 	givemoney: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help givemoney');
 
 		let parts = target.split(',');
@@ -250,15 +255,16 @@ exports.commands = {
 		amount = amount + currencyName(amount);
 		total = total + currencyName(total);
 		this.sendReply(username + " was given " + amount + ". " + username + " now has " + total + ".");
-		if (Users.get(username)) Users(username).popup(user.name + " has given you " + amount + ". You now have " + total + ".");
+		if (Users.get(username)) Users(username).popup("|html|" + Server.nameColor(user.name) + " has given you " + amount + ". You now have " + total + ".");
 		Economy.logTransaction(username + " was given " + amount + " by " + user.name + ". " + username + " now has " + total);
 	},
 	givemoneyhelp: ["/givemoney [user], [amount] - Give a user a certain amount of money."],
 
-	takebuck: 'takemoney',
+	takeeonticket: 'takemoney',
+	takeeontickets: 'takemoney',
 	takebucks: 'takemoney',
 	takemoney: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help takemoney');
 
 		let parts = target.split(',');
@@ -277,7 +283,8 @@ exports.commands = {
 	takemoneyhelp: ["/takemoney [user], [amount] - Take a certain amount of money from a user."],
 
 	transfer: 'transfermoney',
-	transferbuck: 'transfermoney',
+	transfereonticket: 'transfermoney',
+	transfereontickets: 'transfermoney',
 	transferbucks: 'transfermoney',
 	transfermoney: function (target, room, user) {
 		if (!target || target.indexOf(',') < 0) return this.parse('/help transfermoney');
@@ -301,17 +308,17 @@ exports.commands = {
 		amount = amount + currencyName(amount);
 
 		this.sendReply("You have successfully transferred " + amount + ". You now have " + userTotal + ".");
-		if (Users.get(username)) Users(username).popup(user.name + " has transferred " + amount + ". You now have " + targetTotal + ".");
+		if (Users.get(username)) Users(username).popup('|raw|' + Server.nameColor(user.name) + " has transferred " + amount + ". You now have " + targetTotal + ".");
 		Economy.logTransaction(user.name + " transferred " + amount + " to " + username + ". " + user.name + " now has " + userTotal + " and " + username + " now has " + targetTotal + ".");
 	},
 	transfermoneyhelp: ["/transfer [user], [amount] - Transfer a certain amount of money to a user."],
 
 	moneylog: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target) return this.sendReply("Usage: /moneylog [number] to view the last x lines OR /moneylog [text] to search for text.");
 		let word = false;
 		if (isNaN(Number(target))) word = true;
-		let lines = FS.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
+		let lines = fs.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
 		let output = '';
 		let count = 0;
 		let regex = new RegExp(target.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&'), "gi");
@@ -368,13 +375,13 @@ exports.commands = {
 		this.sendReplyBox(rankLadder('Richest Users', moneyPlural, keys.slice(0, target), 'money') + '</div>');
 	},
 
-	resetbuck: 'resetmoney',
-	resetbucks: 'resetmoney',
+	reseteonticket: 'resetmoney',
+	reseteontickets: 'resetmoney',
 	resetmoney: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		Db('money').set(toId(target), 0);
-		this.sendReply(target + " now has 0 bucks.");
-		Economy.logTransaction(user.name + " reset the money of " + target + ".");
+		this.sendReply(target + " has had their " + moneyPlural + " reset.");
+		Economy.logTransaction(user.name + " reset " + target + "'s " + moneyPlural + ".");
 	},
 	resetmoneyhelp: ["/resetmoney [user] - Reset user's money to zero."],
 
@@ -382,7 +389,7 @@ exports.commands = {
 		let bannedSymbols = ['!', '|', '‽', '\u2030', '\u534D', '\u5350', '\u223C'];
 		for (let u in Config.groups) if (Config.groups[u].symbol) bannedSymbols.push(Config.groups[u].symbol);
 		if (!user.canCustomSymbol && !user.can('vip')) return this.sendReply('You need to buy this item from the shop to use.');
-		if (!target || target.length > 1) return this.sendReply('/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character');
+		if (!target || target.length > 1) return this.parse('/customsymbolhelp');
 		if (target.match(/([a-zA-Z ^0-9])/g) || bannedSymbols.indexOf(target) >= 0) {
 			return this.sendReply('This symbol is banned.');
 		}
@@ -391,6 +398,7 @@ exports.commands = {
 		user.canCustomSymbol = false;
 		this.sendReply('Your symbol is now ' + target + '. It will be saved until you log off for more than an hour, or the server restarts. You can remove it with /resetsymbol');
 	},
+	customsymbolhelp: ["/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character"],
 
 	removesymbol: 'resetsymbol',
 	resetsymbol: function (target, room, user) {
@@ -400,7 +408,7 @@ exports.commands = {
 		this.sendReply('Your symbol has been removed.');
 	},
 
-	bucks: 'economystats',
+	eontickets: 'economystats',
 	economystats: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		const users = Object.keys(Db('money').object());
@@ -411,5 +419,90 @@ exports.commands = {
 		let output = "There " + (total > 1 ? "are " : "is ") + total + currencyName(total) + " circulating in the economy. ";
 		output += "The average user has " + average + currencyName(average) + ".";
 		this.sendReplyBox(output);
+	},
+
+	//Inspired from Gold
+	mysterybox: function (target, room, user) {
+		if (room.id !== 'lobby') return this.errorReply("You must buy this item in the Lobby!");
+		if (!user.canOpenMysteryBox) return this.sendReply('You need to buy this item from the shop to use.');
+		let randomNumber = Math.floor((Math.random() * 100) + 1);
+		let prize = '';
+		let goodBad = '';
+		let opts;
+		if (randomNumber < 70) {
+			goodBad = 'bad';
+			opts = ['nothing', 'rick rolled', 'kick from Lobby', 'lol 45 sec mute'];
+			prize = opts[Math.floor(Math.random() * opts.length)];
+		} else if (randomNumber > 70) {
+			goodBad = 'good';
+			opts = ['small money prize', 'medium money prize', 'large money prize', 'jackpot', 'custom symbol', 'ability to set the PotD', 'custom color', 'a new mystery box', 'custom icon'];
+			prize = opts[Math.floor(Math.random() * opts.length)];
+		}
+		switch (prize) {
+		//Good Prizes
+		case 'small money prize':
+			Economy.writeMoney(user.userid, 5);
+			this.sendReply('Well, it\'s not the worst thing.... You received 5 ' + moneyPlural + '.');
+			break;
+		case 'medium money prize':
+			Economy.writeMoney(user.userid, 15);
+			this.sendReply('Not bad, you received 15 ' + moneyPlural + '.');
+			break;
+		case 'large money prize':
+			Economy.writeMoney(user.userid, 30);
+			this.sendReply('Nice! You received 30 ' + moneyPlural + '!');
+			break;
+		case 'jackpot':
+			Economy.writeMoney(user.userid, 50);
+			this.sendReply("CONGRATULATIONS!!!! YOU JUST HIT THE JACKPOT!!!! HERE'S 50 " + moneyPlural + "!!!!!");
+			break;
+		case 'custom symbol':
+			user.canCustomSymbol = true;
+			this.sendReply("Do /customsymbol [symbol] to set a FREE custom symbol! (Do /rs to reset your custom symbol when you want to remove it later.)");
+			break;
+		case 'ability to set the PotD':
+			Server.pmStaff(user.name + " has won the " + prize + ". Please PM them to proceed with giving them this.", "~" + Config.serverName + " Server");
+			break;
+		case 'custom color':
+			Server.pmStaff(user.name + " has won a " + prize + ". Please PM them to proceed with giving them this.", "~" + Config.serverName + " Server");
+			break;
+		case 'a new mystery box':
+			user.canOpenMysteryBox = true;
+			this.sendReply("Yay, fun! You received another Mystery Box.");
+			break;
+		case 'custom icon':
+			this.sendReply("PM a Global Driver or higher to claim this prize!");
+			Server.pmStaff(user.name + " has received a " + prize + " from the Mystery Box. Please assist them as soon as possible", "~" + Config.serverName + "Server");
+			break;
+		//Meme Rewards/Bad Rewards
+		case 'nothing':
+			this.sendReplyBox('<strong>RIP</strong><br /><div style="background: url(http://moziru.com/images/tombstone-clipart-20.png); background-size: 100% 100%; height: 200px"></div>');
+			break;
+		case 'rick rolled':
+			this.sendReplyBox("<blink>" +
+				"Never gonna give you up<br />" +
+				"Never gonna let you down<br />" +
+				"Never gonna run around and desert you<br />" +
+				"Never gonna make you cry<br />" +
+				"Never gonna say goodbye<br />" +
+				"Never gonna tell a lie and hurt you</blink>"
+			);
+			break;
+		case 'kick from Lobby':
+			try {
+				user.leaveRoom('lobby');
+				user.popup("You have been kicked from the Lobby by the Mystery Box!");
+			} catch (e) {}
+			break;
+		case 'lol 45 sec mute':
+			try {
+				Rooms('lobby').mute(user, 0.45 * 60 * 1000, false);
+			} catch (e) {}
+			break;
+		default:
+			break;
+		}
+		user.canOpenMysteryBox = false;
+		Rooms('lobby').add("|raw|" + Server.nameColor(user.name, true) + " has bought a Mystery Box from the shop! " + (goodBad === 'good' ? "They have won a <strong>" + prize + "</strong>!" : "Oh no!  They got a " + prize + " from their pack :(")).update();
 	},
 };

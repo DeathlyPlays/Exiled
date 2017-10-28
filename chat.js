@@ -694,6 +694,20 @@ class CommandContext {
 
 		return true;
 	}
+	meansYes(text) {
+		switch (text.toLowerCase().trim()) {
+		case 'on': case 'enable': case 'yes': case 'true':
+			return true;
+		}
+		return false;
+	}
+	meansNo(text) {
+		switch (text.toLowerCase().trim()) {
+		case 'off': case 'disable': case 'no': case 'false':
+			return true;
+		}
+		return false;
+	}
 	canTalk(message, room, targetUser) {
 		if (room === undefined) room = this.room;
 		if (targetUser === undefined && this.pmTarget) {
@@ -1033,12 +1047,12 @@ Chat.loadPlugins = function () {
 
 	// info always goes first so other plugins can shadow it
 	Object.assign(commands, require('./chat-plugins/info').commands);
-	Object.assign(commands, require('./server-plugins/hex.js').commands);
+	Object.assign(commands, require('./server-plugins/hex').commands);
 
-	Object.assign(commands, require('./console.js').commands);
+	Object.assign(commands, require('./console').commands);
 
 	for (const file of FS('chat-plugins/').readdirSync()) {
-		if (file.substr(-3) !== '.js' || file === 'info.js') continue;
+		if (file.substr(-3) !== '.js' || file === 'info') continue;
 		const plugin = require(`./chat-plugins/${file}`);
 
 		Object.assign(commands, plugin.commands);
@@ -1057,19 +1071,19 @@ Chat.loadPlugins = function () {
 		}
 	}
 	for (let file of FS('server-plugins').readdirSync()) {
-		if (file.substr(-3) !== '.js' || file === 'hex.js') continue;
+		if (file.substr(-3) !== '.js' || file === 'hex') continue;
 		const serverplugins = require(`./server-plugins/${file}`);
 		Object.assign(commands, serverplugins.commands);
 	}
 	for (let file of FS('game-cards').readdirSync()) {
 		if (file.substr(-3) !== '.js') continue;
-		Object.assign(commands, require('./game-cards/' + file).commands);
+		Object.assign(commands, require(`./game-cards/${file}`));
 	}
 	// Load games for Console
 	Server.gameList = {};
 	for (let file of FS('game-cards').readdirSync()) {
 		if (file.substr(-3) !== '.js') continue;
-		let obj = require('./game-cards/' + file).box;
+		let obj = require(`./game-cards/${file}`).box;
 		if (obj && obj.name) obj.id = toId(obj.name);
 		Server.gameList[obj.id] = obj;
 	}

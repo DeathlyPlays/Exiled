@@ -2609,11 +2609,11 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		onHit: function (target) {
-			if (target.ability in {multitype:1, stancechange:1}) return;
+			if (['multitype', 'stancechange'].includes(target.ability)) return;
 			if (!this.willMove(target)) target.addVolatile('gastroacid');
 		},
 		onAfterSubDamage: function (target) {
-			if (target.ability in {multitype:1, stancechange:1}) return;
+			if (['multitype', 'stancechange'].includes(target.ability)) return;
 			if (!this.willMove(target)) target.addVolatile('gastroacid');
 		},
 		secondary: false,
@@ -5028,7 +5028,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 80,
 		basePowerCallback: function (target, source, move) {
-			if (move.sourceEffect in {grasspledge:1, waterpledge:1}) {
+			if (['grasspledge', 'waterpledge'].includes(move.sourceEffect)) {
 				this.add('-combine');
 				return 150;
 			}
@@ -5046,7 +5046,7 @@ exports.BattleMovedex = {
 			for (let i = 0; i < this.queue.length; i++) {
 				let decision = this.queue[i];
 				if (!decision.move || !decision.pokemon || !decision.pokemon.isActive || decision.pokemon.fainted) continue;
-				if (decision.pokemon.side === source.side && decision.move.id in {grasspledge:1, waterpledge:1}) {
+				if (decision.pokemon.side === source.side && ['grasspledge', 'waterpledge'].includes(decision.move.id)) {
 					this.prioritizeQueue(decision);
 					this.add('-waiting', source, decision.pokemon);
 					return null;
@@ -5802,7 +5802,7 @@ exports.BattleMovedex = {
 				this.add('-start', pokemon, 'Foresight');
 			},
 			onNegateImmunity: function (pokemon, type) {
-				if (pokemon.hasType('Ghost') && type in {'Normal': 1, 'Fighting': 1}) return false;
+				if (pokemon.hasType('Ghost') && ['Normal', 'Fighting'].includes(type)) return false;
 			},
 			onModifyBoost: function (boosts) {
 				if (boosts.evasion && boosts.evasion > 0) {
@@ -6453,7 +6453,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 80,
 		basePowerCallback: function (target, source, move) {
-			if (move.sourceEffect in {waterpledge:1, firepledge:1}) {
+			if (['waterpledge', 'firepledge'].includes(move.sourceEffect)) {
 				this.add('-combine');
 				return 150;
 			}
@@ -6471,7 +6471,7 @@ exports.BattleMovedex = {
 			for (let i = 0; i < this.queue.length; i++) {
 				let decision = this.queue[i];
 				if (!decision.move || !decision.pokemon || !decision.pokemon.isActive || decision.pokemon.fainted) continue;
-				if (decision.pokemon.side === source.side && decision.move.id in {waterpledge:1, firepledge:1}) {
+				if (decision.pokemon.side === source.side && ['waterpledge', 'firepledge'].includes(decision.move.id)) {
 					this.prioritizeQueue(decision);
 					this.add('-waiting', source, decision.pokemon);
 					return null;
@@ -6805,9 +6805,9 @@ exports.BattleMovedex = {
 			let targetBoosts = {};
 			let sourceBoosts = {};
 
-			for (let i in {def:1, spd:1}) {
-				targetBoosts[i] = target.boosts[i];
-				sourceBoosts[i] = source.boosts[i];
+			for (const stat of ['def', 'spd']) {
+				targetBoosts[stat] = target.boosts[stat];
+				sourceBoosts[stat] = source.boosts[stat];
 			}
 
 			source.setBoost(targetBoosts);
@@ -10342,12 +10342,12 @@ exports.BattleMovedex = {
 		effect: {
 			noCopy: true,
 			onSourceModifyDamage: function (damage, source, target, move) {
-				if (move.id in {'stomp':1, 'steamroller':1, 'bodyslam':1, 'flyingpress':1, 'dragonrush':1, 'phantomforce':1, 'heatcrash':1, 'shadowforce':1, 'heavyslam':1}) {
+				if (['stomp', 'steamroller', 'bodyslam', 'flyingpress', 'dragonrush', 'phantomforce', 'heatcrash', 'shadowforce', 'heavyslam'].includes(move.id)) {
 					return this.chainModify(2);
 				}
 			},
 			onAccuracy: function (accuracy, target, source, move) {
-				if (move.id in {'stomp':1, 'steamroller':1, 'bodyslam':1, 'flyingpress':1, 'dragonrush':1, 'phantomforce':1, 'heatcrash':1, 'shadowforce':1, 'heavyslam':1}) {
+				if (['stomp', 'steamroller', 'bodyslam', 'flyingpress', 'dragonrush', 'phantomforce', 'heatcrash', 'shadowforce', 'heavyslam'].includes(move.id)) {
 					return true;
 				}
 				return accuracy;
@@ -10591,7 +10591,7 @@ exports.BattleMovedex = {
 			onTryAddVolatile: function (status, target, source, effect) {
 				if (!target.isGrounded() || target.isSemiInvulnerable()) return;
 				if (status.id === 'confusion') {
-					if (!effect.secondaries) this.add('-activate', target, 'move: Misty Terrain');
+					if (effect.effectType === 'Move' && !effect.secondaries) this.add('-activate', target, 'move: Misty Terrain');
 					return null;
 				}
 			},
@@ -12017,9 +12017,9 @@ exports.BattleMovedex = {
 			let targetBoosts = {};
 			let sourceBoosts = {};
 
-			for (let i in {atk:1, spa:1}) {
-				targetBoosts[i] = target.boosts[i];
-				sourceBoosts[i] = source.boosts[i];
+			for (const stat of ['atk', 'spa']) {
+				targetBoosts[stat] = target.boosts[stat];
+				sourceBoosts[stat] = source.boosts[stat];
 			}
 
 			source.setBoost(targetBoosts);
@@ -13141,7 +13141,15 @@ exports.BattleMovedex = {
 		onHit: function (target, source) {
 			if (source.template && (source.template.num === 493 || source.template.num === 773)) return false;
 			this.add('-start', source, 'typechange', '[from] move: Reflect Type', '[of] ' + target);
-			source.types = target.getTypes(true);
+			let newBaseTypes = target.getTypes(true).filter(type => type !== '???');
+			if (!newBaseTypes.length) {
+				if (target.addedType) {
+					newBaseTypes = ['Normal'];
+				} else {
+					return false;
+				}
+			}
+			source.types = newBaseTypes;
 			source.addedType = target.addedType;
 			source.knownType = target.side === source.side && target.knownType;
 		},
@@ -13164,7 +13172,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {snatch: 1},
 		onHit: function (pokemon) {
-			if (pokemon.status in {'': 1, 'slp': 1, 'frz': 1}) return false;
+			if (['', 'slp', 'frz'].includes(pokemon.status)) return false;
 			pokemon.cureStatus();
 		},
 		secondary: false,
@@ -13886,7 +13894,7 @@ exports.BattleMovedex = {
 			},
 			onTryAddVolatile: function (status, target, source, effect) {
 				if ((status.id === 'confusion' || status.id === 'yawn') && source && target !== source && effect && (!effect.infiltrates || target.side === source.side)) {
-					if (!effect.secondaries) this.add('-activate', target, 'move: Safeguard');
+					if (effect.effectType === 'Move' && !effect.secondaries) this.add('-activate', target, 'move: Safeguard');
 					return null;
 				}
 			},
@@ -17199,7 +17207,7 @@ exports.BattleMovedex = {
 		effect: {
 			duration: 3,
 			onStart: function (target) {
-				if (target.baseTemplate.baseSpecies in {Diglett: 1, Dugtrio: 1, Palossand: 1, Sandygast: 1} ||
+				if (['Diglett', 'Dugtrio', 'Palossand', 'Sandygast'].includes(target.baseTemplate.baseSpecies) ||
 						target.baseTemplate.species === 'Gengar-Mega') {
 					this.add('-immune', target, '[msg]');
 					return null;
@@ -18382,7 +18390,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 80,
 		basePowerCallback: function (target, source, move) {
-			if (move.sourceEffect in {firepledge:1, grasspledge:1}) {
+			if (['firepledge', 'grasspledge'].includes(move.sourceEffect)) {
 				this.add('-combine');
 				return 150;
 			}
@@ -18400,7 +18408,7 @@ exports.BattleMovedex = {
 			for (let i = 0; i < this.queue.length; i++) {
 				let decision = this.queue[i];
 				if (!decision.move || !decision.pokemon || !decision.pokemon.isActive || decision.pokemon.fainted) continue;
-				if (decision.pokemon.side === source.side && decision.move.id in {firepledge:1, grasspledge:1}) {
+				if (decision.pokemon.side === source.side && ['firepledge', 'grasspledge'].includes(decision.move.id)) {
 					this.prioritizeQueue(decision);
 					this.add('-waiting', source, decision.pokemon);
 					return null;
@@ -19493,37 +19501,6 @@ exports.BattleMovedex = {
 		zMoveBoost: {spa: 1},
 		contestType: "Clever",
 	},
-	"sewersmash": {
-		num: 15000,
-		accuracy: 100,
-		basePower: 75,
-		category: "Physical",
-		desc: "Has a 10% chance to raise the user's Attack and Speed by 1 stage.",
-		shortDesc: "10% chance to raise the user's Atk and Spe by 1.",
-		id: "sewersmash",
-		isViable: true,
-		name: "Sewer Smash",
-		pp: 10,
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		secondary: {
-			chance: 10,
-			self: {
-				boosts: {
-					atk: 1,
-					spe: 1,
-				},
-			},
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Gunk Shot", target);
-		},
-		target: "normal",
-		type: "Poison",
-		zMovePower: 180,
-		contestType: "Cool",
-	},
 	"colossalvoltthunderbolt": {
 		num: -719,
 		accuracy: true,
@@ -19550,36 +19527,6 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Electric",
-		contestType: "Cool",
-	},
-	"drinkbleach": {
-		num: 9001,
-		accuracy: 100,
-		basePower: 0,
-		selfdestruct: "ifHit",
-		category: "Status",
-		desc: "Lowers target's stats by -6, and locks target from switching, but faints user.",
-		shortDesc: "Target's stats go down by -6, get locked in, faints user.",
-		id: "drinkbleach",
-		isViable: true,
-		name: "Drink Bleach",
-		pp: 10,
-		priority: 0,
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		secondary: {
-			volatileStatus: 'trapped',
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Memento", target);
-		},
-		boosts: {atk: -6, def: -6, spa: -6, spd: -6, spe: -6, accuracy: -6, evasion: -6},
-		target: "normal",
-		type: "Dark",
-		zMoveBoost: {atk: 6},
 		contestType: "Cool",
 	},
 };

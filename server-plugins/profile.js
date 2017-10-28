@@ -7,6 +7,7 @@
  **/
 'use strict';
 
+let moment = require("moment");
 let geoip = require('geoip-lite-country');
 
 // fill in '' with the server IP
@@ -231,6 +232,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		let self = this;
 		let targetUser = Users.get(target);
+		let online = (targetUser ? targetUser.connected : false);
 		let username = (targetUser ? targetUser.name : target);
 		let userid = (targetUser ? targetUser.userid : toId(target));
 		let avatar = (targetUser ? (isNaN(targetUser.avatar) ? "http://" + serverIp + ":" + Config.port + "/avatars/" + targetUser.avatar : "http://play.pokemonshowdown.com/sprites/trainers/" + targetUser.avatar + ".png") : (Config.customavatars[userid] ? "http://" + serverIp + ":" + Config.port + "/avatars/" + Config.customavatars[userid] : "http://play.pokemonshowdown.com/sprites/trainers/1.png"));
@@ -248,6 +250,12 @@ exports.commands = {
 			}
 			showProfile();
 		});
+
+		function lastActive(user) {
+			if (!Users(user)) return false;
+			user = Users(user);
+			return (user && user.lastActiveTime ? moment(user.lastActiveTime).fromNow() : "hasn't talked yet");
+		}
 
 		function getLastSeen(userid) {
 			if (Users(userid) && Users(userid).connected) return '<font color = "limegreen"><strong>Currently Online</strong></font>';
@@ -271,6 +279,9 @@ exports.commands = {
 				profile += '&nbsp;<font color="#24678d"><strong>Group:</strong></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ' + regdate + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>' + global.moneyPlural + ':</strong></font> ' + money + '<br />';
+				if (online && lastActive(toId(username))) {
+					profile += '&nbsp;<font color="#24678d"><strong>Last Active:</strong></font> ' + lastActive(toId(username)) + '<br />';
+				}
 				profile += '&nbsp;<font color="#24678d"><strong>Last Seen:</strong></font> ' + getLastSeen(toId(username)) + '</font><br />';
 				if (Db("friendcode").has(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><strong>Friend Code:</strong></font> ' + Db("friendcode").get(toId(username));

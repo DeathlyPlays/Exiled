@@ -8,11 +8,17 @@ Navigation: [Dewdrop][1] | [PS Server repository][10] | [PS Client repository][2
   [3]: https://github.com/Zarel/Pokemon-Showdown-Dex
   [10]: https://github.com/Zarel/Pokemon-Showdown
 
+<<<<<<< HEAD
 [![Build Status](https://travis-ci.org/Dewdrop-PS/Dewdrop.svg?branch=master)](https://travis-ci.org/Dewdrop-PS/Dewdrop)
 [![dependencies Status](https://david-dm.org/Dewdrop-PS/Dewdrop/status.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop)
 [![devDependencies Status](https://david-dm.org/Dewdrop-PS/Dewdrop/dev-status.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop?type=dev)
 [![optionalDependencies Status](https://david-dm.org/Dewdrop-PS/Dewdrop/optional-status.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop?type=optional)
 
+=======
+[![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg?branch=master)](https://travis-ci.org/DeathlyPlays/Exiled)
+[![dependencies Status](https://david-dm.org/DeathlyPlays/Exiled/status.svg)](https://david-dm.org/DeathlyPlays/Exiled)
+[![devDependencies Status](https://david-dm.org/DeathlyPlays/Exiled/dev-status.svg)](https://david-dm.org/DeathlyPlays/Exiled?type=dev)
+>>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 
 Introduction
 ------------------------------------------------------------------------
@@ -64,13 +70,15 @@ Configuring your server
 ------------------------------------------------------------------------
 
 You will probably want to configure your servers settings to your liking.
-Heres some of the configurations you can change in `config/config.js`
+Here's some of the configurations you can change in `config/config.js`
 
 - port - The port to run the server on.
 
 - serverIp - The ip of your server, used to parse custom avatars.
 
 - tellrank - The minimum rank to use /tell for offline messaging.
+
+- serverName - Sets the name for several things to whatever you set it as.
 
 Setting up an Administrator account
 ------------------------------------------------------------------------
@@ -111,8 +119,20 @@ Owners
 
 Contributors
 
+<<<<<<< HEAD
 - [Lycanium Z](https://github.com/Lycanium-Z)
 
+=======
+- [AlfaStorm](https://github.com/AlphaWind)
+- [Back At My Day](https://github.com/BamdTheClueless)
+- [flufi](https://github.com/HiTechFlufi)
+- [gyaratoast](https://github.com/gyaratoast)
+- [HoeenHero](https://github.com/HoeenCoder)
+- [Lycanium Z](https://github.com/Lycanium-Z)
+- [megas4ever](https://github.com/Megas4ever)
+- [Mewth](https://github.com/Mewthy)
+- [Volco](https://github.com/Volco)
+>>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 
 Special thanks
 

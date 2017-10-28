@@ -17,12 +17,12 @@ exports.commands = {
 		let statHP = Math.floor(Math.random() * 100) + 30;
 		let statAtk = Math.floor(Math.random() * 100) + 70;
 		let statDef = Math.floor(Math.random() * 100) + 40;
-		let statSpa = Math.floor(Math.random() * 100) + 70;
-		let statSpd = Math.floor(Math.random() * 100) + 40;
+		let statSpA = Math.floor(Math.random() * 100) + 70;
+		let statSpD = Math.floor(Math.random() * 100) + 40;
 		let statSpe = Math.floor(Math.random() * 100) + 60;
-		let statBst = statHP + statAtk + statDef + statSpa + statSpd + statSpe;
+		let statBst = statHP + statAtk + statDef + statSpA + statSpD + statSpe;
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox('Generated Statset: ' + statHP + ' / ' + statAtk + ' / ' + statDef + ' / ' + statSpa + ' / ' + statSpd + ' / ' + statSpe + ' | BST: ' + statBst);
+		this.sendReplyBox('Generated Statset: ' + statHP + ' / ' + statAtk + ' / ' + statDef + ' / ' + statSpA + ' / ' + statSpD + ' / ' + statSpe + ' | BST: ' + statBst);
 		if (statBst <= 200) {
 			return this.sendReplyBox('Tier: LC');
 		} else if (statBst > 200 && statBst < 400) {
@@ -41,6 +41,7 @@ exports.commands = {
 	},
 	statsethelp: [
 		"/statset - Generates a random spread of stats.",
+		"!statset - Broadcasts the generated random spread of stats.",
 	],
 
 	'!type': true,
@@ -88,34 +89,19 @@ exports.commands = {
 	},
 	typehelp: [
 		"/type - Generates a random typing.",
+		"!type - Broadcasts the generated typing.",
 	],
 
-	'!groups': true,
-	groups: function () {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox(
-			"+ <strong>Voice</strong> - They can use ! commands like !groups, and talk during moderated chat.<br />" +
-			"% <strong>Driver</strong> - The above, and they can mute. Global % can also lock users and check for alts.<br />" +
-			"@ <strong>Moderator</strong> - The above, and they can ban users.<br />" +
-			"* <strong>Bot</strong> - Like Moderator, but makes it clear that this user is a bot.<br />" +
-			"&amp; <strong>Leader</strong> - The above, and they can promote to moderator and force ties.<br />" +
-			"# <strong>Room Owner</strong> - They are leaders of the room and can almost totally control it.<br />" +
-			"☥ <strong>Gods</strong> - The rank of the dankest users ever! They have infinite power, like Administrators.<br />" +
-			"~ <strong>Administrator</strong> - They can do anything, like change what this message says."
-		);
-	},
-	groupshelp: [
-		"/groups - Explains what the + % @ # & next to people's names mean.",
-		"!groups - Shows everyone that information. Requires: + % @ * # & ~",
-	],
-
+	'!opensource': true,
+	github: "opensource",
+	os: "opensource",
 	git: "opensource",
 	opensource: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
 			Config.serverName + "'s Github's:<br />" +
 			"- Language: JavaScript (Node.js)<br />" +
-			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">" + Config.serverName + " Server Code</a><br />" +
+			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">" + Config.serverName + "'s Server Code</a><br />" +
 			"- <a href=\"https://github.com/DeathlyPlays/Exiled/commits/master\">What's new?</a><br />" +
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown\">Main's source code</a><br />" +
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Client\">Client source code</a><br />" +
@@ -123,20 +109,32 @@ exports.commands = {
 		);
 	},
 	opensourcehelp: [
+<<<<<<< HEAD
 		"/opensource - Links to Serverdrop's source code repository.",
+=======
+		"/opensource - Links to " + Config.serverName + "'s source code repository.",
+>>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 		"!opensource - Show everyone that information. Requires: + % @ * # & ~",
 	],
 
 	'!forums': true,
 	forums: function () {
 		if (!this.runBroadcast()) return;
+<<<<<<< HEAD
 		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">Dewdrop Forums</a>");
+=======
+		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">" + Config.serverName + " Forums</a>");
+>>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 	},
 
 	'!suggestions': true,
 	suggestions: function () {
 		if (!this.runBroadcast()) return;
+<<<<<<< HEAD
 		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for Dewdrop</a>");
+=======
+		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for " + Config.serverName + "</a>");
+>>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 	},
 
 	'!fakemon': true,
@@ -155,6 +153,7 @@ exports.commands = {
 	'!discord': true,
 	discord: function () {
 		if (!this.runBroadcast()) return;
+<<<<<<< HEAD
 		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Dewdrop Discord</a>");
 	},
 
@@ -189,6 +188,9 @@ exports.commands = {
 			return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="green"><u><strong>can<strong><u></font> learn ' + move.name);
 		}
 		return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="red"><u><strong>can\'t<strong><u></font> learn ' + move.name);
+=======
+		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official " + Config.serverName + " Discord</a>");
+>>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 	},
 
 	'!bugs': true,
@@ -287,27 +289,99 @@ exports.commands = {
 		"/rules [url] - Change the room rules URL. Requires: # & ~"],
 
 	servercredits: 'credits',
+<<<<<<< HEAD
 	credits: function (user) {
 		let popup = "|html|" + "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Server Maintainers:</u></strong><br />" +
 			"- " + Server.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
 			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
+=======
+	credits: function (user, target, room) {
+		if (!this.runBroadcast()) return;
+		let popup = "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
+			"<br />" +
+			"<u><strong>Server Maintainers:</u></strong><br />" +
+			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
+			"- " + Server.nameColor('Lycanium Z', true) + " (Owner, Sysadmin, Developer)<br />" +
+			"<br />" +
+			"<u><strong>Server Hosterino:</u></strong><br />" +
+			"- " + Server.nameColor('gyaratoast', true) + " (Owner, Hosterino Toasterino)<br />" +
+>>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 			"<br />" +
 			"<u><strong>Major Contributors:</strong></u><br />" +
 			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +
 			"- " + Server.nameColor('Back At My Day', true) + " (Developer)<br />" +
 			"- " + Server.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
-			"- " + Server.nameColor('Lycanium Z', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('HoeenHero', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('megas4ever', true) + " (Developer)<br />" +
+			"- " + Server.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
 			"<br />" +
 			"<u><strong>Retired Staff:</strong></u><br />" +
-			"- " + Server.nameColor('Lass Ninetales', true) + " (Former Owner, Developer, CSS Developments)<br />" +
-			"- " + Server.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
 			"- " + Server.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
 			"<br />" +
 			"<u><strong>Special Thanks:</strong></u><br />" +
 			"- Our Staff Members<br />" +
 			"- Our Regular Users<br />";
-		user.popup(popup);
+		this.sendReplyBox(popup);
+	},
+
+	servercommands: 'customcommands',
+	serverhelp: 'customcommands',
+	customcommands: function (room, user) {
+		if (!this.runBroadcast()) return;
+		this.sendReply(
+			'|raw|<div class="infobox infobox-limited"><div style="background-image: url(https://i.imgur.com/rzNdRCh.jpg); background-position: center; auto; background-repeat:no-repeat; background-size:cover; color: blue;"><strong><h1>Custom Commands on ' + Config.serverName + '</h1></strong><br />' +
+			'<h2>Game Commands:</h2><br /><ul>' +
+			'<li><button class="button" name="send" value="/ambushhelp">Ambush</button></li><br />' +
+			'<li><button class="button" name="send" value="/blackjackhelp">Blackjack</button></li><br />' +
+			'<li><button class="button" name="send" value="/dicegamehelp">Dice Game</button></li><br />' +
+			'<li><button class="button" name="send" value="/draft">Draft</button></li><br />' +
+			'<li><button class="button" name="send" value="/panagramhelp">Panagrams</button></li><br />' +
+			'<li><button class="button" name="send" value="/passthebombhelp">Pass The Bomb</button></li><br />' +
+			'<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors</button></li><br />' +
+			'<li><button class="button" name="send" value="/rpslshelp">Rock Paper Scissors Lizard Spock</button></li><br />' +
+			'<li><button class="button" name="send" value="/sentencehelp">Sentence Game</button></li><br />' +
+			'<li><button class="button" name="send" value="/slotshelp">Slots</button></li>' +
+			'</ul>' +
+			'<h2>Chat Features:</h2><br /><ul>' +
+			'<li><button class="button" name="send" value="/advertisehelp">Advertise A Room</button></li><br />' +
+			'<li><button class="button" name="send" value="/animehelp">Anime</button></li><br />' +
+			'<li><button class="button" name="send" value="/awayhelp">Away</button></li><br />' +
+			'<li><button class="button" name="send" value="/cardshelp">Cards</button></li><br />' +
+			'<li><button class="button" name="send" value="/definehelp">Define</button></li><br />' +
+			'<li><button class="button" name="send" value="/digidexhelp">Digidex</button></li><br />' +
+			'<li><button class="button" name="send" value="/atm">Economy</button></li><br />' +
+			'<li><button class="button" name="send" value="/emotes help">Emotes</button></li><br />' +
+			'<li><button class="button" name="send" value="/essbhelp">ESSB Data</button></li><br />' +
+			'<li><button class="button" name="send" value="/exphelp">EXP</button></li><br />' +
+			'<li><button class="button" name="send" value="/gangs help">Gangs</button></li><br />' +
+			'<li><button class="button" name="send" value="/hexhelp">Hex Code</button></li><br />' +
+			'<li><button class="button" name="send" value="/jobshelp">Jobs</button></li><br />' +
+			'<li><button class="button" name="send" value="/league help">League</button></li><br />' +
+			'<li><button class="button" name="send" value="/mangahelp">Manga</button></li><br />' +
+			'<li><button class="button" name="send" value="/meme">Meme Randomizer</button></li><br />' +
+			'<li><button class="button" name="send" value="/news">News</button></li><br />' +
+			'<li><button class="button" name="send" value="/ontime">Ontime</button></li><br />' +
+			'<li><button class="button" name="send" value="/playlisthelp">Playlist</button></li><br />' +
+			'<li><button class="button" name="send" value="/profile">Profile</button></li><br />' +
+			'<li><button class="button" name="send" value="/regdatehelp">Regdate</button></li><br />' +
+			'<li><button class="button" name="send" value="/roomlist">Room List</button></li><br />' +
+			'<li><button class="button" name="send" value="/seenhelp">Seen</button></li><br />' +
+			'<li><button class="button" name="send" value="/shop">Shop</button></li><br />' +
+			'<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li><br />' +
+			'<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li><br />' +
+			'<li><button class="button" name="send" value="/tellhelp">Tells</button></li><br />' +
+			'<li><button class="button" name="send" value="/urbandefinehelp">Urban Define</button></li><br />' +
+			'</ul>' +
+			'<h2>Social Medias/Links:</h2><br /><ul>' +
+			'<li><a href="https://discord.gg/chfz65A" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Discord</button></a><br />' +
+			'<li><a href="http://exiledps.boards.net/" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Forums</button></a><br />' +
+			'<li><a href="https://github.com/DeathlyPlays/Exiled" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">GitHub</button></a><br />' +
+			'<li><a href="https://join.skype.com/Eo5DCq8nCh1j" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Join Our Skype</button></a><br />' +
+			'<li><a href="https://goo.gl/forms/ho9YhvxrnXMY2QLI3" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Submit A Fakemon</button></a><br />' +
+			'</ul>' +
+			'</div></div>'
+		);
 	},
 };

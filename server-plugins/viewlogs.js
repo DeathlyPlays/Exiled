@@ -76,7 +76,7 @@ exports.commands = {
 		fs.readFile('logs/chat/' + targetRoom.toLowerCase() + '/' + splitDate[0] + '-' + splitDate[1] + '/' + date + '.txt', 'utf8', (err, data) => {
 			if (err && err.code === "ENOENT") return user.send("|popup||html|<font color=\"red\">No logs found.</font>");
 			if (err) return this.errorReply("/viewlogs - Error: " + err);
-			fs.appendFile('logs/viewlogs.log', '[' + new Date().toUTCString() + '] ' + user.name + " viewed the logs of " + toId(targetRoom) + ". Date: " + date + '\n');
+			fs.appendFile('logs/viewlogs.log', '[' + new Date().toUTCString() + '] ' + user.name + " viewed the logs of " + toId(targetRoom) + ". Date: " + date + '\n', () => {});
 			let filename = require('crypto').randomBytes(4).toString('hex');
 
 			if (!user.can('warn', null, Rooms(targetRoom))) {
@@ -125,7 +125,7 @@ exports.commands = {
 		if (!permissionCheck(user, toId(targets[0]))) return false;
 
 		fs.appendFile('logs/viewlogs.log', '[' + new Date().toUTCString() + '] ' + user.name + " searched the logs of " + toId(targets[0]) +
-		" for '" + targets[1] + "'." + '\n');
+		" for '" + targets[1] + "'." + '\n', () => {});
 
 		let pattern = escapeRegExp(targets[1]).replace(/\\\*/g, '.*');
 		let command = 'grep -Rnw \'./logs/chat/' + (toId(targets[0]) === 'all' ? '' : toId(targets[0])) + '\' -e "' + pattern + '"';
@@ -226,7 +226,7 @@ function parseMessage(message, user) {
 
 		let date = new Date(Number(lineSplit[2]));
 		let components = [date.getHours(), date.getMinutes(), date.getSeconds()];
-		timestamp = components.map(function (x) { return (x < 10) ? '0' + x : x;}).join(':');
+		timestamp = components.map(function (x) { return (x < 10) ? '0' + x : x; }).join(':');
 
 		message = '<span class="' + div + '"><small>[' + timestamp + ']</small> ' + '<small>' + name.substr(0, 1) +
 		'</small>' + Server.nameColor(toId(name), true) + '<em>' +

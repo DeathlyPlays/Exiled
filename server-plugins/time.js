@@ -1,7 +1,7 @@
 'use strict';
 /********************
  * Time Commands
- * This file contains commands that keep track of users activity.
+ * This file contains commands that keep track of user's activity.
  ********************/
 
 function convertTime(time) {

@@ -151,10 +151,10 @@ class Hangman extends Rooms.RoomGame {
 				).join(', ');
 			}
 			if (result === 2) {
-				output += '<br />Winner: ' + Server.nameColor(this.lastGuesser);
+				output += '<br />Winner: ' + Server.nameColor(this.lastGuesser, true);
 			} else if (this.guesses[this.guesses.length - 1].length === 1) {
 				// last guess was a letter
-				output += ' <small>&ndash; ' + Server.nameColor(this.lastGuesser) + '</small>';
+				output += ' <small>&ndash; ' + Server.nameColor(this.lastGuesser, true) + '</small>';
 			} else {
 				output += '<br />Guessed: ' + this.guesses[this.guesses.length - 1] + ' <small>&ndash; ' + Server.nameColor(this.lastGuesser) + '</small>';
 			}

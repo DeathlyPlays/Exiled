@@ -1,13 +1,12 @@
 'use strict';
 
-const FS = require('fs');
+const fs = require('fs');
 
-let adWhitelist = ['exiled', 'meadow', 'ember'];
+let adWhitelist = ['eon']; //Put your Server name here!
 
 let adRegex = new RegExp("(play.pokemonshowdown.com\\/~~)(?!(" + adWhitelist.join('|') + "))", "g");
 
 Config.chatfilter = function (message, user, room, connection, targetUser) {
-	user.lastActiveTime = Date.now();
 	if (!room && !Users(targetUser)) targetUser = {name: 'unknown user'};
 	let pre_matches = (message.match(/psim|psim.us|psim us/g) || []).length;
 	let final_check = (pre_matches >= 1 ? adWhitelist.filter(server => ~message.indexOf(server)).length : 0);
@@ -17,14 +16,14 @@ Config.chatfilter = function (message, user, room, connection, targetUser) {
 		user.advWarns++;
 		if (user.advWarns > 1) {
 			Punishments.lock(user, Date.now() + 7 * 24 * 60 * 60 * 1000, null, "Advertising");
-			FS.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server. (Advertising) (' + connection.ip + ')\n');
+			fs.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server. (Advertising) (' + connection.ip + ')\n', () => {});
 			connection.sendTo(room, '|raw|<strong class="message-throttle-notice">You have been locked for attempting to advertise.</strong>');
 			Monitor.log("[AdMonitor] " + user.name + " has been locked for attempting to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + targetUser.name + ".") + " **Message:** " + message);
 			return false;
 		}
 		Monitor.log("[AdMonitor] " + user.name + " has attempted to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + targetUser.name + ".") + " **Message:** " + message);
-		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and' + Config.serverName + ' global authorities have been notified.' + '<br />Further attempts to advertise in a chat OR PMs will result in being locked.</strong>');
-		connection.user.popup("|modal|Advertising detected, your message has not been sent and " + Config.serverName + "global authorities have been notified.\n" + "Further attempts to advertise in a chat OR in PMs will result in being locked.");
+		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and the Server\'s global authorities have been notified.' + '<br />Further attempts to advertise in a chat OR PMs will result in being locked.</strong>');
+		connection.user.popup("|modal|Advertising detected, your message has not been sent and the server's global authorities have been notified.\n" + "Further attempts to advertise in a chat OR in PMs will result in being locked.");
 		return false;
 	}
 	return message;

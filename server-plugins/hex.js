@@ -9,6 +9,34 @@ Server.nameColor = function (name, bold, userGroup) {
 };
 // usage: Server.nameColor(user.name, true) for bold OR Server.nameColor(user.name, false) for non-bolded.
 
+Server.pmAll = function (message, pmName) {
+	pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
+	Users.users.forEach(curUser => {
+		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
+	});
+};
+
+// format: Server.pmAll('message', 'person')
+//
+// usage: Server.pmAll('Event in Lobby in 5 minutes!', '~Server')
+//
+// this makes a PM from ~Server stating the message.
+
+Server.pmStaff = function (message, pmName, from) {
+	pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
+	from = (from ? ' (PM from ' + from + ')' : '');
+	Users.users.forEach(curUser => {
+		if (!curUser.isStaff) return;
+		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
+	});
+}
+
+// format: Server.pmStaff('message', 'person')
+//
+// usage: Server.pmStaff('Hey, Staff Meeting time', '~Server')
+//
+// this makes a PM from ~Server stating the message.
+
 Server.messageSeniorStaff = function (message, pmName, from) {
 	pmName = (pmName ? pmName : '~' + Config.serverName + ' Server');
 	from = (from ? ' (PM from ' + from + ')' : '');
@@ -22,7 +50,7 @@ Server.messageSeniorStaff = function (message, pmName, from) {
 //
 // usage: Server.messageSeniorStaff('Mystifi is a confirmed user and they were banned from a public room. Assess the situation immediately.', '~Server')
 //
-// this makes a PM from ~Server stating the message
+// this makes a PM from ~Server stating the message.
 
 Server.parseMessage = function (message) {
 	if (message.substr(0, 5) === "/html") {
@@ -55,7 +83,7 @@ Server.reloadCSS = function () {
 		path: '/customcss.php?server=' + (Config.serverid || cssPath),
 		method: 'GET',
 	};
-	http.get(options);
+	http.get(options, () => Monitor.adminlog("Successfully reloaded the server CSS."));
 };
 
 //Daily Rewards System for SpacialGaze by Lord Haji

@@ -341,6 +341,10 @@ exports.commands = {
 			yellow: '#yellow',
 			zinnia: '#zinnia',
 			clemont: '#clemont',
+
+			//Funny Random Stuff
+			ash: 294,
+			wally: '#wally',
 		};
 		if (avatarTable.hasOwnProperty(avatarid)) {
 			avatar = avatarTable[avatarid];
@@ -360,7 +364,7 @@ exports.commands = {
 				'|raw|<img src="//play.pokemonshowdown.com/sprites/trainers/' + (typeof avatar === 'string' ? avatar.substr(1) : avatar) + '.png" alt="" width="80" height="80" />');
 		}
 	},
-	avatarhelp: ["/avatar [avatar number 1 to 293] - Change your trainer sprite."],
+	avatarhelp: ["/avatar [avatar number 1 to 294] - Change your trainer sprite."],
 
 	'!logout': true,
 	signout: 'logout',
@@ -748,7 +752,7 @@ exports.commands = {
 			if (!this.can('makeroom')) return;
 		}
 
-		if (target === 'off' || !setting) {
+		if (this.meansNo(target) || !setting) {
 			if (!room.isPrivate) {
 				return this.errorReply(`This room is already public.`);
 			}
@@ -792,7 +796,7 @@ exports.commands = {
 
 	setavi: 'setavatar',
 	setavatar: function (target, room, user) {
-		if (!this.can('declare')) return false;
+		if (!this.can('ban')) return false;
 		let parts = target.split(',').map(param => param.trim());
 		let name = toId(parts[0]);
 		let avatarID = parts[1];
@@ -853,7 +857,7 @@ exports.commands = {
 		if (!room.chatRoomData) {
 			return this.errorReply(`/officialroom - This room can't be made official`);
 		}
-		if (target === 'off') {
+		if (this.meansNo(target)) {
 			if (!room.isOfficial) return this.errorReply(`This chat room is already unofficial.`);
 			delete room.isOfficial;
 			this.addModCommand(`${user.name} made this chat room unofficial.`);
@@ -873,7 +877,7 @@ exports.commands = {
 		if (!room.chatRoomData) {
 			return this.errorReply(`/psplwinnerroom - This room can't be marked as a PSPL Winner room`);
 		}
-		if (target === 'off') {
+		if (this.meansNo(target)) {
 			if (!room.pspl) return this.errorReply(`This chat room is already not a PSPL Winner room.`);
 			delete room.pspl;
 			this.addModCommand(`${user.name} made this chat room no longer a PSPL Winner room.`);
@@ -937,7 +941,7 @@ exports.commands = {
 			return;
 		}
 		if (!this.can('declare', null, room)) return false;
-		if (target === 'off' || target === 'disable' || target === 'delete') return this.errorReply('Did you mean "/deleteroomintro"?');
+		if (this.meansNo(target) || target === 'delete') return this.errorReply('Did you mean "/deleteroomintro"?');
 		target = this.canHTML(target);
 		if (!target) return;
 		if (!/</.test(target)) {
@@ -992,7 +996,7 @@ exports.commands = {
 		}
 		if (!this.can('ban', null, room)) return false;
 		if (!this.canTalk()) return;
-		if (target === 'off' || target === 'disable' || target === 'delete') return this.errorReply('Did you mean "/deletestaffintro"?');
+		if (this.meansNo(target) || target === 'delete') return this.errorReply('Did you mean "/deletestaffintro"?');
 		target = this.canHTML(target);
 		if (!target) return;
 		if (!/</.test(target)) {
@@ -1205,7 +1209,7 @@ exports.commands = {
 
 		if (targetUser in room.users || user.can('lock')) {
 			targetUser.popup(
-				"|modal||html|<p>" + Chat.escapeHTML(user.name) + " has banned you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
+				"|modal||html|<p>" + Server.nameColor(user.name, true, true) + " has banned you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
 				"<p>To appeal the ban, PM the staff member that banned you" + (!room.battle && room.auth ? " or a room owner. </p><p><button name=\"send\" value=\"/roomauth " + room.id + "\">List Room Staff</button></p>" : ".</p>")
 			);
 		}
@@ -1247,7 +1251,7 @@ exports.commands = {
 				this.globalModlog("UNROOMBAN", name, " by " + user.name);
 			}
 		} else {
-			this.errorReply("User '" + target + "' is not banned.");
+			this.errorReply("User '" + target + "' is not banned from this room.");
 		}
 	},
 	unbanhelp: ["/roomunban [username] - Unbans the user from the room you are in. Requires: @ # & ~"],
@@ -2168,7 +2172,7 @@ exports.commands = {
 
 		if (targetUser in room.users || user.can('lock')) {
 			targetUser.popup(
-				"|modal||html|<p>" + Chat.escapeHTML(user.name) + " has blacklisted you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
+				"|modal||html|<p>" + Server.nameColor(user.name, true, true) + " has blacklisted you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
 				"<p>To appeal the ban, PM the staff member that blacklisted you" + (!room.battle && room.auth ? " or a room owner. </p><p><button name=\"send\" value=\"/roomauth " + room.id + "\">List Room Staff</button></p>" : ".</p>")
 			);
 		}
@@ -2678,12 +2682,12 @@ exports.commands = {
 		if (!this.can('lockdown')) return false;
 		if (Config.autolockdown === undefined) Config.autolockdown = true;
 
-		if (target === 'on' || target === 'enable') {
+		if (this.meansYes(target)) {
 			if (Config.autolockdown) return this.errorReply("The server is already set to automatically kill itself upon the final battle finishing.");
 			Config.autolockdown = true;
 			this.sendReply("The server is now set to automatically kill itself upon the final battle finishing.");
 			this.logEntry(`${user.name} used /autolockdownkill on`);
-		} else if (target === 'off' || target === 'disable') {
+		} else if (this.meansNo(target)) {
 			if (!Config.autolockdown) return this.errorReply("The server is already set to not automatically kill itself upon the final battle finishing.");
 			Config.autolockdown = false;
 			this.sendReply("The server is now set to not automatically kill itself upon the final battle finishing.");
@@ -3058,12 +3062,15 @@ exports.commands = {
 		let data = room.getLog(logidx).join("\n");
 		let datahash = crypto.createHash('md5').update(data.replace(/[^(\x20-\x7F)]+/g, '')).digest('hex');
 		let players = room.battle.playerNames;
+		let rating = 0;
+		if (room.battle.ended && room.rated) rating = room.rated;
 		LoginServer.request('prepreplay', {
 			id: room.id.substr(7),
 			loghash: datahash,
 			p1: players[0],
 			p2: players[1],
 			format: room.format,
+			rating: rating,
 			hidden: room.isPrivate ? '1' : '',
 		}, success => {
 			if (success && success.errorip) {
@@ -3157,14 +3164,14 @@ exports.commands = {
 		if (!force && !room.game.players[user]) {
 			return this.errorReply(`Access denied`);
 		}
-		if (target === 'off' || target === 'false' || target === 'stop') {
+		if (this.meansNo(target) || target === 'stop') {
 			if (timer.timerRequesters.size) {
 				timer.stop(force ? undefined : user);
 				if (force) room.send(`|inactiveoff|Timer was turned off by staff. Please do not turn it back on until our staff say it's okay.`);
 			} else {
 				this.errorReply(`The timer is already off`);
 			}
-		} else if (target === 'on' || target === 'true') {
+		} else if (this.meansYes(target) || target === 'start') {
 			timer.start(user);
 		} else {
 			this.errorReply(`"${target}" is not a recognized timer state.`);
@@ -3175,10 +3182,10 @@ exports.commands = {
 	forcetimer: function (target, room, user) {
 		target = toId(target);
 		if (!this.can('autotimer')) return;
-		if (target === 'off' || target === 'false' || target === 'stop') {
+		if (this.meansNo(target) || target === 'stop') {
 			Config.forcetimer = false;
 			this.addModCommand("Forcetimer is now OFF: The timer is now opt-in. (set by " + user.name + ")");
-		} else if (target === 'on' || target === 'true' || !target) {
+		} else if (this.meansYes(target) || target === 'start' || !target) {
 			Config.forcetimer = true;
 			this.addModCommand("Forcetimer is now ON: All battles will be timed. (set by " + user.name + ")");
 		} else {

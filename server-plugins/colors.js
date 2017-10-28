@@ -109,6 +109,7 @@ exports.commands = {
 		let targetUser = (target ? target : user.name);
 		this.sendReplyBox('The hex code of ' + Server.nameColor(targetUser, true) + ' is: <font color="' + Server.hashColor(targetUser) + '"><strong>' + Server.hashColor(targetUser) + '</strong></font>');
 	},
+	hexhelp: ["/hex [user] - Displays a username's hex code; defaults to your name."],
 };
 
 /* Pokemon Showdown hashColor function

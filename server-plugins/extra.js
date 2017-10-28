@@ -20,6 +20,8 @@ let messages = [
 	"{{user}}'s mama accidently kicked {{user}} from the server!",
 	"felt Insist's wrath.",
 	"got rekt by Travis CI!",
+	"exited life.exe.",
+	"found a species called \"friends\" (whatever that means).",
 ];
 
 exports.commands = {
@@ -51,7 +53,7 @@ exports.commands = {
 		let buffer = Object.keys(rankLists).sort((a, b) =>
 			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
 		).map(r =>
-			(Config.groups[r] ? "<b>" + Config.groups[r].name + "s</b> (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
+			(Config.groups[r] ? "<strong>" + Config.groups[r].name + "s</strong> (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
 		);
 
 		if (!buffer.length) return connection.popup("This server has no global authority.");
@@ -125,6 +127,7 @@ exports.commands = {
 
 		room.mute(targetUser, muteDuration, false);
 	},
+
 	mm: 'monthmute',
 	monthmute: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("Usage: /mm [user], [reason].");
@@ -156,6 +159,7 @@ exports.commands = {
 
 		room.mute(targetUser, muteDuration, false);
 	},
+
 	ym: 'yearmute',
 	yearmute: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("Usage: /ym [user], [reason].");
@@ -186,6 +190,7 @@ exports.commands = {
 
 		room.mute(targetUser, muteDuration, false);
 	},
+
 	staffmute: "authoritymute",
 	authoritymute: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("Usage: /authoritymute [user], [reason].");
@@ -239,7 +244,7 @@ exports.commands = {
 	poofhelp: ["/poof - Disconnects the user and leaves a message in the room."],
 
 	poofon: function () {
-		if (!this.can('poofoff')) return false;
+		if (!this.can('hotpatch')) return false;
 		Config.poofOff = false;
 		return this.sendReply("Poof is now enabled.");
 	},
@@ -247,7 +252,7 @@ exports.commands = {
 
 	nopoof: 'poofoff',
 	poofoff: function () {
-		if (!this.can('poofoff')) return false;
+		if (!this.can('hotpatch')) return false;
 		Config.poofOff = true;
 		return this.sendReply("Poof is now disabled.");
 	},
@@ -297,7 +302,7 @@ exports.commands = {
 	forcelogout: function (target, room, user) {
 		if (!user.can('hotpatch')) return;
 		if (!this.canTalk()) return false;
-		if (!target) return this.sendReply('/forcelogout [username], [reason] OR /flogout [username], [reason] - You do not have to add a reason');
+		if (!target) if (!target) return this.parse('/help forcelogout');
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) {
@@ -306,6 +311,8 @@ exports.commands = {
 		this.logModCommand('' + targetUser.name + ' was forcibly logged out by ' + user.name + '.' + (target ? " (" + target + ")" : ""));
 		targetUser.resetName();
 	},
+	forcelogouthelp: ["/forcelogout [user] - Forcefully logs out the target user."],
+
 	hide: 'hideauth',
 	hideauth: function (target, room, user) {
 		if (!this.can('lock')) return false;

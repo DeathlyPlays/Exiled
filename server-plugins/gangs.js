@@ -6,6 +6,7 @@
 * @license MIT license
 */
 
+/*
 'use strict';
 
 const fs = require('fs');
@@ -57,7 +58,7 @@ function logPointsUser(user, gang, amount, reason) {
 
 function log(message) {
 	if (!message) return false;
-	fs.appendFile('logs/gangs.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+	fs.appendFile('logs/gangs.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 }
 
 function gangPM(message, Gang) {
@@ -71,7 +72,7 @@ function gangPM(message, Gang) {
 
 function gangLog(message, Gang) {
 	let gangid = toId(gangs);
-	fs.appendFile('logs/gangs/' + gangid + '.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+	fs.appendFile('logs/gangs/' + gangid + '.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 }
 
 function getBadges(user) {
@@ -165,7 +166,7 @@ exports.commands = {
 	gangs: 'gang',
 	gang: {
 		create: function (target, room, user) {
-			if (!this.can('gangadmin')) return false;
+			if (!this.can('hotpatch')) return false;
 			if (!target) return this.errorReply("Usage: /gang create [gang name], [user]");
 			let targets = target.split(',');
 			for (let u in targets) targets[u] = targets[u].trim();
@@ -228,7 +229,7 @@ exports.commands = {
 		},
 
 		delete: function (target, room, user) {
-			if (!this.can('gangadmin')) return false;
+			if (!this.can('hotpatch')) return false;
 			if (!target) return this.errorReply("Usage: /gang delete [gang name].");
 			if (!gangs[toId(target)]) return this.errorReply("That gang does not exist.");
 
@@ -274,7 +275,7 @@ exports.commands = {
 
 			if (getGang(user.userid)) return this.errorReply("You've already joined a gang.");
 
-			let sortedRanks = Object.keys(gangs[gangid].ranks).sort(function (a, b) {return gangs[gangid].ranks[b].rank - gangs[gangid].ranks[a].rank;});
+			let sortedRanks = Object.keys(gangs[gangid].ranks).sort(function (a, b) { return gangs[gangid].ranks[b].rank - gangs[gangid].ranks[a].rank; });
 			let rank = sortedRanks.pop();
 			gangs[gangid].users.push(user.userid);
 			gangs[gangid].ranks[rank].users.push(user.userid);
@@ -378,7 +379,7 @@ exports.commands = {
 			target = toId(target);
 			if (!gangs[target]) return this.errorReply("That gang does not exist.");
 			let output = Chat.escapeHTML(gangs[target].name) + " members:\n\n";
-			let sortedRanks = Object.keys(gangs[target].ranks).sort(function (a, b) {return gangs[target].ranks[b].sortBy - gangs[target].ranks[a].sortBy;});
+			let sortedRanks = Object.keys(gangs[target].ranks).sort(function (a, b) { return gangs[target].ranks[b].sortBy - gangs[target].ranks[a].sortBy; });
 
 			for (let rank in sortedRanks) {
 				let users = [];
@@ -814,7 +815,7 @@ exports.commands = {
 		'point': 'points',
 		points: {
 			give: function (target, room, user) {
-				if (!this.can('gangadmin')) return false;
+				if (!this.can('hotpatch')) return false;
 				if (!target) return this.errorReply("Usage: /gang points give [gang], [points]");
 				let targets = target.split(',');
 				for (let u in targets) targets[u] = targets[u].trim();
@@ -834,7 +835,7 @@ exports.commands = {
 			},
 
 			take: function (target, room, user) {
-				if (!this.can('gangadmin')) return false;
+				if (!this.can('hotpatch')) return false;
 				if (!target) return this.errorReply("Usage: /gang points take [gang], [points]");
 				let targets = target.split(',');
 				for (let u in targets) targets[u] = targets[u].trim();
@@ -854,7 +855,7 @@ exports.commands = {
 			},
 
 			reset: function (target, room, user) {
-				if (!this.can('gangadmin')) return false;
+				if (!this.can('hotpatch')) return false;
 				if (!user.confirmGangPointsReset) {
 					this.errorReply("WARNING: THIS WILL RESET ALL GANG POINTS");
 					this.errorReply("Run this command again if you are sure this is what you want to do.");
@@ -971,3 +972,4 @@ exports.commands = {
 		return this.parse('/gang help');
 	},
 };
+*/

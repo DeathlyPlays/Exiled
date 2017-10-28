@@ -8,7 +8,7 @@
  * Dex Number, (for multiple pokemon: DEX[lowercase letter, a, b, c, d])
 ********************/
 const uuid = require('uuid');
-const cards = require('../config/card-data.js');
+const cards = require('../config/card-data');
 
 const colors = {
 	Mythic: '#D82A2A',
@@ -250,7 +250,7 @@ exports.commands = {
 
 	givepacks: 'givepack',
 	givepack: function (target, room, user) {
-		if (!user.can('pban')) return this.errorReply("/givepack - Access denied.");
+		if (!user.can('ban')) return this.errorReply("/givepack - Access denied.");
 		if (!target) return this.sendReply("/givepack [user], [pack] - Give a user a pack.");
 		let parts = target.split(',');
 		this.splitTarget(parts[0]);
@@ -268,7 +268,7 @@ exports.commands = {
 
 	takepacks: 'takepack',
 	takepack: function (target, room, user) {
-		if (!user.can('pban')) return this.errorReply("/takepack - Access denied.");
+		if (!user.can('ban')) return this.errorReply("/takepack - Access denied.");
 		if (!target) return this.sendReply("/takepack [user], [pack] - Take a pack from a user.");
 		let parts = target.split(',');
 		this.splitTarget(parts[0]);
@@ -891,13 +891,16 @@ exports.commands = {
 			"<strong>/trade</strong> - /trade [user's card], [targetUser], [targetUser's card] - starts a new trade request.<br>" +
 			"<strong>/trades</strong> - View your current pending trade requests.<br>" +
 			"<strong>/transfercard</strong> - /transfercard [targetUser], [card] - transfers a card to the target user.<br>" +
-			"<strong>/transferallcards</strong> - /transferallcards [user] - transfers all of your cards to the target user.<br>"
+			"<strong>/transferallcards</strong> - /transferallcards [user] - transfers all of your cards to the target user.<br>" +
+			"<strong>/spawncard</strong> - /spawncard [user], [card] - Gives a user a specific card from console.<br>" +
+			"<strong>/takecard</strong> - /takecard [user], [card] - Forcefully deletes a user's specified card.<br>" +
+			"<strong>/resetcards</strong> - /resetcards [user] - Forcefully resets a user's card collection.<br>"
 		);
 	},
 
 	givecard: 'spawncard',
 	spawncard: function (target, room, user, connection, cmd) {
-		if (!this.can('pban')) return false;
+		if (!this.can('ban')) return false;
 		if (!target) return this.errorReply("/givecard [user], [card ID]");
 		let parts = target.split(",").map(p => toId(p));
 		// find targetUser and the card being given.
@@ -913,7 +916,7 @@ exports.commands = {
 	},
 
 	takecard: function (target, room, user, connection, cmd) {
-		if (!this.can('pban')) return false;
+		if (!this.can('ban')) return false;
 		if (!target) return this.errorReply("/takecard [user], [card ID]");
 		let parts = target.split(",").map(p => toId(p));
 		// find targetUser and the card being taken.

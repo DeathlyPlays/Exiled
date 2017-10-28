@@ -231,7 +231,7 @@ exports.BattlePokedex = {
 	},
 	granbull: {
 		inherit: true,
-		types: ["Fairy", "Dragon"],
+		types: ["Fairy", "Fighting"],
 	},
 	noctowl: {
 		inherit: true,
@@ -417,6 +417,7 @@ exports.BattlePokedex = {
 	corsola: {
 		inherit: true,
 		prevo: "minoral",
+		evoLevel: 24,
 	},
 	minoral: {
 		num: -9012,

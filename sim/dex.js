@@ -34,7 +34,6 @@ const fs = require('fs');
 const path = require('path');
 
 const Data = require('./dex-data');
-const {Effect, PureEffect, RuleTable, Format, Item, Template, Move, Ability} = Data; // eslint-disable-line no-unused-vars
 
 const DATA_DIR = path.resolve(__dirname, '../data');
 const MODS_DIR = path.resolve(__dirname, '../mods');
@@ -427,7 +426,7 @@ class ModdedDex {
 		return moveCopy;
 	}
 	/**
-	 * @param {string | Effect} name
+	 * @param {?string | Effect} name
 	 * @return {Effect}
 	 */
 	getEffect(name) {
@@ -714,8 +713,7 @@ class ModdedDex {
 	 * @return {RuleTable}
 	 */
 	getRuleTable(format, depth = 0) {
-		/** @type {RuleTable} */
-		let ruleTable = new RuleTable();
+		let ruleTable = new Data.RuleTable();
 		if (format.ruleTable) return format.ruleTable;
 
 		const ruleset = format.ruleset.slice();
@@ -1107,7 +1105,7 @@ class ModdedDex {
 			let ability = buf.substring(i, j);
 			let template = dexes['base'].getTemplate(set.species);
 			// @ts-ignore
-			set.ability = (template.abilities && ability in {'':1, 0:1, 1:1, H:1} ? template.abilities[ability || '0'] : ability);
+			set.ability = (template.abilities && ['', '0', '1', 'H'].includes(ability) ? template.abilities[ability || '0'] : ability);
 			i = j + 1;
 
 			// moves

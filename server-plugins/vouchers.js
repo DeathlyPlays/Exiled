@@ -28,10 +28,10 @@ class Voucher {
 			let self = this;
 			Economy.writeMoney(self.userid, self.item, () => {
 				Economy.readMoney(self.userid, newAmount => {
-					if (Users(self.userid).connected) Users(self.userid).popup('|html|You have redeemed a voucher for ' + self.item + ' ' + (self.item > 1 ? global.moneyPlural : global.moneyName) + '.');
+					if (Users(self.userid).connected) Users(self.userid).popup('|html|You have redeemed a voucher for ' + self.item + ' ' + (self.item > 1 ? moneyPlural : moneyName) + '.');
 				});
 			});
-			Economy.logTransaction(Chat.escapeHTML(Users(self.userid).name) + ' has redeemed a voucher for ' + self.item + ' ' + (self.item === 1 ? global.moneyName : global.moneyPlural) + '.');
+			Economy.logTransaction(Chat.escapeHTML(Users(self.userid).name) + ' has redeemed a voucher for ' + self.item + ' ' + (self.item === 1 ? moneyName : moneyPlural) + '.');
 			break;
 		case 'item':
 			let valid = false;
@@ -64,21 +64,21 @@ class Voucher {
 			break;
 		case 'boostuno':
 			if (Users(this.userid).unoBoost) return 'active';
-			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redeemed a voucher for double Uno winnings.<br/>If you win your next Uno game you will receive DOUBLE ' + (this.item > 1 ? global.moneyPlural : global.moneyName) + '!<br/>Please note that redeemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
+			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redeemed a voucher for double Uno winnings.<br/>If you win your next Uno game you will receive DOUBLE ' + (this.item > 1 ? moneyPlural : moneyName) + '!<br/>Please note that redeemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
 			Users(this.userid).unoBoost = true;
 			break;
 		case 'boosttour':
 			if (Users(this.userid).tourBoost) return 'active';
-			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redeemed a voucher for double tournament winnings.<br/>If you win your next tournament you will receive DOUBLE ' + (this.item > 1 ? global.moneyPlural : global.moneyName) + '!<br/>Please note that redeemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
+			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redeemed a voucher for double tournament winnings.<br/>If you win your next tournament you will receive DOUBLE ' + (this.item > 1 ? moneyPlural : moneyName) + '!<br/>Please note that redeemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
 			Users(this.userid).tourBoost = true;
 			break;
 		case 'boostgame':
 			if (Users(this.userid).gameBoost) return 'active';
-			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redeemed a voucher for double Uno OR tournament winnings.<br/>If you win your next tournament OR game of Uno you will receive DOUBLE ' + (this.item > 1 ? global.moneyPlural : global.moneyName) + '!<br/>Please note that redeemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
+			if (Users(this.userid).connected) Users(this.userid).popup('|html|You have redeemed a voucher for double Uno OR tournament winnings.<br/>If you win your next tournament OR game of Uno you will receive DOUBLE ' + (this.item > 1 ? moneyPlural : moneyName) + '!<br/>Please note that redeemed boost vouchers expire when the server restarts, or when you have been offline for an hour.');
 			Users(this.userid).gameBoost = true;
 			break;
 		default:
-			return false; //Unrecoginzed voucher
+			return false; //unrecognized voucher
 		}
 		//Redeemed, delete this voucher
 		return true;
@@ -87,7 +87,7 @@ class Voucher {
 
 function writeFile() {
 	if (!writeJSON) return false; //Prevent corruptions
-	fs.writeFile('config/vouchers.json', JSON.stringify(Server.vouchers));
+	fs.writeFile('config/vouchers.json', JSON.stringify(Server.vouchers), () => {});
 }
 
 //load JSON
@@ -158,14 +158,14 @@ exports.commands = {
 			if (index === 0 || index === 1) {
 				if (!target[2]) return this.parse('/help voucher give');
 				if (index === 0) {
-					if (isNaN(Number(target[2]))) return this.errorReply('You need to give a number for the amount of ' + global.moneyPlural + ' to give.');
-					if (Number(target[2]) < 1 || Number(target[2]) > 50) return this.errorReply('You cannot create a voucher for less than 1 ' + global.moneyName + ' or more than 50 ' + global.moneyPlural + '.');
+					if (isNaN(Number(target[2]))) return this.errorReply('You need to give a number for the amount of ' + moneyPlural + ' to give.');
+					if (Number(target[2]) < 1 || Number(target[2]) > 50) return this.errorReply('You cannot create a voucher for less than 1 ' + moneyName + ' or more than 50 ' + moneyPlural + '.');
 					let voucher = new Voucher(targetUser.userid, vouchers[index], Number(target[2]));
 					Server.vouchers[targetUser.userid].push(voucher);
-					targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
+					targetUser.popup('|html|' + Server.nameColor(user.name) + ' has given you a voucher for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? moneyName : moneyPlural) + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
 					writeFile();
-					Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.');
-					this.sendReply('You gave ' + targetUser.name + ' a voucher for ' + target[2] + ' ' + (Number(target[2]) === 1 ? global.moneyName : global.moneyPlural) + '.');
+					Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for ' + toId(target[2]) + ' ' + (Number(target[2]) === 1 ? moneyName : moneyPlural) + '.');
+					this.sendReply('You gave ' + targetUser.name + ' a voucher for ' + target[2] + ' ' + (Number(target[2]) === 1 ? moneyName : moneyPlural) + '.');
 					return true;
 				} else {
 					let shopIndex = -1;
@@ -178,7 +178,7 @@ exports.commands = {
 					if (shopIndex === -1) return this.errorReply('Invalid item. Use /help voucher give for a list of valid items.');
 					let voucher = new Voucher(targetUser.userid, vouchers[index], shopItems[shopIndex]);
 					Server.vouchers[targetUser.userid].push(voucher);
-					targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for a ' + shopItems[shopIndex] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
+					targetUser.popup('|html|' + Server.nameColor(user.name) + ' has given you a voucher for a ' + shopItems[shopIndex] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
 					writeFile();
 					Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for a ' + shopItems[shopIndex] + '.');
 					this.sendReply('You gave ' + targetUser.name + ' a voucher for a ' + shopItems[shopIndex] + '.');
@@ -187,7 +187,7 @@ exports.commands = {
 			} else {
 				let voucher = new Voucher(targetUser.userid, vouchers[index], null);
 				Server.vouchers[targetUser.userid].push(voucher);
-				targetUser.popup('|html|' + Chat.escapeHTML(user.name) + ' has given you a voucher for a ' + vouchers[index] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
+				targetUser.popup('|html|' + Server.nameColor(user.name) + ' has given you a voucher for a ' + vouchers[index] + '.<br/>To redeem your voucher use <button name="send" value="/voucher redeem ' + voucher.id + '">/voucher redeem</button>.<br/>' + (expiresIn ? 'Your voucher expires in ' + expiresIn + ' days.' : 'This voucher will not expire.'));
 				writeFile();
 				Economy.logTransaction(Chat.escapeHTML(targetUser.name) + ' has received a voucher from ' + Chat.escapeHTML(user.name) + ' for a ' + vouchers[index] + '.');
 				this.sendReply('You gave ' + targetUser.name + ' a voucher for a ' + vouchers[index] + '.');
@@ -267,7 +267,7 @@ exports.commands = {
 				return true;
 				//break;
 			case false:
-				console.error('Voucher ID ' + target + '\'s goodFor value was Unrecoginzed.');
+				console.error('Voucher ID ' + target + '\'s goodFor value was unrecognized.');
 				return this.errorReply('An error occured while redeeming. Contact an Upper Staff member.');
 				//break;
 			case 'expired':
@@ -289,7 +289,8 @@ exports.commands = {
 			return this.parse('/help voucher');
 		},
 	},
-	voucherhelp: ['/voucher - Accepts the following commands:',
+	voucherhelp: [
+		'/voucher - Accepts the following commands:',
 		'/voucher give [user], [voucher], (item/amount) - Give a user a voucher. Valid vouchers are: money, item, boostUno, boostTour, and boostGame. Valid items are Custom Symbol, Custom Avatar, Custom Title, Custom Icon, and Custom Color. Requires Server Event Leader, &, or ~.',
 		'/voucher take [user], [id] - Take a user\'s voucher away. Requires Server Event Leader, &, or ~',
 		'/voucher list (user) - List the vouchers of a user, requires Server Event Leader, &, or ~ for viewing vouchers for other users.',

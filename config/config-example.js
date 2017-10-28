@@ -235,6 +235,9 @@ exports.customavatars = {
 	//'userid': 'customavatar.png'
 };
 
+// Defaults to allowing poof commands
+exports.poofOff = false;
+
 // tourroom - specify a room to receive tournament announcements (defaults to
 // the room 'tournaments').
 // tourannouncements - announcements are only allowed in these rooms

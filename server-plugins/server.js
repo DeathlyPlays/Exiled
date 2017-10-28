@@ -4,8 +4,6 @@ const fs = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
 const http = require('http');
-const Pokedex = require('../data/pokedex.js').BattlePokedex;
-const request = require('request');
 
 const bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
@@ -28,9 +26,11 @@ let amCache = {
 	manga: {},
 };
 
-let Reports = {};
-
 let regdateCache = {};
+let udCache = {};
+let defCache = {};
+
+let pmName = '~' + Config.serverName + ' Server';
 
 Server.img = function (link, height, width) {
 	if (!link) return '<font color="maroon">ERROR : You must supply a link.</font>';
@@ -41,35 +41,6 @@ Server.font = function (text, color, bold) {
 	if (!text) return '<font color="maroon">ERROR : Please provide some text.</font>';
 	return '<font color="' + (color ? color : 'black') + '">' + (bold ? '<strong>' : '') + text + (bold ? '</strong>' : '') + '</font>';
 };
-
-let urbanCache;
-try {
-	urbanCache = JSON.parse(fs.readFileSync('../config/udcache.json', 'utf8'));
-} catch (e) {
-	urbanCache = {};
-}
-
-function cacheUrbanWord(word, definition) {
-	word = word.toLowerCase().replace(/ /g, '');
-	urbanCache[word] = {
-		"definition": definition,
-		"time": Date.now(),
-	};
-	fs.writeFile('config/udcache.json', JSON.stringify(urbanCache));
-}
-
-function loadReports() {
-	try {
-		Reports = JSON.parse(fs.readFileSync('config/reports.json'));
-	} catch (e) {
-		Reports = {};
-	}
-}
-loadReports();
-
-function saveReports() {
-	fs.writeFile('config/reports.json', JSON.stringify(Reports));
-}
 
 function getLinkId(msg) {
 	msg = msg.split(' ');
@@ -206,7 +177,7 @@ exports.commands = {
 			);
 		}
 		if (!this.can('lock', null, room)) return false;
-		if (target === 'off' || target === 'disable' || target === 'reset') {
+		if (this.meansNo(target)) {
 			if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
 			delete room.chatRoomData.user;
 			this.sendReply("The User of the Week was reset by " + Server.nameColor(user.name, true) + ".");
@@ -223,7 +194,7 @@ exports.commands = {
 	},
 	useroftheweekhelp: 'uotwhelp',
 	uotwhelp: [
-		"/uotw - View the current User of the Week",
+		"/uotw - View the current User of the Week.",
 		"/uotw [user] - Set the User of the Week. Requires: % or higher.",
 	],
 
@@ -255,17 +226,20 @@ exports.commands = {
 		case 'automod':
 			target = '@';
 			break;
+		case 'autoleader':
+			target = '&';
+			break;
 		case 'autoowner':
 			target = '#';
 			break;
 		}
 
-		if (!target) return this.sendReply("Usage: /autorank [rank] - Automatically promotes user to the specified rank when they join the room.");
+		if (!target) return this.parse("/autorankhelp");
 		if (!this.can('roommod', null, room)) return false;
 		if (room.isPersonal) return this.sendReply('Autorank is not currently a feature in groupchats.');
 		target = target.trim();
 
-		if (target === 'off' && room.autorank) {
+		if (this.meansNo(target) && room.autorank) {
 			delete room.autorank;
 			delete room.chatRoomData.autorank;
 			Rooms.global.writeChatRoomData();
@@ -284,6 +258,8 @@ exports.commands = {
 		}
 		return this.sendReply("Group \"" + target + "\" not found.");
 	},
+	autorankhelp: ["/autorank [rank] - Automatically promotes user to the specified rank when they join the room."],
+
 	bonus: 'dailybonus',
 	checkbonus: 'dailybonus',
 	dailybonus: function (user) {
@@ -291,98 +267,120 @@ exports.commands = {
 		if ((86400000 - nextBonus) <= 0) return Server.giveDailyReward(user.userid, user);
 		return this.sendReply('Your next bonus is ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db('DailyBonus').get(user.userid, [1, Date.now()])[0]) + ' ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural) + ' in ' + Chat.toDurationString(Math.abs(86400000 - nextBonus)));
 	},
+
 	sota: function () {
-		return this.parse('feelssotafeelstinitinitinisotalove');
+		this.parse('feelssotafeelstinitinitinisotalove');
 	},
 
 	'!define': true,
 	def: 'define',
-	define: function (target, room) {
+	define: function (target, room, user) {
 		if (!target) return this.parse('/help define');
 		target = toId(target);
-		if (target > 50) return this.errorReply("Word can not be longer than 50 characters.");
+		if (target > 50) return this.sendReply('/define <word> - word can not be longer than 50 characters.');
 		if (!this.runBroadcast()) return;
-		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to speak.");
+
+		if (toId(target) !== 'constructor' && defCache[toId(target)]) {
+			this.sendReplyBox(defCache[toId(target)]);
+			if (room) room.update();
+			return;
+		}
 
 		let options = {
-			url: 'http://api.wordnik.com:80/v4/word.json/' + target + '/definitions?limit=3&sourceDictionaries=all' +
-				'&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
+			host: 'api.wordnik.com',
+			port: 80,
+			path: '/v4/word.json/' + target + '/definitions?limit=3&sourceDictionaries=all' +
+			'&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
+			method: 'GET',
 		};
 
-		let self = this;
-
-		function callback(error, response, body) {
-			if (!error && response.statusCode === 200) {
-				let page = JSON.parse(body);
-				let output = "<font color=#24678d><strong>Definitions for " + target + ":</strong></font><br />";
-				if (!page[0]) {
-					self.sendReplyBox("No results for <strong>\"" + target + "\"</strong>.");
-					return room.update();
+		http.get(options, res => {
+			let data = '';
+			res.on('data', chunk => {
+				data += chunk;
+			}).on('end', () => {
+				if (data.charAt(1) !== '{') {
+					this.sendReplyBox('Error retrieving definition for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
+					if (room) room.update();
+					return;
+				}
+				data = JSON.parse(data);
+				let output = '<font color=#24678d><strong>Definitions for ' + target + ':</strong></font><br />';
+				if (!data[0] || !data) {
+					this.sendReplyBox('No results for <strong>"' + target + '"</strong>.');
+					if (room) room.update();
+					return;
 				} else {
 					let count = 1;
-					for (let u in page) {
+					for (let u in data) {
 						if (count > 3) break;
-						output += "(<strong>" + count + "</strong>) " + Chat.escapeHTML(page[u]['text']) + "<br />";
+						output += '(<strong>' + count + '</strong>) ' + Chat.escapeHTML(data[u]['text']) + '<br />';
 						count++;
 					}
-					self.sendReplyBox(output);
-					return room.update();
+					this.sendReplyBox(output);
+					defCache[target] = output;
+					if (room) room.update();
+					return;
 				}
-			}
-		}
-		request(options, callback);
+			});
+		});
 	},
-	definehelp: ["/define [word] - Shows the definition of a word."],
+	definehelp: ["/define [word] - Gives the definition to a word."],
 
-	'!ud': true,
-	u: 'ud',
-	urbandefine: 'ud',
-	ud: function (target, room) {
-		if (!target) return this.parse('/help ud');
-		if (target.toString().length > 50) return this.errorReply("Phrase cannot be longer than 50 characters.");
+	'!urbandefine': true,
+	u: 'urbandefine',
+	ud: 'urbandefine',
+	urbandefine: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to speak.");
+		if (!target) return this.parse('/help urbandefine');
+		if (target.toString() > 50) return this.sendReply('Phrase can not be longer than 50 characters.');
+
+		if (toId(target) !== 'constructor' && udCache[toId(target)]) {
+			this.sendReplyBox(udCache[toId(target)]);
+			if (room) room.update();
+			return;
+		}
 
 		let options = {
-			url: 'http://www.urbandictionary.com/iphone/search/define',
+			host: 'api.urbandictionary.com',
+			port: 80,
+			path: '/v0/define?term=' + encodeURIComponent(target),
 			term: target,
-			headers: {
-				'Referer': 'http://m.urbandictionary.com',
-			},
-			qs: {
-				'term': target,
-			},
 		};
 
-		if (urbanCache[target.toLowerCase().replace(/ /g, '')] && Math.round(Math.abs((urbanCache[target.toLowerCase().replace(/ /g, '')].time - Date.now()) / (24 * 60 * 60 * 1000))) < 31) {
-			return this.sendReplyBox("<strong>" + Chat.escapeHTML(target) + ":</strong> " + urbanCache[target.toLowerCase().replace(/ /g, '')].definition.substr(0, 400));
-		}
-
-		let self = this;
-
-		function callback(error, response, body) {
-			if (!error && response.statusCode === 200) {
-				let page = JSON.parse(body);
-				let definitions = page['list'];
-				if (page['result_type'] === 'no_results') {
-					self.sendReplyBox("No results for <strong>\"" + Chat.escapeHTML(target) + "\"</strong>.");
-					return room.update();
+		http.get(options, res => {
+			let data = '';
+			res.on('data', chunk => {
+				data += chunk;
+			}).on('end', () => {
+				if (data.charAt(0) !== '{') {
+					this.sendReplyBox('Error retrieving definition for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
+					if (room) room.update();
+					return;
+				}
+				data = JSON.parse(data);
+				let definitions = data['list'];
+				if (data['result_type'] === 'no_results' || !data) {
+					this.sendReplyBox('No results for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
+					if (room) room.update();
+					return;
 				} else {
 					if (!definitions[0]['word'] || !definitions[0]['definition']) {
-						self.sendReplyBox("No results for <strong>\"" + Chat.escapeHTML(target) + "\"</strong>.");
-						return room.update();
+						this.sendReplyBox('No results for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
+						if (room) room.update();
+						return;
 					}
-					let output = "<strong>" + Chat.escapeHTML(definitions[0]['word']) + ":</strong> " + Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
+					let output = '<strong>' + Chat.escapeHTML(definitions[0]['word']) + ':</strong> ' + Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
 					if (output.length > 400) output = output.slice(0, 400) + '...';
-					cacheUrbanWord(target, Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' '));
-					self.sendReplyBox(output);
-					return room.update();
+					this.sendReplyBox(output);
+					udCache[toId(target)] = output;
+					if (room) room.update();
+					return;
 				}
-			}
-		}
-		request(options, callback);
+			});
+		});
 	},
-	udhelp: ["/urbandefine [phrase] - Shows the urban definition of the phrase. If you don't put in a phrase, it will show you a random phrase from urbandefine."],
+	urbandefinehelp: ["/u [word] - Gives the Urban Definition for a word."],
 
 	rf: 'roomfounder',
 	roomfounder: function (target, room, user) {
@@ -412,6 +410,7 @@ exports.commands = {
 			room.onUpdateIdentity(targetUser);
 		}
 		Rooms.global.writeChatRoomData();
+		room.protect = true;
 	},
 	roomfounderhelp: ["/roomfounder [username] - Appoints [username] as a room founder. Requires: & ~"],
 
@@ -458,7 +457,7 @@ exports.commands = {
 		}
 		Rooms.global.writeChatRoomData();
 	},
-	roomownerhelp: ["/roomowner [username] - Appoints [username] as a room owner. Requires: & ~"],
+	roomownerhelp: ["/roomowner [username] - Appoints [username] as a Room Owner. Requires: Room Founder, &, ~"],
 
 	roomdeowner: 'deroomowner',
 	deroomowner: function (target, room, user) {
@@ -476,33 +475,42 @@ exports.commands = {
 
 		delete room.auth[userid];
 		this.sendReply("(" + name + " is no longer Room Owner.)");
-		if (targetUser) targetUser.updateIdentity();
+		if (targetUser) {
+			targetUser.popup(`|html|You were demoted from Room Owner by ${Server.nameColor(user.name, true, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
 		if (room.chatRoomData) {
 			Rooms.global.writeChatRoomData();
 		}
 	},
+	roomdeownerhelp: ["/roomdeowner [username] - Demotes [username] from Room Owner. Requires: Room Founder, &, ~"],
 
 	roomleader: function (target, room, user) {
 		if (!room.chatRoomData) {
-			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
+			return this.sendReply("/roomleader - This room isn't designed for per-room moderation to be added");
 		}
 		target = this.splitTarget(target, true);
 		let targetUser = this.targetUser;
 
 		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' is not online.");
 
-		if (!room.founder) return this.sendReply('The room needs a room founder before it can have a room owner.');
-		if (room.founder !== user.userid && !this.can('makeroom')) return this.sendReply('/roomowner - Access denied.');
+		if (!room.founder) return this.sendReply('The room needs a Room Founder before it can have a Room Leader.');
+		if (room.founder !== user.userid && !this.can('makeroom')) return this.sendReply('/roomleader - Access denied.');
 
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
 
 		let name = targetUser.name;
 
+		if (targetUser) {
+			targetUser.popup(`|html|You were appointed Room Leader by ${Server.nameColor(user.name, true, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
 		room.auth[targetUser.userid] = '&';
 		this.addModCommand("" + name + " was appointed Room Leader by " + user.name + ".");
 		room.onUpdateIdentity(targetUser);
 		Rooms.global.writeChatRoomData();
 	},
+	roomleaderhelp: ["/roomleader [username] - Appoints [username] as a Room Leader. Requires: Room Founder, &, ~"],
 
 	roomdeleader: 'deroomowner',
 	deroomleader: function (target, room, user) {
@@ -518,6 +526,10 @@ exports.commands = {
 		if (room.auth[userid] !== '&') return this.sendReply("User '" + name + "' is not a room leader.");
 		if (!room.founder || user.userid !== room.founder && !this.can('makeroom', null, room)) return false;
 
+		if (targetUser) {
+			targetUser.popup(`|html|You were demoted from Room Leader by ${Server.nameColor(user.name, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
 		delete room.auth[userid];
 		this.sendReply("(" + name + " is no longer Room Leader.)");
 		if (targetUser) targetUser.updateIdentity();
@@ -525,6 +537,7 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 		}
 	},
+	roomdeleaderhelp: ["/roomdeleader [username] - Demotes [username] from Room Leader. Requires: Room Founder, &, ~"],
 
 	anime: function (target, room) {
 		if (!this.runBroadcast()) return;
@@ -563,6 +576,8 @@ exports.commands = {
 				return this.errorReply("Anime not found.");
 			});
 	},
+	animehelp: ['/anime [query] - Searches for an anime series based on the given search query.'],
+
 	manga: function (target, room) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.errorReply("No target.");
@@ -597,9 +612,10 @@ exports.commands = {
 					});
 			})
 			.catch(error => {
-				return this.errorReply("Anime not found.");
+				return this.errorReply("Manga not found.");
 			});
 	},
+	mangahelp: ['/manga [query] - Searches for a manga series based on the given search query.'],
 
 	hc: function () {
 		return this.parse('/hotpatch chat');
@@ -616,107 +632,7 @@ exports.commands = {
 	hv: function () {
 		return this.parse('/hotpatch validator');
 	},
-	complain: 'requesthelp',
-	report: 'requesthelp',
-	requesthelp: function (target, user) {
-		if (user.can('lock')) return this.parse('/reports ' + (target || ''));
-		if (!this.canTalk()) return this.errorReply("You can't use this command while unable to speak.");
-		if (!target) return this.sendReply("/requesthelp [message] - Requests help from " + Config.serverName + "global authorities. Please be specific in your situation.");
-		if (target.length < 1) return this.sendReply("/requesthelp [message] - Requests help from " + Config.serverName + "global authorities. Please be specific in your situation.");
 
-		let reportId = (Object.keys(Reports).length + 1);
-		let d = new Date();
-		let MonthNames = ["January", "February", "March", "April", "May", "June",
-			"July", "August", "September", "October", "November", "December",
-		];
-		console.log(reportId);
-		while (Reports[reportId]) reportId--;
-		Reports[reportId] = {};
-		Reports[reportId].reporter = user.name;
-		Reports[reportId].message = target.trim();
-		Reports[reportId].id = reportId;
-		Reports[reportId].status = 'Pending';
-		Reports[reportId].reportTime = MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + "th, " + d.getUTCFullYear() + ", " + (d.getUTCHours() < 10 ? "0" + d.getUTCHours() : d.getUTCHours()) + ":" + (d.getUTCMinutes() < 10 ? "0" + d.getUTCMinutes() : d.getUTCMinutes()) + " UTC";
-		saveReports();
-		Monitor.log('A new report has been submitted by ' + user.name + '. ID: ' + reportId + ' Message: ' + target.trim());
-		return this.sendReply("Your report has been sent to Server global authorities..");
-	},
-
-	reports: function (target, user, cmd) {
-		if (!user.can('lock')) return this.errorReply('/reports - Access denied.');
-		if (!target) target = '';
-		target = target.trim();
-
-		let id;
-		let cmdParts = target.split(' ');
-		cmd = cmdParts.shift().trim().toLowerCase();
-		let params = cmdParts.join(' ').split(',').map(function (param) {
-			return param.trim();
-		});
-		switch (cmd) {
-		case '':
-		case 'view':
-			if (!this.runBroadcast()) return;
-			let output = '|raw|<table border="1" cellspacing ="0" cellpadding="3"><tr><th>ID</th><th>Reporter</th><th>Message</th><th>Report Time</th><th>Status</th></tr>';
-			for (let u in Object.keys(Reports)) {
-				let currentReport = Reports[Object.keys(Reports)[u]];
-				let date = currentReport.reportTime;
-				output += '<tr><td>' + currentReport.id + '</td><td>' + Chat.escapeHTML(currentReport.reporter) + '</td><td>' +
-					Chat.escapeHTML(currentReport.message) + '</td><td>' + date + ' </td><td>' + (currentReport.status === 'Pending' ? '<font color=#ff9900>Pending</font>' : (~currentReport.status.indexOf('Accepted by') ? '<font color=green>' + Chat.escapeHTML(currentReport.status) + '</font>' : Chat.escapeHTML(currentReport.status))) + '</td></tr>';
-			}
-			this.sendReply(output);
-			break;
-		case 'accept':
-			if (params.length < 1) return this.errorReply("Usage: /reports accept [id]");
-			id = params.shift();
-			if (!Reports[id]) return this.errorReply("There's no report with that id.");
-			if (Reports[id].status !== 'Pending') return this.errorReply("That report isn't pending staff.");
-			Reports[id].status = "Accepted by " + user.name;
-			saveReports();
-			if (Users(Reports[id].reporter) && Users(Reports[id].reporter).connected) {
-				Users(Reports[id].reporter).popup("Your report has been accepted by " + user.name);
-			}
-			this.sendReply("You've accepted the report by " + Reports[id].reporter);
-			Monitor.log(user.name + " accepted the report by " + Reports[id].reporter + ". (ID: " + id + ")");
-			break;
-		case 'decline':
-		case 'deny':
-			if (params.length < 1) return this.errorReply("Usage: /reports deny [id]");
-			id = params.shift();
-			if (!Reports[id]) return this.errorReply("There's no report with that id.");
-			if (Reports[id].status !== 'Pending') return this.errorReply("That report isn't pending staff.");
-			if (Users(Reports[id].reporter) && Users(Reports[id].reporter).connected) {
-				Users(Reports[id].reporter).popup("|modal|" + "Your report has been denied by " + user.name);
-			}
-			this.sendReply("You've denied the report by " + Reports[id].reporter);
-			Monitor.log(user.name + " denied the report by " + Reports[id].reporter + ". (ID: " + id + ")");
-			delete Reports[id];
-			saveReports();
-			break;
-		case 'del':
-		case 'delete':
-			if (params.length < 1) return this.errorReply("Usage: /reports delete [id]");
-			id = params.shift();
-			if (!Reports[id]) return this.errorReply("There's no report with that id.");
-			Monitor.log(user.name + " deleted the report by " + Reports[id].reporter + ". (ID: " + id + ")");
-			delete Reports[id];
-			saveReports();
-			this.sendReply("That report has been deleted.");
-			break;
-		case 'help':
-			if (!this.runBroadcast()) return;
-			this.sendReplyBox("Report commands: <br />" +
-				"/report [message] - Adds a report to the system<br />" +
-				"/reports view - Views all current reports<br />" +
-				"/reports accept [id] - Accepts a report<br />" +
-				"/reports delete [id] - Deletes a report<br />" +
-				"/reports deny [id] - Denies a report"
-			);
-			break;
-		default:
-			this.parse('/reports help');
-		}
-	},
 	dev: {
 		give: function (target, user) {
 			if (!this.can('hotpatch')) return false;
@@ -762,6 +678,7 @@ exports.commands = {
 			);
 		},
 	},
+
 	afk: 'away',
 	busy: 'away',
 	work: 'away',
@@ -839,23 +756,25 @@ exports.commands = {
 		if (!targetData) return this.errorReply("The staffmon '" + toId(target) + "' could not be found.");
 		return this.sendReplyBox(targetData);
 	},
-
-	essbhelp: function () {
-		if (!this.runBroadcast()) return;
-		return this.sendReplyBox("/essb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.");
-	},
+	essbhelp: [
+		"/essb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.",
+		"/essbcredits - Displays the credits of the primary creators of ESSB.",
+	],
 
 	essbcredits: function (user) {
-		let popup = "|html|" + "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
+		if (!this.runBroadcast()) return;
+		let popup = "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Programmers:</u></strong><br />" +
-			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries.)<br />" +
+			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries)<br />" +
 			"- " + Server.nameColor('Lycanium Z', true) + " (Assistant Developer)<br />" +
-			"- " + Server.nameColor('Back At My Day', true) + " (Entries, Developments.)<br />" +
+			"- " + Server.nameColor('Back At My Day', true) + " (Entries, Developments)<br />" +
+			"- " + Server.nameColor('flufi', true) + " (Development)<br />" +
 			"<u><strong>Special Thanks:</strong></u><br />" +
 			"- Our Staff Members for their cooperation in making this.<br />";
-		user.popup(popup);
+		this.sendReplyBox(popup);
 	},
+
 	'!dub': true,
 	dub: 'dubtrack',
 	music: 'dubtrack',
@@ -884,6 +803,7 @@ exports.commands = {
 			});
 		});
 	},
+
 	'!youtube': true,
 	yt: 'youtube',
 	youtube: function (target, room) {
@@ -906,7 +826,7 @@ exports.commands = {
 
 		let self = this;
 		let data = '';
-		let req = require('https').request(reqOpts, function (res) {
+		let req = https.request(reqOpts, function (res) {
 			res.on('data', function (chunk) {
 				data += chunk;
 			});
@@ -927,7 +847,7 @@ exports.commands = {
 	},
 
 	clearall: function (target, room, user) {
-		if (!this.can('declare')) return false;
+		if (!this.can('ban')) return false;
 		if (room.battle) return this.sendReply("You cannot clearall in battle rooms.");
 
 		clearRoom(room);
@@ -937,7 +857,7 @@ exports.commands = {
 
 	gclearall: 'globalclearall',
 	globalclearall: function (user) {
-		if (!this.can('gdeclare')) return false;
+		if (!this.can('hotpatch')) return false;
 
 		Rooms.rooms.forEach(room => clearRoom(room));
 		Users.users.forEach(user => user.popup('All rooms have been cleared.'));
@@ -1090,9 +1010,10 @@ exports.commands = {
 	m8b: function () {
 		if (!this.runBroadcast()) return;
 		let results = ['Signs point to yes.', 'Yes.', 'Reply hazy, try again.', 'Without a doubt.', 'My sources say no.', 'As I see it, yes.', 'You may rely on it.', 'Concentrate and ask again.', 'Outlook not so good.', 'It is decidedly so.', 'Better not tell you now.', 'Very doubtful.', 'Yes - definitely.', 'It is certain.', 'Cannot predict now.', 'Most likely.', 'Ask again later.', 'My reply is no.', 'Outlook good.', 'Don\'t count on it.'];
-		return this.sendReplyBox(results[Math.floor(20 * Math.random())]);
+		return this.sendReplyBox(results[Math.floor(Math.random() * results.length)]);
 	},
 
+<<<<<<< HEAD
 	randp: function (target) {
 		if (!this.runBroadcast()) return;
 		let shinyPoke = "";
@@ -1132,14 +1053,21 @@ exports.commands = {
 		}
 		this.sendReplyBox("<table><tr><td><img src=\"" + spriteLocation + "\" height=\"96\" width=\"96\"></td><td><strong>Name: </strong>" + pokeData.species + "<br/><strong>Type(s): </strong>" + getTypeFormatting(pokeData.types) + "<br/><strong>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </strong>" + Object.values(pokeData.abilities).join(" / ") + "<br/><strong>Stats: </strong>" + Object.values(pokeData.baseStats).join(" / ") + "<br/><strong>Colour: </strong><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/><strong>Egg Group(s): </strong>" + pokeData.eggGroups.join(", ") + "</td></tr></table>");
 	},
+=======
+>>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 	'!digidex': true,
 	dd: 'digidex',
+	dg: 'digidex',
 	digidex: function (target) {
+		if (!this.runBroadcast()) return;
 		if (!target) return this.parse("/help digidex");
-		this.parse("/dt " + target + ", digimon");
+		if (this.broadcasting) {
+			this.parse("!dt " + target + ", digimon");
+		} else {
+			this.parse("/dt " + target + ", digimon");
+		}
 	},
 	digidexhelp: ["/digidex [Digimon] - Checks for a Digimon's data from Digimon Showdown."],
-
 
 	randomsurvey: 'randsurvey',
 	randsurvey: function () {
@@ -1160,7 +1088,7 @@ exports.commands = {
 			"/survey create Have you ever been banned/locked on main? (play.pokemonshowdown.com)",
 			"/survey create Do you want to see more events on " + Config.serverName + "?", //15
 		];
-		return this.parse(results[Math.floor(15 * Math.random())]);
+		return this.parse(results[Math.floor(Math.random() * results.length)]);
 	},
 
 	clearroomauth: function (target, room, user, cmd) {
@@ -1319,7 +1247,7 @@ exports.commands = {
 		targetUser.popup("You were kicked from " + room.id + " by " + user.name + ". (" + target + ")");
 		targetUser.leaveRoom(room.id);
 	},
-	kickhelp: ["/kick [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
+	kickhelp: ["/kick [user], [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
 
 	kickall: function (target, room, user) {
 		if (!this.can('declare')) return this.errorReply("/kickall - Access denied.");
@@ -1393,33 +1321,29 @@ exports.commands = {
 
 	masspm: 'pmall',
 	pmall: function (target, room, user) {
-		if (!this.can('pmall')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmall');
-
-		let pmName = '~' + Config.serverName + ' Server';
-
-		Users.users.forEach(function (user) {
-			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
-			user.send(message);
-		});
+		Server.pmAll(target, pmName, user.name);
 	},
 	pmallhelp: ["/pmall [message] - PM all users in the server."],
 
 	staffpm: 'pmallstaff',
 	pmstaff: 'pmallstaff',
 	pmallstaff: function (target, room, user) {
-		if (!this.can('forcewin')) return false;
+		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmallstaff');
-
-		let pmName = '~' + Config.serverName + ' Server';
-
-		Users.users.forEach(function (user) {
-			if (!user.isStaff) return;
-			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
-			user.send(message);
-		});
+		Server.pmStaff(target, pmName, user.name);
 	},
 	pmallstaffhelp: ["/pmallstaff [message] - Sends a PM to every staff member online."],
+
+	pus: 'pmupperstaff',
+	pmupperstaff: function (target, room, user) {
+		if (!target) return this.sendReply('/pmupperstaff [message] - Sends a PM to every upper staff');
+		if (!this.can('hotpatch')) return false;
+		if (!target) return this.parse('/help pmupperstaff');
+		Server.messageSeniorStaff(target, pmName, user.name);
+	},
+	pmupperstaffhelp: ["/pmupperstaff [message] - Sends a PM to every Upper Staff member online."],
 
 	pmroom: 'rmall',
 	roompm: 'rmall',
@@ -1428,8 +1352,6 @@ exports.commands = {
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in Lobby.");
 		if (!target) return this.sendReply("/rmall [message] - Sends a pm to all users in the room.");
 		target = target.replace(/<(?:.|\n)*?>/gm, '');
-
-		let pmName = '~' + Config.serverName + ' Server';
 
 		for (let i in room.users) {
 			let message = '|pm|' + pmName + '|' + room.users[i].getIdentity() + '| ' + target;
@@ -1594,6 +1516,117 @@ exports.commands = {
 			break;
 		default:
 			return this.errorReply("Invalid command. `/ads add, room, message`.");
+		}
+	},
+	advertisehelp: [
+		"/advertise add, [room], [message] - Adds your room advertisement with a message into the queue [Must be Room Moderator in the room].",
+		"/advertise enable - Enables Advertisements.",
+		"/advertise disable - Disables Advertisements.",
+	],
+
+	transferaccount: 'transferauthority',
+	transferauth: 'transferauthority',
+	transferauthority: (function () {
+		function transferAuth(user1, user2, transfereeAuth) { // bits and pieces taken from /userauth
+			let buff = [];
+			let ranks = Config.groupsranking;
+
+			// global authority
+			let globalGroup = Users.usergroups[user1];
+			if (globalGroup) {
+				let symbol = globalGroup.charAt(0);
+				if (ranks.indexOf(symbol) > ranks.indexOf(transfereeAuth)) return buff;
+				Users.setOfflineGroup(user1, Config.groupsranking[0]);
+				Users.setOfflineGroup(user2, symbol);
+				buff.push(`Global ${symbol}`);
+			}
+			// room authority
+			Rooms.rooms.forEach((curRoom, id) => {
+				if (curRoom.founder && curRoom.founder === user1) {
+					curRoom.founder = user2;
+					buff.push(`${id} [ROOMFOUNDER]`);
+				}
+				if (!curRoom.auth) return;
+				let roomGroup = curRoom.auth[user1];
+				if (!roomGroup) return;
+				delete curRoom.auth[user1];
+				curRoom.auth[user2] = roomGroup;
+				buff.push(roomGroup + id);
+			});
+			if (buff.length >= 2) { // did they have roomauth?
+				Rooms.global.writeChatRoomData();
+			}
+
+			if (Users(user1)) Users(user1).updateIdentity();
+			if (Users(user2)) Users(user2).updateIdentity();
+
+			return buff;
+		}
+		return function (target, room, user) {
+			if (!this.can('declare')) return false;
+			if (!target || !target.includes(',')) return this.parse(`/help transferauthority`);
+			target = target.split(',');
+			let user1 = target[0].trim(), user2 = target[1].trim(), user1ID = toId(user1), user2ID = toId(user2);
+			if (user1ID.length < 1 || user2ID.length < 1) return this.errorReply(`One or more of the given usernames are too short to be a valid username (min 1 character).`);
+			if (user1ID.length > 17 || user2ID.length > 17) return this.errorReply(`One or more of the given usernames are too long to be a valid username (max 17 characters).`);
+			if (user1ID === user2ID) return this.errorReply(`You provided the same accounts for the alt change.`);
+			let transferSuccess = transferAuth(user1ID, user2ID, user.group);
+			if (transferSuccess.length >= 1) {
+				this.addModCommand(`${user1} has had their account (${transferSuccess.join(', ')}) transfered onto new name: ${user2} - by ${user.name}.`);
+				this.sendReply(`Note: avatars do not transfer automatically with this command.`);
+			} else {
+				return this.errorReply(`User '${user1}' has no global or room authority, or they have higher global authority than you.`);
+			}
+		};
+	})(),
+	transferauthorityhelp: ["/transferauthority [old alt], [new alt] - Transfers a user's global/room authority onto their new alt. Requires & ~"],
+
+	errorlogs: 'crashlogs',
+	crashlogs: function (target, room, user) {
+		if (!this.can("hotpatch")) return false;
+		let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
+		user.send('|popup|' + crashes);
+		return;
+	},
+
+	'!uptime': true,
+	uptime: (function () {
+		function formatUptime(uptime) {
+			if (uptime > 24 * 60 * 60) {
+				let uptimeText = "";
+				let uptimeDays = Math.floor(uptime / (24 * 60 * 60));
+				uptimeText = uptimeDays + " " + (uptimeDays === 1 ? "day" : "days");
+				let uptimeHours = Math.floor(uptime / (60 * 60)) - uptimeDays * 24;
+				if (uptimeHours) uptimeText += ", " + uptimeHours + " " + (uptimeHours === 1 ? "hour" : "hours");
+				return uptimeText;
+			} else {
+				return Chat.toDurationString(uptime * 1000);
+			}
+		}
+
+		return function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			let uptime = process.uptime();
+			this.sendReplyBox("Uptime: <strong>" + formatUptime(uptime) + "</strong>" +
+				(global.uptimeRecord ? "<br /><font color=\"green\">Record: <strong>" + formatUptime(global.uptimeRecord) + "</strong></font>" : ""));
+		};
+	})(),
+
+	protectroom: function (target, room, user) {
+		if (!this.can('hotpatch')) return false;
+		if (room.type !== 'chat' || room.isOfficial) return this.errorReply("This room does not need to be protected.");
+		if (this.meansNo(target)) {
+			if (!room.protect) return this.errorReply("This room is already unprotected.");
+			room.protect = false;
+			room.chatRoomData.protect = room.protect;
+			Rooms.global.writeChatRoomData();
+			this.privateModCommand("(" + user.name + " has unprotected this room from being automatically deleted.)");
+		} else {
+			if (room.protect) return this.errorReply("This room is already protected.");
+			room.protect = true;
+			room.chatRoomData.protect = room.protect;
+			Rooms.global.writeChatRoomData();
+			this.privateModCommand("(" + user.name + " has protected this room from being automatically deleted.)");
 		}
 	},
 };

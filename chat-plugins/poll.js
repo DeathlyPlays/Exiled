@@ -96,7 +96,7 @@ class Poll {
 			i = iter.next();
 			c++;
 		}
-		if (option === 0 && !ended) output += '<div style="text-align:center; color:maroon;"<small>(You can\'t vote after viewing results)</small></div>';
+		if (option === 0 && !ended) output += '<div style="text-align:center; color:maroon;"><small>(You can\'t vote after viewing results)</small></div>';
 		output += '</table>';
 
 		return output;
@@ -229,7 +229,7 @@ exports.commands = {
 				return this.errorReply("Too many options for poll (maximum is 100).");
 			}
 
-			room.poll = new Poll(room, {source: params[0], supportHTML: supportHTML}, options);
+			room.poll = new Poll(room, {source: params[0], supportHTML: supportHTML, username: user.name}, options);
 			room.poll.display();
 
 			this.logEntry("" + user.name + " used " + message);

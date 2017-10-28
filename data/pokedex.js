@@ -2405,6 +2405,18 @@ exports.BattlePokedex = {
 		evos: ["tangrowth"],
 		eggGroups: ["Grass"],
 	},
+	kangajr: {
+		num: -114.5,
+		species: "Kanga Jr.",
+		types: ["Normal"],
+		baseStats: {hp: 55, atk: 60, def: 55, spa: 25, spd: 50, spe: 70},
+		abilities: {0: "Early Bird", 1: "Scrappy", H: "Adaptability"},
+		heightm: 0.4,
+		weightkg: 6.5,
+		color: "Brown",
+		evos: ["Kangaskhan"],
+		eggGroups: ["Undiscovered"],
+	},
 	kangaskhan: {
 		num: 115,
 		species: "Kangaskhan",

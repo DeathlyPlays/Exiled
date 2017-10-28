@@ -14749,7 +14749,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, authentic: 1, mystery: 1},
 		onTryHit: function (target, source) {
-			let bannedAbilities = {comatose:1, illusion:1, multitype:1, schooling:1, stancechange:1, wonderguard:1};
+			let bannedAbilities = {comatose:1, illusion:1, multitype:1, schooling:1, stancechange:1};
 			if (bannedAbilities[target.ability] || bannedAbilities[source.ability]) {
 				return false;
 			}

@@ -1110,8 +1110,10 @@ exports.commands = {
 			x = Math.floor(Math.random() * (755 - 583)) + 582;
 		} else if (/unova/i.test(target) || /gen 6/i.test(target)) {
 			x = Math.floor(Math.random() * (834 - 752)) + 751;
+		} else if (/alola/i.test(target) || /gen 7/i.test(target)) {
+			x = Math.floor(Math.random() * (980 - 833)) + 832;
 		}
-		x = x || Math.floor(Math.random() * (856 - 1));
+		x = x || Math.floor(Math.random() * (1023 - 1));
 		let tarPoke = Object.keys(Pokedex)[x];
 		let pokeData = Pokedex[tarPoke];
 		let pokeId = pokeData.species.toLowerCase();

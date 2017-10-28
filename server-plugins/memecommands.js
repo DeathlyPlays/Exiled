@@ -61,6 +61,13 @@ exports.commands = {
 		room.addRaw(Server.nameColor(user.name, true, true) + ' has head smashed  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("FUCKING SMASHING!");
 	},
+	spank: function (target, room, user) {
+		if (!target) return this.sendReply('/spank needs a target.');
+		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
+		let targetUser = Users.get(target);
+		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
+		room.addRaw(Server.nameColor(user.name, true, true) + ' spanked  ' + Server.nameColor(target, true, true) + '!');
+	},
 	outrage: function (target, room, user) {
 		if (!target) return this.sendReply('/outrage needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');

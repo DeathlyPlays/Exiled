@@ -6899,7 +6899,7 @@ exports.BattleItems = {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
 			return true;
 		},
-		num: -118,
+		num: -418,
 		gen: 0,
 		desc: "If holder is a Zangoose, this item allows it to Mega Evolve in battle.",
 	},

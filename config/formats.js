@@ -2034,7 +2034,7 @@ exports.Formats = [
 		],
 		mod: 'franticfusions',
 		ruleset: ['[Gen 7] OU'],
-		banlist: ["Illegal", 'Kyurem-Black', 'Manaphy', 'Porygon-Z', 'Shedinja', 'Togekiss', 'Chatter'],
+		banlist: ["Illegal", 'Kyurem-Black', 'Manaphy', 'Porygon-Z', 'Shedinja', 'Togekiss', 'Chatter', 'Huge Power', 'Pure Power', 'Simple', 'Refrigerate', 'Pixilate', 'Aerilate'],
 		onBegin: function () {
 			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
 			for (let i = 0, len = allPokemon.length; i < len; i++) {
@@ -2191,10 +2191,11 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] OU Chaos",
-		unbanlist: ["Pheromosa", "Metagrossite", "Blaziken", "Genesect", "Landorus", "Deoxys-Defense", "Shaymin-Sky", "Deoxys-Speed", "Aegislash", "Deoxys", "Darkrai", "Metagross-Mega",],
-		desc: ["The nightmares that we had in OU once are back, and the chaos is everywhere. Balance is no longer a thing."],
-		ruleset: ['[Gen 7] OU'],
-		banlist: ["Uber"],
+		unbanlist: ["Pheromosa", "Metagrossite", "Blaziken", "Genesect", "Landorus", "Deoxys-Defense", "Shaymin-Sky", "Deoxys-Speed", "Aegislash", "Deoxys", "Darkrai", "Metagross-Mega", "Kangaskhanite", "Kangaskhan-Mega", "Gengarite", "Gengar-Mega", "Lucarionite", "Lucario-Mega"],
+		desc: ["The nightmares that we had in OU once are back, and the chaos is everywhere."],
+		mod: "ouchaos",
+		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+		banlist: ['Uber', 'Baton Pass', 'Arena Trap', 'Power Construct'],
 	},
 	{
 		name: "[Gen 7] Slowtown",

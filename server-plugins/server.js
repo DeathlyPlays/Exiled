@@ -1013,7 +1013,6 @@ exports.commands = {
 		return this.sendReplyBox(results[Math.floor(Math.random() * results.length)]);
 	},
 
-<<<<<<< HEAD
 	randp: function (target) {
 		if (!this.runBroadcast()) return;
 		let shinyPoke = "";
@@ -1053,8 +1052,6 @@ exports.commands = {
 		}
 		this.sendReplyBox("<table><tr><td><img src=\"" + spriteLocation + "\" height=\"96\" width=\"96\"></td><td><strong>Name: </strong>" + pokeData.species + "<br/><strong>Type(s): </strong>" + getTypeFormatting(pokeData.types) + "<br/><strong>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </strong>" + Object.values(pokeData.abilities).join(" / ") + "<br/><strong>Stats: </strong>" + Object.values(pokeData.baseStats).join(" / ") + "<br/><strong>Colour: </strong><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/><strong>Egg Group(s): </strong>" + pokeData.eggGroups.join(", ") + "</td></tr></table>");
 	},
-=======
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 	'!digidex': true,
 	dd: 'digidex',
 	dg: 'digidex',

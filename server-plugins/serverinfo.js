@@ -109,32 +109,20 @@ exports.commands = {
 		);
 	},
 	opensourcehelp: [
-<<<<<<< HEAD
-		"/opensource - Links to Serverdrop's source code repository.",
-=======
 		"/opensource - Links to " + Config.serverName + "'s source code repository.",
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 		"!opensource - Show everyone that information. Requires: + % @ * # & ~",
 	],
 
 	'!forums': true,
 	forums: function () {
 		if (!this.runBroadcast()) return;
-<<<<<<< HEAD
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">Dewdrop Forums</a>");
-=======
 		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">" + Config.serverName + " Forums</a>");
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 	},
 
 	'!suggestions': true,
 	suggestions: function () {
 		if (!this.runBroadcast()) return;
-<<<<<<< HEAD
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for Dewdrop</a>");
-=======
 		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for " + Config.serverName + "</a>");
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 	},
 
 	'!fakemon': true,
@@ -153,44 +141,7 @@ exports.commands = {
 	'!discord': true,
 	discord: function () {
 		if (!this.runBroadcast()) return;
-<<<<<<< HEAD
-		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official Dewdrop Discord</a>");
-	},
-
-	//Credits to Snaquaza on these feature and other DragonHeaven developers/contributers
-	'perfectedlist': 'perfectionlist',
-	perfectionlist: function () {
-		if (!this.runBroadcast()) return;
-		let buf = `<div class=infobox-limited><center><h2>List Of Perfected Pokemon</h2></center>`;
-		let perfectionDex = require('../mods/perfection/pokedex.js').BattlePokedex;
-		if (!perfectionDex) return this.errorReply("Error Fetching Perfected Pokemon Data.");
-		Object.values(perfectionDex).forEach(mon => {
-			buf += `<button name="send" value="/dt ${mon.species}, perfection" style="background:none;border:none;">${mon.species}</button><br>`;
-		});
-		this.sendReplyBox(`${buf}</div>`);
-	},
-	perfectionlisthelp: ["/perfectionlist - Shows the list of Pokemon that have been made/edited in Perfected Pokemon."],
-
-	'perfectionlearn': 'learnperfected',
-	'learnperfection': 'learnperfected',
-	'perfectedlearn': 'learnperfected',
-	learnperfected: function (target) {
-		if (!this.runBroadcast()) return;
-		let learnperfected = Dex.mod('perfection').data.Learnsets, moveperfected = Dex.mod('perfection').data.Movedex, dexperfected = Dex.mod('perfection').data.Pokedex;
-		if (!target || toId(target) === '') return this.sendReply("/learnperfected: Shows the whether a Pokemon can learn a move, including Pokemon and Moves from Perfected Pokemon.");
-		let targets = target.split(','), mon = targets[0], move = targets[1];
-		if (!mon || !dexperfected[toId(mon)]) return this.errorReply("Error: Pokemon not found");
-		if (!learnperfected[toId(mon)]) return this.errorReply("Error: Learnset not found");
-		if (!move || !moveperfected[toId(move)]) return this.errorReply("Error: Move not found");
-		mon = dexperfected[toId(mon)];
-		move = moveperfected[toId(move)];
-		if (learnperfected[toId(mon.species)].learnset[toId(move.name)]) {
-			return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="green"><u><strong>can<strong><u></font> learn ' + move.name);
-		}
-		return this.sendReplyBox("In Perfected Pokemon, " + mon.species + ' <font color="red"><u><strong>can\'t<strong><u></font> learn ' + move.name);
-=======
 		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official " + Config.serverName + " Discord</a>");
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 	},
 
 	'!bugs': true,
@@ -289,25 +240,12 @@ exports.commands = {
 		"/rules [url] - Change the room rules URL. Requires: # & ~"],
 
 	servercredits: 'credits',
-<<<<<<< HEAD
 	credits: function (user) {
 		let popup = "|html|" + "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Server Maintainers:</u></strong><br />" +
 			"- " + Server.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
 			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
-=======
-	credits: function (user, target, room) {
-		if (!this.runBroadcast()) return;
-		let popup = "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
-			"<br />" +
-			"<u><strong>Server Maintainers:</u></strong><br />" +
-			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
-			"- " + Server.nameColor('Lycanium Z', true) + " (Owner, Sysadmin, Developer)<br />" +
-			"<br />" +
-			"<u><strong>Server Hosterino:</u></strong><br />" +
-			"- " + Server.nameColor('gyaratoast', true) + " (Owner, Hosterino Toasterino)<br />" +
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 			"<br />" +
 			"<u><strong>Major Contributors:</strong></u><br />" +
 			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +

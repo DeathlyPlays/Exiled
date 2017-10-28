@@ -11,42 +11,16 @@ function extend(obj, src) {
 	return obj;
 }
 
-<<<<<<< HEAD
-let DSSB = JSON.parse(fs.readFileSync('config/ssb.json', 'utf-8'));
-
-class RandomCustomSSBTeams extends RandomTeams {
-	randomCustomSSBTeam() {
-		//let DSSB = JSON.parse(fs.readFileSync('config/ssb.json', 'utf-8'));
-=======
 let SSBFFA = JSON.parse(fs.readFileSync('config/ssb.json', 'utf-8'));
 
 class RandomCustomSSBTeams extends RandomTeams {
 	randomCustomSSBTeam() {
 		//let SSBFFA = JSON.parse(fs.readFileSync('config/ssb.json', 'utf-8'));
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 		let team = [];
 		let variant = this.random(2);
 
 		//Parse player objects into sets.
 		let ssbSets = {};
-<<<<<<< HEAD
-		for (let key in DSSB) {
-			if (!DSSB[key].active) continue; //This pokemon is not to be used yet.
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)] = {};
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].name = DSSB[key].name;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].species = DSSB[key].species;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].ability = DSSB[key].ability;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].item = DSSB[key].item;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].gender = (DSSB[key].gender === 'random' ? ((variant === 1) ? 'M' : 'F') : DSSB[key].gender);
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].moves = DSSB[key].movepool;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].signatureMove = DSSB[key].cMove;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].evs = DSSB[key].evs;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].ivs = DSSB[key].ivs;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].nature = DSSB[key].nature;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].level = parseInt(DSSB[key].level);
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].shiny = DSSB[key].shiny;
-			ssbSets[(DSSB[key].symbol + DSSB[key].name)].happiness = DSSB[key].happiness;
-=======
 		for (let key in SSBFFA) {
 			if (!SSBFFA[key].active) continue; //This pokemon is not to be used yet.
 			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)] = {};
@@ -63,7 +37,6 @@ class RandomCustomSSBTeams extends RandomTeams {
 			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].level = parseInt(SSBFFA[key].level);
 			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].shiny = SSBFFA[key].shiny;
 			ssbSets[(SSBFFA[key].symbol + SSBFFA[key].name)].happiness = SSBFFA[key].happiness;
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 		}
 
 		//var sets = extend(baseSets, ssbSets);
@@ -97,15 +70,9 @@ class RandomCustomSSBTeams extends RandomTeams {
 		let pool = Object.keys(sets);
 		for (let i = 0; i < (Object.keys(sets).length < 6 ? Object.keys(sets).length : 6); i++) {
 			let name = this.sampleNoReplace(pool);
-<<<<<<< HEAD
-			/*if (i === 1 && DSSB[toId(side.name)] && DSSB[toId(side.name)].active && sets[(DSSB[toId(side.name)].symbol + DSSB[toId(side.name)].name)] && pool.indexOf((DSSB[toId(side.name)].symbol + DSSB[toId(side.name)].name)) !== -1) {
-				pool.push(name); //re-add
-				name = pool[pool.indexOf((DSSB[toId(side.name)].symbol + DSSB[toId(side.name)].name))];
-=======
 			/*if (i === 1 && SSBFFA[toId(side.name)] && SSBFFA[toId(side.name)].active && sets[(SSBFFA[toId(side.name)].symbol + SSBFFA[toId(side.name)].name)] && pool.indexOf((SSBFFA[toId(side.name)].symbol + SSBFFA[toId(side.name)].name)) !== -1) {
 				pool.push(name); //re-add
 				name = pool[pool.indexOf((SSBFFA[toId(side.name)].symbol + SSBFFA[toId(side.name)].name))];
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 				pool.splice(pool.indexOf(name), 1);
 			}*/
 			let set = sets[name];

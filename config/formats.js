@@ -1532,11 +1532,7 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
-<<<<<<< HEAD
-		section: 'Dewdrop\'s Custom Gamemodes',
-=======
 		section: "" + Config.serverName + "'s Custom Gamemodes",
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe
 		column: 5,
 	},
 	{

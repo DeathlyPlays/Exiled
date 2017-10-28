@@ -12,11 +12,7 @@ exports.BattleStatuses = {
 			this.add('c', '@Insist', 'Oh now that I\'m dead, I guess that just means more time to code.');
 		},
 		onSourceFaint: function () {
-<<<<<<< HEAD:mods/dssb/statuses.js
-			this.add('c', '@Insist', '**FOH HERE THIS IS MY HOUSE KIDDO**');
-=======
-			this.add('c', '~Insist', '**FOH THIS IS MY HOUSE KIDDO**');
->>>>>>> 681f22c85cf2bf0da29563a92bf560aefe961cbe:mods/essb/statuses.js
+			this.add('c', '@Insist', '**FOH THIS IS MY HOUSE KIDDO**');
 		},
 	},
 	lycaniumz: {

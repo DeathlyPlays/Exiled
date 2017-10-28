@@ -15,9 +15,9 @@ class Lottery {
 		this.costToJoin = 3;
 		this.state = "signups";
 		this.playerCount = 0;
-		this.room.add('|uhtml|lottery-' + this.lottoNumber + '|<div class="broadcast-blue"><p style="text-align: center; font-size: 14pt>A Lottery Drawing has started looking for players!<hr /><br />For the price of 3 ' + moneyPlural + ', you can earn 5 ' + moneyPlural + ' plus one ' + moneyName + ' per user who joins.<br /><button name="send" value="/lottery join">Click here to join the Lottery</button></p></div>').update();
+		this.room.add(`|uhtml|lottery-${this.lottoNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new <strong>Lottery drawing</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/lotto join">Join</button><br /><strong>DISCLAIMER: JOINING COSTS ${this.costToJoin} ${moneyPlural}!!!!</strong></p></div>`, true);
 		this.timer = setTimeout(() => {
-			if (this.players.size < 2) {
+			if (this.playerCount < 2) {
 				this.room.add('|uhtmlchange|lottery-' + this.lottoNumber + '|<div class="broadcast-red"><p style="text-align: center; font-size: 14pt>This Lottery drawing has ended due to lack of users.</p></div>');
 				return this.end();
 			}
@@ -45,8 +45,9 @@ class Lottery {
 		this.end();
 	}
 
+	//TODO: Deny users from joining, if they already have joined
 	joinLottery(user) {
-		this.players.set(user);
+		if (user.userid in this.players) return false;
 		Economy.readMoney(user.userid, money => {
 			if (money < this.costToJoin) {
 				user.sendTo(this.room, 'You have been removed from this Lottery drawing, as you do not have enough ' + moneyPlural + ' to join.');
@@ -61,8 +62,8 @@ class Lottery {
 		this.playerCount++;
 	}
 
+	//TODO: Add a check that the user must be already in the Lottery drawing before able to leave
 	leaveLottery(user, room) {
-		this.players.delete(user);
 		user.sendTo(this.room, '|html|' + Server.nameColor(user.name, true) + ' has left the game!');
 		Economy.writeMoney(user.userid, this.costToJoin, () => {
 			Economy.logTransaction(`${user.name} has been refunded their ${this.costToJoin} ${moneyPlural} Lottery join fee, and left the drawing.`);
@@ -71,6 +72,7 @@ class Lottery {
 	}
 
 	end(user) {
+		this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="infobox">This Lottery Drawing has ended.</div>`, true);
 		clearTimeout(this.timer);
 		delete this.room.lottery;
 	}
@@ -91,16 +93,14 @@ exports.commands = {
 		join: function (target, room, user) {
 			if (!this.canTalk()) return;
 			if (!this.state === "signups") return this.sendReply('You cannot join a Lottery drawing after it has started.');
-			if (!user.registered) return this.sendReply("To join the Lottery, you must be on a registered account");
+			if (!user.registered) return this.sendReply("To join the Lottery, you must be on a registered account.");
 			if (!room.lottery) return this.sendReply("There is no join-able Lottery drawing going on right now.");
-			if (room.lottery.joinLottery(user)) return this.sendReply("Unable to join this drawing.");
 			this.sendReply("You have successfully joined the Lottery drawing. Good luck!");
 			room.lottery.joinLottery(user, this);
 		},
 		part: "leave",
 		l: "leave",
 		leave: function (target, room, user) {
-			if (room.lottery.leaveLottery(user)) return this.sendReply("Unable to leave this drawing.");
 			this.sendReply("You have successfully left the Lottery drawing. Your " + moneyName + " entry fee has been refunded.");
 			room.lottery.leaveLottery(user, this);
 		},
@@ -109,7 +109,7 @@ exports.commands = {
 		start: function (target, room, user) {
 			if (!this.can('broadcast', null, room)) return;
 			if (!room.lottery) return this.sendReply("There is not any Lottery drawing available to be started.");
-			if (room.lottery.players.size < 1) return this.sendReply("You can't start a Lottery drawing without at least one user joining.");
+			if (room.lottery.playerCount < 1) return this.sendReply("You can't start a Lottery drawing without at least one user joining.");
 			this.privateModCommand(`(A new Lottery drawing has been started early.)`);
 			room.lottery.drawWinner(user, this);
 		},

@@ -520,9 +520,9 @@ class UNOgame extends Rooms.RoomGame {
 		if (this.room.isOfficial) {
 			Economy.writeMoney(targetUserid, prize, newAmount => {
 				if (Users(targetUserid) && Users(targetUserid).connected) {
-					Users.get(targetUserid).popup('You have received ' + prize + ' ' + (prize === 1 ? global.moneyName : global.moneyPlural) + ' from winning the game of UNO.');
+					Users.get(targetUserid).popup('You have received ' + prize + ' ' + (prize === 1 ? moneyName : moneyPlural) + ' from winning the game of UNO.');
 				}
-				Economy.logTransaction(player.name + ' has won ' + prize + ' ' + (prize === 1 ? global.moneyName : global.moneyPlural) + ' from a game of UNO.');
+				Economy.logTransaction(player.name + ' has won ' + prize + ' ' + (prize === 1 ? moneyName : moneyPlural) + ' from a game of UNO.');
 			});
 			for (let i = 0; i < this.players.length; i++) {
 				if (Users(this.players[i].unoBoost)) Users(this.players[i]).unoBoost = false;

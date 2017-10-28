@@ -255,7 +255,7 @@ exports.commands = {
 		amount = amount + currencyName(amount);
 		total = total + currencyName(total);
 		this.sendReply(username + " was given " + amount + ". " + username + " now has " + total + ".");
-		if (Users.get(username)) Users(username).popup("|raw|" + Server.nameColor(user.name) + " has given you " + amount + ". You now have " + total + ".");
+		if (Users.get(username)) Users(username).popup("|html|" + Server.nameColor(user.name) + " has given you " + amount + ". You now have " + total + ".");
 		Economy.logTransaction(username + " was given " + amount + " by " + user.name + ". " + username + " now has " + total);
 	},
 	givemoneyhelp: ["/givemoney [user], [amount] - Give a user a certain amount of money."],
@@ -380,8 +380,8 @@ exports.commands = {
 	resetmoney: function (target, room, user) {
 		if (!this.can('hotpatch')) return false;
 		Db('money').set(toId(target), 0);
-		this.sendReply(target + " has just gone into crippling debt after buying too many dank memes.");
-		Economy.logTransaction(user.name + " reset the money of " + target + ".");
+		this.sendReply(target + " has had their " + moneyPlural + " reset.");
+		Economy.logTransaction(user.name + " reset " + target + "'s " + moneyPlural + ".");
 	},
 	resetmoneyhelp: ["/resetmoney [user] - Reset user's money to zero."],
 

@@ -77,14 +77,23 @@ exports.Formats = [
 	{
 		name: "[Gen 7] RU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3615711/\">RU Metagame Discussion</a>",
+			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3619225/\">RU Metagame Discussion</a>",
 			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3602279/\">RU Viability Rankings</a>",
 			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3598090/\">RU Sample Teams</a>",
 		],
 
 		mod: 'gen7',
+		searchShow: false,
 		ruleset: ['[Gen 7] UU'],
 		banlist: ['UU', 'BL2', 'Aurora Veil'],
+	},
+	{
+		name: "[Gen 7] RU (suspect test)",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3619225/\">RU Suspect Test</a>"],
+
+		mod: 'gen7',
+		challengeShow: false,
+		ruleset: ['[Gen 7] RU'],
 	},
 	{
 		name: "[Gen 7] NU",
@@ -244,7 +253,7 @@ exports.Formats = [
 		],
 
 		mod: 'gen7',
-		searchShow: false,
+		// searchShow: false,
 		gameType: 'doubles',
 		ruleset: ['Pokemon', 'Standard Doubles', 'Swagger Clause', 'Team Preview'],
 		banlist: ['Arceus', 'Dialga', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Jirachi', 'Kyogre', 'Kyurem-White',
@@ -252,7 +261,7 @@ exports.Formats = [
 			'Power Construct', 'Eevium Z', 'Kangaskhanite', 'Dark Void', 'Gravity ++ Grass Whistle', 'Gravity ++ Hypnosis', 'Gravity ++ Lovely Kiss', 'Gravity ++ Sing', 'Gravity ++ Sleep Powder',
 		],
 	},
-	{
+	/* {
 		name: "[Gen 7] Doubles OU (suspect test)",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3618612/\">Doubles OU Suspect Test</a>"],
 
@@ -260,7 +269,7 @@ exports.Formats = [
 		challengeShow: false,
 		gameType: 'doubles',
 		ruleset: ['[Gen 7] Doubles OU'],
-	},
+	}, */
 	{
 		name: "[Gen 7] Doubles Ubers",
 

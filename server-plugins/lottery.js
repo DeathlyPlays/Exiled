@@ -47,7 +47,6 @@ class Lottery {
 
 	//TODO: Deny users from joining, if they already have joined
 	joinLottery(user) {
-		if (user.userid in this.players) return false;
 		Economy.readMoney(user.userid, money => {
 			if (money < this.costToJoin) {
 				user.sendTo(this.room, 'You have been removed from this Lottery drawing, as you do not have enough ' + moneyPlural + ' to join.');

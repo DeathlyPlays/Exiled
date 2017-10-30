@@ -64,9 +64,8 @@ class Lottery {
 	//TODO: Add a check that the user must be already in the Lottery drawing before able to leave
 	leaveLottery(user, room) {
 		user.sendTo(this.room, '|html|' + Server.nameColor(user.name, true) + ' has left the game!');
-		Economy.writeMoney(user.userid, this.costToJoin, () => {
-			Economy.logTransaction(`${user.name} has been refunded their ${this.costToJoin} ${moneyPlural} Lottery join fee, and left the drawing.`);
-		});
+		Economy.writeMoney(user.userid, this.costToJoin);
+		Economy.logTransaction(user.userid + " has left the Lottery drawing, and has been refunded their " + this.costToJoin + " " + moneyPlural + ".");
 		this.playerCount--;
 	}
 
@@ -85,6 +84,7 @@ exports.commands = {
 		new: function (target, room, user) {
 			if (room.lottery) return this.sendReply("A join-able Lottery drawing is already active.");
 			if (!this.can('broadcast', null, room)) return false;
+			if (!this.room.isOfficial) return this.sendReply('Lottery drawings can only be created in Official Chatrooms.');
 			this.privateModCommand(`(A new Lottery drawing has been created.)`);
 			room.lottery = new Lottery(room, user);
 		},

@@ -1025,22 +1025,13 @@ Chat.loadPlugins = function () {
 	// Install plug-in commands and chat filters
 
 	// info always goes first so other plugins can shadow it
-<<<<<<< HEAD
-	Object.assign(commands, require('./chat-plugins/info').commands);
-	Object.assign(commands, require('./server-plugins/hex').commands);
-
-	Object.assign(commands, require('./console').commands);
-
-	for (const file of FS('chat-plugins/').readdirSync()) {
-		if (file.substr(-3) !== '.js' || file === 'info') continue;
-=======
 	let files = FS('chat-plugins/').readdirSync();
 	files = files.filter(file => file !== 'info.js');
 	files.unshift('info.js');
+	Object.assign(commands, require('./console').commands);
 
 	for (const file of files) {
 		if (file.substr(-3) !== '.js') continue;
->>>>>>> 1e169428cace3a87fe186b954b892fa93c389f6f
 		const plugin = require(`./chat-plugins/${file}`);
 
 		Object.assign(commands, plugin.commands);
@@ -1049,20 +1040,31 @@ Chat.loadPlugins = function () {
 		if (plugin.namefilter) Chat.namefilters.push(plugin.namefilter);
 		if (plugin.hostfilter) Chat.hostfilters.push(plugin.hostfilter);
 	}
-	for (let file of FS('server-plugins').readdirSync()) {
-		if (file.substr(-3) !== '.js' || file === 'hex') continue;
-		const serverplugins = require(`./server-plugins/${file}`);
-		Object.assign(commands, serverplugins.commands);
+
+	let customfiles = FS('server-plugins/').readdirSync();
+
+	for (const customfile of customfiles) {
+		if (customfile.substr(-3) !== '.js') continue;
+		const serverplugin = require(`./server-plugins/${customfile}`);
+
+		Object.assign(commands, serverplugin.commands);
+
+		if (serverplugin.chatfilter) Chat.filters.push(serverplugin.chatfilter);
+		if (serverplugin.namefilter) Chat.namefilters.push(serverplugin.namefilter);
+		if (serverplugin.hostfilter) Chat.hostfilters.push(serverplugin.hostfilter);
 	}
-	for (let file of FS('game-cards').readdirSync()) {
-		if (file.substr(-3) !== '.js') continue;
-		Object.assign(commands, require(`./game-cards/${file}`));
+
+	let gamecards = FS('game-cards/').readdirSync();
+
+	for (const gamecard of gamecards) {
+		if (gamecard.substr(-3) !== '.js') continue;
+		Object.assign(commands, require(`./game-cards/${gamecard}`));
 	}
 	// Load games for Console
 	Server.gameList = {};
-	for (let file of FS('game-cards').readdirSync()) {
-		if (file.substr(-3) !== '.js') continue;
-		let obj = require(`./game-cards/${file}`).box;
+	for (const gamecard of gamecards) {
+		if (gamecard.substr(-3) !== '.js') continue;
+		let obj = require(`./game-cards/${gamecard}`).box;
 		if (obj && obj.name) obj.id = toId(obj.name);
 		Server.gameList[obj.id] = obj;
 	}

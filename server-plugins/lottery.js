@@ -8,14 +8,14 @@
 
 class Lottery {
 	constructor(room, user) {
-		this.players = new Map();
+		this.players = Object.create(null);
 		this.room = room;
 		room.lottoNumber = room.lottoNumber ? room.lottoNumber++ : 1;
 		this.lottoNumber = room.lottoNumber;
 		this.costToJoin = 3;
 		this.state = "signups";
 		this.playerCount = 0;
-		this.room.add(`|uhtml|lottery-${this.lottoNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new <strong>Lottery drawing</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/lotto join">Join</button><br /><strong>DISCLAIMER: JOINING COSTS ${this.costToJoin} ${moneyPlural}!!!!</strong></p></div>`, true);
+		this.room.add(`|uhtml|lottery-${this.lottoNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new <strong>Lottery drawing</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/lotto join">Join</button><br /><strong>DISCLAIMER: Joining costs ${this.costToJoin} ${moneyPlural}!!!!</strong></p></div>`, true);
 		this.timer = setTimeout(() => {
 			if (this.playerCount < 2) {
 				this.room.add('|uhtmlchange|lottery-' + this.lottoNumber + '|<div class="broadcast-red"><p style="text-align: center; font-size: 14pt>This Lottery drawing has ended due to lack of users.</p></div>');
@@ -33,12 +33,11 @@ class Lottery {
 		}
 	}
 
-	drawWinner(user, room) {
-		let determineWinner = Math.floor(this.playerCount * Math.random());
+	drawWinner(user) {
 		let basePrize = 5;
 		let lottoPrize = basePrize + this.playerCount + this.costToJoin;
 		let winner = toId(user.name);
-		this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="infobox"><center><strong>Congratulations</strong> ${Server.nameColor(winner, true)}!!! You have won the reward of ${lottoPrize} ${moneyPlural}</center></div>`);
+		this.room.add(`|html|<div class="infobox"><center><strong>Congratulations</strong> ${Server.nameColor(winner, true)}!!! You have won the reward of ${lottoPrize} ${moneyPlural}</center></div>`);
 		Economy.writeMoney(winner, lottoPrize);
 		Economy.logTransaction(`${winner} has won the Lottery prize of ${lottoPrize} ${moneyPlural}`);
 		this.state = "drawing";
@@ -62,7 +61,7 @@ class Lottery {
 	}
 
 	//TODO: Add a check that the user must be already in the Lottery drawing before able to leave
-	leaveLottery(user, room) {
+	leaveLottery(user) {
 		user.sendTo(this.room, '|html|' + Server.nameColor(user.name, true) + ' has left the game!');
 		Economy.writeMoney(user.userid, this.costToJoin);
 		Economy.logTransaction(user.userid + " has left the Lottery drawing, and has been refunded their " + this.costToJoin + " " + moneyPlural + ".");
@@ -90,17 +89,16 @@ exports.commands = {
 		},
 		j: "join",
 		join: function (target, room, user) {
-			if (!this.canTalk()) return;
+			if (!this.canTalk()) return this.sendReply("You must be able to talk to join a Lottery drawing.");
 			if (!this.state === "signups") return this.sendReply('You cannot join a Lottery drawing after it has started.');
 			if (!user.registered) return this.sendReply("To join the Lottery, you must be on a registered account.");
 			if (!room.lottery) return this.sendReply("There is no join-able Lottery drawing going on right now.");
-			this.sendReply("You have successfully joined the Lottery drawing. Good luck!");
 			room.lottery.joinLottery(user, this);
 		},
 		part: "leave",
 		l: "leave",
 		leave: function (target, room, user) {
-			this.sendReply("You have successfully left the Lottery drawing. Your " + moneyName + " entry fee has been refunded.");
+			if (!room.lottery) return this.sendReply("There is no active Lottery drawing in this room.");
 			room.lottery.leaveLottery(user, this);
 		},
 		forcestart: "start",

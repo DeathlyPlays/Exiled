@@ -114,7 +114,7 @@ class Jeopardy extends Rooms.RoomGame {
 	}
 
 	nextPlayer() {
-		this.room.addRaw(`${this.curPlayer.name} you're up!`);
+		this.room.addRaw(`${Server.nameColor(this.curPlayer.name)} you're up!`);
 	}
 
 	getgrid() {
@@ -178,7 +178,7 @@ class Jeopardy extends Rooms.RoomGame {
 		if (question.answered) return "That question has already been answered.";
 		this.question = question;
 		if (question.dd) {
-			this.room.add(`That was a daily double! ${this.curPlayer.name}, how much would you like to wager?`);
+			this.room.add(`|html|That was a daily double! ${Server.nameColor(this.curPlayer.name)}, how much would you like to wager?`);
 			this.clearwagers();
 			this.state = 'wagering';
 			this.timeout = setTimeout(() => this.dailyDouble(), 30 * 1000);
@@ -244,7 +244,7 @@ class Jeopardy extends Rooms.RoomGame {
 		}
 		this.curPlayer = player;
 		this.curPlayer.buzzed = true;
-		this.room.add(`${user.name} has buzzed in!`);
+		this.room.add(`|html|${Server.nameColor(user.name)} has buzzed in!`);
 		this.state = "answering";
 		this.timeout = setTimeout(() => this.check(false), this.answeringTime * 1000);
 	}
@@ -331,11 +331,11 @@ class Jeopardy extends Rooms.RoomGame {
 			this.curPlayer = this.players[this.order.shift()];
 			let answer = this.curPlayer.finalanswer;
 			if (answer) {
-				this.room.add(`${this.curPlayer.name} has answered ${Chat.escapeHTML(answer)}!`);
+				this.room.add(`|html|${Server.nameColor(this.curPlayer.name)} has answered ${Chat.escapeHTML(answer)}!`);
 				this.state = "checking";
 			} else {
 				let wager = this.curPlayer.wager;
-				this.room.add(`${this.curPlayer.name} did not answer the final Jeopardy and loses ${wager} points`);
+				this.room.add(`|html|${Server.nameColor(this.curPlayer.name)} did not answer the final Jeopardy and loses ${wager} points`);
 				let points = this.curPlayer.points;
 				points -= wager;
 				this.curPlayer.points = points;
@@ -356,7 +356,7 @@ class Jeopardy extends Rooms.RoomGame {
 			clearTimeout(this.timeout);
 			if (!this.curPlayer || this.curPlayer.userid !== user.userid) return "It is not your turn to answer.";
 			this.state = "checking";
-			this.room.add(`${user.name} has answered ${Chat.escapeHTML(target)}!`);
+			this.room.add(`|html|${Server.nameColor(user.name)} has answered ${Chat.escapeHTML(target)}!`);
 		}
 	}
 
@@ -371,7 +371,7 @@ class Jeopardy extends Rooms.RoomGame {
 			let points = this.curPlayer.points;
 			points += gainpoints;
 			this.curPlayer.points = points;
-			this.room.add(`${this.curPlayer.name} has answered the question correctly and gained ${gainpoints} points!`);
+			this.room.add(`|html|${Server.nameColor(this.curPlayer.name)} has answered the question correctly and gained ${gainpoints} points!`);
 			if (!this.finals) {
 				this.revealAnswer();
 			}
@@ -393,7 +393,7 @@ class Jeopardy extends Rooms.RoomGame {
 			}
 		} else {
 			let losspoints = ((this.question.dd || this.finals) ? this.curPlayer.wager : this.question.points);
-			this.room.add(`${this.curPlayer.name} answered incorrectly and loses ${losspoints} points!`);
+			this.room.add(`|html|${Server.nameColor(this.curPlayer.name)} answered incorrectly and loses ${losspoints} points!`);
 			let points = this.curPlayer.points;
 			points -= losspoints;
 			this.curPlayer.points = points;

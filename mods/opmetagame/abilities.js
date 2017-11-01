@@ -285,11 +285,7 @@ exports.BattleAbilities = {
 			this.setWeather('desolateland');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'desolateland' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -400,11 +396,7 @@ exports.BattleAbilities = {
 			pokemon.types = ["Fire", "Dragon"];
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'desolateland' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -648,11 +640,7 @@ exports.BattleAbilities = {
 			this.setWeather('deltastream');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'deltastream' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -1170,11 +1158,7 @@ exports.BattleAbilities = {
 			this.setWeather('primordialsea');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'primordialsea' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -1261,11 +1245,7 @@ exports.BattleAbilities = {
 			}
 		},
 		onAnyRedirectTarget: function (target, source, move) {
-			if (move.type !== 'Water' || move.id in {
-				firepledge: 1,
-				grasspledge: 1,
-				waterpledge: 1,
-			}) return;
+			if (move.type !== 'Water' || ['firepledge', 'grasspledge', 'waterpledge'].includes(move.id)) return;
 			if (this.validTarget(this.effectData.target, source, move.target)) {
 				if (this.effectData.target !== target) {
 					this.add('-activate', this.effectData.target, 'ability: Be Nonchalant');
@@ -1822,11 +1802,7 @@ exports.BattleAbilities = {
 			this.setWeather('desolateland');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'desolateland' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -2753,11 +2729,7 @@ exports.BattleAbilities = {
 			this.setWeather('primordialsea');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'primordialsea' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -2811,11 +2783,7 @@ exports.BattleAbilities = {
 			}
 		},
 		onAnyRedirectTarget: function (target, source, source2, move) {
-			if (move.type !== 'Water' || move.id in {
-				firepledge: 1,
-				grasspledge: 1,
-				waterpledge: 1,
-			}) return;
+			if (move.type !== 'Water' || ['firepledge', 'grasspledge', 'waterpledge'].includes(move.id)) return;
 			if (this.validTarget(this.effectData.target, source, move.target)) {
 				if (this.effectData.target !== target) {
 					this.add('-activate', this.effectData.target, 'ability: Clown Sightings');
@@ -3907,11 +3875,7 @@ exports.BattleAbilities = {
 			}
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'primordialsea' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;

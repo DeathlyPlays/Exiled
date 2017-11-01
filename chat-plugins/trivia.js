@@ -1297,7 +1297,7 @@ const commands = {
 		let name;
 		let userid;
 		if (!target) {
-			name = Chat.escapeHTML(user.name);
+			name = Server.nameColor(user.name);
 			userid = user.userid;
 		} else {
 			target = this.splitTarget(target, true);

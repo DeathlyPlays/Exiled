@@ -4277,7 +4277,7 @@ exports.BattleAbilities = {
 		shortDesc: "This Pokemon's Normal-type moves become Bug Type and have 1.2x power.",
 		onModifyMovePriority: -1,
 		onModifyMove: function (move, pokemon) {
-			if (move.type === 'Normal' && move.id !== 'naturalgift' && !move.isZ) {
+			if (move.type === 'Normal' && !['judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'weatherball'].includes(move.id) && !(move.isZ && move.category !== 'Status')) {
 				move.type = 'Bug';
 				if (move.category !== 'Status') pokemon.addVolatile('insectize');
 			}
@@ -4484,7 +4484,7 @@ exports.BattleAbilities = {
 		//refrigerate
 		onModifyMovePriority: -1,
 		onModifyMove: function (move, pokemon) {
-			if (move.type === 'Normal' && move.id !== 'naturalgift' && !move.isZ) {
+			if (move.type === 'Normal' && !['judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'weatherball'].includes(move.id) && !(move.isZ && move.category !== 'Status')) {
 				move.type = 'Ice';
 				if (move.category !== 'Status') pokemon.addVolatile('refrigerate');
 			}

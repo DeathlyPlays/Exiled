@@ -33,8 +33,8 @@ class Dice {
 			delete this.room.dice;
 		}, INACTIVE_END_TIME);
 
-		let buck = (this.bet === 1 ? 'buck' : 'bucks');
-		this.startMessage = '<div class="infobox"><b style="font-size: 14pt; color: #24678d"><center><span style="color: ' + Server.hashColor(starter) + '">' + Chat.escapeHTML(starter) + '</span> has started a game of dice for <span style = "color: green">' + amount + '</span> ' + buck + '!</center></b><br>' +
+		let buck = (this.bet === 1 ? moneyName : moneyPlural);
+		this.startMessage = '<div class="infobox"><b style="font-size: 14pt; color: #24678d"><center>' + Server.nameColor(starter, true) + ' has started a game of dice for <span style = "color: green">' + amount + '</span> ' + buck + '!</center></b><br>' +
 			'<center><img style="margin-right: 30px;" src = "http://i.imgur.com/eywnpqX.png" width="80" height="80">' +
 			'<img style="transform:rotateY(180deg); margin-left: 30px;" src="http://i.imgur.com/eywnpqX.png" width="80" height="80"><br>' +
 			'<button name="send" value="/joindice">Click to join!</button></center>';

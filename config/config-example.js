@@ -313,7 +313,6 @@ exports.github = {
 //     - lock: locking (ipmute) and unlocking.
 //     - receivemutedpms: Receive PMs from muted users.
 //     - forcerename: /fr command.
-//     - redirect: /redir command.
 //     - ip: IP checking.
 //     - alts: Alt checking.
 //     - modlog: view the moderator logs.

@@ -57,6 +57,7 @@ try {
 }
 
 const FS = require('./fs');
+const fs = require('fs');
 
 /*********************************************************
  * Load configuration
@@ -194,8 +195,17 @@ if (require.main === module) {
  * Set up our last global
  *********************************************************/
 
-global.TeamValidator = require('./team-validator');
-TeamValidator.PM.spawn();
+global.TeamValidatorAsync = require('./team-validator-async');
+TeamValidatorAsync.PM.spawn();
+
+fs.readFile('./logs/uptime.txt', function (err, uptime) {
+	if (!err) global.uptimeRecord = parseInt(uptime, 10); // eslint-disable-line radix
+	global.uptimeRecordInterval = setInterval(function () {
+		if (global.uptimeRecord && process.uptime() <= global.uptimeRecord) return;
+		global.uptimeRecord = process.uptime();
+		fs.writeFile('./logs/uptime.txt', global.uptimeRecord.toFixed(0));
+	}, 1 * 60 * 60 * 1000);
+});
 
 /*********************************************************
  * Start up the githubhook server

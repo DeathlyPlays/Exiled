@@ -5489,9 +5489,9 @@ exports.BattleMovedex = {
 		flags: {protect: 1, reflectable: 1, heal: 1, mystery: 1},
 		onHit: function (target) {
 			if (this.isTerrain('grassyterrain')) {
-				this.heal(this.modify(target.maxhp, 0.667)); // TODO: find out the real value
+				return this.heal(this.modify(target.maxhp, 0.667)); // TODO: find out the real value
 			} else {
-				this.heal(Math.ceil(target.maxhp * 0.5));
+				return this.heal(Math.ceil(target.maxhp * 0.5));
 			}
 		},
 		secondary: false,
@@ -7214,9 +7214,9 @@ exports.BattleMovedex = {
 		flags: {protect: 1, pulse: 1, reflectable: 1, distance: 1, heal: 1, mystery: 1},
 		onHit: function (target, source) {
 			if (source.hasAbility('megalauncher')) {
-				this.heal(this.modify(target.maxhp, 0.75));
+				return this.heal(this.modify(target.maxhp, 0.75));
 			} else {
-				this.heal(Math.ceil(target.maxhp * 0.5));
+				return this.heal(Math.ceil(target.maxhp * 0.5));
 			}
 		},
 		secondary: false,
@@ -9700,6 +9700,7 @@ exports.BattleMovedex = {
 		desc: "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
 		shortDesc: "Traps and damages the target for 4-5 turns.",
 		id: "magmastorm",
+		isViable: true,
 		name: "Magma Storm",
 		pp: 5,
 		priority: 0,
@@ -10679,11 +10680,11 @@ exports.BattleMovedex = {
 		flags: {snatch: 1, heal: 1},
 		onHit: function (pokemon) {
 			if (this.isWeather(['sunnyday', 'desolateland'])) {
-				this.heal(this.modify(pokemon.maxhp, 0.667));
+				return this.heal(this.modify(pokemon.maxhp, 0.667));
 			} else if (this.isWeather(['raindance', 'primordialsea', 'sandstorm', 'hail'])) {
-				this.heal(this.modify(pokemon.maxhp, 0.25));
+				return this.heal(this.modify(pokemon.maxhp, 0.25));
 			} else {
-				this.heal(this.modify(pokemon.maxhp, 0.5));
+				return this.heal(this.modify(pokemon.maxhp, 0.5));
 			}
 		},
 		secondary: false,
@@ -10707,11 +10708,11 @@ exports.BattleMovedex = {
 		flags: {snatch: 1, heal: 1},
 		onHit: function (pokemon) {
 			if (this.isWeather(['sunnyday', 'desolateland'])) {
-				this.heal(this.modify(pokemon.maxhp, 0.667));
+				return this.heal(this.modify(pokemon.maxhp, 0.667));
 			} else if (this.isWeather(['raindance', 'primordialsea', 'sandstorm', 'hail'])) {
-				this.heal(this.modify(pokemon.maxhp, 0.25));
+				return this.heal(this.modify(pokemon.maxhp, 0.25));
 			} else {
-				this.heal(this.modify(pokemon.maxhp, 0.5));
+				return this.heal(this.modify(pokemon.maxhp, 0.5));
 			}
 		},
 		secondary: false,
@@ -14574,9 +14575,9 @@ exports.BattleMovedex = {
 		flags: {snatch: 1, heal: 1},
 		onHit: function (pokemon) {
 			if (this.isWeather('sandstorm')) {
-				this.heal(this.modify(pokemon.maxhp, 0.667));
+				return this.heal(this.modify(pokemon.maxhp, 0.667));
 			} else {
-				this.heal(this.modify(pokemon.maxhp, 0.5));
+				return this.heal(this.modify(pokemon.maxhp, 0.5));
 			}
 		},
 		secondary: false,
@@ -16909,11 +16910,11 @@ exports.BattleMovedex = {
 		flags: {snatch: 1, heal: 1},
 		onHit: function (pokemon) {
 			if (this.isWeather(['sunnyday', 'desolateland'])) {
-				this.heal(this.modify(pokemon.maxhp, 0.667));
+				return this.heal(this.modify(pokemon.maxhp, 0.667));
 			} else if (this.isWeather(['raindance', 'primordialsea', 'sandstorm', 'hail'])) {
-				this.heal(this.modify(pokemon.maxhp, 0.25));
+				return this.heal(this.modify(pokemon.maxhp, 0.25));
 			} else {
-				this.heal(this.modify(pokemon.maxhp, 0.5));
+				return this.heal(this.modify(pokemon.maxhp, 0.5));
 			}
 		},
 		secondary: false,

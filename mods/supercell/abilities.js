@@ -808,11 +808,7 @@ exports.BattleAbilities = {
 			this.setWeather('desolateland');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'desolateland' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;

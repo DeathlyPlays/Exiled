@@ -1,7 +1,7 @@
 /****************************************
- * Lottery Plug-in for Pokémon Showdown
- *            Created by:
- *         HoeenHero and Insist
+ * Lottery Plug-in for Pokémon Showdown *
+ *            Created by:               *
+ *         HoeenHero and Insist         *
  ****************************************/
 
 "use strict";
@@ -107,6 +107,10 @@ exports.commands = {
 			if (!room.lottery) return this.sendReply("There is no Lottery drawing going on right now.");
 			this.privateModCommand(`(The Lottery drawing was forcefully ended.)`);
 			room.lottery.end();
+		},
+		'': "help",
+		help: function (target, room, user) {
+			this.parse('/help lottery');
 		},
 	},
 	lotteryhelp: [

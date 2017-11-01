@@ -13,6 +13,14 @@ let geoip = require('geoip-lite-country');
 // fill in '' with the server IP
 let serverIp = Config.serverIp;
 
+function isDev(user) {
+	if (!user) return;
+	if (typeof user === 'object') user = user.userid;
+	let dev = Db('devs').get(toId(user));
+	if (dev === 1) return true;
+	return false;
+}
+
 function isVIP(user) {
 	if (!user) return;
 	if (typeof user === 'object') user = user.userid;
@@ -28,14 +36,6 @@ function showTitle(userid) {
 			'">(<strong>' + Db("titles").get(userid)[0] + '</strong>)</font>';
 	}
 	return '';
-}
-
-function isDev(user) {
-	if (!user) return;
-	if (typeof user === 'object') user = user.userid;
-	let dev = Db('devs').get(toId(user));
-	if (dev === 1) return true;
-	return false;
 }
 
 function devCheck(user) {
@@ -67,7 +67,58 @@ function showBadges(user) {
 	return '';
 }
 
+function lastActive(user) {
+	if (!Users(user)) return false;
+	user = Users(user);
+	return (user && user.lastMessageTime ? moment(user.lastMessageTime).fromNow() : "hasn't talked yet");
+}
+
 exports.commands = {
+	dev: {
+		give: function (target, user) {
+			if (!this.can('hotpatch')) return false;
+			if (!target) return this.parse('/help', true);
+			let devUsername = toId(target);
+			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
+			if (isDev(devUsername)) return this.errorReply(devUsername + " is already a DEV user.");
+			Db('devs').set(devUsername, 1);
+			this.sendReply('|html|' + Server.nameColor(devUsername, true) + " has been given DEV status.");
+			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Server.nameColor(user.name, true) + ".");
+		},
+		take: function (target, user) {
+			if (!this.can('hotpatch')) return false;
+			if (!target) return this.parse('/help', true);
+			let devUsername = toId(target);
+			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
+			if (!isDev(devUsername)) return this.errorReply(devUsername + " isn't a DEV user.");
+			Db('devs').delete(devUsername);
+			this.sendReply("|html|" + Server.nameColor(devUsername, true) + " has been demoted from DEV status.");
+			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been demoted from DEV status by " + Server.nameColor(user.name, true) + ".");
+		},
+		users: 'list',
+		list: function () {
+			if (!Db('devs').keys().length) return this.errorReply('There seems to be no user with DEV status.');
+			let display = [];
+			Db('devs').keys().forEach(devUser => {
+				display.push(Server.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
+			});
+			this.popupReply('|html|<strong><u><font size="3"><center>DEV Users:</center></font></u></strong>' + display.join(','));
+		},
+		'': 'help',
+		help: function () {
+			this.sendReplyBox(
+				'<div style="padding: 3px 5px;"><center>' +
+				'<code>/dev</code> commands.<br />These commands are nestled under the namespace <code>dev</code>.</center>' +
+				'<hr width="100%">' +
+				'<code>give [username]</code>: Gives <code>username</code> DEV status. Requires: & ~' +
+				'<br />' +
+				'<code>take [username]</code>: Takes <code>username</code>\'s DEV status. Requires: & ~' +
+				'<br />' +
+				'<code>list</code>: Shows list of users with DEV Status' +
+				'</div>'
+			);
+		},
+	},
 	vip: {
 		give: function (target, room, user) {
 			if (!this.can('forcerename')) return false;
@@ -224,6 +275,25 @@ exports.commands = {
 			);
 		},
 	},
+/*
+	'!lastactive': true,
+	checkactivity: 'lastactive',
+	lastactive: function (user, target) {
+		target = toId(target);
+		if (!target) target = user.name;
+		if (target.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
+		if (!this.runBroadcast()) return;
+		let targetUser = Users.get(target);
+		let online = (targetUser ? targetUser.connected : false);
+		let username = (targetUser ? targetUser.name : target);
+		if (online && lastActive(toId(username))) {
+			return this.sendReplyBox(Server.nameColor(targetUser, true) + ' was last active ' + lastActive(targetUser));
+		} else {
+			return this.sendReplyBox(Server.nameColor(targetUser, true) + ' is not currently online/hasn\'t spoke yet.');
+		}
+	},
+	lastactivehelp: ["/lastactive - Shows how long ago it has been since a user has posted a message."],
+*/
 	'!profile': true,
 	profile: function (target, room, user) {
 		target = toId(target);
@@ -251,12 +321,6 @@ exports.commands = {
 			showProfile();
 		});
 
-		function lastActive(user) {
-			if (!Users(user)) return false;
-			user = Users(user);
-			return (user && user.lastActiveTime ? moment(user.lastActiveTime).fromNow() : "hasn't talked yet");
-		}
-
 		function getLastSeen(userid) {
 			if (Users(userid) && Users(userid).connected) return '<font color = "limegreen"><strong>Currently Online</strong></font>';
 			let seen = Db("seen").get(userid);
@@ -279,6 +343,7 @@ exports.commands = {
 				profile += '&nbsp;<font color="#24678d"><strong>Group:</strong></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ' + regdate + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>' + global.moneyPlural + ':</strong></font> ' + money + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>EXP Level:</strong></font> ' + Server.level(toId(username)) + '<br />';
 				if (online && lastActive(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><strong>Last Active:</strong></font> ' + lastActive(toId(username)) + '<br />';
 				}

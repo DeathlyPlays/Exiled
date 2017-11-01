@@ -633,52 +633,6 @@ exports.commands = {
 		return this.parse('/hotpatch validator');
 	},
 
-	dev: {
-		give: function (target, user) {
-			if (!this.can('hotpatch')) return false;
-			if (!target) return this.parse('/help', true);
-			let devUsername = toId(target);
-			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
-			if (isDev(devUsername)) return this.errorReply(devUsername + " is already a DEV user.");
-			Db('devs').set(devUsername, 1);
-			this.sendReply('|html|' + Server.nameColor(devUsername, true) + " has been given DEV status.");
-			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Server.nameColor(user.name, true) + ".");
-		},
-		take: function (target, user) {
-			if (!this.can('hotpatch')) return false;
-			if (!target) return this.parse('/help', true);
-			let devUsername = toId(target);
-			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
-			if (!isDev(devUsername)) return this.errorReply(devUsername + " isn't a DEV user.");
-			Db('devs').delete(devUsername);
-			this.sendReply("|html|" + Server.nameColor(devUsername, true) + " has been demoted from DEV status.");
-			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been demoted from DEV status by " + Server.nameColor(user.name, true) + ".");
-		},
-		users: 'list',
-		list: function () {
-			if (!Db('devs').keys().length) return this.errorReply('There seems to be no user with DEV status.');
-			let display = [];
-			Db('devs').keys().forEach(devUser => {
-				display.push(Server.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
-			});
-			this.popupReply('|html|<strong><u><font size="3"><center>DEV Users:</center></font></u></strong>' + display.join(','));
-		},
-		'': 'help',
-		help: function () {
-			this.sendReplyBox(
-				'<div style="padding: 3px 5px;"><center>' +
-				'<code>/dev</code> commands.<br />These commands are nestled under the namespace <code>dev</code>.</center>' +
-				'<hr width="100%">' +
-				'<code>give [username]</code>: Gives <code>username</code> DEV status. Requires: & ~' +
-				'<br />' +
-				'<code>take [username]</code>: Takes <code>username</code>\'s DEV status. Requires: & ~' +
-				'<br />' +
-				'<code>list</code>: Shows list of users with DEV Status' +
-				'</div>'
-			);
-		},
-	},
-
 	afk: 'away',
 	busy: 'away',
 	work: 'away',

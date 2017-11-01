@@ -1,7 +1,7 @@
 /****************************************
- * Lottery Plug-in for Pokémon Showdown
- *            Created by:
- *         HoeenHero and Insist
+ * Lottery Plug-in for Pokémon Showdown *
+ *            Created by:               *
+ *         HoeenHero and Insist         *
  ****************************************/
 
 "use strict";

@@ -691,7 +691,6 @@ exports.commands = {
 	nerding: 'away',
 	mimis: 'away',
 	away: function (target, room, user, connection, cmd) {
-		if (!user.isAway && user.name.length > 19 && !user.can('lock')) return this.sendReply("Your username is too long for any kind of use of this command.");
 		if (!this.canTalk()) return false;
 		target = toId(target);
 		if (/^\s*$/.test(target)) target = 'away';
@@ -699,7 +698,7 @@ exports.commands = {
 		let newName = user.name;
 		let status = parseStatus(target, true);
 		let statusLen = status.length;
-		if (statusLen > 14) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
+		if (statusLen > 9999) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
 
 		if (user.isAway) {
 			let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
@@ -1030,10 +1029,8 @@ exports.commands = {
 			x = Math.floor(Math.random() * (755 - 583)) + 582;
 		} else if (/unova/i.test(target) || /gen 6/i.test(target)) {
 			x = Math.floor(Math.random() * (834 - 752)) + 751;
-		} else if (/alola/i.test(target) || /gen 7/i.test(target)) {
-			x = Math.floor(Math.random() * (980 - 833)) + 832;
 		}
-		x = x || Math.floor(Math.random() * (1023 - 1));
+		x = x || Math.floor(Math.random() * (834 - 1));
 		let tarPoke = Object.keys(Pokedex)[x];
 		let pokeData = Pokedex[tarPoke];
 		let pokeId = pokeData.species.toLowerCase();

@@ -60,7 +60,7 @@ class Lottery {
 		});
 	}
 
-	end(user) {
+	end() {
 		this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="infobox">This Lottery Drawing has ended.</div>`, true);
 		clearTimeout(this.timer);
 		delete this.room.lottery;
@@ -97,7 +97,7 @@ exports.commands = {
 		start: function (target, room, user) {
 			if (!this.can('mute', null, room)) return;
 			if (!room.lottery) return this.sendReply("There is not any Lottery drawing available to be started.");
-			if (room.lottery.playerCount < 1) return this.sendReply("You can't start a Lottery drawing without at least one user joining.");
+			if (room.lottery.players.length < 1) return this.sendReply("You can't start a Lottery drawing without at least one user joining.");
 			this.privateModCommand(`(A new Lottery drawing has been started early.)`);
 			room.lottery.drawWinner();
 		},
@@ -106,7 +106,7 @@ exports.commands = {
 			if (!this.can('mute', null, room)) return;
 			if (!room.lottery) return this.sendReply("There is no Lottery drawing going on right now.");
 			this.privateModCommand(`(The Lottery drawing was forcefully ended.)`);
-			room.lottery.end(user);
+			room.lottery.end();
 		},
 	},
 	lotteryhelp: [

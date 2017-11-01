@@ -4484,7 +4484,7 @@ exports.BattleAbilities = {
 		//refrigerate
 		onModifyMovePriority: -1,
 		onModifyMove: function (move, pokemon) {
-			if (move.type === 'Normal' !['judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'weatherball'].includes(move.id) && !(move.isZ && move.category !== 'Status')) {
+			if (move.type === 'Normal' && !['judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'weatherball'].includes(move.id) && !(move.isZ && move.category !== 'Status')) {
 				move.type = 'Ice';
 				if (move.category !== 'Status') pokemon.addVolatile('refrigerate');
 			}

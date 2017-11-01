@@ -481,7 +481,6 @@ exports.BattleAliases = {
 	// pokemon
 	"azure": "Trubbish",
 	"flufi": "Raichu",
-	"mewth": "Furret",
 	"horrific": "Arcanine",
 	"amber": "Ninetales-Alola",
 	"lassninetales": "Ninetales-Alola",

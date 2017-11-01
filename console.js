@@ -16,9 +16,9 @@ class Console {
 		this.prevScreen = [null, null, null];
 		this.screenCSS = css || 'background-color: #000; font-size: 12px';
 		let defaultInfo = '<div style="display: inline-block; color: white; font-family: monospace;">#####################<br/>## PS Game Console ##<br/>#####################<br/><br/>This is the default screen. You probably meant to launch a game.<br/>General Options:<br/><br/>';
-		for (let game in Dew.gameList) {
-			if (!Dew.gameList[game].startCommand) continue;
-			defaultInfo += '<button name="send" value="/console forcestart ' + game + '" style="border: none; background: none; color: #FFF; font-family: monospace;"><u>' + (Dew.gameList[game].name ? Dew.gameList[game].name : game) + '</u></button>';
+		for (let game in Server.gameList) {
+			if (!Server.gameList[game].startCommand) continue;
+			defaultInfo += '<button name="send" value="/console forcestart ' + game + '" style="border: none; background: none; color: #FFF; font-family: monospace;"><u>' + (Server.gameList[game].name ? Server.gameList[game].name : game) + '</u></button>';
 		}
 		defaultInfo += '<br/><button name="send" value="/console kill" style="border: none; background: none; color: #FFF; font-family: monospace;"><u>Shutdown</u></button></div>';
 		this.defaultHTML = html || defaultInfo;

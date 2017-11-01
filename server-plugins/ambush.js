@@ -1,4 +1,3 @@
-/*
 'use strict';
 
 const ROUND_DURATION = 8 * 1000; //8 seconds nice
@@ -241,4 +240,3 @@ exports.commands = {
 		'/ambush rules - Displays the rules of the game.',
 	],
 };
-*/

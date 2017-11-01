@@ -109,4 +109,12 @@ exports.commands = {
 			room.lottery.end(user);
 		},
 	},
+	lotteryhelp: [
+		"Another alias for /lottery is /lotto.",
+		"/lottery new - Creates a new Lottery drawing. Must be a Room Driver or higher.",
+		"/lottery join - Join a Lottery drawing. Requires " + this.costToJoin + " " + moneyPlural + ".",
+		"/lottery leave - Leaves a Lottery drawing.",
+		"/lottery start - Forcefully starts a Lottery drawing (instead of starting automatically in 24 hours from creation). Must be a Room Driver or higher.",
+		"/lottery end - Forcefully ends a Lottery drawing. Must be a Room Driver or higher.",
+	],
 };

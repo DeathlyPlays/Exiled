@@ -10,11 +10,7 @@ exports.BattleAbilities = {
 			this.setWeather('primordialsea');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'primordialsea' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -656,7 +652,7 @@ exports.BattleAbilities = {
 			this.setWeather('desolateland');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'desolateland' && !(weather.id in {desolateland:1, primordialsea:1, deltastream:1})) return false;
+			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -1058,11 +1054,7 @@ exports.BattleAbilities = {
 			this.setWeather('primordialsea');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'primordialsea' && !(weather.id in {
-				desolateland: 1,
-				primordialsea: 1,
-				deltastream: 1,
-			})) return false;
+			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -1101,7 +1093,7 @@ exports.BattleAbilities = {
 			this.setWeather('desolateland');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'desolateland' && !(weather.id in {desolateland:1, primordialsea:1, deltastream:1})) return false;
+			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -1207,7 +1199,7 @@ exports.BattleAbilities = {
 			this.add('c| douglasgamer|You just got screwed brother >:D');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'primordialsea' && !(weather.id in {desolateland:1, primordialsea:1, deltastream:1})) return false;
+			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -1260,7 +1252,7 @@ exports.BattleAbilities = {
 		shortDesc: "Normalize + Scrappy + Skill Link.",
 		onModifyMovePriority: 1,
 		onModifyMove: function (move, pokemon) {
-			if (!move.isZ && move.id !== 'struggle' && this.getMove(move.id).type !== 'Normal') {
+			if (!(move.isZ && move.category !== 'Status') && !['hiddenpower', 'judgment', 'multiattack', 'naturalgift', 'revelationdance', 'struggle', 'technoblast', 'weatherball'].includes(move.id)) {
 				move.type = 'Normal';
 			}
 			if (move.category !== 'Status') pokemon.addVolatile('normalize');

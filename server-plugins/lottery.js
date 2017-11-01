@@ -108,6 +108,10 @@ exports.commands = {
 			this.privateModCommand(`(The Lottery drawing was forcefully ended.)`);
 			room.lottery.end();
 		},
+		'': "help",
+		help: function (target, room, user) {
+			this.parse('/help lottery');
+		},
 	},
 	lotteryhelp: [
 		"Another alias for /lottery is /lotto.",

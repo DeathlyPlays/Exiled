@@ -7,7 +7,6 @@
  **/
 'use strict';
 
-let moment = require("moment");
 let geoip = require('geoip-lite-country');
 
 // fill in '' with the server IP

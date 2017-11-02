@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * *
- *	Ping Pong          *
+ *	Ping Pong              *
  *  Created by:            *
  * The Ludicolo Bros       *
  * (HoeenHero and Insist)  *
@@ -80,10 +80,10 @@ class PingPong extends Console.Console {
 
 	endGame(win) {
 		if (win) {
-			this.update(null, '<center style="background-color: green">Congratulations to ' + this.user.name + ' for winning the game of Ping Pong!<br/><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I wont play your stupid game again.</button></center>');
+			this.update(null, '<center style="background-color: green">Congratulations to ' + this.user.name + ' for winning the game of Ping Pong!<br/><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I won\'t play your stupid game again.</button></center>');
 			Server.addExp(this.user, this.room, 3);
 		} else {
-			this.update(null, '<center style="background-color: green">The COM won the game of ping pong...<br/><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I wont play your stupid game again.</button></center>');
+			this.update(null, '<center style="background-color: green">The COM won the game of ping pong...<br/><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I won\'t play your stupid game again.</button></center>');
 		}
 	}
 }
@@ -133,8 +133,8 @@ exports.commands = {
 	},
 	pingponghelp: [
 		'/pingpong new - Begins a match of ping pong.',
-		'/pingpong serve - Serve the ping pong ball.',
-		'/pingpong hit - Hit the ping pong ball back.',
-		'/pingpong end - End the match of ping pong.',
+		'/pingpong serve - Serves the ping pong ball.',
+		'/pingpong hit - Hits the ping pong ball back.',
+		'/pingpong end - Ends the match of ping pong.',
 	],
 };

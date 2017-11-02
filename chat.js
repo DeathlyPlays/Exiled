@@ -1056,14 +1056,14 @@ Chat.loadPlugins = function () {
 
 	let gamecards = FS('game-cards/').readdirSync();
 
-	for (const gamecard of gamecards) {
-		if (gamecard.substr(-3) !== '.js') continue;
-		Object.assign(commands, require(`./game-cards/${gamecard}`));
-	}
 	// Load games for Console
 	Server.gameList = {};
 	for (const gamecard of gamecards) {
 		if (gamecard.substr(-3) !== '.js') continue;
+		const gamecards = require(`./game-cards/${gamecard}`);
+
+		Object.assign(commands, gamecards.commands);
+
 		let obj = require(`./game-cards/${gamecard}`).box;
 		if (obj && obj.name) obj.id = toId(obj.name);
 		Server.gameList[obj.id] = obj;

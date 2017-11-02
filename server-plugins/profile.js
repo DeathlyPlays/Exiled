@@ -70,7 +70,7 @@ function showBadges(user) {
 function lastActive(user) {
 	if (!Users(user)) return false;
 	user = Users(user);
-	return (user && user.lastMessageTime ? moment(user.lastMessageTime).fromNow() : "hasn't talked yet");
+	return (user && user.lastMessageTime ? Chat.toDurationString(Date.now() - user.lastMessageTime, {precision: true}) : "hasn't talked yet");
 }
 
 exports.commands = {
@@ -275,25 +275,24 @@ exports.commands = {
 			);
 		},
 	},
-/*
+
 	'!lastactive': true,
 	checkactivity: 'lastactive',
-	lastactive: function (user, target) {
-		target = toId(target);
+	lastactive: function (target, room, user) {
 		if (!target) target = user.name;
+		const targetId = toId(target);
 		if (target.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 		if (!this.runBroadcast()) return;
-		let targetUser = Users.get(target);
-		let online = (targetUser ? targetUser.connected : false);
-		let username = (targetUser ? targetUser.name : target);
+		let username = (targetId ? targetId.name : target);
+		let online = (targetId ? targetId.connected : false);
 		if (online && lastActive(toId(username))) {
-			return this.sendReplyBox(Server.nameColor(targetUser, true) + ' was last active ' + lastActive(targetUser));
+			return this.sendReplyBox(Server.nameColor(targetId, true) + ' was last active: ' + lastActive(toId(username)) + '.');
 		} else {
-			return this.sendReplyBox(Server.nameColor(targetUser, true) + ' is not currently online/hasn\'t spoke yet.');
+			return this.sendReplyBox(Server.nameColor(targetId, true) + ' is either offline, or has never spoke on this server since logging in.');
 		}
 	},
 	lastactivehelp: ["/lastactive - Shows how long ago it has been since a user has posted a message."],
-*/
+
 	'!profile': true,
 	profile: function (target, room, user) {
 		target = toId(target);

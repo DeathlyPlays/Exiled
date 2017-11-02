@@ -1060,7 +1060,7 @@ Chat.loadPlugins = function () {
 	Server.gameList = {};
 	for (const gamecard of gamecards) {
 		if (gamecard.substr(-3) !== '.js') continue;
-		const gamecards = require(`./game-cards/${gamecard}`));
+		const gamecards = require(`./game-cards/${gamecard}`);
 
 		Object.assign(commands, gamecards.commands);
 

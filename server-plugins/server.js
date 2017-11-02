@@ -54,14 +54,6 @@ function getLinkId(msg) {
 	}
 }
 
-function isDev(user) {
-	if (!user) return;
-	if (typeof user === 'object') user = user.userid;
-	let dev = Db('devs').get(toId(user));
-	if (dev === 1) return true;
-	return false;
-}
-
 function parseStatus(text, encoding) {
 	if (encoding) {
 		text = text

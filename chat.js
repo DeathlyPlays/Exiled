@@ -257,25 +257,13 @@ class CommandContext {
 
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
-<<<<<<< HEAD
 				let noEmotes = message;
 				let emoticons = Server.parseEmoticons(message);
 				if (emoticons) {
 					noEmotes = message;
 					message = "/html " + emoticons;
 				}
-				let buf = `|pm|${this.user.getIdentity()}|${this.pmTarget.getIdentity()}|${message}`;
-				this.user.send(buf);
-				if (Users.ShadowBan.checkBanned(this.user)) {
-					Users.ShadowBan.addMessage(this.user, "Private to " + this.pmTarget.getIdentity(), noEmotes);
-				} else {
-					if (this.pmTarget !== this.user) this.pmTarget.send(buf);
-				}
-				this.pmTarget.lastPM = this.user.userid;
-				this.user.lastPM = this.pmTarget.userid;
-=======
 				Chat.sendPM(message, this.user, this.pmTarget);
->>>>>>> 475e70b82261a159be4c15dc97db096e71ba174d
 			} else {
 				let emoticons = Server.parseEmoticons(message);
 				if (emoticons && !this.room.disableEmoticons) {
@@ -997,6 +985,11 @@ Chat.sendPM = function (message, user, pmTarget) {
 	let buf = `|pm|${user.getIdentity()}|${pmTarget.getIdentity()}|${message}`;
 	user.send(buf);
 	if (pmTarget !== user) pmTarget.send(buf);
+	if (Users.ShadowBan.checkBanned(user)) {
+		Users.ShadowBan.addMessage(user, "Private to " + pmTarget.getIdentity(), noEmotes);
+	} else {
+		if (pmTarget !== user) pmTarget.send(buf);
+	}
 	pmTarget.lastPM = user.userid;
 	user.lastPM = pmTarget.userid;
 };

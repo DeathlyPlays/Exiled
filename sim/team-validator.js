@@ -498,7 +498,17 @@ class Validator {
 				}
 			}
 
-			if (lsetData.sources && lsetData.sources.length && !lsetData.sourcesBefore && lsetData.sources.every(source => 'SVD'.includes(source.charAt(1)))) {
+			if (isHidden && lsetData.sourcesBefore < 5) {
+				lsetData.sources = lsetData.sources.filter(source =>
+					parseInt(source.charAt(0)) >= 5
+				);
+				lsetData.sourcesBefore = 0;
+				if (!lsetData.sources.length) {
+					problems.push(`${name} has a hidden ability - it can't have moves only learned before gen 5.`);
+				}
+			}
+
+			if (!lsetData.sourcesBefore && lsetData.sources.length && lsetData.sources.every(source => 'SVD'.includes(source.charAt(1)))) {
 				// Every source is restricted
 				let legal = false;
 				for (const source of lsetData.sources) {
@@ -548,23 +558,6 @@ class Validator {
 					let eventProblems = this.validateEvent(set, eventData, eventTemplate, ` to be`, `from its event${eventName}`);
 					// @ts-ignore TypeScript overload syntax bug
 					if (eventProblems) problems.push(...eventProblems);
-				}
-			}
-			if (isHidden && lsetData.sourcesBefore < 5) {
-				if (!lsetData.sources) {
-					problems.push(`${name} has a hidden ability - it can't have moves only learned before gen 5.`);
-				} else if (lsetData.sources && template.gender && template.gender !== 'F' && !['Nidoran-M', 'Nidorino', 'Nidoking', 'Volbeat'].includes(template.species)) {
-					let compatibleSource = false;
-					for (const learned of lsetData.sources) {
-						if (parseInt(learned.charAt(0)) < 5) continue;
-						if (learned.charAt(1) === 'E' || (learned.substr(0, 2) === '5D' && set.level >= 10)) {
-							compatibleSource = true;
-							break;
-						}
-					}
-					if (!compatibleSource) {
-						problems.push(`${name} has moves incompatible with its hidden ability.`);
-					}
 				}
 			}
 			if (ruleTable.has('-illegal') && set.level < (template.evoLevel || 0)) {
@@ -908,7 +901,8 @@ class Validator {
 			alreadyChecked[template.speciesid] = true;
 			if (dex.gen === 2 && template.gen === 1) tradebackEligible = true;
 			// STABmons hack to avoid copying all of validateSet to formats
-			if (format.banlistTable && format.banlistTable['ignorestabmoves'] && format.noLearn.indexOf(moveid) < 0 && !move.isZ) {
+			let noLearn = format.noLearn || dex.getFormat('gen7stabmons').noLearn;
+			if (ruleTable.has('ignorestabmoves') && noLearn.indexOf(move.name) < 0 && !move.isZ) {
 				let types = template.types;
 				if (template.baseSpecies === 'Rotom') types = ['Electric', 'Ghost', 'Fire', 'Water', 'Ice', 'Flying', 'Grass'];
 				if (template.baseSpecies === 'Shaymin') types = ['Grass', 'Flying'];
@@ -981,6 +975,8 @@ class Validator {
 							// we're past the required level to learn it
 							// (gen 7 level-up moves can be relearnered at any level)
 							// falls through to LMT check below
+						} else if (level >= 5 && learnedGen === 3 && template.eggGroups && template.eggGroups[0] !== 'Undiscovered') {
+							// Pomeg Glitch
 						} else if ((!template.gender || template.gender === 'F') && learnedGen >= 2) {
 							// available as egg move
 							learned = learnedGen + 'Eany';

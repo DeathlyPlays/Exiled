@@ -665,13 +665,9 @@ class User {
 		} else {
 			this.send(`|nametaken|${name}|Your authentication token was invalid.`);
 		}
-
 		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 		Ontime[userid] = Date.now();
-
 		Server.showNews(userid, this);
-		Server.giveDailyReward(userid, this);
-
 		return false;
 	}
 	validateRename(name, tokenData, newlyRegistered, challenge) {
@@ -768,6 +764,7 @@ class User {
 
 			Rooms.global.checkAutojoin(user);
 			if (Config.loginfilter) Config.loginfilter(user, this, userType);
+			Server.giveDailyReward(this);
 			return true;
 		}
 

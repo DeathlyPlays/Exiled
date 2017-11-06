@@ -1558,6 +1558,40 @@ exports.Formats = [
 		column: 5,
 	},
 	{
+		name: "[Gen 7] Tier Shift",
+		ruleset: ['[Gen 7] OU'],
+		desc: ['<a href="http://www.smogon.com/forums/threads/3610073/">Tier Shift</a>: Pokemon get a +10 boost to each stat per tier below OU they are in. UU gets +10, RU +20, NU +30, and PU +40.'],
+		mod: 'gen7',
+		onModifyTemplate: function (template, pokemon) {
+			if (pokemon.tierShifted) return template;
+			let tierShift = Object.assign({}, template);
+			const boosts = {
+				'UU': 10,
+				'BL2': 10,
+				'RU': 20,
+				'BL3': 20,
+				'NU': 30,
+				'BL4': 30,
+				'PU': 40,
+				'NFE': 40,
+				'LC Uber': 40,
+				'LC': 40,
+			};
+			let tier = template.tier;
+			if (pokemon.set.item) {
+				let item = this.getItem(pokemon.set.item);
+				if (item.megaEvolves === template.species) tier = this.getTemplate(item.megaStone).tier;
+			}
+			if (tier.charAt(0) === '(') tier = tier.slice(1, -1);
+			let boost = (tier in boosts) ? boosts[tier] : 0;
+			for (let statName in template.baseStats) {
+				tierShift.baseStats[statName] = this.clampIntRange(template.baseStats[statName] + boost, 1, 255);
+			}
+			pokemon.tierShifted = true;
+			return tierShift;
+		},
+	},
+	{
 		name: "[Gen 7] Action Storm",
 		desc: [
 			"&bullet; Coded by flufi.",

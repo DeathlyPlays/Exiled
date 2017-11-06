@@ -303,7 +303,7 @@ class Validator {
 
 			set.ivs = Validator.fillStats(set.ivs, 31);
 			let ivs = /** @type {StatsTable} */ (set.ivs);
-			let maxedIVs = Validator.fillStats(null, 31);
+			let maxedIVs = Object.values(ivs).every(stat => stat === 31);
 
 			for (const moveName of set.moves) {
 				if (!moveName) continue;
@@ -354,6 +354,7 @@ class Validator {
 						// @ts-ignore TypeScript index signature bug
 						ivs[i] = HPdvs[i] * 2;
 					}
+					ivs.hp = -1;
 				} else if (!canBottleCap) {
 					ivs = set.ivs = Validator.fillStats(dex.getType(set.hpType).HPivs, 31);
 				}
@@ -370,12 +371,13 @@ class Validator {
 			}
 			if (dex.gen <= 2) {
 				// validate DVs
-				const hpDV = Math.floor(ivs.hp / 2);
 				const atkDV = Math.floor(ivs.atk / 2);
 				const defDV = Math.floor(ivs.def / 2);
 				const speDV = Math.floor(ivs.spe / 2);
 				const spcDV = Math.floor(ivs.spa / 2);
 				const expectedHpDV = (atkDV % 2) * 8 + (defDV % 2) * 4 + (speDV % 2) * 2 + (spcDV % 2);
+				if (ivs.hp === -1) ivs.hp = expectedHpDV * 2;
+				const hpDV = Math.floor(ivs.hp / 2);
 				if (expectedHpDV !== hpDV) {
 					problems.push(`${name} has an HP DV of ${hpDV}, but its Atk, Def, Spe, and Spc DVs give it an HP DV of ${expectedHpDV}.`);
 				}
@@ -901,8 +903,9 @@ class Validator {
 			alreadyChecked[template.speciesid] = true;
 			if (dex.gen === 2 && template.gen === 1) tradebackEligible = true;
 			// STABmons hack to avoid copying all of validateSet to formats
+			// @ts-ignore
 			let noLearn = format.noLearn || dex.getFormat('gen7stabmons').noLearn;
-			if (ruleTable.has('ignorestabmoves') && noLearn.indexOf(move.name) < 0 && !move.isZ) {
+			if (ruleTable.has('ignorestabmoves') && !noLearn.includes(move.name) && !move.isZ) {
 				let types = template.types;
 				if (template.baseSpecies === 'Rotom') types = ['Electric', 'Ghost', 'Fire', 'Water', 'Ice', 'Flying', 'Grass'];
 				if (template.baseSpecies === 'Shaymin') types = ['Grass', 'Flying'];
@@ -1170,13 +1173,13 @@ class Validator {
 			if (sources.length) {
 				let sourcesSet = new Set(sources);
 				let intersectSources = lsetData.sources.filter(source => sourcesSet.has(source));
-				if (!intersectSources.length && !sourcesBefore) {
-					return {type:'incompatible'};
-				}
 				lsetData.sources = intersectSources;
 			} else {
 				lsetData.sources = [];
 			}
+		}
+		if (!lsetData.sources.length && !sourcesBefore) {
+			return {type:'incompatible'};
 		}
 
 		if (limitedEgg) {

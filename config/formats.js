@@ -109,7 +109,11 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] PU",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3614120/\">PU Metagame Discussion</a>"],
+		desc: [
+			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3614120/\">PU Metagame Discussion</a>",
+			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3614892/\">PU Viability Rankings</a>",
+			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3614470/\">PU Sample Teams</a>",
+		],
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] NU'],
@@ -253,22 +257,12 @@ exports.Formats = [
 		],
 
 		mod: 'gen7',
-		searchShow: false,
 		gameType: 'doubles',
 		ruleset: ['Pokemon', 'Standard Doubles', 'Swagger Clause', 'Team Preview'],
 		banlist: ['Arceus', 'Dialga', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Jirachi', 'Kyogre', 'Kyurem-White',
 			'Lugia', 'Lunala', 'Magearna', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zekrom',
 			'Power Construct', 'Eevium Z', 'Kangaskhanite', 'Dark Void', 'Gravity ++ Grass Whistle', 'Gravity ++ Hypnosis', 'Gravity ++ Lovely Kiss', 'Gravity ++ Sing', 'Gravity ++ Sleep Powder',
 		],
-	},
-	{
-		name: "[Gen 7] Doubles OU (suspect test)",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3618612/\">Doubles OU Suspect Test</a>"],
-
-		mod: 'gen7',
-		challengeShow: false,
-		gameType: 'doubles',
-		ruleset: ['[Gen 7] Doubles OU'],
 	},
 	{
 		name: "[Gen 7] Doubles Ubers",
@@ -380,16 +374,10 @@ exports.Formats = [
 		banlist: ['Regigigas', 'Slaking'],
 		validateSet: function (set, teamHas) {
 			let dual = this.dex.getItem(set.ability);
-			if (dual.exists) set.ability = this.dex.getTemplate(set.species).abilities['0'];
-			let problems = this.validateSet(set, teamHas);
-			if (dual.exists) set.ability = dual.name;
-			if (problems && problems.length) return problems;
-			let name = set.species;
-			if (set.species !== set.name && set.baseSpecies !== set.name) name = `${set.name} (${set.species})`;
-			if (dual.isUnreleased) return [`${name}'s item ${dual.name} is unreleased.`];
-			if (toId(set.item) === toId(set.ability)) return [`${name} has 2 of ${set.item}, which is banned.`];
-			if (toId(set.item).slice(0, 6) === 'choice' && toId(set.ability).slice(0, 6) === 'choice') return [`${name} has the combination of ${set.item} and ${set.ability}, which is banned.`];
-		},
+			if (!dual.exists) return this.validateSet(set, teamHas);
+			let validator = new this.constructor(Dex.getFormat(this.format.id, ['Ignore Illegal Abilities']));
+			return validator.validateSet(Object.assign({}, set, {ability: ''}), teamHas) || validator.validateSet(Object.assign({}, set, {ability: '', item: set.ability}, teamHas));
+	  },
 	},
 	{
 		section: "Other Metagames",
@@ -685,9 +673,13 @@ exports.Formats = [
 			'Rayquaza', 'Regigigas', 'Reshiram', 'Shaymin-Sky', 'Shedinja', 'Slaking', 'Solgaleo', 'Terrakion', 'Xerneas', 'Yveltal', 'Zekrom',
 			'Arena Trap', 'Power Construct', 'Shadow Tag', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Salamencite', 'Baton Pass',
 		],
-		onValidateSet: function (set) {
-			let bannedAbilities = {'Arena Trap': 1, 'Comatose': 1, 'Contrary': 1, 'Fluffy': 1, 'Fur Coat': 1, 'Huge Power': 1, 'Illusion': 1, 'Imposter': 1, 'Innards Out': 1, 'Parental Bond': 1, 'Protean': 1, 'Pure Power': 1, 'Shadow Tag':1, 'Simple':1, 'Speed Boost': 1, 'Stakeout': 1, 'Water Bubble': 1, 'Wonder Guard': 1};
-			if (set.ability in bannedAbilities) {
+		bannedAbilities: [
+			'Comatose', 'Contrary', 'Fluffy', 'Fur Coat', 'Huge Power', 'Illusion', 'Imposter', 'Innards Out', 'Parental Bond', 'Protean',
+			'Pure Power', 'Simple', 'Speed Boost', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+		],
+		onValidateSet: function (set, format) {
+			let bannedAbilities = format.bannedAbilities || [];
+			if (bannedAbilities.includes(set.ability)) {
 				let template = this.getTemplate(set.species || set.name);
 				let legalAbility = false;
 				for (let i in template.abilities) {
@@ -728,9 +720,9 @@ exports.Formats = [
 
 		mod: 'gen7',
 		searchShow: false,
-		ruleset: ['Gen 7] OU', 'Ignore STAB Moves'],
+		ruleset: ['[Gen 7] OU', 'Ignore STAB Moves'],
 		banlist: ['Kartana', 'Komala', 'Kyurem-Black', 'Silvally-Ghost', 'Tapu Koko', 'Tapu Lele', 'Aerodactylite', 'King\'s Rock', 'Metagrossite', 'Razor Fang'],
-		noLearn: ['Acupressure', 'Belly Drum', 'Chatter', 'Geomancy', 'Shell Smash', 'Shift Gear', 'Thousand Arrows'],
+		noLearn: ['Acupressure', 'Belly Drum', 'Chatter', 'Geomancy', 'Lovely Kiss', 'Shell Smash', 'Shift Gear', 'Thousand Arrows'],
 	},
 	{
 		name: "[Gen 7] 2v2 Doubles",

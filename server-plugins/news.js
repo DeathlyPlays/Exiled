@@ -104,23 +104,23 @@ exports.commands = {
 		},
 		subscribe: function (target, room, user) {
 			if (!user.named) return this.errorReply('You must choose a name before subscribing.');
-			if (hasSubscribed(user.userid)) return this.errorReply("You are already subscribed to the Server News.");
+			if (hasSubscribed(user.userid)) return this.errorReply("You are already subscribed to the " + Config.serverName + " News.");
 			Db('NewsSubscribers').set(user.userid, true);
-			this.sendReply("You have subscribed to the Server News.");
-			this.popupReply("|wide||html|You will receive the Server News automatically once you connect to the Server next time.<br><hr><button class='button' name = 'send' value = '/news'>Go Back</button>");
+			this.sendReply("You have subscribed to the " + Config.serverName + " News.");
+			this.popupReply("|wide||html|You will receive the " + Config.serverName + " News automatically once you connect to " + Config.serverName + " next time.<br><hr><button class='button' name = 'send' value = '/news'>Go Back</button>");
 		},
 		unsubscribe: function (target, room, user) {
 			if (!user.named) return this.errorReply('You must choose a name before unsubscribing.');
-			if (!hasSubscribed(user.userid)) return this.errorReply("You have not subscribed to Server News.");
+			if (!hasSubscribed(user.userid)) return this.errorReply("You have not subscribed to " + Config.serverName + " News.");
 			Db('NewsSubscribers').delete(user.userid);
-			this.sendReply("You have unsubscribed to the Server News.");
-			this.popupReply("|wide||html|You will no longer automatically receive the Server News.<br><hr><button class='button' name='send' value='/news'>Go Back</button>");
+			this.sendReply("You have unsubscribed to the " + Config.serverName + " News.");
+			this.popupReply("|wide||html|You will no longer automatically receive the " + Config.serverName + " News.<br><hr><button class='button' name='send' value='/news'>Go Back</button>");
 		},
 		request: function (target, room, user) {
 			if (!user.named) return this.errorReply('You must have a name before requesting an announcement.');
 			if (!this.canTalk()) return this.errorReply("You can't use this command while unable to speak.");
-			if (!target) return this.sendReply("/news request [message] - Requests a news announcement from the Server Staff.");
-			if (target.length < 1) return this.sendReply("/news request [message] - Requests a news announcement from the Server Staff.");
+			if (!target) return this.sendReply("/news request [message] - Requests a news announcement from the " + Config.serverName + " Staff.");
+			if (target.length < 1) return this.sendReply("/news request [message] - Requests a news announcement from the " + Config.serverName + " Staff.");
 			let newsId = (Object.keys(newsRequests).length + 1);
 			let d = new Date();
 			let MonthNames = ["January", "February", "March", "April", "May", "June",
@@ -137,15 +137,15 @@ exports.commands = {
 			saveNewsRequests();
 			Monitor.log('A news request has been submitted by ' + user.name + '. ID: ' + newsId + ' Request Message: ' + target.trim());
 			Server.messageSeniorStaff('A news requested has been submitted by ' + user.name + '. ID: ' + newsId + ' Request Message: ' + target.trim());
-			return this.sendReply("Your request has been sent to the Server global authorities..");
+			return this.sendReply("Your request has been sent to the " + Config.serverName + " global authorities..");
 		},
 	},
 	serverannouncementshelp: [
-		"/news view - Views current Server news.",
+		"/news view - Views current " + Config.serverName + " News.",
 		"/news delete [news title] - Deletes announcement with the [title]. Requires @, &, ~",
-		"/news add [news title], [news desc] - Adds news [news]. Requires @, &, ~",
-		"/news subscribe - Subscribes to the Server News.",
-		"/news unsubscribe - Unsubscribes from the Server News.",
+		"/news add [news title], [news desc] - Adds [news]. Requires @, &, ~",
+		"/news subscribe - Subscribes to the " + Config.serverName + " News.",
+		"/news unsubscribe - Unsubscribes from the " + Config.serverName + " News.",
 		"/news request [message] - A user may request for a news announcement to be made.",
 	],
 };

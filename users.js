@@ -1049,14 +1049,10 @@ class User {
 		}
 	}
 	onDisconnect(connection) {
-		let name = 'Guest ' + this.guestNum;
-		let userid = toId(name);
-		if (this.named) Db('seen').set(this.userid, Date.now());
-		if (this.registered && this.userid !== userid) {
-			if (Ontime[this.userid]) {
-				Db('ontime').set(this.userid, Db('ontime').get(this.userid, 0) + (Date.now() - Ontime[this.userid]));
-				delete Ontime[this.userid];
-			}
+		if (this.named) Db("seen").set(this.userid, Date.now());
+		if (Ontime[this.userid]) {
+			Db("ontime").set(this.userid, Db("ontime").get(this.userid, 0) + (Date.now() - Ontime[this.userid]));
+			delete Ontime[this.userid];
 		}
 		for (let i = 0; i < this.connections.length; i++) {
 			if (this.connections[i] === connection) {

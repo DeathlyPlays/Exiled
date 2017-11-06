@@ -103,8 +103,8 @@ function addExp(user, room, amount) {
 					Economy.writeMoney(user.userid, Math.ceil(level * 0.5));
 					reward = Math.ceil(level * 0.5) + ' ' + (Math.ceil(level * 0.5) === 1 ? moneyName : moneyPlural) + '.';
 				}
-				user.sendTo(room, '|html|<center><font size=4><b><i>Level Up!</i></b></font><br />' +
-				'You have reached level ' + level + ', and have earned ' + reward + '</b></center>');
+				user.sendTo(room, '|html|<center><font size=4><strong><i>Level Up!</i></strong></font><br />' +
+				'You have reached level ' + level + ', and have earned ' + reward + '</strong></center>');
 			}
 		});
 	});
@@ -174,7 +174,7 @@ exports.commands = {
 		Server.addExp(uid, this.room, amount);
 		this.sendReply(uid + " has received " + amount + ((amount === 1) ? " exp." : " exp."));
 	},
-	giveexphelp: ["/giveexp [user], [amount] - Give a user a certain amount of exp."],
+	giveexphelp: ["/giveexp [user], [amount] - Gives a user a certain amount of exp."],
 
 	resetexp: 'resetxp',
 	confirmresetexp: 'resetxp',
@@ -184,7 +184,7 @@ exports.commands = {
 		let targetUser = parts[0].toLowerCase().trim();
 		if (!this.can('hotpatch')) return false;
 		if (cmd !== 'confirmresetexp') {
-			return this.popupReply('|html|<center><button name="send" value="/confirmresetexp ' + targetUser + '"style="background-color:red;height:300px;width:150px"><b><font color="white" size=3>Confirm XP reset of ' + Server.nameColor(targetUser, true) + '; this is only to be used in emergencies, cannot be undone!</font></b></button>');
+			return this.popupReply('|html|<center><button name="send" value="/confirmresetexp ' + targetUser + '"style="background-color:red;height:300px;width:150px"><strong><font color="white" size=3>Confirm XP reset of ' + Server.nameColor(targetUser, true) + '; this is only to be used in emergencies, cannot be undone!</font></strong></button>');
 		}
 		Db('exp').set(toId(target), 0);
 		if (Users.get(target)) Users.get(target).popup('Your XP was reset by an Administrator. This cannot be undone and nobody below the rank of Administrator can assist you or answer questions about this.');
@@ -198,19 +198,19 @@ exports.commands = {
 		if (!this.can('hotpatch')) return;
 		DOUBLE_XP = !DOUBLE_XP;
 		Rooms.rooms.forEach((curRoom, id) => {
-			if (id !== 'global') curRoom.addRaw('<div class="broadcast-' + (DOUBLE_XP ? 'green' : 'red') + '"><b>Double XP is turned ' + (DOUBLE_XP ? 'on! You will now ' : 'off! You will no longer ') + 'receive double XP.</b></div>').update();
+			if (id !== 'global') curRoom.addRaw('<div class="broadcast-' + (DOUBLE_XP ? 'green' : 'red') + '"><strong>Double XP is turned ' + (DOUBLE_XP ? 'on! You will now ' : 'off! You will no longer ') + 'receive double XP.</strong></div>').update();
 		});
 		return this.sendReply('Double XP was turned ' + (DOUBLE_XP ? 'ON' : 'OFF') + '.');
 	},
 
 	expon: function (target, room, user) {
 		Db('expoff').delete(user.userid);
-		this.sendReply("You are no longer exempt from exp");
+		this.sendReply("You are no longer exempt from exp.");
 	},
 
 	expoff: function (target, room, user) {
 		Db('expoff').set(user.userid, true);
-		this.sendReply("You are now exempt from exp");
+		this.sendReply("You are now exempt from exp.");
 	},
 
 	'!xpladder': true,

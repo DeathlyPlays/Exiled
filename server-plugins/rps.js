@@ -143,7 +143,7 @@ class RPSGame extends Rooms.RoomGame {
 		if (this.gameType === "bucks") {
 			//set but bucks
 			Db('money').set(winner.userid, Db('money').get(winner.userid, 0) + 6);
-			winner.send("|pm|~Rock/Paper/Scissors Host|" + winner.userid + "|/html You have also won 6 bucks.");
+			winner.send("|pm|~Rock/Paper/Scissors Host|" + winner.userid + "|/html You have also won 6 " + moneyPlural + ".");
 		} else {
 			//do rank change
 			let winnerPoints = Db('rpsrank').get(winner.userid, 1000);
@@ -229,7 +229,7 @@ exports.commands = {
 					gameType = "bucks";
 					Db('money').set(user.userid, (Db('money').get(user.userid, 0) - 3));
 				} else {
-					return this.errorReply("You do not have enough bucks (3) to search for a game of Rock/Paper/Scissors for bucks.");
+					return this.errorReply("You do not have enough " + moneyPlural + " (3) to search for a game of Rock/Paper/Scissors for " + moneyPlural + ".");
 				}
 			}
 			user.RPSgame = "searching";
@@ -283,7 +283,7 @@ exports.commands = {
 		},
 	},
 	rpshelp: [
-		"/rps search (bucks) - searches for a game of Rock/Paper/Scissors either for ladder points or for bucks.",
+		"/rps search (" + moneyPlural + ") - searches for a game of Rock/Paper/Scissors either for ladder points or for " + moneyPlural + ".",
 		"/rps endsearch - stop searching for a game of Rock/Paper/Scissors.",
 		"/rps rank [user] - shows rank for Rock/Paper/Scissors for either a user or yourself.",
 		"/rps ladder - shows top 100 on the RPS ladder.",

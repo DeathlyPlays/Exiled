@@ -16,7 +16,7 @@
 		"Users": false, "Punishments": false, "Rooms": false, "Verifier": false, "Chat": false,
 		"Tournaments": false, "Dnsbl": false, "Sockets": false, "TeamValidator": false,
 		"TeamValidatorAsync": false, "Ladders": false, "Tells": false, "Db": false, "Economy": false, "moneyName": false, "moneyPlural": false, "writeSSB": false,
-		"Server": false, "Ontime": false, "Console": false
+		"Server": false, "Ontime": false, "Console": false, "rankLadder": false
 	},
 	"extends": "eslint:recommended",
 	"rules": {
@@ -101,7 +101,7 @@
 		"no-path-concat": "off",
 		"no-process-env": "off",
 		"no-process-exit": "off",
-		"no-restricted-modules": ["error", "sugar"],
+		"no-restricted-modules": ["error", "moment", "sugar"],
 		"no-sync": "off",
 
 		"array-bracket-spacing": ["error", "never"],

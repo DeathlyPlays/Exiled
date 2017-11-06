@@ -1,7 +1,7 @@
 /****************************************
- * Lottery Plug-in for Pokémon Showdown *
- *            Created by:               *
- *         HoeenHero and Insist         *
+ * Lottery Plug-in for Pokémon Showdown
+ *            Created by:
+ *         HoeenHero and Insist
  ****************************************/
 
 "use strict";
@@ -13,7 +13,7 @@ class Lottery {
 		room.lottoNumber = room.lottoNumber ? room.lottoNumber++ : 1;
 		this.lottoNumber = room.lottoNumber;
 		this.costToJoin = 3;
-		this.room.add(`|uhtml|lottery-${this.lottoNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new <strong>Lottery drawing</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/lotto join">Join</button><br /><strong>DISCLAIMER: Joining costs ${this.costToJoin} ${moneyPlural}!!!!</strong></p></div>`, true);
+		this.room.add(`|uhtml|lottery-${this.lottoNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new <strong>Lottery drawing</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/lotto join">Join</button><br /><strong>Joining costs ${this.costToJoin} ${moneyPlural}</strong></p></div>`, true);
 		this.timer = setTimeout(() => {
 			if (this.players.length < 2) {
 				this.room.add('|uhtmlchange|lottery-' + this.lottoNumber + '|<div class="broadcast-red"><p style="text-align: center; font-size: 14pt>This Lottery drawing has ended due to lack of users.</p></div>');
@@ -29,17 +29,16 @@ class Lottery {
 
 	drawWinner() {
 		let winner = this.players[Math.floor(Math.random() * this.players.length)];
-		let basePrize = 5;
-		let lottoPrize = basePrize + this.players.length + this.costToJoin;
-		this.room.add(`|html|<div class="infobox"><center><strong>Congratulations</strong> ${Server.nameColor(Users(winner), true)}!!! You have won the reward of ${lottoPrize} ${moneyPlural}</center></div>`);
+		let lottoPrize = 5 + this.players.length + this.costToJoin;
+		this.room.add(`|html|<div class="infobox"><center><strong>Congratulations</strong> ${Server.nameColor(winner, true)}!!! You have won the reward of ${lottoPrize} ${moneyPlural}</center></div>`);
 		Economy.writeMoney(winner, lottoPrize);
 		Economy.logTransaction(`${winner} has won the Lottery prize of ${lottoPrize} ${moneyPlural}`);
 		this.end();
 	}
 
 	joinLottery(user) {
+		if (this.players.includes(user.userid)) return user.sendTo(this.room, 'You have already joined the lottery');
 		Economy.readMoney(user.userid, money => {
-			if (this.players.includes(user)) return user.sendTo(this.room, "You have already joined this Lottery drawing.");
 			if (money < this.costToJoin) {
 				user.sendTo(this.room, 'You do not have enough ' + moneyPlural + ' to join.');
 				return;
@@ -49,19 +48,22 @@ class Lottery {
 					Economy.logTransaction(user.name + " entered a Lottery drawing for " + this.costToJoin + " " + moneyPlural + ".");
 				});
 			});
-			this.players.push(user);
+			this.players.push(user.userid);
+			user.sendTo(this.room, 'You have joined the lottery.');
 		});
 	}
 
 	leaveLottery(user) {
+		if (!this.players.includes(user.userid)) return user.sendTo(this.room, `You are not currently in the Lottery drawing in this room..`);
 		Economy.writeMoney(user.userid, this.costToJoin, () => {
-			if (!this.players.includes(user)) return user.sendTo(this.room, `You are not currently in the Lottery drawing in this room..`);
-			Economy.logTransaction(user.name + " has left the Lottery drawing, and has been refunded their " + this.costToJoin + " " + moneyPlural + ".");
+			this.players.splice(this.players.indexOf(user.userid), 1);
+			user.sendTo(this.room, 'You have left the lottery and have been refunded ' + this.costToJoin + '.');
+			Economy.logTransaction(user.userid + " has left the Lottery drawing, and has been refunded their " + this.costToJoin + " " + moneyPlural + ".");
 		});
 	}
 
 	end() {
-		this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="infobox">This Lottery Drawing has ended.</div>`, true);
+		this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="infobox">This Lottery Drawing has ended.</div>`).update();
 		clearTimeout(this.timer);
 		delete this.room.lottery;
 	}
@@ -92,6 +94,10 @@ exports.commands = {
 			if (!room.lottery) return this.sendReply("There is no active Lottery drawing in this room.");
 			room.lottery.leaveLottery(user);
 		},
+		players: function (target, room, user) {
+			if (!room.lottery) return this.sendReply("There is no active Lottery drawing in this room.");
+			return this.sendReply('There are ' + room.lottery.players.length + ' users in the lottery.');
+		},
 		forcestart: "start",
 		begin: "start",
 		start: function (target, room, user) {
@@ -107,10 +113,6 @@ exports.commands = {
 			if (!room.lottery) return this.sendReply("There is no Lottery drawing going on right now.");
 			this.privateModCommand(`(The Lottery drawing was forcefully ended.)`);
 			room.lottery.end();
-		},
-		'': "help",
-		help: function (target, room, user) {
-			this.parse('/help lottery');
 		},
 	},
 	lotteryhelp: [

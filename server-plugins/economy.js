@@ -176,7 +176,7 @@ function handleBoughtItem(item, user, cost) {
 		this.sendReply("Good luck! Happy unboxing :)");
 	} else {
 		let msg = '**' + user.name + " has bought " + item + ".**";
-		Monitor.log(Config.serverName + ' Server|' + msg);
+		Monitor.log('~' + Config.serverName + ' Server' + msg);
 		Users.users.forEach(function (user) {
 			if (user.group === '~' || user.group === '&' || user.group === '@') {
 				user.send('|pm|~' + Config.serverName + ' Server|' + user.getIdentity() + '|' + msg);

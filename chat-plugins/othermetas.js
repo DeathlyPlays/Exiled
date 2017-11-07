@@ -315,13 +315,13 @@ exports.commands = {
 	'bnb' : 'badnboosted',
 	badnboosted : function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		if(!Dex.data.Pokedex[toId(target)]) {
-			return this.errorReply("Error: Pokemon not found.")
+		if (!Dex.data.Pokedex[toId(target)]) {
+			return this.errorReply("Error: Pokemon not found.");
 		}
 		let template = Object.assign({}, Dex.getTemplate(target));
 		let newStats = Object.values(template.baseStats).map(function (stat) {
- 			return (stat <= 70) ? (stat * 2) : stat;
- 		});
+			return (stat <= 70) ? (stat * 2) : stat;
+		});
 		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Bad 'n Boosted: <br /> ${newStats.join('/')}`);
 	},
 	badnboostedhelp: ["/bnb <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted."],
@@ -329,13 +329,13 @@ exports.commands = {
 	'bnb2' : 'badnboosted2',
 	badnboosted2 : function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		if(!Dex.data.Pokedex[toId(target)]) {
-			return this.errorReply("Error: Pokemon not found.")
+		if (!Dex.data.Pokedex[toId(target)]) {
+			return this.errorReply("Error: Pokemon not found.");
 		}
 		let template = Object.assign({}, Dex.getTemplate(target));
 		let newStats = Object.values(template.baseStats).map(function (stat) {
- 			return (stat <= 90) ? (stat * 2) : stat;
- 		});
+			return (stat <= 90) ? (stat * 2) : stat;
+		});
 		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Bad 'n Boosted 2: <br /> ${newStats.join('/')}`);
 	},
 	badnboosted2help: ["/bnb2 <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted 2."],

@@ -454,6 +454,8 @@ exports.commands = {
 			write();
 			Monitor.adminlog('The faction ' + factions[toId(target)].name + ' has been approved by ' + user.name + '.');
 			this.parse("/makechatroom " + factions[toId(target)].name);
+			this.parse("/join " + factions[toId(target)].name);
+			this.sendReply("Don't forget to promote the requester to Room Founder!");
 			return user.popup("Faction approved!");
 		},
 		join: function (target, room, user) {

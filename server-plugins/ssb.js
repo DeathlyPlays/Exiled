@@ -1009,10 +1009,9 @@ exports.commands = {
 				}
 			} else {
 				for (let key in Server.ssb) {
-					let valid = validate(this, Server.ssb[key], true);
-					if (!valid) {
-						Server.ssb[key].active = false;
-						if (Users(toId(Server.ssb[key].name))) Users(toId(Server.ssb[key].name)).popup('Your SSBFFA pokemon was deactivated because it is invalid.');
+					let valid = Server.ssb[key].validate();
+					if (valid.length) {
+						if (Users(toId(Server.ssb[key].name))) Users(toId(Server.ssb[key].name)).popup(`Your SSBFFA pokemon was deactivated for the following reasons:\n${valid.join('\n')}`);
 						writeSSB();
 						this.errorReply(Server.ssb[key].name + '\'s pokemon was invalid. Invalid parts have been reset and this pokemon was deactivated.');
 					}

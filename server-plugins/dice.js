@@ -25,6 +25,7 @@ function diceImg(num) {
 
 class Dice {
 	constructor(room, amount, starter) {
+		this.room = room;
 		if (!this.room.diceCount) this.room.diceCount = 0;
 		this.bet = amount;
 		this.players = [];

@@ -3319,8 +3319,9 @@ exports.commands = {
 			this.popupReply(target + " isn't challenging you - maybe they cancelled before you could accept?");
 			return false;
 		}
-		user.prepBattle(Dex.getFormat(format).id, 'challenge', connection).then(result => {
-			if (result) user.acceptChallengeFrom(userid);
+		user.prepBattle(Dex.getFormat(format).id, 'challenge', connection).then(validTeam => {
+			if (validTeam === false) return;
+			user.acceptChallengeFrom(userid, validTeam);
 		});
 	},
 

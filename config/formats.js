@@ -1584,166 +1584,6 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Action Storm",
-		desc: [
-			"&bullet; Coded by flufi.",
-			"On switch-in, something completely random happens.",
-			"(i.e a random move can be used, a random weather",
-			"condition can be set, a random stat can be raised,",
-			"etc.",
-		],
-		team: "random",
-		ruleset: ['[Gen 7] Anything Goes', 'Team Preview'],
-		onSwitchIn: function (pokemon) {
-			let n = this.random(55);
-			if (n === 1) {
-				this.add('-start', pokemon, 'typechange', 'Normal');
-				pokemon.types = ["Normal"];
-			} else if (n === 2) {
-				this.add('-start', pokemon, 'typechange', 'Fighting');
-				pokemon.types = ["Fighting"];
-			} else if (n === 3) {
-				this.add('-start', pokemon, 'typechange', 'Psychic');
-				pokemon.types = ["Psychic"];
-			} else if (n === 4) {
-				this.add('-start', pokemon, 'typechange', 'Ice');
-				pokemon.types = ["Ice"];
-			} else if (n === 5) {
-				this.add('-start', pokemon, 'typechange', 'Grass');
-				pokemon.types = ["Grass"];
-			} else if (n === 6) {
-				this.add('-start', pokemon, 'typechange', 'Fairy');
-				pokemon.types = ["Fairy"];
-			} else if (n === 7) {
-				this.add('-start', pokemon, 'typechange', 'Dark');
-				pokemon.types = ["Dark"];
-			} else if (n === 8) {
-				this.add('-start', pokemon, 'typechange', 'Water');
-				pokemon.types = ["Water"];
-			} else if (n === 9) {
-				this.add('-start', pokemon, 'typechange', 'Steel');
-				pokemon.types = ["Steel"];
-			} else if (n === 10) {
-				this.add('-start', pokemon, 'typechange', 'Fire');
-				pokemon.types = ["Fire"];
-			} else if (n === 11) {
-				this.add('-start', pokemon, 'typechange', 'Bug');
-				pokemon.types = ["Bug"];
-			} else if (n === 12) {
-				this.add('-start', pokemon, 'typechange', 'Electric');
-				pokemon.types = ["Electric"];
-			} else if (n === 13) {
-				this.add('-start', pokemon, 'typechange', 'Poison');
-				pokemon.types = ["Poison"];
-			} else if (n === 14) {
-				this.add('-start', pokemon, 'typechange', 'Ghost');
-				pokemon.types = ["Ghost"];
-			} else if (n === 15) {
-				this.add('-start', pokemon, 'typechange', 'Rock');
-				pokemon.types = ["Rock"];
-			} else if (n === 16) {
-				this.add('-start', pokemon, 'typechange', 'Ground');
-				pokemon.types = ["Ground"];
-			} else if (n === 17) {
-				this.add('-start', pokemon, 'typechange', 'Flying');
-				pokemon.types = ["Flying"];
-			} else if (n === 18) {
-				this.add('-start', pokemon, 'typechange', 'Dragon');
-				pokemon.types = ["Dragon"];
-			} else if (n === 19) {
-				this.setTerrain('psychicterrain');
-			} else if (n === 20) {
-				this.setTerrain('electricterrain');
-			} else if (n === 21) {
-				this.setTerrain('grassyterrain');
-			} else if (n === 22) {
-				this.setWeather('sunnyday');
-			} else if (n === 23) {
-				this.setWeather('raindance');
-			} else if (n === 24) {
-				this.setWeather('sandstorm');
-			} else if (n === 25) {
-				this.setWeather('hail');
-			} else if (n === 26) {
-				this.useMove("Stealth Rock", pokemon);
-			} else if (n === 27) {
-				this.useMove("Spikes", pokemon);
-			} else if (n === 28) {
-				this.useMove("Toxic Spikes", pokemon);
-			} else if (n === 29) {
-				this.useMove("Power Trick", pokemon, pokemon, pokemon);
-			} else if (n === 30) {
-				this.useMove("Trick Room", pokemon);
-			} else if (n === 31) {
-				this.useMove("Speed Swap", pokemon);
-			} else if (n === 32) {
-				this.useMove("Trick", pokemon);
-			} else if (n === 33) {
-				this.useMove("Defog", pokemon);
-			} else if (n === 34) {
-				this.useMove("Self-Destruct", pokemon, pokemon, pokemon);
-			} else if (n === 35) {
-				this.useMove("Entrainment", pokemon);
-			} else if (n === 36) {
-				this.useMove("Role Play", pokemon);
-			} else if (n === 37) {
-				this.useMove("Shell Smash", pokemon, pokemon, pokemon);
-			} else if (n === 38) {
-				this.useMove("Quiver Dance", pokemon, pokemon, pokemon);
-			} else if (n === 39) {
-				this.useMove("Noble Roar", pokemon);
-			} else if (n === 40) {
-				this.useMove("Magikarp's Revenge", pokemon);
-			} else if (n === 41) {
-				this.useMove("Lockdown", pokemon);
-			} else if (n === 42) {
-				this.useMove("Spider Web", pokemon);
-			} else if (n === 43) {
-				this.useMove("Toxic", pokemon);
-			} else if (n === 44) {
-				this.useMove("Will-O-Wisp", pokemon);
-			} else if (n === 45) {
-				this.useMove("Thunder Wave", pokemon);
-			} else if (n === 46) {
-				this.useMove("Fire Blast", pokemon);
-			} else if (n === 47) {
-				this.useMove("Hydro Pump", pokemon);
-			} else if (n === 48) {
-				this.useMove("Leaf Storm", pokemon);
-			} else if (n === 49) {
-				this.useMove("Light Screen", pokemon);
-			} else if (n === 50) {
-				this.useMove("Reflect", pokemon);
-			} else if (n === 51) {
-				this.useMove("Safeguard", pokemon);
-			} else if (n === 52) {
-				this.useMove("Wonder Room", pokemon);
-			} else if (n === 53) {
-				this.useMove("Power Trick", pokemon);
-			} else if (n === 54) {
-				this.setWeather('steelbarrier');
-			} else if (n === 55) {
-				this.add('-start', pokemon, 'typechange', 'Bird');
-				pokemon.types = ["Bird"];
-			}
-		},
-	},
-	{
-		name: "[Gen 7] Ashmons",
-		maxLevel: 50,
-		defaultLevel: 50,
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],
-	},
-	{
-		name: "[Gen 7] Ash's Pokemon",
-		mod: 'ashspokemon',
-		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
-		team: 'randomAsh',
-		desc: [
-			"This metagame covers every Pok&eacute that Ash caught in the anime, some were evolved for viability etc.",
-		],
-	},
-	{
 		name: "[Gen 7] Clash of the Regions",
 		mod: 'clashoftheregions',
 		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
@@ -1790,22 +1630,6 @@ exports.Formats = [
 				pokemon.types = ["Dragon", "Water"];
 			}
 		},
-	},
-	{
-		name: "[Gen 7] Digimon Showdown",
-		mod: "digimon",
-		team: "randomDigimon",
-		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
-		onBegin: function () {
-			this.add('raw', '<center><a title="Digimon Tamers: Zone Digital" href="https://www.youtube.com/watch?v=HSm6CHgujSE" target="_blank"><img src="https://x5zb5g.bn1303.livefilestore.com/y3m7hz_BBUaKCiMAo-__U76Xif0Wl70a-muQxVLAUWjhKrErxeDIfH6HBN0_M4Rac9yLWH7VRKR4FaMgx6LLZjUwkKzxp1FKocL16LjZOXJogV8ltDPockgXW8As2JSvW5h9UC-YT6xlUWIN0nE8N2WRcP0f1HxkxQFv16nCBk1cyU?width=124&amp;height=28&amp;cropmode=none" alt="Digimon Tamers: Zone Digital" width="124" height="28" /></a><a title="Digimon Froniter: With the Will BGM Verison" href="https://www.youtube.com/watch?v=aiEQNKFiVRY" target="_blank"><img src="https://x5ysra.bn1303.livefilestore.com/y3mejTyK4Owu1CRO-2dEV6f5sXEzfxKIBJ8zDCKtGOvH2m6TNHfGwEVBnSFYmJnQ5irfZG5PTm2Q_cvEZSVJOjco65nxgpmgxkh9u6-Z2-67FqIWD4oMfceTWGOqlL0n9zDM8OrjYKBhRI3FqA8vZq_eAc1QSWIRCdWDa21vklS4XA?width=124&amp;height=28&amp;cropmode=none" alt="Digimon Frontier: With the WIll BGM" width="124" height="28" /></a><a title="Digimon Adventure: Shuugeki Soshite..." href="https://www.youtube.com/watch?v=66iMd-lpC9E" target="_blank"><img src="https://x5zilq.bn1303.livefilestore.com/y3mIjynkF0J_iQQ0IeK0jCR1BLEIpgDkRRGUdYSyOOeNyFcaWCkI5W6LrQamjbqgibv203Ss824bh24kF_gBWNhxOBkjg_rdimfGBsN_6a1k64KydPJRTTrZdA6naRzTBOoxg59qQVtt6I0vQ3d5iAfLRoM_JirnCb7jLX-Ok93YL8?width=124&amp;height=28&amp;cropmode=none" alt="Digimon Adventure: Shuugeki! Soshite..." width="124" height="28" /></a><a title="Digimon Xros Wars: Battle In The Digital World" href="https://www.youtube.com/watch?v=xngD8cDZLRQ" target="_blank"><img src="https://x5x9og.bn1303.livefilestore.com/y3mQAOGzN350mT9JOODjaIzJQ4zcLmZ1l4T_5PeAeN-m4zSj4e2tODh563uxlJh8ZflX4HJOOCtXAi5Bchow8eSOIwPcYEWToRrlD-DKcJIB7HxFdKP6zOZceolZjxKSbzk8R9rfKaSqG7y2vn7MfWJ8AQHHipXVt_cEf0vULk-d98?width=124&amp;height=28&amp;cropmode=none" alt="Digimon Xros Wars: Battle In the Digital World" width="124" height="28" /></a></center>');
-			this.add('raw', '<center><p><a title="Digimon Showdown Players Guide" href="https://1drv.ms/b/s!AvoD6RnUzzMvgmLcX1rqT8GTnEVK" target="_blank"><img src="https://yheeqg.bn1303.livefilestore.com/y4mcqvreFTM4wIjnVqqSI98LZXT-lFFCxPBYHyHGZtWJTIGuah-spBzqvXbLiWvyJgDnrjSRFziff59ZLLBEtm_t3ZHHeKv9AY6Ml-gQpdGMhNmzaeSt0TD8wmivpfEW81jh93LSBvdXb7-cZUH2YNJwzwiyOTsy4L2dViyJqkiOCFDZhJRIPwPEWgmD7MDJnfafmoq6SN6gEfsAXMiHh529w?width=124&amp;height=42&amp;cropmode=none" alt="" width="124" height="42" /></a></p></center>');
-		},
-		desc: [
-			"You may have thought this was Pok&eacute;mon Showdown, but I must reassure you that you were mistaken, welcome to <b>DIGIMON SHOWDOWN!!!</b>",
-			"Ahem, but in all seriousness, the following developers listed below created Digimon in Pok&eacute;mon Showdown, so why not just try it out :D",
-			"Ashley the Pikachu (Head Researcher, Began the project, Attack Manual, Type Chart Manual, Music Selection and Music HTML, Sprite Selection), Insist (Head Developer), AlfaStorm (Animations), VXN (Assisted other developers), HoeenHero (Assisted with Mechanics)",
-			"&bullet; <a href=\"https://1drv.ms/b/s!AvoD6RnUzzMvgmLcX1rqT8GTnEVK\">Digimon Manual</a>",
-		],
 	},
 	{
 		name: "[Gen 7] Five Move Frenzy",
@@ -1996,40 +1820,6 @@ exports.Formats = [
 			"Also, Astral Wobz helped with the ideas for more holidays :D",
 			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
 		],
-	},
-	{
-		name: "[Gen 7] Infection",
-		ruleset: ['[Gen 7] OU'],
-		banlist: ["Illegal", 'Kyurem-Black', 'Pidgeotite'],
-		desc: [
-			"&bullet; Credit to: flufi (Creator/Idea).",
-			"You can choose to either make each of your Pokemon",
-			"Normal or Infected. Not Shiny being Normal, and Shiny",
-			"being Infected. When a Pokemon is infected, all of",
-			"it's stats are increased by 30% (multiplied by x1.3),",
-			"but it's accuracy is decreased by 20% (multiplied by x0.8).",
-			"(30% Stat Boost does NOT include evasion/evasiveness)",
-		],
-		onSourceModifyAccuracy: function (accuracy, pokemon) {
-			if (typeof accuracy !== 'number' && pokemon.shiny) return;
-			this.debug('infected - decreasing accuracy');
-			return accuracy * 0.8;
-		},
-		onModifyAtk: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
-		onModifyDef: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
-		onModifySpA: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
-		onModifySpD: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
-		onModifySpe: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
 	},
 	{
 		name: "[Gen 7] Metronome Battle",
@@ -2263,16 +2053,6 @@ exports.Formats = [
 			"Made for Gyaratoast, my (Insist) best friend.",
 		],
 		team: 'randomSmash',
-	},
-	{
-		name: "[Gen 7] Supercell Games",
-		mod: "supercell",
-		team: "randomSupercell",
-		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
-		desc: [
-			"This metagame is about games like Clash of Clans, Clash Royale, and in the future possibly Boom Beach.",
-			"Made by Insist, we do not claim any right to the characters listed.",
-		],
 	},
 	{
 		name: "[Gen 7] Super Staff Bros Free For All",

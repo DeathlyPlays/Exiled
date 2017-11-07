@@ -276,6 +276,8 @@ function factionPM(message, faction) {
 exports.commands = {
 	faction: 'factions',
 	factions: {
+		new: "create",
+		make: "create",
 		create: function (target, room, user) {
 			let targets = target.split(',');
 			for (let u = 0; u < targets.length; u++) targets[u] = targets[u].trim();
@@ -418,9 +420,9 @@ exports.commands = {
 			let output = (factions[factionId].avatar ? "<img src='" + factions[factionId].avatar + "' height='80' width='80' align='left'>" : '') + '&nbsp;' + Chat.escapeHTML(factions[factionId].name) + '</br>';
 			output += '<br />&nbsp;Faction Vs Faction wins: ' + factions[factionId].tourwins + '<br /> &nbsp;Usercount: ' + factions[factionId].users.length + '<br />';
 			output += '&nbsp;Description: ' + factions[factionId].desc + '<br />';
-			output += '&nbsp;Owners: ' + factions[factionId].ranks['owner'].users.join(', ') + '<br />';
-			output += '&nbsp;Nobles: ' + factions[factionId].ranks['noble'].users.join(', ') + '<br />';
-			output += '&nbsp;Commoners: ' + factions[factionId].ranks['commoner'].users.join(', ') + '<br />';
+			output += '&nbsp;Owners: ' + Server.nameColor(factions[factionId].ranks['owner'].users.join(', '), true) + '<br />';
+			output += '&nbsp;Nobles: ' + Server.nameColor(factions[factionId].ranks['noble'].users.join(', '), true) + '<br />';
+			output += '&nbsp;Commoners: ' + Server.nameColor(factions[factionId].ranks['commoner'].users.join(', '), true) + '<br />';
 			this.sendReplyBox(output);
 		},
 		privatize: function (target, room, user) {
@@ -451,6 +453,9 @@ exports.commands = {
 			factions[toId(target)].private = false;
 			write();
 			Monitor.adminlog('The faction ' + factions[toId(target)].name + ' has been approved by ' + user.name + '.');
+			this.parse("/makechatroom " + factions[toId(target)].name);
+			this.parse("/join " + factions[toId(target)].name);
+			this.sendReply("Don't forget to promote the requester to Room Founder!");
 			return user.popup("Faction approved!");
 		},
 		join: function (target, room, user) {
@@ -659,7 +664,7 @@ exports.commands = {
 			if (!factions[factionid].ranks[toId(rank)]) return this.errorReply("That rank does not exist.");
 			if (factions[factionid].ranks[toId(rank)].users.includes(targetUser.userid)) return this.errorReply("That user already has that rank.");
 
-			if (toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to change users rank.");
+			if (toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to change user's rank.");
 
 			if (toId(rank) !== 'owner') {
 				for (let rank in factions[factionid].ranks) {

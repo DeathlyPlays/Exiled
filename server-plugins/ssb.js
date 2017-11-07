@@ -598,6 +598,7 @@ try {
 }
 
 exports.commands = {
+	ssbffa: "ssb",
 	ssb: {
 		edit: {
 			main: '',
@@ -950,7 +951,7 @@ exports.commands = {
 				return this.sendReplyBox(output);
 				//break;
 			case 'mark':
-				if (!user.can('roomowner')) return this.errorReply('/sbb mark - Access Denied.');
+				if (!user.can('roomowner')) return this.errorReply('/ssb mark - Access Denied.');
 				if (!target[3]) return this.parse('/help ssb log');
 				target[1] = toId(target[1]);
 				target[2] = target[2].trim();
@@ -985,7 +986,8 @@ exports.commands = {
 				return this.parse('/help ssb log');
 			}
 		},
-		loghelp: ['/ssb log - Accepts the following commands:',
+		loghelp: [
+			'/ssb log - Accepts the following commands:',
 			'/ssb log view, [all|user] - View the purchases of a user or all user\'s. Requires &, ~ unless viewing your own.',
 			'/ssb log mark, [user], [cItem|cAbility|cMove], [complete|pending|remove] - Update the status for a user\'s SSBFFA purchase.',
 		],
@@ -1024,7 +1026,8 @@ exports.commands = {
 			return this.parse('/help ssb');
 		},
 	},
-	ssbhelp: ['/ssb - Commands for editing your custom super staff bros pokemon. Includes the following commands: ',
+	ssbhelp: [
+		'/ssb - Commands for editing your custom super staff bros pokemon. Includes the following commands: ',
 		'/ssb edit - pulls up the general menu, allowing you to edit species and contains buttons to access other menus.',
 		'/ssb edit species - change the pokemon\'s species, not a menu.',
 		'/ssb edit move - pulls up the move selection menu, allowing selection of 16 pre-created custom moves (1 per type) and (if purchased) your own custom-made custom move, as well as instructions for selecting normal moves.',

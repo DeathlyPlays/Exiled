@@ -35,14 +35,10 @@ class BasicRoom {
 	constructor(roomid, title) {
 		this.id = roomid;
 		this.title = (title || roomid);
-<<<<<<< HEAD
-		this.reportJoins = Config.reportjoins;
-=======
 		/** @type {?Room} */
 		this.parent = null;
 		/** @type {(string[])?} */
 		this.aliases = null;
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 
 		/** @type {{[userid: string]: User}} */
 		this.users = Object.create(null);
@@ -240,16 +236,12 @@ class BasicRoom {
 				if (user.userid === entry.userid ||
 					user.guestNum === entry.guestNum ||
 					(user.autoconfirmed && user.autoconfirmed === entry.autoconfirmed)) {
-<<<<<<< HEAD
-					return entry.userid;
-=======
 					if (entry.time - Date.now() < 0) {
 						this.unmute(user.userid);
 						return null;
 					} else {
 						return entry.userid;
 					}
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 				}
 			}
 		}
@@ -453,18 +445,6 @@ class GlobalRoom extends BasicRoom {
 
 		this.chatRooms = /** @type {ChatRoom[]} */ ([]);
 
-<<<<<<< HEAD
-		this.autojoin = []; // rooms that users autojoin upon connecting
-		this.staffAutojoin = []; // rooms that staff autojoin upon connecting
-		for (let i = 0; i < this.chatRoomData.length; i++) {
-			if (!this.chatRoomData[i] || !this.chatRoomData[i].title) {
-				console.log('ERROR: Room number ' + i + ' has no data.');
-				continue;
-			}
-			let id = toId(this.chatRoomData[i].title);
-			if (!Config.quietconsole) console.log("NEW CHATROOM: " + id);
-			let room = Rooms.createChatRoom(id, this.chatRoomData[i].title, this.chatRoomData[i]);
-=======
 		/**
 		 * Rooms that users autojoin upon connecting
 		 * @type {string[]}
@@ -483,7 +463,6 @@ class GlobalRoom extends BasicRoom {
 			let id = toId(this.chatRoomDataList[i].title);
 			Monitor.notice("NEW CHATROOM: " + id);
 			let room = Rooms.createChatRoom(id, this.chatRoomDataList[i].title, this.chatRoomDataList[i]);
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 			if (room.aliases) {
 				for (let a = 0; a < room.aliases.length; a++) {
 					Rooms.aliases.set(room.aliases[a], id);
@@ -687,18 +666,6 @@ class GlobalRoom extends BasicRoom {
 	 * @param {User} user
 	 */
 	getRooms(user) {
-<<<<<<< HEAD
-		let roomsData = {official:[], chat:[], userCount: this.userCount, battleCount: this.battleCount};
-		for (let i = 0; i < this.chatRooms.length; i++) {
-			let room = this.chatRooms[i];
-			if (!room) continue;
-			if (room.isPrivate && !(room.isPrivate === 'voice' && user.group !== ' ')) continue;
-			(room.isOfficial ? roomsData.official : roomsData.chat).push({
-				title: room.title,
-				desc: room.desc,
-				userCount: room.userCount,
-			});
-=======
 		/** @type {any} */
 		let roomsData = {official:[], pspl:[], chat:[], userCount: this.userCount, battleCount: this.battleCount};
 		for (const room of this.chatRooms) {
@@ -724,7 +691,6 @@ class GlobalRoom extends BasicRoom {
 					userCount: room.userCount,
 				});
 			}
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 		}
 		return roomsData;
 	}
@@ -865,15 +831,9 @@ class GlobalRoom extends BasicRoom {
 		// we only autojoin regular rooms if the client requests it with /autojoin
 		// note that this restriction doesn't apply to staffAutojoin
 		let includesLobby = false;
-<<<<<<< HEAD
-		for (let i = 0; i < this.autojoin.length; i++) {
-			user.joinRoom(this.autojoin[i], connection);
-			if (this.autojoin[i] === 'lobby') includesLobby = true;
-=======
 		for (const roomName of this.autojoinList) {
 			user.joinRoom(roomName, connection);
 			if (roomName === 'lobby') includesLobby = true;
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 		}
 		if (!includesLobby && Config.serverid !== 'showdown') user.send(`>lobby\n|deinit`);
 	}
@@ -1060,16 +1020,6 @@ class GlobalRoom extends BasicRoom {
 	}
 }
 
-<<<<<<< HEAD
-class BattleRoom extends Room {
-	constructor(roomid, format, p1, p2, options) {
-		super(roomid, "" + p1.name + " vs. " + p2.name);
-		this.modchat = (Config.battlemodchat || false);
-		this.modjoin = false;
-		this.slowchat = false;
-		this.filterStretching = false;
-		this.filterCaps = false;
-=======
 class GameRoom extends BasicRoom {
 	/**
 	 * @param {string} roomid
@@ -1079,7 +1029,6 @@ class GameRoom extends BasicRoom {
 	constructor(roomid, title, options = {}) {
 		super(roomid, title);
 		this.modchat = (Config.battlemodchat || false);
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 		this.reportJoins = Config.reportbattlejoins;
 
 		/** @type {'battle'} */
@@ -1106,98 +1055,6 @@ class GameRoom extends BasicRoom {
 			options = {};
 		}
 
-<<<<<<< HEAD
-		let rated;
-		if (options.rated && Dex.getFormat(formatid).rated !== false) {
-			rated = options.rated;
-		} else {
-			rated = false;
-		}
-
-		if (options.tour) {
-			this.tour = options.tour;
-		} else {
-			this.tour = false;
-		}
-
-		this.p1 = p1 || null;
-		this.p2 = p2 || null;
-
-		this.rated = rated;
-		this.battle = new Rooms.RoomBattle(this, format, rated);
-		this.game = this.battle;
-
-		this.sideTicksLeft = [21, 21];
-		if (!rated && !this.tour) this.sideTicksLeft = [28, 28];
-		this.sideTurnTicks = [0, 0];
-		this.disconnectTickDiff = [0, 0];
-
-		if (Config.forcetimer) this.battle.timer.start();
-
-		this.modlogStream = Rooms.battleModlogStream;
-	}
-	push(message) {
-		if (typeof message === 'string') {
-			this.log.push(message);
-		} else {
-			this.log = this.log.concat(message);
-		}
-	}
-	win(winner) {
-		// Declare variables here in case we need them for non-rated battles logging.
-		let p1score = 0.5;
-		let winnerid = toId(winner);
-
-		// Check if the battle was rated to update the ladder, return its response, and log the battle.
-		if (this.rated) {
-			this.rated = false;
-			let p1 = this.battle.p1;
-			let p2 = this.battle.p2;
-
-			if (winnerid === p1.userid) {
-				p1score = 1;
-			} else if (winnerid === p2.userid) {
-				p1score = 0;
-			}
-
-			let p1name = p1.name;
-			let p2name = p2.name;
-
-			//update.updates.push('[DEBUG] uri: ' + Config.loginserver + 'action.php?act=ladderupdate&serverid=' + Config.serverid + '&p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2) + '&score=' + p1score + '&format=' + toId(rated.format) + '&servertoken=[token]');
-
-			winner = Users.get(winnerid);
-			if (winner && !winner.registered) {
-				this.sendUser(winner, '|askreg|' + winner.userid);
-			}
-			// update rankings
-			Ladders(this.battle.format).updateRating(p1name, p2name, p1score, this);
-		} else if (Config.logchallenges) {
-			// Log challenges if the challenge logging config is enabled.
-			if (winnerid === this.p1.userid) {
-				p1score = 1;
-			} else if (winnerid === this.p2.userid) {
-				p1score = 0;
-			}
-			this.update();
-			this.logBattle(p1score);
-		} else {
-			this.battle.logData = null;
-		}
-		if (Config.autosavereplays) {
-			let uploader = Users.get(winnerid);
-			if (uploader && uploader.connections[0]) {
-				Chat.parse('/savereplay', this, uploader, uploader.connections[0]);
-			}
-		}
-		if (this.tour) {
-			this.tour.onBattleWin(this, winnerid);
-		}
-		this.update();
-	}
-	// logNum = 0    : spectator log (no exact HP)
-	// logNum = 1, 2 : player log (exact HP for that player)
-	// logNum = 3    : debug log (exact HP for all players)
-=======
 		/**
 		 * The lower player's rating, for searching purposes.
 		 * 0 for unrated battles. 1 for unknown ratings.
@@ -1218,7 +1075,6 @@ class GameRoom extends BasicRoom {
 	 * - logNum = 3    : debug log (exact HP for all players)
 	 * @param {0 | 1 | 2 | 3} logNum
 	 */
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 	getLog(logNum) {
 		let log = [];
 		for (let i = 0; i < this.log.length; ++i) {
@@ -1305,28 +1161,10 @@ class GameRoom extends BasicRoom {
 	tryExpire() {
 		this.expire();
 	}
-<<<<<<< HEAD
-	getInactiveSide() {
-		let p1active = this.battle.p1 && this.battle.p1.active;
-		let p2active = this.battle.p2 && this.battle.p2.active;
-
-		if (p1active && this.battle.requests.p1) {
-			if (!this.battle.requests.p1[2]) p1active = false;
-		}
-		if (p2active && this.battle.requests.p2) {
-			if (!this.battle.requests.p2[2]) p2active = false;
-		}
-
-		if (p1active && !p2active) return 1;
-		if (p2active && !p1active) return 0;
-		return -1;
-	}
-=======
 	/**
 	 * @param {0 | 1} num
 	 * @param {string} message
 	 */
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 	sendPlayer(num, message) {
 		let player = this.getPlayer(num);
 		if (!player) return false;
@@ -1485,13 +1323,6 @@ class ChatRoom extends BasicRoom {
 		this.staffAutojoin = /** @type {string | boolean} */ (false);
 		Object.assign(this, options);
 		if (this.auth) Object.setPrototypeOf(this.auth, null);
-<<<<<<< HEAD
-		if (!this.modchat) this.modchat = (Config.chatmodchat || false);
-		if (!this.modjoin) this.modjoin = false;
-		if (!this.filterStretching) this.filterStretching = false;
-		if (!this.filterCaps) this.filterCaps = false;
-=======
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 
 		/** @type {'chat'} */
 		this.type = 'chat';
@@ -1587,15 +1418,9 @@ class ChatRoom extends BasicRoom {
 			if (this.rollLogTimer) clearTimeout(this.rollLogTimer);
 			this.rollLogTimer = null;
 			this.logEntry = function () { };
-<<<<<<< HEAD
-			this.logFile.end(finalCallback);
-		} else {
-			finalCallback();
-=======
 			this.logFile.end('', finalCallback);
 		} else if (typeof finalCallback === 'function') {
 			setImmediate(finalCallback);
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 		}
 	}
 	logUserStats() {
@@ -1824,13 +1649,9 @@ class ChatRoom extends BasicRoom {
 		}
 		this.logUserStatsInterval = null;
 
-<<<<<<< HEAD
-		if (!this.isPersonal) {
-=======
 		this.destroyLog();
 
 		if (this.modlogStream && !this.isPersonal) {
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 			this.modlogStream.removeAllListeners('finish');
 			this.modlogStream.end();
 		}
@@ -1851,53 +1672,6 @@ function getRoom(roomid) {
 	// @ts-ignore
 	return Rooms.rooms.get(roomid);
 }
-<<<<<<< HEAD
-Rooms.get = getRoom;
-Rooms.search = function (name, fallback) {
-	if (fallback) throw new Error("fallback parameter in Rooms.search no longer supported");
-	return getRoom(name) || getRoom(toId(name)) || getRoom(Rooms.aliases.get(toId(name)));
-};
-
-Rooms.createBattle = function (roomid, format, p1, p2, options) {
-	if (roomid && roomid.id) return roomid;
-	if (!p1 || !p2) return false;
-	if (!roomid) roomid = 'default';
-	if (!Rooms.rooms.has(roomid)) {
-		// console.log("NEW BATTLE ROOM: " + roomid);
-		Monitor.countBattle(p1.latestIp, p1.name);
-		Monitor.countBattle(p2.latestIp, p2.name);
-		Rooms.rooms.set(roomid, new BattleRoom(roomid, format, p1, p2, options));
-	}
-	return Rooms(roomid);
-};
-Rooms.createChatRoom = function (roomid, title, data) {
-	let room = Rooms.rooms.get(roomid);
-	if (room) return room;
-
-	room = new ChatRoom(roomid, title, data);
-	Rooms.rooms.set(roomid, room);
-	return room;
-};
-
-Rooms.battleModlogStream = FS('logs/modlog/modlog_battle.txt').createAppendStream();
-Rooms.groupchatModlogStream = FS('logs/modlog/modlog_groupchat.txt').createAppendStream();
-
-Rooms.global = null;
-Rooms.lobby = null;
-
-Rooms.Room = Room;
-Rooms.GlobalRoom = GlobalRoom;
-Rooms.BattleRoom = BattleRoom;
-Rooms.ChatRoom = ChatRoom;
-
-Rooms.RoomGame = require('./room-game').RoomGame;
-Rooms.RoomGamePlayer = require('./room-game').RoomGamePlayer;
-
-Rooms.RoomBattle = require('./room-battle').RoomBattle;
-Rooms.RoomBattlePlayer = require('./room-battle').RoomBattlePlayer;
-Rooms.SimulatorManager = require('./room-battle').SimulatorManager;
-Rooms.SimulatorProcess = require('./room-battle').SimulatorProcess;
-=======
 
 /** @typedef {GlobalRoom | GameRoom | ChatRoom} Room */
 
@@ -2025,7 +1799,6 @@ let Rooms = Object.assign(getRoom, {
 	SimulatorManager: require('./room-battle').SimulatorManager,
 	SimulatorProcess: require('./room-battle').SimulatorProcess,
 });
->>>>>>> 05e9608ee472f01011af9c1709b26beb42d8f4ef
 
 // initialize
 

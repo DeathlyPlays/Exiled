@@ -496,7 +496,7 @@ exports.commands = {
 		},
 		blockinvites: function (target, room, user) {
 			if (Db("blockedinvites").get(user.userid)) return this.errorReply('You are already blocking faction invites!');
-			Db.blockinvites.set(user.userid, true);
+			Db("blockinvites").set(user.userid, true);
 			return this.sendReply('Faction invites are now blocked!');
 		},
 		unblockinvites: function (target, room, user) {

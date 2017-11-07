@@ -1068,26 +1068,12 @@ class GameRoom extends BasicRoom {
 
 		this.modlogStream = Rooms.battleModlogStream;
 	}
-<<<<<<< HEAD
-	push(message) {
-		if (typeof message === 'string') {
-			this.log.push(message);
-		} else {
-			this.log = this.log.concat(message);
-		}
-	}
-
-	// logNum = 0    : spectator log (no exact HP)
-	// logNum = 1, 2 : player log (exact HP for that player)
-	// logNum = 3    : debug log (exact HP for all players)
-=======
 	/**
 	 * - logNum = 0    : spectator log (no exact HP)
 	 * - logNum = 1, 2 : player log (exact HP for that player)
 	 * - logNum = 3    : debug log (exact HP for all players)
 	 * @param {0 | 1 | 2 | 3} logNum
 	 */
->>>>>>> 28cb849c1d76c5b026f863a7723e7b9deaa14995
 	getLog(logNum) {
 		let log = [];
 		for (let i = 0; i < this.log.length; ++i) {

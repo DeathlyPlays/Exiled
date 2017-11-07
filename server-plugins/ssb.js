@@ -1,5 +1,6 @@
 'use strict';
 
+global.TeamValidator = require('../sim/team-validator');
 let fs = require('fs');
 let ssbWrite = true; //if false, do not write to json
 let noRead = false; //if true, do not read from json

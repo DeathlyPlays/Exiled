@@ -162,7 +162,8 @@ class Tournament {
 			this.inProgressMatches.forEach(match => {
 				if (match) {
 					delete match.room.tour;
-					match.room.addRaw("<div class=\"broadcast-red\"><strong>The tournament was forcefully ended.</strong><br />You can finish playing, but this battle is no longer considered a tournament battle.</div>");
+					delete match.room.parent;
+					match.room.addRaw("<div class=\"broadcast-red\"><b>The tournament was forcefully ended.</strong><br />You can finish playing, but this battle is no longer considered a tournament battle.</div>");
 				}
 			});
 		} else if (this.autoStartTimer) {

@@ -325,7 +325,7 @@ exports.commands = {
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
 		room.addRaw(Server.nameColor(user.name, true, true) + ' has splatted ' + Server.nameColor(targetUser, true, true) + '.');
-		this.parse('You were splatted by the Aerospray PG');
+		targetUser.popup('You were splatted by the Aerospray PG');
 	},
 	roasted: function (target, room, user) {
 		if (!target) return this.sendReply('/roasted needs a target.');

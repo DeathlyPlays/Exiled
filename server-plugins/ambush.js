@@ -142,7 +142,7 @@ class Ambush {
 		let msg = '|html|<div class = "infobox"><center>The winner of this game of Ambush is ' + Server.nameColor(winner, true) + '! Congratulations!</center>';
 		if (this.room.isOfficial) {
 			msg += '<center>' + Server.nameColor(winner, true) + ' has also won <strong>5</strong> EXP for winning!</center>'.update();
-			Server.addExp(winner, room, 5);
+			Server.addExp(winner, this.room, 5);
 		} else {
 			this.room.add(msg).update();
 		}

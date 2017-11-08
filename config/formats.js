@@ -1550,6 +1550,7 @@ exports.Formats = [
 		column: 5,
 	},
 	{
+<<<<<<< HEAD
 		name: "[Gen 7] Tier Shift",
 		ruleset: ['[Gen 7] OU'],
 		desc: ['<a href="http://www.smogon.com/forums/threads/3610073/">Tier Shift</a>: Pokemon get a +10 boost to each stat per tier below OU they are in. UU gets +10, RU +20, NU +30, and PU +40.'],
@@ -1582,6 +1583,21 @@ exports.Formats = [
 			pokemon.tierShifted = true;
 			return tierShift;
 		},
+=======
+		name: "[Gen 7] Ashmons",
+		maxLevel: 50,
+		defaultLevel: 50,
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],
+	},
+	{
+		name: "[Gen 7] Ash's Pokemon",
+		mod: 'ashspokemon',
+		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
+		team: 'randomAsh',
+		desc: [
+			"This metagame covers every Pok&eacute that Ash caught in the anime, some were evolved for viability etc.",
+		],
+>>>>>>> 61331733c921757348eaca2bbd7c3ac3a2455ed4
 	},
 	{
 		name: "[Gen 7] Clash of the Regions",
@@ -1984,7 +2000,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Random Metronome Battle",
 		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
-		ruleset: ['[Gen 7] OU'],
+		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod'],
 		team: 'random',
 		onBegin: function () {
 			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
@@ -2026,7 +2042,7 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
 		],
 		mod: "slowtown",
-		ruleset: ['[Gen 7] OU'],
+		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 		banlist: ['Sablenite', 'Snorlax'],
 		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite', 'Blazkenite'],
 		onBegin: function () {
@@ -2082,8 +2098,13 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/thread/24/welcome-swapping-powers\">Swapping Powers Thread</a>",
 			"Concept by Mewth. Coded by Insist/HoeenHero.",
 		],
+<<<<<<< HEAD
 		ruleset: ['[Gen 7] OU'],
 		banlist: [''],
+=======
+		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
+		banlist: [],
+>>>>>>> 61331733c921757348eaca2bbd7c3ac3a2455ed4
 		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow', 'Genesect', 'Shaymin-Sky', 'Landorus', 'Blaziken', 'Pheromosa'],
 		onSwitchInPriority: 8,
 		onSwitchIn: function (pokemon) {
@@ -2096,7 +2117,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Type Illusion",
-		ruleset: ['[Gen 7] OU'],
+		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 		banlist: ["Shedinja"],
 		desc: [
 			"&bullet; Coded by flufi. Completed by Mewth",

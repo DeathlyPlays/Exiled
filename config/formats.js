@@ -1550,151 +1550,6 @@ exports.Formats = [
 		column: 5,
 	},
 	{
-		name: "[Gen 7] Action Storm",
-		desc: [
-			"&bullet; Coded by flufi.",
-			"On switch-in, something completely random happens.",
-			"(i.e a random move can be used, a random weather",
-			"condition can be set, a random stat can be raised,",
-			"etc.",
-		],
-		team: "random",
-		ruleset: ['[Gen 7] Anything Goes', 'Team Preview'],
-		onSwitchIn: function (pokemon) {
-			let n = this.random(55);
-			if (n === 1) {
-				this.add('-start', pokemon, 'typechange', 'Normal');
-				pokemon.types = ["Normal"];
-			} else if (n === 2) {
-				this.add('-start', pokemon, 'typechange', 'Fighting');
-				pokemon.types = ["Fighting"];
-			} else if (n === 3) {
-				this.add('-start', pokemon, 'typechange', 'Psychic');
-				pokemon.types = ["Psychic"];
-			} else if (n === 4) {
-				this.add('-start', pokemon, 'typechange', 'Ice');
-				pokemon.types = ["Ice"];
-			} else if (n === 5) {
-				this.add('-start', pokemon, 'typechange', 'Grass');
-				pokemon.types = ["Grass"];
-			} else if (n === 6) {
-				this.add('-start', pokemon, 'typechange', 'Fairy');
-				pokemon.types = ["Fairy"];
-			} else if (n === 7) {
-				this.add('-start', pokemon, 'typechange', 'Dark');
-				pokemon.types = ["Dark"];
-			} else if (n === 8) {
-				this.add('-start', pokemon, 'typechange', 'Water');
-				pokemon.types = ["Water"];
-			} else if (n === 9) {
-				this.add('-start', pokemon, 'typechange', 'Steel');
-				pokemon.types = ["Steel"];
-			} else if (n === 10) {
-				this.add('-start', pokemon, 'typechange', 'Fire');
-				pokemon.types = ["Fire"];
-			} else if (n === 11) {
-				this.add('-start', pokemon, 'typechange', 'Bug');
-				pokemon.types = ["Bug"];
-			} else if (n === 12) {
-				this.add('-start', pokemon, 'typechange', 'Electric');
-				pokemon.types = ["Electric"];
-			} else if (n === 13) {
-				this.add('-start', pokemon, 'typechange', 'Poison');
-				pokemon.types = ["Poison"];
-			} else if (n === 14) {
-				this.add('-start', pokemon, 'typechange', 'Ghost');
-				pokemon.types = ["Ghost"];
-			} else if (n === 15) {
-				this.add('-start', pokemon, 'typechange', 'Rock');
-				pokemon.types = ["Rock"];
-			} else if (n === 16) {
-				this.add('-start', pokemon, 'typechange', 'Ground');
-				pokemon.types = ["Ground"];
-			} else if (n === 17) {
-				this.add('-start', pokemon, 'typechange', 'Flying');
-				pokemon.types = ["Flying"];
-			} else if (n === 18) {
-				this.add('-start', pokemon, 'typechange', 'Dragon');
-				pokemon.types = ["Dragon"];
-			} else if (n === 19) {
-				this.setTerrain('psychicterrain');
-			} else if (n === 20) {
-				this.setTerrain('electricterrain');
-			} else if (n === 21) {
-				this.setTerrain('grassyterrain');
-			} else if (n === 22) {
-				this.setWeather('sunnyday');
-			} else if (n === 23) {
-				this.setWeather('raindance');
-			} else if (n === 24) {
-				this.setWeather('sandstorm');
-			} else if (n === 25) {
-				this.setWeather('hail');
-			} else if (n === 26) {
-				this.useMove("Stealth Rock", pokemon);
-			} else if (n === 27) {
-				this.useMove("Spikes", pokemon);
-			} else if (n === 28) {
-				this.useMove("Toxic Spikes", pokemon);
-			} else if (n === 29) {
-				this.useMove("Power Trick", pokemon, pokemon, pokemon);
-			} else if (n === 30) {
-				this.useMove("Trick Room", pokemon);
-			} else if (n === 31) {
-				this.useMove("Speed Swap", pokemon);
-			} else if (n === 32) {
-				this.useMove("Trick", pokemon);
-			} else if (n === 33) {
-				this.useMove("Defog", pokemon);
-			} else if (n === 34) {
-				this.useMove("Self-Destruct", pokemon, pokemon, pokemon);
-			} else if (n === 35) {
-				this.useMove("Entrainment", pokemon);
-			} else if (n === 36) {
-				this.useMove("Role Play", pokemon);
-			} else if (n === 37) {
-				this.useMove("Shell Smash", pokemon, pokemon, pokemon);
-			} else if (n === 38) {
-				this.useMove("Quiver Dance", pokemon, pokemon, pokemon);
-			} else if (n === 39) {
-				this.useMove("Noble Roar", pokemon);
-			} else if (n === 40) {
-				this.useMove("Magikarp's Revenge", pokemon);
-			} else if (n === 41) {
-				this.useMove("Lockdown", pokemon);
-			} else if (n === 42) {
-				this.useMove("Spider Web", pokemon);
-			} else if (n === 43) {
-				this.useMove("Toxic", pokemon);
-			} else if (n === 44) {
-				this.useMove("Will-O-Wisp", pokemon);
-			} else if (n === 45) {
-				this.useMove("Thunder Wave", pokemon);
-			} else if (n === 46) {
-				this.useMove("Fire Blast", pokemon);
-			} else if (n === 47) {
-				this.useMove("Hydro Pump", pokemon);
-			} else if (n === 48) {
-				this.useMove("Leaf Storm", pokemon);
-			} else if (n === 49) {
-				this.useMove("Light Screen", pokemon);
-			} else if (n === 50) {
-				this.useMove("Reflect", pokemon);
-			} else if (n === 51) {
-				this.useMove("Safeguard", pokemon);
-			} else if (n === 52) {
-				this.useMove("Wonder Room", pokemon);
-			} else if (n === 53) {
-				this.useMove("Power Trick", pokemon);
-			} else if (n === 54) {
-				this.setWeather('steelbarrier');
-			} else if (n === 55) {
-				this.add('-start', pokemon, 'typechange', 'Bird');
-				pokemon.types = ["Bird"];
-			}
-		},
-	},
-	{
 		name: "[Gen 7] Ashmons",
 		maxLevel: 50,
 		defaultLevel: 50,
@@ -1965,40 +1820,6 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "[Gen 7] Infection",
-		ruleset: ['[Gen 7] OU'],
-		banlist: ["Illegal", 'Kyurem-Black', 'Pidgeotite'],
-		desc: [
-			"&bullet; Credit to: flufi (Creator/Idea).",
-			"You can choose to either make each of your Pokemon",
-			"Normal or Infected. Not Shiny being Normal, and Shiny",
-			"being Infected. When a Pokemon is infected, all of",
-			"it's stats are increased by 30% (multiplied by x1.3),",
-			"but it's accuracy is decreased by 20% (multiplied by x0.8).",
-			"(30% Stat Boost does NOT include evasion/evasiveness)",
-		],
-		onSourceModifyAccuracy: function (accuracy, pokemon) {
-			if (typeof accuracy !== 'number' && pokemon.shiny) return;
-			this.debug('infected - decreasing accuracy');
-			return accuracy * 0.8;
-		},
-		onModifyAtk: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
-		onModifyDef: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
-		onModifySpA: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
-		onModifySpD: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
-		onModifySpe: function (pokemon) {
-			if (pokemon.set.shiny) return this.chainModify(1.3);
-		},
-	},
-	{
 		name: "[Gen 7] Metronome Battle",
 		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
 		ruleset: ['[Gen 7] OU'],
@@ -2033,7 +1854,7 @@ exports.Formats = [
 		],
 		mod: 'franticfusions',
 		ruleset: ['[Gen 7] OU'],
-		banlist: ["Illegal", 'Kyurem-Black', 'Manaphy', 'Porygon-Z', 'Shedinja', 'Togekiss', 'Chatter'],
+		banlist: ["Illegal", 'Kyurem-Black', 'Manaphy', 'Porygon-Z', 'Shedinja', 'Togekiss', 'Chatter', 'Huge Power', 'Pure Power', 'Simple', 'Refrigerate', 'Pixilate', 'Aerilate'],
 		onBegin: function () {
 			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
 			for (let i = 0, len = allPokemon.length; i < len; i++) {
@@ -2161,7 +1982,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Random Metronome Battle",
 		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
-		ruleset: ['[Gen 7] OU'],
+		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod'],
 		team: 'random',
 		onBegin: function () {
 			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
@@ -2202,7 +2023,7 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/board/22/slowtown\">Slowtown</a>",
 		],
 		mod: "slowtown",
-		ruleset: ['[Gen 7] OU'],
+		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 		banlist: ['Sablenite', 'Snorlax'],
 		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite', 'Blazkenite'],
 		onBegin: function () {
@@ -2268,8 +2089,8 @@ exports.Formats = [
 			"&bullet; <a href=\"http://exiledps.boards.net/thread/24/welcome-swapping-powers\">Swapping Powers Thread</a>",
 			"Concept by Mewth. Coded by Insist/HoeenHero.",
 		],
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Kings Shield'],
+		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
+		banlist: [],
 		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow', 'Genesect', 'Shaymin-Sky', 'Landorus', 'Blaziken', 'Pheromosa'],
 		onSwitchInPriority: 8,
 		onSwitchIn: function (pokemon) {
@@ -2282,7 +2103,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Type Illusion",
-		ruleset: ['[Gen 7] OU'],
+		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 		banlist: ["Shedinja"],
 		desc: [
 			"&bullet; Coded by flufi. Completed by Mewth",

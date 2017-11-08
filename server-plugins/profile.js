@@ -286,8 +286,6 @@ exports.commands = {
 		let online = (targetId ? targetId.connected : false);
 		if (online && lastActive(toId(username))) {
 			return this.sendReplyBox(Server.nameColor(targetId, true) + ' was last active: ' + lastActive(toId(username)) + '.');
-		} else {
-			return this.sendReplyBox(Server.nameColor(targetId, true) + ' is either offline, or has never spoke on this server since logging in.');
 		}
 	},
 	lastactivehelp: ["/lastactive - Shows how long ago it has been since a user has posted a message."],
@@ -341,6 +339,9 @@ exports.commands = {
 				profile += '&nbsp;<font color="#24678d"><strong>Group:</strong></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ' + regdate + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>' + global.moneyPlural + ':</strong></font> ' + money + '<br />';
+				if (Server.getFaction(toId(username))) {
+					profile += '&nbsp;<font color="#24678d"><strong>Faction:</strong></font> ' + Server.getFaction(toId(username)) + '<br />';
+				}
 				profile += '&nbsp;<font color="#24678d"><strong>EXP Level:</strong></font> ' + Server.level(toId(username)) + '<br />';
 				if (online && lastActive(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><strong>Last Active:</strong></font> ' + lastActive(toId(username)) + '<br />';

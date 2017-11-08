@@ -1,9 +1,6 @@
 tournaments/lib/
 logs/
 dev-tools/globals.js
-<<<<<<< HEAD
+node_modules/
 config/card-data.js
 server-plugins/hex.js
-=======
-node_modules/
->>>>>>> 208522851eed610189f93490ff5e349d2ed9824d

@@ -248,7 +248,7 @@ class KOGame extends ScavGame {
 			for (let i in this.players) {
 				if (!(i in this.childGame.players) || !this.childGame.players[i].completed) this.eliminate(i); // user hasnt finished.
 			}
-			this.announce(`Congratulations to ${Chat.toListString(Object.keys(this.players).map(i => this.players[i].name))}! They have completed the first round, and have moved on to the next round!`);
+			this.announce(`Congratulations to ${Chat.toListString(Object.keys(this.players).map(i => Server.nameColor(this.players[i].name)))}! They have completed the first round, and have moved on to the next round!`);
 			return;
 		}
 
@@ -265,7 +265,7 @@ class KOGame extends ScavGame {
 			let winner = this.players[Object.keys(this.players)[0]];
 
 			if (winner) {
-				this.announce(`Congratulations to ${winner.name} for winning the Knockout Games!`);
+				this.announce(`Congratulations to ${Server.nameColor(winner.name)} for winning the Knockout Games!`);
 			} else {
 				this.announce(`Sorry, no winners this time!`); // a catch - this should not realistically happen.
 			}
@@ -311,7 +311,7 @@ class ScavengerGames extends ScavGame {
 			for (let i in this.players) {
 				if (!(i in this.childGame.players) || !this.childGame.players[i].completed) this.eliminate(i); // user hasnt finished.
 			}
-			this.announce(`Congratulations to ${Chat.toListString(Object.keys(this.players).map(i => this.players[i].name))}! They have completed the first round, and have moved on to the next round!`);
+			this.announce(`Congratulations to ${Chat.toListString(Object.keys(this.players).map(i => Server.nameColor(this.players[i].name)))}! They have completed the first round, and have moved on to the next round!`);
 			return;
 		}
 
@@ -324,7 +324,7 @@ class ScavengerGames extends ScavGame {
 			let winner = this.players[Object.keys(this.players)[0]];
 
 			if (winner) {
-				this.announce(`Congratulations to ${winner.name} for winning the Knockout Games!`);
+				this.announce(`Congratulations to ${Server.nameColor(winner.name)} for winning the Knockout Games!`);
 			} else {
 				this.announce(`Sorry, no winners this time!`); // a catch - this should not realistically happen.
 			}

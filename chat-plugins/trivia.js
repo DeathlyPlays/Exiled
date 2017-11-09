@@ -480,7 +480,7 @@ class Trivia extends Rooms.RoomGame {
 		clearTimeout(this.phaseTimeout);
 		this.phaseTimeout = null;
 		let prize = (this.cap - 5) / 15 + 2;
-		buffer += Chat.html`${winner.name} won the game with a final score of <strong>${winner.points}</strong>, ` +
+		buffer += Chat.html`${Server.nameColor(winner.name)} won the game with a final score of <strong>${winner.points}</strong>, ` +
 			`and their leaderboard score has increased by <strong>${prize}</strong> points!`;
 		this.broadcast('The answering period has ended!', buffer);
 
@@ -544,7 +544,7 @@ class Trivia extends Rooms.RoomGame {
 			);
 		}
 
-		let buf = `(User ${winner.name} won the game of ${this.mode}` +
+		let buf = `(User ${Server.nameColor(winner.name)} won the game of ${this.mode}` +
 			` mode trivia under the ${this.category} category with a cap of ` +
 			`${this.cap} points, with ${winner.points} points and ` +
 			`${winner.correctAnswers} correct answers!)`;
@@ -560,7 +560,7 @@ class Trivia extends Rooms.RoomGame {
 	end(user) {
 		clearTimeout(this.phaseTimeout);
 		this.phaseTimeout = null;
-		this.broadcast(Chat.html`The game was forcibly ended by ${user.name}.`);
+		this.broadcast(Chat.html`The game was forcibly ended by ${Server.nameColor(user.name)}.`);
 		this.destroy();
 	}
 }
@@ -586,7 +586,7 @@ class FirstModeTrivia extends Trivia {
 		clearTimeout(this.phaseTimeout);
 		this.phase = INTERMISSION_PHASE;
 
-		let buffer = Chat.html`Correct: ${user.name}<br />` +
+		let buffer = Chat.html`Correct: ${Server.nameColor(user.name)}<br />` +
 			`Answer(s): ${this.curAnswers.join(', ')}<br />`;
 
 		let points = this.calculatePoints();
@@ -1335,7 +1335,7 @@ const commands = {
 			for (let j = 0; j < leaders.length; j++) {
 				let rank = leaderboard[leaders[j]];
 				let leader = Users.getExact(leaders[j]);
-				leader = leader ? Chat.escapeHTML(leader.name) : leaders[j];
+				leader = leader ? Server.nameColor(leader.name) : leaders[j];
 				buffer += `<tr><td><strong>${(i + 1)}</strong></td><td>${leader}</td><td>${rank[0]}</td><td>${rank[1]}</td><td>${rank[2]}</td></tr>`;
 			}
 		}
@@ -1398,7 +1398,7 @@ const commands = {
 		if (!this.can('broadcast', null, room)) return;
 		if (!this.runBroadcast()) return;
 		if (room.game.phase !== 'voting') return this.sendReplyBox("The game is not currently in the voting phase");
-		return this.sendReplyBox(`The following players have yet to vote: ${Object.values(room.game.players).filter(pl => !pl.vote).map(pl => pl.name).join(", ")}`);
+		return this.sendReplyBox(`The following players have yet to vote: ${Object.values(room.game.players).filter(pl => !pl.vote).map(pl => Server.nameColor(pl.name)).join(", ")}`);
 	},
 	checkvoteshelp: ["/trivia checkvotes - Check which players have not yet voted."],
 
@@ -1435,7 +1435,7 @@ class WeakestLink extends Trivia {
 		}
 		this.broadcast(
 			`Question: ${question.question}`,
-			`Player: ${Chat.escapeHTML(this.curPlayer.name)}`
+			`Player: ${Server.nameColor(this.curPlayer.name)}`
 		);
 	}
 
@@ -1449,7 +1449,7 @@ class WeakestLink extends Trivia {
 		this.bank += this.amountToBank;
 		player.points += this.amountToBank;
 		this.amountToBank = 0;
-		this.broadcast(`${player.name} has banked`);
+		this.broadcast(`${Server.nameColor(player.name)} has banked`);
 	}
 
 	answerQuestion(answer, user) {
@@ -1474,7 +1474,7 @@ class WeakestLink extends Trivia {
 			this.bankindex = 0;
 		}
 		this.broadcast(
-			`${this.curPlayer.name} ${answer.length === 0 ? "did not answer" : "answered " + ((isCorrect ? "correctly" : "incorrectly") + " with " + answer)}`
+			`${Server.nameColor(this.curPlayer.name)} ${answer.length === 0 ? "did not answer" : "answered " + ((isCorrect ? "correctly" : "incorrectly") + " with " + answer)}`
 		);
 		this.playerindex++;
 		if (this.playerindex === Object.keys(this.players).length) {
@@ -1499,7 +1499,7 @@ class WeakestLink extends Trivia {
 							winplayer = this.curPlayer;
 							loseplayer = oplayer;
 						}
-						this.broadcast(`Congratulations to ${winplayer.name} for winning the game of the Weakest Link with a final score of ${winplayer.correctAnswers}-${loseplayer.correctAnswers}`);
+						this.broadcast(`Congratulations to ${Server.nameColor(winplayer.name)} for winning the game of the Weakest Link with a final score of ${winplayer.correctAnswers}-${loseplayer.correctAnswers}`);
 						return this.destroy();
 					}
 				}
@@ -1522,7 +1522,7 @@ class WeakestLink extends Trivia {
 		clearTimeout(this.phaseTimeout);
 		this.phase = "voting";
 		this.broadcast(
-			`Players: ${Object.keys(this.players).map(p => this.players[p].name).join(", ")}`,
+			`Players: ${Object.keys(this.players).map(p => Server.nameColor(this.players[p].name)).join(", ")}`,
 			`Bank: ${this.bank}<br />Vote for who you would like to eliminate with /trivia vote [user]`
 		);
 	}
@@ -1566,7 +1566,7 @@ class WeakestLink extends Trivia {
 			this.startRound();
 		} else {
 			this.curPlayer = this.strongestPlayer();
-			this.broadcast(`The votes are in, and the result is a tie between ${maxVotes.map(pl => pl.name).join(", ")}. ${this.curPlayer.name} as the strongest player, who would you like to eliminate?`);
+			this.broadcast(`The votes are in, and the result is a tie between ${maxVotes.map(pl => Server.nameColor(pl.name)).join(", ")}. ${this.curPlayer.name} as the strongest player, who would you like to eliminate?`);
 			this.phase = 'deciding';
 			this.potentialElims = maxVotes;
 		}
@@ -1591,8 +1591,8 @@ class WeakestLink extends Trivia {
 		}
 		this.playerindex = Object.keys(this.players).indexOf(this.curPlayer.userid);
 		this.broadcast(
-			`Players: ${Object.keys(this.players).map(p => this.players[p].name).join(", ")}`,
-			`Bank: ${this.bank}<br />The ${this.finals ? "next" : "final"} round will begin in 30 seconds, and it will be ${this.curPlayer.name}'s turn to answer.`
+			`Players: ${Object.keys(this.players).map(p => Server.nameColor(this.players[p].name)).join(", ")}`,
+			`Bank: ${this.bank}<br />The ${this.finals ? "next" : "final"} round will begin in 30 seconds, and it will be ${Server.nameColor(this.curPlayer.name)}'s turn to answer.`
 		);
 		this.timeout = setTimeout(() => this.askQuestion(), 30 * 1000);
 	}

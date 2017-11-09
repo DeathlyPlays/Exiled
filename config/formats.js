@@ -375,8 +375,12 @@ exports.Formats = [
 		validateSet: function (set, teamHas) {
 			let dual = this.dex.getItem(set.ability);
 			if (!dual.exists) return this.validateSet(set, teamHas);
+			let item = this.dex.getItem(set.item);
 			let validator = new this.constructor(Dex.getFormat(this.format.id, ['Ignore Illegal Abilities']));
-			return validator.validateSet(Object.assign({}, set, {ability: ''}), teamHas) || validator.validateSet(Object.assign({}, set, {ability: '', item: set.ability}, teamHas));
+			let problems = validator.validateSet(Object.assign({}, set, {ability: ''}), teamHas) || validator.validateSet(Object.assign({}, set, {ability: '', item: set.ability}, teamHas)) || [];
+			if (dual.id === item.id) problems.push(`You cannot have two of the same item on a Pokemon. (${set.name || set.species} has two of ${item.name})`);
+			if (item.isChoice && dual.isChoice) problems.push(`You cannot have two choice items on a Pokemon. (${set.name || set.species} has ${item.name} and ${dual.name})`);
+			return problems;
 	  },
 	},
 	{
@@ -2073,7 +2077,6 @@ exports.Formats = [
 			"Concept by Mewth. Coded by Insist/HoeenHero.",
 		],
 		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-		banlist: [],
 		unbanlist: ['Deoxys-Attack', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Aegislash', 'Aegislash-Blade', 'Darmanitan-Zen', 'Marshadow', 'Genesect', 'Shaymin-Sky', 'Landorus', 'Blaziken', 'Pheromosa'],
 		onSwitchInPriority: 8,
 		onSwitchIn: function (pokemon) {

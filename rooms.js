@@ -92,7 +92,6 @@ class BasicRoom {
 		this.filterStretching = false;
 		this.filterEmojis = false;
 		this.filterCaps = false;
-		this.reportJoins = Config.reportbattlejoins;
 		/** @type {Set<string>?} */
 		this.privacySetter = null;
 	}
@@ -631,7 +630,7 @@ class GlobalRoom extends BasicRoom {
 	/**
 	 * @param {string} filter "formatfilter, elofilter"
 	 */
-	getRoomList(filter) {
+	getBattles(filter) {
 		let rooms = /** @type {GameRoom[]} */ ([]);
 		let skipCount = 0;
 		const [formatFilter, eloFilterString] = filter.split(',');
@@ -640,10 +639,10 @@ class GlobalRoom extends BasicRoom {
 			skipCount = this.battleCount - 150;
 		}
 		for (const room of Rooms.rooms.values()) {
-			if (!room || !room.active || room.isPrivate) return;
-			if (formatFilter && formatFilter !== room.format) return;
-			if (eloFilter && (!room.rated || room.rated < eloFilter)) return;
-			if (skipCount && skipCount--) return;
+			if (!room || !room.active || room.isPrivate) continue;
+			if (formatFilter && formatFilter !== room.format) continue;
+			if (eloFilter && (!room.rated || room.rated < eloFilter)) continue;
+			if (skipCount && skipCount--) continue;
 
 			rooms.push(room);
 		}

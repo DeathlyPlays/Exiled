@@ -810,10 +810,10 @@ let breedingcontests = {
 	winner: function (target, room, user) {
 		if (room.id !== 'wifi') return this.errorReply("This command can only be used in the Wi-Fi room.");
 		if (!this.can('ban', null, room)) return false;
-		let [contestName, winner, description, comment] = target.split(target.includes('|') ? '|' : ',').map(param => param.trim());
-		if (!(contestName && winner && description)) return this.errorReply("Invalid arguments specified - /setbreeding contest name | winner name | description | breeder's comments");
+		let [contestName, link, winner, description, comment] = target.split(target.includes('|') ? '|' : ',').map(param => param.trim());
+		if (!(contestName && link && winner && description)) return this.errorReply("Invalid arguments specified - /setbreeding contest name | link | winner name | description | breeder's comments");
 
-		let entry = {name: contestName, winner: winner, description: description, comment: comment, time: Date.now()};
+		let entry = {name: contestName, link: link, winner: winner, description: description, comment: comment, time: Date.now()};
 
 		if (!breedingData.winners) breedingData.winners = {};
 		breedingData.winners[toId(contestName)] = entry;
@@ -831,7 +831,7 @@ let breedingcontests = {
 		if (!this.runBroadcast()) return false;
 
 		let entry = breedingData.winners[contest];
-		return this.sendReplyBox(`<div class="broadcast-blue"><p style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:2px;">Breeding contest: <b>${Chat.escapeHTML(entry.name)}</b>. Winner: <b>${Chat.escapeHTML(entry.winner)}</b></p>` +
+		return this.sendReplyBox(`<div class="broadcast-blue"><p style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:2px;">Breeding contest: <a href="${entry.link}"><b>${Chat.escapeHTML(entry.name)}</b></a>. Winner: <b>${Chat.escapeHTML(entry.winner)}</b></p>` +
 			`<table style="margin-left:auto;margin-right:auto;"><tr>` +
 			`<td style="text-align:center;width:15%">${Giveaway.getSprite(entry.description)[1]}</td><td style="text-align:center;width:40%">${Chat.parseText(entry.description)}</td>` +
 			(entry.comment ? `<td style="text-align:center;width:35%"><b>Breeder's comments:</b><br/><i>${Chat.escapeHTML(entry.comment)}</i></td>` : '') +
@@ -848,7 +848,7 @@ let breedingcontests = {
 
 		for (let key in breedingData.winners) {
 			let entry = breedingData.winners[key];
-			output += Chat.html `[${dateFormat.format(new Date(entry.time))}] <b>${entry.name}</b>. Winner: ${entry.winner}<br/>`;
+			output += Chat.html `[${dateFormat.format(new Date(entry.time))}] <a href="${entry.link}"><b>${entry.name}</b></a>. Winner: ${entry.winner}<br/>`;
 		}
 
 		return connection.popup(output);
@@ -857,7 +857,7 @@ let breedingcontests = {
 		if (room.id !== 'wifi') return this.errorReply("This command can only be used in the Wi-Fi room.");
 		if (!this.runBroadcast()) return;
 		return this.sendReplyBox('<strong>Breeding contest commands: </strong> (start with /breedingcontest, /breeding or /bc) <br />' +
-			'- winner <em>Contest name | Winner | Mon description [| Breeder\'s comments]</em> - Add a new breeding contest winner (Requires: @ * # & ~)<br />' +
+			'- winner <em>Contest name | Link | Winner | Mon description [| Breeder\'s comments]</em> - Add a new breeding contest winner (Requires: @ * # & ~)<br />' +
 			'- view [Contest name] - Shows the hall of fame entry for the given contest, or the latest contest if no name is entered.<br />' +
 			'- archive - Shows the archive of all past breeding contests.<br />');
 	},

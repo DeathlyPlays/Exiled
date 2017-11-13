@@ -1,6 +1,14 @@
 // Other Metas plugin by Spandan
 'use strict';
 
+let s = ["Marionyte-Mega", "Rinocoss-Mega", "Greninja-Ash"];
+let aPlus = ["Tyranitar", "Tyranitar-Mega", "Tapu Lele"];
+let a = ["Bisharp", "Tapu Bulu", "Celesteela", "Greninja"];
+let bPlus = ["Rinocoss", "Tapu Koko"];
+let b = ["Buzzwole", "Hawlucha", "Kartana"];
+let c = ["Rinocoss", "Umbreon"];
+let d = ["Tapu Fini", "Klefki"];
+
 exports.commands = {
 	'!othermetas': true,
 	om: 'othermetas',
@@ -37,6 +45,28 @@ exports.commands = {
 	},
 	othermetashelp: ["/om - Provides links to information on the Other Metagames.",
 		"!om - Show everyone that information. Requires: + % @ * # & ~"],
+
+	talysan: {
+		'!info': true,
+		info: function () {
+			if (!this.runBroadcast()) return;
+			this.sendReplyBox("<div style=\"background-color: #fce2a6\"<font color=\"#b72a03\"><strong>Talysan</strong></font> is a Pet Mod that introduces " +
+			"a whole new metagame. Adding 50+ new Pokemon, the Talysan region provides a huge meta shift for OU and " +
+			"many other tiers as well. Along with these new Pokemon are also several new mega evolutions, moves, and abilities.</div>");
+		},
+		'!vr': true,
+		vr: function () {
+			if (!this.runBroadcast()) return;
+			this.sendReplyBox("<div style=\"background-color: #fce2a6\"><center><font size=\"5\"><b>Talysan Viability Rankings</b></font></center>" +
+			"<br><center><font size=\"3\">S Rank</font></center>" +
+			"<center>" + s + "</center>" +
+			"" +
+			"" +
+			"</div>");
+		},
+	},
+	talysanhelp: ["/talysan info - Shows info about the Talysan meta.",
+	"/talysan vr - Shows the current viability rankings for Talysan."],
 
 	'!mixandmega': true,
 	mnm: 'mixandmega',

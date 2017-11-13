@@ -1554,21 +1554,6 @@ exports.Formats = [
 		column: 5,
 	},
 	{
-		name: "[Gen 7] Ashmons",
-		maxLevel: 50,
-		defaultLevel: 50,
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],
-	},
-	{
-		name: "[Gen 7] Ash's Pokemon",
-		mod: 'ashspokemon',
-		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
-		team: 'randomAsh',
-		desc: [
-			"This metagame covers every Pok&eacute that Ash caught in the anime, some were evolved for viability etc.",
-		],
-	},
-	{
 		name: "[Gen 7] Clash of the Regions",
 		mod: 'clashoftheregions',
 		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
@@ -1615,6 +1600,12 @@ exports.Formats = [
 				pokemon.types = ["Dragon", "Water"];
 			}
 		},
+	},
+	{
+		name: "[Gen 7] Purebred",
+		mod: 'purebred',
+		ruleset: ['[Gen 7] OU'],
+		banlist: ['Smeargle'],
 	},
 	{
 		name: "[Gen 7] Five Move Frenzy",
@@ -2086,6 +2077,17 @@ exports.Formats = [
 		onAfterMega: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
+	},
+	{
+		name: "[Gen 7] OU Chaos",
+		desc: [
+			"The Overused beasts are back, and chaos is everywhere.",
+		],
+
+		mod: 'ouchaos',
+		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Baton Pass'],
+		unbanlist: ['Aegislash', 'Blaziken', 'Genesect', 'Landorus', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Pheromosa', 'Darkrai', 'Shaymin-Sky', 'Metagross-Mega', 'Metagrossite', 'Kangaskhan-Mega', 'Gengar-Mega', 'Gengarite', 'Lucario-Mega', 'Lucarionite', 'Giratina', 'Kyurem-White', 'Marshadow'],
 	},
 	{
 		name: "[Gen 7] Tier Shift",

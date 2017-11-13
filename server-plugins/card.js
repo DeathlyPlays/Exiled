@@ -348,16 +348,16 @@ exports.commands = {
 				target = toPackName(target);
 				if (packs.indexOf(target) === -1) return this.parse(`/psgo shop`);
 				let userMoney = Economy.readMoney(user.userid);
-				if (userMoney < 5) return this.errorReply(`You need at least 5 ${global.currencyPlural} to buy a pack!`);
+				if (userMoney < 5) return this.errorReply(`You need at least 5 ${moneyPlural} to buy a pack!`);
 				Economy.writeMoney(user.userid, -5, () => {
 					Economy.readMoney(user.userid, amount => {
-						Economy.logTransaction(`${user.name} has purchased a ${target} pack for 5 ${global.currenyPlural}. They now have ${amount} ${(userMoney === 1 ? global.currencyName : global.currenyPlural)}`);
+						Economy.logTransaction(`${user.name} has purchased a ${target} pack for 5 ${moneyPlural}. They now have ${amount} ${(userMoney === 1 ? moneyName : moneyPlural)}`);
 					});
 				});
 				Db("userpacks").set(user.userid, Db("userpacks").get(user.userid, []).concat([target]));
 				return this.parse(`/psgo packs pending`);
 			},
-			buyhelp: ['/psgo shop buy [pack] - Cost 5 ' + global.currencyPlural + '  per pack.'],
+			buyhelp: ['/psgo shop buy [pack] - Cost 5 ' + moneyPlural + '  per pack.'],
 			// All packs are added by default.
 			'': 'display',
 			display: function (target, room, user) {
@@ -365,7 +365,7 @@ exports.commands = {
 				let output = `<div style="max-height:200px; width:100%; overflow: scroll;">`;
 				output += `<table><tr><center>Pack Shop</center></tr>`;
 				for (let u in packs) {
-					output += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/psgo shop buy ${packs[u]}">Buy Pack: ${packs[u]}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Price: 5 ${currencyPlural}</td></tr>`;
+					output += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/psgo shop buy ${packs[u]}">Buy Pack: ${packs[u]}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Price: 5 ${moneyPlural}</td></tr>`;
 				}
 				output += `</table></div>`;
 				return this.sendReplyBox(output);
@@ -538,7 +538,7 @@ exports.commands = {
 		'/psgo give [user], [card] - gives the user specified card. Requires &, ~',
 		'/psgo take [user], [card] - takes the card from the specified user. Requires: &, ~',
 		'/psgo takeall [user] - takes all cards from the specified user. Requires: &, ~',
-		'/psgo shop buy [pack] - Cost 5 ' + global.currencyPlural + '  per pack.',
+		'/psgo shop buy [pack] - Cost 5 ' + moneyPlural + '  per pack.',
 		'/psgo shop display - shops pack shop.<br />',
 		'/psgo packs give [user], [pack] - gives a user a  pack. Requires &, ~',
 		'/psgo packs take [user], [pack] - Take a pack from a user. Requires &, ~',
@@ -547,7 +547,7 @@ exports.commands = {
 		'/psgo packs holding - displays psgo packs you currently hold.',
 		'/psgo packs list - displays all psgo packs.',
 		'/psgo ladder - show the PSGO card point ladder.',
-		'/psgo reset - Wipe the PSGO database (Take ALL users cards AND packs). Requires: ~'
+		'/psgo reset - Wipe the PSGO database (Take ALL users cards AND packs). Requires: ~',
 	],
 
 	// Shortcut commands

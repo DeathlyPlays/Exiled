@@ -1513,6 +1513,7 @@ class ChatRoom extends BasicRoom {
 		this.sendUser(connection, '|init|chat\n|title|' + this.title + '\n' + userList + '\n' + this.getLogSlice(-100).join('\n') + this.getIntroMessage(user));
 		// @ts-ignore TODO: strongly-typed polls
 		if (this.poll) this.poll.onConnect(user, connection);
+		// @ts-ignore
 		if (this.autorank) {
 			if (!this.auth) {
 				this.auth = this.chatRoomData.auth = {};
@@ -1521,6 +1522,7 @@ class ChatRoom extends BasicRoom {
 			this.auth[user.userid] = this.autorank;
 			user.updateIdentity();
 		}
+		// @ts-ignore TODO strongly-typed surveys
 		if (this.survey) this.survey.onConnect(user, connection);
 		if (this.game && this.game.onConnect) this.game.onConnect(user, connection);
 	}

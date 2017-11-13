@@ -277,6 +277,8 @@ class BasicRoom {
 		if (this.staffRoom && !user.isStaff && (!this.auth || (this.auth[user.userid] || ' ') === ' ')) return false;
 		if (user.userid in this.users) return true;
 		if (!this.modjoin) return true;
+		// users with a room rank can always join
+		if (this.auth && user.userid in this.auth) return true;
 		const userGroup = user.can('makeroom') ? user.group : this.getAuth(user);
 
 		const modjoinSetting = this.modjoin !== true ? this.modjoin : this.modchat;
@@ -500,7 +502,7 @@ class GlobalRoom extends BasicRoom {
 				}
 				writing = true;
 
-				let data = JSON.stringify(this.chatRoomData)
+				let data = JSON.stringify(this.chatRoomDataList)
 					.replace(/\{"title":/g, '\n{"title":')
 					.replace(/\]$/, '\n]');
 
@@ -1263,7 +1265,6 @@ class ChatRoom extends BasicRoom {
 	 */
 	constructor(roomid, title, options = {}) {
 		super(roomid, title);
-		if (!this.isPersonal) this.chatRoomData = options;
 
 		this.logTimes = true;
 		this.logFile = null;
@@ -1282,6 +1283,7 @@ class ChatRoom extends BasicRoom {
 		this.staffMessage = '';
 		this.autojoin = false;
 		this.staffAutojoin = /** @type {string | boolean} */ (false);
+		this.chatRoomData = (options.isPersonal ? null : options);
 		Object.assign(this, options);
 		if (this.auth) Object.setPrototypeOf(this.auth, null);
 

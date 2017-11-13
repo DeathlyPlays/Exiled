@@ -793,7 +793,7 @@ let commands = {
 		const gameTypeMsg = game.gameType ? `<em>${game.gameType}</em> ` : '';
 		const hostersMsg = Chat.toListString(game.hosts.map(h => h.name));
 		const hostMsg = game.hosts.some(h => h.userid === game.staffHostId) ? '' : Chat.html` (started by - ${game.staffHostName})`;
-		const finishers = Chat.html`${game.completed.map(u => u.name).join(', ')}`;
+		const finishers = Chat.html`${game.completed.map(u => Server.nameColor(u.name)).join(', ')}`;
 		const buffer = `<div class="infobox" style="margin-top: 0px;">The current ${gameTypeMsg}scavenger hunt by <em>${hostersMsg}${hostMsg}</em> has been up for: ${elapsedMsg}<br />Completed (${game.completed.length}): ${finishers}<br /></div>`;
 
 		if (game.hosts.some(h => h.userid === user.userid) || game.staffHostId === user.userid) {
@@ -804,23 +804,11 @@ let commands = {
 				if (!players.length) {
 					str += `<tr><td>${questionNum}</td><td>None</td>`;
 				} else {
-					str += Chat.html`<tr><td>${questionNum}</td><td>${players.map(pl => pl.name).join(", ")}`;
+					str += Chat.html`<tr><td>${questionNum}</td><td>${players.map(pl => Server.nameColor(pl.name)).join(", ")}`;
 				}
 			}
-<<<<<<< HEAD
 			str += Chat.html`<tr><td>Completed</td><td>${game.completed.length ? game.completed.map(pl => Server.nameColor(pl.name)).join(", ") : 'None'}`;
-			this.sendReply(`|raw|${str}</table></div>`);
-		} else {
-			const elapsedMsg = Chat.toDurationString(Date.now() - game.startTime, {hhmmss: true});
-			const gameTypeMsg = game.gameType ? `<em>${game.gameType}</em> ` : '';
-			const hostersMsg = Chat.toListString(game.hosts.map(h => h.name));
-			const hostMsg = game.hosts.some(h => h.userid === game.staffHostId) ? '' : Chat.html` (started by - ${Server.nameColor(game.staffHostName)})`;
-			const finishers = Chat.html`${game.completed.map(u => Server.nameColor(u.name)).join(', ')}`;
-			this.sendReplyBox(`The current ${gameTypeMsg}scavenger hunt by <em>${hostersMsg}${hostMsg}</em> has been up for: ${elapsedMsg}<br />Completed (${game.completed.length}): ${finishers}<br />`);
-=======
-			str += Chat.html`<tr><td>Completed</td><td>${game.completed.length ? game.completed.map(pl => pl.name).join(", ") : 'None'}`;
 			return this.sendReply(`|raw|${str}</table></div>${buffer}`);
->>>>>>> a9943a931f1f71a04b1efb4f263d00b9b4b970cc
 		}
 		this.sendReply(`|raw|${buffer}`);
 	},

@@ -788,6 +788,14 @@ let commands = {
 		if (!room.game || !room.game.scavGame) return this.errorReply(`There is no scavenger game currently running.`);
 
 		let game = room.game.childGame || room.game;
+
+		const elapsedMsg = Chat.toDurationString(Date.now() - game.startTime, {hhmmss: true});
+		const gameTypeMsg = game.gameType ? `<em>${game.gameType}</em> ` : '';
+		const hostersMsg = Chat.toListString(game.hosts.map(h => h.name));
+		const hostMsg = game.hosts.some(h => h.userid === game.staffHostId) ? '' : Chat.html` (started by - ${game.staffHostName})`;
+		const finishers = Chat.html`${game.completed.map(u => Server.nameColor(u.name)).join(', ')}`;
+		const buffer = `<div class="infobox" style="margin-top: 0px;">The current ${gameTypeMsg}scavenger hunt by <em>${hostersMsg}${hostMsg}</em> has been up for: ${elapsedMsg}<br />Completed (${game.completed.length}): ${finishers}<br /></div>`;
+
 		if (game.hosts.some(h => h.userid === user.userid) || game.staffHostId === user.userid) {
 			let str = `<div class="ladder" style="overflow-y: scroll; max-height: 300px;"><table style="width: 100%"><th><b>Question</b></th><th><b>Users on this Question</b></th>`;
 			for (let i = 0; i < game.questions.length; i++) {
@@ -796,19 +804,13 @@ let commands = {
 				if (!players.length) {
 					str += `<tr><td>${questionNum}</td><td>None</td>`;
 				} else {
-					str += Chat.html`<tr><td>${questionNum}</td><td>${players.map(pl => pl.name).join(", ")}`;
+					str += Chat.html`<tr><td>${questionNum}</td><td>${players.map(pl => Server.nameColor(pl.name)).join(", ")}`;
 				}
 			}
 			str += Chat.html`<tr><td>Completed</td><td>${game.completed.length ? game.completed.map(pl => Server.nameColor(pl.name)).join(", ") : 'None'}`;
-			this.sendReply(`|raw|${str}</table></div>`);
-		} else {
-			const elapsedMsg = Chat.toDurationString(Date.now() - game.startTime, {hhmmss: true});
-			const gameTypeMsg = game.gameType ? `<em>${game.gameType}</em> ` : '';
-			const hostersMsg = Chat.toListString(game.hosts.map(h => h.name));
-			const hostMsg = game.hosts.some(h => h.userid === game.staffHostId) ? '' : Chat.html` (started by - ${Server.nameColor(game.staffHostName)})`;
-			const finishers = Chat.html`${game.completed.map(u => Server.nameColor(u.name)).join(', ')}`;
-			this.sendReplyBox(`The current ${gameTypeMsg}scavenger hunt by <em>${hostersMsg}${hostMsg}</em> has been up for: ${elapsedMsg}<br />Completed (${game.completed.length}): ${finishers}<br />`);
+			return this.sendReply(`|raw|${str}</table></div>${buffer}`);
 		}
+		this.sendReply(`|raw|${buffer}`);
 	},
 
 	hint: function (target, room, user) {

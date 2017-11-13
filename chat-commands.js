@@ -479,15 +479,9 @@ exports.commands = {
 		if (!targetUser) return this.errorReply(`The user "${targetUser.name}" was not found.`);
 
 		if (!targetRoom.checkModjoin(targetUser)) {
-			if (targetRoom.getAuth(targetUser) !== ' ') {
-				return this.errorReply(`The user "${targetUser.name}" does not have permission to join "${targetRoom.title}".`);
-			}
 			this.room = targetRoom;
 			this.parse(`/roomvoice ${targetUser.name}`);
 			if (!targetRoom.checkModjoin(targetUser)) {
-				if (targetRoom.getAuth(targetUser) !== ' ') {
-					return this.errorReply(`The user "${targetUser.name}" does not have permission to join "${targetRoom.title}".`);
-				}
 				return this.errorReply(`You do not have permission to invite people into this room.`);
 			}
 		}
@@ -1061,8 +1055,12 @@ exports.commands = {
 	roomaliashelp: [
 		"/roomalias - displays a list of all room aliases of the room the command was entered in.",
 		"/roomalias [alias] - adds the given room alias to the room the command was entered in. Requires: & ~",
+		"/removeroomalias [alias] - removes the given room alias of the room the command was entered in. Requires: & ~",
 	],
 
+	deleteroomalias: 'removeroomalias',
+	deroomalias: 'removeroomalias',
+	unroomalias: 'removeroomalias',
 	removeroomalias: function (target, room, user) {
 		if (!room.aliases) return this.errorReply("This room does not have any aliases.");
 		if (!this.can('makeroom')) return false;
@@ -3190,7 +3188,7 @@ exports.commands = {
 		}
 		if (!this.can('joinbattle', null, room)) return;
 
-		room.auth[targetUser.userid] = '\u2606';
+		room.auth[targetUser.userid] = Users.PLAYER_SYMBOL;
 		this.addModCommand("" + name + " was promoted to Player by " + user.name + ".");
 	},
 	addplayerhelp: ["/addplayer [username] - Allow the specified user to join the battle as a player."],

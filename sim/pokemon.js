@@ -687,7 +687,10 @@ class Pokemon {
 			if (this.volatiles[i].linkedPokemon) {
 				delete pokemon.volatiles[i].linkedPokemon;
 				delete pokemon.volatiles[i].linkedStatus;
-				this.volatiles[i].linkedPokemon.volatiles[this.volatiles[i].linkedStatus].linkedPokemon = this;
+				for (let linkedPoke of this.volatiles[i].linkedPokemon) {
+					let linkedPokeLinks = linkedPoke.volatiles[this.volatiles[i].linkedStatus].linkedPokemon;
+					linkedPokeLinks[linkedPokeLinks.indexOf(pokemon)] = this;
+				}
 			}
 		}
 		pokemon.clearVolatile();
@@ -851,7 +854,7 @@ class Pokemon {
 		this.hpPower = this.baseHpPower;
 		for (let i in this.volatiles) {
 			if (this.volatiles[i].linkedStatus) {
-				this.volatiles[i].linkedPokemon.removeVolatile(this.volatiles[i].linkedStatus);
+				this.removeLinkedVolatiles(this.volatiles[i].linkedStatus, this.volatiles[i].linkedPokemon);
 			}
 		}
 		this.volatiles = {};
@@ -890,10 +893,10 @@ class Pokemon {
 	 * faint queue is resolved.
 	 *
 	 * Returns the amount of damage actually dealt
-	 * @param {Pokemon} source
-	 * @param {Effect} effect
+	 * @param {Pokemon?} source
+	 * @param {Effect?} effect
 	 */
-	faint(source, effect) {
+	faint(source = null, effect = null) {
 		if (this.fainted || this.faintQueued) return 0;
 		let d = this.hp;
 		this.hp = 0;
@@ -909,10 +912,10 @@ class Pokemon {
 
 	/**
 	 * @param {number} d
-	 * @param {Pokemon} source
-	 * @param {Effect} effect
+	 * @param {Pokemon?} source
+	 * @param {Effect?} effect
 	 */
-	damage(d, source, effect) {
+	damage(d, source = null, effect = null) {
 		if (!this.hp) return 0;
 		if (d < 1 && d > 0) d = 1;
 		d = Math.floor(d);
@@ -975,10 +978,10 @@ class Pokemon {
 	/**
 	 * Returns the amount of damage actually healed
 	 * @param {number} d
-	 * @param {Pokemon} [source]
-	 * @param {Effect} [effect]
+	 * @param {Pokemon?} [source]
+	 * @param {Effect?} [effect]
 	 */
-	heal(d, source, effect) {
+	heal(d, source = null, effect = null) {
 		if (!this.hp) return false;
 		d = Math.floor(d);
 		if (isNaN(d)) return false;
@@ -1012,10 +1015,10 @@ class Pokemon {
 
 	/**
 	 * @param {string} status
-	 * @param {Pokemon} source
-	 * @param {Effect} sourceEffect
+	 * @param {Pokemon?} source
+	 * @param {Effect?} sourceEffect
 	 */
-	trySetStatus(status, source, sourceEffect) {
+	trySetStatus(status, source = null, sourceEffect = null) {
 		return this.setStatus(this.status || status, source, sourceEffect);
 	}
 
@@ -1033,11 +1036,11 @@ class Pokemon {
 
 	/**
 	 * @param {string | Effect} status
-	 * @param {Pokemon} [source]
-	 * @param {Effect} [sourceEffect]
+	 * @param {Pokemon?} [source]
+	 * @param {Effect?} [sourceEffect]
 	 * @param {boolean} [ignoreImmunities]
 	 */
-	setStatus(status, source, sourceEffect, ignoreImmunities) {
+	setStatus(status, source = null, sourceEffect = null, ignoreImmunities = false) {
 		if (!this.hp) return false;
 		status = this.battle.getEffect(status);
 		if (this.battle.event) {
@@ -1304,15 +1307,15 @@ class Pokemon {
 
 	/**
 	 * @param {string | Effect} status
-	 * @param {Pokemon} source
-	 * @param {Effect} sourceEffect
-	 * @param {string | Effect} linkedStatus
+	 * @param {Pokemon?} source
+	 * @param {Effect?} sourceEffect
+	 * @param {string | Effect?} linkedStatus
 	 */
-	addVolatile(status, source, sourceEffect, linkedStatus) {
+	addVolatile(status, source = null, sourceEffect = null, linkedStatus = null) {
 		let result;
 		status = this.battle.getEffect(status);
 		if (!this.hp && !status.affectsFainted) return false;
-		if (linkedStatus && !source.hp) return false;
+		if (linkedStatus && source && !source.hp) return false;
 		if (this.battle.event) {
 			if (!source) source = this.battle.event.source;
 			if (!sourceEffect) sourceEffect = this.battle.effect;
@@ -1349,11 +1352,15 @@ class Pokemon {
 			delete this.volatiles[status.id];
 			return result;
 		}
-		if (linkedStatus && source && !source.volatiles[linkedStatus.toString()]) {
-			source.addVolatile(linkedStatus, this, sourceEffect, status);
-			source.volatiles[linkedStatus.toString()].linkedPokemon = this;
-			source.volatiles[linkedStatus.toString()].linkedStatus = status;
-			this.volatiles[status.toString()].linkedPokemon = source;
+		if (linkedStatus && source) {
+			if (!source.volatiles[linkedStatus.toString()]) {
+				source.addVolatile(linkedStatus, this, sourceEffect);
+				source.volatiles[linkedStatus.toString()].linkedPokemon = [this];
+				source.volatiles[linkedStatus.toString()].linkedStatus = status;
+			} else {
+				source.volatiles[linkedStatus.toString()].linkedPokemon.push(this);
+			}
+			this.volatiles[status.toString()].linkedPokemon = [source];
 			this.volatiles[status.toString()].linkedStatus = linkedStatus;
 		}
 		return true;
@@ -1379,10 +1386,26 @@ class Pokemon {
 		let linkedPokemon = this.volatiles[status.id].linkedPokemon;
 		let linkedStatus = this.volatiles[status.id].linkedStatus;
 		delete this.volatiles[status.id];
-		if (linkedPokemon && linkedPokemon.volatiles[linkedStatus]) {
-			linkedPokemon.removeVolatile(linkedStatus);
+		if (linkedPokemon) {
+			this.removeLinkedVolatiles(linkedStatus, linkedPokemon);
 		}
 		return true;
+	}
+
+	/**
+	 * @param {string | Effect} linkedStatus
+	 * @param {Pokemon[]} linkedPokemon
+	 */
+	removeLinkedVolatiles(linkedStatus, linkedPokemon) {
+		linkedStatus = linkedStatus.toString();
+		for (let linkedPoke of linkedPokemon) {
+			if (linkedPoke.volatiles[linkedStatus]) {
+				linkedPoke.volatiles[linkedStatus].linkedPokemon.splice(linkedPoke.volatiles[linkedStatus].linkedPokemon.indexOf(this), 1);
+				if (linkedPoke.volatiles[linkedStatus].linkedPokemon.length === 0) {
+					linkedPoke.removeVolatile(linkedStatus);
+				}
+			}
+		}
 	}
 
 	/**

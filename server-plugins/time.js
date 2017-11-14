@@ -45,6 +45,7 @@ exports.commands = {
 			this.sendReplyBox(Server.nameColor(userid, true) + '\'s total ontime is <strong>' + displayTime(convertTime(totalOntime)) + '</strong>.' + ' Currently not online.');
 		}
 	},
+	ontimehelp: ["/ontime [target] - Checks a user's online time on the server. [Target is optional; if there is no target, this command is used on yourself.]"],
 
 	nolifeladder: 'ontimeladder',
 	mostonline: 'ontimeladder',

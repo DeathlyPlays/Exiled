@@ -272,13 +272,14 @@ exports.commands = {
 	serverhelp: 'customcommands',
 	customcommands: function (room, user) {
 		if (!this.runBroadcast()) return;
-		this.sendReply(
-			'|raw|<div class="infobox infobox-limited"><div style="background-image: url(https://i.imgur.com/rzNdRCh.jpg); background-position: center; auto; background-repeat:no-repeat; background-size:cover; color: blue;"><strong><h1>Custom Commands on ' + Config.serverName + '</h1></strong><br />' +
+		this.sendReplyBox(
+			'<div style="background-image: url(https://i.imgur.com/rzNdRCh.jpg); background-position: center; auto; background-repeat:no-repeat; background-size:cover; color: blue;"><strong><h1>Custom Commands on ' + Config.serverName + '</h1></strong><br />' +
 			'<h2>Game Commands:</h2><br /><ul>' +
 			'<li><button class="button" name="send" value="/ambushhelp">Ambush</button></li><br />' +
 			'<li><button class="button" name="send" value="/blackjackhelp">Blackjack</button></li><br />' +
 			'<li><button class="button" name="send" value="/dicegamehelp">Dice Game</button></li><br />' +
 			'<li><button class="button" name="send" value="/draft">Draft</button></li><br />' +
+			'<li><button class="button" name="send" value="/lotteryhelp">Lottery</button></li><br />' +
 			'<li><button class="button" name="send" value="/panagramhelp">Panagrams</button></li><br />' +
 			'<li><button class="button" name="send" value="/passthebombhelp">Pass The Bomb</button></li><br />' +
 			'<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors</button></li><br />' +
@@ -290,21 +291,20 @@ exports.commands = {
 			'<li><button class="button" name="send" value="/advertisehelp">Advertise A Room</button></li><br />' +
 			'<li><button class="button" name="send" value="/animehelp">Anime</button></li><br />' +
 			'<li><button class="button" name="send" value="/awayhelp">Away</button></li><br />' +
-			'<li><button class="button" name="send" value="/cardshelp">Cards</button></li><br />' +
+			'<li><button class="button" name="send" value="/psgohelp">Cards</button></li><br />' +
 			'<li><button class="button" name="send" value="/definehelp">Define</button></li><br />' +
 			'<li><button class="button" name="send" value="/digidexhelp">Digidex</button></li><br />' +
 			'<li><button class="button" name="send" value="/atm">Economy</button></li><br />' +
 			'<li><button class="button" name="send" value="/emotes help">Emotes</button></li><br />' +
 			'<li><button class="button" name="send" value="/essbhelp">ESSB Data</button></li><br />' +
 			'<li><button class="button" name="send" value="/exphelp">EXP</button></li><br />' +
-			'<li><button class="button" name="send" value="/gangs help">Gangs</button></li><br />' +
+			'<li><button class="button" name="send" value="/factionshelp">Factions</button></li><br />' +
 			'<li><button class="button" name="send" value="/hexhelp">Hex Code</button></li><br />' +
 			'<li><button class="button" name="send" value="/jobshelp">Jobs</button></li><br />' +
-			'<li><button class="button" name="send" value="/league help">League</button></li><br />' +
 			'<li><button class="button" name="send" value="/mangahelp">Manga</button></li><br />' +
 			'<li><button class="button" name="send" value="/meme">Meme Randomizer</button></li><br />' +
 			'<li><button class="button" name="send" value="/news">News</button></li><br />' +
-			'<li><button class="button" name="send" value="/ontime">Ontime</button></li><br />' +
+			'<li><button class="button" name="send" value="/ontimehelp">Ontime</button></li><br />' +
 			'<li><button class="button" name="send" value="/playlisthelp">Playlist</button></li><br />' +
 			'<li><button class="button" name="send" value="/profile">Profile</button></li><br />' +
 			'<li><button class="button" name="send" value="/regdatehelp">Regdate</button></li><br />' +
@@ -323,7 +323,7 @@ exports.commands = {
 			'<li><a href="https://join.skype.com/Eo5DCq8nCh1j" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Join Our Skype</button></a><br />' +
 			'<li><a href="https://goo.gl/forms/ho9YhvxrnXMY2QLI3" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Submit A Fakemon</button></a><br />' +
 			'</ul>' +
-			'</div></div>'
+			'</div>'
 		);
 	},
 };

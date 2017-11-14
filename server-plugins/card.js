@@ -615,83 +615,12 @@ exports.commands = {
 					let displayRange = [target - 2, target - 1, target, target + 1, target + 2].filter(i => {
 						return i > 0 && i <= range.length;
 					});
-<<<<<<< HEAD
 					// build middle buttons
 					middle = (displayRange[0] !== 1 ? "... " : "") + displayRange.map(n => {
 						n = parseInt(n);
 						let style = n === target ? "background-color:deepskyblue;height:30px;width:30px" : "background-color:aliceblue;height:30px;width:30px";
 						return '<button style="' + style + '" name="send" value="/viewcardtrades ' + n + '">' + (n + 1) + '</button>';
 					}).join("&nbsp;") + (displayRange[displayRange.length - 1] !== range.length ? " ..." : "");
-=======
-				});
-				Db("userpacks").set(user.userid, Db("userpacks").get(user.userid, []).concat([target]));
-				return this.parse(`/psgo packs pending`);
-			},
-			buyhelp: ['/psgo shop buy [pack] - Cost 5 ' + global.moneyPlural + '  per pack.'],
-			// All packs are added by default.
-			'': 'display',
-			display: function (target, room, user) {
-				if (!this.runBroadcast()) return;
-				let output = `<div style="max-height:200px; width:100%; overflow: scroll;">`;
-				output += `<table><tr><center>Pack Shop</center></tr>`;
-				for (let u in packs) {
-					output += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/psgo shop buy ${packs[u]}">Buy Pack: ${packs[u]}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Price: 5 ${moneyPlural}</td></tr>`;
-				}
-				output += `</table></div>`;
-				return this.sendReplyBox(output);
-			},
-			displayhelp: ['/psgo shop display - Display the PSGO pack shop.'],
-		},
-
-		pack: 'packs',
-		packs: {
-			give: function (target, room, user) {
-				if (!this.can('roomowner')) return false;
-				if (!target) return this.parse(`/help psgo packs give`);
-				let targets = target.split(',').map(x => {
-					return x.trim();
-				});
-				let targetUser = Users(toId(targets[0]));
-				if (!targetUser) return this.errorReply(`The user "${targets[0]}" was not found.`);
-				let pack = toPackName(targets[1]);
-				if (!packs.includes(pack)) return this.errorReply(`The pack ${pack} does not exist!`);
-				Db("userpacks").set(targetUser.userid, Db("userpacks").get(targetUser.userid, []).concat([pack]));
-				if (targetUser.connected) targetUser.popup(`You have received a ${pack} pack.`);
-
-				return this.sendReply(`A ${pack} pack has been given to ${targetUser.name}`);
-			},
-			givehelp: ['/psgo packs give [user], [pack] - Give a user a pack. Requires: &, ~'],
-
-			confirmtakeall: 'take',
-			takeall: 'take',
-			take: function (target, room, user, connection, cmd) {
-				if (!this.can('roomowner')) return false;
-				if (!target) return this.parse(`/help psgo packs take`);
-				let targets = target.split(',').map(x => {
-					return x.trim();
-				});
-				let targetUser = Users(toId(targets[0]));
-				if (!targetUser) targetUser = {name: target[0], userid: toId(target[0]), connected: false};
-				let pack = toPackName(targets[1]);
-				if (!Db("userpacks").get(targetUser.userid, []).length) return this.errorReply(`${targetUser.name} has no packs.`);
-				if (!toId(pack) && cmd !== 'take') {
-					if (cmd !== 'confirmtakeall') return this.sendReply(`WARNING: Are you sure you want to take ALL of ${targetUser.name}'s packs? If so use /psgo packs confirmtakeall ${targetUser.name}`);
-					Db("userpacks").set(targetUser.userid, []);
-					if (targetUser.connected) targetUser.popup(`You have lost all of your packs.`);
-					return this.sendReply(`${targetUser.name}'s packs have been removed.`);
-				}
-				if (!packs[pack]) return this.errorReply(`${pack} is not a valid pack.`);
-				let index = Db("userpacks").get(targetUser.userid, []).indexOf(pack);
-				if (index === -1) return this.sendReply(`${targetUser.name} does not have any ${pack} packs.`);
-				let array = Db("userpacks").get(targetUser.userid, []);
-				if (cmd === 'takeall') {
-					for (let i = 0; i < array.length; i++) {
-						if (array[i] === pack) {
-							array.splice(i, 1);
-							i--;
-						}
-					}
->>>>>>> 8f2a505fe0a598cdaa15182cc0077744a4f32575
 				} else {
 					// just map the range
 					middle = range.map(n => {
@@ -840,7 +769,6 @@ exports.commands = {
 		}
 	},
 
-<<<<<<< HEAD
 	confirmtransfercard: 'transfercard',
 	transfercard: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("/transfercard [user], [card ID]");
@@ -873,32 +801,6 @@ exports.commands = {
 		let now = Date.now().toString();
 		Db('completedTrades').set(now, newTransfer);
 		user.popup("You have successfully transfered " + card + " to " + targetUser + ".");
-=======
-	psgohelp: [
-		'/psgo card [card id] - Gives information on the card selected.',
-		'/psgo showcase (user) - Show all of the selected users cards.',
-		'/psgo transfercard [user], [card ID] - Transfer one of your cards to another user.',
-		'/psgo cardsearch - sends a display to search for a list of cards.',
-		'/psgo give [user], [card] - gives the user specified card. Requires &, ~',
-		'/psgo take [user], [card] - takes the card from the specified user. Requires: &, ~',
-		'/psgo takeall [user] - takes all cards from the specified user. Requires: &, ~',
-		'/psgo shop buy [pack] - Cost 5 ' + global.moneyPlural + '  per pack.',
-		'/psgo shop display - shops pack shop.<br />',
-		'/psgo packs give [user], [pack] - gives a user a  pack. Requires &, ~',
-		'/psgo packs take [user], [pack] - Take a pack from a user. Requires &, ~',
-		'/psgo packs takeall [user], (pack) - Take all packs from a user. If the type of pack is not specified, all packs will be removed. Requires: &, ~',
-		'/psgo packs open [pack name] - Open a pack you own.',
-		'/psgo packs holding - displays psgo packs you currently hold.',
-		'/psgo packs list - displays all psgo packs.',
-		'/psgo ladder - show the PSGO card point ladder.',
-		'/psgo reset - Wipe the PSGO database (Take ALL users cards AND packs). Requires: ~',
-	],
-
-	// Shortcut commands
-	showcase: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		Chat.commands.psgo.showcase.call(this, ...[target, room, user]);
->>>>>>> 8f2a505fe0a598cdaa15182cc0077744a4f32575
 	},
 
 	confirmtransferallcards: 'transferallcards',

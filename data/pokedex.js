@@ -12591,7 +12591,12 @@ exports.BattlePokedex = {
 	},
 	flabebe: {
 		num: 669,
+<<<<<<< HEAD
 		species: "Flabebe",
+=======
+		species: "Flabe\u0301be\u0301",
+		baseForme: "Red",
+>>>>>>> 26f5b6ba56d695caf46ca84bc48be4bee00eaa2a
 		types: ["Fairy"],
 		gender: "F",
 		baseStats: {hp: 44, atk: 38, def: 39, spa: 61, spd: 79, spe: 42},

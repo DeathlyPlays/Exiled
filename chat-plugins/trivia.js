@@ -705,12 +705,6 @@ class FirstModeTrivia extends Trivia {
 		clearTimeout(this.phaseTimeout);
 		this.phase = INTERMISSION_PHASE;
 
-<<<<<<< HEAD
-		let buffer = Chat.html`Correct: ${Server.nameColor(user.name)}<br />` +
-			`Answer(s): ${this.curAnswers.join(', ')}<br />`;
-
-=======
->>>>>>> 29b42fee6ed49b6d96bf78250d06e6d4140cb949
 		let points = this.calculatePoints();
 		player.setAnswer(answer);
 		player.incrementPoints(points);

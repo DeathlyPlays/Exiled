@@ -357,7 +357,7 @@ exports.commands = {
 				Db("userpacks").set(user.userid, Db("userpacks").get(user.userid, []).concat([target]));
 				return this.parse(`/psgo packs pending`);
 			},
-			buyhelp: ['/psgo shop buy [pack] - Cost 5 ' + moneyPlural + '  per pack.'],
+			buyhelp: ['/psgo shop buy [pack] - Cost 5 ' + global.moneyPlural + '  per pack.'],
 			// All packs are added by default.
 			'': 'display',
 			display: function (target, room, user) {
@@ -538,7 +538,7 @@ exports.commands = {
 		'/psgo give [user], [card] - gives the user specified card. Requires &, ~',
 		'/psgo take [user], [card] - takes the card from the specified user. Requires: &, ~',
 		'/psgo takeall [user] - takes all cards from the specified user. Requires: &, ~',
-		'/psgo shop buy [pack] - Cost 5 ' + moneyPlural + '  per pack.',
+		'/psgo shop buy [pack] - Cost 5 ' + global.moneyPlural + '  per pack.',
 		'/psgo shop display - shops pack shop.<br />',
 		'/psgo packs give [user], [pack] - gives a user a  pack. Requires &, ~',
 		'/psgo packs take [user], [pack] - Take a pack from a user. Requires &, ~',

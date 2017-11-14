@@ -23,10 +23,6 @@ class Lottery {
 		}, 1000 * 60 * 60 * 24);
 	}
 
-	onConnect(user, connection, room) {
-		user.sendTo(this.room, '|uhtml|lottery-' + this.lottoNumber + '|<div class="broadcast-blue"><p style="text-align: center; font-size: 14pt>A Lottery Drawing has started looking for players!<hr /><br />For the price of 3 ' + moneyPlural + ', you can earn 5 ' + moneyPlural + ' plus one ' + moneyName + ' per user who joins.</p><br /><button name="send" value="/lottery join">Click here to join the Lottery</button></div>');
-	}
-
 	drawWinner() {
 		let winner = this.players[Math.floor(Math.random() * this.players.length)];
 		let lottoPrize = 5 + this.players.length + this.costToJoin;
@@ -81,6 +77,7 @@ exports.commands = {
 			this.privateModCommand(`(A new Lottery drawing has been created.)`);
 			room.lottery = new Lottery(room, user);
 		},
+
 		j: "join",
 		join: function (target, room, user) {
 			if (!room.lottery) return this.sendReply("There is no join-able Lottery drawing going on right now.");
@@ -88,16 +85,21 @@ exports.commands = {
 			if (!user.registered) return this.sendReply("To join the Lottery, you must be on a registered account.");
 			room.lottery.joinLottery(user);
 		},
+
 		part: "leave",
 		l: "leave",
 		leave: function (target, room, user) {
 			if (!room.lottery) return this.sendReply("There is no active Lottery drawing in this room.");
 			room.lottery.leaveLottery(user);
 		},
+
 		players: function (target, room, user) {
 			if (!room.lottery) return this.sendReply("There is no active Lottery drawing in this room.");
-			return this.sendReply('There are ' + room.lottery.players.length + ' users in the lottery.');
+			return this.sendReply(
+				'Current Player Count: ' + room.lottery.players.length + ' ' + ((room.lottery.players.length === 1) ? 'user' : 'users') + ' in the lottery.'
+			);
 		},
+
 		forcestart: "start",
 		begin: "start",
 		start: function (target, room, user) {
@@ -107,6 +109,7 @@ exports.commands = {
 			this.privateModCommand(`(The Lottery drawing has been started early.)`);
 			room.lottery.drawWinner();
 		},
+
 		cancel: "end",
 		end: function (target, room, user) {
 			if (!this.can('mute', null, room)) return;
@@ -121,6 +124,7 @@ exports.commands = {
 		"/lottery join - Join a Lottery drawing. Requires " + this.costToJoin + " " + moneyPlural + ".",
 		"/lottery leave - Leaves a Lottery drawing.",
 		"/lottery start - Forcefully starts a Lottery drawing (instead of starting automatically in 24 hours from creation). Must be a Room Driver or higher.",
+		"/lottery players - Shows the current amount of players who have joined the ongoing Lottery drawing.",
 		"/lottery end - Forcefully ends a Lottery drawing. Must be a Room Driver or higher.",
 	],
 };

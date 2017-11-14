@@ -338,7 +338,7 @@ exports.commands = {
 				profile += '&nbsp;<font color="#24678d"><strong>Name:</strong></font> ' + Server.nameColor(username, true) + '&nbsp;' + getFlag(toId(username)) + ' ' + showTitle(username) + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>Group:</strong></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ' + regdate + '<br />';
-				profile += '&nbsp;<font color="#24678d"><strong>' + global.moneyPlural + ':</strong></font> ' + money + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>' + moneyPlural + ':</strong></font> ' + money + '<br />';
 				if (Server.getFaction(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><strong>Faction:</strong></font> ' + Server.getFaction(toId(username)) + '<br />';
 				}

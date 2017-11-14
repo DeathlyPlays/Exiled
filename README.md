@@ -8,9 +8,16 @@ Navigation: [Dewdrop][1] | [PS Server repository][10] | [PS Client repository][2
   [3]: https://github.com/Zarel/Pokemon-Showdown-Dex
   [10]: https://github.com/Zarel/Pokemon-Showdown
 
+<<<<<<< HEAD
 [![Build Status](https://travis-ci.org/Dewdrop-PS/Dewdrop.svg?branch=master)](https://travis-ci.org/Dewdrop-PS/Dewdrop)
 [![dependencies Status](https://david-dm.org/Dewdrop-PS/Dewdrop/status.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop)
 [![devDependencies Status](https://david-dm.org/Dewdrop-PS/Dewdrop/dev-status.svg)](https://david-dm.org/Dewdrop-PS/Dewdrop?type=dev)
+=======
+[![Build Status](https://travis-ci.org/DeathlyPlays/Exiled.svg?branch=master)](https://travis-ci.org/DeathlyPlays/Exiled)
+[![dependencies Status](https://david-dm.org/DeathlyPlays/Exiled/status.svg)](https://david-dm.org/DeathlyPlays/Exiled)
+[![devDependencies Status](https://david-dm.org/DeathlyPlays/Exiled/dev-status.svg)](https://david-dm.org/DeathlyPlays/Exiled?type=dev)
+[![codebeat badge](https://codebeat.co/badges/6cd2a1c5-8e22-4652-92c6-f3d06b5e5194)](https://codebeat.co/projects/github-com-deathlyplays-exiled-master)
+>>>>>>> 3f48c38c673d41db295f98c4e08e51934a135a57
 
 Introduction
 ------------------------------------------------------------------------

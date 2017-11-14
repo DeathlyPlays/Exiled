@@ -1530,7 +1530,11 @@ class ChatRoom extends BasicRoom {
 			this.reportJoin('n', user.getIdentity(this.id) + '|' + oldid);
 		}
 		// @ts-ignore TODO: strongly typed polls
-		if (this.poll && user.userid in this.poll.voters) this.poll.updateFor(user);
+		if (this.poll) {
+			for (let u in this.poll.pollArray) {
+				if (user.userid in this.poll.pollArray[u].voters) this.poll.updateFor(user);
+			}
+		}
 		return user;
 	}
 	/**

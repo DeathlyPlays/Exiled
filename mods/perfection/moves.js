@@ -13329,8 +13329,8 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1, dance: 1},
 		onPrepareHit: function (source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Tri Attack", source);
-			this.add('-anim', source, "Multi Attack", source);
+			this.add('-anim', source, "Tri Attack", target);
+			this.add('-anim', source, "Multi Attack", target);
 			this.add('-anim', source, "Dynamic Punch");
 		},
 		onModifyMove: function (move, pokemon) {
@@ -14671,7 +14671,7 @@ exports.BattleMovedex = {
 	},
 	"sing": {
 		num: 47,
-		accuracy: 55,
+		accuracy: 80,
 		basePower: 0,
 		category: "Status",
 		desc: "Causes the target to fall asleep.",

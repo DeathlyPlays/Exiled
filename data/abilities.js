@@ -4409,12 +4409,12 @@ exports.BattleAbilities = {
 		num: -28,
 	},
 	"macrocosm": {
-		shortDesc: "This Pokemon's Fire-type attacks have their power multiplied by 2.",
+		shortDesc: "This Pokemon's Fire-type attacks have their power multiplied by 1.5.",
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.type === 'Fire') {
 				this.debug('Macrocosm boost');
-				return this.chainModify(2);
+				return this.chainModify(1.5);
 			}
 		},
 		id: "macrocosm",
@@ -4423,12 +4423,12 @@ exports.BattleAbilities = {
 		num: -200,
 	},
 	"microcosm": {
-		shortDesc: "This Pokemon's Fairy-type attacks have their power multiplied by 2.",
+		shortDesc: "This Pokemon's Fairy-type attacks have their power multiplied by 1.5.",
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (move.type === 'Fairy') {
 				this.debug('Microcosm boost');
-				return this.chainModify(2);
+				return this.chainModify(1.5);
 			}
 		},
 		id: "microcosm",

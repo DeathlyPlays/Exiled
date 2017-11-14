@@ -1538,15 +1538,25 @@ exports.Formats = [
 		column: 5,
 	},
 	{
-		name: "[Gen 7] Clash of the Regions",
-		mod: 'clashoftheregions',
-		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
-		desc: [
-			"This metagame is about every rival/gym leader/",
-			"Credit to: Insist (main coder and inspired by), Vivid is a God (side coder and set adviser), Alpha Hawk (extra ideas)",
-			"&bullet; <a href=\"http://squadps.boards.net/post/51/thread\">Clash of the Regions Information</a>",
-		],
-		team: 'randomCOTR',
+		name: "[Gen 7] Move Equality",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3599280/\">Move Equality</a>: Every Move has 100 base power with the exception of moves that have varying base powers."],
+		mod: 'gen7',
+		ruleset: ['[Gen 7] OU'],
+		banlist: ['Fell Stinger', 'Mud Slap', 'Power Up Punch'],
+		onModifyMovePriority: 5,
+		onModifyMove: function(move, pokemon) {
+			if (move.category === 'Status' || move.priority !== 0 || move.onBasePower || move.basePowerCallback) return move;
+			if (move.isZ) {
+				move.basePower = 180;
+				return move;
+			}
+			if (move.multihit) {
+				move.basePower = parseInt(100 / move.multihit[move.multihit.length - 1]);
+				return move;
+			}
+			move.basePower = 100;
+			return move;
+		},
 	},
 	{
 		name: "[Gen 7] Dewdrop Super Staff Bros.",
@@ -1771,15 +1781,58 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Holiday Metagame",
-		mod: "holiday",
-		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
-		team: "randomHoliday",
-		desc: [
-			"Idea, concept, coded, and created by Insist",
-			"Also, Astral Wobz helped with the ideas for more holidays :D",
-			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
-		],
+		name: "[Gen 7] Pokebilities",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3588652/\">Pokebilities</a>: A Pokemon has all of its abilities active at the same time."],
+		mod: 'pokebilities',
+		ruleset: ["OU"],
+		onSwitchInPriority: 1,
+		onBegin: function() {
+			let statusability = {
+				"aerilate": true,
+				"aurabreak": true,
+				"flashfire": true,
+				"parentalbond": true,
+				"pixilate": true,
+				"refrigerate": true,
+				"sheerforce": true,
+				"slowstart": true,
+				"truant": true,
+				"unburden": true,
+				"zenmode": true
+			};
+			for (let p = 0; p < this.sides.length; p++) {
+				for (let i = 0; i < this.sides[p].pokemon.length; i++) {
+					let pokemon = this.sides[p].pokemon[i];
+					let template = this.getTemplate(pokemon.species);
+					this.sides[p].pokemon[i].innates = [];
+					let bans = this.data.Formats.gen7ou.banlist;
+					bans.push("Battle Bond");
+					for (let a in template.abilities) {
+						for (let k = 0; k < bans.length; k++) {
+							if (toId(bans[k]) === toId(template.abilities[a])) continue;
+						}
+
+						if (toId(a) == 'h' && template.unreleasedHidden) continue;
+						if (toId(template.abilities[a]) == pokemon.ability) continue;
+						if (statusability[toId(template.abilities[a])])
+							this.sides[p].pokemon[i].innates.push("other" + toId(template.abilities[a]));
+						else
+							this.sides[p].pokemon[i].innates.push(toId(template.abilities[a]));
+					}
+				}
+			}
+		},
+		onSwitchIn: function(pokemon) {
+			for (let i = 0; i < pokemon.innates.length; i++) {
+				if (!pokemon.volatiles[pokemon.innates[i]])
+					pokemon.addVolatile(pokemon.innates[i]);
+			}
+		},
+		onAfterMega: function(pokemon) {
+			for (let i = 0; i < pokemon.innates.length; i++) {
+				pokemon.removeVolatile(pokemon.innates[i]);
+			}
+		},
 	},
 	{
 		name: "[Gen 7] Metronome Battle",
@@ -1912,15 +1965,27 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "[Gen 7] Perfected Pokemon [WIP]",
+		name: "[Gen 7] Perfected Pokemon",
 		mod: "perfection",
 		ruleset: ["Pokemon", "Standard", "Team Preview"],
 		desc: [
 			"Coded by Insist",
 			"Lycanium Z and AlfaStorm contributed ideas towards the project",
-			"In this metagame, we have added a new type \"Cosmic\"",
 			"Along with buffing Pokemon deemed worthy of needing support.",
 		],
+	},
+	{
+		name: "[Gen 7] Bad 'n Boosted",
+		desc: ["&bullet; All the stats of a pokemon which are 70 or below get doubled.<br>For example, Growlithe's stats are 55/70/45/70/50/60 in BnB they become 110/140/90/140/100/120<br><b>Banlist:</b>Eviolite, Huge Power, Pure Power"],
+		mod: 'gen7',
+		ruleset: ['[Gen 7] Ubers'],
+		banlist: ['Eviolite', 'Huge Power', 'Pure Power', 'Eevium Z'],
+		onModifyTemplate: function (template, pokemon) {
+			for (let i in template.baseStats) {
+				if(template.baseStats[i] <= 70) template.baseStats[i] *= 2;
+			}
+			return template;
+		},
 	},
 	{
 		name: "[Gen 7] Pokemon Mystery Dungeon",
@@ -1972,13 +2037,6 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Savage OU",
-		unbanlist: ["Pheromosa", "Metagrossite", "Gengarite", "Shadow Tag", "Arena Trap", "Blaziken", "Genesect", "Landorus", "Deoxys-Defense", "Baton Pass", "Shaymin-Sky", "Deoxys-Speed", "Moody", "Power Construct", "Aegislash"],
-		desc: ["Oh, no! The Savages that were banned have managed to escape! Will you be able to fight them once again?"],
-		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Freeze Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		banlist: ["Eevium Z", "Uber"],
-	},
-	{
 		name: "[Gen 7] Slowtown",
 		desc: [
 			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Lycanium Z. Coded by Insist.",
@@ -2013,15 +2071,19 @@ exports.Formats = [
 		],
 		team: 'randomSmash',
 	},
-	{
-		name: "[Gen 7] Supercell Games",
-		mod: "supercell",
-		team: "randomSupercell",
-		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
+{
+		name: "[Gen 7] Last Will",
 		desc: [
-			"This metagame is about games like Clash of Clans, Clash Royale, and in the future possibly Boom Beach.",
-			"Made by Insist, we do not claim any right to the characters listed.",
+			"Before fainting, Pok&eacute;mon will use the move in their last moveslot.",
+			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3601362/\">Last Will</a>",
 		],
+		mod: 'gen7',
+		ruleset: ['[Gen 7] OU'],
+		banlist: ['Endeavor', 'Blast Burn + Explosion + Frenzy Plant + Giga Impact + Hydro Cannon + Hyper Beam + Self Destruct + V-Create > 2'],
+		onBeforeFaint: function (pokemon, source) {
+			this.add('-hint', `${pokemon.name || pokemon.species}'s Last Will let it use one last move!`);
+			this.runMove(pokemon.moves[pokemon.moves.length - 1], pokemon);
+		},
 	},
 	{
 		name: "[Gen 7] Super Staff Bros Free For All",

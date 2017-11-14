@@ -4541,10 +4541,10 @@ exports.BattleAbilities = {
 				if (pokemon.template.speciesid !== 'castformsnowy') forme = 'Castform-Snowy';
 				break;
 			case 'sandstorm':
-				if (pokemon.template.speciesid !== 'castformdirty') forme = 'Castform-Dirty';
+				if (pokemon.template.speciesid !== 'castformrainy') forme = 'Castform-Rainy';
 				break;
 			case 'deltastream':
-				if (pokemon.template.speciesid !== 'castformcloudy') forme = 'Castform-Cloudy';
+				if (pokemon.template.speciesid !== 'castformsnowy') forme = 'Castform-Snowy';
 				break;
 			}
 			if (pokemon.isActive && forme) {

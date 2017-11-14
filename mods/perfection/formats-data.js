@@ -4699,8 +4699,6 @@ exports.BattleFormatsData = {
 		tier: "UU",
 	},
 	darmanitanzen: {
-		requiredAbility: "Zen Mode",
-		battleOnly: true,
 	},
 	maractus: {
 		randomBattleMoves: ["spikes", "gigadrain", "leechseed", "hiddenpowerfire", "toxic", "suckerpunch", "spikyshield"],
@@ -5310,7 +5308,6 @@ exports.BattleFormatsData = {
 	},
 	keldeoresolute: {
 		eventOnly: true,
-		requiredMove: "Secret Sword",
 	},
 	meloetta: {
 		randomBattleMoves: ["uturn", "calmmind", "psyshock", "hypervoice", "shadowball", "focusblast"],
@@ -5325,8 +5322,6 @@ exports.BattleFormatsData = {
 	meloettapirouette: {
 		randomBattleMoves: ["relicsong", "closecombat", "knockoff", "return"],
 		randomDoubleBattleMoves: ["relicsong", "closecombat", "knockoff", "return", "protect"],
-		requiredMove: "Relic Song",
-		battleOnly: true,
 	},
 	genesect: {
 		randomBattleMoves: ["uturn", "bugbuzz", "icebeam", "flamethrower", "thunderbolt", "ironhead", "shiftgear", "extremespeed", "blazekick"],

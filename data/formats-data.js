@@ -5796,12 +5796,8 @@ exports.BattleFormatsData = {
 		tier: "Uber",
 	},
 	aegislashblade: {
-<<<<<<< HEAD
-		tier: "Uber",
-=======
 		requiredAbility: 'Stance Change',
 		battleOnly: true,
->>>>>>> 643615f45bc78ca9fe6eb4c160b0f655b5bab8be
 	},
 	spritzee: {
 		randomBattleMoves: ["calmmind", "drainingkiss", "moonblast", "psychic", "aromatherapy", "wish", "trickroom", "thunderbolt"],

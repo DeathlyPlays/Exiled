@@ -32,6 +32,11 @@ exports.commands = {
 		if (!target) return this.sendReply("/eat needs a target.");
 		this.parse('/me eats ' + target + '!');
 	},
+	marry: function (target, room, user) {
+		if (!target) return this.sendReply("/marry needs a target.");
+		user = user.userid;
+		this.sendReply(user + ' has proposed to ' + target + '!');
+	},
 	foh: function (target, room, user) {
 		if (!target) return this.sendReply('/foh needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');

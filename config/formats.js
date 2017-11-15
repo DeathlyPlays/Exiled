@@ -1968,6 +1968,7 @@ exports.Formats = [
 		name: "[Gen 7] Perfected Pokemon",
 		mod: "perfection",
 		ruleset: ["Pokemon", "Standard", "Team Preview"],
+		unbanlist: ['Aegislash'],
 		desc: [
 			"Coded by Insist",
 			"Lycanium Z and AlfaStorm contributed ideas towards the project",

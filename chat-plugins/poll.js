@@ -55,32 +55,6 @@ class Poll {
 		this.updateTo(user, number);
 	}
 
-<<<<<<< HEAD
-	generateVotes() {
-		let count = 0;
-		let output = '<div style="border-top-right-radius: 20px; border-top-left-radius: 20px;"><table cellspacing="0" style="background: rgb(36, 128, 0); width: 100%; border: 1px solid #008878; border-bottom: none; border-top-right-radius: 20px; border-top-left-radius: 20px;"><tr><td colspan="4" class="poll-td" style="background: #0fdd12; background: #0fdd12; border-bottom: 1px solid #008878; border-top-right-radius: 20px; border-top-left-radius: 20px; text-shadow: 0px 0px 0,.5px #000; box-shadow: 1px 1px 1px #1ad8cf inset, 0px 0px 1px #33ccff inset;"><span style="border: 1px solid #33ccff; color: #008878; border-radius: 4px; padding: 0 3px; box-shadow: 0px 0px 2px #1ad8cf;"><i class="fa fa-bar-chart"></i> Poll</span> <strong style="font-size: 11pt; color: #33ccff;">' + this.getQuestionMarkup() + '</strong><img src="https://pldh.net/media/pokecons_action/283.gif" width="32" height="32"><br /></td></tr>';
-		this.options.forEach((option, number) => {
-			count++;
-			if (count === 1) output += "<tr>";
-			output += '<td class="poll-td"><button style="border-radius: 20px; transition-duration: 0.5s; transition-timing-function: linear;" value="/poll vote ' + number + '" name="send" title="Vote for ' + number + '. ' + Chat.escapeHTML(option.name) + '"' + (option.void ? ' disabled' : '') + '>' + Chat.escapeHTML(option.name) + '</button></td>';
-			if (count >= 4) {
-				output += "</tr>";
-				count = 0;
-			}
-		});
-		output += '</table></div><div style="background: #33ccff; padding: 8px 0px; text-align: center; border: 1px solid #80000; border-top: none; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;"><button value="/poll results" name="send" title="View results - you will not be able to vote after viewing results" class="poll-results-btn" style="border-radius: 20px; transition-duration: 0.5s; transition-timing-function: linear;"><small>(View results)</small></button></div>';
-		return output;
-	}
-
-	generateResults(ended, option) {
-		let icon = '<span style="border: 1px solid #' + (ended ? '777; color: #33ccff' : 'FFF; color: #008878') + '; border-radius: 4px; padding: 0 3px; box-shadow: 0px 0px 2px rgb(36, 128, 0);"><i class="fa fa-bar-chart"></i> ' + (ended ? "Poll ended" : "Poll") + '</span>';
-		let totalVotes = '<br /><span style="font-style: italic; font-size: 9pt; color: #008878;">[Total Votes: ' + this.totalVotes + '] (Started by ' + this.startedUser + ' ' + Chat.toDurationString(Date.now() - this.startTime) + ' ago.)</span></div>';
-		let output = '<div style="background: #33ccff; width: 100%; border: 1px solid #008878; border-radius: 20px;"><div class="poll-td" style="background: rgb(128, 0, 0); background: #0fdd12; border-bottom: 1px solid #33ccff; border-top-right-radius: 20px; border-top-left-radius: 20px; text-shadow: 0px 0px 0.5px #FFF; box-shadow: 1px 1px 1px rgb(0, 0, 0) inset, 0px 0px 1px rgb(0, 0, 0, 0) inset;">' + icon + ' <strong style="font-size: 11pt; color: #008878;">' + this.getQuestionMarkup() + '</strong><img src="https://pldh.net/media/pokecons_action/284.gif" width="32" height="32">';
-		output += totalVotes;
-		output += '<div style="padding: 8px 15px;"><font color="maroon"><small><center>(Options with 0 votes are not shown)</center></small></font>';
-		output += '<table cellspacing="0" style="width: 100%;margin-top: 3px;">';
-		let iter = this.options.entries();
-=======
 	generateVotes(num) {
 		let output = '<div class="infobox"><details><summary style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Poll-' + this.pollArray[num].pollNum + '</span> <strong style="font-size:11pt">' + this.getQuestionMarkup(num) + '</strong></summary>';
 		this.pollArray[num].options.forEach((option, number) => {
@@ -96,7 +70,6 @@ class Poll {
 		let icon = '<span style="border:1px solid #' + (ended ? '777;color:#555' : '6A6;color:#484') + ';border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> ' + (ended ? "Poll-" + this.pollArray[num].pollNum + " ended" : "Poll-" + this.pollArray[num].pollNum) + '</span>';
 		let output = '<div class="infobox"><details open><summary style="margin: 2px 0 5px 0">' + icon + ' <strong style="font-size:11pt">' + this.getQuestionMarkup(num) + '</strong></summary>';
 		let iter = this.pollArray[num].options.entries();
->>>>>>> 89b5483db82182fb650d67debfdde60c132d12de
 
 		let i = iter.next();
 		let c = 0;
@@ -501,46 +474,6 @@ exports.commands = {
 		"/poll display [poll id number] - Displays the poll. The poll id number is optional for this command and displays only the poll with the matching id number.",
 		"/poll end [poll id number] - Ends a poll and displays the results. The poll id number is optional for this command and ends only the poll with the matching id number. and Requires: % @ * # & ~",
 	],
-<<<<<<< HEAD
-
-	pr: 'pollremind',
-	pollremind: function (target, room, user) {
-		if (!room.poll) return this.errorReply("There is no poll running in this room.");
-		if (!this.runBroadcast()) return;
-		room.poll.update();
-		if (this.broadcasting) {
-			room.update();
-			room.poll.display(user, this.broadcasting);
-		} else {
-			this.parse('/poll display');
-		}
-	},
-	tpoll: 'tierpoll',
-	tierpoll: function (target, room, user, connection, cmd, message) {
-		if (!this.can('minigame', null, room)) return false;
-		if (room.poll) return this.errorReply("There is already a poll in progress in this room.");
-		let options = [];
-		for (let key in Dex.formats) {
-			if (!Dex.formats[key].mod) continue;
-			if (!Dex.formats[key].searchShow) continue;
-			if (toId(target) !== 'all') {
-				let commonMods = ['gen7', 'dssb', 'pmd', 'metronome', 'ashspokemon', 'clashoftheregions', 'digimon', 'holiday', 'smashingmetagame', 'ssbffa', 'opmetagame', 'perfection', 'mixandmega', 'slowtown', 'stadium', 'supercell', 'fivemovefrenzy'];
-				if (commonMods.indexOf(Dex.formats[key].mod) === -1) continue;
-			}
-			options.push(Dex.formats[key].name);
-		}
-		room.poll = new Poll(room, {
-			source: 'What should the next tournament tier be?',
-			supportHTML: false,
-			username: user.name,
-		}, options);
-		room.poll.display();
-		this.logEntry("" + user.name + " used " + message);
-		return this.privateModCommand("(A tier poll was started by " + user.name + ".)");
-	},
-	tierpollhelp: ["/tierpoll - (all) Creates a poll with all the common formats as options. All all to use all formats Requires: % @ * # & ~"],
-=======
->>>>>>> 89b5483db82182fb650d67debfdde60c132d12de
 };
 process.nextTick(() => {
 	Chat.multiLinePattern.register('/poll (new|create|htmlcreate) ');

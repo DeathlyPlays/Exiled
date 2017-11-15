@@ -5275,7 +5275,7 @@ exports.BattleMovedex = {
 	"flamewheel": {
 		num: 172,
 		accuracy: 100,
-		basePower: 60,
+		basePower: 90,
 		category: "Physical",
 		desc: "Has a 10% chance to burn the target.",
 		shortDesc: "10% chance to burn the target. Thaws user.",
@@ -5290,7 +5290,7 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Fire",
-		zMovePower: 120,
+		zMovePower: 175,
 		contestType: "Beautiful",
 	},
 	"flamethrower": {
@@ -14297,7 +14297,7 @@ exports.BattleMovedex = {
 	"shadowclaw": {
 		num: 421,
 		accuracy: 100,
-		basePower: 70,
+		basePower: 80,
 		category: "Physical",
 		desc: "Has a higher chance for a critical hit.",
 		shortDesc: "High critical hit ratio.",
@@ -19165,7 +19165,6 @@ exports.BattleMovedex = {
 		desc: "Has a 100% chance to confuse the target and lower its Defense and Special Attack by 1 stage. The user recovers 1/2 the HP lost by the target, rounded half up. If Big Root is held by the user, the HP recovered is 1.3x normal, rounded half down. The user steals the foe's boosts. If this move is successful, the weather changes to rain unless it is already in effect, and the user gains the effects of Aqua Ring and Magic Coat.",
 		shortDesc: "Does many things turn 1. Can't move turn 2.",
 		id: "magikarpsrevenge",
-		isNonstandard: true,
 		name: "Magikarp's Revenge",
 		pp: 10,
 		priority: 0,

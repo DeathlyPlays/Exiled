@@ -332,6 +332,7 @@ exports.commands = {
 			Monitor.adminlog('Faction ' + name + ' was just created! If you wish to approve this faction please use /faction approve (name)');
 			return this.sendReply('Faction ' + name + ' created!');
 		},
+
 		delete: function (target, room, user) {
 			if (!target) return this.errorReply('/factions delete (name)');
 			if (!factions[toId(target)]) return this.errorReply('Doesn\'t exist!');
@@ -341,6 +342,7 @@ exports.commands = {
 			write();
 			this.sendReply('Faction ' + toId(target) + ' has been deleted.');
 		},
+
 		desc: function (target, room, user) {
 			if (!getFaction(user.userid)) return this.errorReply('You are no in a faction.');
 			if (toId(getFactionRank(user.userid) !== 'owner')) return this.errorReply('You do not own this faction');
@@ -350,6 +352,7 @@ exports.commands = {
 			write();
 			return this.sendReplyBox('Your faction description is now set to: <br /> ' + factions[toId(getFaction(user.userid))].desc + '.');
 		},
+
 		avatar: function (target, room, user) {
 			let factionId = toId(getFaction(user.userid));
 			if (!factionId) return this.errorReply('You are not in a faction!');
@@ -361,6 +364,7 @@ exports.commands = {
 			if (Rooms('upperstaff')) Rooms('upperstaff').add('|html| Faction ' + factionId + ' has requested a faction avatar <br /><img src="' + target + '" height="80" width="80"><br /><button name="send" value="/faction aa ' + factionId + ',' + factions[factionId].pendingAVI + '">Set it!</button> <button name="send" value="/faction da ' + factionId + '">Deny it!</button>').update();
 			return this.sendReply('Upper Staff have been notified of your faction avatar request!');
 		},
+
 		aa: 'approveavatar',
 		approveavatar: function (target, room, user) {
 			if (!this.can('declare')) return false;
@@ -377,6 +381,7 @@ exports.commands = {
 			Monitor.adminlog(user.name + ' has set a faction avatar for ' + factions[factionId].name);
 			return this.sendReply('The faction avatar has been set for ' + factions[factionId].name);
 		},
+
 		da: 'denyavatar',
 		denyavatar: function (target, room, user) {
 			if (!this.can('declare')) return false;
@@ -388,6 +393,7 @@ exports.commands = {
 			Monitor.adminlog(user.name + ' has denied a faction avatar for ' + factions[factionId].name);
 			return this.sendReply('The faction avatar has been denied for ' + factions[factionId].name);
 		},
+
 		pa: 'pendingavatars',
 		pendingavatars: function (target, room, user) {
 			if (!this.can('declare')) return false;
@@ -404,6 +410,7 @@ exports.commands = {
 			output += "</table></center>";
 			this.sendReplyBox(output);
 		},
+
 		list: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (Object.keys(factions).length < 1) return this.sendReply("There's no factions on this server.");
@@ -428,6 +435,7 @@ exports.commands = {
 			output += "</table></center>";
 			this.sendReplyBox(output);
 		},
+
 		profile: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!target && getFaction(user.userid)) target = getFaction(user.userid);
@@ -441,6 +449,7 @@ exports.commands = {
 			output += '&nbsp;Commoners: ' + Server.nameColor(factions[factionId].ranks['commoner'].users.join(', '), true) + '<br />';
 			this.sendReplyBox(output);
 		},
+
 		privatize: function (target, room, user) {
 			let factionId = toId(getFaction(user.userid));
 			if (!factionId) return this.errorReply('You are not in a faction!');
@@ -460,6 +469,7 @@ exports.commands = {
 				return this.errorReply('Valid targets are on, true, off, false');
 			}
 		},
+
 		approve: function (target, room, user) {
 			if (!this.can('declare')) return false;
 			if (!target) return this.errorReply('/factions approve (faction)');
@@ -474,6 +484,7 @@ exports.commands = {
 			this.sendReply("Don't forget to promote the requester to Room Founder!");
 			return user.popup("Faction approved!");
 		},
+
 		join: function (target, room, user) {
 			if (!target) this.errorReply('/faction join (faction)');
 			let factionid = toId(target);
@@ -488,6 +499,7 @@ exports.commands = {
 
 			user.popup("You've joined " + factions[factionid].name + ".");
 		},
+
 		invite: function (target, room, user) {
 			if (!target) return this.errorReply('/factions invite (user)');
 			let faction = toId(getFaction(user.userid));
@@ -515,16 +527,19 @@ exports.commands = {
 			targetUser.send("|pm|" + user.getIdentity() + "|" + targetUser.getIdentity() + "|" + message);
 			this.sendReply("You've invited " + targetUser.name + " to join " + factions[factionid].name + ".");
 		},
+
 		blockinvites: function (target, room, user) {
 			if (Db("blockedinvites").get(user.userid)) return this.errorReply('You are already blocking faction invites!');
 			Db("blockinvites").set(user.userid, true);
 			return this.sendReply('Faction invites are now blocked!');
 		},
+
 		unblockinvites: function (target, room, user) {
 			if (!Db("blockedinvites").get(user.userid)) return this.errorReply('You are currently not blocking faction invites!');
 			Db("blockedinvites").delete(user.userid);
-			return this.sendReply('Faction  invites are now allowed!');
+			return this.sendReply('Faction invites are now allowed!');
 		},
+
 		accept: function (target, room, user) {
 			if (!target) return this.errorReply('/faction accept [faction]');
 			let factionid = toId(target);
@@ -541,6 +556,7 @@ exports.commands = {
 
 			user.popup("You've accepted the invitation to join " + factions[factionid].name + ".");
 		},
+
 		decline: function (target, room, user) {
 			if (!target) return this.errorReply('/faction decline [faction]');
 			let factionid = toId(target);
@@ -551,6 +567,7 @@ exports.commands = {
 			factions[factionid].invites.splice(factions[factionid].invites.indexOf(user.userid), 1);
 			write();
 		},
+
 		leave: function (target, room, user) {
 			let factionid = toId(getFaction(user.userid));
 			if (!factions[factionid]) return this.errorReply("You're not in a faction.");
@@ -564,6 +581,7 @@ exports.commands = {
 			write();
 			this.sendReply("You have left " + factions[factionid].name + ".");
 		},
+
 		kick: function (target, room, user) {
 			if (!target) return this.errorReply('/factions kick [user]');
 			let factionName = getFaction(user.userid);
@@ -586,6 +604,7 @@ exports.commands = {
 			if (Users(target) && Users(target).connected) Users(target).send("|popup||html|" + Server.nameColor(user.name) + " has kicked you from the faction " + Chat.escapeHTML(factions[factionid].name) + ".");
 			this.sendReply("You've kicked " + target + " from " + factions[factionid].name + ".");
 		},
+
 		ban: function (target, room, user) {
 			if (!getFaction(user.userid)) return false;
 			if (!target) return this.errorReply('/faction ban (target)');
@@ -600,6 +619,7 @@ exports.commands = {
 			write();
 			return this.sendReply(toId(target) + ' is now banned from your faction!');
 		},
+
 		unban: function (target, room, user) {
 			if (!getFaction(user.userid)) return false;
 			if (!target) return this.errorReply('/faction unban (target)');
@@ -620,6 +640,7 @@ exports.commands = {
 				let bank = Db("factionbank").get(target, 0);
 				return this.sendReplyBox(target + ' has ' + bank + ' in their faction bank.');
 			},
+
 			give: function (target, room, user) {
 				let targets = target.split(',');
 				if (!targets[1]) return this.errorReply('/faction bank give [faction], [amount]');
@@ -631,6 +652,7 @@ exports.commands = {
 				Db("factionbank").set(name, Db("factionbank").get(name, 0) + amount);
 				return this.sendReply('You have added ' + amount + ' to ' + name + '\'s bank!');
 			},
+
 			take: function (target, room, user) {
 				let targets = target.split(',');
 				if (!targets[1]) return this.errorReply('/faction bank take [faction], [amount');
@@ -642,6 +664,7 @@ exports.commands = {
 				Db("factionbank").set(name, Db("factionbank").get(name, 0) - amount);
 				return this.sendReply('You have taken ' + amount + ' from ' + name + '\'s bank!');
 			},
+
 			ladder: function (target, room, user) {
 				if (!target) target = 100;
 				target = Number(target);
@@ -654,6 +677,7 @@ exports.commands = {
 				keys.sort(function (a, b) { return b.atm - a.atm; });
 				this.sendReplyBox(rankLadder('Richest Factions', 'Faction ATM', keys.slice(0, target), 'atm') + '</div>');
 			},
+
 			reset: function (target, room, user) {
 				if (!this.can('roomowner')) return false;
 				let factionId = toId(target);
@@ -662,6 +686,7 @@ exports.commands = {
 				return this.sendReply('You have reset ' + factionId + '\'s bank!');
 			},
 		},
+
 		promote: function (target, room, user) {
 			if (!target) return this.errorReply("Usage: /faction promote [user], [rank]");
 			let targets = target.split(',');
@@ -697,6 +722,7 @@ exports.commands = {
 			targetUser.send("|popup||html|" + Server.nameColor(user.name) + " has set your faction rank in " + Chat.escapeHTML(factions[factionid].name) + " to " + Chat.escapeHTML(rank) + ".");
 			this.sendReply("You've set " + targetUser.name + "'s faction rank to " + rank + ".");
 		},
+
 		demote: function (target, room, user) {
 			if (!target) return this.errorReply("Usage: /faction demote [user], [rank]");
 			let targets = target.split(',');
@@ -734,6 +760,7 @@ exports.commands = {
 			}
 			this.sendReply("You've removed " + targetUser + " from the faction rank " + rank + ".");
 		},
+
 		pending: function (target, room, user) {
 			if (!this.can('declare')) return false;
 			let output = '<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Faction</td><td>Description</td><td>Approve</td></tr>';
@@ -747,6 +774,11 @@ exports.commands = {
 			}
 			output += "</table></center>";
 			this.sendReplyBox(output);
+		},
+
+		'': 'help',
+		help: function (target, room, user) {
+			this.parse("/help faction");
 		},
 	},
 	factionhelp: [
@@ -996,6 +1028,11 @@ exports.commands = {
 			delete Rooms.global.FvF[factionId];
 			delete targetRoom.fvf;
 		},
+
+		'': 'help',
+  		help: function (target, room, user) {
+  			this.parse("/help fvf");
+  		},
 	},
 	fvfhelp: [
 		"|raw|Faction vs Faction Commands:<br />" +
@@ -1008,8 +1045,4 @@ exports.commands = {
 		"/fvf leave - Leaves a Faction vs Faction after you join. May not be used once the Faction vs Faction starts.<br />" +
 		"/fvf end - Forcibly ends a Faction vs Faction.",
 	],
-
-	factionhelp: function (target, room, user) {
-		return this.parse('/faction help');
-	},
 };

@@ -775,10 +775,15 @@ exports.commands = {
 			output += "</table></center>";
 			this.sendReplyBox(output);
 		},
+<<<<<<< HEAD
 
 		'': 'help',
 		help: function (target, room, user) {
 			this.parse("/help faction");
+=======
+		help: function (target, room, user) {
+			return this.parse('/factionhelp');
+>>>>>>> 7012ea8a2bb5e979754ce4bf2d1d529715001553
 		},
 	},
 	factionhelp: [
@@ -806,7 +811,7 @@ exports.commands = {
 		"/faction approveavatar (faction), (the requested avatar) - approves a factions avatar.  You must be a global leader or higher to use this! <br />" +
 		"/faction denyavatar (faction) - denys a factions avatar.  You must be a global leader or higher to use this! <br />" +
 		"/faction pendingavatars - shows pending faction avatars. (<code>/faction pa</code> for short) You must be a global leader or higher to use this! <br />" +
-		"/faction pending - displays a list of pending factions waiting for approval. You must be a global leader or higher to use this!"
+		"/faction pending - displays a list of pending factions waiting for approval. You must be a global leader or higher to use this!",
 	],
 
 	fvf: {

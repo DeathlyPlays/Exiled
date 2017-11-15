@@ -775,15 +775,10 @@ exports.commands = {
 			output += "</table></center>";
 			this.sendReplyBox(output);
 		},
-<<<<<<< HEAD
 
 		'': 'help',
 		help: function (target, room, user) {
 			this.parse("/help faction");
-=======
-		help: function (target, room, user) {
-			return this.parse('/factionhelp');
->>>>>>> 7012ea8a2bb5e979754ce4bf2d1d529715001553
 		},
 	},
 	factionhelp: [

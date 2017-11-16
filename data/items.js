@@ -6095,6 +6095,46 @@ exports.BattleItems = {
 		isNonstandard: 'gen2',
 		desc: "(Gen 2) Holder is cured if it is poisoned. Single use.",
 	},
+	"furretite": {
+		id: "furretite",
+		name: "Furretite",
+		spritenum: -577,
+		megaStone: "Furret-Mega",
+		megaEvolves: "Furret",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -1000,
+		gen: 6,
+		desc: "If held by a Furret, this item allows it to Mega Evolve in battle.",
+	},
+	"pachirisite": {
+		id: "pachirisite",
+		name: "Pachirisite",
+		spritenum: -577,
+		megaStone: "Pachirisu-Mega",
+		megaEvolves: "Pachirisu",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -1000,
+		gen: 6,
+		desc: "If held by a Pachirisu, this item allows it to Mega Evolve in battle.",
+	},
+	"ampharniumz": {
+		id: "ampharniumz",
+		name: "Ampharnium Z",
+		spritenum: -654,
+		onTakeItem: false,
+		zMove: "Colossal Volt Thunderbolt",
+		zMoveFrom: "Thunderbolt",
+		zMoveUser: ["Ampharos"],
+		num: -802,
+		gen: 7,
+		desc: "If held by Ampharos with Thunderbolt, it can use Colossal Volt Thunderbolt.",
+	},
 
 	// CAP items
 
@@ -6112,47 +6152,5 @@ exports.BattleItems = {
 		gen: 6,
 		isNonstandard: true,
 		desc: "If held by a Crucibelle, this item allows it to Mega Evolve in battle.",
-	},
-	"furretite": {
-		id: "furretite",
-		name: "Furretite",
-		spritenum: -577,
-		megaStone: "Furret-Mega",
-		megaEvolves: "Furret",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: -1000,
-		gen: 6,
-		isNonstandard: true,
-		desc: "If held by a Furret, this item allows it to Mega Evolve in battle.",
-	},
-	"pachirisite": {
-		id: "pachirisite",
-		name: "Pachirisite",
-		spritenum: -577,
-		megaStone: "Pachirisu-Mega",
-		megaEvolves: "Pachirisu",
-		onTakeItem: function (item, source) {
-			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
-			return true;
-		},
-		num: -1000,
-		gen: 6,
-		isNonstandard: true,
-		desc: "If held by a Pachirisu, this item allows it to Mega Evolve in battle.",
-	},
-	"ampharniumz": {
-		id: "ampharniumz",
-		name: "Ampharnium Z",
-		spritenum: -654,
-		onTakeItem: false,
-		zMove: "Colossal Volt Thunderbolt",
-		zMoveFrom: "Thunderbolt",
-		zMoveUser: ["Ampharos"],
-		num: -802,
-		gen: 7,
-		desc: "If held by Ampharos with Thunderbolt, it can use Colossal Volt Thunderbolt.",
 	},
 };

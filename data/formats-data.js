@@ -1816,6 +1816,11 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["uturn", "suckerpunch", "icepunch", "firepunch", "knockoff", "doubleedge", "superfang", "followme", "helpinghand", "protect"],
 		tier: "PU",
 	},
+	furretmega: {
+		randomBattleMoves: ["Oblivion Banisher", "Hyper Voice", "Surf", "Ice Beam", "Thunderbolt", "Focus Blast", "Flamethrower"],
+		requiredItem: "Furretite",
+		tier: "OU",
+	},
 	hoothoot: {
 		randomBattleMoves: ["reflect", "toxic", "roost", "whirlwind", "nightshade", "magiccoat"],
 		eventPokemon: [
@@ -5568,10 +5573,7 @@ exports.BattleFormatsData = {
 		tier: "Uber",
 	},
 	aegislashblade: {
-<<<<<<< HEAD
-=======
 		requiredAbility: 'Stance Change',
->>>>>>> 294c3a1777891e7df8ef997e648a93e13fd267e5
 		battleOnly: true,
 	},
 	spritzee: {

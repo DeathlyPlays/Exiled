@@ -13329,8 +13329,8 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1, dance: 1},
 		onPrepareHit: function (source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Tri Attack", target);
-			this.add('-anim', source, "Multi Attack", target);
+			this.add('-anim', source, "Tri Attack");
+			this.add('-anim', source, "Multi Attack");
 			this.add('-anim', source, "Dynamic Punch");
 		},
 		onModifyMove: function (move, pokemon) {

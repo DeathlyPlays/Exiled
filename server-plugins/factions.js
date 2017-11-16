@@ -1030,9 +1030,9 @@ exports.commands = {
 		},
 
 		'': 'help',
-  		help: function (target, room, user) {
-  			this.parse("/help fvf");
-  		},
+		help: function (target, room, user) {
+			this.parse("/help fvf");
+		},
 	},
 	fvfhelp: [
 		"|raw|Faction vs Faction Commands:<br />" +

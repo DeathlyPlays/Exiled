@@ -511,14 +511,14 @@ exports.commands = {
 			let bg = Db('backgrounds').get(buddy);
 			if (!Db('backgrounds').has(buddy)) return '<div>';
 			return '<div style="background:url(' + bg + ')">';
-		};
+		}
 
 		function song(fren) {
 			let song = Db('music').get([fren, 'link']);
 			let title = Db('music').get([fren, 'title']);
 			if (!Db('music').has(fren)) return '';
 			return '<acronym title="' + title + '"><br><audio src="' + song + '" controls="" style="width:100%;"></audio></acronym>';
-		};
+		}
 
 		function showProfile() {
 			Economy.readMoney(toId(username), money => {

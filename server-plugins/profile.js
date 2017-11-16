@@ -295,7 +295,8 @@ exports.commands = {
 		give: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
 			if (!target) return this.errorReply('USAGE: /profileteam give [USER]');
-			Db('hasteam').set(target, 1);
+			let targetId = toId(target);
+			Db('hasteam').set(targetId, 1);
 			this.sendReply(target + ' has been given the ability to set their team.');
 			Users(target).popup('You have been given the ability to set your profile team.');
 		},

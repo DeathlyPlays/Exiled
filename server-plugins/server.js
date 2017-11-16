@@ -254,7 +254,7 @@ exports.commands = {
 
 	bonus: 'dailybonus',
 	checkbonus: 'dailybonus',
-	dailybonus: function (user) {
+	dailybonus: function (target, room, user) {
 		let nextBonus = Date.now() - Db('DailyBonus').get(user.userid, [1, Date.now()])[1];
 		if ((86400000 - nextBonus) <= 0) return Server.giveDailyReward(user.userid, user);
 		return this.sendReply('Your next bonus is ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db('DailyBonus').get(user.userid, [1, Date.now()])[0]) + ' ' + (Db('DailyBonus').get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural) + ' in ' + Chat.toDurationString(Math.abs(86400000 - nextBonus)));
@@ -694,7 +694,7 @@ exports.commands = {
 	backhelp: ["/back - Sets a users away status back to normal."],
 
 	'!essb': true,
-	essb: function (target) {
+	essb: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
 		if (!target || target === 'help') return this.parse('/help essb');
 		if (target === 'credits') return this.parse('/essbcredits');
@@ -707,7 +707,7 @@ exports.commands = {
 		"/essbcredits - Displays the credits of the primary creators of ESSB.",
 	],
 
-	essbcredits: function (user) {
+	essbcredits: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let popup = "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
 			"<br />" +
@@ -723,10 +723,9 @@ exports.commands = {
 
 	'!dub': true,
 	dub: 'dubtrack',
-	music: 'dubtrack',
 	radio: 'dubtrack',
 	dubtrackfm: 'dubtrack',
-	dubtrack: function (room) {
+	dubtrack: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let nowPlaying = "";
 		let options = {
@@ -752,7 +751,7 @@ exports.commands = {
 
 	'!youtube': true,
 	yt: 'youtube',
-	youtube: function (target, room) {
+	youtube: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
 		if (!target) return false;
 		let params_spl = target.split(' '), g = ' ';
@@ -1149,7 +1148,6 @@ exports.commands = {
 
 		this.addModCommand(targetUser.name + " was kicked from the room by " + user.name + ". (" + target + ")");
 		targetUser.popup("You were kicked from " + room.id + " by " + user.name + "." + (target ? " (" + target + ")" : ""));
-
 		targetUser.leaveRoom(room.id);
 	},
 	kickhelp: ["/kick [user], [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
@@ -1375,11 +1373,11 @@ exports.commands = {
 		delayInMins = delayInMins * 1000 * 60;
 		let declare = this.canHTML(parts.slice(1).join(","));
 		if (!declare) return;
-		 setTimeout(f => {
-			 for (let id in Rooms.rooms) {
-				 if (id !== 'global' && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw('<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><strong>' + declare + '</strong></div>');
-			 }
-		 }, delayInMins);
+		setTimeout(f => {
+			for (let id in Rooms.rooms) {
+				if (id !== 'global' && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw('<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><strong>' + declare + '</strong></div>');
+			}
+		}, delayInMins);
 		this.room.modlog(toId(user) + 'scheduled a timed declare: ' + declare);
 		return this.sendReply('Your declare has been scheduled.');
 	},

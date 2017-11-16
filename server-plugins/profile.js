@@ -279,7 +279,7 @@ exports.commands = {
 	profileteam: {
 		add: 'set',
 		set: function (target, room, user) {
-			if (!Db('hasteam').has(user.userid)) return this.errorReply('You dont have access to edit your team.');
+			if (!Db('hasteam').has(user.userid)) return this.errorReply('You don\'t have access to edit your team.');
 			if (!target) return this.parse('/profileteam help');
 			let parts = target.split(',');
 			let mon = parts[1].trim();
@@ -294,7 +294,7 @@ exports.commands = {
 		},
 		give: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
-			if (!target) return this.errorReply('USAGE: /profileteam give [USER]');
+			if (!target) return this.parse('/profileteam help');
 			let targetId = toId(target);
 			Db('hasteam').set(targetId, 1);
 			this.sendReply(target + ' has been given the ability to set their team.');
@@ -302,10 +302,10 @@ exports.commands = {
 		},
 		take: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
-			if (!target) return this.errorReply('USAGE: /profileteam take [USER]');
+			if (!target) return this.parse('/profileteam help');
 			if (!Db('hasteam').has(user)) return this.errorReply('This user does not have the ability to set their team.');
 			Db('hasteam').delete(user);
-			this.sendReply('This user has had their ability to change their team taken from them.');
+			this.sendReply('This user has had their ability to change their team away.');
 		},
 		help: function (target, room, user) {
 			if (!this.runBroadcast()) return;
@@ -332,7 +332,7 @@ exports.commands = {
 		setbg: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
 			let parts = target.split(',');
-			if (!parts[1]) return this.errorReply('USAGE: /bg set (user), (link)');
+			if (!parts[1]) return this.parse('/backgroundhelp');
 			let targ = parts[0].toLowerCase().trim();
 			let link = parts[1].trim();
 			Db('backgrounds').set(targ, link);
@@ -347,10 +347,10 @@ exports.commands = {
 		deletebg: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
 			let targ = target.toLowerCase();
-			if (!target) return this.errorReply('USAGE: /bg delete (user)');
+			if (!target) return this.parse('/backgroundhelp');
 			if (!Db('backgrounds').has(targ)) return this.errorReply('This user does not have a custom background.');
 			Db('backgrounds').delete(targ);
-			this.sendReply('This user\'s background has deleted.');
+			this.sendReply('This user\'s background has been deleted.');
 		},
 
 		'': 'help',
@@ -361,6 +361,43 @@ exports.commands = {
 	backgroundhelp: [
 		"/bg set [user], [link] - Sets the user's profile background.",
 		"/bg delete [user] - Removes the user's profile background.",
+	],
+
+	music: {
+		add: "set",
+		give: "set",
+		set: function (target, room, user) {
+			if (!this.can('broadcast')) return false;
+			let parts = target.split(',');
+			let targ = parts[0].toLowerCase().trim();
+			if (!parts[2]) return this.errorReply('/musichelp');
+			let link = parts[1].trim();
+			let title = parts[2].trim();
+			Db('music').set([targ, 'link'], link);
+			Db('music').set([targ, 'title'], title);
+			this.sendReply(targ + '\'s song has been set to: ');
+			this.parse('/profile ' + targ);
+		},
+
+		take: "delete",
+		remove: "delete",
+		delete: function (target, room, user) {
+			if (!this.can('broadcast')) return false;
+			let targ = target.toLowerCase();
+			if (!target) return this.parse('/musichelp');
+			if (!Db('music').has(targ)) return this.errorReply('This user does not have any music on their profile.');
+			Db('music').delete(targ);
+			this.sendReply('This user\'s profile music has been deleted.');
+		},
+
+		'': 'help',
+		help: function (target, room, user) {
+			this.parse('/musichelp');
+		},
+	},
+	musichelp: [
+		"/music set [user], [link], [title of song] - Sets a user's profile music.",
+		"/music take [user] - Removes a user's profile music.",
 	],
 
 	'!lastactive': true,
@@ -476,6 +513,13 @@ exports.commands = {
 			return '<div style="background:url(' + bg + ')">';
 		};
 
+		function song(fren) {
+			let song = Db('music').get([fren, 'link']);
+			let title = Db('music').get([fren, 'title']);
+			if (!Db('music').has(fren)) return '';
+			return '<acronym title="' + title + '"><br><audio src="' + song + '" controls="" style="width:100%;"></audio></acronym>';
+		};
+
 		function showProfile() {
 			Economy.readMoney(toId(username), money => {
 				let profile = '';
@@ -496,7 +540,8 @@ exports.commands = {
 				if (Db("friendcode").has(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><strong>Friend Code:</strong></font> ' + Db("friendcode").get(toId(username));
 				}
-				profile += '&nbsp;' + showTeam(toId(username)) + '';
+				profile += '&nbsp;' + showTeam(toId(username)) + '<br />';
+				profile += '&nbsp;' + song(toId(username)) + '';
 				profile += '<br clear="all">';
 				self.sendReplyBox(profile);
 			});

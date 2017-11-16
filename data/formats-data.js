@@ -3195,13 +3195,16 @@ exports.BattleFormatsData = {
 	},
 	castformsunny: {
 		randomBattleMoves: ["sunnyday", "weatherball", "solarbeam", "icebeam"],
+		requiredAbility: 'Forecast',
 		battleOnly: true,
 	},
 	castformrainy: {
 		randomBattleMoves: ["raindance", "weatherball", "thunder", "hurricane"],
+		requiredAbility: 'Forecast',
 		battleOnly: true,
 	},
 	castformsnowy: {
+		requiredAbility: 'Forecast',
 		battleOnly: true,
 	},
 	kecleon: {
@@ -3834,6 +3837,7 @@ exports.BattleFormatsData = {
 	cherrimsunshine: {
 		randomBattleMoves: ["sunnyday", "solarbeam", "gigadrain", "weatherball", "hiddenpowerice"],
 		randomDoubleBattleMoves: ["sunnyday", "solarbeam", "gigadrain", "weatherball", "protect"],
+		requiredAbility: 'Flower Gift',
 		battleOnly: true,
 	},
 	shellos: {
@@ -5564,6 +5568,10 @@ exports.BattleFormatsData = {
 		tier: "Uber",
 	},
 	aegislashblade: {
+<<<<<<< HEAD
+=======
+		requiredAbility: 'Stance Change',
+>>>>>>> 294c3a1777891e7df8ef997e648a93e13fd267e5
 		battleOnly: true,
 	},
 	spritzee: {
@@ -5998,6 +6006,7 @@ exports.BattleFormatsData = {
 		tier: "PU",
 	},
 	wishiwashischool: {
+		requiredAbility: 'Schooling',
 		battleOnly: true,
 	},
 	mareanie: {
@@ -6249,6 +6258,7 @@ exports.BattleFormatsData = {
 		tier: "NU",
 	},
 	miniormeteor: {
+		requiredAbility: 'Shields Down',
 		battleOnly: true,
 	},
 	komala: {
@@ -6280,6 +6290,7 @@ exports.BattleFormatsData = {
 		tier: "OU",
 	},
 	mimikyubusted: {
+		requiredAbility: 'Disguise',
 		battleOnly: true,
 	},
 	bruxish: {

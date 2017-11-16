@@ -1,7 +1,7 @@
 'use strict';
 
 exports.BattlePokedex = {
-	Rinocaw: {
+	rinocaw: {
 		num: 1000,
 		species: "Rinocaw",
 		types: ["Ground"],
@@ -13,7 +13,7 @@ exports.BattlePokedex = {
 		eggGroups: ["Mineral"],
 		evos: ["rinocoss"],
 	},
-	Rinocoss: {
+	rinocoss: {
 		num: 1001,
 		species: "Rinocoss",
 		types: ["Fighting", "Ground"],
@@ -24,24 +24,25 @@ exports.BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Mineral", "Monster"],
 		prevo: "rinocaw",
-		otherFormes: ["RinocossMega"],
+		otherFormes: ["Rinocoss-Mega"],
 	},
-	RinocossMega: {
+	rinocossmega: {
 		num: 1002,
 		species: "Rinocoss-Mega",
+		baseSpecies: "Rinocoss",
 		types: ["Steel", "Ground"],
 		formeLetter: "M",
+		forme: "Mega",
 		baseStats: {hp: 105, atk: 115, def: 125, spa: 80, spd: 90, spe: 95},
 		abilities: {0: "Arena Trap"},
 		heightm: 1.5,
 		weightkg: 193,
 		color: "Brown",
 		eggGroups: ["Mineral", "Monster"],
-		otherFormes: ["Rinocoss"],
 	},
-	Mariamyte: {
+	mariamyte: {
 		num: 1003,
-		species: "Marimyte",
+		species: "Mariamyte",
 		types: ["Ghost", "Normal"],
 		baseStats: {hp: 30, atk: 45, def: 40, spa: 45, spd: 65, spe: 90},
 		abilities: {0: "Cursed Body", H: "Color Change"},
@@ -51,7 +52,7 @@ exports.BattlePokedex = {
 		eggGroups: ["Undiscovered"],
 		evos: ["Marionyte"],
 	},
-	Marionyte: {
+	marionyte: {
 		num: 1004,
 		species: "Marionyte",
 		types: ["Ghost", "Normal"],
@@ -62,12 +63,14 @@ exports.BattlePokedex = {
 		color: "Black",
 		eggGroups: ["Undiscovered"],
 		prevo: "Mariamyte",
-		otherFormes: ["MarionyteMega"],
+		otherFormes: ["Marionyte-Mega"],
 	},
-	MarionyteMega: {
+	marionytemega: {
 		num: 1005,
 		species: "Marionyte-Mega",
+		baseSpecies: "Marionyte",
 		formeLetter: "M",
+		forme: "Mega",
 		types: ["Ghost", "Normal"],
 		baseStats: {hp: 60, atk: 105, def: 85, spa: 120, spd: 100, spe: 150},
 		abilities: {0: "Shadow Tag"},
@@ -75,6 +78,5 @@ exports.BattlePokedex = {
 		weightkg: 0.5,
 		color: "Black",
 		eggGroups: ["Undiscovered"],
-		otherFormes: ["Marionyte"],
 	},
 };

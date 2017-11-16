@@ -295,7 +295,8 @@ exports.commands = {
 		give: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
 			if (!target) return this.errorReply('USAGE: /profileteam give [USER]');
-			Db('hasteam').set(target, 1);
+			let targetId = toId(target);
+			Db('hasteam').set(targetId, 1);
 			this.sendReply(target + ' has been given the ability to set their team.');
 			Users(target).popup('You have been given the ability to set your profile team.');
 		},
@@ -323,6 +324,44 @@ exports.commands = {
 			);
 		},
 	},
+
+	bg: 'background',
+	background: {
+		set: 'setbg',
+		setbackground: 'setbg',
+		setbg: function (target, room, user) {
+			if (!this.can('broadcast')) return false;
+			let parts = target.split(',');
+			if (!parts[1]) return this.errorReply('USAGE: /bg set (user), (link)');
+			let targ = parts[0].toLowerCase().trim();
+			let link = parts[1].trim();
+			Db('backgrounds').set(targ, link);
+			this.sendReply('This user\'s background has been set to : ');
+			this.parse('/profile ' + targ);
+		},
+
+		removebg: 'deletebg',
+		remove: 'deletebg',
+		deletebackground: 'deletebg',
+		delete: 'deletebg',
+		deletebg: function (target, room, user) {
+			if (!this.can('broadcast')) return false;
+			let targ = target.toLowerCase();
+			if (!target) return this.errorReply('USAGE: /bg delete (user)');
+			if (!Db('backgrounds').has(targ)) return this.errorReply('This user does not have a custom background.');
+			Db('backgrounds').delete(targ);
+			this.sendReply('This user\'s background has deleted.');
+		},
+
+		'': 'help',
+		help: function (target, room, user) {
+			this.parse("/backgroundhelp");
+		},
+	},
+	backgroundhelp: [
+		"/bg set [user], [link] - Sets the user's profile background.",
+		"/bg delete [user] - Removes the user's profile background.",
+	],
 
 	'!lastactive': true,
 	checkactivity: 'lastactive',
@@ -431,10 +470,16 @@ exports.commands = {
 			return teamDisplay;
 		}
 
+		function background(buddy) {
+			let bg = Db('backgrounds').get(buddy);
+			if (!Db('backgrounds').has(buddy)) return '<div>';
+			return '<div style="background:url(' + bg + ')">';
+		};
+
 		function showProfile() {
 			Economy.readMoney(toId(username), money => {
 				let profile = '';
-				profile += showBadges(toId(username));
+				profile += background(toId(username)) + showBadges(toId(username));
 				profile += '<img src="' + avatar + '" height="80" width="80" align="left">';
 				profile += '&nbsp;<font color="#24678d"><strong>Name:</strong></font> ' + Server.nameColor(username, true) + '&nbsp;' + getFlag(toId(username)) + ' ' + showTitle(username) + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>Group:</strong></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';

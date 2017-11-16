@@ -77,7 +77,7 @@ exports.commands = {
 			emoticons[parts[1]] = parts[2];
 			saveEmoticons();
 			this.sendReply('|raw|The emoticon "' + Chat.escapeHTML(parts[1]) + '" has been added: <img src="' + parts[2] + '">');
-			if (Rooms('upperstaff')) Rooms('upperstaff').add('|raw|' + Server.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
+			Rooms('upperstaff').add('|raw|' + Server.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
 				'": <img width="50" height="50" src="' + parts[2] + '">').update();
 			Server.messageSeniorStaff('/html ' + Server.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
 				'": <img width="50" height="50" src="' + parts[2] + '">');

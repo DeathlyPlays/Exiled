@@ -458,26 +458,7 @@ exports.BattlePokedex = {
 		evos: ["raichu", "raichualola"],
 		evoLevel: 1,
 		eggGroups: ["Field", "Fairy"],
-<<<<<<< HEAD
 		otherFormes: ["pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola"],
-=======
-		otherFormes: ["pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola", "pikachupartner", "pikachuash"],
-	},
-	pikachuash: {
-		num: 25,
-		species: "Pikachu-Ash",
-		baseSpecies: "Pikachu",
-		forme: "Ash",
-		formeLetter: "A",
-		types: ["Electric"],
-		gender: "M",
-		baseStats: {hp: 55, atk: 125, def: 50, spa: 120, spd: 50, spe: 120},
-		abilities: {0: "Pika Bond"},
-		heightm: 0.4,
-		weightkg: 6,
-		color: "Yellow",
-		eggGroups: ["Undiscovered"],
->>>>>>> 3998eb312a59b6a7931635f45029a2265efe5fa2
 	},
 	pikachucosplay: {
 		num: 25,

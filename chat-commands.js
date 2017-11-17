@@ -1131,22 +1131,15 @@ exports.commands = {
 		if (!this.canTalk()) return;
 		if (!target) return this.parse('/help roompromote');
 
-<<<<<<< HEAD
-=======
 		const force = target.startsWith('!!!');
 		if (force) target = target.slice(3);
->>>>>>> 3998eb312a59b6a7931635f45029a2265efe5fa2
 		target = this.splitTarget(target, true);
 		let targetUser = this.targetUser;
 		let userid = toId(this.targetUsername);
 		let name = targetUser ? targetUser.name : this.targetUsername;
 
 		if (!userid) return this.parse('/help roompromote');
-<<<<<<< HEAD
-		if (!targetUser && !Users.isUsernameKnown(userid)) {
-=======
 		if (!targetUser && !Users.isUsernameKnown(userid) && !force) {
->>>>>>> 3998eb312a59b6a7931635f45029a2265efe5fa2
 			return this.errorReply(`User '${name}' is offline and unrecognized, and so can't be promoted.`);
 		}
 		if (targetUser && !targetUser.registered) {
@@ -1190,10 +1183,7 @@ exports.commands = {
 			room.auth[userid] = nextGroup;
 		}
 
-<<<<<<< HEAD
-=======
 		if (room.founder === userid && nextGroup !== '#') room.founder = false; //Must be a demotion as
->>>>>>> 3998eb312a59b6a7931635f45029a2265efe5fa2
 		// Only show popup if: user is online and in the room, the room is public, and not a groupchat or a battle.
 		let needsPopup = targetUser && room.users[targetUser.userid] && !room.isPrivate && !room.isPersonal && !room.battle;
 
@@ -1206,16 +1196,6 @@ exports.commands = {
 				// if the user can't see the demotion message (i.e. rank < %), it is shown in the chat
 				targetUser.send(">" + room.id + "\n(You were demoted to Room " + groupName + " by " + user.name + ".)");
 			}
-<<<<<<< HEAD
-			this.privateModCommand(`(${name} was demoted to Room ${groupName} by ${user.name}.)`);
-			if (needsPopup) targetUser.popup(`You were demoted to Room ${groupName} by ${user.name} in ${room.id}.`);
-		} else if (nextGroup === '#') {
-			this.addModCommand(`${'' + name} was promoted to ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`You were promoted to ${groupName} by ${user.name} in ${room.id}.`);
-		} else {
-			this.addModCommand(`${'' + name} was promoted to Room ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`You were promoted to Room ${groupName} by ${user.name} in ${room.id}.`);
-=======
 			this.privateModCommand(`(${name} was demoted to Room ${groupName} by ${Server.nameColor(user.name)}.)`);
 			if (needsPopup) targetUser.popup(`You were demoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		} else if (nextGroup === '#') {
@@ -1224,7 +1204,6 @@ exports.commands = {
 		} else {
 			this.addModCommand(`${'' + name} was promoted to Room ${groupName} by ${Server.nameColor(user.name)}.`);
 			if (needsPopup) targetUser.popup(`You were promoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
->>>>>>> 3998eb312a59b6a7931635f45029a2265efe5fa2
 		}
 
 		if (targetUser) targetUser.updateIdentity(room.id);

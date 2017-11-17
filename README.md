@@ -111,34 +111,7 @@ Owners
 
 Contributors
 
-<<<<<<< HEAD
 - [Lycanium Z](https://github.com/Lycanium-Z)
-=======
-<<<<<<< HEAD
-- [AlfaStorm](https://github.com/AlphaWind)
-- [Back At My Day](https://github.com/BamdTheClueless)
-- [flufi](https://github.com/HiTechFlufi)
-- [gyaratoast](https://github.com/gyaratoast)
-- [HoeenHero](https://github.com/HoeenCoder)
-- [Lycanium Z](https://github.com/Lycanium-Z)
-- [megas4ever](https://github.com/Megas4ever)
-- [Mewth](https://github.com/Mewthy)
-- [Volco](https://github.com/Volco)
-=======
-- Andrew Goodsell [Zracknel] - Art (battle weather backdrops)
-- Avery Zimmer [Lyren, SolarisFox] - Development
-- Ben Davies [Morfent] - Development
-- Ben Frengley [TalkTakesTime] - Development
-- Cody Thompson [Rising_Dusk] - Development
-- Ian Clail [Layell] - Art (battle graphics, sprites)
-- Jeremy Piemonte [panpawn] - Development
-- Kris Johnson [Kris] - Development
-- Neil Rashbrook [urkerab] - Development
-- Robin Vandenbrande [Quinella] - Development
-- [Ridaz] - Art (battle animations)
-- Tobias Mann [asgdf] - Development
->>>>>>> a555c8b48ca8f9d8381084576587a196fbbe340d
->>>>>>> 3998eb312a59b6a7931635f45029a2265efe5fa2
 
 Special thanks
 

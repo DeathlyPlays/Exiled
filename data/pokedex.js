@@ -458,7 +458,11 @@ exports.BattlePokedex = {
 		evos: ["raichu", "raichualola"],
 		evoLevel: 1,
 		eggGroups: ["Field", "Fairy"],
+<<<<<<< HEAD
 		otherFormes: ["pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola"],
+=======
+		otherFormes: ["pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola", "pikachupartner"],
+>>>>>>> dca751aeb46df43b15a78db224474c51d73d4aaf
 	},
 	pikachucosplay: {
 		num: 25,
@@ -2852,6 +2856,7 @@ exports.BattlePokedex = {
 		evoLevel: 15,
 		eggGroups: ["Field"],
 	},
+<<<<<<< HEAD
 	furretmega: {
         num: 162,
         species: "Furret-Mega",
@@ -2866,6 +2871,8 @@ exports.BattlePokedex = {
         color: "Brown",
         eggGroups: ["Field"],
     },
+=======
+>>>>>>> dca751aeb46df43b15a78db224474c51d73d4aaf
 	hoothoot: {
 		num: 163,
 		species: "Hoothoot",
@@ -6696,6 +6703,7 @@ exports.BattlePokedex = {
 		color: "White",
 		eggGroups: ["Field", "Fairy"],
 	},
+<<<<<<< HEAD
 	pachirisumega: {
         num: 417,
         species: "Pachirisu-Mega",
@@ -6710,6 +6718,8 @@ exports.BattlePokedex = {
         color: "Blue",
         eggGroups: ["Field", "Fairy"],
     },
+=======
+>>>>>>> dca751aeb46df43b15a78db224474c51d73d4aaf
 	buizel: {
 		num: 418,
 		species: "Buizel",

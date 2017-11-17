@@ -485,18 +485,6 @@ exports.BattleAbilities = {
 		rating: 3.5,
 		num: 14,
 	},
-	"naturalintelligence": {
-		shortDesc: "This Pokemon's moves have their accuracy multiplied by 1.5.",
-		onSourceModifyAccuracy: function (accuracy) {
-			if (typeof accuracy !== 'number') return;
-			this.debug('compoundeyes - enhancing accuracy');
-			return accuracy * 1.5;
-		},
-		id: "naturalintelligence",
-		name: "Natural Intelligence",
-		rating: 4,
-		num: 14,
-	},
 	"contrary": {
 		shortDesc: "If this Pokemon has a stat stage raised it is lowered instead, and vice versa.",
 		onBoost: function (boost, target, source, effect) {
@@ -1248,24 +1236,6 @@ exports.BattleAbilities = {
 		rating: 1,
 		num: 179,
 	},
-	"forestation": {
-		shortDesc: "Grassy Terrain + Grass Pelt + SpD",
-		onStart: function (source) {
-			this.setTerrain('grassyterrain');
-		},
-		onModifyDefPriority: 6,
-		onModifyDef: function (pokemon) {
-			if (this.isTerrain('grassyterrain')) return this.chainModify(1.5);
-		},
-		onModifySpDPriority: 6,
-		onModifySpD: function (pokemon) {
-			if (this.isTerrain('grassyterrain')) return this.chainModify(1.5);
-		},
-		id: "forestation",
-		name: "Forestation",
-		rating: 2.5,
-		num: -179,
-	},
 	"grassysurge": {
 		shortDesc: "On switch-in, this Pokemon summons Grassy Terrain.",
 		onStart: function (source) {
@@ -1376,32 +1346,6 @@ exports.BattleAbilities = {
 		name: "Huge Power",
 		rating: 5,
 		num: 37,
-	},
-	"pureheart": {
-		shortDesc: "This Pokemon's Special Attack is doubled. Only for Magearna-Mega.",
-		onModifySpAPriority: 5,
-		onModifySpA: function (spa) {
-			return this.chainModify(2);
-		},
-		id: "pureheart",
-		name: "Pure Heart",
-		rating: 5,
-		num: -37,
-	},
-	"brutepower": {
-		shortDesc: "This Pokemon's Attack and Special Attack is doubled.",
-		onModifyAtkPriority: 5,
-		onModifyAtk: function (atk) {
-			return this.chainModify(2);
-		},
-		onModifySpAPriority: 5,
-		onModifySpA: function (spa) {
-			return this.chainModify(2);
-		},
-		id: "brutepower",
-		name: "Brute Power",
-		rating: 5,
-		num: -37,
 	},
 	"hustle": {
 		desc: "This Pokemon's Attack is multiplied by 1.5 and the accuracy of its physical attacks is multiplied by 0.8.",
@@ -1913,31 +1857,6 @@ exports.BattleAbilities = {
 		rating: 4.5,
 		num: 42,
 	},
-
-	"manipulate": {
-		desc: "On switch-in, this Pokemon lowers the Special Attack of adjacent opposing Pokemon by 1 stage. Pokemon behind a substitute are immune.",
-		shortDesc: "On switch-in, this Pokemon lowers the Special Attack of adjacent opponents by 1 stage.",
-		onStart: function (pokemon) {
-			let foeactive = pokemon.side.foe.active;
-			let activated = false;
-			for (let i = 0; i < foeactive.length; i++) {
-				if (!foeactive[i] || !this.isAdjacent(foeactive[i], pokemon)) continue;
-				if (!activated) {
-					this.add('-ability', pokemon, 'Manipulate', 'boost');
-					activated = true;
-				}
-				if (foeactive[i].volatiles['substitute']) {
-					this.add('-immune', foeactive[i], '[msg]');
-				} else {
-					this.boost({spa: -1}, foeactive[i], pokemon);
-				}
-			}
-		},
-		id: "manipulate",
-		name: "Manipulate",
-		rating: 3.5,
-		num: -22,
-	},
 	"marvelscale": {
 		desc: "If this Pokemon has a major status condition, its Defense is multiplied by 1.5.",
 		shortDesc: "If this Pokemon is statused, its Defense is 1.5x.",
@@ -2430,28 +2349,6 @@ exports.BattleAbilities = {
 		name: "Pixilate",
 		rating: 4,
 		num: 182,
-	},
-	"liquidate": {
-		desc: "This Pokemon's Normal-type moves become Water-type moves and have their power multiplied by 1.2. This effect comes after other effects that change a move's type, but before Ion Deluge and Electrify's effects.",
-		shortDesc: "This Pokemon's Normal-type moves become Water type and have 1.2x power.",
-		onModifyMovePriority: -1,
-		onModifyMove: function (move, pokemon) {
-			if (move.type === 'Normal' && move.id !== 'naturalgift' && !move.isZ) {
-				move.type = 'Water';
-				if (move.category !== 'Status') pokemon.addVolatile('liquidate');
-			}
-		},
-		effect: {
-			duration: 1,
-			onBasePowerPriority: 8,
-			onBasePower: function (basePower, pokemon, target, move) {
-				return this.chainModify([0x1333, 0x1000]);
-			},
-		},
-		id: "liquidate",
-		name: "Liquidate",
-		rating: 4,
-		num: -182,
 	},
 	"plus": {
 		desc: "If an active ally has this Ability or the Ability Minus, this Pokemon's Special Attack is multiplied by 1.5.",
@@ -3693,19 +3590,6 @@ exports.BattleAbilities = {
 		rating: 4,
 		num: 101,
 	},
-	"quickthinking": {
-		desc: "This Pokemon's moves of 60 power or less have their priority increased by +1.",
-		shortDesc: "This Pokemon's moves of 60 power or less have +1 priority. Includes Struggle.",
-		onModifyPriority: function (basePower, attacker, defender, move, priority) {
-			if (basePower <= 60) {
-				return priority + 1;
-			}
-		},
-		id: "quickthinking",
-		name: "Quick Thinking",
-		rating: 4,
-		num: 101,
-	},
 	"telepathy": {
 		shortDesc: "This Pokemon does not take damage from attacks made by its allies.",
 		onTryHit: function (target, source, move) {
@@ -3940,24 +3824,6 @@ exports.BattleAbilities = {
 		name: "Unnerve",
 		rating: 1.5,
 		num: 127,
-	},
-	"venomousfangs": {
-		shortDesc: "This Pokemon's bite moves have a 50% chance of badly poisoning.",
-		onModifyMove: function (move) {
-			if (!move || !move.flags['bite']) return;
-			if (!move.secondaries) {
-				move.secondaries = [];
-			}
-			move.secondaries.push({
-				chance: 50,
-				status: 'tox',
-				ability: this.getAbility('venomousfangs'),
-			});
-		},
-		id: "venomousfangs",
-		name: "Venomous Fangs",
-		rating: 2,
-		num: 10000,
 	},
 	"victorystar": {
 		shortDesc: "This Pokemon and its allies' moves have their accuracy multiplied by 1.1.",
@@ -4219,6 +4085,7 @@ exports.BattleAbilities = {
 		rating: -1,
 		num: 161,
 	},
+
 	// CAP
 	"mountaineer": {
 		shortDesc: "On switch-in, this Pokemon avoids all Rock-type attacks and Stealth Rock.",
@@ -4283,6 +4150,7 @@ exports.BattleAbilities = {
 		rating: 3.5,
 		num: -4,
 	},
+<<<<<<< HEAD
 	//Custom Pokemon
 	"insectize": {
 		desc: "This Pokemon's Normal-type moves become Bug-type moves and have their power multiplied by 1.2. This effect comes after other effects that change a move's type, but before Ion Deluge and Electrify's effects.",
@@ -4756,4 +4624,6 @@ exports.BattleAbilities = {
 			if (type === 'yinvolt') return false;
 		},
 	},
+=======
+>>>>>>> dca751aeb46df43b15a78db224474c51d73d4aaf
 };

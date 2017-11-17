@@ -4609,7 +4609,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "allAdjacent",
 		type: "Normal",
-		zMovePower: 300,
+		zMovePower: 200,
 		contestType: "Beautiful",
 	},
 	"extrasensory": {
@@ -4923,32 +4923,6 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Fire",
-		zMovePower: 160,
-		contestType: "Beautiful",
-	},
-	"aquaticdance": { //Signature for Volcarona-Alola
-		num: 552,
-		accuracy: 100,
-		basePower: 80,
-		category: "Special",
-		desc: "Has a 50% chance to raise the user's Special Attack by 1 stage.",
-		shortDesc: "50% chance to raise the user's Sp. Atk by 1.",
-		id: "aquaticdance",
-		isViable: true,
-		name: "Aquatic Dance",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, mirror: 1, dance: 1},
-		secondary: {
-			chance: 50,
-			self: {
-				boosts: {
-					spa: 1,
-				},
-			},
-		},
-		target: "normal",
-		type: "Water",
 		zMovePower: 160,
 		contestType: "Beautiful",
 	},
@@ -5643,27 +5617,6 @@ exports.BattleMovedex = {
 		type: "Fighting",
 		zMovePower: 170,
 		contestType: "Tough",
-	},
-	"tundrasweep": { //signature move for Lanturn-Alola
-		num: -6000,
-		accuracy: 100,
-		basePower: 80,
-		category: "Special",
-		desc: "This move combines Water and Ground in its type effectiveness against the target. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
-		shortDesc: "Adds Water and Ground to type effectiveness.",
-		id: "tundrasweep",
-		name: "Tundra Sweep",
-		pp: 10,
-		flags: {contact: 1, protect: 1, mirror: 1, distance: 1},
-		onEffectiveness: function (typeMod, type, move) {
-			return typeMod + this.getEffectiveness('Water', 'Ground', type);
-		},
-		priority: 0,
-		secondary: false,
-		target: "allAdjacent",
-		type: "Ice",
-		zMovePower: 165,
-		contestType: "Beautiful",
 	},
 	"focusblast": {
 		num: 411,
@@ -6555,7 +6508,7 @@ exports.BattleMovedex = {
 	},
 	"grasswhistle": {
 		num: 320,
-		accuracy: 80,
+		accuracy: 55,
 		basePower: 0,
 		category: "Status",
 		desc: "Causes the target to fall asleep.",
@@ -7436,15 +7389,6 @@ exports.BattleMovedex = {
 		basePowerCallback: function (pokemon, target) {
 			let targetWeight = target.getWeight();
 			let pokemonWeight = pokemon.getWeight();
-			if (pokemonWeight > targetWeight * 8) {
-				return 180;
-			}
-			if (pokemonWeight > targetWeight * 7) {
-				return 160;
-			}
-			if (pokemonWeight > targetWeight * 6) {
-				return 140;
-			}
 			if (pokemonWeight > targetWeight * 5) {
 				return 120;
 			}
@@ -7828,22 +7772,6 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Water",
-		contestType: "Clever",
-	},
-	"hiddenpowerfairy": {
-		accuracy: 100,
-		basePower: 60,
-		category: "Special",
-		desc: "",
-		shortDesc: "",
-		id: "hiddenpower",
-		name: "Hidden Power Fairy",
-		pp: 15,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		secondary: false,
-		target: "normal",
-		type: "Fairy",
 		contestType: "Clever",
 	},
 	"highhorsepower": {
@@ -9297,6 +9225,7 @@ exports.BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
+		isUnreleased: true,
 		recoil: [1, 2],
 		secondary: false,
 		target: "normal",
@@ -12198,8 +12127,8 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "The user swaps its Attack/Special Attack and Defense/Special Defense stats; stat stage changes remain on their respective stats. This move can be used again to swap the stats back. If the user uses Baton Pass, the replacement will have its Attack and Defense stats swapped if the effect is active. If the user has its stats recalculated by changing forme while its stats are swapped, this effect is ignored but is still active for the purposes of Baton Pass.",
-		shortDesc: "Switches user's Attack/Special Attack and Defense/Special Defense stats.",
+		desc: "The user swaps its Attack and Defense stats; stat stage changes remain on their respective stats. This move can be used again to swap the stats back. If the user uses Baton Pass, the replacement will have its Attack and Defense stats swapped if the effect is active. If the user has its stats recalculated by changing forme while its stats are swapped, this effect is ignored but is still active for the purposes of Baton Pass.",
+		shortDesc: "Switches user's Attack and Defense stats.",
 		id: "powertrick",
 		name: "Power Trick",
 		pp: 10,
@@ -12210,34 +12139,22 @@ exports.BattleMovedex = {
 			onStart: function (pokemon) {
 				this.add('-start', pokemon, 'Power Trick');
 				let newatk = pokemon.stats.def;
-				let newspa = pokemon.stats.spd;
 				let newdef = pokemon.stats.atk;
-				let newspd = pokemon.stats.spa;
 				pokemon.stats.atk = newatk;
 				pokemon.stats.def = newdef;
-				pokemon.stats.spa = newspa;
-				pokemon.stats.spd = newspd;
 			},
 			onCopy: function (pokemon) {
 				let newatk = pokemon.stats.def;
-				let newspa = pokemon.stats.spd;
 				let newdef = pokemon.stats.atk;
-				let newspd = pokemon.stats.spa;
 				pokemon.stats.atk = newatk;
 				pokemon.stats.def = newdef;
-				pokemon.stats.spa = newspa;
-				pokemon.stats.spd = newspd;
 			},
 			onEnd: function (pokemon) {
 				this.add('-end', pokemon, 'Power Trick');
 				let newatk = pokemon.stats.def;
-				let newspa = pokemon.stats.spd;
 				let newdef = pokemon.stats.atk;
-				let newspd = pokemon.stats.spa;
 				pokemon.stats.atk = newatk;
 				pokemon.stats.def = newdef;
-				pokemon.stats.spa = newspa;
-				pokemon.stats.spd = newspd;
 			},
 			onRestart: function (pokemon) {
 				pokemon.removeVolatile('Power Trick');
@@ -12246,7 +12163,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "self",
 		type: "Psychic",
-		zMoveBoost: {atk: 1, spa: 1},
+		zMoveBoost: {atk: 1},
 		contestType: "Clever",
 	},
 	"powertrip": {
@@ -13063,25 +12980,6 @@ exports.BattleMovedex = {
 		zMoveBoost: {spe: 1},
 		contestType: "Beautiful",
 	},
-	"steelbarriers": {
-		num: -800,
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		desc: "For 5 turns, the terrain becomes Steel Barriers. The damage of Steel-type attacks is multiplied by 1.5 and the damage of Fairy-type attacks is multiplied by 0.5 during the effect. Lasts for 8 turns if the user is holding Iron Ball. Fails if the current weather is Sunny Day or Steel Barriers.",
-		shortDesc: "For 5 turns, metal barriers powers Steel moves.",
-		id: "steelbarriers",
-		name: "Steel Barriers",
-		pp: 5,
-		priority: 0,
-		flags: {},
-		weather: 'SteelBarrier',
-		secondary: false,
-		target: "all",
-		type: "Steel",
-		zMoveBoost: {def: 1, spd: 1},
-		contestType: "Clever",
-	},
 	"rapidspin": {
 		num: 229,
 		accuracy: 100,
@@ -13472,36 +13370,6 @@ exports.BattleMovedex = {
 		type: "Normal",
 		zMovePower: 175,
 		contestType: "Beautiful",
-	},
-	"colorschemeslash": {
-		num: -686,
-		accuracy: 100,
-		basePower: 120,
-		category: "Physical",
-		desc: "This move's type depends on the user's primary type.",
-		shortDesc: "Type varies based on the user's primary type.",
-		id: "colorschemeslash",
-		isViable: true,
-		name: "Color Scheme Slash",
-		pp: 15,
-		priority: 0,
-		flags: {protect: 1, mirror: 1, dance: 1},
-		onPrepareHit: function (source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Tri Attack", source);
-			this.add('-anim', source, "Multi Attack", source);
-			this.add('-anim', source, "Dynamic Punch");
-		},
-		onModifyMove: function (move, pokemon) {
-			let type = pokemon.types[0];
-			if (type === "Bird") type = "???";
-			move.type = type;
-		},
-		secondary: false,
-		target: "normal",
-		type: "Normal",
-		zMovePower: 195,
-		contestType: "Cool",
 	},
 	"revenge": {
 		num: 279,
@@ -14619,7 +14487,7 @@ exports.BattleMovedex = {
 		accuracy: 30,
 		basePower: 0,
 		category: "Special",
-		desc: "Deals damage to the target equal to the target's maximum HP. Ignores accuracy and evasiveness modifiers. This attack's accuracy is equal to (user's level - target's level + 30)%, and fails if the target is at a higher level. Pokemon with Ice typing or with the Ability Sturdy are immune.",
+		desc: "Deals damage to the target equal to the target's maximum HP. Ignores accuracy and evasiveness modifiers. This attack's accuracy is equal to (user's level - target's level + X)%, where X is 30 if the user is an Ice type and 20 otherwise, and fails if the target is at a higher level. Ice-type Pokemon and Pokemon with the Ability Sturdy are immune.",
 		shortDesc: "OHKOs non-Ice targets. Fails if user's lower level.",
 		id: "sheercold",
 		name: "Sheer Cold",
@@ -15842,38 +15710,6 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Ghost",
-		contestType: "Cool",
-	},
-	"epicsplash": {
-		num: -7000,
-		accuracy: true,
-		basePower: 225,
-		category: "Physical",
-		desc: "Boosts the user's Speed, Attack, and Special Attack by six stages.",
-		shortDesc: "Boosts Speed, Attack, and Special Attack by 6 stages.",
-		id: "epicsplash",
-		name: "Epic Splash",
-		pp: 1,
-		priority: 0,
-		flags: {contact: 1},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Outrage", target);
-			this.add('-anim', source, "Splash", target);
-		},
-		isZ: "magikariumz",
-		secondary: {
-			chance: 100,
-			self: {
-				boosts: {
-					atk: 6,
-					spa: 6,
-					spe: 6,
-				},
-			},
-		},
-		target: "normal",
-		type: "Water",
 		contestType: "Cool",
 	},
 	"spacialrend": {
@@ -18793,7 +18629,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 50,
 		basePowerCallback: function (pokemon, target, move) {
-			if (this.weather) return move.basePower * 3;
+			if (this.weather) return move.basePower * 2;
 			return move.basePower;
 		},
 		category: "Special",
@@ -18819,9 +18655,6 @@ exports.BattleMovedex = {
 				break;
 			case 'hail':
 				move.type = 'Ice';
-				break;
-			case 'deltastream':
-				move.type = 'Flying';
 				break;
 			}
 		},
@@ -19393,340 +19226,10 @@ exports.BattleMovedex = {
 				spa: -1,
 			},
 		},
+		stealsBoosts: true,
 		target: "normal",
 		type: "Water",
 		zMovePower: 190,
 		contestType: "Cute",
-	},
-	"spiralingtoxins": {
-		num: -92,
-		accuracy: 100,
-		basePower: 0,
-		category: "Status",
-		desc: "Badly poisons all Pokemon. Only Steel and Poison types don't get affected by this move.",
-		shortDesc: "Badly poisons all Pokemon.",
-		id: "spiralingtoxins",
-		isViable: true,
-		name: "Spiraling Toxins",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, mirror: 1, distance: 1},
-		// No Guard-like effect for Poison-type users implemented in BattleScripts#tryMoveHit
-		status: 'tox',
-		secondary: false,
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Toxic", target);
-		},
-		target: "all",
-		type: "Poison",
-		zMoveBoost: {def: 3, spd: 3},
-		contestType: "Clever",
-	},
-	"oblivionbanisher": {
-		num: -246,
-		accuracy: 100,
-		basePower: 120,
-		category: "Special",
-		desc: "Has a 100% chance to raise the user's Attack, Defense, Special Attack, Special Defense, and Speed by 1 stage.",
-		shortDesc: "100% chance to raise all stats by 1 (not acc/eva).",
-		id: "oblivionbanisher",
-		isViable: true,
-		name: "Oblivion Banisher",
-		pp: 5,
-		priority: 0,
-		flags: {protect: 1, mirror: 1, recharge: 1},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Agility", source);
-			this.add('-anim', source, "Dark Void", target);
-			this.add('-anim', source, "Spectral Thief", target);
-		},
-		secondary: {
-			chance: 100,
-			self: {
-				volatileStatus: 'mustrecharge',
-				boosts: {
-					atk: 1,
-					def: 1,
-					spa: 1,
-					spd: 1,
-					spe: 1,
-				},
-			},
-		},
-		target: "normal",
-		type: "Ghost",
-		zMovePower: 200,
-		contestType: "Tough",
-	},
-	"wishfulstrike": {
-		num: -100,
-		accuracy: 100,
-		basePower: 70,
-		category: "Physical",
-		desc: "Heals 25% of the user's max health.",
-		shortDesc: "Heals 1/4 of max HP. 40% sleep chance.",
-		id: "wishfulstrike",
-		name: "Wishful Strike",
-		pp: 5,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		self: {
-			heal: [1, 4],
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Wish", source);
-			this.add('-anim', source, "Meteor Mash", target);
-		},
-		secondary: {
-			chance: 40,
-			status: 'slp',
-		},
-		target: "normal",
-		type: "Fairy",
-		zMovePower: 120,
-		contestType: "Cool",
-	},
-	"minigeomancy": {
-		num: -601,
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		desc: "Raises the user's Special Attack, Special Defense, and Defense by 2 stages. This attack charges on the first turn and executes on the second. If the user is holding a Power Herb, the move completes in one turn.",
-		shortDesc: "Charges, then raises SpA, SpD, Def by 2 turn 2.",
-		id: "minigeomancy",
-		isViable: true,
-		name: "Mini Geomancy",
-		pp: 10,
-		priority: 0,
-		flags: {charge: 1, nonsky: 1},
-		onPrepareHit: function (source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Geomancy", source);
-		},
-		onTry: function (attacker, defender, move) {
-			if (attacker.removeVolatile(move.id)) {
-				return;
-			}
-			this.add('-prepare', attacker, move.name, defender);
-			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
-				this.add('-anim', attacker, move.name, defender);
-				attacker.removeVolatile(move.id);
-				return;
-			}
-			attacker.addVolatile('twoturnmove', defender);
-			return null;
-		},
-		boosts: {
-			spa: 2,
-			spd: 2,
-			def: 2,
-		},
-		secondary: false,
-		target: "self",
-		type: "Fairy",
-		zMoveBoost: {atk: 1, def: 1, spa: 1, spd: 1, spe: 1},
-		contestType: "Beautiful",
-	},
-	"quickcombustion": {
-		num: -602,
-		accuracy: 100,
-		basePower: 40,
-		category: "Special",
-		shortDesc: "20% chance to burn.",
-		id: "quickcombustion",
-		isViable: true,
-		name: "Quick Combustion",
-		pp: 20,
-		priority: 1,
-		flags: {protect: 1, mirror: 1},
-		secondary: {
-			chance: 20,
-			status: 'brn',
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Ember", target);
-		},
-		target: "normal",
-		type: "Fire",
-		zMovePower: 100,
-		contestType: "Clever",
-	},
-	"lockdown": {
-		num: -603,
-		accuracy: 100,
-		basePower: 0,
-		category: "Status",
-		desc: "Traps the target, and raises the user's Defense and Special Defense by one stage.",
-		shortDesc: "Traps target; raises Def and Spd by 1.",
-		id: "lockdown",
-		isViable: true,
-		name: "Lockdown",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, reflectable: 1, mirror: 1, authentic: 1},
-		onHit: function (target, source, move) {
-			this.add("-message", "The user prepared themselves and trapped the target!");
-			if (!target.addVolatile('trapped', source, move, 'trapper')) {
-				this.add('-fail', target);
-			}
-		},
-		onPrepareHit: function (source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Earthquake", source);
-			this.add('-anim', source, "Bind", source);
-		},
-		secondary: {
-			chance: 100,
-			self: {
-				boosts: {
-					def: 1,
-					spd: 1,
-				},
-			},
-		},
-		target: "normal",
-		type: "Fighting",
-		zMoveBoost: {def: 1, spd: 1, spe: 1},
-		contestType: "Clever",
-	},
-	"terrordrop": {
-		num: -604,
-		accuracy: 90,
-		basePower: 100,
-		category: "Physical",
-		desc: "20% chance to flinch the target.",
-		shortDesc: "20% chance to flinch.",
-		id: "terrordrop",
-		isViable: true,
-		name: "Terror Drop",
-		pp: 15,
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		onPrepareHit: function (source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Dark Void", source);
-			this.add('-anim', source, "Supersonic Skystrike", source);
-		},
-		secondary: {
-			chance: 20,
-			volatileStatus: 'flinch',
-		},
-		target: "normal",
-		type: "Ghost",
-		zMovePower: 180,
-		contestType: "Tough",
-	},
-	"bistrobomb": {
-		num: -605,
-		accuracy: 100,
-		basePower: 140,
-		category: "Physical",
-		desc: "No additional effect.",
-		shortDesc: "No additional effect.",
-		id: "bistrobomb",
-		isViable: true,
-		name: "Bistro Bomb",
-		pp: 5,
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		onPrepareHit: function (source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Lock-On", source);
-			this.add('-anim', source, "Egg Bomb", source);
-		},
-		secondary: false,
-		target: "normal",
-		type: "Steel",
-		zMovePower: 200,
-		contestType: "Cool",
-	},
-	"distortionworld": {
-		num: 678,
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		desc: "For 5 turns, the terrain becomes Distortion World. Healing fails while this is active. Fails if the current terrain is Distortion World.",
-		shortDesc: "5 turns. +Ghost power, healing is canceled.",
-		id: "distortionworld",
-		name: "Distortion World",
-		pp: 10,
-		priority: 0,
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Dark Void", target);
-		},
-		flags: {nonsky: 1},
-		terrain: 'distortionworld',
-		effect: {
-			duration: 5,
-			durationCallback: function (source, effect) {
-				if (source && source.hasItem('terrainextender')) {
-					return 8;
-				}
-				return 5;
-			},
-			onBasePower: function (basePower, attacker, defender, move) {
-				if (move.type === 'Ghost') {
-					this.debug('Distortion World boost');
-					return this.chainModify(1.5);
-				}
-			},
-			onStart: function (battle, source, effect) {
-				if (effect && effect.effectType === 'Ability') {
-					this.add('-fieldstart', 'move: Distortion World', '[from] ability: ' + effect, '[of] ' + source);
-				} else {
-					this.add('-fieldstart', 'move: Distortion World');
-				}
-			},
-			onBeforeMovePriority: 6,
-			onBeforeMove: function (pokemon, target, move) {
-				if (move.flags['heal']) {
-					this.add('cant', pokemon, 'move: Distortion World', move);
-					return false;
-				}
-			},
-			onResidualOrder: 21,
-			onResidualSubOrder: 2,
-			onEnd: function () {
-				this.add('-fieldend', 'move: Distortion World');
-			},
-		},
-		secondary: false,
-		target: "all",
-		type: "Ghost",
-		zMoveBoost: {spa: 1},
-		contestType: "Clever",
-	},
-	"colossalvoltthunderbolt": {
-		num: -719,
-		accuracy: true,
-		basePower: 215,
-		category: "Special",
-		desc: "Super effective against Ground type Pokemon.",
-		shortDesc: "Super effective against Ground type Pokemon.",
-		id: "colossalvolthunderbolt",
-		name: "Colossal Volt Thunderbolt",
-		pp: 1,
-		priority: 0,
-		flags: {},
-		onEffectiveness: function (typeMod, type) {
-			if (type === 'Ground') return 1;
-		},
-		ignoreImmunity: {'Electric': true},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Thunder", target);
-			this.add('-anim', source, "Thunderbolt", target);
-			this.add('-anim', source, "Gigavolt Havoc", target);
-		},
-		isZ: "ampharniumz",
-		secondary: false,
-		target: "normal",
-		type: "Electric",
-		contestType: "Cool",
 	},
 };

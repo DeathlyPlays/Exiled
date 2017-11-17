@@ -6167,6 +6167,7 @@ exports.BattleItems = {
 		isNonstandard: 'gen2',
 		desc: "(Gen 2) Holder is cured if it is poisoned. Single use.",
 	},
+<<<<<<< HEAD
 	"furretite": {
 		id: "furretite",
 		name: "Furretite",
@@ -6207,6 +6208,8 @@ exports.BattleItems = {
 		gen: 7,
 		desc: "If held by Ampharos with Thunderbolt, it can use Colossal Volt Thunderbolt.",
 	},
+=======
+>>>>>>> dca751aeb46df43b15a78db224474c51d73d4aaf
 
 	// CAP items
 

@@ -769,6 +769,7 @@ exports.BattleAliases = {
 	"mono": "[Gen 7] Monotype",
 	"monoru": "[Gen 7] Monotype RU",
 	"ff": "[Gen 7] Frantic Fusions",
+<<<<<<< HEAD
 
 	//Custom Megas (and other Exiled Exclusive Aliases)
 	"megagatr": "Feraligatr-Mega",
@@ -951,4 +952,6 @@ exports.BattleAliases = {
 	"glitch": "Porygon-Z",
 	"lincoln2": "Gyarados",
 	"lon": "Kyurem",
+=======
+>>>>>>> dca751aeb46df43b15a78db224474c51d73d4aaf
 };

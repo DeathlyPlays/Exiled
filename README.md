@@ -109,6 +109,7 @@ Owner
 
 Contributors
 
+<<<<<<< HEAD
 - [AlfaStorm](https://github.com/AlphaWind)
 - [Back At My Day](https://github.com/BamdTheClueless)
 - [flufi](https://github.com/HiTechFlufi)
@@ -118,6 +119,20 @@ Contributors
 - [megas4ever](https://github.com/Megas4ever)
 - [Mewth](https://github.com/Mewthy)
 - [Volco](https://github.com/Volco)
+=======
+- Andrew Goodsell [Zracknel] - Art (battle weather backdrops)
+- Avery Zimmer [Lyren, SolarisFox] - Development
+- Ben Davies [Morfent] - Development
+- Ben Frengley [TalkTakesTime] - Development
+- Cody Thompson [Rising_Dusk] - Development
+- Ian Clail [Layell] - Art (battle graphics, sprites)
+- Jeremy Piemonte [panpawn] - Development
+- Kris Johnson [Kris] - Development
+- Neil Rashbrook [urkerab] - Development
+- Robin Vandenbrande [Quinella] - Development
+- [Ridaz] - Art (battle animations)
+- Tobias Mann [asgdf] - Development
+>>>>>>> a555c8b48ca8f9d8381084576587a196fbbe340d
 
 Special thanks
 

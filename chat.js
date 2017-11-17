@@ -270,21 +270,7 @@ class CommandContext {
 
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
-				let noEmotes = message;
-				let emoticons = Server.parseEmoticons(message);
-				if (emoticons) {
-					noEmotes = message;
-					message = "/html " + emoticons;
-				}
-				let buf = `|pm|${this.user.getIdentity()}|${this.pmTarget.getIdentity()}|${message}`;
-				this.user.send(buf);
-				if (Users.ShadowBan.checkBanned(this.user)) {
-					Users.ShadowBan.addMessage(this.user, "Private to " + this.pmTarget.getIdentity(), noEmotes);
-				} else {
-					if (this.pmTarget !== this.user) this.pmTarget.send(buf);
-				}
-				this.pmTarget.lastPM = this.user.userid;
-				this.user.lastPM = this.pmTarget.userid;
+				Chat.sendPM(message, this.user, this.pmTarget);
 			} else {
 				let emoticons = Server.parseEmoticons(message);
 				if (emoticons && !this.room.disableEmoticons) {
@@ -1005,10 +991,18 @@ Chat.parse = function (message, room, user, connection) {
 };
 
 Chat.sendPM = function (message, user, pmTarget, onlyRecipient = null) {
-	let buf = `|pm|${user.getIdentity()}|${pmTarget.getIdentity()}|${message}`;
+	let noEmotes = message;
+	let emoticons = Server.parseEmoticons(message);
+	if (emoticons) message = "/html " + emoticons;
+	let buf = `|pm|${user.getIdentity()}|${pmTarget.getIdentity()}|${(Server.ignoreEmotes[user.userid] ? noEmotes : message)}`;
+	// TODO is onlyRecipient a user? If so we should check if they are ignoring emoticons.
 	if (onlyRecipient) return onlyRecipient.send(buf);
 	user.send(buf);
-	if (pmTarget !== user) pmTarget.send(buf);
+	if (Users.ShadowBan.checkBanned(user)) {
+		Users.ShadowBan.addMessage(this.user, "Private to " + this.pmTarget.getIdentity(), noEmotes);
+	} else if (pmTarget !== user) {
+		pmTarget.send(buf);
+	}
 	pmTarget.lastPM = user.userid;
 	user.lastPM = pmTarget.userid;
 };

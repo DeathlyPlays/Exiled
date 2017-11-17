@@ -1829,14 +1829,11 @@ exports.BattleFormatsData = {
 		randomDoubleBattleMoves: ["uturn", "suckerpunch", "icepunch", "firepunch", "knockoff", "doubleedge", "superfang", "followme", "helpinghand", "protect"],
 		tier: "PU",
 	},
-<<<<<<< HEAD
 	furretmega: {
 		randomBattleMoves: ["Oblivion Banisher", "Hyper Voice", "Surf", "Ice Beam", "Thunderbolt", "Focus Blast", "Flamethrower"],
 		requiredItem: "Furretite",
 		tier: "OU",
 	},
-=======
->>>>>>> dca751aeb46df43b15a78db224474c51d73d4aaf
 	hoothoot: {
 		randomBattleMoves: ["reflect", "toxic", "roost", "whirlwind", "nightshade", "magiccoat"],
 		eventPokemon: [

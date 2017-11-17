@@ -262,10 +262,14 @@ exports.BattleAliases = {
 	"oricoriop": "Oricorio-Pa'u",
 	"oricoriopsychic": "Oricorio-Pa'u",
 	"lycanrocmidday": "Lycanroc",
-	"lycanrocd": "Lycanroc",
 	"lycanrocday": "Lycanroc",
 	"lycanrocn": "Lycanroc-Midnight",
 	"lycanrocnight": "Lycanroc-Midnight",
+	"lycanrocd": "Lycanroc-Dusk",
+	"necrozmadm": "Necrozma-Dusk-Mane",
+	"necrozmadw": "Necrozma-Dawn-Wings",
+	"necrozmau": "Necrozma-Ultra",
+	"ultranecrozma": "Necrozma-Ultra",
 	"ufop": "Pokestar UFO-2",
 	"ufopsychic": "Pokestar UFO-2",
 
@@ -316,6 +320,9 @@ exports.BattleAliases = {
 	"pokestarufoflying": "Pokestar UFO",
 	"ufof": "Pokestar UFO",
 	"ufoflying": "Pokestar UFO",
+
+	// event formes
+	"rockruffdusk": "Rockruff",
 
 	// cosmetic formes
 	"burmygrass": "Burmy",
@@ -628,6 +635,9 @@ exports.BattleAliases = {
 	"ub04blade": "Kartana",
 	"ub04blaster": "Celesteela",
 	"ub05": "Guzzlord",
+	"ubburst": "Blacephalon",
+	"ubassembly": "Stakataka",
+	"ubadhesive": "Poipole",
 
 	// moves
 	"bb": "Brave Bird",
@@ -663,6 +673,7 @@ exports.BattleAliases = {
 	"hjk": "High Jump Kick",
 	"hijumpkick": "High Jump Kick",
 	"np": "Nasty Plot",
+	"pfists": "Plasma Fists",
 	"playaround": "Play Rough",
 	"pup": "Power-up Punch",
 	"qd": "Quiver Dance",
@@ -682,15 +693,21 @@ exports.BattleAliases = {
 
 	// z-moves
 	"10mv": "10,000,000 Volt Thunderbolt",
+	"cs": "Clangorous Soulblaze",
 	"genesis": "Genesis Supernova",
 	"goa": "Guardian of Alola",
+	"lsf": "Let's Snuggle Forever",
+	"ltbts": "Light That Burns the Sky",
+	"mmm": "Menacing Moonraze Maelstrom",
 	"moonsault": "Malicious Moonsault",
 	"oceanic": "Oceanic Operetta",
 	"sar": "Sinister Arrow Raid",
+	"sss": "Searing Sunraze Smash",
 	"sssss": "Soul-Stealing 7-Star Strike",
 	"ss7ss": "Soul-Stealing 7-Star Strike",
 	"soulstealingsevenstarstrike": "Soul-Stealing 7-Star Strike",
 	"stoked": "Stoked Sparksurfer",
+	"stormshards": "Splintered Stormshards",
 	"zbug": "Savage Spin-Out",
 	"zdark": "Black Hole Eclipse",
 	"zdragon": "Devastating Drake",

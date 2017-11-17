@@ -3704,6 +3704,33 @@ exports.BattleMovedex = {
 		zMovePower: 195,
 		contestType: "Beautiful",
 	},
+	"clangoroussoulblaze": {
+		num: 728,
+		accuracy: true,
+		basePower: 185,
+		category: "Special",
+		desc: "Boosts the user's Attack, Defense, Sp. Atk, Sp. Def, and Speed by one stage.",
+		shortDesc: "Boosts all stats 1 stage. Hits adjacent foes.",
+		id: "clangoroussoulblaze",
+		name: "Clangorous Soulblaze",
+		pp: 1,
+		priority: 0,
+		flags: {sound: 1, authentic: 1},
+		self: {
+			boosts: {
+				atk: 1,
+				def: 1,
+				spa: 1,
+				spd: 1,
+				spe: 1,
+			},
+		},
+		isZ: "kommoniumz",
+		secondary: false,
+		target: "allAdjacentFoes",
+		type: "Dragon",
+		contestType: "Cool",
+	},
 	"dragonascent": {
 		num: 620,
 		accuracy: 100,
@@ -5234,9 +5261,20 @@ exports.BattleMovedex = {
 			if (allyActive.length === 1) {
 				return;
 			}
-			for (let i = 0; i < allyActive.length; i++) {
-				if (allyActive[i] && this.isAdjacent(target, allyActive[i])) {
-					this.damage(allyActive[i].maxhp / 16, allyActive[i], source, 'flameburst');
+			for (let ally of allyActive) {
+				if (ally && this.isAdjacent(target, ally)) {
+					this.damage(ally.maxhp / 16, ally, source, 'flameburst');
+				}
+			}
+		},
+		onAfterSubDamage: function (target, source) {
+			let allyActive = target.side.active;
+			if (allyActive.length === 1) {
+				return;
+			}
+			for (let ally of allyActive) {
+				if (ally && this.isAdjacent(target, ally)) {
+					this.damage(ally.maxhp / 16, ally, source, 'flameburst');
 				}
 			}
 		},
@@ -9207,6 +9245,24 @@ exports.BattleMovedex = {
 		zMoveBoost: {atk: 1},
 		contestType: "Cool",
 	},
+	"letssnuggleforever": {
+		num: 726,
+		accuracy: true,
+		basePower: 190,
+		category: "Physical",
+		desc: "No additional effect.",
+		shortDesc: "No additional effect.",
+		id: "letssnuggleforever",
+		name: "Let's Snuggle Forever",
+		pp: 1,
+		priority: 0,
+		flags: {contact: 1},
+		isZ: "mimikiumz",
+		secondary: false,
+		target: "normal",
+		type: "Fairy",
+		contestType: "Cool",
+	},
 	"lick": {
 		num: 122,
 		accuracy: 100,
@@ -9293,6 +9349,26 @@ exports.BattleMovedex = {
 		type: "Psychic",
 		zMoveBoost: {spd: 1},
 		contestType: "Beautiful",
+	},
+	"lightthatburnsthesky": {
+		num: 723,
+		accuracy: true,
+		basePower: 200,
+		category: "Special",
+		desc: "Damage is calculated using the user's higher attacking stat, including stat stage changes. The user's Ability, item, and burn are used as normal.",
+		shortDesc: "Uses higher attacking stat for DMG. Ignores ability.",
+		id: "lightthatburnsthesky",
+		name: "Light That Burns the Sky",
+		pp: 5,
+		priority: 0,
+		flags: {},
+		useBestSourceOffensive: true,
+		ignoreAbility: true,
+		isZ: "ultranecroziumz",
+		secondary: false,
+		target: "normal",
+		type: "Psychic",
+		contestType: "Cool",
 	},
 	"liquidation": {
 		num: 710,
@@ -10087,6 +10163,25 @@ exports.BattleMovedex = {
 		zMoveEffect: 'healreplacement',
 		contestType: "Tough",
 	},
+	"menacingmoonrazemaelstrom": {
+		num: 725,
+		accuracy: true,
+		basePower: 200,
+		category: "Special",
+		desc: "This move and its effects ignore the Abilities of other Pokemon.",
+		shortDesc: "Ignores the Abilities of other Pokemon.",
+		id: "menacingmoonrazemaelstrom",
+		name: "Menacing Moonraze Maelstrom",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		isZ: "lunaliumz",
+		ignoreAbility: true,
+		secondary: false,
+		target: "normal",
+		type: "Ghost",
+		contestType: "Cool",
+	},
 	"metalburst": {
 		num: 368,
 		accuracy: 100,
@@ -10283,7 +10378,7 @@ exports.BattleMovedex = {
 			if (source.transformed || !target.lastMove || disallowedMoves[target.lastMove] || source.moves.indexOf(target.lastMove) >= 0) return false;
 			let moveslot = source.moves.indexOf('mimic');
 			if (moveslot < 0) return false;
-			let move = Dex.getMove(target.lastMove);
+			let move = this.getMove(target.lastMove);
 			source.moveset[moveslot] = {
 				move: move.name,
 				id: move.id,
@@ -10302,6 +10397,28 @@ exports.BattleMovedex = {
 		type: "Normal",
 		zMoveBoost: {accuracy: 1},
 		contestType: "Cute",
+	},
+	"mindblown": {
+		num: 720,
+		accuracy: 100,
+		basePower: 150,
+		category: "Special",
+		desc: "The user loses 50% of its max HP to damage the foe.",
+		shortDesc: "User loses 50% max HP. Hits adjacent Pokemon.",
+		id: "mindblown",
+		isViable: true,
+		name: "Mind Blown",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onHit: function (target, source, move) {
+			this.damage(Math.round(source.maxhp / 2), source, source, null, true);
+		},
+		secondary: false,
+		target: "allAdjacent",
+		type: "Fire",
+		zMovePower: 200,
+		contestType: "Cool",
 	},
 	"mindreader": {
 		num: 170,
@@ -11645,6 +11762,26 @@ exports.BattleMovedex = {
 		zMovePower: 175,
 		contestType: "Cool",
 	},
+	"photongeyser": {
+		num: 722,
+		accuracy: 100,
+		basePower: 100,
+		category: "Special",
+		desc: "Damage is calculated using the user's higher attacking stat, including stat stage changes. The user's Ability, item, and burn are used as normal.",
+		shortDesc: "Uses higher attacking stat in damage calculation.",
+		id: "photongeyser",
+		isViable: true,
+		name: "Photon Geyser",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		useBestSourceOffensive: true,
+		secondary: false,
+		target: "normal",
+		type: "Psychic",
+		zMovePower: 180,
+		contestType: "Cool",
+	},
 	"pinmissile": {
 		num: 42,
 		accuracy: 95,
@@ -11662,6 +11799,27 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Bug",
 		zMovePower: 140,
+		contestType: "Cool",
+	},
+	"plasmafists": {
+		num: 721,
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		desc: "Causes Normal-type moves to become Electric type this turn.",
+		shortDesc: "Normal moves become Electric type this turn.",
+		id: "plasmafists",
+		isViable: true,
+		name: "Plasma Fists",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		pseudoWeather: 'iondeluge',
+		isUnreleased: true,
+		secondary: false,
+		target: "normal",
+		type: "Electric",
+		zMovePower: 180,
 		contestType: "Cool",
 	},
 	"playnice": {
@@ -12658,27 +12816,26 @@ exports.BattleMovedex = {
 			duration: 1,
 			onBeforeSwitchOut: function (pokemon) {
 				this.debug('Pursuit start');
-				let sources = this.effectData.sources;
 				let alreadyAdded = false;
-				for (let i = 0; i < sources.length; i++) {
-					if (sources[i].moveThisTurn || sources[i].fainted) continue;
+				for (const source of this.effectData.sources) {
+					if (source.moveThisTurn || source.fainted) continue;
 					if (!alreadyAdded) {
 						this.add('-activate', pokemon, 'move: Pursuit');
 						alreadyAdded = true;
 					}
-					this.cancelMove(sources[i]);
+					this.cancelMove(source);
 					// Run through each decision in queue to check if the Pursuit user is supposed to Mega Evolve this turn.
 					// If it is, then Mega Evolve before moving.
-					if (sources[i].canMegaEvo) {
-						for (let j = 0; j < this.queue.length; j++) {
-							if (this.queue[j].pokemon === sources[i] && this.queue[j].choice === 'megaEvo') {
-								this.runMegaEvo(sources[i]);
-								this.queue.splice(j, 1);
+					if (source.canMegaEvo || source.canUltraBurst) {
+						for (const [actionIndex, action] of this.queue.entries()) {
+							if (action.pokemon === source && action.choice === 'megaEvo') {
+								this.runMegaEvo(source);
+								this.queue.splice(actionIndex, 1);
 								break;
 							}
 						}
 					}
-					this.runMove('pursuit', sources[i], this.getTargetLoc(pokemon, sources[i]));
+					this.runMove('pursuit', source, this.getTargetLoc(pokemon, source));
 				}
 			},
 		},
@@ -14096,6 +14253,25 @@ exports.BattleMovedex = {
 		zMovePower: 180,
 		contestType: "Cool",
 	},
+	"searingsunrazesmash": {
+		num: 724,
+		accuracy: true,
+		basePower: 200,
+		category: "Physical",
+		desc: "This move and its effects ignore the Abilities of other Pokemon.",
+		shortDesc: "Ignores the Abilities of other Pokemon.",
+		id: "searingsunrazesmash",
+		name: "Searing Sunraze Smash",
+		pp: 1,
+		priority: 0,
+		flags: {contact: 1},
+		isZ: "solganiumz",
+		ignoreAbility: true,
+		secondary: false,
+		target: "normal",
+		type: "Steel",
+		contestType: "Cool",
+	},
 	"secretpower": {
 		num: 290,
 		accuracy: 100,
@@ -14726,7 +14902,7 @@ exports.BattleMovedex = {
 			if (source.transformed || !target.lastMove || disallowedMoves[target.lastMove] || source.moves.indexOf(target.lastMove) >= 0) return false;
 			let moveslot = source.moves.indexOf('sketch');
 			if (moveslot < 0) return false;
-			let move = Dex.getMove(target.lastMove);
+			let move = this.getMove(target.lastMove);
 			let sketchedMove = {
 				move: move.name,
 				id: move.id,
@@ -15933,6 +16109,27 @@ exports.BattleMovedex = {
 		type: "Normal",
 		zMoveBoost: {atk: 3},
 		contestType: "Cute",
+	},
+	"splinteredstormshards": {
+		num: 727,
+		accuracy: true,
+		basePower: 190,
+		category: "Physical",
+		desc: "Removes the current terrain.",
+		shortDesc: "Clears terrains.",
+		id: "splinteredstormshards",
+		name: "Splintered Stormshards",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onHit: function () {
+			this.clearTerrain();
+		},
+		isZ: "lycaniumz",
+		secondary: false,
+		target: "normal",
+		type: "Rock",
+		contestType: "Cool",
 	},
 	"spore": {
 		num: 147,

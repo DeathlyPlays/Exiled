@@ -106,7 +106,14 @@ Chat.commands = undefined;
  * Load chat filters
  *********************************************************/
 Chat.filters = [];
-Chat.filter = function (message, user, room, connection, targetUser) {
+/**
+ * @param {string} message
+ * @param {User} user
+ * @param {ChatRoom} room
+ * @param {Connection} connection
+ * @param {User?} [targetUser]
+ */
+Chat.filter = function (message, user, room, connection, targetUser = null) {
 	// Chat filters can choose to:
 	// 1. return false OR null - to not send a user's message
 	// 2. return an altered string - to alter a user's message
@@ -164,6 +171,12 @@ Chat.hostfilters = [];
 Chat.hostfilter = function (host, user, connection) {
 	for (const filter of Chat.hostfilters) {
 		filter(host, user, connection);
+	}
+};
+Chat.loginfilters = [];
+Chat.loginfilter = function (user, oldUser, usertype) {
+	for (const filter of Chat.loginfilters) {
+		filter(user, oldUser, usertype);
 	}
 };
 
@@ -393,7 +406,6 @@ class CommandContext {
 		if (!commandHandler && !recursing) {
 			for (let g in Config.groups) {
 				let groupid = Config.groups[g].id;
-				target = toId(target);
 				if (cmd === groupid) {
 					return this.splitCommand(`/promote ${target}, ${g}`, true);
 				} else if (cmd === 'global' + groupid) {
@@ -402,6 +414,8 @@ class CommandContext {
 					return this.splitCommand(`/demote ${target}`, true);
 				} else if (cmd === 'room' + groupid) {
 					return this.splitCommand(`/roompromote ${target}, ${g}`, true);
+				} else if (cmd === 'forceroom' + groupid) {
+					return this.splitCommand(`/roompromote !!!${target}, ${g}`, true);
 				} else if (cmd === 'roomde' + groupid || cmd === 'deroom' + groupid || cmd === 'roomun' + groupid) {
 					return this.splitCommand(`/roomdemote ${target}`, true);
 				}
@@ -990,8 +1004,9 @@ Chat.parse = function (message, room, user, connection) {
 	return context.parse();
 };
 
-Chat.sendPM = function (message, user, pmTarget) {
+Chat.sendPM = function (message, user, pmTarget, onlyRecipient = null) {
 	let buf = `|pm|${user.getIdentity()}|${pmTarget.getIdentity()}|${message}`;
+	if (onlyRecipient) return onlyRecipient.send(buf);
 	user.send(buf);
 	if (pmTarget !== user) pmTarget.send(buf);
 	pmTarget.lastPM = user.userid;
@@ -1033,6 +1048,7 @@ Chat.loadPlugins = function () {
 	if (Config.chatfilter) Chat.filters.push(Config.chatfilter);
 	if (Config.namefilter) Chat.namefilters.push(Config.namefilter);
 	if (Config.hostfilter) Chat.hostfilters.push(Config.hostfilter);
+	if (Config.loginfilter) Chat.loginfilters.push(Config.loginfilter);
 
 	// Install plug-in commands and chat filters
 
@@ -1051,6 +1067,7 @@ Chat.loadPlugins = function () {
 		if (plugin.chatfilter) Chat.filters.push(plugin.chatfilter);
 		if (plugin.namefilter) Chat.namefilters.push(plugin.namefilter);
 		if (plugin.hostfilter) Chat.hostfilters.push(plugin.hostfilter);
+		if (plugin.loginfilter) Chat.loginfilters.push(plugin.loginfilter);
 	}
 
 	let customfiles = FS('server-plugins/').readdirSync();

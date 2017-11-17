@@ -1086,8 +1086,6 @@ exports.commands = {
 	},
 	removeroomaliashelp: ["/removeroomalias [alias] - removes the given room alias of the room the command was entered in. Requires: & ~"],
 
-<<<<<<< HEAD
-=======
 	roomowner: function (target, room, user) {
 		if (!room.chatRoomData) {
 			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
@@ -1182,6 +1180,7 @@ exports.commands = {
 			room.auth[userid] = nextGroup;
 		}
 
+		if (room.founder === userid && nextGroup !== '#') room.founder = false; //Must be a demotion as
 		// Only show popup if: user is online and in the room, the room is public, and not a groupchat or a battle.
 		let needsPopup = targetUser && room.users[targetUser.userid] && !room.isPrivate && !room.isPersonal && !room.battle;
 
@@ -1194,14 +1193,14 @@ exports.commands = {
 				// if the user can't see the demotion message (i.e. rank < %), it is shown in the chat
 				targetUser.send(">" + room.id + "\n(You were demoted to Room " + groupName + " by " + user.name + ".)");
 			}
-			this.privateModCommand(`(${name} was demoted to Room ${groupName} by ${user.name}.)`);
-			if (needsPopup) targetUser.popup(`You were demoted to Room ${groupName} by ${user.name} in ${room.id}.`);
+			this.privateModCommand(`(${name} was demoted to Room ${groupName} by ${Server.nameColor(user.name)}.)`);
+			if (needsPopup) targetUser.popup(`You were demoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		} else if (nextGroup === '#') {
-			this.addModCommand(`${'' + name} was promoted to ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`You were promoted to ${groupName} by ${user.name} in ${room.id}.`);
+			this.addModCommand(`${'' + name} was promoted to ${groupName} by ${Server.nameColor(user.name)}.`);
+			if (needsPopup) targetUser.popup(`You were promoted to ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		} else {
-			this.addModCommand(`${'' + name} was promoted to Room ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`You were promoted to Room ${groupName} by ${user.name} in ${room.id}.`);
+			this.addModCommand(`${'' + name} was promoted to Room ${groupName} by ${Server.nameColor(user.name)}.`);
+			if (needsPopup) targetUser.popup(`You were promoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		}
 
 		if (targetUser) targetUser.updateIdentity(room.id);
@@ -1213,7 +1212,6 @@ exports.commands = {
 		"/roomdeauth [username] - Removes all room rank from the user. Requires: @ * # & ~",
 	],
 
->>>>>>> a555c8b48ca8f9d8381084576587a196fbbe340d
 	'!roomauth': true,
 	roomstaff: 'roomauth',
 	roomauth1: 'roomauth',

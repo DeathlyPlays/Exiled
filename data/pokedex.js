@@ -487,8 +487,7 @@ exports.BattlePokedex = {
 		evos: ["raichu", "raichualola"],
 		evoLevel: 1,
 		eggGroups: ["Field", "Fairy"],
-<<<<<<< HEAD
-		otherFormes: ["pikachuash", "pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola"],
+		otherFormes: ["pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola", "pikachupartner", "pikachuash"],
 	},
 	pikachuash: {
 		num: 25,
@@ -504,9 +503,6 @@ exports.BattlePokedex = {
 		weightkg: 6,
 		color: "Yellow",
 		eggGroups: ["Undiscovered"],
-=======
-		otherFormes: ["pikachucosplay", "pikachurockstar", "pikachubelle", "pikachupopstar", "pikachuphd", "pikachulibre", "pikachuoriginal", "pikachuhoenn", "pikachusinnoh", "pikachuunova", "pikachukalos", "pikachualola", "pikachupartner"],
->>>>>>> a555c8b48ca8f9d8381084576587a196fbbe340d
 	},
 	pikachucosplay: {
 		num: 25,

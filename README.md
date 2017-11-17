@@ -111,7 +111,19 @@ Owners
 
 Contributors
 
+<<<<<<< HEAD
 - [Lycanium Z](https://github.com/Lycanium-Z)
+=======
+- [AlfaStorm](https://github.com/AlphaWind)
+- [Back At My Day](https://github.com/BamdTheClueless)
+- [flufi](https://github.com/HiTechFlufi)
+- [gyaratoast](https://github.com/gyaratoast)
+- [HoeenHero](https://github.com/HoeenCoder)
+- [Lycanium Z](https://github.com/Lycanium-Z)
+- [megas4ever](https://github.com/Megas4ever)
+- [Mewth](https://github.com/Mewthy)
+- [Volco](https://github.com/Volco)
+>>>>>>> 961feb038d78d0c63d9ef39a67c56175a8a5229c
 
 Special thanks
 

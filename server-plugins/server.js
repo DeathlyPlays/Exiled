@@ -4,6 +4,7 @@ const fs = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
 const http = require('http');
+const Pokedex = require('../data/pokedex.js').BattlePokedex;
 
 const bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
@@ -1531,5 +1532,43 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 			this.privateModCommand("(" + user.name + " has protected this room from being automatically deleted.)");
 		}
+	},
+
+	randp: function (target) {
+		if (!this.runBroadcast()) return;
+		let shinyPoke = "";
+		let x;
+		if (/shiny/i.test(target)) shinyPoke = "-shiny";
+		if (/kanto/i.test(target) || /gen 1/i.test(target)) {
+			x = Math.floor(Math.random() * (174 - 1));
+		} else if (/johto/i.test(target) || /gen 2/i.test(target)) {
+			x = Math.floor(Math.random() * (281 - 173)) + 172;
+		} else if (/hoenn/i.test(target) || /gen 3/i.test(target)) {
+			x = Math.floor(Math.random() * (444 - 280)) + 279;
+		} else if (/sinnoh/i.test(target) || /gen 4/i.test(target)) {
+			x = Math.floor(Math.random() * (584 - 443)) + 442;
+		} else if (/kalos/i.test(target) || /gen 5/i.test(target)) {
+			x = Math.floor(Math.random() * (755 - 583)) + 582;
+		} else if (/unova/i.test(target) || /gen 6/i.test(target)) {
+			x = Math.floor(Math.random() * (834 - 752)) + 751;
+		}
+		x = x || Math.floor(Math.random() * (856 - 1));
+		let tarPoke = Object.keys(Pokedex)[x];
+		let pokeData = Pokedex[tarPoke];
+		let pokeId = pokeData.species.toLowerCase();
+		pokeId = pokeId.replace(/^basculinbluestriped$/i, "basculin-bluestriped").replace(/^pichuspikyeared$/i, "pichu-spikyeared").replace(/^floetteeternalflower$/i, "floette-eternalflower");
+		if (pokeId === "pikachu-cosplay") pokeId = ["pikachu-belle", "pikachu-phd", "pikachu-libre", "pikachu-popstar", "pikachu-rockstar"][~~(Math.random() * 6)];
+		let spriteLocation = "http://play.pokemonshowdown.com/sprites/xyani" + shinyPoke + "/" + pokeId + ".gif";
+		let missingnoSprites = ["http://cdn.bulbagarden.net/upload/9/98/Missingno_RB.png", "http://cdn.bulbagarden.net/upload/0/03/Missingno_Y.png", "http://cdn.bulbagarden.net/upload/a/aa/Spr_1b_141_f.png", "http://cdn.bulbagarden.net/upload/b/bb/Spr_1b_142_f.png", "http://cdn.bulbagarden.net/upload/9/9e/Ghost_I.png"];
+		if (pokeId === "missingno") spriteLocation = missingnoSprites[~~(Math.random() * 5)];
+
+		function getTypeFormatting(types) {
+			let text = [];
+			for (let i = 0; i < types.length; i++) {
+				text.push("<img src=\"http://play.pokemonshowdown.com/sprites/types/" + types[i] + ".png\" width=\"32\" height=\"14\">");
+			}
+			return text.join(" / ");
+		}
+		this.sendReplyBox("<div style=\"background-color: rgba(207, 247, 160, 0.4); border: #000000 solid 3px; border-radius: 10%; color: #0a024a; padding: 30px 30px\"><center><table><td><img src=\"" + spriteLocation + "\"</td><td>&nbsp;&nbsp;<strong>Name: </strong>" + pokeData.species + "<br/>&nbsp;&nbsp;<strong>Type(s): </strong>" + getTypeFormatting(pokeData.types) + "<br/>&nbsp;&nbsp;<strong>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </strong>" + Object.values(pokeData.abilities).join(" / ") + "<br/>&nbsp;&nbsp;<strong>Stats: </strong>" + Object.values(pokeData.baseStats).join(" / ") + "<br/>&nbsp;&nbsp;<strong>Colour: </strong><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/>&nbsp;&nbsp;<strong>Egg Group(s): </strong>" + pokeData.eggGroups.join(", ") + "</td></table></center></div>");
 	},
 };

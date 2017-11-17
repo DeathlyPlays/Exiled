@@ -397,6 +397,11 @@ exports.commands = {
 			this.sendReply("Avatar changed to:\n" +
 				'|raw|<img src="//play.pokemonshowdown.com/sprites/trainers/' + (typeof avatar === 'string' ? avatar.substr(1) : avatar) + '.png" alt="" width="80" height="80" />');
 		}
+
+		if (typeof avatar === 'number' && (avatar === 500)) {
+			this.sendReply("Avatar changed to:\n" +
+				'|raw|<img src="https://vignette.wikia.nocookie.net/pokemon/images/a/a7/E_243_front.gif/revision/latest?cb=20140903211959" width="80" height="80"');
+		}
 	},
 	avatarhelp: ["/avatar [avatar number 1 to 293] - Change your trainer sprite."],
 

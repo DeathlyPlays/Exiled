@@ -84,6 +84,7 @@ exports.commands = {
 			this.sendReply('|html|' + Server.nameColor(devUsername, true) + " has been given DEV status.");
 			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
+
 		take: function (target, user) {
 			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
@@ -94,6 +95,7 @@ exports.commands = {
 			this.sendReply("|html|" + Server.nameColor(devUsername, true) + " has been demoted from DEV status.");
 			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been demoted from DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
+
 		users: 'list',
 		list: function () {
 			if (!Db('devs').keys().length) return this.errorReply('There seems to be no user with DEV status.');
@@ -103,6 +105,7 @@ exports.commands = {
 			});
 			this.popupReply('|html|<strong><u><font size="3"><center>DEV Users:</center></font></u></strong>' + display.join(','));
 		},
+
 		'': 'help',
 		help: function () {
 			this.sendReplyBox(
@@ -118,6 +121,7 @@ exports.commands = {
 			);
 		},
 	},
+
 	vip: {
 		give: function (target, room, user) {
 			if (!this.can('ban')) return false;
@@ -129,6 +133,7 @@ exports.commands = {
 			this.sendReply("|html|" + Server.nameColor(vipUsername, true) + " has been given VIP status.");
 			if (Users.get(vipUsername)) Users(vipUsername).popup("|html|You have been given VIP status by " + Server.nameColor(user.name, true) + ".");
 		},
+
 		take: function (target, room, user) {
 			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
@@ -139,6 +144,7 @@ exports.commands = {
 			this.sendReply("|html|" + Server.nameColor(vipUsername, true) + " has been demoted from VIP status.");
 			if (Users.get(vipUsername)) Users(vipUsername).popup("|html|You have been demoted from VIP status by " + Server.nameColor(user.name, true) + ".");
 		},
+
 		users: 'list',
 		list: function (target, room, user) {
 			if (!Db("vips").keys().length) return this.errorReply('There seems to be no user with VIP status.');
@@ -148,6 +154,7 @@ exports.commands = {
 			});
 			this.popupReply('|html|<strong><u><font size="3"><center>VIP Users:</center></font></u></strong>' + display.join(','));
 		},
+
 		'': 'help',
 		help: function (target, room, user) {
 			this.sendReplyBox(
@@ -163,6 +170,7 @@ exports.commands = {
 			);
 		},
 	},
+
 	title: 'customtitle',
 	customtitle: {
 		set: 'give',
@@ -190,6 +198,7 @@ exports.commands = {
 			Monitor.log(user.name + " set a custom title to " + userid + "'s profile.");
 			return this.sendReply("Title '" + title + "' and color '" + color + "' for " + userid + "'s custom title have been set.");
 		},
+
 		delete: 'remove',
 		take: 'remove',
 		remove: function (target, room, user) {
@@ -210,6 +219,7 @@ exports.commands = {
 			Monitor.log(user.name + " removed " + userid + "'s custom title.");
 			return this.sendReply(userid + "'s custom title and title color were removed from the server memory.");
 		},
+
 		'': 'help',
 		help: function (target, room, user) {
 			if (!user.autoconfirmed) return this.errorReply("You need to be autoconfirmed to use this command.");
@@ -348,6 +358,8 @@ exports.commands = {
 		removebg: 'deletebg',
 		remove: 'deletebg',
 		deletebackground: 'deletebg',
+		takebg: 'deletebg',
+		take: 'deletebg',
 		delete: 'deletebg',
 		deletebg: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
@@ -559,6 +571,8 @@ exports.commands = {
 		"/pteam take [user] - Revokes a user's access to edit their profile team. Requires + or higher.",
 		"/music set [user], [song], [title] - Sets a user's profile song. Requires + or higher.",
 		"/music take [user] - Removes a user's profile song. Requires + or higher.",
+		"/bg set [user], [link] - Sets the user's profile background. Requires + or higher.",
+		"/bg delete [user] - Removes the user's profile background. Requires + or higher.",
 		"/fc set [friend code] - Sets your Friend Code.",
 		"/fc delete [friend code] - Removes your Friend Code.",
 		"/dev give [user] - Gives a user Dev Status. Requires @ or higher.",

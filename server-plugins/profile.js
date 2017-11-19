@@ -75,7 +75,7 @@ function lastActive(user) {
 exports.commands = {
 	dev: {
 		give: function (target, user) {
-			if (!this.can('hotpatch')) return false;
+			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
 			let devUsername = toId(target);
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -85,7 +85,7 @@ exports.commands = {
 			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
 		take: function (target, user) {
-			if (!this.can('hotpatch')) return false;
+			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
 			let devUsername = toId(target);
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -120,7 +120,7 @@ exports.commands = {
 	},
 	vip: {
 		give: function (target, room, user) {
-			if (!this.can('forcerename')) return false;
+			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
 			let vipUsername = toId(target);
 			if (vipUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -130,7 +130,7 @@ exports.commands = {
 			if (Users.get(vipUsername)) Users(vipUsername).popup("|html|You have been given VIP status by " + Server.nameColor(user.name, true) + ".");
 		},
 		take: function (target, room, user) {
-			if (!this.can('forcerename')) return false;
+			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
 			let vipUsername = toId(target);
 			if (vipUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -167,7 +167,7 @@ exports.commands = {
 	customtitle: {
 		set: 'give',
 		give: function (target, room, user) {
-			if (!this.can('forcerename')) return false;
+			if (!this.can('ban')) return false;
 			target = target.split(',');
 			if (!target || target.length < 3) return this.parse('/help', true);
 			let userid = toId(target[0]);
@@ -193,7 +193,7 @@ exports.commands = {
 		delete: 'remove',
 		take: 'remove',
 		remove: function (target, room, user) {
-			if (!this.can('forcerename')) return false;
+			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
 			let userid = toId(target);
 			if (!Db("titles").has(userid) && !Db("titlecolors").has(userid)) {
@@ -242,6 +242,7 @@ exports.commands = {
 			Db("friendcode").set(toId(user), fc);
 			return this.sendReply("Your friend code: " + fc + " has been saved to the server.");
 		},
+
 		remove: 'delete',
 		delete: function (target, room, user) {
 			if (room.battle) return this.errorReply("Please use this command outside of battle rooms.");
@@ -258,6 +259,7 @@ exports.commands = {
 				return this.sendReply(userid + "'s friend code has been deleted from the server.");
 			}
 		},
+
 		'': 'help',
 		help: function (target, room, user) {
 			if (room.battle) return this.errorReply("Please use this command outside of battle rooms.");
@@ -292,6 +294,7 @@ exports.commands = {
 				this.sendReply('You have added this pokemon to your team.');
 			}
 		},
+
 		give: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
 			if (!target) return this.parse('/profileteam help');
@@ -300,6 +303,7 @@ exports.commands = {
 			this.sendReply(target + ' has been given the ability to set their team.');
 			Users(target).popup('You have been given the ability to set your profile team.');
 		},
+
 		take: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
 			if (!target) return this.parse('/profileteam help');
@@ -307,6 +311,7 @@ exports.commands = {
 			Db('hasteam').delete(user);
 			this.sendReply('This user has had their ability to change their team away.');
 		},
+
 		help: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox(
@@ -470,7 +475,6 @@ exports.commands = {
 			function iconize(link) {
 				return '<button id="kek" style="background:transparent;border:none;"><img src="https://serebii.net/pokedex-sm/icon/' + link + '.png"></button>';
 			}
-			//return '<div style="' + teamcss + '">' + '<br>' + iconize(one) + iconize(two) + iconize(three) + '<br>' + iconize(four) + iconize(five) + iconize(six) + '</div>';*/
 			let teamDisplay = '<center><div style="' + teamcss + '">';
 			if (Db('teams').has([user, 'one'])) {
 				teamDisplay += iconize(one);
@@ -517,7 +521,7 @@ exports.commands = {
 			let song = Db('music').get([fren, 'link']);
 			let title = Db('music').get([fren, 'title']);
 			if (!Db('music').has(fren)) return '';
-			return '<acronym title="' + title + '"><br><audio src="' + song + '" controls="" style="width:100%;"></audio></acronym>';
+			return '<acronym title="' + title + '"><br /><audio src="' + song + '" controls="" style="width:100%;"></audio></acronym>';
 		}
 
 		function showProfile() {
@@ -542,9 +546,24 @@ exports.commands = {
 				}
 				profile += '&nbsp;' + showTeam(toId(username)) + '<br />';
 				profile += '&nbsp;' + song(toId(username)) + '';
+				profile += '&nbsp;</div>';
 				profile += '<br clear="all">';
 				self.sendReplyBox(profile);
 			});
 		}
 	},
+
+	profilehelp: [
+		"/profile [user] - Shows a user's profile. Defaults to yourself.",
+		"/pteam give [user] - Gives a user access to edit their profile team. Requires + or higher.",
+		"/pteam take [user] - Revokes a user's access to edit their profile team. Requires + or higher.",
+		"/music set [user], [song], [title] - Sets a user's profile song. Requires + or higher.",
+		"/music take [user] - Removes a user's profile song. Requires + or higher.",
+		"/fc set [friend code] - Sets your Friend Code.",
+		"/fc delete [friend code] - Removes your Friend Code.",
+		"/dev give [user] - Gives a user Dev Status. Requires @ or higher.",
+		"/dev take [user] - Removes a user's Dev Status. Requires @ or higher.",
+		"/vip give [user] - Gives a user VIP Status. Requires @ or higher.",
+		"/vip take [user] - Removes a user's VIP Status. Requires @ or higher.",
+	],
 };

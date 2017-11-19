@@ -7,8 +7,27 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 		let team = [];
 		let sets = {
 			//Admemes
+<<<<<<< HEAD:mods/dssb/random-teams.js
+=======
+			"~Insist": {
+				species: "Ludicolo",
+				ability: "Crippling Depression",
+				item: "Playnium Z",
+				gender: "M",
+				shiny: true,
+				moves: ['freezedry', 'gigadrain', 'focusblast'],
+				baseSignatureMove: "npmtest",
+				signatureMove: "npm test",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Timid",
+			},
+>>>>>>> b0b58bb7d07ab1e824c4f4a73de250422933c2fe:mods/essb/random-teams.js
 			"~Mewth": {
-				species: "Furret-Mega",
+				species: "Furret",
 				ability: "Roarplaying",
 				item: "Scope Lens",
 				gender: "F",
@@ -54,6 +73,39 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Adamant",
 			},
 			//Leaders
+<<<<<<< HEAD:mods/dssb/random-teams.js
+=======
+			"&Chandie": {
+				species: "Chandelure",
+				ability: "Magma Overdrive",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['secretsword', 'moongeistbeam', 'ember'],
+				baseSignatureMove: "solareruption",
+				signatureMove: "Solar Eruption",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Modest",
+			},
+			"&Back At My Day": {
+				species: "Camerupt-Mega",
+				ability: "Time Traveler",
+				item: "Rocky Helmet",
+				gender: "M",
+				moves: ['aeroblast', 'steameruption', 'freezedry'],
+				baseSignatureMove: "roleplaying",
+				signatureMove: "Roleplaying",
+				evs: {
+					def: 148,
+					spa: 252,
+					spd: 108,
+				},
+				nature: "Timid",
+			},
+>>>>>>> b0b58bb7d07ab1e824c4f4a73de250422933c2fe:mods/essb/random-teams.js
 			"&flufi": {
 				species: "Minccino",
 				ability: "Sneaky Fluffer",
@@ -117,11 +169,17 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Timid",
 			},
+<<<<<<< HEAD:mods/dssb/random-teams.js
 			"@Insist": {
 				species: "Ludicolo-Mega",
 				ability: "Crippling Depression",
 				item: "Playnium Z",
 				gender: "M",
+=======
+			"@Kraken Mare": {
+				species: "Gardevoir-Mega",
+				ability: "Kraken's Boost",
+>>>>>>> b0b58bb7d07ab1e824c4f4a73de250422933c2fe:mods/essb/random-teams.js
 				shiny: true,
 				moves: ['freezedry', 'gigadrain', 'focusblast'],
 				baseSignatureMove: "npmtest",
@@ -257,10 +315,18 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Jolly",
 			},
+<<<<<<< HEAD:mods/dssb/random-teams.js
 			" Back At My Day": {
 				species: "Camerupt-Mega",
 				ability: "Time Traveler",
 				item: "Rocky Helmet",
+=======
+			//Voices
+			"+Renfur": {
+				species: "Flygon",
+				ability: "Desert Dragon",
+				item: "Life Orb",
+>>>>>>> b0b58bb7d07ab1e824c4f4a73de250422933c2fe:mods/essb/random-teams.js
 				gender: "M",
 				moves: ['aeroblast', 'steameruption', 'freezedry'],
 				baseSignatureMove: "roleplaying",
@@ -302,7 +368,26 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Timid",
 			},
+<<<<<<< HEAD:mods/dssb/random-teams.js
 			" Wobbleleez": {
+=======
+			"+Blooded❤Draco": {
+				species: "Kyurem-Black",
+				ability: "Poison Heal",
+				item: "Toxic Orb",
+				moves: ['dragonclaw', 'willowisp', 'dragonpulse'],
+				baseSignatureMove: "hellfire",
+				signatureMove: "Hellfire",
+				evs: {
+					hp: 4,
+					spa: 252,
+					spe: 252,
+				},
+				nature: "Naive",
+			},
+			//Trusteds
+			"✓Wobbleleez": {
+>>>>>>> b0b58bb7d07ab1e824c4f4a73de250422933c2fe:mods/essb/random-teams.js
 				species: "Musharna",
 				ability: "WobzDoezJobz",
 				item: "Leftovers",
@@ -363,6 +448,54 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Adamant",
 			},
+<<<<<<< HEAD:mods/dssb/random-teams.js
+=======
+			" 007Nilo": {
+				species: "Zoroark",
+				ability: "Illusion",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['nastyplot', 'nightdaze', 'focusblast'],
+				baseSignatureMove: "powerofdarkness",
+				signatureMove: "Power Of Darkness",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Modest",
+			},
+			" LassNinetales": {
+				species: "Ninetales-Alola",
+				ability: "prfmlmao",
+				item: "Life Orb",
+				gender: "F",
+				moves: ['boomburst', 'psychic', 'earthpower'],
+				baseSignatureMove: "prfmador",
+				signatureMove: "prfmador",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Timid",
+			},
+			" KanekiPlayerBR": {
+				species: "Ninetales",
+				ability: "JOOJ",
+				item: "Kanekinium Z",
+				gender: "M",
+				moves: ['flamethrower', 'psyshock', 'energyball'],
+				baseSignatureMove: "superultraflamethrowerdestroyerofuniverses",
+				signatureMove: "Super Ultra Flamethrower Destroyer of Universes",
+				evs: {
+					spa: 252,
+					hp: 236,
+					spd: 16,
+				},
+				nature: "Modest",
+			},
+>>>>>>> b0b58bb7d07ab1e824c4f4a73de250422933c2fe:mods/essb/random-teams.js
 			" douglasgamer": {
 				species: "Greninja-Ash",
 				ability: "Get Bonded",
@@ -378,6 +511,39 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Modest",
 			},
+<<<<<<< HEAD:mods/dssb/random-teams.js
+=======
+			" Volco": {
+				species: "Volcanion",
+				ability: "Volcanic Ash",
+				item: "Assault Vest",
+				gender: "M",
+				moves: ['steameruption', 'gigadrain', 'earthpower'],
+				baseSignatureMove: "volcanosrevenge",
+				signatureMove: "Volcano's Revenge",
+				evs: {
+					spa: 252,
+					spe: 252,
+					spd: 4,
+				},
+				nature: "Modest",
+			},
+			" Mysticoz": {
+				species: "Absol-Mega",
+				ability: "Dark Boost",
+				item: "Life Orb",
+				gender: "M",
+				moves: ['swordsdance', 'playrough', 'suckerpunch'],
+				baseSignatureMove: "punchofdarkness",
+				signatureMove: "Punch of Darkness",
+				evs: {
+					atk: 252,
+					def: 4,
+					spe: 252,
+				},
+				nature: "Adamant",
+			},
+>>>>>>> b0b58bb7d07ab1e824c4f4a73de250422933c2fe:mods/essb/random-teams.js
 			" Paradox03": {
 				species: "Dodrio",
 				ability: "DustKickUp",
@@ -394,13 +560,17 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Jolly",
 			},
 			" DivineSaiyanScaris": {
+<<<<<<< HEAD:mods/dssb/random-teams.js
 				species: "Infernape-Mega",
+=======
+				species: "Infernape",
+>>>>>>> b0b58bb7d07ab1e824c4f4a73de250422933c2fe:mods/essb/random-teams.js
 				ability: "Fighter's Heart",
 				item: "Life Orb",
 				gender: "M",
 				moves: ['closecombat', 'moonblast', 'solarbeam'],
 				baseSignatureMove: "warriorsinferno",
-				signatureMove: "Warriors Inferno",
+				signatureMove: "Warrior's Inferno",
 				evs: {
 					atk: 128,
 					spe: 252,

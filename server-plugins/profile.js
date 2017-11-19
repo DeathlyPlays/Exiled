@@ -322,6 +322,7 @@ exports.commands = {
 			this.sendReply('This user has had their ability to change their team away.');
 		},
 
+		'': 'help',
 		help: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox(
@@ -568,6 +569,7 @@ exports.commands = {
 	profilehelp: [
 		"/profile [user] - Shows a user's profile. Defaults to yourself.",
 		"/pteam give [user] - Gives a user access to edit their profile team. Requires + or higher.",
+		"/pteam add [slot], [dex # of the Pokemon] - Adds a Pokemon onto your profile team. Requires profile edit access.",
 		"/pteam take [user] - Revokes a user's access to edit their profile team. Requires + or higher.",
 		"/music set [user], [song], [title] - Sets a user's profile song. Requires + or higher.",
 		"/music take [user] - Removes a user's profile song. Requires + or higher.",

@@ -683,7 +683,7 @@ exports.BattleAbilities = {
 	},
 	"desertdragon": {
 		id: "desertdragon",
-		name: "DesertDragon",
+		name: "Desert Dragon",
 		desc: "Normal type moves become Bug type and if the user makes a Pokemon faint, its SpA and Spe raise two stages.",
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
@@ -704,6 +704,10 @@ exports.BattleAbilities = {
 			onBasePower: function (basePower, pokemon, target, move) {
 				return this.chainModify([0x1333, 0x1000]);
 			},
+		},
+		onStart: function (pokemon) {
+			this.add('-start', pokemon, 'typechange', 'Bug/Dragon');
+			pokemon.types = ["Bug", "Dragon"];
 		},
 	},
 	"defense": {
@@ -1291,7 +1295,7 @@ exports.BattleAbilities = {
 	"fightersheart": {
 		id: "fightersheart",
 		name: "Fighter's Heart",
-		shortDesc: "Boosts user's Attack Special Attack and Spe upon entry.",
+		shortDesc: "Boosts user's Atk, SpA, and Spe upon entry.",
 		onStart: function (pokemon) {
 			this.boost({atk: 1, spa: 1, spe: 1});
 		},

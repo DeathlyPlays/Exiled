@@ -8,7 +8,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 		let sets = {
 			//Admemes
 			"~Insist": {
-				species: "Ludicolo-Mega",
+				species: "Ludicolo",
 				ability: "Crippling Depression",
 				item: "Playnium Z",
 				gender: "M",
@@ -24,7 +24,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Timid",
 			},
 			"~Mewth": {
-				species: "Furret-Mega",
+				species: "Furret",
 				ability: "Roarplaying",
 				item: "Scope Lens",
 				gender: "F",
@@ -88,7 +88,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			},
 			//Leaders
 			"&Chandie": {
-				species: "Chandelure-Mega",
+				species: "Chandelure",
 				ability: "Magma Overdrive",
 				item: "Life Orb",
 				gender: "M",
@@ -182,7 +182,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			},
 			"@Kraken Mare": {
 				species: "Gardevoir-Mega",
-				ability: "krakensboost",
+				ability: "Kraken's Boost",
 				shiny: true,
 				item: "Focus Sash",
 				gender: "F",
@@ -306,8 +306,8 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			},
 			//Voices
 			"+Renfur": {
-				species: "Flygon-Mega",
-				ability: "DesertDragon",
+				species: "Flygon",
+				ability: "Desert Dragon",
 				item: "Life Orb",
 				gender: "M",
 				moves: ['flamethrower', 'earthpower', 'dragonpulse'],
@@ -363,20 +363,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 					spe: 252,
 				},
 				nature: "Naive",
-			},
-			"+Randbat Spam": {
-				species: "Giratina",
-				ability: "Distorted Dimensions",
-				item: "Distorted Rock",
-				moves: ["sunsteelstrike", "shadowforce", "dragonrush"],
-				baseSignatureMove: "thousandarrows",
-				signatureMove: "Thousand Arrows",
-				evs: {
-					atk: 252,
-					def: 4,
-					spe: 252,
-				},
-				nature: "Jolly",
 			},
 			//Trusteds
 			"✓Wobbleleez": {
@@ -531,7 +517,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Adamant",
 			},
 			" 007Nilo": {
-				species: "Zoroark-Mega",
+				species: "Zoroark",
 				ability: "Illusion",
 				item: "Life Orb",
 				gender: "M",
@@ -591,7 +577,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Modest",
 			},
 			" Volco": {
-				species: "Volcanion-Mega",
+				species: "Volcanion",
 				ability: "Volcanic Ash",
 				item: "Assault Vest",
 				gender: "M",
@@ -637,12 +623,12 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			},
 			" DivineSaiyanScaris": {
 				species: "Infernape",
-				ability: "Fighter;s Heart",
+				ability: "Fighter's Heart",
 				item: "Life Orb",
 				gender: "M",
 				moves: ['closecombat', 'moonblast', 'solarbeam'],
 				baseSignatureMove: "warriorsinferno",
-				signatureMove: "Warriors Inferno",
+				signatureMove: "Warrior's Inferno",
 				evs: {
 					atk: 128,
 					spe: 252,

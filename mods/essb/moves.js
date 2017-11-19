@@ -1457,28 +1457,15 @@ exports.BattleMovedex = {
 	},
 	"warriorsinferno": {
 		id: "warriorsinferno",
-		name: "Warriors Inferno",
+		name: "Warrior's Inferno",
 		priority: 0,
 		flags: {
 			protect: 1,
 			mirror: 1,
 		},
 		desc: "Makes weather Intense Sun + Hits on Weaker Defense",
-		category: function (pokemon, move) {
-			let foeactive = pokemon.side.foe.active;
-			let totaldef = 0;
-			let totalspd = 0;
-			for (let i = 0; i < foeactive.length; i++) {
-				if (!foeactive[i] || foeactive[i].fainted) continue;
-				totaldef += foeactive[i].getStat('def', false, true);
-				totalspd += foeactive[i].getStat('spd', false, true);
-			}
-			if (totaldef && totaldef >= totalspd) {
-				move.category = 'Special';
-			} else if (totalspd) {
-				move.category = 'Physical';
-			}
-		},
+		category: "Physical",
+		useBestSourceOffensive: true,
 		secondary: false,
 		weather: "desolateland",
 		onPrepareHit: function (target, source, move) {

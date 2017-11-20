@@ -196,8 +196,8 @@ exports.Formats = [
 		maxLevel: 9999,
 		defaultLevel: 100,
 		teamLength: {
-			validate: [1, 24],
-			battle: 24,
+			validate: [1, 60],
+			battle: 60,
 		},
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod'],
@@ -1169,6 +1169,10 @@ exports.Formats = [
 		canUseRandomTeam: true,
 		maxLevel: 9999,
 		defaultLevel: 100,
+		teamLength: {
+			validate: [1, 24],
+			battle: 24,
+		},
 		debug: true,
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod'],

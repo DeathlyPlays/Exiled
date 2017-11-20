@@ -59,7 +59,7 @@ let Panagram = (function () {
 	}
 	Panagram.prototype.guess = function (user, guess) {
 		if (guess.species === this.answer.species) {
-			this.room.add('|html|' + Server.nameColor(user.name, true) + ' guessed <strong>' + guess.species + '</strong>, which was the correct answer! This user has also won 0.25 bucks!');
+			this.room.add('|html|' + Server.nameColor(user.name, true) + ' guessed <strong>' + guess.species + '</strong>, which was the correct answer! This user has also won 1 ' + moneyName + '!');
 			Economy.writeMoney(user.userid, 1);
 			this.end();
 		} else {

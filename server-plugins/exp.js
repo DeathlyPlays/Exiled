@@ -142,7 +142,8 @@ exports.commands = {
 			});
 		} else {
 			EXP.readExp(user.userid, exp => {
-				this.sendReplyBox("Name: " + Server.nameColor(user.userid, true) + "<br />Current level: " + Server.level(user.userid) + "<br />Exp Needed for Next level: " + Server.nextLevel(user.userid) +
+				this.sendReplyBox(
+					"Name: " + Server.nameColor(user.userid, true) + "<br />Current level: " + Server.level(user.userid) + "<br />Exp Needed for Next level: " + Server.nextLevel(user.userid) +
 					"<br />All rewards have a 1 time use! <br /><br />" +
 					"Level 5 unlocks a free Custom Symbol. <br /><br />" +
 					"Level 10 unlocks a free Custom Avatar. <br /><br />" +

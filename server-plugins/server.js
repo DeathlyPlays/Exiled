@@ -117,17 +117,11 @@ function clearRoom(room) {
 Server.regdate = function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);
-	let options = {
-		host: 'pokemonshowdown.com',
-		port: 80,
-		path: '/users/' + target + '.json',
-		method: 'GET',
-	};
-	http.get(options, function (res) {
+	let req = https.get('https://pokemonshowdown.com/users/' + target + '.json', res => {
 		let data = '';
-		res.on('data', function (chunk) {
+		res.on('data', chunk => {
 			data += chunk;
-		}).on('end', function () {
+		}).on('end', () => {
 			data = JSON.parse(data);
 			let date = data['registertime'];
 			if (date !== 0 && date.toString().length < 13) {
@@ -142,6 +136,7 @@ Server.regdate = function (target, callback) {
 			callback((date === 0 ? false : date));
 		});
 	});
+	req.end();
 };
 
 function loadRegdateCache() {

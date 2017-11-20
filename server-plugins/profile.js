@@ -418,6 +418,40 @@ exports.commands = {
 		"/music take [user] - Removes a user's profile music.",
 	],
 
+	pokemon: {
+		add: "set",
+		set: function (target, room, user) {
+			let dex = Dex.data.Pokedex.species;
+			if (!target) return this.parse("/pokemonhelp");
+			let pkmn = target.toLowerCase().replace(' ', '');
+			if (!Dex.data.Pokedex[pkmn]) {
+				return this.errorReply('Not a Pokemon. Check your spelling?');
+			}
+			if (Db('pokemon').has(target)) return this.errorReply("This Pokemon is already listed as your favorite Pokemon on your profile.");
+			Db('pokemon').set(toId(user), target);
+			this.sendReply("You have successfully set your Pokemon onto your profile.");
+		},
+
+		del: "delete",
+		remove: "delete",
+		delete: function (target, room, user) {
+			if (!target) {
+				if (!Db('pokemon').has(toId(user))) return this.errorReply("Your favorite Pokemon hasn't been set.");
+				Db('pokemon').delete(toId(user));
+				return this.sendReply("Your favorite Pokemon has been deleted from your profile.");
+			}
+		},
+
+		"": "help",
+		help: function (target, room, user) {
+			this.parse('/pokemonhelp');
+		},
+	},
+	pokemonhelp: [
+		"/pokemon set [Pokemon] - Sets your Favorite Pokemon.",
+		"/pokemon delete - Removes your Favorite Pokemon.",
+	],
+
 	'!lastactive': true,
 	checkactivity: 'lastactive',
 	lastactive: function (target, room, user) {
@@ -488,6 +522,7 @@ exports.commands = {
 			function iconize(link) {
 				return '<button id="kek" style="background:transparent;border:none;"><img src="https://serebii.net/pokedex-sm/icon/' + link + '.png"></button>';
 			}
+
 			let teamDisplay = '<center><div style="' + teamcss + '">';
 			if (Db('teams').has([user, 'one'])) {
 				teamDisplay += iconize(one);
@@ -546,6 +581,9 @@ exports.commands = {
 				profile += '&nbsp;<font color="#24678d"><strong>Group:</strong></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ' + regdate + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>' + moneyPlural + ':</strong></font> ' + money + '<br />';
+				if (Db("pokemon").has(toId(username))) {
+					profile += '&nbsp;<font color="#24678d"><strong>Favorite Pokemon:</strong></font> ' + Db('pokemon').get(toId(username)) + '<br />';
+				}
 				if (Server.getFaction(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><strong>Faction:</strong></font> ' + Server.getFaction(toId(username)) + '<br />';
 				}
@@ -555,7 +593,7 @@ exports.commands = {
 				}
 				profile += '&nbsp;<font color="#24678d"><strong>Last Seen:</strong></font> ' + getLastSeen(toId(username)) + '</font><br />';
 				if (Db("friendcode").has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><strong>Friend Code:</strong></font> ' + Db("friendcode").get(toId(username));
+					profile += '&nbsp;<font color="#24678d"><strong>Friend Code:</strong></font> ' + Db("friendcode").get(toId(username)) + '<br />';
 				}
 				profile += '&nbsp;' + showTeam(toId(username)) + '<br />';
 				profile += '&nbsp;' + song(toId(username)) + '';

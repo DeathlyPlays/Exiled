@@ -22,6 +22,7 @@ class Draft {
 		this.random = true;
 		this.snake = true;
 	}
+
 	addTeam(teamname, manager, self) {
 		if (this.teams[teamname]) return self.errorReply('There is already a team with this Team Name.');
 		this.teams[teamname] = {
@@ -34,6 +35,7 @@ class Draft {
 		this.room.add('|html|<div style="' + greencss + '">The <strong>' + teamname + '</strong> are now apart of the draft and is managed by <strong>' + manager + '</strong></div>');
 		this.log(teamname + ' is now apart of the draft and is managed by ' + manager);
 	}
+
 	removeTeam(teamname, self) {
 		if (!this.teams[teamname]) return self.errorReply('There is not a team with this Team Name, thus there is no way to remove them from this draft.');
 		delete this.teams[teamname];
@@ -47,6 +49,7 @@ class Draft {
 		Db(fileName).set('draftedteams', this.teams);
 		this.log(teamname + ' has been removed from this league.');
 	}
+
 	start(self) {
 		if (this.originalOrder.length < 2) return self.errorReply('There is no point of having a draft league if there is only 1 team!');
 		this.order = this.originalOrder;
@@ -57,6 +60,7 @@ class Draft {
 		this.room.add('|html|<div style="' + greencss + '">It is now <strong>' + this.turn + '\'s</strong> turn.</div>');
 		this.log('The draft has started.');
 	}
+
 	Nom(pk, user, self) {
 		if (this.state !== 'drafting') return self.errorReply('There is no draft at the moment.');
 		if (this.teams[this.turn].manager !== user) return self.errorReply('It is not your turn to draft.');
@@ -71,26 +75,27 @@ class Draft {
 				this.room.add('|html|<div style="' + redcss + '">Everyone has received ' + this.maxMons + ' Draft Picks.<br> The Draft is over! We hope you are happy with your draft picks :)');
 				this.room.add('|html|<div style="' + greencss + '"><strong>Final Picks : </strong><br>' + this.show() + '</div>');
 				delete drafts[this.room];
-				this.log('Everyone has recieved ' + this.maxMons + ' Draft Picks, therefore the draft has ended.');
+				this.log('Everyone has received ' + this.maxMons + ' Draft Picks, therefore the draft has ended.');
 			} else if (this.snake === true) {
 				let reverseOrder = this.order.reverse();
 				this.turn = reverseOrder[0];
-				this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' Has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
+				this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
 				this.room.add('|html|<div style="' + greencss + '"><strong>' + this.turn + '</strong> currently has : ' + this.iconize(this.teams[this.turn].draftpicks) + '</div>');
 				this.log(user + ' has drafted ' + pk);
 			} else {
 				this.turn = this.order[0];
-				this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' Has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
+				this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
 				this.room.add('|html|<div style="' + greencss + '"><strong>' + this.turn + '</strong> currently has : ' + this.iconize(this.teams[this.turn].draftpicks) + '</div>');
 				this.log(user + ' has drafted ' + pk);
 			}
 		} else {
 			this.turn = this.order[this.order.indexOf(this.turn) + 1];
-			this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' Has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
+			this.room.add('|html|<div style="' + greencss + '">' + Server.nameColor(user.name, true) + ' has drafted the Pokemon : <strong>' + pk + '.</strong><br>It is now <strong>' + this.turn + '</strong>\'s turn.</div>');
 			this.room.add('|html|<div style="' + greencss + '"><strong>' + this.turn + '</strong> currently has : ' + this.iconize(this.teams[this.turn].draftpicks) + '</div>');
 			this.log(user + ' has drafted ' + pk);
 		}
 	}
+
 	iconize(team) {
 		let display = '';
 		for (let i = 0; i < team.length; i++) {
@@ -109,6 +114,7 @@ class Draft {
 		}
 		return display;
 	}
+
 	show(self) {
 		if (this.state === 'prep') return self.errorReply('The draft has not started yet.');
 		let display = "<table border='1' cellspacing='0' cellpadding='5' width='100%'><tbody><tr><th>Team</th><th>Manager</th><th>Team</th></tr>";
@@ -119,11 +125,13 @@ class Draft {
 		if (!self) return display;
 		self.sendReply('|html|' + display);
 	}
+
 	log(message) {
 		let file = path.join(__dirname, '../logs/' + this.room + 'DraftLogs.txt');
 		let text = '[' + Date() + ']' + message + '\n';
 		fs.appendFile(file, text, () => {});
 	}
+
 	overWrite(self, team, pick, mon) {
 		let oldpick = this.teams[team].draftpicks[pick - 1];
 		if (!this.teams[team]) return self.errorReply('This team is not apart of the draft.');
@@ -256,25 +264,27 @@ exports.commands = {
 			break;
 		default:
 			if (!this.runBroadcast()) return;
-			this.sendReplyBox('<strong><center>Drafts Management By Execute.</center></strong><br/>' +
-					'<strong>Adminstrative Commands</strong> : Requires #,&,~ <br/>' +
-					'<strong>/draft create</strong> - Creates a draft in the room.<br/>' +
-					'<strong>/draft end</strong> - Ends a draft.<br/>' +
-					'<strong>/draft addteam, (teamname), (manager)</strong> - Adds a team to the draft. This allows the user the ability to take part in the draft.<br/>' +
-					'<strong>/draft removeteam, (teamname)</strong> - Removes a team from the draft. This strips them of their ability to take part of this draft.<br/>' +
-					'<strong>/draft max, (max)</strong> - Sets the max number of pokemon any team may draft in this draft.<br/>' +
-					'<strong>/draft random, (true, false)</strong> - Sets the order of the draft to either be random or not. <br/>' +
-					'<strong>/draft snake, (true, false)</strong> - Sets the order of the draft to snake or not.<br/>' +
-					'<strong>/draft reset</strong> - Deletes all the data of a draft.<br/>' +
-					'<strong>/draft start</strong> - Starts the draft.<br>' +
-					'<strong>/draft stats</strong> - Displays every team participating in the draft with their respective manager, and every pokemon they have drafted up until that point.<br/>' +
-					'<strong>/draft change, (teamname), (draftpick), (desired Pokemon)</strong> - Allows the league manager to rewrite draft data. This should be used when a participant makes a mistake. <i>This shouldn\'t</i> ever be the case seeing as draft script automatically rejects any spelling errors in a pokemon\'s name, but this command is here if it is ever needed. <br/> ' +
-					'<strong>/draft drafted</strong> - Displays the pool of pokemon already drafted. These pokemon are not able to be claimed by anyone else after they are drafted. <br/>' +
-					'<strong>/draft end</strong> - Ends a draft league instantly. Unless you really need to end it, you <i>shouldn\'t</i> use this command, as the draft automatically ends when every player has finished drafting.<br><br/>' +
-					'<strong>/draftmon (pokemonname)</strong> - Allows a draft member to draft a pokemon onto their team.'
+			this.sendReplyBox(
+				'<strong><center>Drafts Management By Execute.</center></strong><br/>' +
+				'<strong>Adminstrative Commands</strong> : Requires #, &, ~ <br/>' +
+				'<strong>/draft create</strong> - Creates a draft in the room.<br/>' +
+				'<strong>/draft end</strong> - Ends a draft.<br/>' +
+				'<strong>/draft addteam, (teamname), (manager)</strong> - Adds a team to the draft. This allows the user the ability to take part in the draft.<br/>' +
+				'<strong>/draft removeteam, (teamname)</strong> - Removes a team from the draft. This strips them of their ability to take part of this draft.<br/>' +
+				'<strong>/draft max, (max)</strong> - Sets the max number of pokemon any team may draft in this draft.<br/>' +
+				'<strong>/draft random, (true, false)</strong> - Sets the order of the draft to either be random or not. <br/>' +
+				'<strong>/draft snake, (true, false)</strong> - Sets the order of the draft to snake or not.<br/>' +
+				'<strong>/draft reset</strong> - Deletes all the data of a draft.<br/>' +
+				'<strong>/draft start</strong> - Starts the draft.<br>' +
+				'<strong>/draft stats</strong> - Displays every team participating in the draft with their respective manager, and every pokemon they have drafted up until that point.<br/>' +
+				'<strong>/draft change, (teamname), (draftpick), (desired Pokemon)</strong> - Allows the league manager to rewrite draft data. This should be used when a participant makes a mistake. <i>This shouldn\'t</i> ever be the case seeing as draft script automatically rejects any spelling errors in a pokemon\'s name, but this command is here if it is ever needed. <br/> ' +
+				'<strong>/draft drafted</strong> - Displays the pool of pokemon already drafted. These pokemon are not able to be claimed by anyone else after they are drafted. <br/>' +
+				'<strong>/draft end</strong> - Ends a draft league instantly. Unless you really need to end it, you <i>shouldn\'t</i> use this command, as the draft automatically ends when every player has finished drafting.<br><br/>' +
+				'<strong>/draftmon (pokemonname)</strong> - Allows a draft member to draft a pokemon onto their team.'
 			);
 		}
 	},
+
 	draftmon: function (target, room, user) {
 		if (!drafts[room]) return this.errorReply('This room is not drafting at the moment.');
 		if (drafts[room].state !== 'drafting') return this.errorReply('The draft has not started.');

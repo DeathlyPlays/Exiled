@@ -341,9 +341,12 @@ exports.commands = {
 			yellow: '#yellow',
 			zinnia: '#zinnia',
 			clemont: '#clemont',
+<<<<<<< HEAD
 
 			//Funny Random Stuff
 			ash: 294,
+=======
+>>>>>>> 07e4922c5949d954ea816093a1aef24c35d02d8b
 			wally: '#wally',
 		};
 		if (avatarTable.hasOwnProperty(avatarid)) {

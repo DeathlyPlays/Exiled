@@ -231,10 +231,12 @@ exports.BattleScripts = {
 		}
 
 		if (!this.singleEvent('TryMove', move, null, pokemon, target, move)) {
+			move.mindBlownRecoil = false;
 			return false;
 		}
 
 		if (!this.runEvent('TryMove', pokemon, target, move)) {
+			move.mindBlownRecoil = false;
 			return false;
 		}
 
@@ -273,9 +275,6 @@ exports.BattleScripts = {
 				}
 			}
 			if (move.spreadHit) this.attrLastMove('[spread] ' + hitTargets.join(','));
-			if (move.mindBlownRecoil && !move.multihit) {
-				this.damage(Math.round(pokemon.maxhp / 2), pokemon, pokemon, null, true);
-			}
 		} else {
 			target = targets[0];
 			let lacksTarget = target.fainted;
@@ -914,11 +913,10 @@ exports.BattleScripts = {
 		} else {
 			if (isUltraBurst) {
 				this.add('-burst', pokemon, template.baseSpecies, template.requiredItem);
-				this.add('detailschange', pokemon, pokemon.details);
 			} else {
-				this.add('detailschange', pokemon, pokemon.details);
 				this.add('-mega', pokemon, template.baseSpecies, template.requiredItem);
 			}
+			this.add('detailschange', pokemon, pokemon.details);
 		}
 		pokemon.setAbility(template.abilities['0']);
 		pokemon.baseAbility = pokemon.ability;

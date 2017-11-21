@@ -974,6 +974,7 @@ class GlobalRoom extends BasicRoom {
 		if (time - this.lastReportedCrash < CRASH_REPORT_THROTTLE) {
 			const stackUS = (err ? Chat.escapeHTML(err.stack).split(`\n`).slice(0, 2).join(`.`) : ``);
 			const crashMessageUS = `**The server has crashed:** ${stackUS}`;
+			// @ts-ignore
 			Server.messageSeniorStaff(crashMessageUS, '~' + Config.serverName + ' Server');
 			return;
 		}
@@ -1282,14 +1283,22 @@ class ChatRoom extends BasicRoom {
 		} else {
 			this.modlogStream = FS('logs/modlog/modlog_' + roomid + '.txt').createAppendStream();
 		}
+		// @ts-ignore
 		this.deleteInactive = setTimeout(function () {
+			// @ts-ignore
 			if (!this.protect && !this.isOfficial && !this.isPrivate && !this.isPersonal && !this.isStaff && this.messageCount < 40) {
+				// @ts-ignore
 				Rooms.global.deregisterChatRoom(this.id);
+				// @ts-ignore
 				this.addRaw('<font color=red><strong>This room has been automatically deleted due to inactivity.  It will be removed upon the next server restart.</strong></font>');
+				// @ts-ignore
 				if (this.id !== 'global') this.update();
+				// @ts-ignore
 				this.modchat = '~';
+				// @ts-ignore
 				Rooms('staff').add("|raw|<font color=red><strong>" + this.title + " has been automatically deleted from the server due to inactivity.</strong></font>").update();
 			}
+		// @ts-ignore
 		}.bind(this), 2 * 24 * 60 * 60 * 1000); //48 hours
 	}
 
@@ -1482,8 +1491,9 @@ class ChatRoom extends BasicRoom {
 		this.sendUser(connection, '|init|chat\n|title|' + this.title + '\n' + userList + '\n' + this.getLogSlice(-100).join('\n') + this.getIntroMessage(user));
 		// @ts-ignore TODO: strongly-typed polls
 		if (this.poll) this.poll.onConnect(user, connection);
-		// @ts-ignore
+		// @ts-ignore TODO: strongly-typed autorank
 		if (this.autorank) {
+
 			if (!this.auth) {
 				this.auth = this.chatRoomData.auth = {};
 				Rooms.global.writeChatRoomData();
@@ -1491,7 +1501,7 @@ class ChatRoom extends BasicRoom {
 			this.auth[user.userid] = this.autorank;
 			user.updateIdentity();
 		}
-		// @ts-ignore TODO strongly-typed surveys
+		// @ts-ignore TODO: strongly-typed surveys
 		if (this.survey) this.survey.onConnect(user, connection);
 		if (this.game && this.game.onConnect) this.game.onConnect(user, connection);
 	}
@@ -1529,9 +1539,11 @@ class ChatRoom extends BasicRoom {
 		} else {
 			this.reportJoin('n', user.getIdentity(this.id) + '|' + oldid);
 		}
-		// @ts-ignore TODO: strongly typed polls
+		// @ts-ignore TODO: strongly-typed polls
 		if (this.poll) {
+			// @ts-ignore TODO: strongly-typed polls
 			for (let u in this.poll.pollArray) {
+				// @ts-ignore TODO: strongly-typed polls
 				if (user.userid in this.poll.pollArray[u].voters) this.poll.updateFor(user);
 			}
 		}

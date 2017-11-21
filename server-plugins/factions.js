@@ -566,6 +566,8 @@ exports.commands = {
 
 			factions[factionid].invites.splice(factions[factionid].invites.indexOf(user.userid), 1);
 			write();
+
+			user.popup("You've declined the invitation to join " + factions[factionid].name + ".");
 		},
 
 		leave: function (target, room, user) {

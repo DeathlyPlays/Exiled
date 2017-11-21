@@ -1493,11 +1493,13 @@ class ChatRoom extends BasicRoom {
 		if (this.poll) this.poll.onConnect(user, connection);
 		// @ts-ignore TODO: strongly-typed autorank
 		if (this.autorank) {
-
+			// @ts-ignore
 			if (!this.auth) {
+				// @ts-ignore
 				this.auth = this.chatRoomData.auth = {};
 				Rooms.global.writeChatRoomData();
 			}
+			// @ts-ignore
 			this.auth[user.userid] = this.autorank;
 			user.updateIdentity();
 		}

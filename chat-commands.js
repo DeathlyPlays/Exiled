@@ -379,6 +379,10 @@ exports.commands = {
 			yellow: '#yellow',
 			zinnia: '#zinnia',
 			clemont: '#clemont',
+<<<<<<< HEAD
+=======
+			wally: '#wally',
+>>>>>>> aa0f125d7208dd7e82e5202647a56de6e5856769
 		};
 		if (avatarTable.hasOwnProperty(avatarid)) {
 			avatar = avatarTable[avatarid];
@@ -1089,6 +1093,7 @@ exports.commands = {
 	},
 	removeroomaliashelp: ["/removeroomalias [alias] - removes the given room alias of the room the command was entered in. Requires: & ~"],
 
+<<<<<<< HEAD
 	roomowner: function (target, room, user) {
 		if (!room.chatRoomData) {
 			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
@@ -1248,6 +1253,8 @@ exports.commands = {
 		connection.popup(buffer.join("\n\n") + userLookup);
 	},
 
+=======
+>>>>>>> aa0f125d7208dd7e82e5202647a56de6e5856769
 	'!userauth': true,
 	userauth: function (target, room, user, connection) {
 		let targetId = toId(target) || user.userid;

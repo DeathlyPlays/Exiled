@@ -1,6 +1,6 @@
 'use strict';
 
-let http = require('http');
+let https = require('https');
 const Autolinker = require('autolinker');
 
 Server.nameColor = function (name, bold, userGroup) {
@@ -77,13 +77,8 @@ Server.randomString = function (length) {
 
 Server.reloadCSS = function () {
 	const cssPath = ' '; // This should be the server id if Config.serverid doesn't exist. Ex: 'serverid'
-	let options = {
-		host: 'play.pokemonshowdown.com',
-		port: 80,
-		path: '/customcss.php?server=' + (Config.serverid || cssPath),
-		method: 'GET',
-	};
-	http.get(options, () => {});
+	let req = https.get('https://play.pokemonshowdown.com/customcss.php?server=' + (Config.serverid || cssPath), () => {});
+	req.end();
 };
 
 //Daily Rewards System for Eon by Lord Haji

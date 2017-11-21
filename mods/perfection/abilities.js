@@ -4222,7 +4222,6 @@ exports.BattleAbilities = {
 			}
 		},
 		id: "mountaineer",
-		isNonstandard: true,
 		name: "Mountaineer",
 		rating: 3.5,
 		num: -2,
@@ -4265,7 +4264,6 @@ exports.BattleAbilities = {
 	"persistent": {
 		shortDesc: "The duration of certain field effects is increased by 2 turns if used by this Pokemon.",
 		id: "persistent",
-		isNonstandard: true,
 		name: "Persistent",
 		// implemented in the corresponding move
 		rating: 3.5,

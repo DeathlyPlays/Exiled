@@ -189,7 +189,7 @@ exports.commands = {
 			Db("titles").set(userid, [title, color]);
 			if (Users.get(targetUser)) {
 				Users(targetUser).popup(
-					'|html|You have recieved a custom title from ' + Server.nameColor(user.name, true) + '.' +
+					'|html|You have received a custom title from ' + Server.nameColor(user.name, true) + '.' +
 					'<br />Title: ' + showTitle(toId(targetUser)) +
 					'<br />Title Hex Color: ' + color
 				);
@@ -421,25 +421,19 @@ exports.commands = {
 	pokemon: {
 		add: "set",
 		set: function (target, room, user) {
-			let dex = Dex.data.Pokedex.species;
 			if (!target) return this.parse("/pokemonhelp");
-			let pkmn = target.toLowerCase().replace(' ', '');
-			if (!Dex.data.Pokedex[pkmn]) {
-				return this.errorReply('Not a Pokemon. Check your spelling?');
-			}
-			if (Db('pokemon').has(target)) return this.errorReply("This Pokemon is already listed as your favorite Pokemon on your profile.");
-			Db('pokemon').set(toId(user), target);
+			let pkmn = Dex.getTemplate(target);
+			if (!pkmn.exists) return this.errorReply('Not a Pokemon. Check your spelling?');
+			Db('pokemon').set(user.userid, pkmn.species);
 			this.sendReply("You have successfully set your Pokemon onto your profile.");
 		},
 
 		del: "delete",
 		remove: "delete",
 		delete: function (target, room, user) {
-			if (!target) {
-				if (!Db('pokemon').has(toId(user))) return this.errorReply("Your favorite Pokemon hasn't been set.");
-				Db('pokemon').delete(toId(user));
-				return this.sendReply("Your favorite Pokemon has been deleted from your profile.");
-			}
+			if (!Db('pokemon').has(user.userid)) return this.errorReply("Your favorite Pokemon hasn't been set.");
+			Db('pokemon').delete(user.userid);
+			return this.sendReply("Your favorite Pokemon has been deleted from your profile.");
 		},
 
 		"": "help",

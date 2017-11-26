@@ -9284,14 +9284,16 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 200,
 		category: "Special",
-		desc: "Damage is calculated using the user's higher attacking stat, including stat stage changes. This move and its effects ignore the Abilities of other Pokemon.",
+		desc: "Damage is calculated using the user's higher attacking stat, including stat stage changes. If the Attack stat is used, this move becomes a Physical attack. This move and its effects ignore the Abilities of other Pokemon.",
 		shortDesc: "Uses user's best attacking stat. Ignores Abilities.",
 		id: "lightthatburnsthesky",
 		name: "Light That Burns the Sky",
 		pp: 1,
 		priority: 0,
 		flags: {},
-		useBestSourceOffensive: true,
+		onModifyMove: function (move, pokemon) {
+			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) move.category = 'Physical';
+		},
 		ignoreAbility: true,
 		isZ: "ultranecroziumz",
 		secondary: false,
@@ -10343,7 +10345,7 @@ exports.BattleMovedex = {
 		mindBlownRecoil: true,
 		onAfterMove: function (pokemon, target, move) {
 			if (move.mindBlownRecoil && !move.multihit) {
-				this.damage(Math.round(pokemon.maxhp / 2), pokemon, pokemon, null, true);
+				this.damage(Math.round(pokemon.maxhp / 2), pokemon, pokemon, this.getEffect('Mind Blown'), true);
 			}
 		},
 		secondary: false,
@@ -11699,15 +11701,18 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 100,
 		category: "Special",
-		desc: "Damage is calculated using the user's higher attacking stat, including stat stage changes.",
-		shortDesc: "Calculates damage with user's higher attack stat.",
+		desc: "Damage is calculated using the user's higher attacking stat, including stat stage changes. If the Attack stat is used, this move becomes a Physical attack. This move and its effects ignore the Abilities of other Pokemon.",
+		shortDesc: "Uses user's best attacking stat. Ignores Abilities.",
 		id: "photongeyser",
 		isViable: true,
 		name: "Photon Geyser",
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		useBestSourceOffensive: true,
+		onModifyMove: function (move, pokemon) {
+			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) move.category = 'Physical';
+		},
+		ignoreAbility: true,
 		secondary: false,
 		target: "normal",
 		type: "Psychic",

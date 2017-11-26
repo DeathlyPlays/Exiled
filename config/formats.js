@@ -74,7 +74,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] UU'],
-		banlist: ['UU', 'BL2', 'Aurora Veil'],
+		banlist: ['UU', 'BL2', 'Kommonium Z', 'Aurora Veil'],
 	},
 	{
 		name: "[Gen 7] NU",
@@ -183,7 +183,7 @@ exports.Formats = [
 			validate: [3, 6],
 			battle: 3,
 		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard GBU'],
 		requirePentagon: true,
 	},
 	{
@@ -196,7 +196,31 @@ exports.Formats = [
 			validate: [3, 6],
 			battle: 3,
 		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Alola Pokedex', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard GBU', 'Alola Pokedex'],
+		banlist: ['Poipole', 'Naganadel', 'Stakataka', 'Blacephalon'],
+		requirePlus: true,
+	},
+	{
+		name: "[Gen 7] Dragon Cup",
+		desc: [`&bullet; <a href="https://3ds.pokemon-gl.com/dl-regulation/6010">Dragon Cup: Official rules</a>`],
+
+		mod: 'gen7',
+		maxForcedLevel: 50,
+		teamLength: {
+			validate: [3, 6],
+			battle: 3,
+		},
+		timer: {starting: 15 * 60 - 10, perTurn: 10, maxPerTurn: 60, maxFirstTurn: 90, timeoutAutoChoose: true},
+		ruleset: ['Pokemon', 'Minimal GBU', 'Team Preview'],
+		onValidateTeam: function (team) {
+			const restrictedLegends = ['Mewtwo', 'Lugia', 'Ho-Oh', 'Kyogre', 'Groudon', 'Rayquaza', 'Dialga', 'Palkia', 'Giratina', 'Reshiram', 'Zekrom', 'Kyurem', 'Xerneas', 'Yveltal', 'Zygarde', 'Cosmog', 'Cosmoem', 'Solgaleo', 'Lunala', 'Necrozma'];
+			let count = 0;
+			for (const set of team) {
+				const baseSpecies = this.getTemplate(set.species).baseSpecies;
+				if (restrictedLegends.includes(baseSpecies)) count++;
+				if (count > 1) return ["You can only use one Restricted Legendary Pok\u00E9mon."];
+			}
+		},
 		requirePentagon: true,
 	},
 	{
@@ -271,6 +295,20 @@ exports.Formats = [
 		],
 	},
 	{
+		name: "[Gen 7] VGC 2018",
+
+		mod: 'gen7',
+		gameType: 'doubles',
+		forcedLevel: 50,
+		teamLength: {
+			validate: [4, 6],
+			battle: 4,
+		},
+		timer: {starting: 15 * 60 - 10, perTurn: 10, maxPerTurn: 60, maxFirstTurn: 90, timeoutAutoChoose: true},
+		ruleset: ['Pokemon', 'Standard GBU'],
+		requirePlus: true,
+	},
+	{
 		name: "[Gen 7] VGC 2017",
 		desc: [
 			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3583926/\">VGC 2017 Discussion</a>",
@@ -305,7 +343,7 @@ exports.Formats = [
 			validate: [4, 6],
 			battle: 4,
 		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard GBU'],
 		requirePentagon: true,
 	},
 	{
@@ -767,7 +805,7 @@ exports.Formats = [
 			validate: [3, 6],
 			battle: 3,
 		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard GBU'],
 	},
 	{
 		name: "[Gen 7] Monotype Random Battle",
@@ -1024,7 +1062,7 @@ exports.Formats = [
 			validate: [3, 6],
 			battle: 3,
 		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard GBU'],
 		requirePentagon: true,
 	},
 	{
@@ -1142,7 +1180,7 @@ exports.Formats = [
 			validate: [4, 6],
 			battle: 4,
 		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard GBU'],
 		requirePentagon: true,
 	},
 	{
@@ -1171,7 +1209,7 @@ exports.Formats = [
 		teamLength: {
 			validate: [6, 6],
 		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard GBU'],
 		requirePentagon: true,
 	},
 	{
@@ -1274,7 +1312,7 @@ exports.Formats = [
 			validate: [3, 6],
 			battle: 3,
 		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard GBU'],
 		banlist: ['Dark Void', 'Sky Drop'],
 	},
 	{
@@ -1323,7 +1361,7 @@ exports.Formats = [
 			validate: [4, 6],
 			battle: 4,
 		},
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard GBU'],
 		banlist: ['Dark Void', 'Sky Drop'],
 	},
 	{
@@ -1455,6 +1493,15 @@ exports.Formats = [
 		name: "[Gen 3] Custom Game",
 
 		mod: 'gen3',
+		searchShow: false,
+		debug: true,
+		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
+	},
+	{
+		name: "[Gen 3] Doubles Custom Game",
+
+		mod: 'gen3',
+		gameType: 'doubles',
 		searchShow: false,
 		debug: true,
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],

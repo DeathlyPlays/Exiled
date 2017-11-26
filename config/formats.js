@@ -2134,6 +2134,17 @@ exports.Formats = [
 		},
 	},
 	{
+		name: "[Gen 7] UU Chaos",
+		desc: [
+			"Pokémon that Underused has never seen before are here.",
+		],
+
+		mod: 'ouchaos',
+		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Baton Pass', 'OU', 'Mewnium Z', 'Drizzle', 'BL', 'Shadow Tag'],
+		unbanlist: ['Clefable', 'Marowak-Alola', 'Tapu Fini', 'Mew', 'Victini', 'Alakazam', 'Weavile', 'Buzzwole', 'Conkeldurr', 'Gardevoir-Mega', 'Gardevoirite', 'Gyarados', 'Jirachi', 'Salamence', 'Staraptor', 'Keldeo', 'Gengar', 'Bisharp', 'Zapdos', 'Breloom', 'Azumarill', 'Scolipede', 'Serperior' ],
+	},
+	{
 		name: "[Gen 7] OU Chaos",
 		desc: [
 			"The Overused beasts are back, and chaos is everywhere.",

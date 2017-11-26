@@ -379,10 +379,7 @@ exports.commands = {
 			yellow: '#yellow',
 			zinnia: '#zinnia',
 			clemont: '#clemont',
-<<<<<<< HEAD
-=======
 			wally: '#wally',
->>>>>>> aa0f125d7208dd7e82e5202647a56de6e5856769
 		};
 		if (avatarTable.hasOwnProperty(avatarid)) {
 			avatar = avatarTable[avatarid];

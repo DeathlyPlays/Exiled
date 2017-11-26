@@ -2403,7 +2403,7 @@ exports.BattleFormatsData = {
 			{"generation": 6, "level": 50, "shiny": 1, "moves":["spark", "reflect", "crunch", "thunderfang"]},
 		],
 		eventOnly: false,
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "UU",
 	},
 	entei: {
@@ -2417,7 +2417,7 @@ exports.BattleFormatsData = {
 			{"generation": 6, "level": 50, "shiny": 1, "moves":["stomp", "flamethrower", "swagger", "firefang"]},
 		],
 		eventOnly: false,
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "UU",
 	},
 	suicune: {
@@ -2431,7 +2431,7 @@ exports.BattleFormatsData = {
 			{"generation": 6, "level": 50, "shiny": 1, "moves":["aurorabeam", "mist", "mirrorcoat", "icefang"]},
 		],
 		eventOnly: false,
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "UU",
 	},
 	larvitar: {
@@ -4307,7 +4307,7 @@ exports.BattleFormatsData = {
 			{"generation": 6, "level": 50, "shiny": 1, "isHidden": false, "moves":["metalsound", "crunch", "scaryface", "lavaplume"]},
 		],
 		eventOnly: false,
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "OU",
 	},
 	regigigas: {
@@ -5951,12 +5951,12 @@ exports.BattleFormatsData = {
 	},
 	pumpkaboosmall: {
 		randomBattleMoves: ["willowisp", "shadowsneak", "destinybond", "synthesis", "seedbomb"],
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "LC",
 	},
 	pumpkaboolarge: {
 		randomBattleMoves: ["willowisp", "shadowsneak", "leechseed", "synthesis", "seedbomb"],
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "LC",
 	},
 	pumpkaboosuper: {
@@ -5974,13 +5974,13 @@ exports.BattleFormatsData = {
 	gourgeistsmall: {
 		randomBattleMoves: ["willowisp", "seedbomb", "leechseed", "shadowsneak", "substitute", "synthesis"],
 		randomDoubleBattleMoves: ["willowisp", "shadowsneak", "painsplit", "seedbomb", "leechseed", "phantomforce", "explosion", "protect"],
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "PU",
 	},
 	gourgeistlarge: {
 		randomBattleMoves: ["willowisp", "seedbomb", "leechseed", "shadowsneak", "substitute", "synthesis"],
 		randomDoubleBattleMoves: ["willowisp", "shadowsneak", "painsplit", "seedbomb", "leechseed", "phantomforce", "explosion", "protect", "trickroom"],
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "PU",
 	},
 	gourgeistsuper: {
@@ -6097,45 +6097,45 @@ exports.BattleFormatsData = {
 		tier: "UU",
 	},
 	rowlet: {
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "LC",
 	},
 	dartrix: {
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "NFE",
 	},
 	decidueye: {
 		randomBattleMoves: ["spiritshackle", "uturn", "leafblade", "roost", "swordsdance", "suckerpunch"],
 		randomDoubleBattleMoves: ["spiritshackle", "leafblade", "bravebird", "protect", "suckerpunch"],
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "RU",
 	},
 	litten: {
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "LC",
 	},
 	torracat: {
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "NFE",
 	},
 	incineroar: {
 		randomBattleMoves: ["fakeout", "darkestlariat", "flareblitz", "uturn", "earthquake"],
 		randomDoubleBattleMoves: ["fakeout", "darkestlariat", "flareblitz", "crosschop", "willowisp", "taunt", "snarl"],
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "NU",
 	},
 	popplio: {
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "LC",
 	},
 	brionne: {
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "NFE",
 	},
 	primarina: {
 		randomBattleMoves: ["hydropump", "moonblast", "scald", "psychic", "hiddenpowerfire"],
 		randomDoubleBattleMoves: ["hypervoice", "moonblast", "substitute", "protect", "icebeam"],
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "UU",
 	},
 	pikipek: {
@@ -6327,7 +6327,7 @@ exports.BattleFormatsData = {
 		eventPokemon: [
 			{"generation": 7, "level": 1, "shiny": 1, "isHidden": false, "abilities":["telepathy"], "moves":["instruct", "psychic", "psychicterrain"], "pokeball": "cherishball"},
 		],
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "PU",
 	},
 	passimian: {
@@ -6336,7 +6336,7 @@ exports.BattleFormatsData = {
 		eventPokemon: [
 			{"generation": 7, "level": 1, "shiny": 1, "isHidden": false, "moves":["bestow", "fling", "feint"], "pokeball": "cherishball"},
 		],
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "PU",
 	},
 	wimpod: {
@@ -6559,7 +6559,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 60, "shiny": true, "nature": "Timid", "isHidden": false, "moves":["naturesmadness", "discharge", "agility", "electroball"], "pokeball": "cherishball"},
 		],
 		eventOnly: false,
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "OU",
 	},
 	tapulele: {
@@ -6569,7 +6569,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 60, "isHidden": false, "moves":["naturesmadness", "extrasensory", "flatter", "moonblast"]},
 		],
 		eventOnly: false,
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "OU",
 	},
 	tapubulu: {
@@ -6579,7 +6579,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 60, "isHidden": false, "moves":["naturesmadness", "zenheadbutt", "megahorn", "skullbash"]},
 		],
 		eventOnly: false,
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "OU",
 	},
 	tapufini: {
@@ -6589,7 +6589,7 @@ exports.BattleFormatsData = {
 			{"generation": 7, "level": 60, "isHidden": false, "moves":["naturesmadness", "muddywater", "aquaring", "hydropump"]},
 		],
 		eventOnly: false,
-		unreleasedHidden: true,
+		unreleasedHidden: false,
 		tier: "OU",
 	},
 	cosmog: {

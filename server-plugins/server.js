@@ -1585,7 +1585,17 @@ exports.commands = {
 			x = Math.floor(Math.random() * (834 - 752)) + 751;
 		}
 		x = x || Math.floor(Math.random() * (856 - 1));
-		let tarPoke = Object.keys(Pokedex)[x];
+		let rand;
+		let y = x;
+		let random = Math.floor(Math.random() * 3)
+		if (random === 0) {
+			rand = x;
+		} else if (random === 1) {
+			rand = y;
+		} else if (random === 2) {
+			rand = y;
+		}
+		let tarPoke = Object.keys(Pokedex)[rand];
 		let pokeData = Pokedex[tarPoke];
 		let pokeId = pokeData.species.toLowerCase();
 		pokeId = pokeId.replace(/^basculinbluestriped$/i, "basculin-bluestriped").replace(/^pichuspikyeared$/i, "pichu-spikyeared").replace(/^floetteeternalflower$/i, "floette-eternalflower");

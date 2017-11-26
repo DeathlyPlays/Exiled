@@ -286,6 +286,14 @@ exports.commands = {
 		this.sendReplyBox(rankLadder('Card Ladder', 'Points', keys.slice(0, 100), 'points'));
 	},
 
+	sell: 'sellcard',
+	sellcards: 'sellcard',
+	sellcard: function (target, room, user) {
+		if (!target) return this.errorReply("/sellcard [card ID]");
+		if (!cards[target]) return this.sendReply("That card does not exist.");
+
+	},
+
 	cs: 'cardsearch',
 	cardsearch: 'searchcard',
 	searchcard: function (target, room, user) {

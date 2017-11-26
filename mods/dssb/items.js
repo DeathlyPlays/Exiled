@@ -1,7 +1,14 @@
 'use strict';
 
 exports.BattleItems = {
-	"playniumz": {
+
+};
+
+
+/*
+Old DSSB Items (Use For Reference When Making New Items!)
+
+"playniumz": {
 		spritenum: 656,
 		onTakeItem: false,
 		id: "playniumz",
@@ -377,4 +384,4 @@ exports.BattleItems = {
 		num: 6956,
 		gen: -1,
 	},
-};
+*/

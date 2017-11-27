@@ -879,7 +879,7 @@ exports.commands = {
 			factionPM(
 				`${Server.nameColor(user.name)} (${Chat.escapeHTML(getFaction(user.userid))}) has challenged your faction to a Faction vs Faction (${size} v ${size}) in` +
 				`<button name="joinRoom" value="${room.id}">${Chat.escapeHTML(room.title)}</button>.<br />` +
-				'<button name="send" value="/fvf accept">Accept</button> | <button name="send" value="/fvf deny">Decline</button>', targetFactionid
+				`<button name="send" value="/fvf accept">Accept</button> | <button name="send" value="/fvf deny">Decline</button>`, targetFactionid
 			);
 			factionPM(
 				`${Server.nameColor(user.name)} has challenged ${Chat.escapeHTML(factions[targetFactionid].name)} to a Faction vs Faction (` +
@@ -899,8 +899,8 @@ exports.commands = {
 			targetRoom.fvf.accepted = true;
 			fvfDisplay(targetRoom);
 
-			factionPM(`${Server.nameColor(user.name)} has accepted the Faction vs Faction challenge against ${Chat.escapeHTML(factions[targetFactionid].name)}, ${factionId}`);
-			factionPM(`${Server.nameColor(user.name)} (${factions[factionId].name}) has accepted the Faction vs Faction challenge against your faction., ${targetFactionid}`);
+			factionPM(`${Server.nameColor(user.name)} has accepted the Faction vs Faction challenge against ${Chat.escapeHTML(factions[targetFactionid].name)}`, factionId);
+			factionPM(`${Server.nameColor(user.name)} (${factions[factionId].name}) has accepted the Faction vs Faction challenge against your faction.`, targetFactionid);
 
 			this.sendReply(`You've accepted the Faction vs Faction against ${factions[targetFactionid].name}.`);
 		},
@@ -915,8 +915,8 @@ exports.commands = {
 			targetRoom.add(`|uhtmlchange|fvf-${targetRoom.fvf.fvfId}|`);
 			targetRoom.add(`|uhtml|fvf-${targetRoom.fvf.fvfId}|<div class="infobox">(${Chat.escapeHTML(factions[factionId].name)} has declined the Faction vs Faction challenge.)</div>`);
 
-			factionPM(`${Server.nameColor(user.name)} has declined the Faction vs Faction challenge against ${Chat.escapeHTML(factions[targetFactionid].name)}, ${factionId}``);
-			factionPM(`${Server.nameColor(user.name)} (${factions[factionId].name}) has declined the Faction vs Faction challenge against your faction.', ${targetFactionid}`);
+			factionPM(`${Server.nameColor(user.name)} has declined the Faction vs Faction challenge against ${Chat.escapeHTML(factions[targetFactionid].name)}`, factionId);
+			factionPM(`${Server.nameColor(user.name)} (${factions[factionId].name}) has declined the Faction vs Faction challenge against your faction.`, targetFactionid);
 
 			delete Rooms.global.FvF[targetFactionid];
 			delete Rooms.global.FvF[factionId];
@@ -947,7 +947,7 @@ exports.commands = {
 			if (faction.invites.includes(targetUser.userid)) return this.errorReply("That user has already been invited to join the Faction vs Faction.");
 
 			faction.invites.push(targetUser.userid);
-			factionPM(`${Server.nameColor(user.name)}" has invited ${Server.nameColor(targetUser.name)} to join the Faction vs Faction against ${Chat.escapeHTML(factions[targetFaction.id].name)}, ${factionId}`);
+			factionPM(`${Server.nameColor(user.name)} has invited ${Server.nameColor(targetUser.name)} to join the Faction vs Faction against ${Chat.escapeHTML(factions[targetFaction.id].name)}`, factionId);
 			targetUser.send(`|popup||modal||html|${Server.nameColor(user.name)} has invited you to join the Faction vs Faction against ${Chat.escapeHTML(factions[targetFaction.id].name)} in the room <button name="joinRoom" value="${targetRoom.id}">${Chat.escapeHTML(targetRoom.title)}</button>`);
 			this.sendReply(`You've invited ${targetUser.name} to join the Faction vs Faction.`);
 		},

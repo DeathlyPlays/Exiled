@@ -2189,7 +2189,7 @@ exports.Formats = [
 		mod: 'ouchaos',
 		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
 		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Baton Pass', 'OU', 'Mewnium Z', 'Drizzle', 'BL', 'Shadow Tag'],
-		unbanlist: ['Clefable', 'Marowak-Alola', 'Tapu Fini', 'Mew', 'Victini', 'Alakazam', 'Weavile', 'Buzzwole', 'Conkeldurr', 'Gardevoir-Mega', 'Gardevoirite', 'Gyarados', 'Jirachi', 'Salamence', 'Staraptor', 'Keldeo', 'Gengar', 'Bisharp', 'Zapdos', 'Breloom', 'Azumarill', 'Scolipede', 'Serperior' ],
+		unbanlist: ['Clefable', 'Marowak-Alola', 'Tapu Fini', 'Mew', 'Victini', 'Alakazam', 'Weavile', 'Buzzwole', 'Conkeldurr', 'Gardevoir-Mega', 'Gyarados', 'Jirachi', 'Salamence', 'Staraptor', 'Keldeo', 'Gengar', 'Bisharp', 'Zapdos', 'Breloom', 'Azumarill', 'Scolipede', 'Serperior',],
 	},
 	{
 		name: "[Gen 7] OU Chaos",
@@ -2200,7 +2200,7 @@ exports.Formats = [
 		mod: 'ouchaos',
 		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
 		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Baton Pass'],
-		unbanlist: ['Aegislash', 'Blaziken', 'Genesect', 'Landorus', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Pheromosa', 'Darkrai', 'Shaymin-Sky', 'Metagross-Mega', 'Metagrossite', 'Kangaskhan-Mega', 'Gengar-Mega', 'Gengarite', 'Lucario-Mega', 'Lucarionite', 'Kyurem-White', 'Zareora'],
+		unbanlist: ['Aegislash', 'Blaziken', 'Genesect', 'Landorus', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Pheromosa', 'Darkrai', 'Shaymin-Sky', 'Metagross-Mega', 'Kangaskhan-Mega', 'Gengar-Mega', 'Lucario-Mega', 'Blaziken-Mega', 'Salamence-Mega', 'Kyurem-White', 'Zeraora', 'Reshiram', 'Zekrom', 'Naganadel', 'Dawn-Wings-Necrozma',],
 	},
 	{
 		name: "[Gen 7] Tier Shift",

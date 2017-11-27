@@ -1602,7 +1602,7 @@ exports.commands = {
 		if (pokeId === "pikachu-cosplay") pokeId = ["pikachu-belle", "pikachu-phd", "pikachu-libre", "pikachu-popstar", "pikachu-rockstar"][~~(Math.random() * 6)];
 		let spriteLocation = "http://play.pokemonshowdown.com/sprites/xyani" + shinyPoke + "/" + pokeId + ".gif";
 		let missingnoSprites = ["http://cdn.bulbagarden.net/upload/9/98/Missingno_RB.png", "http://cdn.bulbagarden.net/upload/0/03/Missingno_Y.png", "http://cdn.bulbagarden.net/upload/a/aa/Spr_1b_141_f.png", "http://cdn.bulbagarden.net/upload/b/bb/Spr_1b_142_f.png", "http://cdn.bulbagarden.net/upload/9/9e/Ghost_I.png"];
-		if (pokeId === "missingno") spriteLocation = missingnoSprites[~~(Math.random() * 5)];
+		if (pokeId === "missingno") spriteLocation = missingnoSprites[Math.floor(Math.random() * missingnoSprites.length)];
 
 		function getTypeFormatting(types) {
 			let text = [];

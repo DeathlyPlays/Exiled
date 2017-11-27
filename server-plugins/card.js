@@ -288,9 +288,34 @@ exports.commands = {
 
 	sell: 'sellcard',
 	sellcards: 'sellcard',
-	sellcard: function (target, room, user) {
+	sellcard: function (target, user) {
+		let canSell = removeCard(target, user.userid);
+		let profit;
 		if (!target) return this.errorReply("/sellcard [card ID]");
-		if (!cards[target]) return this.sendReply("That card does not exist.");
+		if (!cards[target]) {
+			return this.sendReply("That card does not exist.");
+		} else if (cards[target] && !canSell) {
+			return this.sendReply("You do not own that card.");
+		} else {
+			if (card.rarity === 'Common' || card.rarity === 'Uncommon' || card.rarity === 'Rare') {
+				return this.sendReply("That card is not worth anything.");
+			} else if (card.rarity === 'Epic') {
+				profit = 2;
+				card = cards[card];
+				removeCard(card.title, user.userid);
+				return this.sendReply("Card successfully sold for " + profit + " Soul Dews.");
+			} else if (card.rarity === 'Legendary') {
+				profit = 4;
+				card = cards[card];
+				removeCard(card.title, user.userid);
+				return this.sendReply("Card successfully sold for " + profit + " Soul Dews.");
+			} else if (card.rarity === 'Mythic') {
+				profit = 12;
+				card = cards[card];
+				removeCard(card.title, user.userid);
+				return this.sendReply("Card successfully sold for " + profit + " Soul Dews.");
+			}
+		}
 
 	},
 

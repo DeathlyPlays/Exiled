@@ -80,8 +80,7 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 				room.fvf.status[statusNumber] = id;
 			}
 			fvfDisplay(room);
-			room.add('|raw|<a href="/' + id + '">The Faction vs Faction battle between ' + Server.nameColor(p1, true) + ' (' + Chat.escapeHTML(factions[factionId].name) + ') and ' +
-				Server.nameColor(p2, true) + ' (' + Chat.escapeHTML(factions[targetFactionid].name) + ') has begun.</a>').update();
+			room.add(`|raw|<a href="/${id}">The Faction vs Faction battle between ${Server.nameColor(p1, true)} (${Chat.escapeHTML(factions[factionId].name)}) and ${Server.nameColor(p2, true)} (${Chat.escapeHTML(factions[targetFactionid].name)}) has begun.</a>`).update();
 		} else if (status === 'types') {
 			if (room.fvf.mode === "normal") {
 				room.fvf.types[room.fvf.statusNumber] = types;
@@ -115,9 +114,7 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 					if (room.fvf.factions[1].wins > room.fvf.factions[0].wins) {
 						winner = room.fvf.factions[1].name;
 					}
-					room.add('|raw|' +
-						'<div class="infobox">Congratulations ' + Chat.escapeHTML(winner) + '. You have won the Faction vs Faction!</div>'
-					);
+					room.add(`|raw|<div class="infobox">Congratulations ${Chat.escapeHTML(winner)}. You have won the Faction vs Faction!</div>`);
 					room.update();
 					factions[toId(winner)].tourwins += 1;
 					write();
@@ -150,9 +147,7 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 					}
 					factions[toId(winner)].tourwins += 1;
 					write();
-					room.add('|raw|' +
-						'<div class="infobox">Congratulations ' + Chat.escapeHTML(winner) + '. You have won the Faction vs Faction!</div>'
-					);
+					room.add(`|raw|<div class="infobox">Congratulations ${Chat.escapeHTML(winner)}. You have won the Faction vs Faction!</div>`);
 					room.update();
 					delete Rooms.global.FvF[toId(room.fvf.factions[0].name)];
 					delete Rooms.global.FvF[toId(room.fvf.factions[1].name)];
@@ -167,7 +162,7 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 				room.fvf.status[statusNumber] = 2;
 			}
 			fvfDisplay(room);
-			room.add("|raw|The Faction vs Faction battle between " + Server.nameColor(p1, true) + " and " + Server.nameColor(p2, true) + " ended with a tie. They have to have a rematch.");
+			room.add(`|raw|The Faction vs Faction battle between ${Server.nameColor(p1, true)} and ${Server.nameColor(p2, true)} ended with a tie. They have to have a rematch.`);
 			room.update();
 		}
 	}
@@ -175,11 +170,11 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 Server.isFvFBattle = isFvFBattle;
 
 function fvfDisplay(room) {
-	let output = '';
-	output += '<center><font size="6">Faction vs Faction</font><br /> Tier - ' + room.fvf.tier + ' <br />';
-	output += '<font color="grey"><small>(experimental - report any bugs to an admin!)</small></font>';
-	output += '<font color="grey"><small>(' + room.fvf.size + 'v' + room.fvf.size + ') (mode: ' + Chat.escapeHTML(room.fvf.mode) + ')</small></font><br /><br />';
-	output += '<table><tr><th><font size="5">' + Chat.escapeHTML(room.fvf.factions[0].name) + '</font></th><td>vs</td><th><font size="5">' + Chat.escapeHTML(room.fvf.factions[1].name) + '</font></th></tr>';
+	let output = ``;
+	output += `<center><font size="6">Faction vs Faction</font><br /> Tier - ${room.fvf.tier}<br />`;
+	output += `<font color="grey"><small>(experimental - report any bugs to an admin!)</small></font>`;
+	output += `<font color="grey"><small>(${room.fvf.size} v ${room.fvf.size}) (mode: ${Chat.escapeHTML(room.fvf.mode)})</small></font><br /><br />`;
+	output += `<table><tr><th><font size="5">${Chat.escapeHTML(room.fvf.factions[0].name)}</font></th><td>vs</td><th><font size="5">${Chat.escapeHTML(room.fvf.factions[1].name)}</font></th></tr>`;
 
 	if (room.fvf.factions[0].players.length === room.fvf.size && room.fvf.factions[1].players.length === room.fvf.size && !room.fvf.started) {
 		let notOnline = [];
@@ -207,7 +202,7 @@ function fvfDisplay(room) {
 					room.fvf.factions[1].players.splice(room.fvf.factions[1].players.indexOf(notOnline[u]), 1);
 				}
 			}
-			room.add("The following players have been removed from the Faction vs Faction due to not being online: " + notOnline.join(', '));
+			room.add(`The following players have been removed from the Faction vs Faction due to not being online: ${notOnline.join(', ')}`);
 		} else {
 			room.fvf.started = true;
 			Dex.shuffle(room.fvf.factions[0].players);
@@ -218,45 +213,45 @@ function fvfDisplay(room) {
 	}
 
 	if (!room.fvf.started) {
-		output += '<tr><td>Joined: ' + room.fvf.factions[0].players.length + '</td><td><td>Joined: ' + room.fvf.factions[1].players.length + '</td></tr>';
-		output += '<tr><td colspan="3"><center><button name="send" value="/fvf join">Join</button></center></td></tr>';
+		output += `<tr><td>Joined: ${room.fvf.factions[0].players.length}</td><td><td>Joined: ${room.fvf.factions[1].players.length}</td></tr>`;
+		output += `<tr><td colspan="3"><center><button name="send" value="/fvf join">Join</button></center></td></tr>`;
 	} else {
 		for (let u = 0; u < room.fvf.factions[0].players.length; u++) {
-			output += '<tr>';
+			output += `<tr>`;
 			switch (room.fvf.status[u]) {
 			case 0:
-				output += '<td><font color="green"><center>' + room.fvf.factions[0].players[u] + '</center></font></td>';
-				output += '<td>vs</td>';
-				output += '<td><font color="red"><center>' + room.fvf.factions[1].players[u] + '</center></font></td>';
+				output += `<td><font color="green"><center>${room.fvf.factions[0].players[u]}</center></font></td>`;
+				output += `<td>vs</td>`;
+				output += `<td><font color="red"><center>${room.fvf.factions[1].players[u]}</center></font></td>`;
 				break;
 			case 1:
-				output += '<td><font color="red"><center>' + room.fvf.factions[0].players[u] + '</center></font></td>';
-				output += '<td>vs</td>';
-				output += '<td><font color="green"><center>' + room.fvf.factions[1].players[u] + '</center></font></td>';
+				output += `<td><font color="red"><center>${room.fvf.factions[0].players[u]}</center></font></td>`;
+				output += `<td>vs</td>`;
+				output += `<td><font color="green"><center>${room.fvf.factions[1].players[u]}</center></font></td>`;
 				break;
 			case 2:
-				output += '<td><center><b>' + room.fvf.factions[0].players[u] + '</b></center></td>';
-				output += '<td>vs</td>';
-				output += '<td><center><b>' + room.fvf.factions[1].players[u] + '</b></center></td>';
+				output += `<td><center><strong>${room.fvf.factions[0].players[u]}</strong></center></td>`;
+				output += `<td>vs</td>`;
+				output += `<td><center><b>${room.fvf.factions[1].players[u]}</b></center></td>`;
 				break;
 			case 3:
-				output += '<td><center>' + room.fvf.factions[0].players[u] + '</center></td>';
-				output += '<td>vs</td>';
-				output += '<td><center>' + room.fvf.factions[1].players[u] + '</center></td>';
+				output += `<td><center>${room.fvf.factions[0].players[u]}</center></td>`;
+				output += `<td>vs</td>`;
+				output += `<td><center>${room.fvf.factions[1].players[u]}'</center></td>`;
 				break;
 			default:
-				output += '<td><center><a href="/' + Chat.escapeHTML(room.fvf.status[u]) + '">' + room.fvf.factions[0].players[u] + '</a></center></td>';
-				output += '<td>vs</td>';
-				output += '<td><center><a href="/' + Chat.escapeHTML(room.fvf.status[u]) + '">' + room.fvf.factions[1].players[u] + '</a></center></td>';
+				output += `<td><center><a href="/${Chat.escapeHTML(room.fvf.status[u])}"> ${room.fvf.factions[0].players[u]}</a></center></td>`;
+				output += `<td>vs</td>`;
+				output += `<td><center><a href="/${Chat.escapeHTML(room.fvf.status[u])}"> ${room.fvf.factions[1].players[u]}</a></center></td>`;
 				break;
 			}
-			output += '</tr>';
+			output += `</tr>`;
 		}
 	}
-	output += '</table>';
+	output += `</table>`;
 
-	room.add('|uhtmlchange|fvf-' + room.fvf.fvfId + '|');
-	room.add('|uhtml|fvf-' + room.fvf.fvfId + '|<div class="infobox">' + output + '</div>');
+	room.add(`|uhtmlchange|fvf-${room.fvf.fvfId}|`);
+	room.add(`|uhtml|fvf-${room.fvf.fvfId}|<div class="infobox">${output}</div>`);
 	room.update();
 }
 Server.fvfDisplay = fvfDisplay;
@@ -266,7 +261,7 @@ function factionPM(message, faction) {
 	if (!factions[factionid]) return;
 	for (let u in factions[factionid].users) {
 		if (!Users(factions[factionid].users[u]) || !Users(factions[factionid].users[u]).connected) continue;
-		Users(factions[factionid].users[u]).send("|pm|~Faction PM [Do Not Reply]" + factions[factionid].name + "|~|/raw " + message);
+		Users(factions[factionid].users[u]).send(`|pm|~Faction PM [Do Not Reply]${factions[factionid].name}|~|/raw ${message}`);
 	}
 }
 
@@ -329,8 +324,8 @@ exports.commands = {
 				},
 			};
 			write();
-			Monitor.adminlog('Faction ' + name + ' was just created! If you wish to approve this faction please use /faction approve (name)');
-			return this.sendReply('Faction ' + name + ' created!');
+			Monitor.adminlog(`Faction ${name} was just created by ${user.name}! If you wish to approve this faction please use /faction approve (${name})`);
+			return this.sendReply(`Faction ${name} created!`);
 		},
 
 		delete: function (target, room, user) {
@@ -340,17 +335,17 @@ exports.commands = {
 
 			delete factions[toId(target)];
 			write();
-			this.sendReply('Faction ' + toId(target) + ' has been deleted.');
+			this.sendReply(`Faction ${toId(target)} has been deleted.`);
 		},
 
 		desc: function (target, room, user) {
-			if (!getFaction(user.userid)) return this.errorReply('You are no in a faction.');
-			if (toId(getFactionRank(user.userid) !== 'owner')) return this.errorReply('You do not own this faction');
-			if (!target) return this.errorReply('Needs a target no more than 100 characters');
+			if (!getFaction(user.userid)) return this.errorReply('You are not in a faction.');
+			if (toId(getFactionRank(user.userid) !== 'owner')) return this.errorReply('You do not own this faction.');
+			if (!target) return this.errorReply('Needs a target no more than 100 characters.');
 			if (target.length > 100) return this.errorReply('Faction descriptions must be 100 characters or less!');
 			factions[toId(getFaction(user.userid))].desc = target;
 			write();
-			return this.sendReplyBox('Your faction description is now set to: <br /> ' + factions[toId(getFaction(user.userid))].desc + '.');
+			return this.sendReplyBox(`Your faction description is now set to: <br /> ${factions[toId(getFaction(user.userid))].desc}.`);
 		},
 
 		avatar: function (target, room, user) {
@@ -361,7 +356,7 @@ exports.commands = {
 			if (!target.includes['.jpg'] && target.includes['.png'] && target.includes['.gif']) return this.errorReply("Not an image link!");
 			factions[factionId].pendingAVI = target;
 			write();
-			if (Rooms('upperstaff')) Rooms('upperstaff').add('|html| Faction ' + factionId + ' has requested a faction avatar <br /><img src="' + target + '" height="80" width="80"><br /><button name="send" value="/faction aa ' + factionId + ',' + factions[factionId].pendingAVI + '">Set it!</button> <button name="send" value="/faction da ' + factionId + '">Deny it!</button>').update();
+			if (Rooms('upperstaff')) Rooms('upperstaff').add(`|html| Faction ${factionId} has requested a faction avatar <br /><img src="${target}" height="80" width="80"><br /><button name="send" value="/faction aa ${factionId}, ${factions[factionId].pendingAVI}">Set it!</button> <button name="send" value="/faction da ${factionId}">Deny it!</button>`).update();
 			return this.sendReply('Upper Staff have been notified of your faction avatar request!');
 		},
 
@@ -378,8 +373,8 @@ exports.commands = {
 			factions[factionId].avatar = factAvi;
 			delete factions[factionId].pendingAVI;
 			write();
-			Monitor.adminlog(user.name + ' has set a faction avatar for ' + factions[factionId].name);
-			return this.sendReply('The faction avatar has been set for ' + factions[factionId].name);
+			Monitor.adminlog(`${user.name} has set a faction avatar for ${factions[factionId].name}`);
+			return this.sendReply(`The faction avatar has been set for ${factions[factionId].name}`);
 		},
 
 		da: 'denyavatar',
@@ -387,34 +382,34 @@ exports.commands = {
 			if (!this.can('declare')) return false;
 			let factionId = toId(target);
 			if (!factions[factionId]) return this.errorReply('That faction does not exist!');
-			if (!factions[factionId].pendingAVI) return this.errorReply('That faction has no requested faction avatar!');
+			if (!factions[factionId].pendingAVI) return this.errorReply('That faction has not requested a faction avatar!');
 			delete factions[factionId].pendingAVI;
 			write();
-			Monitor.adminlog(user.name + ' has denied a faction avatar for ' + factions[factionId].name);
-			return this.sendReply('The faction avatar has been denied for ' + factions[factionId].name);
+			Monitor.adminlog(`${user.name} has denied a faction avatar for ${factions[factionId].name}`);
+			return this.sendReply(`The faction avatar has been denied for ${factions[factionId].name}`);
 		},
 
 		pa: 'pendingavatars',
 		pendingavatars: function (target, room, user) {
 			if (!this.can('declare')) return false;
-			let output = '<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Faction</td><td>Image</td><td>Approve</td><td>Deny</td</tr>';
+			let output = `<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Faction</td><td>Image</td><td>Approve</td><td>Deny</td</tr>`;
 			for (let faction in factions) {
 				if (factions[faction].pendingAVI) {
-					output += '<tr>';
-					output += '<td>' + Chat.escapeHTML(factions[faction].name) + '</td>';
-					output += '<td><img src="' + factions[faction].pendingAVI + '" height="80" width="80"></td>';
-					output += '<td><button name="send" value="/faction aa ' + faction + ',' + factions[faction].pendingAVI + '">Approve faction avatar!</button></td>';
-					output += '<td><button name="send" value="/faction da ' + faction + '">Deny faction avatar!</button></td>';
+					output += `<tr>`;
+					output += `<td>${Chat.escapeHTML(factions[faction].name)}</td>`;
+					output += `<td><img src="${factions[faction].pendingAVI}" height="80" width="80"></td>`;
+					output += `<td><button name="send" value="/faction aa ${faction}, ${factions[faction].pendingAVI}">Approve faction avatar!</button></td>`;
+					output += `<td><button name="send" value="/faction da ${faction}">Deny faction avatar!</button></td>`;
 				}
 			}
-			output += "</table></center>";
+			output += `</table></center>`;
 			this.sendReplyBox(output);
 		},
 
 		list: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			if (Object.keys(factions).length < 1) return this.sendReply("There's no factions on this server.");
-			let output = '<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Faction</td><td>Description</td><td>Points</td><td>Members</td></tr>';
+			if (Object.keys(factions).length < 1) return this.sendReply("There are no factions on this server.");
+			let output = `<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Faction</td><td>Description</td><td>Points</td><td>Members</td></tr>`;
 			let sortedFactions = Object.keys(factions).sort(function (a, b) {
 				return factions[b].points - factions[a].points;
 			});
@@ -422,17 +417,17 @@ exports.commands = {
 			for (let faction = 0; faction < sortedFactions.length; faction++) {
 				let curFaction = factions[sortedFactions[faction]];
 				let desc = Chat.escapeHTML(curFaction.desc);
-				if (desc.length > 50) desc = desc.substr(0, 50) + "<br />" + desc.substr(50);
+				if (desc.length > 50) desc = `${desc.substr(0, 50)}<br />${desc.substr(50)}`;
 				if (!curFaction.private) {
-					output += "<tr>";
-					output += "<td>" + Chat.escapeHTML(curFaction.name) + "</td>";
-					output += "<td>" + desc + "</td>";
-					output += "<td>" + curFaction.tourwins + "</td>";
-					output += "<td>" + '<button name="send" value="/faction profile ' + curFaction.id + '">' + curFaction.users.length + "</button></td>";
-					output += "</tr>";
+					output += `<tr>`;
+					output += `<td>${Chat.escapeHTML(curFaction.name)}</td>`;
+					output += `<td>${desc}</td>`;
+					output += `<td>${curFaction.tourwins}</td>`;
+					output += `<td>'<button name="send" value="/faction profile ${curFaction.id}>' ${curFaction.users.length}</button></td>`;
+					output += `</tr>`;
 				}
 			}
-			output += "</table></center>";
+			output += `</table></center>`;
 			this.sendReplyBox(output);
 		},
 
@@ -441,12 +436,12 @@ exports.commands = {
 			if (!target && getFaction(user.userid)) target = getFaction(user.userid);
 			let factionId = toId(target);
 			if (!factions[factionId] || factions[factionId] && factions[factionId].private === true) return this.errorReply("There is no faction by that name! If you are not in a faction please specify one!");
-			let output = (factions[factionId].avatar ? "<img src='" + factions[factionId].avatar + "' height='80' width='80' align='left'>" : '') + '&nbsp;' + Chat.escapeHTML(factions[factionId].name) + '</br>';
-			output += '<br />&nbsp;Faction Vs Faction wins: ' + factions[factionId].tourwins + '<br /> &nbsp;Usercount: ' + factions[factionId].users.length + '<br />';
-			output += '&nbsp;Description: ' + factions[factionId].desc + '<br />';
-			output += '&nbsp;Owners: ' + Server.nameColor(factions[factionId].ranks['owner'].users.join(', '), true) + '<br />';
-			output += '&nbsp;Nobles: ' + Server.nameColor(factions[factionId].ranks['noble'].users.join(', '), true) + '<br />';
-			output += '&nbsp;Commoners: ' + Server.nameColor(factions[factionId].ranks['commoner'].users.join(', '), true) + '<br />';
+			let output = (factions[factionId].avatar ? `<img src='${factions[factionId].avatar}' height='80' width='80' align='left'>` : ``) + `&nbsp;${Chat.escapeHTML(factions[factionId].name)}</br>`;
+			output += `<br />&nbsp;Faction Vs Faction wins: ${factions[factionId].tourwins}<br /> &nbsp;Usercount: ${factions[factionId].users.length}<br />`;
+			output += `&nbsp;Description: ${factions[factionId].desc}<br />`;
+			output += `&nbsp;Owners: ${Server.nameColor(factions[factionId].ranks['owner'].users.join(', '), true)}<br />`;
+			output += `&nbsp;Nobles: ${Server.nameColor(factions[factionId].ranks['noble'].users.join(', '), true)}<br />`;
+			output += `&nbsp;Commoners: ${Server.nameColor(factions[factionId].ranks['commoner'].users.join(', '), true)}<br />`;
 			this.sendReplyBox(output);
 		},
 
@@ -456,17 +451,17 @@ exports.commands = {
 			if (toId(getFactionRank(user.userid)) !== 'owner') return false;
 			if (!factions[factionId].approved) return this.errorReply("Your faction is not approved!");
 			if (this.meansYes(target)) {
-				if (factions[factionId].private) return this.errorReply('Faction is already private');
+				if (factions[factionId].private) return this.errorReply('Faction is already private.');
 				factions[factionId].private = true;
 				write();
 				return this.sendReply('Faction is now private!');
 			} else if (this.meansNo(target)) {
-				if (!factions[factionId].private) return this.errorReply('Faction is not private already');
+				if (!factions[factionId].private) return this.errorReply('Faction is not private.');
 				factions[factionId].private = false;
 				write();
 				return this.sendReply('Faction is now public!');
 			} else {
-				return this.errorReply('Valid targets are on, true, off, false');
+				return this.errorReply('Valid targets are: on, true, off, false.');
 			}
 		},
 
@@ -478,9 +473,9 @@ exports.commands = {
 			factions[toId(target)].approved = true;
 			factions[toId(target)].private = false;
 			write();
-			Monitor.adminlog('The faction ' + factions[toId(target)].name + ' has been approved by ' + user.name + '.');
-			this.parse("/makechatroom " + factions[toId(target)].name);
-			this.parse("/join " + factions[toId(target)].name);
+			Monitor.adminlog(`The faction ${factions[toId(target)].name} has been approved by ${user.name}.`);
+			this.parse(`/makechatroom ${factions[toId(target)].name}`);
+			this.parse(`/join ${factions[toId(target)].name}`);
 			this.sendReply("Don't forget to promote the requester to Room Founder!");
 			return user.popup("Faction approved!");
 		},
@@ -497,7 +492,7 @@ exports.commands = {
 			factions[factionid].ranks[rank].users.push(user.userid);
 			write();
 
-			user.popup("You've joined " + factions[factionid].name + ".");
+			user.popup(`You've joined ${factions[factionid].name}.`);
 		},
 
 		invite: function (target, room, user) {
@@ -510,22 +505,22 @@ exports.commands = {
 			if (Db("blockedinvites").get(targetUser.userid)) return this.errorReply('User is currently blocking faction invites!');
 			if (!factions[factionid]) return this.errorReply('You are not in a faction.');
 			if (!targetUser || !targetUser.connected) return this.errorReply('That user isn\'t online!');
-			if (factions[factionid].bans.indexOf(targetUser.userid) > -1) return this.errorReply(targetUser.name + " is banned from this faction!");
+			if (factions[factionid].bans.indexOf(targetUser.userid) > -1) return this.errorReply(`${targetUser.name} is banned from this faction!`);
 			if (factions[factionid].users.includes(targetUser.userid)) return this.errorReply('That user is already in a faction!');
 			if (factions[factionid].invites.includes(targetUser.userid)) return this.errorReply('That user already has a pending invite for this faction!');
 			for (let faction = 0; faction < factions.length; faction++) {
 				if (factions[faction].id === faction) continue;
-				if (factions[faction].users.includes(targetUser.userid)) return this.errorReply('That user is a member of ' + factions[faction].name + '.');
+				if (factions[faction].users.includes(targetUser.userid)) return this.errorReply(`That user is a member of ${factions[faction].name}.`);
 			}
 			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply('You can\'t invite people!');
 
 			factions[factionid].invites.push(targetUser.userid);
 			write();
-			let message = "/html has invited you to join the faction " + Chat.escapeHTML(factions[factionid].name) + ". <br />" +
-				"<button name=\"send\" value=\"/faction accept " + factionid + "\">Click to accept</button> | <button name=\"send\" value=\"/faction decline " + factionid +
-				"\">Click to decline</button>";
-			targetUser.send("|pm|" + user.getIdentity() + "|" + targetUser.getIdentity() + "|" + message);
-			this.sendReply("You've invited " + targetUser.name + " to join " + factions[factionid].name + ".");
+			let message = `/html has invited you to join the faction ${Chat.escapeHTML(factions[factionid].name)}. <br />` +
+				`<button name="send" value="/faction accept ${factionid}">Click to accept</button> | <button name="send" value="/faction decline ${factionid}` +
+				`">Click to decline</button>`;
+			targetUser.send(`|pm|${user.getIdentity()}|${targetUser.getIdentity()}|${message}`);
+			this.sendReply(`You've invited ${targetUser.name} to join ${factions[factionid].name}.`);
 		},
 
 		blockinvites: function (target, room, user) {
@@ -554,7 +549,7 @@ exports.commands = {
 			factions[factionid].invites.splice(factions[factionid].invites.indexOf(user.userid), 1);
 			write();
 
-			user.popup("You've accepted the invitation to join " + factions[factionid].name + ".");
+			user.popup(`You've accepted the invitation to join ${factions[factionid].name}.`);
 		},
 
 		decline: function (target, room, user) {
@@ -567,13 +562,13 @@ exports.commands = {
 			factions[factionid].invites.splice(factions[factionid].invites.indexOf(user.userid), 1);
 			write();
 
-			user.popup("You've declined the invitation to join " + factions[factionid].name + ".");
+			user.popup(`You've declined the invitation to join ${factions[factionid].name}.`);
 		},
 
 		leave: function (target, room, user) {
 			let factionid = toId(getFaction(user.userid));
 			if (!factions[factionid]) return this.errorReply("You're not in a faction.");
-			if (factions[factionid].ranks['owner'].users.includes(user.userid)) return this.errorReply("You can't leave a faction if you're the owner.");
+			if (factions[factionid].ranks['owner'].users.includes(user.userid)) return this.errorReply("You can't leave a faction, if you're the owner.");
 
 			for (let rank in factions[factionid].ranks) {
 				if (!factions[factionid].ranks[rank].users.includes(user.userid)) continue;
@@ -581,7 +576,7 @@ exports.commands = {
 			}
 			factions[factionid].users.splice(factions[factionid].users.indexOf(user.userid), 1);
 			write();
-			this.sendReply("You have left " + factions[factionid].name + ".");
+			this.sendReply(`You have left ${factions[factionid].name}.`);
 		},
 
 		kick: function (target, room, user) {
@@ -593,7 +588,7 @@ exports.commands = {
 			if (!factions[factionid]) return this.errorReply('You aren\'t in a faction!');
 			if (!factions[factionid].users.includes(targetid)) return this.errorReply('This user is not in a faction!');
 
-			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to kick users from '" + factionName + "'.");
+			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply(`You don't have permission to kick users from '${factionName}'.`);
 			if (toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(targetid)) === 'noble' || toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(targetid)) === 'owner' || toId(getFactionRank(user.userid)) === 'owner' && toId(getFactionRank(targetid)) === 'owner') return this.errorReply('You cannot kick them from the faction!');
 
 			for (let rank in factions[factionid].ranks) {
@@ -603,15 +598,15 @@ exports.commands = {
 			}
 			factions[factionid].users.splice(factions[factionid].users.indexOf(targetid), 1);
 			write();
-			if (Users(target) && Users(target).connected) Users(target).send("|popup||html|" + Server.nameColor(user.name) + " has kicked you from the faction " + Chat.escapeHTML(factions[factionid].name) + ".");
-			this.sendReply("You've kicked " + target + " from " + factions[factionid].name + ".");
+			if (Users(target) && Users(target).connected) Users(target).send(`|popup||html|${Server.nameColor(user.name)} has kicked you from the faction ${Chat.escapeHTML(factions[factionid].name)}.`);
+			this.sendReply(`You've kicked ${target} from ${factions[factionid].name}.`);
 		},
 
 		ban: function (target, room, user) {
 			if (!getFaction(user.userid)) return false;
 			if (!target) return this.errorReply('/faction ban (target)');
 			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return false;
-			if (toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(toId(target))) === 'noble' || toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(toId(target))) === 'owner' || toId(getFactionRank(user.userid)) === 'owner' && toId(getFactionRank(toId(target))) === 'owner') return this.errorReply('You cannot kick them from the faction!');
+			if (toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(toId(target))) === 'noble' || toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(toId(target))) === 'owner' || toId(getFactionRank(user.userid)) === 'owner' && toId(getFactionRank(toId(target))) === 'owner') return this.errorReply('You cannot ban them from the faction!');
 			if (factions[toId(getFaction(user.userid))].bans.includes(toId(target))) return this.errorReply("User is already banned!");
 			factions[toId(getFaction(user.userid))].bans.push(toId(target));
 			if (factions[toId(getFaction(user.userid))].users.includes(toId(target))) factions[toId(getFaction(user.userid))].users.splice(factions[toId(getFaction(user.userid))].users.indexOf(toId(target)), 1);
@@ -619,17 +614,17 @@ exports.commands = {
 				if (factions[toId(getFaction(user.userid))].ranks[rank].users.includes(toId(target))) factions[toId(getFaction(user.userid))].ranks[rank].users.splice(factions[toId(getFaction(user.userid))].ranks[rank].users.indexOf(toId(target)), 1);
 			}
 			write();
-			return this.sendReply(toId(target) + ' is now banned from your faction!');
+			return this.sendReply(`${toId(target)} is now banned from your faction!`);
 		},
 
 		unban: function (target, room, user) {
 			if (!getFaction(user.userid)) return false;
 			if (!target) return this.errorReply('/faction unban (target)');
 			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return false;
-			if (!factions[toId(getFaction(user.userid))].bans.includes(toId(target))) return this.errorReply(toId(target) + ' is not banned from your faction!');
+			if (!factions[toId(getFaction(user.userid))].bans.includes(toId(target))) return this.errorReply(`${toId(target)} is not banned from your faction!`);
 			factions[toId(getFaction(user.userid))].bans.splice(factions[toId(getFaction(user.userid))].bans.indexOf(toId(target)), 1);
 			write();
-			return this.sendReply(toId(target) + ' is now unbanned from your faction');
+			return this.sendReply(`${toId(target)} is now unbanned from your faction.`);
 		},
 
 		bank: {
@@ -638,21 +633,21 @@ exports.commands = {
 			atm: function (target, room, user) {
 				if (!this.runBroadcast()) return;
 				if (!target) return this.errorReply('/faction bank atm [faction]');
-				if (!factions[toId(target)]) return this.errorReply(target + ' is not a faction.');
+				if (!factions[toId(target)]) return this.errorReply(`${target} is not a faction.`);
 				let bank = Db("factionbank").get(target, 0);
-				return this.sendReplyBox(target + ' has ' + bank + ' in their faction bank.');
+				return this.sendReplyBox(`${target} has ${bank} in their faction bank.`);
 			},
 
 			give: function (target, room, user) {
 				let targets = target.split(',');
 				if (!targets[1]) return this.errorReply('/faction bank give [faction], [amount]');
 				let name = toId(targets[0]);
-				if (!factions[name]) return this.errorReply(name + ' is not a faction.');
+				if (!factions[name]) return this.errorReply(`${name} is not a faction.`);
 				if (!this.can('declare')) return this.errorReply('You don\'t have permission to do that.');
 				let amount = parseInt(targets[1]);
 				if (isNaN(amount)) return this.errorReply("That is not a number!");
 				Db("factionbank").set(name, Db("factionbank").get(name, 0) + amount);
-				return this.sendReply('You have added ' + amount + ' to ' + name + '\'s bank!');
+				return this.sendReply(`You have added ${amount} to ${name}'s bank!`);
 			},
 
 			take: function (target, room, user) {
@@ -664,7 +659,7 @@ exports.commands = {
 				let amount = parseInt(targets[1]);
 				if (isNaN(amount)) return this.errorReply("That is not a number!");
 				Db("factionbank").set(name, Db("factionbank").get(name, 0) - amount);
-				return this.sendReply('You have taken ' + amount + ' from ' + name + '\'s bank!');
+				return this.sendReply(`You have taken ${amount} from ${name}'s bank!`);
 			},
 
 			ladder: function (target, room, user) {
@@ -683,9 +678,9 @@ exports.commands = {
 			reset: function (target, room, user) {
 				if (!this.can('roomowner')) return false;
 				let factionId = toId(target);
-				if (!factions[factionId]) return this.errorReply(factionId + ' is not a faction!');
+				if (!factions[factionId]) return this.errorReply(`${factionId} is not a faction!`);
 				Db("factionbank").delete(factionId);
-				return this.sendReply('You have reset ' + factionId + '\'s bank!');
+				return this.sendReply(`You have reset ${factionId}'s bank!`);
 			},
 		},
 
@@ -721,8 +716,8 @@ exports.commands = {
 			factions[factionid].ranks[toId(rank)].users.push(targetUser.userid);
 			write();
 			rank = factions[factionid].ranks[toId(rank)].title;
-			targetUser.send("|popup||html|" + Server.nameColor(user.name) + " has set your faction rank in " + Chat.escapeHTML(factions[factionid].name) + " to " + Chat.escapeHTML(rank) + ".");
-			this.sendReply("You've set " + targetUser.name + "'s faction rank to " + rank + ".");
+			targetUser.send(`|popup||html|${Server.nameColor(user.name)} has set your faction rank in ${Chat.escapeHTML(factions[factionid].name)} to ${Chat.escapeHTML(rank)}.`);
+			this.sendReply(`You've set ${targetUser.name}'s faction rank to ${rank}.`);
 		},
 
 		demote: function (target, room, user) {
@@ -757,10 +752,9 @@ exports.commands = {
 			factions[factionid].ranks[toId(rank)].users.splice(factions[factionid].ranks[toId(rank)].users.indexOf(toId(targetUser)), 1);
 			write();
 			if (Users(targetUser) && Users(targetUser).connected) {
-				Users(targetUser).send("|popup||html|" + Server.nameColor(user.name) + " has removed you from the faction rank " + Chat.escapeHTML(rank) + " in " +
-				Chat.escapeHTML(factions[factionid].name) + ".");
+				Users(targetUser).send(`|popup||html|${Server.nameColor(user.name)} has removed you from the faction rank ${Chat.escapeHTML(rank)} in ${Chat.escapeHTML(factions[factionid].name)}.`);
 			}
-			this.sendReply("You've removed " + targetUser + " from the faction rank " + rank + ".");
+			this.sendReply(`You've removed ${targetUser} from the faction rank ${rank}.`);
 		},
 
 		pending: function (target, room, user) {
@@ -768,10 +762,10 @@ exports.commands = {
 			let output = '<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Faction</td><td>Description</td><td>Approve</td></tr>';
 			for (let faction in factions) {
 				if (!factions[faction].approved) {
-					output += '<tr>';
-					output += '<td>' + Chat.escapeHTML(factions[faction].name) + '</td>';
-					output += '<td>' + Chat.escapeHTML(factions[faction].desc) + '</td>';
-					output += '<td><button name="send" value="/faction approve ' + faction + '">Approve ' + factions[faction].name + '</button></td>';
+					output += `<tr>`;
+					output += `<td>${Chat.escapeHTML(factions[faction].name)}</td>`;
+					output += `<td>${Chat.escapeHTML(factions[faction].desc)}</td>`;
+					output += `<td><button name="send" value="/faction approve ${faction}">Approve ${factions[faction].name}</button></td>`;
 				}
 			}
 			output += "</table></center>";
@@ -834,8 +828,8 @@ exports.commands = {
 			if (isNaN(size) || size < 3 || size > 15) return this.errorReply("Please specify a size of at least 3 and no larger than 15");
 			if (size % 2 === 0) return this.errorReply("Size must be an odd number.");
 
-			if (Rooms.global.FvF[factionId] && Rooms.global.FvF[factionId].challenging) return this.errorReply("You're already challenging " + factions[Rooms.global.FvF[factionId].challenging].name + ".");
-			if (Rooms.global.FvF[factionId] && Rooms.global.FvF[factionId].challenger) return this.errorReply("Your faction is being challenged by " + factions[Rooms.global.FvF[factionId].challenger].name + ". Please accept or deny it before challenging a faction.");
+			if (Rooms.global.FvF[factionId] && Rooms.global.FvF[factionId].challenging) return this.errorReply(`You're already challenging ${factions[Rooms.global.FvF[factionId].challenging].name}.`);
+			if (Rooms.global.FvF[factionId] && Rooms.global.FvF[factionId].challenger) return this.errorReply(`Your faction is being challenged by ${factions[Rooms.global.FvF[factionId].challenger].name}. Please accept or deny it before challenging a faction.`);
 			if (room.fvf) return this.errorReply("There's currently a faction vs faction running in this room.");
 			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to start a faction vs faction.");
 			if (!user.can('ban', null, room)) return this.errorReply("You don't have permission to start a faction vs faction in that room.");
@@ -883,19 +877,15 @@ exports.commands = {
 			for (let i = 0; i < size.length; i++) room.fvf.status.push((mode === "normal" ? 3 : 2));
 
 			factionPM(
-				Server.nameColor(user.name) + ' (' + Chat.escapeHTML(getFaction(user.userid)) + ') has challenged your faction to a Faction vs Faction (' +
-				size + 'v' + size + ') in' +
-				' <button name="joinRoom" value="' + room.id + '">' + Chat.escapeHTML(room.title) + '</button>.<br />' +
+				`${Server.nameColor(user.name)} (${Chat.escapeHTML(getFaction(user.userid))}) has challenged your faction to a Faction vs Faction (${size} v ${size}) in` +
+				`<button name="joinRoom" value="${room.id}">${Chat.escapeHTML(room.title)}</button>.<br />` +
 				'<button name="send" value="/fvf accept">Accept</button> | <button name="send" value="/fvf deny">Decline</button>', targetFactionid
 			);
 			factionPM(
-				Server.nameColor(user.name) + ' has challenged ' + Chat.escapeHTML(factions[targetFactionid].name) + ' to a Faction vs Faction (' +
-				size + 'v' + size + ') in <button name="joinRoom" value="' + room.id + '">' + Chat.escapeHTML(room.title) + '</button>'
+				`${Server.nameColor(user.name)} has challenged ${Chat.escapeHTML(factions[targetFactionid].name)} to a Faction vs Faction (` +
+				`${size} v ${size}) in <button name="joinRoom" value="${room.id}">${Chat.escapeHTML(room.title)}</button>`
 			);
-			room.add('|uhtml|fvf-' + fvfId + '|' +
-				'<div class="infobox"><center>' + Server.nameColor(user.name) + ' has challenged ' + Chat.escapeHTML(factions[targetFactionid].name) +
-				' to a Faction vs Faction. (' + size + 'v' + size + ')<br />Waiting for a response...</center></div>'
-			);
+			room.add(`|uhtml|fvf-${fvfId}|<div class="infobox"><center>${Server.nameColor(user.name)} has challenged ${Chat.escapeHTML(factions[targetFactionid].name)} to a Faction vs Faction. (${size} v ${size})<br />Waiting for a response...</center></div>`);
 		},
 
 		accept: function (target, room, user) {
@@ -909,10 +899,10 @@ exports.commands = {
 			targetRoom.fvf.accepted = true;
 			fvfDisplay(targetRoom);
 
-			factionPM(Server.nameColor(user.name) + ' has accepted the Faction vs Faction challenge against ' + Chat.escapeHTML(factions[targetFactionid].name), factionId);
-			factionPM(Server.nameColor(user.name) + ' (' + factions[factionId].name + ') has accepted the Faction vs Faction challenge against your faction.', targetFactionid);
+			factionPM(`${Server.nameColor(user.name)} has accepted the Faction vs Faction challenge against ${Chat.escapeHTML(factions[targetFactionid].name)}, ${factionId}`);
+			factionPM(`${Server.nameColor(user.name)} (${factions[factionId].name}) has accepted the Faction vs Faction challenge against your faction., ${targetFactionid}`);
 
-			this.sendReply("You've accepted the Faction vs Faction against " + factions[targetFactionid].name + ".");
+			this.sendReply(`You've accepted the Faction vs Faction against ${factions[targetFactionid].name}.`);
 		},
 
 		deny: function (target, room, user) {
@@ -922,18 +912,16 @@ exports.commands = {
 			if (!Rooms.global.FvF[factionId] || !Rooms.global.FvF[factionId].challenger) return this.errorReply("Your faction doesn't have any pending challenges.");
 			let targetFactionid = Rooms.global.FvF[factionId].challenger;
 			let targetRoom = Rooms(Rooms.global.FvF[factionId].room);
-			targetRoom.add('|uhtmlchange|fvf-' + targetRoom.fvf.fvfId + '|');
-			targetRoom.add('|uhtml|fvf-' + targetRoom.fvf.fvfId + '|' +
-				'<div class="infobox">(' + Chat.escapeHTML(factions[factionId].name) + ' has declined the Faction vs Faction challenge.)</div>'
-			);
+			targetRoom.add(`|uhtmlchange|fvf-${targetRoom.fvf.fvfId}|`);
+			targetRoom.add(`|uhtml|fvf-${targetRoom.fvf.fvfId}|<div class="infobox">(${Chat.escapeHTML(factions[factionId].name)} has declined the Faction vs Faction challenge.)</div>`);
 
-			factionPM(Server.nameColor(user.name) + ' has declined the Faction vs Faction challenge against ' + Chat.escapeHTML(factions[targetFactionid].name), factionId);
-			factionPM(Server.nameColor(user.name) + ' (' + factions[factionId].name + ') has declined the Faction vs Faction challenge against your faction.', targetFactionid);
+			factionPM(`${Server.nameColor(user.name)} has declined the Faction vs Faction challenge against ${Chat.escapeHTML(factions[targetFactionid].name)}, ${factionId}``);
+			factionPM(`${Server.nameColor(user.name)} (${factions[factionId].name}) has declined the Faction vs Faction challenge against your faction.', ${targetFactionid}`);
 
 			delete Rooms.global.FvF[targetFactionid];
 			delete Rooms.global.FvF[factionId];
 			delete targetRoom.fvf;
-			this.sendReply("You've declined the Faction vs Faction against " + factions[targetFactionid].name + ".");
+			this.sendReply(`You've declined the Faction vs Faction against ${factions[targetFactionid].name}.`);
 		},
 
 		invite: function (target, room, user) {
@@ -959,10 +947,9 @@ exports.commands = {
 			if (faction.invites.includes(targetUser.userid)) return this.errorReply("That user has already been invited to join the Faction vs Faction.");
 
 			faction.invites.push(targetUser.userid);
-			factionPM(Server.nameColor(user.name) + " has invited " + Server.nameColor(targetUser.name) + " to join the Faction vs Faction against " + Chat.escapeHTML(factions[targetFaction.id].name), factionId);
-			targetUser.send("|popup||modal||html|" + Server.nameColor(user.name) + " has invited you to join the Faction vs Faction against " + Chat.escapeHTML(factions[targetFaction.id].name) +
-				" in the room <button name=\"joinRoom\" value=\"" + targetRoom.id + "\">" + Chat.escapeHTML(targetRoom.title) + "</button>");
-			this.sendReply("You've invited " + targetUser.name + " to join the Faction vs Faction.");
+			factionPM(`${Server.nameColor(user.name)}" has invited ${Server.nameColor(targetUser.name)} to join the Faction vs Faction against ${Chat.escapeHTML(factions[targetFaction.id].name)}, ${factionId}`);
+			targetUser.send(`|popup||modal||html|${Server.nameColor(user.name)} has invited you to join the Faction vs Faction against ${Chat.escapeHTML(factions[targetFaction.id].name)} in the room <button name="joinRoom" value="${targetRoom.id}">${Chat.escapeHTML(targetRoom.title)}</button>`);
+			this.sendReply(`You've invited ${targetUser.name} to join the Faction vs Faction.`);
 		},
 
 		join: function (target, room, user) {
@@ -982,7 +969,7 @@ exports.commands = {
 			if (faction.players.includes(user.userid)) return this.errorReply("You've already joined this Faction vs Faction.");
 
 			faction.players.push(user.userid);
-			room.add('|raw|' + Server.nameColor(user.name) + " has joined the Faction vs Faction for " + getFaction(user.userid));
+			room.add(`|raw|${Server.nameColor(user.name)} has joined the Faction vs Faction for ${getFaction(user.userid)}.`);
 			fvfDisplay(room);
 		},
 
@@ -1001,7 +988,7 @@ exports.commands = {
 			if (room.fvf.started) return this.errorReply("You can't leave a Faction vs Faction after it starts.");
 
 			faction.players.splice(faction.players.indexOf(user.userid), 1);
-			room.add(user.name + " has left the Faction vs Faction.");
+			room.add(`${user.name} has left the Faction vs Faction.`);
 			fvfDisplay(room);
 		},
 
@@ -1021,10 +1008,10 @@ exports.commands = {
 			let targetFactionid = room.fvf.factions[0].id;
 			if (targetRoom.fvf.factions[1].id !== factionId) targetFactionid = targetRoom.fvf.factions[1].id;
 
-			targetRoom.add('|uhtmlchange|fvf-' + targetRoom.fvf.fvfId + '|');
-			targetRoom.add('|uhtml|fvf-' + targetRoom.fvf.fvfId + '|(The Faction vs Faction has been forcibly ended by ' + Chat.escapeHTML(user.name) + ' (' + Chat.escapeHTML(factions[factionId].name) + '))');
+			targetRoom.add(`|uhtmlchange|fvf-${targetRoom.fvf.fvfId}|`);
+			targetRoom.add(`|uhtml|fvf-${targetRoom.fvf.fvfId}|(The Faction vs Faction has been forcibly ended by ${Chat.escapeHTML(user.name)} (${Chat.escapeHTML(factions[factionId].name)}))`);
 
-			factionPM(Server.nameColor(user.name) + ' has forcibly ended the Faction vs Faction with ' + Chat.escapeHTML(factions[targetFactionid].name) + '.', factionId);
+			factionPM(`${Server.nameColor(user.name)} has forcibly ended the Faction vs Faction with ${Chat.escapeHTML(factions[targetFactionid].name)}.`, factionId);
 
 			delete Rooms.global.FvF[targetFactionid];
 			delete Rooms.global.FvF[factionId];

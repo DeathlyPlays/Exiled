@@ -8,6 +8,21 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 		let sets = {
 			//Admins
 			//Leaders
+			"&flufi": {
+				species: "Darmanitan",
+				ability: "Iron Fist",
+				item: "Fist Plate",
+				gender: "M",
+				moves: ['Fire Punch', 'Thunder Punch', 'Mega Kick'],
+				baseSignatureMove: "knockoutpunch",
+				signatureMove: "Knockout Punch",
+				evs: {
+					spe: 252,
+					atk: 252,
+					spd: 4,
+				},
+				nature: "Adamant",
+			},
 			//Mods
 			//Drivers
 			//Voices

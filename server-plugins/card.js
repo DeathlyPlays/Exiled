@@ -147,6 +147,7 @@ cachePacks();
 cacheRarity();
 
 exports.commands = {
+<<<<<<< HEAD
 	packs: 'pack',
 	pack: function (target, room, user) {
 		if (!this.runBroadcast()) return;
@@ -314,6 +315,72 @@ exports.commands = {
 				card = cards[card];
 				removeCard(card.title, user.userid);
 				return this.sendReply("Card successfully sold for " + profit + " Soul Dews.");
+=======
+	psgo: {
+		display: 'card',
+		card: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			if (!target) return this.parse(`/help psgo card`);
+			if (!cards[toId(target)]) return this.errorReply(`That card does not exist.`);
+			let card = cards[toId(target)];
+			let display = `<div style="width: 49%; display: inline-block;"><img src="${card.image}" title="${card.id}"></div>`;
+			display += `<div style="width: 49%; display: inline-block; float: right;">`;
+			let colors = {Common: '#0066ff', Uncommon: '#008000', Rare: '#cc0000', "Ultra Rare": '#800080', Legendary: '#c0c0c0', Mythic: '#998200'};
+			display += `<font style="font-size: 3em; font-weight: bold;">${card.name}</font><h5>(ID: ${card.id})</h5><font style="font-size: 2em; font-weight: bold; color: ${colors[card.rarity]};">${card.rarity}</font><br/><strong>Species</strong>: ${card.species}<br/><strong>Type</strong>: ${card.type}<br/>`;
+			display += `<strong>Pack</strong>: ${card.pack}<br/><strong>Card Type</strong>: ${card.cardType}</div>`;
+
+			return this.sendReplyBox(display);
+		},
+		cardhelp: ['/psgo card [card id] - Gives information on the card selected.'],
+
+		showcase: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			if (!target) target = user.userid;
+			const cards = Db("cards").get(toId(target), []);
+			if (!cards.length) return this.sendReplyBox(`${toId(target)} has no cards.`);
+			let cardsShown = 0;
+			// done this way because of a glitch
+			let broadcasting = this.broadcasting;
+			const cardsMapping = cards.map(function (card) {
+				if (broadcasting && cardsShown >= 100) {
+					if (cardsShown === 100) {
+						cardsShown++;
+						return `<button name="send" value="/psgo showcase ${toId(target)}" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;">Show all cards</button>`;
+					}
+					return '';
+				}
+				cardsShown++;
+				return `<button name="send" value="/psgo card ${card.id}" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;"><img src="${card.image}" width="100" title="${card.id}"></button>`;
+			});
+			this.sendReplyBox(`<div style="max-height: 300px; overflow-y: scroll;">${cardsMapping.join('')}</div><br><center><strong>${Server.nameColor(toId(target), true)} has ${cards.length} cards</strong></center>`);
+		},
+		showcasehelp: ['/psgo showcase (user) - Show all of the selected users cards.'],
+
+		confirmtransfercard: 'transfercard',
+		transfercard: function (target, room, user, connection, cmd) {
+			if (!target) return this.parse(`/help psgo transfercard`);
+			let targets = target.split(`,`).map(x => {
+				return x.trim();
+			});
+			if (targets.length < 2) return this.parse(`/help psgo transfercard`);
+
+			let targetUser = Users(toId(targets[0]));
+			if (!targetUser) return this.errorReply(`The user "${targets[0]}" was not found.`);
+			if (!targetUser.named) return this.errorReply(`Guests cannot be given cards.`);
+			if (targetUser.userid === user.userid) return this.errorReply(`You cannot transfer cards to yourself.`);
+			let card = toId(targets[1]);
+			if (!cards[card]) return this.errorReply(`That card does not exist.`);
+
+			let canTransfer = hasCard(user.userid, card);
+			if (!canTransfer) return user.popup(`You do not have that card.`);
+
+			if (cmd !== 'confirmtransfercard') {
+				return this.popupReply(`|html|<center>` +
+					`<button class = "card-td button" name = "send" value = "/psgo confirmtransfercard ${targetUser.userid}, ${card}"` +
+					`style = "outline: none; width: 200px; font-size: 11pt; padding: 10px; border-radius: 14px ; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4) inset; transition: all 0.2s;">` +
+					`Confirm transfer to <br><strong style = "color:${Server.nameColor(targetUser.userid)}; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">${Chat.escapeHTML(targetUser.name)}</strong></button></center>`
+				);
+>>>>>>> d289d6cf2c33c0272adcc08274e71b7cbb3808e2
 			}
 		}
 

@@ -423,7 +423,7 @@ exports.commands = {
 					output += `<td>${Chat.escapeHTML(curFaction.name)}</td>`;
 					output += `<td>${desc}</td>`;
 					output += `<td>${curFaction.tourwins}</td>`;
-					output += `<td>'<button name="send" value="/faction profile ${curFaction.id}>' ${curFaction.users.length}</button></td>`;
+					output += `<td><button name="send" value="/faction profile ${curFaction.id}">${curFaction.users.length}</button></td>`;
 					output += `</tr>`;
 				}
 			}

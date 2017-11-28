@@ -956,10 +956,10 @@ class Tournament {
 				let factionName = Server.getFaction(winner);
 				let factionId = toId(factionName);
 				Db("factionbank").set(factionId, Db("factionbank").get(factionId, 0) + 10);
-				this.room.add(`<strong>Congratulations to ${factionName}! Your faction has gained 10 points!`);
+				this.room.addRaw(`<strong>Congratulations to ${factionName}! Your faction has gained 10 points!</strong>`);
 			}
 
-			this.room.addRaw(`${Server.nameColor(winner, true)} <strong>has won <font color='${color}'>${firstMoney}</font>" ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} for winning the tournament!</strong>`);
+			this.room.addRaw(`${Server.nameColor(winner, true)} <strong>has won <font color='${color}'>${firstMoney}</font> ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} for winning the tournament!</strong>`);
 
 			if (runnerUp) {
 				if (Users(rid).tourBoost) secondMoney *= 2;
@@ -973,7 +973,7 @@ class Tournament {
 						Economy.logTransaction(`${Chat.escapeHTML(runnerUp)} has won ${secondMoney} ${(secondMoney === 1 ? global.moneyName : global.moneyPlural)} from a tournament.`);
 					});
 				});
-				this.room.addRaw(`${Server.nameColor(runnerUp, true)} <strong>has won <font color='${color}'> ${secondMoney}</font> ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} for winning the tournament!</strong>`);
+				this.room.addRaw(`${Server.nameColor(runnerUp, true)} <strong>has won <font color='${color}'>${secondMoney}</font> ${(secondMoney === 1 ? global.moneyName : global.moneyPlural)} for coming in second in the tournament!</strong>`);
 			}
 		}
 

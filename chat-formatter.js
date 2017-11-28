@@ -10,7 +10,7 @@
 'use strict';
 
 // Regex copied from the client
-const domainRegex = '[a-z0-9\\-]+(?:[.][a-z0-9\\-]+)*';
+const domainRegex = '[a-z0-9-]+(?:[.][a-z0-9-]+)*';
 const parenthesisRegex = '[(](?:[^\\s()<>&]|&amp;)*[)]';
 const linkRegex = new RegExp(
 	'(?:' +
@@ -33,7 +33,7 @@ const linkRegex = new RegExp(
 				// URLs usually don't end with punctuation, so don't allow
 				// punctuation symbols that probably aren't related to URL.
 				'(?:' +
-					'[^\\s`()\\[\\]{}\'".,!?;:&<>*`^~\\\\]' +
+					'[^\\s`()[\\]{}\'".,!?;:&<>*`^~\\\\]' +
 					'|' + parenthesisRegex +
 				')' +
 			')?' +
@@ -44,6 +44,8 @@ const linkRegex = new RegExp(
 	'(?!.*&gt;)',
 	'ig'
 );
+// compiled from above
+// const linkRegex = /(?:(?:(?:https?:\/\/|\bwww[.])[a-z0-9-]+(?:[.][a-z0-9-]+)*|\b[a-z0-9-]+(?:[.][a-z0-9-]+)*[.](?:com?|org|net|edu|info|us|jp|[a-z]{2,3}(?=[:/])))(?:[:][0-9]+)?\b(?:\/(?:(?:[^\s()&<>]|&amp;|&quot;|[(](?:[^\s()<>&]|&amp;)*[)])*(?:[^\s`()[\]{}'".,!?;:&<>*`^~\\]|[(](?:[^\s()<>&]|&amp;)*[)]))?)?|[a-z0-9.]+\b@[a-z0-9-]+(?:[.][a-z0-9-]+)*[.][a-z]{2,3})(?!.*&gt;)/ig;
 
 /**
  * @typedef {'_' | '*' | '~' | '^' | '\\' | '<' | '[' | '`' | 'a' | 'spoiler' | '>' | '('} SpanType
@@ -76,7 +78,7 @@ class TextFormatter {
 					if (slashIndex - 4 > 19 + 3) uri = uri.slice(0, 19) + '<small class="message-overflow">' + uri.slice(19, slashIndex - 4) + '</small>' + uri.slice(slashIndex - 4);
 				}
 			}
-			return `<a href="${fulluri}" target="_blank" rel="noopener">${uri}</a>`;
+			return `<a href="${fulluri}" rel="noopener" target="_blank">${uri}</a>`;
 		});
 		// (links don't have any specific syntax, they're just a pattern, so we detect them in a separate pass)
 
@@ -296,6 +298,7 @@ class TextFormatter {
 				if (uri && !this.isTrusted) {
 					let shortUri = uri.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
 					term += `<small> &lt;${shortUri}&gt;</small>`;
+					uri += '" rel="noopener';
 				}
 				if (colonPos > 0) {
 					const key = this.slice(start + 2, colonPos);
@@ -306,13 +309,29 @@ class TextFormatter {
 						uri = `//en.wikipedia.org/w/index.php?title=Special:Search&search=${this.toUriComponent(term)}`;
 						term = `wiki: ${term}`;
 						break;
+					case 'pokemon':
+					case 'item':
+						term = term.slice(term.charAt(key.length + 1) === ' ' ? key.length + 2 : key.length + 1);
+
+						let display = '';
+						if (this.isTrusted) {
+							display = `<psicon ${key}="${term}"/>`;
+						} else {
+							display = `[${term}]`;
+						}
+
+						let dir = key;
+						if (key === 'item') dir += 's';
+
+						uri = `//dex.pokemonshowdown.com/${dir}/${toId(term)}`;
+						term = display;
 					}
 				}
 				if (!uri) {
 					uri = `//www.google.com/search?ie=UTF-8&btnI&q=${this.toUriComponent(term)}`;
 				}
 				this.pushSlice(start);
-				this.buffers.push(`<a href="${uri}" target="_blank" rel="noopener">${term}</a>`);
+				this.buffers.push(`<a href="${uri}" target="_blank">${term}</a>`);
 				this.offset = i + 2;
 			}
 			return true;

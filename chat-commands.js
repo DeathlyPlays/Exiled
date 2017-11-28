@@ -1820,10 +1820,10 @@ exports.commands = {
 		Users.setOfflineGroup(name, nextGroup);
 		if (Config.groups[nextGroup].rank < Config.groups[currentGroup].rank) {
 			this.privateModCommand(`(${name} was demoted to ${groupName} by ${user.name}.)`);
-			if (targetUser) targetUser.popup(`You were demoted to ${groupName} by ${user.name}.`);
+			if (targetUser) targetUser.popup(`|html|You were demoted to ${groupName} by ${Server.nameColor(user.name, true)}.`);
 		} else {
 			this.addModCommand(`${name} was promoted to ${groupName} by ${user.name}.`);
-			if (targetUser) targetUser.popup(`You were promoted to ${groupName} by ${user.name}.`);
+			if (targetUser) targetUser.popup(`|html|You were promoted to ${groupName} by ${Server.nameColor(user.name, true)}.`);
 		}
 
 		if (targetUser) targetUser.updateIdentity();

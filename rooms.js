@@ -1386,9 +1386,7 @@ class ChatRoom extends BasicRoom {
 			if (!user.named) {
 				++guests;
 			}
-			// @ts-ignore
 			if (this.auth && this.auth[user.userid] && this.auth[user.userid] in groups) {
-				// @ts-ignore
 				++groups[this.auth[user.userid]];
 			} else {
 				++groups[user.group];

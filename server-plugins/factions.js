@@ -748,7 +748,7 @@ exports.commands = {
 					hasOtherRanks = true;
 				}
 			}
-			factions[factionid].ranks['commoner'].users.push(toId(targetUser));
+			if (!hasOtherRanks) factions[factionid].ranks['commoner'].users.push(toId(targetUser));
 			factions[factionid].ranks[toId(rank)].users.splice(factions[factionid].ranks[toId(rank)].users.indexOf(toId(targetUser)), 1);
 			write();
 			if (Users(targetUser) && Users(targetUser).connected) {

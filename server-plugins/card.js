@@ -176,7 +176,7 @@ exports.commands = {
 			if (!cards[card]) return this.errorReply(`That card does not exist.`);
 
 			let canTransfer = hasCard(user.userid, card);
-			if (!canTransfer) return user.popup(`You do note have that card.`);
+			if (!canTransfer) return user.popup(`You do not have that card.`);
 
 			if (cmd !== 'confirmtransfercard') {
 				return this.popupReply(`|html|<center>` +

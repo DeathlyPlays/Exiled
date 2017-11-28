@@ -938,25 +938,29 @@ class Tournament {
 			let firstMoney = Math.round(tourSize / 2);
 			let secondMoney = Math.round(firstMoney / 2);
 			if (firstMoney < 2) firstMoney = 2;
+			if (secondMoney < 1) secondMoney = 1;
 			if (Db('userBadges').has(wid) && Db('userBadges').get(wid).indexOf('Tournament Champion') > -1) firstMoney = Math.ceil(firstMoney * 1.5);
 			if (Users(wid).tourBoost) firstMoney *= 2;
 			if (Users(wid).gameBoost) firstMoney *= 2;
-			if (secondMoney < 1) secondMoney = 1;
 
 			Economy.writeMoney(wid, firstMoney, () => {
 				Economy.readMoney(wid, newAmount => {
 					if (Users(wid) && Users(wid).connected) {
-						Users.get(wid).popup('|html|You have received ' + firstMoney + ' ' + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + ' from winning the tournament.');
+						Users.get(wid).popup(`|html|You have received ${firstMoney} ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} from winning the tournament.`);
 					}
-					Economy.logTransaction(Chat.escapeHTML(winner) + ' has won ' + firstMoney + ' ' + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + ' from a tournament.');
+					Economy.logTransaction(`${Chat.escapeHTML(winner)} has won ${firstMoney} ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} from a tournament.`);
 				});
 			});
-			this.room.addRaw("" + Server.nameColor(winner, true) + "<strong> has won " + "<font color='" + color + "'>" + firstMoney + " </font>" + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + " for winning the tournament!</strong>");
 
-			if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
-				let tourRarity = Server.tourCard(tourSize, toId(winner));
-				if (tourRarity) this.room.addRaw("" + Server.nameColor(winner, true) + "<strong> has also won a <font color=" + tourRarity[0] + ">" + tourRarity[1] + "</font> card: <button class='tourcard-btn' style='border-radius: 20px; box-shadow: 1px 1px rgba(255, 255, 255, 0.3) inset, -1px -1px rgba(0, 0, 0, 0.2) inset, 2px 2px 2px rgba(0, 0, 0, 0.5);' name='send' value='/card " + tourRarity[2] + "'>" + tourRarity[3] + "</button> from the tournament.");
+			if (Server.getFaction(winner)) {
+				let factionName = Server.getFaction(winner);
+				let factionId = toId(factionName);
+				Db("factionbank").set(factionId, Db("factionbank").get(factionId, 0) + 10);
+				this.room.add(`<strong>Congratulations to ${factionName}! Your faction has gained 10 points!`);
 			}
+
+			this.room.addRaw(`${Server.nameColor(winner, true)} <strong>has won <font color='${color}'>${firstMoney}</font>" ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} for winning the tournament!</strong>`);
+
 			if (runnerUp) {
 				if (Users(rid).tourBoost) secondMoney *= 2;
 				if (Users(rid).gameBoost) secondMoney *= 2;
@@ -964,12 +968,12 @@ class Tournament {
 				Economy.writeMoney(rid, secondMoney, () => {
 					Economy.readMoney(rid, newAmount => {
 						if (Users(rid) && Users(rid).connected) {
-							Users.get(rid).popup('|html|You have received ' + secondMoney + ' ' + (secondMoney === 1 ? global.moneyName : global.moneyPlural) + ' from winning the tournament.');
+							Users.get(rid).popup(`|html|You have received ${secondMoney} ${(secondMoney === 1 ? global.moneyName : global.moneyPlural)} from winning the tournament.`);
 						}
-						Economy.logTransaction(Chat.escapeHTML(runnerUp) + ' has won ' + secondMoney + ' ' + (secondMoney === 1 ? global.moneyName : global.moneyPlural) + ' from a tournament.');
+						Economy.logTransaction(`${Chat.escapeHTML(runnerUp)} has won ${secondMoney} ${(secondMoney === 1 ? global.moneyName : global.moneyPlural)} from a tournament.`);
 					});
 				});
-				this.room.addRaw("" + Server.nameColor(runnerUp, true) + "<strong> has won " + "<font color='" + color + "'> " + secondMoney + "</font>" + (firstMoney === 1 ? global.moneyName : global.moneyPlural) + " for winning the tournament!</strong>");
+				this.room.addRaw(`${Server.nameColor(runnerUp, true)} <strong>has won <font color='${color}'> ${secondMoney}</font> ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} for winning the tournament!</strong>`);
 			}
 		}
 

@@ -23547,6 +23547,7 @@ exports.BattleLearnsets = {
 		sludgewave: ["7M", "6M", "5M"],
 		snore: ["6T", "5T", "4T", "3T"],
 		spikes: ["7L1", "6L1", "5L1", "4L1", "3L1"],
+		spikyshield: ["7L1", "6L32"],
 		spitup: ["7L25", "6L25", "5L25", "4L25"],
 		stockpile: ["7L25", "6L25", "5L25", "4L25"],
 		substitute: ["7M", "6M", "5M", "4M", "3T"],

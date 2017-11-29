@@ -6,7 +6,8 @@ exports.BattleMovedex = {
 		id: "npmtest",
 		name: "npm test",
 		priority: 1,
-		desc: "Boosts user's SpA and Spe by one stage",
+		desc: "Boosts the user's Special Attack and Speed by one stage.",
+		shortDesc: "+1 SpA & Spe.",
 		self: {
 			boosts: {
 				spa: 1,
@@ -42,7 +43,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		pp: 1,
 		noPPBoosts: true,
-		desc: "No additional information",
+		desc: "No additional information.",
 		secondary: false,
 		category: "Special",
 		isViable: true,
@@ -69,7 +70,8 @@ exports.BattleMovedex = {
 		id: "hellfire",
 		name: "Hellfire",
 		pp: 10,
-		desc: "The user's Atk & SpA raise by 2 stages.",
+		desc: "The user's Attack & Special Attack raise by 2 stages.",
+		shortDesc: "+2 Atk & SpA.",
 		priority: 0,
 		self: {
 			boosts: {
@@ -109,7 +111,7 @@ exports.BattleMovedex = {
 			chance: 20,
 			status: 'brn',
 		}],
-		desc: "20% chance to burn, and Electric type effectiveness",
+		desc: "20% chance to burn, and Electric type effectiveness.",
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Techno Blast", target);
@@ -119,111 +121,6 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Normal",
-	},
-	//flufi
-	"hypertensiveattack": {
-		id: "hypertensiveattack",
-		name: "Hypertensive Attack",
-		self: {
-			boosts: {
-				spa: 1,
-			},
-		},
-		secondary: false,
-		category: "Special",
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Draco Meteor", target);
-			this.add('-anim', source, "Agility", target);
-			this.add('-anim', source, "Nightmare", target);
-		},
-		basePower: 140,
-		pp: 5,
-		accuracy: 80,
-		target: "normal",
-		type: "Dragon",
-		zMovePower: 185,
-		contestType: "Clever",
-	},
-	//cieltsnow
-	"pimpslap": {
-		id: "pimpslap",
-		name: "Pimp Slap",
-		basePower: 90,
-		accuracy: 100,
-		pp: 15,
-		priority: 1,
-		self: {
-			boosts: {
-				spa: 1,
-				spe: 1,
-			},
-		},
-		secondary: false,
-		category: "Special",
-		onHit: function (target, source, move) {
-			this.add('c| CielTSnow|Who\'s getting slapped next!?!?!');
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Focus Blast", target);
-		},
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		target: "normal",
-		type: "Fighting",
-	},
-	//catequil
-	"fuckingsplashing": {
-		id: "fuckingsplashing",
-		name: "FUCKING SPLASHING",
-		self: {
-			boosts: {
-				atk: 2,
-				spe: 2,
-				def: 2,
-				spd: 2,
-				accuracy: 2,
-			},
-		},
-		basePower: 120,
-		accuracy: 100,
-		pp: 15,
-		priority: 0,
-		secondary: false,
-		category: "Physical",
-		onHit: function (target, source, move) {
-			this.add('c| CateQuil|SPLASH');
-		},
-		flags: {},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Splash", target);
-			this.add('-anim', source, "Magikarp's Revenge", target);
-		},
-		type: "Water",
-		target: "normal",
-	},
-	"slowtownking": {
-		accuracy: 100,
-		basePower: 110,
-		category: "Physical",
-		id: "slowtownking",
-		name: "Slowtown King",
-		pp: 20,
-		priority: 0,
-		desc: "Boosts targets Spe by 2 stages",
-		flags: {protect: 1, mirror: 1},
-		boosts: {
-			spe: 2,
-		},
-		secondary: false,
-		target: "normal",
-		type: "Normal",
-		zMovePower: 140,
-		contestType: "Beautiful",
 	},
 	"methmemesandedgyteens": {
 		accuracy: 100,
@@ -249,78 +146,6 @@ exports.BattleMovedex = {
 		type: "Rock",
 		zMovePower: 120,
 		contestType: "Tough",
-	},
-	"shinkuhadoken": {
-		accuracy: 100,
-		basePower: 20,
-		basePowerCallback: function (pokemon, target, move) {
-			return move.basePower + 20 * pokemon.positiveBoosts();
-		},
-		defensiveCategory: "Special",
-		category: "Physical",
-		id: "shinkuhadoken",
-		name: "Shinku Hadoken",
-		pp: 10,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		secondary: false,
-		target: "normal",
-		type: "Fighting",
-		zMovePower: 160,
-	},
-	//vividisagod
-	"jetblast": {
-		id: "jetblast",
-		name: "Jet Blast",
-		pp: 5,
-		priority: 0,
-		basePower: 140,
-		category: "Special",
-		accuracy: 100,
-		onHit: function (target, source, move) {
-			this.add('c| Vivid is a God|JET FUMES DON\'T MELT STEEL BEAMS!!!!!!');
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Draco Meteor", target);
-			this.add('-anim', source, "Focus Blast", target);
-		},
-		type: "Dragon",
-		flags: {
-			protect: 1,
-			mirror: 1,
-		},
-		target: "normal",
-	},
-	//Jigglykong
-	"sphealwithit": {
-		id: "sphealwithit",
-		name: "Spheal with It",
-		basePower: 0,
-		priority: 0,
-		accuracy: 100,
-		pp: 15,
-		category: "Status",
-		secondary: false,
-		onHit: function (target, source, move) {
-			this.add('c|&Jigglykong|Spheal with It!');
-		},
-		boosts: {
-			def: 2,
-			spa: 2,
-			spe: 2,
-			spd: 2,
-			accuracy: 2,
-		},
-		flags: {
-			snatch: 1,
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('-still');
-			this.add('-anim', source, "Quiver Dance", target);
-		},
-		target: "self",
-		type: "Water",
 	},
 	"exile": {
 		isNonstandard: true,
@@ -400,39 +225,15 @@ exports.BattleMovedex = {
 		type: "Ground",
 		target: "normal",
 	},
-	//happysong
-	"strikeyoudown": {
-		id: "strikeyoudown",
-		name: "Strike You Down",
-		basePower: 110,
-		accuracy: 100,
-		priority: 0,
-		pp: 10,
-		secondary: false,
-		category: "Physical",
-		type: "Psychic",
-		onHit: function (target, source, move) {
-			this.add('c| Kimisumi|I\'m gonna strike you down right now!');
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Psycho Cut", target);
-		},
-		flags: {
-			protect: 1,
-			mirror: 1,
-			contact: 1,
-		},
-		target: "Normal",
-	},
-	//bedevil
+	//LassNinetales
 	"prfmador": {
 		id: "prfmador",
 		name: "prfmador",
 		accuracy: 100,
 		basePower: 90,
 		pp: 15,
-		desc: "Boosts user's SpA and Spe by 1 stage",
+		desc: "Boosts user's Special Attack and Speed by 1 stage, and tries to freeze the target.",
+		shortDesc: "+1 SpA & Spe + Tries to freeze target.",
 		priority: 0,
 		self: {
 			boosts: {
@@ -464,7 +265,8 @@ exports.BattleMovedex = {
 		basePower: 180,
 		category: "Physical",
 		pp: 5,
-		def: "Psychic type V-Create",
+		desc: "Lowers the user's Speed, Defense, and Special Defense by 1 stage.",
+		shortDesc: "Lowers the user's Defense, Sp. Def, Speed by 1.",
 		priority: 0,
 		flags: {
 			contact: 1,
@@ -501,7 +303,8 @@ exports.BattleMovedex = {
 			mirror: 1,
 			defrost: 1,
 		},
-		desc: "Hits on Physical Defense, 20% chance to confuse, 20% chance to raise SpA and SpD by 1 stage",
+		desc: "Hits on Physical Defense, 20% chance to confuse, 20% chance to raise Special Attack and Special Defense by 1 stage.",
+		shortDesc: "Hits Physically + 20% chance to confuse + 20% chance to +1 SpA & SpD.",
 		secondary: {
 			chance: 20,
 			volatileStatus: "confusion",
@@ -526,30 +329,11 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
-	"meditate": {
-		inherit: true,
-		boosts: {
-			def: -1,
-			spd: -1,
-			atk: 2,
-			spa: 2,
-			spe: 2,
-		},
-		pp: 10,
-		priority: 6,
-		stallingMove: true,
-		volatileStatus: 'protect',
-		onPrepareHit: function (pokemon) {
-			return !!this.willAct() && this.runEvent('StallMove', pokemon);
-		},
-		onHit: function (pokemon) {
-			pokemon.addVolatile('stall');
-		},
-	},
 	"rushofdragonbolt": {
 		accuracy: 100,
 		basePower: 80,
-		desc: "If the target faints from this move, the user's Atk and Spe raise one stage",
+		desc: "If the target faints from this move, the user's Attack and Speed raise one stage.",
+		shortDesc: "If the target faints, +1 Atk & Spe.",
 		category: "Physical",
 		id: "rushofdragonbolt",
 		name: "Rush Of Dragon Bolt",
@@ -594,7 +378,8 @@ exports.BattleMovedex = {
 		name: "Crippling Kiss",
 		accuracy: 100,
 		basePower: 0,
-		desc: "Does many status involved things",
+		desc: "If the target is (badly) poisoned, their Attack, Special Attack, and Speed are all lowered by one stage. Confuses target. Leech Seeds target. Attempts to badly poison the target. Grass types are immune. Heals 1/4 of the user's max HP. Lowers the target's Speed by two stages.",
+		shortDesc: "Inflicts several status-related effects.",
 		category: "Status",
 		pp: 10,
 		priority: 0,
@@ -664,7 +449,8 @@ exports.BattleMovedex = {
 			chance: 100,
 			volatileStatus: 'confusion',
 		},
-		desc: "Boosts user's SpA by 2 stages, SpD by only 1 stage, and confuses foe",
+		desc: "Boosts user's Special Attack by 2 stages, Special Defense by only 1 stage, and confuses foe.",
+		shortDesc: "+2 SpA, +1 SpD, and confuses target.",
 		priority: 0,
 		self: {
 			boosts: {
@@ -678,7 +464,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Calm Mind", target);
 			this.add('-anim', source, "Geomancy", target);
 		},
-		target: "Normal",
+		target: "normal",
 		type: "Psychic",
 	},
 	//C733937 123
@@ -826,7 +612,8 @@ exports.BattleMovedex = {
 				spd: 1,
 			},
 		},
-		desc: "Boosts user's SpA SpD and Spe by one stage",
+		desc: "Boosts the user's SpA, SpD, and Spe by one stage.",
+		shortDesc: "+1 SpA, SpD & Spe.",
 		priority: 1,
 		onHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -878,7 +665,8 @@ exports.BattleMovedex = {
 	"ooga": {
 		accuracy: true,
 		basePower: 0,
-		desc: "Charges turn one, and next turn boosts SpA Def SpD and Speed by 3 stages",
+		desc: "Charges turn one and next turn boosts Special Attack, Defense, Special Defense, and Speed by 3 stages.",\
+		shortDesc: "Charges turn 1 then +3 Def, SpA, SpD & Spe.",
 		category: "Status",
 		id: "ooga",
 		name: "Ooga",
@@ -914,45 +702,12 @@ exports.BattleMovedex = {
 		zMoveBoost: {spe: 6},
 		contestType: "Beautiful",
 	},
-	//Lord Coldwraith
-	"soulreaper": {
-		id: "soulreaper",
-		name: "Soul Reaper",
-		desc: "Chance to frz, or flinch, Ice type Effectiveness",
-		basePower: 95,
-		secondaries: [
-			{
-				chance: 20,
-				status: 'frz',
-			}, {
-				chance: 30,
-				volatileStatus: 'flinch',
-			},
-		],
-		accuracy: 100,
-		pp: 10,
-		category: "Special",
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Shadow Force", target);
-			this.add('-anim', source, "Ice Burn", target);
-		},
-		onEffectiveness: function (typeMod, type, move) {
-			return typeMod + this.getEffectiveness('Ice', type);
-		},
-		flags: {protect: 1, mirror: 1},
-		target: "normal",
-		priority: 0,
-		type: "Ghost",
-		zMovePower: 150,
-		contestType: "Cool",
-	},
 	//ches
 	"cookiestorm": {
 		accuracy: 100,
 		basePower: 180,
 		category: "Physical",
-		desc: "Strong move with 70% recoil",
+		desc: "Has 70% recoil.",
 		id: "cookiestorm",
 		name: "Cookie Storm",
 		pp: 15,
@@ -1005,7 +760,7 @@ exports.BattleMovedex = {
 		id: "itsmytimenow",
 		name: "It's My Time Now",
 		accuracy: 100,
-		desc: "Strong sound move that ignore subs",
+		desc: "No additional effects.",
 		basePower: 150,
 		category: "Special",
 		pp: 10,
@@ -1021,7 +776,7 @@ exports.BattleMovedex = {
 		id: "cripplinghazards",
 		name: "Crippling Hazards",
 		basePower: 0,
-		desc: "Sets many types of hazards",
+		desc: "Sets many entry hazards.",
 		accuracy: true,
 		pp: 5,
 		priority: 0,
@@ -1049,7 +804,7 @@ exports.BattleMovedex = {
 		id: "punchyfury",
 		name: "Punchy Fury",
 		basePower: 30,
-		desc: "Hits 2-5 times",
+		desc: "Hits 2-5 times.",
 		category: "Physical",
 		accuracy: 100,
 		multihit: [2, 5],
@@ -1073,7 +828,7 @@ exports.BattleMovedex = {
 		id: "punchyrumassacrez",
 		name: "Punchyru Massacre Z",
 		basePower: 50,
-		desc: "Hits 2-3 times",
+		desc: "Hits 2-3 times.",
 		accuracy: 100,
 		pp: 1,
 		noPPBoosts: true,
@@ -1100,7 +855,7 @@ exports.BattleMovedex = {
 	"holydance": {
 		id: "holydance",
 		name: "Holy Dance",
-		desc: "Typeless damage",
+		desc: "Typeless damage.",
 		basePower: 80,
 		category: "Special",
 		accuracy: 100,
@@ -1127,40 +882,6 @@ exports.BattleMovedex = {
 			move.type = type;
 		},
 	},
-	"firststrike": {
-		accuracy: 100,
-		basePower: 180,
-		category: "Physical",
-		desc: "Fails if the target did not select a physical attack, special attack, or Me First for use this turn, or if the target moves before the user.",
-		shortDesc: "Usually goes first. Fails if target is not attacking.",
-		id: "firststrike",
-		isViable: true,
-		name: "First Strike",
-		pp: 5,
-		priority: 2,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		onTry: function (source, target) {
-			let decision = this.willMove(target);
-			if (!decision || decision.choice !== 'move' || (decision.move.category === 'Status' && decision.move.id !== 'mefirst') || target.volatiles.mustrecharge) {
-				this.attrLastMove('[still]');
-				this.add('-fail', source);
-				return null;
-			}
-		},
-		self: {
-			boosts: {
-				atk: 1,
-			},
-		},
-		onHit: function (target, source, move) {
-			this.add('c| EchoSierra|priority, bish!');
-		},
-		secondary: false,
-		target: "normal",
-		type: "Dark",
-		zMovePower: 240,
-		contestType: "Clever",
-	},
 	"powerofdarkness": {
 		accuracy: 100,
 		basePower: 100,
@@ -1183,7 +904,8 @@ exports.BattleMovedex = {
 	"lordswrath": {
 		id: "lordswrath",
 		name: "Lord's Wrath",
-		desc: "Boosts user's Attack but must recharge next turn.",
+		desc: "Boosts user's Attack by one stage, but must recharge next turn.",
+		shortDesc: "+1 Atk, but most recharge next turn.",
 		basePower: 90,
 		priority: 0,
 		accuracy: 100,
@@ -1211,7 +933,8 @@ exports.BattleMovedex = {
 	"legendsdestruction": {
 		id: "legendsdestruction",
 		name: "Legend's Destruction",
-		desc: "User steals foes boosts, drains 1/2 damage dealt, but has to recharge.",
+		desc: "User steals foe's boosts, drains 1/2 damage dealt, but has to recharge next turn.",
+		shortDesc: "Steals foe's boosts, drains 1/2, has to recharge.",
 		basePower: 130,
 		accuracy: 100,
 		category: "Physical",
@@ -1234,7 +957,7 @@ exports.BattleMovedex = {
 	"horrificroasts": {
 		id: "horrificroasts",
 		name: "Horrific Roasts",
-		desc: "Sets weather to sunny day, 30% chance to burn, 33% recoil",
+		desc: "Sets weather to Sunny Day, 30% chance to burn, 33% recoil.",
 		basePower: 150,
 		accuracy: 100,
 		category: "Physical",
@@ -1315,7 +1038,7 @@ exports.BattleMovedex = {
 		category: "Physical",
 		basePower: 100,
 		accuracy: true,
-		desc: 'Always hits, hits twice, 25% chance to flinch.',
+		desc: 'Hits twice, 25% chance to flinch.',
 		id: "stabstab",
 		isNonstandard: true,
 		name: "Stab Stab",
@@ -1339,7 +1062,7 @@ exports.BattleMovedex = {
 		category: "Special",
 		accuracy: true,
 		basePower: 77000,
-		desc: "Does huge damage at the price of selfdestructing itself",
+		desc: "Selfdestructs.",
 		id: "revengeofkrakenmare",
 		isNonstandard: true,
 		name: "Revenge of Kraken Mare",
@@ -1362,7 +1085,8 @@ exports.BattleMovedex = {
 		id: "superultraflamethrowerdestroyerofuniverses",
 		name: "Super Ultra Flamethrower Destroyer of Universes",
 		priority: 1,
-		desc: "Boosts user's SpA and Spe by one stage",
+		desc: "Boosts user's SpA, and Spe by one stage.",
+		shortDesc: "+1 SpA & Spe.",
 		self: {
 			boosts: {
 				spa: 1,
@@ -1392,7 +1116,7 @@ exports.BattleMovedex = {
 		id: "ultramegasuperfantasticflamethrowerofthegods",
 		name: "ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS",
 		basePower: 150,
-		desc: "150 BP Fire Type Move",
+		desc: "No additional effects.",
 		accuracy: 100,
 		pp: 1,
 		noPPBoosts: true,
@@ -1494,7 +1218,8 @@ exports.BattleMovedex = {
 				spe: 1,
 			},
 		},
-		desc: "Hits twice, and raises user's speed by 1 stage",
+		desc: "Hits twice, and raises user's Speed by 1 stage.",
+		shortDesc: "Hits 2 times & +1 Spe.",
 		multihit: 2,
 		secondary: false,
 		priority: 0,
@@ -1521,7 +1246,8 @@ exports.BattleMovedex = {
 				spe: 1,
 			},
 		},
-		desc: "Raises user's Atk and Spe by 1 and makes foe Dragon type.",
+		desc: "Raises user's Attack and Speed by 1 stage, and makes foe Dragon type.",
+		shortDesc: "+1 Atk & Spe + Foe becomes Dragon type.",
 		priority: 1,
 		onHit: function (target) {
 			if (!target.setType('Dragon')) return false;
@@ -1571,8 +1297,9 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Uproar", target);
 		},
 		desc: "Hits 3-5 times. Confuses the target after.",
+		shortDesc: "Hits 3-5 times + Confuses target."
 		id: "altstorm",
-		isNonStandard: true,
+		isNonstandard: true,
 		name: "Alt Storm",
 		pp: 10,
 		priority: 0,
@@ -1613,32 +1340,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fairy",
 	},
-	"nightmareoblivion": {
-		accuracy: 100,
-		basePower: 100,
-		category: "Special",
-		id: "nightmareoblivion",
-		name: "Nightmare Oblivion",
-		pp: 10,
-		priority: 0,
-		onBasePowerPriority: 4,
-		onBasePower: function (basePower, pokemon) {
-			if (pokemon.status === 'slp') {
-				return this.chainModify(2);
-			}
-		},
-		desc: "If the target is asleep, this attack does double the damage.",
-		onPrepareHit: function (target, source, pokemon) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Dark Pulse", target);
-			this.add('-anim', source, "Nightmare", pokemon);
-			this.add('-anim', source, "Dark Void", pokemon);
-		},
-		flags: {protect: 1, mirror: 1, contact: 1},
-		secondary: false,
-		target: "allAdjacentFoes",
-		type: "Dark",
-	},
 	"triplepeakmegasmash": {
 		id: "triplepeakmegasmash",
 		name: "Triple Peak Mega Smash",
@@ -1674,7 +1375,8 @@ exports.BattleMovedex = {
 	"thinking": {
 		id: "thinking",
 		name: "thinking",
-		desc: "Boosts Defense And Special Defense By Two Stages.",
+		desc: "Boosts Defense and Special Defense by two stages.",
+		shortDesc: "+2 Def & SpD.",
 		basePower: 0,
 		accuracy: true,
 		boosts: {
@@ -1693,7 +1395,8 @@ exports.BattleMovedex = {
 	"doggo": {
 		id: "doggo",
 		name: "doggo",
-		desc: "User Boosts SpD And Def By Four Stages, Sets Up Light Screen And Reflect, And Puts Toxic Spikes On the Opposing Team's Field",
+		desc: "User boosts SpD, and Def by four stages, Sets up Light Screen and Reflect, puts two layers of Toxic Spikes on foe's field.",
+		shortDesc: "+4 Def & SpD, sets up both screens, places Toxic Spikes twice.",
 		basePower: 0,
 		boosts: {
 			def: 4,
@@ -1727,7 +1430,8 @@ exports.BattleMovedex = {
 		name: "Dragon Blitz",
 		basePower: 200,
 		priority: 2,
-		desc: "When used for the first time, Raises Attack and Speed by 2x",
+		desc: "When used for the first time, raises Attack and Speed by two stages.",
+		shortDesc: "On first usage, +2 Atk & Spe.",
 		pp: 5,
 		onAfterMoveSecondarySelf: function (source) {
 			if (source.activeTurns === 1) {
@@ -1775,7 +1479,7 @@ exports.BattleMovedex = {
 		basePower: 90,
 		category: "Special",
 		desc: "Raises the user's Defense and Special Defense by 1 stage.",
-		shortDesc: "Raises the user's Def and SpD by 1 stage.",
+		shortDesc: "+1 Def & SpD.",
 		id: "perfectend",
 		isViable: true,
 		name: "Perfect End",

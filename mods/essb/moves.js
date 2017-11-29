@@ -703,7 +703,7 @@ exports.BattleMovedex = {
 	"ooga": {
 		accuracy: true,
 		basePower: 0,
-		desc: "Charges turn one and next turn boosts Special Attack, Defense, Special Defense, and Speed by 3 stages.",\
+		desc: "Charges turn one and next turn boosts Special Attack, Defense, Special Defense, and Speed by 3 stages.",
 		shortDesc: "Charges turn 1 then +3 Def, SpA, SpD & Spe.",
 		category: "Status",
 		id: "ooga",

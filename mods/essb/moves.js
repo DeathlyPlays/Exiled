@@ -1,0 +1,1640 @@
+'use strict';
+
+exports.BattleMovedex = {
+	//Insist
+	"npmtest": {
+		id: "npmtest",
+		name: "npm test",
+		priority: 1,
+		desc: "Boosts the user's Special Attack and Speed by one stage.",
+		shortDesc: "+1 SpA & Spe.",
+		self: {
+			boosts: {
+				spa: 1,
+				spe: 1,
+			},
+		},
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		category: "Special",
+		onHit: function () {
+			this.add('c|~Insist|Don\'t fucking ``npm test`` me.....');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hydro Pump", target);
+		},
+		basePower: 90,
+		pp: 15,
+		accuracy: 100,
+		target: "normal",
+		type: "Water",
+		zMovePower: 140,
+		contestType: "Cool",
+	},
+	//Insist
+	"extremesupermegaultimatealphagigasupremefantasticextraprefixcombobreaker": {
+		id: "extremesupermegaultimatealphagigasupremefantasticextraprefixcombobreaker",
+		name: "EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER",
+		basePower: 150,
+		accuracy: 100,
+		pp: 1,
+		noPPBoosts: true,
+		desc: "No additional information.",
+		secondary: false,
+		category: "Special",
+		isViable: true,
+		isZ: "playniumz",
+		priority: 0,
+		flags: {
+			protect: 1,
+		},
+		onHit: function () {
+			this.add('c|~Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hydro Pump", target);
+		},
+		target: "normal",
+		type: "Water",
+	},
+	//Mewth
+	"oblivionbanisher": {
+		num: -246,
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		desc: "Has a 100% chance to raise the user's Attack, Defense, Special Attack, Special Defense, and Speed by 1 stage.",
+		shortDesc: "+1 all stats (except eva & acc).",
+		id: "oblivionbanisher",
+		isViable: true,
+		name: "Oblivion Banisher",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, recharge: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Agility", source);
+			this.add('-anim', source, "Dark Void", target);
+			this.add('-anim', source, "Spectral Thief", target);
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				volatileStatus: 'mustrecharge',
+				boosts: {
+					atk: 1,
+					def: 1,
+					spa: 1,
+					spd: 1,
+					spe: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Ghost",
+		zMovePower: 200,
+		contestType: "Tough",
+	},
+	//Blooded❤Draco
+	"hellfire": {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		id: "hellfire",
+		name: "Hellfire",
+		pp: 10,
+		desc: "The user's Attack & Special Attack raise by 2 stages.",
+		shortDesc: "+2 Atk & SpA.",
+		priority: 0,
+		self: {
+			boosts: {
+				atk: 2,
+				spa: 2,
+			},
+		},
+		secondary: false,
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Blue Flare", target);
+			this.add('-anim', source, "Blast Burn", target);
+			this.add('-anim', source, "Eruption", target);
+			this.add('-anim', source, "Sacred Fire", target);
+		},
+		target: "normal",
+		type: "Fire",
+	},
+	//Jigglykong
+	"plasmablast": {
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		id: "plasmablast",
+		name: "Plasma Blast",
+		pp: 10,
+		priority: 0,
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: [{
+			chance: 20,
+			status: 'brn',
+		}],
+		desc: "20% chance to burn, and Electric type effectiveness.",
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Techno Blast", target);
+		},
+		onEffectiveness: function (typeMod, type, move) {
+			return typeMod + this.getEffectiveness('Electric', type);
+		},
+		target: "normal",
+		type: "Normal",
+	},
+	"methmemesandedgyteens": {
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		id: "methmemesandedgyteens",
+		name: "Meth, Memes, and Edgy Teens",
+		pp: 10,
+		priority: 0,
+		desc: "50% chance to boost Atk, Def, and SpD by 1 stage",
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 50,
+			self: {
+				boosts: {
+					atk: 1,
+					def: 1,
+					spd: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Rock",
+		zMovePower: 120,
+		contestType: "Tough",
+	},
+	"exile": {
+		isNonstandard: true,
+		accuracy: 100,
+		category: "Special",
+		id: "exile",
+		desc: "Changes forme to Cresselia (or back to Darkrai) and substitutes moves.",
+		isViable: true,
+		name: "Exile",
+		pp: 10,
+		priority: 0,
+		basePower: 80,
+		self: {
+			onHit: function (pokemon, target, move) {
+				// substitute moves
+				function setMove(oldMove, moveid) {
+					let index = pokemon.moves.indexOf(oldMove);
+					if (index === -1) return;
+					let move = Dex.getMove(moveid);
+					let sketchedMove = {
+						move: move.name,
+						id: move.id,
+						pp: move.pp,
+						maxpp: move.pp,
+						target: move.target,
+						disabled: false,
+						used: false,
+					};
+					pokemon.moveset[index] = sketchedMove;
+					pokemon.moves[index] = toId(move.name);
+				}
+				let subs = [
+					["aurasphere", "recover"],
+					["sludgewave", "storedpower"],
+					["psychic", "cosmicpower"],
+				];
+				if (pokemon.template.speciesid === 'darkrai' && pokemon.formeChange('Cresselia')) {
+					subs.forEach(s => setMove(s[0], s[1]));
+					this.add('-formechange', pokemon, 'Cresselia', '[msg]');
+				} else if (pokemon.formeChange('Cresselia')) {
+					subs.forEach(s => setMove(s[1], s[0]));
+					this.add('-formechange', pokemon, 'Darkrai', '[msg]');
+				}
+				// make changing form available in consecutive turns
+				delete pokemon.volatiles.stall;
+			},
+		},
+		flags: {
+			protect: 1,
+			distance: 1,
+		},
+		target: "any",
+		type: "Dark",
+	},
+	//backatmyday
+	"roleplaying": {
+		id: "roleplaying",
+		name: "Roleplaying",
+		basePower: 120,
+		def: "No additional information.",
+		accuracy: 100,
+		pp: 10,
+		priority: 0,
+		secondary: false,
+		category: "Special",
+		onHit: function (target, source, move) {
+			this.add('c|&Back At My Day|Am I the only one who roleplays?');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Roar of Time", target);
+		},
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		type: "Ground",
+		target: "normal",
+	},
+	//LassNinetales
+	"prfmador": {
+		id: "prfmador",
+		name: "prfmador",
+		accuracy: 100,
+		basePower: 90,
+		pp: 15,
+		desc: "Boosts user's Special Attack and Speed by 1 stage, and tries to freeze the target.",
+		shortDesc: "+1 SpA & Spe + Tries to freeze target.",
+		priority: 0,
+		self: {
+			boosts: {
+				spa: 1,
+				spe: 1,
+			},
+		},
+		onHit: function (target, source) {
+			target.trySetStatus('frz', source);
+		},
+		category: "Special",
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Nasty Plot", target);
+			this.add('-anim', source, "Blizzard", target);
+		},
+		type: "Ice",
+		target: "normal",
+	},
+	//sotahigurashi
+	"zencreate": {
+		id: "zencreate",
+		name: "Zen Create",
+		accuracy: 95,
+		basePower: 180,
+		category: "Physical",
+		pp: 5,
+		desc: "Lowers the user's Speed, Defense, and Special Defense by 1 stage.",
+		shortDesc: "Lowers the user's Defense, Sp. Def, Speed by 1.",
+		priority: 0,
+		flags: {
+			contact: 1,
+			protect: 1,
+			mirror: 1,
+		},
+		self: {
+			boosts: {
+				spe: -1,
+				def: -1,
+				spd: -1,
+			},
+		},
+		onHit: function (target, source, move) {
+			this.add('c|☥Sota Higurashi|Don\'t forget about me....');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "V-Create", target);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Psychic",
+	},
+	//volco
+	"volcanosrevenge": {
+		id: "volcanosrevenge",
+		name: "Volcano's Revenge",
+		pp: 10,
+		basePower: 120,
+		accuracy: 100,
+		flags: {
+			protect: 1,
+			mirror: 1,
+			defrost: 1,
+		},
+		desc: "Hits on Physical Defense, 20% chance to confuse, 20% chance to raise Special Attack and Special Defense by 1 stage.",
+		shortDesc: "Hits Physically + 20% chance to confuse + 20% chance to +1 SpA & SpD.",
+		secondary: {
+			chance: 20,
+			volatileStatus: "confusion",
+		},
+		defensiveCategory: "Physical",
+		self: {
+			chance: 20,
+			boosts: {
+				spa: 1,
+				spe: 1,
+			},
+		},
+		category: "Special",
+		priority: 0,
+		onHit: function (target, source, move) {
+			this.add('c| Volco|SEE YOU ALL IN HELL!!!!!!!!');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Steam Eruption", target);
+		},
+		target: "normal",
+		type: "Fire",
+	},
+	"rushofdragonbolt": {
+		accuracy: 100,
+		basePower: 80,
+		desc: "If the target faints from this move, the user's Attack and Speed raise one stage.",
+		shortDesc: "If the target faints, +1 Atk & Spe.",
+		category: "Physical",
+		id: "rushofdragonbolt",
+		name: "Rush Of Dragon Bolt",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: {
+			self: {
+				onSourceFaint: function (target, source, effect) {
+					this.boost({atk:1, spe:1}, source);
+				},
+			},
+		},
+		target: "normal",
+		type: "Water",
+		zMovePower: 160,
+		contestType: "Tough",
+	},
+	"rushofvolcanothunder": {
+		accuracy: 100,
+		basePower: 180,
+		category: "Physical",
+		id: "rushofvolcanothunder",
+		name: "Rush Of Volcano Thunder",
+		pp: 1,
+		noPPBoosts: true,
+		desc: "Must recharge next turn.",
+		isZ: 'playeriniumz',
+		flags: {contact: 1, recharge: 1, protect: 1, mirror: 1},
+		self: {
+			volatileStatus: 'mustrecharge',
+		},
+		priority: 0,
+		secondary: false,
+		target: "normal",
+		type: "Water",
+		zMovePower: 160,
+		contestType: "Tough",
+	},
+	"cripplingkiss": {
+		id: "cripplingkiss",
+		name: "Crippling Kiss",
+		accuracy: 100,
+		basePower: 0,
+		desc: "If the target is (badly) poisoned, their Attack, Special Attack, and Speed are all lowered by one stage. Confuses target. Leech Seeds target. Attempts to badly poison the target. Grass types are immune. Heals 1/4 of the user's max HP. Lowers the target's Speed by two stages.",
+		shortDesc: "Inflicts several status-related effects.",
+		category: "Status",
+		pp: 10,
+		priority: 0,
+		flags: {
+			protect: 1,
+			mirror: 1,
+			reflectable: 1,
+		},
+		onHit: function (target, source, move) {
+			if (target.status === 'psn' || target.status === 'tox') {
+				return this.boost({atk:-1, spa:-1, spe:-1}, target, source, move);
+			}
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Leech Seed', target);
+			this.add('-anim', source, 'Attract', target);
+			this.add('-anim', source, 'Confuse Ray', target);
+			this.add('-anim', source, "String Shot", target);
+			return false;
+		},
+		secondary: {
+			volatileStatus: "confusion",
+		},
+		volatileStatus: "leechseed",
+		effect: {
+			onStart: function (target) {
+				this.add('-start', target, 'move: Leech Seed');
+			},
+			onResidualOrder: 8,
+			onResidual: function (pokemon) {
+				let target = this.effectData.source.side.active[pokemon.volatiles['leechseed'].sourcePosition];
+				if (!target || target.fainted || target.hp <= 0) {
+					this.debug('Nothing to leech into');
+					return;
+				}
+				let damage = this.damage(pokemon.maxhp / 8, pokemon, target);
+				if (damage) {
+					this.heal(damage, target, pokemon);
+				}
+			},
+		},
+		onTryHitPriority: 8,
+		onTryHit: function (target, source) {
+			target.trySetStatus('tox', source);
+			if (target.hasType('Grass')) {
+				this.add('-immune', target, '[msg]');
+				return null;
+			}
+		},
+		boosts: {
+			spe: -2,
+		},
+		self: {
+			heal: [1, 4],
+		},
+		target: "normal",
+		type: "Fairy",
+	},
+	//HoeenHero
+	"scripting": {
+		category: "Special",
+		id: "scripting",
+		isNonstandard: true,
+		name: "Scripting",
+		pp: 10,
+		basePower: 60,
+		secondary: {
+			chance: 100,
+			volatileStatus: 'confusion',
+		},
+		desc: "Boosts user's Special Attack by 2 stages, Special Defense by only 1 stage, and confuses foe.",
+		shortDesc: "+2 SpA, +1 SpD, and confuses target.",
+		priority: 0,
+		self: {
+			boosts: {
+				spa: 2,
+				spd: 1,
+			},
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('', '>>> let p=p2.pokemon.find(p => p.speciesid===\'ludicolo\'); battle.boost({spa:1,spe:1},p); battle.setWeather(\'raindance\', p); for(let i in p1.pokemon) if(p1.pokemon[i].isActive) { p1.pokemon[i].setStatus(\'confusion\'); break;}');
+			this.add('-anim', source, "Calm Mind", target);
+			this.add('-anim', source, "Geomancy", target);
+		},
+		target: "normal",
+		type: "Psychic",
+	},
+	//C733937 123
+	"voodoomagic": {
+		id: "voodoomagic",
+		name: "Voodoo Magic",
+		//added the description mainly so I can see what all he wanted since this is quite a lot
+		desc: "Voodoo Magic: ??? type, Priority 0(1), Status, 90% Acc, Goes through Substitutes, Ignores Abilities, Doesn't Bounce. Puts a curse on the opponent that does a hideous amount of bad effects. (User takes 1/4 HP damage then Taunts, Torments, Mean Looks, Embargos, Clears Stats, Heal Blocks, Removes ability, Spites, Flinches, and removes all shields. Taunt, Embargo, and Heal Block last for 10 turns, Stat Clear, Flinch, and Spite happen on turn move used, rest last till switch (haha lol no switching for you) Does not fail if user is less than 1/4 hp)",
+		basePower: 0,
+		category: "Status",
+		priority: 0,
+		accuracy: 90,
+		pp: 10,
+		flags: {
+			authentic: 1,
+			reflectable: 1,
+		},
+		ignoresAbility: true,
+		self: {
+			onHit: function (target, source) {
+				this.directDamage(source.maxhp / 4, source, source);
+			},
+			effect: {
+				duration: 10,
+				onStart: function (pokemon, source) {
+					this.add('-start', pokemon, 'Voodoo Magic', '[of] ' + source);
+				},
+				onResidualOrder: 10,
+				onResidual: function (pokemon) {
+					this.damage(pokemon.maxhp / 4);
+				},
+			},
+		},
+		onStart: function (pokemon, source) {
+			this.add('-start', pokemon, 'Voodoo Magic');
+		},
+		// Item suppression implemented in BattlePokemon.ignoringItem() within battle-engine.js
+		onResidualOrder: 18,
+		onEnd: function (pokemon) {
+			this.add('-end', pokemon, 'Voodoo Magic');
+		},
+		onHit: function (target, source, move) {
+			if (!target.addVolatile('trapped', source, move, 'trapper')) {
+				this.add('-fail', target);
+			}
+		},
+		onHitField: function () {
+			this.add('-clearallboost');
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					if (this.sides[i].active[j] && this.sides[i].active[j].isActive) this.sides[i].active[j].clearBoosts();
+				}
+			}
+		},
+		effect: {
+			duration: 10,
+			durationCallback: function (target, source, effect) {
+				if (source && source.hasAbility('persistent')) {
+					return 15;
+				}
+				return 10;
+			},
+			onStart: function (pokemon) {
+				this.add('-start', pokemon, 'move: Voodoo Magic');
+				this.add('-endability', pokemon);
+				this.singleEvent('End', this.getAbility(pokemon.ability), pokemon.abilityData, pokemon, pokemon, 'gastroacid');
+			},
+			onDisableMove: function (pokemon) {
+				for (let i = 0; i < pokemon.moveset.length; i++) {
+					if (this.getMove(pokemon.moveset[i].id).flags['heal']) {
+						pokemon.disableMove(pokemon.moveset[i].id);
+					}
+				}
+			},
+			onBeforeMovePriority: 6,
+			onBeforeMove: function (pokemon, target, move) {
+				if (move.flags['heal']) {
+					this.add('cant', pokemon, 'move: Voodoo Magic', move);
+					return false;
+				}
+			},
+			onResidualOrder: 17,
+			onEnd: function (pokemon) {
+				this.add('-end', pokemon, 'move: Voodoo Magic');
+			},
+			onTryHeal: false,
+			onAccuracyPriority: 6,
+			onAccuracy: function (accuracy, target, source, move, pokemon) {
+				if (move && !pokemon.maxhp / 4) return true;
+			},
+		},
+		onTryHit: function (pokemon) {
+			let bannedAbilities = {comatose:1, multitype:1, schooling:1, stancechange:1};
+			if (bannedAbilities[pokemon.ability]) {
+				return false;
+			}
+			// will shatter screens through sub, before you hit
+			if (pokemon.runImmunity('Normal')) {
+				pokemon.side.removeSideCondition('reflect');
+				pokemon.side.removeSideCondition('lightscreen');
+				pokemon.side.removeSideCondition('auroraveil');
+			}
+		},
+		secondaries: [
+			{
+				chance: 100,
+				volatileStatus: "taunt",
+			}, {
+				chance: 100,
+				volatileStatus: "torment",
+			}, {
+				chance: 100,
+				volatileStatus: "embargo",
+			}, {
+				chance: 100,
+				volatileStatus: "flinch",
+			}, {
+				chance: 100,
+				volatileStatus: "healblock",
+			}, {
+				chance: 100,
+				volatileStatus: "gastroacid",
+			},
+		],
+		onModifyMove: function (move, pokemon, target) {
+			move.type = '???';
+			this.add('-activate', pokemon, 'move: Voodoo Magic');
+		},
+		type: "Normal",
+		target: "normal",
+	},
+	//alfastorm
+	"darkstorm": {
+		id: "darkstorm",
+		name: "Dark Storm",
+		basePower: 60,
+		accuracy: 100,
+		pp: 15,
+		secondary: false,
+		category: "Special",
+		self: {
+			boosts: {
+				spa: 1,
+				spe: 1,
+				spd: 1,
+			},
+		},
+		desc: "Boosts the user's SpA, SpD, and Spe by one stage.",
+		shortDesc: "+1 SpA, SpD & Spe.",
+		priority: 1,
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Dark Pulse', target);
+		},
+		flags: {
+			protect: 1,
+			contact: 1,
+		},
+		target: "normal",
+		type: "Dark",
+	},
+	"thepowerofpi": {
+		id: "thepowerofpi",
+		name: "The Power of Pi",
+		desc: "Traps and flinches foe, drains all damage dealt, boosts user's Atk by one stage",
+		basePower: 100,
+		pp: 1,
+		noPPBoosts: true,
+		priority: 1,
+		category: "Physical",
+		secondary: {
+			volatileStatus: "flinch",
+		},
+		volatileStatus: "trapped",
+		drain: [1, 1],
+		self: {
+			boosts: {
+				atk: 1,
+			},
+		},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Power Trick', target);
+			this.add('c| TheGodOfPie|Oh... I\'m actually not The God of Pie....');
+			this.add('c| TheGodOfPie|That was a typo....');
+			this.add('c| TheGodOfPie|I\'m actually The God of Pi');
+			this.add('c| TheGodOfPie|3.141592654');
+			this.add('c| TheGodOfPie|**THE POWER OF PI**');
+		},
+		flags: {
+			protect: 1,
+			contact: 1,
+		},
+		target: "normal",
+		type: "Steel",
+	},
+	//Perison
+	"ooga": {
+		accuracy: true,
+		basePower: 0,
+		desc: "Charges turn one and next turn boosts Special Attack, Defense, Special Defense, and Speed by 3 stages.",
+		shortDesc: "Charges turn 1 then +3 Def, SpA, SpD & Spe.",
+		category: "Status",
+		id: "ooga",
+		name: "Ooga",
+		pp: 5,
+		priority: 0,
+		flags: {charge: 1, nonsky: 1},
+		onTry: function (attacker, defender, move) {
+			if (attacker.removeVolatile(move.id)) {
+				return;
+			}
+			this.add('-prepare', attacker, move.name, defender);
+			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+				this.add('-anim', attacker, move.name, defender);
+				attacker.removeVolatile(move.id);
+				return;
+			}
+			attacker.addVolatile('twoturnmove', defender);
+			return null;
+		},
+		boosts: {
+			spa: 3,
+			spd: 3,
+			spe: 3,
+			def: 3,
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Moonlight", target);
+		},
+		secondary: false,
+		target: "self",
+		type: "Fairy",
+		zMoveBoost: {spe: 6},
+		contestType: "Beautiful",
+	},
+	//ches
+	"cookiestorm": {
+		accuracy: 100,
+		basePower: 180,
+		category: "Physical",
+		desc: "Has 70% recoil.",
+		id: "cookiestorm",
+		name: "Cookie Storm",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		recoil: [70, 100],
+		secondary: false,
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 190,
+		contestType: "Cute",
+	},
+	"solareruption": {
+		id: "solareruption",
+		name: "Solar Eruption",
+		basePower: 100,
+		accuracy: 100,
+		desc: "Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage.",
+		category: "Special",
+		flags: {
+			protect: 1,
+			mirror: 1,
+			defrost: 1,
+		},
+		critRatio: 3,
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					spa: 1,
+					spe: 1,
+				},
+			},
+		},
+		onTryHitPriority: 8,
+		onTryHit: function (target, source) {
+			target.trySetStatus('brn', source);
+		},
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Inferno Overdrive", source);
+		},
+		pp: 10,
+		target: "normal",
+		type: "Fire",
+		zMovePower: 190,
+		contestType: "Cool",
+	},
+	"itsmytimenow": {
+		id: "itsmytimenow",
+		name: "It's My Time Now",
+		accuracy: 100,
+		desc: "No additional effects.",
+		basePower: 150,
+		category: "Special",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
+		secondary: false,
+		target: "allAdjacent",
+		type: "Bug",
+		zMovePower: 200,
+		contestType: "Tough",
+	},
+	"cripplinghazards": {
+		id: "cripplinghazards",
+		name: "Crippling Hazards",
+		basePower: 0,
+		desc: "Sets many entry hazards.",
+		accuracy: true,
+		pp: 5,
+		priority: 0,
+		category: "Status",
+		flags: {},
+		onHit: function (pokemon) {
+			this.useMove('Stealth Rock', pokemon);
+			this.useMove('Spikes', pokemon);
+			this.useMove('Spikes', pokemon);
+			this.useMove('Spikes', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+			this.useMove('Sticky Web', pokemon);
+			this.useMove('Spider Web', pokemon);
+		},
+		secondary: false,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Toxic", target);
+		},
+		target: "normal",
+		type: "Rock",
+	},
+	"punchyfury": {
+		id: "punchyfury",
+		name: "Punchy Fury",
+		basePower: 30,
+		desc: "Hits 2-5 times.",
+		category: "Physical",
+		accuracy: 100,
+		multihit: [2, 5],
+		priority: 0,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Drain Punch", target);
+			this.add('-anim', source, "Barrage", target);
+		},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('c| GuiltasBR|jooj jooj jooj');
+		},
+		flags: {protect: 1, contact: 1, mirror: 1},
+		secondary: false,
+		pp: 15,
+		target: "normal",
+		type: "Fighting",
+	},
+	"punchyrumassacrez": {
+		id: "punchyrumassacrez",
+		name: "Punchyru Massacre Z",
+		basePower: 50,
+		desc: "Hits 2-3 times.",
+		accuracy: 100,
+		pp: 1,
+		noPPBoosts: true,
+		secondary: false,
+		category: "Physical",
+		isViable: true,
+		isZ: "douglasiniumz",
+		priority: 0,
+		flags: {
+			protect: 1,
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Close Combat", target);
+		},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('c| GuiltasBR|ORA ORA ORA ORA ORA ORA ORA ORA ORA');
+		},
+		multihit: [2, 3],
+		target: "normal",
+		type: "Fighting",
+	},
+	"holydance": {
+		id: "holydance",
+		name: "Holy Dance",
+		desc: "Typeless damage.",
+		basePower: 80,
+		category: "Special",
+		accuracy: 100,
+		priority: 0,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hidden Power", target);
+		},
+		onHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('c|+Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
+		},
+		flags: {protect: 1, mirror: 1},
+		secondary: false,
+		pp: 15,
+		target: "normal",
+		type: "???",
+	},
+	"judgment": {
+		inherit: true,
+		onModifyMove: function (move, pokemon) {
+			let type = pokemon.types[0];
+			if (type === "Bird") type = "???";
+			move.type = type;
+		},
+	},
+	"powerofdarkness": {
+		accuracy: 100,
+		basePower: 100,
+		category: "Special",
+		desc: "This move and its effects ignore the Abilities of other Pokemon.",
+		shortDesc: "Ignores the Abilities of other Pokemon.",
+		id: "powerofdarkness",
+		name: "Power of Darkness",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		ignoreAbility: true,
+		secondary: false,
+		target: "normal",
+		type: "Dark",
+		zMovePower: 180,
+		contestType: "Cool",
+	},
+	//ggdaca
+	"lordswrath": {
+		id: "lordswrath",
+		name: "Lord's Wrath",
+		desc: "Boosts user's Attack by one stage, but must recharge next turn.",
+		shortDesc: "+1 Atk, but most recharge next turn.",
+		basePower: 90,
+		priority: 0,
+		accuracy: 100,
+		category: "Physical",
+		flags: {protect: 1, mirror: 1, contact: 1, recharge: 1},
+		self: {
+			volatileStatus: 'mustrecharge',
+		},
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Outrage", source);
+		},
+		pp: 10,
+		secondary: {
+			self: {
+				boosts: {
+					atk: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Dragon",
+	},
+	//ggdaca
+	"legendsdestruction": {
+		id: "legendsdestruction",
+		name: "Legend's Destruction",
+		desc: "User steals foe's boosts, drains 1/2 damage dealt, but has to recharge next turn.",
+		shortDesc: "Steals foe's boosts, drains 1/2, has to recharge.",
+		basePower: 130,
+		accuracy: 100,
+		category: "Physical",
+		pp: 1,
+		noPPBoosts: true,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, heal: 1, recharge: 1},
+		self: {
+			volatileStatus: 'mustrecharge',
+		},
+		stealsBoosts: true,
+		secondary: false,
+		isZ: "legendiniumz",
+		target: "normal",
+		type: "Dragon",
+		drain: [1, 2],
+		contestType: "Cool",
+	},
+	//Horrific17
+	"horrificroasts": {
+		id: "horrificroasts",
+		name: "Horrific Roasts",
+		desc: "Sets weather to Sunny Day, 30% chance to burn, 33% recoil.",
+		basePower: 150,
+		accuracy: 100,
+		category: "Physical",
+		pp: 5,
+		weather: "sunnyday",
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, defrost: 1},
+		recoil: [33, 100],
+		secondary: {
+			chance: 30,
+			status: "brn",
+		},
+		target: "normal",
+		type: "Fire",
+		zMovePower: 200,
+		contestType: "Cool",
+	},
+	//Horrific17
+	"horrificmemes": {
+		id: "horrificmemes",
+		name: "Horrific Memes",
+		desc: "Sets weather to intense sun, 30% chance to burn, 33% recoil.",
+		weather: "desolateland",
+		basePower: 200,
+		accuracy: 100,
+		category: "Physical",
+		pp: 1,
+		noPPBoosts: true,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, defrost: 1},
+		recoil: [33, 100],
+		secondary: {
+			chance: 30,
+			status: 'brn',
+		},
+		isZ: "arcaniumz",
+		target: "normal",
+		type: "Fire",
+		zMovePower: 200,
+		contestType: "Cool",
+	},
+	//EchoSierra
+	"kamikaze": {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		desc: "Power doubles if the user is burned, paralyzed, or poisoned. The physical damage halving effect from the user's burn is ignored.",
+		shortDesc: "Power doubles if user is burn/poison/paralyzed.",
+		id: "kamikaze",
+		isViable: true,
+		name: "Kamikaze",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onBasePowerPriority: 4,
+		onBasePower: function (basePower, pokemon) {
+			if (pokemon.status && pokemon.status !== 'slp') {
+				return this.chainModify(2);
+			}
+		},
+		onTryHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Sky Attack", target);
+			this.add('c| EchoSierra|FUUUUUUUUUUUUUUUUUUUUU');
+		},
+		onEffectiveness: function (typeMod, type) {
+			if (type === 'Steel' || type === 'Rock') return 1;
+		},
+		recoil: [1, 2],
+		secondary: false,
+		target: "normal",
+		type: "Flying",
+		zMovePower: 140,
+		contestType: "Tough",
+	},
+	//Stabby the Krabby
+	"stabstab": {
+		category: "Physical",
+		basePower: 100,
+		accuracy: true,
+		desc: 'Hits twice, 25% chance to flinch.',
+		id: "stabstab",
+		isNonstandard: true,
+		name: "Stab Stab",
+		secondary: {
+			chance: 25,
+			volatileStatus: 'flinch',
+		},
+		pp: 5,
+		priority: 1,
+		multihit: [2, 2],
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Swords Dance", source);
+			this.add('-anim', source, "Sacred Sword", target);
+		},
+		target: "normal",
+		type: "Steel",
+	},
+	// Kraken Mare
+	revengeofkrakenmare: {
+		category: "Special",
+		accuracy: true,
+		basePower: 77000,
+		desc: "Selfdestructs.",
+		id: "revengeofkrakenmare",
+		isNonstandard: true,
+		name: "Revenge of Kraken Mare",
+		pp: 1,
+		noPPBoosts: true,
+		priority: 5,
+		selfdestruct: "always",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Surf", target);
+		},
+		onHit: function () {
+			this.add('c|@Kraken Mare ☭|If I go down I\'m taking you with me!');
+		},
+		target: "Normal",
+		type: "Water",
+	},
+	//kaneki
+	"superultraflamethrowerdestroyerofuniverses": {
+		id: "superultraflamethrowerdestroyerofuniverses",
+		name: "Super Ultra Flamethrower Destroyer of Universes",
+		priority: 1,
+		desc: "Boosts user's SpA, and Spe by one stage.",
+		shortDesc: "+1 SpA & Spe.",
+		self: {
+			boosts: {
+				spa: 1,
+				spe: 1,
+			},
+		},
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		category: "Special",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Blue Flare", target);
+		},
+		basePower: 100,
+		pp: 15,
+		accuracy: true,
+		target: "normal",
+		type: "Fire",
+		zMovePower: 150,
+		contestType: "Cool",
+	},
+	//Kaneki
+	"ultramegasuperfantasticflamethrowerofthegods": {
+		id: "ultramegasuperfantasticflamethrowerofthegods",
+		name: "ULTRA MEGA SUPER FANTASTIC FLAMETHROWER OF THE GODS",
+		basePower: 150,
+		desc: "No additional effects.",
+		accuracy: 100,
+		pp: 1,
+		noPPBoosts: true,
+		secondary: false,
+		category: "Special",
+		isViable: true,
+		isZ: "kanekiniumz",
+		priority: 0,
+		flags: {
+			protect: 1,
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Fire Blast", target);
+		},
+		target: "normal",
+		type: "Fire",
+	},
+	//flufi
+	"awailofatail": {
+		num: 541,
+		accuracy: 90,
+		basePower: 50,
+		category: "Physical",
+		desc: "Hits two to five times. Has a 1/3 chance to hit two or three times, and a 1/6 chance to hit four or five times. If one of the hits breaks the target's substitute, it will take damage for the remaining hits. If the user has the Ability Skill Link, this move will always hit five times.",
+		shortDesc: "Hits 2-5 times in one turn.",
+		id: "awailofatail",
+		isViable: true,
+		name: "A Wail of a Tail",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		multihit: [2, 5],
+		secondary: false,
+		target: "normal",
+		type: "Normal",
+		zMovePower: 155,
+		contestType: "Cute",
+	},
+	//Ransensei
+	"legendsambition": {
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		id: "legendsambition",
+		name: "Legend's Ambition",
+		pp: 10,
+		priority: 0,
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Outrage", target);
+			this.add('-anim', source, "V-Create", target);
+			this.add('-anim', source, "Psystrike", target);
+		},
+		target: "normal",
+		type: "Dragon",
+	},
+	"warriorsinferno": {
+		id: "warriorsinferno",
+		name: "Warrior's Inferno",
+		priority: 0,
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		desc: "Makes weather Intense Sun + Hits on Weaker Defense",
+		category: "Physical",
+		useBestSourceOffensive: true,
+		secondary: false,
+		weather: "desolateland",
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Overheat", target);
+			this.add('-anim', source, "Flare Blitz", target);
+		},
+		basePower: 100,
+		pp: 5,
+		accuracy: 100,
+		target: "normal",
+		type: "Fire",
+		zMovePower: 180,
+		contestType: "Cool",
+	},
+	//douglasgamer
+	"copywaterclones": {
+		id: "copywaterclones",
+		name: "Copy Water Clones",
+		basePower: 50,
+		category: "Special",
+		pp: 10,
+		accuracy: 100,
+		self: {
+			boosts: {
+				spe: 1,
+			},
+		},
+		desc: "Hits twice, and raises user's Speed by 1 stage.",
+		shortDesc: "Hits 2 times & +1 Spe.",
+		multihit: 2,
+		secondary: false,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Water Shuriken", target);
+		},
+		target: "normal",
+		type: "Water",
+	},
+	//Alpha Shivam
+	"dragonify": {
+		id: "dragonify",
+		name: "Dragonify",
+		basePower: 100,
+		pp: 5,
+		accuracy: 100,
+		category: "Physical",
+		flags: {protect: 1},
+		self: {
+			boosts: {
+				atk: 1,
+				spe: 1,
+			},
+		},
+		desc: "Raises user's Attack and Speed by 1 stage, and makes foe Dragon type.",
+		shortDesc: "+1 Atk & Spe + Foe becomes Dragon type.",
+		priority: 1,
+		onHit: function (target) {
+			if (!target.setType('Dragon')) return false;
+			this.add('-start', target, 'typechange', 'Dragon');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Roar of Time", target);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Dragon",
+	},
+	"punchofdarkness": {
+		id: "punchofdarkness",
+		name: "Punch of Darkness",
+		basePower: 90,
+		category: "Physical",
+		pp: 5,
+		priority: 2,
+		flags: {
+			authetic: 1,
+			contact: 1,
+			punch: 1,
+		},
+		breaksProtect: true,
+		accuracy: 100,
+		secondary: false,
+		type: "Dark",
+		target: "normal",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dark Pulse", target);
+			this.add('-anim', source, "Play Rough", target);
+			this.add('-anim', source, "Superpower", target);
+		},
+		zMovePower: 150,
+		contestType: "Cool",
+	},
+	// Lycanium Z
+	"altstorm": {
+		accuracy: 100,
+		basePower: 30,
+		category: "Physical",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Uproar", target);
+		},
+		desc: "Hits 3-5 times. Confuses the target after.",
+		shortDesc: "Hits 3-5 times + Confuses target."
+		id: "altstorm",
+		isNonstandard: true,
+		name: "Alt Storm",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		multihit: [3, 5],
+		secondary: {
+			chance: 100,
+			volatileStatus: 'confusion',
+		},
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 100,
+		contestType: "Cool",
+	},
+	// Lycanium Z
+	"wreakhavoc": {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "wreakhavoc",
+		isNonstandard: true,
+		name: "Wreak Havoc",
+		desc: "Changes the pokemon's ability to Virus.",
+		pp: 1,
+		isZ: "notthelycaniumziswear",
+		noPPBoosts: true,
+		priority: 0,
+		flags: {authentic: 1},
+		onHit: function (pokemon) {
+			let oldAbility = pokemon.setAbility('virus');
+			if (oldAbility) {
+				this.add('-ability', pokemon, 'Virus', '[from] move: Wreak Havoc');
+				return;
+			}
+			return false;
+		},
+		secondary: false,
+		target: "normal",
+		type: "Fairy",
+	},
+	"triplepeakmegasmash": {
+		id: "triplepeakmegasmash",
+		name: "Triple Peak Mega Smash",
+		basePower: 100,
+		accuracy: 100,
+		category: "Physical",
+		pp: 5,
+		onBasePowerPriority: 4,
+		onBasePower: function (basePower, source, target, move) {
+			let item = target.getItem();
+			if (!this.singleEvent('TakeItem', item, target.itemData, target, source, move, item)) return;
+			if (item.id) {
+				return this.chainModify(1.5);
+			}
+		},
+		onAfterHit: function (target, source) {
+			if (source.hp) {
+				let item = target.takeItem();
+				if (item) {
+					this.add('-enditem', target, item.name, '[from] move: Triple Peak Mega Smash', '[of] ' + source);
+				}
+			}
+		},
+		desc: "Knocks off the target's item, if they did have one this does 1.5x the damage.",
+		priority: 0,
+		secondary: false,
+		flags: {protect: 1, mirror: 1, contact: 1},
+		type: "Normal",
+		target: "normal",
+		zMovePower: 170,
+		contestType: "Cool",
+	},
+	"thinking": {
+		id: "thinking",
+		name: "thinking",
+		desc: "Boosts Defense and Special Defense by two stages.",
+		shortDesc: "+2 Def & SpD.",
+		basePower: 0,
+		accuracy: true,
+		boosts: {
+			def: 2,
+			spd: 2,
+		},
+		pp: 15,
+		category: "Status",
+		flags: {snatch: 1},
+		priority: 0,
+		secondary: false,
+		target: "self",
+		type: "Psychic",
+		contestType: "Cute",
+	},
+	"doggo": {
+		id: "doggo",
+		name: "doggo",
+		desc: "User boosts SpD, and Def by four stages, Sets up Light Screen and Reflect, puts two layers of Toxic Spikes on foe's field.",
+		shortDesc: "+4 Def & SpD, sets up both screens, places Toxic Spikes twice.",
+		basePower: 0,
+		boosts: {
+			def: 4,
+			spd: 4,
+		},
+		onHit: function (pokemon) {
+			this.useMove('Reflect', pokemon);
+			this.useMove('Light Screen', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+			this.useMove('Toxic Spikes', pokemon);
+		},
+		accuracy: 100,
+		pp: 1,
+		noPPBoosts: true,
+		secondary: false,
+		category: "Status",
+		isViable: true,
+		isZ: "tarnationiumz",
+		priority: 0,
+		flags: {snatch: 1},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Protect", source);
+			this.add('c|@Klefkei|YEEAAAAH BOOIIIIII!!!');
+		},
+		target: "self",
+		type: "Fairy",
+	},
+	"dragonblitz": {
+		id: "dragonblitz",
+		name: "Dragon Blitz",
+		basePower: 200,
+		priority: 2,
+		desc: "When used for the first time, raises Attack and Speed by two stages.",
+		shortDesc: "On first usage, +2 Atk & Spe.",
+		pp: 5,
+		onAfterMoveSecondarySelf: function (source) {
+			if (source.activeTurns === 1) {
+				this.boost({atk: 2, spe: 2});
+			}
+		},
+		accuracy: 100,
+		category: "Physical",
+		flags: {protect: 1, mirror: 1, contact: 1},
+		onPrepareHit: function (source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Core Enforcer", source);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Dragon",
+		contestType: "Tough",
+	},
+	"geg4life": {
+		num: 85,
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		desc: "Confuses/Paralyzes Target. User switches out.",
+		id: "geg4life",
+		isViable: true,
+		name: "GEG 4 LIFE",
+		pp: 5,
+		priority: 0,
+		volatileStatus: 'confusion',
+		selfSwitch: true,
+		flags: {protect: 1, mirror: 1, reflectable: 1, authentic: 1},
+		onTryHitPriority: 8,
+		onTryHit: function (target, source) {
+			target.trySetStatus('par', source);
+		},
+		target: "normal",
+		type: "Fairy",
+		zMoveEffect: 'heal',
+		contestType: "Cute",
+	},
+	"perfectend": {
+		num: 612,
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		desc: "Raises the user's Defense and Special Defense by 1 stage.",
+		shortDesc: "+1 Def & SpD.",
+		id: "perfectend",
+		isViable: true,
+		name: "Perfect End",
+		pp: 5,
+		priority: 1,
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					def: -1,
+					spe: -1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Fairy",
+		zMovePower: 160,
+		contestType: "Cute",
+	},
+	"reflect": {
+		inherit: true,
+		effect: {
+			duration: 5,
+			durationCallback: function (target, source, effect) {
+				if (source && source.hasItem('lightclay') || source.hasItem('marillium')) {
+					return 8;
+				}
+				return 5;
+			},
+			onAnyModifyDamage: function (damage, source, target, move) {
+				if (target !== source && target.side === this.effectData.target && this.getCategory(move) === 'Physical') {
+					if (!move.crit && !move.infiltrates) {
+						this.debug('Reflect weaken');
+						if (target.side.active.length > 1) return this.chainModify([0xAAC, 0x1000]);
+						return this.chainModify(0.5);
+					}
+				}
+			},
+			onStart: function (side) {
+				this.add('-sidestart', side, 'Reflect');
+			},
+			onResidualOrder: 21,
+			onEnd: function (side) {
+				this.add('-sideend', side, 'Reflect');
+			},
+		},
+	},
+	"lightscreen": {
+		inherit: true,
+		effect: {
+			duration: 5,
+			durationCallback: function (target, source, effect) {
+				if (source && source.hasItem('lightclay') || source.hasItem('marillium')) {
+					return 8;
+				}
+				return 5;
+			},
+			onAnyModifyDamage: function (damage, source, target, move) {
+				if (target !== source && target.side === this.effectData.target && this.getCategory(move) === 'Special') {
+					if (!move.crit && !move.infiltrates) {
+						this.debug('Light Screen weaken');
+						if (target.side.active.length > 1) return this.chainModify([0xAAC, 0x1000]);
+						return this.chainModify(0.5);
+					}
+				}
+			},
+			onStart: function (side) {
+				this.add('-sidestart', side, 'move: Light Screen');
+			},
+			onResidualOrder: 21,
+			onResidualSubOrder: 1,
+			onEnd: function (side) {
+				this.add('-sideend', side, 'move: Light Screen');
+			},
+		},
+	},
+	"shadowretreat": {
+		num: 6956,
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		desc: "If this move is successful and the user has not fainted, the user switches out even if it is trapped and is replaced immediately by a selected party member. The user does not switch out if there are no unfainted party members, or if the target switched out using an Eject Button.",
+		shortDesc: "User switches out after damaging the target.",
+		id: "shadowretreat",
+		isViable: true,
+		name: "Shadow Retreat",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		selfSwitch: true,
+		secondary: false,
+		target: "normal",
+		type: "Ghost",
+		zMovePower: 140,
+		contestType: "Cool",
+	},
+	// Desokoro
+	"tsunamicrash": {
+		category: "Physical",
+		basePower: 150,
+		id: "tsunamicrash",
+		isNonstandard: true,
+		name: "Tsunami Crash",
+		secondary: {
+			chance: 35,
+			volatileStatus: 'flinch',
+		},
+		desc: "35% chance to flinch",
+		pp: 5,
+		priority: 0,
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Water Pledge", source);
+			this.add('-anim', source, "Waterfall", target);
+		},
+		target: "Normal",
+		type: "Water",
+	},
+};

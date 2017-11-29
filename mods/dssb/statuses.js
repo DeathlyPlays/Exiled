@@ -1,11 +1,6 @@
 'use strict';
 exports.BattleStatuses = {
-
-};
-
-//Example
-
-insist: {
+	insist: {
 		exists: true,
 		//Effect or Message when switching in
 		onStart: function () {
@@ -24,4 +19,26 @@ insist: {
 			this.add('c', '@Insist', '**FOH THIS IS MY HOUSE KIDDO**');
 		},
 	},
+	flufi: {
+		exists: true,
+		//Effect or Message when switching in
+		onStart: function () {
+			this.add('c', '&flufi', 'Hi');
+		},
+		//Effect or Message when switching out
+		onSwitchOut: function () {
+			this.add('c', '&flufi', 'Brb');
+		},
+		//Effect or Message when fainting
+		onFaint: function () {
+			this.add('c', '&flufi', 'Man, that was gay');
+		},
+		//Effect or Message when KOing an opposing Pokemon
+		onSourceFaint: function () {
+			this.add('c', '&flufi', 'lol');
+		},
+	},
+};
+
+
 

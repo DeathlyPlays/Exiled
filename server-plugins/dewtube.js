@@ -27,6 +27,7 @@ function getChannel(user) {
 	}
 	return reply;
 }
+
 function getChannelRank(user) {
 	user = toId(user);
 	let channel = toId(getChannel(user));

@@ -8,6 +8,33 @@ Moves: Fire Punch, Thunder Punch, Mega Kick
 Special Move: Knockout Punch
 	- Fighting Type | Physical | 150 BP | Contact | Punch | 30% chance to confuse the target.
 Notes: Very powerful wallbreaker. It's speed is a bit lackluster though and it's frail, so a powerful attacker with higher speed is capable of taking this out.
+Rank: A
+
+Mewth
+(Furret-Mega)
+@ Scope Lens
+EVs: 252 SpA / 252 Spe / 4 HP
+Modest Nature
+Ability: Roarplaying
+	- Uses Roar on its foe and Focus Energy on itself upon entry
+Moves: Fire Blast, Blizzard, Boomburst
+Special Move: Oblivion Banisher
+	- Special, 120 BP, Ghost type, Recharges after usage, Boosts all user's stats except accuracy and evasion.
+Notes: Fast Special Sweeper.
 Rank: A.
 
+Insist
+(Ludicolo)
+@ Playnium Z
+	- Allows user to use EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER
+		- EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER: Water type, Special, Z-Move, 150 BP.
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+Ability: Crippling Depression
+    - Primordial Sea effects + Rain Dish + Swift Swim
+Moves: Giga Drain, Freeze-Dry, Focus Blast
+Special Move: npm test
+	- Water Type, Special, 90 BP, 100% Accuracy, 15 PP, raises its SpA & Spe by 1 stage, +1 priority.
+Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
+Rank: A.
 

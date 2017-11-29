@@ -19,4 +19,64 @@ exports.BattleMovedex = {
 		type: "Fighting",
 		contestType: "Tough",
 	},
+	//insist
+	"npmtest": {
+		id: "npmtest",
+		name: "npm test",
+		priority: 1,
+		desc: "Boosts user's SpA and Spe by one stage",
+		self: {
+			boosts: {
+				spa: 1,
+				spe: 1,
+			},
+		},
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		category: "Special",
+		onHit: function () {
+			this.add('c|@Insist|Don\'t fucking ``npm test`` me.....');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hydro Pump", target);
+		},
+		basePower: 90,
+		pp: 15,
+		accuracy: 100,
+		target: "normal",
+		type: "Water",
+		zMovePower: 140,
+		contestType: "Cool",
+	},
+	//insist
+	"extremesupermegaultimatealphagigasupremefantasticextraprefixcombobreaker": {
+		id: "extremesupermegaultimatealphagigasupremefantasticextraprefixcombobreaker",
+		name: "EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER",
+		basePower: 150,
+		accuracy: 100,
+		pp: 1,
+		noPPBoosts: true,
+		desc: "No additional information",
+		secondary: false,
+		category: "Special",
+		isViable: true,
+		isZ: "playniumz",
+		priority: 0,
+		flags: {
+			protect: 1,
+		},
+		onHit: function () {
+			this.add('c|@Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hydro Pump", target);
+		},
+		target: "normal",
+		type: "Water",
+	},
 };

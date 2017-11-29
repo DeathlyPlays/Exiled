@@ -7,6 +7,19 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 		let team = [];
 		let sets = {
 			//Admins
+			"~Mewth": {
+				species: "Furret-Mega",
+				ability: "Roarplaying",
+				item: "Scope Lens",
+				gender: "F",
+				moves: ['fireblast', 'blizzard', 'boomburst', 'oblivionbanisher'],
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Modest",
+			},
 			//Leaders
 			"&flufi": {
 				species: "Darmanitan",
@@ -24,6 +37,22 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Adamant",
 			},
 			//Mods
+			"@Insist": {
+				species: "Ludicolo-Mega",
+				ability: "Crippling Depression",
+				item: "Playnium Z",
+				gender: "M",
+				shiny: true,
+				moves: ['freezedry', 'gigadrain', 'focusblast'],
+				baseSignatureMove: "npmtest",
+				signatureMove: "npm test",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Timid",
+			},
 			//Drivers
 			//Voices
 			//Regs

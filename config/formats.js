@@ -1632,29 +1632,11 @@ exports.Formats = [
 			let name = toId(pokemon.name);
 			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);
 			//Type changes
-			if (name === 'wobbleleez' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Psychic/Fairy');
-				pokemon.types = ["Psychic", "Fairy"];
-			}
-			if (name === 'douglasgamer' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Water/Electric');
-				pokemon.types = ["Water", "Electric"];
-			}
-			if (name === 'backatmyday' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Ground/Water');
-				pokemon.types = ["Ground", "Water"];
-			}
-			if (name === 'playershadowbr' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Dragon/Water');
-				pokemon.types = ["Dragon", "Water"];
+			if (name === 'flufi' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Fire/Electric');
+				pokemon.types = ["Fire", "Electric"];
 			}
 		},
-	},
-	{
-		name: "[Gen 7] Purebred",
-		mod: 'purebred',
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Smeargle'],
 	},
 	{
 		name: "[Gen 7] Five Move Frenzy",

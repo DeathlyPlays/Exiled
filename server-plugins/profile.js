@@ -15,7 +15,7 @@ let serverIp = Config.serverIp;
 function isDev(user) {
 	if (!user) return;
 	if (typeof user === 'object') user = user.userid;
-	let dev = Db('devs').get(toId(user));
+	let dev = Db("devs").get(toId(user));
 	if (dev === 1) return true;
 	return false;
 }
@@ -80,7 +80,7 @@ exports.commands = {
 			let devUsername = toId(target);
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (isDev(devUsername)) return this.errorReply(devUsername + " is already a DEV user.");
-			Db('devs').set(devUsername, 1);
+			Db("devs").set(devUsername, 1);
 			this.sendReply('|html|' + Server.nameColor(devUsername, true) + " has been given DEV status.");
 			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
@@ -91,16 +91,16 @@ exports.commands = {
 			let devUsername = toId(target);
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (!isDev(devUsername)) return this.errorReply(devUsername + " isn't a DEV user.");
-			Db('devs').delete(devUsername);
+			Db("devs").delete(devUsername);
 			this.sendReply("|html|" + Server.nameColor(devUsername, true) + " has been demoted from DEV status.");
 			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been demoted from DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
 
 		users: 'list',
 		list: function () {
-			if (!Db('devs').keys().length) return this.errorReply('There seems to be no user with DEV status.');
+			if (!Db("devs").keys().length) return this.errorReply('There seems to be no user with DEV status.');
 			let display = [];
-			Db('devs').keys().forEach(devUser => {
+			Db("devs").keys().forEach(devUser => {
 				display.push(Server.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
 			});
 			this.popupReply('|html|<strong><u><font size="3"><center>DEV Users:</center></font></u></strong>' + display.join(','));
@@ -116,7 +116,7 @@ exports.commands = {
 				'<br />' +
 				'<code>take [username]</code>: Takes <code>username</code>\'s DEV status. Requires: & ~' +
 				'<br />' +
-				'<code>list</code>: Shows list of users with DEV Status' +
+				'<code>list</code>: Shows list of users with DEV Status.' +
 				'</div>'
 			);
 		},
@@ -320,7 +320,7 @@ exports.commands = {
 	profileteam: {
 		add: 'set',
 		set: function (target, room, user) {
-			if (!Db('hasteam').has(user.userid)) return this.errorReply('You don\'t have access to edit your team.');
+			if (!Db("hasteam").has(user.userid)) return this.errorReply('You don\'t have access to edit your team.');
 			if (!target) return this.parse('/profileteam help');
 			let parts = target.split(',');
 			let mon = parts[1].trim();
@@ -329,7 +329,7 @@ exports.commands = {
 			let acceptable = ['one', 'two', 'three', 'four', 'five', 'six'];
 			if (!acceptable.includes(slot)) return this.parse('/profileteam help');
 			if (slot === 'one' || slot === 'two' || slot === 'three' || slot === 'four' || slot === 'five' || slot === 'six') {
-				Db('teams').set([user.userid, slot], mon);
+				Db("teams").set([user.userid, slot], mon);
 				this.sendReply('You have added this pokemon to your team.');
 			}
 		},
@@ -338,7 +338,7 @@ exports.commands = {
 			if (!this.can('broadcast')) return false;
 			if (!target) return this.parse('/profileteam help');
 			let targetId = toId(target);
-			Db('hasteam').set(targetId, 1);
+			Db("hasteam").set(targetId, 1);
 			this.sendReply(target + ' has been given the ability to set their team.');
 			Users(target).popup('You have been given the ability to set your profile team.');
 		},
@@ -346,8 +346,8 @@ exports.commands = {
 		take: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
 			if (!target) return this.parse('/profileteam help');
-			if (!Db('hasteam').has(user)) return this.errorReply('This user does not have the ability to set their team.');
-			Db('hasteam').delete(user);
+			if (!Db("hasteam").has(user)) return this.errorReply('This user does not have the ability to set their team.');
+			Db("hasteam").delete(user);
 			return this.sendReply('This user has had their ability to change their team away.');
 		},
 
@@ -380,7 +380,7 @@ exports.commands = {
 			if (!parts[1]) return this.parse('/backgroundhelp');
 			let targ = parts[0].toLowerCase().trim();
 			let link = parts[1].trim();
-			Db('backgrounds').set(targ, link);
+			Db("backgrounds").set(targ, link);
 			this.sendReply('This user\'s background has been set to : ');
 			this.parse('/profile ' + targ);
 		},
@@ -395,8 +395,8 @@ exports.commands = {
 			if (!this.can('broadcast')) return false;
 			let targ = target.toLowerCase();
 			if (!target) return this.parse('/backgroundhelp');
-			if (!Db('backgrounds').has(targ)) return this.errorReply('This user does not have a custom background.');
-			Db('backgrounds').delete(targ);
+			if (!Db("backgrounds").has(targ)) return this.errorReply('This user does not have a custom background.');
+			Db("backgrounds").delete(targ);
 			return this.sendReply('This user\'s background has been deleted.');
 		},
 
@@ -420,8 +420,8 @@ exports.commands = {
 			if (!parts[2]) return this.errorReply('/musichelp');
 			let link = parts[1].trim();
 			let title = parts[2].trim();
-			Db('music').set([targ, 'link'], link);
-			Db('music').set([targ, 'title'], title);
+			Db("music").set([targ, 'link'], link);
+			Db("music").set([targ, 'title'], title);
 			this.sendReply(targ + '\'s song has been set to: ');
 			this.parse('/profile ' + targ);
 		},
@@ -432,8 +432,8 @@ exports.commands = {
 			if (!this.can('broadcast')) return false;
 			let targ = target.toLowerCase();
 			if (!target) return this.parse('/musichelp');
-			if (!Db('music').has(targ)) return this.errorReply('This user does not have any music on their profile.');
-			Db('music').delete(targ);
+			if (!Db("music").has(targ)) return this.errorReply('This user does not have any music on their profile.');
+			Db("music").delete(targ);
 			return this.sendReply('This user\'s profile music has been deleted.');
 		},
 
@@ -565,45 +565,45 @@ exports.commands = {
 			let teamcss = 'float:center;border:none;background:none;';
 
 			let noSprite = '<img src=http://play.pokemonshowdown.com/sprites/bwicons/0.png>';
-			let one = Db('teams').get([user, 'one']);
-			let two = Db('teams').get([user, 'two']);
-			let three = Db('teams').get([user, 'three']);
-			let four = Db('teams').get([user, 'four']);
-			let five = Db('teams').get([user, 'five']);
-			let six = Db('teams').get([user, 'six']);
-			if (!Db('teams').has(user)) return '<div style="' + teamcss + '" >' + noSprite + noSprite + noSprite + noSprite + noSprite + noSprite + '</div>';
+			let one = Db("teams").get([user, 'one']);
+			let two = Db("teams").get([user, 'two']);
+			let three = Db("teams").get([user, 'three']);
+			let four = Db("teams").get([user, 'four']);
+			let five = Db("teams").get([user, 'five']);
+			let six = Db("teams").get([user, 'six']);
+			if (!Db("teams").has(user)) return '<div style="' + teamcss + '" >' + noSprite + noSprite + noSprite + noSprite + noSprite + noSprite + '</div>';
 
 			function iconize(link) {
 				return '<button id="kek" style="background:transparent;border:none;"><img src="https://serebii.net/pokedex-sm/icon/' + link + '.png"></button>';
 			}
 
 			let teamDisplay = '<center><div style="' + teamcss + '">';
-			if (Db('teams').has([user, 'one'])) {
+			if (Db("teams").has([user, 'one'])) {
 				teamDisplay += iconize(one);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db('teams').has([user, 'two'])) {
+			if (Db("teams").has([user, 'two'])) {
 				teamDisplay += iconize(two);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db('teams').has([user, 'three'])) {
+			if (Db("teams").has([user, 'three'])) {
 				teamDisplay += iconize(three);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db('teams').has([user, 'four'])) {
+			if (Db("teams").has([user, 'four'])) {
 				teamDisplay += iconize(four);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db('teams').has([user, 'five'])) {
+			if (Db("teams").has([user, 'five'])) {
 				teamDisplay += iconize(five);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db('teams').has([user, 'six'])) {
+			if (Db("teams").has([user, 'six'])) {
 				teamDisplay += iconize(six);
 			} else {
 				teamDisplay += noSprite;
@@ -614,15 +614,15 @@ exports.commands = {
 		}
 
 		function background(buddy) {
-			let bg = Db('backgrounds').get(buddy);
-			if (!Db('backgrounds').has(buddy)) return '<div>';
+			let bg = Db("backgrounds").get(buddy);
+			if (!Db("backgrounds").has(buddy)) return '<div>';
 			return '<div style="background:url(' + bg + ')">';
 		}
 
 		function song(fren) {
-			let song = Db('music').get([fren, 'link']);
-			let title = Db('music').get([fren, 'title']);
-			if (!Db('music').has(fren)) return '';
+			let song = Db("music").get([fren, 'link']);
+			let title = Db("music").get([fren, 'title']);
+			if (!Db("music").has(fren)) return '';
 			return '<acronym title="' + title + '"><br /><audio src="' + song + '" controls="" style="width:100%;"></audio></acronym>';
 		}
 
@@ -671,6 +671,8 @@ exports.commands = {
 		"/pteam take [user] - Revokes a user's access to edit their profile team. Requires + or higher.",
 		"/type set [type] - Set your favorite type.",
 		"/type delete - Delete your favorite type.",
+		"/nature set [nature] - Set your nature.",
+		"/nature delete - Delete your nature.",
 		"/music set [user], [song], [title] - Sets a user's profile song. Requires + or higher.",
 		"/music take [user] - Removes a user's profile song. Requires + or higher.",
 		"/bg set [user], [link] - Sets the user's profile background. Requires + or higher.",

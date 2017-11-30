@@ -286,6 +286,7 @@ exports.commands = {
 			);
 		},
 	},
+
 	favoritetype: 'type',
 	type: {
 		add: "set",
@@ -293,16 +294,16 @@ exports.commands = {
 		    let type = target.toLowerCase();
 			if (!type) return this.parse("/help type");
 			if (!['grass', 'fire', 'water', 'poison', 'ground', 'rock', 'bug', 'electric', 'ice', 'ghost', 'psychic', 'dragon', 'dark', 'fairy', 'steel', 'flying', 'normal', 'fighting'].includes(type)) return this.sendReply('Valid types are: fire, water, grass, electric, normal, fighting, rock, ice, ground, dragon, fairy, psychic, ghost, dark, flying, poison, steel and bug.');
-			Db('type').set(user.userid, type);
-			this.sendReply("You have successfully set your Favorite Type onto your profile.");
+			Db("type").set(user.userid, type);
+			return this.sendReply("You have successfully set your Favorite Type onto your profile.");
 		},
 
 		del: "delete",
 		remove: "delete",
 		delete: function (target, room, user) {
-			if (!Db('type').has(user.userid)) return this.errorReply("Your favorite Type hasn't been set.");
-			Db('type').delete(user.userid);
-			return this.sendReply("Your favorite Type has been deleted from your profile.");
+			if (!Db("type").has(user.userid)) return this.errorReply("Your Favorite Type hasn't been set.");
+			Db("type").delete(user.userid);
+			return this.sendReply("Your Favorite Type has been deleted from your profile.");
 		},
 
 		"": "help",
@@ -311,9 +312,10 @@ exports.commands = {
 		},
 	},
 	typehelp: [
-		"/type set [Type] - Sets your Favorite Type.",
+		"/type set [type] - Sets your Favorite Type.",
 		"/type delete - Removes your Favorite Type.",
 	],
+
 	pteam: 'profileteam',
 	profileteam: {
 		add: 'set',
@@ -346,23 +348,23 @@ exports.commands = {
 			if (!target) return this.parse('/profileteam help');
 			if (!Db('hasteam').has(user)) return this.errorReply('This user does not have the ability to set their team.');
 			Db('hasteam').delete(user);
-			this.sendReply('This user has had their ability to change their team away.');
+			return this.sendReply('This user has had their ability to change their team away.');
 		},
 
 		'': 'help',
 		help: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox(
-				'<center><strong>Profile Team Commands</strong><br>' +
-				'All commands are nestled under namespace <code>pteam</code></center><br>' +
+				'<center><strong>Profile Team Commands</strong><br />' +
+				'All commands are nestled under namespace <code>pteam</code></center><br />' +
 				'<hr width="100%">' +
-				'<code>add (slot), (dex number)</code>: The dex number must be the actual dex number of the pokemon you want.<br>' +
-				'Slot - we mean what slot you want the pokemon to be. valid entries for this are: one, two, three, four, five, six.<br>' +
-				'Chosing the right slot is crucial because if you chose a slot that already has a pokemon, it will overwrite that data and replace it. This can be used to replace / reorder what pokemon go where.<br>' +
-				'If the Pokemon is in the first 99 Pokemon, do 0(number), and for Megas do (dex number)-m, -mx for mega x, -my for mega y.<br>' +
-				'For example: Mega Venusaur would be 003-m<br>' +
-				'<code>give</code>: Global staff can give user\'s ability to set their own team.<br>' +
-				'<code>take</code>: Global staff can take user\'s ability to set their own team.<br>' +
+				'<code>add (slot), (dex number)</code>: The dex number must be the actual dex number of the pokemon you want.<br />' +
+				'Slot - we mean what slot you want the pokemon to be. valid entries for this are: one, two, three, four, five, six.<br />' +
+				'Chosing the right slot is crucial because if you chose a slot that already has a pokemon, it will overwrite that data and replace it. This can be used to replace / reorder what pokemon go where.<br />' +
+				'If the Pokemon is in the first 99 Pokemon, do 0(number), and for Megas do (dex number)-m, -mx for mega , -my for mega Y.<br>' +
+				'For example: Mega Venusaur would be 003-m<br />' +
+				'<code>give</code>: Global staff can give user\'s ability to set their own team.<br />' +
+				'<code>take</code>: Global staff can take user\'s ability to set their own team.<br />' +
 				'<code>help</code>: Displays this command.'
 			);
 		},
@@ -395,7 +397,7 @@ exports.commands = {
 			if (!target) return this.parse('/backgroundhelp');
 			if (!Db('backgrounds').has(targ)) return this.errorReply('This user does not have a custom background.');
 			Db('backgrounds').delete(targ);
-			this.sendReply('This user\'s background has been deleted.');
+			return this.sendReply('This user\'s background has been deleted.');
 		},
 
 		'': 'help',
@@ -432,7 +434,7 @@ exports.commands = {
 			if (!target) return this.parse('/musichelp');
 			if (!Db('music').has(targ)) return this.errorReply('This user does not have any music on their profile.');
 			Db('music').delete(targ);
-			this.sendReply('This user\'s profile music has been deleted.');
+			return this.sendReply('This user\'s profile music has been deleted.');
 		},
 
 		'': 'help',
@@ -451,15 +453,15 @@ exports.commands = {
 			if (!target) return this.parse("/pokemonhelp");
 			let pkmn = Dex.getTemplate(target);
 			if (!pkmn.exists) return this.errorReply('Not a Pokemon. Check your spelling?');
-			Db('pokemon').set(user.userid, pkmn.species);
-			this.sendReply("You have successfully set your Pokemon onto your profile.");
+			Db("pokemon").set(user.userid, pkmn.species);
+			return this.sendReply("You have successfully set your Pokemon onto your profile.");
 		},
 
 		del: "delete",
 		remove: "delete",
 		delete: function (target, room, user) {
-			if (!Db('pokemon').has(user.userid)) return this.errorReply("Your favorite Pokemon hasn't been set.");
-			Db('pokemon').delete(user.userid);
+			if (!Db("pokemon").has(user.userid)) return this.errorReply("Your favorite Pokemon hasn't been set.");
+			Db("pokemon").delete(user.userid);
 			return this.sendReply("Your favorite Pokemon has been deleted from your profile.");
 		},
 
@@ -471,6 +473,37 @@ exports.commands = {
 	pokemonhelp: [
 		"/pokemon set [Pokemon] - Sets your Favorite Pokemon.",
 		"/pokemon delete - Removes your Favorite Pokemon.",
+	],
+
+	natures: "nature",
+	nature: {
+		add: "set",
+		set: function (target, room, user) {
+			if (!target) this.parse("/naturehelp");
+			let nature = Dex.getNature(target);
+			if (!nature.exists) return this.errorReply("This is not a nature. Check your spelling?");
+			Db("nature").set(user.userid, nature.name);
+			return this.sendReply("You have successfully set your nature onto your profile.");
+		},
+
+		del: "delete",
+		take: "delete",
+		remove: "delete",
+		take: "delete",
+		delete: function (target, room, user) {
+			if (!Db("nature").has(user.userid)) return this.errorReply("Your nature has not been set.");
+			Db("nature").delete(user.userid);
+			return this.sendReply("Your nature has been deleted from your profile.");
+		},
+
+		"": "help",
+		help: function (target, room, user) {
+			this.parse("/naturehelp");
+		},
+	},
+	naturehelp: [
+		"/nature set [nature] - Sets your Profile Nature.",
+		"/nature delete - Removes your Profile Nature.",
 	],
 
 	'!lastactive': true,
@@ -603,10 +636,13 @@ exports.commands = {
 				profile += '&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ' + regdate + '<br />';
 				profile += '&nbsp;<font color="#24678d"><strong>' + moneyPlural + ':</strong></font> ' + money + '<br />';
 				if (Db("pokemon").has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><strong>Favorite Pokemon:</strong></font> ' + Db('pokemon').get(toId(username)) + '<br />';
+					profile += '&nbsp;<font color="#24678d"><strong>Favorite Pokemon:</strong></font> ' + Db("pokemon").get(toId(username)) + '<br />';
 				}
-				if (Db('type').has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><strong>Favorite Type:</strong></font> <img src="https://www.serebii.net/pokedex-bw/type/' + Db('type').get(toId(username)) + '.gif"><br />';
+				if (Db("type").has(toId(username))) {
+					profile += '&nbsp;<font color="#24678d"><strong>Favorite Type:</strong></font> <img src="https://www.serebii.net/pokedex-bw/type/' + Db("type").get(toId(username)) + '.gif"><br />';
+				}
+				if (Db("nature").has(toId(username))) {
+					profile += '&nbsp;<font color="#24678d"><strong>Nature:</strong></font> ' + Db("nature").get(toId(username)) + '<br />';
 				}
 				if (Server.getFaction(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><strong>Faction:</strong></font> ' + Server.getFaction(toId(username)) + '<br />';

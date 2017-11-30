@@ -44,8 +44,8 @@ exports.commands = {
 		"!statset - Broadcasts the generated random spread of stats.",
 	],
 
-	'!type': true,
-	type: "randtype",
+	"!randtype": true,
+	randomtype: "randtype",
 	randtype: function () {
 		let gen = Math.floor(Math.random() * 18);
 		if (!this.runBroadcast()) return;
@@ -87,9 +87,9 @@ exports.commands = {
 			return this.sendReplyBox('Generated Type: Normal');
 		}
 	},
-	typehelp: [
-		"/type - Generates a random typing.",
-		"!type - Broadcasts the generated typing.",
+	randomtypehelp: [
+		"/randomtype - Generates a random typing.",
+		"!randomtype - Broadcasts the generated typing.",
 	],
 
 	'!opensource': true,
@@ -306,7 +306,7 @@ exports.commands = {
 			'<li><button class="button" name="send" value="/news">News</button></li><br />' +
 			'<li><button class="button" name="send" value="/ontimehelp">Ontime</button></li><br />' +
 			'<li><button class="button" name="send" value="/playlisthelp">Playlist</button></li><br />' +
-			'<li><button class="button" name="send" value="/profile">Profile</button></li><br />' +
+			'<li><button class="button" name="send" value="/profilehelp">Profile</button></li><br />' +
 			'<li><button class="button" name="send" value="/regdatehelp">Regdate</button></li><br />' +
 			'<li><button class="button" name="send" value="/roomlist">Room List</button></li><br />' +
 			'<li><button class="button" name="send" value="/seenhelp">Seen</button></li><br />' +

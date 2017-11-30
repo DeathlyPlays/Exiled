@@ -47,6 +47,7 @@ function generateCSS(name, sc) {
 exports.commands = {
 	symbolcolor: 'sc',
 	sc: {
+		give: 'set',
 		set: function (target, room, user) {
 			if (!this.can('ban')) return false;
 			target = target.split(',');
@@ -56,12 +57,13 @@ exports.commands = {
 			if (sc[toId(target[0])]) return this.errorReply("This user already has a custom sc.  Do /sc delete [user] and then set their new sc.");
 			this.sendReply("|raw|You have given " + Server.nameColor(target[0], true) + " an sc.");
 			Monitor.adminlog(target[0] + " has received an symbol color from " + user.name + ".");
-			this.privateModCommand("|raw|(" + target[0] + " has received sc: <font color='" + target[1] + "'>" + target[1] + "</font> from " + user.name + ".)");
+			this.privateModCommand("|raw|(" + Server.nameColor(target[0]) + " has received sc: <font color='" + target[1] + "'>" + target[1] + "</font> from " + user.name + ".)");
 			if (Users(target[0]) && Users(target[0]).connected) Users(target[0]).popup("|html|" + Server.nameColor(user.name, true) + " has set your symbol color to: <font color='" + target[1] + "'>" + target[1] + "</font>.<br><center>Refresh, If you don't see it.</center>");
 			sc[toId(target[0])] = target[1];
 			updateSC();
 		},
 
+		take: 'delete',
 		remove: 'delete',
 		delete: function (target, room, user) {
 			if (!this.can('ban')) return false;
@@ -79,7 +81,7 @@ exports.commands = {
 		help: function (target, room, user) {
 			this.sendReplyBox(
 				'<div style="padding: 3px 5px;"><center>' +
-				'<code>/cs</code> commands.<br />These commands are nestled under the namespace <code>sc</code>.</center>' +
+				'<code>/sc</code> commands.<br />These commands are nestled under the namespace <code>sc</code>.</center>' +
 				'<hr width="100%">' +
 				'<code>set [username], [color]</code>: Gives <code>username</code> custom symbol color. Requires: & ~' +
 				'<br />' +

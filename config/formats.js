@@ -2182,7 +2182,7 @@ exports.Formats = [
 		mod: 'ouchaos',
 		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
 		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Baton Pass'],
-		unbanlist: ['Aegislash', 'Blaziken', 'Genesect', 'Landorus', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Pheromosa', 'Darkrai', 'Shaymin-Sky', 'Metagross-Mega', 'Kangaskhan-Mega', 'Gengar-Mega', 'Lucario-Mega', 'Blaziken-Mega', 'Salamence-Mega', 'Kyurem-White', 'Zeraora', 'Reshiram', 'Zekrom', 'Naganadel', 'Dawn-Wings-Necrozma',],
+		unbanlist: ['Aegislash', 'Blaziken', 'Genesect', 'Landorus', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Pheromosa', 'Darkrai', 'Metagross-Mega', 'Lucario-Mega', 'Blaziken-Mega', 'Salamence-Mega', 'Kyurem-White', 'Zeraora', 'Zekrom',],
 	},
 	{
 		name: "[Gen 7] Tier Shift",

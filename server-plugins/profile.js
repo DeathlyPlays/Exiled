@@ -489,7 +489,6 @@ exports.commands = {
 		del: "delete",
 		take: "delete",
 		remove: "delete",
-		take: "delete",
 		delete: function (target, room, user) {
 			if (!Db("nature").has(user.userid)) return this.errorReply("Your nature has not been set.");
 			Db("nature").delete(user.userid);

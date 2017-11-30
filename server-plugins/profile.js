@@ -286,7 +286,34 @@ exports.commands = {
 			);
 		},
 	},
+	favoritetype: 'type',
+	type: {
+		add: "set",
+		set: function (target, room, user) {
+		    let type = target.toLowerCase();
+			if (!type) return this.parse("/help type");
+			if (!['grass', 'fire', 'water', 'poison', 'ground', 'rock', 'bug', 'electric', 'ice', 'ghost', 'psychic', 'dragon', 'dark', 'fairy', 'steel', 'flying', 'normal', 'fighting'].includes(type)) return this.sendReply('Valid types are: fire, water, grass, electric, normal, fighting, rock, ice, ground, dragon, fairy, psychic, ghost, dark, flying, poison, steel and bug.');
+			Db('type').set(user.userid, type);
+			this.sendReply("You have successfully set your Favorite Type onto your profile.");
+		},
 
+		del: "delete",
+		remove: "delete",
+		delete: function (target, room, user) {
+			if (!Db('type').has(user.userid)) return this.errorReply("Your favorite Type hasn't been set.");
+			Db('type').delete(user.userid);
+			return this.sendReply("Your favorite Type has been deleted from your profile.");
+		},
+
+		"": "help",
+		help: function (target, room, user) {
+			this.parse('/help type');
+		},
+	},
+	typehelp: [
+		"/type set [Type] - Sets your Favorite Type.",
+		"/type delete - Removes your Favorite Type.",
+	],
 	pteam: 'profileteam',
 	profileteam: {
 		add: 'set',
@@ -578,6 +605,9 @@ exports.commands = {
 				if (Db("pokemon").has(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><strong>Favorite Pokemon:</strong></font> ' + Db('pokemon').get(toId(username)) + '<br />';
 				}
+				if (Db('type').has(toId(username))) {
+					profile += '&nbsp;<font color="#24678d"><strong>Favorite Type:</strong></font> <img src="https://www.serebii.net/pokedex-bw/type/' + Db('type').get(toId(username)) + '.gif"><br />';
+				}
 				if (Server.getFaction(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><strong>Faction:</strong></font> ' + Server.getFaction(toId(username)) + '<br />';
 				}
@@ -603,6 +633,8 @@ exports.commands = {
 		"/pteam give [user] - Gives a user access to edit their profile team. Requires + or higher.",
 		"/pteam add [slot], [dex # of the Pokemon] - Adds a Pokemon onto your profile team. Requires profile edit access.",
 		"/pteam take [user] - Revokes a user's access to edit their profile team. Requires + or higher.",
+		"/type set [type] - Set your favorite type.",
+		"/type delete - Delete your favorite type.",
 		"/music set [user], [song], [title] - Sets a user's profile song. Requires + or higher.",
 		"/music take [user] - Removes a user's profile song. Requires + or higher.",
 		"/bg set [user], [link] - Sets the user's profile background. Requires + or higher.",

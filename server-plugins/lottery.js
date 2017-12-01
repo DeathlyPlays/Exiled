@@ -6,13 +6,15 @@
 
 "use strict";
 
+let costToJoin = 3;
+
 class Lottery {
 	constructor(room, user) {
 		this.players = [];
 		this.room = room;
 		room.lottoNumber = room.lottoNumber ? room.lottoNumber++ : 1;
 		this.lottoNumber = room.lottoNumber;
-		this.costToJoin = 3;
+		this.costToJoin = costToJoin;
 		this.room.add(`|uhtml|lottery-${this.lottoNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new <strong>Lottery drawing</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/lotto join">Join</button><br /><strong>Joining costs ${this.costToJoin} ${moneyPlural}</strong></p></div>`, true);
 		this.timer = setTimeout(() => {
 			if (this.players.length < 2) {
@@ -53,7 +55,7 @@ class Lottery {
 		if (!this.players.includes(user.userid)) return user.sendTo(this.room, `You are not currently in the Lottery drawing in this room..`);
 		Economy.writeMoney(user.userid, this.costToJoin, () => {
 			this.players.splice(this.players.indexOf(user.userid), 1);
-			user.sendTo(this.room, 'You have left the lottery and have been refunded ' + this.costToJoin + '.');
+			user.sendTo(this.room, 'You have left the lottery and have been refunded ' + this.costToJoin + ' ' + moneyPlural + '.');
 			Economy.logTransaction(user.userid + " has left the Lottery drawing, and has been refunded their " + this.costToJoin + " " + moneyPlural + ".");
 		});
 	}
@@ -121,7 +123,7 @@ exports.commands = {
 	lotteryhelp: [
 		"Another alias for /lottery is /lotto.",
 		"/lottery new - Creates a new Lottery drawing. Must be a Room Driver or higher.",
-		"/lottery join - Join a Lottery drawing. Requires " + this.costToJoin + " " + moneyPlural + ".",
+		"/lottery join - Join a Lottery drawing. Requires " + costToJoin + " " + moneyPlural + ".",
 		"/lottery leave - Leaves a Lottery drawing.",
 		"/lottery start - Forcefully starts a Lottery drawing (instead of starting automatically in 24 hours from creation). Must be a Room Driver or higher.",
 		"/lottery players - Shows the current amount of players who have joined the ongoing Lottery drawing.",

@@ -56,9 +56,9 @@ class Battle extends Dex.ModdedDex {
 		this.sides = [null, null];
 		this.rated = rated;
 		/**@type {AnyObject} */
-		this.weatherData = {id:''};
+		this.weatherData = {id: ''};
 		/**@type {AnyObject} */
-		this.terrainData = {id:''};
+		this.terrainData = {id: ''};
 		this.pseudoWeather = {};
 
 		this.format = format.id;
@@ -67,11 +67,11 @@ class Battle extends Dex.ModdedDex {
 
 		/**@type {Effect} */
 		// @ts-ignore
-		this.effect = {id:''};
+		this.effect = {id: ''};
 		/**@type {AnyObject} */
-		this.effectData = {id:''};
+		this.effectData = {id: ''};
 		/**@type {AnyObject} */
-		this.event = {id:''};
+		this.event = {id: ''};
 
 		this.gameType = (format.gameType || 'singles');
 		this.reportExactHP = !!format.debug;
@@ -2109,7 +2109,7 @@ class Battle extends Dex.ModdedDex {
 		let defender = target;
 		let attackStat = category === 'Physical' ? 'atk' : 'spa';
 		let defenseStat = defensiveCategory === 'Physical' ? 'def' : 'spd';
-		let statTable = {atk:'Atk', def:'Def', spa:'SpA', spd:'SpD', spe:'Spe'};
+		let statTable = {atk: 'Atk', def: 'Def', spa: 'SpA', spd: 'SpD', spe: 'Spe'};
 		let attack;
 		let defense;
 
@@ -2411,7 +2411,7 @@ class Battle extends Dex.ModdedDex {
 				faintData.target.side.pokemonLeft--;
 				this.runEvent('Faint', faintData.target, faintData.source, faintData.effect);
 				this.singleEvent('End', this.getAbility(faintData.target.ability), faintData.target.abilityData, faintData.target);
-				faintData.target.clearVolatile();
+				faintData.target.clearVolatile(false);
 				faintData.target.fainted = true;
 				faintData.target.isActive = false;
 				faintData.target.isStarted = false;
@@ -2978,6 +2978,21 @@ class Battle extends Dex.ModdedDex {
 		return true;
 	}
 
+	/**
+	 * Convenience method for easily making choices.
+	 *
+	 * @param {string[]} inputs
+	 */
+	makeChoices(...inputs) {
+		const oldFlag = this.LEGACY_API_DO_NOT_USE;
+		this.LEGACY_API_DO_NOT_USE = false;
+		for (const [i, input] of inputs.entries()) {
+			this.sides[i].choose(input);
+		}
+		this.commitDecisions();
+		this.LEGACY_API_DO_NOT_USE = oldFlag;
+	}
+
 	commitDecisions() {
 		this.updateSpeed();
 
@@ -3092,6 +3107,10 @@ class Battle extends Dex.ModdedDex {
 		if (this.getFormat().debug) {
 			this.add('debug', activity);
 		}
+	}
+
+	getDebugLog() {
+		return this.log.join('\n').replace(/\|split\n.*\n.*\n.*\n/g, '');
 	}
 
 	/**

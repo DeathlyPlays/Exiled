@@ -603,7 +603,7 @@ exports.BattleAliases = {
 	"landot": "Landorus-Therian",
 	"lele": "Tapu Lele",
 	"linda": "Fletchinder",
-	"luke":  "Lucario",
+	"luke": "Lucario",
 	"lurk": "Golurk",
 	"mage": "Magearna",
 	"mamo": "Mamoswine",

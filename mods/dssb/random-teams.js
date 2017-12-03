@@ -56,6 +56,22 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			//Drivers
 			//Voices
 			//Regs
+			" Back At My Day...": {
+				species: "Snorlax",
+				ability: "Bulky Moxie",
+				item: "Retarded Specs",
+				gender: "M",
+				shiny: true,
+				moves: ['highjumpkick', 'avalanche', 'earthquake'],
+				baseSignatureMove: "meteor",
+				signatureMove: "Meteor",
+				evs: {
+					atk: 252,
+					def: 252,
+					spd: 4,
+				},
+				nature: "Adamant",
+			},
 		};
 		// convert moves to ids.
 		for (let k in sets) {

@@ -51,4 +51,15 @@ exports.BattleAbilities = {
 		},
 		desc: "Primordial Sea, Rain Dish, and Swift Swim.",
 	},
+	//bamd
+	"bulkymoxie": {
+		id: "bulkymoxie",
+		name: "Bulky Moxie",
+		onSourceFaint: function (target, source, effect) {
+			if (effect && effect.effectType === 'Move') {
+				this.boost({atk:1, def:1, spd:1}, source);
+			}
+		},
+		desc: "This Pokemon's Attack, Defense and Special Defense is raised by 1 stage if it attacks and KOes another Pokemon.",
+	},
 };

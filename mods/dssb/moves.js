@@ -79,4 +79,28 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Water",
 	},
+	//bamd
+	"meteor": {
+		id: "meteor",
+		name: "Meteor",
+		priority: 0,
+		desc: "Inflicts damage.",
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		secondary: false,
+		category: "Physical",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Draco Meteor", target);
+		},
+		basePower: 120,
+		pp: 16,
+		accuracy: 100,
+		target: "normal",
+		type: "Normal",
+		zMovePower: 180,
+		contestType: "Cool",
+	},
 };

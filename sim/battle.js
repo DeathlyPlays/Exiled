@@ -17,7 +17,6 @@ const Pokemon = require('./pokemon');
  *
  * @typedef {Object} FaintedPokemon
  * @property {Pokemon} target
-<<<<<<< HEAD
  * @property {Pokemon?} source
  * @property {Effect?} effect
  */
@@ -36,10 +35,6 @@ const Pokemon = require('./pokemon');
  * @property {boolean | 'done'} mega - true if megaing or ultra bursting
  * @property {boolean} zmove - true if zmoving
  * @property {Effect?} sourceEffect - effect that did the action
-=======
- * @property {Pokemon} source
- * @property {Effect} effect
->>>>>>> e0117437a17846f148b9d9c9a7534b2ae9f27cd8
  */
 /**
  * A switch action
@@ -2454,10 +2449,6 @@ class Battle extends Dex.ModdedDex {
 				faintData.target.side.pokemonLeft--;
 				this.runEvent('Faint', faintData.target, faintData.source, faintData.effect);
 				this.singleEvent('End', this.getAbility(faintData.target.ability), faintData.target.abilityData, faintData.target);
-<<<<<<< HEAD
-=======
-				faintData.target.clearVolatile(false);
->>>>>>> c256d61e8e92ee47702954897da875eb7f4ab17f
 				faintData.target.fainted = true;
 				faintData.target.isActive = false;
 				faintData.target.isStarted = false;
@@ -2507,13 +2498,8 @@ class Battle extends Dex.ModdedDex {
 	 * @param {boolean} [midTurn]
 	 * @return {Action}
 	 */
-<<<<<<< HEAD
 	resolveAction(action, midTurn = false) {
 		if (!action) throw new Error(`Action not passed to resolveAction`);
-=======
-	resolvePriority(decision, midTurn) {
-		if (!decision) return;
->>>>>>> e0117437a17846f148b9d9c9a7534b2ae9f27cd8
 
 		if (!action.side && action.pokemon) action.side = action.pokemon.side;
 		if (!action.move && action.moveid) action.move = this.getMoveCopy(action.moveid);
@@ -2558,13 +2544,8 @@ class Battle extends Dex.ModdedDex {
 			}
 		}
 
-<<<<<<< HEAD
 		let deferPriority = this.gen >= 7 && action.mega && action.mega !== 'done';
 		if (action.move) {
-=======
-		let deferPriority = this.gen >= 7 && decision.mega && !decision.pokemon.template.isMega;
-		if (decision.move) {
->>>>>>> e0117437a17846f148b9d9c9a7534b2ae9f27cd8
 			let target = null;
 			action.move = this.getMoveCopy(action.move);
 
@@ -2630,17 +2611,10 @@ class Battle extends Dex.ModdedDex {
 	 * @param {AnyObject | AnyObject[]} chosenAction
 	 * @param {boolean} [midTurn]
 	 */
-<<<<<<< HEAD
 	insertQueue(chosenAction, midTurn = false) {
 		if (Array.isArray(chosenAction)) {
 			for (const subAction of chosenAction) {
 				this.insertQueue(subAction);
-=======
-	insertQueue(decision, midTurn) {
-		if (Array.isArray(decision)) {
-			for (let i = 0; i < decision.length; i++) {
-				this.insertQueue(decision[i]);
->>>>>>> e0117437a17846f148b9d9c9a7534b2ae9f27cd8
 			}
 			return;
 		}
@@ -2953,14 +2927,9 @@ class Battle extends Dex.ModdedDex {
 			// In Gen 7, the action order is recalculated for a Pokémon that mega evolves.
 			const moveIndex = this.queue.findIndex(queuedAction => queuedAction.pokemon === action.pokemon && queuedAction.choice === 'move');
 			if (moveIndex >= 0) {
-<<<<<<< HEAD
 				const moveAction = /** @type {MoveAction} */ (this.queue.splice(moveIndex, 1)[0]);
 				moveAction.mega = 'done';
 				this.insertQueue(moveAction, true);
-=======
-				const moveDecision = this.queue.splice(moveIndex, 1)[0];
-				this.insertQueue(moveDecision, true);
->>>>>>> e0117437a17846f148b9d9c9a7534b2ae9f27cd8
 			}
 			return false;
 		} else if (this.queue.length && this.queue[0].choice === 'instaswitch') {

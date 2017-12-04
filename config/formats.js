@@ -1704,48 +1704,82 @@ exports.Formats = [
 		column: 5,
 	},
 	{
-		name: "[Gen 7] Move Equality",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3599280/\">Move Equality</a>: Every Move has 100 base power with the exception of moves that have varying base powers."],
-		mod: 'gen7',
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Fell Stinger', 'Mud Slap', 'Power Up Punch'],
-		onModifyMovePriority: 5,
-		onModifyMove: function(move, pokemon) {
-			if (move.category === 'Status' || move.priority !== 0 || move.onBasePower || move.basePowerCallback) return move;
-			if (move.isZ) {
-				move.basePower = 180;
-				return move;
-			}
-			if (move.multihit) {
-				move.basePower = parseInt(100 / move.multihit[move.multihit.length - 1]);
-				return move;
-			}
-			move.basePower = 100;
-			return move;
-		},
+		name: "[Gen 7] Ashmons",
+		maxLevel: 50,
+		defaultLevel: 50,
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Baton Pass Clause', 'Ash Dex'],
 	},
 	{
-		name: "[Gen 7] Dewdrop Super Staff Bros.",
-		mod: 'dssb',
+		name: "[Gen 7] Ash's Pokemon",
+		mod: 'ashspokemon',
+		ruleset: ['Exact HP Mod', 'Team Preview', 'Cancel Mod', 'Sleep Clause Mod'],
+		team: 'randomAsh',
+		desc: [
+			"This metagame covers every Pok&eacute that Ash caught in the anime, some were evolved for viability etc.",
+		],
+	},
+	{
+		name: "[Gen 7] Clash of the Regions",
+		mod: 'clashoftheregions',
+		ruleset: ['Sleep Clause Mod', 'Cancel Mod', 'Exact HP Mod', 'Baton Pass Clause', 'Pokemon', 'Standard'],
+		desc: [
+			"This metagame is about every rival/gym leader/",
+			"Credit to: Insist (main coder and inspired by), Vivid is a God (side coder and set adviser), Alpha Hawk (extra ideas)",
+			"&bullet; <a href=\"http://squadps.boards.net/post/51/thread\">Clash of the Regions Information</a>",
+		],
+		team: 'randomCOTR',
+	},
+	{
+		name: "[Gen 7] Digimon Showdown",
+		mod: "digimon",
+		team: "randomDigimon",
+		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
+		onBegin: function () {
+			this.add('raw', '<center><a title="Digimon Tamers: Zone Digital" href="https://www.youtube.com/watch?v=HSm6CHgujSE" target="_blank"><img src="https://x5zb5g.bn1303.livefilestore.com/y3m7hz_BBUaKCiMAo-__U76Xif0Wl70a-muQxVLAUWjhKrErxeDIfH6HBN0_M4Rac9yLWH7VRKR4FaMgx6LLZjUwkKzxp1FKocL16LjZOXJogV8ltDPockgXW8As2JSvW5h9UC-YT6xlUWIN0nE8N2WRcP0f1HxkxQFv16nCBk1cyU?width=124&amp;height=28&amp;cropmode=none" alt="Digimon Tamers: Zone Digital" width="124" height="28" /></a><a title="Digimon Froniter: With the Will BGM Verison" href="https://www.youtube.com/watch?v=aiEQNKFiVRY" target="_blank"><img src="https://x5ysra.bn1303.livefilestore.com/y3mejTyK4Owu1CRO-2dEV6f5sXEzfxKIBJ8zDCKtGOvH2m6TNHfGwEVBnSFYmJnQ5irfZG5PTm2Q_cvEZSVJOjco65nxgpmgxkh9u6-Z2-67FqIWD4oMfceTWGOqlL0n9zDM8OrjYKBhRI3FqA8vZq_eAc1QSWIRCdWDa21vklS4XA?width=124&amp;height=28&amp;cropmode=none" alt="Digimon Frontier: With the WIll BGM" width="124" height="28" /></a><a title="Digimon Adventure: Shuugeki Soshite..." href="https://www.youtube.com/watch?v=66iMd-lpC9E" target="_blank"><img src="https://x5zilq.bn1303.livefilestore.com/y3mIjynkF0J_iQQ0IeK0jCR1BLEIpgDkRRGUdYSyOOeNyFcaWCkI5W6LrQamjbqgibv203Ss824bh24kF_gBWNhxOBkjg_rdimfGBsN_6a1k64KydPJRTTrZdA6naRzTBOoxg59qQVtt6I0vQ3d5iAfLRoM_JirnCb7jLX-Ok93YL8?width=124&amp;height=28&amp;cropmode=none" alt="Digimon Adventure: Shuugeki! Soshite..." width="124" height="28" /></a><a title="Digimon Xros Wars: Battle In The Digital World" href="https://www.youtube.com/watch?v=xngD8cDZLRQ" target="_blank"><img src="https://x5x9og.bn1303.livefilestore.com/y3mQAOGzN350mT9JOODjaIzJQ4zcLmZ1l4T_5PeAeN-m4zSj4e2tODh563uxlJh8ZflX4HJOOCtXAi5Bchow8eSOIwPcYEWToRrlD-DKcJIB7HxFdKP6zOZceolZjxKSbzk8R9rfKaSqG7y2vn7MfWJ8AQHHipXVt_cEf0vULk-d98?width=124&amp;height=28&amp;cropmode=none" alt="Digimon Xros Wars: Battle In the Digital World" width="124" height="28" /></a></center>');
+			this.add('raw', '<center><p><a title="Digimon Showdown Players Guide" href="https://1drv.ms/b/s!AvoD6RnUzzMvgmLcX1rqT8GTnEVK" target="_blank"><img src="https://yheeqg.bn1303.livefilestore.com/y4mcqvreFTM4wIjnVqqSI98LZXT-lFFCxPBYHyHGZtWJTIGuah-spBzqvXbLiWvyJgDnrjSRFziff59ZLLBEtm_t3ZHHeKv9AY6Ml-gQpdGMhNmzaeSt0TD8wmivpfEW81jh93LSBvdXb7-cZUH2YNJwzwiyOTsy4L2dViyJqkiOCFDZhJRIPwPEWgmD7MDJnfafmoq6SN6gEfsAXMiHh529w?width=124&amp;height=42&amp;cropmode=none" alt="" width="124" height="42" /></a></p></center>');
+		},
+		desc: [
+			"You may have thought this was Pok&eacute;mon Showdown, but I must reassure you that you were mistaken, welcome to <b>DIGIMON SHOWDOWN!!!</b>",
+			"Ahem, but in all seriousness, the following developers listed below created Digimon in Pok&eacute;mon Showdown, so why not just try it out :D",
+			"Ashley the Pikachu (Head Researcher, Began the project, Attack Manual, Type Chart Manual, Music Selection and Music HTML, Sprite Selection), Insist (Head Developer), AlfaStorm (Animations), Lycanium Z (Assisted other developers), HoeenHero (Assisted with Mechanics)",
+			"&bullet; <a href=\"https://1drv.ms/b/s!AvoD6RnUzzMvgmLcX1rqT8GTnEVK\">Digimon Manual</a>",
+		],
+	},
+	{
+		name: "[Gen 7] Exiled Super Staff Bros.",
+		mod: 'essb',
 		team: 'randomSeasonalMelee',
 		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		desc: [
 			"Credit to: Insist (head coder).",
 			"Thanks to all the auth whom cooperated in this process of making this.",
 			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
+			"&bullet; <a href=\"http://exiledps.boards.net/board/6/exiled-super-staff-bros\">ESSB Thread</a>",
 		],
 		onBegin: function () {
 			// This seasonal gets a bit from Super Smash Bros., that's where the initial message comes from.
 			this.add('message', "GET READY FOR THE NEXT BATTLE!");
-			this.add('message', "For more information on a user's staffmon, use /dssb (authed user's name)!");
+			this.add('message', "For more information on a user's staffmon, use /essb (authed user's name)!");
 		},
 		onSwitchIn: function (pokemon) {
 			let name = toId(pokemon.name);
 			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);
 			//Type changes
-			if (name === 'flufi' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Fire/Electric');
-				pokemon.types = ["Fire", "Electric"];
+			if (name === 'wobbleleez' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Psychic/Fairy');
+				pokemon.types = ["Psychic", "Fairy"];
+			}
+			if (name === 'douglasgamer' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Water/Electric');
+				pokemon.types = ["Water", "Electric"];
+			}
+			if (name === 'backatmyday' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Ground/Water');
+				pokemon.types = ["Ground", "Water"];
+			}
+			if (name === 'playershadowbr' && !pokemon.illusion) {
+				this.add('-start', pokemon, 'typechange', 'Dragon/Water');
+				pokemon.types = ["Dragon", "Water"];
 			}
 		},
 	},
@@ -1760,7 +1794,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Frantic Fusions",
 		desc: [
-			"&bullet; <a href=https://github.com/Dewdrop-PS/Dewdrop/blob/master/mods/franticfusions/README.md>Frantic Fusions</a> <br> &bullet; A metagame where you are able to fuse two Pokemon. <BR /> &bullet; The resultant Pokemon has the primary type of the base mon. If the base mon is shiny, it will get the secondary type of the second mon, else the primary type of the second mon. It will get the averaged stats.<br />&bullet;You can choose any ability from the original Pokemon, and you also get the primary ability of the second Pokemon (The one you put in the nickname). <br />&bullet; Use !fuse for theorymonning purposes",
+			"&bullet; <a href=https://github.com/DeathlyPlays/Exiled/blob/master/mods/franticfusions/README.md>Frantic Fusions</a> <br> &bullet; A metagame where you are able to fuse two Pokemon. <BR /> &bullet; The resultant Pokemon has the primary type of the base mon. If the base mon is shiny, it will get the secondary type of the second mon, else the primary type of the second mon. It will get the averaged stats.<br />&bullet;You can choose any ability from the original Pokemon, and you also get the primary ability of the second Pokemon (The one you put in the nickname). <br />&bullet; Use !fuse for theorymonning purposes",
 		],
 		mod: 'franticfusions',
 		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
@@ -1929,58 +1963,15 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Pokebilities",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3588652/\">Pokebilities</a>: A Pokemon has all of its abilities active at the same time."],
-		mod: 'pokebilities',
-		ruleset: ["OU"],
-		onSwitchInPriority: 1,
-		onBegin: function() {
-			let statusability = {
-				"aerilate": true,
-				"aurabreak": true,
-				"flashfire": true,
-				"parentalbond": true,
-				"pixilate": true,
-				"refrigerate": true,
-				"sheerforce": true,
-				"slowstart": true,
-				"truant": true,
-				"unburden": true,
-				"zenmode": true
-			};
-			for (let p = 0; p < this.sides.length; p++) {
-				for (let i = 0; i < this.sides[p].pokemon.length; i++) {
-					let pokemon = this.sides[p].pokemon[i];
-					let template = this.getTemplate(pokemon.species);
-					this.sides[p].pokemon[i].innates = [];
-					let bans = this.data.Formats.gen7ou.banlist;
-					bans.push("Battle Bond");
-					for (let a in template.abilities) {
-						for (let k = 0; k < bans.length; k++) {
-							if (toId(bans[k]) === toId(template.abilities[a])) continue;
-						}
-
-						if (toId(a) == 'h' && template.unreleasedHidden) continue;
-						if (toId(template.abilities[a]) == pokemon.ability) continue;
-						if (statusability[toId(template.abilities[a])])
-							this.sides[p].pokemon[i].innates.push("other" + toId(template.abilities[a]));
-						else
-							this.sides[p].pokemon[i].innates.push(toId(template.abilities[a]));
-					}
-				}
-			}
-		},
-		onSwitchIn: function(pokemon) {
-			for (let i = 0; i < pokemon.innates.length; i++) {
-				if (!pokemon.volatiles[pokemon.innates[i]])
-					pokemon.addVolatile(pokemon.innates[i]);
-			}
-		},
-		onAfterMega: function(pokemon) {
-			for (let i = 0; i < pokemon.innates.length; i++) {
-				pokemon.removeVolatile(pokemon.innates[i]);
-			}
-		},
+		name: "[Gen 7] Holiday Metagame",
+		mod: "holiday",
+		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
+		team: "randomHoliday",
+		desc: [
+			"Idea, concept, coded, and created by Insist",
+			"Also, Astral Wobz helped with the ideas for more holidays :D",
+			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
+		],
 	},
 	{
 		name: "[Gen 7] Metronome Battle",
@@ -2113,28 +2104,15 @@ exports.Formats = [
 		],
 	},
 	{
-		name: "[Gen 7] Perfected Pokemon",
+		name: "[Gen 7] Perfected Pokemon [WIP]",
 		mod: "perfection",
 		ruleset: ["Pokemon", "Standard", "Team Preview"],
-		unbanlist: ['Aegislash'],
 		desc: [
 			"Coded by Insist",
 			"Lycanium Z and AlfaStorm contributed ideas towards the project",
+			"In this metagame, we have added a new type \"Cosmic\"",
 			"Along with buffing Pokemon deemed worthy of needing support.",
 		],
-	},
-	{
-		name: "[Gen 7] Bad 'n Boosted",
-		desc: ["&bullet; All the stats of a pokemon which are 70 or below get doubled.<br>For example, Growlithe's stats are 55/70/45/70/50/60 in BnB they become 110/140/90/140/100/120<br><b>Banlist:</b>Eviolite, Huge Power, Pure Power"],
-		mod: 'gen7',
-		ruleset: ['[Gen 7] Ubers'],
-		banlist: ['Eviolite', 'Huge Power', 'Pure Power', 'Eevium Z'],
-		onModifyTemplate: function (template, pokemon) {
-			for (let i in template.baseStats) {
-				if(template.baseStats[i] <= 70) template.baseStats[i] *= 2;
-			}
-			return template;
-		},
 	},
 	{
 		name: "[Gen 7] Pokemon Mystery Dungeon",
@@ -2186,6 +2164,13 @@ exports.Formats = [
 		},
 	},
 	{
+		name: "[Gen 7] Savage OU",
+		unbanlist: ["Pheromosa", "Metagrossite", "Gengarite", "Shadow Tag", "Arena Trap", "Blaziken", "Genesect", "Landorus", "Deoxys-Defense", "Baton Pass", "Shaymin-Sky", "Deoxys-Speed", "Moody", "Power Construct", "Aegislash"],
+		desc: ["Oh, no! The Savages that were banned have managed to escape! Will you be able to fight them once again?"],
+		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Freeze Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ["Eevium Z", "Uber"],
+	},
+	{
 		name: "[Gen 7] Slowtown",
 		desc: [
 			"Trick room is constantly active for the duration of the battle and will reapply itself every 5 turns. Concept by Lycanium Z. Coded by Insist.",
@@ -2220,19 +2205,15 @@ exports.Formats = [
 		],
 		team: 'randomSmash',
 	},
-{
-		name: "[Gen 7] Last Will",
+	{
+		name: "[Gen 7] Supercell Games",
+		mod: "supercell",
+		team: "randomSupercell",
+		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
 		desc: [
-			"Before fainting, Pok&eacute;mon will use the move in their last moveslot.",
-			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3601362/\">Last Will</a>",
+			"This metagame is about games like Clash of Clans, Clash Royale, and in the future possibly Boom Beach.",
+			"Made by Insist, we do not claim any right to the characters listed.",
 		],
-		mod: 'gen7',
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Endeavor', 'Blast Burn + Explosion + Frenzy Plant + Giga Impact + Hydro Cannon + Hyper Beam + Self Destruct + V-Create > 2'],
-		onBeforeFaint: function (pokemon, source) {
-			this.add('-hint', `${pokemon.name || pokemon.species}'s Last Will let it use one last move!`);
-			this.runMove(pokemon.moves[pokemon.moves.length - 1], pokemon);
-		},
 	},
 	{
 		name: "[Gen 7] Super Staff Bros Free For All",
@@ -2272,28 +2253,6 @@ exports.Formats = [
 		onAfterMega: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
-	},
-	{
-		name: "[Gen 7] UU Chaos",
-		desc: [
-			"Pokémon that Underused has never seen before are here.",
-		],
-
-		mod: 'ouchaos',
-		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
-		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Baton Pass', 'OU', 'Mewnium Z', 'Drizzle', 'BL', 'Shadow Tag'],
-		unbanlist: ['Clefable', 'Marowak-Alola', 'Tapu Fini', 'Mew', 'Victini', 'Alakazam', 'Weavile', 'Buzzwole', 'Conkeldurr', 'Gardevoir-Mega', 'Gyarados', 'Jirachi', 'Salamence', 'Staraptor', 'Keldeo', 'Gengar', 'Bisharp', 'Zapdos', 'Breloom', 'Azumarill', 'Scolipede', 'Serperior',],
-	},
-	{
-		name: "[Gen 7] OU Chaos",
-		desc: [
-			"The Overused beasts are back, and chaos is everywhere.",
-		],
-
-		mod: 'ouchaos',
-		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
-		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Baton Pass'],
-		unbanlist: ['Aegislash', 'Blaziken', 'Genesect', 'Landorus', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Pheromosa', 'Darkrai', 'Metagross-Mega', 'Lucario-Mega', 'Blaziken-Mega', 'Salamence-Mega', 'Kyurem-White', 'Zeraora', 'Zekrom',],
 	},
 	{
 		name: "[Gen 7] Tier Shift",

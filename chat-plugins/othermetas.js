@@ -1,6 +1,14 @@
 // Other Metas plugin by Spandan
 'use strict';
 
+let s = ["Marionyte-Mega", "Rinocoss-Mega", "Greninja-Ash"];
+let aPlus = ["Tyranitar", "Tyranitar-Mega", "Tapu Lele"];
+let a = ["Bisharp", "Tapu Bulu", "Celesteela", "Greninja"];
+let bPlus = ["Rinocoss", "Tapu Koko"];
+let b = ["Buzzwole", "Hawlucha", "Kartana"];
+let c = ["Rinocoss", "Umbreon"];
+let d = ["Tapu Fini", "Klefki"];
+
 exports.commands = {
 	'!othermetas': true,
 	om: 'othermetas',
@@ -36,6 +44,28 @@ exports.commands = {
 	},
 	othermetashelp: ["/om - Provides links to information on the Other Metagames.",
 		"!om - Show everyone that information. Requires: + % @ * # & ~"],
+
+	talysan: {
+		'!info': true,
+		info: function () {
+			if (!this.runBroadcast()) return;
+			this.sendReplyBox("<div style=\"background-color: #fce2a6\"<font color=\"#b72a03\"><strong>Talysan</strong></font> is a Pet Mod that introduces " +
+			"a whole new metagame. Adding 50+ new Pokemon, the Talysan region provides a huge meta shift for OU and " +
+			"many other tiers as well. Along with these new Pokemon are also several new mega evolutions, moves, and abilities.</div>");
+		},
+		'!vr': true,
+		vr: function () {
+			if (!this.runBroadcast()) return;
+			this.sendReplyBox("<div style=\"background-color: #fce2a6\"><center><font size=\"5\"><b>Talysan Viability Rankings</b></font></center>" +
+			"<br><center><font size=\"3\">S Rank</font></center>" +
+			"<center>" + s + "</center>" +
+			"" +
+			"" +
+			"</div>");
+		},
+	},
+	talysanhelp: ["/talysan info - Shows info about the Talysan meta.",
+	"/talysan vr - Shows the current viability rankings for Talysan."],
 
 	'!mixandmega': true,
 	mnm: 'mixandmega',
@@ -298,13 +328,79 @@ exports.commands = {
 	},
 	'tiershifthelp': ["/ts OR /tiershift <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift."],
 
+	'!tiershift2': true,
+	ts2: 'tiershift2',
+	tiershift2: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		if (!toId(target)) return this.parse('/help tiershift2');
+		let template = Object.assign({}, Dex.getTemplate(target));
+		if (!template.exists) return this.errorReply("Error: Pokemon not found.");
+		let boosts = {
+			'OU': 5,
+			'BL': 5,
+			'UU': 15,
+			'BL2': 15,
+			'RU': 30,
+			'BL3': 30,
+			'NU': 45,
+			'BL4': 45,
+			'PU': 60,
+			'NFE': 60,
+			'LC Uber': 60,
+			'LC': 60,
+		};
+		if (!(template.tier in boosts)) return this.sendReply(`|html|${Chat.getDataPokemonHTML(template)}`);
+		let boost = boosts[template.tier];
+		let newStats = Object.assign({}, template.baseStats);
+		for (let statName in template.baseStats) {
+			newStats[statName] = Dex.clampIntRange(newStats[statName] + boost, 1, 255);
+		}
+		template.baseStats = Object.assign({}, newStats);
+		this.sendReply(`|raw|${Chat.getDataPokemonHTML(template)}`);
+	},
+	'tiershift2help': ["/ts2 OR /tiershift2 <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift 2.0."],
+
+	'!tiershift3': true,
+	ts3: 'tiershift3',
+	tiershift3: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		if (!toId(target)) return this.parse('/help tiershift3');
+		let template = Object.assign({}, Dex.getTemplate(target));
+		if (!template.exists) return this.errorReply("Error: Pokemon not found.");
+		let boosts = {
+			'Uber': 5,
+			'OU': 20,
+			'BL': 20,
+			'UU': 25,
+			'BL2': 25,
+			'RU': 40,
+			'BL3': 40,
+			'NU': 60,
+			'BL4': 60,
+			'PU': 80,
+			'NFE': 90,
+			'LC Uber': 100,
+			'LC': 100,
+		};
+		if (!(template.tier in boosts)) return this.sendReply(`|html|${Chat.getDataPokemonHTML(template)}`);
+		let boost = boosts[template.tier];
+		let newStats = Object.assign({}, template.baseStats);
+		for (let statName in template.baseStats) {
+			newStats[statName] = Dex.clampIntRange(newStats[statName] + boost, 1, 255);
+		}
+		template.baseStats = Object.assign({}, newStats);
+		this.sendReply(`|raw|${Chat.getDataPokemonHTML(template)}`);
+	},
+	'tiershift3help': ["/ts3 OR /tiershift3 <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift 3.0."],
+
 	'!fuse': true,
 	fuse: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!target || target === ' ' || !target.includes(',')) return this.errorReply('Error: Invalid Argument(s).');
 		let separated = target.split(",");
+		let templateone = Object.assign({}, Dex.getTemplate(separated[0]));
 		let name = toId(separated[0]), name2 = toId(separated[1]);
-		if (!Dex.data.Pokedex[name] || !Dex.data.Pokedex[name2]) {
+		if (!Dex.data.Pokedex[name] || !Dex.data.Pokedex[name2] || !templateone.exists) {
 			return this.errorReply("Error: Pokemon not found");
 		}
 		let baseStats = {}, fusedTemplate = Object.assign({}, Dex.getTemplate(name)), template = Object.assign({}, Dex.getTemplate(name2));
@@ -346,4 +442,32 @@ exports.commands = {
 		}).join("&nbsp;|&ThickSpace;") + '</font>');
 	},
 	fusehelp: ["/fuse [Pokemon], [Other Pokemon] - Fuses the two Pokemon together, combining weight, typings, and abilities."],
+
+	'bnb' : 'badnboosted',
+	badnboosted : function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		if (!Dex.data.Pokedex[toId(target)]) {
+			return this.errorReply("Error: Pokemon not found.");
+		}
+		let template = Object.assign({}, Dex.getTemplate(target));
+		let newStats = Object.values(template.baseStats).map(function (stat) {
+			return (stat <= 70) ? (stat * 2) : stat;
+		});
+		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Bad 'n Boosted: <br /> ${newStats.join('/')}`);
+	},
+	badnboostedhelp: ["/bnb <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted."],
+
+	'bnb2' : 'badnboosted2',
+	badnboosted2 : function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		if (!Dex.data.Pokedex[toId(target)]) {
+			return this.errorReply("Error: Pokemon not found.");
+		}
+		let template = Object.assign({}, Dex.getTemplate(target));
+		let newStats = Object.values(template.baseStats).map(function (stat) {
+			return (stat <= 90) ? (stat * 2) : stat;
+		});
+		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Bad 'n Boosted 2: <br /> ${newStats.join('/')}`);
+	},
+	badnboosted2help: ["/bnb2 <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted 2."],
 };

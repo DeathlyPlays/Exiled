@@ -13,7 +13,7 @@
 const ProcessManager = require('./../process-manager');
 
 const MAX_PROCESSES = 1;
-const RESULTS_MAX_LENGTH = 10;
+const RESULTS_MAX_LENGTH = 100;
 
 function escapeHTML(str) {
 	if (!str) return '';
@@ -191,7 +191,7 @@ exports.commands = {
 			if (Number.isInteger(num)) {
 				if (qty) return this.errorReply("Only specify the number of Pok\u00e9mon once.");
 				qty = num;
-				if (qty < 1 || 15 < qty) return this.errorReply("Number of random Pok\u00e9mon must be between 1 and 15.");
+				if (qty < 1 || 24 < qty) return this.errorReply("Number of random Pok\u00e9mon must be between 1 and 24.");
 				targetsBuffer.push(`random${qty}`);
 			} else {
 				targetsBuffer.push(targets[i]);

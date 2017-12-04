@@ -1,27 +1,27 @@
 'use strict';
 
-const fs = require('fs');
+const FS = require('fs');
 
 // This should be the default amount of money users have..
 // Ideally, this should be zero.
 const DEFAULT_AMOUNT = 0;
 
-global.moneyName = 'Eon Ticket';
-global.moneyPlural = 'Eon Tickets';
+global.moneyName = 'Soul Dew';
+global.moneyPlural = 'Soul Dews';
 
 /**
  * Gets an amount and returns the amount with the name of the money.
  *
  * @examples
- * currencyName(0); // 0 Eon Tickets
- * currencyName(1); // 1 Eon Ticket
- * currencyName(5); // 5 Eon Tickets
+ * currencyName(0); // 0 bucks
+ * currencyName(1); // 1 buck
+ * currencyName(5); // 5 bucks
  *
  * @param {Number} amount
  * @returns {String}
  */
 function currencyName(amount) {
-	let name = " Eon Ticket";
+	let name = " Soul Dew";
 	return amount === 1 ? name : name + "s";
 }
 
@@ -35,7 +35,7 @@ function isMoney(money) {
 	let numMoney = Number(money);
 	if (isNaN(money)) return "Must be a number.";
 	if (String(money).includes('.')) return "Cannot contain a decimal.";
-	if (numMoney < 1) return "Cannot be less than one Eon Ticket.";
+	if (numMoney < 1) return "Cannot be less than one Soul Dew.";
 	return numMoney;
 }
 
@@ -66,18 +66,18 @@ let shopDisplay = getShopDisplay(shop);
  * @return {String} display
  */
 function getShopDisplay(shop) {
-	let display = "<center><img src=https://image.prntscr.com/image/wO_tNEvmQTqr0gNVkEJtSQ.gif><img src=http://i.imgur.com/WOewQZw.gif width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/latias.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #e8e8e8; border-color: #0f27ff; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
-		"<tbody><tr><th><font color=#ff0f0f face=courier>Item</font></th><th><font color=#ff0f0f face=courier>Description</font></th><th><font color=#ff0f0f face=courier>Price</font></th></tr>";
+	let display = "<center><img src=https://play.pokemonshowdown.com/sprites/xyani/masquerain.gif><img src=http://i.imgur.com/7jnZePO.png width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/masquerain.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #2ae10e; border-color: #2e6dd8; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
+		"<tbody><tr><th><font color=#2e6dd8 face=courier>Item</font></th><th><font color=#2e6dd8 face=courier>Description</font></th><th><font color=#2e6dd8 face=courier>Price</font></th></tr>";
 	let start = 0;
 	while (start < shop.length) {
 		display += "<tr>" +
-			"<td align='center'><button name='send' style='background: #e8e8e8; border-radius: 5px; border: solid, 1px, #0f27ff; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#ff0f0f face=courier><strong>" + shop[start][0] + "</strong></font></button>" + "</td>" +
-			"<td align='center'><font color=#ff0f0f face=courier>" + shop[start][1] + "</font></td>" +
-			"<td align='center'><font color=#ff0f0f face=courier>" + shop[start][2] + "</font></td>" +
+			"<td align='center'><button name='send' style='background: #2ae10e; border-radius: 5px; border: solid, 1px, #2e6dd8; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#2e6dd8 face=courier><b>" + shop[start][0] + "</b></font></button>" + "</td>" +
+			"<td align='center'><font color=#2e6dd8 face=courier>" + shop[start][1] + "</font></td>" +
+			"<td align='center'><font color=#2e6dd8 face=courier>" + shop[start][2] + "</font></td>" +
 			"</tr>";
 		start++;
 	}
-	display += "</tbody></table></div><br><center><font color=#000 face=courier>To buy an item from the shop, use /buy <em>Item</em>.</font></center>";
+	display += "</tbody></table></div><br><center><font color=#2ae10e face=courier>To buy an item from the shop, use /buy <em>Item</em>.</font></center>";
 	return display;
 }
 
@@ -137,12 +137,12 @@ let Economy = global.Economy = {
 	},
 	logTransaction: function (message) {
 		if (!message) return false;
-		fs.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
+		FS.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
 	},
 
 	logDice: function (message) {
 		if (!message) return false;
-		fs.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
+		FS.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
 	},
 };
 
@@ -239,10 +239,10 @@ exports.commands = {
 		});
 	},
 
-	giveeonticket: 'givemoney',
-	giveeontickets: 'givemoney',
+	givebuck: 'givemoney',
+	givebucks: 'givemoney',
 	givemoney: function (target, room, user) {
-		if (!this.can('hotpatch')) return false;
+		if (!this.can('forcewin')) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help givemoney');
 
 		let parts = target.split(',');
@@ -255,16 +255,15 @@ exports.commands = {
 		amount = amount + currencyName(amount);
 		total = total + currencyName(total);
 		this.sendReply(username + " was given " + amount + ". " + username + " now has " + total + ".");
-		if (Users.get(username)) Users(username).popup("|html|" + Server.nameColor(user.name) + " has given you " + amount + ". You now have " + total + ".");
+		if (Users.get(username)) Users(username).popup(user.name + " has given you " + amount + ". You now have " + total + ".");
 		Economy.logTransaction(username + " was given " + amount + " by " + user.name + ". " + username + " now has " + total);
 	},
 	givemoneyhelp: ["/givemoney [user], [amount] - Give a user a certain amount of money."],
 
-	takeeonticket: 'takemoney',
-	takeeontickets: 'takemoney',
+	takebuck: 'takemoney',
 	takebucks: 'takemoney',
 	takemoney: function (target, room, user) {
-		if (!this.can('hotpatch')) return false;
+		if (!this.can('forcewin')) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help takemoney');
 
 		let parts = target.split(',');
@@ -283,8 +282,7 @@ exports.commands = {
 	takemoneyhelp: ["/takemoney [user], [amount] - Take a certain amount of money from a user."],
 
 	transfer: 'transfermoney',
-	transfereonticket: 'transfermoney',
-	transfereontickets: 'transfermoney',
+	transferbuck: 'transfermoney',
 	transferbucks: 'transfermoney',
 	transfermoney: function (target, room, user) {
 		if (!target || target.indexOf(',') < 0) return this.parse('/help transfermoney');
@@ -308,17 +306,17 @@ exports.commands = {
 		amount = amount + currencyName(amount);
 
 		this.sendReply("You have successfully transferred " + amount + ". You now have " + userTotal + ".");
-		if (Users.get(username)) Users(username).popup('|raw|' + Server.nameColor(user.name) + " has transferred " + amount + ". You now have " + targetTotal + ".");
+		if (Users.get(username)) Users(username).popup(user.name + " has transferred " + amount + ". You now have " + targetTotal + ".");
 		Economy.logTransaction(user.name + " transferred " + amount + " to " + username + ". " + user.name + " now has " + userTotal + " and " + username + " now has " + targetTotal + ".");
 	},
 	transfermoneyhelp: ["/transfer [user], [amount] - Transfer a certain amount of money to a user."],
 
 	moneylog: function (target, room, user) {
-		if (!this.can('hotpatch')) return false;
+		if (!this.can('forcewin')) return false;
 		if (!target) return this.sendReply("Usage: /moneylog [number] to view the last x lines OR /moneylog [text] to search for text.");
 		let word = false;
 		if (isNaN(Number(target))) word = true;
-		let lines = fs.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
+		let lines = FS.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
 		let output = '';
 		let count = 0;
 		let regex = new RegExp(target.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&'), "gi");
@@ -375,13 +373,13 @@ exports.commands = {
 		this.sendReplyBox(rankLadder('Richest Users', moneyPlural, keys.slice(0, target), 'money') + '</div>');
 	},
 
-	reseteonticket: 'resetmoney',
-	reseteontickets: 'resetmoney',
+	resetbuck: 'resetmoney',
+	resetbucks: 'resetmoney',
 	resetmoney: function (target, room, user) {
-		if (!this.can('hotpatch')) return false;
+		if (!this.can('forcewin')) return false;
 		Db('money').set(toId(target), 0);
-		this.sendReply(target + " has had their " + moneyPlural + " reset.");
-		Economy.logTransaction(user.name + " reset " + target + "'s " + moneyPlural + ".");
+		this.sendReply(target + " now has 0 bucks.");
+		Economy.logTransaction(user.name + " reset the money of " + target + ".");
 	},
 	resetmoneyhelp: ["/resetmoney [user] - Reset user's money to zero."],
 
@@ -389,7 +387,7 @@ exports.commands = {
 		let bannedSymbols = ['!', '|', '‽', '\u2030', '\u534D', '\u5350', '\u223C'];
 		for (let u in Config.groups) if (Config.groups[u].symbol) bannedSymbols.push(Config.groups[u].symbol);
 		if (!user.canCustomSymbol && !user.can('vip')) return this.sendReply('You need to buy this item from the shop to use.');
-		if (!target || target.length > 1) return this.parse('/customsymbolhelp');
+		if (!target || target.length > 1) return this.sendReply('/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character');
 		if (target.match(/([a-zA-Z ^0-9])/g) || bannedSymbols.indexOf(target) >= 0) {
 			return this.sendReply('This symbol is banned.');
 		}
@@ -398,7 +396,6 @@ exports.commands = {
 		user.canCustomSymbol = false;
 		this.sendReply('Your symbol is now ' + target + '. It will be saved until you log off for more than an hour, or the server restarts. You can remove it with /resetsymbol');
 	},
-	customsymbolhelp: ["/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character"],
 
 	removesymbol: 'resetsymbol',
 	resetsymbol: function (target, room, user) {
@@ -408,7 +405,7 @@ exports.commands = {
 		this.sendReply('Your symbol has been removed.');
 	},
 
-	eontickets: 'economystats',
+	bucks: 'economystats',
 	economystats: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		const users = Object.keys(Db('money').object());
@@ -420,7 +417,6 @@ exports.commands = {
 		output += "The average user has " + average + currencyName(average) + ".";
 		this.sendReplyBox(output);
 	},
-
 	//Inspired from Gold
 	mysterybox: function (target, room, user) {
 		if (room.id !== 'lobby') return this.errorReply("You must buy this item in the Lobby!");

@@ -34,6 +34,44 @@ exports.commands = {
 		this.sendReplyBox("Server version: <b>" + Chat.package.version + "</b>");
 	},
 
+	'!authority': true,
+	auth: 'authority',
+	stafflist: 'authority',
+	globalauth: 'authority',
+	authlist: 'authority',
+	authority: function (target, room, user, connection) {
+		if (target) {
+			let targetRoom = Rooms.search(target);
+			let availableRoom = targetRoom && targetRoom.checkModjoin(user);
+			if (targetRoom && availableRoom) return this.parse('/roomauth1 ' + target);
+			return this.parse('/userauth ' + target);
+		}
+		let rankLists = {};
+		let ranks = Object.keys(Config.groups);
+		for (let u in Users.usergroups) {
+			let rank = Users.usergroups[u].charAt(0);
+			if (rank === ' ' || rank === '+') continue;
+			// In case the usergroups.csv file is not proper, we check for the server ranks.
+			if (ranks.includes(rank)) {
+				let name = Users.usergroups[u].substr(1);
+				if (!rankLists[rank]) rankLists[rank] = [];
+				if (name) rankLists[rank].push(name);
+			}
+		}
+
+		let buffer = Object.keys(rankLists).sort((a, b) =>
+			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
+		).map(r =>
+			(Config.groups[r] ? "**" + Config.groups[r].name + "s** (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
+		);
+
+		if (!buffer.length) return connection.popup("This server has no global authority.");
+		connection.popup(buffer.join("\n\n"));
+	},
+	authhelp: ["/auth - Show global staff for the server.",
+		"/auth [room] - Show what roomauth a room has.",
+		"/auth [user] - Show what global and roomauth a user has."],
+
 	userlist: function (target, room, user) {
 		let userList = [];
 
@@ -360,8 +398,13 @@ exports.commands = {
 			this.sendReply("Avatar changed to:\n" +
 				'|raw|<img src="//play.pokemonshowdown.com/sprites/trainers/' + (typeof avatar === 'string' ? avatar.substr(1) : avatar) + '.png" alt="" width="80" height="80" />');
 		}
+
+		if (typeof avatar === 'number' && (avatar === 500)) {
+			this.sendReply("Avatar changed to:\n" +
+				'|raw|<img src="https://vignette.wikia.nocookie.net/pokemon/images/a/a7/E_243_front.gif/revision/latest?cb=20140903211959" width="80" height="80"');
+		}
 	},
-	avatarhelp: ["/avatar [avatar number 1 to 294] - Change your trainer sprite."],
+	avatarhelp: ["/avatar [avatar number 1 to 293] - Change your trainer sprite."],
 
 	'!logout': true,
 	signout: 'logout',
@@ -506,6 +549,24 @@ exports.commands = {
 		return this.sendReply("You are no longer blocking private messages.");
 	},
 	unignorepmshelp: ["/unblockpms - Unblocks private messages. Block them with /blockpms."],
+
+	'!away': true,
+	idle: 'away',
+	afk: 'away',
+	away: function (target, room, user) {
+		this.parse('/blockchallenges');
+		this.parse('/blockpms ' + target);
+	},
+	awayhelp: ["/away - Blocks challenges and private messages. Unblock them with /back."],
+
+	'!back': true,
+	unaway: 'back',
+	unafk: 'back',
+	back: function () {
+		this.parse('/unblockpms');
+		this.parse('/unblockchallenges');
+	},
+	backhelp: ["/back - Unblocks challenges and/or private messages, if either are blocked."],
 
 	'!rank': true,
 	rank: function (target, room, user) {
@@ -784,63 +845,9 @@ exports.commands = {
 			room.privacySetter = new Set([user.userid]);
 		}
 	},
-
-	setavi: 'setavatar',
-	setavatar: function (target, room, user) {
-		if (!this.can('ban')) return false;
-		let parts = target.split(',').map(param => param.trim());
-		let name = toId(parts[0]);
-		let avatarID = parts[1];
-		if (parts.length < 2) return this.sendReply('/setavi [player], [avatar ID] - Set the avatar of another player. Requires: % @ # & ~');
-		if (parts.length > 2) return this.errorReply('Too many arguments.');
-
-		Chat.parse("/avatar " + avatarID, Rooms('lobby'), Users(name), Users(name).connections[0]);
-		this.sendReply('Avatar of user ' + name + ' was successfully set.');
-	},
-
-	popup: function (target, room, user) {
-		if (!this.can('eval')) return false;
-		let parts = target.split(',').map(param => param.trim());
-		let name = toId(parts[0]);
-		let message = parts[1];
-		if (parts.length < 2) return this.sendReply('/popup [user], [message] - Sends a popup box containing a message to a player. Requires ~');
-		if (parts.length > 2) return this.errorReply('Too many arguments.');
-
-		this.sendReply('Popup Box successfully sent to ' + name + '.');
-		Users('"' + name + '"').popup('"' + message + '"');
-	},
-
-	setterrain: 'setweather',
-	terrain: 'setweather',
-	weather: 'setweather',
-	setweather: function (cmd) {
-		if (!this.can('eval')) return false;
-		if (cmd === 'sand' || cmd === 'sandstorm') {
-			return this.parse('/ebat weather sandstorm');
-		} else if (cmd === 'snow' || cmd === 'hail') {
-			return this.parse('/ebat weather hail');
-		} else if (cmd === 'sun' || cmd === 'sunnyday') {
-			return this.parse('/ebat weather sunnyday');
-		} else if (cmd === 'rain' || cmd === 'raindance') {
-			return this.parse('/ebat weather raindance');
-		} else if (cmd === 'grassy' || cmd === 'grassyterrain') {
-			return this.parse('/ebat terrain grassyterrain');
-		} else if (cmd === 'misty' || cmd === 'mistyterrain') {
-			return this.parse('/ebat terrain mistyterrain');
-		} else if (cmd === 'electric' || cmd === 'electricterrain') {
-			return this.parse('/ebat terrain electricterrain');
-		} else if (cmd === 'psychic' || cmd === 'psychicterrain') {
-			this.parse('/ebat terrain psychicterrain');
-		} else {
-			return this.errorReply('Please input a valid terrain or weather status.');
-		}
-	},
-
-	privateroomhelp: [
-		"/secretroom - Makes a room secret. Secret rooms are visible to & and up. Requires: & ~",
+	privateroomhelp: ["/secretroom - Makes a room secret. Secret rooms are visible to & and up. Requires: & ~",
 		"/hiddenroom [on/off] - Makes a room hidden. Hidden rooms are visible to % and up, and inherit global ranks. Requires: \u2606 & ~",
-		"/publicroom - Makes a room public. Requires: \u2606 & ~",
-	],
+		"/publicroom - Makes a room public. Requires: \u2606 & ~"],
 
 	officialchatroom: 'officialroom',
 	officialroom: function (target, room, user) {
@@ -1148,7 +1155,6 @@ exports.commands = {
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
-		if (targetUser.can('root')) return this.errorReply("PISS OFF!!!!!");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
@@ -1167,7 +1173,7 @@ exports.commands = {
 
 		if (targetUser in room.users || user.can('lock')) {
 			targetUser.popup(
-				"|modal||html|<p>" + Server.nameColor(user.name, true, true) + " has banned you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
+				"|modal||html|<p>" + Chat.escapeHTML(user.name) + " has banned you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
 				"<p>To appeal the ban, PM the staff member that banned you" + (!room.battle && room.auth ? " or a room owner. </p><p><button name=\"send\" value=\"/roomauth " + room.id + "\">List Room Staff</button></p>" : ".</p>")
 			);
 		}
@@ -1522,7 +1528,6 @@ exports.commands = {
 	},
 	unlockhelp: ["/unlock [username] - Unlocks the user. Requires: % @ * & ~"],
 
-	exile: 'globalban',
 	forceglobalban: 'globalban',
 	gban: 'globalban',
 	globalban: function (target, room, user, connection, cmd) {
@@ -2111,7 +2116,7 @@ exports.commands = {
 
 		if (targetUser in room.users || user.can('lock')) {
 			targetUser.popup(
-				"|modal||html|<p>" + Server.nameColor(user.name, true, true) + " has blacklisted you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
+				"|modal||html|<p>" + Chat.escapeHTML(user.name) + " has blacklisted you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
 				"<p>To appeal the ban, PM the staff member that blacklisted you" + (!room.battle && room.auth ? " or a room owner. </p><p><button name=\"send\" value=\"/roomauth " + room.id + "\">List Room Staff</button></p>" : ".</p>")
 			);
 		}
@@ -2980,14 +2985,6 @@ exports.commands = {
 		if (!room.game.choose) return this.errorReply("This game doesn't support /choose");
 
 		room.game.choose(user, 'team ' + target);
-	},
-
-	offerdraw: 'requesttie',
-	requesttie: function (target, room, user, connection, cmd) {
-		if (!room.game) return this.errorReply("This room doesn't have an active game.");
-		if (!room.game.requestTie) return this.errorReply("This game doesn't support /requesttie");
-
-		room.game.requestTie(user, room, cmd);
 	},
 
 	undo: function (target, room, user) {

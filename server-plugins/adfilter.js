@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 
-let adWhitelist = ['eon']; //Put your Server name here!
+let adWhitelist = ['dewdrop']; //Put your Server name here!
 
 let adRegex = new RegExp("(play.pokemonshowdown.com\\/~~)(?!(" + adWhitelist.join('|') + "))", "g");
 

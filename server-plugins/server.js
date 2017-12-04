@@ -4,6 +4,7 @@ const fs = require('fs');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const https = require('https');
 const http = require('http');
+const Pokedex = require('../data/pokedex.js').BattlePokedex;
 
 const bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
@@ -773,7 +774,7 @@ exports.commands = {
 		let newName = user.name;
 		let status = parseStatus(target, true);
 		let statusLen = status.length;
-		if (statusLen > 14) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
+		if (statusLen > 50) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
 
 		if (user.isAway) {
 			let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
@@ -782,7 +783,7 @@ exports.commands = {
 		}
 
 		newName += ' - ' + status;
-		if (newName.length > 18 && !user.can('lock')) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
+		if (newName.length > 60 && !user.can('lock')) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
 
 		// forcerename any possible impersonators
 		let targetUser = Users.getExact(user.userid + target);
@@ -821,23 +822,23 @@ exports.commands = {
 	},
 	backhelp: ["/back - Sets a users away status back to normal."],
 
-	'!essb': true,
-	essb: function (target, room, user) {
+	'!dssb': true,
+	dssb: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
-		if (!target || target === 'help') return this.parse('/help essb');
-		if (target === 'credits') return this.parse('/essbcredits');
+		if (!target || target === 'help') return this.parse('/help dssb');
+		if (target === 'credits') return this.parse('/dssbcredits');
 		let targetData = getMonData(toId(target));
 		if (!targetData) return this.errorReply("The staffmon '" + toId(target) + "' could not be found.");
 		return this.sendReplyBox(targetData);
 	},
-	essbhelp: [
-		"/essb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.",
-		"/essbcredits - Displays the credits of the primary creators of ESSB.",
+	dssbhelp: [
+		"/dssb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.",
+		"/dssbcredits - Displays the credits of the primary creators of DSSB.",
 	],
 
-	essbcredits: function (target, room, user) {
+	dssbcredits: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		let popup = "<font size=5 color=#000080><u><strong>ESSB Credits</strong></u></font><br />" +
+		let popup = "<font size=5 color=#000080><u><strong>DSSB Credits</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Programmers:</u></strong><br />" +
 			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries)<br />" +
@@ -1563,5 +1564,53 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 			this.privateModCommand("(" + user.name + " has protected this room from being automatically deleted.)");
 		}
+	},
+
+	randp: function (target) {
+		if (!this.runBroadcast()) return;
+		let shinyPoke = "";
+		let x;
+		if (/shiny/i.test(target)) shinyPoke = "-shiny";
+		if (/kanto/i.test(target) || /gen 1/i.test(target)) {
+			x = Math.floor(Math.random() * (174 - 1));
+		} else if (/johto/i.test(target) || /gen 2/i.test(target)) {
+			x = Math.floor(Math.random() * (281 - 173)) + 172;
+		} else if (/hoenn/i.test(target) || /gen 3/i.test(target)) {
+			x = Math.floor(Math.random() * (444 - 280)) + 279;
+		} else if (/sinnoh/i.test(target) || /gen 4/i.test(target)) {
+			x = Math.floor(Math.random() * (584 - 443)) + 442;
+		} else if (/kalos/i.test(target) || /gen 5/i.test(target)) {
+			x = Math.floor(Math.random() * (755 - 583)) + 582;
+		} else if (/unova/i.test(target) || /gen 6/i.test(target)) {
+			x = Math.floor(Math.random() * (834 - 752)) + 751;
+		}
+		x = x || Math.floor(Math.random() * (856 - 1));
+		let rand;
+		let y = x;
+		let random = Math.floor(Math.random() * 3)
+		if (random === 0) {
+			rand = x;
+		} else if (random === 1) {
+			rand = y;
+		} else if (random === 2) {
+			rand = y;
+		}
+		let tarPoke = Object.keys(Pokedex)[rand];
+		let pokeData = Pokedex[tarPoke];
+		let pokeId = pokeData.species.toLowerCase();
+		pokeId = pokeId.replace(/^basculinbluestriped$/i, "basculin-bluestriped").replace(/^pichuspikyeared$/i, "pichu-spikyeared").replace(/^floetteeternalflower$/i, "floette-eternalflower");
+		if (pokeId === "pikachu-cosplay") pokeId = ["pikachu-belle", "pikachu-phd", "pikachu-libre", "pikachu-popstar", "pikachu-rockstar"][~~(Math.random() * 6)];
+		let spriteLocation = "http://play.pokemonshowdown.com/sprites/xyani" + shinyPoke + "/" + pokeId + ".gif";
+		let missingnoSprites = ["http://cdn.bulbagarden.net/upload/9/98/Missingno_RB.png", "http://cdn.bulbagarden.net/upload/0/03/Missingno_Y.png", "http://cdn.bulbagarden.net/upload/a/aa/Spr_1b_141_f.png", "http://cdn.bulbagarden.net/upload/b/bb/Spr_1b_142_f.png", "http://cdn.bulbagarden.net/upload/9/9e/Ghost_I.png"];
+		if (pokeId === "missingno") spriteLocation = missingnoSprites[Math.floor(Math.random() * missingnoSprites.length)];
+
+		function getTypeFormatting(types) {
+			let text = [];
+			for (let i = 0; i < types.length; i++) {
+				text.push("<img src=\"http://play.pokemonshowdown.com/sprites/types/" + types[i] + ".png\" width=\"32\" height=\"14\">");
+			}
+			return text.join(" / ");
+		}
+		this.sendReplyBox("<div style=\"background-color: rgba(207, 247, 160, 0.4); border: #000000 solid 3px; border-radius: 10%; color: #0a024a; padding: 30px 30px\"><center><table><td><img src=\"" + spriteLocation + "\"</td><td>&nbsp;&nbsp;<strong>Name: </strong>" + pokeData.species + "<br/>&nbsp;&nbsp;<strong>Type(s): </strong>" + getTypeFormatting(pokeData.types) + "<br/>&nbsp;&nbsp;<strong>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </strong>" + Object.values(pokeData.abilities).join(" / ") + "<br/>&nbsp;&nbsp;<strong>Stats: </strong>" + Object.values(pokeData.baseStats).join(" / ") + "<br/>&nbsp;&nbsp;<strong>Colour: </strong><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/>&nbsp;&nbsp;<strong>Egg Group(s): </strong>" + pokeData.eggGroups.join(", ") + "</td></table></center></div>");
 	},
 };

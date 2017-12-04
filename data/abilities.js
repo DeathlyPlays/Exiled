@@ -1565,6 +1565,30 @@ exports.BattleAbilities = {
 		rating: 3.5,
 		num: 22,
 	},
+	"manipulate": {
+		desc: "On switch-in, this Pokemon lowers the Special Attack of adjacent opposing Pokemon by 1 stage. Pokemon behind a substitute are immune.",
+		shortDesc: "On switch-in, this Pokemon lowers the Special Attack of adjacent opponents by 1 stage.",
+		onStart: function (pokemon) {
+			let foeactive = pokemon.side.foe.active;
+			let activated = false;
+			for (let i = 0; i < foeactive.length; i++) {
+				if (!foeactive[i] || !this.isAdjacent(foeactive[i], pokemon)) continue;
+				if (!activated) {
+					this.add('-ability', pokemon, 'Manipulate', 'boost');
+					activated = true;
+				}
+				if (foeactive[i].volatiles['substitute']) {
+					this.add('-immune', foeactive[i], '[msg]');
+				} else {
+					this.boost({spa: -1}, foeactive[i], pokemon);
+				}
+			}
+		},
+		id: "manipulate",
+		name: "Manipulate",
+		rating: 3.5,
+		num: 22,
+	},
 	"ironbarbs": {
 		desc: "Pokemon making contact with this Pokemon lose 1/8 of their maximum HP, rounded down.",
 		shortDesc: "Pokemon making contact with this Pokemon lose 1/8 of their max HP.",
@@ -2130,7 +2154,7 @@ exports.BattleAbilities = {
 		},
 		id: "neuroforce",
 		name: "Neuroforce",
-		rating: 3,
+		rating: 3.5,
 		num: 233,
 	},
 	"noguard": {
@@ -2440,6 +2464,31 @@ exports.BattleAbilities = {
 		name: "Power Construct",
 		rating: 4,
 		num: 211,
+	},
+	"ceasarswish": {
+		desc: "If this Pokemon is a Zygarde in its 10% or 50% Forme, it changes to Complete Forme when it has 1/2 or less of its maximum HP at the end of the turn.",
+		shortDesc: "If Zygarde 10%/50%, changes to Complete if at 1/2 max HP or less at end of turn.",
+		onResidualOrder: 27,
+		onResidual: function (pokemon) {
+			if (pokemon.baseTemplate.baseSpecies !== 'Gallade' || pokemon.transformed || !pokemon.hp) return;
+			if (pokemon.template.speciesid === 'gallademega' || pokemon.hp > pokemon.maxhp / 2) return;
+			this.add('-activate', pokemon, 'ability: Ceasars Wish');
+			let template = this.getTemplate('Gallade-Mega');
+			pokemon.formeChange(template);
+			pokemon.baseTemplate = template;
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			this.add('detailschange', pokemon, pokemon.details);
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+			let newHP = Math.floor(Math.floor(2 * pokemon.template.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100) * pokemon.level / 100 + 10);
+			pokemon.hp = newHP - (pokemon.maxhp - pokemon.hp);
+			pokemon.maxhp = newHP;
+			this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
+		},
+		id: "ceasarswish",
+		name: "Ceasars Wish",
+		rating: 4,
+		num: -211,
 	},
 	"powerofalchemy": {
 		desc: "This Pokemon copies the Ability of an ally that faints. Abilities that cannot be copied are Flower Gift, Forecast, Illusion, Imposter, Multitype, Stance Change, Trace, Wonder Guard, and Zen Mode.",
@@ -4148,5 +4197,29 @@ exports.BattleAbilities = {
 		// implemented in the corresponding move
 		rating: 3.5,
 		num: -4,
+	},
+	"deltafur": {
+		desc: "70% chance a Pokemon making contact with this Pokemon will be poisoned, paralyzed, fall asleep, freeze, or burned.",
+		shortDesc: "70% chance of poison/paralysis/sleep/burn/freeze on making contact with the Pokemon.",
+		onAfterDamage: function (damage, target, source, move) {
+			if (move && move.flags['contact'] && !source.status && source.runStatusImmunity('powder')) {
+				let r = this.random(100);
+				if (r <= 70) {
+					source.setStatus('slp', target);
+				} else if (r <= 70) {
+					source.setStatus('par', target);
+				} else if (r <= 70) {
+					source.setStatus('psn', target);
+				} else if (r <= 70) {
+					source.setStatus('frz', target);
+				} else if (r <= 70) {
+					source.setStatus('brn', target);
+				}
+			}
+		},
+		id: "deltafur",
+		name: "Delta Fur",
+		rating: 5,
+		num: -27,
 	},
 };

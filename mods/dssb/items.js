@@ -1,7 +1,14 @@
 'use strict';
 
 exports.BattleItems = {
-	"playniumz": {
+
+};
+
+
+/*
+Old DSSB Items (Use For Reference When Making New Items!)
+
+"playniumz": {
 		spritenum: 656,
 		onTakeItem: false,
 		id: "playniumz",
@@ -377,4 +384,27 @@ exports.BattleItems = {
 		num: 6956,
 		gen: -1,
 	},
-};
+	"retardedspecs": {
+		id: "retardedspecs",
+		name: "Retarded Specs",
+		spritenum: 70,
+		fling: {
+			basePower: 10,
+		},
+		onModifyAtkPriority: 1,
+		onModifyAtk: function (atk) {
+			return this.chainModify(1.3);
+		},
+		onModifyDefPriority: 1,
+		onModifyDef: function (def) {
+			return this.chainModify(1.3);
+		},
+		onModifySpDPriority: 1,
+		onModifySpD: function (spd) {
+			return this.chainModify(1.3);
+		},
+		num: 79992,
+		gen: -1,
+		desc: "Said to be a better version of Choice Specs. Holder's Attack, Defense and Special Defense is 1.3x.",
+	},
+*/

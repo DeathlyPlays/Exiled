@@ -1,5 +1,5 @@
 /*
-The following commands were coded specifically for Exiled
+The following commands were coded specifically for Dewdrop
 Made by Insist
 feelscool
 Basically just edits to main's info.js, and adds more, removes stuff, etc.
@@ -240,16 +240,12 @@ exports.commands = {
 		"/rules [url] - Change the room rules URL. Requires: # & ~"],
 
 	servercredits: 'credits',
-	credits: function (user, target, room) {
-		if (!this.runBroadcast()) return;
-		let popup = "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
+	credits: function (user) {
+		let popup = "|html|" + "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
 			"<br />" +
 			"<u><strong>Server Maintainers:</u></strong><br />" +
+			"- " + Server.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
 			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
-			"- " + Server.nameColor('Lycanium Z', true) + " (Owner, Sysadmin, Developer)<br />" +
-			"<br />" +
-			"<u><strong>Server Hosterino:</u></strong><br />" +
-			"- " + Server.nameColor('gyaratoast', true) + " (Owner, Hosterino Toasterino)<br />" +
 			"<br />" +
 			"<u><strong>Major Contributors:</strong></u><br />" +
 			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +

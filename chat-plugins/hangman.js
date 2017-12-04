@@ -130,7 +130,7 @@ class Hangman extends Rooms.RoomGame {
 			result = 2;
 		}
 
-		let output = '<div style="background-color: #000; border: 12px double #FF0000; border-radius: 15px; color: #FF0000"><center><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><b>Hangman</b></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="right"></h3><br><br><br><br><br><br><br><font face="arial" size="2">';
+		let output = '<div style="background-color: #01DFD7; border: 12px double #01FF88; border-radius: 15px; color: #000000"><center><h3><img style="transform: scaleX(-1);" src="https://play.pokemonshowdown.com/sprites/xyani/araquanid.gif" height="79" width="110" align="left"><font face="arial" size="4"><u><b>Dewdrop\'s Hangman Game</b></u></font><img src="https://play.pokemonshowdown.com/sprites/xyani/masquerain.gif" height="79" width="110" align="right"></h3><br><br><br><br><br><br><br><font face="arial" size="2">';
 		output += '<p style="text-align:left;font-weight:bold;font-size:10pt;margin:5px 0 0 15px">' + (result === 1 ? 'Too bad! The mon has been hanged.' : (result === 2 ? 'The word has been guessed. Congratulations!' : 'Hangman')) + '</p>';
 		output += '<table><tr><td style="text-align:center;">' + this.hangingMan() + '</td><td style="text-align:center;width:100%;word-wrap:break-word">';
 

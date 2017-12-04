@@ -32,6 +32,11 @@ exports.commands = {
 		if (!target) return this.sendReply("/eat needs a target.");
 		this.parse('/me eats ' + target + '!');
 	},
+	marry: function (target, room, user) {
+		if (!target) return this.sendReply("/marry needs a target.");
+		user = user.userid;
+		this.sendReply(user + ' has proposed to ' + target + '!');
+	},
 	foh: function (target, room, user) {
 		if (!target) return this.sendReply('/foh needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
@@ -60,6 +65,13 @@ exports.commands = {
 		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
 		room.addRaw(Server.nameColor(user.name, true, true) + ' has head smashed  ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("FUCKING SMASHING!");
+	},
+	spank: function (target, room, user) {
+		if (!target) return this.sendReply('/spank needs a target.');
+		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
+		let targetUser = Users.get(target);
+		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
+		room.addRaw(Server.nameColor(user.name, true, true) + ' spanked  ' + Server.nameColor(target, true, true) + '!');
 	},
 	outrage: function (target, room, user) {
 		if (!target) return this.sendReply('/outrage needs a target.');
@@ -376,6 +388,15 @@ exports.commands = {
 		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
 		room.addRaw(Server.nameColor(target, true, true) + ' was disintegrated by ' + Server.nameColor(user.name, true, true) + '!');
 		targetUser.popup("Get burned!");
+		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
+	},
+	shoot: 'blast',
+	blast: function (target, room, user) {
+		if (!target) return this.sendReply('/shoot needs a target.');
+		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
+		let targetUser = Users.get(target);
+		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
+		room.addRaw(Server.nameColor(target, true, true) + ' was shot by ' + Server.nameColor(user.name, true, true) + '!');
 		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
 	},
 	/*

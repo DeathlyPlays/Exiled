@@ -2449,10 +2449,6 @@ class Battle extends Dex.ModdedDex {
 				faintData.target.side.pokemonLeft--;
 				this.runEvent('Faint', faintData.target, faintData.source, faintData.effect);
 				this.singleEvent('End', this.getAbility(faintData.target.ability), faintData.target.abilityData, faintData.target);
-<<<<<<< HEAD
-				faintData.target.clearVolatile(false);
-=======
->>>>>>> 399cfbefa88ff526bfdcc989f79975ac00b65a68
 				faintData.target.fainted = true;
 				faintData.target.isActive = false;
 				faintData.target.isStarted = false;

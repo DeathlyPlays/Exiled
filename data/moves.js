@@ -18986,13 +18986,8 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, reflectable: 1, mirror: 1, mystery: 1},
 		onTryHit: function (pokemon) {
-<<<<<<< HEAD
-			let bannedAbilities = {comatose:1, insomnia:1, multitype:1, schooling:1, stancechange:1, truant:1};
-			if (bannedAbilities[pokemon.ability]) {
-=======
 			let bannedAbilities = ['battlebond', 'comatose', 'disguise', 'insomnia', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange', 'truant'];
 			if (bannedAbilities.includes(pokemon.ability)) {
->>>>>>> 399cfbefa88ff526bfdcc989f79975ac00b65a68
 				return false;
 			}
 		},

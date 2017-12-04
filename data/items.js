@@ -237,7 +237,7 @@ exports.BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({spd: 1});
+			this.boost({spd:1});
 		},
 		num: 205,
 		gen: 3,
@@ -1944,7 +1944,7 @@ exports.BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({def: 1});
+			this.boost({def:1});
 		},
 		num: 202,
 		gen: 3,
@@ -2866,7 +2866,7 @@ exports.BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({atk: 1});
+			this.boost({atk:1});
 		},
 		num: 201,
 		gen: 3,
@@ -3867,7 +3867,7 @@ exports.BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({spa: 1});
+			this.boost({spa:1});
 		},
 		num: 204,
 		gen: 3,
@@ -4732,7 +4732,7 @@ exports.BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({spe: 1});
+			this.boost({spe:1});
 		},
 		num: 203,
 		gen: 3,
@@ -6194,6 +6194,36 @@ exports.BattleItems = {
 		num: -1000,
 		gen: 6,
 		desc: "If held by a Pachirisu, this item allows it to Mega Evolve in battle.",
+	},
+	"typhlosionite": {
+		id: "typhlosionite",
+		name: "Typhlosionite",
+		spritenum: 577,
+		megaStone: "Typhlosion-Mega",
+		megaEvolves: "Typhlosion",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -1,
+		gen: 7,
+		isNonstandard: true,
+		desc: "If held by a Typhlosion, this item allows it to Mega Evolve in battle.",
+	},
+	"feraligatite": {
+		id: "feraligatite",
+		name: "Feraligatite",
+		spritenum: 577,
+		megaStone: "Feraligatr-Mega",
+		megaEvolves: "Feraligatr",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -1,
+		gen: 7,
+		isNonstandard: true,
+		desc: "If held by a Feraligatr, this item allows it to Mega Evolve in battle.",
 	},
 	"ampharniumz": {
 		id: "ampharniumz",

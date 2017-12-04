@@ -458,8 +458,8 @@ exports.commands = {
 	},
 	badnboostedhelp: ["/bnb <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted."],
 
-	'bnb2' : 'badnboosted2',
-	badnboosted2 : function (target, room, user) {
+	'scalemons' : 'scale',
+	scale : function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!Dex.data.Pokedex[toId(target)]) {
 			return this.errorReply("Error: Pokemon not found.");
@@ -468,7 +468,7 @@ exports.commands = {
 		let newStats = Object.values(template.baseStats).map(function (stat) {
 			return (stat <= 90) ? (stat * 2) : stat;
 		});
-		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Bad 'n Boosted 2: <br /> ${newStats.join('/')}`);
+		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Scalemons: <br /> ${newStats.join('/')}`);
 	},
-	badnboosted2help: ["/bnb2 <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted 2."],
+	badnboosted2help: ["/scale <pokemon> - Shows the base stats that a Pokemon would have in Scalemons."],
 };

@@ -1613,6 +1613,28 @@ exports.Formats = [
 		column: 5,
 	},
 	{
+		name: "[Gen 7] Scalemons",
+		desc: [
+			"All Pok&eacute;mon have their stats, barring HP, scaled to give them a BST of around 600.",
+			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Qg9Q2KC2U7aSfOb25rBxGZ7A-uvYM6xNwjdQsclp56E/edit#gid=1841107233\">Spreadsheet of all stats</a>",
+		],
+
+		mod: 'gen7',
+		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview'],
+		banlist: ['Deep Sea Scale', 'Deep Sea Tooth', 'Eviolite', 'Light Ball', 'Thick Club', 'Baton Pass'],
+		onModifyTemplate: function (template, pokemon) {
+			let bst = 0;
+			let hp = template.baseStats['hp'];
+			Object.values(template.baseStats).forEach(stat => {bst += stat;});
+			for (let i in template.baseStats) {
+				template.baseStats['hp'] = hp;
+				template.baseStats[i] = Math.floor((template.baseStats[i] * (600 - template.baseStats['hp'])) / (bst - template.baseStats['hp']));
+				if (template.baseStats[i] > 255) template.baseStats[i] = 255;
+			}
+			return template;
+		},
+	},
+	{
 		name: "[Gen 7] Move Equality",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3599280/\">Move Equality</a>: Every Move has 100 base power with the exception of moves that have varying base powers."],
 		mod: 'gen7',
@@ -2183,17 +2205,6 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] UU Chaos",
-		desc: [
-			"Pokémon that Underused has never seen before are here.",
-		],
-
-		mod: 'ouchaos',
-		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
-		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Baton Pass', 'OU', 'Mewnium Z', 'Drizzle', 'BL', 'Shadow Tag'],
-		unbanlist: ['Clefable', 'Marowak-Alola', 'Tapu Fini', 'Mew', 'Victini', 'Alakazam', 'Weavile', 'Buzzwole', 'Conkeldurr', 'Gardevoir-Mega', 'Gyarados', 'Jirachi', 'Salamence', 'Staraptor', 'Keldeo', 'Gengar', 'Bisharp', 'Zapdos', 'Breloom', 'Azumarill', 'Scolipede', 'Serperior',],
-	},
-	{
 		name: "[Gen 7] OU Chaos",
 		desc: [
 			"The Overused beasts are back, and chaos is everywhere.",
@@ -2202,7 +2213,7 @@ exports.Formats = [
 		mod: 'ouchaos',
 		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
 		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Baton Pass'],
-		unbanlist: ['Aegislash', 'Blaziken', 'Genesect', 'Landorus', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Pheromosa', 'Darkrai', 'Metagross-Mega', 'Lucario-Mega', 'Blaziken-Mega', 'Salamence-Mega', 'Kyurem-White', 'Zeraora', 'Zekrom',],
+		unbanlist: ['Aegislash', 'Arceus-Bug', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Grass', 'Arceus-Ice', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Defense', 'Deoxys-Speed', 'Genesect', 'Giratina', 'Kyurem-White', 'Landorus', 'Lucario-Mega', 'Marshadow', 'Metagross-Mega', 'Naganadel', 'Pheromosa', 'Shaymin-Sky']
 	},
 	{
 		name: "[Gen 7] Tier Shift",

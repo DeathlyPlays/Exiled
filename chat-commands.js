@@ -26,6 +26,8 @@ const HOURMUTE_LENGTH = 60 * 60 * 1000;
 
 const MAX_CHATROOM_ID_LENGTH = 225;
 
+let owners = ["mewth", "flufi"];
+
 exports.commands = {
 
 	'!version': true,
@@ -1154,6 +1156,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
+		if (owners.includes(target)) return this.errorReply("You cannot punish a server owner.");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
@@ -1327,6 +1330,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
+		if (owners.includes(target)) return this.errorReply("You cannot punish a server owner.");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
@@ -1535,6 +1539,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
+		if (owners.includes(target)) return this.errorReply("You cannot punish a server owner.");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");

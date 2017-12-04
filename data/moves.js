@@ -285,10 +285,10 @@ exports.BattleMovedex = {
 		flags: {authentic: 1, mystery: 1},
 		onHit: function (target) {
 			if (target.side.active.length < 2) return false; // fails in singles
-			let decision = this.willMove(target);
-			if (decision) {
+			let action = this.willMove(target);
+			if (action) {
 				this.cancelMove(target);
-				this.queue.unshift(decision);
+				this.queue.unshift(action);
 				this.add('-activate', target, 'move: After You');
 			} else {
 				return false;
@@ -2635,11 +2635,11 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		onHit: function (target) {
-			if (['multitype', 'stancechange'].includes(target.ability)) return;
+			if (['battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange'].includes(target.ability)) return;
 			if (!this.willMove(target)) target.addVolatile('gastroacid');
 		},
 		onAfterSubDamage: function (target) {
-			if (['multitype', 'stancechange'].includes(target.ability)) return;
+			if (['battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange'].includes(target.ability)) return;
 			if (!this.willMove(target)) target.addVolatile('gastroacid');
 		},
 		secondary: false,
@@ -4415,7 +4415,7 @@ exports.BattleMovedex = {
 					this.effectData.duration++;
 				}
 			},
-			onOverrideDecision: function (pokemon, target, move) {
+			onOverrideAction: function (pokemon, target, move) {
 				if (move.id !== this.effectData.move) return this.effectData.move;
 			},
 			onResidualOrder: 13,
@@ -4550,8 +4550,8 @@ exports.BattleMovedex = {
 		flags: {protect: 1, reflectable: 1, mirror: 1, mystery: 1},
 		onTryHit: function (target, source) {
 			if (target === source) return false;
-			let bannedTargetAbilities = ['comatose', 'multitype', 'schooling', 'stancechange', 'truant'];
-			let bannedSourceAbilities = ['comatose', 'flowergift', 'forecast', 'illusion', 'imposter', 'multitype', 'stancechange', 'trace', 'zenmode'];
+			let bannedTargetAbilities = ['battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange', 'truant'];
+			let bannedSourceAbilities = ['battlebond', 'comatose', 'disguise', 'flowergift', 'forecast', 'illusion', 'imposter', 'multitype', 'powerconstruct', 'powerofalchemy', 'receiver', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange', 'trace', 'zenmode'];
 			if (bannedTargetAbilities.includes(target.ability) || bannedSourceAbilities.includes(source.ability) || target.ability === source.ability) {
 				return false;
 			}
@@ -5045,11 +5045,11 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1, nonsky: 1},
 		onPrepareHit: function (target, source, move) {
 			for (let i = 0; i < this.queue.length; i++) {
-				let decision = this.queue[i];
-				if (!decision.move || !decision.pokemon || !decision.pokemon.isActive || decision.pokemon.fainted) continue;
-				if (decision.pokemon.side === source.side && ['grasspledge', 'waterpledge'].includes(decision.move.id)) {
-					this.prioritizeQueue(decision);
-					this.add('-waiting', source, decision.pokemon);
+				let action = this.queue[i];
+				if (!action.move || !action.pokemon || !action.pokemon.isActive || action.pokemon.fainted) continue;
+				if (action.pokemon.side === source.side && ['grasspledge', 'waterpledge'].includes(action.move.id)) {
+					this.prioritizeAction(action);
+					this.add('-waiting', source, action.pokemon);
 					return null;
 				}
 			}
@@ -6166,7 +6166,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, reflectable: 1, mirror: 1, mystery: 1},
 		volatileStatus: 'gastroacid',
 		onTryHit: function (pokemon) {
-			let bannedAbilities = ['comatose', 'multitype', 'schooling', 'stancechange'];
+			let bannedAbilities = ['battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange'];
 			if (bannedAbilities.includes(pokemon.ability)) {
 				return false;
 			}
@@ -6461,11 +6461,11 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1, nonsky: 1},
 		onPrepareHit: function (target, source, move) {
 			for (let i = 0; i < this.queue.length; i++) {
-				let decision = this.queue[i];
-				if (!decision.move || !decision.pokemon || !decision.pokemon.isActive || decision.pokemon.fainted) continue;
-				if (decision.pokemon.side === source.side && ['waterpledge', 'firepledge'].includes(decision.move.id)) {
-					this.prioritizeQueue(decision);
-					this.add('-waiting', source, decision.pokemon);
+				let action = this.queue[i];
+				if (!action.move || !action.pokemon || !action.pokemon.isActive || action.pokemon.fainted) continue;
+				if (action.pokemon.side === source.side && ['waterpledge', 'firepledge'].includes(action.move.id)) {
+					this.prioritizeAction(action);
+					this.add('-waiting', source, action.pokemon);
 					return null;
 				}
 			}
@@ -9926,12 +9926,12 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, authentic: 1},
 		onTryHit: function (target, pokemon) {
-			let decision = this.willMove(target);
-			if (decision) {
+			let action = this.willMove(target);
+			if (action) {
 				let noMeFirst = [
 					'chatter', 'counter', 'covet', 'focuspunch', 'mefirst', 'metalburst', 'mirrorcoat', 'struggle', 'thief',
 				];
-				let move = this.getMoveCopy(decision.move.id);
+				let move = this.getMoveCopy(action.move.id);
 				if (move.category !== 'Status' && !noMeFirst.includes(move)) {
 					pokemon.addVolatile('mefirst');
 					this.useMove(move, pokemon, target);
@@ -12744,13 +12744,12 @@ exports.BattleMovedex = {
 				this.debug('Pursuit start');
 				let alreadyAdded = false;
 				for (const source of this.effectData.sources) {
-					if (source.moveThisTurn || source.fainted) continue;
+					if (!this.cancelMove(source)) continue;
 					if (!alreadyAdded) {
 						this.add('-activate', pokemon, 'move: Pursuit');
 						alreadyAdded = true;
 					}
-					this.cancelMove(source);
-					// Run through each decision in queue to check if the Pursuit user is supposed to Mega Evolve this turn.
+					// Run through each action in queue to check if the Pursuit user is supposed to Mega Evolve this turn.
 					// If it is, then Mega Evolve before moving.
 					if (source.canMegaEvo || source.canUltraBurst) {
 						for (const [actionIndex, action] of this.queue.entries()) {
@@ -12785,13 +12784,13 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		onHit: function (target) {
 			if (target.side.active.length < 2) return false; // fails in singles
-			let decision = this.willMove(target);
-			if (decision) {
-				decision.priority = -7.1;
+			let action = this.willMove(target);
+			if (action) {
+				action.priority = -7.1;
 				this.cancelMove(target);
 				for (let i = this.queue.length - 1; i >= 0; i--) {
 					if (this.queue[i].choice === 'residual') {
-						this.queue.splice(i, 0, decision);
+						this.queue.splice(i, 0, action);
 						break;
 					}
 				}
@@ -13666,8 +13665,9 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {authentic: 1, mystery: 1},
 		onTryHit: function (target, source) {
-			let bannedAbilities = ['comatose', 'flowergift', 'forecast', 'illusion', 'imposter', 'multitype', 'trace', 'wonderguard', 'zenmode'];
-			if (bannedAbilities.includes(target.ability) || source.ability === 'multitype' || target.ability === source.ability) {
+			let bannedTargetAbilities = ['battlebond', 'comatose', 'disguise', 'flowergift', 'forecast', 'illusion', 'imposter', 'multitype', 'powerconstruct', 'powerofalchemy', 'receiver', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange', 'trace', 'wonderguard', 'zenmode'];
+			let bannedSourceAbilities = ['battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange'];
+			if (bannedTargetAbilities.includes(target.ability) || bannedSourceAbilities.includes(source.ability) || target.ability === source.ability) {
 				return false;
 			}
 		},
@@ -13842,10 +13842,10 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
 		onTry: function () {
 			for (let i = 0; i < this.queue.length; i++) {
-				let decision = this.queue[i];
-				if (!decision.pokemon || !decision.move) continue;
-				if (decision.move.id === 'round') {
-					this.prioritizeQueue(decision);
+				let action = this.queue[i];
+				if (!action.pokemon || !action.move) continue;
+				if (action.move.id === 'round') {
+					this.prioritizeAction(action);
 					return;
 				}
 			}
@@ -14705,7 +14705,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, reflectable: 1, mirror: 1, mystery: 1},
 		onTryHit: function (pokemon) {
-			let bannedAbilities = ['comatose', 'multitype', 'simple', 'stancechange', 'truant'];
+			let bannedAbilities = ['battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'simple', 'stancechange', 'truant'];
 			if (bannedAbilities.includes(pokemon.ability)) {
 				return false;
 			}
@@ -14813,7 +14813,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, authentic: 1, mystery: 1},
 		onTryHit: function (target, source) {
-			let bannedAbilities = ['comatose', 'illusion', 'multitype', 'schooling', 'stancechange', 'wonderguard'];
+			let bannedAbilities = ['battlebond', 'comatose', 'disguise', 'illusion', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange', 'wonderguard'];
 			if (bannedAbilities.includes(target.ability) || bannedAbilities.includes(source.ability)) {
 				return false;
 			}
@@ -16573,8 +16573,8 @@ exports.BattleMovedex = {
 		priority: 1,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		onTry: function (source, target) {
-			let decision = this.willMove(target);
-			if (!decision || decision.choice !== 'move' || (decision.move.category === 'Status' && decision.move.id !== 'mefirst') || target.volatiles.mustrecharge) {
+			let action = this.willMove(target);
+			if (!action || action.choice !== 'move' || (action.move.category === 'Status' && action.move.id !== 'mefirst') || target.volatiles.mustrecharge) {
 				this.attrLastMove('[still]');
 				this.add('-fail', source);
 				return null;
@@ -17884,9 +17884,9 @@ exports.BattleMovedex = {
 
 			if (target.side.active.length === 2 && target.position === 1) {
 				// Curse Glitch
-				const decision = this.willMove(target);
-				if (decision && decision.move.id === 'curse') {
-					decision.targetLoc = -1;
+				const action = this.willMove(target);
+				if (action && action.move.id === 'curse') {
+					action.targetLoc = -1;
 				}
 			}
 		},
@@ -17926,7 +17926,7 @@ exports.BattleMovedex = {
 			onStart: function (target, source) {
 				this.add('-fieldstart', 'move: Trick Room', '[of] ' + source);
 			},
-			// Speed modification is changed in Pokemon.getDecisionSpeed() in sim/pokemon.js
+			// Speed modification is changed in Pokemon.getActionSpeed() in sim/pokemon.js
 			onResidualOrder: 23,
 			onEnd: function () {
 				this.add('-fieldend', 'move: Trick Room');
@@ -18413,11 +18413,11 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1, nonsky: 1},
 		onPrepareHit: function (target, source, move) {
 			for (let i = 0; i < this.queue.length; i++) {
-				let decision = this.queue[i];
-				if (!decision.move || !decision.pokemon || !decision.pokemon.isActive || decision.pokemon.fainted) continue;
-				if (decision.pokemon.side === source.side && ['firepledge', 'grasspledge'].includes(decision.move.id)) {
-					this.prioritizeQueue(decision);
-					this.add('-waiting', source, decision.pokemon);
+				let action = this.queue[i];
+				if (!action.move || !action.pokemon || !action.pokemon.isActive || action.pokemon.fainted) continue;
+				if (action.pokemon.side === source.side && ['firepledge', 'grasspledge'].includes(action.move.id)) {
+					this.prioritizeAction(action);
+					this.add('-waiting', source, action.pokemon);
 					return null;
 				}
 			}
@@ -18937,7 +18937,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, reflectable: 1, mirror: 1, mystery: 1},
 		onTryHit: function (pokemon) {
-			let bannedAbilities = ['comatose', 'insomnia', 'multitype', 'schooling', 'stancechange', 'truant'];
+			let bannedAbilities = ['battlebond', 'comatose', 'disguise', 'insomnia', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange', 'truant'];
 			if (bannedAbilities.includes(pokemon.ability)) {
 				return false;
 			}

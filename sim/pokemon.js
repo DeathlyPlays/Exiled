@@ -243,7 +243,7 @@ class Pokemon {
 	}
 
 	updateSpeed() {
-		this.speed = this.getDecisionSpeed();
+		this.speed = this.getActionSpeed();
 	}
 
 	/**
@@ -346,7 +346,7 @@ class Pokemon {
 		return stat;
 	}
 
-	getDecisionSpeed() {
+	getActionSpeed() {
 		let speed = this.getStat('spe', false, false);
 		if (speed > 10000) speed = 10000;
 		if (this.battle.getPseudoWeather('trickroom')) {
@@ -453,7 +453,7 @@ class Pokemon {
 	}
 
 	ignoringAbility() {
-		return !!((this.battle.gen >= 5 && !this.isActive) || (this.volatiles['gastroacid'] && !['comatose', 'multitype', 'schooling', 'stancechange'].includes(this.ability)));
+		return !!((this.battle.gen >= 5 && !this.isActive) || (this.volatiles['gastroacid'] && !['battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange'].includes(this.ability)));
 	}
 
 	ignoringItem() {
@@ -514,14 +514,17 @@ class Pokemon {
 		};
 	}
 
+	/**
+	 * @return {string | null}
+	 */
 	getLockedMove() {
 		let lockedMove = this.battle.runEvent('LockMove', this);
-		if (lockedMove === true) lockedMove = false;
+		if (lockedMove === true) lockedMove = null;
 		return lockedMove;
 	}
 
 	/**
-	 * @param {string} [lockedMove]
+	 * @param {string?} [lockedMove]
 	 * @param {boolean} [restrictData]
 	 */
 	getMoves(lockedMove, restrictData) {
@@ -1266,8 +1269,8 @@ class Pokemon {
 			return false;
 		}
 		if (!effect || effect.id !== 'transform') {
-			if (['illusion', 'multitype', 'stancechange'].includes(ability.id)) return false;
-			if (['multitype', 'stancechange'].includes(oldAbility)) return false;
+			if (['illusion', 'battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange'].includes(ability.id)) return false;
+			if (['battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange'].includes(oldAbility)) return false;
 		}
 		this.battle.singleEvent('End', this.battle.getAbility(oldAbility), this.abilityData, this, source, effect);
 		if (!effect && this.battle.effect && this.battle.effect.effectType === 'Move') {

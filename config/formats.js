@@ -127,6 +127,7 @@ exports.Formats = [
 		],
 
 		mod: 'gen7',
+		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Same Type Clause', 'Team Preview'],
 		banlist: [
 			'Aegislash', 'Arceus', 'Blaziken', 'Darkrai', 'Deoxys-Base', 'Deoxys-Attack', 'Dialga', 'Genesect', 'Giratina', 'Groudon', 'Ho-Oh', 'Hoopa-Unbound',
@@ -134,6 +135,14 @@ exports.Formats = [
 			'Palkia', 'Pheromosa', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Solgaleo', 'Tapu Lele', 'Xerneas', 'Yveltal', 'Zekrom', 'Zygarde',
 			'Battle Bond', 'Shadow Tag', 'Damp Rock', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Mawilite', 'Medichamite', 'Metagrossite', 'Salamencite', 'Smooth Rock', 'Terrain Extender', 'Baton Pass',
 		],
+	},
+	{
+		name: "[Gen 7] Monotype (suspect test)",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3622485/\">Monotype Suspect Test</a>"],
+
+		mod: 'gen7',
+		challengeShow: false,
+		ruleset: ['[Gen 7] Monotype'],
 	},
 	{
 		name: "[Gen 7] Anything Goes",
@@ -734,7 +743,7 @@ exports.Formats = [
 		banlist: ['Shedinja'],
 		onModifyTemplate: function (template, target, source) {
 			if (source) return;
-			let types = [...new Set(target.baseMoveset.slice(0, 2).map(move => this.getMove(move.id).type))];
+			let types = [...new Set(target.baseMoveSlots.slice(0, 2).map(move => this.getMove(move.id).type))];
 			return Object.assign({}, template, {types: types});
 		},
 		onSwitchInPriority: 2,
@@ -1994,13 +2003,47 @@ exports.Formats = [
 		},
 	},
 	{
+<<<<<<< HEAD
 		name: "[Gen 7] Perfected Pokemon",
+=======
+		name: "[Gen 7] Move Equality",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3599280/\">Move Equality</a>: Every Move has 100 base power with the exception of moves that have varying base powers."],
+		mod: 'gen7',
+		ruleset: ['Sleep Clause Mod', 'Exact HP Mod', 'Cancel Mod', 'Freeze Clause Mod', 'Team Preview', 'Endless Battle Clause'],
+		banlist: ['Fell Stinger', 'Mud Slap', 'Power Up Punch', 'Uber'],
+		onModifyMovePriority: 5,
+		onModifyMove: function(move, pokemon) {
+			if (move.category === 'Status' || move.priority !== 0 || move.onBasePower || move.basePowerCallback) return move;
+			if (move.isZ) {
+				move.basePower = 180;
+				return move;
+			}
+			if (move.multihit) {
+				move.basePower = parseInt(100 / move.multihit[move.multihit.length - 1]);
+				return move;
+			}
+			move.basePower = 100;
+			return move;
+		},
+	},
+	{
+		name: "[Gen 7] OP Metagame",
+		mod: "opmetagame",
+		ruleset: ['Exact HP Mod', 'Cancel Mod'],
+		team: 'randomOPMeta',
+		desc: [
+			"Inspired by BAMD, coded and extra ideas from Insist.",
+			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pok&eacutemon</a>",
+		],
+	},
+	{
+		name: "[Gen 7] Perfected Pokemon [WIP]",
+>>>>>>> e318dee56b381d7b9148530bdb3a7a6075961951
 		mod: "perfection",
 		ruleset: ["Pokemon", "Standard", "Team Preview"],
 		desc: [
 			"Coded by Insist",
-			"Lycanium Z and AlfaStorm contributed ideas towards the project",
-			"In this metagame, we have added a new type \"Cosmic\"",
+			"Lycanium Z and AlfaStorm contributed ideas towards the project.",
 			"Along with buffing Pokemon deemed worthy of needing support.",
 		],
 	},

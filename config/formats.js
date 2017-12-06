@@ -2003,9 +2003,6 @@ exports.Formats = [
 		},
 	},
 	{
-<<<<<<< HEAD
-		name: "[Gen 7] Perfected Pokemon",
-=======
 		name: "[Gen 7] Move Equality",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3599280/\">Move Equality</a>: Every Move has 100 base power with the exception of moves that have varying base powers."],
 		mod: 'gen7',
@@ -2038,7 +2035,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon [WIP]",
->>>>>>> e318dee56b381d7b9148530bdb3a7a6075961951
 		mod: "perfection",
 		ruleset: ["Pokemon", "Standard", "Team Preview"],
 		desc: [

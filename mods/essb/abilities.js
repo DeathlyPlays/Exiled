@@ -687,7 +687,7 @@ exports.BattleAbilities = {
 		desc: "Normal type moves become Bug type and if the user makes a Pokemon faint, its SpA and Spe raise two stages.",
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
-				this.boost({spa:2, spe: 2}, source);
+				this.boost({spa: 2, spe: 2}, source);
 			}
 		},
 		//Insectize
@@ -1280,7 +1280,7 @@ exports.BattleAbilities = {
 			},
 		},
 		onStart: function (pokemon) {
-			this.boost({spe:1});
+			this.boost({spe: 1});
 			this.useMove('Wrap', pokemon);
 			this.useMove('Tail Whip', pokemon);
 			this.useMove('Cute Charm', pokemon);
@@ -1394,7 +1394,7 @@ exports.BattleAbilities = {
 		},
 		//soulheart
 		onAnyFaint: function () {
-			this.boost({spa:-1, spd: -1}, this.effectData.target);
+			this.boost({spa: -1, spd: -1}, this.effectData.target);
 		},
 		//magicguard
 		onDamage: function (damage, target, source, effect) {

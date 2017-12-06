@@ -2878,7 +2878,7 @@ exports.BattlePokedex = {
 		formeLetter: "M",
 		types: ["Water"],
 		genderRatio: {M: 0.875, F: 0.125},
-		baseStats: {hp: 85, atk: 125, def: 115, spa: 99, spd: 103, spe: 98},
+		baseStats: {hp: 85, atk: 125, def: 115, spa: 99, spd: 108, spe: 98},
 		abilities: {0: "Strong Jaw"},
 		heightm: 1.8,
 		weightkg: 106,

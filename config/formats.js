@@ -2103,6 +2103,27 @@ exports.Formats = [
 		},
 	},
 	{
+		name: "[Gen 7] Move Equality",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3599280/\">Move Equality</a>: Every Move has 100 base power with the exception of moves that have varying base powers."],
+		mod: 'gen7',
+		ruleset: ['Sleep Clause Mod', 'Exact HP Mod', 'Cancel Mod', 'Freeze Clause Mod', 'Team Preview', 'Endless Battle Clause'],
+		banlist: ['Fell Stinger', 'Mud Slap', 'Power Up Punch', 'Uber'],
+		onModifyMovePriority: 5,
+		onModifyMove: function(move, pokemon) {
+			if (move.category === 'Status' || move.priority !== 0 || move.onBasePower || move.basePowerCallback) return move;
+			if (move.isZ) {
+				move.basePower = 180;
+				return move;
+			}
+			if (move.multihit) {
+				move.basePower = parseInt(100 / move.multihit[move.multihit.length - 1]);
+				return move;
+			}
+			move.basePower = 100;
+			return move;
+		},
+	},
+	{
 		name: "[Gen 7] OP Metagame",
 		mod: "opmetagame",
 		ruleset: ['Exact HP Mod', 'Cancel Mod'],
@@ -2118,8 +2139,7 @@ exports.Formats = [
 		ruleset: ["Pokemon", "Standard", "Team Preview"],
 		desc: [
 			"Coded by Insist",
-			"Lycanium Z and AlfaStorm contributed ideas towards the project",
-			"In this metagame, we have added a new type \"Cosmic\"",
+			"Lycanium Z and AlfaStorm contributed ideas towards the project.",
 			"Along with buffing Pokemon deemed worthy of needing support.",
 		],
 	},

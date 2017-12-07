@@ -271,10 +271,10 @@ class CommandContext {
 		// Output the message
 
 		if (message && message !== true && typeof message.then !== 'function') {
+			let emoticons = Server.parseEmoticons(message, this.room);
 			if (this.pmTarget) {
-				Chat.sendPM(message, this.user, this.pmTarget);
+				Chat.sendPM((emoticons ? '/html ' + emoticons : message), this.user, this.pmTarget);
 			} else {
-				let emoticons = Server.parseEmoticons(message);
 				if (emoticons && !this.room.disableEmoticons) {
 					if (Users.ShadowBan.checkBanned(this.user)) {
 						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);

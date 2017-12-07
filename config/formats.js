@@ -469,6 +469,7 @@ exports.Formats = [
 		],
 
 		mod: 'mixandmega',
+		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Mega Rayquaza Clause', 'Team Preview'],
 		banlist: ['Baton Pass', 'Electrify'],
 		bannedStones: ['Beedrillite', 'Blazikenite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite', 'Ultranecrozium Z'],
@@ -645,38 +646,36 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] LC Mix and Mega",
-		desc: [
-			"Mega Stones and Primal Orbs can be used on almost any little cup Pok&eacute;mon with no Mega Evolution limit.",
-			"&bullet; <a href=\"http://exiledps.boards.net/board/18/lc-mix-mega/\">Mix and Mega</a>",
-		],
+		name: "[Gen 7] Mix and Mega (suspect test)",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3622654/\">Mix and Mega Suspect Test</a>"],
+
 		mod: 'mixandmega',
-		section: "Mix and Mega",
-		defaultLevel: 5,
-		ruleset: ['Team Preview', 'Cancel Mod', 'Little Cup', 'Pokemon', 'Illegal', 'Sleep Clause Mod'],
-		banlist: ['Baton Pass', 'NFE', 'Cranidos', 'Eevium Z'],
+		ruleset: ['[Gen 7] Mix and Mega'],
+		banlist: ['Shadow Tag'],
+		bannedStones: ['Beedrillite', 'Blazikenite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite', 'Ultranecrozium Z'],
+		cannotMega: [
+			'Arceus', 'Darkrai', 'Deoxys', 'Deoxys-Attack', 'Dialga', 'Dragonite', 'Giratina', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Marshadow',
+			'Mewtwo', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Palkia', 'Pheromosa', 'Rayquaza', 'Regigigas', 'Reshiram', 'Shaymin-Sky', 'Slaking', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zekrom',
+		],
 		onValidateTeam: function (team) {
 			let itemTable = {};
 			for (let i = 0; i < team.length; i++) {
 				let item = this.getItem(team[i].item);
 				if (!item) continue;
-				if (item in itemTable && itemTable[item] >= 2) {
-					if (item.megaStone) return ["You are limited to two of each Mega Stone.", "(You have more than two " + this.getItem(item).name + ")"];
-					if (item.id === 'blueorb' || item.id === 'redorb') return ["You are limited to two of each Primal Orb.", "(You have more than two " + this.getItem(item).name + ")"];
-					itemTable[item]++;
-				} else {
-					itemTable[item] = 1;
-				}
+				if (itemTable[item] && item.megaStone) return ["You are limited to one of each Mega Stone.", "(You have more than one " + this.getItem(item).name + ")"];
+				if (itemTable[item] && (item.id === 'blueorb' || item.id === 'redorb')) return ["You are limited to one of each Primal Orb.", "(You have more than one " + this.getItem(item).name + ")"];
+				itemTable[item] = true;
 			}
 		},
-		onValidateSet: function (set) {
+		onValidateSet: function (set, format) {
 			let template = this.getTemplate(set.species || set.name);
 			let item = this.getItem(set.item);
-			if (!item.megaEvolves && item.id !== 'blueorb' && item.id !== 'redorb') return;
-			if (template.baseSpecies === item.megaEvolves || (template.baseSpecies === 'Groudon' && item.id === 'redorb') || (template.baseSpecies === 'Kyogre' && item.id === 'blueorb')) return;
-
-			let uberStones = ['kangaskhanite'];
-			if (template.tier === 'Uber' || template.tier === 'Bank-Uber' || set.ability === 'Power Construct' || uberStones.includes(item.id)) return;
+			if (!item.megaEvolves && item.id !== 'blueorb' && item.id !== 'redorb' && item.id !== 'ultranecroziumz') return;
+			if (template.baseSpecies === item.megaEvolves || (template.baseSpecies === 'Groudon' && item.id === 'redorb') || (template.baseSpecies === 'Kyogre' && item.id === 'blueorb') || (template.species.substr(0, 9) === 'Necrozma-' && item.id === 'ultranecroziumz')) return;
+			if (template.evos.length) return ["" + template.species + " is not allowed to hold " + item.name + " because it's not fully evolved."];
+			let uberStones = format.bannedStones || [];
+			let uberPokemon = format.cannotMega || [];
+			if (uberPokemon.includes(template.name) || set.ability === 'Power Construct' || uberStones.includes(item.name)) return ["" + template.species + " is not allowed to hold " + item.name + "."];
 		},
 		onBegin: function () {
 			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);

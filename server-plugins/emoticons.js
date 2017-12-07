@@ -4,16 +4,10 @@ This plugin allows you to use emoticons in both chat rooms (as long as they are 
 */
 'use strict';
 
-<<<<<<< HEAD
-const fs = require('fs');
-let emoticons = {'feelsbd': 'http://i.imgur.com/TZvJ1lI.png'};
-let emoteRegex = new RegExp('feelsbd', 'g');
-=======
 const fs = require("fs");
 
 let emoticons = {"feelsbd": "http://i.imgur.com/TZvJ1lI.png"};
 let emoteRegex = new RegExp("feelsbd", "g");
->>>>>>> aab900638057794f54a375fcdf97ef474902be8b
 Server.ignoreEmotes = {};
 try {
 	Server.ignoreEmotes = JSON.parse(fs.readFileSync('config/ignoreemotes.json', 'utf8'));
@@ -71,38 +65,6 @@ exports.commands = {
 	emoticons: 'emoticon',
 	emote: 'emoticon',
 	emotes: 'emoticon',
-<<<<<<< HEAD
-	emoticon: function (target, room, user) {
-		if (!target) target = 'help';
-		let parts = target.split(',');
-		for (let u in parts) parts[u] = parts[u].trim();
-
-		switch (parts[0]) {
-		case 'add':
-			if (!this.can('roomowner')) return false;
-			if (!parts[2]) return this.sendReply("Usage: /emoticon add, [name], [url] - Remember to resize the image first! (recommended 50x50)");
-			if (emoticons[parts[1]]) return this.sendReply("\"" + parts[1] + "\" is already an emoticon.");
-			emoticons[parts[1]] = parts[2];
-			saveEmoticons();
-			this.sendReply('|raw|The emoticon "' + Chat.escapeHTML(parts[1]) + '" has been added: <img src="' + parts[2] + '">');
-			if (Rooms('upperstaff')) Rooms('upperstaff').add('|raw|' + Server.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
-				'": <img width="50" height="50" src="' + parts[2] + '">').update();
-			Server.messageSeniorStaff('/html ' + Server.nameColor(user.name, true) + ' has added the emote "' + Chat.escapeHTML(parts[1]) +
-				'": <img width="50" height="50" src="' + parts[2] + '">');
-			break;
-
-		case 'delete':
-		case 'remove':
-		case 'rem':
-		case 'del':
-			if (!this.can('roomowner')) return false;
-			if (!parts[1]) return this.sendReply("Usage: /emoticon del, [name]");
-			if (!emoticons[parts[1]]) return this.sendReply("The emoticon \"" + parts[1] + "\" does not exist.");
-			delete emoticons[parts[1]];
-			saveEmoticons();
-			this.sendReply("The emoticon \"" + parts[1] + "\" has been removed.");
-			break;
-=======
 	emoticon: {
 		add: function (target, room, user) {
 			if (!this.can(`ban`)) return false;
@@ -132,7 +94,6 @@ exports.commands = {
 			saveEmoticons();
 			this.sendReply(`The emoticon "${parts[1]}" has been removed.`);
 		},
->>>>>>> aab900638057794f54a375fcdf97ef474902be8b
 
 		on: "del",
 		enable: "off",
@@ -150,29 +111,6 @@ exports.commands = {
 		view: "list",
 		list: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-<<<<<<< HEAD
-			let reply = "<strong><u>Emoticons (" + Object.keys(emoticons).length + ")</u></strong><br />";
-			for (let emote in emoticons) reply += "(" + emote + " <img src=\"" + emoticons[emote] + "\" height=\"50\" width=\"50\">) ";
-			this.sendReply('|raw|<div class="infobox infobox-limited">' + reply + '</div>');
-			break;
-
-		case 'ignore':
-			if (Server.ignoreEmotes[user.userid]) return this.errorReply("You are already ignoring emoticons.");
-			Server.ignoreEmotes[user.userid] = true;
-			fs.writeFileSync('config/ignoreemotes.json', JSON.stringify(Server.ignoreEmotes));
-			this.sendReply("You are now ignoring emoticons.");
-			break;
-
-		case 'unignore':
-			if (!Server.ignoreEmotes[user.userid]) return this.errorReply("You aren't ignoring emoticons.");
-			delete Server.ignoreEmotes[user.userid];
-			fs.writeFileSync('config/ignoreemotes.json', JSON.stringify(Server.ignoreEmotes));
-			this.sendReply("You are no longer ignoring emoticons.");
-			break;
-
-		default:
-		case 'help':
-=======
 
 			let size = 50;
 			let lobby = Rooms('lobby');
@@ -215,7 +153,6 @@ exports.commands = {
 
 		"": "help",
 		help: function (target, room, user) {
->>>>>>> aab900638057794f54a375fcdf97ef474902be8b
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox(
 				"Emoticon Commands:<br />" +

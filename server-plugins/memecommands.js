@@ -174,9 +174,10 @@ exports.commands = {
 		if (!this.can('mute', null, room)) return this.errorReply('Access Denied');
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
-		if (targetUser.can('root')) return this.sendReply('You cannot ban an Admin - nice try. Chump.');
-		room.addRaw(Server.nameColor(user.name, true, true) + ' has gave the hammer to ' + Server.nameColor(target, true, true) + '.');
-		targetUser.popup("The Hammer has been dropped");
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has gave the hammer to ' + Server.nameColor(target, true, true) + '!');
+		targetUser.popup("|html|<b><font color='red'><font size='4'>The Hammer has been dropped!</font></b>");
+		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
+		targetUser.leaveRoom(room.id);
 	},
 	rekt: function () {
 		if (!this.runBroadcast()) return;

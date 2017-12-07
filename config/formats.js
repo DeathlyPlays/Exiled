@@ -1883,22 +1883,6 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Metronome Battle",
-		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Aguav Berry', 'Assault Vest', 'Berry Juice', 'Cheek Pouch', 'Dry Skin', 'Ice Body', 'Poison Heal', 'Regenerator', 'Volt Absorb', 'Water Absorb', 'Rain Dish', 'Black Sludge', 'Enigma Berry', 'Figy Berry', 'Iapapa Berry', 'Mago Berry', 'Oran Berry', 'Shell Bell', 'Sitrus Berry', 'Wiki Berry', 'Leftovers'],
-		mod: 'metronome',
-		onValidateSet: function (set) {
-			if (set.moves.length !== 1 || toId(set.moves[0]) !== 'metronome') {
-				return [(set.name || set.species) + " can only have Metronome."];
-			}
-		},
-		onEffectiveness: function (type, move) {
-			//change no effect to not very effective
-			if (move && !this.getImmunity(move, type)) return 2;
-		},
-	},
-	{
 		name: "[Gen 7] Monotype Ubers",
 		desc: [
 			"All the Pok&eacute;mon on a team must share a type, but it is in Ubers",
@@ -2024,17 +2008,7 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] OP Metagame",
-		mod: "opmetagame",
-		ruleset: ['Exact HP Mod', 'Cancel Mod'],
-		team: 'randomOPMeta',
-		desc: [
-			"Inspired by BAMD, coded and extra ideas from Insist.",
-			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pok&eacutemon</a>",
-		],
-	},
-	{
-		name: "[Gen 7] Perfected Pokemon [WIP]",
+		name: "[Gen 7] Perfected Pokemon",
 		mod: "perfection",
 		ruleset: ["Pokemon", "Standard", "Team Preview"],
 		desc: [

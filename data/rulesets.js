@@ -79,7 +79,7 @@ exports.BattleFormats = {
 	pokemon: {
 		effectType: 'ValidatorRule',
 		name: 'Pokemon',
-		desc: ["The foundational rules for any and all formats based on in-game mechanics (everything but Custom Game)"],
+		desc: ["Applies the basic limitations of pokemon games: level 100, 6 pokemon, 4 moves, no CAP, no future-gen pokemon/moves/etc - but does not include illegal move/ability validation"],
 		onValidateTeam: function (team, format) {
 			let problems = [];
 			if (team.length > 6) problems.push('Your team has more than six Pok\u00E9mon.');
@@ -798,6 +798,7 @@ exports.BattleFormats = {
 		desc: ["Allows the use of Pok&eacute;mon, abilities, moves, and items made by the Create-A-Pok&eacute;mon project"],
 		// Implemented in the 'pokemon' ruleset
 	},
+<<<<<<< HEAD
 	ashdex: {
 		effectType: 'ValidatorRule',
 		name: 'Ash Dex',
@@ -810,5 +811,12 @@ exports.BattleFormats = {
 				return [template.baseSpecies + " is not one of Ash's Pokemon."];
 			}
 		},
+=======
+	allowtradeback: {
+		effectType: 'ValidatorRule',
+		name: 'Allow Tradeback',
+		desc: ["Allows Gen 1 pokemon to have moves from their Gen 2 learnsets"],
+		// Implemented in team-validator.js
+>>>>>>> 7411ba63d9e3d305e2716255c3a6e710ccaf7e97
 	},
 };

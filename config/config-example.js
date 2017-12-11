@@ -243,6 +243,9 @@ exports.customavatars = {
 // Defaults to allowing poof commands
 exports.poofOff = false;
 
+//System Operators bypass
+exports.special = [];
+
 // tourroom - specify a room to receive tournament announcements (defaults to
 // the room 'tournaments').
 // tourannouncements - announcements are only allowed in these rooms

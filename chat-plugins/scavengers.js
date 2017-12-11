@@ -398,8 +398,13 @@ class ScavengerHunt extends Rooms.RoomGame {
 			let sliceIndex = this.gameType === 'official' ? 5 : 3;
 
 			this.announce(
+<<<<<<< HEAD
 				`The ${this.gameType ? `${this.gameType} ` : ""}scavenger hunt was ended ${(endedBy ? "by " + Server.nameColor(endedBy.name) : "automatically")}.<br />` +
 				`${this.completed.slice(0, sliceIndex).map((p, i) => `${formatOrder(i + 1)} place: <em>${Server.nameColor(p.name)}</em>.<br />`).join("")}${this.completed.length > sliceIndex ? `Consolation Prize: ${this.completed.slice(sliceIndex).map(e => Server.nameColor(e.name)).join(', ')}<br />` : ''}<br />` +
+=======
+				`The ${this.gameType ? `${this.gameType} ` : ""}scavenger hunt was ended ${(endedBy ? "by " + Chat.escapeHTML(endedBy.name) : "automatically")}.<br />` +
+				`${this.completed.slice(0, sliceIndex).map((p, i) => `${formatOrder(i + 1)} place: ${Chat.escapeHTML(p.name)}${this.gameType === 'official' ? ` <span style="color: magenta;">[${p.time}]</span>` : ''}.<br />`).join("")}${this.completed.length > sliceIndex ? `Consolation Prize: ${this.completed.slice(sliceIndex).map(e => `${Chat.escapeHTML(e.name)}${this.gameType === 'official' ? ` <span style="color: magenta;">[${e.time}]</span>` : ''}`).join(', ')}<br />` : ''}<br />` +
+>>>>>>> dc3945ff862bc00fae8eaf6c16f2a31fb82196d7
 				`<details style="cursor: pointer;"><summary>Solution: </summary><br />${this.questions.map((q, i) => `${i + 1}) ${Chat.formatText(q.hint)} <span style="color: lightgreen">[<em>${Chat.escapeHTML(q.answer.join(' / '))}</em>]</span>`).join("<br />")}</details>`
 			);
 
@@ -459,7 +464,7 @@ class ScavengerHunt extends Rooms.RoomGame {
 					room.chatRoomData.scavQueue = room.scavQueue;
 					Rooms.global.writeChatRoomData();
 				}
-			}, 1.5 * 60000); // 1.5 minute cooldown
+			}, 2 * 60000); // 2 minute cooldown
 		}
 	}
 

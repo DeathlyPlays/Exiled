@@ -977,7 +977,7 @@ class GlobalRoom extends BasicRoom {
 			const stackUS = (err ? Chat.escapeHTML(err.stack).split(`\n`).slice(0, 2).join(`.`) : ``);
 			const crashMessageUS = `**The server has crashed:** ${stackUS}`;
 			// @ts-ignore
-			Server.messageSeniorStaff(crashMessageUS, '~' + Config.serverName + ' Server');
+			Server.messageSeniorStaff(crashMessageUS, `~${Config.serverName} Server`);
 			return;
 		}
 		this.lastReportedCrash = time;
@@ -1506,7 +1506,11 @@ class ChatRoom extends BasicRoom {
 			user.updateIdentity();
 		}
 		// @ts-ignore TODO: strongly-typed surveys
-		if (this.survey) this.survey.onConnect(user, connection);
+		if (this.survey) {
+			for (let u = 0; u < this.survey.surveyArray.length; u++) {
+				if (this.survey.surveyArray[u]) this.survey.onConnect(user, connection, u);
+			}
+		}
 		if (this.game && this.game.onConnect) this.game.onConnect(user, connection);
 	}
 	/**
@@ -1549,6 +1553,14 @@ class ChatRoom extends BasicRoom {
 			for (let u in this.poll.pollArray) {
 				// @ts-ignore TODO: strongly-typed polls
 				if (user.userid in this.poll.pollArray[u].voters) this.poll.updateFor(user);
+			}
+		}
+		// @ts-ignore TODO: strongly-typed surveys
+		if (this.survey) {
+			// @ts-ignore TODO: strongly-typed surveys
+			for (let u in this.survey.surveyArray) {
+				// @ts-ignore TODO: strongly-typed surveys
+				if (this.surveys.surveyArray[u] && user.userid in this.survey.surveyArray[u].repliers) this.survey.updateFor(user);
 			}
 		}
 		return user;

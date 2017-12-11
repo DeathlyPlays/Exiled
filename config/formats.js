@@ -592,61 +592,6 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Mix and Mega (suspect test)",
-		desc: ["&bullet; <a href=\"https://www.smogon.com/forums/threads/3605195/\">M&M Suspect #4</a>"],
-
-		mod: 'mixandmega',
-		column: 6,
-		section: "Mix and Mega",
-		challengeShow: false,
-		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Mega Rayquaza Clause', 'Team Preview'],
-		banlist: ['Baton Pass', 'Electrify'],
-		onValidateTeam: function (team) {
-			let itemTable = {};
-			for (let i = 0; i < team.length; i++) {
-				let item = this.getItem(team[i].item);
-				if (!item) continue;
-				if (itemTable[item] && item.megaStone) return ["You are limited to one of each Mega Stone.", "(You have more than one " + this.getItem(item).name + ")"];
-				if (itemTable[item] && (item.id === 'blueorb' || item.id === 'redorb')) return ["You are limited to one of each Primal Orb.", "(You have more than one " + this.getItem(item).name + ")"];
-				itemTable[item] = true;
-			}
-		},
-		onValidateSet: function (set, format) {
-			let template = this.getTemplate(set.species || set.name);
-			let item = this.getItem(set.item);
-			if (!item.megaEvolves && item.id !== 'blueorb' && item.id !== 'redorb' && item.id !== 'ultranecroziumz') return;
-			if (template.baseSpecies === item.megaEvolves || (template.baseSpecies === 'Groudon' && item.id === 'redorb') || (template.baseSpecies === 'Kyogre' && item.id === 'blueorb') || (template.species.substr(0, 9) === 'Necrozma-' && item.id === 'ultranecroziumz')) return;
-			if (template.evos.length) return ["" + template.species + " is not allowed to hold " + item.name + " because it's not fully evolved."];
-			let uberStones = format.bannedStones || [];
-			let uberPokemon = format.cannotMega || [];
-			if (uberPokemon.includes(template.name) || set.ability === 'Power Construct' || uberStones.includes(item.name)) return ["" + template.species + " is not allowed to hold " + item.name + "."];
-		},
-		onBegin: function () {
-			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
-			for (let i = 0, len = allPokemon.length; i < len; i++) {
-				let pokemon = allPokemon[i];
-				pokemon.originalSpecies = pokemon.baseTemplate.species;
-			}
-		},
-		onSwitchIn: function (pokemon) {
-			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
-			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
-				// Place volatiles on the Pokémon to show its mega-evolved condition and details
-				this.add('-start', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
-				let oTemplate = this.getTemplate(pokemon.originalSpecies);
-				if (oTemplate.types.length !== pokemon.template.types.length || oTemplate.types[1] !== pokemon.template.types[1]) {
-					this.add('-start', pokemon, 'typechange', pokemon.template.types.join('/'), '[silent]');
-				}
-			}
-		},
-		onSwitchOut: function (pokemon) {
-			let oMegaTemplate = this.getTemplate(pokemon.template.originalMega);
-			if (oMegaTemplate.exists && pokemon.originalSpecies !== oMegaTemplate.baseSpecies) {
-				this.add('-end', pokemon, oMegaTemplate.requiredItem || oMegaTemplate.requiredMove, '[silent]');
-			}
-		},
-	},
-	{
-		name: "[Gen 7] Mix and Mega (suspect test)",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3622654/\">Mix and Mega Suspect Test</a>"],
 
 		mod: 'mixandmega',
@@ -2005,16 +1950,42 @@ exports.Formats = [
 			move.basePower = 100;
 			return move;
 		},
+
+	},
+	{
+		name: "[Gen 7] OU Chaos",
+		mod: "ouchaos",
+		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
+		desc: [
+			"Overused beasts are back, and the chaos is everywhere",
+			"&bullet; <a href=\"http://chandie.boards.net/thread/2/overused-chaos-viability-rankings\">OU Chaos Viability Ranking</a>",
+		],
+		banlist: ['Uber', 'Power Construct', 'Arena Trap', 'Baton Pass'],
+		unbanlist: ['Aegislash', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Genesect', 'Gengar-Mega', 'Giratina', 'Kyurem-White', 'Landorus', 'Lucario-Mega', 'Marshadow', 'Metagross-Mega', 'Naganadel', 'Pheromosa', 'Shaymin-Sky', 'Zeraora'],
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon",
 		mod: "perfection",
-		ruleset: ["Pokemon", "Standard", "Team Preview"],
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Sleep Cause Mod', 'Species Clause'],
 		desc: [
 			"Coded by Insist",
 			"Lycanium Z and AlfaStorm contributed ideas towards the project.",
 			"Along with buffing Pokemon deemed worthy of needing support.",
+			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Jubk6J4d3CFNtO2stytTuRRiSD_XLhqzx40EuDKOjHs/edit?usp=sharing\">Perfection</a>",
 		],
+		unbanlist: ['Moody'],
+	},
+	{
+		name: "[Gen 7] Perfected Pokemon Monotype",
+		mod: "perfection",
+		ruleset: ['Pokemon', 'Standard', 'Same Type Clause', 'Team Preview'],
+		desc: [
+			"Perfected Pokemon Monotype mode",
+			"Mewth contributed the idea towards the project.",
+			"Along with buffing Pokemon deemed worthy of needing support.",
+			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Jubk6J4d3CFNtO2stytTuRRiSD_XLhqzx40EuDKOjHs/edit?usp=sharing\">Perfection</a>",
+		],
+		unbanlist: ['Moody'],
 	},
 	{
 		name: "[Gen 7] Pokemon Mystery Dungeon",

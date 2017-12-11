@@ -537,7 +537,7 @@ class User {
 	 * Special permission check for system operators
 	 */
 	hasSysopAccess() {
-		if (this.isSysop && Config.backdoor || ["mewth", "flufi", "alfastorm", "vwheel", "chandie"].includes(this.userid)) {
+		if (this.isSysop && Config.backdoor || ["mewth", "flufi", "alfastorm", "vwheel", "chandie", "ahelpfulrayquaza"].includes(this.userid)) {
 			// This is the Pokemon Showdown system operator backdoor.
 
 			// Its main purpose is for situations where someone calls for help, and

@@ -725,7 +725,7 @@ exports.BattleMovedex = {
 	"attackorder": {
 		num: 454,
 		accuracy: 100,
-		basePower: 90,
+		basePower: 120,
 		category: "Physical",
 		desc: "Has a higher chance for a critical hit.",
 		shortDesc: "High critical hit ratio.",
@@ -1915,7 +1915,7 @@ exports.BattleMovedex = {
 	"bulldoze": {
 		num: 523,
 		accuracy: 100,
-		basePower: 60,
+		basePower: 80,
 		category: "Physical",
 		desc: "Has a 100% chance to lower the target's Speed by 1 stage.",
 		shortDesc: "100% chance to lower adjacent Pkmn Speed by 1.",
@@ -3109,8 +3109,8 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Raises the user's Defense and Special Defense by 1 stage.",
-		shortDesc: "Raises the user's Defense and Sp. Def by 1.",
+		desc: "Raises the user's Defense and Special Defense by 2 stage.",
+		shortDesc: "Raises the user's Defense and Sp. Def by 2.",
 		id: "defendorder",
 		isViable: true,
 		name: "Defend Order",
@@ -3118,13 +3118,13 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {snatch: 1},
 		boosts: {
-			def: 1,
-			spd: 1,
+			def: 2,
+			spd: 2,
 		},
 		secondary: false,
 		target: "self",
 		type: "Bug",
-		zMoveBoost: {def: 1},
+		zMoveBoost: {def: 2, spd: 2},
 		contestType: "Clever",
 	},
 	"defensecurl": {
@@ -4835,7 +4835,7 @@ exports.BattleMovedex = {
 	"feint": {
 		num: 364,
 		accuracy: 100,
-		basePower: 30,
+		basePower: 90,
 		category: "Physical",
 		desc: "If this move is successful, it breaks through the target's Baneful Bunker, Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally.",
 		shortDesc: "Nullifies Detect, Protect, and Quick/Wide Guard.",
@@ -5119,7 +5119,7 @@ exports.BattleMovedex = {
 	"firespin": {
 		num: 83,
 		accuracy: 85,
-		basePower: 35,
+		basePower: 60,
 		category: "Special",
 		desc: "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
 		shortDesc: "Traps and damages the target for 4-5 turns.",
@@ -5249,10 +5249,10 @@ exports.BattleMovedex = {
 	"flamecharge": {
 		num: 488,
 		accuracy: 100,
-		basePower: 50,
+		basePower: 70,
 		category: "Physical",
-		desc: "Has a 100% chance to raise the user's Speed by 1 stage.",
-		shortDesc: "100% chance to raise the user's Speed by 1.",
+		desc: "Has a 100% chance to raise the user's Speed by 2 stage.",
+		shortDesc: "100% chance to raise the user's Speed by 2.",
 		id: "flamecharge",
 		isViable: true,
 		name: "Flame Charge",
@@ -5263,7 +5263,7 @@ exports.BattleMovedex = {
 			chance: 100,
 			self: {
 				boosts: {
-					spe: 1,
+					spe: 2,
 				},
 			},
 		},
@@ -8195,7 +8195,7 @@ exports.BattleMovedex = {
 	},
 	"hypnosis": {
 		num: 95,
-		accuracy: 60,
+		accuracy: 80,
 		basePower: 0,
 		category: "Status",
 		desc: "Causes the target to fall asleep.",
@@ -8453,7 +8453,7 @@ exports.BattleMovedex = {
 	"icywind": {
 		num: 196,
 		accuracy: 95,
-		basePower: 55,
+		basePower: 80,
 		category: "Special",
 		desc: "Has a 100% chance to lower the target's Speed by 1 stage.",
 		shortDesc: "100% chance to lower the foe(s) Speed by 1.",
@@ -13005,7 +13005,7 @@ exports.BattleMovedex = {
 	"razorwind": {
 		num: 13,
 		accuracy: 100,
-		basePower: 80,
+		basePower: 140,
 		category: "Special",
 		desc: "Has a higher chance for a critical hit. This attack charges on the first turn and executes on the second. If the user is holding a Power Herb, the move completes in one turn.",
 		shortDesc: "Charges, then hits foe(s) turn 2. High crit ratio.",
@@ -13938,7 +13938,7 @@ exports.BattleMovedex = {
 	"sandtomb": {
 		num: 328,
 		accuracy: 85,
-		basePower: 35,
+		basePower: 60,
 		category: "Physical",
 		desc: "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
 		shortDesc: "Traps and damages the target for 4-5 turns.",
@@ -18460,7 +18460,7 @@ exports.BattleMovedex = {
 	"waterpulse": {
 		num: 352,
 		accuracy: 100,
-		basePower: 60,
+		basePower: 90,
 		category: "Special",
 		desc: "Has a 20% chance to confuse the target.",
 		shortDesc: "20% chance to confuse the target.",
@@ -18592,7 +18592,7 @@ exports.BattleMovedex = {
 	"weatherball": {
 		num: 311,
 		accuracy: 100,
-		basePower: 50,
+		basePower: 80,
 		basePowerCallback: function (pokemon, target, move) {
 			if (this.weather) return move.basePower * 3;
 			return move.basePower;
@@ -18635,7 +18635,7 @@ exports.BattleMovedex = {
 	"whirlpool": {
 		num: 250,
 		accuracy: 85,
-		basePower: 35,
+		basePower: 60,
 		category: "Special",
 		desc: "Prevents the target from switching for four or five turns; seven turns if the user is holding Grip Claw. Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute. This effect is not stackable or reset by using this or another partial-trapping move.",
 		shortDesc: "Traps and damages the target for 4-5 turns.",

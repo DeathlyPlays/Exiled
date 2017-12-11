@@ -4500,7 +4500,6 @@ exports.BattleAbilities = {
 		num: 117,
 	},
 	"primitivewings": {
-		inherit: true,
 		shortDesc: "This Pokemon's Flying-type moves have their priority increased by 1.",
 		onModifyPriority: function (priority, move) {
 			if (move && move.type === 'Flying') return priority + 1;

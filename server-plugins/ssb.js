@@ -355,16 +355,17 @@ class SSB {
 		}
 	}
 
-	addMove(move) {
+	async addMove(move, self) {
 		move = Dex.getMove(toId(move));
-		if (!move.exists) return false; //Only normal moves here.
-		if (this.movepool.length + (this.cMove === false ? 0 : 1) >= MAX_MOVEPOOL_SIZE) return false;
-		if (TeamValidator('gen7ou').checkLearnset(move, this.species, {
-			set: {},
-		})) return false;
-		if (move.ohko) return false;
-		if (this.movepool.indexOf(move.name) > -1) return false;
+		if (!move.exists) return self.errorReply(`The move "${move.name}" does not exist.`); //Only normal moves here.
+		if (this.movepool.length + (this.cMove === false ? 0 : 1) >= MAX_MOVEPOOL_SIZE) return self.errorReply(`You already have ${MAX_MOVEPOOL_SIZE} moves.`);
+		let result = await TeamValidatorAsync('gen7ou').validateTeam(Dex.packTeam([{species: this.species, ability: this.ability, moves: [move]}]));
+		if (result.substring(0, 1) === '0') return self.errorReply(`${this.species} cannot learn ${move.name}.`);
+		if (this.movepool.indexOf(move.name) > -1) return self.errorReply(`${this.species} already knows ${move.name}.`);
 		this.movepool.push(move.name);
+		writeSSB();
+		if (self.cmd !== 'moveq') self.sendReply(`Added the move ${move.name} to your movepool.`);
+		return self.user.sendTo(self.room, `|uhtmlchange|ssb${self.user.userid}${buildMenu(self.user.userid)}`);
 		return true;
 	}
 
@@ -432,19 +433,26 @@ class SSB {
 		return true;
 	}
 
-	activate(user) {
-		if (!user) return false;
-		let valid = this.validate();
+	async activate(self) {
+		let valid = await this.validate(self, true);
 		if (valid.length === 0) {
 			this.active = !this.active;
+			if (this.active) {
+				self.user.sendTo(self.room, `|uhtmlchange|ssb${self.user.userid}|${buildMenu(self.user.userid)}`);
+				self.sendReply('Your pokemon was activated! Your pokemon will appear in battles once the server restarts.');
+			} else {
+				self.user.sendTo(self.room, `|uhtmlchange|ssb${self.user.userid}|${buildMenu(self.user.userid)}`);
+				self.sendReply('Your pokemon was deactivated. Your pokemon will no longer appear in battles once the server restarts.');
+			}
 			return true;
 		}
 		this.active = false;
-		if (user.connected) user.popup(`|modal|Your SSBFFA pokemon was rejected for the following reasons:\n${valid.join('\n')}`);
+		self.user.sendTo(self.room, `|uhtmlchange|ssb${self.user.userid}|${buildMenu(self.user.userid)}`);
+		self.sendReply('Your pokemon was deactivated. Your pokemon will no longer appear in battles once the server restarts.');
 		return false;
 	}
 
-	validate() {
+	async validate(self, quiet) {
 		let dex = Dex.mod('ssbffa');
 		let msg = [];
 		// Species
@@ -453,12 +461,14 @@ class SSB {
 			msg.push(`The pokemon ${this.species} does not exist.`);
 			this.setSpecies('Unown');
 			this.active = false;
+			writeSSB();
 			return msg;
 		}
 		if (BANS.pokemon.includes(pokemon.species) || BANS.tiers.includes(pokemon.tier)) {
 			msg.push((BANS.pokemon.includes(pokemon.species) ? `${pokemon.species} is banned.` : `${pokemon.species} is in ${pokemon.tier} which is banned.`));
 			this.setSpecies('Unown');
 			this.active = false;
+			writeSSB();
 			return msg;
 		}
 		// Ability
@@ -507,10 +517,10 @@ class SSB {
 					i--;
 					continue;
 				}
-				if (TeamValidator('gen7ou').checkLearnset(move, pokemon.species, {
-					set: {},
-				})) {
-					msg.push(`${pokemon.species} cannot learn ${move.name}.`);
+				let result = await TeamValidatorAsync('gen7ou').validateTeam(Dex.packTeam([{species: this.species, ability: this.ability, moves: [move]}]));
+				if (result.startsWith('0')) {
+					result = result.slice(1);
+					msg.push(result.split('\n'));
 					this.movepool.splice(i, 1);
 					i--;
 					continue;
@@ -558,7 +568,14 @@ class SSB {
 			}
 		}
 		if (edited) msg.push(`${pokemon.species}'s IVs were invalid.`);
-		if (msg.length) this.active = false;
+		if (msg.length) {
+			this.active = false;
+			if (Users(toId(this.name))) Users(toId(this.name)).popup(`Your SSBFFA pokemon was deactivated for the following reasons:\n${msg.join('\n')}`);
+			if (!quiet) self.errorReply(`Done! ${this.name}'s SSBFFA pokemon was deactivated, and its invalid parts were reset to their defaults.`);
+		} else {
+			if (!quiet) self.sendReply(`Done! ${this.name}'s SSBFFA pokemon is valid.`);
+		}
+		writeSSB();
 		return msg;
 	}
 }
@@ -620,6 +637,7 @@ exports.commands = {
 					return user.sendTo(room, '|uhtmlchange|ssb' + user.userid + '|' + buildMenu(user.userid));
 				}
 			},
+
 			speciesq: 'species',
 			species: function (target, room, user, connection, cmd, message) {
 				if (!user.named) return this.errorReply('You must choose a name first.');
@@ -641,6 +659,7 @@ exports.commands = {
 					return user.sendTo(room, '|uhtmlchange|ssb' + user.userid + '|' + buildMenu(user.userid));
 				}
 			},
+
 			moveq: 'move',
 			move: function (target, room, user, connection, cmd, message) {
 				if (!user.named) return this.errorReply('You must choose a name first.');
@@ -657,13 +676,7 @@ exports.commands = {
 				switch (target[0]) {
 				case 'set':
 					//set a normal move
-					if (targetUser.addMove(target[1])) {
-						writeSSB();
-						if (cmd !== 'moveq') this.sendReply('Added the move ' + target[1] + ' to your movepool.');
-						return user.sendTo(room, '|uhtmlchange|ssb' + user.userid + '|' + buildMenu(user.userid));
-					} else {
-						return this.errorReply('Unable to add the move ' + target[1] + '.');
-					}
+					return targetUser.addMove(target[1], this);
 					//break;
 				case 'remove':
 					//remove a move
@@ -693,6 +706,7 @@ exports.commands = {
 					return this.sendReply('/ssb edit move [set|custom], movename. Or use /ssb edit move to access the move menu.');
 				}
 			},
+
 			statsq: 'stats',
 			stats: function (target, room, user, connection, cmd, message) {
 				if (!user.named) return this.errorReply('You must choose a name first.');
@@ -765,6 +779,7 @@ exports.commands = {
 					return this.sendReply('/ssb edit stats [ev|iv|nature], [stat|nature], (value) - Set your pokemon\'s evs, ivs, or nature.');
 				}
 			},
+
 			abilityq: 'ability',
 			ability: function (target, room, user, connection, cmd, message) {
 				if (!user.named) return this.errorReply('You must choose a name first.');
@@ -785,6 +800,7 @@ exports.commands = {
 					this.errorReply(target + ' could not be set as your pokemon\'s ability because it is not a legal ability for ' + targetUser.species + ', and it is not your custom ability.');
 				}
 			},
+
 			itemq: 'item',
 			item: function (target, room, user, connection, cmd, message) {
 				if (!user.named) return this.errorReply('You must choose a name first.');
@@ -811,6 +827,7 @@ exports.commands = {
 					return user.sendTo(room, '|uhtmlchange|ssb' + user.userid + '|' + buildMenu(user.userid));
 				}
 			},
+
 			detailsq: 'details',
 			details: function (target, room, user, connection, cmd, message) {
 				if (!user.named) return this.errorReply('You must choose a name first.');
@@ -884,6 +901,7 @@ exports.commands = {
 				}
 			},
 		},
+
 		toggle: function (target, room, user, connection, cmd, message) {
 			if (!user.named) return this.errorReply('You must choose a name first.');
 			if (user.locked) return this.errorReply('You cannot edit your SSB pokemon while locked.');
@@ -893,19 +911,9 @@ exports.commands = {
 				writeSSB();
 				return this.sendReply('Your new SSB pokemon is not active, you should edit it before activating.');
 			}
-			let targetUser = Server.ssb[user.userid];
-			if (targetUser.activate(user)) {
-				if (targetUser.active) {
-					writeSSB();
-					user.sendTo(room, '|uhtmlchange|ssb' + user.userid + '|' + buildMenu(user.userid));
-					return this.sendReply('Your pokemon was activated! Your pokemon will appear in battles once the server restarts.');
-				} else {
-					writeSSB();
-					user.sendTo(room, '|uhtmlchange|ssb' + user.userid + '|' + buildMenu(user.userid));
-					return this.sendReply('Your pokemon was deactivated. Your pokemon will no longer appear in battles once the server restarts.');
-				}
-			}
+			Server.ssb[user.userid].activate(this);
 		},
+
 		custommoves: 'custom',
 		cmoves: 'custom',
 		custom: function (target, room, user, connection, cmd, message) {
@@ -918,6 +926,7 @@ exports.commands = {
 			}
 			return user.sendTo(room, '|uhtmlchange|ssb' + user.userid + '|' + customMenu());
 		},
+
 		log: function (target, room, user, connection, cmd, message) {
 			if (!target) target = (user.can('roomowner') ? 'view, all' : 'view, ' + user.userid);
 			target = target.split(',');
@@ -962,10 +971,10 @@ exports.commands = {
 				if (Server.ssb[target[1]].bought[target[2]] === undefined) return this.parse('/help ssb log');
 				switch (target[3]) {
 				case 'complete':
-					if (Server.ssb[target[1]].bought[target[2]] === target[3]) return this.errorReply(target[1] + '\'s ' + target[2] + ' is already ' + target[3] + '.');
+					if (Server.ssb[target[1]].bought[target[2]] === target[3]) return this.errorReply(`${target[1]}'s ${target[2]} is already ${target[3]}`);
 					Server.ssb[target[1]].bought[target[2]] = 'complete';
 					writeSSB();
-					return this.sendReply(target[1] + '\'s ' + target[2] + ' was marked as complete.');
+					return this.sendReply(`${target[1]}'s ${target[2]} was marked as complete.`);
 					//break;
 				case 'pending':
 					if (Server.ssb[target[1]].bought[target[2]] === true) return this.errorReply(target[1] + '\'s ' + target[2] + ' is already ' + target[3] + '.');
@@ -993,40 +1002,78 @@ exports.commands = {
 			'/ssb log view, [all|user] - View the purchases of a user or all user\'s. Requires &, ~ unless viewing your own.',
 			'/ssb log mark, [user], [cItem|cAbility|cMove], [complete|pending|remove] - Update the status for a user\'s SSBFFA purchase.',
 		],
+
 		forceupdate: 'validate',
 		validateall: 'validate',
 		validate: function (target, room, user, connection, cmd, message) {
 			if (!this.can('hotpatch')) return;
 			if (!target && toId(cmd) !== 'validateall') return this.parse('/help ssb validate');
 			let targetUser = Server.ssb[toId(target)];
-			if (!targetUser && toId(cmd) !== 'validateall') return this.errorReply(target + ' does not have a SSBFFA pokemon yet.');
+			if (!targetUser && toId(cmd) !== 'validateall') return this.errorReply(`${target} does not have a SSBFFA pokemon yet.`);
 			//Start validation.
 			if (toId(cmd) !== 'validateall') {
-				this.sendReply('Validating ' + targetUser.name + '\'s SSBFFA pokemon...');
-				let valid = targetUser.validate();
-				if (valid.length) {
-					if (Users(toId(targetUser.name))) Users(toId(targetUser.name)).popup(`Your SSBFFA pokemon was deactivated for the following reasons:\n${valid.join('\n')}`);
-					writeSSB();
-					return this.errorReply('Done. Invalid things have been set to their defaults, and this pokemon has been deactivated.');
-				} else {
-					return this.sendReply('Done! This pokemon is valid');
-				}
+				this.sendReply(`Validating '${targetUser.name}'s SSBFFA pokemon...`);
+				targetUser.validate(this);
 			} else {
 				for (let key in Server.ssb) {
-					let valid = Server.ssb[key].validate();
-					if (valid.length) {
-						if (Users(toId(Server.ssb[key].name))) Users(toId(Server.ssb[key].name)).popup(`Your SSBFFA pokemon was deactivated for the following reasons:\n${valid.join('\n')}`);
-						writeSSB();
-						this.errorReply(Server.ssb[key].name + '\'s pokemon was invalid. Invalid parts have been reset and this pokemon was deactivated.');
-					}
+					Server.ssb[key].validate(this, true);
 				}
 				return this.sendReply('All SSBFFA pokemon have been validated.');
 			}
 		},
 		validatehelp: ['/ssb validate [user] - Validate a user\'s SSBFFA pokemon and if anything invalid is found, set it to its default value. Requires: &, ~'],
+
 		'': function (target, room, user, connection, cmd, message) {
 			return this.parse('/help ssb');
 		},
+
+		setcmove: function (target, room, user, connection, message) {
+			if (!this.can('roomowner')) return false;
+			if (!target) return this.parse('/help ssb setcmove');
+			let targets = target.split(',');
+			let userid = toId(targets[0]);
+			if (!userid) return this.parse('/help ssb setcmove');
+			let customMove = toId(targets[1]);
+			if (!customMove) return this.errorReply('Must include a move!');
+			if (!Dex.mod('cssb').getMove(customMove).exists) return this.errorReply("Move doesn't exist in the ssbffa mod!");
+			if (!WL.ssb[userid].bought.cMove) return this.errorReply('They have not bought a custom move!');
+			WL.ssb[userid].selfCustomMove = customMove;
+			writeSSB();
+			return this.sendReply('Move set for ' + userid + '!');
+		},
+		setcmovehelp: ['/ssb setcmove targetUser, move'],
+
+		setcability: function (target, room, user, connection, message) {
+			if (!this.can('roomowner')) return false;
+			if (!target) return this.parse('/help ssb setcability');
+			let targets = target.split(',');
+			let userid = toId(targets[0]);
+			if (!userid) return this.errorReply('/help ssb setcability');
+			let customAbility = toId(targets[1]);
+			if (!customAbility) return this.errorReply('/ssb giveability target, ability');
+			if (!Dex.mod('cssb').getAbility(customAbility).exists) return this.errorReply("Ability doesn't exist in the ssbffa mod!");
+			if (!WL.ssb[userid].bought.cAbility) return this.errorReply('They have not bought a custom ability!');
+			WL.ssb[userid].cAbility = customAbility;
+			writeSSB();
+			return this.sendReply('Ability set for ' + userid + '!');
+		},
+		setcabilityhelp: ['/ssb setcmove targetUser, ability'],
+
+		setcitem: function (target, room, user, connection, cmd, message) {
+			if (!this.can('roomowner')) return false;
+			if (!target) return this.parse('/help ssb setcitem');
+			let targets = target.split(',');
+			let userid = toId(targets[0]);
+			if (!userid) return this.errorReply('/help ssb givecitem');
+			let item = toId(targets[1]);
+			if (!item) return this.errorReply('Must include an item');
+			if (!Dex.mod('cssb').getItem(item).exists) return this.errorReply("Item doesn't exist in the ssbffa mod!");
+			if (!WL.ssb[userid].bought.cItem) return this.errorReply('They have not bought a custom item!');
+			WL.ssb[userid].cItem = item;
+			writeSSB();
+			return this.sendReply('Item set for ' + userid + '!');
+		},
+		setcitemhelp: ['/ssb setcitem targetUser, item'],
 	},
 	ssbhelp: [
 		'/ssb - Commands for editing your custom super staff bros pokemon. Includes the following commands: ',

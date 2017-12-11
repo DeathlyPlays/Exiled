@@ -14815,11 +14815,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, authentic: 1, mystery: 1},
 		onTryHit: function (target, source) {
-<<<<<<< HEAD
-			let bannedAbilities = ['battlebond', 'comatose', 'disguise', 'illusion', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange', 'wonderguard'];
-=======
 			let bannedAbilities = ['comatose', 'illusion', 'multitype', 'schooling', 'stancechange', 'wonderguard'];
->>>>>>> e14dc1d2994f3d6cf8b50fb2f43fab524258b42e
 			if (bannedAbilities.includes(target.ability) || bannedAbilities.includes(source.ability)) {
 				return false;
 			}

@@ -400,8 +400,6 @@ exports.Formats = [
 		column: 2,
 	},
 	{
-<<<<<<< HEAD
-=======
 		name: "[Gen 7] Partners in Crime",
 		desc: [
 			"Doubles-based metagame where both active ally Pok&eacute;mon share abilities and moves.",
@@ -471,7 +469,6 @@ exports.Formats = [
 		},
 	},
 	{
->>>>>>> e14dc1d2994f3d6cf8b50fb2f43fab524258b42e
 		name: "[Gen 7] Mediocremons",
 		desc: [
 			"Only Pok&eacute;mon whose stats are all less than 100 are allowed.",

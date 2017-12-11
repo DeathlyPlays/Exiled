@@ -71,9 +71,17 @@ exports.commands = {
 	emoticon: {
 		add: function (target, room, user) {
 			if (!this.can(`ban`)) return false;
-			if (!parts[2]) return this.sendReply(`Usage: /emoticon add, [name], [url] - Remember to resize the image first! (recommended 50x50)`);
-			if (emoticons[parts[1]]) return this.sendReply(`"${parts[1]}" is already an emoticon.`);
-			emoticons[parts[1]] = parts[2];
+			if (!target) return this.sendReply("Usage: /emoticons add [name], [url]");
+
+			let targetSplit = target.split(',');
+			for (let u in targetSplit) targetSplit[u] = targetSplit[u].trim();
+
+			if (!targetSplit[1]) return this.sendReply("Usage: /emoticons add [name], [url]");
+
+			if (targetSplit[0].length > 10) return this.errorReply("Emoticons may not be longer than 10 characters.");
+			if (emoticons[targetSplit[0]]) return this.errorReply(targetSplit[0] + " is already an emoticon.");
+
+			emoticons[targetSplit[0]] = targetSplit[1];
 			saveEmoticons();
 
 			let size = 50;
@@ -81,9 +89,9 @@ exports.commands = {
 			if (lobby && lobby.emoteSize) size = lobby.emoteSize;
 			if (room.emoteSize) size = room.emoteSize;
 
-			this.sendReply(`|raw|The emoticon "${Chat.escapeHTML(parts[1])}" has been added: <img src="${parts[2]}">`);
-			Rooms(`upperstaff`).add(`|raw|${Server.nameColor(user.name, true)} has added the emote "${Chat.escapeHTML(parts[1])}": <img width="${size}" height="${size}" src="${parts[2]}">`).update();
-			Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has added the emote "${Chat.escapeHTML(parts[1])}": <img width="${size}" height="${size}" src="${parts[2]}">`);
+			this.sendReply(`|raw|The emoticon ${Chat.escapeHTML(targetSplit[0])} has been added: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
+			Rooms('upperstaff').add(`|raw|${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
+			Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
 		},
 
 		delete: "del",
@@ -91,24 +99,28 @@ exports.commands = {
 		rem: "del",
 		del: function (target, room, user) {
 			if (!this.can(`ban`)) return false;
-			if (!parts[1]) return this.sendReply(`Usage: /emoticon del, [name]`);
-			if (!emoticons[parts[1]]) return this.sendReply(`The emoticon "${parts[1]}" does not exist.`);
-			delete emoticons[parts[1]];
+			if (!target) return this.sendReply("Usage: /emoticons remove [name]");
+			if (!emoticons[target]) return this.errorReply("That emoticon does not exist.");
+
+			delete emoticons[target];
 			saveEmoticons();
-			this.sendReply(`The emoticon "${parts[1]}" has been removed.`);
+
+			this.sendReply("That emoticon has been removed.");
+			Rooms('upperstaff').add(`|raw|${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
+			Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
 		},
 
 		on: "del",
 		enable: "off",
 		disable: "off",
-		off: function (target, room, user) {
+		off: function (target, room, user, cmd) {
 			if (!this.can('roommod', null, room)) return this.sendReply('Access denied.');
-			let status = ((parts[0] !== 'enable' && parts[0] !== 'on'));
-			if (room.disableEmoticons === status) return this.sendReply(`Emoticons are already ${(status ? "disabled" : "enabled")} in this room.`);
+			let status = ((cmd !== 'enable' && cmd !== 'on'));
+			if (room.disableEmoticons === status) return this.sendReply("Emoticons are already " + (status ? "disabled" : "enabled") + " in this room.");
 			room.disableEmoticons = status;
 			room.chatRoomData.disableEmoticons = status;
 			Rooms.global.writeChatRoomData();
-			this.privateModCommand('(' + user.name + ' ' + (status ? ' disabled ' : ' enabled ') + 'emoticons in this room.)');
+			this.privateModCommand(`(${user.name} ${(status ? 'disabled' : 'enabled')} emoticons in this room.)`);
 		},
 
 		view: "list",
@@ -160,8 +172,8 @@ exports.commands = {
 			this.sendReplyBox(
 				`Emoticon Commands:<br />` +
 				`<small>/emoticon may be substituted with /emoticons, /emotes, or /emote</small><br />` +
-				`/emoticon add, [name], [url] - Adds an emoticon.<br />` +
-				`/emoticon del/delete/remove/rem, [name] - Removes an emoticon.<br />` +
+				`/emoticon add [name], [url] - Adds an emoticon.<br />` +
+				`/emoticon del/delete/remove/rem [name] - Removes an emoticon.<br />` +
 				`/emoticon enable/on/disable/off - Enables or disables emoticons in the current room.<br />` +
 				`/emoticon view/list - Displays the list of emoticons.<br />` +
 				`/emoticon ignore - Ignores emoticons in chat messages.<br />` +

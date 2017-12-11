@@ -206,15 +206,30 @@ exports.commands = {
 		return this.sendReply('Double XP was turned ' + (DOUBLE_XP ? 'ON' : 'OFF') + '.');
 	},
 
-	expon: function (target, room, user) {
-		Db('expoff').delete(user.userid);
-		this.sendReply("You are no longer exempt from exp.");
+	expunban: function (target, room, user) {
+		if (!this.can('roomowner')) return false;
+		if (!target) return this.parse('/help expunban');
+		let targetId = toId(target);
+		if (!Db("expoff").has(targetId)) return this.errorReply(`${targetId} is not currently exp banned.`);
+		Db("expoff").delete(targetId);
+		this.globalModlog(`EXPUNBAN`, targetId, ` by ${user.name}`);
+		this.addModCommand(`${targetId} was exp unbanned by ${user.name}.`);
+		this.sendReply(`${targetId} is no longer banned from exp.`);
 	},
+	expunbanhelp: ['/expunban [target] - unbans a user from gaining exp if they were exp banned.'],
 
-	expoff: function (target, room, user) {
-		Db('expoff').set(user.userid, true);
-		this.sendReply("You are now exempt from exp.");
+	expban: function (target, room, user) {
+		if (!this.can('roomowner')) return false;
+		if (!target) return this.parse('/help expban');
+		let targetId = toId(target);
+		if (Db("expoff").has(targetId)) return this.errorReply(`${targetId} is already exp banned.`);
+		Db("expoff").set(targetId, true);
+		Db("exp").set(targetId, 0);
+		this.globalModlog(`EXPBAN`, targetId, ` by ${user.name}`);
+		this.addModCommand(`${targetId} was exp banned by ${user.name}.`);
+		this.sendReply(`${targetId} is now banned from exp.`);
 	},
+	expbanhelp: ['/expban [target] - bans a user from gaining exp until removed.'],
 
 	'!xpladder': true,
 	expladder: 'xpladder',

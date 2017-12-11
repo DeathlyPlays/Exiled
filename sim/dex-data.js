@@ -207,18 +207,19 @@ class RuleTable extends Map {
 	}
 	/**
 	 * @param {string} thing
-	 * @param {{[id: string]: true}} setHas
+	 * @param {{[id: string]: true}?} setHas
 	 * @return {string}
 	 */
-	check(thing, setHas) {
-		setHas[thing] = true;
-		return this.getReason(this.get('-' + thing));
+	check(thing, setHas = null) {
+		if (setHas) setHas[thing] = true;
+		return this.getReason('-' + thing);
 	}
 	/**
-	 * @param {string | undefined} source
+	 * @param {string} key
 	 * @return {string}
 	 */
-	getReason(source) {
+	getReason(key) {
+		const source = this.get(key);
 		if (source === undefined) return '';
 		return source ? `banned by ${source}` : `banned`;
 	}
@@ -348,6 +349,13 @@ class Format extends Effect {
 		 * @type {number?}
 		 */
 		this.maxForcedLevel = this.maxForcedLevel;
+
+		/** @type {boolean | undefined} */
+		this.searchShow = this.searchShow;
+		/** @type {boolean | undefined} */
+		this.challengeShow = this.challengeShow;
+		/** @type {boolean | undefined} */
+		this.tournamentShow = this.tournamentShow;
 
 		/**
 		 * @type {((this: Validator, set: PokemonSet, teamHas: AnyObject) => string[] | false)?}

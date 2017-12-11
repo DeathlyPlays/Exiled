@@ -85,7 +85,7 @@ class Battle extends Dex.ModdedDex {
 	 * @param {PRNG} [prng]
 	 */
 	constructor(formatid, rated = false, send = (() => {}), prng = new PRNG()) {
-		let format = Dex.getFormat(formatid);
+		let format = Dex.getFormat(formatid, true);
 		super(format.mod);
 		Object.assign(this, this.data.Scripts);
 
@@ -103,6 +103,7 @@ class Battle extends Dex.ModdedDex {
 
 		this.format = format.id;
 		this.formatid = formatid;
+		this.cachedFormat = format;
 		this.formatData = {id: format.id};
 
 		/**@type {Effect} */
@@ -342,7 +343,8 @@ class Battle extends Dex.ModdedDex {
 	 * @param {string} [format]
 	 */
 	getFormat(format) {
-		return super.getFormat(format || this.formatid);
+		if (!format) return this.cachedFormat;
+		return super.getFormat(format, true);
 	}
 
 	/**
@@ -1118,7 +1120,7 @@ class Battle extends Dex.ModdedDex {
 	 *     this.onEvent(eventid, target, priority, callback)
 	 * will set the callback as an event handler for the target when eventid is called with the
 	 * provided priority. Priority can either be a number or an object that contains the priority,
-	 * order, and subOrder for the evend handler as needed (undefined keys will use default values)
+	 * order, and subOrder for the event handler as needed (undefined keys will use default values)
 	 *
 	 * @param {string} eventid
 	 * @param {Format} target
@@ -1529,6 +1531,8 @@ class Battle extends Dex.ModdedDex {
 				pokemon.moveThisTurn = '';
 				pokemon.usedItemThisTurn = false;
 				pokemon.newlySwitched = false;
+				pokemon.moveLastTurnResult = pokemon.moveThisTurnResult;
+				pokemon.moveThisTurnResult = undefined;
 
 				pokemon.maybeDisabled = false;
 				for (let moveSlot of pokemon.moveSlots) {
@@ -2270,10 +2274,9 @@ class Battle extends Dex.ModdedDex {
 		// Final modifier. Modifiers that modify damage after min damage check, such as Life Orb.
 		baseDamage = this.runEvent('ModifyDamage', pokemon, target, move, baseDamage);
 
-		// TODO: Find out where this actually goes in the damage calculation
 		if (move.isZ && move.zBrokeProtect) {
 			baseDamage = this.modify(baseDamage, 0.25);
-			this.add('-message', target.name + " couldn't fully protect itself and got hurt! (placeholder)");
+			this.add('-zbroken', target);
 		}
 
 		if (this.gen !== 5 && !Math.floor(baseDamage)) {

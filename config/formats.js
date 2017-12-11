@@ -400,6 +400,78 @@ exports.Formats = [
 		column: 2,
 	},
 	{
+<<<<<<< HEAD
+=======
+		name: "[Gen 7] Partners in Crime",
+		desc: [
+			"Doubles-based metagame where both active ally Pok&eacute;mon share abilities and moves.",
+			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3618488/\">Partners in Crime</a>",
+		],
+
+		mod: 'pic',
+		gameType: 'doubles',
+		ruleset: ['[Gen 7] Doubles OU', 'Sleep Clause Mod'],
+		banlist: ['Huge Power', 'Imposter', 'Parental Bond', 'Pure Power', 'Wonder Guard', 'Kangaskhanite', 'Mawilite', 'Medichamite', 'Mimic', 'Sketch', 'Transform'],
+		onDisableMovePriority: -1,
+		onSwitchInPriority: 2,
+		onSwitchIn: function (pokemon) {
+			if (this.p1.active.every(ally => ally && !ally.fainted)) {
+				let p1a = this.p1.active[0], p1b = this.p1.active[1];
+				if (p1a.ability !== p1b.ability) {
+					let p1a_innate = 'ability' + p1b.ability;
+					p1a.volatiles[p1a_innate] = {id: p1a_innate, target: p1a};
+					let p1b_innate = 'ability' + p1a.ability;
+					p1b.volatiles[p1b_innate] = {id: p1b_innate, target: p1b};
+				}
+			}
+			if (this.p2.active.every(ally => ally && !ally.fainted)) {
+				let p2a = this.p2.active[0], p2b = this.p2.active[1];
+				if (p2a.ability !== p2b.ability) {
+					let p2a_innate = 'ability' + p2b.ability;
+					p2a.volatiles[p2a_innate] = {id: p2a_innate, target: p2a};
+					let p2b_innate = 'ability' + p2a.ability;
+					p2b.volatiles[p2b_innate] = {id: p2b_innate, target: p2b};
+				}
+			}
+			let ally = pokemon.side.active.find(ally => ally && ally !== pokemon && !ally.fainted);
+			if (ally && ally.ability !== pokemon.ability) {
+				if (!pokemon.innate) {
+					pokemon.innate = 'ability' + ally.ability;
+					delete pokemon.volatiles[pokemon.innate];
+					pokemon.addVolatile(pokemon.innate);
+				}
+				if (!ally.innate) {
+					ally.innate = 'ability' + pokemon.ability;
+					delete ally.volatiles[ally.innate];
+					ally.addVolatile(ally.innate);
+				}
+			}
+		},
+		onSwitchOut: function (pokemon) {
+			if (pokemon.innate) {
+				pokemon.removeVolatile(pokemon.innate);
+				delete pokemon.innate;
+			}
+			let ally = pokemon.side.active.find(ally => ally && ally !== pokemon && !ally.fainted);
+			if (ally && ally.innate) {
+				ally.removeVolatile(ally.innate);
+				delete ally.innate;
+			}
+		},
+		onFaint: function (pokemon) {
+			if (pokemon.innate) {
+				pokemon.removeVolatile(pokemon.innate);
+				delete pokemon.innate;
+			}
+			let ally = pokemon.side.active.find(ally => ally && ally !== pokemon && !ally.fainted);
+			if (ally && ally.innate) {
+				ally.removeVolatile(ally.innate);
+				delete ally.innate;
+			}
+		},
+	},
+	{
+>>>>>>> e14dc1d2994f3d6cf8b50fb2f43fab524258b42e
 		name: "[Gen 7] Mediocremons",
 		desc: [
 			"Only Pok&eacute;mon whose stats are all less than 100 are allowed.",
@@ -1471,7 +1543,7 @@ exports.Formats = [
 		searchShow: false,
 		ruleset: ['[Gen 4] OU'],
 		banlist: ['Explosion', 'Soul Dew'],
-		unbanlist: ['Garchomp', 'Latias', 'Latios', 'Manaphy', 'Mew', 'Salamence', 'Wobbufett', 'Wynaut'],
+		unbanlist: ['Garchomp', 'Latias', 'Latios', 'Manaphy', 'Mew', 'Salamence', 'Wobbuffet', 'Wynaut'],
 	},
 	{
 		name: "[Gen 4] Doubles Custom Game",

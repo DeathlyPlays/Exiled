@@ -79,7 +79,7 @@ exports.BattleFormats = {
 	pokemon: {
 		effectType: 'ValidatorRule',
 		name: 'Pokemon',
-		desc: ["The foundational rules for any and all formats based on in-game mechanics (everything but Custom Game)"],
+		desc: ["Applies the basic limitations of pokemon games: level 100, 6 pokemon, 4 moves, no CAP, no future-gen pokemon/moves/etc - but does not include illegal move/ability validation"],
 		onValidateTeam: function (team, format) {
 			let problems = [];
 			if (team.length > 6) problems.push('Your team has more than six Pok\u00E9mon.');
@@ -178,6 +178,10 @@ exports.BattleFormats = {
 					set.evs[k] = 0;
 				}
 				totalEV += set.evs[k];
+			}
+			if (this.gen <= 1) {
+				if (set.evs) set.evs['spd'] = set.evs['spa'];
+				if (set.ivs) set.ivs['spd'] = set.ivs['spa'];
 			}
 			// In gen 6, it is impossible to battle other players with pokemon that break the EV limit
 			if (totalEV > 510 && this.gen === 6) {
@@ -798,12 +802,18 @@ exports.BattleFormats = {
 		desc: ["Allows the use of Pok&eacute;mon, abilities, moves, and items made by the Create-A-Pok&eacute;mon project"],
 		// Implemented in the 'pokemon' ruleset
 	},
+	allowtradeback: {
+		effectType: 'ValidatorRule',
+		name: 'Allow Tradeback',
+		desc: ["Allows Gen 1 pokemon to have moves from their Gen 2 learnsets"],
+		// Implemented in team-validator.js
+	},
 	ashdex: {
 		effectType: 'ValidatorRule',
 		name: 'Ash Dex',
 		onValidateSet: function (set, format) {
 			let ashDex = {
-				"Sceptile":1, "Pidgeotto":1, "Pikachu":1, "Bulbasaur":1, "Squirtle":1, "Charizard":1, "Goodra":1, "Noivern":1, "Snivy":1, "Charmander":1, "Charmeleon":1, "Froakie":1, "Frogadier":1, "Greninja":1, "Treecko":1, "Grovyle":1, "Talonflame":1, "Caterpie":1, "Metapod":1, "Butterfree":1, "Fletchling":1, "Fletchinder":1, "Muk":1, "Grimer":1, "Snorlax":1, "Krabby":1, "Kingler":1, "Raticate":1, "Lapras":1, "Glalie":1, "Staraptor":1, "Buizel":1, "Aipom":1, "Donphan":1, "Torkoal":1, "Torterra":1, "Turtwig":1, "Grotle":1, "Quilava":1, "Tepig":1, "Pignite":1, "Oshawott":1, "Corphish":1, "Swellow":1, "Pidove":1, "Gliscor":1, "Chimchar":1, "Monferno":1, "Infernape":1, "Primeape":1, "Pidgeot":1, "Heracross":1, "Chikorita":1, "Cyndaquil":1, "Totodile":1, "Noctowl":1, "Beedrill":1, "Bayleef":1, "Phanpy":1, "Taillow":1, "Snorunt":1, "Gligar":1, "Gible":1, "Tranquil":1, "Sewaddle":1, "Swadloon":1, "Scraggy":1, "Roggenrola":1, "Palpitoad":1, "Boldore":1, "Leavanny":1, "Krokorok":1, "Krookodile":1, "Unfezant":1, "Greninja-Ash":1, "Hawlucha":1, "Noibat":1, "Goomy":1, "Sliggoo":1, "Haunter":1, "Larvitar":1, "Rowlet":1, "Rockruff":1, "Litten":1, "Tauros":1,
+				"Sceptile": 1, "Pidgeotto": 1, "Pikachu": 1, "Bulbasaur": 1, "Squirtle": 1, "Charizard": 1, "Goodra": 1, "Noivern": 1, "Snivy": 1, "Charmander": 1, "Charmeleon": 1, "Froakie": 1, "Frogadier": 1, "Greninja": 1, "Treecko": 1, "Grovyle": 1, "Talonflame": 1, "Caterpie": 1, "Metapod": 1, "Butterfree": 1, "Fletchling": 1, "Fletchinder": 1, "Muk": 1, "Grimer": 1, "Snorlax": 1, "Krabby": 1, "Kingler": 1, "Raticate": 1, "Lapras": 1, "Glalie": 1, "Staraptor": 1, "Buizel": 1, "Aipom": 1, "Donphan": 1, "Torkoal": 1, "Torterra": 1, "Turtwig": 1, "Grotle": 1, "Quilava": 1, "Tepig": 1, "Pignite": 1, "Oshawott": 1, "Corphish": 1, "Swellow": 1, "Pidove": 1, "Gliscor": 1, "Chimchar": 1, "Monferno": 1, "Infernape": 1, "Primeape": 1, "Pidgeot": 1, "Heracross": 1, "Chikorita": 1, "Cyndaquil": 1, "Totodile": 1, "Noctowl": 1, "Beedrill": 1, "Bayleef": 1, "Phanpy": 1, "Taillow": 1, "Snorunt": 1, "Gligar": 1, "Gible": 1, "Tranquil": 1, "Sewaddle": 1, "Swadloon": 1, "Scraggy": 1, "Roggenrola": 1, "Palpitoad": 1, "Boldore": 1, "Leavanny": 1, "Krokorok": 1, "Krookodile": 1, "Unfezant": 1, "Greninja-Ash": 1, "Hawlucha": 1, "Noibat": 1, "Goomy": 1, "Sliggoo": 1, "Haunter": 1, "Larvitar": 1, "Rowlet": 1, "Rockruff": 1, "Litten": 1, "Tauros": 1,
 			};
 			let template = this.getTemplate(set.species || set.name);
 			if (!(template.baseSpecies in ashDex) && format.banlistTable[template.speciesid] !== false) {

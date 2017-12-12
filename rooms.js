@@ -1560,7 +1560,7 @@ class ChatRoom extends BasicRoom {
 			// @ts-ignore TODO: strongly-typed surveys
 			for (let u in this.survey.surveyArray) {
 				// @ts-ignore TODO: strongly-typed surveys
-				if (this.survey.surveyArray[u] && user.userid in this.survey.surveyArray[u].repliers) this.survey.updateTo(user);
+				if (this.survey.surveyArray[u] && user.userid in this.survey.surveyArray[u].repliers) this.survey.updateTo(user, u, false);
 			}
 		}
 		return user;

@@ -93,14 +93,16 @@ class Survey {
 		}
 	}
 
-	displayTo(user, connection, number) {
-		if (!connection) connection = user;
-		if (user.userid in this.surveyArray[number].repliers) {
-			connection.sendTo(this.room, `|uhtml|survey${this.surveyArray[number].surveyNum}|<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Survey-${this.surveyArray[number].surveyNum}</span> <strong style="font-size:11pt">${(this.surveyArray[number].allowHTML ? this.surveyArray[number].question : Chat.escapeHTML(this.surveyArray[number].question))}</strong></p>Thank you for answering the survey.<br/><div style="margin-top: 7px; padding-left: 12px"><button value="/survey results ${this.surveyArray[number].surveyNum}" class="button" name="send" title="Show results - view all replies"><small>(View Results)</small></div></div>`, number);
-		} else if (user.latestIp in this.surveyArray[number].replierIps) {
-			connection.sendTo(this.room, `|uhtml|survey${this.surveyArray[number].surveyNum}|<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Survey-${this.surveyArray[number].surveyNum}</span> <strong style="font-size:11pt">${(this.surveyArray[number].allowHTML ? this.surveyArray[number].question : Chat.escapeHTML(this.surveyArray[number].question))}</strong></p>Thank you for answering the survey.<br/><div style="margin-top: 7px; padding-left: 12px"><button value="/survey results ${this.surveyArray[number].surveyNum}" class="button" name="send" title="Show results - view all replies"><small>(View Results)</small></div></div>`, number);
-		} else {
-			connection.sendTo(this.room, `|uhtml|survey${this.surveyArray[number].surveyNum}|${this.generateQuestion(number)}`);
+	displayTo(user, connection) {
+		for (let u in this.surveyArray) {
+			if (!connection) connection = user;
+			if (user.userid in this.surveyArray[u].repliers) {
+				connection.sendTo(this.room, `|uhtml|survey${this.surveyArray[u].surveyNum}|<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Survey-${this.surveyArray[u].surveyNum}</span> <strong style="font-size:11pt">${(this.surveyArray[u].allowHTML ? this.surveyArray[u].question : Chat.escapeHTML(this.surveyArray[u].question))}</strong></p>Thank you for answering the survey.<br/><div style="margin-top: 7px; padding-left: 12px"><button value="/survey results ${this.surveyArray[u].surveyNum}" class="button" name="send" title="Show results - view all replies"><small>(View Results)</small></div></div>`, u);
+			} else if (user.latestIp in this.surveyArray[u].replierIps) {
+				connection.sendTo(this.room, `|uhtml|survey${this.surveyArray[u].surveyNum}|<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Survey-${this.surveyArray[u].surveyNum}</span> <strong style="font-size:11pt">${(this.surveyArray[u].allowHTML ? this.surveyArray[u].question : Chat.escapeHTML(this.surveyArray[u].question))}</strong></p>Thank you for answering the survey.<br/><div style="margin-top: 7px; padding-left: 12px"><button value="/survey results ${this.surveyArray[u].surveyNum}" class="button" name="send" title="Show results - view all replies"><small>(View Results)</small></div></div>`, u);
+			} else {
+				connection.sendTo(this.room, `|uhtml|survey${this.surveyArray[u].surveyNum}|${this.generateQuestion(u)}`);
+			}
 		}
 	}
 
@@ -354,7 +356,7 @@ exports.commands = {
 				if (!num && this.broadcasting) {
 					room.survey.display();
 				} else {
-					room.survey.displayTo(user, connection, num);
+					room.survey.displayTo(user, connection);
 				}
 			}
 		},

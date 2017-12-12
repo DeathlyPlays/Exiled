@@ -175,11 +175,11 @@ function handleBoughtItem(item, user, cost) {
 		user.canOpenMysteryBox = true;
 		this.sendReply("Good luck! Happy unboxing :)");
 	} else {
-		let msg = '**' + user.name + " has bought " + item + ".**";
-		Monitor.log('~' + Config.serverName + ' Server' + msg);
+		let msg = `**${user.name} has bought ${item}.**`;
+		Monitor.log(`${msg}`);
 		Users.users.forEach(function (user) {
 			if (user.group === '~' || user.group === '&' || user.group === '@') {
-				user.send('|pm|~' + Config.serverName + ' Server|' + user.getIdentity() + '|' + msg);
+				user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|${msg}`);
 			}
 		});
 	}

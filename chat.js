@@ -1011,14 +1011,14 @@ Chat.parse = function (message, room, user, connection) {
 
 Chat.sendPM = function (message, user, pmTarget, onlyRecipient = null) {
 	let noEmotes = message;
-	let emoticons = Server.parseEmoticons(message);
-	if (emoticons) message = "/html " + emoticons;
+	let emoticons = Server.parseEmoticons(message, this.room);
+	if (emoticons) message = `/html ${emoticons}`;
 	let buf = `|pm|${user.getIdentity()}|${pmTarget.getIdentity()}|${(Server.ignoreEmotes[user.userid] ? noEmotes : message)}`;
 	// TODO is onlyRecipient a user? If so we should check if they are ignoring emoticons.
 	if (onlyRecipient) return onlyRecipient.send(buf);
 	user.send(buf);
 	if (Users.ShadowBan.checkBanned(user)) {
-		Users.ShadowBan.addMessage(this.user, "Private to " + this.pmTarget.getIdentity(), noEmotes);
+		Users.ShadowBan.addMessage(this.user, `Private to ${this.pmTarget.getIdentity()}, ${noEmotes}`);
 	} else if (pmTarget !== user) {
 		pmTarget.send(buf);
 	}

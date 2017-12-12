@@ -391,6 +391,15 @@ exports.commands = {
 		targetUser.popup("Get burned!");
 		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
 	},
+	l: 'loss',
+	loss: function (target, room, user) {
+		if (!target) return this.sendReply('/loss needs a target.');
+		if (!this.can('mute', null, room)) return this.errorReply('/loss - Access Denied.');
+		let targetUser = Users.get(target);
+		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
+		room.addRaw(Server.nameColor(target, true, true) + ' took an L!');
+		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
+	},
 	shoot: 'blast',
 	blast: function (target, room, user) {
 		if (!target) return this.sendReply('/shoot needs a target.');

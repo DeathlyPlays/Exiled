@@ -133,6 +133,7 @@ exports.commands = {
 	code: function (target, room, user) {
 		if (!target) return this.parse('/help code');
 		if (!this.canTalk()) return;
+		if (target.startsWith('\n')) target = target.slice(1);
 		const separator = '\n';
 		if (target.includes(separator)) {
 			const params = target.split(separator);
@@ -1237,6 +1238,24 @@ exports.commands = {
 		if (target.startsWith('https://')) target = target.slice(8);
 		if (target.startsWith('play.pokemonshowdown.com/')) target = target.slice(25);
 		if (target.startsWith('psim.us/')) target = target.slice(8);
+		if (target.startsWith('view-')) {
+			// it's a page!
+			let parts = target.split('-');
+			let handler = Chat.pages;
+			parts.shift();
+			while (handler) {
+				if (typeof handler === 'function') {
+					let res = handler.call(this, parts);
+					if (typeof res === 'string') {
+						if (res !== '|deinit') res = `|init|html\n${res}`;
+						connection.send(`>${target}\n${res}`);
+						res = undefined;
+					}
+					return res;
+				}
+				handler = handler[parts.shift() || 'default'];
+			}
+		}
 		if (user.tryJoinRoom(target, connection) === null) {
 			connection.sendTo(target, "|noinit|namerequired|The room '" + target + "' does not exist or requires a login to join.");
 		}

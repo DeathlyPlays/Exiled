@@ -665,7 +665,7 @@ exports.Formats = [
 
 		mod: 'mixandmega',
 		ruleset: ['[Gen 7] Mix and Mega'],
-		banlist: ['Shadow Tag'],
+		banlist: ['Gengarite', 'Shadow Tag'],
 		bannedStones: ['Beedrillite', 'Blazikenite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite', 'Ultranecrozium Z'],
 		cannotMega: [
 			'Arceus', 'Darkrai', 'Deoxys', 'Deoxys-Attack', 'Dialga', 'Dragonite', 'Giratina', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Marshadow',
@@ -1896,6 +1896,36 @@ exports.Formats = [
 		},
 	},
 	{
+<<<<<<< HEAD
+=======
+		name: "[Gen 7] Holiday Metagame",
+		mod: "holiday",
+		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
+		team: "randomHoliday",
+		desc: [
+			"Idea, concept, coded, and created by Insist",
+			"Also, Astral Wobz helped with the ideas for more holidays :D",
+			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
+		],
+	},
+	{
+		name: "[Gen 7] Metronome Battle",
+		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
+		ruleset: ['Pokemon', 'Standard'],
+		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass', 'Aguav Berry', 'Assault Vest', 'Berry Juice', 'Cheek Pouch', 'Dry Skin', 'Ice Body', 'Poison Heal', 'Regenerator', 'Volt Absorb', 'Water Absorb', 'Rain Dish', 'Black Sludge', 'Enigma Berry', 'Figy Berry', 'Iapapa Berry', 'Mago Berry', 'Oran Berry', 'Shell Bell', 'Sitrus Berry', 'Wiki Berry', 'Leftovers'],
+		mod: 'metronome',
+		onValidateSet: function (set) {
+			if (set.moves.length !== 1 || toId(set.moves[0]) !== 'metronome') {
+				return [(set.name || set.species) + " can only have Metronome."];
+			}
+		},
+		onEffectiveness: function (typeMod, target, type, move) {
+			//change no effect to not very effective
+			if (move && !this.getImmunity(move, type)) return 2;
+		},
+	},
+	{
+>>>>>>> 37323b1197fc8fcf77282f8e3fe3dff5850f9978
 		name: "[Gen 7] Monotype Ubers",
 		desc: [
 			"All the Pok&eacute;mon on a team must share a type, but it is in Ubers",
@@ -2078,12 +2108,13 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Random Metronome Battle",
 		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
-		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod'],
+		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		team: 'random',
+		mod: 'gen7',
 		onBegin: function () {
 			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
 			allPokemon.forEach(pokemon => {
-				pokemon.baseMoveset = [{
+				pokemon.baseMoveSlots = [{
 					move: 'Metronome',
 					id: 'metronome',
 					pp: 16,
@@ -2094,13 +2125,13 @@ exports.Formats = [
 					used: false,
 				}];
 				pokemon.moves = ['metronome'];
-				pokemon.moveset = pokemon.baseMoveset;
+				pokemon.moveSlots = pokemon.baseMoveSlots;
 				if (Dex.getFormat('[Gen 7] Metronome Battle').banlist.includes(this.getItem(pokemon.item).name)) {
 					pokemon.item = 'leppaberry';
 				}
 			});
 		},
-		onEffectiveness: function (type, move) {
+		onEffectiveness: function (typeMod, target, type, move) {
 			//change no effect to not very effective
 			if (move && !this.getImmunity(move, type)) return 2;
 		},

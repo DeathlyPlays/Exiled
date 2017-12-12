@@ -12,7 +12,6 @@ class RandomSmashTeams extends RandomTeams {
 				item: 'Leftovers',
 				gender: 'M',
 				moves: ['highjumpkick', 'headsmash', 'bravebird'],
-				baseSignatureMove: "hoodlumswarm",
 				signatureMove: "Hoodlum Swarm",
 				evs: {
 					atk: 252,
@@ -27,7 +26,6 @@ class RandomSmashTeams extends RandomTeams {
 				item: 'Leftovers',
 				gender: 'M',
 				moves: ['headsmash', 'woodhammer', 'flareblitz'],
-				baseSignatureMove: 'ironwarhammer',
 				signatureMove: 'Iron War Hammer',
 				evs: {
 					atk: 252,
@@ -42,7 +40,6 @@ class RandomSmashTeams extends RandomTeams {
 				item: 'Choice Band',
 				gender: 'F',
 				moves: ['headsmash', 'headcharge', 'flareblitz'],
-				baseSignatureMove: "ireallycan",
 				signatureMove: "I Really Can",
 				evs: {
 					atk: 252,
@@ -71,7 +68,6 @@ class RandomSmashTeams extends RandomTeams {
 				item: 'Life Orb',
 				gender: 'M',
 				moves: ['headsmash', 'hydra', 'bravebird'],
-				baseSignatureMove: 'evilintentions',
 				signatureMove: 'Evil Intentions',
 				evs: {
 					atk: 252,
@@ -86,7 +82,6 @@ class RandomSmashTeams extends RandomTeams {
 				item: 'Zoom Lens',
 				gender: 'F',
 				moves: ['headsmash', 'lightofruin', 'flareblitz'],
-				baseSignatureMove: "toostronk",
 				signatureMove: "TOO STRONK",
 				evs: {
 					spa: 252,
@@ -101,7 +96,6 @@ class RandomSmashTeams extends RandomTeams {
 				item: 'Life Orb',
 				gender: 'M',
 				moves: ['headsmash', 'volttackle', 'shatteringearth'],
-				baseSignatureMove: 'trashtalk',
 				signatureMove: 'Trash Talk',
 				evs: {
 					atk: 252,
@@ -117,7 +111,6 @@ class RandomSmashTeams extends RandomTeams {
 				gender: 'F',
 				shiny: true,
 				moves: ['headsmash', 'bravebird', 'doubleedge'],
-				baseSignatureMove: "breadsmash",
 				signatureMove: "BREADSMASH",
 				evs: {
 					atk: 252,
@@ -160,7 +153,6 @@ class RandomSmashTeams extends RandomTeams {
 				item: 'Leftovers',
 				gender: 'M',
 				moves: ['headsmash', 'flareblitz', 'woodhammer'],
-				baseSignatureMove: 'shatteringearth',
 				signatureMove: 'Shattering Earth',
 				evs: {
 					atk: 252,
@@ -175,7 +167,6 @@ class RandomSmashTeams extends RandomTeams {
 				item: 'Air Balloon',
 				gender: 'M',
 				moves: ['metalsword', 'headsmash', 'flareblitz'],
-				baseSignatureMove: "livingintheshadows",
 				signatureMove: "Living in the Shadows",
 				evs: {
 					atk: 252,
@@ -190,7 +181,6 @@ class RandomSmashTeams extends RandomTeams {
 				item: 'Choice Scarf',
 				gender: 'M',
 				moves: ['headsmash', 'flareblitz', 'bravebird'],
-				baseSignatureMove: "tyrantsrage",
 				signatureMove: "Tyrant's Rage",
 				evs: {
 					atk: 252,
@@ -217,7 +207,6 @@ class RandomSmashTeams extends RandomTeams {
 				ability: "Reckless",
 				item: "Choice Band",
 				moves: ['headsmash', 'bravebird', 'wildcharge'],
-				baseSignatureMove: "piranhaattack",
 				signatureMove: "Piranha Attack",
 				evs: {
 					atk: 252,
@@ -244,7 +233,6 @@ class RandomSmashTeams extends RandomTeams {
 				ability: "Rock Head",
 				item: "Life Orb",
 				moves: ['headsmash', 'flareblitz', 'woodhammer'],
-				baseSignatureMove: "draconicblitz",
 				signatureMove: "Draconic Blitz",
 				evs: {
 					atk: 252,
@@ -267,14 +255,14 @@ class RandomSmashTeams extends RandomTeams {
 			set.level = 100;
 			set.name = pool[i];
 			if (!set.ivs) {
-				set.ivs = {hp:31, atk:31, def:31, spa:31, spd:31, spe:31};
+				set.ivs = {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31};
 			} else {
-				for (let iv in {hp:31, atk:31, def:31, spa:31, spd:31, spe:31}) {
+				for (let iv in {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31}) {
 					set.ivs[iv] = set.ivs[iv] || set.ivs[iv] === 0 ? set.ivs[iv] : 31;
 				}
 			}
 			// Assuming the hardcoded set evs are all legal.
-			if (!set.evs) set.evs = {hp:84, atk:84, def:84, spa:84, spd:84, spe:84};
+			if (!set.evs) set.evs = {hp: 84, atk: 84, def: 84, spa: 84, spd: 84, spe: 84};
 			set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves)].concat(set.signatureMove);
 			team.push(set);
 		}

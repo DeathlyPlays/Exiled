@@ -3,4 +3,3 @@ logs/
 dev-tools/globals.js
 node_modules/
 server-plugins/hex.js
-rooms.js

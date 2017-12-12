@@ -18,7 +18,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Leftovers",
 				ability: "Adaptability",
 				moves: ['knockoff', 'closecombat', 'playrough'],
-				baseSignatureMove: "battleram",
 				signatureMove: "Battle Ram",
 				evs: {
 					atk: 252,
@@ -32,7 +31,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Life Orb",
 				ability: "Sharpshooter",
 				moves: ['psyshock', 'focusblast', 'vacuumwave'],
-				baseSignatureMove: "arrowsiege",
 				signatureMove: "Arrow Siege",
 				evs: {
 					spa: 252,
@@ -46,7 +44,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Focus Sash",
 				ability: "Theft",
 				moves: ['thief', 'endeavor', 'extremespeed'],
-				baseSignatureMove: "greed",
 				signatureMove: "Greed",
 				evs: {
 					atk: 252,
@@ -60,7 +57,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Leftovers",
 				ability: "Meatshield",
 				moves: ['recover', 'bulkup', 'drainpunch'],
-				baseSignatureMove: "rebound",
 				signatureMove: "Rebound",
 				evs: {
 					hp: 252,
@@ -74,7 +70,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Life Orb",
 				ability: "Wizardry",
 				moves: ['moonblast', 'icebeam', 'aurasphere'],
-				baseSignatureMove: "fireball",
 				signatureMove: "Fireball",
 				evs: {
 					spa: 252,
@@ -88,7 +83,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Leftovers",
 				ability: "I Gotz a Bomb",
 				moves: ['roost', 'knockoff', 'suckerpunch'],
-				baseSignatureMove: "airstrike",
 				signatureMove: "Air Strike",
 				evs: {
 					hp: 252,
@@ -102,7 +96,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Focus Sash",
 				ability: "Mayhem",
 				moves: ['hurricane', 'sludgewave', 'nastyplot'],
-				baseSignatureMove: "evilbiding",
 				signatureMove: "Evil Biding",
 				evs: {
 					spa: 252,
@@ -116,7 +109,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Leftovers",
 				ability: "HOG RIDDAH",
 				moves: ['rockslide', 'drainpunch', 'extremespeed'],
-				baseSignatureMove: "hammerslammer",
 				signatureMove: "Hammer Slammer",
 				evs: {
 					atk: 252,
@@ -130,7 +122,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Leftovers",
 				ability: "Witchcraft",
 				moves: ['recover', 'psystrike', 'moonblast'],
-				baseSignatureMove: "raisethedead",
 				signatureMove: "Raise the Dead",
 				evs: {
 					hp: 252,
@@ -144,7 +135,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Leftovers",
 				ability: "Burnout",
 				moves: ['oblivionwing', 'defog', 'roost'],
-				baseSignatureMove: "combustion",
 				signatureMove: "Combustion",
 				evs: {
 					hp: 252,
@@ -158,7 +148,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Masked Warrior",
 				item: "Leftovers",
 				moves: ['sacredsword', 'nightslash', 'psychocut'],
-				baseSignatureMove: "metallicsword",
 				signatureMove: "Metallic Sword",
 				evs: {
 					atk: 252,
@@ -172,7 +161,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Leftovers",
 				ability: "Pixie Blessing",
 				moves: ['cosmicpower', 'oblivionwing', 'storedpower'],
-				baseSignatureMove: "healspell",
 				signatureMove: "Heal Spell",
 				evs: {
 					hp: 252,
@@ -199,7 +187,6 @@ class RandomSupercellTeams extends RandomTeams {
 				item: "Scope Lens",
 				ability: "Ranged Sniper",
 				moves: ['psyshock', 'searingshot', 'vacuumwave'],
-				baseSignatureMove: "royalarrow",
 				signatureMove: "Royal Arrow",
 				evs: {
 					spa: 252,
@@ -213,7 +200,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Giant Bomb",
 				item: "Leftovers",
 				moves: ['drainpunch', 'knockoff', 'recover'],
-				baseSignatureMove: "explode",
 				signatureMove: "Explode",
 				evs: {
 					atk: 252,
@@ -227,7 +213,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Spear Link",
 				item: "King's Rock",
 				moves: ['pinmissile', 'iciclespear', 'rockblast'],
-				baseSignatureMove: "tossspears",
 				signatureMove: "Toss Spears",
 				evs: {
 					atk: 252,
@@ -241,7 +226,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Minefield",
 				item: "Leftovers",
 				moves: ['rockslide', 'recover', 'stealthrock'],
-				baseSignatureMove: "minerush",
 				signatureMove: "Mine Rush",
 				evs: {
 					atk: 252,
@@ -255,7 +239,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Power Cooldown",
 				item: "Leftovers",
 				moves: ['focusblast', 'recover', 'gigadrain'],
-				baseSignatureMove: "lightningspell",
 				signatureMove: "Lightning Spell",
 				evs: {
 					spa: 252,
@@ -269,7 +252,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Glacier Wizardry",
 				item: "Life Orb",
 				moves: ['moonblast', 'aurasphere', 'psyshock'],
-				baseSignatureMove: "freezespell",
 				signatureMove: "Freeze Spell",
 				evs: {
 					spa: 252,
@@ -296,7 +278,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Timber",
 				item: "Leftovers",
 				moves: ['headsmash', 'highjumpkick', 'wildcharge'],
-				baseSignatureMove: "Log",
 				signatureMove: "Log",
 				evs: {
 					atk: 252,
@@ -310,7 +291,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Zap Wizardry",
 				item: "Life Orb",
 				moves: ['gigadrain', 'focusblast', 'psychic'],
-				baseSignatureMove: "zapspell",
 				signatureMove: "Zap Spell",
 				evs: {
 					spa: 252,
@@ -324,7 +304,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Graveyard",
 				item: "Focus Sash",
 				moves: ['playrough', 'knockoff', 'extremespeed'],
-				baseSignatureMove: "boneslash",
 				signatureMove: "Bone Slash",
 				evs: {
 					atk: 252,
@@ -338,7 +317,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Fatality",
 				item: "Leftovers",
 				moves: ['recover', 'drainpunch', 'shadowsneak'],
-				baseSignatureMove: "axemerang",
 				signatureMove: "Axemerang",
 				evs: {
 					atk: 252,
@@ -352,7 +330,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Continental Crush",
 				item: "Leftovers",
 				moves: ['stealthrock', 'earthquake', 'recover'],
-				baseSignatureMove: "binaryfission",
 				signatureMove: "Binary Fission",
 				evs: {
 					hp: 252,
@@ -366,7 +343,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Inferno Blaze",
 				item: "Choice Scarf",
 				moves: ['earthpower', 'gigadrain', 'flamethrower'],
-				baseSignatureMove: "infernoblitz",
 				signatureMove: "Inferno Blitz",
 				evs: {
 					spa: 252,
@@ -380,7 +356,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Subzero Frost",
 				item: "Choice Scarf",
 				moves: ['earthpower', 'gigadrain', 'freezedry'],
-				baseSignatureMove: "subzerofrostbite",
 				signatureMove: "Subzero Frostbite",
 				evs: {
 					spa: 252,
@@ -394,7 +369,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Steel Enforced Shield",
 				item: "Leftovers",
 				moves: ['knockoff', 'swordsdance', 'shadowsneak'],
-				baseSignatureMove: "shield",
 				signatureMove: "Shield",
 				evs: {
 					atk: 252,
@@ -408,7 +382,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Cannonball",
 				item: "Leftovers",
 				moves: ['drainpunch', 'knockoff', 'recover'],
-				baseSignatureMove: "cannon",
 				signatureMove: "Cannon",
 				evs: {
 					atk: 252,
@@ -422,7 +395,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Ye Royale Joust",
 				item: "Choice Band",
 				moves: ['knockoff', 'playrough', 'closecombat'],
-				baseSignatureMove: "royaljoust",
 				signatureMove: "Royal Joust",
 				evs: {
 					atk: 252,
@@ -436,7 +408,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Allahu Akbar",
 				item: "Choice Scarf",
 				moves: ['explode', 'explosion', 'healingwish'],
-				baseSignatureMove: "breakthewall",
 				signatureMove: "Break the Wall",
 				evs: {
 					atk: 252,
@@ -450,7 +421,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Bravery",
 				item: "Leftovers",
 				moves: ['knockoff', 'recover', 'bulkup'],
-				baseSignatureMove: "axehax",
 				signatureMove: "Axe Hax",
 				evs: {
 					atk: 252,
@@ -464,7 +434,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Master Detonator",
 				item: "Life Orb",
 				moves: ['gigadrain', 'earthpower', 'vacuumwave'],
-				baseSignatureMove: "tossbombs",
 				signatureMove: "Toss Bombs",
 				evs: {
 					spa: 252,
@@ -478,7 +447,6 @@ class RandomSupercellTeams extends RandomTeams {
 				ability: "Champion Bowler",
 				item: "Leftovers",
 				moves: ['gigadrain', 'earthpower', 'recover'],
-				baseSignatureMove: "strike",
 				signatureMove: "STRIKE",
 				evs: {
 					spa: 252,
@@ -514,14 +482,14 @@ class RandomSupercellTeams extends RandomTeams {
 			set.level = 100;
 			set.name = pool[i];
 			if (!set.ivs) {
-				set.ivs = {hp:31, atk:31, def:31, spa:31, spd:31, spe:31};
+				set.ivs = {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31};
 			} else {
-				for (let iv in {hp:31, atk:31, def:31, spa:31, spd:31, spe:31}) {
+				for (let iv in {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31}) {
 					set.ivs[iv] = set.ivs[iv] || set.ivs[iv] === 0 ? set.ivs[iv] : 31;
 				}
 			}
 			// Assuming the hardcoded set evs are all legal.
-			if (!set.evs) set.evs = {hp:84, atk:84, def:84, spa:84, spd:84, spe:84};
+			if (!set.evs) set.evs = {hp: 84, atk: 84, def: 84, spa: 84, spd: 84, spe: 84};
 			set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves)].concat(set.signatureMove);
 			team.push(set);
 		}

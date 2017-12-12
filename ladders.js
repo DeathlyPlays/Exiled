@@ -176,7 +176,7 @@ class Ladder extends LadderStore {
 		const userid = toId(username);
 		const userChalls = challenges.get(userid);
 		if (userChalls) {
-			for (const chall of userChalls) {
+			for (const chall of userChalls.slice()) {
 				let otherUserid;
 				if (chall.from === userid) {
 					otherUserid = chall.to;
@@ -235,8 +235,9 @@ class Ladder extends LadderStore {
 		const ladder = Ladders(chall.formatid);
 		const ready = await ladder.prepBattle(connection);
 		if (!ready) return false;
-		Ladder.removeChallenge(chall);
-		Ladders.match(chall.ready, ready);
+		if (Ladder.removeChallenge(chall)) {
+			Ladders.match(chall.ready, ready);
+		}
 		return true;
 	}
 
@@ -274,7 +275,11 @@ class Ladder extends LadderStore {
 	 */
 	static removeChallenge(challenge, skipUpdate = false) {
 		const fromChalls = /** @type {Challenge[]} */ (challenges.get(challenge.from));
-		fromChalls.splice(fromChalls.indexOf(challenge), 1);
+		// the challenge may have been cancelled
+		if (!fromChalls) return false;
+		const fromIndex = fromChalls.indexOf(challenge);
+		if (fromIndex < 0) return false;
+		fromChalls.splice(fromIndex, 1);
 		if (!fromChalls.length) challenges.delete(challenge.from);
 		const toChalls = /** @type {Challenge[]} */ (challenges.get(challenge.to));
 		toChalls.splice(toChalls.indexOf(challenge), 1);
@@ -285,6 +290,7 @@ class Ladder extends LadderStore {
 			const toUser = Users(challenge.to);
 			if (toUser) Ladder.updateChallenges(toUser);
 		}
+		return true;
 	}
 	/**
 	 * @param {User} user

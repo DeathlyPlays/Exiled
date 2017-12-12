@@ -83,9 +83,9 @@ class Survey {
 			for (let i in this.room.users) {
 				let thisUser = this.room.users[i];
 				if (thisUser.userid in this.surveyArray[u].repliers) {
-					thisUser.sendTo(this.room, `|uhtml|survey${this.surveyArray[u].surveyNum}|<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Survey-${this.surveyArray[number].surveyNum}</span> <strong style="font-size:11pt">${(this.surveyArray[u].allowHTML ? this.surveyArray[u].question : Chat.escapeHTML(this.surveyArray[u].question))}</strong></p>Thank you for answering the survey.<br/><div style="margin-top: 7px; padding-left: 12px"><button class="button" value="/survey results ${this.surveyArray[number].surveyNum}" name="send" title="Show results - view all replies"><small>(View Results)</small></div></div>`);
+					thisUser.sendTo(this.room, `|uhtml|survey${this.surveyArray[u].surveyNum}|<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Survey-${this.surveyArray[u].surveyNum}</span> <strong style="font-size:11pt">${(this.surveyArray[u].allowHTML ? this.surveyArray[u].question : Chat.escapeHTML(this.surveyArray[u].question))}</strong></p>Thank you for answering the survey.<br/><div style="margin-top: 7px; padding-left: 12px"><button class="button" value="/survey results ${this.surveyArray[u].surveyNum}" name="send" title="Show results - view all replies"><small>(View Results)</small></div></div>`);
 				} else if (thisUser.latestIp in this.surveyArray[u].replierIps) {
-					thisUser.sendTo(this.room, `|uhtml|survey${this.surveyArray[u].surveyNum}|<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Survey-${this.surveyArray[number].surveyNum}</span> <strong style="font-size:11pt">${(this.surveyArray[u].allowHTML ? this.surveyArray[u].question : Chat.escapeHTML(this.surveyArray[u].question))}</strong></p>Thank you for answering the survey.<br/><div style="margin-top: 7px; padding-left: 12px"><button class="button" value="/survey results ${this.surveyArray[number].surveyNum}" name="send" title="Show results - view all replies"><small>(View Results)</small></div></div>`);
+					thisUser.sendTo(this.room, `|uhtml|survey${this.surveyArray[u].surveyNum}|<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Survey-${this.surveyArray[u].surveyNum}</span> <strong style="font-size:11pt">${(this.surveyArray[u].allowHTML ? this.surveyArray[u].question : Chat.escapeHTML(this.surveyArray[u].question))}</strong></p>Thank you for answering the survey.<br/><div style="margin-top: 7px; padding-left: 12px"><button class="button" value="/survey results ${this.surveyArray[u].surveyNum}" name="send" title="Show results - view all replies"><small>(View Results)</small></div></div>`);
 				} else {
 					thisUser.sendTo(this.room, `|uhtml|survey${this.surveyArray[u].surveyNum}|${toAnswer}`);
 				}
@@ -358,7 +358,7 @@ exports.commands = {
 				}
 			}
 		},
-		displayhelp: ["/survey display [survey number] - Display the specified survey."],
+		displayhelp: ["/survey display [survey id number] - Displays the survey. Id number is optional and only displays the survey with the id number."],
 
 		delete: 'remove',
 		remove: function (target, room, user) {

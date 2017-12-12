@@ -158,12 +158,12 @@ exports.commands = {
 			let size = Math.round(Number(target));
 			if (isNaN(size)) return this.errorReply(`"${target}" is not a valid number.`);
 			if (size < 1) return this.errorReply(`Size may not be less than 1.`);
-			if (size > 500) return this.errorReply(`Size may not be more than 200.`);
+			if (size > 200) return this.errorReply(`Size may not be more than 200.`);
 
 			room.emoteSize = size;
 			room.chatRoomData.emoteSize = size;
 			Rooms.global.writeChatRoomData();
-			this.addModCommand(`${user.name} has changed emoticon size in this room to ${size}`);
+			this.addModCommand(`${user.name} has changed emoticon size in this room to ${size}.`);
 		},
 
 		"": "help",

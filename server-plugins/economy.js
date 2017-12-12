@@ -1,6 +1,6 @@
 'use strict';
 
-const FS = require('fs');
+const fs = require('fs');
 
 // This should be the default amount of money users have..
 // Ideally, this should be zero.
@@ -137,12 +137,12 @@ let Economy = global.Economy = {
 	},
 	logTransaction: function (message) {
 		if (!message) return false;
-		FS.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+		fs.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
 	},
 
 	logDice: function (message) {
 		if (!message) return false;
-		FS.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+		fs.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
 	},
 };
 
@@ -318,7 +318,7 @@ exports.commands = {
 		if (!target) return this.sendReply("Usage: /moneylog [number] to view the last x lines OR /moneylog [text] to search for text.");
 		let word = false;
 		if (isNaN(Number(target))) word = true;
-		let lines = FS.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
+		let lines = fs.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
 		let output = '';
 		let count = 0;
 		let regex = new RegExp(target.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&'), "gi");
@@ -477,7 +477,8 @@ exports.commands = {
 			this.sendReplyBox('<strong>RIP</strong><br /><div style="background: url(http://moziru.com/images/tombstone-clipart-20.png); background-size: 100% 100%; height: 200px"></div>');
 			break;
 		case 'rick rolled':
-			this.sendReplyBox("<blink>" +
+			this.sendReplyBox(
+				"<blink>" +
 				"Never gonna give you up<br />" +
 				"Never gonna let you down<br />" +
 				"Never gonna run around and desert you<br />" +

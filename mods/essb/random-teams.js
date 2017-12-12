@@ -14,7 +14,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				gender: "M",
 				shiny: true,
 				moves: ['freezedry', 'gigadrain', 'focusblast'],
-				baseSignatureMove: "npmtest",
 				signatureMove: "npm test",
 				evs: {
 					spa: 252,
@@ -29,7 +28,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Scope Lens",
 				gender: "F",
 				moves: ['fireblast', 'blizzard', 'boomburst'],
-				baseSignatureMove: "oblivionbanisher",
 				signatureMove: "Oblivion Banisher",
 				evs: {
 					spa: 252,
@@ -44,7 +42,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Focus Sash",
 				gender: "M",
 				moves: ['flashcannon', 'dracometeor', 'dragonpulse'],
-				baseSignatureMove: "darkstorm",
 				signatureMove: "Dark Storm",
 				evs: {
 					spa: 252,
@@ -60,7 +57,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Expert Belt",
 				gender: "M",
 				moves: ['vcreate', 'boltstrike', 'uturn'],
-				baseSignatureMove: "zencreate",
 				signatureMove: "Zen Create",
 				evs: {
 					atk: 252,
@@ -76,7 +72,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				gender: "M",
 				shiny: true,
 				moves: ['recover', 'hex', 'toxic'],
-				baseSignatureMove: "plasmablast",
 				signatureMove: "Plasma Blast",
 				evs: {
 					hp: 252,
@@ -93,7 +88,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Life Orb",
 				gender: "M",
 				moves: ['secretsword', 'moongeistbeam', 'ember'],
-				baseSignatureMove: "solareruption",
 				signatureMove: "Solar Eruption",
 				evs: {
 					spa: 252,
@@ -108,7 +102,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Rocky Helmet",
 				gender: "M",
 				moves: ['aeroblast', 'steameruption', 'freezedry'],
-				baseSignatureMove: "roleplaying",
 				signatureMove: "Roleplaying",
 				evs: {
 					def: 148,
@@ -123,7 +116,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Silk Scarf",
 				gender: "M",
 				moves: ['extremespeed', 'uturn', 'fakeout'],
-				baseSignatureMove: "awailofatail",
 				signatureMove: "A Wail of a Tail",
 				evs: {
 					atk: 252,
@@ -140,7 +132,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				gender: "M",
 				shiny: true,
 				moves: ['aurasphere', 'sludgewave', 'psychic'],
-				baseSignatureMove: "exile",
 				signatureMove: "Exile",
 				evs: {
 					spa: 252,
@@ -155,7 +146,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: 'Eviolite',
 				gender: 'M',
 				moves: ['Crabhammer', 'Swords Dance', 'Knock Off'],
-				baseSignatureMove: "stabstab",
 				signatureMove: 'Stab Stab',
 				evs: {
 					atk: 252,
@@ -171,7 +161,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Aguav Berry",
 				gender: "M",
 				moves: ['shadowball', 'darkpulse', 'painsplit'],
-				baseSignatureMove: "voodoomagic",
 				signatureMove: "Voodoo Magic",
 				evs: {
 					spa: 252,
@@ -187,7 +176,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Focus Sash",
 				gender: "F",
 				moves: ['moonblast', 'calmmind', 'psychic'],
-				baseSignatureMove: "revengeofkrakenmare",
 				signatureMove: "Revenge of Kraken Mare",
 				evs: {
 					hp: 248,
@@ -203,7 +191,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				gender: "M",
 				moves: ['psystrike', 'moonblast', 'hypervoice'],
 				shiny: true,
-				baseSignatureMove: "ooga",
 				signatureMove: "Ooga",
 				evs: {
 					spa: 252,
@@ -218,7 +205,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			   item: "Tarnationium Z",
 			   gender: "F",
 			   moves: ['swagger', 'foulplay', 'toxic'],
-			   baseSignatureMove: "thinking",
 			   signatureMove: "thinking",
 			   evs: {
 				   hp: 252,
@@ -234,7 +220,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				shiny: true,
 				gender: "F",
 				moves: ['outrage', 'earthquake', 'swordsdance'],
-				baseSignatureMove: "dragonblitz",
 				signatureMove: "Dragon Blitz",
 				evs: {
 					atk: 252,
@@ -250,7 +235,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Arcanium Z",
 				gender: "M",
 				moves: ['closecombat', 'extremespeed', 'morningsun'],
-				baseSignatureMove: "horrificroasts",
 				signatureMove: "Horrific Roasts",
 				evs: {
 					atk: 252,
@@ -265,7 +249,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Leftovers",
 				gender: "M",
 				moves: ['scald', 'icebeam', 'gigadrain'],
-				baseSignatureMove: "scripting",
 				signatureMove: "Scripting",
 				evs: {
 					spa: 252,
@@ -280,7 +263,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Eviolite",
 				gender: "M",
 				moves: ['partingshot', 'softboiled', 'moonblast'],
-				baseSignatureMove: "geg4life",
 				signatureMove: "GEG 4 LIFE",
 				evs: {
 					hp: 252,
@@ -295,7 +277,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Not the Lycanium Z i swear",
 				gender: "M",
 				moves: ['diamondstorm', 'earthquake', 'auroraveil'],
-				baseSignatureMove: "altstorm",
 				signatureMove: "Alt Storm",
 				evs: {
 					atk: 252,
@@ -311,7 +292,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Life Orb",
 				gender: "M",
 				moves: ['flamethrower', 'earthpower', 'dragonpulse'],
-				baseSignatureMove: "itsmytimenow",
 				signatureMove: "It's My Time Now",
 				evs: {
 					spa: 252,
@@ -326,7 +306,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Health Orb",
 				gender: "M",
 				moves: ['outrage', 'flareblitz', 'roost'],
-				baseSignatureMove: "dragonify",
 				signatureMove: "Dragonify",
 				evs: {
 					atk: 252,
@@ -341,7 +320,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Rainbow Plate",
 				gender: "M",
 				moves: ['judgment', 'substitute', 'quiverdance'],
-				baseSignatureMove: "holydance",
 				signatureMove: "Holy Dance",
 				evs: {
 					spa: 252,
@@ -355,7 +333,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				ability: "Poison Heal",
 				item: "Toxic Orb",
 				moves: ['dragonclaw', 'willowisp', 'dragonpulse'],
-				baseSignatureMove: "hellfire",
 				signatureMove: "Hellfire",
 				evs: {
 					hp: 4,
@@ -371,7 +348,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Leftovers",
 				gender: "M",
 				moves: ['storedpower', 'chargebeam', 'drainingkiss'],
-				baseSignatureMove: "Crippling Kiss",
 				signatureMove: "Crippling Kiss",
 				evs: {
 					hp: 252,
@@ -402,7 +378,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Life Orb",
 				moves: ['doubleedge', 'drainpunch', 'woodhammer'],
 				gender: "F",
-				baseSignatureMove: "cookiestorm",
 				signatureMove: "Cookie Storm",
 				evs: {
 					atk: 252,
@@ -432,7 +407,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Legendinium Z",
 				gender: 'M',
 				moves: ['dragonascent', 'earthquake', 'extremespeed'],
-				baseSignatureMove: "lordswrath",
 				signatureMove: "Lord's Wrath",
 				evs: {
 					spe: 252,
@@ -447,7 +421,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Toxic Orb",
 				gender: "F",
 				moves: ['bravebird', 'doubleedge', 'protect'],
-				baseSignatureMove: "kamikaze",
 				signatureMove: "Kamikaze",
 				evs: {
 					atk: 252,
@@ -462,7 +435,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Leftovers",
 				gender: "M",
 				moves: ['roar', 'storedpower', 'recover'],
-				baseSignatureMove: "cripplinghazards",
 				signatureMove: "Crippling Hazards",
 				evs: {
 					hp: 252,
@@ -477,7 +449,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Playerinium Z",
 				gender: "M",
 				moves: ['firelash', 'fusionbolt', 'dragonrush'],
-				baseSignatureMove: "rushofdragonbolt",
 				signatureMove: "Rush of Dragon Bolt",
 				evs: {
 					atk: 252,
@@ -492,7 +463,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Ultra Leftovers",
 				gender: "F",
 				moves: ['vcreate', 'drainingkiss', 'judgment'],
-				baseSignatureMove: "perfectend",
 				signatureMove: "Perfect End",
 				evs: {
 					hp: 252,
@@ -507,7 +477,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Douglasinium Z",
 				gender: "M",
 				moves: ['drainpunch', 'poisonjab', 'thunderpunch'],
-				baseSignatureMove: "punchyfury",
 				signatureMove: "Punchy Fury",
 				evs: {
 					atk: 252,
@@ -522,7 +491,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Life Orb",
 				gender: "M",
 				moves: ['nastyplot', 'nightdaze', 'focusblast'],
-				baseSignatureMove: "powerofdarkness",
 				signatureMove: "Power Of Darkness",
 				evs: {
 					spa: 252,
@@ -537,7 +505,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Life Orb",
 				gender: "F",
 				moves: ['boomburst', 'psychic', 'earthpower'],
-				baseSignatureMove: "prfmador",
 				signatureMove: "prfmador",
 				evs: {
 					spa: 252,
@@ -552,7 +519,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Kanekinium Z",
 				gender: "M",
 				moves: ['flamethrower', 'psyshock', 'energyball'],
-				baseSignatureMove: "superultraflamethrowerdestroyerofuniverses",
 				signatureMove: "Super Ultra Flamethrower Destroyer of Universes",
 				evs: {
 					spa: 252,
@@ -567,7 +533,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Life Orb",
 				gender: "M",
 				moves: ['scald', 'icebeam', 'thunder'],
-				baseSignatureMove: "copywaterclones",
 				signatureMove: "Copy Water Clones",
 				evs: {
 					spa: 252,
@@ -582,7 +547,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Assault Vest",
 				gender: "M",
 				moves: ['steameruption', 'gigadrain', 'earthpower'],
-				baseSignatureMove: "volcanosrevenge",
 				signatureMove: "Volcano's Revenge",
 				evs: {
 					spa: 252,
@@ -597,7 +561,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Life Orb",
 				gender: "M",
 				moves: ['swordsdance', 'playrough', 'suckerpunch'],
-				baseSignatureMove: "punchofdarkness",
 				signatureMove: "Punch of Darkness",
 				evs: {
 					atk: 252,
@@ -612,7 +575,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "BrightPowder",
 				gender: "M",
 				moves: ['bravebird', 'knockoff', 'jumpkick'],
-				baseSignatureMove: "triplepeakmegasmash",
 				signatureMove: "Triple Peak Mega Smash",
 				evs: {
 					atk: 252,
@@ -627,7 +589,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Life Orb",
 				gender: "M",
 				moves: ['closecombat', 'moonblast', 'solarbeam'],
-				baseSignatureMove: "warriorsinferno",
 				signatureMove: "Warrior's Inferno",
 				evs: {
 					atk: 128,
@@ -642,7 +603,6 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				item: "Marillium",
 				gender: "M",
 				moves: ['spectralthief', 'liquidation', 'drainpunch'],
-				baseSignatureMove: "shadowretreat",
 				signatureMove: "Shadow Retreat",
 				evs: {
 					hp: 252,
@@ -690,14 +650,14 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 			set.level = 100;
 			set.name = pool[i];
 			if (!set.ivs) {
-				set.ivs = {hp:31, atk:31, def:31, spa:31, spd:31, spe:31};
+				set.ivs = {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31};
 			} else {
-				for (let iv in {hp:31, atk:31, def:31, spa:31, spd:31, spe:31}) {
+				for (let iv in {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31}) {
 					set.ivs[iv] = set.ivs[iv] || set.ivs[iv] === 0 ? set.ivs[iv] : 31;
 				}
 			}
 			// Assuming the hardcoded set evs are all legal.
-			if (!set.evs) set.evs = {hp:84, atk:84, def:84, spa:84, spd:84, spe:84};
+			if (!set.evs) set.evs = {hp: 84, atk: 84, def: 84, spa: 84, spd: 84, spe: 84};
 			set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves)].concat(set.signatureMove);
 			team.push(set);
 		}

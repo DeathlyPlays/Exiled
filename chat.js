@@ -274,11 +274,11 @@ class CommandContext {
 		if (message && message !== true && typeof message.then !== 'function') {
 			let emoticons = Server.parseEmoticons(message, this.room);
 			if (this.pmTarget) {
-				Chat.sendPM((emoticons ? '/html ' + emoticons : message), this.user, this.pmTarget);
+				Chat.sendPM((emoticons ? `/html ${emoticons}` : `${message}`), this.user, this.pmTarget);
 			} else {
 				if (emoticons && !this.room.disableEmoticons) {
 					if (Users.ShadowBan.checkBanned(this.user)) {
-						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
+						Users.ShadowBan.addMessage(this.user, `To ${this.room.id}, ${message}`);
 						if (!Server.ignoreEmotes[this.user.userid]) this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|/html ' + emoticons);
 						if (Server.ignoreEmotes[this.user.userid]) this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
 						this.room.update();
@@ -1010,15 +1010,11 @@ Chat.parse = function (message, room, user, connection) {
 };
 
 Chat.sendPM = function (message, user, pmTarget, onlyRecipient = null) {
-	let noEmotes = message;
-	let emoticons = Server.parseEmoticons(message, this.room);
-	if (emoticons) message = `/html ${emoticons}`;
-	let buf = `|pm|${user.getIdentity()}|${pmTarget.getIdentity()}|${(Server.ignoreEmotes[user.userid] ? noEmotes : message)}`;
-	// TODO is onlyRecipient a user? If so we should check if they are ignoring emoticons.
+	let buf = `|pm|${user.getIdentity()}|${pmTarget.getIdentity()}|${message}`;
 	if (onlyRecipient) return onlyRecipient.send(buf);
 	user.send(buf);
 	if (Users.ShadowBan.checkBanned(user)) {
-		Users.ShadowBan.addMessage(this.user, `Private to ${this.pmTarget.getIdentity()}, ${noEmotes}`);
+		Users.ShadowBan.addMessage(this.user, `Private to ${this.pmTarget.getIdentity()}, ${message}`);
 	} else if (pmTarget !== user) {
 		pmTarget.send(buf);
 	}

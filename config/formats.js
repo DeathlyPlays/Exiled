@@ -1666,7 +1666,7 @@ exports.Formats = [
 		mod: 'gen7',
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview'],
 		banlist: ['Deep Sea Scale', 'Deep Sea Tooth', 'Eviolite', 'Light Ball', 'Thick Club', 'Baton Pass'],
-		onModifyTemplate: function (template, pokemon) {
+		onModifyTemplate: function (template) {
 			let bst = 0;
 			let hp = template.baseStats['hp'];
 			Object.values(template.baseStats).forEach(stat => {bst += stat;});
@@ -1679,8 +1679,8 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Exiled Super Staff Bros.",
-		mod: 'essb',
+		name: "[Gen 7] Dewdrop Super Staff Bros.",
+		mod: 'dssb',
 		team: 'randomSeasonalMelee',
 		ruleset: ['Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 		desc: [
@@ -1896,8 +1896,6 @@ exports.Formats = [
 		},
 	},
 	{
-<<<<<<< HEAD
-=======
 		name: "[Gen 7] Holiday Metagame",
 		mod: "holiday",
 		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
@@ -1925,7 +1923,6 @@ exports.Formats = [
 		},
 	},
 	{
->>>>>>> 37323b1197fc8fcf77282f8e3fe3dff5850f9978
 		name: "[Gen 7] Monotype Ubers",
 		desc: [
 			"All the Pok&eacute;mon on a team must share a type, but it is in Ubers",
@@ -2036,7 +2033,7 @@ exports.Formats = [
 		ruleset: ['Sleep Clause Mod', 'Exact HP Mod', 'Cancel Mod', 'Freeze Clause Mod', 'Team Preview', 'Endless Battle Clause'],
 		banlist: ['Fell Stinger', 'Mud Slap', 'Power Up Punch', 'Uber'],
 		onModifyMovePriority: 5,
-		onModifyMove: function(move, pokemon) {
+		onModifyMove: function (move) {
 			if (move.category === 'Status' || move.priority !== 0 || move.onBasePower || move.basePowerCallback) return move;
 			if (move.isZ) {
 				move.basePower = 180;

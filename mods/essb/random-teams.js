@@ -401,7 +401,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Naive",
 			},
-			" ggdaca":{
+			" ggdaca": {
 				species: "Rayquaza-Mega",
 				ability: "Lord's Grace",
 				item: "Legendinium Z",

@@ -368,14 +368,13 @@ exports.commands = {
 			if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 			if (!room.survey) return this.errorReply("There is no survey running in the room.");
 			if (!target) return this.errorReply("Please select an answer to remove.");
-			target = toId(target);
 			let num = room.survey.obtain(parseInt(target));
 			if (!num) return this.errorReply("Not a survey number!");
-			if (!user.userid in this.surveyArray[num].repliers || user.latestIp in this.surveyArray[num].replierIps) return this.errorReply(`The user ${target} has not responded to this survey.`);
-			for (let i in room.survey.replierIps) {
+			if (!room.survey.surveyArray[num].repliers) return this.errorReply(`The user ${target} has not responded to this survey.`);
+			for (let i in this.surveyArray[num].replierIps) {
 				if (room.survey.replierIps[i] === room.survey.repliers[target]) {
-					room.survey.replierIps[i] = 0;
-					room.survey.repliers[target] = 0;
+					room.survey.surveyArray.replierIps[i] = 0;
+					room.survey.surveyArray.repliers[target] = 0;
 					break;
 				}
 			}
@@ -447,7 +446,7 @@ exports.commands = {
 		"/survey create [question] - Create a survey. Allows up to 5 surveys. Requires % @ # & ~",
 		"/survey answer [answer], [survey id number] - Answers the specified survey.",
 		"/survey results [survey id number] - View the results of the specified survey. You can't go back and answer if you haven't already.",
-		"/survey display [survey id number] - Display the specified survey.",
+		"/survey display [survey id number] - Display the specified survey. If no ID is specified, displays all surveys.",
 		"/survey remove [user], [survey id number] - Removes a user's reply from the specified survey and prevents them from sending in a new one for this survey. Requires: % @ # & ~",
 		"/survey end [survey id number] - Ends the specified survey and displays the results. Requires: % @ # & ~",
 		"/survey timer [time in minutes], [survey id number] - Sets a timer for the specified survey to automatically end. Require % @ # & ~",

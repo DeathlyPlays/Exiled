@@ -1587,7 +1587,7 @@ exports.commands = {
 		x = x || Math.floor(Math.random() * (856 - 1));
 		let rand;
 		let y = x;
-		let random = Math.floor(Math.random() * 3)
+		let random = Math.floor(Math.random() * 3);
 		if (random === 0) {
 			rand = x;
 		} else if (random === 1) {

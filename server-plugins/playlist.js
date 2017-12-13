@@ -38,7 +38,7 @@ function playlistGenerator(user) {
 }
 
 exports.commands = {
-	playlist : function (target, room, user) {
+	playlist: function (target, room, user) {
 		if (!target) return this.sendReply('|uhtml|' + user.name + 'playlist|' + playlistGenerator(user.userid));
 		let parts = target.split(',');
 		switch (toId(parts[0])) {

@@ -366,7 +366,6 @@ class SSB {
 		writeSSB();
 		if (self.cmd !== 'moveq') self.sendReply(`Added the move ${move.name} to your movepool.`);
 		return self.user.sendTo(self.room, `|uhtmlchange|ssb${self.user.userid}${buildMenu(self.user.userid)}`);
-		return true;
 	}
 
 	removeMove(move) {
@@ -1036,8 +1035,8 @@ exports.commands = {
 			let customMove = toId(targets[1]);
 			if (!customMove) return this.errorReply('Must include a move!');
 			if (!Dex.mod('cssb').getMove(customMove).exists) return this.errorReply("Move doesn't exist in the ssbffa mod!");
-			if (!WL.ssb[userid].bought.cMove) return this.errorReply('They have not bought a custom move!');
-			WL.ssb[userid].selfCustomMove = customMove;
+			if (!Server.ssb[userid].bought.cMove) return this.errorReply('They have not bought a custom move!');
+			Server.ssb[userid].selfCustomMove = customMove;
 			writeSSB();
 			return this.sendReply('Move set for ' + userid + '!');
 		},
@@ -1052,8 +1051,8 @@ exports.commands = {
 			let customAbility = toId(targets[1]);
 			if (!customAbility) return this.errorReply('/ssb giveability target, ability');
 			if (!Dex.mod('cssb').getAbility(customAbility).exists) return this.errorReply("Ability doesn't exist in the ssbffa mod!");
-			if (!WL.ssb[userid].bought.cAbility) return this.errorReply('They have not bought a custom ability!');
-			WL.ssb[userid].cAbility = customAbility;
+			if (!Server.ssb[userid].bought.cAbility) return this.errorReply('They have not bought a custom ability!');
+			Server.ssb[userid].cAbility = customAbility;
 			writeSSB();
 			return this.sendReply('Ability set for ' + userid + '!');
 		},
@@ -1068,8 +1067,8 @@ exports.commands = {
 			let item = toId(targets[1]);
 			if (!item) return this.errorReply('Must include an item');
 			if (!Dex.mod('cssb').getItem(item).exists) return this.errorReply("Item doesn't exist in the ssbffa mod!");
-			if (!WL.ssb[userid].bought.cItem) return this.errorReply('They have not bought a custom item!');
-			WL.ssb[userid].cItem = item;
+			if (!Server.ssb[userid].bought.cItem) return this.errorReply('They have not bought a custom item!');
+			Server.ssb[userid].cItem = item;
 			writeSSB();
 			return this.sendReply('Item set for ' + userid + '!');
 		},

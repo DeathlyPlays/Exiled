@@ -1297,7 +1297,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Uproar", target);
 		},
 		desc: "Hits 3-5 times. Confuses the target after.",
-		shortDesc: "Hits 3-5 times + Confuses target."
+		shortDesc: "Hits 3-5 times + Confuses target.",
 		id: "altstorm",
 		isNonstandard: true,
 		name: "Alt Storm",

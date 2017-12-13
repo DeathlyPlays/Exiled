@@ -18,7 +18,7 @@ exports.BattleStatuses = {
 				let rand = 0;
 				if (possibleInnates.length > 1) rand = this.random(possibleInnates.length);
 				let innate = possibleInnates[rand];
-				let bannedAbilities = {comatose:1, flowergift:1, forecast:1, illusion:1, imposter:1, multitype:1, schooling:1, stancechange:1, trace:1, zenmode:1};
+				let bannedAbilities = {comatose: 1, flowergift: 1, forecast: 1, illusion: 1, imposter: 1, multitype: 1, schooling: 1, stancechange: 1, trace: 1, zenmode: 1};
 				if (bannedAbilities[innate]) {
 					possibleInnates.splice(rand, 1);
 					possibleTargets.splice(rand, 1);

@@ -206,6 +206,7 @@ class Poll {
 		this.room.send('|uhtmlchange|poll' + this.pollArray[number].pollNum + '|<div><details>(The poll has ended &ndash; scroll down to see the results)</details></div>');
 		this.room.add('|html|' + results);
 	}
+
 	obtain(number) {
 		for (let u in this.pollArray) {
 			if (this.pollArray[u].pollNum === number) return u;

@@ -1738,7 +1738,7 @@ exports.Formats = [
 			if (!fusionTemplate.exists) return template;
 			try {
 				mixedTemplate.baseSpecies = mixedTemplate.species = template.species;
-				mixedTemplate.weightkg = Math.max(0.1, (template.weightkg + fusionTemplate.weightkg) / 2)
+				mixedTemplate.weightkg = Math.max(0.1, (template.weightkg + fusionTemplate.weightkg) / 2);
 
 				mixedTemplate.baseStats = {};
 				for (let statid in template.baseStats) {
@@ -1758,11 +1758,13 @@ exports.Formats = [
 			return mixedTemplate;
 		},
 		onSwitchInPriority: 1,
-		onSwitchIn: function(pokemon) {
+		onSwitchIn: function (pokemon) {
 			let types = pokemon.types;
-			if (!pokemon.fusetype) pokemon.fusetype = types;
-			else
+			if (!pokemon.fusetype) {
+				pokemon.fusetype = types;
+			} else {
 				pokemon.types = pokemon.fusetype;
+			}
 			let statusability = {
 				"aerilate": true,
 				"aurabreak": true,
@@ -1774,7 +1776,7 @@ exports.Formats = [
 				"slowstart": true,
 				"truant": true,
 				"unburden": true,
-				"zenmode": true
+				"zenmode": true,
 			};
 			let sec = (statusability[pokemon.abilitwo]) ? ("other" + pokemon.abilitwo) : (pokemon.abilitwo);
 			if (pokemon.abilitwo !== pokemon.ability) pokemon.addVolatile(sec); //Second Ability! YAYAYAY
@@ -1782,8 +1784,7 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', types.join('/'), '[silent]');
 			}
 		},
-		onAfterMega: function(pokemon)
-		{
+		onAfterMega: function (pokemon) {
 			if (pokemon.abilitwo !== pokemon.ability) {
 				let statusability = {
 					"aerilate": true,
@@ -1796,7 +1797,7 @@ exports.Formats = [
 					"slowstart": true,
 					"truant": true,
 					"unburden": true,
-					"zenmode": true
+					"zenmode": true,
 				};
 				let sec = (statusability[pokemon.abilitwo]) ? ("other" + pokemon.abilitwo) : (pokemon.abilitwo);
 				pokemon.removeVolatile(sec);
@@ -1804,7 +1805,7 @@ exports.Formats = [
 			pokemon.types = pokemon.fusetype;
 			this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[silent]');
 		},
-		onValidateSet: function(set, teamHas) {
+		onValidateSet: function (set, teamHas) {
 			let problems = [];
 			if (!set.name || set.name === set.species) return;
 			let template = this.getTemplate(set.species);
@@ -1812,7 +1813,7 @@ exports.Formats = [
 			let banlist = {
 				"shedinja": true,
 				"hugepower": true,
-				"purepower": true
+				"purepower": true,
 			};
 			if (!fusionTemplate.exists) return;
 			let unobtainable = {
@@ -1829,7 +1830,7 @@ exports.Formats = [
 			for (let i = 0; i < types.length; i++) {
 				unobtainable["Silvally-" + types[i]] = true;
 			}
-			if (unobtainable[fusionTemplate.species]) problems.push("You cannot fuse with " + fusionTemplate.species + " since it needs to have a specific ability or an item, or transforms inbattle.")
+			if (unobtainable[fusionTemplate.species]) problems.push("You cannot fuse with " + fusionTemplate.species + " since it needs to have a specific ability or an item, or transforms inbattle.");
 			let canHaveAbility = false;
 			if (fusionTemplate.isUnreleased) problems.push("You cannot fuse with a Unreleased Pokemon. (" + set.species + " has nickname " + set.name + ", which is unreleased)");
 			if (fusionTemplate.isMega) problems.push("You cannot fuse with a Mega Pokemon. (" + set.species + " has nickname " + set.name + ")");
@@ -1846,31 +1847,27 @@ exports.Formats = [
 			let movepool = [];
 			let prevo = template.isMega ? this.getTemplate(template.species.substring(0, template.species.length - 5)).prevo : template.prevo;
 
-			if (!this.data.Learnsets[toId(fusionTemplate.species)])
-			{
+			if (!this.data.Learnsets[toId(fusionTemplate.species)]) {
 				fusionTemplate.learnset = this.data.Learnsets[toId(fusionTemplate.species.split("-")[0])].learnset;
-			}
-			else
+			} else {
 				fusionTemplate.learnset = this.data.Learnsets[toId(fusionTemplate.species)].learnset;
-			if (!template.learnset)
-			{
-				template.learnset = this.data.Learnsets[toId(template.species.split("-")[0])].learnset;
 			}
-			else
+			if (!template.learnset) {
+				template.learnset = this.data.Learnsets[toId(template.species.split("-")[0])].learnset;
+			} else {
 				template.learnset = this.data.Learnsets[toId(template.species)].learnset;
+			}
 			do {
 				added[template.species] = true;
 				movepool = movepool.concat(Object.keys(template.learnset));
-				movepool = movepool.concat(Object.keys(fusionTemplate.learnset))
-			} while (template && template.species && !added[template.species]);
-			while (prevo)
-			{
+				movepool = movepool.concat(Object.keys(fusionTemplate.learnset));
+			}
+			while (prevo) {
 				movepool = movepool.concat(Object.keys(this.data.Learnsets[prevo].learnset));
 				prevo = this.getTemplate(prevo).prevo;
 			}
 			prevo = fusionTemplate.isMega ? this.getTemplate(fusionTemplate.species.substring(0, fusionTemplate.species.length - 5)).prevo : fusionTemplate.prevo;
-			while (prevo)
-			{
+			while (prevo) {
 				movepool = movepool.concat(Object.keys(this.data.Learnsets[prevo].learnset));
 				prevo = this.getTemplate(prevo).prevo;
 			}
@@ -1885,7 +1882,7 @@ exports.Formats = [
 			}
 			if (problems) return problems;
 		},
-		onValidateTeam: function(team) {
+		onValidateTeam: function (team) {
 			let nameTable = {};
 			for (let i = 0; i < team.length; i++) {
 				let name = team[i].name;
@@ -2065,7 +2062,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon",
-		mod: "perfection",
+		mod: "dewdrop",
 		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Sleep Cause Mod', 'Species Clause'],
 		desc: [
 			"Coded by Insist",
@@ -2077,7 +2074,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon Monotype",
-		mod: "perfection",
+		mod: "dewdrop",
 		ruleset: ['Pokemon', 'Standard', 'Same Type Clause', 'Team Preview'],
 		desc: [
 			"Perfected Pokemon Monotype mode",

@@ -234,6 +234,7 @@ exports.commands = {
 			);
 		},
 	},
+
 	fc: 'friendcode',
 	friendcode: {
 		add: 'set',
@@ -291,10 +292,10 @@ exports.commands = {
 	type: {
 		add: "set",
 		set: function (target, room, user) {
-		    let type = target.toLowerCase();
-			if (!type) return this.parse("/help type");
-			if (!['grass', 'fire', 'water', 'poison', 'ground', 'rock', 'bug', 'electric', 'ice', 'ghost', 'psychic', 'dragon', 'dark', 'fairy', 'steel', 'flying', 'normal', 'fighting'].includes(type)) return this.sendReply('Valid types are: fire, water, grass, electric, normal, fighting, rock, ice, ground, dragon, fairy, psychic, ghost, dark, flying, poison, steel and bug.');
-			Db("type").set(user.userid, type);
+			if (!target) return this.parse("/help type");
+			let type = Dex.getType(target);
+			if (!type.exists) return this.errorReply('Not a type. Check your spelling?');
+			Db("type").set(user.userid, toId(type));
 			return this.sendReply("You have successfully set your Favorite Type onto your profile.");
 		},
 

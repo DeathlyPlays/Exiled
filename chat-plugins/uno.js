@@ -579,19 +579,11 @@ class UNOgamePlayer extends Rooms.RoomGamePlayer {
 	}
 
 	sendDisplay() {
-<<<<<<< HEAD
-		let hand = this.buildHand().join("");
-		let players = `<p><strong>Players (${this.game.playerCount}):</strong></p>${this.game.getPlayers(true).join("<br />")}`;
-		let draw = '<button class="button" style="width: 30%; background: rgba(0, 0, 255, 0.05)" name=send value="/uno draw">Draw a card!</button>';
-		let pass = '<button class="button" style=" width: 30%; background: rgba(255, 0, 0, 0.05)" name=send value="/uno pass">Pass!</button>';
-		let uno = `<button class="button" style=" width: 30%; background: rgba(0, 255, 0, 0.05)" name=send value="/uno uno ${this.game.unoId || '0'}">UNO!</button>`;
-=======
 		let hand = this.buildHand().join('');
 		let players = `<p><strong>Players (${this.game.playerCount}):</strong></p>${this.game.getPlayers(true).join('<br />')}`;
 		let draw = '<button class="button" style="width: 45%; background: rgba(0, 0, 255, 0.05)" name=send value="/uno draw">Draw a card!</button>';
 		let pass = '<button class="button" style=" width: 45%; background: rgba(255, 0, 0, 0.05)" name=send value="/uno pass">Pass!</button>';
 		let uno = `<button class="button" style=" width: 90%; background: rgba(0, 255, 0, 0.05); height: 30px; margin-top: 2px;" name=send value="/uno uno ${this.game.unoId || '0'}">UNO!</button>`;
->>>>>>> e5a48cd8c1f82ab9771ac907efe6cd373a748ba2
 
 		let top = `<strong>Top Card: <span style="color: ${textColors[this.game.topCard.color]}">${this.game.topCard.name}</span></strong>`;
 

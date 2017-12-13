@@ -427,13 +427,8 @@ exports.commands = {
 	},
 	badnboostedhelp: ["/bnb <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted."],
 
-<<<<<<< HEAD
-	'scalemons' : 'scale',
-	scale : function (target, room, user) {
-=======
 	'scalemons': 'scale',
 	scale: function (target, room, user) {
->>>>>>> 26fee642f066cc01fb3f0ae67fcdc7577bb621b6
 		if (!this.runBroadcast()) return;
 		if (!Dex.data.Pokedex[toId(target)]) {
 			return this.errorReply("Error: Pokemon not found.");

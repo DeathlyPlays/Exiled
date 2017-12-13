@@ -15,7 +15,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, reflectable: 1, mirror: 1},
 		volatileStatus: 'gastroacid',
 		onTryHit: function (pokemon) {
-			let bannedAbilities = {multitype:1, stancechange:1};
+			let bannedAbilities = {multitype: 1, stancechange: 1};
 			if (bannedAbilities[pokemon.ability]) {
 				return false;
 			}

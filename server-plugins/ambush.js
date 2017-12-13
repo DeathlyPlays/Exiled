@@ -41,7 +41,7 @@ class Ambush {
 		if (this.players.has(user)) return self.sendReply('You have already joined this game of Ambush.');
 		if (this.round > 0) return self.sendReply('You cannot join a game of Ambush after it has started.');
 
-		this.players.set(user, {status:'alive', rounds:0});
+		this.players.set(user, {status: 'alive', rounds: 0});
 		this.updateJoins();
 	}
 	leave(user, self) {

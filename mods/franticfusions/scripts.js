@@ -4,7 +4,7 @@ exports.BattleScripts = {
 	init: function () {
 		Object.values(this.data.Abilities).forEach(ability => {
 			let abi = {};
-			let statusability = {"aerilate": true, "aurabreak": true, "flashfire": true, "parentalbond": true, "pixilate": true, "refrigerate": true, "sheerforce": true, "slowstart": true, "truant": true, "unburden": true, "zenmode":true};
+			let statusability = {"aerilate": true, "aurabreak": true, "flashfire": true, "parentalbond": true, "pixilate": true, "refrigerate": true, "sheerforce": true, "slowstart": true, "truant": true, "unburden": true, "zenmode": true};
 			for (let i in ability) abi[i] = ability[i];
 			if (statusability[abi.id]) {
 				this.data.Statuses["other" + ability.id] = abi;
@@ -30,7 +30,7 @@ exports.BattleScripts = {
 						if (possibleTargets.length > 1) rand = this.random(possibleTargets.length);
 						let target = possibleTargets[rand];
 						let ability = this.getAbility(target.abilitwo);
-						let bannedAbilities = {flowergift:1, forecast:1, illusion:1, imposter:1, multitype:1, stancechange:1, trace:1, zenmode:1};
+						let bannedAbilities = {flowergift: 1, forecast: 1, illusion: 1, imposter: 1, multitype: 1, stancechange: 1, trace: 1, zenmode: 1};
 						if (bannedAbilities[target.ability]) {
 							possibleTargets.splice(rand, 1);
 							continue;
@@ -46,7 +46,7 @@ exports.BattleScripts = {
 				id: "trace",
 				name: "Trace",
 				effectType: "Ability",
-				noCopy:true,
+				noCopy: true,
 			};
 		});
 	},

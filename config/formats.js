@@ -2053,7 +2053,7 @@ exports.Formats = [
 		ruleset: ['Sleep Clause Mod', 'Exact HP Mod', 'Cancel Mod', 'Freeze Clause Mod', 'Team Preview', 'Endless Battle Clause'],
 		banlist: ['Fell Stinger', 'Mud Slap', 'Power Up Punch', 'Uber'],
 		onModifyMovePriority: 5,
-		onModifyMove: function(move, pokemon) {
+		onModifyMove: function (move, pokemon) {
 			if (move.category === 'Status' || move.priority !== 0 || move.onBasePower || move.basePowerCallback) return move;
 			if (move.isZ) {
 				move.basePower = 180;

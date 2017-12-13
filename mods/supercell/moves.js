@@ -739,7 +739,7 @@ exports.BattleMovedex = {
 					}
 				}
 				if (move.flags['contact']) {
-					this.boost({atk:-2}, source, target, this.getMove("King's Shield"));
+					this.boost({atk: -2}, source, target, this.getMove("King's Shield"));
 				}
 				return null;
 			},

@@ -24,7 +24,7 @@ let roger = '<font color="#af3bcc">Roger</font>';
 let narrator = paige;
 
 //support "you" and "u" being interchangable
-	//coming soon
+//coming soon
 
 function say(message) {
 	this.sendReply('|html|' + narrator + ': ' + message);

@@ -12,4 +12,3 @@ Concept
 - Consider this as a new region, things can get an evolution/pre-evolution.
 - Learnsets can also be edited.
 - New moves exist for this metagame.
-- As well as a new typing __Cosmic__ exists.

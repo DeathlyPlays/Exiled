@@ -74,7 +74,7 @@ function lastActive(user) {
 
 exports.commands = {
 	dev: {
-		give: function (target, user) {
+		give: function (target, room, user) {
 			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
 			let devUsername = toId(target);
@@ -85,7 +85,7 @@ exports.commands = {
 			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
 
-		take: function (target, user) {
+		take: function (target, room, user) {
 			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
 			let devUsername = toId(target);
@@ -628,37 +628,37 @@ exports.commands = {
 
 		function showProfile() {
 			Economy.readMoney(toId(username), money => {
-				let profile = '';
-				profile += background(toId(username)) + showBadges(toId(username));
-				profile += '<img src="' + avatar + '" height="80" width="80" align="left">';
-				profile += '&nbsp;<font color="#24678d"><strong>Name:</strong></font> ' + Server.nameColor(username, true) + '&nbsp;' + getFlag(toId(username)) + ' ' + showTitle(username) + '<br />';
-				profile += '&nbsp;<font color="#24678d"><strong>Group:</strong></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
-				profile += '&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ' + regdate + '<br />';
-				profile += '&nbsp;<font color="#24678d"><strong>' + moneyPlural + ':</strong></font> ' + money + '<br />';
+				let profile = ``;
+				profile += `${background(toId(username))} ${showBadges(toId(username))}`;
+				profile += `<img src="${avatar}" height="80" width="80" align="left">`;
+				profile += `&nbsp;<font color="#24678d"><strong>Name:</strong></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
+				profile += `&nbsp;<font color="#24678d"><strong>Group:</strong></font> ${userGroup} ${devCheck(username)} ${vipCheck(username)}<br />`;
+				profile += `&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ${regdate}<br />`;
+				profile += `&nbsp;<font color="#24678d"><strong>${moneyPlural}:</strong></font> ${money}<br />`;
 				if (Db("pokemon").has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><strong>Favorite Pokemon:</strong></font> ' + Db("pokemon").get(toId(username)) + '<br />';
+					profile += `&nbsp;<font color="#24678d"><strong>Favorite Pokemon:</strong></font> ${Db("pokemon").get(toId(username))}<br />`;
 				}
 				if (Db("type").has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><strong>Favorite Type:</strong></font> <img src="https://www.serebii.net/pokedex-bw/type/' + Db("type").get(toId(username)) + '.gif"><br />';
+					profile += `&nbsp;<font color="#24678d"><strong>Favorite Type:</strong></font> <img src="https://www.serebii.net/pokedex-bw/type/${Db("type").get(toId(username))}.gif"><br />`;
 				}
 				if (Db("nature").has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><strong>Nature:</strong></font> ' + Db("nature").get(toId(username)) + '<br />';
+					profile += `&nbsp;<font color="#24678d"><strong>Nature:</strong></font> ${Db("nature").get(toId(username))}<br />`;
 				}
 				if (Server.getFaction(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><strong>Faction:</strong></font> ' + Server.getFaction(toId(username)) + '<br />';
+					profile += `&nbsp;<font color="#24678d"><strong>Faction:</strong></font> ${Server.getFaction(toId(username))}<br />`;
 				}
-				profile += '&nbsp;<font color="#24678d"><strong>EXP Level:</strong></font> ' + Server.level(toId(username)) + '<br />';
+				profile += `&nbsp;<font color="#24678d"><strong>EXP Level:</strong></font> ${Server.level(toId(username))}<br />`;
 				if (online && lastActive(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><strong>Last Active:</strong></font> ' + lastActive(toId(username)) + '<br />';
+					profile += `&nbsp;<font color="#24678d"><strong>Last Active:</strong></font> ${lastActive(toId(username))}<br />`;
 				}
-				profile += '&nbsp;<font color="#24678d"><strong>Last Seen:</strong></font> ' + getLastSeen(toId(username)) + '</font><br />';
+				profile += `&nbsp;<font color="#24678d"><strong>Last Seen:</strong></font> ${getLastSeen(toId(username))}</font><br />`;
 				if (Db("friendcode").has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><strong>Friend Code:</strong></font> ' + Db("friendcode").get(toId(username)) + '<br />';
+					profile += `&nbsp;<font color="#24678d"><strong>Friend Code:</strong></font> ${Db("friendcode").get(toId(username))}<br />`;
 				}
-				profile += '&nbsp;' + showTeam(toId(username)) + '<br />';
-				profile += '&nbsp;' + song(toId(username)) + '';
-				profile += '&nbsp;</div>';
-				profile += '<br clear="all">';
+				profile += `&nbsp;${showTeam(toId(username))}<br />`;
+				profile += `&nbsp;${song(toId(username))}`;
+				profile += `&nbsp;</div>`;
+				profile += `<br clear="all">`;
 				self.sendReplyBox(profile);
 			});
 		}

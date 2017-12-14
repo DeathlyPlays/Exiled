@@ -74,7 +74,7 @@ function lastActive(user) {
 
 exports.commands = {
 	dev: {
-		give: function (target, user) {
+		give: function (target, room, user) {
 			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
 			let devUsername = toId(target);
@@ -85,7 +85,7 @@ exports.commands = {
 			if (Users.get(devUsername)) Users(devUsername).popup("|html|You have been given DEV status by " + Server.nameColor(user.name, true) + ".");
 		},
 
-		take: function (target, user) {
+		take: function (target, room, user) {
 			if (!this.can('ban')) return false;
 			if (!target) return this.parse('/help', true);
 			let devUsername = toId(target);

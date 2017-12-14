@@ -753,6 +753,15 @@ exports.commands = {
 			}
 		}
 
+		if (targetRoom.subRooms) {
+			for (const subRoom of targetRoom.subRooms) subRoom.parent = null;
+		}
+		const parent = targetRoom.parent;
+		if (parent && parent.subRooms) {
+			parent.subRooms.delete(targetRoom.id);
+			if (!parent.subRooms.size) parent.subRooms = null;
+		}
+
 		targetRoom.add("|raw|<div class=\"broadcast-red\"><b>This room has been deleted.</b></div>");
 		targetRoom.update(); // |expire| needs to be its own message
 		targetRoom.add("|expire|This room has been deleted.");
@@ -821,6 +830,7 @@ exports.commands = {
 			}
 		} else {
 			const settingName = (setting === true ? 'secret' : setting);
+			if (room.subRooms) return this.errorReply("Private rooms cannot have subrooms.");
 			if (room.isPrivate === setting) {
 				if (room.privacySetter && !room.privacySetter.has(user.userid)) {
 					room.privacySetter.add(user.userid);
@@ -881,6 +891,90 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 		}
 	},
+
+	subroom: function (target, room, user) {
+		if (!this.can('makeroom')) return;
+		if (!target) return this.parse('/help subroom');
+
+		if (!room.chatRoomData) return this.errorReply(`Temporary rooms cannot be subrooms.`);
+		if (room.parent) return this.errorReply(`This room is already a subroom. To change which room this subroom belongs to, remove the subroom first.`);
+		if (room.subRooms) return this.errorReply(`This room is already a parent room, and a parent room cannot be made as a subroom.`);
+
+		const main = Rooms.search(target);
+
+		if (!main) return this.errorReply(`The room '${target}' does not exist.`);
+		if (main.isPrivate || !main.chatRoomData) return this.errorReply(`Only public rooms can have subrooms.`);
+		if (room === main) return this.errorReply(`You cannot set a room to be a subroom of itself.`);
+
+		room.parent = main;
+		if (!main.subRooms) main.subRooms = new Map();
+		main.subRooms.set(room.id, room);
+
+		let mainIdx = Rooms.global.chatRoomDataList.findIndex(r => r.title === main.title);
+		let subIdx = Rooms.global.chatRoomDataList.findIndex(r => r.title === room.title);
+
+		// This is needed to ensure that the main room gets loaded before the subroom.
+		if (mainIdx > subIdx) {
+			const tmp = Rooms.global.chatRoomDataList[mainIdx];
+			Rooms.global.chatRoomDataList[mainIdx] = Rooms.global.chatRoomDataList[subIdx];
+			Rooms.global.chatRoomDataList[subIdx] = tmp;
+		}
+
+		room.chatRoomData.parentid = main.id;
+		Rooms.global.writeChatRoomData();
+
+		for (let userid in room.users) {
+			room.users[userid].updateIdentity(room.id);
+		}
+
+		return this.addModCommand(`This room was set as a subroom of ${main.title} by ${user.name}.`);
+	},
+
+	removesubroom: 'unsubroom',
+	unsubroom: function (target, room, user) {
+		if (!this.can('makeroom')) return;
+		if (!room.parent || !room.chatRoomData) return this.errorReply(`This room is not currently a subroom of a public room.`);
+
+		const parent = room.parent;
+		if (parent && parent.subRooms) {
+			parent.subRooms.delete(room.id);
+			if (!parent.subRooms.size) parent.subRooms = null;
+		}
+
+		room.parent = null;
+
+		delete room.chatRoomData.parentid;
+		Rooms.global.writeChatRoomData();
+
+		for (let userid in room.users) {
+			room.users[userid].updateIdentity(room.id);
+		}
+
+		return this.addModCommand(`This room was unset as a subroom by ${user.name}.`);
+	},
+
+	subrooms: function (target, room, user) {
+		if (room.isPrivate) return this.errorReply(`Private rooms cannot have subrooms.`);
+		if (!room.chatRoomData) return this.errorReply(`Temporary rooms cannot have subrooms.`);
+
+		if (!this.runBroadcast()) return;
+
+		let showSecret = !this.broadcasting && this.can('mute', null, room);
+
+		let subRooms = room.getSubRooms(showSecret);
+
+		if (!subRooms.length) return this.sendReply(`This room doesn't have any subrooms.`);
+
+		let subRoomText = subRooms.map(room => Chat.html `<a href="/${room.id}">${room.title}</a><br/><small>${room.desc}</small>`);
+
+		return this.sendReplyBox(`<p style="font-weight:bold;">${Chat.escapeHTML(room.title)}'s subroom${Chat.plural(subRooms)}:</p><ul><li>${subRoomText.join('</li><br/><li>')}</li></ul></strong>`);
+	},
+
+	subroomhelp: [
+		"/subroom [room] - Marks the current room as a subroom of room. Requires: & ~",
+		"/unsubroom - Unmarks the current room as a subroom. Requires: & ~",
+		"/subrooms - Displays the current room's subrooms.",
+	],
 
 	roomdesc: function (target, room, user) {
 		if (!target) {
@@ -1082,6 +1176,179 @@ exports.commands = {
 	},
 	removeroomaliashelp: ["/removeroomalias [alias] - removes the given room alias of the room the command was entered in. Requires: & ~"],
 
+<<<<<<< HEAD
+=======
+	roomowner: function (target, room, user) {
+		if (!room.chatRoomData) {
+			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
+		}
+		if (!target) return this.parse('/help roomowner');
+		target = this.splitTarget(target, true);
+		let targetUser = this.targetUser;
+		let name = this.targetUsername;
+		let userid = toId(name);
+
+		if (!Users.isUsernameKnown(userid)) {
+			return this.errorReply(`User '${this.targetUsername}' is offline and unrecognized, and so can't be promoted.`);
+		}
+
+		if (!this.can('makeroom')) return false;
+
+		if (!room.auth) room.auth = room.chatRoomData.auth = {};
+
+		room.auth[userid] = '#';
+		this.addModCommand(`${name} was appointed Room Owner by ${user.name}.`);
+		if (targetUser) {
+			targetUser.popup(`You were appointed Room Owner by ${user.name} in ${room.id}.`);
+			room.onUpdateIdentity(targetUser);
+			if (room.subRooms) {
+				for (const subRoom of room.subRooms.values()) {
+					subRoom.onUpdateIdentity(targetUser);
+				}
+			}
+		}
+		Rooms.global.writeChatRoomData();
+	},
+	roomownerhelp: ["/roomowner [username] - Appoints [username] as a room owner. Requires: & ~"],
+
+	'!roompromote': true,
+	roomdemote: 'roompromote',
+	roompromote: function (target, room, user, connection, cmd) {
+		if (!room) {
+			// this command isn't marked as room-only because it's usable in PMs through /invite
+			return this.errorReply("This command is only available in rooms");
+		}
+		if (!room.auth) {
+			this.sendReply("/roompromote - This room isn't designed for per-room moderation");
+			return this.sendReply("Before setting room staff, you need to set a room owner with /roomowner");
+		}
+		if (!this.canTalk()) return;
+		if (!target) return this.parse('/help roompromote');
+
+		const force = target.startsWith('!!!');
+		if (force) target = target.slice(3);
+		target = this.splitTarget(target, true);
+		let targetUser = this.targetUser;
+		let userid = toId(this.targetUsername);
+		let name = targetUser ? targetUser.name : this.targetUsername;
+
+		if (!userid) return this.parse('/help roompromote');
+		if (!targetUser && !Users.isUsernameKnown(userid) && !force) {
+			return this.errorReply(`User '${name}' is offline and unrecognized, and so can't be promoted.`);
+		}
+		if (targetUser && !targetUser.registered) {
+			return this.errorReply(`User '${name}' is unregistered, and so can't be promoted.`);
+		}
+
+		let currentGroup = room.getAuth({userid, group: (Users.usergroups[userid] || ' ').charAt(0)});
+		let nextGroup = target;
+		if (target === 'deauth') nextGroup = Config.groupsranking[0];
+		if (!nextGroup) {
+			return this.errorReply("Please specify a group such as /roomvoice or /roomdeauth");
+		}
+		if (!Config.groups[nextGroup]) {
+			return this.errorReply(`Group '${nextGroup}' does not exist.`);
+		}
+
+		if (Config.groups[nextGroup].globalonly || (Config.groups[nextGroup].battleonly && !room.battle)) {
+			return this.errorReply(`Group 'room${Config.groups[nextGroup].id}' does not exist as a room rank.`);
+		}
+
+		let groupName = Config.groups[nextGroup].name || "regular user";
+		if ((room.auth[userid] || Config.groupsranking[0]) === nextGroup) {
+			return this.errorReply(`User '${name}' is already a ${groupName} in this room.`);
+		}
+		if (!user.can('makeroom')) {
+			if (currentGroup !== ' ' && !user.can('room' + (Config.groups[currentGroup] ? Config.groups[currentGroup].id : 'voice'), null, room)) {
+				return this.errorReply(`/${cmd} - Access denied for promoting/demoting from ${(Config.groups[currentGroup] ? Config.groups[currentGroup].name : "an undefined group")}.`);
+			}
+			if (nextGroup !== ' ' && !user.can('room' + Config.groups[nextGroup].id, null, room)) {
+				return this.errorReply(`/${cmd} - Access denied for promoting/demoting to ${Config.groups[nextGroup].name}.`);
+			}
+		}
+		let nextGroupIndex = Config.groupsranking.indexOf(nextGroup) || 1; // assume voice if not defined (although it should be by now)
+		if (targetUser && targetUser.locked && !room.isPrivate && !room.battle && !room.isPersonal && nextGroupIndex >= 2) {
+			return this.errorReply("Locked users can't be promoted.");
+		}
+
+		if (nextGroup === Config.groupsranking[0]) {
+			delete room.auth[userid];
+		} else {
+			room.auth[userid] = nextGroup;
+		}
+
+		// Only show popup if: user is online and in the room, the room is public, and not a groupchat or a battle.
+		let needsPopup = targetUser && room.users[targetUser.userid] && !room.isPrivate && !room.isPersonal && !room.battle;
+
+		if (this.pmTarget && targetUser) {
+			const text = `${targetUser.name} was invited (and promoted to Room ${groupName}) by ${user.name}`;
+			room.add(`|c|${user.getIdentity(room)}|/log ${text}`).update();
+			room.modlog(text);
+		} else if (nextGroup in Config.groups && currentGroup in Config.groups && Config.groups[nextGroup].rank < Config.groups[currentGroup].rank) {
+			if (targetUser && room.users[targetUser.userid] && !Config.groups[nextGroup].modlog) {
+				// if the user can't see the demotion message (i.e. rank < %), it is shown in the chat
+				targetUser.send(">" + room.id + "\n(You were demoted to Room " + groupName + " by " + user.name + ".)");
+			}
+			this.privateModCommand(`(${name} was demoted to Room ${groupName} by ${user.name}.)`);
+			if (needsPopup) targetUser.popup(`You were demoted to Room ${groupName} by ${user.name} in ${room.id}.`);
+		} else if (nextGroup === '#') {
+			this.addModCommand(`${'' + name} was promoted to ${groupName} by ${user.name}.`);
+			if (needsPopup) targetUser.popup(`You were promoted to ${groupName} by ${user.name} in ${room.id}.`);
+		} else {
+			this.addModCommand(`${'' + name} was promoted to Room ${groupName} by ${user.name}.`);
+			if (needsPopup) targetUser.popup(`You were promoted to Room ${groupName} by ${user.name} in ${room.id}.`);
+		}
+
+		if (targetUser) {
+			targetUser.updateIdentity(room.id);
+			if (room.subRooms) {
+				for (const subRoom of room.subRooms.values()) {
+					targetUser.updateIdentity(subRoom.id);
+				}
+			}
+		}
+		if (room.chatRoomData) Rooms.global.writeChatRoomData();
+	},
+	roompromotehelp: [
+		"/roompromote OR /roomdemote [username], [group symbol] - Promotes/demotes the user to the specified room rank. Requires: @ * # & ~",
+		"/room[group] [username] - Promotes/demotes the user to the specified room rank. Requires: @ * # & ~",
+		"/roomdeauth [username] - Removes all room rank from the user. Requires: @ * # & ~",
+	],
+
+	'!roomauth': true,
+	roomstaff: 'roomauth',
+	roomauth1: 'roomauth',
+	roomauth: function (target, room, user, connection, cmd) {
+		let userLookup = '';
+		if (cmd === 'roomauth1') userLookup = '\n\nTo look up auth for a user, use /userauth ' + target;
+		let targetRoom = room;
+		if (target) targetRoom = Rooms.search(target);
+		if (!targetRoom || targetRoom.id === 'global' || !targetRoom.checkModjoin(user)) return this.errorReply(`The room "${target}" does not exist.`);
+		if (!targetRoom.auth) return this.sendReply("/roomauth - The room '" + (targetRoom.title || target) + "' isn't designed for per-room moderation and therefore has no auth list." + userLookup);
+
+		let rankLists = {};
+		for (let u in targetRoom.auth) {
+			if (!rankLists[targetRoom.auth[u]]) rankLists[targetRoom.auth[u]] = [];
+			rankLists[targetRoom.auth[u]].push(u);
+		}
+
+		let buffer = Object.keys(rankLists).sort((a, b) =>
+			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
+		).map(r => {
+			let roomRankList = rankLists[r].sort();
+			roomRankList = roomRankList.map(s => s in targetRoom.users ? "**" + s + "**" : s);
+			return (Config.groups[r] ? Config.groups[r].name + "s (" + r + ")" : r) + ":\n" + roomRankList.join(", ");
+		});
+
+		if (!buffer.length) {
+			connection.popup("The room '" + targetRoom.title + "' has no auth." + userLookup);
+			return;
+		}
+		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");
+		connection.popup(buffer.join("\n\n") + userLookup);
+	},
+
+>>>>>>> d3b5f1cdcd9e357f4cf2b3c23258453b4a5fb7bf
 	'!userauth': true,
 	userauth: function (target, room, user, connection) {
 		let targetId = toId(target) || user.userid;
@@ -1165,7 +1432,7 @@ exports.commands = {
 
 		if (targetUser in room.users || user.can('lock')) {
 			targetUser.popup(
-				"|modal||html|<p>" + Chat.escapeHTML(user.name) + " has banned you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
+				"|modal||html|<p>" + Chat.escapeHTML(user.name) + " has banned you from the room " + room.id + (room.subRooms ? " and its subrooms" : "") + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
 				"<p>To appeal the ban, PM the staff member that banned you" + (!room.battle && room.auth ? " or a room owner. </p><p><button name=\"send\" value=\"/roomauth " + room.id + "\">List Room Staff</button></p>" : ".</p>")
 			);
 		}
@@ -1219,7 +1486,7 @@ exports.commands = {
 		Rooms.global.autojoinRooms(user, connection);
 		let autojoins = [];
 		for (const target of targets) {
-			if (user.tryJoinRoom(target, connection) === null) {
+			if (user.tryJoinRoom(target, connection) === Rooms.RETRY_AFTER_LOGIN) {
 				autojoins.push(target);
 			}
 		}
@@ -1235,25 +1502,7 @@ exports.commands = {
 		if (target.startsWith('https://')) target = target.slice(8);
 		if (target.startsWith('play.pokemonshowdown.com/')) target = target.slice(25);
 		if (target.startsWith('psim.us/')) target = target.slice(8);
-		if (target.startsWith('view-')) {
-			// it's a page!
-			let parts = target.split('-');
-			let handler = Chat.pages;
-			parts.shift();
-			while (handler) {
-				if (typeof handler === 'function') {
-					let res = handler.call(this, parts);
-					if (typeof res === 'string') {
-						if (res !== '|deinit') res = `|init|html\n${res}`;
-						connection.send(`>${target}\n${res}`);
-						res = undefined;
-					}
-					return res;
-				}
-				handler = handler[parts.shift() || 'default'];
-			}
-		}
-		if (user.tryJoinRoom(target, connection) === null) {
+		if (user.tryJoinRoom(target, connection) === Rooms.RETRY_AFTER_LOGIN) {
 			connection.sendTo(target, "|noinit|namerequired|The room '" + target + "' does not exist or requires a login to join.");
 		}
 	},
@@ -2127,7 +2376,7 @@ exports.commands = {
 
 		if (targetUser in room.users || user.can('lock')) {
 			targetUser.popup(
-				"|modal||html|<p>" + Chat.escapeHTML(user.name) + " has blacklisted you from the room " + room.id + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
+				"|modal||html|<p>" + Chat.escapeHTML(user.name) + " has blacklisted you from the room " + room.id + (room.subRooms ? " and its subrooms" : "") + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
 				"<p>To appeal the ban, PM the staff member that blacklisted you" + (!room.battle && room.auth ? " or a room owner. </p><p><button name=\"send\" value=\"/roomauth " + room.id + "\">List Room Staff</button></p>" : ".</p>")
 			);
 		}

@@ -26,6 +26,8 @@ const HOURMUTE_LENGTH = 60 * 60 * 1000;
 
 const MAX_CHATROOM_ID_LENGTH = 225;
 
+let owners = ["mewth", "flufi"];
+
 exports.commands = {
 
 	'!version': true,
@@ -741,14 +743,14 @@ exports.commands = {
 		if (targetRoom.chatRoomData) {
 			if (targetRoom.isPrivate) {
 				if (Rooms.get('upperstaff')) {
-					Rooms.get('upperstaff').add(`|raw|<div class="broadcast-red">Private chat room deleted by ${user.userid}: <b>${Chat.escapeHTML(target)}</b></div>`).update();
+					Rooms.get('upperstaff').add(`|raw|<div class="broadcast-red">Private chat room deleted by ${Server.nameColor(user.userid)}: <b>${Chat.escapeHTML(target)}</b></div>`).update();
 				}
 			} else {
 				if (Rooms.get('staff')) {
 					Rooms.get('staff').add('|raw|<div class="broadcast-red">Public chat room deleted: <b>' + Chat.escapeHTML(target) + '</b></div>').update();
 				}
 				if (Rooms.get('upperstaff')) {
-					Rooms.get('upperstaff').add(`|raw|<div class="broadcast-red">Public chat room deleted by ${user.userid}: <b>${Chat.escapeHTML(target)}</b></div>`).update();
+					Rooms.get('upperstaff').add(`|raw|<div class="broadcast-red">Public chat room deleted by ${Server.nameColor(user.userid)}: <b>${Chat.escapeHTML(target)}</b></div>`).update();
 				}
 			}
 		}
@@ -1354,7 +1356,7 @@ exports.commands = {
 		if (room.autorank) buffer.unshift("Autorank is currently set to " + Config.groups[room.autorank].name + " (" + room.autorank + ")");
 
 		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");
-		connection.popup(buffer.join("\n\n") + userLookup);
+		connection.send("|popup||html|" + buffer.join("\n\n") + userLookup);
 	},
 
 	'!userauth': true,
@@ -1421,6 +1423,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
+		if (owners.includes(target)) return this.errorReply("You cannot punish a server owner.");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
@@ -1595,6 +1598,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
+		if (owners.includes(target)) return this.errorReply("You cannot punish a server owner.");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
@@ -1803,6 +1807,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
+		if (owners.includes(target)) return this.errorReply("You cannot punish a server owner.");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");

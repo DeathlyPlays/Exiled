@@ -1176,8 +1176,6 @@ exports.commands = {
 	},
 	removeroomaliashelp: ["/removeroomalias [alias] - removes the given room alias of the room the command was entered in. Requires: & ~"],
 
-<<<<<<< HEAD
-=======
 	roomowner: function (target, room, user) {
 		if (!room.chatRoomData) {
 			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
@@ -1192,14 +1190,16 @@ exports.commands = {
 			return this.errorReply(`User '${this.targetUsername}' is offline and unrecognized, and so can't be promoted.`);
 		}
 
-		if (!this.can('makeroom')) return false;
+		if (!user.can('makeroom')) {
+			if (user.userid !== room.founder) return false;
+		}
 
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
 
 		room.auth[userid] = '#';
 		this.addModCommand(`${name} was appointed Room Owner by ${user.name}.`);
 		if (targetUser) {
-			targetUser.popup(`You were appointed Room Owner by ${user.name} in ${room.id}.`);
+			targetUser.popup(`|html|You were appointed Room Owner by ${Server.nameColor(user.name, true)} in ${room.title}.`);
 			room.onUpdateIdentity(targetUser);
 			if (room.subRooms) {
 				for (const subRoom of room.subRooms.values()) {
@@ -1277,6 +1277,8 @@ exports.commands = {
 			room.auth[userid] = nextGroup;
 		}
 
+		if (room.founder === userid && nextGroup !== '#') room.founder = false; //Must be a demotion as
+
 		// Only show popup if: user is online and in the room, the room is public, and not a groupchat or a battle.
 		let needsPopup = targetUser && room.users[targetUser.userid] && !room.isPrivate && !room.isPersonal && !room.battle;
 
@@ -1290,13 +1292,13 @@ exports.commands = {
 				targetUser.send(">" + room.id + "\n(You were demoted to Room " + groupName + " by " + user.name + ".)");
 			}
 			this.privateModCommand(`(${name} was demoted to Room ${groupName} by ${user.name}.)`);
-			if (needsPopup) targetUser.popup(`You were demoted to Room ${groupName} by ${user.name} in ${room.id}.`);
+			if (needsPopup) targetUser.popup(`|html|You were demoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		} else if (nextGroup === '#') {
 			this.addModCommand(`${'' + name} was promoted to ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`You were promoted to ${groupName} by ${user.name} in ${room.id}.`);
+			if (needsPopup) targetUser.popup(`You were promoted to ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		} else {
 			this.addModCommand(`${'' + name} was promoted to Room ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`You were promoted to Room ${groupName} by ${user.name} in ${room.id}.`);
+			if (needsPopup) targetUser.popup(`|html|You were promoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		}
 
 		if (targetUser) {
@@ -1336,7 +1338,7 @@ exports.commands = {
 			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
 		).map(r => {
 			let roomRankList = rankLists[r].sort();
-			roomRankList = roomRankList.map(s => s in targetRoom.users ? "**" + s + "**" : s);
+			roomRankList = roomRankList.map(s => s in targetRoom.users ? Server.nameColor(s, true) : Server.nameColor(s));
 			return (Config.groups[r] ? Config.groups[r].name + "s (" + r + ")" : r) + ":\n" + roomRankList.join(", ");
 		});
 
@@ -1344,11 +1346,17 @@ exports.commands = {
 			connection.popup("The room '" + targetRoom.title + "' has no auth." + userLookup);
 			return;
 		}
+
+		if (targetRoom.founder) {
+			buffer.unshift((targetRoom.founder ? "Room Founder:\n" + ((Users(targetRoom.founder) && Users(targetRoom.founder).connected) ? Server.nameColor(targetRoom.founder, true) : Server.nameColor(targetRoom.founder)) : ''));
+		}
+
+		if (room.autorank) buffer.unshift("Autorank is currently set to " + Config.groups[room.autorank].name + " (" + room.autorank + ")");
+
 		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");
 		connection.popup(buffer.join("\n\n") + userLookup);
 	},
 
->>>>>>> d3b5f1cdcd9e357f4cf2b3c23258453b4a5fb7bf
 	'!userauth': true,
 	userauth: function (target, room, user, connection) {
 		let targetId = toId(target) || user.userid;

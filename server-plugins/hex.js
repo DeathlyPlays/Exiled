@@ -29,7 +29,7 @@ Server.pmStaff = function (message, pmName, from) {
 		if (!curUser.isStaff) return;
 		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
 	});
-}
+};
 
 // format: Server.pmStaff('message', 'person')
 //

@@ -106,21 +106,21 @@ exports.commands = {
 			saveEmoticons();
 
 			this.sendReply("That emoticon has been removed.");
-			Rooms('upperstaff').add(`|raw|${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
+			Rooms("upperstaff").add(`|raw|${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
 			Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
 		},
 
-		on: "del",
-		enable: "off",
-		disable: "off",
-		off: function (target, room, user, cmd) {
-			if (!this.can('roommod', null, room)) return this.sendReply('Access denied.');
-			let status = ((cmd !== 'enable' && cmd !== 'on'));
+		disable: "enable",
+		off: "enable",
+		on: "enable",
+		enable: function (target, room, user, connection, cmd) {
+			if (!this.can("roommod", null, room)) return false;
+			let status = ((cmd !== "enable" && cmd !== "on"));
 			if (room.disableEmoticons === status) return this.sendReply("Emoticons are already " + (status ? "disabled" : "enabled") + " in this room.");
 			room.disableEmoticons = status;
 			room.chatRoomData.disableEmoticons = status;
 			Rooms.global.writeChatRoomData();
-			this.privateModCommand(`(${user.name} ${(status ? 'disabled' : 'enabled')} emoticons in this room.)`);
+			this.privateModCommand("(" + user.name + " " + (status ? " disabled " : " enabled ") + "emoticons in this room.)");
 		},
 
 		view: "list",
@@ -128,7 +128,7 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 
 			let size = 50;
-			let lobby = Rooms('lobby');
+			let lobby = Rooms("lobby");
 			if (lobby && lobby.emoteSize) size = lobby.emoteSize;
 			if (room.emoteSize) size = room.emoteSize;
 

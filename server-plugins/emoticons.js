@@ -189,7 +189,7 @@ exports.commands = {
 	randemote: function (target, room, user, connection) {
 		if (!this.canTalk()) return;
 		let e = Object.keys(emoticons)[Math.floor(Math.random() * Object.keys(emoticons).length)];
-		return this.parse(e);
+		this.parse(e);
 	},
 };
 

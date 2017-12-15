@@ -125,13 +125,6 @@ exports.commands = {
 		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for " + Config.serverName + "</a>");
 	},
 
-	'!fakemon': true,
-	fakemons: 'fakemon',
-	fakemon: function () {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://goo.gl/forms/ho9YhvxrnXMY2QLI3\">Submit a Fakemon :D</a>");
-	},
-
 	'!skype': true,
 	skype: function () {
 		if (!this.runBroadcast()) return;
@@ -266,58 +259,60 @@ exports.commands = {
 
 	servercommands: 'customcommands',
 	serverhelp: 'customcommands',
-	customcommands: function (room, user) {
+	customcommands: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-			'<div style="background-image: url(https://i.imgur.com/rzNdRCh.jpg); background-position: center; auto; background-repeat:no-repeat; background-size:cover; color: blue;"><strong><h1>Custom Commands on ' + Config.serverName + '</h1></strong><br />' +
-			'<h2>Game Commands:</h2><br /><ul>' +
-			'<li><button class="button" name="send" value="/ambushhelp">Ambush</button></li><br />' +
-			'<li><button class="button" name="send" value="/blackjackhelp">Blackjack</button></li><br />' +
-			'<li><button class="button" name="send" value="/dicegamehelp">Dice Game</button></li><br />' +
-			'<li><button class="button" name="send" value="/draft">Draft</button></li><br />' +
-			'<li><button class="button" name="send" value="/lotteryhelp">Lottery</button></li><br />' +
-			'<li><button class="button" name="send" value="/panagramhelp">Panagrams</button></li><br />' +
-			'<li><button class="button" name="send" value="/passthebombhelp">Pass The Bomb</button></li><br />' +
-			'<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors</button></li><br />' +
-			'<li><button class="button" name="send" value="/rpslshelp">Rock Paper Scissors Lizard Spock</button></li><br />' +
-			'<li><button class="button" name="send" value="/sentencehelp">Sentence Game</button></li><br />' +
+			'<div class="infobox-limited"><strong><h1>Custom Commands on ' + Config.serverName + '</h1></strong>' +
+			'<h2>Game Commands:</h2><ul>' +
+			'<li><button class="button" name="send" value="/ambushhelp">Ambush</button></li>' +
+			'<li><button class="button" name="send" value="/blackjackhelp">Blackjack</button></li>' +
+			'<li><button class="button" name="send" value="/dicegamehelp">Dice Game</button></li>' +
+			'<li><button class="button" name="send" value="/draft">Draft</button></li>' +
+			'<li><button class="button" name="send" value="/lotteryhelp">Lottery</button></li>' +
+			'<li><button class="button" name="send" value="/panagramhelp">Panagrams</button></li>' +
+			'<li><button class="button" name="send" value="/passthebombhelp">Pass The Bomb</button></li>' +
+			'<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors</button></li>' +
+			'<li><button class="button" name="send" value="/rpslshelp">Rock Paper Scissors Lizard Spock</button></li>' +
+			'<li><button class="button" name="send" value="/sentencehelp">Sentence Game</button></li>' +
 			'<li><button class="button" name="send" value="/slotshelp">Slots</button></li>' +
 			'</ul>' +
-			'<h2>Chat Features:</h2><br /><ul>' +
-			'<li><button class="button" name="send" value="/advertisehelp">Advertise A Room</button></li><br />' +
-			'<li><button class="button" name="send" value="/animehelp">Anime</button></li><br />' +
-			'<li><button class="button" name="send" value="/awayhelp">Away</button></li><br />' +
-			'<li><button class="button" name="send" value="/psgohelp">Cards</button></li><br />' +
-			'<li><button class="button" name="send" value="/definehelp">Define</button></li><br />' +
-			'<li><button class="button" name="send" value="/digidexhelp">Digidex</button></li><br />' +
-			'<li><button class="button" name="send" value="/atm">Economy</button></li><br />' +
-			'<li><button class="button" name="send" value="/emotes help">Emotes</button></li><br />' +
-			'<li><button class="button" name="send" value="/essbhelp">ESSB Data</button></li><br />' +
-			'<li><button class="button" name="send" value="/exphelp">EXP</button></li><br />' +
-			'<li><button class="button" name="send" value="/factionshelp">Factions</button></li><br />' +
-			'<li><button class="button" name="send" value="/hexhelp">Hex Code</button></li><br />' +
-			'<li><button class="button" name="send" value="/jobshelp">Jobs</button></li><br />' +
-			'<li><button class="button" name="send" value="/mangahelp">Manga</button></li><br />' +
-			'<li><button class="button" name="send" value="/meme">Meme Randomizer</button></li><br />' +
-			'<li><button class="button" name="send" value="/news">News</button></li><br />' +
-			'<li><button class="button" name="send" value="/ontimehelp">Ontime</button></li><br />' +
-			'<li><button class="button" name="send" value="/playlisthelp">Playlist</button></li><br />' +
-			'<li><button class="button" name="send" value="/profilehelp">Profile</button></li><br />' +
-			'<li><button class="button" name="send" value="/regdatehelp">Regdate</button></li><br />' +
-			'<li><button class="button" name="send" value="/roomlist">Room List</button></li><br />' +
-			'<li><button class="button" name="send" value="/seenhelp">Seen</button></li><br />' +
-			'<li><button class="button" name="send" value="/shop">Shop</button></li><br />' +
-			'<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li><br />' +
-			'<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li><br />' +
-			'<li><button class="button" name="send" value="/tellhelp">Tells</button></li><br />' +
-			'<li><button class="button" name="send" value="/urbandefinehelp">Urban Define</button></li><br />' +
+			'<h2>Chat Features:</h2><ul>' +
+			'<li><button class="button" name="send" value="/advertisehelp">Advertise A Room</button></li>' +
+			'<li><button class="button" name="send" value="/animehelp">Anime</button></li>' +
+			'<li><button class="button" name="send" value="/awayhelp">Away</button></li>' +
+			'<li><button class="button" name="send" value="/psgohelp">Cards</button></li>' +
+			'<li><button class="button" name="send" value="/definehelp">Define</button></li>' +
+			'<li><button class="button" name="send" value="/digidexhelp">Digidex</button></li>' +
+			'<li><button class="button" name="send" value="/atm">Economy</button></li>' +
+			'<li><button class="button" name="send" value="/emotes help">Emotes</button></li>' +
+			'<li><button class="button" name="send" value="/essbhelp">ESSB Data</button></li>' +
+			'<li><button class="button" name="send" value="/exphelp">EXP</button></li>' +
+			'<li><button class="button" name="send" value="/factionshelp">Factions</button></li>' +
+			'<li><button class="button" name="send" value="/hexhelp">Hex Code</button></li>' +
+			'<li><button class="button" name="send" value="/jobshelp">Jobs</button></li>' +
+			'<li><button class="button" name="send" value="/mangahelp">Manga</button></li>' +
+			'<li><button class="button" name="send" value="/meme">Meme Randomizer</button></li>' +
+			'<li><button class="button" name="send" value="/serverannouncementshelp">News</button></li>' +
+			'<li><button class="button" name="send" value="/ontimehelp">Ontime</button></li>' +
+			'<li><button class="button" name="send" value="/playlisthelp">Playlist</button></li>' +
+			'<li><button class="button" name="send" value="/profilehelp">Profile</button></li>' +
+			'<li><button class="button" name="send" value="/quotehelp">Quotes</button></li>' +
+			'<li><button class="button" name="send" value="/regdatehelp">Regdate</button></li>' +
+			'<li><button class="button" name="send" value="/roomlist">Room List</button></li>' +
+			'<li><button class="button" name="send" value="/roomshophelp">Room Shop</button></li>' +
+			'<li><button class="button" name="send" value="/seenhelp">Seen</button></li>' +
+			'<li><button class="button" name="send" value="/shop">Shop</button></li>' +
+			'<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li>' +
+			'<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li>' +
+			'<li><button class="button" name="send" value="/tellhelp">Tells</button></li>' +
+			'<li><button class="button" name="send" value="/urbandefinehelp">Urban Define</button></li>' +
+			'<li><button class="button" name="send" value="/voucherhelp">Vouchers</button></li>' +
 			'</ul>' +
-			'<h2>Social Medias/Links:</h2><br /><ul>' +
-			'<li><a href="https://discord.gg/chfz65A" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Discord</button></a><br />' +
-			'<li><a href="http://exiledps.boards.net/" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Forums</button></a><br />' +
-			'<li><a href="https://github.com/DeathlyPlays/Exiled" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">GitHub</button></a><br />' +
-			'<li><a href="https://join.skype.com/Eo5DCq8nCh1j" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Join Our Skype</button></a><br />' +
-			'<li><a href="https://goo.gl/forms/ho9YhvxrnXMY2QLI3" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Submit A Fakemon</button></a><br />' +
+			'<h2>Social Medias/Links:</h2><ul>' +
+			'<li><a href="https://discord.gg/chfz65A" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Discord</button></a>' +
+			'<li><a href="http://exiledps.boards.net/" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Forums</button></a>' +
+			'<li><a href="https://github.com/DeathlyPlays/Exiled" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">GitHub</button></a>' +
+			'<li><a href="https://join.skype.com/Eo5DCq8nCh1j" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Join Our Skype</button></a>' +
 			'</ul>' +
 			'</div>'
 		);

@@ -343,7 +343,7 @@ exports.BattleMovedex = {
 		secondary: {
 			self: {
 				onSourceFaint: function (target, source, effect) {
-					this.boost({atk:1, spe:1}, source);
+					this.boost({atk: 1, spe: 1}, source);
 				},
 			},
 		},
@@ -390,7 +390,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target, source, move) {
 			if (target.status === 'psn' || target.status === 'tox') {
-				return this.boost({atk:-1, spa:-1, spe:-1}, target, source, move);
+				return this.boost({atk: -1, spa: -1, spe: -1}, target, source, move);
 			}
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Leech Seed', target);
@@ -557,7 +557,7 @@ exports.BattleMovedex = {
 			},
 		},
 		onTryHit: function (pokemon) {
-			let bannedAbilities = {comatose:1, multitype:1, schooling:1, stancechange:1};
+			let bannedAbilities = {comatose: 1, multitype: 1, schooling: 1, stancechange: 1};
 			if (bannedAbilities[pokemon.ability]) {
 				return false;
 			}

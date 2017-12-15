@@ -120,6 +120,8 @@ function takeCard(userid, cardId) {
 }
 
 exports.commands = {
+	cards: "psgo",
+	card: "psgo",
 	psgo: {
 		display: 'card',
 		card: function (target, room, user) {

@@ -2059,8 +2059,8 @@ exports.Formats = [
 			"Overused beasts are back, and the chaos is everywhere",
 			"&bullet; <a href=\"http://chandie.boards.net/thread/2/overused-chaos-viability-rankings\">OU Chaos Viability Ranking</a>",
 		],
-		banlist: ['Uber', 'Power Construct', 'Arena Trap', 'Baton Pass'],
-		unbanlist: ['Aegislash', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Genesect', 'Gengar-Mega', 'Giratina', 'Kyurem-White', 'Landorus', 'Lucario-Mega', 'Marshadow', 'Metagross-Mega', 'Naganadel', 'Pheromosa', 'Shaymin-Sky', 'Zeraora'],
+		banlist: ['Uber', 'Power Construct', 'Baton Pass'],
+		unbanlist: ['Aegislash', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Genesect', 'Gengar-Mega', 'Giratina', 'Giratina-Origin', 'Kyurem-White', 'Landorus', 'Lucario-Mega', 'Marshadow', 'Metagross-Mega', 'Naganadel', 'Pheromosa', 'Shaymin-Sky', 'Zeraora'],
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon",

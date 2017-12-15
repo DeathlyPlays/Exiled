@@ -12,7 +12,6 @@ exports.BattleScripts = {
 		this.modData('Pokedex', 'granbull').types = ['Fairy', 'Fighting'];
 		this.modData('Pokedex', 'huntail').types = ['Water', 'Dark'];
 		this.modData('Pokedex', 'gorebyss').types = ['Water', 'Psychic'];
-		this.modData('Pokedex', 'solrock').types = ['Rock', 'Psychic', 'Fire'];
 		this.modData('Pokedex', 'lunatone').types = ['Rock', 'Psychic', 'Fairy'];
 		// Tail Glow :D
 		this.modData('Learnsets', 'finneon').learnset.tailglow = ['7L100'];
@@ -53,8 +52,6 @@ exports.BattleScripts = {
 		this.modData('Pokedex', 'castform').abilities['H'] = 'Climate Change';
 		this.modData('Pokedex', 'flygon').abilities['1'] = 'Compound Eyes';
 		this.modData('Pokedex', 'flygon').abilities['H'] = 'Insectize';
-		this.modData('Pokedex', 'lunatone').abilities['H'] = 'Microcosm';
-		this.modData('Pokedex', 'solrock').abilities['H'] = 'Macrocosm';
 		this.modData('Pokedex', 'pangoro').abilities['H'] = 'Shadow Rush';
 		this.modData('Pokedex', 'zangoose').abilities['1'] = 'Belligerent';
 	},

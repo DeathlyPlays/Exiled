@@ -1653,6 +1653,26 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
+		section: "Pokeditions",
+		column: 6,
+	},
+	{
+		name: "[Gen 7] Pokeditions OU",
+		desc: [],
+
+		mod: 'pokeditions',
+		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass'],
+	},
+	{
+		name: "[Gen 7] Pokeditions Ubers",
+		desc: [],
+
+		mod: 'pokeditions',
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
+		banlist: ['Baton Pass'],
+	},
+	{
 		section: "" + Config.serverName + "'s Custom Gamemodes",
 		column: 5,
 	},
@@ -1724,180 +1744,23 @@ exports.Formats = [
 		ruleset: ['[Gen 7] OU'],
 	},
 	{
-		name: "[Gen 7] Frantic Fusions",
-		desc: [
-			"&bullet; <a href=https://github.com/XpRienzo/DragonHeaven/blob/master/mods/franticfusions/README.md>Frantic Fusions</a> <br> &bullet; A metagame where you are able to fuse two Pokemon. <BR /> &bullet; The resultant Pokemon has the primary type of the base mon. If the base mon is shiny, it will get the secondary type of the second mon, else the primary type of the second mon. It will get the averaged stats.<br />&bullet;You can choose any ability from the original Pokemon, and you also get the primary ability of the second Pokemon (The one you put in the nickname). <br />&bullet; Use !fuse for theorymonning purposes",
-		],
-		mod: 'franticfusions',
-		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-		banlist: ['Uber', 'Unreleased', 'Shadow Tag', "Assist", "Shedinja", "Huge Power", "Pure Power", 'Medichamite', 'Swoobat'],
-		suspect: "Nothing Yet (Test)",
-		onModifyTemplate: function (template, pokemon) {
-			let fusionTemplate = this.getTemplate(pokemon.name), mixedTemplate = Object.assign({}, template);
-			if (!fusionTemplate.exists) return template;
-			try {
-				mixedTemplate.baseSpecies = mixedTemplate.species = template.species;
-				mixedTemplate.weightkg = Math.max(0.1, (template.weightkg + fusionTemplate.weightkg) / 2)
-
-				mixedTemplate.baseStats = {};
-				for (let statid in template.baseStats) {
-					mixedTemplate.baseStats[statid] = (template.baseStats[statid] + fusionTemplate.baseStats[statid]) / 2;
-				}
-				pokemon.hp = pokemon.maxhp = Math.floor(Math.floor(2 * mixedTemplate.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] >> 2) + 100) * pokemon.level / 100 + 10);
-
-				mixedTemplate.types = template.types.slice();
-				let shiny = (pokemon.set.shiny && fusionTemplate.types[1]) ? 1 : 0;
-				if (mixedTemplate.types[0] !== fusionTemplate.types[shiny]) mixedTemplate.types[1] = fusionTemplate.types[shiny];
-				else mixedTemplate.types.length = 1;
-				pokemon.fusion = fusionTemplate.baseSpecies;
-				pokemon.abilitwo = toId(fusionTemplate.abilities[0]);
-			} catch (e) {
-				this.add('-hint', 'Failed to fuse ' + template.species + ' and ' + fusionTemplate.species + '. Please report this error so that it can be fixed.');
-			}
-			return mixedTemplate;
-		},
-		onSwitchInPriority: 1,
-		onSwitchIn: function(pokemon) {
-			let types = pokemon.types;
-			if (!pokemon.fusetype) pokemon.fusetype = types;
-			else
-				pokemon.types = pokemon.fusetype;
-			let statusability = {
-				"aerilate": true,
-				"aurabreak": true,
-				"flashfire": true,
-				"parentalbond": true,
-				"pixilate": true,
-				"refrigerate": true,
-				"sheerforce": true,
-				"slowstart": true,
-				"truant": true,
-				"unburden": true,
-				"zenmode": true
-			};
-			let sec = (statusability[pokemon.abilitwo]) ? ("other" + pokemon.abilitwo) : (pokemon.abilitwo);
-			if (pokemon.abilitwo !== pokemon.ability) pokemon.addVolatile(sec); //Second Ability! YAYAYAY
-			if (pokemon.fusion && !pokemon.hasAbility("illusion")) {
-				this.add('-start', pokemon, 'typechange', types.join('/'), '[silent]');
-			}
-		},
-		onAfterMega: function(pokemon)
-		{
-			if (pokemon.abilitwo !== pokemon.ability) {
-				let statusability = {
-					"aerilate": true,
-					"aurabreak": true,
-					"flashfire": true,
-					"parentalbond": true,
-					"pixilate": true,
-					"refrigerate": true,
-					"sheerforce": true,
-					"slowstart": true,
-					"truant": true,
-					"unburden": true,
-					"zenmode": true
-				};
-				let sec = (statusability[pokemon.abilitwo]) ? ("other" + pokemon.abilitwo) : (pokemon.abilitwo);
-				pokemon.removeVolatile(sec);
-			}
-			pokemon.types = pokemon.fusetype;
-			this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[silent]');
-		},
-		onValidateSet: function(set, teamHas) {
-			let problems = [];
-			if (!set.name || set.name === set.species) return;
-			let template = this.getTemplate(set.species);
-			let fusionTemplate = this.getTemplate(set.name);
-			let banlist = {
-				"shedinja": true,
-				"hugepower": true,
-				"purepower": true
-			};
-			if (!fusionTemplate.exists) return;
-			let unobtainable = {
-				'Darmanitan-Zen': true,
-				'Greninja-Ash': true,
-				'Zygarde-Complete': true,
-				'Meloetta-Pirouette': true,
-				'Castform-Snowy': true,
-				'Castform-Sunny': true,
-				'Castform-Rainy': true,
-				'Aegislash-Blade': true,
-			};
-			let types = Object.keys(this.data.TypeChart);
-			for (let i = 0; i < types.length; i++) {
-				unobtainable["Silvally-" + types[i]] = true;
-			}
-			if (unobtainable[fusionTemplate.species]) problems.push("You cannot fuse with " + fusionTemplate.species + " since it needs to have a specific ability or an item, or transforms inbattle.")
-			let canHaveAbility = false;
-			if (fusionTemplate.isUnreleased) problems.push("You cannot fuse with a Unreleased Pokemon. (" + set.species + " has nickname " + set.name + ", which is unreleased)");
-			if (fusionTemplate.isMega) problems.push("You cannot fuse with a Mega Pokemon. (" + set.species + " has nickname " + set.name + ")");
-			if (toId(fusionTemplate.tier).includes("uber")) problems.push("You cannot fuse with an Uber. (" + template.species + " has nickname " + fusionTemplate.species + ")");
-			if (toId(fusionTemplate.tier) === "cap" || toId(template.tier) === "cap") problems.push("You cannot fuse with an fake Pokemon. (" + template.species + " has nickname " + fusionTemplate.species + ")");
-			if (banlist[toId(fusionTemplate.species)]) problems.push("Fusing with " + fusionTemplate.species + " is banned. (" + template.species + " has nickname " + fusionTemplate.species + ")");
-			for (let a in template.abilities) {
-				if ((template.abilities[a] === set.ability) && !banlist[toId(template.abilities[a])]) {
-					canHaveAbility = true;
-				}
-			}
-			if (!canHaveAbility) return ["" + set.species + " cannot have " + set.ability + "."];
-			let added = {};
-			let movepool = [];
-			let prevo = template.isMega ? this.getTemplate(template.species.substring(0, template.species.length - 5)).prevo : template.prevo;
-
-			if (!this.data.Learnsets[toId(fusionTemplate.species)])
-			{
-				fusionTemplate.learnset = this.data.Learnsets[toId(fusionTemplate.species.split("-")[0])].learnset;
-			}
-			else
-				fusionTemplate.learnset = this.data.Learnsets[toId(fusionTemplate.species)].learnset;
-			if (!template.learnset)
-			{
-				template.learnset = this.data.Learnsets[toId(template.species.split("-")[0])].learnset;
-			}
-			else
-				template.learnset = this.data.Learnsets[toId(template.species)].learnset;
-			do {
-				added[template.species] = true;
-				movepool = movepool.concat(Object.keys(template.learnset));
-				movepool = movepool.concat(Object.keys(fusionTemplate.learnset))
-			} while (template && template.species && !added[template.species]);
-			while (prevo)
-			{
-				movepool = movepool.concat(Object.keys(this.data.Learnsets[prevo].learnset));
-				prevo = this.getTemplate(prevo).prevo;
-			}
-			prevo = fusionTemplate.isMega ? this.getTemplate(fusionTemplate.species.substring(0, fusionTemplate.species.length - 5)).prevo : fusionTemplate.prevo;
-			while (prevo)
-			{
-				movepool = movepool.concat(Object.keys(this.data.Learnsets[prevo].learnset));
-				prevo = this.getTemplate(prevo).prevo;
-			}
-			let moves = {};
-			for (let kek = 0; kek < movepool.length; kek++) moves[movepool[kek]] = true;
-			for (let i in set.moves) {
-				let move = toId(set.moves[i]);
-				if (move.substr(0, 11) === 'hiddenpower') move = 'hiddenpower'; // Really big hack :(
-				if (!moves[move]) {
-					problems.push(set.species + " cannot learn " + set.moves[i] + ".");
-				}
-			}
-			if (problems) return problems;
-		},
-		onValidateTeam: function(team) {
-			let nameTable = {};
-			for (let i = 0; i < team.length; i++) {
-				let name = team[i].name;
-				if (name) {
-					if (name === team[i].species) continue;
-					if (nameTable[name]) {
-						return ["Your Pok&eacute;mon must have different nicknames.", "(You have more than one " + name + ")"];
-					}
-					nameTable[name] = true;
-				}
-			}
-		},
-	},
+  		name: "[Gen 7] Fusion Evolution",
+  		desc: ["&bullet; <a href=http://www.smogon.com/forums/threads/fusion-evolution-v2-submission-phase.3560216/>Fusion Evolution</a>",
+  		       "&bullet; <a href=http://www.smogon.com/forums/threads/fusion-moves-fusion-evolution-companion-project.3564805/>Fusion Moves</a>",
+  		      ],
+  		ruleset: ['Pokemon', 'Standard'],
+		mod: 'fe',
+  		onModifyTemplate: function (template, pokemon, source) {
+  			//This hack is for something important: The Pokemon's Sprite.
+  			if (!template.base) return template;
+  			let temp = Objcet.assign({}, template);
+  			temp.species = temp.baseSpecies = template.base;
+			pokemon.name = template.species;
+			pokemon.fullname = `${pokemon.side.id}: ${pokemon.name}`;
+			pokemon.id = pokemon.fullname;
+			return temp;
+  		},
+  	},
 	{
 		name: "[Gen 7] Holiday Metagame",
 		mod: "holiday",
@@ -1926,110 +1789,6 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Monotype Ubers",
-		desc: [
-			"All the Pok&eacute;mon on a team must share a type, but it is in Ubers",
-			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3587204/\">Monotype</a>",
-			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3589809/\">Monotype Viability Ranking</a>",
-			"&bullet; <a href=\"http://exiledps.boards.net/board/21/monotype-ubers\">Monotype Ubers Thread</a>",
-		],
-
-		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Clause', 'Same Type Clause'],
-	},
-	{
-		name: "[Gen 7] Multibility 2.0",
-		desc: [
-			"&bullet; Credit to DragonHeaven/GrainsOfSalt for the code!",
-			"Put your second ability with your first ability in the ability slot.",
-		],
-		mod: 'franticfusions',
-		ruleset: ['[Gen 7] OU'],
-		banlist: ["Illegal", 'Kyurem-Black', 'Manaphy', 'Porygon-Z', 'Shedinja', 'Togekiss', 'Chatter', 'Huge Power', 'Pure Power', 'Simple', 'Refrigerate', 'Pixilate', 'Aerilate'],
-		onBegin: function () {
-			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
-			for (let i = 0, len = allPokemon.length; i < len; i++) {
-				let pokemon = allPokemon[i];
-				let ability = pokemon.ability;
-				let abilities = Dex.getFormat(this.format).getAbilities(ability);
-				if (this.getAbility(ability).exists || !Array.isArray(abilities)) continue;
-				pokemon.ability = pokemon.baseAbility = abilities[0];
-				pokemon.abilitwo = abilities[1];
-			}
-		},
-		getAbilities: function (slot) {
-			let ab1 = "", ab2 = "";
-			for (let i = 0; i < slot.length; i++) {
-				ab1 = ab1 + slot.charAt(i);
-				if (Dex.getAbility(ab1).exists) {
-					ab2 = slot.substring(i + 1);
-					if (Dex.getAbility(ab2).exists) return [ab1, ab2];
-				}
-			}
-			return ab1;
-		},
-		onSwitchInPriority: 1,
-		onSwitchIn: function (pokemon) {
-			if (pokemon.abilitwo && this.getAbility(pokemon.abilitwo)) {
-				let statusability = {
-					"aerilate": true,
-					"aurabreak": true,
-					"flashfire": true,
-					"parentalbond": true,
-					"pixilate": true,
-					"refrigerate": true,
-					"sheerforce": true,
-					"slowstart": true,
-					"truant": true,
-					"unburden": true,
-					"zenmode": true,
-				};
-				let sec = statusability[pokemon.abilitwo] ? "other" + pokemon.abilitwo : pokemon.abilitwo;
-				pokemon.addVolatile(sec, pokemon); //Second Ability! YAYAYAY
-			}
-		},
-		validateSet: function (set, teamHas) {
-			let abilities = this.format.getAbilities(set.ability), ability = set.ability;
-			if (Array.isArray(abilities)) {
-				set.ability = abilities[0];
-				let problems = this.validateSet(set, teamHas) || [];
-				let abilitwo = Dex.getAbility(abilities[1]);
-				let bans = {
-					'arenatrap': true,
-					'contrary': true,
-					'furcoat': true,
-					'hugepower': true,
-					'imposter': true,
-					'purepower': true,
-					'shadowtag': true,
-					'simple': true,
-					'wonderguard': true,
-					'moody': true,
-				};
-				if (bans[toId(abilitwo.id)]) problems.push(set.species + "'s ability " + abilitwo.name + " is banned by Multibility.");
-				if (abilitwo.id === toId(set.ability)) problems.push("You cannot have two of " + abilitwo.name + " on the same Pokemon.");
-				set.ability = ability;
-				return problems;
-			}
-		},
-		onValidateTeam: function (team, format) {
-			let abilityTable = {};
-			for (let i = 0; i < team.length; i++) {
-				let abilities = format.getAbilities(team[i].ability), ability = this.getAbility(Array.isArray(abilities) ? abilities[0] : abilities);
-				if (!abilityTable[ability.id]) abilityTable[ability.id] = 0;
-				if (++abilityTable[ability.id] > 2) {
-					return ["You are limited to two of each ability by Ability Clause.", "(You have more than two of " + ability.name + " or " + this.getAbility(toId(team[i].item)).name + " [Item])"];
-				}
-				if (!Array.isArray(abilities)) continue;
-				ability = this.getAbility(abilities[1]);
-				if (!ability.exists) continue;
-				if (!abilityTable[ability.id]) abilityTable[ability.id] = 0;
-				if (++abilityTable[ability.id] > 2) {
-					return ["You are limited to two of each ability by Ability Clause.", "(You have more than two of " + ability.name + ")"];
-				}
-			}
-		},
-	},
-	{
 		name: "[Gen 7] Move Equality",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3599280/\">Move Equality</a>: Every Move has 100 base power with the exception of moves that have varying base powers."],
 		mod: 'gen7',
@@ -2052,39 +1811,39 @@ exports.Formats = [
 
 	},
 	{
-		name: "[Gen 7] OU Chaos",
+		name: "[Gen 7] OU (Chaos)",
 		mod: "ouchaos",
 		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 		desc: [
 			"Overused beasts are back, and the chaos is everywhere",
 			"&bullet; <a href=\"http://chandie.boards.net/thread/2/overused-chaos-viability-rankings\">OU Chaos Viability Ranking</a>",
+			"&bullet; <a href=\"http://chandie.boards.net/thread/4/welcome-usm-chaos-bans-rulesets\">OU Chaos Bans and Unbans</a>",
 		],
 		banlist: ['Uber', 'Power Construct', 'Baton Pass'],
-		unbanlist: ['Aegislash', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Speed', 'Deoxys-Defense', 'Genesect', 'Gengar-Mega', 'Giratina', 'Giratina-Origin', 'Kyurem-White', 'Landorus', 'Lucario-Mega', 'Marshadow', 'Metagross-Mega', 'Naganadel', 'Pheromosa', 'Shaymin-Sky', 'Zeraora'],
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon",
 		mod: "dewdrop",
-		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Cancel Mod'],
 		desc: [
 			"Coded by Insist",
 			"Lycanium Z and AlfaStorm contributed ideas towards the project.",
 			"Along with buffing Pokemon deemed worthy of needing support.",
 			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Jubk6J4d3CFNtO2stytTuRRiSD_XLhqzx40EuDKOjHs/edit?usp=sharing\">Perfection</a>",
 		],
-		unbanlist: ['Moody'],
+		unbanlist: ['Moody', 'Landorus', 'Genesect', 'Aegislash'],
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon Monotype",
 		mod: "dewdrop",
-		ruleset: ['Pokemon', 'Standard', 'Same Type Clause', 'Team Preview'],
+		ruleset: ['[Gen 7] Monotype'],
 		desc: [
 			"Perfected Pokemon Monotype mode",
 			"Mewth contributed the idea towards the project.",
 			"Along with buffing Pokemon deemed worthy of needing support.",
 			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Jubk6J4d3CFNtO2stytTuRRiSD_XLhqzx40EuDKOjHs/edit?usp=sharing\">Perfection</a>",
 		],
-		unbanlist: ['Moody'],
+		unbanlist: ['Moody', 'Landorus', 'Genesect', 'Aegislash'],
 	},
 	{
 		name: "[Gen 7] Pokemon Mystery Dungeon",
@@ -2229,6 +1988,14 @@ exports.Formats = [
 			}
 			return tsTemplate;
 		},
+	},
+	{
+		name: "[Gen 7] TMS Boss Rush",
+		desc: [],
+
+		mod: 'bossrush',
+		team: 'randomBossRush',
+		ruleset: ['Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
 		name: "[Gen 7] Type Illusion",

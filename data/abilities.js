@@ -2463,6 +2463,41 @@ exports.BattleAbilities = {
 		rating: 4,
 		num: 211,
 	},
+	"satanicpower": {
+		desc: "If this Pokemon is a Bidoof in its Standard Forme, it changes to God Forme when it has 1/2 or less of its maximum HP at the end of the turn.",
+		shortDesc: "If Bidoof, changes to God if at 1/2 max HP or less at end of turn.",
+		onResidualOrder: 27,
+		onResidual: function (pokemon) {
+			if (pokemon.baseTemplate.baseSpecies !== 'Bidoof' || pokemon.transformed || !pokemon.hp) return;
+			if (pokemon.template.speciesid === 'bidoofgod' || pokemon.hp > pokemon.maxhp / 2) return;
+			this.add('-activate', pokemon, 'ability: Satanic Power');
+			let template = this.getTemplate('Bidoof-God');
+			pokemon.formeChange(template);
+			pokemon.baseTemplate = template;
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			this.add('detailschange', pokemon, pokemon.details);
+			pokemon.setAbility(template.abilities['0']);
+			pokemon.baseAbility = pokemon.ability;
+			let newHP = Math.floor(Math.floor(2 * pokemon.template.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100) * pokemon.level / 100 + 10);
+			pokemon.hp = newHP - (pokemon.maxhp - pokemon.hp);
+			pokemon.maxhp = newHP;
+			this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
+		},
+		id: "satanicpower",
+		name: "Satanic Power",
+		rating: 5,
+		num: -211,
+	},
+	"assistingfinger": {
+		id: "assistingfinger",
+		name: "Assisting Finger",
+		desc: "Uses Metronome automatically each turn.",
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual: function (pokemon) {
+			this.useMove('Metronome', pokemon, pokemon);
+		},
+	},
 	"ceasarswish": {
 		desc: "If this Pokemon is a Zygarde in its 10% or 50% Forme, it changes to Complete Forme when it has 1/2 or less of its maximum HP at the end of the turn.",
 		shortDesc: "If Zygarde 10%/50%, changes to Complete if at 1/2 max HP or less at end of turn.",

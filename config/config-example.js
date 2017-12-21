@@ -25,8 +25,26 @@ exports.bindaddress = '0.0.0.0';
 //   to 1.
 exports.workers = 1;
 
+<<<<<<< HEAD
 //serverIp for parsing of custom avatars, put your server's ip here
 exports.serverIp = '';
+=======
+// wsdeflate - compresses WebSocket messages
+//	 Toggles use of the Sec-WebSocket-Extension permessage-deflate extension.
+//	 This compresses messages sent and received over a WebSocket connection
+//	 using the zlib compression algorithm. As a caveat, message compression
+//	 may make messages take longer to procress.
+exports.wsdeflate = null;
+/**exports.wsdeflate = {
+	level: 5,
+	memLevel: 8,
+	strategy: 0,
+	noContextTakeover: true,
+	requestNoContextTakeover: true,
+	maxWindowBits: 15,
+	requestMaxWindowBits: 15,
+};**/
+>>>>>>> 176264d39f8ea5f4765030c5a50870decb9ca1f8
 
 // TODO: allow SSL to actually be possible to use for third-party servers at
 // some point.

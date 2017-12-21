@@ -56,8 +56,12 @@ try {
 	throw new Error("Dependencies are unmet; run node pokemon-showdown before launching Pokemon Showdown again.");
 }
 
+<<<<<<< HEAD
 const FS = require('./fs');
 const fs = require('fs');
+=======
+const FS = require('./lib/fs');
+>>>>>>> 176264d39f8ea5f4765030c5a50870decb9ca1f8
 
 /*********************************************************
  * Load configuration
@@ -131,7 +135,7 @@ Dnsbl.loadDatacenters();
 if (Config.crashguard) {
 	// graceful crash - allow current battles to finish before restarting
 	process.on('uncaughtException', err => {
-		let crashType = require('./crashlogger')(err, 'The main process');
+		let crashType = require('./lib/crashlogger')(err, 'The main process');
 		if (crashType === 'lockdown') {
 			Rooms.global.startLockdown(err);
 		} else {
@@ -216,4 +220,4 @@ require('./github');
  * Start up the REPL server
  *********************************************************/
 
-require('./repl').start('app', cmd => eval(cmd));
+require('./lib/repl').start('app', cmd => eval(cmd));

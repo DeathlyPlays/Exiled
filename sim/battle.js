@@ -3276,7 +3276,7 @@ class Battle extends Dex.ModdedDex {
 			let target = data.slice(2).join('|').replace(/\f/g, '\n');
 			this.add('', '>>> ' + target);
 			try {
-				this.add('', '<<< ' + eval(target));
+				this.add('', '<<< ' + Chat.stringify(eval(target)));
 			} catch (e) {
 				this.add('', '<<< error: ' + e.message);
 			}
@@ -3306,7 +3306,6 @@ class Battle extends Dex.ModdedDex {
 						p2: this.p2.name,
 						p1team: this.p1.team,
 						p2team: this.p2.team,
-						log: this.log,
 					};
 					this.send('log', JSON.stringify(log));
 				}

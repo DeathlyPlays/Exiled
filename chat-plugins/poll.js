@@ -350,7 +350,7 @@ exports.commands = {
 				room.poll.display();
 			}
 
-			this.logEntry("" + user.name + " used " + message);
+			this.roomlog("" + user.name + " used " + message);
 			return this.privateModCommand("(A poll was started by " + user.name + ".)");
 		},
 		newhelp: ["/poll create [question], [option1], [option2], [...] - Creates a poll. Allows up to 5 polls at once. Requires: % @ * # & ~"],

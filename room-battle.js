@@ -13,7 +13,7 @@
 
 'use strict';
 
-const FS = require('./fs');
+const FS = require('./lib/fs');
 const ProcessManager = require('./process-manager');
 
 /** 5 seconds */
@@ -496,13 +496,24 @@ class Battle {
 		switch (lines[1]) {
 		case 'update':
 			this.checkActive();
-			this.room.push(lines.slice(2));
+			for (const line of lines.slice(2)) {
+				this.room.add(line);
+			}
 			this.room.update();
 			this.timer.nextRequest();
 			break;
 
 		case 'winupdate':
-			this.room.push(lines.slice(3));
+			for (const line of lines.slice(3)) {
+				this.room.add(line);
+			}
+			if (Rooms.global.FvF && Rooms.global.FvF[toId(Server.getFaction(this.room.p1))]) {
+				if (this.format === Rooms(Rooms.global.FvF[toId(Server.getFaction(this.room.p1))].room).fvf.tier && lines[lines.length - 1].split('|')[1] === 'tie') {
+					Server.isFvFBattle(toId(this.room.p1), toId(this.room.p2), this.room.id, 'tie');
+				} else if (this.format === Rooms(Rooms.global.FvF[toId(Server.getFaction(this.room.p1))].room).fvf.tier && lines[lines.length - 1].split('|')[1] === 'win') {
+					Server.isFvFBattle(toId(this.room.p1), toId(this.room.p2), this.room.id, 'p-' + toId(lines[lines.length - 1].split('|')[2]));
+				}
+			}
 			this.started = true;
 			if (!this.ended) {
 				this.ended = true;
@@ -617,7 +628,7 @@ class Battle {
 		let logData = this.logData;
 		if (!logData) return;
 		this.logData = null; // deallocate to save space
-		logData.log = Rooms.GameRoom.prototype.getLog.call(logData, 3); // replay log (exact damage)
+		logData.log = this.room.getLog(3).split('\n'); // replay log (exact damage)
 
 		// delete some redundant data
 		if (p1rating) {
@@ -852,11 +863,11 @@ if (process.send && module === process.mainModule) {
 	if (Config.crashguard) {
 		// graceful crash - allow current battles to finish before restarting
 		process.on('uncaughtException', err => {
-			require('./crashlogger')(err, 'A simulator process');
+			require('./lib/crashlogger')(err, 'A simulator process');
 		});
 	}
 
-	require('./repl').start(`sim-${process.pid}`, cmd => eval(cmd));
+	require('./lib/repl').start(`sim-${process.pid}`, cmd => eval(cmd));
 
 	let Battles = new Map();
 
@@ -880,7 +891,7 @@ if (process.send && module === process.mainModule) {
 					battle.id = id;
 					Battles.set(id, battle);
 				} catch (err) {
-					if (require('./crashlogger')(err, 'A battle', {
+					if (require('./lib/crashlogger')(err, 'A battle', {
 						message: message,
 					}) === 'lockdown') {
 						let ministack = Chat.escapeHTML(err.stack).split("\n").slice(0, 2).join("<br />");
@@ -898,7 +909,7 @@ if (process.send && module === process.mainModule) {
 				// remove from battle list
 				Battles.delete(id);
 			} else {
-				require('./crashlogger')(new Error("Invalid dealloc"), 'A battle', {
+				require('./lib/crashlogger')(new Error("Invalid dealloc"), 'A battle', {
 					message: message,
 				});
 			}
@@ -910,7 +921,7 @@ if (process.send && module === process.mainModule) {
 				try {
 					battle.receive(data, more);
 				} catch (err) {
-					require('./crashlogger')(err, 'A battle', {
+					require('./lib/crashlogger')(err, 'A battle', {
 						message: message,
 						currentRequest: prevRequest,
 						log: '\n' + battle.log.join('\n').replace(/\n\|split\n[^\n]*\n[^\n]*\n[^\n]*\n/g, '\n'),

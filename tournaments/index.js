@@ -1242,7 +1242,7 @@ let commands = {
 		begin: 'start',
 		start: function (tournament, user) {
 			if (tournament.startTournament(this)) {
-				this.room.sendModCommand("(" + user.name + " started the tournament.)");
+				this.room.sendMods("(" + user.name + " started the tournament.)");
 			}
 		},
 		dq: 'disqualify',
@@ -1309,7 +1309,7 @@ let commands = {
 		runautodq: function (tournament, user) {
 			if (tournament.autoDisqualifyTimeout === Infinity) return this.errorReply("The automatic tournament disqualify timer is not set.");
 			tournament.runAutoDisqualify(this);
-			this.logEntry(user.name + " used /tour runautodq");
+			this.roomlog(user.name + " used /tour runautodq");
 		},
 		remind: function (tournament, user) {
 			let users = tournament.generator.getAvailableMatches().toString().split(',');

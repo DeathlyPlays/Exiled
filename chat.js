@@ -620,7 +620,7 @@ class CommandContext {
 				return false;
 			}
 
-<<<<<<< HEAD
+
 			if (Users.ShadowBan.checkBanned(this.user)) {
 				Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
 				this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
@@ -628,11 +628,6 @@ class CommandContext {
 				return false;
 			}
 
-			// broadcast cooldown
-			let broadcastMessage = message.toLowerCase().replace(/[^a-z0-9\s!,]/g, '');
-
-=======
->>>>>>> 176264d39f8ea5f4765030c5a50870decb9ca1f8
 			if (this.room && this.room.lastBroadcast === this.broadcastMessage &&
 				this.room.lastBroadcastTime >= Date.now() - BROADCAST_COOLDOWN) {
 				this.errorReply("You can't broadcast this because it was just broadcasted.");

@@ -1030,15 +1030,9 @@ class BasicChatRoom extends BasicRoom {
 			this.userList = this.getUserList();
 		}
 		// TypeScript bug: subclass member
-<<<<<<< HEAD
-		/** @type {NodeJS.Timer?} */
-		this.reportJoinsInterval = null;
-
-		if (this.isPersonal) {
-			this.modlogStream = Rooms.groupchatModlogStream;
-		} else {
-			this.modlogStream = FS('logs/modlog/modlog_' + roomid + '.txt').createAppendStream();
-		}
+		this.reportJoinsInterval = /** @type {NodeJS.Timer?} */ (null);
+		this.game = /** @type {RoomGame?} */ (null);
+		this.battle = /** @type {RoomBattle?} */ (null);
 		// @ts-ignore
 		this.deleteInactive = setTimeout(function () {
 			// @ts-ignore
@@ -1056,11 +1050,6 @@ class BasicChatRoom extends BasicRoom {
 			}
 		// @ts-ignore
 		}.bind(this), 2 * 24 * 60 * 60 * 1000); //48 hours
-=======
-		this.reportJoinsInterval = /** @type {NodeJS.Timer?} */ (null);
-		this.game = /** @type {RoomGame?} */ (null);
-		this.battle = /** @type {RoomBattle?} */ (null);
->>>>>>> 176264d39f8ea5f4765030c5a50870decb9ca1f8
 	}
 
 	/**
@@ -1268,7 +1257,6 @@ class BasicChatRoom extends BasicRoom {
 		} else {
 			this.reportJoin('n', user.getIdentity(this.id) + '|' + oldid);
 		}
-<<<<<<< HEAD
 		// @ts-ignore TODO: strongly-typed polls
 		if (this.poll) {
 			// @ts-ignore TODO: strongly-typed polls
@@ -1286,10 +1274,6 @@ class BasicChatRoom extends BasicRoom {
 			}
 		}
 		return user;
-=======
-		if (this.poll && user.userid in this.poll.voters) this.poll.updateFor(user);
-		return true;
->>>>>>> 176264d39f8ea5f4765030c5a50870decb9ca1f8
 	}
 	/**
 	 * onRename, but without a userid change

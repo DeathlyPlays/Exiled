@@ -56,12 +56,8 @@ try {
 	throw new Error("Dependencies are unmet; run node pokemon-showdown before launching Pokemon Showdown again.");
 }
 
-<<<<<<< HEAD
-const FS = require('./fs');
-const fs = require('fs');
-=======
 const FS = require('./lib/fs');
->>>>>>> 176264d39f8ea5f4765030c5a50870decb9ca1f8
+const fs = require('fs');
 
 /*********************************************************
  * Load configuration

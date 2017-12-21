@@ -662,17 +662,10 @@ class User {
 			this.send(`|nametaken|${name}|Your verification signature was invalid.`);
 			return false;
 		}
-<<<<<<< HEAD
+
 		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 		Ontime[userid] = Date.now();
 		Server.showNews(userid, this);
-		return false;
-	}
-	validateRename(name, tokenData, newlyRegistered, challenge) {
-		let userid = toId(name);
-=======
->>>>>>> 176264d39f8ea5f4765030c5a50870decb9ca1f8
-
 		let tokenDataSplit = tokenData.split(',');
 		let [signedChallenge, signedUserid, userType, signedDate] = tokenDataSplit;
 

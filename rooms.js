@@ -1603,6 +1603,12 @@ let Rooms = Object.assign(getRoom, {
 			room.add(`|raw|<div class="broadcast-red"><strong>This battle is invite-only!</strong><br />Users must be rank + or invited with <code>/invite</code> to join</div>`);
 		}
 
+		// @ts-ignore
+		if (Rooms.global.FvF && Rooms.global.FvF[toId(Server.getFaction(p1.userid))] && Rooms(Rooms.global.FvF[toId(Server.getFaction(p1.userid))].room).fvf.tier === formatid) {
+			// @ts-ignore
+			Server.isFvFBattle(p1.userid, p2.userid, room.id, 'start');
+		}
+
 		game.addPlayer(p1, options.p1team);
 		game.addPlayer(p2, options.p2team);
 		p1.joinRoom(room);

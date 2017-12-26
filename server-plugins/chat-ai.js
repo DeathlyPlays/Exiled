@@ -11,11 +11,11 @@
 
 let personality = ["are you", "have you", "do you", "you feeling"];
 let future = ["are you gonna", "are you going to", "will you", "you gonna", "wanna", "want to", "are you"];
-let demand = ["fight", "battle", "fuck"];
+//let demand = ["fight", "battle", "fuck"];
 let greeting = ["hello", "greetings", "salutations", "bonjour", "henlo", "hai", "hey", "wassup", "sup", "what's up"];
 let basicAnswer = ["Yes.", "No.", "Yeah.", "Nah.", "I don't think so.", "Probably.", "No thank you.", "I don't know.", "Never.", "Always.", "Yeah... Okay.", "You're funny.", "How cute!", "Hell no.", "Hell yeah!", "Fuck off.", "Who are you again?", "I have no idea.", "Lol, k."];
 let persoAnswer = ["Mhm.", "Nope!", "Nah.", "Yeah!", "I can try.", "I don't think so.", "That's a good joke!", "Not really..", "Why are you asking me this?"];
-let demandAnswer = ["Okay.", "No thanks.", "K.", "Let's do it.", "Why?", "Nah.", "Yeah, let's go.", "Yes please."];
+//let demandAnswer = ["Okay.", "No thanks.", "K.", "Let's do it.", "Why?", "Nah.", "Yeah, let's go.", "Yes please."];
 let answer;
 let paige = '<font color="#e033d7">Paige</font>';
 let satan = '<font color="red">Satan</font>';
@@ -31,9 +31,9 @@ function say(message) {
 }
 
 //For answering questions that Paige can't identify
-function otherAnswer() {
+/*function otherAnswer() {
 	say.call(this, "Hello!");
-}
+}*/
 
 exports.commands = {
 	narrator: {

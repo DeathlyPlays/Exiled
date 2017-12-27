@@ -58,9 +58,13 @@ exports.commands = {
 		if (template.isMega || (template.evos && Object.keys(template.evos).length > 0) || template.name === 'Necrozma-Ultra') { // Mega Pokemon and Ultra Necrozma cannot be mega evolved
 			this.errorReply(`Warning: You cannot mega evolve non-fully evolved Pokemon, Mega Pokemon, and Ultra Necrozma in Mix and Mega.`);
 		}
+		let banlist = Dex.getFormat('gen7mixandmega').banlist;
+		if (banlist.includes(stone.name)) {
+			this.errorReply(`Warning: ${stone.name} is banned from Mix and Mega.`);
+		}
 		let bannedStones = Dex.getFormat('gen7mixandmega').bannedStones;
 		if (bannedStones.includes(stone.name) && template.name !== stone.megaEvolves) {
-			this.errorReply(`Warning: ${stone.name} is restricted to ${stone.megaEvolves} in Mix and Mega; therefore, ${template.name} cannot use ${stone.name} in actual play.`);
+			this.errorReply(`Warning: ${stone.name} is restricted to ${stone.megaEvolves} in Mix and Mega.`);
 		}
 		let cannotMega = Dex.getFormat('gen7mixandmega').cannotMega;
 		if (cannotMega.includes(template.name) && template.name !== stone.megaEvolves && !template.isMega) { // Separate messages because there's a difference between being already mega evolved / NFE and being banned from mega evolving
@@ -70,7 +74,7 @@ exports.commands = {
 			this.errorReply(`Warning: ${stone.name} is unreleased and is not usable in current Mix and Mega.`);
 		}
 		if (toId(sep[1]) === 'dragonascent' && !['smeargle', 'rayquaza', 'rayquazamega'].includes(toId(sep[0]))) {
-			this.errorReply(`Warning: Only Pokemon with access to Dragon Ascent can mega evolve with Mega Rayquaza's traits; therefore, ${template.name} cannot mega evolve with Dragon Ascent.`);
+			this.errorReply(`Warning: Only Pokemon with access to Dragon Ascent can mega evolve with Mega Rayquaza's traits.`);
 		}
 		// Fake Pokemon and Mega Stones
 		if (template.isNonstandard) {
@@ -163,6 +167,10 @@ exports.commands = {
 			stone = Dex.getItem(target);
 		}
 		if (!stone.megaEvolves && !stone.onPrimal) return this.errorReply(`Error: Mega Stone not found.`);
+		let banlist = Dex.getFormat('gen7mixandmega').banlist;
+		if (banlist.includes(stone.name)) {
+			this.errorReply(`Warning: ${stone.name} is banned from Mix and Mega.`);
+		}
 		let bannedStones = Dex.getFormat('gen7mixandmega').bannedStones;
 		if (bannedStones.includes(stone.name)) {
 			this.errorReply(`Warning: ${stone.name} is restricted to ${stone.megaEvolves} in Mix and Mega.`);

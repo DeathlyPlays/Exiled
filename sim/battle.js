@@ -1225,12 +1225,12 @@ class Battle extends Dex.ModdedDex {
 		}
 
 		case 'teampreview':
-			let maxTeamSize = 6;
 			let teamLengthData = this.getFormat().teamLength;
-			if (teamLengthData && teamLengthData.battle) maxTeamSize = teamLengthData.battle;
+			let maxTeamSize = teamLengthData && teamLengthData.battle;
+			this.add('teampreview' + (maxTeamSize ? '|' + maxTeamSize : ''));
+			if (!maxTeamSize) maxTeamSize = 6;
 			this.p1.maxTeamSize = maxTeamSize;
 			this.p2.maxTeamSize = maxTeamSize;
-			this.add('teampreview' + (maxTeamSize !== 6 ? '|' + maxTeamSize : ''));
 			this.p1.currentRequest = 'teampreview';
 			p1request = {teamPreview: true, maxTeamSize: maxTeamSize, side: this.p1.getData()};
 			this.p2.currentRequest = 'teampreview';
@@ -3237,7 +3237,7 @@ class Battle extends Dex.ModdedDex {
 	 * @param {string[]} data
 	 * @param {string} [more]
 	 */
-	receive(data, more) {
+	async receive(data, more) {
 		this.messageLog.push(data.join(' '));
 		let logPos = this.log.length;
 		let alreadyEnded = this.ended;
@@ -3276,7 +3276,14 @@ class Battle extends Dex.ModdedDex {
 			let target = data.slice(2).join('|').replace(/\f/g, '\n');
 			this.add('', '>>> ' + target);
 			try {
-				this.add('', '<<< ' + Chat.stringify(eval(target)));
+				let result = eval(target);
+				if (result && result.then) {
+					result = 'Promise -> ' + Chat.stringify(await result);
+				} else {
+					result = Chat.stringify(result);
+				}
+				result = result.replace(/\n/g, '\n||');
+				this.add('', '<<< ' + result);
 			} catch (e) {
 				this.add('', '<<< error: ' + e.message);
 			}

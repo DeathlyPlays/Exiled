@@ -1121,10 +1121,12 @@ Punishments.checkName = function (user, userid, registered) {
 		user.resetName();
 		user.updateIdentity();
 	} else {
-		if (!user.lockNotified) {
+		if (punishUserid === '#hostfilter') {
+			user.popup(`Due to spam, you can't chat using a proxy. (Your IP ${user.latestIp} appears to be a proxy.)`);
+		} else if (!user.lockNotified) {
 			user.send(`|popup|You are locked${bannedUnder}. Your lock will expire in a few days.${reason}${appeal}`);
-			user.lockNotified = true;
 		}
+		user.lockNotified = true;
 		Punishments.punish(user, punishment);
 		user.locked = punishUserid;
 		user.updateIdentity();
@@ -1367,6 +1369,7 @@ Punishments.getRoomPunishments = function (user, options) {
  */
 Punishments.monitorRoomPunishments = function (user) {
 	if (user.locked) return;
+	const userid = toId(user);
 
 	const minPunishments = (typeof Config.monitorminpunishments === 'number' ? Config.monitorminpunishments : 3); // Default to 3 if the Config option is not defined or valid
 	if (!minPunishments) return;
@@ -1381,7 +1384,7 @@ Punishments.monitorRoomPunishments = function (user) {
 			if (punishType in PUNISHMENT_POINT_VALUES) points += PUNISHMENT_POINT_VALUES[punishType];
 			let punishDesc = Punishments.roomPunishmentTypes.get(punishType);
 			if (!punishDesc) punishDesc = `punished`;
-			if (punishUserid !== user.userid) punishDesc += ` as ${punishUserid}`;
+			if (punishUserid !== userid) punishDesc += ` as ${punishUserid}`;
 
 			if (reason) punishDesc += `: ${reason}`;
 			return `<<${room}>> (${punishDesc})`;
@@ -1390,12 +1393,12 @@ Punishments.monitorRoomPunishments = function (user) {
 		if (Config.punishmentautolock && points >= AUTOLOCK_POINT_THRESHOLD) {
 			let rooms = punishments.map(([room]) => room).join(', ');
 			let reason = `Autolocked for having punishments in ${punishments.length} rooms: ${rooms}`;
-			let message = `${user.name || `[${toId(user)}]`} was locked for having punishments in ${punishments.length} rooms: ${punishmentText}`;
+			let message = `${user.name || userid} was locked for having punishments in ${punishments.length} rooms: ${punishmentText}`;
 
 			Punishments.autolock(user, 'staff', 'PunishmentMonitor', reason, message);
 			if (typeof user !== 'string') user.popup("|modal|You've been locked for breaking the rules in multiple chatrooms.\n\nIf you feel that your lock was unjustified, you can still PM staff members (%, @, &, and ~) to discuss it" + (Config.appealurl ? " or you can appeal:\n" + Config.appealurl : ".") + "\n\nYour lock will expire in a few days.");
 		} else {
-			Monitor.log(`[PunishmentMonitor] ${user.name} currently has punishments in ${punishments.length} rooms: ${punishmentText}`);
+			Monitor.log(`[PunishmentMonitor] ${user.name || userid} currently has punishments in ${punishments.length} rooms: ${punishmentText}`);
 		}
 	}
 };

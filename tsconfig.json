@@ -21,11 +21,14 @@
         "./ladders-remote.js",
         "./ladders.js",
         "./monitor.js",
+        "./loginserver.js",
         "./rooms.js",
         "./roomlogs.js",
         "./chat-formatter.js",
         "./room-game.js",
         "./process-manager.js",
-        "./verifier.js"
+        "./verifier.js",
+        "./chat.js",
+        "./users.js"
     ]
 }

@@ -1783,6 +1783,9 @@ exports.commands = {
 
 		const globalReason = (target ? `: ${userReason} ${proof}` : ``);
 		this.globalModlog((week ? "WEEKLOCK" : "LOCK"), targetUser || userid, ` by ${user.name}${globalReason}`);
+
+		// Automatically upload replays as evidence/reference to the punishment
+		if (room.battle) this.parse('/savereplay');
 		return true;
 	},
 	lockhelp: [
@@ -2350,10 +2353,10 @@ exports.commands = {
 		let hidetype = '';
 		if (!user.can('lock', targetUser) && !this.can('ban', targetUser, room)) return false;
 
-		if (targetUser.locked || Punishments.isRoomBanned(targetUser, room.id) || user.can('rangeban')) {
+		if (targetUser.locked || Punishments.isRoomBanned(targetUser, room.id) || room.isMuted(targetUser) || user.can('rangeban')) {
 			hidetype = 'hide|';
 		} else {
-			return this.errorReply("User '" + name + "' is not banned from this room or locked.");
+			return this.errorReply("User '" + name + "' is not muted/banned from this room or locked.");
 		}
 
 		if (cmd === 'hidealtstext' || cmd === 'hidetextalts' || cmd === 'hidealttext') {
@@ -2374,8 +2377,8 @@ exports.commands = {
 		}
 	},
 	hidetexthelp: [
-		"/hidetext [username] - Removes a locked or banned user's messages from chat (includes users banned from the room). Requires: % (global only), @ * # & ~",
-		"/hidealtstext [username] - Removes a locked or banned user's messages, and their alternate account's messages from the chat (includes users banned from the room).  Requires: % (global only), @ * # & ~",
+		"/hidetext [username] - Removes a locked or muted/banned user's messages from chat (includes users banned from the room). Requires: % (global only), @ * # & ~",
+		"/hidealtstext [username] - Removes a locked or muted/banned user's messages, and their alternate account's messages from the chat (includes users banned from the room).  Requires: % (global only), @ * # & ~",
 	],
 
 	ab: 'blacklist',
@@ -3049,36 +3052,90 @@ exports.commands = {
 	refreshpage: function (target, room, user) {
 		if (!this.can('hotpatch')) return false;
 		Rooms.global.send('|refresh|');
-		this.roomlog(user.name + " used /refreshpage");
+		const logRoom = Rooms('staff') || room;
+		logRoom.roomlog(`${user.name} used /refreshpage`);
 	},
 
-	updateserver: function (target, room, user, connection) {
-		if (!user.hasConsoleAccess(connection)) {
-			return this.errorReply("/updateserver - Access denied.");
+	updateserver: async function (target, room, user, connection) {
+		if (!user.can('hotpatch')) {
+			return this.errorReply(`/updateserver - Access denied.`);
 		}
 
 		if (Chat.updateServerLock) {
-			return this.errorReply("/updateserver - Another update is already in progress.");
+			return this.errorReply(`/updateserver - Another update is already in progress (or a previous update crashed)`);
 		}
 
 		Chat.updateServerLock = true;
 
-		let logQueue = [];
-		logQueue.push(user.name + " used /updateserver");
+		const logRoom = Rooms('staff') || room;
 
-		connection.sendTo(room, "updating...");
+		/** @return {Promise<[number, string, string]>} */
+		function exec(/** @type {string} */ command) {
+			logRoom.roomlog(`$ ${command}`);
+			return new Promise((resolve, reject) => {
+				require('child_process').exec(command, (error, stdout, stderr) => {
+					let log = `[o] ${stdout}[e] ${stderr}`;
+					if (error) log = `[c] ${error.code}\n${log}`;
+					logRoom.roomlog(log);
+					resolve([error && error.code || 0, stdout, stderr]);
+				});
+			});
+		}
 
-		let exec = require('child_process').exec;
-		exec(`git fetch && git rebase --autostash FETCH_HEAD`, (error, stdout, stderr) => {
-			for (let s of ("" + stdout + stderr).split("\n")) {
-				connection.sendTo(room, s);
-				logQueue.push(s);
-			}
-			for (let line of logQueue) {
-				room.roomlog(line);
-			}
+		this.sendReply(`Fetching newest version...`);
+		logRoom.roomlog(`${user.name} used /updateserver`);
+
+		let [code, stdout, stderr] = await exec(`git fetch`);
+		if (code) throw new Error(`updateserver: Crash while fetching - make sure this is a Git repository`);
+		if (!stdout && !stderr) {
 			Chat.updateServerLock = false;
-		});
+			return this.sendReply(`There were no updates.`);
+		}
+
+		[code, stdout, stderr] = await exec(`git rev-parse HEAD`);
+		if (code || stderr) throw new Error(`updateserver: Crash while grabbing hash`);
+		const oldHash = String(stdout).trim();
+
+		[code, stdout, stderr] = await exec(`git stash save --include-untracked "PS /updateserver autostash"`);
+		let stashedChanges = true;
+		if (code) throw new Error(`updateserver: Crash while stashing`);
+		if ((stdout + stderr).includes("No local changes")) {
+			stashedChanges = false;
+		} else if (stderr) {
+			throw new Error(`updateserver: Crash while stashing`);
+		} else {
+			this.sendReply(`Saving changes...`);
+		}
+
+		// errors can occur while rebasing or popping the stash; make sure to recover
+		try {
+			this.sendReply(`Rebasing...`);
+			[code, stdout, stderr] = await exec(`git rebase FETCH_HEAD`);
+			if (code) {
+				// conflict while rebasing
+				await exec(`git rebase --abort`);
+				throw new Error(`restore`);
+			}
+
+			if (stashedChanges) {
+				this.sendReply(`Restoring saved changes...`);
+				[code, stdout, stderr] = await exec(`git stash pop`);
+				if (code) {
+					// conflict while popping stash
+					await exec(`git reset HEAD .`);
+					await exec(`git checkout .`);
+					throw new Error(`restore`);
+				}
+			}
+
+			this.sendReply(`SUCCESSFUL, server updated.`);
+		} catch (e) {
+			// failed while rebasing or popping the stash
+			await exec(`git reset --hard ${oldHash}`);
+			await exec(`git stash pop`);
+			this.sendReply(`FAILED, old changes restored.`);
+		}
+		Chat.updateServerLock = false;
 	},
 
 	crashfixed: function (target, room, user) {
@@ -3092,7 +3149,8 @@ exports.commands = {
 			Rooms.lobby.modchat = false;
 			Rooms.lobby.addRaw("<div class=\"broadcast-green\"><b>We fixed the crash without restarting the server!</b><br />You may resume talking in the lobby and starting new battles.</div>").update();
 		}
-		this.roomlog(user.name + " used /crashfixed");
+		const logRoom = Rooms('staff') || room;
+		logRoom.roomlog(`${user.name} used /crashfixed`);
 	},
 	crashfixedhelp: ["/crashfixed - Ends the active lockdown caused by a crash without the need of a restart. Requires: ~"],
 
@@ -3122,7 +3180,7 @@ exports.commands = {
 	},
 	bashhelp: ["/bash [command] - Executes a bash command on the server. Requires: ~ console access"],
 
-	eval: function (target, room, user, connection) {
+	eval: async function (target, room, user, connection) {
 		if (!user.hasConsoleAccess(connection)) {
 			return this.errorReply("/eval - Access denied.");
 		}
@@ -3133,7 +3191,14 @@ exports.commands = {
 			/* eslint-disable no-unused-vars */
 			let battle = room.battle;
 			let me = user;
-			this.sendReply('||<< ' + Chat.stringify(eval(target)));
+			let result = eval(target);
+			if (result && result.then) {
+				result = 'Promise -> ' + Chat.stringify(await result);
+			} else {
+				result = Chat.stringify(result);
+			}
+			result = result.replace(/\n/g, '\n||');
+			this.sendReply('||<< ' + result);
 			/* eslint-enable no-unused-vars */
 		} catch (e) {
 			this.sendReply('|| << ' + ('' + e.stack).replace(/\n *at CommandContext\.eval [\s\S]*/m, '').replace(/\n/g, '\n||'));
@@ -3290,7 +3355,7 @@ exports.commands = {
 	},
 
 	uploadreplay: 'savereplay',
-	savereplay: function (target, room, user, connection) {
+	savereplay: async function (target, room, user, connection) {
 		if (!room || !room.battle) return;
 		// retrieve spectator log (0) if there are privacy concerns
 		const format = Dex.getFormat(room.format, true);
@@ -3301,7 +3366,7 @@ exports.commands = {
 		let players = room.battle.playerNames;
 		let rating = 0;
 		if (room.battle.ended && room.rated) rating = room.rated;
-		LoginServer.request('prepreplay', {
+		const [success] = await LoginServer.request('prepreplay', {
 			id: room.id.substr(7),
 			loghash: datahash,
 			p1: players[0],
@@ -3309,16 +3374,15 @@ exports.commands = {
 			format: room.format,
 			rating: rating,
 			hidden: room.isPrivate ? '1' : '',
-		}, success => {
-			if (success && success.errorip) {
-				connection.popup(`This server's request IP ${success.errorip} is not a registered server.`);
-				return;
-			}
-			connection.send('|queryresponse|savereplay|' + JSON.stringify({
-				log: data,
-				id: room.id.substr(7),
-			}));
 		});
+		if (success && success.errorip) {
+			connection.popup(`This server's request IP ${success.errorip} is not a registered server.`);
+			return;
+		}
+		connection.send('|queryresponse|savereplay|' + JSON.stringify({
+			log: data,
+			id: room.id.substr(7),
+		}));
 	},
 
 	addplayer: function (target, room, user) {

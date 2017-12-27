@@ -365,7 +365,7 @@ exports.commands = {
 			if (!this.can('ban')) return false;
 			let targets = target.split(',');
 			for (let u in targets) targets[u] = targets[u].trim();
-			if (!targets[1]) return this.errorReply("Usage: '/factiona approveavatar factionid, link'");
+			if (!targets[1]) return this.errorReply("Usage: '/faction approveavatar factionid, link'");
 			let factionId = toId(targets[0]);
 			if (!factions[factionId]) return this.errorReply('Not a faction!');
 			let factAvi = targets[1];

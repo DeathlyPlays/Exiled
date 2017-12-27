@@ -1,15 +1,17 @@
-/**
- * profile.js
- * Displays to users a profile of a given user.
- * For order's sake:
- * - vip, dev, customtitle, friendcode, and profile were placed in here.
- * Updated and restyled by Mystifi; main profile restyle goes out to panpawn/jd/other contributors.
- **/
+/****************************************************************************
+ * Profiles for Pokemon Showdown											*
+ * Displays to users a profile of a given user.								*
+ * For order's sake:														*
+ * - vip, dev, custom title, friend code, and profile were placed in here.	*
+ * Updated and restyled by Mystifi and Insist								*
+ * Main Profile credit goes out to panpawn/jd/other contributors.			*
+ ****************************************************************************/
+
 'use strict';
 
 let geoip = require('geoip-lite-country');
 
-// fill in '' with the server IP
+// fill your server's IP in your config.js for exports.serverIp
 let serverIp = Config.serverIp;
 
 function isDev(user) {
@@ -116,7 +118,7 @@ exports.commands = {
 				'<br />' +
 				'<code>take [username]</code>: Takes <code>username</code>\'s DEV status. Requires: & ~' +
 				'<br />' +
-				'<code>list</code>: Shows list of users with DEV Status.' +
+				'<code>list</code>: Shows the list of users with DEV Status.' +
 				'</div>'
 			);
 		},
@@ -340,16 +342,16 @@ exports.commands = {
 			if (!target) return this.parse('/profileteam help');
 			let targetId = toId(target);
 			Db("hasteam").set(targetId, 1);
-			this.sendReply(target + ' has been given the ability to set their team.');
+			this.sendReply(`${target} has been given the ability to set their team.`);
 			Users(target).popup('You have been given the ability to set your profile team.');
 		},
 
 		take: function (target, room, user) {
 			if (!this.can('broadcast')) return false;
 			if (!target) return this.parse('/profileteam help');
-			if (!Db("hasteam").has(user)) return this.errorReply('This user does not have the ability to set their team.');
+			if (!Db("hasteam").has(user)) return this.errorReply(`${target} does not have the ability to set their team.`);
 			Db("hasteam").delete(user);
-			return this.sendReply('This user has had their ability to change their team away.');
+			return this.sendReply(`${target} has had their ability to change their team away.`);
 		},
 
 		'': 'help',
@@ -383,7 +385,7 @@ exports.commands = {
 			let link = parts[1].trim();
 			Db("backgrounds").set(targ, link);
 			this.sendReply('This user\'s background has been set to : ');
-			this.parse('/profile ' + targ);
+			this.parse(`/profile ${targ}`);
 		},
 
 		removebg: 'deletebg',
@@ -423,8 +425,8 @@ exports.commands = {
 			let title = parts[2].trim();
 			Db("music").set([targ, 'link'], link);
 			Db("music").set([targ, 'title'], title);
-			this.sendReply(targ + '\'s song has been set to: ');
-			this.parse('/profile ' + targ);
+			this.sendReply(`${targ}'s song has been set to: `);
+			this.parse(`/profile ${targ}`);
 		},
 
 		take: "delete",
@@ -669,6 +671,8 @@ exports.commands = {
 		"/pteam give [user] - Gives a user access to edit their profile team. Requires + or higher.",
 		"/pteam add [slot], [dex # of the Pokemon] - Adds a Pokemon onto your profile team. Requires profile edit access.",
 		"/pteam take [user] - Revokes a user's access to edit their profile team. Requires + or higher.",
+		"/pokemon set [Pokemon] - Set your Favorite Pokemon onto your profile.",
+		"/pokemon delete - Delete your Favorite Pokemon from your profile.",
 		"/type set [type] - Set your favorite type.",
 		"/type delete - Delete your favorite type.",
 		"/nature set [nature] - Set your nature.",

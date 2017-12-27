@@ -18,7 +18,7 @@ class Lottery {
 		this.room.add(`|uhtml|lottery-${this.lottoNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new <strong>Lottery drawing</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/lotto join">Join</button><br /><strong>Joining costs ${this.costToJoin} ${moneyPlural}</strong></p></div>`, true);
 		this.timer = setTimeout(() => {
 			if (this.players.length < 2) {
-				this.room.add('|uhtmlchange|lottery-' + this.lottoNumber + '|<div class="broadcast-red"><p style="text-align: center; font-size: 14pt>This Lottery drawing has ended due to lack of users.</p></div>');
+				this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="broadcast-red"><p style="text-align: center; font-size: 14pt>This Lottery drawing has ended due to lack of users.</p></div>`);
 				return this.end();
 			}
 			this.drawWinner();
@@ -38,12 +38,12 @@ class Lottery {
 		if (this.players.includes(user.userid)) return user.sendTo(this.room, 'You have already joined the lottery');
 		Economy.readMoney(user.userid, money => {
 			if (money < this.costToJoin) {
-				user.sendTo(this.room, 'You do not have enough ' + moneyPlural + ' to join.');
+				user.sendTo(this.room, `You do not have enough ${moneyPlural} to join.`);
 				return;
 			}
 			Economy.writeMoney(user.userid, -this.costToJoin, () => {
 				Economy.readMoney(user.userid, money => {
-					Economy.logTransaction(user.name + " entered a Lottery drawing for " + this.costToJoin + " " + moneyPlural + ".");
+					Economy.logTransaction(`${user.name} entered a Lottery drawing for ${this.costToJoin} ${moneyPlural}.`);
 				});
 			});
 			this.players.push(user.userid);
@@ -55,8 +55,8 @@ class Lottery {
 		if (!this.players.includes(user.userid)) return user.sendTo(this.room, `You are not currently in the Lottery drawing in this room..`);
 		Economy.writeMoney(user.userid, this.costToJoin, () => {
 			this.players.splice(this.players.indexOf(user.userid), 1);
-			user.sendTo(this.room, 'You have left the lottery and have been refunded ' + this.costToJoin + ' ' + moneyPlural + '.');
-			Economy.logTransaction(user.userid + " has left the Lottery drawing, and has been refunded their " + this.costToJoin + " " + moneyPlural + ".");
+			user.sendTo(this.room, `You have left the lottery and have been refunded ${this.costToJoin} ${moneyPlural}.`);
+			Economy.logTransaction(`${user.userid} has left the Lottery drawing, and has been refunded their ${this.costToJoin} ${moneyPlural}.`);
 		});
 	}
 
@@ -97,8 +97,8 @@ exports.commands = {
 
 		players: function (target, room, user) {
 			if (!room.lottery) return this.sendReply("There is no active Lottery drawing in this room.");
-			return this.sendReply(
-				'Current Player Count: ' + room.lottery.players.length + ' ' + ((room.lottery.players.length === 1) ? 'user' : 'users') + ' in the lottery.'
+			return this.sendReplyBox(
+				`Current Player Count: ${room.lottery.players.length} ${((room.lottery.players.length === 1) ? 'user' : 'users')} in the lottery.`
 			);
 		},
 

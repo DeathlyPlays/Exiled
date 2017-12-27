@@ -1765,7 +1765,12 @@ exports.Formats = [
 			pokemon.id = pokemon.fullname;
 			return temp;
   		},
-  	},
+	},
+	{
+		name: "[Gen 7] The Roger Metagame",
+		ruleset: ['[Gen 7] OU'],
+		mod: 'gen7',
+	},
 	{
 		name: "[Gen 7] Holiday Metagame",
 		mod: "holiday",

@@ -1,6 +1,6 @@
 /*
 * icons.js
-* Credits: Lord Haji, panpawn
+* Credits: Lord Haji, panpawn.
 */
 'use strict';
 
@@ -33,15 +33,8 @@ function updateIcons() {
 
 function generateCSS(name, icon) {
 	let css = '';
-	let rooms = [];
 	name = toId(name);
-	Rooms.rooms.forEach((curRoom, id) => {
-		if (curRoom.id === 'global' || curRoom.type !== 'chat' || curRoom.isPersonal) return;
-		if (!isNaN(Number(id.charAt(0)))) return;
-		rooms.push('#' + id + '-userlist-user-' + name);
-	});
-	css = rooms.join(', ');
-	css += '{\nbackground: url("' + icon + '") no-repeat right\n}\n';
+	css = '[id$="-userlist-user-' + name + '"] {\nbackground: url("' + icon + '") no-repeat right;\n}\n';
 	return css;
 }
 

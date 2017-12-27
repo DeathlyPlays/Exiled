@@ -620,6 +620,14 @@ class CommandContext {
 				return false;
 			}
 
+			let message = this.canTalk(suppressMessage || this.message);
+			if (!message) return false;
+
+			// broadcast cooldown
+			let broadcastMessage = message.toLowerCase().replace(/[^a-z0-9\s!,]/g, '');
+
+			this.message = message;
+			this.broadcastMessage = broadcastMessage;
 
 			if (Users.ShadowBan.checkBanned(this.user)) {
 				Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
@@ -633,15 +641,6 @@ class CommandContext {
 				this.errorReply("You can't broadcast this because it was just broadcasted.");
 				return false;
 			}
-
-			let message = this.canTalk(suppressMessage || this.message);
-			if (!message) return false;
-
-			// broadcast cooldown
-			let broadcastMessage = message.toLowerCase().replace(/[^a-z0-9\s!,]/g, '');
-
-			this.message = message;
-			this.broadcastMessage = broadcastMessage;
 		}
 		return true;
 	}

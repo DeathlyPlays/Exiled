@@ -26,8 +26,8 @@ class Poll {
 			timeoutMins: 0,
 			options: new Map(),
 		}];
-		for (let i = 0; i < options.length; i++) {
-			this.pollArray[0].options.set(i + 1, {name: options[i], votes: 0});
+		for (const [i, option] of options.entries()) {
+			this.options.set(i + 1, {name: option, votes: 0});
 		}
 	}
 
@@ -382,6 +382,7 @@ exports.commands = {
 			for (let u = 0; u < targets.length; u++) targets[u] = targets[u].trim();
 			if (!targets[1]) return this.errorReply("/poll timer (clear/ time amount), (poll number)");
 			let num = room.poll.obtain(parseInt(targets[1]));
+			if (!room.poll.pollArray[num]) return this.errorReply('That poll number is not currently a poll!');
 			if (targets[0]) {
 				if (!this.can('minigame', null, room)) return false;
 				if (targets[0] === 'clear') {

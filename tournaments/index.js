@@ -950,7 +950,7 @@ class Tournament {
 				let factionName = Server.getFaction(winner);
 				let factionId = toId(factionName);
 				Db("factionbank").set(factionId, Db("factionbank").get(factionId, 0) + 10);
-				this.room.addRaw(`<strong>Congratulations to ${factionName}! Your faction has gained 10 points!</strong>`);
+				this.room.addRaw(`<strong>Congratulations to ${factionName}! Your faction has gained 10 faction money (points)! To view it type /faction bank atm (faction).</strong>`);
 			}
 
 			this.room.addRaw(`${Server.nameColor(winner, true)} <strong>has won <font color='${color}'>${firstMoney}</font> ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} for winning the tournament!</strong>`);

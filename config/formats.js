@@ -541,8 +541,8 @@ exports.Formats = [
 		],
 		onValidateTeam: function (team) {
 			let itemTable = {};
-			for (let i = 0; i < team.length; i++) {
-				let item = this.getItem(team[i].item);
+			for (const set of team) {
+				let item = this.getItem(set.item);
 				if (!item) continue;
 				if (!(item in itemTable)) {
 					itemTable[item] = 1;
@@ -626,9 +626,7 @@ exports.Formats = [
 			if (bannedStones.includes(item.id)) return ["" + template.species + " is not allowed to hold " + item.name + "."];
 		},
 		onBegin: function () {
-			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
-			for (let i = 0, len = allPokemon.length; i < len; i++) {
-				let pokemon = allPokemon[i];
+			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
 				pokemon.originalSpecies = pokemon.baseTemplate.species;
 			}
 		},
@@ -1197,8 +1195,8 @@ exports.Formats = [
 		onValidateTeam: function (team) {
 			const legends = ['Mewtwo', 'Lugia', 'Ho-Oh', 'Kyogre', 'Groudon', 'Rayquaza', 'Dialga', 'Palkia', 'Giratina', 'Reshiram', 'Zekrom', 'Kyurem', 'Xerneas', 'Yveltal', 'Zygarde'];
 			let n = 0;
-			for (let i = 0; i < team.length; i++) {
-				let baseSpecies = this.getTemplate(team[i].species).baseSpecies;
+			for (const set of team) {
+				let baseSpecies = this.getTemplate(set.species).baseSpecies;
 				if (legends.includes(baseSpecies)) n++;
 				if (n > 2) return ["You can only use up to two legendary Pok\u00E9mon."];
 			}

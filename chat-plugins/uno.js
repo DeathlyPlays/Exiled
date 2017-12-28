@@ -112,8 +112,7 @@ function cardHTML(card, fullsize) {
 function createDeck() {
 	let basic = [];
 
-	for (let i = 0; i < 4; i++) {
-		let color = colors[i];
+	for (const color of colors) {
 		basic.push(...values.map(v => {
 			return {value: v, color: color, name: color + " " + v};
 		}));
@@ -565,8 +564,8 @@ class UNOgamePlayer extends Rooms.RoomGamePlayer {
 	}
 
 	removeCard(cardName) {
-		for (let i = 0; i < this.hand.length; i++) {
-			if (this.hand[i].name === cardName) {
+		for (const [i, card] of this.hand.entries()) {
+			if (card.name === cardName) {
 				this.hand.splice(i, 1);
 				break;
 			}
@@ -812,6 +811,7 @@ exports.commands = {
 	},
 
 	unohelp: [
+<<<<<<< HEAD
 		"/uno create [player cap] - creates a new UNO game with an optional player cap (default player cap at 6). Use the command `createpublic` to force a public game or `createprivate` to force a private game. Requires: % @ * # & ~",
 		"/uno timer [amount] - sets an auto disqualification timer for `amount` seconds. Requires: % @ * # & ~",
 		"/uno end - ends the current game of UNO. Requires: % @ * # & ~",
@@ -822,5 +822,16 @@ exports.commands = {
 		"/uno [spectate | unspectate] - spectate / unspectate the current private UNO game.",
 		"/uno suppress [on | off] - Toggles suppression of game messages.",
 		"/uno showcase - Displays all of the Pokémon Plays UNO! Cards.",
+=======
+		`/uno create [player cap] - creates a new UNO game with an optional player cap (default player cap at 6). Use the command [createpublic] to force a public game or [createprivate] to force a private game. Requires: % @ * # & ~`,
+		`/uno timer [amount] - sets an auto disqualification timer for [amount] seconds. Requires: % @ * # & ~`,
+		`/uno end - ends the current game of UNO. Requires: % @ * # & ~`,
+		`/uno start - starts the current game of UNO. Requires: % @ * # & ~`,
+		`/uno disqualify [player] - disqualifies the player from the game. Requires: % @ * # & ~`,
+		`/uno hand - displays your own hand.`,
+		`/uno getusers - displays the players still in the game.`,
+		`/uno [spectate|unspectate] - spectate / unspectate the current private UNO game.`,
+		`/uno suppress [on|off] - Toggles suppression of game messages.`,
+>>>>>>> a6ce5c9dc1a8460fc854c4bba3531c3c7b6f4864
 	],
 };

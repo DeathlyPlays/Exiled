@@ -34,8 +34,10 @@ exports.commands = {
 			this.run('formathelp');
 		}
 	},
-	othermetashelp: ["/om - Provides links to information on the Other Metagames.",
-		"!om - Show everyone that information. Requires: + % @ * # & ~"],
+	othermetashelp: [
+		`/om - Provides links to information on the Other Metagames.`,
+		`!om - Show everyone that information. Requires: + % @ * # & ~`,
+	],
 
 	'!mixandmega': true,
 	mnm: 'mixandmega',
@@ -148,7 +150,7 @@ exports.commands = {
 			return '<font color="#686868">' + detail + ':</font> ' + details[detail];
 		}).join("&nbsp;|&ThickSpace;") + '</font>');
 	},
-	mixandmegahelp: ["/mnm <pokemon> @ <mega stone> - Shows the Mix and Mega evolved Pokemon's type and stats."],
+	mixandmegahelp: [`/mnm <pokemon> @ <mega stone> - Shows the Mix and Mega evolved Pokemon's type and stats.`],
 
 	'!stone': true,
 	orb: 'stone',
@@ -254,7 +256,7 @@ exports.commands = {
 		this.sendReply(`|raw|<div class="message"><ul class="utilichart">${buf}<li style="clear:both"></li></ul></div>`);
 		this.sendReply(`|raw|<font size="1"><font color="#686868">Gen:</font> ${details["Gen"]}&nbsp;|&ThickSpace;<font color="#686868">Weight:</font> ${details["Weight"]}</font>`);
 	},
-	stonehelp: ["/stone <mega stone> - Shows the changes that a mega stone/orb applies to a Pokemon."],
+	stonehelp: [`/stone <mega stone> - Shows the changes that a mega stone/orb applies to a Pokemon.`],
 
 	'!350cup': true,
 	'350': '350cup',
@@ -274,7 +276,7 @@ exports.commands = {
 		template.baseStats = Object.assign({}, newStats);
 		this.sendReply(`|html|${Chat.getDataPokemonHTML(template)}`);
 	},
-	'350cuphelp': ["/350 OR /350cup <pokemon> - Shows the base stats that a Pokemon would have in 350 Cup."],
+	'350cuphelp': [`/350 OR /350cup <pokemon> - Shows the base stats that a Pokemon would have in 350 Cup.`],
 
 	'!tiershift': true,
 	ts: 'tiershift',
@@ -304,6 +306,7 @@ exports.commands = {
 		template.baseStats = Object.assign({}, newStats);
 		this.sendReply(`|raw|${Chat.getDataPokemonHTML(template)}`);
 	},
+<<<<<<< HEAD
 	'tiershifthelp': ["/ts OR /tiershift <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift."],
 
 	'!tiershift2': true,
@@ -448,4 +451,7 @@ exports.commands = {
 		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Scalemons: <br /> ${newStats.join('/')}`);
 	},
 	badnboosted2help: ["/scale <pokemon> - Shows the base stats that a Pokemon would have in Scalemons."],
+=======
+	tiershifthelp: [`/ts OR /tiershift <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift.`],
+>>>>>>> a6ce5c9dc1a8460fc854c4bba3531c3c7b6f4864
 };

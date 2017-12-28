@@ -1730,19 +1730,11 @@ const commands = {
 		if (num > ladder.length) num = ladder.length;
 		for (let i = Math.max(0, num - 100); i < num; i++) {
 			let leaders = ladder[i];
-<<<<<<< HEAD
-			for (let j = 0; j < leaders.length; j++) {
-				let rank = leaderboard[leaders[j]];
-				let leader = Users.getExact(leaders[j]);
-				leader = leader ? Server.nameColor(leader.name) : leaders[j];
-				buffer += `<tr><td><strong>${(i + 1)}</strong></td><td>${leader}</td><td>${rank[0]}</td><td>${rank[1]}</td><td>${rank[2]}</td></tr>`;
-=======
 			for (const leader of leaders) {
 				let rank = leaderboard[leader];
 				let leaderid = Users.getExact(leader);
-				leaderid = leaderid ? Chat.escapeHTML(leaderid.name) : leader;
+				leaderid = leaderid ? Server.nameColor(leaderid.name) : leader;
 				buffer += `<tr><td><strong>${(i + 1)}</strong></td><td>${leaderid}</td><td>${rank[0]}</td><td>${rank[1]}</td><td>${rank[2]}</td></tr>`;
->>>>>>> a6ce5c9dc1a8460fc854c4bba3531c3c7b6f4864
 			}
 		}
 		buffer += "</table></div>";

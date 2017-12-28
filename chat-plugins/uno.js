@@ -792,6 +792,7 @@ exports.commands = {
 			delete room.game.spectators[user.userid];
 			this.sendReply("You are no longer spectating this private UNO game.");
 		},
+
 		showcase: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			let output = `<div class = "infobox infobox-limited">`;
@@ -811,18 +812,6 @@ exports.commands = {
 	},
 
 	unohelp: [
-<<<<<<< HEAD
-		"/uno create [player cap] - creates a new UNO game with an optional player cap (default player cap at 6). Use the command `createpublic` to force a public game or `createprivate` to force a private game. Requires: % @ * # & ~",
-		"/uno timer [amount] - sets an auto disqualification timer for `amount` seconds. Requires: % @ * # & ~",
-		"/uno end - ends the current game of UNO. Requires: % @ * # & ~",
-		"/uno start - starts the current game of UNO. Requires: % @ * # & ~",
-		"/uno disqualify [player] - disqualifies the player from the game. Requires: % @ * # & ~",
-		"/uno hand - displays your own hand.",
-		"/uno getusers - displays the players still in the game.",
-		"/uno [spectate | unspectate] - spectate / unspectate the current private UNO game.",
-		"/uno suppress [on | off] - Toggles suppression of game messages.",
-		"/uno showcase - Displays all of the Pokémon Plays UNO! Cards.",
-=======
 		`/uno create [player cap] - creates a new UNO game with an optional player cap (default player cap at 6). Use the command [createpublic] to force a public game or [createprivate] to force a private game. Requires: % @ * # & ~`,
 		`/uno timer [amount] - sets an auto disqualification timer for [amount] seconds. Requires: % @ * # & ~`,
 		`/uno end - ends the current game of UNO. Requires: % @ * # & ~`,
@@ -832,6 +821,6 @@ exports.commands = {
 		`/uno getusers - displays the players still in the game.`,
 		`/uno [spectate|unspectate] - spectate / unspectate the current private UNO game.`,
 		`/uno suppress [on|off] - Toggles suppression of game messages.`,
->>>>>>> a6ce5c9dc1a8460fc854c4bba3531c3c7b6f4864
+		"/uno showcase - Displays all of the Pokémon Plays UNO! Cards.",
 	],
 };

@@ -1186,15 +1186,9 @@ exports.commands = {
 		);
 	},
 	groupshelp: [
-<<<<<<< HEAD
-		"/groups - Explains what the symbols (like % and @) before people's names mean.",
-		"/groups [global|room] - Explains only global or room symbols.",
-		"!groups - Shows everyone that information. Requires: + % @ * # & ~",
-=======
 		`/groups - Explains what the symbols (like % and @) before people's names mean.`,
 		`/groups [global|room] - Explains only global or room symbols.`,
 		`!groups - Shows everyone that information. Requires: + % @ * # & ~`,
->>>>>>> a6ce5c9dc1a8460fc854c4bba3531c3c7b6f4864
 	],
 
 	'!punishments': true,

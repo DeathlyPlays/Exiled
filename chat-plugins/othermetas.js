@@ -306,7 +306,6 @@ exports.commands = {
 		template.baseStats = Object.assign({}, newStats);
 		this.sendReply(`|raw|${Chat.getDataPokemonHTML(template)}`);
 	},
-<<<<<<< HEAD
 	'tiershifthelp': ["/ts OR /tiershift <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift."],
 
 	'!tiershift2': true,
@@ -451,7 +450,4 @@ exports.commands = {
 		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Scalemons: <br /> ${newStats.join('/')}`);
 	},
 	badnboosted2help: ["/scale <pokemon> - Shows the base stats that a Pokemon would have in Scalemons."],
-=======
-	tiershifthelp: [`/ts OR /tiershift <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift.`],
->>>>>>> a6ce5c9dc1a8460fc854c4bba3531c3c7b6f4864
 };

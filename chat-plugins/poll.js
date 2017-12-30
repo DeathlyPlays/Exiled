@@ -27,7 +27,7 @@ class Poll {
 			options: new Map(),
 		}];
 		for (const [i, option] of options.entries()) {
-			this.options.set(i + 1, {name: option, votes: 0});
+			this.pollArray[0].options.set(i + 1, {name: option, votes: 0});
 		}
 	}
 

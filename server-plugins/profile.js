@@ -319,6 +319,67 @@ exports.commands = {
 		"/type delete - Removes your Favorite Type.",
 	],
 
+	profilecolor: 'pcolor',
+	pcolor: {
+		set: 'add',
+		add: function (target, room, user) {
+			if (!target) return this.parse('/pcolor help');
+			let color = target.trim();
+			if (color.charAt(0) !== '#') return this.errorReply("The color needs to be a hex starting with '#'.");
+			Db('profilecolor').set(user, color);
+			this.sendReply('You have set your profile color to:');
+			this.parse('/profile ' + user + '');
+		},
+
+		// For staff
+		forceset: 'forceadd',
+		forceadd: function (target, room, user) {
+			if (!this.can('ban')) return this.errorReply('You need to be @ or higher go use this command.');
+			if (!target || target.length < 3) return this.parse('/pcolor help');
+			target = target.split(',');
+			let targetUser = target[0].trim();
+			let color = target[1].trim();
+			if (color.charAt(0) !== '#') return this.errorReply("The color needs to be a hex starting with '#'.");
+			Db('profilecolor').set(targetUser, color);
+			if (Users.get(targetUser)) {
+				Users(targetUser).popup('|html|You have received profile color from ' + Server.nameColor(user.name, true) + '.' +
+										'<br />Profile Hex Color: ' + color);
+			}
+			this.sendReply('You have set profile color of ' + targetUser);
+		},
+
+		delete: 'remove',
+		remove: function (target, room, user) {
+			if (!this.can('ban')) return this.errorReply('You need to be @ or higher to use this command.');
+			let userid = (toId(target));
+			if (!target) return this.parse('/pcolor help');
+			if (!Db('profilecolor').has(userid)) {
+				return this.errorReply(userid + " does not have a profile color set.");
+			}
+			Db('profilecolor').delete(userid);
+			if (Users.get(userid)) {
+				Users(userid).popup(
+					'|html|' + Server.nameColor(user.name, true) + " has removed your profile color.");
+			}
+			this.sendReply('You have removed ' + userid + '\'s profile color');
+		},
+
+		'': 'help',
+		help: function (target, room, user) {
+			if (!user.autoconfirmed) return this.errorReply("You need to be autoconfirmed to use this command.");
+			if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
+			if (!this.runBroadcast()) return;
+			return this.sendReplyBox(
+				'<center><code>/customtitle</code> commands<br />' +
+				'All commands are nestled under the namespace <code>pcolor</code>.</center>' +
+				'<hr width="100%">' +
+				'- <code>[set|add] [hex color]</code>: set your profile color.' +
+				'- <code>[forceset|forceadd] [username], [hex color]</code>: Sets a user\'s profile color. Requires: @ or higher.' +
+				'- <code>[remove|delete] [username]</code>: Removes a user\'s profile color and erases it from the server. Requires: @ or higher.'
+			);
+		},
+	},
+
 	pteam: 'profileteam',
 	profileteam: {
 		add: 'set',
@@ -621,6 +682,13 @@ exports.commands = {
 			return '<div style="background:url(' + bg + ')">';
 		}
 
+		function pColor(user) {
+			let color = Db("profilecolor").get(user);
+			// default to black
+			if (!Db("profilecolor").has(user)) return '<font color="#000">';
+			return '<font color="' + color + '">';
+		}
+
 		function song(fren) {
 			let song = Db("music").get([fren, 'link']);
 			let title = Db("music").get([fren, 'title']);
@@ -633,29 +701,29 @@ exports.commands = {
 				let profile = ``;
 				profile += `${background(toId(username))} ${showBadges(toId(username))}`;
 				profile += `<img src="${avatar}" height="80" width="80" align="left">`;
-				profile += `&nbsp;<font color="#24678d"><strong>Name:</strong></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
-				profile += `&nbsp;<font color="#24678d"><strong>Group:</strong></font> ${userGroup} ${devCheck(username)} ${vipCheck(username)}<br />`;
-				profile += `&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ${regdate}<br />`;
-				profile += `&nbsp;<font color="#24678d"><strong>${moneyPlural}:</strong></font> ${money}<br />`;
+				profile += `&nbsp;${pColor(toId(username))}<b>Name:</b></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
+				profile += `&nbsp;${pColor(toId(username))}<b>Group:</b> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)}<br />`;
+				profile += `&nbsp;${pColor(toId(username))}<b>Registered:</b> ${regdate}</font><br />`;
+				profile += `&nbsp;${pColor(toId(username))}<b>${moneyPlural}:</b> ${money}</font><br />`;
 				if (Db("pokemon").has(toId(username))) {
-					profile += `&nbsp;<font color="#24678d"><strong>Favorite Pokemon:</strong></font> ${Db("pokemon").get(toId(username))}<br />`;
+					profile += `&nbsp;${pColor(toId(username))}<b>Favorite Pokemon:</b> ${Db("pokemon").get(toId(username))}</font><br />`;
 				}
 				if (Db("type").has(toId(username))) {
-					profile += `&nbsp;<font color="#24678d"><strong>Favorite Type:</strong></font> <img src="https://www.serebii.net/pokedex-bw/type/${Db("type").get(toId(username))}.gif"><br />`;
+					profile += `&nbsp;${pColor(toId(username))}<b>Favorite Type:</b></font> <img src="https://www.serebii.net/pokedex-bw/type/${Db("type").get(toId(username))}.gif"><br />`;
 				}
 				if (Db("nature").has(toId(username))) {
-					profile += `&nbsp;<font color="#24678d"><strong>Nature:</strong></font> ${Db("nature").get(toId(username))}<br />`;
+					profile += `&nbsp;${pColor(toId(username))}<b>Nature:</b> ${Db("nature").get(toId(username))}</font><br />`;
 				}
 				if (Server.getFaction(toId(username))) {
-					profile += `&nbsp;<font color="#24678d"><strong>Faction:</strong></font> ${Server.getFaction(toId(username))}<br />`;
+					profile += `&nbsp;${pColor(toId(username))}<b>Faction:</b> ${Server.getFaction(toId(username))}</font><br />`;
 				}
-				profile += `&nbsp;<font color="#24678d"><strong>EXP Level:</strong></font> ${Server.level(toId(username))}<br />`;
+				profile += `&nbsp;${pColor(toId(username))}<b>EXP Level:</b> ${Server.level(toId(username))}</font><br />`;
 				if (online && lastActive(toId(username))) {
-					profile += `&nbsp;<font color="#24678d"><strong>Last Active:</strong></font> ${lastActive(toId(username))}<br />`;
+					profile += `&nbsp;${pColor(toId(username))}<b>Last Activity:</b> ${lastActive(toId(username))}</font><br />`;
 				}
-				profile += `&nbsp;<font color="#24678d"><strong>Last Seen:</strong></font> ${getLastSeen(toId(username))}</font><br />`;
+				profile += `&nbsp;${pColor(toId(username))}<b>Last Seen:</b> ${getLastSeen(toId(username))}</font><br />`;
 				if (Db("friendcode").has(toId(username))) {
-					profile += `&nbsp;<font color="#24678d"><strong>Friend Code:</strong></font> ${Db("friendcode").get(toId(username))}<br />`;
+					profile += `&nbsp;${pColor(toId(username))}<b>Friend Code:</b> ${Db("friendcode").get(toId(username))}</font><br />`;
 				}
 				profile += `&nbsp;${showTeam(toId(username))}<br />`;
 				profile += `&nbsp;${song(toId(username))}`;
@@ -668,6 +736,7 @@ exports.commands = {
 
 	profilehelp: [
 		"/profile [user] - Shows a user's profile. Defaults to yourself.",
+		"/pcolor help - Shows profile color commands.",
 		"/pteam give [user] - Gives a user access to edit their profile team. Requires + or higher.",
 		"/pteam add [slot], [dex # of the Pokemon] - Adds a Pokemon onto your profile team. Requires profile edit access.",
 		"/pteam take [user] - Revokes a user's access to edit their profile team. Requires + or higher.",

@@ -328,13 +328,13 @@ exports.commands = {
 			if (color.charAt(0) !== '#') return this.errorReply("The color needs to be a hex starting with '#'.");
 			Db('profilecolor').set(user, color);
 			this.sendReply('You have set your profile color to:');
-			this.parse('/profile ' + user + '');
+			this.parse(`/profile ${user}`);
 		},
 
 		// For staff
 		forceset: 'forceadd',
 		forceadd: function (target, room, user) {
-			if (!this.can('ban')) return this.errorReply('You need to be @ or higher go use this command.');
+			if (!this.can('lock')) return false;
 			if (!target || target.length < 3) return this.parse('/pcolor help');
 			target = target.split(',');
 			let targetUser = target[0].trim();
@@ -342,26 +342,22 @@ exports.commands = {
 			if (color.charAt(0) !== '#') return this.errorReply("The color needs to be a hex starting with '#'.");
 			Db('profilecolor').set(targetUser, color);
 			if (Users.get(targetUser)) {
-				Users(targetUser).popup('|html|You have received profile color from ' + Server.nameColor(user.name, true) + '.' +
-										'<br />Profile Hex Color: ' + color);
+				Users(targetUser).popup(`|html|You have received profile color from ${Server.nameColor(user.name, true)}.<br />Profile Hex Color: ${color}`);
 			}
-			this.sendReply('You have set profile color of ' + targetUser);
+			this.sendReply(`You have set profile color of ${targetUser}.`);
 		},
 
 		delete: 'remove',
 		remove: function (target, room, user) {
-			if (!this.can('ban')) return this.errorReply('You need to be @ or higher to use this command.');
+			if (!this.can('lock')) return false;
 			let userid = (toId(target));
 			if (!target) return this.parse('/pcolor help');
-			if (!Db('profilecolor').has(userid)) {
-				return this.errorReply(userid + " does not have a profile color set.");
-			}
+			if (!Db('profilecolor').has(userid)) return this.errorReply(`${userid} does not have a profile color set.`);
 			Db('profilecolor').delete(userid);
 			if (Users.get(userid)) {
-				Users(userid).popup(
-					'|html|' + Server.nameColor(user.name, true) + " has removed your profile color.");
+				Users(userid).popup(`|html|${Server.nameColor(user.name, true)} has removed your profile color.`);
 			}
-			this.sendReply('You have removed ' + userid + '\'s profile color');
+			this.sendReply(`You have removed ${target}'s profile color.`);
 		},
 
 		'': 'help',
@@ -370,12 +366,12 @@ exports.commands = {
 			if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 			if (!this.runBroadcast()) return;
 			return this.sendReplyBox(
-				'<center><code>/customtitle</code> commands<br />' +
+				'<center><code>/profilecolor</code> commands<br />' +
 				'All commands are nestled under the namespace <code>pcolor</code>.</center>' +
 				'<hr width="100%">' +
 				'- <code>[set|add] [hex color]</code>: set your profile color.' +
-				'- <code>[forceset|forceadd] [username], [hex color]</code>: Sets a user\'s profile color. Requires: @ or higher.' +
-				'- <code>[remove|delete] [username]</code>: Removes a user\'s profile color and erases it from the server. Requires: @ or higher.'
+				'- <code>[forceset|forceadd] [username], [hex color]</code>: Sets a user\'s profile color. Requires: % or higher.' +
+				'- <code>[remove|delete] [username]</code>: Removes a user\'s profile color and erases it from the server. Requires: % or higher.'
 			);
 		},
 	},
@@ -445,7 +441,7 @@ exports.commands = {
 			let targ = parts[0].toLowerCase().trim();
 			let link = parts[1].trim();
 			Db("backgrounds").set(targ, link);
-			this.sendReply('This user\'s background has been set to : ');
+			this.sendReply(`This user's background has been set to : `);
 			this.parse(`/profile ${targ}`);
 		},
 

@@ -2074,12 +2074,12 @@ exports.Formats = [
 		],
 		mod: "slowtown",
 		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-		banlist: ['Sablenite', 'Snorlax'],
-		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite', 'Blazkenite'],
+		banlist: ['Snorlax', 'Uber'],
+		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite', 'Blazikenite'],
 		onBegin: function () {
 			this.trickRoom = ["Trick Room"];
 			this.startNewTrickRoom = this.trickRoom[this.random(1)];
-			this.add("-message", "Starting next turn, the set up another 5 rounds of " + this.startNewTrickRoom + "!");
+			this.add(`-message`, `Starting next turn, the set up another 5 rounds of ${this.startNewTrickRoom}!`);
 		},
 		onResidualOrder: 999,
 		onResidual: function () {
@@ -2087,7 +2087,7 @@ exports.Formats = [
 				let startNewTrickRoom = this.trickRoom[this.random(1)];
 				while (startNewTrickRoom === this.trickRoom) startNewTrickRoom = this.trickRoom[this.random(1)];
 				this.startNewTrickRoom = startNewTrickRoom;
-				this.add("-message", "Starting next turn, the battle will set another 5 rounds of " + this.startNewTrickRoom + "!");
+				this.add(`-message`, `Starting next turn, the battle will set another 5 rounds of ${this.startNewTrickRoom}!`);
 			}
 		},
 	},

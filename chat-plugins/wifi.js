@@ -278,7 +278,7 @@ class QuestionGiveaway extends Giveaway {
 				this.phase = 'ended';
 				this.clearTimer();
 				this.room.modlog(`(wifi) ${this.winner.name} won ${this.giver.name}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
-				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Server.nameColor(this.winner.name), true} won the giveaway! Congratulations!</p>` +
+				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Server.nameColor(this.winner.name, true)} won the giveaway! Congratulations!</p>` +
 				`<p style="text-align:center;">${this.question}<br />Correct answer${Chat.plural(this.answers)}: ${this.answers.join(', ')}</p>`));
 				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM ${Server.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
 				if (this.winner.connected) this.winner.popup(`|raw|You have won the giveaway. PM ${Server.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);

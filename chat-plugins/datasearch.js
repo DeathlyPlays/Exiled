@@ -656,8 +656,7 @@ function runDexsearch(target, cmd, canAll, message) {
 	searches.sort((a, b) => Object.values(a).reduce(accumulateKeyCount, 0) - Object.values(b).reduce(accumulateKeyCount, 0));
 
 	let lsetData = {};
-	for (const group of searches) {
-		let alts = searches[group];
+	for (const alts of searches) {
 		if (alts.skip) continue;
 		for (let mon in dex) {
 			let matched = false;
@@ -1499,7 +1498,7 @@ function runLearn(target, cmd) {
 	if (!formatName) formatName = 'Gen ' + gen;
 	let lsetData = {set: {}, sources: [], sourcesBefore: gen};
 
-	let template = Dex.getTemplate(targets[0]);
+	let template = Dex.getTemplate(targets.shift());
 	let move = {};
 	let problem;
 	let all = (cmd === 'learnall');
@@ -1513,7 +1512,7 @@ function runLearn(target, cmd) {
 		return {error: `${template.name} didn't exist yet in generation ${gen}.`};
 	}
 
-	if (targets.length < 2) {
+	if (!targets.length) {
 		return {error: "You must specify at least one move."};
 	}
 
@@ -1529,7 +1528,7 @@ function runLearn(target, cmd) {
 		if (problem) break;
 	}
 	let buffer = `In ${formatName}, `;
-	buffer += "" + template.name + (problem ? " <span class=\"message-learn-cannotlearn\">can't</span> learn " : " <span class=\"message-learn-canlearn\">can</span> learn ") + (targets.length > 2 ? "these moves" : move.name);
+	buffer += "" + template.name + (problem ? " <span class=\"message-learn-cannotlearn\">can't</span> learn " : " <span class=\"message-learn-canlearn\">can</span> learn ") + (targets.length > 1 ? "these moves" : move.name);
 	if (!problem) {
 		let sourceNames = {E: "egg", S: "event", D: "dream world", V: "virtual console transfer from gen 1-2", X: "egg, traded back", Y: "event, traded back"};
 		let sourcesBefore = lsetData.sourcesBefore;
@@ -1563,13 +1562,13 @@ function runLearn(target, cmd) {
 				}
 				prevSourceType = source.substr(0, 2);
 				prevSourceCount = source.substr(2) ? 0 : -1;
-				buffer += `<li>gen ${source.charAt(0)} ${sourceNames[source.charAt(1)]}`;
+				buffer += `<li>Gen ${source.charAt(0)} ${sourceNames[source.charAt(1)]}`;
 				if (prevSourceType === '5E' && template.maleOnlyHidden) buffer += " (cannot have hidden ability)";
 				if (source.substr(2)) buffer += `: ${hatchAs + source.substr(2)}`;
 			}
 		}
 		if (sourcesBefore) {
-			buffer += `<li>${(sourcesBefore < gen ? "gen " + sourcesBefore + " or earlier" : "anywhere") + " (all moves are level-up/tutor/TM/HM in gen " + Math.min(gen, sourcesBefore) + (sourcesBefore < gen ? " to " + gen : "")})`;
+			buffer += `<li>${(sourcesBefore < gen ? "Gen " + sourcesBefore + " or earlier" : "anywhere") + " (all moves are level-up/tutor/TM/HM in Gen " + Math.min(gen, sourcesBefore) + (sourcesBefore < gen ? " to " + gen : "")})`;
 		}
 		buffer += "</ul>";
 	}

@@ -484,8 +484,7 @@ exports.commands = {
 			if (!parts[2]) return this.errorReply('/musichelp');
 			let link = parts[1].trim();
 			let title = parts[2].trim();
-			Db("music").set([targ, 'link'], link);
-			Db("music").set([targ, 'title'], title);
+			Db("music").set(targ, {'link': link, 'title': title});
 			this.sendReply(`${targ}'s song has been set to: `);
 			this.parse(`/profile ${targ}`);
 		},
@@ -685,15 +684,15 @@ exports.commands = {
 		function pColor(user) {
 			let color = Db("profilecolor").get(user);
 			// default to black
-			if (!Db("profilecolor").has(user)) return '<font color="#000">';
-			return '<font color="' + color + '">';
+			if (!Db("profilecolor").has(user)) return `<font color="#000">`;
+			return `<font color="${color}">`;
 		}
 
-		function song(fren) {
-			let song = Db("music").get([fren, 'link']);
-			let title = Db("music").get([fren, 'title']);
+		function song(user) {
 			if (!Db("music").has(fren)) return '';
-			return '<acronym title="' + title + '"><br /><audio src="' + song + '" controls="" style="width:100%;"></audio></acronym>';
+			let song = Db("music").get(user)['link'];
+			let title = Db("music").get(user)['title'];
+			return `<acronym title="${title}"><br /><audio src="${song}" controls="" style="width:100%;"></audio></acronym>`;
 		}
 
 		function showProfile() {

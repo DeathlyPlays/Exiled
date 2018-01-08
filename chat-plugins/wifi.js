@@ -277,8 +277,8 @@ class QuestionGiveaway extends Giveaway {
 				this.changeUhtml('<p style="text-align:center;font-size:13pt;font-weight:bold;">The giveaway has ended! Scroll down to see the answer.</p>');
 				this.phase = 'ended';
 				this.clearTimer();
-				this.room.modlog(`${this.winner.name} won ${this.giver.name}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
-				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Server.nameColor(this.winner.name, true, true)} won the giveaway! Congratulations!</p>` +
+				this.room.modlog(`(wifi) ${this.winner.name} won ${this.giver.name}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
+				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Server.nameColor(this.winner.name), true} won the giveaway! Congratulations!</p>` +
 				`<p style="text-align:center;">${this.question}<br />Correct answer${Chat.plural(this.answers)}: ${this.answers.join(', ')}</p>`));
 				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM ${Server.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
 				if (this.winner.connected) this.winner.popup(`|raw|You have won the giveaway. PM ${Server.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
@@ -389,8 +389,8 @@ class LotteryGiveaway extends Giveaway {
 			this.changeUhtml(`<p style="text-align:center;font-size:13pt;font-weight:bold;">The giveaway has ended! Scroll down to see the winner${Chat.plural(this.winners)}.</p>`);
 			this.phase = 'ended';
 			let winnerNames = this.winners.map(winner => winner.name).join(', ');
-			this.room.modlog(`${winnerNames} won ${this.giver.name}'s giveaway for "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
-			this.send(this.generateWindow(`<p style="text-align:center;font-size:10pt;font-weight:bold;">Lottery Draw</p><p style="text-align:center;">${Object.keys(this.joined).length} users joined the giveaway.<br />Our lucky winner${Chat.plural(this.winners)}: ${Server.nameColor(winnerNames, true)}! Congratulations!</p>`));
+			this.room.modlog(`(wifi) ${winnerNames} won ${this.giver.name}'s giveaway for "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
+			this.send(this.generateWindow(`<p style="text-align:center;font-size:10pt;font-weight:bold;">Lottery Draw</p><p style="text-align:center;">${Object.keys(this.joined).length} users joined the giveaway.<br />Our lucky winner${Chat.plural(this.winners)}: <b>${Server.nameColor(winnerNames)}!</b> Congratulations!</p>`));
 			for (let i = 0; i < this.winners.length; i++) {
 				this.winners[i].sendTo(this.room, `|raw|You have won the lottery giveaway! PM <b>${Server.nameColor(this.giver.name)}</b> (FC: ${this.fc}) to claim your prize!`);
 				if (this.winners[i].connected) this.winners[i].popup(`|raw|You have won the lottery giveaway! PM ${Server.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
@@ -484,7 +484,7 @@ class GtsGiveaway {
 		} else {
 			this.clearTimer();
 			this.changeUhtml(`<p style="text-align:center;font-size:13pt;font-weight:bold;">The GTS giveaway has finished.</p>`);
-			this.room.modlog(`${this.giver.name} has finished their GTS giveaway for "${this.summary}"`);
+			this.room.modlog(`(wifi) ${this.giver.name} has finished their GTS giveaway for "${this.summary}"`);
 			this.send(`<p style="text-align:center;font-size:11pt">The GTS giveaway for a "<strong>${Chat.escapeHTML(this.lookfor)}</strong>" has finished.</p>`);
 			Giveaway.updateStats(this.monIds);
 		}
@@ -831,7 +831,7 @@ let breedingcontests = {
 		if (!this.runBroadcast()) return false;
 
 		let entry = breedingData.winners[contest];
-		return this.sendReplyBox(`<div class="broadcast-blue"><p style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:2px;">Breeding contest: <a href="${entry.link}"><b>${Chat.escapeHTML(entry.name)}</b></a>. Winner: <b>${Chat.escapeHTML(entry.winner)}</b></p>` +
+		return this.sendReplyBox(`<div class="broadcast-blue"><p style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:2px;">Breeding contest: <a href="${entry.link}"><b>${Chat.escapeHTML(entry.name)}</b></a>. Winner: ${Server.nameColor(entry.winner, true)}</p>` +
 			`<table style="margin-left:auto;margin-right:auto;"><tr>` +
 			`<td style="text-align:center;width:15%">${Giveaway.getSprite(entry.description)[1]}</td><td style="text-align:center;width:40%">${Chat.parseText(entry.description)}</td>` +
 			(entry.comment ? `<td style="text-align:center;width:35%"><b>Breeder's comments:</b><br/><i>${Chat.escapeHTML(entry.comment)}</i></td>` : '') +

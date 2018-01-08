@@ -675,10 +675,10 @@ exports.commands = {
 			return teamDisplay;
 		}
 
-		function background(buddy) {
-			let bg = Db("backgrounds").get(buddy);
-			if (!Db("backgrounds").has(buddy)) return '<div>';
-			return '<div style="background:url(' + bg + ')">';
+		function background(user) {
+			let bg = Db("backgrounds").get(user);
+			if (!Db("backgrounds").has(user)) return `<div>`;
+			return `<div style="background:url(${bg})>`;
 		}
 
 		function pColor(user) {
@@ -689,7 +689,7 @@ exports.commands = {
 		}
 
 		function song(user) {
-			if (!Db("music").has(fren)) return '';
+			if (!Db("music").has(user)) return '';
 			let song = Db("music").get(user)['link'];
 			let title = Db("music").get(user)['title'];
 			return `<acronym title="${title}"><br /><audio src="${song}" controls="" style="width:100%;"></audio></acronym>`;

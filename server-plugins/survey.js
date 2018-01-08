@@ -138,7 +138,7 @@ class Survey {
 			if (this.surveyArray[number].repliers[i]) output += `<div>${Server.nameColor(i, true)}: <i>"${Chat.formatText(this.surveyArray[number].repliers[i])}"</i><div><br/>`;
 		}
 		if (!ended) output += `<div style="margin-top: 7px; padding-left: 12px"><button value="/survey hideresults ${this.surveyArray[number].surveyNum}" class="button" name="send" title="Hide results - hide the results."><small>(Hide Results)</small></div>`;
-		output += `</div>`;
+		output += `</details></div>`;
 		return output;
 	}
 

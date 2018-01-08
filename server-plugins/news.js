@@ -40,6 +40,7 @@ Server.showNews = function (userid, user) {
 	let newsDisplay = generateNews(user);
 	if (!hasSubscribed(userid)) return false;
 	if (newsDisplay.length > 0) {
+		if (newsDisplay.length > 2) newsDisplay.splice(0, newsDisplay.length - 2);
 		newsDisplay = newsDisplay.join('<hr>');
 		newsDisplay += showSubButton(userid);
 		return user.send(`|pm|~${Config.serverName} News|${user.getIdentity()}|/raw ${newsDisplay}`);

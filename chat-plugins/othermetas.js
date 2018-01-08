@@ -64,13 +64,16 @@ exports.commands = {
 		if (banlist.includes(stone.name)) {
 			this.errorReply(`Warning: ${stone.name} is banned from Mix and Mega.`);
 		}
-		let bannedStones = Dex.getFormat('gen7mixandmega').bannedStones;
-		if (bannedStones.includes(stone.name) && template.name !== stone.megaEvolves) {
+		let restrictedStones = Dex.getFormat('gen7mixandmega').restrictedStones;
+		if (restrictedStones.includes(stone.name) && template.name !== stone.megaEvolves) {
 			this.errorReply(`Warning: ${stone.name} is restricted to ${stone.megaEvolves} in Mix and Mega.`);
 		}
 		let cannotMega = Dex.getFormat('gen7mixandmega').cannotMega;
 		if (cannotMega.includes(template.name) && template.name !== stone.megaEvolves && !template.isMega) { // Separate messages because there's a difference between being already mega evolved / NFE and being banned from mega evolving
-			this.errorReply(`Warning: ${template.name} is banned from mega evolving with a non-native mega stone in Mix and Mega and therefore cannot use ${toId(sep[1]) === 'dragonascent' ? 'Dragon Ascent' : stone.name} in actual play.`);
+			this.errorReply(`Warning: ${template.name} is banned from mega evolving with a non-native mega stone in Mix and Mega.`);
+		}
+		if (['Multitype', 'RKS System'].includes(template.abilities['0']) && !['Arceus', 'Silvally'].includes(template.name)) {
+			this.errorReply(`Warning: ${template.name} is required to hold ${template.baseSpecies === 'Silvally' ? template.requiredItem : 'either ' + template.requiredItems[0] + ' or ' + template.requiredItems[1]}.`);
 		}
 		if (stone.isUnreleased) {
 			this.errorReply(`Warning: ${stone.name} is unreleased and is not usable in current Mix and Mega.`);
@@ -173,8 +176,8 @@ exports.commands = {
 		if (banlist.includes(stone.name)) {
 			this.errorReply(`Warning: ${stone.name} is banned from Mix and Mega.`);
 		}
-		let bannedStones = Dex.getFormat('gen7mixandmega').bannedStones;
-		if (bannedStones.includes(stone.name)) {
+		let restrictedStones = Dex.getFormat('gen7mixandmega').restrictedStones;
+		if (restrictedStones.includes(stone.name)) {
 			this.errorReply(`Warning: ${stone.name} is restricted to ${stone.megaEvolves} in Mix and Mega.`);
 		}
 		if (stone.isUnreleased) {

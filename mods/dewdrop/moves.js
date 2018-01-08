@@ -19529,4 +19529,38 @@ exports.BattleMovedex = {
 		type: "Electric",
 		contestType: "Cool",
 	},
+	"crystalcrashcrisis": {
+		num: -719,
+		accuracy: true,
+		basePower: 220,
+		category: "Physical",
+		desc: "Sets up unremovable Stealth Rocks",
+		shortDesc: "Sets unremovable rocks.",
+		id: "crystalcrashcrisis",
+		name: "Crystal Crash Crisis",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Thunder", target);
+			this.add('-anim', source, "Thunderbolt", target);
+			this.add('-anim', source, "Gigavolt Havoc", target);
+		},
+		isZ: "dianciumz",
+		secondary: true,
+		effect: {
+			// this is a side condition
+			onStart: function (side) {
+				this.add('-sidestart', side, 'move: Stealth Rock');
+			},
+			onSwitchIn: function (pokemon) {
+				let typeMod = this.clampIntRange(pokemon.runEffectiveness('Rock'), -6, 6);
+				this.damage(pokemon.maxhp * Math.pow(2, typeMod) / 8);
+			},
+		target: "normal",
+		type: "Rock",
+		contestType: "Smart",
+	},
 };

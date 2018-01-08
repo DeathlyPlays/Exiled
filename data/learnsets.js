@@ -20659,6 +20659,7 @@ exports.BattleLearnsets = {
 		mimic: ["3T"],
 		mudslap: ["7V", "4T", "3T"],
 		naturalgift: ["4M"],
+		oblivionbanisher: ["7M", "7V", "6M", "5M", "4M", "3M"],
 		poweruppunch: ["6M"],
 		protect: ["7M", "7V", "6M", "5M", "4M", "3M"],
 		quickattack: ["7L7", "7L1", "7V", "6L1", "5L1", "4L1", "3L1"],

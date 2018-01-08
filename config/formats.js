@@ -1641,7 +1641,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview'],
-		banlist: ['Deep Sea Scale', 'Deep Sea Tooth', 'Eviolite', 'Light Ball', 'Thick Club', 'Baton Pass'],
+		banlist: ['Deep Sea Scale', 'Deep Sea Tooth', 'Light Ball', 'Thick Club', 'Baton Pass'],
 		onModifyTemplate: function (template) {
 			let bst = 0;
 			let hp = template.baseStats['hp'];
@@ -1753,7 +1753,7 @@ exports.Formats = [
 		name: "[Gen 7] Move Equality",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3599280/\">Move Equality</a>: Every Move has 100 base power with the exception of moves that have varying base powers."],
 		mod: 'gen7',
-		ruleset: ['Sleep Clause Mod', 'Exact HP Mod', 'Cancel Mod', 'Freeze Clause Mod', 'Team Preview', 'Endless Battle Clause'],
+		ruleset: ['Sleep Clause Mod', 'Exact HP Mod', 'Cancel Mod', 'Freeze Clause Mod', 'Team Preview', 'Endless Battle Clause', 'Pokemon', 'Standard'],
 		banlist: ['Fell Stinger', 'Mud Slap', 'Power Up Punch', 'Uber'],
 		onModifyMovePriority: 5,
 		onModifyMove: function (move, pokemon) {
@@ -1780,7 +1780,7 @@ exports.Formats = [
 			"&bullet; <a href=\"http://chandie.boards.net/thread/2/overused-chaos-viability-rankings\">OU Chaos Viability Ranking</a>",
 			"&bullet; <a href=\"http://chandie.boards.net/thread/4/welcome-usm-chaos-bans-rulesets\">OU Chaos Bans and Unbans</a>",
 		],
-		banlist: ['Uber', 'Power Construct', 'Baton Pass'],
+		banlist: ['Uber', 'Power Construct', 'Baton Pass', 'Arena Trap'],
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon",
@@ -1864,7 +1864,7 @@ exports.Formats = [
 		],
 		mod: "slowtown",
 		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-		banlist: ['Sablenite', 'Snorlax'],
+		banlist: ['Snorlax'],
 		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite', 'Blazkenite'],
 		onBegin: function () {
 			this.trickRoom = ["Trick Room"];
@@ -1915,10 +1915,6 @@ exports.Formats = [
 		onSwitchIn: function (pokemon) {
 			this.useMove("Power Trick", pokemon, pokemon, pokemon);
 		},
-		onAfterMegaPriority: 8,
-		onAfterMega: function (pokemon) {
-			this.useMove("Power Trick", pokemon, pokemon, pokemon);
-		},
 	},
 	{
 		name: "[Gen 7] Tier Shift",
@@ -1952,10 +1948,10 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] TMS Boss Rush",
-		desc: [],
+		desc: ["All the bosses from TMS have all came to duke it out in a giant randbats OM to see who can top who and be the best!"],
 
 		mod: 'bossrush',
-		team: 'randomBossRush',
+		team: 'randomTMS',
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{

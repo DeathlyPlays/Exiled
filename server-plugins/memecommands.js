@@ -271,6 +271,9 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center><img src="http://cdn.buzzlie.com/wp-content/uploads/2015/11/54a07996c8f1c37f77be418079ae352a.jpg" height="300" width="300"><br></center>');
 	},
+	lenny: function (target, room, user) {
+		this.parse("( ͡° ͜ʖ ͡°)﻿");
+	},
 	sans2: function (target, room) {
 		if (!target) return this.sendReply('/sans2 needs a target.');
 		let targetUser = Users.get(target);

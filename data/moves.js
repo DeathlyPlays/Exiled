@@ -19277,4 +19277,39 @@ exports.BattleMovedex = {
 		zMovePower: 200,
 		contestType: "Tough",
 	},
+		"crystalcrashcrisis": {
+		num: -719,
+		accuracy: true,
+		basePower: 220,
+		category: "Physical",
+		desc: "Sets up unremovable Stealth Rocks",
+		shortDesc: "Sets unremovable rocks.",
+		id: "crystalcrashcrisis",
+		name: "Crystal Crash Crisis",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		sideCondition: 'stealthrock',
+		effect: {
+			// this is a side condition
+			onStart: function (side) {
+				this.add('-sidestart', side, 'move: Stealth Rock');
+			},
+			onSwitchIn: function (pokemon) {
+				let typeMod = this.clampIntRange(pokemon.runEffectiveness('Rock'), -6, 6);
+				this.damage(pokemon.maxhp * Math.pow(2, typeMod) / 8);
+			},
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Power Gem", target);
+			this.add('-anim', source, "Diamond Storm", target);
+			this.add('-anim', source, "Rock Tomb", target);
+		},
+		isZ: "dianciumz",
+		secondary: false,
+		target: "foeSide",
+		type: "Rock",
+		contestType: "Smart",
+	},
 };

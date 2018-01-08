@@ -6220,7 +6220,6 @@ exports.BattleItems = {
 		},
 		num: -1,
 		gen: 7,
-		isNonstandard: true,
 		desc: "If held by a Typhlosion, this item allows it to Mega Evolve in battle.",
 	},
 	"feraligatite": {
@@ -6235,8 +6234,21 @@ exports.BattleItems = {
 		},
 		num: -1,
 		gen: 7,
-		isNonstandard: true,
 		desc: "If held by a Feraligatr, this item allows it to Mega Evolve in battle.",
+	},
+	"palossandite": {
+		id: "palossandite",
+		name: "Palossandite",
+		spritenum: 577,
+		megaStone: "Palossand-Mega",
+		megaEvolves: "Palossand",
+		onTakeItem: function (item, source) {
+			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+			return true;
+		},
+		num: -1,
+		gen: 7,
+		desc: "If held by a Palossand, this item allows it to Mega Evolve in battle.",
 	},
 	"ampharniumz": {
 		id: "ampharniumz",
@@ -6249,6 +6261,18 @@ exports.BattleItems = {
 		num: -802,
 		gen: 7,
 		desc: "If held by Ampharos with Thunderbolt, it can use Colossal Volt Thunderbolt.",
+	},
+	"dianciumz": {
+		id: "dianciumz",
+		name: "Diancium Z",
+		spritenum: -654,
+		onTakeItem: false,
+		zMove: "Crystal Crash Crisis",
+		zMoveFrom: "Diamond Storm",
+		zMoveUser: ["Diancie", "Diancie-Mega"],
+		num: -802,
+		gen: 7,
+		desc: "If held by Diancie with Diamond Storm, it can use Crystal Crash Crisis.",
 	},
 
 	// CAP items

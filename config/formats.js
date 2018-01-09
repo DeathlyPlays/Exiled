@@ -1830,13 +1830,8 @@ exports.Formats = [
 		],
 		mod: "slowtown",
 		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-<<<<<<< HEAD
-		banlist: ['Snorlax'],
-		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite', 'Blazkenite'],
-=======
 		banlist: ['Snorlax', 'Uber'],
 		unbanlist: ['Pheromosa', 'Deoxys-Speed', 'Deoxys-Attack', 'Deoxys', 'Shaymin-Sky', 'Blaziken', 'Gengarite', 'Metagrossite', 'Blazikenite'],
->>>>>>> a807f15ac2faeebeb8850792a9172199a3687df8
 		onBegin: function () {
 			this.trickRoom = ["Trick Room"];
 			this.startNewTrickRoom = this.trickRoom[this.random(1)];

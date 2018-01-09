@@ -311,11 +311,7 @@ class CommandContext {
 						}
 						curUser.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|/html ' + emoticons);
 					}
-<<<<<<< HEAD
-					//Temporarily disabled line due to error: "this.room.log.push is not a function." - this.room.log.push((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
-=======
 					this.room.log.log.push((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
->>>>>>> ea3319edf26ef504ed378cf73a2bc2173b7cf883
 					this.room.lastUpdate = this.room.log.length;
 					this.room.messageCount++;
 				} else {

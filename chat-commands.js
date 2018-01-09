@@ -1321,28 +1321,17 @@ exports.commands = {
 				// if the user can't see the demotion message (i.e. rank < %), it is shown in the chat
 				targetUser.send(">" + room.id + "\n(You were demoted to Room " + groupName + " by " + user.name + ".)");
 			}
-<<<<<<< HEAD
-			this.privateModCommand(`(${name} was demoted to Room ${groupName} by ${user.name}.)`);
-			if (needsPopup) targetUser.popup(`|html|You were demoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
-		} else if (nextGroup === '#') {
-			this.addModCommand(`${'' + name} was promoted to ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`You were promoted to ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
-		} else {
-			this.addModCommand(`${'' + name} was promoted to Room ${groupName} by ${user.name}.`);
-			if (needsPopup) targetUser.popup(`|html|You were promoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
-=======
 			this.privateModAction(`(${name} was demoted to Room ${groupName} by ${user.name}.)`);
 			this.modlog(`ROOM${groupName.toUpperCase()}`, userid, '(demote)');
-			if (needsPopup) targetUser.popup(`You were demoted to Room ${groupName} by ${user.name} in ${room.id}.`);
+			if (needsPopup) targetUser.popup(`|html|You were demoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		} else if (nextGroup === '#') {
 			this.addModAction(`${'' + name} was promoted to ${groupName} by ${user.name}.`);
 			this.modlog('ROOM OWNER', userid);
-			if (needsPopup) targetUser.popup(`You were promoted to ${groupName} by ${user.name} in ${room.id}.`);
+			if (needsPopup) targetUser.popup(`|html|You were promoted to ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		} else {
 			this.addModAction(`${'' + name} was promoted to Room ${groupName} by ${user.name}.`);
 			this.modlog(`ROOM${groupName.toUpperCase()}`, userid);
-			if (needsPopup) targetUser.popup(`You were promoted to Room ${groupName} by ${user.name} in ${room.id}.`);
->>>>>>> ac0ea3a91bd03df9b9a476fe38adac398d0da74b
+			if (needsPopup) targetUser.popup(`|html|You were promoted to Room ${groupName} by ${Server.nameColor(user.name)} in ${room.id}.`);
 		}
 
 		if (targetUser) {
@@ -2176,21 +2165,13 @@ exports.commands = {
 		}
 		Users.setOfflineGroup(name, nextGroup);
 		if (Config.groups[nextGroup].rank < Config.groups[currentGroup].rank) {
-<<<<<<< HEAD
-			this.privateModCommand(`(${name} was demoted to ${groupName} by ${user.name}.)`);
-			if (targetUser) targetUser.popup(`|html|You were demoted to ${groupName} by ${Server.nameColor(user.name, true)}.`);
-		} else {
-			this.addModCommand(`${name} was promoted to ${groupName} by ${user.name}.`);
-			if (targetUser) targetUser.popup(`|html|You were promoted to ${groupName} by ${Server.nameColor(user.name, true)}.`);
-=======
 			this.privateModAction(`(${name} was demoted to ${groupName} by ${user.name}.)`);
 			this.modlog(`GLOBAL ${groupName.toUpperCase()}`, userid, '(demote)');
-			if (targetUser) targetUser.popup(`You were demoted to ${groupName} by ${user.name}.`);
+			if (targetUser) targetUser.popup(`|html|You were demoted to ${groupName} by ${Server.nameColor(user.name)}.`);
 		} else {
 			this.addModAction(`${name} was promoted to ${groupName} by ${user.name}.`);
 			this.modlog(`GLOBAL ${groupName.toUpperCase()}`, userid);
-			if (targetUser) targetUser.popup(`You were promoted to ${groupName} by ${user.name}.`);
->>>>>>> ac0ea3a91bd03df9b9a476fe38adac398d0da74b
+			if (targetUser) targetUser.popup(`|html|You were promoted to ${groupName} by ${Server.nameColor(user.name)}.`);
 		}
 
 		if (targetUser) targetUser.updateIdentity();

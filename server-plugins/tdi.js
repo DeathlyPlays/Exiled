@@ -157,7 +157,7 @@ exports.commands = {
 			if (!this.can("ban", null, room)) return false;
 			if (!room.tdi && this.state !== "signups") return this.errorReply("There is not a Total Drama Island season ready to start.");
 			room.tdi.start(user);
-			this.privateModCommand(`(${user.name} has started the season of Total Drama Island early.)`);
+			this.privateModAction(`(${user.name} has started the season of Total Drama Island early.)`);
 		},
 
 		inflict: "mustvote",
@@ -180,7 +180,7 @@ exports.commands = {
 			if (!target) return this.errorReply("This command requires a target.");
 			let disqualified = room.tdi.eliminate(toId(target));
 			if (disqualified === false) return this.errorReply(`Unable to disqualify ${target}.`);
-			this.privateModCommand(`(${user.name} has disqualified ${target} from this season of Total Drama Island.)`);
+			this.privateModAction(`(${user.name} has disqualified ${target} from this season of Total Drama Island.)`);
 			room.add(`|html|${Server.nameColor(target, true, true)} has been disqualified from this season of Total Drama Island.`).update();
 		},
 
@@ -190,7 +190,7 @@ exports.commands = {
 			if (!this.can("ban", null, room)) return this.errorReply("Access Denied.");
 			if (!room.tdi) return this.errorReply("There is not an ongoing Total Drama Island session right now.");
 			room.tdi.end();
-			this.privateModCommand(`(${user.name} has cancelled the season of Total Drama Island.)`);
+			this.privateModAction(`(${user.name} has cancelled the season of Total Drama Island.)`);
 		},
 
 		players: function (target, room, user) {

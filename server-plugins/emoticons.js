@@ -120,7 +120,7 @@ exports.commands = {
 			room.disableEmoticons = status;
 			room.chatRoomData.disableEmoticons = status;
 			Rooms.global.writeChatRoomData();
-			this.privateModCommand("(" + user.name + " " + (status ? " disabled " : " enabled ") + "emoticons in this room.)");
+			this.privateModAction("(" + user.name + " " + (status ? " disabled " : " enabled ") + "emoticons in this room.)");
 		},
 
 		view: "list",

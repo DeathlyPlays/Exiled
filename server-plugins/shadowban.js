@@ -167,7 +167,7 @@ exports.commands = {
 		if (targets.length === 0) {
 			return this.sendReply('||' + this.targetUsername + " is already shadow banned or isn't named.");
 		}
-		this.privateModCommand("(" + user.name + " has shadow banned: " + targets.join(", ") + (reason ? " (" + reason + ")" : "") + ")");
+		this.privateModAction("(" + user.name + " has shadow banned: " + targets.join(", ") + (reason ? " (" + reason + ")" : "") + ")");
 
 		//return this.parse('/' + action + ' ' + toId(this.targetUser) + ',' + reason);
 	},
@@ -184,7 +184,7 @@ exports.commands = {
 		if (targets.length === 0) {
 			return this.sendReply('||' + this.targetUsername + " is not shadow banned.");
 		}
-		this.privateModCommand("(" + user.name + " has shadow unbanned: " + targets.join(", ") + ")");
+		this.privateModAction("(" + user.name + " has shadow unbanned: " + targets.join(", ") + ")");
 	},
 
 	sbanlist: function (target, room, user) {

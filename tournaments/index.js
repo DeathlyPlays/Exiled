@@ -1217,14 +1217,9 @@ let commands = {
 			}
 			tournament.customRules = [];
 			tournament.teambuilderFormat = tournament.originalFormat;
-<<<<<<< HEAD
-			this.room.addRaw("<strong>The tournament's custom rules were cleared.</strong>");
-			this.privateModCommand("(" + user.name + " cleared the tournament's custom rules.)");
-=======
 			this.room.addRaw("<b>The tournament's custom rules were cleared.</b>");
 			this.privateModAction("(" + user.name + " cleared the tournament's custom rules.)");
 			this.modlog('TOUR CLEARRULES');
->>>>>>> ac0ea3a91bd03df9b9a476fe38adac398d0da74b
 		},
 		name: 'setname',
 		customname: 'setname',

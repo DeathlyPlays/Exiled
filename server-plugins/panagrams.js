@@ -107,7 +107,7 @@ exports.commands = {
 		if (!target || isNaN(target)) return this.errorReply("Usage: /panagram [number of sessions]");
 		if (target < 150) return this.errorReply("The minimum number of sessions you can have at a time is 150.");
 		if (~target.indexOf('.')) return this.errorReply("The number of sessions cannot be a decimal value.");
-		this.privateModCommand(`${user.name} has started a game of panagrams set for ${target} sessions.`);
+		this.privateModAction(`${user.name} has started a game of panagrams set for ${target} sessions.`);
 		Rooms(`lobby`).add(`|raw|<div class="broadcast-purple"><center>A session of <strong>Panagrams</strong> in <button name="joinRoom" value="${room.id}">"${room.title}"</button> has commenced for "${target}" games!</center></div>`);
 		Rooms(`lobby`).update();
 		pGames[room.id] = new Panagram(room, Number(target));

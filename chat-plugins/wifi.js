@@ -277,13 +277,8 @@ class QuestionGiveaway extends Giveaway {
 				this.changeUhtml('<p style="text-align:center;font-size:13pt;font-weight:bold;">The giveaway has ended! Scroll down to see the answer.</p>');
 				this.phase = 'ended';
 				this.clearTimer();
-<<<<<<< HEAD
-				this.room.modlog(`(wifi) ${this.winner.name} won ${this.giver.name}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
-				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Server.nameColor(this.winner.name, true)} won the giveaway! Congratulations!</p>` +
-=======
 				this.room.modlog(`(wifi) GIVEAWAY WIN: ${this.winner.name} won ${this.giver.name}'s giveaway for a "${this.prize}" (OT: ${this.ot} TID: ${this.tid} FC: ${this.fc})`);
-				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;"><b>${Chat.escapeHTML(this.winner.name)}</b> won the giveaway! Congratulations!</p>` +
->>>>>>> ac0ea3a91bd03df9b9a476fe38adac398d0da74b
+				this.send(this.generateWindow(`<p style="text-align:center;font-size:12pt;">${Server.nameColor(this.winner.name, true)} won the giveaway! Congratulations!</p>` +
 				`<p style="text-align:center;">${this.question}<br />Correct answer${Chat.plural(this.answers)}: ${this.answers.join(', ')}</p>`));
 				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM ${Server.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);
 				if (this.winner.connected) this.winner.popup(`|raw|You have won the giveaway. PM ${Server.nameColor(this.giver.name, true, true)} (FC: ${this.fc}) to claim your prize!`);

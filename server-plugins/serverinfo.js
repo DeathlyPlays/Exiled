@@ -221,7 +221,7 @@ exports.commands = {
 		}
 
 		room.rulesLink = target.trim();
-		this.privateModCommand(`(${user.name} changed the room rules link to: ${target})`);
+		this.privateModAction(`(${user.name} changed the room rules link to: ${target})`);
 
 		if (room.chatRoomData) {
 			room.chatRoomData.rulesLink = room.rulesLink;

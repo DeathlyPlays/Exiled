@@ -232,7 +232,7 @@ exports.commands = {
 			delete room.chatRoomData.autorank;
 			Rooms.global.writeChatRoomData();
 			for (let u in room.users) Users(u).updateIdentity();
-			return this.privateModCommand("(" + user.name + " has disabled autorank in this room.)");
+			return this.privateModAction("(" + user.name + " has disabled autorank in this room.)");
 		}
 		if (room.autorank && room.autorank === target) return this.sendReply("Autorank is already set to \"" + target + "\".");
 
@@ -242,7 +242,7 @@ exports.commands = {
 			room.chatRoomData.autorank = target;
 			Rooms.global.writeChatRoomData();
 			for (let u in room.users) Users(u).updateIdentity();
-			return this.privateModCommand("(" + user.name + " has set autorank to \"" + target + "\" in this room.)");
+			return this.privateModAction("(" + user.name + " has set autorank to \"" + target + "\" in this room.)");
 		}
 		return this.sendReply("Group \"" + target + "\" not found.");
 	},
@@ -764,7 +764,7 @@ exports.commands = {
 
 		clearRoom(room);
 
-		this.privateModCommand(`(${user.name} used /clearall.)`);
+		this.privateModAction(`(${user.name} used /clearall.)`);
 	},
 
 	gclearall: 'globalclearall',
@@ -773,7 +773,7 @@ exports.commands = {
 
 		Rooms.rooms.forEach(room => clearRoom(room));
 		Users.users.forEach(user => user.popup('All rooms have been cleared.'));
-		this.privateModCommand(`(${user.name} used /globalclearall.)`);
+		this.privateModAction(`(${user.name} used /globalclearall.)`);
 	},
 
 	'!regdate': true,
@@ -1031,7 +1031,7 @@ exports.commands = {
 				room.users[i].leaveRoom(room.id);
 			}
 		}
-		this.privateModCommand('(' + Chat.escapeHTML(user.name) + 'kicked everyone from the room.');
+		this.privateModAction('(' + Chat.escapeHTML(user.name) + 'kicked everyone from the room.');
 	},
 
 	sd: 'declaremod',
@@ -1042,7 +1042,7 @@ exports.commands = {
 		if (!target) return this.parse('/help declaremod');
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (!this.can('receiveauthmessages', null, room)) return false;
-		return this.privateModCommand('|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ' + Server.nameColor(user.name) + '<br /></i></font size>' + target + '</strong></div>');
+		return this.privateModAction('|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ' + Server.nameColor(user.name) + '<br /></i></font size>' + target + '</strong></div>');
 	},
 	declaremodhelp: ["/declaremod [note] - Adds a staff readable declare. Requires: % @ # & ~"],
 
@@ -1131,7 +1131,7 @@ exports.commands = {
 			let message = '|pm|' + pmName + '|' + room.users[i].getIdentity() + '| ' + target;
 			room.users[i].send(message);
 		}
-		this.privateModCommand('(' + Chat.escapeHTML(user.name) + ' mass PMd: ' + target + ')');
+		this.privateModAction('(' + Chat.escapeHTML(user.name) + ' mass PMd: ' + target + ')');
 	},
 
 	/*************************
@@ -1394,13 +1394,13 @@ exports.commands = {
 			room.protect = false;
 			room.chatRoomData.protect = room.protect;
 			Rooms.global.writeChatRoomData();
-			this.privateModCommand("(" + user.name + " has unprotected this room from being automatically deleted.)");
+			this.privateModAction("(" + user.name + " has unprotected this room from being automatically deleted.)");
 		} else {
 			if (room.protect) return this.errorReply("This room is already protected.");
 			room.protect = true;
 			room.chatRoomData.protect = room.protect;
 			Rooms.global.writeChatRoomData();
-			this.privateModCommand("(" + user.name + " has protected this room from being automatically deleted.)");
+			this.privateModAction("(" + user.name + " has protected this room from being automatically deleted.)");
 		}
 	},
 

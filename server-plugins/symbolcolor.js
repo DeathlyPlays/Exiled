@@ -57,7 +57,7 @@ exports.commands = {
 			if (sc[toId(target[0])]) return this.errorReply("This user already has a custom sc.  Do /sc delete [user] and then set their new sc.");
 			this.sendReply("|raw|You have given " + Server.nameColor(target[0], true) + " an sc.");
 			Monitor.adminlog(target[0] + " has received an symbol color from " + user.name + ".");
-			this.privateModCommand("|raw|(" + Server.nameColor(target[0]) + " has received sc: <font color='" + target[1] + "'>" + target[1] + "</font> from " + user.name + ".)");
+			this.privateModAction("|raw|(" + Server.nameColor(target[0]) + " has received sc: <font color='" + target[1] + "'>" + target[1] + "</font> from " + user.name + ".)");
 			if (Users(target[0]) && Users(target[0]).connected) Users(target[0]).popup("|html|" + Server.nameColor(user.name, true) + " has set your symbol color to: <font color='" + target[1] + "'>" + target[1] + "</font>.<br><center>Refresh, If you don't see it.</center>");
 			sc[toId(target[0])] = target[1];
 			updateSC();
@@ -73,7 +73,7 @@ exports.commands = {
 			updateSC();
 			this.sendReply("You removed " + target + "'s sc.");
 			Monitor.adminlog(user.name + " removed " + target + "'s sc.");
-			this.privateModCommand("(" + target + "'s symbol color was removed by " + user.name + ".)");
+			this.privateModAction("(" + target + "'s symbol color was removed by " + user.name + ".)");
 			if (Users(target) && Users(target).connected) Users(target).popup("|html|" + Server.nameColor(user.name, true) + " has removed your symbol color.");
 		},
 

@@ -78,14 +78,14 @@ exports.commands = {
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
 			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
 			if (!target) {
-				return this.privateModCommand("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
 			}
 			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
 		}
 
 		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for 24 hours. " + target);
 		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for 24 hours." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModCommand("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
 		this.add('|unlink|' + toId(this.inputUsername));
 
 		room.mute(targetUser, muteDuration, false);
@@ -115,14 +115,14 @@ exports.commands = {
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
 			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
 			if (!target) {
-				return this.privateModCommand("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
 			}
 			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
 		}
 
 		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for a week. " + target);
 		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for a week." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModCommand("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
 		this.add('|unlink|' + toId(this.inputUsername));
 
 		room.mute(targetUser, muteDuration, false);
@@ -147,14 +147,14 @@ exports.commands = {
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
 			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
 			if (!target) {
-				return this.privateModCommand("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
 			}
 			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
 		}
 
 		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for a month. " + target);
 		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for a month." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModCommand("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
 		this.add('|unlink|' + toId(this.inputUsername));
 
 		room.mute(targetUser, muteDuration, false);
@@ -178,14 +178,14 @@ exports.commands = {
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
 			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
 			if (!target) {
-				return this.privateModCommand("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
 			}
 			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
 		}
 
 		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for a year. " + target);
 		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for a year." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModCommand("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
 		this.add('|unlink|' + toId(this.inputUsername));
 
 		room.mute(targetUser, muteDuration, false);
@@ -209,14 +209,14 @@ exports.commands = {
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
 			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
 			if (!target) {
-				return this.privateModCommand("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
 			}
 			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
 		}
 
 		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for 45 seconds. " + target);
 		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for 45 seconds." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModCommand("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
 		this.add('|unlink|' + toId(this.inputUsername));
 
 		room.mute(targetUser, muteDuration, false);

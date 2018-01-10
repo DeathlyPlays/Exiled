@@ -6,6 +6,8 @@
 
 "use strict";
 
+const timer = 1800; //defaults to 30 minutes
+
 class TDI {
 	constructor(room, user, prize) {
 		this.players = [];
@@ -22,7 +24,9 @@ class TDI {
 				return this.end();
 			}
 			this.start();
-		}, 1000 * 60 * 30);
+		}, 1000 * timer);
+		this.team1 = [];
+		this.team2 = [];
 	}
 
 	join(user) {
@@ -51,35 +55,7 @@ class TDI {
 	}
 
 	decideTeams() {
-		//split the teams into 2
-		//Team 2 should gain the extra user if there is an odd number of users
-		//Generate initial Sets
-		const h1 = new Set(), h2 = new Set();
-		for (const i of this.players) {
-			if (Math.round(Math.random()) === 1) {
-				h1.add(i);
-			} else {
-				h2.add(i);
-			}
-		}
-		//Equalize Sets
-		let it, selected;
-		while (h1.size >= h2.size + 2 || h2.size >= h1.size + 2) {
-			if (h1.size > h2.size) {
-				it = h1.values();
-				selected = it.next();
-				h2.add(selected);
-				h1.delete(selected);
-			} else {
-				it = h2.values();
-				selected = it.next();
-				h1.add(selected);
-				h2.delete(selected);
-			}
-		}
-
-		this.team1 = [...h1];
-		this.team2 = [...h2];
+		this.room.add(`Attention: You will be assigned a team by the host.`);
 		this.room.add(`${this.team1} are our first team of contestants :D`);
 		this.room.add(`${this.team2} are our second team of contestants :D`);
 		this.room.add(`|html|<strong>Good luck!</strong>`);
@@ -130,7 +106,7 @@ exports.commands = {
 		create: "new",
 		make: "new",
 		new: function (target, room, user, prize) {
-			if (!this.can("roommod", null, room)) return false;
+			if (!this.can("ban", null, room)) return false;
 			if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
 			if (room.id !== "totaldramaisland") return this.errorReply("This command only works in Total Drama Island.");
 			if (room.tdi) return this.errorReply("There is an ongoing season of Total Drama Island in here.");
@@ -160,6 +136,15 @@ exports.commands = {
 			this.privateModAction(`(${user.name} has started the season of Total Drama Island early.)`);
 		},
 
+		assign: function (target, room, user) {
+			if (!target) return this.parse("/tdihelp");
+			let targets = target.split(',');
+			if (!targets[0] || targets[1]) return this.parse("/tdihelp");
+			let username = targets[0];
+			let team = targets[1];
+			//WIP
+		},
+
 		inflict: "mustvote",
 		mvote: "mustvote",
 		mv: "mv",
@@ -187,7 +172,7 @@ exports.commands = {
 		stop: "end",
 		cancel: "end",
 		end: function (target, room, user) {
-			if (!this.can("ban", null, room)) return this.errorReply("Access Denied.");
+			if (!this.can("ban", null, room)) return false;
 			if (!room.tdi) return this.errorReply("There is not an ongoing Total Drama Island session right now.");
 			room.tdi.end();
 			this.privateModAction(`(${user.name} has cancelled the season of Total Drama Island.)`);
@@ -199,6 +184,18 @@ exports.commands = {
 				`There is currently ${this.room.tdi.players.length} player${this.room.tdi.players.length > 1 ? 's' : ''} in this season of Total Drama Island.<br />` +
 				`Players: ${this.room.tdi.players}.`
 			);
+		},
+
+		as: "autostart",
+		timer: "autostart",
+		autostart: function (target, room, user) {
+			if (!this.can('minigame', null, room)) return;
+			if (!room.tdi) return this.errorReply("There is not an ongoing Total Drama Island session right now.");
+			if (!timer || timer < 60 || timer > 300000) return this.errorReply("The amount must be a number between 60 and 300,000.");
+
+			room.tdi.timer = timer;
+			this.addModAction(`${user.name} has set the TDI automatic disqualification timer to ${timer} seconds.`);
+			this.modlog('TDI TIMER', null, `${timer} seconds`);
 		},
 	},
 };

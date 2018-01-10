@@ -177,8 +177,8 @@ exports.commands = {
 					`<br />Title Hex Color: ${color}`
 				);
 			}
-			this.logModAction(`${user.name} set a custom title to ${userid}'s profile.`);
-			Monitor.log(`${user.name} set a custom title to ${userid}'s profile.`);
+			this.addModAction(`${user.name} set a custom title to ${target[0]}'s profile.`);
+			Monitor.log(`${user.name} set a custom title to ${target[0]}'s profile.`);
 			return this.sendReply(`Title "${title}" and color "${color}" for ${target[0]}'s custom title have been set.`);
 		},
 
@@ -196,7 +196,7 @@ exports.commands = {
 			if (Users.get(userid)) {
 				Users(userid).popup(`|html|${Server.nameColor(user.name, true)} has removed your custom title.`);
 			}
-			this.logModAction(`${user.name} removed ${target}'s custom title.`);
+			this.addModAction(`${user.name} removed ${target}'s custom title.`);
 			Monitor.log(`${user.name} removed ${target}'s custom title.`);
 			return this.sendReply(`${target}'s custom title and title color were removed from the server memory.`);
 		},
@@ -652,7 +652,7 @@ exports.commands = {
 		function background(user) {
 			let bg = Db("backgrounds").get(user);
 			if (!Db("backgrounds").has(user)) return `<div>`;
-			return `<div style="background:url(${bg})>`;
+			return `<div style="background:url(${bg}); size: 100%">`;
 		}
 
 		function pColor(user) {
@@ -673,7 +673,7 @@ exports.commands = {
 			Economy.readMoney(toId(username), money => {
 				let profile = ``;
 				profile += `${background(toId(username))}`;
-				profile += `<img src="${avatar}" height="80" width="80" align="left">`;
+				profile += `<div style="display: inline-block; width: 7em; vertical-align: 2.5em;"><img src="${avatar}" height="80" width="80" align="left"></div>`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Name:</b></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Group:</b> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)}<br />`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Registered:</b> ${regdate}</font><br />`;

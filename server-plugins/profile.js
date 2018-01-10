@@ -306,7 +306,7 @@ exports.commands = {
 			let color = target.trim();
 			if (color.charAt(0) !== '#') return this.errorReply(`The color needs to be a hex starting with "#".`);
 			Db('profilecolor').set(user, color);
-			this.sendReply('You have set your profile color to "${color}".);
+			this.sendReply(`You have set your profile color to "${color}".`);
 		},
 
 		// For staff

@@ -90,7 +90,7 @@ exports.commands = {
 			if (room.emoteSize) size = room.emoteSize;
 
 			this.sendReply(`|raw|The emoticon ${Chat.escapeHTML(targetSplit[0])} has been added: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
-			Rooms('upperstaff').add(`|raw|${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
+			if (Rooms('upperstaff')) Rooms('upperstaff').add(`|raw|${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
 			Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
 		},
 
@@ -106,7 +106,7 @@ exports.commands = {
 			saveEmoticons();
 
 			this.sendReply("That emoticon has been removed.");
-			Rooms("upperstaff").add(`|raw|${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
+			if (Rooms('upperstaff')) Rooms("upperstaff").add(`|raw|${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
 			Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
 		},
 
@@ -163,7 +163,7 @@ exports.commands = {
 			room.emoteSize = size;
 			room.chatRoomData.emoteSize = size;
 			Rooms.global.writeChatRoomData();
-			this.addModCommand(`${user.name} has changed emoticon size in this room to ${size}.`);
+			this.logModAction(`${user.name} has changed emoticon size in this room to ${size}.`);
 		},
 
 		"": "help",

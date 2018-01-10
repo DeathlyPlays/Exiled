@@ -196,7 +196,7 @@ exports.commands = {
 					'<br />Title Hex Color: ' + color
 				);
 			}
-			this.logModCommand(user.name + " set a custom title to " + userid + "'s profile.");
+			this.logModAction(user.name + " set a custom title to " + userid + "'s profile.");
 			Monitor.log(user.name + " set a custom title to " + userid + "'s profile.");
 			return this.sendReply("Title '" + title + "' and color '" + color + "' for " + userid + "'s custom title have been set.");
 		},
@@ -217,7 +217,7 @@ exports.commands = {
 					'|html|' + Server.nameColor(user.name, true) + " has removed your custom title."
 				);
 			}
-			this.logModCommand(user.name + " removed " + userid + "'s custom title.");
+			this.logModAction(user.name + " removed " + userid + "'s custom title.");
 			Monitor.log(user.name + " removed " + userid + "'s custom title.");
 			return this.sendReply(userid + "'s custom title and title color were removed from the server memory.");
 		},

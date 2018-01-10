@@ -672,7 +672,7 @@ exports.commands = {
 		function showProfile() {
 			Economy.readMoney(toId(username), money => {
 				let profile = ``;
-				profile += `${background(toId(username))} ${showBadges(toId(username))}`;
+				profile += `${background(toId(username))}`;
 				profile += `<img src="${avatar}" height="80" width="80" align="left">`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Name:</b></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Group:</b> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)}<br />`;

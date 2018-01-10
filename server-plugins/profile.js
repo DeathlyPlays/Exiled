@@ -33,8 +33,7 @@ function isVIP(user) {
 function showTitle(userid) {
 	userid = toId(userid);
 	if (Db("titles").has(userid)) {
-		return '<font color="' + Db("titles").get(userid)[1] +
-			'">(<strong>' + Db("titles").get(userid)[0] + '</strong>)</font>';
+		return `<font color="${Db("titles").get(userid)[1]}">(<strong>${Db("titles").get(userid)[0]}</strong>)</font>`;
 	}
 	return '';
 }
@@ -53,6 +52,25 @@ function lastActive(user) {
 	if (!Users(user)) return false;
 	user = Users(user);
 	return (user && user.lastMessageTime ? Chat.toDurationString(Date.now() - user.lastMessageTime, {precision: true}) : "hasn't talked yet");
+}
+
+function showBadges(user) {
+	if (Db("userBadges").has(toId(user))) {
+		let badges = Db("userBadges").get(toId(user));
+		let css = `border:none; background:none; padding:0;`;
+		if (typeof badges !== 'undefined' && badges !== null) {
+			let output = `<td><div style="float: right; background: rgba(69, 76, 80, 0.4); text-align: center; border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset; margin: 0px 3px;">`;
+			output += ` <table style="${css}"> <tr>`;
+			for (let i = 0; i < badges.length; i++) {
+				if (i !== 0 && i % 4 === 0) output += `</tr> <tr>`;
+				output += `<td><button style="${css}" name="send" value="/badges info, ${badges[i]}">` +
+				`<img src="${Db("badgeData").get(badges[i])[1]}" height="16" width="16" alt="${badges[i]}" title="${badges[i]}"></button></td>`;
+			}
+			output += `</tr> </table></div></td>`;
+			return output;
+		}
+	}
+	return ``;
 }
 
 exports.commands = {
@@ -652,7 +670,7 @@ exports.commands = {
 		function background(user) {
 			let bg = Db("backgrounds").get(user);
 			if (!Db("backgrounds").has(user)) return `<div>`;
-			return `<div style="background:url(${bg}); size: 100%">`;
+			return `<div style="background:url(${bg}); background-size: 100% 100%">`;
 		}
 
 		function pColor(user) {
@@ -672,7 +690,7 @@ exports.commands = {
 		function showProfile() {
 			Economy.readMoney(toId(username), money => {
 				let profile = ``;
-				profile += `${background(toId(username))}`;
+				profile += `${background(toId(username))} ${showBadges(toId(username))}`;
 				profile += `<div style="display: inline-block; width: 7em; vertical-align: 2.5em;"><img src="${avatar}" height="80" width="80" align="left"></div>`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Name:</b></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Group:</b> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)}<br />`;

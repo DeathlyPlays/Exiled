@@ -1570,26 +1570,6 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
-		section: "Pokeditions",
-		column: 6,
-	},
-	{
-		name: "[Gen 7] Pokeditions OU",
-		desc: [],
-
-		mod: 'pokeditions',
-		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
-		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass'],
-	},
-	{
-		name: "[Gen 7] Pokeditions Ubers",
-		desc: [],
-
-		mod: 'pokeditions',
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
-		banlist: ['Baton Pass'],
-	},
-	{
 		section: "" + Config.serverName + "'s Custom Gamemodes",
 		column: 5,
 	},
@@ -1661,22 +1641,22 @@ exports.Formats = [
 		ruleset: ['[Gen 7] OU'],
 	},
 	{
-  		name: "[Gen 7] Fusion Evolution",
-  		desc: ["&bullet; <a href=http://www.smogon.com/forums/threads/fusion-evolution-v2-submission-phase.3560216/>Fusion Evolution</a>",
-  		       "&bullet; <a href=http://www.smogon.com/forums/threads/fusion-moves-fusion-evolution-companion-project.3564805/>Fusion Moves</a>",
-  		      ],
-  		ruleset: ['Pokemon', 'Standard'],
+		name: "[Gen 7] Fusion Evolution",
+		desc: ["&bullet; <a href=http://www.smogon.com/forums/threads/fusion-evolution-v2-submission-phase.3560216/>Fusion Evolution</a>",
+			   "&bullet; <a href=http://www.smogon.com/forums/threads/fusion-moves-fusion-evolution-companion-project.3564805/>Fusion Moves</a>",
+			  ],
+		ruleset: ['Pokemon', 'Standard'],
 		mod: 'fe',
-  		onModifyTemplate: function (template, pokemon, source) {
-  			//This hack is for something important: The Pokemon's Sprite.
-  			if (!template.base) return template;
-  			let temp = Objcet.assign({}, template);
-  			temp.species = temp.baseSpecies = template.base;
+		onModifyTemplate: function (template, pokemon, source) {
+			//This hack is for something important: The Pokemon's Sprite.
+			if (!template.base) return template;
+			let temp = Object.assign({}, template);
+			temp.species = temp.baseSpecies = template.base;
 			pokemon.name = template.species;
 			pokemon.fullname = `${pokemon.side.id}: ${pokemon.name}`;
 			pokemon.id = pokemon.fullname;
 			return temp;
-  		},
+		},
 	},
 	{
 		name: "[Gen 7] The Roger Metagame",
@@ -3279,5 +3259,25 @@ exports.Formats = [
 				pokemon.types = ["Steel", "Fairy"];
 			}
 		},
+	},
+	{
+		section: "Pokeditions",
+		column: 6,
+	},
+	{
+		name: "[Gen 7] Pokeditions OU",
+		desc: [],
+
+		mod: 'pokeditions',
+		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass'],
+	},
+	{
+		name: "[Gen 7] Pokeditions Ubers",
+		desc: [],
+
+		mod: 'pokeditions',
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
+		banlist: ['Baton Pass'],
 	},
 ];

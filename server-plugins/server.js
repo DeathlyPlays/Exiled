@@ -31,6 +31,25 @@ let regdateCache = {};
 let udCache = {};
 let defCache = {};
 
+let messages = [
+	"has vanished into nothingness!",
+	"used Explosion!",
+	"fell into the void.",
+	"went into a cave without a repel!",
+	"has left the building.",
+	"was forced to give StevoDuhHero's mom an oil massage!",
+	"was hit by Magikarp's Revenge!",
+	"ate a bomb!",
+	"is blasting off again!",
+	"(Quit: oh god how did this get here i am not good with computer)",
+	"was unfortunate and didn't get a cool message.",
+	"{{user}}'s mama accidently kicked {{user}} from the server!",
+	"felt Insist's wrath.",
+	"got rekt by Travis CI!",
+	"exited life.exe.",
+	"found a species called \"friends\" (whatever that means).",
+];
+
 let pmName = '~' + Config.serverName + ' Server';
 
 Server.img = function (link, height, width) {
@@ -1436,5 +1455,159 @@ exports.commands = {
 			return text.join(` / `);
 		}
 		this.sendReplyBox(`<div style="background-color: rgba(207, 247, 160, 0.4); border: #000000 solid 3px; border-radius: 10%; color: #0a024a; padding: 30px 30px"><center><table><td><img src="${spriteLocation}"</td><td>&nbsp;&nbsp;<strong>Name: </strong>${pokeData.species}<br/>&nbsp;&nbsp;<strong>Type(s): </strong>${getTypeFormatting(pokeData.types)}<br/>&nbsp;&nbsp;<strong>${(Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability")}: </strong>${Object.values(pokeData.abilities).join(" / ")}<br/>&nbsp;&nbsp;<strong>Stats: </strong>${Object.values(pokeData.baseStats).join(" / ")}<br/>&nbsp;&nbsp;<strong>Colour: </strong><font color="${pokeData.color}">${pokeData.color}</font><br/>&nbsp;&nbsp;<strong>Egg Group(s): </strong>${pokeData.eggGroups.join(", ")}</td></table></center></div>`);
+	},
+
+	'!authority': true,
+	auth: 'authority',
+	stafflist: 'authority',
+	globalauth: 'authority',
+	authlist: 'authority',
+	authority: function (target, room, user, connection) {
+		if (target) {
+			let targetRoom = Rooms.search(target);
+			let unavailableRoom = targetRoom && targetRoom.checkModjoin(user);
+			if (targetRoom && !unavailableRoom) return this.parse(`/roomauth ${target}`);
+			return this.parse(`/userauth ${target}`);
+		}
+		let rankLists = {};
+		let ranks = Object.keys(Config.groups);
+		for (let u in Users.usergroups) {
+			let rank = Users.usergroups[u].charAt(0);
+			if (rank === ' ') continue;
+			// In case the usergroups.csv file is not proper, we check for the server ranks.
+			if (ranks.includes(rank)) {
+				let name = Users.usergroups[u].substr(1);
+				if (!rankLists[rank]) rankLists[rank] = [];
+				if (name) rankLists[rank].push(Server.nameColor(name, (Users(name) && Users(name).connected)));
+			}
+		}
+
+		let buffer = Object.keys(rankLists).sort((a, b) =>
+			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
+		).map(r =>
+			(`${Config.groups[r]}` ? `<strong>${Config.groups[r].name}s</strong> (${r})` : `${r}`) + `:\n${rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")}`
+		);
+
+		if (!buffer.length) return connection.popup("This server has no global authority.");
+		connection.send(`|popup||html|${buffer.join("\n\n")}`);
+	},
+
+	d: 'poof',
+	cpoof: 'poof',
+	poof: function (target, room, user) {
+		if (Config.poofOff) return this.sendReply("Poof is currently disabled.");
+		if (target && !this.can('broadcast')) return false;
+		if (room.id !== 'lobby') return false;
+		let message = target || messages[Math.floor(Math.random() * messages.length)];
+		if (message.indexOf(`{{user}}`) < 0) message = `{{user}} ${message}`;
+		message = message.replace(/{{user}}/g, user.name);
+		if (!this.canTalk(message)) return false;
+
+		let colour = '#' + [1, 1, 1].map(function () {
+			let part = Math.floor(Math.random() * 0xaa);
+			return (part < 0x10 ? '0' : '') + part.toString(16);
+		}).join('');
+
+		room.addRaw(`<strong><font color="${colour}">~~ ${message} ~~</font></strong>`);
+		user.disconnectAll();
+	},
+	poofhelp: ["/poof - Disconnects the user and leaves a message in the room."],
+
+	poofon: function () {
+		if (!this.can('hotpatch')) return false;
+		Config.poofOff = false;
+		return this.sendReply("Poof is now enabled.");
+	},
+	poofonhelp: ["/poofon - Enable the use /poof command."],
+
+	nopoof: 'poofoff',
+	poofoff: function () {
+		if (!this.can('hotpatch')) return false;
+		Config.poofOff = true;
+		return this.sendReply("Poof is now disabled.");
+	},
+	poofoffhelp: ["/poofoff - Disable the use of the /poof command."],
+
+	tell: function (target, room, user, connection) {
+		if (!target) return this.parse('/help tell');
+		target = this.splitTarget(target);
+		let targetUser = this.targetUser;
+		if (!target) {
+			this.sendReply("You forgot the comma.");
+			return this.parse('/help tell');
+		}
+
+		if (targetUser && targetUser.connected) {
+			return this.parse(`/pm ${this.targetUsername}, ${target}`);
+		}
+
+		if (user.locked) return this.popupReply("You may not send offline messages when locked.");
+		if (target.length > 255) return this.popupReply("Your message is too long to be sent as an offline message (>255 characters).");
+
+		if (Config.tellrank === 'autoconfirmed' && !user.autoconfirmed) {
+			return this.popupReply("You must be autoconfirmed to send an offline message.");
+		} else if (!Config.tellrank || Config.groupsranking.indexOf(user.group) < Config.groupsranking.indexOf(Config.tellrank)) {
+			return this.popupReply(`You cannot send an offline message because offline messaging is ${(!Config.tellrank ? `disabled` : `only available to users of rank ${Config.tellrank} and above`)}.`);
+		}
+
+		let userid = toId(this.targetUsername);
+		if (userid.length > 18) return this.popupReply(`"${this.targetUsername}" is not a legal username.`);
+
+		let sendSuccess = Tells.addTell(user, userid, target);
+		if (!sendSuccess) {
+			if (sendSuccess === false) {
+				return this.popupReply(`User ${this.targetUsername} has too many offline messages queued.`);
+			} else {
+				return this.popupReply("You have too many outgoing offline messages queued. Please wait until some have been received or have expired.");
+			}
+		}
+		return connection.send(`|pm|${user.getIdentity()}|${(targetUser ? targetUser.getIdentity() : this.targetUsername)}|/text This user is currently offline. Your message will be delivered when they are next online.`);
+	},
+	tellhelp: ["/tell [username], [message] - Send a message to an offline user that will be received when they log in."],
+
+	flogout: 'forcelogout',
+	forcelogout: function (target, room, user) {
+		if (!user.can('hotpatch')) return;
+		if (!this.canTalk()) return false;
+		if (!target) return this.parse('/help forcelogout');
+		target = this.splitTarget(target);
+		let targetUser = this.targetUser;
+		if (!targetUser) {
+			return this.sendReply(`User ${this.targetUsername} not found.`);
+		}
+		this.addModAction(`${targetUser.name} was forcibly logged out by ${user.name}. ${(target ? (target) : ``)}`);
+		targetUser.resetName();
+	},
+	forcelogouthelp: ["/forcelogout [user] - Forcefully logs out the target user."],
+
+	hide: 'hideauth',
+	hideauth: function (target, room, user) {
+		if (!this.can('lock')) return false;
+		let tar = ' ';
+		if (target) {
+			target = target.trim();
+			if (Config.groupsranking.indexOf(target) > -1 && target !== '#') {
+				if (Config.groupsranking.indexOf(target) <= Config.groupsranking.indexOf(user.group)) {
+					tar = target;
+				} else {
+					this.sendReply(`The group symbol you have tried to use is of a higher authority than you have access to. Defaulting to "${tar}" instead.`);
+				}
+			} else {
+				this.sendReply(`You are now hiding your auth symbol as "${tar}"`);
+			}
+		}
+		user.getIdentity = function (roomid) {
+			return tar + this.name;
+		};
+		user.updateIdentity();
+		return this.sendReply(`You are now hiding your auth as "${tar}".`);
+	},
+
+	show: 'showauth',
+	showauth: function (target, room, user) {
+		if (!this.can('lock')) return false;
+		delete user.getIdentity;
+		user.updateIdentity();
+		return this.sendReply("You are now showing your authority!");
 	},
 };

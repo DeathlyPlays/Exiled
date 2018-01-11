@@ -22,7 +22,7 @@ exports.commands = {
 		let statSpe = Math.floor(Math.random() * 100) + 60;
 		let statBst = statHP + statAtk + statDef + statSpA + statSpD + statSpe;
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox('Generated Statset: ' + statHP + ' / ' + statAtk + ' / ' + statDef + ' / ' + statSpA + ' / ' + statSpD + ' / ' + statSpe + ' | BST: ' + statBst);
+		this.sendReplyBox(`Generated Statset: ${statHP} / ${statAtk} / ${statDef} / ${statSpA} / ${statSpD} / ${statSpe} | BST: ${statBst}`);
 		if (statBst <= 200) {
 			return this.sendReplyBox('Tier: LC');
 		} else if (statBst > 200 && statBst < 400) {
@@ -99,53 +99,53 @@ exports.commands = {
 	opensource: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-			Config.serverName + "'s Github's:<br />" +
-			"- Language: JavaScript (Node.js)<br />" +
-			"- <a href=\"https://github.com/DeathlyPlays/Exiled\">" + Config.serverName + "'s Server Code</a><br />" +
-			"- <a href=\"https://github.com/DeathlyPlays/Exiled/commits/master\">What's new?</a><br />" +
-			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown\">Main's source code</a><br />" +
-			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Client\">Client source code</a><br />" +
-			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Dex\">Dex source code</a>"
+			`${Config.serverName}'s Github's:<br />` +
+			`- Language: JavaScript (Node.js)<br />` +
+			`- <a href="https://github.com/DeathlyPlays/Exiled">${Config.serverName}'s Server Code</a><br />` +
+			`- <a href="https://github.com/DeathlyPlays/Exiled/commits/master">What's new?</a><br />` +
+			`- <a href="https://github.com/Zarel/Pokemon-Showdown">Main's source code</a><br />` +
+			`- <a href="https://github.com/Zarel/Pokemon-Showdown-Client">Client source code</a><br />` +
+			`- <a href="https://github.com/Zarel/Pokemon-Showdown-Dex">Dex source code</a>`
 		);
 	},
 	opensourcehelp: [
-		"/opensource - Links to " + Config.serverName + "'s source code repository.",
-		"!opensource - Show everyone that information. Requires: + % @ * # & ~",
+		`/opensource - Links to ${Config.serverName}'s source code repository.`,
+		`!opensource - Show everyone that information. Requires: + % @ * # & ~`,
 	],
 
 	'!forums': true,
 	forums: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net\">" + Config.serverName + " Forums</a>");
+		this.sendReplyBox(`<a href="http://exiledps.boards.net">${Config.serverName} Forums</a>`);
 	},
 
 	'!suggestions': true,
 	suggestions: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://exiledps.boards.net/board/3/suggestions\">Make a suggestion for " + Config.serverName + "</a>");
+		this.sendReplyBox(`<a href="http://exiledps.boards.net/board/3/suggestions">Make a suggestion for ${Config.serverName}</a>`);
 	},
 
 	'!skype': true,
 	skype: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://join.skype.com/Eo5DCq8nCh1j\">The Official Skype Group</a>");
+		this.sendReplyBox(`<a href="https://join.skype.com/Eo5DCq8nCh1j">The Official Skype Group</a>`);
 	},
 
 	'!discord': true,
 	discord: function () {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"https://discord.gg/3UWpXwa\">The Official " + Config.serverName + " Discord</a>");
+		this.sendReplyBox(`<a href="https://discord.gg/3UWpXwa">The Official ${Config.serverName} Discord</a>`);
 	},
 
 	'!bugs': true,
 	bugs: function (room) {
 		if (!this.runBroadcast()) return;
 		if (room && room.battle) {
-			this.sendReplyBox("<center><button name=\"saveReplay\"><i class=\"fa fa-upload\"></i> Save Replay</button> &mdash; <a href=\"https://www.smogon.com/forums/threads/3520646/\">Questions</a> &mdash; <a href=\"https://www.smogon.com/forums/threads/3469932/\">Bug Reports</a></center>");
+			this.sendReplyBox(`<center><button name="saveReplay"><i class="fa fa-upload"></i> Save Replay</button> &mdash; <a href="https://www.smogon.com/forums/threads/3520646/">Questions</a> &mdash; <a href="https://www.smogon.com/forums/threads/3469932/">Bug Reports</a></center>`);
 		} else {
 			this.sendReplyBox(
-				"Have a replay showcasing a bug on " + Config.serverName + "?<br />" +
-				"- <a href=\"http://exiledps.boards.net/thread/5/bug-reports/\">Bug Reports</a>"
+				`Have a replay showcasing a bug on ${Config.serverName}?<br />` +
+				`- <a href="http://exiledps.boards.net/thread/5/bug-reports/">Bug Reports</a>`
 			);
 		}
 	},
@@ -234,26 +234,26 @@ exports.commands = {
 
 	servercredits: 'credits',
 	credits: function (user) {
-		let popup = "|html|" + "<font size=5 color=#F7189F><u><strong>" + Config.serverName + " Credits:</strong></u></font><br />" +
-			"<br />" +
-			"<u><strong>Server Maintainers:</u></strong><br />" +
-			"- " + Server.nameColor('Mewth', true) + " (Owner, Sysadmin, Developer)<br />" +
-			"- " + Server.nameColor('Insist', true) + " (Main Developer)<br />" +
-			"<br />" +
-			"<u><strong>Major Contributors:</strong></u><br />" +
-			"- " + Server.nameColor('AlfaStorm', true) + " (Developer)<br />" +
-			"- " + Server.nameColor('Back At My Day', true) + " (Developer)<br />" +
-			"- " + Server.nameColor('flufi', true) + " (Code Breaker, Developer)<br />" +
-			"- " + Server.nameColor('HoeenHero', true) + " (Developer)<br />" +
-			"- " + Server.nameColor('megas4ever', true) + " (Developer)<br />" +
-			"- " + Server.nameColor('Volco', true) + " (Former Owner, and Developer)<br />" +
-			"<br />" +
-			"<u><strong>Retired Staff:</strong></u><br />" +
-			"- " + Server.nameColor('Alpha Hawk', true) + " (Former Developer)<br />" +
-			"<br />" +
-			"<u><strong>Special Thanks:</strong></u><br />" +
-			"- Our Staff Members<br />" +
-			"- Our Regular Users<br />";
+		let popup = `|html|<font size=5 color=#F7189F><u><strong>${Config.serverName} Credits:</strong></u></font><br />` +
+			`<br />` +
+			`<u><strong>Server Maintainers:</u></strong><br />` +
+			`- ${Server.nameColor('Mewth', true)} (Owner, Sysadmin, Developer)<br />` +
+			`- ${Server.nameColor('Insist', true)} (Main Developer)<br />` +
+			`<br />` +
+			`<u><strong>Major Contributors:</strong></u><br />` +
+			`- ${Server.nameColor('AlfaStorm', true)} (Developer)<br />` +
+			`- ${Server.nameColor('Back At My Day', true)} (Developer)<br />` +
+			`- ${Server.nameColor('flufi', true)} (Code Breaker, Developer)<br />` +
+			`- ${Server.nameColor('HoeenHero', true)} (Developer)<br />` +
+			`- ${Server.nameColor('megas4ever', true)} (Developer)<br />` +
+			`- ${Server.nameColor('Volco', true)} (Former Owner, and Developer)<br />` +
+			`<br />` +
+			`<u><strong>Retired Staff:</strong></u><br />` +
+			`- ${Server.nameColor('Alpha Hawk', true)} (Former Developer)<br />` +
+			`<br />` +
+			`<u><strong>Special Thanks:</strong></u><br />` +
+			`- Our Staff Members<br />` +
+			`- Our Regular Users<br />`;
 		this.sendReplyBox(popup);
 	},
 
@@ -262,59 +262,59 @@ exports.commands = {
 	customcommands: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-			'<div class="infobox-limited"><strong><h1>Custom Commands on ' + Config.serverName + '</h1></strong>' +
-			'<h2>Game Commands:</h2><ul>' +
-			'<li><button class="button" name="send" value="/ambushhelp">Ambush</button></li>' +
-			'<li><button class="button" name="send" value="/blackjackhelp">Blackjack</button></li>' +
-			'<li><button class="button" name="send" value="/dicegamehelp">Dice Game</button></li>' +
-			'<li><button class="button" name="send" value="/draft">Draft</button></li>' +
-			'<li><button class="button" name="send" value="/lotteryhelp">Lottery</button></li>' +
-			'<li><button class="button" name="send" value="/panagramhelp">Panagrams</button></li>' +
-			'<li><button class="button" name="send" value="/passthebombhelp">Pass The Bomb</button></li>' +
-			'<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors</button></li>' +
-			'<li><button class="button" name="send" value="/rpslshelp">Rock Paper Scissors Lizard Spock</button></li>' +
-			'<li><button class="button" name="send" value="/sentencehelp">Sentence Game</button></li>' +
-			'<li><button class="button" name="send" value="/slotshelp">Slots</button></li>' +
-			'</ul>' +
-			'<h2>Chat Features:</h2><ul>' +
-			'<li><button class="button" name="send" value="/advertisehelp">Advertise A Room</button></li>' +
-			'<li><button class="button" name="send" value="/animehelp">Anime</button></li>' +
-			'<li><button class="button" name="send" value="/awayhelp">Away</button></li>' +
-			'<li><button class="button" name="send" value="/psgohelp">Cards</button></li>' +
-			'<li><button class="button" name="send" value="/definehelp">Define</button></li>' +
-			'<li><button class="button" name="send" value="/digidexhelp">Digidex</button></li>' +
-			'<li><button class="button" name="send" value="/atm">Economy</button></li>' +
-			'<li><button class="button" name="send" value="/emotes help">Emotes</button></li>' +
-			'<li><button class="button" name="send" value="/essbhelp">ESSB Data</button></li>' +
-			'<li><button class="button" name="send" value="/exphelp">EXP</button></li>' +
-			'<li><button class="button" name="send" value="/factionshelp">Factions</button></li>' +
-			'<li><button class="button" name="send" value="/hexhelp">Hex Code</button></li>' +
-			'<li><button class="button" name="send" value="/jobshelp">Jobs</button></li>' +
-			'<li><button class="button" name="send" value="/mangahelp">Manga</button></li>' +
-			'<li><button class="button" name="send" value="/meme">Meme Randomizer</button></li>' +
-			'<li><button class="button" name="send" value="/serverannouncementshelp">News</button></li>' +
-			'<li><button class="button" name="send" value="/ontimehelp">Ontime</button></li>' +
-			'<li><button class="button" name="send" value="/playlisthelp">Playlist</button></li>' +
-			'<li><button class="button" name="send" value="/profilehelp">Profile</button></li>' +
-			'<li><button class="button" name="send" value="/quotehelp">Quotes</button></li>' +
-			'<li><button class="button" name="send" value="/regdatehelp">Regdate</button></li>' +
-			'<li><button class="button" name="send" value="/roomlist">Room List</button></li>' +
-			'<li><button class="button" name="send" value="/roomshophelp">Room Shop</button></li>' +
-			'<li><button class="button" name="send" value="/seenhelp">Seen</button></li>' +
-			'<li><button class="button" name="send" value="/shop">Shop</button></li>' +
-			'<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li>' +
-			'<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li>' +
-			'<li><button class="button" name="send" value="/tellhelp">Tells</button></li>' +
-			'<li><button class="button" name="send" value="/urbandefinehelp">Urban Define</button></li>' +
-			'<li><button class="button" name="send" value="/voucherhelp">Vouchers</button></li>' +
-			'</ul>' +
-			'<h2>Social Medias/Links:</h2><ul>' +
-			'<li><a href="https://discord.gg/chfz65A" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Discord</button></a>' +
-			'<li><a href="http://exiledps.boards.net/" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Forums</button></a>' +
-			'<li><a href="https://github.com/DeathlyPlays/Exiled" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">GitHub</button></a>' +
-			'<li><a href="https://join.skype.com/Eo5DCq8nCh1j" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Join Our Skype</button></a>' +
-			'</ul>' +
-			'</div>'
+			`<div class="infobox-limited"><strong><h1>Custom Commands on ${Config.serverName}</h1></strong>` +
+			`<h2>Game Commands:</h2><ul>` +
+			`<li><button class="button" name="send" value="/ambushhelp">Ambush</button></li>` +
+			`<li><button class="button" name="send" value="/blackjackhelp">Blackjack</button></li>` +
+			`<li><button class="button" name="send" value="/dicegamehelp">Dice Game</button></li>` +
+			`<li><button class="button" name="send" value="/draft">Draft</button></li>` +
+			`<li><button class="button" name="send" value="/lotteryhelp">Lottery</button></li>` +
+			`<li><button class="button" name="send" value="/panagramhelp">Panagrams</button></li>` +
+			`<li><button class="button" name="send" value="/passthebombhelp">Pass The Bomb</button></li>` +
+			`<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors</button></li>` +
+			`<li><button class="button" name="send" value="/rpslshelp">Rock Paper Scissors Lizard Spock</button></li>` +
+			`<li><button class="button" name="send" value="/sentencehelp">Sentence Game</button></li>` +
+			`<li><button class="button" name="send" value="/slotshelp">Slots</button></li>` +
+			`</ul>` +
+			`<h2>Chat Features:</h2><ul>` +
+			`<li><button class="button" name="send" value="/advertisehelp">Advertise A Room</button></li>` +
+			`<li><button class="button" name="send" value="/animehelp">Anime</button></li>` +
+			`<li><button class="button" name="send" value="/awayhelp">Away</button></li>` +
+			`<li><button class="button" name="send" value="/psgohelp">Cards</button></li>` +
+			`<li><button class="button" name="send" value="/definehelp">Define</button></li>` +
+			`<li><button class="button" name="send" value="/digidexhelp">Digidex</button></li>` +
+			`<li><button class="button" name="send" value="/atm">Economy</button></li>` +
+			`<li><button class="button" name="send" value="/emotes help">Emotes</button></li>` +
+			`<li><button class="button" name="send" value="/essbhelp">ESSB Data</button></li>` +
+			`<li><button class="button" name="send" value="/exphelp">EXP</button></li>` +
+			`<li><button class="button" name="send" value="/factionshelp">Factions</button></li>` +
+			`<li><button class="button" name="send" value="/hexhelp">Hex Code</button></li>` +
+			`<li><button class="button" name="send" value="/jobshelp">Jobs</button></li>` +
+			`<li><button class="button" name="send" value="/mangahelp">Manga</button></li>` +
+			`<li><button class="button" name="send" value="/meme">Meme Randomizer</button></li>` +
+			`<li><button class="button" name="send" value="/serverannouncementshelp">News</button></li>` +
+			`<li><button class="button" name="send" value="/ontimehelp">Ontime</button></li>` +
+			`<li><button class="button" name="send" value="/playlisthelp">Playlist</button></li>` +
+			`<li><button class="button" name="send" value="/profilehelp">Profile</button></li>` +
+			`<li><button class="button" name="send" value="/quotehelp">Quotes</button></li>` +
+			`<li><button class="button" name="send" value="/regdatehelp">Regdate</button></li>` +
+			`<li><button class="button" name="send" value="/roomlist">Room List</button></li>` +
+			`<li><button class="button" name="send" value="/roomshophelp">Room Shop</button></li>` +
+			`<li><button class="button" name="send" value="/seenhelp">Seen</button></li>` +
+			`<li><button class="button" name="send" value="/shop">Shop</button></li>` +
+			`<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li>` +
+			`<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li>` +
+			`<li><button class="button" name="send" value="/tellhelp">Tells</button></li>` +
+			`<li><button class="button" name="send" value="/urbandefinehelp">Urban Define</button></li>` +
+			`<li><button class="button" name="send" value="/voucherhelp">Vouchers</button></li>` +
+			`</ul>` +
+			`<h2>Social Medias/Links:</h2><ul>` +
+			`<li><a href="https://discord.gg/chfz65A" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Discord</button></a>` +
+			`<li><a href="http://exiledps.boards.net/" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Forums</button></a>` +
+			`<li><a href="https://github.com/DeathlyPlays/Exiled" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">GitHub</button></a>` +
+			`<li><a href="https://join.skype.com/Eo5DCq8nCh1j" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Join Our Skype</button></a>` +
+			`</ul>` +
+			`</div>`
 		);
 	},
 };

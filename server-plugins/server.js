@@ -160,25 +160,21 @@ exports.commands = {
 		if (!target) {
 			if (!this.runBroadcast()) return;
 			if (!room.chatRoomData.user) return this.sendReplyBox("The User of the Week has not been set.");
-			return this.sendReplyBox(
-				"The current <strong>User of the Week</strong>  is: " + Server.nameColor(room.chatRoomData.user, true)
-			);
+			return this.sendReplyBox(`The current <strong>User of the Week</strong>  is: ${Server.nameColor(room.chatRoomData.user, true)}`);
 		}
 		if (!this.can('lock', null, room)) return false;
 		if (this.meansNo(target)) {
 			if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
 			delete room.chatRoomData.user;
-			this.sendReply("The User of the Week was reset by " + Server.nameColor(user.name, true) + ".");
-			this.logModCommand(user.name + " reset the User of the Week.");
+			this.sendReply(`The User of the Week was reset by ${Server.nameColor(user.name, true)}.`);
+			this.addModAction(`UOTW Reset: ${user.name} reset the User of the Week.`);
 			Rooms.global.writeChatRoomData();
 			return;
 		}
 		room.chatRoomData.user = Chat.escapeHTML(target);
 		Rooms.global.writeChatRoomData();
-		room.addRaw(
-			"<div class=\"broadcast-green\"><strong>The User of the Week is: " + Server.nameColor(room.chatRoomData.user, true) + ".</strong></div>"
-		);
-		this.logModCommand(Chat.escapeHTML(user.name) + " updated the User of the Week to \"" + room.chatRoomData.user + "\".");
+		room.addRaw(`<div class="broadcast-green"><strong>The User of the Week is: ${Server.nameColor(room.chatRoomData.user, true)}.</strong></div>`);
+		this.addModAction(`${Chat.escapeHTML(user.name)} updated the User of the Week to "${room.chatRoomData.user}".`);
 	},
 	useroftheweekhelp: 'uotwhelp',
 	uotwhelp: [
@@ -188,13 +184,13 @@ exports.commands = {
 
 	etour: function (target) {
 		if (!target) return this.parse("/help etour");
-		this.parse("/tour create " + target + ", elimination");
+		this.parse(`/tour create ${target}, elimination`);
 	},
 	etourhelp: ["/etour [format] - Creates an elimination tournament."],
 
 	rtour: function (target) {
 		if (!target) return this.parse("/help rtour");
-		this.parse("/tour create " + target + ", roundrobin");
+		this.parse(`/tour create ${target}, roundrobin`);
 	},
 	rtourhelp: ["/rtour [format] - Creates a round robin tournament."],
 
@@ -232,9 +228,9 @@ exports.commands = {
 			delete room.chatRoomData.autorank;
 			Rooms.global.writeChatRoomData();
 			for (let u in room.users) Users(u).updateIdentity();
-			return this.privateModAction("(" + user.name + " has disabled autorank in this room.)");
+			return this.privateModAction(`(${user.name} has disabled autorank in this room.)`);
 		}
-		if (room.autorank && room.autorank === target) return this.sendReply("Autorank is already set to \"" + target + "\".");
+		if (room.autorank && room.autorank === target) return this.sendReply(`Autorank is already set to "${target}".`);
 
 		if (Config.groups[target] && !Config.groups[target].globalonly) {
 			if (target === '#' && user.userid !== room.founder) return this.sendReply("You can't set autorank to # unless you're the room founder.");
@@ -242,9 +238,9 @@ exports.commands = {
 			room.chatRoomData.autorank = target;
 			Rooms.global.writeChatRoomData();
 			for (let u in room.users) Users(u).updateIdentity();
-			return this.privateModAction("(" + user.name + " has set autorank to \"" + target + "\" in this room.)");
+			return this.privateModAction(`(${user.name} has set autorank to "${target}" in this room.)`);
 		}
-		return this.sendReply("Group \"" + target + "\" not found.");
+		return this.sendReply(`Group "${target}" not found.`);
 	},
 	autorankhelp: ["/autorank [rank] - Automatically promotes user to the specified rank when they join the room."],
 
@@ -288,21 +284,21 @@ exports.commands = {
 				data += chunk;
 			}).on('end', () => {
 				if (data.charAt(1) !== '{') {
-					this.sendReplyBox('Error retrieving definition for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
+					this.sendReplyBox(`Error retrieving definition for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
 					if (room) room.update();
 					return;
 				}
 				data = JSON.parse(data);
-				let output = '<font color=#24678d><strong>Definitions for ' + target + ':</strong></font><br />';
+				let output = `<font color=#24678d><strong>Definitions for ${target}:</strong></font><br />`;
 				if (!data[0] || !data) {
-					this.sendReplyBox('No results for <strong>"' + target + '"</strong>.');
+					this.sendReplyBox(`No results for <strong>"${target}"</strong>.`);
 					if (room) room.update();
 					return;
 				} else {
 					let count = 1;
 					for (let u in data) {
 						if (count > 3) break;
-						output += '(<strong>' + count + '</strong>) ' + Chat.escapeHTML(data[u]['text']) + '<br />';
+						output += `(<strong>${count}</strong>) ${Chat.escapeHTML(data[u]['text'])}<br />`;
 						count++;
 					}
 					this.sendReplyBox(output);
@@ -342,23 +338,23 @@ exports.commands = {
 				data += chunk;
 			}).on('end', () => {
 				if (data.charAt(0) !== '{') {
-					this.sendReplyBox('Error retrieving definition for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
+					this.sendReplyBox(`Error retrieving definition for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
 					if (room) room.update();
 					return;
 				}
 				data = JSON.parse(data);
 				let definitions = data['list'];
 				if (data['result_type'] === 'no_results' || !data) {
-					this.sendReplyBox('No results for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
+					this.sendReplyBox(`No results for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
 					if (room) room.update();
 					return;
 				} else {
 					if (!definitions[0]['word'] || !definitions[0]['definition']) {
-						this.sendReplyBox('No results for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
+						this.sendReplyBox(`No results for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
 						if (room) room.update();
 						return;
 					}
-					let output = '<strong>' + Chat.escapeHTML(definitions[0]['word']) + ':</strong> ' + Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
+					let output = `<strong>${Chat.escapeHTML(definitions[0]['word'])}</strong>${Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ')}`;
 					if (output.length > 400) output = output.slice(0, 400) + '...';
 					this.sendReplyBox(output);
 					udCache[toId(target)] = output;
@@ -392,7 +388,7 @@ exports.commands = {
 		room.auth[userid] = '#';
 		room.chatRoomData.founder = userid;
 		room.founder = userid;
-		this.addModCommand(`${name} was appointed Room Founder by ${user.name}.`);
+		this.addModAction(`${name} was appointed Room Founder by ${user.name}.`);
 		if (targetUser) {
 			targetUser.popup(`|html|You were appointed Room Founder by ${Server.nameColor(user.name, true)} in ${room.title}.`);
 			room.onUpdateIdentity(targetUser);
@@ -410,10 +406,10 @@ exports.commands = {
 		if (!target) return this.parse('/help roomdefounder');
 		if (!this.can('makeroom')) return false;
 		let targetUser = toId(target);
-		if (room.founder !== targetUser) return this.errorReply(targetUser + ' is not the room founder of ' + room.title + '.');
+		if (room.founder !== targetUser) return this.errorReply(`${target} is not the room founder of ${room.title}.`);
 		room.founder = false;
 		room.chatRoomData.founder = false;
-		return this.parse('/roomdeauth ' + target);
+		return this.parse(`/roomdeauth ${target}`);
 	},
 	roomdefounderhelp: ["/roomdefounder [username] - Revoke [username]'s room founder position. Requires: &, ~"],
 
@@ -426,13 +422,13 @@ exports.commands = {
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;
 		let userid = toId(name);
-		if (!userid || userid === '') return this.sendReply("User '" + name + "' does not exist.");
+		if (!userid || userid === '') return this.sendReply(`User "${name}" does not exist.`);
 
-		if (room.auth[userid] !== '#') return this.sendReply("User '" + name + "' is not a room owner.");
+		if (room.auth[userid] !== '#') return this.sendReply(`User "${name}" is not a room owner.`);
 		if (!room.founder || user.userid !== room.founder && !this.can('makeroom', null, room)) return false;
 
 		delete room.auth[userid];
-		this.sendReply("(" + name + " is no longer Room Owner.)");
+		this.sendReply(`(${name} is no longer Room Owner.)`);
 		if (targetUser) {
 			targetUser.popup(`|html|You were demoted from Room Owner by ${Server.nameColor(user.name, true, true)} in ${room.title}.`);
 			room.onUpdateIdentity(targetUser);
@@ -450,7 +446,7 @@ exports.commands = {
 		target = this.splitTarget(target, true);
 		let targetUser = this.targetUser;
 
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' is not online.");
+		if (!targetUser) return this.sendReply(`User "${this.targetUsername}" is not online.`);
 
 		if (!room.founder) return this.sendReply('The room needs a Room Founder before it can have a Room Leader.');
 		if (room.founder !== user.userid && !this.can('makeroom')) return this.sendReply('/roomleader - Access denied.');
@@ -464,7 +460,7 @@ exports.commands = {
 			room.onUpdateIdentity(targetUser);
 		}
 		room.auth[targetUser.userid] = '&';
-		this.addModCommand("" + name + " was appointed Room Leader by " + user.name + ".");
+		this.addModAction(`${name} was appointed Room Leader by ${user.name}.`);
 		room.onUpdateIdentity(targetUser);
 		Rooms.global.writeChatRoomData();
 	},
@@ -479,9 +475,9 @@ exports.commands = {
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;
 		let userid = toId(name);
-		if (!userid || userid === '') return this.sendReply("User '" + name + "' does not exist.");
+		if (!userid || userid === '') return this.sendReply(`User "${name}" does not exist.`);
 
-		if (room.auth[userid] !== '&') return this.sendReply("User '" + name + "' is not a room leader.");
+		if (room.auth[userid] !== '&') return this.sendReply(`User "${name}" is not a room leader.`);
 		if (!room.founder || user.userid !== room.founder && !this.can('makeroom', null, room)) return false;
 
 		if (targetUser) {
@@ -489,7 +485,7 @@ exports.commands = {
 			room.onUpdateIdentity(targetUser);
 		}
 		delete room.auth[userid];
-		this.sendReply("(" + name + " is no longer Room Leader.)");
+		this.sendReply(`(${name} is no longer Room Leader.)`);
 		if (targetUser) targetUser.updateIdentity();
 		if (room.chatRoomData) {
 			Rooms.global.writeChatRoomData();
@@ -502,31 +498,31 @@ exports.commands = {
 		if (!target) return this.errorReply("No target.");
 		let targetAnime = Chat.escapeHTML(target.trim());
 		let id = targetAnime.toLowerCase().replace(/ /g, '');
-		if (amCache.anime[id]) return this.sendReply('|raw|' + amCache.anime[id]);
+		if (amCache.anime[id]) return this.sendReply(`|raw|${amCache.anime[id]}`);
 
-		nani.get('anime/search/' + targetAnime)
+		nani.get(`anime/search/${targetAnime}`)
 			.then(data => {
 				if (data[0].adult) {
 					return this.errorReply('NSFW content is not allowed.');
 				}
-				nani.get('anime/' + data[0].id)
+				nani.get(`anime/${data[0].id}`)
 					.then(data => {
-						let css = 'text-shadow: 1px 1px 1px #CCC; padding: 3px 8px;';
-						let output = '<div class="infobox"><table width="100%"><tr>';
-						let description = data.description.replace(/(\r\n|\n|\r)/gm, "").split('<br><br>').join('<br>');
-						if (description.indexOf('&lt;br&gt;&lt;br&gt;') >= 0) description = description.substr(0, description.indexOf('&lt;br&gt;&lt;br&gt;'));
-						if (description.indexOf('<br>') >= 0) description = description.substr(0, description.indexOf('<br>'));
-						output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><strong>' + data.title_romaji + '</strong></td>';
-						output += '<td rowspan="6"><img src="' + data.image_url_lge + '" height="320" width="225" alt="' + data.title_romaji + '" title="' + data.title_romaji + '" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>';
-						output += '<tr><td style="' + css + '"><strong>Genre(s): </strong>' + data.genres + '</td></tr>';
-						output += '<tr><td style="' + css + '"><strong>Air Date: </strong>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
-						output += '<tr><td style="' + css + '"><strong>Status: </strong>' + data.airing_status + '</td></tr>';
-						output += '<tr><td style="' + css + '"><strong>Episode Count: </strong>' + data.total_episodes + '</td></tr>';
-						output += '<tr><td style="' + css + '"><strong>Rating: </strong> ' + data.average_score + '/100</td></tr>';
-						output += '<tr><td colspan="2" style="' + css + '"><strong>Description: </strong>' + description + '</td></tr>';
-						output += '</table></div>';
+						let css = `text-shadow: 1px 1px 1px #CCC; padding: 3px 8px;`;
+						let output = `<div class="infobox"><table width="100%"><tr>`;
+						let description = data.description.replace(/(\r\n|\n|\r)/gm, "").split(`<br /><br />`).join(`<br />`);
+						if (description.indexOf(`&lt;br&gt;&lt;br&gt;`) >= 0) description = description.substr(0, description.indexOf(`&lt;br&gt;&lt;br&gt;`));
+						if (description.indexOf(`<br />`) >= 0) description = description.substr(0, description.indexOf(`<br />`));
+						output += `<td style="${css} background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><strong>${data.title_romaji}</strong></td>`;
+						output += `<td rowspan="6"><img src="${data.image_url_lge}" height="320" width="225" alt="${data.title_romaji}" title="${data.title_romaji}" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>`;
+						output += `<tr><td style="${css}"><strong>Genre(s): </strong>${data.genres}</td></tr>`;
+						output += `<tr><td style="${css}"><strong>Air Date: </strong>${data.start_date.substr(0, 10)}</td></tr><tr>`;
+						output += `<tr><td style="${css}"><strong>Status: </strong>${data.airing_status}</td></tr>`;
+						output += `<tr><td style="${css}"><strong>Episode Count: </strong>${data.total_episodes}</td></tr>`;
+						output += `<tr><td style="${css}"><strong>Rating: </strong>${data.average_score}/100</td></tr>`;
+						output += `<tr><td colspan="2" style="${css}"><strong>Description: </strong>${description}</td></tr>`;
+						output += `</table></div>`;
 						amCache.anime[id] = output;
-						this.sendReply('|raw|' + output);
+						this.sendReply(`|raw|${output}`);
 						room.update();
 					});
 			})
@@ -541,31 +537,31 @@ exports.commands = {
 		if (!target) return this.errorReply("No target.");
 		let targetAnime = Chat.escapeHTML(target.trim());
 		let id = targetAnime.toLowerCase().replace(/ /g, '');
-		if (amCache.anime[id]) return this.sendReply('|raw|' + amCache.anime[id]);
+		if (amCache.anime[id]) return this.sendReply(`|raw|${amCache.anime[id]}`);
 
-		nani.get('manga/search/' + targetAnime)
+		nani.get(`manga/search/${targetAnime}`)
 			.then(data => {
-				nani.get('manga/' + data[0].id)
+				nani.get(`manga/${data[0].id}`)
 					.then(data => {
-						let css = 'text-shadow: 1px 1px 1px #CCC; padding: 3px 8px;';
-						let output = '<div class="infobox"><table width="100%"><tr>';
+						let css = `text-shadow: 1px 1px 1px #CCC; padding: 3px 8px;`;
+						let output = `<div class="infobox"><table width="100%"><tr>`;
 						for (let i = 0; i < data.genres.length; i++) {
-							if (/(Hentai|Yaoi|Ecchi)/.test(data.genres[i])) return this.errorReply('NSFW content is not allowed.');
+							if (/(Hentai|Yaoi|Ecchi)/.test(data.genres[i])) return this.errorReply(`NSFW content is not allowed.`);
 						}
-						let description = data.description.replace(/(\r\n|\n|\r)/gm, " ").split('<br><br>').join('<br>');
-						if (description.indexOf('&lt;br&gt;&lt;br&gt;') >= 0) description = description.substr(0, description.indexOf('&lt;br&gt;&lt;br&gt;'));
-						if (description.indexOf('<br>') >= 0) description = description.substr(0, description.indexOf('<br>'));
-						output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><strong>' + data.title_romaji + '</strong></td>';
-						output += '<td rowspan="6"><img src="' + data.image_url_lge + '" height="320" width="225" alt="' + data.title_romaji + '" title="' + data.title_romaji + '" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>';
-						output += '<tr><td style="' + css + '"><strong>Genre(s): </strong>' + data.genres + '</td></tr>';
-						output += '<tr><td style="' + css + '"><strong>Release Date: </strong>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
-						output += '<tr><td style="' + css + '"><strong>Status: </strong>' + data.publishing_status + '</td></tr>';
-						output += '<tr><td style="' + css + '"><strong>Chapter Count: </strong>' + data.total_chapters + '</td></tr>';
-						output += '<tr><td style="' + css + '"><strong>Rating: </strong> ' + data.average_score + '/100</td></tr>';
-						output += '<tr><td colspan="2" style="' + css + '"><strong>Description: </strong>' + description + '</td></tr>';
-						output += '</table></div>';
+						let description = data.description.replace(/(\r\n|\n|\r)/gm, " ").split(`<br /><br />`).join(`<br />`);
+						if (description.indexOf(`&lt;br&gt;&lt;br&gt;`) >= 0) description = description.substr(0, description.indexOf(`&lt;br&gt;&lt;br&gt;`));
+						if (description.indexOf(`<br />`) >= 0) description = description.substr(0, description.indexOf(`<br />`));
+						output += `<td style="${css} background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><strong>${data.title_romaji}</strong></td>`;
+						output += `<td rowspan="6"><img src="${data.image_url_lge}" height="320" width="225" alt="${data.title_romaji}" title="${data.title_romaji}" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>`;
+						output += `<tr><td style="${css}"><strong>Genre(s): </strong>${data.genres}</td></tr>`;
+						output += `<tr><td style="${css}"><strong>Release Date: </strong>${data.start_date.substr(0, 10)}</td></tr><tr>`;
+						output += `<tr><td style="${css}"><strong>Status: </strong>${data.publishing_status}</td></tr>`;
+						output += `<tr><td style="${css}"><strong>Chapter Count: </strong>${data.total_chapters}</td></tr>`;
+						output += `<tr><td style="${css}"><strong>Rating: </strong>${data.average_score}/100</td></tr>`;
+						output += `<tr><td colspan="2" style="${css}"><strong>Description: </strong>${description}</td></tr>`;
+						output += `</table></div>`;
 						amCache.manga[id] = output;
-						this.sendReply('|raw|' + output);
+						this.sendReply(`|raw|${output}`);
 						room.update();
 					});
 			})
@@ -616,20 +612,20 @@ exports.commands = {
 		if (user.isAway) {
 			let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
 			if (statusIdx > -1) newName = newName.substr(0, statusIdx);
-			if (user.name.substr(-statusLen) === status) return this.sendReply("Your away status is already set to \"" + target + "\".");
+			if (user.name.substr(-statusLen) === status) return this.sendReply(`Your away status is already set to "${target}".`);
 		}
 
 		newName += ' - ' + status;
-		if (newName.length > 60 && !user.can('lock')) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
+		if (newName.length > 60 && !user.can('lock')) return this.sendReply(`"${target}" is too long to use as your away status.`);
 
 		// forcerename any possible impersonators
 		let targetUser = Users.getExact(user.userid + target);
 		if (targetUser && targetUser !== user && targetUser.name === user.name + ' - ' + target) {
 			targetUser.resetName();
-			targetUser.send("|nametaken||Your name conflicts with " + user.name + (user.name.substr(-1) === "s" ? "'" : "'s") + " new away status.");
+			targetUser.send(`|nametaken||Your name conflicts with ${user.name} ${(user.name.substr(-1) === "s" ? "'" : "'s")} new away status.`);
 		}
 
-		if (user.can('mute', null, room)) this.add("|raw|-- " + Server.nameColor(user.name, true) + " is now " + target.toLowerCase() + ".");
+		if (user.can('mute', null, room)) this.add(`|raw|-- ${Server.nameColor(user.name, true)} is now ${target.toLowerCase()}.`);
 		if (user.can('lock')) this.parse('/hide');
 		user.forceRename(newName, user.registered);
 		user.updateIdentity();
@@ -645,7 +641,7 @@ exports.commands = {
 		let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
 		if (statusIdx < 0) {
 			user.isAway = false;
-			if (user.can('mute', null, room)) this.add("|raw|-- " + Server.nameColor(user.userid, true) + " is no longer away.");
+			if (user.can('mute', null, room)) this.add(`|raw|-- ${Server.nameColor(user.userid, true)} is no longer away.`);
 			return false;
 		}
 
@@ -654,7 +650,7 @@ exports.commands = {
 		user.forceRename(newName, user.registered);
 		user.updateIdentity();
 		user.isAway = false;
-		if (user.can('mute', null, room)) this.add("|raw|-- " + Server.nameColor(user.userid, true) + " is no longer " + status.toLowerCase() + ".");
+		if (user.can('mute', null, room)) this.add(`|raw|-- ${Server.nameColor(user.userid, true)} is no longer ${status.toLowerCase()}.`);
 		if (user.can('lock')) this.parse('/show');
 	},
 	backhelp: ["/back - Sets a users away status back to normal."],
@@ -665,7 +661,7 @@ exports.commands = {
 		if (!target || target === 'help') return this.parse('/help dssb');
 		if (target === 'credits') return this.parse('/dssbcredits');
 		let targetData = getMonData(toId(target));
-		if (!targetData) return this.errorReply("The staffmon '" + toId(target) + "' could not be found.");
+		if (!targetData) return this.errorReply(`The staffmon "${toId(target)}" could not be found.`);
 		return this.sendReplyBox(targetData);
 	},
 	dssbhelp: [
@@ -675,15 +671,15 @@ exports.commands = {
 
 	dssbcredits: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		let popup = "<font size=5 color=#000080><u><strong>DSSB Credits</strong></u></font><br />" +
-			"<br />" +
-			"<u><strong>Programmers:</u></strong><br />" +
-			"- " + Server.nameColor('Insist', true) + " (Head Developer, Idea, Balancer, Concepts, Entries)<br />" +
-			"- " + Server.nameColor('Lycanium Z', true) + " (Assistant Developer)<br />" +
-			"- " + Server.nameColor('Back At My Day', true) + " (Entries, Developments)<br />" +
-			"- " + Server.nameColor('flufi', true) + " (Development)<br />" +
-			"<u><strong>Special Thanks:</strong></u><br />" +
-			"- Our Staff Members for their cooperation in making this.<br />";
+		let popup = `<font size=5 color=#000080><u><strong>DSSB Credits</strong></u></font><br />` +
+			`<br />` +
+			`<u><strong>Programmers:</u></strong><br />` +
+			`- ${Server.nameColor('Insist', true)} (Head Developer, Idea, Balancer, Concepts, Entries)<br />` +
+			`- ${Server.nameColor('Lycanium Z', true)} (Assistant Developer)<br />` +
+			`- ${Server.nameColor('Back At My Day', true)} (Entries, Developments)<br />` +
+			`- ${Server.nameColor('flufi', true)} (Development)<br />` +
+			`<u><strong>Special Thanks:</strong></u><br />` +
+			`- Our Staff Members for their cooperation in making this.<br />`;
 		this.sendReplyBox(popup);
 	},
 
@@ -707,9 +703,9 @@ exports.commands = {
 			}).on('end', () => {
 				if (data.charAt(0) === '{') {
 					data = JSON.parse(data);
-					if (data['data'] && data['data']['currentSong']) nowPlaying = "<br /><strong>Now Playing:</strong> " + Chat.escapeHTML(data['data']['currentSong'].name);
+					if (data['data'] && data['data']['currentSong']) nowPlaying = `<br /><strong>Now Playing:</strong> ${Chat.escapeHTML(data['data']['currentSong'].name)}`;
 				}
-				this.sendReplyBox('Join our dubtrack.fm room <a href="https://www.dubtrack.fm/join/exiled_147873230374424">here!</a>' + nowPlaying);
+				this.sendReplyBox(`Join our dubtrack.fm room <a href="https://www.dubtrack.fm/join/exiled_147873230374424">here!</a>${nowPlaying}`);
 				room.update();
 			});
 		});
@@ -719,43 +715,45 @@ exports.commands = {
 	yt: 'youtube',
 	youtube: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
-		if (!target) return false;
-		let params_spl = target.split(' '), g = ' ';
-		for (let i = 0; i < params_spl.length; i++) {
-			g += '+' + params_spl[i];
+		if (!target) return this.parse("/youtubehelp");
+		let params_spl = target.split(` `), g = ` `;
+		for (const args in params_spl) {
+			g += `+${args}`;
 		}
 		g = g.substr(1);
 
 		let reqOpts = {
-			hostname: 'www.googleapis.com',
-			method: 'GET',
-			path: '/youtube/v3/search?part=snippet&q=' + g + '&type=video&key=AIzaSyA4fgl5OuqrgLE1B7v8IWYr3rdpTGkTmns',
+			hostname: `www.googleapis.com`,
+			method: `GET`,
+			path: `/youtube/v3/search?part=snippet&q=${g}&type=video&key=AIzaSyA4fgl5OuqrgLE1B7v8IWYr3rdpTGkTmns`,
 			headers: {
-				'Content-Type': 'application/json',
+				"Content-Type": "application/json",
 			},
 		};
 
 		let self = this;
-		let data = '';
+		let data = ``;
 		let req = https.request(reqOpts, function (res) {
-			res.on('data', function (chunk) {
+			res.on(`data`, function (chunk) {
 				data += chunk;
 			});
-			res.on('end', function (chunk) {
+			res.on(`end`, function (chunk) {
 				let d = JSON.parse(data);
 				if (d.pageInfo.totalResults === 0) {
-					room.add('No videos found');
+					room.add(`No videos found`);
 					room.update();
 					return false;
 				}
 				let id = getLinkId(target);
-				const image = '<button style="background: none; border: none;"><img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg?custom=true&w=168&h=94&stc=true&jpg444=true&jpgq=90&sp=68&sigh=tbq7TDTjFXD_0RtlFUMGz-k3JiQ" height="180" width="180"></button>';
-				self.sendReplyBox('<center>' + image + '<br><a href="https://www.youtube.com/watch?v=' + d.items[0].id.videoId + '"><strong> ' + d.items[0].snippet.title + '</strong></center>');
+				const image = `<button style="background: none; border: none;"><img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg?custom=true&w=168&h=94&stc=true&jpg444=true&jpgq=90&sp=68&sigh=tbq7TDTjFXD_0RtlFUMGz-k3JiQ" height="180" width="180"></button>`;
+				self.sendReplyBox(`<center>${image}<br /><a href="https://www.youtube.com/watch?v=${d.items[0].id.videoId}"><strong>${d.items[0].snippet.title}</strong></center>`);
 				room.update();
 			});
 		});
 		req.end();
 	},
+
+	youtubehelp: ["/youtube [link] - Displays a YouTube video into the chat."],
 
 	clearall: function (target, room, user) {
 		if (!this.can('ban')) return false;
@@ -780,7 +778,7 @@ exports.commands = {
 		if (!target) target = user.name;
 		target = toId(target);
 		if (target.length < 1 || target.length > 19) {
-			return this.sendReply("Usernames can not be less than one character or longer than 19 characters. (Current length: " + target.length + ".)");
+			return this.sendReply(`Usernames can not be less than one character or longer than 19 characters. (Current length: ${target.length}.)`);
 		}
 		if (!this.runBroadcast()) return;
 		Server.regdate(target, date => {
@@ -791,14 +789,14 @@ exports.commands = {
 
 		function regdateReply(date) {
 			if (date === 0) {
-				return Server.nameColor(target, true) + " <strong><font color='red'>is not registered.</font></strong>";
+				return `${Server.nameColor(target, true)} <strong><font color='red'>is not registered.</font></strong>`;
 			} else {
 				let d = new Date(date);
 				let MonthNames = ["January", "February", "March", "April", "May", "June",
 					"July", "August", "September", "October", "November", "December",
 				];
 				let DayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-				return Server.nameColor(target, true) + " was registered on <strong>" + DayNames[d.getUTCDay()] + ", " + MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + ", " + d.getUTCFullYear() + "</strong> at <strong>" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC.</strong>";
+				return `${Server.nameColor(target, true)} was registered on <strong>${DayNames[d.getUTCDay()]}, ${MonthNames[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}</strong> at <strong>${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()} UTC.</strong>`;
 			}
 			//room.update();
 		}
@@ -810,11 +808,11 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help seen');
 		let targetUser = Users.get(target);
-		if (targetUser && targetUser.connected) return this.sendReplyBox(Server.nameColor(targetUser.name, true) + " is <strong><font color='limegreen'>Currently Online</strong></font>.");
+		if (targetUser && targetUser.connected) return this.sendReplyBox(`${Server.nameColor(targetUser.name, true)} is <strong><font color='limegreen'>Currently Online</strong></font>.`);
 		target = Chat.escapeHTML(target);
 		let seen = Db('seen').get(toId(target));
-		if (!seen) return this.sendReplyBox(Server.nameColor(target, true) + " has <strong><font color='red'>never been online</font></strong> on this server.");
-		this.sendReplyBox(Server.nameColor(target, true) + " was last seen <strong>" + Chat.toDurationString(Date.now() - seen, {precision: true}) + "</strong> ago.");
+		if (!seen) return this.sendReplyBox(`${Server.nameColor(target, true)} has <strong><font color='red'>never been online</font></strong> on this server.`);
+		this.sendReplyBox(`${Server.nameColor(target, true)} was last seen <strong>${Chat.toDurationString(Date.now() - seen, {precision: true})}</strong> ago.`);
 	},
 	seenhelp: ["/seen - Shows when the user last connected on the server."],
 
@@ -835,9 +833,9 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse("/help digidex");
 		if (this.broadcasting) {
-			this.parse("!dt " + target + ", digimon");
+			this.parse(`!dt ${target}, digimon`);
 		} else {
-			this.parse("/dt " + target + ", digimon");
+			this.parse(`/dt ${target}, digimon`);
 		}
 	},
 	digidexhelp: ["/digidex [Digimon] - Checks for a Digimon's data from Digimon Showdown."],
@@ -845,21 +843,21 @@ exports.commands = {
 	randomsurvey: 'randsurvey',
 	randsurvey: function () {
 		let results = [
-			"/survey create What do you want to see added or updated in " + Config.serverName + "?",
-			"/survey create What's your most memorable experience on " + Config.serverName + "?",
-			"/survey create How much time do you spend on " + Config.serverName + " daily?",
-			"/survey create What is your favorite custom mechanic on " + Config.serverName + "?",
-			"/survey create Was" + Config.serverName + " your first Pokemon Showdown side-server?", //5
-			"/survey create Do you like the league system?",
-			"/survey create Do you like the idea of us adding custom megas on " + Config.serverName + " that you can use in regular formats? (OU, UU, Ubers, Etc)",
-			"/survey create What was your worst experience so far on " + Config.serverName + "?",
-			"/survey create What's your favorite food?",
-			"/survey create What's your favorite activity on a hot summer day?", //10
-			"/survey create What's your favorite drink",
-			"/survey create What's your favorite color?",
-			"/survey create What's the most embarrassing thing that's ever happened to you in real life?",
-			"/survey create Have you ever been banned/locked on main? (play.pokemonshowdown.com)",
-			"/survey create Do you want to see more events on " + Config.serverName + "?", //15
+			`/survey create What do you want to see added or updated in ${Config.serverName}?`,
+			`/survey create What's your most memorable experience on ${Config.serverName}?`,
+			`/survey create How much time do you spend on ${Config.serverName} daily?`,
+			`/survey create What is your favorite custom mechanic on ${Config.serverName}?`,
+			`/survey create Was${Config.serverName} your first Pokemon Showdown side-server?`, //5
+			`/survey create Do you like the league system?`,
+			`/survey create Do you like the idea of us adding custom megas on ${Config.serverName} that you can use in regular formats? (OU, UU, Ubers, Etc)`,
+			`/survey create What was your worst experience so far on ${Config.serverName}?`,
+			`/survey create What's your favorite food?`,
+			`/survey create What's your favorite activity on a hot summer day?`, //10
+			`/survey create What's your favorite drink`,
+			`/survey create What's your favorite color?`,
+			`/survey create What's the most embarrassing thing that's ever happened to you in real life?`,
+			`/survey create Have you ever been banned/locked on main? (play.pokemonshowdown.com)`,
+			`/survey create Do you want to see more events on ${Config.serverName}?`, //15
 		];
 		return this.parse(results[Math.floor(Math.random() * results.length)]);
 	},
@@ -886,7 +884,7 @@ exports.commands = {
 			}
 			if (!count) return this.sendReply("(This room has zero roomvoices)");
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
-			this.addModCommand("All " + count + " roomvoices have been cleared by " + user.name + ".");
+			this.addModAction(`All ${count} roomvoices have been cleared by ${user.name}.`);
 			break;
 		case 'roomplayer':
 			count = 0;
@@ -897,9 +895,9 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply("(This room has zero roomplayers)");
+			if (!count) return this.sendReply(`(This room has zero roomplayers)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
-			this.addModCommand("All " + count + " roomplayers have been cleared by " + user.name + ".");
+			this.addModAction(`All ${count} roomplayers have been cleared by ${user.name}.`);
 			break;
 		case 'driver':
 			count = 0;
@@ -910,9 +908,9 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply("(This room has zero drivers)");
+			if (!count) return this.sendReply(`(This room has zero drivers)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
-			this.addModCommand("All " + count + " drivers have been cleared by " + user.name + ".");
+			this.addModAction(`All ${count} drivers have been cleared by ${user.name}.`);
 			break;
 		case 'mod':
 			count = 0;
@@ -923,9 +921,9 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply("(This room has zero mods)");
+			if (!count) return this.sendReply(`(This room has zero mods)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
-			this.addModCommand("All " + count + " mods have been cleared by " + user.name + ".");
+			this.addModAction(`All ${count} mods have been cleared by ${user.name}.`);
 			break;
 		case 'roomleader':
 			count = 0;
@@ -936,9 +934,9 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply("(This room has zero room leaders)");
+			if (!count) return this.sendReply(`(This room has zero room leaders)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
-			this.addModCommand("All " + count + " room leaders have been cleared by " + user.name + ".");
+			this.addModAction(`All ${count} room leaders have been cleared by ${user.name}.`);
 			break;
 		case 'roomowner':
 			count = 0;
@@ -949,18 +947,18 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply("(This room has zero roomowners)");
+			if (!count) return this.sendReply(`(This room has zero roomowners)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
-			this.addModCommand("All " + count + " roomowners have been cleared by " + user.name + ".");
+			this.addModAction(`All ${count} roomowners have been cleared by ${user.name}.`);
 			break;
 		case 'all':
-			if (!room.auth) return this.errorReply("This room has no auth.");
+			if (!room.auth) return this.errorReply(`This room has no auth.`);
 			delete room.auth;
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
-			this.addModCommand("All roomauth has been cleared by " + user.name + ".");
+			this.addModAction(`All roomauth has been cleared by ${user.name}.`);
 			break;
 		default:
-			return this.sendReply("The group specified does not exist.");
+			return this.sendReply(`The group specified does not exist.`);
 		}
 	},
 
@@ -969,23 +967,10 @@ exports.commands = {
 		if (!target) return this.parse('/help declare');
 		if (!this.can('declare', null, room)) return false;
 		if (!this.canTalk() && !user.can('bypassall')) return this.errorReply("You cannot do this while unable to talk.");
-		room.addRaw('<div class="broadcast-' + cmd.substr(7) + '"><strong>' + target + '</strong></div>');
+		room.addRaw(`<div class="broadcast-${cmd.substr(7)}"><strong>${target}</strong></div>`);
 		room.update();
-		this.room.modlog(user.name + ' declared ' + target);
+		this.room.modlog(`${user.name} declared ${target}`);
 	},
-
-	cgdeclare: 'customgdeclare',
-	customgdeclare: function (target, room, user) {
-		let parts = target.split(',');
-		if (!target) return this.parse('/help customgdeclare');
-		if (!parts[4]) return this.parse('/help customgdeclare');
-		if (!this.can('gdeclare')) return false;
-		for (let id in Rooms.rooms) {
-			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-blue" style="border-radius: 5px;"><strong>We are hosting a <font color="#57194A"><strong>' + parts[0] + '</strong></font> in <button name="send" value="/join ' + parts[1] + '" style="border-radius: 3px; margin: 3px; padding: 2px 5px; font-weight: bold; font-style: italic; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.35); color: #57194A; text-shadow: none;">' + parts[1] + '</button> !<br />The tier is <font style="color: #57194A; font-weight: bold;"><strong>' + parts[2] + '</strong></font>! Join up and have fun!<br /><br />The prize for the winner is <font style="color: #57194A; font-weight: bold;"><strong>' + parts[3] + '</strong></font> bucks, while the runner-up will get <font style="color: #57194A; font-weight: bold;"><strong>' + parts[4] + '</strong></font> bucks!<br /><small><i>~' + user.name + '</i></small></strong></div>');
-		}
-		this.room.modlog(user.name + " globally custom declared " + target);
-	},
-	customgdeclarehelp: ["/customgdeclare [event name], [room], [tier], [buck reward], [runner-up buck reward] - Preset gdeclare which anonymously announces a message to every room on the server. Requires: &, ~"],
 
 	fj: 'forcejoin',
 	forcejoin: function (target, room, user) {
@@ -1012,12 +997,12 @@ exports.commands = {
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (target.length > 300) return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
-		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
+		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${this.targetUsername}" not found.`);
 		if (!this.can('mute', targetUser, room)) return false;
-		if (!room.users[targetUser.userid]) return this.errorReply("User \"" + this.targetUsername + "\" is not in this room.");
+		if (!room.users[targetUser.userid]) return this.errorReply(`User "${this.targetUsername}" is not in this room.`);
 
-		this.addModCommand(targetUser.name + " was kicked from the room by " + user.name + ". (" + target + ")");
-		targetUser.popup("You were kicked from " + room.id + " by " + user.name + "." + (target ? " (" + target + ")" : ""));
+		this.addModAction(`${targetUser.name} was kicked from the room by ${user.name}. (${target})`);
+		targetUser.popup(`You were kicked from ${room.id} by ${user.name}. ${(target ? `(${target})` : ``)}`);
 		targetUser.leaveRoom(room.id);
 	},
 	kickhelp: ["/kick [user], [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
@@ -1030,7 +1015,7 @@ exports.commands = {
 				room.users[i].leaveRoom(room.id);
 			}
 		}
-		this.privateModAction('(' + Chat.escapeHTML(user.name) + 'kicked everyone from the room.');
+		this.privateModAction(`(${Chat.escapeHTML(user.name)} kicked everyone from the room.`);
 	},
 
 	sd: 'declaremod',
@@ -1041,22 +1026,22 @@ exports.commands = {
 		if (!target) return this.parse('/help declaremod');
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (!this.can('receiveauthmessages', null, room)) return false;
-		return this.privateModAction('|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ' + Server.nameColor(user.name) + '<br /></i></font size>' + target + '</strong></div>');
+		return this.privateModAction(`|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ${Server.nameColor(user.name)}<br /></i></font size>${target}</strong></div>`);
 	},
 	declaremodhelp: ["/declaremod [note] - Adds a staff readable declare. Requires: % @ # & ~"],
 
 	glogs: 'globallogs',
 	globallogs: function (target, room, user) {
-		return this.parse('/modlog all, ' + target);
+		return this.parse(`/modlog all, ${target}`);
 	},
 
 	roomlist: function (target, room, user) {
-		let header = ['<strong><font color="#1aff1a" size="2">Total users connected: ' + Rooms.global.userCount + '</font></strong><br />'],
-			official = ['<strong><font color="#ff9900" size="2"><u>Official Rooms:</u></font></strong><br />'],
-			nonOfficial = ['<hr><strong><u><font color="#005ce6" size="2">Public Rooms:</font></u></strong><br />'],
-			privateRoom = ['<hr><strong><u><font color="#ff0066" size="2">Private Rooms:</font></u></strong><br />'],
-			groupChats = ['<hr><strong><u><font color="#00b386" size="2">Group Chats:</font></u></strong><br />'],
-			battleRooms = ['<hr><strong><u><font color="#cc0000" size="2">Battle Rooms:</font></u></strong><br />'];
+		let header = [`<strong><font color="#1aff1a" size="2">Total users connected: ${Rooms.global.userCount}</font></strong><br />`],
+			official = [`<strong><font color="#ff9900" size="2"><u>Official Rooms:</u></font></strong><br />`],
+			nonOfficial = [`<hr><strong><u><font color="#005ce6" size="2">Public Rooms:</font></u></strong><br />`],
+			privateRoom = [`<hr><strong><u><font color="#ff0066" size="2">Private Rooms:</font></u></strong><br />`],
+			groupChats = [`<hr><strong><u><font color="#00b386" size="2">Group Chats:</font></u></strong><br />`],
+			battleRooms = [`<hr><strong><u><font color="#cc0000" size="2">Battle Rooms:</font></u></strong><br />`];
 
 		let rooms = [];
 
@@ -1069,23 +1054,23 @@ exports.commands = {
 		for (let u in rooms) {
 			let curRoom = Rooms(rooms[u]);
 			if (curRoom.type === 'battle') {
-				battleRooms.push('<a href="/' + curRoom.id + '" class="ilink">' + Chat.escapeHTML(curRoom.title) + '</a> (' + curRoom.userCount + ')');
+				battleRooms.push(`<a href="/${curRoom.id}" class="ilink">${Chat.escapeHTML(curRoom.title)}</a> (${curRoom.userCount})`);
 			}
 			if (curRoom.type === 'chat') {
 				if (curRoom.isPersonal) {
-					groupChats.push('<a href="/' + curRoom.id + '" class="ilink">' + curRoom.id + '</a> (' + curRoom.userCount + ')');
+					groupChats.push(`<a href="/${curRoom.id}" class="ilink">${curRoom.id}</a> (${curRoom.userCount})`);
 					continue;
 				}
 				if (curRoom.isOfficial) {
-					official.push('<a href="/' + toId(curRoom.title) + '" class="ilink">' + Chat.escapeHTML(curRoom.title) + '</a> (' + curRoom.userCount + ')');
+					official.push(`<a href="/${toId(curRoom.title)}" class="ilink">${Chat.escapeHTML(curRoom.title)}</a> (${curRoom.userCount})`);
 					continue;
 				}
 				if (curRoom.isPrivate) {
-					privateRoom.push('<a href="/' + toId(curRoom.title) + '" class="ilink">' + Chat.escapeHTML(curRoom.title) + '</a> (' + curRoom.userCount + ')');
+					privateRoom.push(`<a href="/${toId(curRoom.title)}" class="ilink">${Chat.escapeHTML(curRoom.title)}</a> (${curRoom.userCount})`);
 					continue;
 				}
 			}
-			if (curRoom.type !== 'battle') nonOfficial.push('<a href="/' + toId(curRoom.title) + '" class="ilink">' + curRoom.title + '</a> (' + curRoom.userCount + ')');
+			if (curRoom.type !== 'battle') nonOfficial.push(`<a href="/${toId(curRoom.title)}" class="ilink">${curRoom.title}</a> ${curRoom.userCount})`);
 		}
 
 		if (!user.can('roomowner')) return this.sendReplyBox(header + official.join(' ') + nonOfficial.join(' '));
@@ -1097,6 +1082,7 @@ exports.commands = {
 		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmall');
 		Server.pmAll(target, pmName, user.name);
+		Monitor.adminlog(`${user.name} has PM'ed all users: ${target}.`);
 	},
 	pmallhelp: ["/pmall [message] - PM all users in the server."],
 
@@ -1106,6 +1092,7 @@ exports.commands = {
 		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmallstaff');
 		Server.pmStaff(target, pmName, user.name);
+		Monitor.adminlog(`${user.name} has PM'ed all Staff: ${target}.`);
 	},
 	pmallstaffhelp: ["/pmallstaff [message] - Sends a PM to every staff member online."],
 
@@ -1115,6 +1102,7 @@ exports.commands = {
 		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmupperstaff');
 		Server.messageSeniorStaff(target, pmName, user.name);
+		Monitor.adminlog(`${user.name} has PM'ed all Upper Staff: ${target}.`);
 	},
 	pmupperstaffhelp: ["/pmupperstaff [message] - Sends a PM to every Upper Staff member online."],
 
@@ -1122,15 +1110,14 @@ exports.commands = {
 	roompm: 'rmall',
 	rmall: function (target, room, user) {
 		if (!this.can('declare', null, room)) return this.errorReply("/rmall - Access denied.");
-		if (room.id === 'lobby') return this.errorReply("This command cannot be used in Lobby.");
-		if (!target) return this.sendReply("/rmall [message] - Sends a pm to all users in the room.");
+		if (!target) return this.sendReply("/rmall [message] - Sends a PM to all users in the room.");
 		target = target.replace(/<(?:.|\n)*?>/gm, '');
 
 		for (let i in room.users) {
-			let message = '|pm|' + pmName + '|' + room.users[i].getIdentity() + '| ' + target;
+			let message = `|pm|${pmName}|${room.users[i].getIdentity()}|${target}`;
 			room.users[i].send(message);
 		}
-		this.privateModAction('(' + Chat.escapeHTML(user.name) + ' mass PMd: ' + target + ')');
+		this.privateModAction(`(${Chat.escapeHTML(user.name)} mass PMd: ${target})`);
 	},
 
 	/*************************
@@ -1146,32 +1133,32 @@ exports.commands = {
 		if (!this.can('lockdown')) return;
 		if (!toId(target)) return this.parse('/help permalock');
 		let tarUser = Users(target);
-		if (!tarUser && (cmd !== 'offlinepermalock' && cmd !== 'forceofflinepermalock')) return this.errorReply('User ' + target + ' not found. If your sure you want to permalock them, use /offlinepermalock.');
-		if (tarUser && (cmd === 'offlinepermalock' || cmd === 'forceofflinepermalock')) return this.parse('/permalock ' + target);
+		if (!tarUser && (cmd !== 'offlinepermalock' && cmd !== 'forceofflinepermalock')) return this.errorReply(`User ${target} was not found. If you're sure you want to permalock them, use /offlinepermalock.`);
+		if (tarUser && (cmd === 'offlinepermalock' || cmd === 'forceofflinepermalock')) return this.parse(`/permalock ${target}`);
 		if (cmd === 'offlinepermalock' || cmd === 'forceofflinepermalock') {
 			target = toId(target);
-			if (Db('perma').get(target, 0) === 5) return this.errorReply(target + ' is already permalocked.');
-			if (Users.usergroups[target] && cmd !== 'forceofflinepermalock') return this.errorReply(target + ' is a trusted user. If your sure you want to permalock them, please use /forceofflinepermalock');
+			if (Db('perma').get(target, 0) === 5) return this.errorReply(`${target} is already permalocked.`);
+			if (Users.usergroups[target] && cmd !== 'forceofflinepermalock') return this.errorReply(`${target} is a trusted user. If you're sure you want to permalock them, please use /forceofflinepermalock`);
 			Db('perma').set(target, 5);
 			if (Users.usergroups[target]) {
 				Users.setOfflineGroup(target, ' ');
-				Monitor.log('[CrisisMonitor] Trusted user ' + target + ' was permalocked by ' + user.name + ' and was automatically demoted from ' + Users.usergroups[target].substr(0, 1) + '.');
+				Monitor.log(`[CrisisMonitor] Trusted user ${target} was permalocked by ${user.name} and was automatically demoted from ${Users.usergroups[target].substr(0, 1)}.`);
 			}
-			Monitor.adminlog('[Perma Monitor] ' + user.name + ' has (offline) permalocked ' + target + '.');
-			return this.addModCommand(target + ' was permalocked by ' + user.name + '.');
+			Monitor.adminlog(`[Perma Monitor] ${user.name} has (offline) permalocked ${target}.`);
+			return this.addModAction(`${target} was permalocked by ${user.name}.`);
 		}
 		if (!tarUser.registered) return this.errorReply('Only registered users can be permalocked.');
 		if (Db('perma').get(tarUser.userid, 0) >= 5) {
-			if (Db('perma').get(tarUser.userid, 0) === 5) return this.errorReply(tarUser.name + ' is already permalocked.');
-			if (cmd !== 'forcepermalock') return this.errorReply(tarUser.name + ' is permabanned and cannot be permalocked. If you want to change thier permaban to a permalock, please use /forcepermalock');
+			if (Db('perma').get(tarUser.userid, 0) === 5) return this.errorReply(`${tarUser.name} is already permalocked.`);
+			if (cmd !== 'forcepermalock') return this.errorReply(`${tarUser.name} is permabanned and cannot be permalocked. If you want to change their permaban to a permalock, please use /forcepermalock.`);
 		}
-		if (tarUser.trusted && cmd !== 'forcepermalock') return this.errorReply(tarUser.name + ' is a trusted user. If your sure you want to permalock them, please use /forcepermalock');
+		if (tarUser.trusted && cmd !== 'forcepermalock') return this.errorReply(`${tarUser.name} is a trusted user. If you're sure you want to permalock them, please use /forcepermalock.`);
 		Db('perma').set(tarUser.userid, 5);
 		if (!Punishments.userids.get(tarUser.userid) || Punishments.userids.get(tarUser.userid)[0] !== 'BAN') Punishments.lock(tarUser, Date.now() + (1000 * 60 * 60 * 24 * 30), tarUser.userid, `Permalocked as ${tarUser.userid}`);
-		tarUser.popup('You have been permalocked by ' + user.name + '.\nUnlike permalocks issued by the main server, this permalock only effects this server.');
-		if (tarUser.trusted) Monitor.log('[CrisisMonitor] Trusted user ' + tarUser.userid + ' was permalocked by ' + user.name + ' and was automatically demoted from ' + tarUser.distrust() + '.');
-		Monitor.adminlog('[Perma Monitor] ' + user.name + ' has permalocked ' + tarUser.name + '.');
-		return this.addModCommand(tarUser.name + ' was permalocked by ' + user.name + '.');
+		tarUser.popup(`You have been permalocked by ${user.name}.\nUnlike permalocks issued by the main server, this permalock only effects this server.`);
+		if (tarUser.trusted) Monitor.log(`[CrisisMonitor] Trusted user ${tarUser.userid} was permalocked by ${user.name} and was automatically demoted from ${tarUser.distrust()}.`);
+		Monitor.adminlog(`[Perma Monitor] ${user.name} has permalocked ${tarUser.name}.`);
+		return this.addModAction(`${tarUser.name} was permalocked by ${user.name}.`);
 	},
 	permalockhelp: ['/permalock user - Permalock a user. Requires: ~'],
 
@@ -1179,13 +1166,13 @@ exports.commands = {
 		if (!this.can('lockdown')) return;
 		if (!toId(target)) return this.parse('/help unpermalock');
 		target = toId(target);
-		if (Db('perma').get(target, 0) < 5) return this.errorReply(target + ' is not permalocked.');
-		if (Db('perma').get(target, 0) === 6) return this.errorReply(target + ' is permabanned. If you want to unpermaban them, use /unpermaban');
+		if (Db('perma').get(target, 0) < 5) return this.errorReply(`${target} is not permalocked.`);
+		if (Db('perma').get(target, 0) === 6) return this.errorReply(`${target} is permabanned. If you want to unpermaban them, use /unpermaban.`);
 		Db('perma').set(target, 0);
 		Punishments.unlock(target);
-		if (Users(target)) Users(target).popup('Your permalock was lifted by ' + user.name + '.');
-		Monitor.adminlog('[Perma Monitor] ' + user.name + ' has unpermalocked ' + target + '.');
-		return this.addModCommand(target + ' was unpermalocked by ' + user.name + '.');
+		if (Users(target)) Users(target).popup(`Your permalock was lifted by ${user.name}.`);
+		Monitor.adminlog(`[Perma Monitor] ${user.name} has unpermalocked ${target}.`);
+		return this.addModAction(`${target} was unpermalocked by ${user.name}.`);
 	},
 	unpermalockhelp: ['/unpermalock user - Unpermalock a user. Requires: ~'],
 
@@ -1196,29 +1183,29 @@ exports.commands = {
 		if (!this.can('lockdown')) return;
 		if (!toId(target)) return this.parse('/help permaban');
 		let tarUser = Users(target);
-		if (!tarUser && (cmd !== 'offlinepermaban' && cmd !== 'forceofflinepermaban')) return this.errorReply('User ' + target + ' not found. If your sure you want to permaban them, use /offlinepermaban.');
-		if (tarUser && (cmd === 'offlinepermaban' || cmd === 'forceofflinepermaban')) return this.parse('/permaban ' + target);
+		if (!tarUser && (cmd !== 'offlinepermaban' && cmd !== 'forceofflinepermaban')) return this.errorReply(`User ${target} not found. If you're sure you want to permaban them, use /offlinepermaban.`);
+		if (tarUser && (cmd === 'offlinepermaban' || cmd === 'forceofflinepermaban')) return this.parse(`/permaban ${target}`);
 		if (cmd === 'offlinepermaban' || cmd === 'forceofflinepermaban') {
 			target = toId(target);
-			if (Db('perma').get(target, 0) === 6) return this.errorReply(target + ' is already permabanned.');
-			if (Users.usergroups[target] && cmd !== 'forceofflinepermaban') return this.errorReply(target + ' is a trusted user. If your sure you want to permaban them, please use /forceofflinepermaban');
+			if (Db('perma').get(target, 0) === 6) return this.errorReply(`${target} is already permabanned.`);
+			if (Users.usergroups[target] && cmd !== 'forceofflinepermaban') return this.errorReply(`${target} is a trusted user. If you're sure you want to permaban them, please use /forceofflinepermaban.`);
 			Db('perma').set(target, 6);
 			if (Users.usergroups[target]) {
 				Users.setOfflineGroup(target, ' ');
-				Monitor.log('[CrisisMonitor] Trusted user ' + target + ' was permabanned by ' + user.name + ' and was automatically demoted from ' + Users.usergroups[target].substr(0, 1) + '.');
+				Monitor.log(`[CrisisMonitor] Trusted user ${target} was permabanned by ${user.name} and was automatically demoted from ${Users.usergroups[target].substr(0, 1)}.`);
 			}
-			Monitor.adminlog('[Perma Monitor] ' + user.name + ' has (offline) permabanned ' + target + '.');
-			return this.addModCommand(target + ' was permabanned by ' + user.name + '.');
+			Monitor.adminlog(`[Perma Monitor] ${user.name} has (offline) permabanned ${target}.`);
+			return this.addModAction(`${target} was permabanned by ${user.name}.`);
 		}
-		if (!tarUser.registered) return this.errorReply('Only registered users can be permalocked.');
-		if (Db('perma').get(tarUser.userid, 0) === 6) return this.errorReply(tarUser.name + ' is already permabanned.');
-		if (tarUser.trusted && cmd !== 'forcepermaban') return this.errorReply(tarUser.name + ' is a trusted user. If your sure you want to permaban them, please use /forcepermaban');
+		if (!tarUser.registered) return this.errorReply(`Only registered users can be permalocked.`);
+		if (Db('perma').get(tarUser.userid, 0) === 6) return this.errorReply(`${tarUser.name} is already permabanned.`);
+		if (tarUser.trusted && cmd !== 'forcepermaban') return this.errorReply(`${tarUser.name} is a trusted user. If you're sure you want to permaban them, please use /forcepermaban.`);
 		Db('perma').set(tarUser.userid, 6);
-		tarUser.popup('You have been permabanned by ' + user.name + '.\nUnlike permabans issued by the main server, this permaban only effects this server.');
+		tarUser.popup(`You have been permabanned by ${user.name}.\nUnlike permabans issued by the main server, this permaban only effects this server.`);
 		Punishments.ban(tarUser, Date.now() + (1000 * 60 * 60 * 24 * 30), tarUser.userid, `Permabanned as ${tarUser.userid}`);
-		if (tarUser.trusted) Monitor.log('[CrisisMonitor] Trusted user ' + tarUser.userid + ' was permabanned by ' + user.name + ' and was automatically demoted from ' + tarUser.distrust() + '.');
-		Monitor.adminlog('[Perma Monitor] ' + user.name + ' has permabanned ' + tarUser.name + '.');
-		return this.addModCommand(tarUser.name + ' was permabanned by ' + user.name + '.');
+		if (tarUser.trusted) Monitor.log(`[CrisisMonitor] Trusted user ${tarUser.userid} was permabanned by ${user.name} and was automatically demoted from ${tarUser.distrust()}.`);
+		Monitor.adminlog(`[Perma Monitor] ${user.name} has permabanned ${tarUser.name}.`);
+		return this.addModAction(`${tarUser.name} was permabanned by ${user.name}.`);
 	},
 	permabanhelp: ['/permaban user - Permaban a user. Requires: ~'],
 
@@ -1226,11 +1213,11 @@ exports.commands = {
 		if (!this.can('lockdown')) return;
 		if (!toId(target)) return this.parse('/help unpermaban');
 		target = toId(target);
-		if (Db('perma').get(target, 0) !== 6) return this.errorReply(target + ' is not permabanned.');
+		if (Db('perma').get(target, 0) !== 6) return this.errorReply(`${target} is not permabanned.`);
 		Db('perma').set(target, 0);
 		Punishments.unban(target);
-		Monitor.adminlog('[Perma Monitor] ' + user.name + ' has unpermabanned ' + target + '.');
-		return this.addModCommand(target + ' was unpermabanned by ' + user.name + '.');
+		Monitor.adminlog(`[Perma Monitor] ${user.name} has unpermabanned ${target}.`);
+		return this.addModAction(`${target} was unpermabanned by ${user.name}.`);
 	},
 	unpermabanhelp: ['/unpermaban user - Unpermaban a user. Requires: ~'],
 
@@ -1245,10 +1232,10 @@ exports.commands = {
 		if (!declare) return;
 		setTimeout(f => {
 			for (let id in Rooms.rooms) {
-				if (id !== 'global' && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw('<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><strong>' + declare + '</strong></div>');
+				if (id !== 'global' && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw(`<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><strong>${declare}</strong></div>`);
 			}
 		}, delayInMins);
-		this.room.modlog(toId(user) + 'scheduled a timed declare: ' + declare);
+		this.room.modlog(`${toId(user)} scheduled a timed declare: ${declare}`);
 		return this.sendReply('Your declare has been scheduled.');
 	},
 	timedgdeclarehelp: ["/timedgdclare [delay in minutes], [declare] - Will declare something after a given delay. Requires: & ~"],
@@ -1278,14 +1265,14 @@ exports.commands = {
 			}
 			let inputRoom = Chat.escapeHTML(parts[1]);
 			let targetRoom = Rooms.search(inputRoom);
-			if (!targetRoom || targetRoom === Rooms.global) return this.errorReply("The room '" + inputRoom + "' does not exist.");
-			if (!this.can('ban', null, targetRoom)) return this.errorReply("You cannot advertise the room '" + targetRoom + "' because you are not staff in there.");
+			if (!targetRoom || targetRoom === Rooms.global) return this.errorReply(`The room "${inputRoom}" does not exist.`);
+			if (!this.can('ban', null, targetRoom)) return this.errorReply(`You cannot advertise the room "${targetRoom}" because you are not staff in ${targetRoom}.`);
 			let message = Chat.escapeHTML(parts.slice(2).join(","));
 			Rooms.global.ads.push({ip: user.latestIp, user: toId(user), room: targetRoom, message: message});
 			if (!Rooms.global.adInterval) {
 				Rooms.global.adInterval = setInterval(postAds, 300000); //5 minutes
 			}
-			this.sendReply("Your message has been added to the advertisement queue. You're #" + Rooms.global.ads.length + ".");
+			this.sendReply(`Your message has been added to the advertisement queue. You're #${Rooms.global.ads.length}.`);
 			break;
 		default:
 			return this.errorReply("Invalid command. `/ads add, room, message`.");
@@ -1345,7 +1332,7 @@ exports.commands = {
 			if (user1ID === user2ID) return this.errorReply(`You provided the same accounts for the alt change.`);
 			let transferSuccess = transferAuth(user1ID, user2ID, user.group);
 			if (transferSuccess.length >= 1) {
-				this.addModCommand(`${user1} has had their account (${transferSuccess.join(', ')}) transfered onto new name: ${user2} - by ${user.name}.`);
+				this.addModAction(`${user1} has had their account (${transferSuccess.join(', ')}) transfered onto new name: ${user2} - by ${user.name}.`);
 				this.sendReply(`Note: avatars do not transfer automatically with this command.`);
 			} else {
 				return this.errorReply(`User '${user1}' has no global or room authority, or they have higher global authority than you.`);
@@ -1358,7 +1345,7 @@ exports.commands = {
 	crashlogs: function (target, room, user) {
 		if (!this.can("hotpatch")) return false;
 		let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
-		user.send('|popup|' + crashes);
+		user.send(`|popup|${crashes}`);
 		return;
 	},
 
@@ -1380,8 +1367,8 @@ exports.commands = {
 		return function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			let uptime = process.uptime();
-			this.sendReplyBox("Uptime: <strong>" + formatUptime(uptime) + "</strong>" +
-				(global.uptimeRecord ? "<br /><font color=\"green\">Record: <strong>" + formatUptime(global.uptimeRecord) + "</strong></font>" : ""));
+			this.sendReplyBox(`Uptime: <strong>${formatUptime(uptime)}</strong>` +
+				(global.uptimeRecord ? `<br /><font color="green">Record: <strong>"${formatUptime(global.uptimeRecord)}</strong></font>` : ``));
 		};
 	})(),
 
@@ -1393,13 +1380,13 @@ exports.commands = {
 			room.protect = false;
 			room.chatRoomData.protect = room.protect;
 			Rooms.global.writeChatRoomData();
-			this.privateModAction("(" + user.name + " has unprotected this room from being automatically deleted.)");
+			this.privateModAction(`(${user.name} has unprotected this room from being automatically deleted.)`);
 		} else {
 			if (room.protect) return this.errorReply("This room is already protected.");
 			room.protect = true;
 			room.chatRoomData.protect = room.protect;
 			Rooms.global.writeChatRoomData();
-			this.privateModAction("(" + user.name + " has protected this room from being automatically deleted.)");
+			this.privateModAction(`(${user.name} has protected this room from being automatically deleted.)`);
 		}
 	},
 
@@ -1443,11 +1430,11 @@ exports.commands = {
 
 		function getTypeFormatting(types) {
 			let text = [];
-			for (let i = 0; i < types.length; i++) {
-				text.push("<img src=\"http://play.pokemonshowdown.com/sprites/types/" + types[i] + ".png\" width=\"32\" height=\"14\">");
+			for (const type of types) {
+				text.push(`<img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" width="32" height="14">`);
 			}
-			return text.join(" / ");
+			return text.join(` / `);
 		}
-		this.sendReplyBox("<div style=\"background-color: rgba(207, 247, 160, 0.4); border: #000000 solid 3px; border-radius: 10%; color: #0a024a; padding: 30px 30px\"><center><table><td><img src=\"" + spriteLocation + "\"</td><td>&nbsp;&nbsp;<strong>Name: </strong>" + pokeData.species + "<br/>&nbsp;&nbsp;<strong>Type(s): </strong>" + getTypeFormatting(pokeData.types) + "<br/>&nbsp;&nbsp;<strong>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </strong>" + Object.values(pokeData.abilities).join(" / ") + "<br/>&nbsp;&nbsp;<strong>Stats: </strong>" + Object.values(pokeData.baseStats).join(" / ") + "<br/>&nbsp;&nbsp;<strong>Colour: </strong><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/>&nbsp;&nbsp;<strong>Egg Group(s): </strong>" + pokeData.eggGroups.join(", ") + "</td></table></center></div>");
+		this.sendReplyBox(`<div style="background-color: rgba(207, 247, 160, 0.4); border: #000000 solid 3px; border-radius: 10%; color: #0a024a; padding: 30px 30px"><center><table><td><img src="${spriteLocation}"</td><td>&nbsp;&nbsp;<strong>Name: </strong>${pokeData.species}<br/>&nbsp;&nbsp;<strong>Type(s): </strong>${getTypeFormatting(pokeData.types)}<br/>&nbsp;&nbsp;<strong>${(Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability")}: </strong>${Object.values(pokeData.abilities).join(" / ")}<br/>&nbsp;&nbsp;<strong>Stats: </strong>${Object.values(pokeData.baseStats).join(" / ")}<br/>&nbsp;&nbsp;<strong>Colour: </strong><font color="${pokeData.color}">${pokeData.color}</font><br/>&nbsp;&nbsp;<strong>Egg Group(s): </strong>${pokeData.eggGroups.join(", ")}</td></table></center></div>`);
 	},
 };

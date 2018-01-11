@@ -34,8 +34,8 @@ exports.commands = {
 		if (target) {
 			let targetRoom = Rooms.search(target);
 			let unavailableRoom = targetRoom && targetRoom.checkModjoin(user);
-			if (targetRoom && !unavailableRoom) return this.parse('/roomauth1 ' + target);
-			return this.parse('/userauth ' + target);
+			if (targetRoom && !unavailableRoom) return this.parse(`/roomauth ${target}`);
+			return this.parse(`/userauth ${target}`);
 		}
 		let rankLists = {};
 		let ranks = Object.keys(Config.groups);
@@ -53,11 +53,11 @@ exports.commands = {
 		let buffer = Object.keys(rankLists).sort((a, b) =>
 			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
 		).map(r =>
-			(Config.groups[r] ? "<strong>" + Config.groups[r].name + "s</strong> (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
+			(`${Config.groups[r]}` ? `<strong>${Config.groups[r].name}s</strong> (${r})` : `${r}`) + `:\n${rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")}`
 		);
 
 		if (!buffer.length) return connection.popup("This server has no global authority.");
-		connection.send("|popup||html|" + buffer.join("\n\n"));
+		connection.send(`|popup||html|${buffer.join("\n\n")}`);
 	},
 
 	dm: 'daymute',
@@ -67,7 +67,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' does not exist.");
+		if (!targetUser) return this.sendReply(`User "${this.targetUsername}" does not exist.`);
 		if (target.length > 300) {
 			return this.sendReply("The reason is too long. It cannot exceed 300 characters.");
 		}
@@ -76,17 +76,17 @@ exports.commands = {
 		if (!this.can('mute', targetUser, room)) return false;
 		let canBeMutedFurther = ((room.getMuteTime(targetUser) || 0) <= (muteDuration * 5 / 6));
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
-			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
+			let problem = ` but was already ${(!targetUser.connected ? `offline` : targetUser.locked ? `locked` : `muted`)}`;
 			if (!target) {
-				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction(`(${targetUser.name} would be muted by ${user.name} ${problem}.)`);
 			}
-			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
+			return this.addModAction(`${this.targetUsername} would be muted by ${user.name} ${problem}. ${target ? (target) : ``}`);
 		}
 
-		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for 24 hours. " + target);
-		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for 24 hours." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
-		this.add('|unlink|' + toId(this.inputUsername));
+		if (targetUser in room.users) targetUser.popup(`|modal|${user.name} has muted you in ${room.id} for 24 hours. ${target}`);
+		this.addModAction(`${this.targetUsername} was muted by ${user.name} for 24 hours. ${target ? (target) : ``}`);
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction(`(${this.targetUsername}'s ac account: ${targetUser.autoconfirmed})`);
+		this.add(`|unlink|${toId(this.inputUsername)}`);
 
 		room.mute(targetUser, muteDuration, false);
 	},
@@ -104,7 +104,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' does not exist.");
+		if (!targetUser) return this.sendReply(`User '${this.targetUsername}' does not exist.`);
 		if (target.length > 300) {
 			return this.sendReply("The reason is too long. It cannot exceed 300 characters.");
 		}
@@ -113,17 +113,17 @@ exports.commands = {
 		if (!this.can('mute', targetUser, room)) return false;
 		let canBeMutedFurther = ((room.getMuteTime(targetUser) || 0) <= (muteDuration * 5 / 6));
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
-			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
+			let problem = ` but was already ${(!targetUser.connected ? `offline` : targetUser.locked ? `locked` : `muted`)}`;
 			if (!target) {
-				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction(`(${targetUser.name} would be muted by ${user.name} ${problem}.)`);
 			}
-			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
+			return this.addModAction(`${targetUser.name} would be muted by ${user.name} ${problem}. ${target ? (target) : ``}`);
 		}
 
-		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for a week. " + target);
-		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for a week." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
-		this.add('|unlink|' + toId(this.inputUsername));
+		if (targetUser in room.users) targetUser.popup(`|modal|${user.name} has muted you in ${room.id} for a week. ${target}`);
+		this.addModAction(`${this.targetUsername} was muted by ${user.name} for a week. ${target ? (target) : ``}`);
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction(`(${this.targetUsername}'s ac account: ${targetUser.autoconfirmed})`);
+		this.add(`|unlink|${toId(this.inputUsername)}`);
 
 		room.mute(targetUser, muteDuration, false);
 	},
@@ -135,7 +135,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' does not exist.");
+		if (!targetUser) return this.sendReply("User '${this.targetUsername}' does not exist.");
 		if (target.length > 300) {
 			return this.sendReply("The reason is too long. It cannot exceed 300 characters.");
 		}
@@ -147,15 +147,15 @@ exports.commands = {
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
 			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
 			if (!target) {
-				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction(`(${this.targetUsername} would be muted by ${user.name} ${problem}.)`);
 			}
-			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
+			return this.addModAction(`${this.targetUsername} would be muted by ${user.name} ${problem}. ${target ? (target) : ``}`);
 		}
 
-		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for a month. " + target);
-		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for a month." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
-		this.add('|unlink|' + toId(this.inputUsername));
+		if (targetUser in room.users) targetUser.popup(`|modal|${user.name} has muted you in ${room.id} for a month. ${target}`);
+		this.addModAction(`${this.targetUsername} was muted by ${user.name} for a month. ${target ? (target) : ``}`);
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction(`(${this.targetUsername}'s ac account: ${targetUser.autoconfirmed})`);
+		this.add(`|unlink|${toId(this.inputUsername)}`);
 
 		room.mute(targetUser, muteDuration, false);
 	},
@@ -167,7 +167,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' does not exist.");
+		if (!targetUser) return this.sendReply(`User '${this.targetUsername}' does not exist.`);
 		if (target.length > 300) {
 			return this.sendReply("The reason is too long. It cannot exceed 300 characters.");
 		}
@@ -176,17 +176,17 @@ exports.commands = {
 		if (!this.can('mute', targetUser, room)) return false;
 		let canBeMutedFurther = ((room.getMuteTime(targetUser) || 0) <= (muteDuration * 5 / 6));
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
-			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
+			let problem = ` but was already ${(!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted")}`;
 			if (!target) {
-				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction(`(${this.targetUsername} would be muted by ${user.name} ${problem}.)`);
 			}
-			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
+			return this.addModAction(`${this.targetUsername} would be muted by ${user.name} ${problem}. ${target ? (target) : ``}`);
 		}
 
-		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for a year. " + target);
-		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for a year." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
-		this.add('|unlink|' + toId(this.inputUsername));
+		if (targetUser in room.users) targetUser.popup(`|modal|${user.name} has muted you in ${room.id} for a year. ${target}`);
+		this.addModAction(`${this.targetUsername} was muted by ${user.name} for a year. ${target ? (target) : ``}`);
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction(`(${this.targetUsername}'s ac account: ${targetUser.autoconfirmed})`);
+		this.add(`unlink|${toId(this.inputUsername)}`);
 
 		room.mute(targetUser, muteDuration, false);
 	},
@@ -198,7 +198,7 @@ exports.commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' does not exist.");
+		if (!targetUser) return this.sendReply(`User '${this.targetUsername}' does not exist.`);
 		if (target.length > 300) {
 			return this.sendReply("The reason is too long. It cannot exceed 300 characters.");
 		}
@@ -207,17 +207,17 @@ exports.commands = {
 		if (!this.can('mute', targetUser, room)) return false;
 		let canBeMutedFurther = ((room.getMuteTime(targetUser) || 0) <= (muteDuration * 5 / 6));
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
-			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
+			let problem = ` but was already ${(!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted")}`;
 			if (!target) {
-				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction(`(${this.targetUsername} would be muted by ${user.name} ${problem}.)`);
 			}
-			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
+			return this.addModAction(`${this.targetUsername} would be muted by ${user.name} ${problem}. ${target ? (target) : ``}`);
 		}
 
-		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for 45 seconds. " + target);
-		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for 45 seconds." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
-		this.add('|unlink|' + toId(this.inputUsername));
+		if (targetUser in room.users) targetUser.popup(`|modal|${user.name} has muted you in ${room.id} for 45 seconds. " ${target}`);
+		this.addModAction(`${this.targetUsername} was muted by ${user.name} for 45 seconds. ${target ? (target) : ``}`);
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction(`(${this.targetUsername}'s ac account: ${targetUser.autoconfirmed})`);
+		this.add(`|unlink|${toId(this.inputUsername)}`);
 
 		room.mute(targetUser, muteDuration, false);
 	},
@@ -229,7 +229,7 @@ exports.commands = {
 		if (target && !this.can('broadcast')) return false;
 		if (room.id !== 'lobby') return false;
 		let message = target || messages[Math.floor(Math.random() * messages.length)];
-		if (message.indexOf('{{user}}') < 0) message = '{{user}} ' + message;
+		if (message.indexOf(`{{user}}`) < 0) message = `{{user}} ${message}`;
 		message = message.replace(/{{user}}/g, user.name);
 		if (!this.canTalk(message)) return false;
 
@@ -238,7 +238,7 @@ exports.commands = {
 			return (part < 0x10 ? '0' : '') + part.toString(16);
 		}).join('');
 
-		room.addRaw("<strong><font color=\"" + colour + "\">~~ " + Chat.escapeHTML(message) + " ~~</font></strong>");
+		room.addRaw(`<strong><font color="${colour}">~~ ${message} ~~</font></strong>`);
 		user.disconnectAll();
 	},
 	poofhelp: ["/poof - Disconnects the user and leaves a message in the room."],
@@ -268,7 +268,7 @@ exports.commands = {
 		}
 
 		if (targetUser && targetUser.connected) {
-			return this.parse('/pm ' + this.targetUsername + ', ' + target);
+			return this.parse(`/pm ${this.targetUsername}, ${target}`);
 		}
 
 		if (user.locked) return this.popupReply("You may not send offline messages when locked.");
@@ -277,24 +277,21 @@ exports.commands = {
 		if (Config.tellrank === 'autoconfirmed' && !user.autoconfirmed) {
 			return this.popupReply("You must be autoconfirmed to send an offline message.");
 		} else if (!Config.tellrank || Config.groupsranking.indexOf(user.group) < Config.groupsranking.indexOf(Config.tellrank)) {
-			return this.popupReply("You cannot send an offline message because offline messaging is " +
-				(!Config.tellrank ? "disabled" : "only available to users of rank " + Config.tellrank + " and above") + ".");
+			return this.popupReply(`You cannot send an offline message because offline messaging is ${(!Config.tellrank ? `disabled` : `only available to users of rank ${Config.tellrank} and above`)}.`);
 		}
 
 		let userid = toId(this.targetUsername);
-		if (userid.length > 18) return this.popupReply("\"" + this.targetUsername + "\" is not a legal username.");
+		if (userid.length > 18) return this.popupReply(`"${this.targetUsername}" is not a legal username.`);
 
 		let sendSuccess = Tells.addTell(user, userid, target);
 		if (!sendSuccess) {
 			if (sendSuccess === false) {
-				return this.popupReply("User " + this.targetUsername + " has too many offline messages queued.");
+				return this.popupReply(`User ${this.targetUsername} has too many offline messages queued.`);
 			} else {
 				return this.popupReply("You have too many outgoing offline messages queued. Please wait until some have been received or have expired.");
 			}
 		}
-		return connection.send('|pm|' + user.getIdentity() + '|' +
-			(targetUser ? targetUser.getIdentity() : ' ' + this.targetUsername) +
-			"|/text This user is currently offline. Your message will be delivered when they are next online.");
+		return connection.send(`|pm|${user.getIdentity()}|${(targetUser ? targetUser.getIdentity() : this.targetUsername)}|/text This user is currently offline. Your message will be delivered when they are next online.`);
 	},
 	tellhelp: ["/tell [username], [message] - Send a message to an offline user that will be received when they log in."],
 
@@ -302,13 +299,13 @@ exports.commands = {
 	forcelogout: function (target, room, user) {
 		if (!user.can('hotpatch')) return;
 		if (!this.canTalk()) return false;
-		if (!target) if (!target) return this.parse('/help forcelogout');
+		if (!target) return this.parse('/help forcelogout');
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) {
-			return this.sendReply('User ' + this.targetUsername + ' not found.');
+			return this.sendReply(`User ${this.targetUsername} not found.`);
 		}
-		this.logModCommand('' + targetUser.name + ' was forcibly logged out by ' + user.name + '.' + (target ? " (" + target + ")" : ""));
+		this.addModAction(`${targetUser.name} was forcibly logged out by ${user.name}. ${(target ? (target) : ``)}`);
 		targetUser.resetName();
 	},
 	forcelogouthelp: ["/forcelogout [user] - Forcefully logs out the target user."],
@@ -323,17 +320,17 @@ exports.commands = {
 				if (Config.groupsranking.indexOf(target) <= Config.groupsranking.indexOf(user.group)) {
 					tar = target;
 				} else {
-					this.sendReply('The group symbol you have tried to use is of a higher authority than you have access to. Defaulting to \'' + tar + 'instead.');
+					this.sendReply(`The group symbol you have tried to use is of a higher authority than you have access to. Defaulting to "${tar}" instead.`);
 				}
 			} else {
-				this.sendReply('You are now hiding your auth symbol as \'' + tar + '\'.');
+				this.sendReply(`You are now hiding your auth symbol as "${tar}"`);
 			}
 		}
 		user.getIdentity = function (roomid) {
 			return tar + this.name;
 		};
 		user.updateIdentity();
-		return this.sendReply("You are now hiding your auth as ' " + tar + "'.");
+		return this.sendReply(`You are now hiding your auth as "${tar}".`);
 	},
 
 	show: 'showauth',

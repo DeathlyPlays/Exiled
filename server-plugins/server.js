@@ -998,7 +998,7 @@ exports.commands = {
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (target.length > 300) return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
-		if (!targetUser || !targetUser.connected) return this.sendReply("User "${this.targetUsername}" not found.`);
+		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${this.targetUsername}" not found.`);
 		if (!this.can('mute', targetUser, room)) return false;
 		if (!room.users[targetUser.userid]) return this.errorReply(`User "${this.targetUsername}" is not in this room.`);
 
@@ -1083,7 +1083,7 @@ exports.commands = {
 		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmall');
 		Server.pmAll(target, pmName, user.name);
-		Monitor.adminlog(`${user.name} has PM'ed all users: ${target}.`)
+		Monitor.adminlog(`${user.name} has PM'ed all users: ${target}.`);
 	},
 	pmallhelp: ["/pmall [message] - PM all users in the server."],
 
@@ -1093,7 +1093,7 @@ exports.commands = {
 		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmallstaff');
 		Server.pmStaff(target, pmName, user.name);
-		Monitor.adminlog(`${user.name} has PM'ed all Staff: ${target}.`)
+		Monitor.adminlog(`${user.name} has PM'ed all Staff: ${target}.`);
 	},
 	pmallstaffhelp: ["/pmallstaff [message] - Sends a PM to every staff member online."],
 
@@ -1103,7 +1103,7 @@ exports.commands = {
 		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmupperstaff');
 		Server.messageSeniorStaff(target, pmName, user.name);
-		Monitor.adminlog(`${user.name} has PM'ed all Upper Staff: ${target}.`)
+		Monitor.adminlog(`${user.name} has PM'ed all Upper Staff: ${target}.`);
 	},
 	pmupperstaffhelp: ["/pmupperstaff [message] - Sends a PM to every Upper Staff member online."],
 
@@ -1134,32 +1134,32 @@ exports.commands = {
 		if (!this.can('lockdown')) return;
 		if (!toId(target)) return this.parse('/help permalock');
 		let tarUser = Users(target);
-		if (!tarUser && (cmd !== 'offlinepermalock' && cmd !== 'forceofflinepermalock')) return this.errorReply('User ' + target + ' not found. If your sure you want to permalock them, use /offlinepermalock.');
-		if (tarUser && (cmd === 'offlinepermalock' || cmd === 'forceofflinepermalock')) return this.parse('/permalock ' + target);
+		if (!tarUser && (cmd !== 'offlinepermalock' && cmd !== 'forceofflinepermalock')) return this.errorReply(`User ${target} was not found. If you're sure you want to permalock them, use /offlinepermalock.`);
+		if (tarUser && (cmd === 'offlinepermalock' || cmd === 'forceofflinepermalock')) return this.parse(`/permalock ${target}`);
 		if (cmd === 'offlinepermalock' || cmd === 'forceofflinepermalock') {
 			target = toId(target);
-			if (Db('perma').get(target, 0) === 5) return this.errorReply(target + ' is already permalocked.');
-			if (Users.usergroups[target] && cmd !== 'forceofflinepermalock') return this.errorReply(target + ' is a trusted user. If your sure you want to permalock them, please use /forceofflinepermalock');
+			if (Db('perma').get(target, 0) === 5) return this.errorReply(`${target} is already permalocked.`);
+			if (Users.usergroups[target] && cmd !== 'forceofflinepermalock') return this.errorReply(`${target} is a trusted user. If you're sure you want to permalock them, please use /forceofflinepermalock`);
 			Db('perma').set(target, 5);
 			if (Users.usergroups[target]) {
 				Users.setOfflineGroup(target, ' ');
-				Monitor.log('[CrisisMonitor] Trusted user ' + target + ' was permalocked by ' + user.name + ' and was automatically demoted from ' + Users.usergroups[target].substr(0, 1) + '.');
+				Monitor.log(`[CrisisMonitor] Trusted user ${target} was permalocked by ${user.name} and was automatically demoted from ${Users.usergroups[target].substr(0, 1)}.`);
 			}
-			Monitor.adminlog('[Perma Monitor] ' + user.name + ' has (offline) permalocked ' + target + '.');
-			return this.addModAction(target + ' was permalocked by ' + user.name + '.');
+			Monitor.adminlog(`[Perma Monitor] ${user.name} has (offline) permalocked ${target}.`);
+			return this.addModAction(`${target} was permalocked by ${user.name}.`);
 		}
 		if (!tarUser.registered) return this.errorReply('Only registered users can be permalocked.');
 		if (Db('perma').get(tarUser.userid, 0) >= 5) {
-			if (Db('perma').get(tarUser.userid, 0) === 5) return this.errorReply(tarUser.name + ' is already permalocked.');
-			if (cmd !== 'forcepermalock') return this.errorReply(tarUser.name + ' is permabanned and cannot be permalocked. If you want to change thier permaban to a permalock, please use /forcepermalock');
+			if (Db('perma').get(tarUser.userid, 0) === 5) return this.errorReply(`${tarUser.name} is already permalocked.`);
+			if (cmd !== 'forcepermalock') return this.errorReply(`${tarUser.name} is permabanned and cannot be permalocked. If you want to change their permaban to a permalock, please use /forcepermalock.`);
 		}
-		if (tarUser.trusted && cmd !== 'forcepermalock') return this.errorReply(tarUser.name + ' is a trusted user. If your sure you want to permalock them, please use /forcepermalock');
+		if (tarUser.trusted && cmd !== 'forcepermalock') return this.errorReply(`${tarUser.name} is a trusted user. If you're sure you want to permalock them, please use /forcepermalock.`);
 		Db('perma').set(tarUser.userid, 5);
 		if (!Punishments.userids.get(tarUser.userid) || Punishments.userids.get(tarUser.userid)[0] !== 'BAN') Punishments.lock(tarUser, Date.now() + (1000 * 60 * 60 * 24 * 30), tarUser.userid, `Permalocked as ${tarUser.userid}`);
-		tarUser.popup('You have been permalocked by ' + user.name + '.\nUnlike permalocks issued by the main server, this permalock only effects this server.');
-		if (tarUser.trusted) Monitor.log('[CrisisMonitor] Trusted user ' + tarUser.userid + ' was permalocked by ' + user.name + ' and was automatically demoted from ' + tarUser.distrust() + '.');
-		Monitor.adminlog('[Perma Monitor] ' + user.name + ' has permalocked ' + tarUser.name + '.');
-		return this.addModAction(tarUser.name + ' was permalocked by ' + user.name + '.');
+		tarUser.popup(`You have been permalocked by ${user.name}.\nUnlike permalocks issued by the main server, this permalock only effects this server.`);
+		if (tarUser.trusted) Monitor.log(`[CrisisMonitor] Trusted user ${tarUser.userid} was permalocked by ${user.name} and was automatically demoted from ${tarUser.distrust()}.`);
+		Monitor.adminlog(`[Perma Monitor] ${user.name} has permalocked ${tarUser.name}.`);
+		return this.addModAction(`${tarUser.name} was permalocked by ${user.name}.`);
 	},
 	permalockhelp: ['/permalock user - Permalock a user. Requires: ~'],
 
@@ -1167,13 +1167,13 @@ exports.commands = {
 		if (!this.can('lockdown')) return;
 		if (!toId(target)) return this.parse('/help unpermalock');
 		target = toId(target);
-		if (Db('perma').get(target, 0) < 5) return this.errorReply(target + ' is not permalocked.');
-		if (Db('perma').get(target, 0) === 6) return this.errorReply(target + ' is permabanned. If you want to unpermaban them, use /unpermaban');
+		if (Db('perma').get(target, 0) < 5) return this.errorReply(`${target} is not permalocked.`);
+		if (Db('perma').get(target, 0) === 6) return this.errorReply(`${target} is permabanned. If you want to unpermaban them, use /unpermaban.`);
 		Db('perma').set(target, 0);
 		Punishments.unlock(target);
-		if (Users(target)) Users(target).popup('Your permalock was lifted by ' + user.name + '.');
-		Monitor.adminlog('[Perma Monitor] ' + user.name + ' has unpermalocked ' + target + '.');
-		return this.addModAction(target + ' was unpermalocked by ' + user.name + '.');
+		if (Users(target)) Users(target).popup(`Your permalock was lifted by ${user.name}.`);
+		Monitor.adminlog(`[Perma Monitor] ${user.name} has unpermalocked ${target}.`);
+		return this.addModAction(`${target} was unpermalocked by ${user.name}.`);
 	},
 	unpermalockhelp: ['/unpermalock user - Unpermalock a user. Requires: ~'],
 
@@ -1184,29 +1184,29 @@ exports.commands = {
 		if (!this.can('lockdown')) return;
 		if (!toId(target)) return this.parse('/help permaban');
 		let tarUser = Users(target);
-		if (!tarUser && (cmd !== 'offlinepermaban' && cmd !== 'forceofflinepermaban')) return this.errorReply('User ' + target + ' not found. If your sure you want to permaban them, use /offlinepermaban.');
-		if (tarUser && (cmd === 'offlinepermaban' || cmd === 'forceofflinepermaban')) return this.parse('/permaban ' + target);
+		if (!tarUser && (cmd !== 'offlinepermaban' && cmd !== 'forceofflinepermaban')) return this.errorReply(`User ${target} not found. If you're sure you want to permaban them, use /offlinepermaban.`);
+		if (tarUser && (cmd === 'offlinepermaban' || cmd === 'forceofflinepermaban')) return this.parse(`/permaban ${target}`);
 		if (cmd === 'offlinepermaban' || cmd === 'forceofflinepermaban') {
 			target = toId(target);
-			if (Db('perma').get(target, 0) === 6) return this.errorReply(target + ' is already permabanned.');
-			if (Users.usergroups[target] && cmd !== 'forceofflinepermaban') return this.errorReply(target + ' is a trusted user. If your sure you want to permaban them, please use /forceofflinepermaban');
+			if (Db('perma').get(target, 0) === 6) return this.errorReply(`${target} is already permabanned.`);
+			if (Users.usergroups[target] && cmd !== 'forceofflinepermaban') return this.errorReply(`${target} is a trusted user. If you're sure you want to permaban them, please use /forceofflinepermaban.`);
 			Db('perma').set(target, 6);
 			if (Users.usergroups[target]) {
 				Users.setOfflineGroup(target, ' ');
-				Monitor.log('[CrisisMonitor] Trusted user ' + target + ' was permabanned by ' + user.name + ' and was automatically demoted from ' + Users.usergroups[target].substr(0, 1) + '.');
+				Monitor.log(`[CrisisMonitor] Trusted user ${target} was permabanned by ${user.name} and was automatically demoted from ${Users.usergroups[target].substr(0, 1)}.`);
 			}
-			Monitor.adminlog('[Perma Monitor] ' + user.name + ' has (offline) permabanned ' + target + '.');
-			return this.addModAction(target + ' was permabanned by ' + user.name + '.');
+			Monitor.adminlog(`[Perma Monitor] ${user.name} has (offline) permabanned ${target}.`);
+			return this.addModAction(`${target} was permabanned by ${user.name}.`);
 		}
-		if (!tarUser.registered) return this.errorReply('Only registered users can be permalocked.');
-		if (Db('perma').get(tarUser.userid, 0) === 6) return this.errorReply(tarUser.name + ' is already permabanned.');
-		if (tarUser.trusted && cmd !== 'forcepermaban') return this.errorReply(tarUser.name + ' is a trusted user. If your sure you want to permaban them, please use /forcepermaban');
+		if (!tarUser.registered) return this.errorReply(`Only registered users can be permalocked.`);
+		if (Db('perma').get(tarUser.userid, 0) === 6) return this.errorReply(`${tarUser.name} is already permabanned.`);
+		if (tarUser.trusted && cmd !== 'forcepermaban') return this.errorReply(`${tarUser.name} is a trusted user. If you're sure you want to permaban them, please use /forcepermaban.`);
 		Db('perma').set(tarUser.userid, 6);
-		tarUser.popup('You have been permabanned by ' + user.name + '.\nUnlike permabans issued by the main server, this permaban only effects this server.');
+		tarUser.popup(`You have been permabanned by ${user.name}.\nUnlike permabans issued by the main server, this permaban only effects this server.`);
 		Punishments.ban(tarUser, Date.now() + (1000 * 60 * 60 * 24 * 30), tarUser.userid, `Permabanned as ${tarUser.userid}`);
-		if (tarUser.trusted) Monitor.log('[CrisisMonitor] Trusted user ' + tarUser.userid + ' was permabanned by ' + user.name + ' and was automatically demoted from ' + tarUser.distrust() + '.');
-		Monitor.adminlog('[Perma Monitor] ' + user.name + ' has permabanned ' + tarUser.name + '.');
-		return this.addModAction(tarUser.name + ' was permabanned by ' + user.name + '.');
+		if (tarUser.trusted) Monitor.log(`[CrisisMonitor] Trusted user ${tarUser.userid} was permabanned by ${user.name} and was automatically demoted from ${tarUser.distrust()}.`);
+		Monitor.adminlog(`[Perma Monitor] ${user.name} has permabanned ${tarUser.name}.`);
+		return this.addModAction(`${tarUser.name} was permabanned by ${user.name}.`);
 	},
 	permabanhelp: ['/permaban user - Permaban a user. Requires: ~'],
 
@@ -1214,11 +1214,11 @@ exports.commands = {
 		if (!this.can('lockdown')) return;
 		if (!toId(target)) return this.parse('/help unpermaban');
 		target = toId(target);
-		if (Db('perma').get(target, 0) !== 6) return this.errorReply(target + ' is not permabanned.');
+		if (Db('perma').get(target, 0) !== 6) return this.errorReply(`${target} is not permabanned.`);
 		Db('perma').set(target, 0);
 		Punishments.unban(target);
-		Monitor.adminlog('[Perma Monitor] ' + user.name + ' has unpermabanned ' + target + '.');
-		return this.addModAction(target + ' was unpermabanned by ' + user.name + '.');
+		Monitor.adminlog(`[Perma Monitor] ${user.name} has unpermabanned ${target}.`);
+		return this.addModAction(`${target} was unpermabanned by ${user.name}.`);
 	},
 	unpermabanhelp: ['/unpermaban user - Unpermaban a user. Requires: ~'],
 
@@ -1233,10 +1233,10 @@ exports.commands = {
 		if (!declare) return;
 		setTimeout(f => {
 			for (let id in Rooms.rooms) {
-				if (id !== 'global' && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw('<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><strong>' + declare + '</strong></div>');
+				if (id !== 'global' && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw(`<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><strong>${declare}</strong></div>`);
 			}
 		}, delayInMins);
-		this.room.modlog(toId(user) + 'scheduled a timed declare: ' + declare);
+		this.room.modlog(`${toId(user)} scheduled a timed declare: ${declare}`);
 		return this.sendReply('Your declare has been scheduled.');
 	},
 	timedgdeclarehelp: ["/timedgdclare [delay in minutes], [declare] - Will declare something after a given delay. Requires: & ~"],
@@ -1266,14 +1266,14 @@ exports.commands = {
 			}
 			let inputRoom = Chat.escapeHTML(parts[1]);
 			let targetRoom = Rooms.search(inputRoom);
-			if (!targetRoom || targetRoom === Rooms.global) return this.errorReply("The room '" + inputRoom + "' does not exist.");
-			if (!this.can('ban', null, targetRoom)) return this.errorReply("You cannot advertise the room '" + targetRoom + "' because you are not staff in there.");
+			if (!targetRoom || targetRoom === Rooms.global) return this.errorReply(`The room "${inputRoom}" does not exist.`);
+			if (!this.can('ban', null, targetRoom)) return this.errorReply(`You cannot advertise the room "${targetRoom}" because you are not staff in ${targetRoom}.`);
 			let message = Chat.escapeHTML(parts.slice(2).join(","));
 			Rooms.global.ads.push({ip: user.latestIp, user: toId(user), room: targetRoom, message: message});
 			if (!Rooms.global.adInterval) {
 				Rooms.global.adInterval = setInterval(postAds, 300000); //5 minutes
 			}
-			this.sendReply("Your message has been added to the advertisement queue. You're #" + Rooms.global.ads.length + ".");
+			this.sendReply(`Your message has been added to the advertisement queue. You're #${Rooms.global.ads.length}.`);
 			break;
 		default:
 			return this.errorReply("Invalid command. `/ads add, room, message`.");
@@ -1346,7 +1346,7 @@ exports.commands = {
 	crashlogs: function (target, room, user) {
 		if (!this.can("hotpatch")) return false;
 		let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
-		user.send('|popup|' + crashes);
+		user.send(`|popup|${crashes}`);
 		return;
 	},
 
@@ -1368,8 +1368,8 @@ exports.commands = {
 		return function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			let uptime = process.uptime();
-			this.sendReplyBox("Uptime: <strong>" + formatUptime(uptime) + "</strong>" +
-				(global.uptimeRecord ? "<br /><font color=\"green\">Record: <strong>" + formatUptime(global.uptimeRecord) + "</strong></font>" : ""));
+			this.sendReplyBox(`Uptime: <strong>${formatUptime(uptime)}</strong>` +
+				(global.uptimeRecord ? `<br /><font color="green">Record: <strong>"${formatUptime(global.uptimeRecord)}</strong></font>` : ``));
 		};
 	})(),
 
@@ -1381,13 +1381,13 @@ exports.commands = {
 			room.protect = false;
 			room.chatRoomData.protect = room.protect;
 			Rooms.global.writeChatRoomData();
-			this.privateModAction("(${user.name} has unprotected this room from being automatically deleted.)");
+			this.privateModAction(`(${user.name} has unprotected this room from being automatically deleted.)`);
 		} else {
 			if (room.protect) return this.errorReply("This room is already protected.");
 			room.protect = true;
 			room.chatRoomData.protect = room.protect;
 			Rooms.global.writeChatRoomData();
-			this.privateModAction("(${user.name} has protected this room from being automatically deleted.)");
+			this.privateModAction(`(${user.name} has protected this room from being automatically deleted.)`);
 		}
 	},
 
@@ -1431,11 +1431,11 @@ exports.commands = {
 
 		function getTypeFormatting(types) {
 			let text = [];
-			for (let i = 0; i < types.length; i++) {
-				text.push("<img src=\"http://play.pokemonshowdown.com/sprites/types/" + types[i] + ".png\" width=\"32\" height=\"14\">");
+			for (const type of types) {
+				text.push(`<img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" width="32" height="14">`);
 			}
-			return text.join(" / ");
+			return text.join(` / `);
 		}
-		this.sendReplyBox("<div style=\"background-color: rgba(207, 247, 160, 0.4); border: #000000 solid 3px; border-radius: 10%; color: #0a024a; padding: 30px 30px\"><center><table><td><img src=\"" + spriteLocation + "\"</td><td>&nbsp;&nbsp;<strong>Name: </strong>" + pokeData.species + "<br/>&nbsp;&nbsp;<strong>Type(s): </strong>" + getTypeFormatting(pokeData.types) + "<br/>&nbsp;&nbsp;<strong>" + (Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability") + ": </strong>" + Object.values(pokeData.abilities).join(" / ") + "<br/>&nbsp;&nbsp;<strong>Stats: </strong>" + Object.values(pokeData.baseStats).join(" / ") + "<br/>&nbsp;&nbsp;<strong>Colour: </strong><font color=\"" + pokeData.color + "\">" + pokeData.color + "</font><br/>&nbsp;&nbsp;<strong>Egg Group(s): </strong>" + pokeData.eggGroups.join(", ") + "</td></table></center></div>");
+		this.sendReplyBox(`<div style="background-color: rgba(207, 247, 160, 0.4); border: #000000 solid 3px; border-radius: 10%; color: #0a024a; padding: 30px 30px"><center><table><td><img src="${spriteLocation}"</td><td>&nbsp;&nbsp;<strong>Name: </strong>${pokeData.species}<br/>&nbsp;&nbsp;<strong>Type(s): </strong>${getTypeFormatting(pokeData.types)}<br/>&nbsp;&nbsp;<strong>${(Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability")}: </strong>${Object.values(pokeData.abilities).join(" / ")}<br/>&nbsp;&nbsp;<strong>Stats: </strong>${Object.values(pokeData.baseStats).join(" / ")}<br/>&nbsp;&nbsp;<strong>Colour: </strong><font color="${pokeData.color}">${pokeData.color}</font><br/>&nbsp;&nbsp;<strong>Egg Group(s): </strong>${pokeData.eggGroups.join(", ")}</td></table></center></div>`);
 	},
 };

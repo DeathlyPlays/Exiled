@@ -33,15 +33,8 @@ function updateSC() {
 
 function generateCSS(name, sc) {
 	let css = '';
-	let rooms = [];
 	name = toId(name);
-	Rooms.rooms.forEach((curRoom, id) => {
-		if (curRoom.id === 'global' || curRoom.type !== 'chat' || curRoom.isPersonal) return;
-		if (!isNaN(Number(id.charAt(0)))) return;
-		rooms.push('#' + id + '-userlist-user-' + name + ' em.group');
-	});
-	css = rooms.join(', ');
-	css += '{\ncolor: ' + sc + ';\n}\n';
+	css = '[id*="-userlist-user-' + name + '"] button > em.group {/ncolor: ' + sc + ' !important;/n}/n';
 	return css;
 }
 exports.commands = {

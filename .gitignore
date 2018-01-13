@@ -10,6 +10,7 @@
 /chat-plugins/*-private.js
 npm-debug.log
 .eslintcache
+package-lock.json
 
 # boilerplate #
 ###############

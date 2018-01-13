@@ -11395,7 +11395,7 @@ exports.BattleMovedex = {
 	"paraboliccharge": {
 		num: 570,
 		accuracy: 100,
-		basePower: 65,
+		basePower: 60,
 		category: "Special",
 		desc: "The user recovers 1/2 the HP lost by the target, rounded half up. If Big Root is held by the user, the HP recovered is 1.3x normal, rounded half down.",
 		shortDesc: "User recovers 50% of the damage dealt.",

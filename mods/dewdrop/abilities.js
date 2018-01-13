@@ -3702,13 +3702,13 @@ exports.BattleAbilities = {
 		num: 221,
 	},
 	"technician": {
-		desc: "This Pokemon's moves of 60 power or less have their power multiplied by 1.5. Does affect Struggle.",
-		shortDesc: "This Pokemon's moves of 60 power or less have 1.5x power. Includes Struggle.",
+		desc: "This Pokemon's moves of 60 power or less have their power multiplied by 1.75. Does affect Struggle.",
+		shortDesc: "This Pokemon's moves of 60 power or less have 1.75x power. Includes Struggle.",
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
 			if (basePower <= 60) {
 				this.debug('Technician boost');
-				return this.chainModify(1.5);
+				return this.chainModify(1.75);
 			}
 		},
 		id: "technician",

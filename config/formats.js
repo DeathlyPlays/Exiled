@@ -1659,35 +1659,164 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] The Roger Metagame",
-		ruleset: ['[Gen 7] OU'],
-		mod: 'gen7',
-	},
-	{
-		name: "[Gen 7] Holiday Metagame",
-		mod: "holiday",
-		ruleset: ["HP Percentage Mod", "Cancel Mod", "Sleep Clause Mod"],
-		team: "randomHoliday",
-		desc: [
-			"Idea, concept, coded, and created by Insist",
-			"Also, Astral Wobz helped with the ideas for more holidays :D",
-			"&bullet; <a href=\"http://pastebin.com/cYa8KBss\">How to Submit a Pokemon</a>",
-		],
-	},
-	{
-		name: "[Gen 7] Metronome Battle",
-		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
-		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass', 'Aguav Berry', 'Assault Vest', 'Berry Juice', 'Cheek Pouch', 'Dry Skin', 'Ice Body', 'Poison Heal', 'Regenerator', 'Volt Absorb', 'Water Absorb', 'Rain Dish', 'Black Sludge', 'Enigma Berry', 'Figy Berry', 'Iapapa Berry', 'Mago Berry', 'Oran Berry', 'Shell Bell', 'Sitrus Berry', 'Wiki Berry', 'Leftovers'],
-		mod: 'metronome',
-		onValidateSet: function (set) {
-			if (set.moves.length !== 1 || toId(set.moves[0]) !== 'metronome') {
-				return [(set.name || set.species) + " can only have Metronome."];
+		name: "[Gen 7] Pokebilities",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3588652/\">Pokebilities</a>: A Pokemon has all of its abilities active at the same time."],
+		mod: 'pokebilities',
+		ruleset: ["OU"],
+		onSwitchInPriority: 1,
+		onBegin: function() {
+			let statusability = {
+				"aerilate": true,
+				"aurabreak": true,
+				"flashfire": true,
+				"parentalbond": true,
+				"pixilate": true,
+				"refrigerate": true,
+				"sheerforce": true,
+				"slowstart": true,
+				"truant": true,
+				"unburden": true,
+				"zenmode": true,
+			};
+			for (let p = 0; p < this.sides.length; p++) {
+				for (let i = 0; i < this.sides[p].pokemon.length; i++) {
+					let pokemon = this.sides[p].pokemon[i];
+					let template = this.getTemplate(pokemon.species);
+					this.sides[p].pokemon[i].innates = [];
+					let bans = this.data.Formats.gen7ou.banlist;
+					bans.push("Battle Bond");
+					for (let a in template.abilities) {
+						for (let k = 0; k < bans.length; k++) {
+							if (toId(bans[k]) === toId(template.abilities[a])) continue;
+						}
+
+						if (toId(a) == 'h' && template.unreleasedHidden) continue;
+						if (toId(template.abilities[a]) == pokemon.ability) continue;
+						if (statusability[toId(template.abilities[a])])
+							this.sides[p].pokemon[i].innates.push("other" + toId(template.abilities[a]));
+						else
+							this.sides[p].pokemon[i].innates.push(toId(template.abilities[a]));
+					}
+				}
 			}
 		},
-		onEffectiveness: function (typeMod, target, type, move) {
-			//change no effect to not very effective
-			if (move && !this.getImmunity(move, type)) return 2;
+		onSwitchIn: function(pokemon) {
+			for (let i = 0; i < pokemon.innates.length; i++) {
+				if (!pokemon.volatiles[pokemon.innates[i]])
+					pokemon.addVolatile(pokemon.innates[i]);
+			}
+		},
+		onAfterMega: function(pokemon) {
+			for (let i = 0; i < pokemon.innates.length; i++) {
+				pokemon.removeVolatile(pokemon.innates[i]);
+			}
+		},
+	},
+	{
+		name: "[Gen 7] Bad 'n Boosted",
+		desc: ["&bullet; All the stats of a pokemon which are 70 or below get doubled.<br>For example, Growlithe's stats are 55/70/45/70/50/60 in BnB they become 110/140/90/140/100/120<br><b>Banlist:</b>Eviolite, Huge Power, Pure Power"],
+		mod: 'gen7',
+		ruleset: ['[Gen 7] Ubers'],
+		banlist: ['Eviolite', 'Huge Power', 'Pure Power', 'Eevium Z'],
+		onModifyTemplate: function (template, pokemon) {
+			for (let i in template.baseStats) {
+				if(template.baseStats[i] <= 70) template.baseStats[i] *= 2;
+			}
+			return template;
+		},
+	},
+	{
+		name: "[Gen 7] Multibility 2.0",
+		desc: [
+			"&bullet; Put your second ability with your first ability in the ability slot.",
+		],
+		mod: 'franticfusions',
+		ruleset: ['[Gen 7] OU'],
+		banlist: ["Illegal", 'Kyurem-Black', 'Manaphy', 'Porygon-Z', 'Shedinja', 'Togekiss', 'Chatter'],
+		onBegin: function () {
+			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
+			for (let i = 0, len = allPokemon.length; i < len; i++) {
+				let pokemon = allPokemon[i];
+				let ability = pokemon.ability;
+				let abilities = Dex.getFormat(this.format).getAbilities(ability);
+				if (this.getAbility(ability).exists || !Array.isArray(abilities)) continue;
+				pokemon.ability = pokemon.baseAbility = abilities[0];
+				pokemon.abilitwo = abilities[1];
+			}
+		},
+		getAbilities: function (slot) {
+			let ab1 = "", ab2 = "";
+			for (let i = 0; i < slot.length; i++) {
+				ab1 = ab1 + slot.charAt(i);
+				if (Dex.getAbility(ab1).exists) {
+					ab2 = slot.substring(i + 1);
+					if (Dex.getAbility(ab2).exists) return [ab1, ab2];
+				}
+			}
+			return ab1;
+		},
+		onSwitchInPriority: 1,
+		onSwitchIn: function(pokemon) {
+			if (pokemon.abilitwo && this.getAbility(pokemon.abilitwo)) {
+				let statusability = {
+					"aerilate": true,
+					"aurabreak": true,
+					"flashfire": true,
+					"parentalbond": true,
+					"pixilate": true,
+					"refrigerate": true,
+					"sheerforce": true,
+					"slowstart": true,
+					"truant": true,
+					"unburden": true,
+					"zenmode": true
+				};
+				let sec = statusability[pokemon.abilitwo] ? "other" + pokemon.abilitwo : pokemon.abilitwo;
+				pokemon.addVolatile(sec, pokemon); //Second Ability! YAYAYAY
+			}
+		},
+		validateSet: function(set, teamHas) {
+			let abilities = this.format.getAbilities(set.ability), ability = set.ability;
+			if (Array.isArray(abilities)) {
+				set.ability = abilities[0];
+				let problems = this.validateSet(set, teamHas) || [];
+				let abilitwo = Dex.getAbility(abilities[1]);
+				let bans = {
+					'arenatrap': true,
+					'contrary': true,
+					'furcoat': true,
+					'hugepower': true,
+					'imposter': true,
+					'parentalbond': true,
+					'purepower': true,
+					'shadowtag': true,
+					'trace': true,
+					'simple': true,
+					'wonderguard': true,
+					'moody': true
+				};
+				if (bans[toId(abilitwo.id)]) problems.push(set.species + "'s ability " + abilitwo.name + " is banned by Multibility.");
+				if (abilitwo.id === toId(set.ability)) problems.push("You cannot have two of " + abilitwo.name + " on the same Pokemon.");
+				set.ability = ability;
+				return problems;
+			}
+		},
+		onValidateTeam: function(team, format) {
+			let abilityTable = {};
+			for (let i = 0; i < team.length; i++) {
+				let abilities = format.getAbilities(team[i].ability), ability = this.getAbility(Array.isArray(abilities) ? abilities[0] : abilities);
+				if (!abilityTable[ability.id]) abilityTable[ability.id] = 0;
+				if (++abilityTable[ability.id] > 2) {
+					return ["You are limited to two of each ability by Ability Clause.", "(You have more than two of " + ability.name + " or " + this.getAbility(toId(team[i].item)).name + " [Item])"];
+				}
+				if (!Array.isArray(abilities)) continue;
+				ability = this.getAbility(abilities[1]);
+				if (!ability.exists) continue;
+				if (!abilityTable[ability.id]) abilityTable[ability.id] = 0;
+				if (++abilityTable[ability.id] > 2) {
+					return ["You are limited to two of each ability by Ability Clause.", "(You have more than two of " + ability.name + ")"];
+				}
+			}
 		},
 	},
 	{
@@ -1905,7 +2034,7 @@ exports.Formats = [
 			"Dual Typings will be settable when the OM is out of beta.",
 			"To keep a Pokemon's default typing, don't give it a nickname.",
 			"&bullet; <a href=\"http://exiledps.boards.net/board/20/type-illusions\">Type Illusion Thread</a>",
-			"&bullet; <a href=\"https://pastebin.com/DMYFMmmy\">Nickname Typings</a>",
+			"&bullet; <a href=\"https://pastebin.com/raw/i9NBafUy\">Nickname Typings</a>",
 		],
 		onSwitchInPriority: 8,
 		onSwitchIn: function (pokemon) {
@@ -2434,7 +2563,7 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Ground/Dragon');
 				pokemon.types = ["Ground", "Dragon"];
 			}
-			if (name === 'krookodile' && !pokemon.illusion) {
+			if (name === 'krokadile' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Ground/Dark');
 				pokemon.types = ["Ground", "Dark"];
 			}

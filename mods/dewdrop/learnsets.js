@@ -46281,6 +46281,7 @@ exports.BattleLearnsets = {
 		thrash: ["7L27", "6L27", "6S1", "5L27", "5S0"],
 		torment: ["7M", "6M", "5M"],
 		toxic: ["7M", "6M", "5M"],
+		trickroom: ["7M", "4M"],
 		uproar: ["6T", "5T"],
 		uturn: ["7M", "6M", "5M"],
 		willowisp: ["7M", "6M", "5M"],

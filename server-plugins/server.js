@@ -847,7 +847,7 @@ exports.commands = {
 			`/survey create What's your most memorable experience on ${Config.serverName}?`,
 			`/survey create How much time do you spend on ${Config.serverName} daily?`,
 			`/survey create What is your favorite custom mechanic on ${Config.serverName}?`,
-			`/survey create Was${Config.serverName} your first Pokemon Showdown side-server?`, //5
+			`/survey create Was ${Config.serverName} your first Pokemon Showdown side-server?`, //5
 			`/survey create Do you like the league system?`,
 			`/survey create Do you like the idea of us adding custom megas on ${Config.serverName} that you can use in regular formats? (OU, UU, Ubers, Etc)`,
 			`/survey create What was your worst experience so far on ${Config.serverName}?`,

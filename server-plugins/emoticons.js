@@ -163,7 +163,7 @@ exports.commands = {
 			room.emoteSize = size;
 			room.chatRoomData.emoteSize = size;
 			Rooms.global.writeChatRoomData();
-			this.logModAction(`${user.name} has changed emoticon size in this room to ${size}.`);
+			this.addModAction(`${user.name} has changed emoticon size in this room to ${size}.`);
 		},
 
 		"": "help",

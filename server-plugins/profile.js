@@ -195,7 +195,7 @@ exports.commands = {
 					`<br />Title Hex Color: ${color}`
 				);
 			}
-			this.addModAction(`${user.name} set a custom title to ${target[0]}'s profile.`);
+			this.privateModAction(`${user.name} set a custom title to ${target[0]}'s profile.`);
 			Monitor.log(`${user.name} set a custom title to ${target[0]}'s profile.`);
 			return this.sendReply(`Title "${title}" and color "${color}" for ${target[0]}'s custom title have been set.`);
 		},
@@ -214,7 +214,7 @@ exports.commands = {
 			if (Users.get(userid)) {
 				Users(userid).popup(`|html|${Server.nameColor(user.name, true)} has removed your custom title.`);
 			}
-			this.addModAction(`${user.name} removed ${target}'s custom title.`);
+			this.privateModAction(`${user.name} removed ${target}'s custom title.`);
 			Monitor.log(`${user.name} removed ${target}'s custom title.`);
 			return this.sendReply(`${target}'s custom title and title color were removed from the server memory.`);
 		},

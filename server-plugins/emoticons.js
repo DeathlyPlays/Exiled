@@ -110,17 +110,19 @@ exports.commands = {
 			Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
 		},
 
-		disable: "enable",
-		off: "enable",
-		on: "enable",
-		enable: function (target, room, user, connection, cmd) {
-			if (!this.can("roommod", null, room)) return false;
-			let status = ((cmd !== "enable" && cmd !== "on"));
-			if (room.disableEmoticons === status) return this.sendReply("Emoticons are already " + (status ? "disabled" : "enabled") + " in this room.");
-			room.disableEmoticons = status;
-			room.chatRoomData.disableEmoticons = status;
-			Rooms.global.writeChatRoomData();
-			this.privateModAction("(" + user.name + " " + (status ? " disabled " : " enabled ") + "emoticons in this room.)");
+		toggle: function (target, room, user) {
+			if (!this.can('roommod', null, room)) return this.sendReply(`Access denied.`);
+			if (!room.disableEmoticons) {
+				room.disableEmoticons = true;
+				Rooms.global.writeChatRoomData();
+				this.modlog(`EMOTES`, null, `disabled emoticons`);
+				this.privateModAction(`(${user.name} disabled emoticons in this room.)`);
+			} else {
+				room.disableEmoticons = false;
+				Rooms.global.writeChatRoomData();
+				this.modlog(`EMOTES`, null, `enabled emoticons`);
+				this.privateModAction(`(${user.name} enabled emoticons in this room.)`);
+			}
 		},
 
 		view: "list",
@@ -163,25 +165,25 @@ exports.commands = {
 			room.emoteSize = size;
 			room.chatRoomData.emoteSize = size;
 			Rooms.global.writeChatRoomData();
-			this.addModAction(`${user.name} has changed emoticon size in this room to ${size}.`);
+			this.privateModAction(`${user.name} has changed emoticon size in this room to ${size}.`);
 		},
 
 		"": "help",
 		help: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox(
-				`Emoticon Commands:<br />` +
-				`<small>/emoticon may be substituted with /emoticons, /emotes, or /emote</small><br />` +
-				`/emoticon add [name], [url] - Adds an emoticon.<br />` +
-				`/emoticon del/delete/remove/rem [name] - Removes an emoticon.<br />` +
-				`/emoticon enable/on/disable/off - Enables or disables emoticons in the current room.<br />` +
-				`/emoticon view/list - Displays the list of emoticons.<br />` +
-				`/emoticon ignore - Ignores emoticons in chat messages.<br />` +
-				`/emoticon unignore - Unignores emoticons in chat messages.<br />` +
-				`/emoticon help - Displays this help command.<br />` +
-				`/emoticon size [size] - Changes the size of emoticons in the current room.<br />` +
-				`/randemote - Randomly sends an emote from the emoticon list.<br />` +
-				`<a href="https://gist.github.com/jd4564/ef66ecc47c58b3bb06ec">Emoticon Plugin by: jd</a>`
+				`Emoticon Commands:
+				<small>/emoticon may be substituted with /emoticons, /emotes, or /emote</small>
+				/emoticon add [name], [url] - Adds an emoticon.
+				/emoticon del/delete/remove/rem [name] - Removes an emoticon.
+				/emoticon toggle - Enables or disables emoticons in the current room depending on if they are already active.
+				/emoticon view/list - Displays the list of emoticons.
+				/emoticon ignore - Ignores emoticons in chat messages.
+				/emoticon unignore - Unignores emoticons in chat messages.
+				/emoticon help - Displays this help command.
+				/emoticon size [size] - Changes the size of emoticons in the current room.
+				/randemote - Randomly sends an emote from the emoticon list.
+				<a href="https://gist.github.com/jd4564/ef66ecc47c58b3bb06ec">Emoticon Plugin by: jd</a>`
 			);
 		},
 	},

@@ -361,7 +361,7 @@ exports.grouplist = [
 		id: "leader",
 		name: "Leader",
 		inherit: '@',
-		jurisdiction: '@u',
+		jurisdiction: 'u',
 		promote: 'u',
 		roomowner: true,
 		roombot: true,

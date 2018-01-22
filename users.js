@@ -158,7 +158,7 @@ function getExactUser(name) {
  * @param {{forPunishment: boolean, includeTrusted: boolean}} options
  */
 function findUsers(userids, ips, options) {
-	let matches = [];
+	let matches = /** @type {User[]} */ ([]);
 	if (options && options.forPunishment) ips = ips.filter(ip => !Punishments.sharedIps.has(ip));
 	for (const user of users.values()) {
 		if (!(options && options.forPunishment) && !user.named && !user.connected) continue;
@@ -186,7 +186,7 @@ function importUsergroups() {
 	// can't just say usergroups = {} because it's exported
 	for (let i in usergroups) delete usergroups[i];
 
-	FS('config/usergroups.csv').readTextIfExists().then(data => {
+	FS('config/usergroups.csv').readIfExists().then(data => {
 		for (const row of data.split("\n")) {
 			if (!row) continue;
 			let cells = row.split(",");
@@ -601,7 +601,7 @@ class User {
 		}
 
 		let group = ' ';
-		let targetGroup = ' ';
+		let targetGroup = '';
 		let targetUser = null;
 
 		if (typeof target === 'string') {
@@ -622,11 +622,11 @@ class User {
 
 		if (groupData && groupData[permission]) {
 			let jurisdiction = groupData[permission];
-			if (!targetUser) {
+			if (!targetUser && !targetGroup) {
 				return !!jurisdiction;
 			}
 			if (jurisdiction === true && permission !== 'jurisdiction') {
-				return this.can('jurisdiction', targetUser, room);
+				return this.can('jurisdiction', (targetUser || targetGroup), room);
 			}
 			if (typeof jurisdiction !== 'string') {
 				return !!jurisdiction;

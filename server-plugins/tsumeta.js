@@ -6,25 +6,29 @@
 
 "use strict";
 
-let proposals = {};
+const FS = require('../lib/fs.js');
 
-const fs = require('fs');
+let proposals = FS('config/proposals.json').readIfExistsSync();
 
-try {
-	proposals = JSON.parse(fs.readFileSync('config/proposals.json', 'utf8'));
-} catch (e) {
-	if (e.code !== 'ENOENT') throw e;
+if (proposals !== '') {
+	proposals = JSON.parse(proposals);
+} else {
+	proposals = {};
 }
 
 function write() {
-	if (Object.keys(proposals).length < 1) return fs.writeFileSync('config/proposals.json', JSON.stringify(proposals));
+	FS('config/proposals.json').writeUpdate(() => (
+		JSON.stringify(proposals)
+	));
 	let data = "{\n";
 	for (let u in proposals) {
 		data += '\t"' + u + '": ' + JSON.stringify(proposals[u]) + ",\n";
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	fs.writeFileSync('config/proposals.json', data);
+	FS('config/proposals.json').writeUpdate(() => (
+		data
+	));
 }
 
 function isTsuMetaCouncil(user) {
@@ -42,7 +46,7 @@ exports.commands = {
 	tsumetacouncil: "tsumeta",
 	tsumeta: {
 		give: function (target, room, user) {
-			if (!this.can("ban")) return false;
+			if (user.userid !== "desokoro") return this.errorReply("You must be Desokoro to add users into the council.");
 			if (!target) return this.parse("/tsumetahelp");
 			let tsuMetaMember = toId(target);
 			if (tsuMetaMember.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -56,7 +60,7 @@ exports.commands = {
 		remove: "take",
 		delete: "take",
 		take: function (target, room, user) {
-			if (!this.can("ban")) return false;
+			if (user.userid !== "desokoro") return this.errorReply("You must be Desokoro to remove users into the council.");
 			if (!target) return this.parse(`/tsumetahelp`);
 			let tsuMetaMember = toId(target);
 			if (tsuMetaMember.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -76,6 +80,7 @@ exports.commands = {
 			this.popupReply(`|html|<strong><u><font size="3"><center>TsuMeta Council Members:</center></font></u></strong>${display.join(',')}`);
 		},
 
+/*
 		meeting: "message",
 		alert: "message",
 		pm: "message",
@@ -88,6 +93,7 @@ exports.commands = {
 				Users(councilMembers[u]).send(`|pm|~TsuMeta Council|~|/raw ${target}`);
 			}
 		},
+*/
 
 		requestchanges: "propose",
 		propose: function (target, room, user) {
@@ -121,34 +127,46 @@ exports.commands = {
 				let randproposal = Object.keys(proposals)[Math.floor(Math.random() * Object.keys(proposals).length)];
 				let title = proposals[randproposal].idea;
 				let proposedBy = proposals[randproposal].creator;
-				let randomproposal = proposals[randproposal].changes;
+				let randomproposal = proposals[randproposal].desc;
 				this.sendReply(`Since you did not specify a specific change, here is a random proposed idea.`);
 				this.sendReply(`${title} by ${proposedBy}: "${randomproposal}"`);
 			} else {
 				let proposalid = toId(target);
 				if (!proposals[proposalid]) return this.errorReply('That proposal does not exist.');
-				this.sendReply(`${proposals[proposalid].name} by ${proposals[proposalid].creator}: "${proposals[proposalid].proposal}"`);
+				this.sendReply(`${proposals[proposalid].idea} by ${proposals[proposalid].creator}: "${proposals[proposalid].desc}"`);
 			}
 		},
 
 		suspend: function (target, room, user) {
-			if (user.userid !== "desokoro" && user.userid !== "xcmr" && !this.can("bypassall")) return this.errorReply(`This command is reserved for Desokoro and xcmr.`);
 			if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 			if (!target || target.length > 18) return this.errorReply(`You must specify a target, with a maximum of 18 characters.`);
 			let targetUser = toId(target);
-			if (!isTsuMetaCouncil(targetUser)) return this.errorReply(`${target} is either not in TsuMeta, or they have already suspended.`);
-			Db("councilmember").set(targetUser, 2);
+			if (!isTsuMetaCouncil(targetUser) || targetUser === "desokoro") return this.errorReply(`${target} is either not in TsuMeta, or they have already suspended.`);
+			// Only allow xcmr to suspend users if he is currently in the council
+			if (user.userid === "xcmr" && Db("councilmember").has("xcmr", 1)) {
+				Db("councilmember").set(targetUser, 2);
+				this.sendReply(`You have successfully suspended ${target} from participating in TsuMeta Committee proposals.`);
+				return true;
+			}
+			if (user.userid !== "desokoro") return this.errorReply(`This command is reserved for Desokoro.`);
 			this.sendReply(`You have successfully suspended ${target} from participating in TsuMeta Committee proposals.`);
+			Db("councilmember").set(targetUser, 2);
 		},
 
 		unsuspend: function (target, room, user) {
-			if (user.userid !== "desokoro" && user.userid !== "xcmr" && !this.can("bypassall")) return this.errorReply(`This command is reserved for Desokoro and xcmr.`);
 			if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 			if (!target || target.length > 18) return this.errorReply(`You must specify a target, with a maximum of 18 characters.`);
 			let targetUser = toId(target);
-			if (isTsuMetaCouncil(targetUser)) return this.errorReply(`${target} is either not in TsuMeta, or they are not suspended.`);
-			Db("councilmember").set(targetUser, 1);
+			if (!isTsuMetaCouncil(targetUser) || targetUser === "desokoro") return this.errorReply(`${target} is either not in TsuMeta, or they have already suspended.`);
+			// Only allow xcmr to unsuspend users if he is currently in the council
+			if (user.userid === "xcmr" && Db("councilmember").has("xcmr", 1)) {
+				Db("councilmember").set(targetUser, 1);
+				this.sendReply(`You have successfully suspended ${target} from participating in TsuMeta Committee proposals.`);
+				return true;
+			}
+			if (user.userid !== "desokoro") return this.errorReply(`This command is reserved for Desokoro.`);
 			this.sendReply(`You have successfully unsuspended ${target} from participating in TsuMeta Committee proposals.`);
+			Db("councilmember").set(targetUser, 1);
 		},
 
 		info: "forums",
@@ -169,7 +187,7 @@ exports.commands = {
 		`/tsumeta give [user] - Gives a user the TsuMeta Council Member status.`,
 		`/tsumeta take [user] - Removes a user's TsuMeta Council Member status.`,
 		`/tsumeta list - Shows the list of TsuMeta Council Members.`,
-		`/tsumeta alert [message] - Sends a message to all online users from the TsuMeta Council. Only for Desokoro.`,
+		//`/tsumeta alert [message] - Sends a message to all online users from the TsuMeta Council. Only for Desokoro.`,
 		`/tsumeta propose [what you modified], [change requested] - Proposes a change for the TsuMeta metagame. Must be in the TsuMeta Council to use.`,
 		`/tsumeta proposals [optional proposal ID] - Checks the specified proposal ID, if not specified generates a random one from the proposals index.`,
 		`/tsumeta suspend [target] - Suspends a user from proposing/participating in the TsuMeta council. Only for Desokoro and xcmr.`,

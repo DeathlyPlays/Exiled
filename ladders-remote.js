@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /**
  * Main server ladder library
  * Pokemon Showdown - http://pokemonshowdown.com/
@@ -148,4 +146,3 @@ class LadderStore {
 LadderStore.formatsListPrefix = '';
 
 module.exports = LadderStore;
->>>>>>> c707458a7c7542386571de9511e85681a13d21c8

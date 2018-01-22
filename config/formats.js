@@ -1641,28 +1641,21 @@ exports.Formats = [
 		ruleset: ['[Gen 7] OU'],
 	},
 	{
-		name: "[Gen 7] Fusion Evolution",
-		desc: ["&bullet; <a href=http://www.smogon.com/forums/threads/fusion-evolution-v2-submission-phase.3560216/>Fusion Evolution</a>",
-			   "&bullet; <a href=http://www.smogon.com/forums/threads/fusion-moves-fusion-evolution-companion-project.3564805/>Fusion Moves</a>",
-			  ],
-		ruleset: ['Pokemon', 'Standard'],
-		mod: 'fe',
-		onModifyTemplate: function (template, pokemon, source) {
-			//This hack is for something important: The Pokemon's Sprite.
-			if (!template.base) return template;
-			let temp = Object.assign({}, template);
-			temp.species = temp.baseSpecies = template.base;
-			pokemon.name = template.species;
-			pokemon.fullname = `${pokemon.side.id}: ${pokemon.name}`;
-			pokemon.id = pokemon.fullname;
-			return temp;
-		},
+		name: "[Gen 7] Delta Editions",
+		mod: "delta",
+		ruleset: ['[Gen 7] OU'],
+		desc: [
+			"Created by Mewth",
+			"All Pokemon have gone to the dark side, they have went Delta! Pokemon might have slightly altered type/stats/moves/abilities",
+		],
+		unbanlist: [],
+		banlist: [],
 	},
 	{
 		name: "[Gen 7] Pokebilities",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3588652/\">Pokebilities</a>: A Pokemon has all of its abilities active at the same time."],
 		mod: 'pokebilities',
-		ruleset: ["OU"],
+		ruleset: ['[Gen 7] OU'],
 		onSwitchInPriority: 1,
 		onBegin: function() {
 			let statusability = {
@@ -1863,6 +1856,7 @@ exports.Formats = [
 			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Jubk6J4d3CFNtO2stytTuRRiSD_XLhqzx40EuDKOjHs/edit?usp=sharing\">Perfection</a>",
 		],
 		unbanlist: ['Moody', 'Landorus', 'Genesect', 'Aegislash'],
+		banlist: ['Uber'],
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon Monotype",

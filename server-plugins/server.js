@@ -1403,12 +1403,14 @@ exports.commands = {
 			x = Math.floor(Math.random() * (444 - 280)) + 279;
 		} else if (/sinnoh/i.test(target) || /gen 4/i.test(target)) {
 			x = Math.floor(Math.random() * (584 - 443)) + 442;
-		} else if (/kalos/i.test(target) || /gen 5/i.test(target)) {
+		} else if (/unova/i.test(target) || /gen 5/i.test(target)) {
 			x = Math.floor(Math.random() * (755 - 583)) + 582;
-		} else if (/unova/i.test(target) || /gen 6/i.test(target)) {
-			x = Math.floor(Math.random() * (834 - 752)) + 751;
+		} else if (/kalos/i.test(target) || /gen 6/i.test(target)) {
+			x = Math.floor(Math.random() * (834 - 754)) + 753;
+		} else if (/alola/i.test(target) || /gen 7/i.test(target)) {
+			x = Math.floor(Math.random() * (1000 - 833)) + 832;
 		}
-		x = x || Math.floor(Math.random() * (856 - 1));
+		x = x || Math.floor(Math.random() * (1083 - 1));
 		let rand;
 		let y = x;
 		let random = Math.floor(Math.random() * 3);

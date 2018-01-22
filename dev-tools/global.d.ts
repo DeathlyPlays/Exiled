@@ -11,6 +11,8 @@ import * as LadderStoreType from './../ladders-remote'
 import * as LaddersType from './../ladders'
 import * as UsersType from './../users'
 import * as PunishmentsType from './../punishments'
+import * as StreamsType from './../lib/streams'
+import * as child_process from 'child_process'
 
 declare global {
 	// modules
@@ -20,12 +22,22 @@ declare global {
 	const Ladders: typeof LaddersType
 	const LadderStoreT: typeof LadderStoreType
 
+	const WriteStream: typeof StreamsType.WriteStream
+	const ReadStream: typeof StreamsType.ReadStream
+	const ReadWriteStream: typeof StreamsType.ReadWriteStream
+	const ObjectWriteStream: typeof StreamsType.ObjectWriteStream
+	const ObjectReadStream: typeof StreamsType.ObjectReadStream
+	const ObjectReadWriteStream: typeof StreamsType.ObjectReadWriteStream
+
+	type ChildProcess = child_process.ChildProcess
+
 	// sim
 	const Battle: typeof BattleType
 	const ModdedDex: typeof DexType
 	const Pokemon: typeof PokemonType
 	const PRNG: typeof PRNGType
 	const Side: typeof SideType
+	const TeamValidator: typeof TeamValidatorType
 	const Validator: typeof TeamValidatorType.Validator
 
 	// dex data

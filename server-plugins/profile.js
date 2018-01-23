@@ -631,7 +631,7 @@ exports.commands = {
 		}
 
 		function showTeam(user) {
-			let teamcss = 'float:center;border:none;background:none;';
+			let teamcss = 'float: center; border: none; background: none;';
 
 			let noSprite = '<img src=http://play.pokemonshowdown.com/sprites/bwicons/0.png>';
 			let one = Db("teams").get([user, 'one']);
@@ -643,7 +643,7 @@ exports.commands = {
 			if (!Db("teams").has(user)) return `<div style="${teamcss}" >${noSprite}${noSprite}${noSprite}${noSprite}${noSprite}${noSprite}</div>`;
 
 			function iconize(link) {
-				return `<button id="kek" style="background:transparent;border:none;"><img src="https://serebii.net/pokedex-sm/icon/${link}.png"></button>`;
+				return `<button id="kek" style="background: transparent; border: none;"><img src="https://serebii.net/pokedex-sm/icon/${link}.png"></button>`;
 			}
 
 			let teamDisplay = `<center><div style="${teamcss}">`;
@@ -684,14 +684,13 @@ exports.commands = {
 
 		function background(user) {
 			let bg = Db("backgrounds").get(user);
-			if (!Db("backgrounds").has(user)) return `<div>`;
-			return `<div style="background:url(${bg}); background-size: 100% 100%">`;
+			if (!Db("backgrounds").has(user)) return `<div style="max-height: 250px; overflow-y: scroll">`;
+			return `<div style="background:url(${bg}); background-size: 100% 100%; height: 250px">`;
 		}
 
 		function pColor(user) {
 			let color = Db("profilecolor").get(user);
-			// default to black
-			if (!Db("profilecolor").has(user)) return `<font color="#000">`;
+			if (!Db("profilecolor").has(user)) return `<font>`;
 			return `<font color="${color}">`;
 		}
 
@@ -706,8 +705,8 @@ exports.commands = {
 			Economy.readMoney(toId(username), money => {
 				let profile = ``;
 				profile += `${background(toId(username))} ${showBadges(toId(username))}`;
-				profile += `<div style="display: inline-block; width: 7em; vertical-align: 2.5em;"><img src="${avatar}" height="80" width="80" align="left"></div>`;
-				profile += `&nbsp;${pColor(toId(username))}<b>Name:</b></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
+				profile += `<div style="display: inline-block; width: 6.5em; height: 100%; vertical-align: top"><img src="${avatar}" height="80" width="80" align="left"></div>`;
+				profile += `<div style="display: inline-block">&nbsp;${pColor(toId(username))}<b>Name:</b></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Group:</b> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)} ${tsumetaCheck(username)}<br />`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Registered:</b> ${regdate}</font><br />`;
 				profile += `&nbsp;${pColor(toId(username))}<b>${moneyPlural}:</b> ${money}</font><br />`;

@@ -30,6 +30,14 @@ function isVIP(user) {
 	return false;
 }
 
+function isTsuMetaCouncil(user) {
+	if (!user) return;
+	if (typeof user === 'object') user = user.userid;
+	let council = Db("councilmember").get(toId(user));
+	if (council === 1) return true;
+	return false;
+}
+
 function showTitle(userid) {
 	userid = toId(userid);
 	if (Db("titles").has(userid)) {
@@ -48,6 +56,11 @@ function vipCheck(user) {
 	return '';
 }
 
+function tsumetaCheck(user) {
+	if (isTsuMetaCouncil(user)) return '<font color="#B22222">(<strong>TsuMeta Member</strong>)</font>';
+	return '';
+}
+
 function lastActive(user) {
 	if (!Users(user)) return false;
 	user = Users(user);
@@ -55,6 +68,7 @@ function lastActive(user) {
 }
 
 function showBadges(user) {
+	/* Disabled
 	if (Db("userBadges").has(toId(user))) {
 		let badges = Db("userBadges").get(toId(user));
 		let css = `border:none; background:none; padding:0;`;
@@ -70,6 +84,7 @@ function showBadges(user) {
 			return output;
 		}
 	}
+	*/
 	return ``;
 }
 
@@ -693,7 +708,7 @@ exports.commands = {
 				profile += `${background(toId(username))} ${showBadges(toId(username))}`;
 				profile += `<div style="display: inline-block; width: 7em; vertical-align: 2.5em;"><img src="${avatar}" height="80" width="80" align="left"></div>`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Name:</b></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
-				profile += `&nbsp;${pColor(toId(username))}<b>Group:</b> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)}<br />`;
+				profile += `&nbsp;${pColor(toId(username))}<b>Group:</b> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)} ${tsumetaCheck(username)}<br />`;
 				profile += `&nbsp;${pColor(toId(username))}<b>Registered:</b> ${regdate}</font><br />`;
 				profile += `&nbsp;${pColor(toId(username))}<b>${moneyPlural}:</b> ${money}</font><br />`;
 				if (Db("pokemon").has(toId(username))) {

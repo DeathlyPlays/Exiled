@@ -15928,6 +15928,9 @@ exports.BattleMovedex = {
 		name: "Splash",
 		pp: 40,
 		priority: 0,
+		onTryHit: function (target, source) {
+			this.add('-nothing');
+		},
 		flags: {gravity: 1},
 		secondary: false,
 		target: "self",

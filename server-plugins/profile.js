@@ -451,6 +451,7 @@ exports.commands = {
 			if (!parts[1]) return this.parse('/backgroundhelp');
 			let targ = parts[0].toLowerCase().trim();
 			let link = parts[1].trim();
+			if (!['.png', '.gif', '.jpg'].includes(target[1].slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg`);
 			Db("backgrounds").set(targ, link);
 			this.sendReply(`This user's background has been set to : `);
 			this.parse(`/profile ${targ}`);
@@ -491,6 +492,7 @@ exports.commands = {
 			if (!parts[2]) return this.errorReply('/musichelp');
 			let link = parts[1].trim();
 			let title = parts[2].trim();
+			if (!['.mp3', '.mp4', '.m4a'].includes(target[1].slice(-4))) return this.errorReply(`The song needs to end in .mp3, .mp4, or .m4a`);
 			Db("music").set(targ, {'link': link, 'title': title});
 			this.sendReply(`${targ}'s song has been set to: `);
 			this.parse(`/profile ${targ}`);

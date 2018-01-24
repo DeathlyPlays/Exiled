@@ -137,6 +137,23 @@ exports.commands = {
 			}
 		},
 
+		removeproposal: "deleteproposal",
+		removeproposals: "deleteproposal",
+		deleteproposals: "deleteproposal",
+		deleteproposal: function (target, room, user) {
+			if (!target) return this.errorReply("This command requires a target.");
+			let proposalid = toId(target);
+			if (!proposals[proposalid]) return this.errorReply(`This proposal doesn't exist!`);
+			if (user.userid === "xcmr" && Db("councilmember").has("xcmr")) {
+				delete proposals[proposalid];
+				write();
+				this.sendReply(`Proposal ${target} has been deleted.`);
+				return true;
+			}
+			if (user.userid !== "desokoro") return this.errorReply(`This command is reserved for Desokoro.`);
+			this.sendReply(`Proposal ${target} has been deleted.`);
+		},
+
 		listproposals: "viewproposals",
 		viewproposals: function (target, room, user) {
 			if (!this.runBroadcast()) return;
@@ -165,7 +182,7 @@ exports.commands = {
 			if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 			if (!target || target.length > 18) return this.errorReply(`You must specify a target, with a maximum of 18 characters.`);
 			let targetUser = toId(target);
-			if (!isTsuMetaCouncil(targetUser) || targetUser === "desokoro") return this.errorReply(`${target} is either not in TsuMeta, or they have already suspended.`);
+			if (isTsuMetaCouncil(targetUser) || targetUser === "desokoro") return this.errorReply(`${target} is either not in TsuMeta, or they have already suspended.`);
 			// Only allow xcmr to unsuspend users if he is currently in the council
 			if (user.userid === "xcmr" && Db("councilmember").has("xcmr", 1)) {
 				Db("councilmember").set(targetUser, 1);
@@ -198,6 +215,7 @@ exports.commands = {
 		//`/tsumeta alert [message] - Sends a message to all online users from the TsuMeta Council. Only for Desokoro.`,
 		`/tsumeta propose [what you modified], [change requested] - Proposes a change for the TsuMeta metagame. Must be in the TsuMeta Council to use.`,
 		`/tsumeta proposals [optional proposal ID] - Checks the specified proposal ID, if not specified generates a random one from the proposals index.`,
+		`/tsumeta deleteproposal [proposal] - Deletes the specified proposal. Reserved for Desokoro and xcmr.`,
 		`/tsumeta viewproposals - Shows the list of proposals.`,
 		`/tsumeta suspend [target] - Suspends a user from proposing/participating in the TsuMeta council. Only for Desokoro and xcmr.`,
 		`/tsumeta unsuspend [target] - Unsuspends a user from proposing/participating in the TsuMeta council. Only for Desokoro and xcmr.`,

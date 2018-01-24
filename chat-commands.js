@@ -2685,7 +2685,7 @@ exports.commands = {
 		if (!this.can('hotpatch')) return;
 
 		const lock = Monitor.hotpatchLock;
-		const hotpatches = ['chat', 'formats', 'loginserver', 'punishments', 'dnsbl'];
+		const hotpatches = ['chat', 'formats', 'loginserver', 'punishments', 'dnsbl', 'server'];
 
 		try {
 			if (target === 'all') {
@@ -2709,6 +2709,8 @@ exports.commands = {
 				Chat.uncache('./chat');
 				Chat.uncache('./chat-commands');
 				Chat.uncacheDir('./chat-plugins');
+				Chat.uncacheDir('./server-plugins');
+				Chat.uncacheDir('./game-cards');
 				global.Chat = require('./chat');
 
 				let runningTournaments = Tournaments.tournaments;
@@ -2795,7 +2797,8 @@ exports.commands = {
 		`/hotpatch dnsbl - reloads Dnsbl datacenters`,
 		`/hotpatch punishments - reloads new punishments code`,
 		`/hotpatch tournaments - reloads new tournaments code`,
-		`/hotpatch all - hot-patches chat, tournaments, formats, login server, punishments, and dnsbl`,
+		`/hotpatch server - reloads new server-plugins code.`,
+		`/hotpatch all - hot-patches chat, tournaments, formats, login server, punishments, signature server plugins, and dnsbl`,
 	],
 
 	hotpatchlock: 'nohotpatch',

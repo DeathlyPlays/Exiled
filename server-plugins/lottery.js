@@ -130,6 +130,6 @@ exports.commands = {
 		/lottery leave - Leaves a Lottery drawing.
 		/lottery start - Forcefully starts a Lottery drawing (instead of starting automatically in 24 hours from creation). Must be a Room Driver or higher.
 		/lottery players - Shows the current amount of players who have joined the ongoing Lottery drawing.
-		/lottery end - Forcefully ends a Lottery drawing. Must be a Room Driver or higher.`
+		/lottery end - Forcefully ends a Lottery drawing. Must be a Room Driver or higher.`,
 	],
 };

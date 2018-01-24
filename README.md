@@ -111,22 +111,7 @@ Owners
 
 Contributors
 
-<<<<<<< HEAD
 - [Lycanium Z](https://github.com/Lycanium-Z)
-=======
-- Andrew Goodsell [Zracknel] - Art (battle weather backdrops)
-- Avery Zimmer [Lyren, SolarisFox] - Development
-- Ben Davies [Morfent] - Development
-- Ben Frengley [TalkTakesTime] - Development
-- Cody Thompson [Rising_Dusk] - Development
-- Ian Clail [Layell] - Art (battle graphics, sprites)
-- Jeremy Piemonte [panpawn] - Development
-- Kris Johnson [Kris] - Development
-- Neil Rashbrook [urkerab] - Development
-- Robin Vandenbrande [Quinella] - Development
-- [Ridaz] - Art (battle animations)
-- Tobias Mann [asgdf] - Development
->>>>>>> 323a54eac57f449dc0de252c0f59bac9d7f1048b
 
 Special thanks
 

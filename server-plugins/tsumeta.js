@@ -22,8 +22,8 @@ function write() {
 	));
 	let data = "{\n";
 	for (let u in proposals) {
- 		data += '\t"' + u + '": ' + JSON.stringify(proposals[u]) + ",\n";
- 	}
+		data += '\t"' + u + '": ' + JSON.stringify(proposals[u]) + ",\n";
+	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
 	FS("config/proposals.json").writeUpdate(() => (

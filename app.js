@@ -116,8 +116,6 @@ global.Tells = require('./tells');
 
 global.Ontime = {};
 
-global.forever = {};
-
 global.Db = require('origindb')('config/db');
 
 delete process.send; // in case we're a child process

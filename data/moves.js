@@ -14807,7 +14807,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, authentic: 1, mystery: 1},
 		onTryHit: function (target, source) {
-			let bannedAbilities = ['comatose', 'illusion', 'multitype', 'schooling', 'stancechange', 'wonderguard'];
+			let bannedAbilities = ['battlebond', 'comatose', 'disguise', 'illusion', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange', 'wonderguard'];
 			if (bannedAbilities.includes(target.ability) || bannedAbilities.includes(source.ability)) {
 				return false;
 			}
@@ -15927,24 +15927,8 @@ exports.BattleMovedex = {
 		id: "splash",
 		name: "Splash",
 		pp: 40,
-		priority: 2,
+		priority: 0,
 		flags: {gravity: 1},
-		volatileStatus: 'focusenergy',
-		effect: {
-			onStart: function (target, source, effect) {
-				if (effect && effect.id === 'zpower') {
-					this.add('-start', target, 'move: Focus Energy', '[zeffect]');
-				} else {
-					this.add('-start', target, 'move: Focus Energy');
-				}
-			},
-			onModifyCritRatio: function (critRatio) {
-				return critRatio + 2;
-			},
-		},
-		onTryHit: function (target, source) {
-			this.add('-nothing');
-		},
 		secondary: false,
 		target: "self",
 		type: "Normal",
@@ -17791,34 +17775,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Normal",
 		zMoveEffect: 'heal',
-		contestType: "Clever",
-	},
-	"bodyexchangeoperandi": {
-		num: -144,
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		desc: "Both Pokemon transform into the foe; target sleep.",
-		id: "bodyexchangeoperandi",
-		name: "Body Exchange Operandi",
-		pp: 1,
-		priority: 0,
-		flags: {mystery: 1},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Heart Swap", target);
-		},
-		onHit: function (target, source) {
-			let newPosition = (source.position === target.position);
-			if (!target.side.active[newPosition]) return false;
-			if (target.side.active[newPosition].fainted) return false;
-			this.swapPosition(target, newPosition, '[from] move: Body Exchange Operandi');
-		},
-		status: "slp",
-		secondary: false,
-		target: "normal",
-		type: "Ghost",
-		isZ: "ferroniumz",
 		contestType: "Clever",
 	},
 	"triattack": {

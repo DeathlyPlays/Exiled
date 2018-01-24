@@ -6,34 +6,34 @@
 
 "use strict";
 
-const FS = require('../lib/fs.js');
+const FS = require("../lib/fs.js");
 
-let proposals = FS('config/proposals.json').readIfExistsSync();
+let proposals = FS("config/proposals.json").readIfExistsSync();
 
-if (proposals !== '') {
+if (proposals !== "") {
 	proposals = JSON.parse(proposals);
 } else {
 	proposals = {};
 }
 
 function write() {
-	FS('config/proposals.json').writeUpdate(() => (
+	FS("config/proposals.json").writeUpdate(() => (
 		JSON.stringify(proposals)
 	));
 	let data = "{\n";
 	for (let u in proposals) {
-		data += '\t"' + u + '": ' + JSON.stringify(proposals[u]) + ",\n";
-	}
+ 		data += '\t"' + u + '": ' + JSON.stringify(proposals[u]) + ",\n";
+ 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	FS('config/proposals.json').writeUpdate(() => (
+	FS("config/proposals.json").writeUpdate(() => (
 		data
 	));
 }
 
 function isTsuMetaCouncil(user) {
 	if (!user) return;
-	if (typeof user === 'object') user = user.userid;
+	if (typeof user === "object") user = user.userid;
 	let council = Db("councilmember").get(toId(user));
 	if (council === 1) return true;
 	//Denies being "a TsuMeta Council Member" in proposals and such when suspended
@@ -70,43 +70,28 @@ exports.commands = {
 			if (Users.get(tsuMetaMember)) Users(tsuMetaMember).popup(`|html|You have been removed from the TsuMeta Council by ${Server.nameColor(user.name, true)}.`);
 		},
 
-		users: 'list',
+		users: "list",
 		list: function (target, room, user) {
-			if (!Db("councilmember").keys().length) return this.errorReply('There seems to be no users in the TsuMeta Council.');
+			if (!Db("councilmember").keys().length) return this.errorReply("There seems to be no users in the TsuMeta Council.");
 			let display = [];
 			Db("councilmember").keys().forEach(councilMember => {
 				display.push(Server.nameColor(councilMember, (Users(councilMember) && Users(councilMember).connected)));
 			});
-			this.popupReply(`|html|<strong><u><font size="3"><center>TsuMeta Council Members:</center></font></u></strong>${display.join(',')}`);
+			this.popupReply(`|html|<strong><u><font size="3"><center>TsuMeta Council Members:</center></font></u></strong>${display.join(",")}`);
 		},
-
-/*
-		meeting: "message",
-		alert: "message",
-		pm: "message",
-		message: function (target, room, user) {
-			if (user.userid !== "desokoro" && !this.can("bypassall")) return this.errorReply(`This command is reserved for Desokoro only.`);
-			if (!target) return this.parse("/tsumetahelp");
-			let councilMembers = Db("councilmember").keys();
-			for (let u in councilMembers) {
-				if (!Users(councilMembers[u]).connected) continue;
-				Users(councilMembers[u]).send(`|pm|~TsuMeta Council|~|/raw ${target}`);
-			}
-		},
-*/
 
 		requestchanges: "propose",
 		propose: function (target, room, user) {
-			if (!isTsuMetaCouncil(user.userid)) return this.errorReply('You are not in the TsuMeta council, or have been suspended.');
+			if (!isTsuMetaCouncil(user.userid)) return this.errorReply("You are not in the TsuMeta council, or have been suspended.");
 			if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
-			let parts = target.split(',');
+			let parts = target.split(",");
 			for (let u in parts) parts[u] = parts[u].trim();
-			if (!parts[0] || !parts[1]) return this.parse('/tsumetahelp');
+			if (!parts[0] || !parts[1]) return this.parse("/tsumetahelp");
 			let idea = parts[0];
 			let changes = parts[1];
-			if (parts[1].length > 500) return this.errorReply('Please keep your changes to a maximum of 500 characters.');
-			if (Rooms('tsumetacommittee')) {
-				Rooms('tsumetacommittee').add(`|c|~TsuMeta Council|${user.name} has suggested: "${changes}" for "${idea}". Please leave your feedback on these changes.`).update();
+			if (parts[1].length > 500) return this.errorReply("Please keep your changes to a maximum of 500 characters.");
+			if (Rooms("tsumetacommittee")) {
+				Rooms("tsumetacommittee").add(`|c|~TsuMeta Council|${user.name} has suggested: "${changes}" for "${idea}". Please leave your feedback on these changes.`).update();
 			}
 			proposals[toId(idea)] = {
 				idea: idea,
@@ -132,7 +117,7 @@ exports.commands = {
 				this.sendReply(`${title} by ${proposedBy}: "${randomproposal}"`);
 			} else {
 				let proposalid = toId(target);
-				if (!proposals[proposalid]) return this.errorReply('That proposal does not exist.');
+				if (!proposals[proposalid]) return this.errorReply("That proposal does not exist.");
 				this.sendReply(`${proposals[proposalid].idea} by ${proposals[proposalid].creator}: "${proposals[proposalid].desc}"`);
 			}
 		},
@@ -151,6 +136,8 @@ exports.commands = {
 				return true;
 			}
 			if (user.userid !== "desokoro") return this.errorReply(`This command is reserved for Desokoro.`);
+			delete proposals[proposalid];
+			write();
 			this.sendReply(`Proposal ${target} has been deleted.`);
 		},
 
@@ -212,7 +199,6 @@ exports.commands = {
 		`/tsumeta give [user] - Gives a user the TsuMeta Council Member status.`,
 		`/tsumeta take [user] - Removes a user's TsuMeta Council Member status.`,
 		`/tsumeta list - Shows the list of TsuMeta Council Members.`,
-		//`/tsumeta alert [message] - Sends a message to all online users from the TsuMeta Council. Only for Desokoro.`,
 		`/tsumeta propose [what you modified], [change requested] - Proposes a change for the TsuMeta metagame. Must be in the TsuMeta Council to use.`,
 		`/tsumeta proposals [optional proposal ID] - Checks the specified proposal ID, if not specified generates a random one from the proposals index.`,
 		`/tsumeta deleteproposal [proposal] - Deletes the specified proposal. Reserved for Desokoro and xcmr.`,

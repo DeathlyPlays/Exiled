@@ -33,7 +33,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node pokemon-showdown",
-    "test": "eslint --rulesdir=dev-tools/eslint --cache . && mocha"
+    "test": "eslint --cache . && mocha"
   },
   "homepage": "http://pokemonshowdown.com",
   "repository": {

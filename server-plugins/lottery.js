@@ -35,7 +35,7 @@ class Lottery {
 	}
 
 	joinLottery(user) {
-		if (this.players.includes(user.userid)) return user.sendTo(this.room, 'You have already joined the lottery');
+		if (this.players.includes(user.userid)) return user.sendTo(this.room, "You have already joined the lottery.");
 		Economy.readMoney(user.userid, money => {
 			if (money < this.costToJoin) {
 				user.sendTo(this.room, `You do not have enough ${moneyPlural} to join.`);
@@ -47,7 +47,7 @@ class Lottery {
 				});
 			});
 			this.players.push(user.userid);
-			user.sendTo(this.room, 'You have joined the lottery.');
+			user.sendTo(this.room, "You have joined the lottery.");
 		});
 	}
 
@@ -74,8 +74,8 @@ exports.commands = {
 		make: "new",
 		new: function (target, room, user) {
 			if (room.lottery) return this.sendReply("A join-able Lottery drawing is already active.");
-			if (!this.can('mute', null, room)) return false;
-			if (!room.isOfficial) return this.sendReply('Lottery drawings can only be created in Official Chatrooms.');
+			if (!this.can("mute", null, room)) return false;
+			if (!room.isOfficial) return this.sendReply("Lottery drawings can only be created in Official Chatrooms.");
 			this.privateModAction(`(A new Lottery drawing has been created.)`);
 			room.lottery = new Lottery(room, user);
 		},
@@ -95,17 +95,19 @@ exports.commands = {
 			room.lottery.leaveLottery(user);
 		},
 
+		checkplayers: "players",
+		list: "players",
+		viewplayers: "players",
 		players: function (target, room, user) {
+			if (!this.runBroadcast()) return;
 			if (!room.lottery) return this.sendReply("There is no active Lottery drawing in this room.");
-			return this.sendReplyBox(
-				`Current Player Count: ${room.lottery.players.length} ${((room.lottery.players.length === 1) ? 'user' : 'users')} in the lottery.`
-			);
+			return this.sendReplyBox(`Current Player Count: ${room.lottery.players.length} ${((room.lottery.players.length === 1) ? "user" : "users")} in the lottery.`);
 		},
 
 		forcestart: "start",
 		begin: "start",
 		start: function (target, room, user) {
-			if (!this.can('mute', null, room)) return;
+			if (!this.can("mute", null, room)) return;
 			if (!room.lottery) return this.sendReply("There is not any Lottery drawing available to be started.");
 			if (room.lottery.players.length < 2) return this.sendReply("You can't start a Lottery drawing without at least two users joining.");
 			this.privateModAction(`(The Lottery drawing has been started early.)`);
@@ -114,19 +116,20 @@ exports.commands = {
 
 		cancel: "end",
 		end: function (target, room, user) {
-			if (!this.can('mute', null, room)) return;
+			if (!this.can("mute", null, room)) return;
 			if (!room.lottery) return this.sendReply("There is no Lottery drawing going on right now.");
 			this.privateModAction(`(The Lottery drawing was forcefully ended.)`);
 			room.lottery.end();
 		},
 	},
+
 	lotteryhelp: [
-		"Another alias for /lottery is /lotto.",
-		"/lottery new - Creates a new Lottery drawing. Must be a Room Driver or higher.",
-		"/lottery join - Join a Lottery drawing. Requires " + costToJoin + " " + moneyPlural + ".",
-		"/lottery leave - Leaves a Lottery drawing.",
-		"/lottery start - Forcefully starts a Lottery drawing (instead of starting automatically in 24 hours from creation). Must be a Room Driver or higher.",
-		"/lottery players - Shows the current amount of players who have joined the ongoing Lottery drawing.",
-		"/lottery end - Forcefully ends a Lottery drawing. Must be a Room Driver or higher.",
+		`Another alias for /lottery is /lotto.
+		/lottery new - Creates a new Lottery drawing. Must be a Room Driver or higher.
+		/lottery join - Join a Lottery drawing. Requires ${costToJoin} ${moneyPlural}.
+		/lottery leave - Leaves a Lottery drawing.
+		/lottery start - Forcefully starts a Lottery drawing (instead of starting automatically in 24 hours from creation). Must be a Room Driver or higher.
+		/lottery players - Shows the current amount of players who have joined the ongoing Lottery drawing.
+		/lottery end - Forcefully ends a Lottery drawing. Must be a Room Driver or higher.`
 	],
 };

@@ -73,8 +73,17 @@ exports.Formats = [
 		],
 
 		mod: 'gen7',
+		searchShow: false,
 		ruleset: ['[Gen 7] UU'],
 		banlist: ['UU', 'BL2', 'Aurora Veil'],
+	},
+	{
+		name: "[Gen 7] RU (suspect test)",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3625382/\">RU Suspect Test</a>"],
+
+		mod: 'gen7',
+		challengeShow: false,
+		ruleset: ['[Gen 7] RU'],
 	},
 	{
 		name: "[Gen 7] NU",
@@ -294,7 +303,7 @@ exports.Formats = [
 		},
 		timer: {starting: 6 * 60 + 30 - 10, perTurn: 10, maxPerTurn: 55, maxFirstTurn: 90, timeoutAutoChoose: true},
 		ruleset: ['Pokemon', 'Standard GBU'],
-		banlist: ['Unown', 'Curse', 'String Shot', 'Forest\'s Curse', 'Power Trick'],
+		banlist: ['Unown'],
 		requirePlus: true,
 	},
 	{
@@ -1710,7 +1719,7 @@ exports.Formats = [
 		mod: 'pokebilities',
 		ruleset: ['[Gen 7] OU'],
 		onSwitchInPriority: 1,
-		onBegin: function() {
+		onBegin: function () {
 			let statusability = {
 				"aerilate": true,
 				"aurabreak": true,
@@ -1735,24 +1744,25 @@ exports.Formats = [
 						for (let k = 0; k < bans.length; k++) {
 							if (toId(bans[k]) === toId(template.abilities[a])) continue;
 						}
-
-						if (toId(a) == 'h' && template.unreleasedHidden) continue;
-						if (toId(template.abilities[a]) == pokemon.ability) continue;
-						if (statusability[toId(template.abilities[a])])
+						if (toId(a) === 'h' && template.unreleasedHidden) continue;
+						if (toId(template.abilities[a]) === pokemon.ability) continue;
+						if (statusability[toId(template.abilities[a])]) {
 							this.sides[p].pokemon[i].innates.push("other" + toId(template.abilities[a]));
-						else
+						} else {
 							this.sides[p].pokemon[i].innates.push(toId(template.abilities[a]));
+						}
 					}
 				}
 			}
 		},
-		onSwitchIn: function(pokemon) {
+		onSwitchIn: function (pokemon) {
 			for (let i = 0; i < pokemon.innates.length; i++) {
-				if (!pokemon.volatiles[pokemon.innates[i]])
+				if (!pokemon.volatiles[pokemon.innates[i]]) {
 					pokemon.addVolatile(pokemon.innates[i]);
+				}
 			}
 		},
-		onAfterMega: function(pokemon) {
+		onAfterMega: function (pokemon) {
 			for (let i = 0; i < pokemon.innates.length; i++) {
 				pokemon.removeVolatile(pokemon.innates[i]);
 			}
@@ -1766,7 +1776,7 @@ exports.Formats = [
 		banlist: ['Eviolite', 'Huge Power', 'Pure Power', 'Eevium Z'],
 		onModifyTemplate: function (template, pokemon) {
 			for (let i in template.baseStats) {
-				if(template.baseStats[i] <= 70) template.baseStats[i] *= 2;
+				if (template.baseStats[i] <= 70) template.baseStats[i] *= 2;
 			}
 			return template;
 		},
@@ -1802,7 +1812,7 @@ exports.Formats = [
 			return ab1;
 		},
 		onSwitchInPriority: 1,
-		onSwitchIn: function(pokemon) {
+		onSwitchIn: function (pokemon) {
 			if (pokemon.abilitwo && this.getAbility(pokemon.abilitwo)) {
 				let statusability = {
 					"aerilate": true,
@@ -1815,13 +1825,13 @@ exports.Formats = [
 					"slowstart": true,
 					"truant": true,
 					"unburden": true,
-					"zenmode": true
+					"zenmode": true,
 				};
 				let sec = statusability[pokemon.abilitwo] ? "other" + pokemon.abilitwo : pokemon.abilitwo;
 				pokemon.addVolatile(sec, pokemon); //Second Ability! YAYAYAY
 			}
 		},
-		validateSet: function(set, teamHas) {
+		validateSet: function (set, teamHas) {
 			let abilities = this.format.getAbilities(set.ability), ability = set.ability;
 			if (Array.isArray(abilities)) {
 				set.ability = abilities[0];
@@ -1839,7 +1849,7 @@ exports.Formats = [
 					'trace': true,
 					'simple': true,
 					'wonderguard': true,
-					'moody': true
+					'moody': true,
 				};
 				if (bans[toId(abilitwo.id)]) problems.push(set.species + "'s ability " + abilitwo.name + " is banned by Multibility.");
 				if (abilitwo.id === toId(set.ability)) problems.push("You cannot have two of " + abilitwo.name + " on the same Pokemon.");
@@ -1847,7 +1857,7 @@ exports.Formats = [
 				return problems;
 			}
 		},
-		onValidateTeam: function(team, format) {
+		onValidateTeam: function (team, format) {
 			let abilityTable = {};
 			for (let i = 0; i < team.length; i++) {
 				let abilities = format.getAbilities(team[i].ability), ability = this.getAbility(Array.isArray(abilities) ? abilities[0] : abilities);

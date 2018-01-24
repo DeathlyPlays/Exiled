@@ -731,7 +731,7 @@ exports.commands = {
 					profile += `&nbsp;${pColor(toId(username))}<b>Friend Code:</b> ${Db("friendcode").get(toId(username))}</font><br />`;
 				}
 				profile += `&nbsp;${showTeam(toId(username))}<br />`;
-				profile += `&nbsp;${song(toId(username))}`;
+				profile += `&nbsp;${song(toId(username))}<br />`;
 				profile += `&nbsp;</div>`;
 				profile += `<br clear="all">`;
 				self.sendReplyBox(profile);

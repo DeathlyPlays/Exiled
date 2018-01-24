@@ -173,17 +173,18 @@ exports.commands = {
 		cancel: "end",
 		end: function (target, room, user) {
 			if (!this.can("ban", null, room)) return false;
-			if (!room.tdi) return this.errorReply("There is not an ongoing Total Drama Island session right now.");
+			if (!room.tdi) return this.errorReply("There is not an ongoing Total Drama Island season right now.");
 			room.tdi.end();
 			this.privateModAction(`(${user.name} has cancelled the season of Total Drama Island.)`);
 		},
 
+		checkplayers: "players",
+		list: "players",
+		viewplayers: "players",
 		players: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			this.sendReplyBox(
-				`There is currently ${this.room.tdi.players.length} player${this.room.tdi.players.length > 1 ? 's' : ''} in this season of Total Drama Island.<br />` +
-				`Players: ${this.room.tdi.players}.`
-			);
+			if (!room.tdi) return this.errorReply("There is not an ongoing Total Drama Island season currently.");
+			return this.sendReplyBox(`There is currently ${this.room.tdi.players.length} player${this.room.tdi.players.length > 1 ? 's' : ''} in this season of Total Drama Island.<br /> Players: ${this.room.tdi.players}.`);
 		},
 
 		as: "autostart",

@@ -5,33 +5,33 @@
  * - panpawn and jd
  * - Refactored by HoeenHero
  */
-'use strict';
+"use strict";
 
-const FS = require('../lib/fs.js');
+const FS = require("../lib/fs.js");
 
-let customColors = FS('config/customcolors.json').readIfExistsSync();
-if (customColors !== '') {
+let customColors = FS("config/customcolors.json").readIfExistsSync();
+if (customColors !== "") {
 	customColors = JSON.parse(customColors);
 } else {
 	customColors = {};
 }
 
 function updateColor() {
-	FS('config/customcolors.json').writeUpdate(() => (
+	FS("config/customcolors.json").writeUpdate(() => (
 		JSON.stringify(customColors)
 	));
 
-	let newCss = '/* COLORS START */\n';
+	let newCss = "/* COLORS START */\n";
 
 	for (let name in customColors) {
 		newCss += generateCSS(name, customColors[name]);
 	}
-	newCss += '/* COLORS END */\n';
+	newCss += "/* COLORS END */\n";
 
-	let file = FS('config/custom.css').readIfExistsSync().split('\n');
-	if (~file.indexOf('/* COLORS START */')) file.splice(file.indexOf('/* COLORS START */'), (file.indexOf('/* COLORS END */') - file.indexOf('/* COLORS START */')) + 1);
-	FS('config/custom.css').writeUpdate(() => (
-		file.join('\n') + newCss
+	let file = FS("config/custom.css").readIfExistsSync().split("\n");
+	if (~file.indexOf("/* COLORS START */")) file.splice(file.indexOf("/* COLORS START */"), (file.indexOf("/* COLORS END */") - file.indexOf("/* COLORS START */")) + 1);
+	FS("config/custom.css").writeUpdate(() => (
+		file.join("\n") + newCss
 	));
 	Server.reloadCSS();
 }
@@ -44,48 +44,56 @@ function generateCSS(name, color) {
 }
 
 exports.commands = {
-	customcolour: 'customcolor',
+	customcolour: "customcolor",
 	customcolor: {
 		set: function (target, room, user) {
-			if (!this.can('lock')) return false;
-			target = target.split(',');
+			if (!this.can("lock")) return false;
+			target = target.split(",");
 			for (let u = 0; u < target.length; u++) target[u] = target[u].trim();
-			if (!target[1]) return this.parse('/help customcolor');
+			if (!target[1]) return this.parse("/help customcolor");
 			if (toId(target[0]).length > 19) return this.errorReply("Usernames are not this long...");
-			this.sendReply("|raw|You have given <strong><font color=" + target[1] + ">" + Chat.escapeHTML(target[0]) + "</font></strong> a custom color.");
-			this.privateModAction("(" + target[0] + " has received custom color: '" + target[1] + "' from " + user.name + ".)");
-			Monitor.adminlog(target[0] + " has received custom color: '" + target[1] + "' from " + user.name + ".");
+			this.sendReply(`|raw|You have given <strong><font color=${target[1]}>${Chat.escapeHTML(target[0])}</font></strong> a custom color.`);
+			this.modlog(`CUSTOMCOLOR`, target[0], `gave color ${target[1]}`);
+			this.privateModAction(`(${target[0]} has received custom color: "${target[1]}" from ${user.name}.)`);
+			Monitor.log(`${target[0]} has received custom color: "${target[1]}" from ${user.name}.`);
 			customColors[toId(target[0])] = target[1];
 			updateColor();
 		},
+
 		delete: function (target, room, user) {
-			if (!this.can('lock')) return false;
-			if (!target) return this.parse('/help customcolor');
-			if (!customColors[toId(target)]) return this.errorReply('/customcolor - ' + target + ' does not have a custom color.');
+			if (!this.can("lock")) return false;
+			if (!target) return this.parse("/help customcolor");
+			if (!customColors[toId(target)]) return this.errorReply(`/customcolor - ${target} does not have a custom color.`);
 			delete customColors[toId(target)];
 			updateColor();
-			this.sendReply("You removed " + target + "'s custom color.");
-			this.privateModAction("(" + target + "'s custom color was removed by " + user.name + ".)");
-			Monitor.adminlog(target + "'s custom color was removed by " + user.name + ".");
-			if (Users(target) && Users(target).connected) Users(target).popup(user.name + " removed your custom color.");
+			this.modlog(`CUSTOMCOLOR`, target, `removed custom color`);
+			this.sendReply(`You removed ${target}'s custom color.`);
+			Monitor.log(`${user.name} removed ${target}'s custom color.`);
+			this.privateModAction(`(${target}'s custom color was removed by ${user.name}.)`);
+			if (Users(target) && Users(target).connected) Users(target).popup(`${user.name} removed your custom color.`);
 			return;
 		},
+
 		preview: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			target = target.split(',');
+			target = target.split(",");
 			for (let u = 0; u < target.length; u++) target[u] = target[u].trim();
-			if (!target[1]) return this.parse('/help customcolor');
-			return this.sendReplyBox('<strong><font size="3" color="' + target[1] + '">' + Chat.escapeHTML(target[0]) + '</font></strong>');
+			if (!target[1]) return this.parse("/help customcolor");
+			return this.sendReplyBox(`<strong><font size="3" color="${target[1]}">${Chat.escapeHTML(target[0])}</font></strong>`);
 		},
+
 		reload: function (target, room, user) {
-			if (!this.can('hotpatch')) return false;
+			if (!this.can("hotpatch")) return false;
 			updateColor();
-			this.privateModAction("(" + user.name + " has reloaded custom colours.)");
+			this.privateModAction(`(${user.name} has reloaded custom colours.)`);
 		},
-		'': function (target, room, user) {
+
+		"": "help",
+		"": function (target, room, user) {
 			return this.parse("/help customcolor");
 		},
 	},
+
 	customcolorhelp: [
 		"Commands Include:",
 		"/customcolor set [user], [hex] - Gives [user] a custom color of [hex]",
@@ -93,11 +101,12 @@ exports.commands = {
 		"/customcolor reload - Reloads colours.",
 		"/customcolor preview [user], [hex] - Previews what that username looks like with [hex] as the color.",
 	],
-	'!hex': true,
+
+	"!hex": true,
 	hex: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let targetUser = (target ? target : user.name);
-		this.sendReplyBox('The hex code of ' + Server.nameColor(targetUser, true) + ' is: <font color="' + Server.hashColor(targetUser) + '"><strong>' + Server.hashColor(targetUser) + '</strong></font>');
+		this.sendReplyBox(`The hex code of ${Server.nameColor(targetUser, true)} is: <font color="${Server.hashColor(targetUser)}"><strong>${Server.hashColor(targetUser)}</strong></font>`);
 	},
 };
 

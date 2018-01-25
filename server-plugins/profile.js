@@ -342,22 +342,7 @@ exports.commands = {
 			this.sendReply(`You have set your profile color to "${color}".`);
 		},
 
-		// For staff
-		forceset: 'forceadd',
-		forceadd: function (target, room, user) {
-			if (!this.can('lock')) return false;
-			if (!target || target.length < 3) return this.parse('/pcolor help');
-			target = target.split(',');
-			let targetUser = target[0].trim();
-			let color = target[1].trim();
-			if (color.charAt(0) !== '#') return this.errorReply(`The color needs to be a hex starting with "#".`);
-			Db('profilecolor').set(targetUser, color);
-			if (Users.get(targetUser)) {
-				Users(targetUser).popup(`|html|You have received profile color from ${Server.nameColor(user.name, true)}.<br />Profile Hex Color: ${color}`);
-			}
-			this.sendReply(`You have set profile color of ${targetUser} to ${color}.`);
-		},
-
+		take: 'remove',
 		delete: 'remove',
 		remove: function (target, room, user) {
 			if (!this.can('lock')) return false;
@@ -580,14 +565,13 @@ exports.commands = {
 	'!lastactive': true,
 	checkactivity: 'lastactive',
 	lastactive: function (target, room, user) {
-		if (!target) target = user.name;
-		const targetId = toId(target);
+		if (!target) target = user.userid;
 		if (target.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 		if (!this.runBroadcast()) return;
-		let username = (targetId ? targetId.name : target);
-		let online = (targetId ? targetId.connected : false);
-		if (online && lastActive(toId(username))) {
-			return this.sendReplyBox(`${Server.nameColor(target, true)} was last active: ${lastActive(targetId)}.`);
+		let targetUser = Users.get(target);
+		if (!Users(targetUser) || !targetUser.connected) return this.errorReply(`${target} is not online. Use /seen to find out how long ago they left.`);
+		if (targetUser.connected) {
+			this.sendReplyBox(`${Server.nameColor(targetUser, true, true)} was last active <strong>${Chat.toDurationString(Date.now() - targetUser.lastMessageTime)}</strong> saying <strong>"${targetUser.lastMessage}"</strong>.`);
 		}
 	},
 	lastactivehelp: ["/lastactive - Shows how long ago it has been since a user has posted a message."],
@@ -595,7 +579,7 @@ exports.commands = {
 	'!profile': true,
 	profile: function (target, room, user) {
 		target = toId(target);
-		if (!target) target = user.name;
+		if (!target) target = user.userid;
 		if (target.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 		if (!this.runBroadcast()) return;
 		let self = this;

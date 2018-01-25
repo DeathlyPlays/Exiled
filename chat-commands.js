@@ -730,54 +730,77 @@ exports.commands = {
 
 	deletechatroom: 'deleteroom',
 	deletegroupchat: 'deleteroom',
-	deleteroom: function (target, room, user) {
+	deleteroom: function (target, room, user, connection, cmd) {
 		let roomid = target.trim();
-		if (!roomid) return this.parse('/help deleteroom');
-		let targetRoom = Rooms.search(roomid);
-		if (!targetRoom) return this.errorReply("The room '" + target + "' doesn't exist.");
+		if (!roomid) {
+			// allow deleting personal rooms without typing out the room name
+			if (room.isPersonal && cmd === "deletegroupchat") {
+				roomid = room.id;
+			} else {
+				return this.parse(`/help deleteroom`);
+			}
+		} else {
+			let targetRoom = Rooms.search(roomid);
+			if (targetRoom !== room) {
+				return this.parse(`/help deleteroom`);
+			}
+		}
+
 		if (room.isPersonal) {
-			if (!this.can('editroom', null, targetRoom)) return;
+			if (!this.can('editroom', null, room)) return;
 		} else {
 			if (!this.can('makeroom')) return;
 		}
-		target = targetRoom.title || targetRoom.id;
 
-		if (targetRoom.id === 'global') {
-			return this.errorReply("This room can't be deleted.");
+		const title = room.title || room.id;
+
+		if (room.id === 'global') {
+			return this.errorReply(`This room can't be deleted.`);
 		}
 
-		if (targetRoom.chatRoomData) {
-			if (targetRoom.isPrivate) {
+		if (room.chatRoomData) {
+			if (room.isPrivate) {
 				if (Rooms.get('upperstaff')) {
+<<<<<<< HEAD
 					Rooms.get('upperstaff').add(`|raw|<div class="broadcast-red">Private chat room deleted by ${Server.nameColor(user.userid)}: <b>${Chat.escapeHTML(target)}</b></div>`).update();
+=======
+					Rooms.get('upperstaff').add(Chat.html`|raw|<div class="broadcast-red">Private chat room deleted by ${user.userid}: <b>${title}</b></div>`).update();
+>>>>>>> 4ef1c58606347d381522405af92eb9ff419ed970
 				}
 			} else {
 				if (Rooms.get('staff')) {
-					Rooms.get('staff').add('|raw|<div class="broadcast-red">Public chat room deleted: <b>' + Chat.escapeHTML(target) + '</b></div>').update();
+					Rooms.get('staff').add(Chat.html`|raw|<div class="broadcast-red">Public chat room deleted: <b>${title}</b></div>`).update();
 				}
 				if (Rooms.get('upperstaff')) {
+<<<<<<< HEAD
 					Rooms.get('upperstaff').add(`|raw|<div class="broadcast-red">Public chat room deleted by ${Server.nameColor(user.userid)}: <b>${Chat.escapeHTML(target)}</b></div>`).update();
+=======
+					Rooms.get('upperstaff').add(Chat.html`|raw|<div class="broadcast-red">Public chat room deleted by ${user.userid}: <b>${title}</b></div>`).update();
+>>>>>>> 4ef1c58606347d381522405af92eb9ff419ed970
 				}
 			}
 		}
 
-		if (targetRoom.subRooms) {
-			for (const subRoom of targetRoom.subRooms) subRoom.parent = null;
+		if (room.subRooms) {
+			for (const subRoom of room.subRooms) subRoom.parent = null;
 		}
-		const parent = targetRoom.parent;
+		const parent = room.parent;
 		if (parent && parent.subRooms) {
-			parent.subRooms.delete(targetRoom.id);
+			parent.subRooms.delete(room.id);
 			if (!parent.subRooms.size) parent.subRooms = null;
 		}
 
-		targetRoom.add("|raw|<div class=\"broadcast-red\"><b>This room has been deleted.</b></div>");
-		targetRoom.update(); // |expire| needs to be its own message
-		targetRoom.add("|expire|This room has been deleted.");
-		this.sendReply("The room '" + target + "' was deleted.");
-		targetRoom.update();
-		targetRoom.destroy();
+		room.add(`|raw|<div class="broadcast-red"><b>This room has been deleted.</b></div>`);
+		room.update(); // |expire| needs to be its own message
+		room.add(`|expire|This room has been deleted.`);
+		this.sendReply(`The room "${title}" was deleted.`);
+		room.update();
+		room.destroy();
 	},
-	deleteroomhelp: [`/deleteroom [roomname] - Deletes room [roomname]. Requires: & ~`],
+	deleteroomhelp: [
+		`/deleteroom [roomname] - Deletes room [roomname]. Must be typed in the room to delete. Requires: & ~`,
+		`/deletegroupchat - Deletes the current room, if it's a groupchat. Requires: & ~ #`,
+	],
 
 	hideroom: 'privateroom',
 	hiddenroom: 'privateroom',

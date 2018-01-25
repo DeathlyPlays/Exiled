@@ -12,7 +12,11 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Random Battle",
-		desc: ["Randomized teams of level-balanced Pok&eacute;mon with sets that are generated to be competitively viable."],
+		desc: [
+			`Randomized teams of level-balanced Pok&eacute;mon with sets that are generated to be competitively viable.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3591157/">Sets and Suggestions</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3616946/">Role Compendium</a>`,
+		],
 
 		mod: 'gen7',
 		team: 'random',
@@ -30,10 +34,10 @@ exports.Formats = [
 	{
 		name: "[Gen 7] OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3621042/\">OU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587177/\">OU Banlist</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3621329/\">OU Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3606650/\">OU Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3621042/">OU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587177/">OU Banlist</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3621329/">OU Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3606650/">OU Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -43,9 +47,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Ubers",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587184/\">Ubers Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3623296/\">Ubers Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3599816/\">Ubers Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587184/">Ubers Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3623296/">Ubers Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3599816/">Ubers Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -55,9 +59,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] UU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3625273/\">UU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3620980/\">UU Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3621217/\">UU Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3625273/">UU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3620980/">UU Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3621217/">UU Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -67,9 +71,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] RU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3625382/\">RU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3622740/\">RU Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3622057/\">RU Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3625382/">RU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3622740/">RU Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3622057/">RU Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -79,9 +83,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] NU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3624392/\">NU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3622107/\">NU Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3606112/\">NU Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3624392/">NU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3622107/">NU Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3606112/">NU Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -91,9 +95,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] PU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3614120/\">PU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3614892/\">PU Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3614470/\">PU Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3614120/">PU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3614892/">PU Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3614470/">PU Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -103,10 +107,10 @@ exports.Formats = [
 	{
 		name: "[Gen 7] LC",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587196/\">LC Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/dex/sm/formats/lc/\">LC Banlist</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3621440/\">LC Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3588679/\">LC Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587196/">LC Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/dex/sm/formats/lc/">LC Banlist</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3621440/">LC Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3588679/">LC Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -120,10 +124,10 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Monotype",
 		desc: [
-			"All the Pok&eacute;mon on a team must share a type.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3621036/\">Monotype Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3622349\">Monotype Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3599682/\">Monotype Sample Teams</a>",
+			`All the Pok&eacute;mon on a team must share a type.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3621036/">Monotype Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3622349">Monotype Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3599682/">Monotype Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -139,8 +143,8 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Anything Goes",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587441/\">Anything Goes</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3591711/\">AG Resources</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587441/">Anything Goes</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3591711/">AG Resources</a>`,
 		],
 
 		mod: 'gen7',
@@ -150,9 +154,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] CAP",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587865/\">CAP Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3597893/\">CAP Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/7203358/\">CAP Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587865/">CAP Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3597893/">CAP Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/7203358/">CAP Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -161,7 +165,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] CAP LC",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3599594/\">CAP LC</a>"],
+		desc: [`&bullet; <a href="http://www.smogon.com/forums/threads/3599594/">CAP LC</a>`],
 
 		mod: 'gen7',
 		searchShow: false,
@@ -171,10 +175,10 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Battle Spot Singles",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3601012/\">Introduction to Battle Spot Singles</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3605970/\">Battle Spot Singles Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3601658/\">Battle Spot Singles Roles Compendium</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3593055/\">Battle Spot Singles Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3601012/">Introduction to Battle Spot Singles</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3605970/">Battle Spot Singles Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3601658/">Battle Spot Singles Roles Compendium</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3593055/">Battle Spot Singles Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -189,7 +193,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Battle Spot Special 8",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3626059/\">Battle Spot Special 8</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3626059/">Battle Spot Special 8</a>`,
 		],
 
 		mod: 'gen7',
@@ -237,6 +241,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Random Doubles Battle",
+		desc: [`&bullet; <a href="http://www.smogon.com/forums/threads/3601525/">Sets and Suggestions</a>`],
 
 		mod: 'gen7',
 		gameType: 'doubles',
@@ -246,9 +251,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Doubles OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3623271/\">Doubles OU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3623347/\">Doubles OU Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3590987/\">Doubles OU Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3623271/">Doubles OU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3623347/">Doubles OU Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3590987/">Doubles OU Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -269,7 +274,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Doubles UU",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3598014/\">Doubles UU Metagame Discussion</a>"],
+		desc: [`&bullet; <a href="http://www.smogon.com/forums/threads/3598014/">Doubles UU Metagame Discussion</a>`],
 
 		mod: 'gen7',
 		gameType: 'doubles',
@@ -300,9 +305,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] VGC 2017",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3583926/\">VGC 2017 Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3591794/\">VGC 2017 Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3590391/\">VGC 2017 Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3583926/">VGC 2017 Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3591794/">VGC 2017 Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3590391/">VGC 2017 Sample Teams</a>`,
 		],
 
 		mod: 'vgc17',
@@ -321,9 +326,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Battle Spot Doubles",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3595001/\">Battle Spot Doubles Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3593890/\">Battle Spot Doubles Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3595859/\">Battle Spot Doubles Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3595001/">Battle Spot Doubles Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3593890/">Battle Spot Doubles Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3595859/">Battle Spot Doubles Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -364,8 +369,8 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Inheritance",
 		desc: [
-			"Pok&eacute;mon may use the ability and moves of another, as long as they forfeit their own learnset.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3592844/\">Inheritance</a>",
+			`Pok&eacute;mon may use the ability and moves of another, as long as they forfeit their own learnset.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3592844/">Inheritance</a>`,
 		],
 
 		mod: 'gen7',
@@ -499,8 +504,8 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Alphabet Cup",
 		desc: [
-			"Pok&eacute;mon can learn any move it shares the first letter of its name with.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3617977/\">Alphabet Cup</a>",
+			`Pok&eacute;mon can learn any move it shares the first letter of its name with.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3617977/">Alphabet Cup</a>`,
 		],
 
 		mod: 'gen7',
@@ -528,10 +533,10 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Balanced Hackmons",
 		desc: [
-			"Anything that can be hacked in-game and is usable in local battles is allowed.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587475/\">Balanced Hackmons</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3588586/\">BH Suspects and Bans Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3593766/\">BH Resources</a>",
+			`Anything that can be hacked in-game and is usable in local battles is allowed.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587475/">Balanced Hackmons</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3588586/">BH Suspects and Bans Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3593766/">BH Resources</a>`,
 		],
 
 		mod: 'gen7',
@@ -541,9 +546,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] 1v1",
 		desc: [
-			"Bring three Pok&eacute;mon to Team Preview and choose one to battle.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587523/\">1v1</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3592842/\">1v1 Resources</a>",
+			`Bring three Pok&eacute;mon to Team Preview and choose one to battle.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587523/">1v1</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3592842/">1v1 Resources</a>`,
 		],
 
 		mod: 'gen7',
@@ -563,7 +568,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] 1v1 (suspect test)",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/posts/7655187/\">1v1 Suspect Test</a>"],
+		desc: [`&bullet; <a href="http://www.smogon.com/forums/posts/7655187/">1v1 Suspect Test</a>`],
 
 		mod: 'gen7',
 		challengeShow: false,
@@ -576,9 +581,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Mix and Mega",
 		desc: [
-			"Mega Stones and Primal Orbs can be used on almost any fully evolved Pok&eacute;mon with no Mega Evolution limit.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587740/\">Mix and Mega</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3591580/\">Mix and Mega Resources</a>",
+			`Mega Stones and Primal Orbs can be used on almost any fully evolved Pok&eacute;mon with no Mega Evolution limit.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587740/">Mix and Mega</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3591580/">Mix and Mega Resources</a>`,
 		],
 
 		mod: 'mixandmega',
@@ -636,8 +641,8 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Mix and Mega (suspect test)",
 		desc: [
-			"Mega Stones and Primal Orbs can be used on almost any fully evolved Pok&eacute;mon with no Mega Evolution limit.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3626245/\">Mix and Mega Suspect Test</a>",
+			`Mega Stones and Primal Orbs can be used on almost any fully evolved Pok&eacute;mon with no Mega Evolution limit.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3626245/">Mix and Mega Suspect Test</a>`,
 		],
 
 		mod: 'mixandmega',
@@ -693,9 +698,9 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Almost Any Ability",
 		desc: [
-			"Pok&eacute;mon can use any ability, barring the few that are restricted to their natural users.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587901/\">Almost Any Ability</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3595753/\">AAA Resources</a>",
+			`Pok&eacute;mon can use any ability, barring the few that are restricted to their natural users.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587901/">Almost Any Ability</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3595753/">AAA Resources</a>`,
 		],
 
 		mod: 'gen7',
@@ -721,8 +726,8 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Camomons",
 		desc: [
-			"Pok&eacute;mon change type to match their first two moves.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3598418/\">Camomons</a>",
+			`Pok&eacute;mon change type to match their first two moves.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3598418/">Camomons</a>`,
 		],
 		mod: 'gen7',
 		ruleset: ['[Gen 7] OU'],
@@ -743,8 +748,8 @@ exports.Formats = [
 	{
 		name: "[Gen 7] STABmons",
 		desc: [
-			"Pok&eacute;mon can use any move of their typing, in addition to the moves they can normally learn.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587949/\">STABmons</a>",
+			`Pok&eacute;mon can use any move of their typing, in addition to the moves they can normally learn.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587949/">STABmons</a>`,
 		],
 
 		mod: 'gen7',
@@ -756,8 +761,8 @@ exports.Formats = [
 	{
 		name: "[Gen 7] 2v2 Doubles",
 		desc: [
-			"Double battle where you bring four Pok&eacute;mon to Team Preview and choose only two.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3606989/\">2v2 Doubles</a>",
+			`Double battle where you bring four Pok&eacute;mon to Team Preview and choose only two.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3606989/">2v2 Doubles</a>`,
 		],
 
 		mod: 'gen7',
@@ -788,6 +793,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 6] Battle Factory",
+		desc: [`Randomized teams of Pok&eacute;mon for a generated Smogon tier with sets that are competitively viable.`],
 
 		mod: 'gen6',
 		team: 'randomFactory',
@@ -796,8 +802,8 @@ exports.Formats = [
 	{
 		name: "[Gen 7] BSS Factory",
 		desc: [
-			"Randomised 3v3 Singles featuring Pok&eacute;mon and movesets popular in Battle Spot Singles.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3604845/\">Information and Suggestions Thread</a>",
+			`Randomized 3v3 Singles featuring Pok&eacute;mon and movesets popular in Battle Spot Singles.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3604845/">Information and Suggestions Thread</a>`,
 		],
 
 		mod: 'gen7',
@@ -840,7 +846,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Hackmons Cup",
-		desc: ["Randomized teams of level-balanced Pok&eacute;mon with absolutely any ability, moves, and item."],
+		desc: [`Randomized teams of level-balanced Pok&eacute;mon with absolutely any ability, moves, and item.`],
 
 		mod: 'gen7',
 		team: 'randomHC',
@@ -916,7 +922,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 2] UU",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3576710/\">GSC UU Discussion</a>"],
+		desc: [`&bullet; <a href="http://www.smogon.com/forums/threads/3576710/">GSC UU Discussion</a>`],
 
 		mod: 'gen2',
 		ruleset: ['[Gen 2] OU'],
@@ -925,8 +931,8 @@ exports.Formats = [
 	{
 		name: "[Gen 5] RU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3473124/\">BW2 RU Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431094/\">BW2 Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3473124/">BW2 RU Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431094/">BW2 Sample Teams</a>`,
 		],
 
 		mod: 'gen5',
@@ -937,8 +943,8 @@ exports.Formats = [
 	{
 		name: "[Gen 1] STABmons",
 		desc: [
-			"Pok&eacute;mon can use any move of their typing, in addition to the moves they can normally learn.",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3587949/\">STABmons</a>",
+			`Pok&eacute;mon can use any move of their typing, in addition to the moves they can normally learn.`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3587949/">STABmons</a>`,
 		],
 
 		mod: 'gen1',
@@ -962,8 +968,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/dex/xy/tags/ou/\">ORAS OU Banlist</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3596900/\">ORAS OU Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/dex/xy/tags/ou/">ORAS OU Banlist</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3596900/">ORAS OU Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -973,8 +979,8 @@ exports.Formats = [
 	{
 		name: "[Gen 5] OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3599678/\">BW2 OU Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431094/\">BW2 Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3599678/">BW2 OU Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431094/">BW2 Sample Teams</a>`,
 		],
 
 		mod: 'gen5',
@@ -984,8 +990,8 @@ exports.Formats = [
 	{
 		name: "[Gen 4] OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3506147/\">DPP OU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3551992/\">DPP OU Viability Ranking</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3506147/">DPP OU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3551992/">DPP OU Viability Ranking</a>`,
 		],
 
 		mod: 'gen4',
@@ -995,8 +1001,8 @@ exports.Formats = [
 	{
 		name: "[Gen 3] OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3503019/\">ADV OU Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431087/\">ADV Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3503019/">ADV OU Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431087/">ADV Sample Teams</a>`,
 		],
 
 		mod: 'gen3',
@@ -1006,8 +1012,8 @@ exports.Formats = [
 	{
 		name: "[Gen 2] OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3556533/\">GSC OU Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431086/\">GSC Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3556533/">GSC OU Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431086/">GSC Sample Teams</a>`,
 		],
 
 		mod: 'gen2',
@@ -1017,8 +1023,8 @@ exports.Formats = [
 	{
 		name: "[Gen 1] OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3572352/\">RBY OU Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431045/\">RBY Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3572352/">RBY OU Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431045/">RBY Sample Teams</a>`,
 		],
 
 		mod: 'gen1',
@@ -1036,8 +1042,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] Ubers",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3522911/\">ORAS Ubers</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3535106/\">ORAS Ubers Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3522911/">ORAS Ubers</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3535106/">ORAS Ubers Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1047,8 +1053,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] UU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/dex/xy/tags/uu/\">ORAS UU Banlist</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3598164/\">ORAS UU Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/dex/xy/tags/uu/">ORAS UU Banlist</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3598164/">ORAS UU Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1059,8 +1065,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] RU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/dex/xy/tags/ru/\">ORAS RU Banlist</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3574583/\">ORAS RU Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/dex/xy/tags/ru/">ORAS RU Banlist</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3574583/">ORAS RU Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1071,8 +1077,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] NU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/dex/xy/tags/nu/\">ORAS NU Banlist</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3555650/\">ORAS NU Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/dex/xy/tags/nu/">ORAS NU Banlist</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3555650/">ORAS NU Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1083,8 +1089,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] PU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/dex/xy/tags/pu/\">ORAS PU Banlist</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3528743/\">ORAS PU Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/dex/xy/tags/pu/">ORAS PU Banlist</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3528743/">ORAS PU Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1096,8 +1102,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] LC",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/dex/xy/formats/lc/\">ORAS LC Banlist</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3547566/\">ORAS LC Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/dex/xy/formats/lc/">ORAS LC Banlist</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3547566/">ORAS LC Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1108,7 +1114,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 6] Monotype",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/posts/7421332/\">ORAS Monotype</a>"],
+		desc: [`&bullet; <a href="http://www.smogon.com/forums/posts/7421332/">ORAS Monotype</a>`],
 
 		mod: 'gen6',
 		searchShow: false,
@@ -1123,8 +1129,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] Anything Goes",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3523229/\">ORAS Anything Goes</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3548945/\">ORAS AG Resources</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3523229/">ORAS Anything Goes</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3548945/">ORAS AG Resources</a>`,
 		],
 
 		mod: 'gen6',
@@ -1135,9 +1141,9 @@ exports.Formats = [
 	{
 		name: "[Gen 6] CAP",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3537407/\">ORAS CAP Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3545628/\">ORAS CAP Viability Rankings</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/5594694/\">ORAS CAP Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3537407/">ORAS CAP Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3545628/">ORAS CAP Viability Rankings</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/5594694/">ORAS CAP Sample Teams</a>`,
 		],
 
 		mod: 'gen6',
@@ -1147,8 +1153,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] Battle Spot Singles",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3527960/\">ORAS Battle Spot Singles</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3554616/\">ORAS BSS Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3527960/">ORAS Battle Spot Singles</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3554616/">ORAS BSS Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1183,8 +1189,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] Doubles OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3498688/\">ORAS Doubles OU Banlist</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3535930/\">ORAS Doubles OU Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3498688/">ORAS Doubles OU Banlist</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3535930/">ORAS Doubles OU Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1200,8 +1206,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] VGC 2016",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3558332/\">VGC 2016 Rules</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3580592/\">VGC 2016 Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3558332/">VGC 2016 Rules</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3580592/">VGC 2016 Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1231,8 +1237,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] Battle Spot Doubles",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3560820/\">ORAS Battle Spot Doubles Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3560824/\">ORAS BSD Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3560820/">ORAS Battle Spot Doubles Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3560824/">ORAS BSD Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1262,8 +1268,8 @@ exports.Formats = [
 	{
 		name: "[Gen 6] Battle Spot Triples",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3533914/\">ORAS Battle Spot Triples Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3549201/\">ORAS BST Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3533914/">ORAS Battle Spot Triples Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3549201/">ORAS BST Viability Rankings</a>`,
 		],
 
 		mod: 'gen6',
@@ -1303,8 +1309,8 @@ exports.Formats = [
 	{
 		name: "[Gen 5] Ubers",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3550881/\">BW2 Ubers Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6446463/\">BW2 Ubers Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3550881/">BW2 Ubers Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6446463/">BW2 Ubers Sample Teams</a>`,
 		],
 
 		mod: 'gen5',
@@ -1314,8 +1320,8 @@ exports.Formats = [
 	{
 		name: "[Gen 5] UU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3474024/\">BW2 UU Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431094/\">BW2 Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3474024/">BW2 UU Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431094/">BW2 Sample Teams</a>`,
 		],
 
 		mod: 'gen5',
@@ -1326,8 +1332,8 @@ exports.Formats = [
 	{
 		name: "[Gen 5] NU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3484121/\">BW2 NU Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431094/\">BW2 Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3484121/">BW2 NU Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431094/">BW2 Sample Teams</a>`,
 		],
 
 		mod: 'gen5',
@@ -1338,8 +1344,8 @@ exports.Formats = [
 	{
 		name: "[Gen 5] LC",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3485860/\">BW2 LC Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431094/\">BW2 Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3485860/">BW2 LC Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431094/">BW2 Sample Teams</a>`,
 		],
 
 		mod: 'gen5',
@@ -1384,8 +1390,8 @@ exports.Formats = [
 	{
 		name: "[Gen 5] Doubles OU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3533424/\">BW2 Doubles Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3533421/\">BW2 Doubles Viability Ranking</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3533424/">BW2 Doubles Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3533421/">BW2 Doubles Viability Ranking</a>`,
 		],
 
 		mod: 'gen5',
@@ -1435,8 +1441,8 @@ exports.Formats = [
 	{
 		name: "[Gen 4] Ubers",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/7433831/\">DPP Ubers Information &amp; Resources</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3505128/\">DPP Ubers Viability Ranking</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/posts/7433831/">DPP Ubers Information &amp; Resources</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3505128/">DPP Ubers Viability Ranking</a>`,
 		],
 
 		mod: 'gen4',
@@ -1447,8 +1453,8 @@ exports.Formats = [
 	{
 		name: "[Gen 4] UU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3532624/\">DPP UU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3503638/\">DPP UU Viability Ranking</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3532624/">DPP UU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3503638/">DPP UU Viability Ranking</a>`,
 		],
 
 		mod: 'gen4',
@@ -1459,8 +1465,8 @@ exports.Formats = [
 	{
 		name: "[Gen 4] NU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3583742/\">DPP NU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/3512254/\">DPP NU Viability Ranking</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3583742/">DPP NU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/3512254/">DPP NU Viability Ranking</a>`,
 		],
 
 		mod: 'gen4',
@@ -1471,8 +1477,8 @@ exports.Formats = [
 	{
 		name: "[Gen 4] LC",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/dp/articles/little_cup_guide\">DPP LC Guide</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/7336500/\">DPP LC Viability Ranking</a>",
+			`&bullet; <a href="http://www.smogon.com/dp/articles/little_cup_guide">DPP LC Guide</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/7336500/">DPP LC Viability Ranking</a>`,
 		],
 
 		mod: 'gen4',
@@ -1503,7 +1509,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 4] Doubles OU",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3618411/\">DPP Doubles</a>"],
+		desc: [`&bullet; <a href="http://www.smogon.com/forums/threads/3618411/">DPP Doubles</a>`],
 
 		mod: 'gen4',
 		gameType: 'doubles',
@@ -1536,8 +1542,8 @@ exports.Formats = [
 	{
 		name: "[Gen 3] Ubers",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/7433832/\">ADV Ubers Information &amp; Resources</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3536426/\">ADV Ubers Viability Ranking</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/posts/7433832/">ADV Ubers Information &amp; Resources</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3536426/">ADV Ubers Viability Ranking</a>`,
 		],
 
 		mod: 'gen3',
@@ -1548,8 +1554,8 @@ exports.Formats = [
 	{
 		name: "[Gen 3] UU",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3585923/\">ADV UU Metagame Discussion</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3548578/\">ADV UU Viability Rankings</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3585923/">ADV UU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3548578/">ADV UU Viability Rankings</a>`,
 		],
 
 		mod: 'gen3',
@@ -1577,8 +1583,8 @@ exports.Formats = [
 	{
 		name: "[Gen 2] Ubers",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/7433879/\">GSC Ubers Information &amp; Resources</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431086/\">GSC Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/posts/7433879/">GSC Ubers Information &amp; Resources</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431086/">GSC Sample Teams</a>`,
 		],
 
 		mod: 'gen2',
@@ -1596,8 +1602,8 @@ exports.Formats = [
 	{
 		name: "[Gen 1] Ubers",
 		desc: [
-			"&bullet; <a href=\"http://www.smogon.com/forums/threads/3541329/\">RBY Ubers Viability Ranking</a>",
-			"&bullet; <a href=\"http://www.smogon.com/forums/posts/6431045/\">RBY Sample Teams</a>",
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3541329/">RBY Ubers Viability Ranking</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/posts/6431045/">RBY Sample Teams</a>`,
 		],
 
 		mod: 'gen1',
@@ -1606,6 +1612,10 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 1] OU (tradeback)",
+		desc: [
+			`RBY OU with movepool additions from the Time Capsule.`,
+			`&bullet; <a href="http://www.smogon.com/articles/rby-tradebacks-ou/">Information</a>`,
+		],
 
 		mod: 'gen1',
 		searchShow: false,

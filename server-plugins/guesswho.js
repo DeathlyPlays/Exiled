@@ -54,11 +54,10 @@ class GuessWho {
 	}
 
 	start() {
+		this.state = "started";
 		let questionee = this.players[Math.floor(Math.random() * this.players.length)];
 		this.questionee = questionee;
 		this.players.splice(this.players.indexOf(questionee), 1);
-		console.log(this.questionee);
-		console.log(this.players);
 		this.room.add(`|uhtmlchange|guesswho-${this.gwNumber}|<div class="infobox">This Guess Who game has been started! ${this.questionee} is the questionee! Begin guessing ${Chat.toListString(this.players)}!`);
 		this.room.add(`|html|${this.questionee}, check <button name = "send" value = "/guesswho showanswer">here</button> to view the Pok&eacute;mon and begin giving hints.`);
 	}

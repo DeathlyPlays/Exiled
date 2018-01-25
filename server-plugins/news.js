@@ -1,16 +1,21 @@
-/**
- * News System for SpacialGaze
- * This Shows News via the /news view command and sends news ns PMs when users connect to the server if they have subscribed
- * Uses nef to add News to nef's json database
- * Credits: Lord Haji, HoeenHero
- * @license MIT license
- */
+/********************************************************************************************************************************
+ * News System for Pokemon Showdown																								*
+ * This Shows News via the /news view command and sends news in PMs when users connect to the server if they have subscribed	*
+ * Credits: Lord Haji, HoeenHero																								*
+ * @license MIT license																											*
+ ********************************************************************************************************************************/
 
 "use strict";
 
-let newsRequests = {};
+const FS = require("../lib/fs.js");
 
-const fs = require("fs");
+let newsRequests = FS("config/newsrequests.json").readIfExistsSync();
+
+if (newsRequests !== "") {
+	newsRequests = JSON.parse(newsRequests);
+} else {
+	newsRequests = {};
+}
 
 function generateNews(user) {
 	let newsData, newsDisplay = [];
@@ -47,17 +52,8 @@ Server.showNews = function (userid, user) {
 	}
 };
 
-function loadNewsRequests() {
-	try {
-		newsRequests = JSON.parse(fs.readFileSync("config/newsrequests.json"));
-	} catch (e) {
-		newsRequests = {};
-	}
-}
-loadNewsRequests();
-
 function saveNewsRequests() {
-	fs.writeFile("config/newsrequests.json", JSON.stringify(newsRequests));
+	FS("config/newsrequests.json").write(JSON.stringify(newsRequests));
 }
 
 exports.commands = {
@@ -133,7 +129,6 @@ exports.commands = {
 			let MonthNames = ["January", "February", "March", "April", "May", "June",
 				"July", "August", "September", "October", "November", "December",
 			];
-			console.log(newsId);
 			while (newsRequests[newsId]) newsId--;
 			newsRequests[newsId] = {};
 			newsRequests[newsId].reporter = user.name;

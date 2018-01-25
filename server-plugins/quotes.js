@@ -5,25 +5,29 @@
 
 "use strict";
 
-let quotes = {};
+const FS = require("../lib/fs.js");
 
-const fs = require("fs");
+let quotes = FS("config/quotes.json").readIfExistsSync();
 
-try {
-	quotes = JSON.parse(fs.readFileSync("config/quotes.json", "utf8"));
-} catch (e) {
-	if (e.code !== "ENOENT") throw e;
+if (quotes !== "") {
+	quotes = JSON.parse(quotes);
+} else {
+	quotes = {};
 }
 
 function write() {
-	if (Object.keys(quotes).length < 1) return fs.writeFileSync('config/quotes.json', JSON.stringify(quotes));
+	FS("config/quotes.json").writeUpdate(() => (
+		JSON.stringify(quotes)
+	));
 	let data = "{\n";
 	for (let u in quotes) {
 		data += '\t"' + u + '": ' + JSON.stringify(quotes[u]) + ",\n";
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	fs.writeFileSync('config/quotes.json', data);
+	FS("config/quotes.json").writeUpdate(() => (
+		data
+	));
 }
 
 exports.commands = {
@@ -50,8 +54,9 @@ exports.commands = {
 		delete: function (target, room, user) {
 			if (!this.can("lock")) return false;
 			if (!target) return this.errorReply("This command requires a target.");
-			if (!quotes[toId(target)].id) return this.errorReply(`This quote doesn't exist!`);
-			delete quotes[toId(target)];
+			let quoteid = toId(target);
+			if (!quotes[quoteid]) return this.errorReply(`${target} is not currently registered as a quote.`);
+			delete quotes[quoteid];
 			write();
 			this.sendReply(`Quote ${target} has been deleted.`);
 		},

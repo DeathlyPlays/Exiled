@@ -15928,16 +15928,10 @@ exports.BattleMovedex = {
 		name: "Splash",
 		pp: 40,
 		priority: 0,
-		onTryHit: function (target, source) {
-			this.add('-nothing');
-		},
 		flags: {gravity: 1},
-<<<<<<< HEAD
 		onTryHit: function (target, source) {
 			this.add('-nothing');
 		},
-=======
->>>>>>> 34874c0056263cd2a2f7a81bc4bf4d474504eb88
 		secondary: false,
 		target: "self",
 		type: "Normal",

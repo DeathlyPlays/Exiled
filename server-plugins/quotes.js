@@ -5,25 +5,29 @@
 
 "use strict";
 
-let quotes = {};
+const FS = require("../lib/fs.js");
 
-const fs = require("fs");
+let quotes = FS("config/quotes.json").readIfExistsSync();
 
-try {
-	quotes = JSON.parse(fs.readFileSync("config/quotes.json", "utf8"));
-} catch (e) {
-	if (e.code !== "ENOENT") throw e;
+if (quotes !== "") {
+	quotes = JSON.parse(quotes);
+} else {
+	quotes = {};
 }
 
 function write() {
-	if (Object.keys(quotes).length < 1) return fs.writeFileSync('config/quotes.json', JSON.stringify(quotes));
+	FS("config/quotes.json").writeUpdate(() => (
+		JSON.stringify(quotes)
+	));
 	let data = "{\n";
 	for (let u in quotes) {
 		data += '\t"' + u + '": ' + JSON.stringify(quotes[u]) + ",\n";
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	fs.writeFileSync('config/quotes.json', data);
+	FS("config/quotes.json").writeUpdate(() => (
+		data
+	));
 }
 
 exports.commands = {
@@ -36,7 +40,6 @@ exports.commands = {
 			if (!targets[1]) return this.errorReply("/quote add (name), (quote). Requires lock permissions.");
 			let name = targets[0];
 			if (name.length > 18) return this.errorReply("Quote names must be 18 characters or less!");
-			if (name[toId(name)]) return this.errorReply(`${name} is already a quote!`);
 			let quote = targets[1];
 			if (quote.length > 300) return this.errorReply("Quotes should remain 300 characters long or less.");
 			quotes[toId(name)] = {
@@ -51,8 +54,9 @@ exports.commands = {
 		delete: function (target, room, user) {
 			if (!this.can("lock")) return false;
 			if (!target) return this.errorReply("This command requires a target.");
-			if (!quotes[toId(target)].id) return this.errorReply(`This quote doesn't exist!`);
-			delete quotes[toId(target)];
+			let quoteid = toId(target);
+			if (!quotes[quoteid]) return this.errorReply(`${target} is not currently registered as a quote.`);
+			delete quotes[quoteid];
 			write();
 			this.sendReply(`Quote ${target} has been deleted.`);
 		},
@@ -72,13 +76,6 @@ exports.commands = {
 			}
 		},
 
-		list: function (target, room, user) {
-			if (!this.runBroadcast()) return;
-			let reply = `<b><u>Quotes (${Object.keys(quotes).length})</u></b><br />`;
-			for (let quote in quotes) reply += `(<strong>${quote}</strong>)<br />`;
-			this.sendReplyBox(`${reply}`);
-		},
-
 		"": "help",
 		help: function () {
 			this.parse("/help quote");
@@ -86,10 +83,10 @@ exports.commands = {
 	},
 
 	quotehelp: [
-		`/quote add [name], [quote] - Adds a quote into the server database. Requires % and up.
-		/quote delete [name] - Deletes a quote from the server database.  Requires % and up.
-		/quote show - Randomly generates a quote from the database.
-		/quote show [name] - Displays a specific quote from the database.
-		/quote help - Shows this command.`,
+		"/quote add [name], [quote] - Adds a quote into the server database. Requires % and up.",
+		"/quote delete [name] - Deletes a quote from the server database.  Requires % and up.",
+		"/quote show - Randomly generates a quote from the database.",
+		"/quote show [name] - Displays a specific quote from the database.",
+		"/quote help - Shows this command.",
 	],
 };

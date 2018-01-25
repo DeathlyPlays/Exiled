@@ -36,6 +36,7 @@ exports.commands = {
 			if (!targets[1]) return this.errorReply("/quote add (name), (quote). Requires lock permissions.");
 			let name = targets[0];
 			if (name.length > 18) return this.errorReply("Quote names must be 18 characters or less!");
+			if (name[toId(name)]) return this.errorReply(`${name} is already a quote!`);
 			let quote = targets[1];
 			if (quote.length > 300) return this.errorReply("Quotes should remain 300 characters long or less.");
 			quotes[toId(name)] = {
@@ -71,6 +72,13 @@ exports.commands = {
 			}
 		},
 
+		list: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			let reply = `<b><u>Quotes (${Object.keys(quotes).length})</u></b><br />`;
+			for (let quote in quotes) reply += `(<strong>${quote}</strong>)<br />`;
+			this.sendReplyBox(`${reply}`);
+		},
+
 		"": "help",
 		help: function () {
 			this.parse("/help quote");
@@ -78,10 +86,10 @@ exports.commands = {
 	},
 
 	quotehelp: [
-		"/quote add [name], [quote] - Adds a quote into the server database. Requires % and up.",
-		"/quote delete [name] - Deletes a quote from the server database.  Requires % and up.",
-		"/quote show - Randomly generates a quote from the database.",
-		"/quote show [name] - Displays a specific quote from the database.",
-		"/quote help - Shows this command.",
+		`/quote add [name], [quote] - Adds a quote into the server database. Requires % and up.
+		/quote delete [name] - Deletes a quote from the server database.  Requires % and up.
+		/quote show - Randomly generates a quote from the database.
+		/quote show [name] - Displays a specific quote from the database.
+		/quote help - Shows this command.`,
 	],
 };

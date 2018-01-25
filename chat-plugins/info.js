@@ -1192,24 +1192,6 @@ exports.commands = {
 	punishments: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-<<<<<<< HEAD
-			"<strong>Room punishments</strong>:<br />" +
-			"<strong>warn</strong> - Displays a popup with the rules.<br />" +
-			"<strong>mute</strong> - Mutes a user (makes them unable to talk) for 7 minutes.<br />" +
-			"<strong>hourmute</strong> - Mutes a user for 60 minutes.<br />" +
-			"<strong>daymute</strong> - Mutes a user for 24 hours.<br />" +
-			"<strong>weekmute</strong> - Mutes a user for 1 week.<br />" +
-			"<strong>monthmute</strong> - Mutes a user for 1 month.<br />" +
-			"<strong>yearmute</strong> - Mutes a user for 1 year.<br />" +
-			"<strong>ban</strong> - Bans a user (makes them unable to join the room) for 2 days.<br />" +
-			"<strong>blacklist</strong> - Bans a user for a year.<br />" +
-			"<br />" +
-			"<strong>Global punishments</strong>:<br />" +
-			"<strong>lock</strong> - Locks a user (makes them unable to talk in any rooms or PM non-staff) for 2 days.<br />" +
-			"<strong>weeklock</strong> - Locks a user for a week.<br />" +
-			"<strong>namelock</strong> - Locks a user and prevents them from having a username for 2 days.<br />" +
-			"<strong>globalban</strong> - Globally bans (makes them unable to connect and play games) for a week."
-=======
 			`<strong>Room punishments</strong>:<br />` +
 			`<strong>warn</strong> - Displays a popup with the rules.<br />` +
 			`<strong>mute</strong> - Mutes a user (makes them unable to talk) for 7 minutes.<br />` +
@@ -1222,7 +1204,6 @@ exports.commands = {
 			`<strong>weeklock</strong> - Locks a user for a week.<br />` +
 			`<strong>namelock</strong> - Locks a user and prevents them from having a username for 2 days.<br />` +
 			`<strong>globalban</strong> - Globally bans (makes them unable to connect and play games) for a week.`
->>>>>>> 4ef1c58606347d381522405af92eb9ff419ed970
 		);
 	},
 	punishmentshelp: [
@@ -1230,36 +1211,10 @@ exports.commands = {
 		`!punishments - Show everyone that information. Requires: + % @ * # & ~`,
 	],
 
-	'!opensource': true,
-	repo: 'opensource',
-	repository: 'opensource',
-	git: 'opensource',
-	opensource: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox(
-			`Pok&eacute;mon Showdown is open source:<br />` +
-			`- Language: JavaScript (Node.js)<br />` +
-			`- <a href="https://github.com/Zarel/Pokemon-Showdown/commits/master">What's new?</a><br />` +
-			`- <a href="https://github.com/Zarel/Pokemon-Showdown">Server source code</a><br />` +
-			`- <a href="https://github.com/Zarel/Pokemon-Showdown-Client">Client source code</a><br />` +
-			`- <a href="https://github.com/Zarel/Pokemon-Showdown-Dex">Dex source code</a>`
-		);
-	},
-	opensourcehelp: [
-		`/opensource - Links to PS's source code repository.`,
-		`!opensource - Show everyone that information. Requires: + % @ * # & ~`,
-	],
-
 	'!staff': true,
 	staff: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(`<a href="http://www.smogon.com/sim/staff_list">Pok&eacute;mon Showdown Staff List</a>`);
-	},
-
-	'!forums': true,
-	forums: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox(`<a href="http://www.smogon.com/forums/forums/209/">Pok&eacute;mon Showdown Forums</a>`);
 	},
 
 	'!privacypolicy': true,
@@ -1271,27 +1226,6 @@ exports.commands = {
 			`- We use cookies to save your login info and teams, and for Google Analytics and AdSense.<br />` +
 			`- For more information, you can read our <a href="https://pokemonshowdown.com/privacy">full privacy policy.</a>`
 		);
-	},
-
-	'!suggestions': true,
-	suggestions: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox(`<a href="http://www.smogon.com/forums/threads/3534365/">Make a suggestion for Pok&eacute;mon Showdown</a>`);
-	},
-
-	'!bugs': true,
-	bugreport: 'bugs',
-	bugs: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		if (room && room.battle) {
-			this.sendReplyBox(`<center><button name="saveReplay"><i class="fa fa-upload"></i> Save Replay</button> &mdash; <a href="http://www.smogon.com/forums/threads/3520646/">Questions</a> &mdash; <a href="http://www.smogon.com/forums/threads/3469932/">Bug Reports</a></center>`);
-		} else {
-			this.sendReplyBox(
-				`Have a replay showcasing a bug on Pok&eacute;mon Showdown?<br />` +
-				`- <a href="http://www.smogon.com/forums/threads/3520646/">Questions</a><br />` +
-				`- <a href="http://www.smogon.com/forums/threads/3469932/">Bug Reports</a> (ask in <a href="/help">Help</a> before posting in the thread if you're unsure)`
-			);
-		}
 	},
 
 	'!avatars': true,

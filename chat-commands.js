@@ -761,22 +761,14 @@ exports.commands = {
 		if (room.chatRoomData) {
 			if (room.isPrivate) {
 				if (Rooms.get('upperstaff')) {
-<<<<<<< HEAD
-					Rooms.get('upperstaff').add(`|raw|<div class="broadcast-red">Private chat room deleted by ${Server.nameColor(user.userid)}: <b>${Chat.escapeHTML(target)}</b></div>`).update();
-=======
-					Rooms.get('upperstaff').add(Chat.html`|raw|<div class="broadcast-red">Private chat room deleted by ${user.userid}: <b>${title}</b></div>`).update();
->>>>>>> 4ef1c58606347d381522405af92eb9ff419ed970
+					Rooms.get('upperstaff').add(Chat.html`|raw|<div class="broadcast-red">Private chat room deleted by ${Server.nameColor(user.userid)}: <b>${title}</b></div>`).update();
 				}
 			} else {
 				if (Rooms.get('staff')) {
 					Rooms.get('staff').add(Chat.html`|raw|<div class="broadcast-red">Public chat room deleted: <b>${title}</b></div>`).update();
 				}
 				if (Rooms.get('upperstaff')) {
-<<<<<<< HEAD
-					Rooms.get('upperstaff').add(`|raw|<div class="broadcast-red">Public chat room deleted by ${Server.nameColor(user.userid)}: <b>${Chat.escapeHTML(target)}</b></div>`).update();
-=======
-					Rooms.get('upperstaff').add(Chat.html`|raw|<div class="broadcast-red">Public chat room deleted by ${user.userid}: <b>${title}</b></div>`).update();
->>>>>>> 4ef1c58606347d381522405af92eb9ff419ed970
+					Rooms.get('upperstaff').add(Chat.html`|raw|<div class="broadcast-red">Public chat room deleted by ${Server.nameColor(user.userid)}: <b>${title}</b></div>`).update();
 				}
 			}
 		}
@@ -2708,7 +2700,7 @@ exports.commands = {
 		if (!this.can('hotpatch')) return;
 
 		const lock = Monitor.hotpatchLock;
-		const hotpatches = ['chat', 'formats', 'loginserver', 'punishments', 'dnsbl', 'server'];
+		const hotpatches = ['chat', 'formats', 'loginserver', 'punishments', 'dnsbl'];
 
 		try {
 			if (target === 'all') {

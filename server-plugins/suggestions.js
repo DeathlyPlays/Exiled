@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-"use strict";
-
-let suggestions = {};
-
-const fs = require("fs");
-
-try {
-	suggestions = JSON.parse(fs.readFileSync("config/suggestion-index.json", "utf8"));
-} catch (e) {
-	if (e.code !== "ENOENT") throw e;
-}
-
-function write() {
-	if (Object.keys(suggestions).length < 1) return fs.writeFileSync('config/suggestion-index.json', JSON.stringify(suggestions));
-=======
 /********************************************
  * Suggestions Index for Pokemon Showdown	*
  * Created by: flufi						*
@@ -35,20 +19,15 @@ function write() {
 	FS("config/suggestion-index.json").writeUpdate(() => (
 		JSON.stringify(suggestions)
 	));
->>>>>>> c8aae7134122cff55b2abc9505e5e0085aa0997a
 	let data = "{\n";
 	for (let u in suggestions) {
 		data += '\t"' + u + '": ' + JSON.stringify(suggestions[u]) + ",\n";
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-<<<<<<< HEAD
-	fs.writeFileSync('config/suggestion-index.json', data);
-=======
 	FS("config/suggestion-index.json").writeUpdate(() => (
 		data
 	));
->>>>>>> c8aae7134122cff55b2abc9505e5e0085aa0997a
 }
 
 exports.commands = {
@@ -78,14 +57,9 @@ exports.commands = {
 		delete: function (target) {
 			if (!this.can("ban")) return false;
 			if (!target) return this.errorReply("Please enter a valid suggestion ID.");
-<<<<<<< HEAD
-			if (!suggestions[toId(target)].id) return this.errorReply(`That suggestion does not exist.`);
-			delete suggestions[toId(target)];
-=======
 			let suggestionid = toId(target);
 			if (!suggestions[suggestionid]) return this.errorReply(`${target} is not currently registered as a suggestion.`);
 			delete suggestions[suggestionid];
->>>>>>> c8aae7134122cff55b2abc9505e5e0085aa0997a
 			write();
 			this.sendReply(`Suggestion "${target}" has been deleted.`);
 		},

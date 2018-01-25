@@ -217,18 +217,11 @@ exports.commands = {
 		if (!target) return this.sendReply('/banhammer needs a target.');
 		if (!this.can('mute', null, room)) return false;
 		let targetUser = Users.get(target);
-<<<<<<< HEAD
-		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
+		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);;
 		room.addRaw(Server.nameColor(user.name, true, true) + ' has gave the hammer to ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("|html|<b><font color='red'><font size='4'>The Hammer has been dropped!</font></b>");
 		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
 		targetUser.leaveRoom(room.id);
-=======
-		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
-		if (targetUser.can('root')) return this.sendReply('You cannot ban an Admin - nice try. Chump.');
-		room.addRaw(Server.nameColor(user.name, true, true) + ' has gave the hammer to ' + Server.nameColor(target, true, true) + '.');
-		targetUser.popup("The Hammer has been dropped");
->>>>>>> c8aae7134122cff55b2abc9505e5e0085aa0997a
 	},
 
 	"!rekt": true,
@@ -337,13 +330,11 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center><img src="http://cdn.buzzlie.com/wp-content/uploads/2015/11/54a07996c8f1c37f77be418079ae352a.jpg" height="300" width="300"><br></center>');
 	},
-<<<<<<< HEAD
-	lenny: function (target, room, user) {
-		this.parse("( ͡° ͜ʖ ͡°)﻿");
-	},
-=======
 
->>>>>>> c8aae7134122cff55b2abc9505e5e0085aa0997a
+	lenny: function (target, room, user) {
+		this.parse(`( ͡° ͜ʖ ͡°)`);
+	},
+
 	sans2: function (target, room) {
 		if (!target) return this.sendReply('/sans2 needs a target.');
 		let targetUser = Users.get(target);
@@ -476,19 +467,17 @@ exports.commands = {
 		targetUser.popup("Get burned!");
 		if (user.can('hotpatch')) this.parse(`/forcelogout ${targetUser}`);
 	},
-<<<<<<< HEAD
+
 	l: 'loss',
 	loss: function (target, room, user) {
 		if (!target) return this.sendReply('/loss needs a target.');
 		if (!this.can('mute', null, room)) return this.errorReply('/loss - Access Denied.');
 		let targetUser = Users.get(target);
-		if (!targetUser || !targetUser.connected) return this.sendReply("User \"" + this.targetUsername + "\" not found.");
+		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(target, true, true) + ' took an L!');
-		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
+		if (user.can('hotpatch')) this.parse(`/forcelogout ${targetUser}`);
 	},
-=======
 
->>>>>>> c8aae7134122cff55b2abc9505e5e0085aa0997a
 	shoot: 'blast',
 	blast: function (target, room, user) {
 		if (!target) return this.sendReply('/shoot needs a target.');
@@ -499,12 +488,12 @@ exports.commands = {
 		if (user.can('hotpatch')) this.parse(`/forcelogout ${targetUser}`);
 	},
 
-/************************************
- * MEME RANDOMIZER					*
- * Coded by:						*
- * Insist							*
- * Requested for by Speckeldorft	*
- ************************************/
+	/************************************
+	 * MEME RANDOMIZER					*
+	 * Coded by:						*
+	 * Insist							*
+	 * Requested for by Speckeldorft	*
+	 ************************************/
 	meme: 'memes',
 	memes: {
 		add: function (target, room, user) {

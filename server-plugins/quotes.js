@@ -61,6 +61,9 @@ exports.commands = {
 			this.sendReply(`Quote ${target} has been deleted.`);
 		},
 
+		view: "show",
+		display: "show",
+		search: "show",
 		show: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (Object.keys(quotes).length < 1) return this.sendReply("There are no quotes on this server.");
@@ -76,6 +79,15 @@ exports.commands = {
 			}
 		},
 
+		listquotes: "viewquotes",
+		list: "viewquotes",
+		viewquotes: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			let reply = `<b><u>Quotes (${Object.keys(quotes).length})</u></b><br />`;
+			for (let quote in quotes) reply += `<strong>${quote}</strong><br />`;
+			this.sendReplyBox(`<div class="infobox infobox-limited">${reply}</div>`);
+		},
+
 		"": "help",
 		help: function () {
 			this.parse("/help quote");
@@ -83,10 +95,11 @@ exports.commands = {
 	},
 
 	quotehelp: [
-		"/quote add [name], [quote] - Adds a quote into the server database. Requires % and up.",
-		"/quote delete [name] - Deletes a quote from the server database.  Requires % and up.",
-		"/quote show - Randomly generates a quote from the database.",
-		"/quote show [name] - Displays a specific quote from the database.",
-		"/quote help - Shows this command.",
+		`/quote add [name], [quote] - Adds a quote into the server database. Requires % and up.
+		/quote delete [name] - Deletes a quote from the server database.  Requires % and up.
+		/quote show - Randomly generates a quote from the database.
+		/quote show [name] - Displays a specific quote from the database.
+		/quote list - Shows all the existing quote names.
+		/quote help - Shows this command.`,
 	],
 };

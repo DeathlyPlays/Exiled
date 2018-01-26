@@ -473,12 +473,12 @@ exports.commands = {
 		if (user.can('hotpatch')) this.parse(`/forcelogout ${targetUser}`);
 	},
 
-/************************************
- * MEME RANDOMIZER					*
- * Coded by:						*
- * Insist							*
- * Requested for by Speckeldorft	*
- ************************************/
+	/************************************
+	 * MEME RANDOMIZER					*
+	 * Coded by:						*
+	 * Insist							*
+	 * Requested for by Speckeldorft	*
+	 ************************************/
 	meme: 'memes',
 	memes: {
 		add: function (target, room, user) {

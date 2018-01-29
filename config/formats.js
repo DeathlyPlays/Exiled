@@ -59,14 +59,23 @@ exports.Formats = [
 	{
 		name: "[Gen 7] UU",
 		desc: [
-			`&bullet; <a href="http://www.smogon.com/forums/threads/3625273/">UU Metagame Discussion</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3627043/">UU Metagame Discussion</a>`,
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3620980/">UU Viability Rankings</a>`,
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3621217/">UU Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
+		searchShow: false,
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['OU', 'BL', 'Drizzle', 'Drought', 'Kommonium Z', 'Mewnium Z'],
+	},
+	{
+		name: "[Gen 7] UU (suspect test)",
+		desc: [`&bullet; <a href="http://www.smogon.com/forums/threads/3627043/">UU Suspect Test</a>`],
+
+		mod: 'gen7',
+		ruleset: ['[Gen 7] UU'],
+		unbanlist: ['Breloom', 'Buzzwole'],
 	},
 	{
 		name: "[Gen 7] RU",
@@ -269,10 +278,7 @@ exports.Formats = [
 		mod: 'gen7',
 		gameType: 'doubles',
 		ruleset: ['Pokemon', 'Standard Doubles', 'Swagger Clause', 'Team Preview'],
-		banlist: ['Arceus', 'Dialga', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Jirachi', 'Kangaskhan-Mega', 'Kyogre', 'Kyurem-White', 'Lugia', 'Lunala',
-			'Magearna', 'Marshadow', 'Mewtwo', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Palkia', 'Rayquaza', 'Reshiram', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zekrom',
-			'Power Construct', 'Eevium Z', 'Dark Void', 'Gravity ++ Grass Whistle', 'Gravity ++ Hypnosis', 'Gravity ++ Lovely Kiss', 'Gravity ++ Sing', 'Gravity ++ Sleep Powder',
-		],
+		banlist: ['DUber', 'Power Construct', 'Eevium Z', 'Dark Void', 'Gravity ++ Grass Whistle', 'Gravity ++ Hypnosis', 'Gravity ++ Lovely Kiss', 'Gravity ++ Sing', 'Gravity ++ Sleep Powder'],
 	},
 	{
 		name: "[Gen 7] Doubles Ubers",
@@ -280,7 +286,7 @@ exports.Formats = [
 		mod: 'gen7',
 		gameType: 'doubles',
 		ruleset: ['Pokemon', 'Standard Doubles', 'Team Preview'],
-		banlist: ['Illegal', 'Unreleased', 'Dark Void'],
+		banlist: ['Dark Void'],
 	},
 	{
 		name: "[Gen 7] Doubles UU",
@@ -289,13 +295,7 @@ exports.Formats = [
 		mod: 'gen7',
 		gameType: 'doubles',
 		ruleset: ['[Gen 7] Doubles OU'],
-		banlist: [
-			'Aegislash', 'Amoonguss', 'Arcanine', 'Bronzong', 'Camerupt-Mega', 'Celesteela', 'Charizard-Mega-Y', 'Cresselia', 'Deoxys-Attack', 'Diancie', 'Diancie-Mega', 'Excadrill',
-			'Ferrothorn', 'Garchomp', 'Gastrodon', 'Genesect', 'Gengar-Mega', 'Heatran', 'Hoopa-Unbound', 'Jirachi', 'Kangaskhan-Mega', 'Kartana', 'Kingdra',
-			'Kyurem-Black', 'Landorus-Therian', 'Marowak-Alola', 'Marowak-Alola-Totem', 'Marshadow', 'Metagross-Mega', 'Mew', 'Mimikyu', 'Naganadel', 'Ninetales-Alola',
-			'Oranguru', 'Pelipper', 'Politoed', 'Porygon2', 'Salamence-Mega', 'Scrafty', 'Snorlax', 'Stakataka', 'Swampert-Mega', 'Tapu Bulu', 'Tapu Fini',
-			'Tapu Koko', 'Tapu Lele', 'Torkoal', 'Tyranitar', 'Volcanion', 'Volcarona', 'Whimsicott', 'Zapdos', 'Zygarde-Base',
-		],
+		banlist: ['DOU', 'DBL'],
 	},
 	{
 		name: "[Gen 7] VGC 2018",
@@ -1207,11 +1207,7 @@ exports.Formats = [
 		gameType: 'doubles',
 		searchShow: false,
 		ruleset: ['Pokemon', 'Standard Doubles', 'Swagger Clause', 'Team Preview'],
-		banlist: [
-			'Arceus', 'Dialga', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem-White', 'Lugia', 'Mewtwo',
-			'Palkia', 'Rayquaza', 'Reshiram', 'Salamence-Mega', 'Shaymin-Sky', 'Xerneas', 'Yveltal', 'Zekrom',
-			'Soul Dew', 'Dark Void', 'Gravity ++ Grass Whistle', 'Gravity ++ Hypnosis', 'Gravity ++ Lovely Kiss', 'Gravity ++ Sing', 'Gravity ++ Sleep Powder',
-		],
+		banlist: ['DUber', 'Soul Dew', 'Dark Void', 'Gravity ++ Grass Whistle', 'Gravity ++ Hypnosis', 'Gravity ++ Lovely Kiss', 'Gravity ++ Sing', 'Gravity ++ Sleep Powder'],
 	},
 	{
 		name: "[Gen 6] VGC 2016",

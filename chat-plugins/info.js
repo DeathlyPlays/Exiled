@@ -427,7 +427,12 @@ exports.commands = {
 					return this.sendReply(buffer);
 				case 'pokemon':
 					let template = mod.getTemplate(newTarget.name);
-					buffer += `|raw|${Chat.getDataPokemonHTML(template, mod.gen)}\n`;
+					let tier = template.tier;
+					if (room && (room.id === 'smogondoubles' ||
+						['gen7doublesou', 'gen7doublesubers', 'gen7doublesuu'].includes(room.battle && room.battle.format))) {
+						tier = template.doublesTier;
+					}
+					buffer += `|raw|${Chat.getDataPokemonHTML(template, mod.gen, tier)}\n`;
 					break;
 				case 'item':
 					let item = mod.getItem(newTarget.name);

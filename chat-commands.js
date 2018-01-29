@@ -3323,7 +3323,7 @@ exports.commands = {
 			return this.errorReply("/evalbattle - This isn't a battle room.");
 		}
 
-		room.battle.send('eval', target.replace(/\n/g, '\f'));
+		room.battle.stream.write(`>eval ` + target.replace(/\n/g, '\f'));
 	},
 
 	ebat: 'editbattle',

@@ -1611,4 +1611,10 @@ exports.commands = {
 		user.updateIdentity();
 		return this.sendReply("You are now showing your authority!");
 	},
+
+	welcome: "wel",
+	wel: function (target, room, user) {
+		if (!this.canTalk()) return;
+		this.parse(`Welcome to ${Config.serverName}, ${target}! Feel free to check our a few of our features by checking out /serverhelp!`);
+	},
 };

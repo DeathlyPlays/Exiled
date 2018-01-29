@@ -54,7 +54,6 @@ class BattlePlayer {
 		}
 	}
 	destroy() {
-		if (this.active) this.simSend('leave');
 		let user = Users(this.userid);
 		if (user) {
 			for (const connection of user.connections) {
@@ -86,9 +85,6 @@ class BattlePlayer {
 	sendRoom(/** @type {string} */ data) {
 		let user = Users(this.userid);
 		if (user) user.sendTo(this.game.id, data);
-	}
-	simSend(/** @type {string} */ action, /** @type {string[]} */ ...rest) {
-		this.game.send(action, this.slot, ...rest);
 	}
 }
 
@@ -314,7 +310,7 @@ class BattleTimer {
 			if (ticks) continue;
 			if (this.settings.timeoutAutoChoose && this.ticksLeft[slotNum] && this.dcTicksLeft[slotNum] === NOT_DISCONNECTED) {
 				const slot = 'p' + (slotNum + 1);
-				this.battle.send('choose', slot, 'default');
+				this.battle.stream.write(`>${slot} default`);
 				didSomething = true;
 			} else {
 				this.battle.forfeitSlot(slotNum, ' lost due to inactivity.');
@@ -325,9 +321,6 @@ class BattleTimer {
 	}
 }
 
-/**
- * @typedef {'p1' | 'p2'} PlayerSlot
- */
 /**
  * @typedef {{rqid: number, request: string, isWait: 'cantUndo' | true | false, choice: string}} BattleRequestTracker
  */
@@ -393,22 +386,18 @@ class Battle {
 			ratedMessage = 'Tournament battle';
 		}
 
-		this.send('init', this.id, this.format, ratedMessage);
+		let battleOptions = {
+			formatid: this.format,
+			id: this.id,
+			rated: ratedMessage,
+			seed: options.seed,
+		};
+		this.stream.write(`>start ` + JSON.stringify(battleOptions));
 		if (Config.forcetimer) this.timer.start();
 
 		this.listen();
 	}
 
-	send(/** @type {string[]} */ ...args) {
-		this.activeIp = Monitor.activeIp;
-		this.stream.write(args.join('|'));
-	}
-	sendFor(/** @type {User} */ user, /** @type {string} */ action, /** @type {string[]} */ ...rest) {
-		let player = this.players[user.userid];
-		if (!player) return;
-
-		this.send(action, player.slot, ...rest);
-	}
 	checkActive() {
 		let active = true;
 		if (this.ended || !this.started) {
@@ -444,7 +433,7 @@ class Battle {
 		request.isWait = true;
 		request.choice = choice;
 
-		this.sendFor(user, 'choose', choice);
+		this.stream.write(`>${player.slot} ${choice}`);
 	}
 	/**
 	 * @param {User} user
@@ -466,7 +455,7 @@ class Battle {
 		}
 		request.isWait = false;
 
-		this.sendFor(user, 'undo');
+		this.stream.write(`>${player.slot} undo`);
 	}
 	/**
 	 * @param {User} user
@@ -514,7 +503,6 @@ class Battle {
 		}
 	}
 	receive(/** @type {string[]} */ lines) {
-		Monitor.activeIp = this.activeIp;
 		switch (lines[0]) {
 		case 'update':
 			this.checkActive();
@@ -522,6 +510,7 @@ class Battle {
 				this.room.add(line);
 			}
 			this.room.update();
+<<<<<<< HEAD
 			this.timer.nextRequest();
 			break;
 
@@ -543,31 +532,24 @@ class Battle {
 				this.removeAllPlayers();
 			}
 			this.checkActive();
+=======
+			if (!this.ended) this.timer.nextRequest();
+>>>>>>> ac8c8e41a60d4f18b4c01c48f84abf394642a344
 			break;
 
 		case 'sideupdate': {
-			// @ts-ignore
-			let player = /** @type {BattlePlayer?} */ (this[lines[1]]);
-			if (player) {
-				player.sendRoom(lines[2]);
-				if (lines[2].startsWith(`|error|[Invalid choice] Can't do anything`)) {
-					// ... should not happen
-				} else if (lines[2].startsWith(`|error|[Invalid choice]`)) {
-					let request = this.requests[player.slot];
-					request.isWait = false;
-					request.choice = '';
-				}
-			}
-			break;
-		}
-
-		case 'request': {
-			// @ts-ignore
-			let player = /** @type {BattlePlayer?} */ (this[lines[1]]);
-
-			this.rqid++;
-			if (player) {
-				let request = JSON.parse(lines[2]);
+			let player = this[/** @type {PlayerSlot} */ (lines[1])];
+			if (!player) break;
+			player.sendRoom(lines[2]);
+			if (lines[2].startsWith(`|error|[Invalid choice] Can't do anything`)) {
+				// ... should not happen
+			} else if (lines[2].startsWith(`|error|[Invalid choice]`)) {
+				let request = this.requests[player.slot];
+				request.isWait = false;
+				request.choice = '';
+			} else if (lines[2].startsWith(`|request|`)) {
+				this.rqid++;
+				let request = JSON.parse(lines[2].slice(9));
 				request.rqid = this.rqid;
 				const requestJSON = JSON.stringify(request);
 				this.requests[player.slot] = {
@@ -582,15 +564,17 @@ class Battle {
 			break;
 		}
 
-		case 'log':
+		case 'end':
 			this.logData = JSON.parse(lines[1]);
-			break;
-
-		case 'score':
-			this.score = [parseInt(lines[1]), parseInt(lines[2])];
+			this.score = this.logData.score;
+			this.started = true;
+			if (!this.ended) {
+				this.ended = true;
+				this.onEnd(this.logData.winnerid);
+				this.removeAllPlayers();
+			}
 			break;
 		}
-		Monitor.activeIp = null;
 	}
 	/**
 	 * @param {any} winner
@@ -759,7 +743,11 @@ class Battle {
 		player.userid = user.userid;
 		player.name = user.name;
 		delete this.players[oldUserid];
-		player.simSend('join', user.name, user.avatar);
+		const options = {
+			name: user.name,
+			avatar: user.avatar,
+		};
+		this.stream.write(`>player ${player.slot} ` + JSON.stringify(options));
 	}
 	/**
 	 * @param {User} user
@@ -795,13 +783,13 @@ class Battle {
 		}
 		let player = this.players[user.userid];
 		if (!player) return false;
-		player.simSend('win');
+		this.stream.write(`>forcewin ${player.slot}`);
 	}
 	tie() {
-		this.send('tie');
+		this.stream.write(`>forcetie`);
 	}
 	tiebreak() {
-		this.send('tiebreak');
+		this.stream.write(`>tiebreak`);
 	}
 	/**
 	 * @param {User} user
@@ -834,7 +822,7 @@ class Battle {
 		this.room.add(`|-message|${name}${message}`);
 		this.endType = 'forfeit';
 		const otherids = ['p2', 'p1'];
-		this.send('win', otherids[slotNum]);
+		this.stream.write(`>forcewin ${otherids[slotNum]}`);
 		return true;
 	}
 
@@ -873,11 +861,14 @@ class Battle {
 		this[slot] = player;
 		this.playerNames[slotNum] = player.name;
 
-		let message = '' + user.avatar;
+		let options = {
+			name: player.name,
+			avatar: '' + user.avatar,
+		};
 		if (!this.started) {
-			message += "\n" + team;
+			options.team = team;
 		}
-		player.simSend('join', user.name, message);
+		this.stream.write(`>player ${slot} ` + JSON.stringify(options));
 		if (this.started) this.onUpdateConnection(user);
 		if (this.p1 && this.p2) this.started = true;
 		return player;
@@ -943,10 +934,11 @@ if (!PM.isParentProcess) {
 	// This is a child process!
 	// @ts-ignore
 	global.Config = require('./config/config');
-
 	global.Chat = require('./chat');
-	global.Dex = require('./sim/dex');
-	global.toId = Dex.getId;
+	global.__version = require('child_process')
+		.execSync('git merge-base master HEAD')
+		.toString()
+		.trim();
 
 	if (Config.crashguard) {
 		// graceful crash - allow current battles to finish before restarting

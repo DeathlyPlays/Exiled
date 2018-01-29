@@ -510,31 +510,7 @@ class Battle {
 				this.room.add(line);
 			}
 			this.room.update();
-<<<<<<< HEAD
-			this.timer.nextRequest();
-			break;
-
-		case 'winupdate':
-			for (const line of lines.slice(2)) {
-				this.room.add(line);
-			}
-			if (Rooms.global.FvF && Rooms.global.FvF[toId(Server.getFaction(this.room.p1))]) {
-				if (this.format === Rooms(Rooms.global.FvF[toId(Server.getFaction(this.room.p1))].room).fvf.tier && lines[lines.length - 1].split('|')[1] === 'tie') {
-					Server.isFvFBattle(toId(this.room.p1), toId(this.room.p2), this.room.id, 'tie');
-				} else if (this.format === Rooms(Rooms.global.FvF[toId(Server.getFaction(this.room.p1))].room).fvf.tier && lines[lines.length - 1].split('|')[1] === 'win') {
-					Server.isFvFBattle(toId(this.room.p1), toId(this.room.p2), this.room.id, 'p-' + toId(lines[lines.length - 1].split('|')[2]));
-				}
-			}
-			this.started = true;
-			if (!this.ended) {
-				this.ended = true;
-				this.onEnd(lines[1]);
-				this.removeAllPlayers();
-			}
-			this.checkActive();
-=======
 			if (!this.ended) this.timer.nextRequest();
->>>>>>> ac8c8e41a60d4f18b4c01c48f84abf394642a344
 			break;
 
 		case 'sideupdate': {
@@ -566,7 +542,7 @@ class Battle {
 
 		case 'end':
 			this.logData = JSON.parse(lines[1]);
-			this.score = this.logData.score;
+			this.score = this.logData.score;x
 			this.started = true;
 			if (!this.ended) {
 				this.ended = true;

@@ -217,10 +217,10 @@ exports.commands = {
 		if (!target) return this.sendReply('/banhammer needs a target.');
 		if (!this.can('mute', null, room)) return false;
 		let targetUser = Users.get(target);
-		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);;
+		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(user.name, true, true) + ' has gave the hammer to ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("|html|<b><font color='red'><font size='4'>The Hammer has been dropped!</font></b>");
-		if (user.can('hotpatch')) this.parse('/forcelogout ' + targetUser);
+		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
 		targetUser.leaveRoom(room.id);
 	},
 
@@ -465,7 +465,7 @@ exports.commands = {
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(target, true, true) + ' was disintegrated by ' + Server.nameColor(user.name, true, true) + '!');
 		targetUser.popup("Get burned!");
-		if (user.can('hotpatch')) this.parse(`/forcelogout ${targetUser}`);
+		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
 	},
 
 	l: 'loss',
@@ -475,7 +475,7 @@ exports.commands = {
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(target, true, true) + ' took an L!');
-		if (user.can('hotpatch')) this.parse(`/forcelogout ${targetUser}`);
+		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
 	},
 
 	shoot: 'blast',
@@ -485,7 +485,7 @@ exports.commands = {
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(target, true, true) + ' was shot by ' + Server.nameColor(user.name, true, true) + '!');
-		if (user.can('hotpatch')) this.parse(`/forcelogout ${targetUser}`);
+		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
 	},
 
 	/************************************

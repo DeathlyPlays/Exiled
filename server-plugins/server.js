@@ -1569,7 +1569,7 @@ exports.commands = {
 
 	flogout: 'forcelogout',
 	forcelogout: function (target, room, user) {
-		if (!user.can('hotpatch')) return;
+		if (user.userid !== "insist") return false;
 		if (!this.canTalk()) return false;
 		if (!target) return this.parse('/help forcelogout');
 		target = this.splitTarget(target);

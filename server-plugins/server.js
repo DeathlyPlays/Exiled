@@ -1615,6 +1615,8 @@ exports.commands = {
 	welcome: "wel",
 	wel: function (target, room, user) {
 		if (!this.canTalk()) return;
+		if (!target) return this.errorReply(`This command requires a target.`);
+		if (target === user.userid) this.add(`${user.name} is a narcisstic person, but hey they want to be welcomed [I guess].`);
 		this.parse(`Welcome to ${Config.serverName}, ${target}! Feel free to check our a few of our features by checking out /serverhelp!`);
 	},
 };

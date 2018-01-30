@@ -146,6 +146,14 @@ exports.commands = {
 			room.guesswho.guess(user, guess);
 		},
 
+		guesses: "showguesses",
+		remainingguesses: "showguesses",
+		showguesses: function (target, room, user, connection, cmd) {
+			if (!room.guesswho) return this.errorReply("There is no session of Guess Who going on in this room.");
+			if (room.guesswho.state === "signups") return this.errorReply("This session of Guess Who has not been started.");
+			return this.sendReplyBox(`Remaining Guesses: ${room.guesswho.guesses}.`);
+		},
+
 		showanswer: function (target, room, user) {
 			if (!room.guesswho) return this.errorReply("There is no session of Guess Who going on in this room.");
 			if (room.guesswho.questionee !== user.userid) return this.errorReply("You must be the questionee to use this.");
@@ -174,6 +182,7 @@ exports.commands = {
 		/guesswho start - Starts a session of Guess Who. Must be a Room Driver or higher.
 		/guesswho guess [Pokemon] - Guesses what the Pokemon is.
 		/guesswho showanswer - Shows the correct answer. You must be the Questionee to view this.
+		/guesswho guesses - Shows how many remaining guesses there are.
 		/guesswho players - Shows the current amount of players who have joined the ongoing session of Guess Who.
 		/guesswho end - Forcefully ends a session of Guess Who. Must be a Room Driver or higher.`,
 	],

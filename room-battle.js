@@ -156,6 +156,7 @@ class BattleTimer {
 		if (this.settings.accelerate === undefined) {
 			this.settings.accelerate = !timerSettings;
 		}
+		this.settings.dcTimer = !isChallenge;
 
 		for (let slotNum = 0; slotNum < 2; slotNum++) {
 			this.ticksLeft.push(this.settings.startingTicks);
@@ -270,6 +271,7 @@ class BattleTimer {
 		}
 	}
 	checkActivity() {
+		if (!this.settings.dcTimer) return;
 		for (const slotNum of this.ticksLeft.keys()) {
 			const slot = /** @type {PlayerSlot} */ ('p' + (slotNum + 1));
 			const player = this.battle[slot];
@@ -333,6 +335,7 @@ class Battle {
 	 */
 	constructor(room, formatid, options) {
 		let format = Dex.getFormat(formatid, true);
+		this.gameid = 'battle';
 		this.id = room.id;
 		/** @type {GameRoom} */
 		this.room = room;
@@ -341,7 +344,12 @@ class Battle {
 		this.allowRenames = (!options.rated && !options.tour);
 
 		this.format = formatid;
-		this.rated = options.rated;
+		/**
+		 * The lower player's rating, for searching purposes.
+		 * 0 for unrated battles. 1 for unknown ratings.
+		 * @type {number}
+		 */
+		this.rated = options.rated || 0;
 		this.started = false;
 		this.ended = false;
 		this.active = false;
@@ -371,8 +379,17 @@ class Battle {
 		this.timer = new BattleTimer(this);
 
 		// data to be logged
+		/**
+		 * Has this player consented to input log export? If so, set this
+		 * to the userid allowed to export.
+		 * @type {[string, string]?}
+		 */
+		this.allowExtraction = null;
+
 		this.logData = null;
 		this.endType = 'normal';
+		this.score = null;
+		this.inputLog = null;
 
 		this.rqid = 1;
 		this.requestCount = 0;
@@ -386,16 +403,27 @@ class Battle {
 			ratedMessage = 'Tournament battle';
 		}
 
+		// @ts-ignore
+		this.room.game = this;
+		this.room.battle = this;
+
 		let battleOptions = {
 			formatid: this.format,
 			id: this.id,
 			rated: ratedMessage,
 			seed: options.seed,
 		};
-		this.stream.write(`>start ` + JSON.stringify(battleOptions));
+		if (options.inputLog) {
+			this.stream.write(options.inputLog);
+		} else {
+			this.stream.write(`>start ` + JSON.stringify(battleOptions));
+		}
 		if (Config.forcetimer) this.timer.start();
 
 		this.listen();
+
+		if (options.p1) this.addPlayer(options.p1, 'p1', options.p1team, true);
+		if (options.p2) this.addPlayer(options.p2, 'p2', options.p2team, true);
 	}
 
 	checkActive() {
@@ -459,9 +487,8 @@ class Battle {
 	}
 	/**
 	 * @param {User} user
-	 * @param {string} team
 	 */
-	joinGame(user, team) {
+	joinGame(user) {
 		if (this.playerCount >= 2) {
 			user.popup(`This battle already has two players.`);
 			return false;
@@ -471,7 +498,7 @@ class Battle {
 			return false;
 		}
 
-		if (!this.addPlayer(user, team)) {
+		if (!this.addPlayer(user)) {
 			user.popup(`Failed to join battle.`);
 			return false;
 		}
@@ -514,13 +541,12 @@ class Battle {
 			break;
 
 		case 'sideupdate': {
-			let player = this[/** @type {PlayerSlot} */ (lines[1])];
-			if (!player) break;
-			player.sendRoom(lines[2]);
+			let slot = /** @type {PlayerSlot} */ (lines[1]);
+			let player = this[slot];
 			if (lines[2].startsWith(`|error|[Invalid choice] Can't do anything`)) {
 				// ... should not happen
 			} else if (lines[2].startsWith(`|error|[Invalid choice]`)) {
-				let request = this.requests[player.slot];
+				let request = this.requests[slot];
 				request.isWait = false;
 				request.choice = '';
 			} else if (lines[2].startsWith(`|request|`)) {
@@ -528,21 +554,28 @@ class Battle {
 				let request = JSON.parse(lines[2].slice(9));
 				request.rqid = this.rqid;
 				const requestJSON = JSON.stringify(request);
-				this.requests[player.slot] = {
+				this.requests[slot] = {
 					rqid: this.rqid,
 					request: requestJSON,
 					isWait: request.wait ? 'cantUndo' : false,
 					choice: '',
 				};
 				this.requestCount++;
-				player.sendRoom(`|request|${requestJSON}`);
+				if (player) player.sendRoom(`|request|${requestJSON}`);
+				break;
 			}
+			if (player) player.sendRoom(lines[2]);
 			break;
 		}
 
 		case 'end':
 			this.logData = JSON.parse(lines[1]);
+<<<<<<< HEAD
 			this.score = this.logData.score;x
+=======
+			this.score = this.logData.score;
+			this.inputLog = this.logData.inputLog;
+>>>>>>> ba4e9870d40f3e9938458fcc9b62b1f2c28138b2
 			this.started = true;
 			if (!this.ended) {
 				this.ended = true;
@@ -804,35 +837,44 @@ class Battle {
 
 	/**
 	 * @param {User} user
+	 * @param {PlayerSlot?} slot
 	 * @param {string} team
 	 */
-	addPlayer(user, team) {
+	addPlayer(user, slot = null, team = '', initializing = false) {
 		if (user.userid in this.players) return false;
 		if (this.playerCount >= this.playerCap) return false;
-		let player = this.makePlayer(user, team);
+		let player = this.makePlayer(user, slot, team);
 		if (!player) return false;
 		this.players[user.userid] = player;
 		this.playerCount++;
 		this.room.auth[user.userid] = Users.PLAYER_SYMBOL;
+		if (user.inRooms.has(this.id)) this.onConnect(user);
 		if (this.playerCount >= 2) {
 			// @ts-ignore
 			this.room.title = `${this.p1.name} vs. ${this.p2.name}`;
 			this.room.send(`|title|${this.room.title}`);
+		}
+		if (!initializing) {
+			this.room.add(`|player|${player.slot}|${user.name}|${user.avatar}`);
 		}
 		return true;
 	}
 
 	/**
 	 * @param {User} user
+	 * @param {PlayerSlot?} slot
 	 * @param {string} team
 	 */
-	makePlayer(user, team) {
-		let slotNum = 0;
-		// @ts-ignore
-		while (this['p' + (slotNum + 1)]) slotNum++;
-		let slot = /** @type {PlayerSlot} */ ('p' + (slotNum + 1));
+	makePlayer(user, slot = null, team = '') {
+		if (!slot) {
+			let slotNum = 0;
+			while (this[/** @type {PlayerSlot} */ ('p' + (slotNum + 1))]) slotNum++;
+			slot = /** @type {PlayerSlot} */ ('p' + (slotNum + 1));
+		}
 		// console.log('joining: ' + user.name + ' ' + slot);
 
+		if (this[slot]) throw new Error(`Player already exists in ${slot} in ${this.id}`);
+		let slotNum = parseInt(slot.charAt(1)) - 1;
 		let player = new BattlePlayer(user, this, slot);
 		this[slot] = player;
 		this.playerNames[slotNum] = player.name;

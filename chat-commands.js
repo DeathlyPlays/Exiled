@@ -3413,6 +3413,78 @@ exports.commands = {
 		`[player] must be a username or number, [pokemon] must be species name or number (not nickname), [move] must be move name`,
 	],
 
+	allowexportinputlog(/** @type {string} */ target, /** @type {Room?} */ room, /** @type {User} */ user) {
+		const battle = room.battle;
+		if (!battle) return this.errorReply(`Must be in a battle`);
+		if (!battle.allowExtraction) return this.errorReply(`Someone must have requested extraction`);
+		const targetUser = Users.getExact(target);
+
+		if (toId(battle.playerNames[0]) === user.userid) {
+			battle.allowExtraction[0] = targetUser.userid;
+		} else if (toId(battle.playerNames[1]) === user.userid) {
+			battle.allowExtraction[1] = targetUser.userid;
+		} else {
+			return this.errorReply(`Must be a player in the battle.`);
+		}
+		this.addModAction(`${user.userid} consents to sharing battle team and choices with ${targetUser.userid}`);
+		if (battle.allowExtraction.join(',') !== `${targetUser.userid},${targetUser.userid}`) return;
+
+		this.addModAction(`${targetUser.name} has extracted the battle input log.`);
+		const inputLog = battle.inputLog.map(Chat.escapeHTML).join(`<br />`);
+		targetUser.sendTo(room, `|html|<div class="chat"><code style="white-space: pre-wrap; overflow-wrap: break-word; display: block">${inputLog}</code></div>`);
+	},
+
+	exportinputlog(/** @type {string} */ target, /** @type {Room?} */ room, /** @type {User} */ user) {
+		const battle = room.battle;
+		if (!battle) return this.errorReply(`This command only works in battle rooms`);
+		if (!battle.inputLog) {
+			this.errorReply(`This command only works when the battle has ended - if the battle has stalled, ask players to forfeit.`);
+			if (user.can('forcewin')) this.errorReply(`Alternatively, you can end the battle with /forcetie`);
+			return;
+		}
+		if (!user.can('broadcast', null, room)) {
+			return this.errorReply(`You must be at least roomvoice. Players can roomvoice you if necessary.`);
+		}
+		if (!battle.allowExtraction) {
+			battle.allowExtraction = ['', ''];
+		}
+		if (battle.allowExtraction[0] !== user.userid) {
+			const p1 = Users(battle.playerNames[0]);
+			if (p1) p1.sendTo(room, Chat.html`|html|${user.name} wants to extract the battle input log. <button name="send" value="/allowexportinputlog ${user.userid}">Share your team and choices with "${user.name}"</button>`);
+		}
+		if (battle.allowExtraction[1] !== user.userid) {
+			const p2 = Users(battle.playerNames[1]);
+			if (p2) p2.sendTo(room, Chat.html`|html|${user.name} wants to extract the battle input log. <button name="send" value="/allowexportinputlog ${user.userid}">Share your team and choices with "${user.name}"</button>`);
+		}
+
+		if (battle.allowExtraction.join(',') !== `${user.userid},${user.userid}`) {
+			this.addModAction(`${user.name} wants to extract the battle input log.`);
+			return;
+		}
+
+		this.addModAction(`${user.name} has extracted the battle input log.`);
+		const inputLog = battle.inputLog.map(Chat.escapeHTML).join(`<br />`);
+		user.sendTo(room, `|html|<div class="chat"><code style="white-space: pre-wrap; overflow-wrap: break-word; display: block">${inputLog}</code></div>`);
+	},
+
+	importinputlog(/** @type {string} */ target, /** @type {Room?} */ room, /** @type {User} */ user, /** @type {Connection} */ connection) {
+		if (!this.can('broadcast')) return;
+		const formatIndex = target.indexOf(`"formatid":"`);
+		const nextQuoteIndex = target.indexOf(`"`, formatIndex + 12);
+		if (formatIndex < 0 || nextQuoteIndex < 0) return this.errorReply(`Invalid input log`);
+		if ((`\n` + target).includes(`\n>eval `) && !user.hasConsoleAccess(connection)) {
+			return this.errorReply(`Your input log contains untrusted code - you must have console access to use it`);
+		}
+		const formatid = target.slice(formatIndex + 12, nextQuoteIndex);
+		const battleRoom = Rooms.createBattle(formatid, {inputLog: target});
+		this.parse(`/join ${battleRoom.id}`);
+		battleRoom.auth[user.userid] = Users.PLAYER_SYMBOL;
+		setTimeout(() => {
+			// timer to make sure this goes under the battle
+			battleRoom.add(`|html|<div class="broadcast broadcast-blue"><strong>This is an imported replay</strong><br />Players will need to be manually added with <code>/addplayer USERNAME, SLOT</code></div>`);
+		}, 500);
+	},
+
 	/*********************************************************
 	 * Battle commands
 	 *********************************************************/
@@ -3501,21 +3573,33 @@ exports.commands = {
 		if (!room.battle) return this.errorReply("You can only do this in battle rooms.");
 		if (room.rated) return this.errorReply("You can only add a Player to unrated battles.");
 
-		target = this.splitTarget(target, true);
+		target = this.splitTarget(target, true).trim();
+		if (target !== 'p1' && target !== 'p2') {
+			this.errorReply(`Player must be set to "p1" or "p2", not "${target}"`);
+			return this.parse('/help addplayer');
+		}
+
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;
 
-		if (!targetUser) return this.errorReply("User " + name + " not found.");
-		if (targetUser.can('joinbattle', null, room)) {
-			return this.sendReply("" + name + " can already join battles as a Player.");
+		if (!targetUser) return this.errorReply(`User ${name} not found.`);
+		if (!targetUser.inRooms.has(room.id)) {
+			return this.errorReply(`User ${name} must be in the battle room already.`);
 		}
 		if (!this.can('joinbattle', null, room)) return;
+		if (room.battle[target]) {
+			return this.errorReply(`This room already has a player in slot ${target}.`);
+		}
 
 		room.auth[targetUser.userid] = Users.PLAYER_SYMBOL;
-		this.addModAction("" + name + " was promoted to Player by " + user.name + ".");
+		room.battle.addPlayer(targetUser, target);
+		this.addModAction(`${name} was added to the battle as Player ${target.slice(1)} by ${user.name}.`);
 		this.modlog('ROOMPLAYER', targetUser.getLastId());
 	},
-	addplayerhelp: [`/addplayer [username] - Allow the specified user to join the battle as a player.`],
+	addplayerhelp: [
+		`/addplayer [username], p1 - Allow the specified user to join the battle as Player 1.`,
+		`/addplayer [username], p2 - Allow the specified user to join the battle as Player 2.`,
+	],
 
 	joinbattle: 'joingame',
 	joingame: function (target, room, user) {
@@ -3935,6 +4019,7 @@ exports.commands = {
 process.nextTick(() => {
 	// We might want to migrate most of this to a JSON schema of command attributes.
 	Chat.multiLinePattern.register(
-		'>>>? ', '/(?:room|staff)intro ', '/(?:staff)?topic ', '/(?:add|widen)datacenters ', '/bash ', '!code ', '/code '
+		'>>>? ', '/(?:room|staff)intro ', '/(?:staff)?topic ', '/(?:add|widen)datacenters ', '/bash ', '!code ', '/code ',
+		'/importinputlog '
 	);
 });

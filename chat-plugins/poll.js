@@ -89,7 +89,7 @@ class Poll {
 			c++;
 		}
 		if (option === 0 && !ended) output += `<div style="text-align:center; color:yellow;"><small>(You can't vote after viewing results)</small></div>`;
-		output += `</table></details>`;
+		output += `</details></table>`;
 
 		return output;
 	}

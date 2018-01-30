@@ -1722,14 +1722,20 @@ exports.Formats = [
 		ruleset: ['[Gen 7] OU'],
 	},
 	{
-		name: "[Gen 7] Delta Editions",
-		mod: "delta",
-		ruleset: ['[Gen 7] OU'],
+		name: "[Gen 1] Beyond RBY!",
+		mod: "kanto",
+		ruleset: ['[Gen 1] OU'],
 		desc: [
 			"Created by Mewth",
-			"All Pokemon have gone to the dark side, they have went Delta! Pokemon might have slightly altered type/stats/moves/abilities",
+			"Hello! Welcome to Kanto. Alola edition! Gen 1 Mechanics with Gen 7 updates will open new possibilities!",
 		],
 		unbanlist: [],
+		banlist: [],
+	},
+	{
+		name: "[Gen 7] Some Shit",
+		mod: "gen7",
+		ruleset: ['[Gen 7] OU'],
 		banlist: [],
 	},
 	{

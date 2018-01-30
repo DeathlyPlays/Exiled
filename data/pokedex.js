@@ -2871,7 +2871,7 @@ exports.BattlePokedex = {
 		evoLevel: 30,
 		eggGroups: ["Monster", "Water 1"],
 	},
-		feraligatrmega: {
+	feraligatrmega: {
 		num: 157,
 		species: "Feraligatr-Mega",
 		baseSpecies: "Feraligatr",

@@ -1027,6 +1027,8 @@ exports.commands = {
 		},
 
 		setcustommove: "setcmove",
+		givemove: "setcmove",
+		setmove: "setcmove",
 		setcmove: function (target, room, user, connection, message) {
 			if (!this.can('roomowner')) return false;
 			if (!target) return this.parse('/help ssb setcmove');
@@ -1035,7 +1037,7 @@ exports.commands = {
 			if (!userid) return this.parse('/help ssb setcmove');
 			let customMove = toId(targets[1]);
 			if (!customMove) return this.errorReply('Must include a move!');
-			if (!Dex.mod('cssb').getMove(customMove).exists) return this.errorReply("Move doesn't exist in the ssbffa mod!");
+			if (!Dex.mod("ssbffa").getMove(customMove).exists) return this.errorReply("Move doesn't exist in the ssbffa mod!");
 			if (!Server.ssb[userid].bought.cMove) return this.errorReply('They have not bought a custom move!');
 			Server.ssb[userid].selfCustomMove = customMove;
 			writeSSB();
@@ -1044,6 +1046,8 @@ exports.commands = {
 		setcmovehelp: [`/ssb setcmove [user], [move]`],
 
 		setcustomability: "setcability",
+		giveability: "setcability",
+		setability: "setcability",
 		setcability: function (target, room, user, connection, message) {
 			if (!this.can('roomowner')) return false;
 			if (!target) return this.parse('/help ssb setcability');
@@ -1051,8 +1055,8 @@ exports.commands = {
 			let userid = toId(targets[0]);
 			if (!userid) return this.errorReply('/help ssb setcability');
 			let customAbility = toId(targets[1]);
-			if (!customAbility) return this.errorReply('/ssb giveability target, ability');
-			if (!Dex.mod('cssb').getAbility(customAbility).exists) return this.errorReply("Ability doesn't exist in the ssbffa mod!");
+			if (!customAbility) return this.errorReply('/ssb giveability [target], [ability]');
+			if (!Dex.mod("ssbffa").getAbility(customAbility).exists) return this.errorReply("Ability doesn't exist in the ssbffa mod!");
 			if (!Server.ssb[userid].bought.cAbility) return this.errorReply('They have not bought a custom ability!');
 			Server.ssb[userid].cAbility = customAbility;
 			writeSSB();
@@ -1060,6 +1064,9 @@ exports.commands = {
 		},
 		setcabilityhelp: [`/ssb setcmove [user], [ability]`],
 
+		setcustomitem: "setcitem",
+		giveitem: "setcitem",
+		setitem: "setcitem",
 		setcitem: function (target, room, user, connection, cmd, message) {
 			if (!this.can('roomowner')) return false;
 			if (!target) return this.parse('/help ssb setcitem');
@@ -1068,7 +1075,7 @@ exports.commands = {
 			if (!userid) return this.errorReply('/help ssb givecitem');
 			let item = toId(targets[1]);
 			if (!item) return this.errorReply('Must include an item');
-			if (!Dex.mod('cssb').getItem(item).exists) return this.errorReply("Item doesn't exist in the ssbffa mod!");
+			if (!Dex.mod("ssbffa").getItem(item).exists) return this.errorReply("Item doesn't exist in the ssbffa mod!");
 			if (!Server.ssb[userid].bought.cItem) return this.errorReply('They have not bought a custom item!');
 			Server.ssb[userid].cItem = item;
 			writeSSB();

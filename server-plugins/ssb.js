@@ -1026,6 +1026,7 @@ exports.commands = {
 			return this.parse('/help ssb');
 		},
 
+		setcustommove: "setcmove",
 		setcmove: function (target, room, user, connection, message) {
 			if (!this.can('roomowner')) return false;
 			if (!target) return this.parse('/help ssb setcmove');
@@ -1038,10 +1039,11 @@ exports.commands = {
 			if (!Server.ssb[userid].bought.cMove) return this.errorReply('They have not bought a custom move!');
 			Server.ssb[userid].selfCustomMove = customMove;
 			writeSSB();
-			return this.sendReply('Move set for ' + userid + '!');
+			return this.sendReply(`Move set for ${userid}!`);
 		},
-		setcmovehelp: ['/ssb setcmove targetUser, move'],
+		setcmovehelp: [`/ssb setcmove [user], [move]`],
 
+		setcustomability: "setcability",
 		setcability: function (target, room, user, connection, message) {
 			if (!this.can('roomowner')) return false;
 			if (!target) return this.parse('/help ssb setcability');
@@ -1054,9 +1056,9 @@ exports.commands = {
 			if (!Server.ssb[userid].bought.cAbility) return this.errorReply('They have not bought a custom ability!');
 			Server.ssb[userid].cAbility = customAbility;
 			writeSSB();
-			return this.sendReply('Ability set for ' + userid + '!');
+			return this.sendReply(`Ability set for ${userid}!`);
 		},
-		setcabilityhelp: ['/ssb setcmove targetUser, ability'],
+		setcabilityhelp: [`/ssb setcmove [user], [ability]`],
 
 		setcitem: function (target, room, user, connection, cmd, message) {
 			if (!this.can('roomowner')) return false;
@@ -1070,9 +1072,9 @@ exports.commands = {
 			if (!Server.ssb[userid].bought.cItem) return this.errorReply('They have not bought a custom item!');
 			Server.ssb[userid].cItem = item;
 			writeSSB();
-			return this.sendReply('Item set for ' + userid + '!');
+			return this.sendReply(`Item set for ${userid}!`);
 		},
-		setcitemhelp: ['/ssb setcitem targetUser, item'],
+		setcitemhelp: [`/ssb setcitem [user], [item]`],
 	},
 	ssbhelp: [
 		'/ssb - Commands for editing your custom super staff bros pokemon. Includes the following commands: ',
@@ -1086,6 +1088,7 @@ exports.commands = {
 		'/ssb toggle - Attempts to active or deactive your pokemon. Active pokemon can be seen in the tier. If your pokemon cannot be activated, you will see a popup explaining why.',
 		'/ssb custom - Shows all the default custom moves, with details.',
 		'/ssb log - Shows purchase details for SSBFFA.',
+		'/ssb [setcmove|setcability|setcitem] [user], [move|ability|item] - Sets the user\'s custom.',
 		'/ssb [validate|validateall] (user) - validates a user\'s SSBFFA pokemon, or validates all SSBFFA pokemon. If the pokemon is invalid it will be fixed and deactivated. Requires: &, ~',
 		'Programmed by HoeenHero.',
 	],

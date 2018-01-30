@@ -29,6 +29,7 @@ exports.BattleMovedex = {
 		desc: "Raises the user's Attack, Special Attack and Speed by 1.",
 		shortDesc: "+1 Atk, SpA, and Spe.",
 	},
+
 	//Fire
 	flametower: {
 		category: "Special",
@@ -58,6 +59,7 @@ exports.BattleMovedex = {
 		desc: "Traps the target for 4-5 turns and 50% chance to burn the target.",
 		shortDesc: "Traps target; 50% chance to burn.",
 	},
+
 	//Water
 	rainspear: {
 		category: "Special",
@@ -87,6 +89,7 @@ exports.BattleMovedex = {
 		desc: "Summons Rain Dance and has 20% chance to flinch the target.",
 		shortDesc: "Sets Rain Dance; 20% chance to flinch.",
 	},
+
 	//Grass
 	healingherbs: {
 		category: "Status",
@@ -114,6 +117,7 @@ exports.BattleMovedex = {
 		desc: "Cures the user's party of all status conditions and heals the user by 50% of its max HP.",
 		shortDesc: "Heals 1/2 of max HP; uses Aromatherapy.",
 	},
+
 	//Electric
 	electrodrive: {
 		category: "Special",
@@ -161,6 +165,7 @@ exports.BattleMovedex = {
 		desc: "More power the faster the user is than the target and raises the user's speed by 1.",
 		shortDesc: "More power faster user is; raises Spe by 1.",
 	},
+
 	//Ice
 	hailstorm: {
 		category: "Status",
@@ -186,6 +191,7 @@ exports.BattleMovedex = {
 		zMoveEffect: 'heal',
 		desc: "Summons Hail and uses Blizzard.",
 	},
+
 	//Fighting
 	beatdown: {
 		category: "Physical",
@@ -218,6 +224,7 @@ exports.BattleMovedex = {
 		desc: "50% chance to paralyze the target. User must recharge next turn, if this move is successful.",
 		shortDesc: "50% chance to par; must recharge.",
 	},
+
 	//Poison
 	nuclearwaste: {
 		category: "Status",
@@ -246,6 +253,7 @@ exports.BattleMovedex = {
 		desc: "Badly poisons the target and lowers the foe's attack by 1.",
 		shortDesc: "Badly poisons target; lowers Atk by 1.",
 	},
+
 	//Ground
 	terratremor: {
 		category: "Physical",
@@ -272,6 +280,7 @@ exports.BattleMovedex = {
 		zMovePower: 190,
 		desc: "15% chance to flinch the target.",
 	},
+
 	//Flying
 	ventilation: {
 		category: "Status",
@@ -324,6 +333,7 @@ exports.BattleMovedex = {
 		desc: "Clears user and target side's hazards and removes weather. This move infiltrates substitutes.",
 		shortDesc: "Removes hazards, and weather.",
 	},
+
 	//Psychic
 	psychicshield: {
 		category: "Status",
@@ -345,6 +355,7 @@ exports.BattleMovedex = {
 		zMoveEffect: 'heal',
 		desc: "Sets Light Screen and Reflect.",
 	},
+
 	//Bug
 	swarmcharge: {
 		category: "Physical",
@@ -377,6 +388,7 @@ exports.BattleMovedex = {
 		shortDesc: "30% chance to raise Atk & Spe by 1.",
 		desc: "30% chance to raise the user's Attack and Speed by 1.",
 	},
+
 	//Rock
 	rockcannon: {
 		category: "Special",
@@ -404,6 +416,7 @@ exports.BattleMovedex = {
 		zMovePower: 195,
 		desc: "30% chance to flinch the target.",
 	},
+
 	//Ghost
 	spook: {
 		category: "Special",
@@ -433,6 +446,7 @@ exports.BattleMovedex = {
 		desc: "30% chance to flinch the target and always crits.",
 		shortDesc: "30% chance to flinch; always crits.",
 	},
+
 	//Dragon
 	imperialrampage: {
 		category: "Physical",
@@ -469,6 +483,7 @@ exports.BattleMovedex = {
 		desc: "Lasts 2-3 turns, confuses the user afterwards and lowers the user's Attack by 2.",
 		shortDesc: "2-3 turns, confuses user, lowers Atk by 2.",
 	},
+
 	//Dark
 	shadowrun: {
 		category: "Physical",
@@ -502,6 +517,7 @@ exports.BattleMovedex = {
 		zMovePower: 180,
 		desc: "1.5x damage if foe holds an item. Removes item.",
 	},
+
 	//Steel
 	magnorang: {
 		category: "Physical",
@@ -531,6 +547,7 @@ exports.BattleMovedex = {
 		zMovePower: 210,
 		desc: "Traps Steel Types from choosing to switch.",
 	},
+
 	//Fairy
 	majesticdust: {
 		category: "Special",
@@ -556,5 +573,66 @@ exports.BattleMovedex = {
 		zMovePower: 210,
 		type: "Fairy",
 		desc: "30% chance to paralyze the target.",
+	},
+
+	// Insist
+	debugging: {
+		id: "debugging",
+		name: "Debugging",
+		priority: 1,
+		self: {
+			boosts: {
+				spa: 1,
+				spe: 1,
+			},
+		},
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		desc: "Boosts user's Special Attack and Speed by 1 stage.",
+		shortDesc: "Boosts user's SpA & Spe by 1.",
+		secondary: false,
+		category: "Special",
+		onHit: function (target, source, move) {
+			this.add('c|@Insist|``npm test``');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hydro Pump", target);
+		},
+		basePower: 90,
+		pp: 15,
+		accuracy: 100,
+		target: "normal",
+		type: "Water",
+		zMovePower: 140,
+		contestType: "Cool",
+	},
+	//Insist
+	"exiledfromallothers": {
+		id: "exiledfromallothers",
+		name: "Exiled From All Others",
+		basePower: 150,
+		accuracy: 100,
+		pp: 1,
+		noPPBoosts: true,
+		secondary: false,
+		category: "Special",
+		isNonStandard: true,
+		isZ: "playniumz",
+		priority: 1,
+		flags: {
+			protect: 1,
+		},
+		onHit: function (target, source, move) {
+			this.add('c|@Insist|Exiled from all others, we shall become greater than ever before.');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hydro Pump", target);
+		},
+		target: "normal",
+		type: "Water",
 	},
 };

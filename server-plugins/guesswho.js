@@ -149,6 +149,7 @@ exports.commands = {
 		guesses: "showguesses",
 		remainingguesses: "showguesses",
 		showguesses: function (target, room, user, connection, cmd) {
+			if (!this.runBroadcast()) return;
 			if (!room.guesswho) return this.errorReply("There is no session of Guess Who going on in this room.");
 			if (room.guesswho.state === "signups") return this.errorReply("This session of Guess Who has not been started.");
 			return this.sendReplyBox(`Remaining Guesses: ${room.guesswho.guesses}.`);

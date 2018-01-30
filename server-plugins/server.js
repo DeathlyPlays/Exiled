@@ -181,7 +181,6 @@ exports.commands = {
 			if (!room.chatRoomData.user) return this.sendReplyBox("The User of the Week has not been set.");
 			return this.sendReplyBox(`The current <strong>User of the Week</strong>  is: ${Server.nameColor(room.chatRoomData.user, true)}`);
 		}
-		if (!this.can('lock', null, room)) return false;
 		if (this.meansNo(target)) {
 			if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
 			delete room.chatRoomData.user;

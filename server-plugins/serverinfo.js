@@ -319,33 +319,35 @@ exports.commands = {
 		display += `<li><a href="https://join.skype.com/Eo5DCq8nCh1j" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Join Our Skype</button></a>`;
 		display += `</ul>`;
 		if (this.can("lock")) {
-			display += `<h2>Staff Commands:</h2><ul>`;
-			display += `<li><button class="button" name="send" value="/forcejoinhelp">Forcejoin</button></li>`;
-			display += `<li><button class="button" name="send" value="/kickhelp">Kick</button></li>`;
-			display += `<li><button class="button" name="send" value="/declaremodhelp">Staff Declare</button></li>`;
-			display += `<li><button class="button" name="send" value="/viewlogs">Viewlogs</button></li>`;
-			display += `</ul>`;
+			display += `<h2>Staff Commands:</h2>`;
+			display += `<details><summary>Global Drivers (%) Commands:</summary>`;
+			display += `<button class="button" name="send" value="/forcejoinhelp">Forcejoin</button>`;
+			display += `<button class="button" name="send" value="/kickhelp">Kick</button>`;
+			display += `<button class="button" name="send" value="/declaremodhelp">Staff Declare</button>`;
+			display += `<button class="button" name="send" value="/viewlogs">Viewlogs</button>`;
+			display += `</details>`;
 		}
 		if (this.can("ban")) {
-			display += `<ul><li><button class="button" name="send" value="/clearall">Clear All</button></li></ul>`;
+			display += `<details><summary>Global Moderator (@) Commands:</summary>`;
+			display += `<button class="button" name="send" value="/clearall">Clear All</button></details>`;
 		}
 		if (this.can("hotpatch")) {
-			display += `<ul><li><button class="button" name="send" value="/crashlogs">Crashlogs</button></li>`;
-			display += `<li><button class="button" name="send" value="/globalclearall">Global Clear All</button></li>`;
-			display += `<li><button class="button" name="send" value="/pmallhelp">PM All</button></li>`;
-			display += `<li><button class="button" name="send" value="/pmallstaffhelp">PM Staff</button></li>`;
-			display += `<li><button class="button" name="send" value="/pmupperstaffhelp">PM Upper Staff</button></li>`;
-			display += `<li><button class="button" name="send" value="/protectroom">Protect Room</button></li></ul>`;
-		}
-		if (this.can("declare")) {
-			display += `<ul><li><button class="button" name="send" value="/kickall">Kick All</button></li>`;
-			display += `<li><button class="button" name="send" value="/timedgdeclare">Timed Declare</button></li>`;
-			display += `<li><button class="button" name="send" value="/draft">PM all</button></li></ul>`;
+			display += `<details><summary>Global Leader (&) Commands:</summary>`;
+			display += `<button class="button" name="send" value="/crashlogs">Crashlogs</button>`;
+			display += `<button class="button" name="send" value="/globalclearall">Global Clear All</button>`;
+			display += `<button class="button" name="send" value="/kickall">Kick All</button>`;
+			display += `<button class="button" name="send" value="/pmallhelp">PM All</button>`;
+			display += `<button class="button" name="send" value="/pmallstaffhelp">PM Staff</button>`;
+			display += `<button class="button" name="send" value="/pmupperstaffhelp">PM Upper Staff</button>`;
+			display += `<button class="button" name="send" value="/protectroom">Protect Room</button>`;
+			display += `<button class="button" name="send" value="/timedgdeclare">Timed Declare</button></details>`;
 		}
 		if (this.can("lockdown")) {
-			display += `<ul><li><button class="button" name="send" value="/permabanhelp">Permaban</button></li>`;
-			display += `<li><button class="button" name="send" value="/permalockhelp">Permalock</button></li></ul>`;
+			display += `<details><summary>Global Administrator (~) Commands:</summary>`;
+			display += `<button class="button" name="send" value="/permabanhelp">Permaban</button>`;
+			display += `<button class="button" name="send" value="/permalockhelp">Permalock</button></details>`;
 		}
 		display += `</div>`;
+		return this.sendReplyBox(display);
 	},
 };

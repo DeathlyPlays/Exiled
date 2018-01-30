@@ -570,12 +570,8 @@ class Battle {
 
 		case 'end':
 			this.logData = JSON.parse(lines[1]);
-<<<<<<< HEAD
-			this.score = this.logData.score;x
-=======
 			this.score = this.logData.score;
 			this.inputLog = this.logData.inputLog;
->>>>>>> ba4e9870d40f3e9938458fcc9b62b1f2c28138b2
 			this.started = true;
 			if (!this.ended) {
 				this.ended = true;

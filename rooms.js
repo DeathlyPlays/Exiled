@@ -1608,27 +1608,16 @@ let Rooms = Object.assign(getRoom, {
 			room.add(`|raw|<div class="broadcast-red"><strong>This battle is invite-only!</strong><br />Users must be rank + or invited with <code>/invite</code> to join</div>`);
 		}
 
-<<<<<<< HEAD
 		// @ts-ignore
 		if (Rooms.global.FvF && Rooms.global.FvF[toId(Server.getFaction(p1.userid))] && Rooms(Rooms.global.FvF[toId(Server.getFaction(p1.userid))].room).fvf.tier === formatid) {
 			// @ts-ignore
 			Server.isFvFBattle(p1.userid, p2.userid, room.id, 'start');
 		}
-
-		game.addPlayer(p1, options.p1team);
-		game.addPlayer(p2, options.p2team);
-		p1.joinRoom(room);
-		p2.joinRoom(room);
-		Monitor.countBattle(p1.latestIp, p1.name);
-		Monitor.countBattle(p2.latestIp, p2.name);
-		Rooms.global.onCreateBattleRoom(p1, p2, room, options);
-=======
 		if (p1) p1.joinRoom(room);
 		if (p2) p2.joinRoom(room);
 		if (p1) Monitor.countBattle(p1.latestIp, p1.name);
 		if (p2) Monitor.countBattle(p2.latestIp, p2.name);
 		if (p1 && p2) Rooms.global.onCreateBattleRoom(p1, p2, room, options);
->>>>>>> ba4e9870d40f3e9938458fcc9b62b1f2c28138b2
 		return room;
 	},
 

@@ -40,6 +40,7 @@ function isMoney(money) {
 }
 
 let shop = [
+	['Ability', 'Purchases a custom ability for your SSBFFA account.', 50],
 	['Avatar', 'Buys an custom avatar to be applied to your name [You supply. Images larger than 80x80 may not show correctly].', 5],
 	['Custom Color', 'Changes the color of your name [Can be denied]', 25],
 	['Custom Emoticon', 'You provide an image (50x50 Pixels) to be added as an emote on the server. [Can be denied]', 40],
@@ -47,8 +48,10 @@ let shop = [
 	['Custom Title', 'Buys a title to be added on to your profile. [Can be denied].', 10],
 	['Fix', 'Buys the ability to alter your current custom avatar or trainer card.', 5],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 25],
+	['Item', 'Purchases a custom item for your SSBFFA account.', 50],
 	['Kick', 'Kick a user from the chatroom.', 5],
 	['League Room', 'Purchases a room for league usage.', 5],
+	['Move', 'Purchases a custom move for your SSBFFA account.', 50],
 	['Mystery', 'Purchases a Mystery Box [no refunds]', 15],
 	['POTD', 'Allows you to change the Pokemon of the Day that shows up guaranteed in Random Battles [Can be refused, or held off if one is already active]', 25],
 	['Room', 'Buys a chatroom for you to own. [Within reason, can be denied].', 30],
@@ -174,6 +177,15 @@ function handleBoughtItem(item, user, cost) {
 	} else if (item === 'mystery') {
 		user.canOpenMysteryBox = true;
 		this.sendReply("Good luck! Happy unboxing :)");
+	} else if (item === 'ability') {
+		Server.ssb[user.userid].bought.cAbility = true;
+		writeSSB();
+	} else if (item === 'move') {
+		Server.ssb[user.userid].bought.cMove = true;
+		writeSSB();
+	} else if (item === 'item') {
+		Server.ssb[user.userid].bought.cItem = true;
+		writeSSB();
 	} else {
 		let msg = `**${user.name} has bought ${item}.**`;
 		Monitor.log(`${msg}`);
@@ -417,6 +429,7 @@ exports.commands = {
 		output += "The average user has " + average + currencyName(average) + ".";
 		this.sendReplyBox(output);
 	},
+
 	//Inspired from Gold
 	mysterybox: function (target, room, user) {
 		if (room.id !== 'lobby') return this.errorReply("You must buy this item in the Lobby!");

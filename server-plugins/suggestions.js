@@ -64,6 +64,16 @@ exports.commands = {
 			this.sendReply(`Suggestion "${target}" has been deleted.`);
 		},
 
+		view: "list",
+		viewindex: "list",
+		index: "list",
+		list: function (target, room, user) {
+			if (!this.can("ban")) return false;
+			let output = `<b><u>Suggestions (${Object.keys(suggestions).length})</u></b><br />`;
+			for (let suggestion in suggestions) output += `<strong>${suggestion}</strong><br />`;
+			this.sendReplyBox(`${output}`);
+		},
+
 		"": "help",
 		help: function () {
 			this.parse("/help suggestion");
@@ -73,6 +83,7 @@ exports.commands = {
 	suggestionhelp: [
 		"/suggestions submit [title], [suggestion] - Submits a suggestion to the index.",
 		"/suggestions remove [suggestion id] - Deletes a suggestion from the index. Requires @ and up.",
+		"/suggestions index - Displays all the suggestions in the index. Requires @ and up.",
 		"/suggestions help - Shows available suggestion commands.",
 	],
 };

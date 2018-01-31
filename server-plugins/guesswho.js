@@ -181,10 +181,9 @@ exports.commands = {
 			if (!room.guesswho) return this.errorReply(`There is no ongoing session of Guess Who going on right now.`);
 			if (room.guesswho.questionee !== user.userid) return this.errorReply(`Only the questionee may provide hints.`);
 			if (!target) return this.errorReply(`You must provide a hint.`);
-			let hint = toId(target);
-			if (hint in room.guesswho.hints) return this.errorReply(`You have already gave "${target}" as a hint.`);
+			if (target in room.guesswho.hints) return this.errorReply(`You have already gave "${target}" as a hint.`);
 
-			room.guesswho.giveHint(hint);
+			room.guesswho.giveHint(target);
 		},
 
 		showhints: "hints",

@@ -38,17 +38,20 @@ class GuessWho {
 		if (user.userid === this.questionee) return user.sendTo(this.room, `You are currently the questionee, so you cannot guess your Pokemon.`);
 		if (!this.players.includes(user.userid)) return user.sendTo(this.room, `You are not currently in the session of Guess Who in this room.`);
 		if (guess.species === this.answer.species) {
-			this.room.add(`|html|${Server.nameColor(user.name, true)} guessed <strong>${guess.species}</strong>, which was the correct answer! This user has also won 5 ${moneyPlural}!`);
+			this.room.add(`|html|${Server.nameColor(user.name, true)} guessed <strong>${guess.species}</strong>, which was the correct answer! This user has also won 5 ${moneyPlural}! ${Server.nameColor(user.name)} has also won 5 EXP!`);
 			Economy.writeMoney(user.userid, prizeMoney);
+			Economy.logTransaction(`${user.name} has won ${prizeMoney} ${moneyPlural} from playing a session of Guess Who.`);
+			Server.ExpControl.addExp(user.userid, 5);
 			this.end();
 		} else {
-			this.room.add(`|html|${Server.nameColor(user.name, true)} guessed <strong>${guess.species}</strong>, but was not the correct answer...`);
 			this.guessed[toId(guess.species)] = user.userid;
 			this.guesses--;
+			this.room.add(`|html|${Server.nameColor(user.name, true)} guessed <strong>${guess.species}</strong>, but that was not the correct answer. <strong>${this.guesses} guesses are left.</strong>`);
 			if (this.guesses < 1) {
-				this.room.add(`Sorry, the guessers have lost this round. Congratulations to the ${this.questionee}! Their Pokemon was ${this.answer.species}. The questionee has won ${this.prize} ${moneyPlural}`);
+				this.room.add(`|html|Sorry, the guessers have lost this round. Congratulations to the ${Server.nameColor(this.questionee, true)}! Their Pokemon was ${this.answer.species}! The questionee has won ${this.prize} ${moneyPlural}! ${Server.nameColor(this.questionee)} has also won 5 EXP!`);
 				Economy.writeMoney(this.questionee, prizeMoney);
 				Economy.logTransaction(`${this.questionee} has won ${prizeMoney} ${moneyPlural} from playing a session of Guess Who.`);
+				Server.ExpControl.addExp(this.questionee, 5);
 				this.end();
 			}
 		}
@@ -76,7 +79,7 @@ class GuessWho {
 	}
 
 	giveHint(hint) {
-		this.room.add(`|html|<strong>${this.questionee} has gave the hint: "${hint}".</strong>`);
+		this.room.add(`|html|<strong>${this.questionee} has given the hint: "${hint}".</strong>`);
 		this.hints.push(hint);
 	}
 

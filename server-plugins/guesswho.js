@@ -86,7 +86,7 @@ class GuessWho {
 	}
 
 	end() {
-		this.room.add(`|uhtmlchange|guesswho-${this.gwNumber}|<div class="infobox">This Guess Who game has been ended.</div>`).update();
+		this.room.add(`|uhtmlchange|guesswho-${this.gwNumber}|<div class="infobox">This Guess Who game has been ended! The answer was ${this.answer.species}!</div>`).update();
 		clearTimeout(this.timer);
 		delete this.room.guesswho;
 	}

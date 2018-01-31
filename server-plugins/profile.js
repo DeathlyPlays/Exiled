@@ -708,7 +708,7 @@ exports.commands = {
 				if (Server.getFaction(toId(username))) {
 					profile += `&nbsp;${pColor(toId(username))}<b>Faction:</b> ${Server.getFaction(toId(username))}</font><br />`;
 				}
-				profile += `&nbsp;${pColor(toId(username))}<b>EXP Level:</b> ${Server.level(toId(username))}</font><br />`;
+				profile += `&nbsp;${pColor(toId(username))}<b>EXP Level:</b> ${Server.ExpControl.level(toId(username))}</font><br />`;
 				if (online && lastActive(toId(username))) {
 					profile += `&nbsp;${pColor(toId(username))}<b>Last Activity:</b> ${lastActive(toId(username))}</font><br />`;
 				}

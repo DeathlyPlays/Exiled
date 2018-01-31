@@ -22,6 +22,7 @@ class GuessWho {
 		this.gwNumber = room.gwNumber;
 		this.guesses = guesses;
 		this.guessed = {};
+		this.hints = [];
 		this.prize = prizeMoney;
 		this.room.add(`|uhtml|guesswho-${this.gwNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new <strong>Guess Who</strong> game is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/gw join">Join</button></p></div>`, true);
 		this.timer = setTimeout(() => {
@@ -72,6 +73,11 @@ class GuessWho {
 		if (!this.players.includes(user.userid)) return user.sendTo(this.room, `You are not currently in the session of Guess Who in this room.`);
 		this.players.splice(this.players.indexOf(user.userid), 1);
 		user.sendTo(this.room, `You have successfully left the ongoing session of Guess Who.`);
+	}
+
+	giveHint(hint) {
+		this.room.add(`|html|<strong>${this.questionee} has gave the hint: "${hint}".</strong>`);
+		this.hints.push(hint);
 	}
 
 	end() {
@@ -169,6 +175,27 @@ exports.commands = {
 			room.guesswho.end();
 		},
 
+		givehints: "gh",
+		givehint: "gh",
+		gh: function (target, room, user) {
+			if (!room.guesswho) return this.errorReply(`There is no ongoing session of Guess Who going on right now.`);
+			if (room.guesswho.questionee !== user.userid) return this.errorReply(`Only the questionee may provide hints.`);
+			if (!target) return this.errorReply(`You must provide a hint.`);
+			let hint = toId(target);
+			if (hint in room.guesswho.hints) return this.errorReply(`You have already gave "${target}" as a hint.`);
+
+			room.guesswho.giveHint(hint);
+		},
+
+		showhints: "hints",
+		hint: "hints",
+		hints: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			if (!room.guesswho) return this.errorReply(`There is no ongoing session of Guess Who going on right now.`);
+			if (room.guesswho.hints.length < 1) return this.errorReply(`There are currently no hints in this session of Guess Who, request one from the questionee.`);
+			return this.sendReplyBox(`<strong>Current Hints: ${Chat.toListString(room.guesswho.hints)}</strong>`);
+		},
+
 		"": "help",
 		help: function (target, room, user) {
 			this.parse("/guesswhohelp");
@@ -183,6 +210,8 @@ exports.commands = {
 		/guesswho start - Starts a session of Guess Who. Must be a Room Driver or higher.
 		/guesswho guess [Pokemon] - Guesses what the Pokemon is.
 		/guesswho showanswer - Shows the correct answer. You must be the Questionee to view this.
+		/guesswho givehint [hint] - Gives a hint about the answer. You must be the Questionee to use this.
+		/guesswho hints - Shows all the hints the Questionee has provided.
 		/guesswho guesses - Shows how many remaining guesses there are.
 		/guesswho players - Shows the current amount of players who have joined the ongoing session of Guess Who.
 		/guesswho end - Forcefully ends a session of Guess Who. Must be a Room Driver or higher.`,

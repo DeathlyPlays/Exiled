@@ -21,6 +21,7 @@ class GuessWho {
 		room.gwNumber = room.gwNumber ? room.gwNumber++ : 1;
 		this.gwNumber = room.gwNumber;
 		this.guesses = guesses;
+		this.guessedPokemon = [];
 		this.guessed = {};
 		this.hints = [];
 		this.prize = prizeMoney;
@@ -45,6 +46,7 @@ class GuessWho {
 			this.end();
 		} else {
 			this.guessed[toId(guess.species)] = user.userid;
+			this.guessedPokemon.push(guess);
 			this.guesses--;
 			this.room.add(`|html|${Server.nameColor(user.name, true)} guessed <strong>${guess.species}</strong>, but that was not the correct answer. <strong>${this.guesses} guesses are left.</strong>`);
 			if (this.guesses < 1) {
@@ -171,8 +173,8 @@ exports.commands = {
 		guesses: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!room.guesswho) return this.errorReply(`There is no ongoing session of Guess Who going on right now.`);
-			if (room.guesswho.guessed.length < 1) return this.errorReply(`No one has currently guessed a Pokemon.`);
-			return this.sendReplyBox(`<strong>Guessed Pokemon: ${Chat.toListString(room.guesswho.guessed)}</strong>`);
+			if (room.guesswho.guessedPokemon.length < 1) return this.errorReply(`No one has guessed a Pokemon yet.`);
+			return this.sendReplyBox(`<strong>Guessed Pokemon: ${Chat.toListString(room.guesswho.guessedPokemon)}</strong>`);
 		},
 
 		showanswer: function (target, room, user) {

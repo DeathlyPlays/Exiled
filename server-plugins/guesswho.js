@@ -155,13 +155,24 @@ exports.commands = {
 			room.guesswho.guess(user, guess);
 		},
 
-		guesses: "showguesses",
-		remainingguesses: "showguesses",
-		showguesses: function (target, room, user, connection, cmd) {
+		guesscount: "remainingguesses",
+		remaining: "remainingguesses",
+		remainingguesses: function (target, room, user, connection, cmd) {
 			if (!this.runBroadcast()) return;
 			if (!room.guesswho) return this.errorReply("There is no session of Guess Who going on in this room.");
 			if (room.guesswho.state === "signups") return this.errorReply("This session of Guess Who has not been started.");
 			return this.sendReplyBox(`Remaining Guesses: ${room.guesswho.guesses}.`);
+		},
+
+		showguess: "guesses",
+		showguesses: "guesses",
+		guessedpokemon: "guesses",
+		guessedpkmn: "guesses",
+		guesses: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			if (!room.guesswho) return this.errorReply(`There is no ongoing session of Guess Who going on right now.`);
+			if (room.guesswho.guessed.length < 1) return this.errorReply(`No one has currently guessed a Pokemon.`);
+			return this.sendReplyBox(`<strong>Guessed Pokemon: ${Chat.toListString(room.guesswho.guessed)}</strong>`);
 		},
 
 		showanswer: function (target, room, user) {
@@ -211,10 +222,11 @@ exports.commands = {
 		/guesswho leave - Leaves the ongoing session of Guess Who.
 		/guesswho start - Starts a session of Guess Who. Must be a Room Driver or higher.
 		/guesswho guess [Pokemon] - Guesses what the Pokemon is.
+		/guesswho guesses - Shows all the Pokemon players have guessed.
 		/guesswho showanswer - Shows the correct answer. You must be the Questionee to view this.
 		/guesswho givehint [hint] - Gives a hint about the answer. You must be the Questionee to use this.
 		/guesswho hints - Shows all the hints the Questionee has provided.
-		/guesswho guesses - Shows how many remaining guesses there are.
+		/guesswho remaining - Shows how many remaining guesses there are.
 		/guesswho players - Shows the current amount of players who have joined the ongoing session of Guess Who.
 		/guesswho end - Forcefully ends a session of Guess Who. Must be a Room Driver or higher.`,
 	],

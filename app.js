@@ -42,8 +42,6 @@
 
 'use strict';
 
-const fs = require('fs');
-
 // Check for version and dependencies
 try {
 	// I've gotten enough reports by people who don't use the launch
@@ -169,12 +167,12 @@ global.TeamValidatorAsync = require('./team-validator-async');
 TeamValidatorAsync.PM.spawn();
 
 // uptime recording
-fs.readFile('./logs/uptime.txt', function (err, uptime) {
+FS('./logs/uptime.txt').readIfExistsSync(function (err, uptime) {
 	if (!err) global.uptimeRecord = parseInt(uptime, 10); // eslint-disable-line radix
 	global.uptimeRecordInterval = setInterval(function () {
 		if (global.uptimeRecord && process.uptime() <= global.uptimeRecord) return;
 		global.uptimeRecord = process.uptime();
-		fs.writeFile('./logs/uptime.txt', global.uptimeRecord.toFixed(0));
+		FS('./logs/uptime.txt').write(global.uptimeRecord.toFixed(0));
 	}, 1 * 60 * 60 * 1000);
 });
 

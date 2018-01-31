@@ -46,7 +46,7 @@ class GuessWho {
 			this.end();
 		} else {
 			this.guessed[toId(guess.species)] = user.userid;
-			this.guessedPokemon.push(guess);
+			this.guessedPokemon.push(guess.species);
 			this.guesses--;
 			this.room.add(`|html|${Server.nameColor(user.name, true)} guessed <strong>${guess.species}</strong>, but that was not the correct answer. <strong>${this.guesses} guesses are left.</strong>`);
 			if (this.guesses < 1) {

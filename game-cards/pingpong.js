@@ -81,7 +81,7 @@ class PingPong extends Console.Console {
 	endGame(win) {
 		if (win) {
 			this.update(null, '<center style="background-color: green">Congratulations to ' + this.user.name + ' for winning the game of Ping Pong!<br/><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I won\'t play your stupid game again.</button></center>');
-			Server.addExp(this.user, this.room, 3);
+			Server.ExpControl.addExp(this.user, this.room, 3);
 		} else {
 			this.update(null, '<center style="background-color: green">The COM won the game of ping pong...<br/><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I won\'t play your stupid game again.</button></center>');
 		}

@@ -178,7 +178,7 @@ class PassTheBomb extends Rooms.RoomGame {
 		let msg = `|html|<div class = "infobox"><center>The winner of this game of Pass the Bomb is ${Server.nameColor(winner, true)}! Congratulations!</center>`;
 		if (this.room.isOfficial) {
 			Server.ExpControl.addExp(winner, this.room, 5);
-			msg += `${Server.nameColor} has also won 5 EXP for winning this game of Pass the Bomb.`;
+			msg += `${Server.nameColor(winner, true)} has also won 5 EXP for winning this game of Pass the Bomb.`;
 		}
 		this.room.add(msg).update();
 		this.end();

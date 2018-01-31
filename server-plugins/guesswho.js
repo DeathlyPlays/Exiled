@@ -62,8 +62,8 @@ class GuessWho {
 		let questionee = this.players[Math.floor(Math.random() * this.players.length)];
 		this.questionee = questionee;
 		this.players.splice(this.players.indexOf(questionee), 1);
-		this.room.add(`|uhtmlchange|guesswho-${this.gwNumber}|<div class="infobox">This Guess Who game has been started! ${this.questionee} is the questionee! Begin guessing ${Chat.toListString(this.players)}!`);
-		this.room.add(`|html|${this.questionee}, check <button name = "send" value = "/guesswho showanswer">here</button> to view the Pok&eacute;mon and begin giving hints.`);
+		this.room.add(`|uhtmlchange|guesswho-${this.gwNumber}|<div class="infobox">This Guess Who game has been started! ${Server.nameColor(this.questionee, true)} is the questionee! Begin guessing ${Chat.toListString(this.players)}!`);
+		this.room.add(`|html|${Server.nameColor(this.questionee, true)}, check <button name = "send" value = "/guesswho showanswer">here</button> to view the Pok&eacute;mon and begin giving hints.`);
 	}
 
 	joinGuessWho(user) {
@@ -79,7 +79,7 @@ class GuessWho {
 	}
 
 	giveHint(hint) {
-		this.room.add(`|html|<strong>${this.questionee} has given the hint: "${hint}".</strong>`);
+		this.room.add(`|html|${Server.nameColor(this.questionee, true)} has given the hint: <strong>"${hint}"</strong>.`);
 		this.hints.push(hint);
 	}
 

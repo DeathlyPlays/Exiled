@@ -1,6 +1,12 @@
+/********************************
+ * Ambush for Pokemon Showdown! *
+ * Created by: Wisp Devs		*
+ * Restyled by: Insist			*
+ ********************************/
+
 "use strict";
 
-const ROUND_DURATION = 8 * 1000; //8 seconds nice
+const ROUND_DURATION = 8 * 1000;
 
 class Ambush {
 	constructor(room, seconds) {
@@ -14,11 +20,7 @@ class Ambush {
 		}
 		this.timeLeft = Date.now() + seconds * 1000;
 
-		this.room.add(
-			`|uhtml|ambush${this.room.ambushCount}${this.round}|<div style="background-color: #000000; border: 12px double #860000; color: #DF0101"><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><strong>A game of Ambush has created!</strong></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br /><br /><br /><br /><br /><center>
-			The game will begin in <strong>${seconds}</strong> seconds!
-			<br /><br /><button style="border: 4px solid #000; background: white; box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.3) inset; color: #DF0101; margin: 1px 6px; padding: 8px 40px" name = "send" value = "/ambush join"><font size="3">Join!</font></button><br><br></center></div>`
-		);
+		this.room.add(`|uhtml|ambush${this.room.ambushCount}${this.round}|<div style="background-color: #000000; border: 12px double #860000; color: #DF0101"><h3><img style="transform: scaleX(-1);" src="http://pldh.net/media/pokemon/gen6/xy-animated/491.gif" height="87" width="121" align="left"><font face="arial" size="4"><u><strong>A game of Ambush has created!</strong></u></font><img src="http://pldh.net/media/pokemon/gen6/xy-animated/488.gif" height="87" width="121" align="right"></h3><br /><br /><br /><br /><br /><center>The game will begin in <strong>${seconds}</strong> seconds!<br /><br /><button style="border: 4px solid #000; background: white; box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.3) inset; color: #DF0101; margin: 1px 6px; padding: 8px 40px" name = "send" value = "/ambush join"><font size="3">Join!</font></button><br /><br /></center></div>`);
 
 		this.timer = setTimeout(() => {
 			if (this.players.size < 3) {
@@ -174,8 +176,8 @@ class Ambush {
 }
 
 let commands = {
-	start: "new",
-	begin: "new",
+	make: "new",
+	create: "new",
 	new: function (target, room, user) {
 		if (room.ambush) return this.sendReply("There is already a game of Ambush going on in this room.");
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
@@ -188,6 +190,7 @@ let commands = {
 		room.ambush = new Ambush(room, Number(target));
 	},
 
+	j: "join",
 	join: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
@@ -195,12 +198,16 @@ let commands = {
 		room.ambush.join(user, this);
 	},
 
+	l: "leave",
+	part: "leave",
 	leave: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
 
 		room.ambush.leave(user, this);
 	},
 
+	start: "proceed",
+	begin: "proceed",
 	proceed: function (target, room, user) {
 		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
 		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
@@ -241,14 +248,7 @@ let commands = {
 	guide: "rules",
 	rules: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox(
-			`<h3>Ambush:</h3>
-			Basically Ambush is a game where everyone must compete to be the first one to shoot another user, thus eliminating them.
-			To shoot a user you use <code>/fire [${user.name}]</code> for instance.
-			Disclaimer: Keep in mind if you do /fire ${user.name}, it will kill you since you are the target.
-			If you successfully shoot a user before getting shot you get a shield, which protects you from being shot for the remainder of the round.
-			Lastly, if you successfully eliminate all of the other targets you earn 5 EXP as well as 2 ${moneyPlural}!`,
-		);
+		this.sendReplyBox(`<h3>Ambush:</h3><br />Basically Ambush is a game where everyone must compete to be the first one to shoot another user, thus eliminating them.<br />To shoot a user you use <code>/fire [${user.name}]</code> for instance.<br />Disclaimer: Keep in mind if you do /fire ${user.name}, it will kill you since you are the target.<br />If you successfully shoot a user before getting shot you get a shield, which protects you from being shot for the remainder of the round.<br />Lastly, if you successfully eliminate all of the other targets you earn 5 EXP as well as 2 ${moneyPlural}!`);
 	},
 
 	"": "help",

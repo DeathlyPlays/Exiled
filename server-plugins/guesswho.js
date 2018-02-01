@@ -6,7 +6,7 @@
 
 "use strict";
 
-const guesses = 15;
+const guesses = 10;
 const prizeMoney = 5;
 
 class GuessWho {

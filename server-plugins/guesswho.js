@@ -38,6 +38,9 @@ class GuessWho {
 	guess(user, guess) {
 		if (user.userid === this.questionee) return user.sendTo(this.room, `You are currently the questionee, so you cannot guess your Pokemon.`);
 		if (!this.players.includes(user.userid)) return user.sendTo(this.room, `You are not currently in the session of Guess Who in this room.`);
+		if (this.guesses === 10 && this.hints.length < 1) return false;
+		if (this.guesses === 7 && this.hints.length < 2) return false;
+		if (this.guesses === 3 && this.hints.length < 3) return false;
 		if (guess.species === this.answer.species) {
 			this.room.add(`|html|${Server.nameColor(user.name, true)} guessed <strong>${guess.species}</strong>, which was the correct answer! ${Server.nameColor(user.name, true)} has also won 5 ${moneyPlural}! ${Server.nameColor(user.name, true)} has also won 5 EXP!`);
 			Economy.writeMoney(user.userid, prizeMoney);
@@ -127,7 +130,7 @@ exports.commands = {
 		players: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!room.guesswho) return this.sendReply("There is no ongoing game of Guess Who in this room.");
-			return this.sendReplyBox(`Current Player Count: ${room.guesswho.players.length} ${((room.guesswho.players.length === 1) ? "user" : "users")} in this session of Guess Who.`);
+			return this.sendReplyBox(`<strong>Current Player Count: ${room.guesswho.players.length} ${((room.guesswho.players.length === 1) ? "user is" : "users are")} in this session of Guess Who.`);
 		},
 
 		forcestart: "start",
@@ -163,7 +166,7 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			if (!room.guesswho) return this.errorReply("There is no session of Guess Who going on in this room.");
 			if (room.guesswho.state === "signups") return this.errorReply("This session of Guess Who has not been started.");
-			return this.sendReplyBox(`Remaining Guesses: ${room.guesswho.guesses}.`);
+			return this.sendReplyBox(`<strong>Remaining Guesses: ${room.guesswho.guesses}.</strong>`);
 		},
 
 		showguess: "guesses",

@@ -304,9 +304,10 @@ exports.commands = {
 		display += `<li><button class="button" name="send" value="/roomshophelp">Room Shop</button></li>`;
 		display += `<li><button class="button" name="send" value="/seenhelp">Seen</button></li>`;
 		display += `<li><button class="button" name="send" value="/shop">Shop</button></li>`;
+		display += `<li><button class="button" name="send" value="/splatoonhelp">Splatoon</button></li>`;
+		display += `<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li>`;
 		display += `<li><button class="button" name="send" value="/suggestionhelp">Suggestions</button></li>`;
 		display += `<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li>`;
-		display += `<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li>`;
 		display += `<li><button class="button" name="send" value="/tellhelp">Tells</button></li>`;
 		display += `<li><button class="button" name="send" value="/tsumeta">TsuMeta Committee</button></li>`;
 		display += `<li><button class="button" name="send" value="/urbandefinehelp">Urban Define</button></li>`;

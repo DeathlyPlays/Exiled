@@ -59,6 +59,12 @@ class GuessWho {
 				Server.ExpControl.addExp(this.questionee, this.room, 5);
 				this.end();
 			}
+			if (this.guesses === 7 && this.hints.length < 2) {
+				this.room.add(`|html|${Server.nameColor(this.questionee, true)}, it is now time for you to give the guessers their 2nd hint.`);
+			}
+			if (this.guesses === 3 && this.hints.length < 3) {
+				this.room.add(`|html|${Server.nameColor(this.questionee, true)}, it is now time for you to give the guessers their 3rd hint.`);
+			}
 		}
 	}
 

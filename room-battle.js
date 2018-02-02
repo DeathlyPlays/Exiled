@@ -575,7 +575,7 @@ class Battle {
 			this.started = true;
 			if (!this.ended) {
 				this.ended = true;
-				this.onEnd(this.logData.winnerid);
+				this.onEnd(this.logData.winner);
 				this.removeAllPlayers();
 			}
 			this.checkActive();
@@ -631,7 +631,7 @@ class Battle {
 			this.logData = null;
 		}
 		if (Config.autosavereplays) {
-			let uploader = Users.get(winnerid);
+			let uploader = Users.get(winnerid || p1id);
 			if (uploader && uploader.connections[0]) {
 				Chat.parse('/savereplay', this.room, uploader, uploader.connections[0]);
 			}

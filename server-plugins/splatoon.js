@@ -146,6 +146,9 @@ exports.commands = {
 			function showProfile() {
 				let profile = ``;
 				profile += `<div><strong>Name:</strong> ${Server.nameColor(toId(username), true, true)}${IGN(toId(username))}<br />`;
+				if (Db("switchfc").has(toId(username))) {
+					profile += `<strong>Switch Friend Code:</strong> SW-${Db("switchfc").get(toId(username))}<br />`;
+				}
 				if (Db("splatweapon").has(toId(username))) {
 					profile += `<strong>Weapon:</strong> ${Db("splatweapon").get(toId(username))}<br />`;
 				}

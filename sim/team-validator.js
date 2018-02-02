@@ -797,7 +797,7 @@ class Validator {
 				let plural = (parseInt(problem.maxSketches) === 1 ? '' : 's');
 				problemString += ` can't be Sketched because it can only Sketch ${problem.maxSketches} move${plural}.`;
 			} else if (problem.type === 'pastgen') {
-				problemString += ` is only available in generation ${problem.gen} or later.`;
+				problemString += ` is not available in generation ${problem.gen} or later.`;
 			} else if (problem.type === 'invalid') {
 				problemString = `${name} can't learn ${problem.moveName}.`;
 			} else {
@@ -852,32 +852,35 @@ class Validator {
 					for (const moveid of limitedEgg) {
 						let fatherSources = potentialFather.learnset[moveid] || potentialFather.learnset['sketch'];
 						if (!fatherSources) throw new Error(`Egg move father ${potentialFather.id} can't learn ${moveid}`);
-						let hasSource = false;
+						let bestSource = '!';
 						for (const fatherSource of fatherSources) {
 							// Triply nested loop! Fortunately, all the loops are designed
 							// to be as short as possible.
 							if (+source.charAt(0) > eggGen) continue;
-							hasSource = true;
 							if (fatherSource.charAt(1) === 'E') {
 								if (restrictedSource && (restrictedSource !== fatherSource || eggsRestricted)) {
-									restrictedSource = '!';
-									break;
+									continue;
+								} else {
+									bestSource = fatherSource;
 								}
-								restrictedSource = fatherSource;
 							} else if (fatherSource.charAt(1) === 'S') {
 								if (restrictedSource && restrictedSource !== fatherSource) {
-									restrictedSource = '!';
-									break;
+									continue;
+								} else {
+									bestSource = fatherSource;
 								}
-								restrictedSource = fatherSource;
+							} else {
+								bestSource = '';
+								break;
 							}
 						}
-						if (!hasSource) {
+						if (bestSource === '!') {
 							// no match for the current gen; early escape
 							restrictedSource = '!';
 							break;
+						} else if (bestSource !== '') {
+							restrictedSource = bestSource;
 						}
-						if (restrictedSource === '!') break;
 					}
 					if (restrictedSource !== '!') {
 						validFatherExists = true;

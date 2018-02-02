@@ -56,7 +56,6 @@ exports.commands = {
 			return this.sendReply(`Your Splatoon 2 weapon has been set to "${target}".`);
 		},
 
-		"!randomweapon": true,
 		randweapon: "randomweapon",
 		randomweapon: function (target, room, user) {
 			if (!this.runBroadcast) return;
@@ -112,7 +111,6 @@ exports.commands = {
 				return this.sendReply(`You have successfully joined Splatfest Team "${target}".`);
 			},
 
-			"!team": true,
 			teams: "team",
 			team: function (target, room, user) {
 				if (!this.runBroadcast()) return;
@@ -130,7 +128,6 @@ exports.commands = {
 			return this.sendReply(`Your IGN has been set as: "${target}".`);
 		},
 
-		"!profile": true,
 		profile: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!target) target = user.userid;

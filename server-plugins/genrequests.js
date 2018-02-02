@@ -7,7 +7,7 @@
 
 function alertGenners(message) {
 	if (Rooms(`genrequests`)) {
-		Rooms(`genrequests`).add(`|c|~Genner Alert|/raw ${message}`);
+		Rooms(`genrequests`).add(`|c|~Genner Alert|/raw ${message}`).update();
 	}
 }
 
@@ -33,9 +33,17 @@ exports.commands = {
 
 		req: "request",
 		request: function (target, room, user) {
+			target = target.split(",");
 			if (!user.autoconfirmed) return this.errorReply(`Only autoconfirmed users may use this command to prevent spam.`);
-			if (!target || target.length > 500) return this.errorReply(`This command requires a target with at a maximum of 500 characters. Feel free to send a Pastebin.`);
-			alertGenners(`${Server.nameColor(user.name, true)} has requested the following: ${target}.`);
+			if (!target[0]) target[0] = 0;
+			if (!isNaN(target[1])) return this.errorReply(`The reward must be an integer.`);
+			Economy.readMoney(user.userid, money => {
+				if (money < target[1]) {
+					this.errorReply(`You do not have enough ${moneyPlural} to give ${target[1]} as a reward.`);
+				}
+			});
+			if (!target[1] || target[1].length > 500) return this.errorReply(`This command requires a target with at a maximum of 500 characters. Feel free to send a Pastebin.`);
+			alertGenners(`${Server.nameColor(user.name, true)} has requested the following: "${target[1]}", and has offered ${reward} ${moneyPlural} for your services.`);
 			this.sendReply(`Your request has been sent, check /genreq list to contact genners and to verify if they are approved.`);
 		},
 
@@ -71,11 +79,11 @@ exports.commands = {
 	},
 
 	genrequesthelp: [
-		`Gen Req Commands: [Made by Insist]`,
-		`/genreq request [request] - Requests [request] to be genned and alerts all active approved genners.`,
-		`/genreq approve [user] - Approves a user as a genner. Requires Lock Access.`,
-		`/genreq ban [user] - Bans the user from being a genner. Requires Lock Access.`,
-		`/genreq list - Displays all of the server's approved genners.`,
-		`/genrequest help - Displays this command.`,
+		`Gen Req Commands: [Made by Insist]
+		/genreq request [reward], [request] - Requests [request] to be genned and alerts all active approved genners, and offers [reward] ${moneyPlural} for the reward.
+		/genreq approve [user] - Approves a user as a genner. Requires Lock Access.
+		/genreq ban [user] - Bans the user from being a genner. Requires Lock Access.
+		/genreq list - Displays all of the server's approved genners.
+		/genrequest help - Displays this command.`,
 	],
 };

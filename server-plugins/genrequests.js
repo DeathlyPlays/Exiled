@@ -33,17 +33,17 @@ exports.commands = {
 
 		req: "request",
 		request: function (target, room, user) {
-			target = target.split(",");
+			target = target.split(", ");
 			if (!user.autoconfirmed) return this.errorReply(`Only autoconfirmed users may use this command to prevent spam.`);
 			if (!target[0]) target[0] = 0;
-			if (!isNaN(target[1])) return this.errorReply(`The reward must be an integer.`);
+			if (!isNaN(target[0])) return this.errorReply(`The reward must be an integer.`);
 			Economy.readMoney(user.userid, money => {
-				if (money < target[1]) {
-					this.errorReply(`You do not have enough ${moneyPlural} to give ${target[1]} as a reward.`);
+				if (money < target[0]) {
+					this.errorReply(`You do not have enough ${moneyPlural} to give ${target[0]} as a reward.`);
 				}
 			});
 			if (!target[1] || target[1].length > 500) return this.errorReply(`This command requires a target with at a maximum of 500 characters. Feel free to send a Pastebin.`);
-			alertGenners(`${Server.nameColor(user.name, true)} has requested the following: "${target[1]}", and has offered ${reward} ${moneyPlural} for your services.`);
+			alertGenners(`${Server.nameColor(user.name, true)} has requested the following: "${target[1]}", and has offered ${target[0]} ${moneyPlural} for your services.`);
 			this.sendReply(`Your request has been sent, check /genreq list to contact genners and to verify if they are approved.`);
 		},
 

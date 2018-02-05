@@ -1413,8 +1413,8 @@ exports.commands = {
 		let curRoom = targetRoom;
 		while (curRoom.parent) {
 			const modjoinSetting = curRoom.modjoin === true ? curRoom.modchat : curRoom.modjoin;
-			const roomType = (modjoinSetting ? `modjoin ${modjoinSetting} ` : ``);
-			const inheritedUserType = (modjoinSetting ? ` of rank ${modjoinSetting} and above` : ``);
+			const roomType = (modjoinSetting ? `modjoin ${modjoinSetting} ` : '');
+			const inheritedUserType = (modjoinSetting ? ` of rank ${modjoinSetting} and above` : '');
 			if (curRoom.parent) {
 				buffer.push(`${curRoom.title} is a ${roomType}subroom of ${curRoom.parent.title}, so ${curRoom.parent.title} users${inheritedUserType} also have authority in this room.`);
 			}
@@ -1527,7 +1527,7 @@ exports.commands = {
 			);
 		}
 
-		const reason = (target ? ` (${target})` : ``);
+		const reason = (target ? ` (${target})` : '');
 		this.addModAction(`${name} was banned from ${room.title} by ${user.name}.${reason}`);
 
 		let affected = Punishments.roomBan(room, targetUser, null, null, target);
@@ -1855,7 +1855,7 @@ exports.commands = {
 		this.add(`|unlink|hide|${userid}`);
 		if (userid !== toId(this.inputUsername)) this.add(`|unlink|hide|${toId(this.inputUsername)}`);
 
-		const globalReason = (target ? `: ${userReason} ${proof}` : ``);
+		const globalReason = (target ? `: ${userReason} ${proof}` : '');
 		this.globalModlog((week ? "WEEKLOCK" : "LOCK"), targetUser || userid, ` by ${user.userid}${globalReason}`);
 
 		// Automatically upload replays as evidence/reference to the punishment
@@ -1979,7 +1979,7 @@ exports.commands = {
 		this.add('|unlink|hide|' + userid);
 		if (userid !== toId(this.inputUsername)) this.add('|unlink|hide|' + toId(this.inputUsername));
 
-		const globalReason = (target ? `: ${userReason} ${proof}` : ``);
+		const globalReason = (target ? `: ${userReason} ${proof}` : '');
 		this.globalModlog("BAN", targetUser, ` by ${user.userid}${globalReason}`);
 		return true;
 	},
@@ -2476,41 +2476,44 @@ exports.commands = {
 	blacklist: function (target, room, user) {
 		if (!target) return this.parse('/help blacklist');
 		if (!this.canTalk()) return;
-		if (toId(target) === 'show') return this.errorReply("You're looking for /showbl");
+		if (toId(target) === 'show') return this.errorReply(`You're looking for /showbl`);
 
 		target = this.splitTarget(target);
 		const targetUser = this.targetUser;
-		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
+		if (!targetUser) {
+			this.errorReply(`User ${this.targetUsername} not found.`);
+			return this.errorReply(`If you want to blacklist an offline account by name (not IP), consider /blacklistname`);
+		}
 		if (!this.can('editroom', targetUser, room)) return false;
 		if (!room.chatRoomData) {
-			return this.errorReply("This room is not going to last long enough for a blacklist to matter - just ban the user");
+			return this.errorReply(`This room is not going to last long enough for a blacklist to matter - just ban the user`);
 		}
 		let punishment = Punishments.isRoomBanned(targetUser, room.id);
 		if (punishment && punishment[0] === 'BLACKLIST') {
-			return this.errorReply("This user is already blacklisted from this room.");
+			return this.errorReply(`This user is already blacklisted from this room.`);
 		}
 
 		if (!target) {
-			return this.errorReply("Blacklists require a reason.");
+			return this.errorReply(`Blacklists require a reason.`);
 		}
 		if (target.length > MAX_REASON_LENGTH) {
-			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
+			return this.errorReply(`The reason is too long. It cannot exceed ${MAX_REASON_LENGTH} characters.`);
 		}
 		const name = targetUser.getLastName();
 		const userid = targetUser.getLastId();
 
 		if (targetUser.trusted && room.isPrivate !== true) {
-			Monitor.log("[CrisisMonitor] Trusted user " + targetUser.name + (targetUser.trusted !== targetUser.userid ? " (" + targetUser.trusted + ")" : "") + " was blacklisted from " + room.id + " by " + user.name + ", and should probably be demoted.");
+			Monitor.log(`[CrisisMonitor] Trusted user ${targetUser.name}${(targetUser.trusted !== targetUser.userid ? ` (${targetUser.trusted})` : '')} was blacklisted from ${room.id} by ${user.name}, and should probably be demoted.`);
 		}
 
 		if (targetUser in room.users || user.can('lock')) {
 			targetUser.popup(
-				"|modal||html|<p>" + Chat.escapeHTML(user.name) + " has blacklisted you from the room " + room.id + (room.subRooms ? " and its subrooms" : "") + ".</p>" + (target ? "<p>Reason: " + Chat.escapeHTML(target) + "</p>" : "") +
-				"<p>To appeal the ban, PM the staff member that blacklisted you" + (!room.battle && room.auth ? " or a room owner. </p><p><button name=\"send\" value=\"/roomauth " + room.id + "\">List Room Staff</button></p>" : ".</p>")
+				`|modal||html|<p>${Chat.escapeHTML(user.name)} has blacklisted you from the room ${room.id}${(room.subRooms ? ` and its subrooms` : '')}. Reason: ${Chat.escapeHTML(target)}</p>` +
+				`<p>To appeal the ban, PM the staff member that blacklisted you${(!room.battle && room.auth ? ` or a room owner. </p><p><button name="send" value="/roomauth ${room.id}">List Room Staff</button></p>` : `.</p>`)}`
 			);
 		}
 
-		this.addModAction(`${name} was blacklisted from ${room.title} by ${user.name}. ${(target ? ` (${target})` : ``)}`);
+		this.addModAction(`${name} was blacklisted from ${room.title} by ${user.name}. ${(target ? ` (${target})` : '')}`);
 
 		let affected = Punishments.roomBlacklist(room, targetUser, null, null, target);
 
@@ -2518,18 +2521,18 @@ exports.commands = {
 			let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
 			let displayMessage = '';
 			if (affected.length > 1) {
-				displayMessage = "(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "blacklisted alts: " + affected.slice(1).map(user => user.getLastName()).join(", ") + ")";
+				displayMessage = `(${name}'s ${(acAccount ? ` ac account: ${acAccount},` : '')} blacklisted alts: ${affected.slice(1).map(user => user.getLastName()).join(", ")})`;
 				this.privateModAction(displayMessage);
 			} else if (acAccount) {
-				displayMessage = "(" + name + "'s ac account: " + acAccount + ")";
+				displayMessage = `(${name}'s ac account: ${acAccount})`;
 				this.privateModAction(displayMessage);
 			}
 		}
-		this.add('|unlink|hide|' + userid);
-		if (userid !== toId(this.inputUsername)) this.add('|unlink|hide|' + toId(this.inputUsername));
+		this.add(`|unlink|hide|${userid}`);
+		if (userid !== toId(this.inputUsername)) this.add(`|unlink|hide|${toId(this.inputUsername)}`);
 
 		if (!room.isPrivate && room.chatRoomData) {
-			this.globalModlog("BLACKLIST", targetUser, " by " + user.userid + (target ? ": " + target : ""));
+			this.globalModlog("BLACKLIST", targetUser, ` by ${user.userid} ${(target ? `: ${target}` : '')}`);
 		}
 		return true;
 	},
@@ -2660,7 +2663,7 @@ exports.commands = {
 		}
 
 		let soonExpiring = (cmd === 'expiringblacklists' || cmd === 'expiringbls');
-		let buf = Chat.html`Blacklist for ${room.title}${soonExpiring ? ` (expiring within 3 months)` : ``}:<br />`;
+		let buf = Chat.html`Blacklist for ${room.title}${soonExpiring ? ` (expiring within 3 months)` : ''}:<br />`;
 
 		blMap.forEach((data, userid) => {
 			const [expireTime, ...alts] = data;
@@ -3478,16 +3481,29 @@ exports.commands = {
 		const formatIndex = target.indexOf(`"formatid":"`);
 		const nextQuoteIndex = target.indexOf(`"`, formatIndex + 12);
 		if (formatIndex < 0 || nextQuoteIndex < 0) return this.errorReply(`Invalid input log`);
+		target = target.replace(/\r/g, '');
 		if ((`\n` + target).includes(`\n>eval `) && !user.hasConsoleAccess(connection)) {
 			return this.errorReply(`Your input log contains untrusted code - you must have console access to use it`);
 		}
+
 		const formatid = target.slice(formatIndex + 12, nextQuoteIndex);
 		const battleRoom = Rooms.createBattle(formatid, {inputLog: target});
+
+		const nameIndex1 = target.indexOf(`"name":"`);
+		const nameNextQuoteIndex1 = target.indexOf(`"`, nameIndex1 + 8);
+		const nameIndex2 = target.indexOf(`"name":"`, nameNextQuoteIndex1 + 1);
+		const nameNextQuoteIndex2 = target.indexOf(`"`, nameIndex2 + 8);
+		if (nameIndex1 >= 0 && nameNextQuoteIndex1 >= 0 && nameIndex2 >= 0 && nameNextQuoteIndex2 >= 0) {
+			const name1 = target.slice(nameIndex1 + 8, nameNextQuoteIndex1);
+			const name2 = target.slice(nameIndex2 + 8, nameNextQuoteIndex2);
+			battleRoom.battle.playerNames = [name1, name2];
+		}
+
 		this.parse(`/join ${battleRoom.id}`);
-		battleRoom.auth[user.userid] = Users.PLAYER_SYMBOL;
+		battleRoom.auth[user.userid] = Users.HOST_SYMBOL;
 		setTimeout(() => {
 			// timer to make sure this goes under the battle
-			battleRoom.add(`|html|<div class="broadcast broadcast-blue"><strong>This is an imported replay</strong><br />Players will need to be manually added with <code>/addplayer USERNAME, SLOT</code></div>`);
+			battleRoom.add(`|html|<div class="broadcast broadcast-blue"><strong>This is an imported replay</strong><br />Players will need to be manually added with <code>/addplayer</code> or <code>/restoreplayers</code></div>`);
 		}, 500);
 	},
 
@@ -3511,29 +3527,17 @@ exports.commands = {
 
 		room.game.choose(user, target);
 	},
-
 	mv: 'move',
 	attack: 'move',
 	move: function (target, room, user) {
-		if (!room.game) return this.errorReply("This room doesn't have an active game.");
-		if (!room.game.choose) return this.errorReply("This game doesn't support /choose");
-
-		room.game.choose(user, 'move ' + target);
+		this.parse(`/choose move ${target}`);
 	},
-
 	sw: 'switch',
 	switch: function (target, room, user) {
-		if (!room.game) return this.errorReply("This room doesn't have an active game.");
-		if (!room.game.choose) return this.errorReply("This game doesn't support /choose");
-
-		room.game.choose(user, 'switch ' + parseInt(target));
+		this.parse(`/choose switch ${target}`);
 	},
-
 	team: function (target, room, user) {
-		if (!room.game) return this.errorReply("This room doesn't have an active game.");
-		if (!room.game.choose) return this.errorReply("This game doesn't support /choose");
-
-		room.game.choose(user, 'team ' + target);
+		this.parse(`/choose team ${target}`);
 	},
 
 	undo: function (target, room, user) {
@@ -3597,7 +3601,6 @@ exports.commands = {
 			return this.errorReply(`This room already has a player in slot ${target}.`);
 		}
 
-		room.auth[targetUser.userid] = Users.PLAYER_SYMBOL;
 		room.battle.addPlayer(targetUser, target);
 		this.addModAction(`${name} was added to the battle as Player ${target.slice(1)} by ${user.name}.`);
 		this.modlog('ROOMPLAYER', targetUser.getLastId());
@@ -3605,6 +3608,26 @@ exports.commands = {
 	addplayerhelp: [
 		`/addplayer [username], p1 - Allow the specified user to join the battle as Player 1.`,
 		`/addplayer [username], p2 - Allow the specified user to join the battle as Player 2.`,
+	],
+
+	restoreplayers: function (target, room, user) {
+		if (!room.battle) return this.errorReply("You can only do this in battle rooms.");
+		if (room.rated) return this.errorReply("You can only add a Player to unrated battles.");
+
+		let didSomething = false;
+		if (!room.battle.p1 && room.battle.playerNames[0] !== 'Player 1') {
+			this.parse(`/addplayer ${room.battle.playerNames[0]}, p1`);
+			didSomething = true;
+		}
+		if (!room.battle.p2 && room.battle.playerNames[1] !== 'Player 2') {
+			this.parse(`/addplayer ${room.battle.playerNames[1]}, p2`);
+			didSomething = true;
+		}
+
+		if (!didSomething) return this.errorReply(`Players could not be restored (maybe this battle already has two players?)`);
+	},
+	restoreplayershelp: [
+		`/restoreplayers - Restore previous players in an imported input log.`,
 	],
 
 	joinbattle: 'joingame',

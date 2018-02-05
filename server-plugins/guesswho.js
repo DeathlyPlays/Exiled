@@ -136,7 +136,7 @@ exports.commands = {
 		players: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!room.guesswho) return this.sendReply("There is no ongoing game of Guess Who in this room.");
-			return this.sendReplyBox(`<strong>Current Player Count: ${room.guesswho.players.length} ${((room.guesswho.players.length === 1) ? "user is" : "users are")} in this session of Guess Who.`);
+			return this.sendReplyBox(`<strong>Current Player Count: ${room.guesswho.players.length} ${((room.guesswho.players.length === 1) ? "user is" : "users are")} in this session of Guess Who.<br /> Players: ${room.guesswho.players}.`);
 		},
 
 		forcestart: "start",

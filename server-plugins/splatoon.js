@@ -47,6 +47,14 @@ exports.commands = {
 				Db("splattc").set(user.userid, target);
 				return this.sendReply(`You have successfully set your Tower Control ranking to "${target}".`);
 			},
+
+			salmonrun: "sr",
+			sr: function (target, room, user) {
+				if (!target) return this.parse("/splatoonhelp");
+				if (!["intern", "apprentice", "parttimer", "gogetter", "overachiever", "profreshional"].includes(target.toLowerCase())) return this.errorReply(`Invalid Ranking; check your spelling?`);
+				Db("splatsr").set(user.userid, target);
+				return this.sendReply(`You have successfully set your Salmon Run ranking as "${target}".`);
+			},
 		},
 
 		weapon: function (target, room, user) {
@@ -167,6 +175,9 @@ exports.commands = {
 				if (Db("splattc").has(toId(username))) {
 					profile += `<strong>Tower Control:</strong> ${Db("splattc").get(toId(username))}<br />`;
 				}
+				if (Db("splatsr").has(toId(username))) {
+					profile += `<strong>Salmon Run:</strong> ${Db("splatsr").get(toId(username))}<br />`;
+				}
 				profile += `</div>`;
 				self.sendReplyBox(profile);
 			}
@@ -179,7 +190,7 @@ exports.commands = {
 	},
 
 	splatoonhelp: [
-		`/splatoon rank [Clam Blitz | Rainmaker | Splat Zones | Tower Control] [rank] - Sets your Splatoon 2 Ranked Battle rank.
+		`/splatoon rank [Clam Blitz | Rainmaker | Splat Zones | Tower Control | Salmon Run] [rank] - Sets your Splatoon 2 Ranked Battle rank.
 		/splatoon weapon [weapon] - Sets your Splatoon 2 Weapon.
 		/splatoon IGN [Splatoon IGN] - Sets your Splatoon 2 IGN.
 		/splatoon splatfest start [1st Splatfest team name], [2nd Splatfest team name] - Initiates a Splatfest of the two teams.  Must have Room Moderator or higher in the Splatoon room.
@@ -187,6 +198,7 @@ exports.commands = {
 		/splatoon splatfest join [Splatfest team name] - Joins the specified Splatfest team.
 		/splatoon splatfest teams - Shows the Splatfest teams.
 		/splatoon randomweapon - Sends a random weapon from Splatoon 2 into chat.
-		/splatoon profile [optional target] - Displays the specified user's Splatoon 2 Profile. Defaults to yourself.`,
+		/splatoon profile [optional target] - Displays the specified user's Splatoon 2 Profile. Defaults to yourself.
+		/splatoon help - Shows this command.`,
 	],
 };

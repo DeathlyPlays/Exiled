@@ -35,11 +35,10 @@ exports.commands = {
 		request: function (target, room, user) {
 			target = target.split(", ");
 			if (!user.autoconfirmed) return this.errorReply(`Only autoconfirmed users may use this command to prevent spam.`);
-			if (!target[0]) target[0] = 0;
-			if (!isNaN(target[0])) return this.errorReply(`The reward must be an integer.`);
+			if (isNaN(target[0])) return this.errorReply(`The reward must be an integer.`);
 			Economy.readMoney(user.userid, money => {
 				if (money < target[0]) {
-					this.errorReply(`You do not have enough ${moneyPlural} to give ${target[0]} as a reward.`);
+					return this.errorReply(`You do not have enough ${moneyPlural} to give ${target[0]} as a reward.`);
 				}
 			});
 			if (!target[1] || target[1].length > 500) return this.errorReply(`This command requires a target with at a maximum of 500 characters. Feel free to send a Pastebin.`);

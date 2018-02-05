@@ -373,7 +373,7 @@ exports.BattleFormatsData = {
 		],
 		eventOnly: true,
 		gen: 6,
-		tier: "Illegal",
+		tier: "PU",
 	},
 	pikachuoriginal: {
 		eventPokemon: [

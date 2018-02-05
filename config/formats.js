@@ -37,7 +37,7 @@ exports.Formats = [
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3621042/">OU Metagame Discussion</a>`,
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3587177/">OU Banlist</a>`,
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3621329/">OU Viability Rankings</a>`,
-			`&bullet; <a href="http://www.smogon.com/forums/threads/3606650/">OU Sample Teams</a>`,
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3626219/">OU Sample Teams</a>`,
 		],
 
 		mod: 'gen7',
@@ -397,12 +397,12 @@ exports.Formats = [
 
 		mod: 'sharedpower',
 		ruleset: ['[Gen 7] OU', 'Evasion Abilities Clause'],
-		banlist: ['Gyarados-Mega', 'Shedinja', 'Electric Seed ++ Grassy Seed ++ Misty Seed ++ Psychic Seed > 1'],
+		banlist: ['Gyarados-Mega', 'Shedinja'],
 		unbanlist: ['Aegislash', 'Blaziken', 'Blaziken-Mega', 'Deoxys-Defense'],
 		restrictedAbilities: [
-			'Chlorophyll', 'Comatose', 'Fluffy', 'Fur Coat', 'Huge Power', 'Illusion', 'Imposter',
-			'Mold Breaker', 'Protean', 'Pure Power', 'Sand Rush', 'Simple', 'Slush Rush', 'Speed Boost',
-			'Surge Surfer', 'Swift Swim', 'Teravolt', 'Tinted Lens', 'Trace', 'Water Bubble',
+			'Chlorophyll', 'Comatose', 'Fluffy', 'Fur Coat', 'Huge Power', 'Illusion', 'Imposter', 'Mold Breaker',
+			'Protean', 'Pure Power', 'Quick Feet', 'Rattled', 'Sand Rush', 'Simple', 'Slush Rush', 'Speed Boost',
+			'Surge Surfer', 'Swift Swim', 'Teravolt', 'Tinted Lens', 'Trace', 'Unburden', 'Water Bubble', 'Weak Armor',
 		],
 		onBeforeSwitchIn: function (pokemon) {
 			let restrictedAbilities = this.getFormat().restrictedAbilities.map(toId);
@@ -445,12 +445,12 @@ exports.Formats = [
 		mod: 'gen7',
 		maxLevel: 50,
 		defaultLevel: 50,
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Combusken', 'Eviolite', 'Light Ball'],
+		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+		banlist: ['Combusken', 'Eviolite', 'Light Ball', 'Shadow Tag'],
 		onValidateSet: function (set) {
 			let template = this.getTemplate(set.species);
-			if (!template.prevo) return [set.species + " is not an evolved Pokemon."];
-			if (!template.nfe) return [set.species + " does not have an evolution."];
+			if (!template.prevo) return [`${set.species} is not an evolved Pokemon.`];
+			if (!template.nfe) return [`${set.species} does not have an evolution.`];
 		},
 	},
 	{
@@ -479,7 +479,6 @@ exports.Formats = [
 		],
 
 		mod: 'gen7',
-		searchShow: false,
 		teamLength: {
 			validate: [1, 3],
 			battle: 1,
@@ -492,18 +491,6 @@ exports.Formats = [
 			'Focus Sash', 'Flash', 'Kinesis', 'Leaf Tornado', 'Mirror Shot', 'Mud Bomb', 'Mud-Slap', 'Muddy Water', 'Night Daze', 'Octazooka', 'Perish Song', 'Sand Attack', 'Smokescreen',
 			'Chansey + Charm + Seismic Toss', 'Chansey + Charm + Psywave',
 		],
-	},
-	{
-		name: "[Gen 7] 1v1 (suspect test)",
-		desc: [`&bullet; <a href="http://www.smogon.com/forums/posts/7655187/">1v1 Suspect Test</a>`],
-
-		mod: 'gen7',
-		challengeShow: false,
-		teamLength: {
-			validate: [1, 3],
-			battle: 1,
-		},
-		ruleset: ['[Gen 7] 1v1'],
 	},
 	{
 		name: "[Gen 7] Mix and Mega",
@@ -682,7 +669,7 @@ exports.Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] OU', 'STABmons Move Legality'],
-		banlist: ['Kartana', 'Komala', 'Kyurem-Black', 'Silvally', 'Tapu Koko', 'Tapu Lele', 'Aerodactylite', 'King\'s Rock', 'Metagrossite', 'Razor Fang'],
+		banlist: ['Blacephalon', 'Kartana', 'Komala', 'Kyurem-Black', 'Silvally', 'Tapu Koko', 'Tapu Lele', 'Aerodactylite', 'King\'s Rock', 'Metagrossite', 'Razor Fang'],
 		restrictedMoves: ['Acupressure', 'Belly Drum', 'Chatter', 'Geomancy', 'Lovely Kiss', 'Shell Smash', 'Shift Gear', 'Thousand Arrows'],
 	},
 	{

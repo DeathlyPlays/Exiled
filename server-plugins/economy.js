@@ -132,20 +132,22 @@ let Economy = global.Economy = {
 			return callback(newTotal);
 		}
 	},
+
 	writeMoneyArr: function (users, amount) {
 		this.writeMoney(users[0], amount, () => {
 			users.splice(0, 1);
 			if (users.length > 0) this.writeMoneyArr(users, amount);
 		});
 	},
+
 	logTransaction: function (message) {
 		if (!message) return false;
-		fs.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+		fs.appendFile('logs/transactions.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 	},
 
 	logDice: function (message) {
 		if (!message) return false;
-		fs.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+		fs.appendFile('logs/dice.log', '[' + new Date().toUTCString() + '] ' + message + '\n', () => {});
 	},
 };
 

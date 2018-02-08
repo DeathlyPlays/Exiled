@@ -65,7 +65,7 @@ exports.commands = {
 			salmonrun: "sr",
 			sr: function (target, room, user) {
 				if (!target) return this.parse("/splatoonhelp");
-				target = target.trim().substring(0, 1).toUpperCase() + target.trim().substring(1).toLowerCase();
+				target = target.trim().split(',').map(x => { return x.substring(0, 1).toUpperCase() + x.substring(1).toLowerCase(); }).join('-');
 				let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
 				if (!["Intern", "Apprentice", "Part-Timer", "Go-Getter", "Overachiever", "Profreshional"].includes(target)) return this.errorReply(`Invalid Ranking; check your spelling?`);
 				splatProfile.ranks.sr = target;

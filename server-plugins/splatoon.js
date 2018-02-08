@@ -164,7 +164,7 @@ exports.commands = {
 		lvl: "level",
 		level: function (target, room, user) {
 			if (!this.canTalk()) return false;
-			if (!target || target > 99 || target < 1 || !isNaN(target)) return this.errorReply(`Your level must be a number between 1-99 (no decimals).`);
+			if (!target || target > 99 || target < 1 || target.includes(".")) return this.errorReply(`Your level must be a number between 1-99 (no decimals).`);
 			let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
 			splatProfile.level = target;
 			Db("splatoon").set(user.userid, splatProfile);
@@ -183,12 +183,12 @@ exports.commands = {
 
 			function IGN() {
 				if (!splatProfile.ign) return ``;
-				return `(<strong>IGN:</strong> ${splatProfile.ign})`;
+				return ` (<strong>IGN:</strong> ${splatProfile.ign})`;
 			}
 
 			function splatLevel() {
 				if (!splatProfile.level) return ``;
-				return ` (<strong>Level:</strong> ${splatProfile.level}`;
+				return ` <strong>Level:</strong> ${splatProfile.level}`;
 			}
 
 			let profile = ``;

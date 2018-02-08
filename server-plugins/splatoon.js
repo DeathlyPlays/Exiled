@@ -161,6 +161,16 @@ exports.commands = {
 			return this.sendReply(`Your In-Game Name has been set as: "${target}".`);
 		},
 
+		lvl: "level",
+		level: function (target, room, user) {
+			if (!this.canTalk()) return false;
+			if (!target || target > 99 || target < 1 || !isNaN(target)) return this.errorReply(`Your level must be a number between 1-99 (no decimals).`);
+			let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+			splatProfile.level = target;
+			Db("splatoon").set(user.userid, splatProfile);
+			return this.sendReply(`Your Level has been set to: Level ${target}.`);
+		},
+
 		profile: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!target) target = user.userid;
@@ -171,13 +181,18 @@ exports.commands = {
 			let username = (targetUser ? targetUser.name : target);
 			let splatProfile = Db("splatoon").get(toId(username), {ranks: {}});
 
-			function IGN(user) {
+			function IGN() {
 				if (!splatProfile.ign) return ``;
 				return `(<strong>IGN:</strong> ${splatProfile.ign})`;
 			}
 
+			function splatLevel() {
+				if (!splatProfile.level) return ``;
+				return ` (<strong>Level:</strong> ${splatProfile.level}`;
+			}
+
 			let profile = ``;
-			profile += `<div><strong>Name:</strong> ${Server.nameColor(toId(username), true, true)} ${IGN(toId(username))}<br />`;
+			profile += `<div><strong>Name:</strong> ${Server.nameColor(toId(username), true, true)}${IGN(toId(username))}${splatLevel(toId(username))}<br />`;
 			if (Db("switchfc").has(toId(username))) {
 				profile += `<strong>Switch Friend Code:</strong> SW-${Db("switchfc").get(toId(username))}<br />`;
 			}
@@ -216,6 +231,7 @@ exports.commands = {
 		`/splatoon rank [Clam Blitz | Rainmaker | Splat Zones | Tower Control | Salmon Run] [rank] - Sets your Splatoon 2 Ranked Battle rank.
 		/splatoon weapon [weapon] - Sets your Splatoon 2 Weapon.
 		/splatoon IGN [Splatoon IGN] - Sets your Splatoon 2 IGN.
+		/splatoon level [level] - Sets your Splatoon 2 Level.
 		/splatoon splatfest start [1st Splatfest team name], [2nd Splatfest team name] - Initiates a Splatfest of the two teams.  Must have Room Moderator or higher in the Splatoon room.
 		/splatoon splatfest end - Ends the Splatfest.
 		/splatoon splatfest join [Splatfest team name] - Joins the specified Splatfest team.

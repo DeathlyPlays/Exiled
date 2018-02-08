@@ -199,8 +199,8 @@ exports.commands = {
 
 			let profile = ``;
 			profile += `<div><strong>Name:</strong> ${Server.nameColor(toId(username), true, true)}${IGN(toId(username))}${splatLevel(toId(username))}<br />`;
-			if (Db.switchfc.has(toId(username))) {
-				profile += `<strong>Switch Friend Code:</strong> SW-${Db.switchfc.get(toId(username))}<br />`;
+			if (Db("switchfc").has(toId(username))) {
+				profile += `<strong>Switch Friend Code:</strong> SW-${Db("switchfc").get(toId(username))}<br />`;
 			}
 			if (splatProfile.weapon) {
 				profile += `<strong>Weapon:</strong> ${splatProfile.weapon}<br />`;

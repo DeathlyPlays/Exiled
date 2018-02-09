@@ -7,16 +7,16 @@
  * Main Profile credit goes out to panpawn/jd/other contributors.			*
  ****************************************************************************/
 
-'use strict';
+"use strict";
 
-let geoip = require('geoip-lite-country');
+let geoip = require("geoip-lite-country");
 
 // fill your server's IP in your config.js for exports.serverIp
 let serverIp = Config.serverIp;
 
 function isDev(user) {
 	if (!user) return;
-	if (typeof user === 'object') user = user.userid;
+	if (typeof user === "object") user = user.userid;
 	let dev = Db("devs").get(toId(user));
 	if (dev === 1) return true;
 	return false;
@@ -24,7 +24,7 @@ function isDev(user) {
 
 function isVIP(user) {
 	if (!user) return;
-	if (typeof user === 'object') user = user.userid;
+	if (typeof user === "object") user = user.userid;
 	let vip = Db("vips").get(toId(user));
 	if (vip === 1) return true;
 	return false;
@@ -32,7 +32,7 @@ function isVIP(user) {
 
 function isTsuMetaCouncil(user) {
 	if (!user) return;
-	if (typeof user === 'object') user = user.userid;
+	if (typeof user === "object") user = user.userid;
 	let council = Db("councilmember").get(toId(user));
 	if (council === 1) return true;
 	return false;
@@ -43,22 +43,22 @@ function showTitle(userid) {
 	if (Db("titles").has(userid)) {
 		return `<font color="${Db("titles").get(userid)[1]}">(<strong>${Db("titles").get(userid)[0]}</strong>)</font>`;
 	}
-	return '';
+	return ``;
 }
 
 function devCheck(user) {
-	if (isDev(user)) return '<font color="#009320">(<strong>Developer</strong>)</font>';
-	return '';
+	if (isDev(user)) return `<font color="#009320">(<strong>Developer</strong>)</font>`;
+	return ``;
 }
 
 function vipCheck(user) {
-	if (isVIP(user)) return '<font color="#6390F0">(<strong>VIP User</strong>)</font>';
-	return '';
+	if (isVIP(user)) return `<font color="#6390F0">(<strong>VIP User</strong>)</font>`;
+	return ``;
 }
 
 function tsumetaCheck(user) {
-	if (isTsuMetaCouncil(user)) return '<font color="#B22222">(<strong>TsuMeta Member</strong>)</font>';
-	return '';
+	if (isTsuMetaCouncil(user)) return `<font color="#B22222">(<strong>TsuMeta Member</strong>)</font>`;
+	return ``;
 }
 
 function lastActive(user) {
@@ -91,8 +91,8 @@ function showBadges(user) {
 exports.commands = {
 	dev: {
 		give: function (target, room, user) {
-			if (!this.can('ban')) return false;
-			if (!target) return this.parse('/help', true);
+			if (!this.can("ban")) return false;
+			if (!target) return this.parse("/help", true);
 			let devUsername = toId(target);
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (isDev(devUsername)) return this.errorReply(`${target} is already a DEV user.`);
@@ -101,9 +101,12 @@ exports.commands = {
 			if (Users.get(devUsername)) Users(devUsername).popup(`|html|You have been given DEV status by ${Server.nameColor(user.name, true)}.`);
 		},
 
+		remove: "take",
+		revoke: "take",
+		delete: "take",
 		take: function (target, room, user) {
-			if (!this.can('ban')) return false;
-			if (!target) return this.parse('/help', true);
+			if (!this.can("ban")) return false;
+			if (!target) return this.parse("/help", true);
 			let devUsername = toId(target);
 			if (devUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (!isDev(devUsername)) return this.errorReply(`${target} isn't a DEV user.`);
@@ -112,36 +115,36 @@ exports.commands = {
 			if (Users.get(devUsername)) Users(devUsername).popup(`|html|You have been demoted from DEV status by ${Server.nameColor(user.name, true)}.`);
 		},
 
-		users: 'list',
+		users: "list",
 		list: function () {
-			if (!Db("devs").keys().length) return this.errorReply('There seems to be no user with DEV status.');
+			if (!Db("devs").keys().length) return this.errorReply("There seems to be no user with DEV status.");
 			let display = [];
 			Db("devs").keys().forEach(devUser => {
 				display.push(Server.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
 			});
-			this.popupReply(`|html|<strong><u><font size="3"><center>DEV Users:</center></font></u></strong>${display.join(',')}`);
+			this.popupReply(`|html|<strong><u><font size="3"><center>DEV Users:</center></font></u></strong>${display.join(",")}`);
 		},
 
-		'': 'help',
+		"": "help",
 		help: function () {
 			this.sendReplyBox(
-				'<div style="padding: 3px 5px;"><center>' +
-				'<code>/dev</code> commands.<br />These commands are nestled under the namespace <code>dev</code>.</center>' +
-				'<hr width="100%">' +
-				'<code>give [username]</code>: Gives <code>username</code> DEV status. Requires: & ~' +
-				'<br />' +
-				'<code>take [username]</code>: Takes <code>username</code>\'s DEV status. Requires: & ~' +
-				'<br />' +
-				'<code>list</code>: Shows the list of users with DEV Status.' +
-				'</div>'
+				"<div style='padding: 3px 5px;'><center>" +
+				"<code>/dev</code> commands.<br />These commands are nestled under the namespace <code>dev</code>.</center>" +
+				"<hr width='100%'>" +
+				"<code>give [username]</code>: Gives <code>username</code> DEV status. Requires: & ~" +
+				"<br />" +
+				"<code>take [username]</code>: Takes <code>username</code>'s DEV status. Requires: & ~" +
+				"<br />" +
+				"<code>list</code>: Shows the list of users with DEV Status." +
+				"</div>"
 			);
 		},
 	},
 
 	vip: {
 		give: function (target, room, user) {
-			if (!this.can('ban')) return false;
-			if (!target) return this.parse('/help', true);
+			if (!this.can("ban")) return false;
+			if (!target) return this.parse("/help", true);
 			let vipUsername = toId(target);
 			if (vipUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (isVIP(vipUsername)) return this.errorReply(`${target} is already a VIP user.`);
@@ -151,8 +154,8 @@ exports.commands = {
 		},
 
 		take: function (target, room, user) {
-			if (!this.can('ban')) return false;
-			if (!target) return this.parse('/help', true);
+			if (!this.can("ban")) return false;
+			if (!target) return this.parse("/help", true);
 			let vipUsername = toId(target);
 			if (vipUsername.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			if (!isVIP(vipUsername)) return this.errorReply(`${target} isn't a VIP user.`);
@@ -161,39 +164,39 @@ exports.commands = {
 			if (Users.get(vipUsername)) Users(vipUsername).popup(`|html|You have been demoted from VIP status by ${Server.nameColor(user.name, true)}.`);
 		},
 
-		users: 'list',
+		users: "list",
 		list: function (target, room, user) {
-			if (!Db("vips").keys().length) return this.errorReply('There seems to be no user(s) with VIP status.');
+			if (!Db("vips").keys().length) return this.errorReply("There seems to be no user(s) with VIP status.");
 			let display = [];
 			Db("vips").keys().forEach(vipUser => {
 				display.push(Server.nameColor(vipUser, (Users(vipUser) && Users(vipUser).connected)));
 			});
-			this.popupReply(`|html|<strong><u><font size="3"><center>VIP Users:</center></font></u></strong>${display.join(',')}`);
+			this.popupReply(`|html|<strong><u><font size="3"><center>VIP Users:</center></font></u></strong>${display.join(",")}`);
 		},
 
-		'': 'help',
+		"": "help",
 		help: function (target, room, user) {
 			this.sendReplyBox(
-				'<div style="padding: 3px 5px;"><center>' +
-				'<code>/vip</code> commands.<br />These commands are nestled under the namespace <code>vip</code>.</center>' +
-				'<hr width="100%">' +
-				'<code>give [username]</code>: Gives <code>username</code> VIP status. Requires: & ~' +
-				'<br />' +
-				'<code>take [username]</code>: Takes <code>username</code>\'s VIP status. Requires: & ~' +
-				'<br />' +
-				'<code>list</code>: Shows list of users with VIP Status.' +
-				'</div>'
+				"<div style='padding: 3px 5px;'><center>" +
+				"<code>/vip</code> commands.<br />These commands are nestled under the namespace <code>vip</code>.</center>" +
+				"<hr width='100%'>" +
+				"<code>give [username]</code>: Gives <code>username</code> VIP status. Requires: & ~" +
+				"<br />" +
+				"<code>take [username]</code>: Takes <code>username</code>'s VIP status. Requires: & ~" +
+				"<br />" +
+				"<code>list</code>: Shows list of users with VIP Status." +
+				"</div>"
 			);
 		},
 	},
 
-	title: 'customtitle',
+	title: "customtitle",
 	customtitle: {
-		set: 'give',
+		set: "give",
 		give: function (target, room, user) {
-			if (!this.can('ban')) return false;
-			target = target.split(',');
-			if (!target || target.length < 3) return this.parse('/help', true);
+			if (!this.can("ban")) return false;
+			target = target.split(",");
+			if (!target || target.length < 3) return this.parse("/help", true);
 			let userid = toId(target[0]);
 			let targetUser = Users.getExact(userid);
 			let title = target[1].trim();
@@ -201,7 +204,7 @@ exports.commands = {
 				return this.errorReply(`${userid} already has a custom title.`);
 			}
 			let color = target[2].trim();
-			if (color.charAt(0) !== '#') return this.errorReply(`The color needs to be a hex starting with "#".`);
+			if (color.charAt(0) !== "#") return this.errorReply(`The color needs to be a hex starting with "#".`);
 			Db("titles").set(userid, [title, color]);
 			if (Users.get(targetUser)) {
 				Users(targetUser).popup(
@@ -215,11 +218,11 @@ exports.commands = {
 			return this.sendReply(`Title "${title}" and color "${color}" for ${target[0]}'s custom title have been set.`);
 		},
 
-		delete: 'remove',
-		take: 'remove',
+		delete: "remove",
+		take: "remove",
 		remove: function (target, room, user) {
-			if (!this.can('ban')) return false;
-			if (!target) return this.parse('/help', true);
+			if (!this.can("ban")) return false;
+			if (!target) return this.parse("/help", true);
 			let userid = toId(target);
 			if (!Db("titles").has(userid) && !Db("titlecolors").has(userid)) {
 				return this.errorReply(`${target} does not have a custom title set.`);
@@ -234,22 +237,22 @@ exports.commands = {
 			return this.sendReply(`${target}'s custom title and title color were removed from the server memory.`);
 		},
 
-		'': 'help',
+		"": "help",
 		help: function (target, room, user) {
 			if (!user.autoconfirmed) return this.errorReply("You need to be autoconfirmed to use this command.");
 			if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 			if (!this.runBroadcast()) return;
 			return this.sendReplyBox(
-				'<center><code>/customtitle</code> commands<br />' +
-				'All commands are nestled under the namespace <code>customtitle</code>.</center>' +
-				'<hr width="100%">' +
-				'- <code>[set|give] [username], [title], [hex color]</code>: Sets a user\'s custom title. Requires: & ~' +
-				'- <code>[take|remove|delete] [username]</code>: Removes a user\'s custom title and erases it from the server. Requires: & ~'
+				"<center><code>/customtitle</code> commands<br />" +
+				"All commands are nestled under the namespace <code>customtitle</code>.</center>" +
+				"<hr width='100%'>" +
+				"- <code>[set|give] [username], [title], [hex color]</code>: Sets a user's custom title. Requires: & ~" +
+				"- <code>[take|remove|delete] [username]</code>: Removes a user's custom title and erases it from the server. Requires: & ~"
 			);
 		},
 	},
 
-	fc: 'friendcode',
+	fc: "friendcode",
 	friendcode: {
 		switch: "nintendoswitch",
 		nintendoswitch: {
@@ -259,8 +262,8 @@ exports.commands = {
 				if (!user.autoconfirmed) return this.errorReply("You must be autoconfirmed to use this command.");
 				if (!target) return this.parse("/friendcodehelp");
 				let fc = target;
-				fc = fc.replace(/-/g, '');
-				fc = fc.replace(/ /g, '');
+				fc = fc.replace(/-/g, "");
+				fc = fc.replace(/ /g, "");
 				if (isNaN(fc)) {
 					return this.errorReply("Your Switch friend code needs to contain only numerical characters (the SW- will be automatically added).");
 				}
@@ -279,7 +282,7 @@ exports.commands = {
 					Db("switchfc").delete(user.userid);
 					return this.sendReply("Your Switch friend code has been deleted from the server.");
 				} else {
-					if (!this.can('lock')) return false;
+					if (!this.can("lock")) return false;
 					let userid = toId(target);
 					if (!Db("switchfc").has(userid)) return this.errorReply(`${target} hasn't set a friend code.`);
 					Db("switchfc").delete(userid);
@@ -300,8 +303,8 @@ exports.commands = {
 				if (!user.autoconfirmed) return this.errorReply("You must be autoconfirmed to use this command.");
 				if (!target) return this.parse("/friendcodehelp");
 				let fc = target;
-				fc = fc.replace(/-/g, '');
-				fc = fc.replace(/ /g, '');
+				fc = fc.replace(/-/g, "");
+				fc = fc.replace(/ /g, "");
 				if (isNaN(fc)) {
 					return this.errorReply("Your friend code needs to contain only numerical characters.");
 				}
@@ -311,7 +314,7 @@ exports.commands = {
 				return this.sendReply(`Your friend code: ${fc} has been saved to the server.`);
 			},
 
-			remove: 'delete',
+			remove: "delete",
 			delete: function (target, room, user) {
 				if (room.battle) return this.errorReply("Please use this command outside of battle rooms.");
 				if (!user.autoconfirmed) return this.errorReply("You must be autoconfirmed to use this command.");
@@ -320,7 +323,7 @@ exports.commands = {
 					Db("friendcode").delete(user.userid);
 					return this.sendReply("Your friend code has been deleted from the server.");
 				} else {
-					if (!this.can('lock')) return false;
+					if (!this.can("lock")) return false;
 					let userid = toId(target);
 					if (!Db("friendcode").has(userid)) return this.errorReply(`${target} hasn't set a friend code.`);
 					Db("friendcode").delete(userid);
@@ -341,13 +344,13 @@ exports.commands = {
 		/fc help - Shows this command.`,
 	],
 
-	favoritetype: 'type',
+	favoritetype: "type",
 	type: {
 		add: "set",
 		set: function (target, room, user) {
 			if (!target) return this.parse("/help type");
 			let type = Dex.getType(target);
-			if (!type.exists) return this.errorReply('Not a type. Check your spelling?');
+			if (!type.exists) return this.errorReply("Not a type. Check your spelling?");
 			Db("type").set(user.userid, toId(type));
 			return this.sendReply(`Your favorite type has been set to "${type}".`);
 		},
@@ -362,7 +365,7 @@ exports.commands = {
 
 		"": "help",
 		help: function (target, room, user) {
-			this.parse('/help type');
+			this.parse("/help type");
 		},
 	},
 	typehelp: [
@@ -370,130 +373,130 @@ exports.commands = {
 		/type delete - Removes your Favorite Type.`,
 	],
 
-	profilecolor: 'pcolor',
+	profilecolor: "pcolor",
 	pcolor: {
-		set: 'add',
+		set: "add",
 		add: function (target, room, user) {
-			if (!target) return this.parse('/pcolor help');
+			if (!target) return this.parse("/pcolor help");
 			let color = target.trim();
-			if (color.charAt(0) !== '#') return this.errorReply(`The color needs to be a hex starting with "#".`);
-			Db('profilecolor').set(user, color);
+			if (color.charAt(0) !== "#") return this.errorReply(`The color needs to be a hex starting with "#".`);
+			Db("profilecolor").set(user, color);
 			this.sendReply(`You have set your profile color to "${color}".`);
 		},
 
-		take: 'remove',
-		delete: 'remove',
+		take: "remove",
+		delete: "remove",
 		remove: function (target, room, user) {
-			if (!this.can('lock')) return false;
+			if (!this.can("lock")) return false;
 			let userid = (toId(target));
-			if (!target) return this.parse('/pcolor help');
-			if (!Db('profilecolor').has(userid)) return this.errorReply(`${userid} does not have a profile color set.`);
-			Db('profilecolor').delete(userid);
+			if (!target) return this.parse("/pcolor help");
+			if (!Db("profilecolor").has(userid)) return this.errorReply(`${userid} does not have a profile color set.`);
+			Db("profilecolor").delete(userid);
 			if (Users.get(userid)) {
 				Users(userid).popup(`|html|${Server.nameColor(user.name, true)} has removed your profile color.`);
 			}
 			this.sendReply(`You have removed ${target}'s profile color.`);
 		},
 
-		'': 'help',
+		"": "help",
 		help: function (target, room, user) {
 			if (!user.autoconfirmed) return this.errorReply("You need to be autoconfirmed to use this command.");
 			if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 			if (!this.runBroadcast()) return;
 			return this.sendReplyBox(
-				'<center><code>/profilecolor</code> commands<br />' +
-				'All commands are nestled under the namespace <code>pcolor</code>.</center>' +
-				'<hr width="100%">' +
-				'- <code>[set|add] [hex color]</code>: set your profile color.' +
-				'- <code>[forceset|forceadd] [username], [hex color]</code>: Sets a user\'s profile color. Requires: % or higher.' +
-				'- <code>[remove|delete] [username]</code>: Removes a user\'s profile color and erases it from the server. Requires: % or higher.'
+				"<center><code>/profilecolor</code> commands<br />" +
+				"All commands are nestled under the namespace <code>pcolor</code>.</center>" +
+				"<hr width='100%'>" +
+				"- <code>[set|add] [hex color]</code>: set your profile color." +
+				"- <code>[forceset|forceadd] [username], [hex color]</code>: Sets a user's profile color. Requires: % or higher." +
+				"- <code>[remove|delete] [username]</code>: Removes a user's profile color and erases it from the server. Requires: % or higher."
 			);
 		},
 	},
 
-	pteam: 'profileteam',
+	pteam: "profileteam",
 	profileteam: {
-		add: 'set',
+		add: "set",
 		set: function (target, room, user) {
-			if (!Db("hasteam").has(user.userid)) return this.errorReply('You don\'t have access to edit your team.');
-			if (!target) return this.parse('/profileteam help');
-			let parts = target.split(',');
+			if (!Db("hasteam").has(user.userid)) return this.errorReply("You don't have access to edit your team.");
+			if (!target) return this.parse("/profileteam help");
+			let parts = target.split(",");
 			let mon = parts[1].trim();
 			let slot = parts[0];
-			if (!parts[1]) return this.parse('/profileteam help');
-			let acceptable = ['one', 'two', 'three', 'four', 'five', 'six'];
-			if (!acceptable.includes(slot)) return this.parse('/profileteam help');
-			if (slot === 'one' || slot === 'two' || slot === 'three' || slot === 'four' || slot === 'five' || slot === 'six') {
+			if (!parts[1]) return this.parse("/profileteam help");
+			let acceptable = ["one", "two", "three", "four", "five", "six"];
+			if (!acceptable.includes(slot)) return this.parse("/profileteam help");
+			if (slot === "one" || slot === "two" || slot === "three" || slot === "four" || slot === "five" || slot === "six") {
 				Db("teams").set([user.userid, slot], mon);
-				this.sendReply('You have added this pokemon to your team.');
+				this.sendReply("You have added this pokemon to your team.");
 			}
 		},
 
 		give: function (target, room, user) {
-			if (!this.can('broadcast')) return false;
-			if (!target) return this.parse('/profileteam help');
+			if (!this.can("broadcast")) return false;
+			if (!target) return this.parse("/profileteam help");
 			let targetId = toId(target);
 			Db("hasteam").set(targetId, 1);
 			this.sendReply(`${target} has been given the ability to set their team.`);
-			Users(target).popup('You have been given the ability to set your profile team.');
+			Users(target).popup("You have been given the ability to set your profile team.");
 		},
 
 		take: function (target, room, user) {
-			if (!this.can('broadcast')) return false;
-			if (!target) return this.parse('/profileteam help');
+			if (!this.can("broadcast")) return false;
+			if (!target) return this.parse("/profileteam help");
 			if (!Db("hasteam").has(user)) return this.errorReply(`${target} does not have the ability to set their team.`);
 			Db("hasteam").delete(user);
 			return this.sendReply(`${target} has had their ability to change their team away.`);
 		},
 
-		'': 'help',
+		"": "help",
 		help: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox(
-				'<center><strong>Profile Team Commands</strong><br />' +
-				'All commands are nestled under namespace <code>pteam</code></center><br />' +
-				'<hr width="100%">' +
-				'<code>add (slot), (dex number)</code>: The dex number must be the actual dex number of the pokemon you want.<br />' +
-				'Slot - we mean what slot you want the pokemon to be. valid entries for this are: one, two, three, four, five, six.<br />' +
-				'Chosing the right slot is crucial because if you chose a slot that already has a pokemon, it will overwrite that data and replace it. This can be used to replace / reorder what pokemon go where.<br />' +
-				'If the Pokemon is in the first 99 Pokemon, do 0(number), and for Megas do (dex number)-m, -mx for mega , -my for mega Y.<br>' +
-				'For example: Mega Venusaur would be 003-m<br />' +
-				'<code>give</code>: Global staff can give user\'s ability to set their own team.<br />' +
-				'<code>take</code>: Global staff can take user\'s ability to set their own team.<br />' +
-				'<code>help</code>: Displays this command.'
+				"<center><strong>Profile Team Commands</strong><br />" +
+				"All commands are nestled under namespace <code>pteam</code></center><br />" +
+				"<hr width='100%'>" +
+				"<code>add (slot), (dex number)</code>: The dex number must be the actual dex number of the pokemon you want.<br />" +
+				"Slot - we mean what slot you want the pokemon to be. valid entries for this are: one, two, three, four, five, six.<br />" +
+				"Chosing the right slot is crucial because if you chose a slot that already has a pokemon, it will overwrite that data and replace it. This can be used to replace / reorder what pokemon go where.<br />" +
+				"If the Pokemon is in the first 99 Pokemon, do 0(number), and for Megas do (dex number)-m, -mx for mega , -my for mega Y.<br>" +
+				"For example: Mega Venusaur would be 003-m<br />" +
+				"<code>give</code>: Global staff can give user's ability to set their own team.<br />" +
+				"<code>take</code>: Global staff can take user's ability to set their own team.<br />" +
+				"<code>help</code>: Displays this command."
 			);
 		},
 	},
 
-	bg: 'background',
+	bg: "background",
 	background: {
-		set: 'setbg',
-		setbackground: 'setbg',
+		set: "setbg",
+		setbackground: "setbg",
 		setbg: function (target, room, user) {
-			if (!this.can('broadcast')) return false;
-			let parts = target.split(',');
-			if (!parts[1]) return this.parse('/backgroundhelp');
-			let targ = parts[0].toLowerCase().trim();
+			if (!this.can("broadcast")) return false;
+			let parts = target.split(",");
+			if (!parts[1]) return this.parse("/backgroundhelp");
+			let targ = toId(parts[0]);
 			let link = parts[1].trim();
-			if (!['.png', '.gif', '.jpg'].includes(target[1].slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg`);
+			if (![".png", ".gif", ".jpg"].includes(target[1].slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg`);
 			Db("backgrounds").set(targ, link);
-			this.sendReply(`This user's background has been set to : `);
+			this.sendReply(`This user's background has been set to: `);
 			this.parse(`/profile ${targ}`);
 		},
 
-		removebg: 'deletebg',
-		remove: 'deletebg',
-		deletebackground: 'deletebg',
-		takebg: 'deletebg',
-		take: 'deletebg',
-		delete: 'deletebg',
+		removebg: "deletebg",
+		remove: "deletebg",
+		deletebackground: "deletebg",
+		takebg: "deletebg",
+		take: "deletebg",
+		delete: "deletebg",
 		deletebg: function (target, room, user) {
-			if (!this.can('broadcast')) return false;
-			let targ = target.toLowerCase();
-			if (!target) return this.parse('/backgroundhelp');
-			if (!Db("backgrounds").has(targ)) return this.errorReply('This user does not have a custom background.');
+			if (!this.can("broadcast")) return false;
+			let targ = toId(target);
+			if (!target) return this.parse("/backgroundhelp");
+			if (!Db("backgrounds").has(targ)) return this.errorReply("This user does not have a custom background.");
 			Db("backgrounds").delete(targ);
-			return this.sendReply('This user\'s background has been deleted.');
+			return this.sendReply("This user's background has been deleted.");
 		},
 
 		'': 'help',
@@ -510,32 +513,32 @@ exports.commands = {
 		add: "set",
 		give: "set",
 		set: function (target, room, user) {
-			if (!this.can('broadcast')) return false;
-			let parts = target.split(',');
-			let targ = parts[0].toLowerCase().trim();
-			if (!parts[2]) return this.errorReply('/musichelp');
+			if (!this.can("broadcast")) return false;
+			let parts = target.split(",");
+			let targ = toId(parts[0]);
+			if (!parts[2]) return this.errorReply("/musichelp");
 			let link = parts[1].trim();
 			let title = parts[2].trim();
-			if (!['.mp3', '.mp4', '.m4a'].includes(target[1].slice(-4))) return this.errorReply(`The song needs to end in .mp3, .mp4, or .m4a`);
-			Db("music").set(targ, {'link': link, 'title': title});
-			this.sendReply(`${targ}'s song has been set to: `);
+			if (![".mp3", ".mp4", ".m4a"].includes(target[1].slice(-4))) return this.errorReply(`The song needs to end in .mp3, .mp4, or .m4a`);
+			Db("music").set(targ, {"link": link, "title": title});
+			this.sendReply(`${targ}"s song has been set to: `);
 			this.parse(`/profile ${targ}`);
 		},
 
 		take: "delete",
 		remove: "delete",
 		delete: function (target, room, user) {
-			if (!this.can('broadcast')) return false;
+			if (!this.can("broadcast")) return false;
 			let targ = target.toLowerCase();
-			if (!target) return this.parse('/musichelp');
-			if (!Db("music").has(targ)) return this.errorReply('This user does not have any music on their profile.');
+			if (!target) return this.parse("/musichelp");
+			if (!Db("music").has(targ)) return this.errorReply("This user does not have any music on their profile.");
 			Db("music").delete(targ);
-			return this.sendReply('This user\'s profile music has been deleted.');
+			return this.sendReply("This user's profile music has been deleted.");
 		},
 
-		'': 'help',
+		"": "help",
 		help: function (target, room, user) {
-			this.parse('/musichelp');
+			this.parse("/musichelp");
 		},
 	},
 	musichelp: [
@@ -548,7 +551,7 @@ exports.commands = {
 		set: function (target, room, user) {
 			if (!target) return this.parse("/pokemonhelp");
 			let pkmn = Dex.getTemplate(target);
-			if (!pkmn.exists) return this.errorReply('Not a Pokemon. Check your spelling?');
+			if (!pkmn.exists) return this.errorReply("Not a Pokemon. Check your spelling?");
 			Db("pokemon").set(user.userid, pkmn.species);
 			return this.sendReply(`You have successfully set your favorite Pokemon as ${pkmn}.`);
 		},
@@ -563,7 +566,7 @@ exports.commands = {
 
 		"": "help",
 		help: function (target, room, user) {
-			this.parse('/pokemonhelp');
+			this.parse("/pokemonhelp");
 		},
 	},
 	pokemonhelp: [
@@ -601,8 +604,8 @@ exports.commands = {
 		"/nature delete - Removes your Profile Nature.",
 	],
 
-	'!lastactive': true,
-	checkactivity: 'lastactive',
+	"!lastactive": true,
+	checkactivity: "lastactive",
 	lastactive: function (target, room, user) {
 		if (!target) target = user.userid;
 		if (target.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
@@ -615,7 +618,7 @@ exports.commands = {
 	},
 	lastactivehelp: ["/lastactive - Shows how long ago it has been since a user has posted a message."],
 
-	'!profile': true,
+	"!profile": true,
 	profile: function (target, room, user) {
 		target = toId(target);
 		if (!target) target = user.userid;
@@ -627,44 +630,44 @@ exports.commands = {
 		let username = (targetUser ? targetUser.name : target);
 		let userid = (targetUser ? targetUser.userid : toId(target));
 		let avatar = (targetUser ? (isNaN(targetUser.avatar) ? `http://${serverIp}:${Config.port}/avatars/${targetUser.avatar}` : `http://play.pokemonshowdown.com/sprites/trainers/${targetUser.avatar}.png`) : (Config.customavatars[userid] ? `http://${serverIp}:${Config.port}/avatars/${Config.customavatars[userid]}` : `http://play.pokemonshowdown.com/sprites/trainers/1.png`));
-		if (targetUser && targetUser.avatar[0] === '#') avatar = `http://play.pokemonshowdown.com/sprites/trainers/${targetUser.avatar.substr(1)}.png`;
+		if (targetUser && targetUser.avatar[0] === "#") avatar = `http://play.pokemonshowdown.com/sprites/trainers/${targetUser.avatar.substr(1)}.png`;
 		let userSymbol = (Users.usergroups[userid] ? Users.usergroups[userid].substr(0, 1) : "Regular User");
 		let userGroup = (Config.groups[userSymbol] ? `Global ${Config.groups[userSymbol].name}` : `Regular User`);
-		let regdate = '(Unregistered)';
+		let regdate = "(Unregistered)";
 		Server.regdate(userid, date => {
 			if (date) {
 				let d = new Date(date);
 				let MonthNames = ["January", "February", "March", "April", "May", "June",
 					"July", "August", "September", "October", "November", "December",
 				];
-				regdate = MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + ", " + d.getUTCFullYear();
+				regdate = MonthNames[d.getUTCMonth()] + " " + d.getUTCDate() + ", " + d.getUTCFullYear();
 			}
 			showProfile();
 		});
 
 		function getLastSeen(userid) {
-			if (Users(userid) && Users(userid).connected) return '<font color = "limegreen"><strong>Currently Online</strong></font>';
+			if (Users(userid) && Users(userid).connected) return "<font color = "limegreen"><strong>Currently Online</strong></font>";
 			let seen = Db("seen").get(userid);
-			if (!seen) return '<font color = "red"><strong>Never</strong></font>';
+			if (!seen) return "<font color = "red"><strong>Never</strong></font>";
 			return Chat.toDurationString(Date.now() - seen, {precision: true}) + " ago.";
 		}
 
 		function getFlag(userid) {
 			let ip = (Users(userid) ? geoip.lookup(Users(userid).latestIp) : false);
-			if (!ip || ip === null) return '';
+			if (!ip || ip === null) return "";
 			return `<img src="http://flags.fmcdn.net/data/flags/normal/${ip.country.toLowerCase()}.png" alt="${ip.country}" title="${ip.country}" width="20" height="10">`;
 		}
 
 		function showTeam(user) {
-			let teamcss = 'float: center; border: none; background: none;';
+			let teamcss = "float: center; border: none; background: none;";
 
-			let noSprite = '<img src=http://play.pokemonshowdown.com/sprites/bwicons/0.png>';
-			let one = Db("teams").get([user, 'one']);
-			let two = Db("teams").get([user, 'two']);
-			let three = Db("teams").get([user, 'three']);
-			let four = Db("teams").get([user, 'four']);
-			let five = Db("teams").get([user, 'five']);
-			let six = Db("teams").get([user, 'six']);
+			let noSprite = "<img src=http://play.pokemonshowdown.com/sprites/bwicons/0.png>";
+			let one = Db("teams").get([user, "one"]);
+			let two = Db("teams").get([user, "two"]);
+			let three = Db("teams").get([user, "three"]);
+			let four = Db("teams").get([user, "four"]);
+			let five = Db("teams").get([user, "five"]);
+			let six = Db("teams").get([user, "six"]);
 			if (!Db("teams").has(user)) return `<div style="${teamcss}" >${noSprite}${noSprite}${noSprite}${noSprite}${noSprite}${noSprite}</div>`;
 
 			function iconize(link) {
@@ -672,38 +675,38 @@ exports.commands = {
 			}
 
 			let teamDisplay = `<center><div style="${teamcss}">`;
-			if (Db("teams").has([user, 'one'])) {
+			if (Db("teams").has([user, "one"])) {
 				teamDisplay += iconize(one);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db("teams").has([user, 'two'])) {
+			if (Db("teams").has([user, "two"])) {
 				teamDisplay += iconize(two);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db("teams").has([user, 'three'])) {
+			if (Db("teams").has([user, "three"])) {
 				teamDisplay += iconize(three);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db("teams").has([user, 'four'])) {
+			if (Db("teams").has([user, "four"])) {
 				teamDisplay += iconize(four);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db("teams").has([user, 'five'])) {
+			if (Db("teams").has([user, "five"])) {
 				teamDisplay += iconize(five);
 			} else {
 				teamDisplay += noSprite;
 			}
-			if (Db("teams").has([user, 'six'])) {
+			if (Db("teams").has([user, "six"])) {
 				teamDisplay += iconize(six);
 			} else {
 				teamDisplay += noSprite;
 			}
 
-			teamDisplay += '</div></center>';
+			teamDisplay += "</div></center>";
 			return teamDisplay;
 		}
 

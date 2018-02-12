@@ -2549,6 +2549,28 @@ exports.BattleItems = {
 		gen: 4,
 		desc: "Holder's Steel-type attacks have 1.2x power. Judgment is Steel type.",
 	},
+	"plainplate": {
+		id: "plainplate",
+		name: "Plain Plate",
+		spritenum: -225,
+		onPlate: 'Normal',
+		onBasePowerPriority: 6,
+		onBasePower: function (basePower, user, target, move) {
+			if (move.type === 'Normal') {
+				return this.chainModify([0x1333, 0x1000]);
+			}
+		},
+		onTakeItem: function (item, pokemon, source) {
+			if ((source && source.baseTemplate.num === 493) || pokemon.baseTemplate.num === 493) {
+				return false;
+			}
+			return true;
+		},
+		forcedForme: "Arceus",
+		num: -313,
+		gen: 4,
+		desc: "Holder's Normal-type attacks have 1.2x power. Judgment is Normal type.",
+	},
 	"jabocaberry": {
 		id: "jabocaberry",
 		name: "Jaboca Berry",

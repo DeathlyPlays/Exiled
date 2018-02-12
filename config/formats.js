@@ -727,6 +727,18 @@ exports.Formats = [
 		mod: 'gen7',
 		team: 'randomHC',
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod', 'PotD'],
+		onModifyTemplate: function (template, target, source) {
+			if (source) return;
+			let types = [...new Set(target.baseMoveSlots.slice(0, 2).map(move => this.getMove(move.id).type))];
+			return Object.assign({}, template, {types: types});
+		},
+		onSwitchInPriority: 2,
+		onSwitchIn: function (pokemon) {
+			this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[silent]');
+		},
+		onAfterMega: function (pokemon) {
+			this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[silent]');
+		},
 	},
 	{
 		name: "[Gen 7] Doubles Hackmons Cup",
@@ -1575,24 +1587,24 @@ exports.Formats = [
 		ruleset: ['[Gen 7] OU'],
 	},
 	{
-		name: "[Gen 1] Beyond RBY!",
-		mod: "kanto",
-		ruleset: ['[Gen 1] OU'],
+		name: "[Gen 7] Plates and Dinner",
+		mod: "gen7",
+		ruleset: ['[Gen 7] OU'],
 		desc: [
 			"Created by Mewth",
-			"Hello! Welcome to Kanto. Alola edition! Gen 1 Mechanics with Gen 7 updates will open new possibilities!",
+			"In this OM we will serve you up a nice tray of elemental plates. In this, if you give your pokemon a plate to hold they will gain the type to replace their secondary type and gain all the moves of the plate.",
 		],
 		unbanlist: [],
-		banlist: [],
+		banlist: [""],
 	},
 	{ //Thanks urkerab for the Cross Evolution code :)
 		name: "[Gen 7] Frantic Fusions",
 		desc: [
-			"&bullet; <a href=https://github.com/XpRienzo/DragonHeaven/blob/master/mods/franticfusions/README.md>Frantic Fusions</a> <br> &bullet; A metagame where you are able to fuse two Pokemon. <BR /> &bullet; The resultant Pokemon has the primary type of the base mon. If the base mon is shiny, it will get the secondary type of the second mon, else the primary type of the second mon. It will get the averaged stats.<br />&bullet;You can choose any ability from the original Pokemon, and you also get the primary ability of the second Pokemon (The one you put in the nickname). <br />&bullet; Use !fuse for theorymonning purposes",
+			"No current description.",
 		],
 		mod: 'franticfusions',
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Uber', 'Unreleased', 'Shadow Tag', "Assist", "Shedinja", "Huge Power", "Pure Power", 'Medichamite', 'Swoobat'],
+		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
+		banlist: ['Uber', 'Unreleased', 'Shadow Tag', "Assist", "Shedinja", "Huge Power", "Pure Power", 'Medichamite', 'Swoobat', 'CAP', 'Kyurem-Black'],
 		suspect: "Nothing Yet (Test)",
 		onModifyTemplate: function (template, pokemon) {
 			let fusionTemplate = this.getTemplate(pokemon.name), mixedTemplate = Object.assign({}, template);
@@ -1746,7 +1758,7 @@ exports.Formats = [
 			}
 			if (problems) return problems;
 		},
-		onValidateTeam: function (team) {
+		onValidateTeam: function(team) {
 			let nameTable = {};
 			for (let i = 0; i < team.length; i++) {
 				let name = team[i].name;
@@ -1762,10 +1774,12 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Legendless",
-		desc: ["Legendaries have been banished from the tier, what are we gonna do now?"],
+		desc: [
+			"Legendaries have been banished from the tier, what are we gonna do now?",
+			"&bullet; <a href=\"http://chandie.boards.net/thread/5/welcome-usm-legendless\">Legendless Bans and Unbans</a>"],
 		mod: 'gen7',
 		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-		banlist: ["Articuno", "Moltres", "Zapdos", "Mew", "Raikou", "Entei", "Suicune", "Celebi", "Regirock", "Registeel", "Regice", "Latios", "Latias", "Jirachi", "Uxie", "Mesprit", "Azelf", "Heatran", "Regigigas", "Cresselia", "Shaymin", "Manaphy", "Victini", "Cobalion", "Virizion", "Terrakion", "Keldeo", "Keldeo-Resolute", "Tornadus", "Tornadus-Therian", "Thundurus", "Thundurus-Therian", "Landorus-Therian", "Kyurem", "Kyurem-Black", "Meloetta", "Meloetta-Pirouette", "Zygarde", "Diancie", "Hoopa", "Hoopa-Unbound", "Volcanion", "Type:Null", "Silvally", "Tapu Koko", "Tapu Lele", "Tapu Fini", "Tapu Bulu", "Cosmog", "Cosmoem", "Nihilego", "Buzzwole", "Xurkitree", "Celesteela", "Kartana", "Guzzlord", "Magearna", "Necrozma", "Zeraora", "Poipole", "Stakataka", "Blacephalon", "Uber", "Baton Pass"],
+		banlist: ["Articuno", "Moltres", "Zapdos", "Mew", "Raikou", "Entei", "Suicune", "Celebi", "Regirock", "Registeel", "Regice", "Latios", "Latias", "Jirachi", "Uxie", "Mesprit", "Azelf", "Heatran", "Regigigas", "Cresselia", "Shaymin", "Manaphy", "Victini", "Cobalion", "Virizion", "Terrakion", "Keldeo", "Keldeo-Resolute", "Tornadus", "Tornadus-Therian", "Thundurus", "Thundurus-Therian", "Landorus-Therian", "Kyurem", "Kyurem-Black", "Meloetta", "Meloetta-Pirouette", "Zygarde", "Diancie", "Hoopa", "Hoopa-Unbound", "Volcanion", "Type:Null", "Silvally", "Tapu Koko", "Tapu Lele", "Tapu Fini", "Tapu Bulu", "Cosmog", "Cosmoem", "Nihilego", "Buzzwole", "Xurkitree", "Celesteela", "Kartana", "Guzzlord", "Magearna", "Necrozma", "Zeraora", "Poipole", "Stakataka", "Blacephalon", "Uber", "Baton Pass", "Arena Trap"],
 		unbanlist: ["Aegislash", "Lucario-Mega", "Blaziken-Mega", "Metagross-Mega", "Salamence-Mega", "Kangaskhan-Mega", "Gengar-Mega"],
 
 	},

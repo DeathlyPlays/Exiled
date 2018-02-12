@@ -174,11 +174,6 @@ class Validator {
 		}
 
 		let nameTemplate = dex.getTemplate(set.name);
-		if (nameTemplate.exists && nameTemplate.name.toLowerCase() === set.name.toLowerCase()) {
-			// Name must not be the name of another pokemon
-			// @ts-ignore
-			set.name = null;
-		}
 		set.name = set.name || template.baseSpecies;
 		let name = set.species;
 		if (set.species !== set.name && template.baseSpecies !== set.name) name = `${set.name} (${set.species})`;

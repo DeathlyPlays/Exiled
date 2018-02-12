@@ -19202,34 +19202,6 @@ exports.BattleMovedex = {
 		zMovePower: 190,
 		contestType: "Cute",
 	},
-	"colossalvoltthunderbolt": {
-		num: -719,
-		accuracy: true,
-		basePower: 215,
-		category: "Special",
-		desc: "Super effective against Ground type Pokemon.",
-		shortDesc: "Super effective against Ground type Pokemon.",
-		id: "colossalvolthunderbolt",
-		name: "Colossal Volt Thunderbolt",
-		pp: 1,
-		priority: 0,
-		flags: {},
-		onEffectiveness: function (typeMod, type) {
-			if (type === 'Ground') return 1;
-		},
-		ignoreImmunity: {'Electric': true},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Thunder", target);
-			this.add('-anim', source, "Thunderbolt", target);
-			this.add('-anim', source, "Gigavolt Havoc", target);
-		},
-		isZ: "ampharniumz",
-		secondary: false,
-		target: "normal",
-		type: "Electric",
-		contestType: "Cool",
-	},
 	"oblivionbanisher": {
 		num: -246,
 		accuracy: 100,
@@ -19267,7 +19239,7 @@ exports.BattleMovedex = {
 		zMovePower: 200,
 		contestType: "Tough",
 	},
-		"crystalcrashcrisis": {
+	"crystalcrashcrisis": {
 		num: -719,
 		accuracy: true,
 		basePower: 220,
@@ -19292,14 +19264,41 @@ exports.BattleMovedex = {
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Power Gem", target);
-			this.add('-anim', source, "Diamond Storm", target);
-			this.add('-anim', source, "Rock Tomb", target);
+			this.add('-anim', source, "Continental Crush", target);
+			this.add('-anim', source, "Splintered Stormshards", target);
 		},
 		isZ: "dianciumz",
 		secondary: false,
 		target: "foeSide",
 		type: "Rock",
 		contestType: "Smart",
+	},
+	"colossalvoltthunderbolt": {
+		num: -719,
+		accuracy: true,
+		basePower: 215,
+		category: "Special",
+		desc: "Super effective against Ground type Pokemon.",
+		shortDesc: "Super effective against Ground type Pokemon.",
+		id: "colossalvoltthunderbolt",
+		name: "Colossal Volt Thunderbolt",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onEffectiveness: function (typeMod, type) {
+			if (type === 'Ground') return 1;
+		},
+		ignoreImmunity: {'Electric': true},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Thunder", target);
+			this.add('-anim', source, "Thunderbolt", target);
+			this.add('-anim', source, "Gigavolt Havoc", target);
+		},
+		isZ: "ampharniumz",
+		secondary: false,
+		target: "normal",
+		type: "Electric",
+		contestType: "Cool",
 	},
 };

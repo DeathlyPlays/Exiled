@@ -388,7 +388,7 @@ exports.commands = {
 		delete: "remove",
 		remove: function (target, room, user) {
 			if (!this.can("lock")) return false;
-			let userid = (toId(target));
+			let userid = toId(target);
 			if (!target) return this.parse("/pcolor help");
 			if (!Db("profilecolor").has(userid)) return this.errorReply(`${userid} does not have a profile color set.`);
 			Db("profilecolor").delete(userid);
@@ -408,7 +408,6 @@ exports.commands = {
 				"All commands are nestled under the namespace <code>pcolor</code>.</center>" +
 				"<hr width='100%'>" +
 				"- <code>[set|add] [hex color]</code>: set your profile color." +
-				"- <code>[forceset|forceadd] [username], [hex color]</code>: Sets a user's profile color. Requires: % or higher." +
 				"- <code>[remove|delete] [username]</code>: Removes a user's profile color and erases it from the server. Requires: % or higher."
 			);
 		},

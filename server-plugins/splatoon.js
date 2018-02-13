@@ -1,6 +1,6 @@
-/***************************
+/****************************
  * Splatoon Plug-in for PS	*
- * Created by Insist			*
+ * Created by Insist		*
  * Assisted by HoeenHero	*
  ***************************/
 

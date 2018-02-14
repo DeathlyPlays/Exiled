@@ -6739,7 +6739,7 @@ exports.BattleMovedex = {
 				this.add('-singlemove', pokemon, 'Grudge');
 			},
 			onFaint: function (target, source, effect) {
-				if (!source || source.fainted || !effect) return;
+				if (!source || !effect) return;
 				if (effect.effectType === 'Move' && !effect.isFutureMove) {
 					for (const moveSlot of source.moveSlots) {
 						if (moveSlot.id === source.lastMove.id) {
@@ -19299,6 +19299,37 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Electric",
+		contestType: "Cool",
+	},
+	"beheadedhoovestrike": {
+		num: -719,
+		accuracy: true,
+		basePower: 225,
+		category: "Physical",
+		desc: "Raises speed by 1.5. Gives focus energy.",
+		shortDesc: "Raises speed by 1.5. Gives focus energy.",
+		id: "beheadedhoovestrike",
+		name: "Beheaded Hoove Strike",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Breakneck Blitz", target);
+			this.add('-anim', source, "High Horsepower", target);
+		},
+		isZ: "bouffalantiumz",
+		secondary: {
+			chance: 100,
+			self: {
+				volatileStatus: 'focusenergy',
+				boosts: {
+					spe: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Normal",
 		contestType: "Cool",
 	},
 };

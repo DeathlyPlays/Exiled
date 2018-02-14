@@ -6329,6 +6329,18 @@ exports.BattleItems = {
 		gen: 7,
 		desc: "If held by Diancie with Diamond Storm, it can use Crystal Crash Crisis.",
 	},
+	"bouffalantiumz": {
+		id: "bouffalantiumz",
+		name: "Bouffalantium Z",
+		spritenum: -654,
+		onTakeItem: false,
+		zMove: "Beheaded Hoove Strike",
+		zMoveFrom: "Head Charge",
+		zMoveUser: ["Bouffalant"],
+		num: -802,
+		gen: 7,
+		desc: "If held by Bouffalant with Head Charge, it can use Beheaded Hoove Strike.",
+	},
 
 	// CAP items
 

@@ -6,7 +6,7 @@
 
 "use strict";
 
-const fs = require("fs");
+const FS = require("../lib/fs.js");
 const MAX_ITEMS = 12;
 
 exports.commands = {
@@ -15,6 +15,8 @@ exports.commands = {
 	rshop: "roomshop",
 	roomshop: {
 		on: "enable",
+		add: "enable",
+		set: "enable",
 		enable: function (target, room, user) {
 			if (!this.can("lock")) return false;
 			if (Db("roomshop").has(room.id)) return this.errorReply("Roomshop is already enabled here.");
@@ -24,6 +26,8 @@ exports.commands = {
 		},
 
 		off: "disable",
+		delete: "disable",
+		remove: "disable",
 		disable: function (target, room, user) {
 			if (!this.can("lock")) return false;
 			if (!Db("roomshop").has(room.id)) return this.errorReply("Roomshop is not enabled here.");
@@ -51,7 +55,7 @@ exports.commands = {
 				let bank = toId(target);
 				if (!bank) return this.parse("/help roomshop");
 				Db("roomshop").set([room.id, "Bank"], bank);
-				this.room.modlog(`${user.name} has changed the room's bank to ${target}.`);
+				this.room.modlog(`${user.name} has changed the room"s bank to ${target}.`);
 				return this.sendReply(`${target} has been set as the bank for ${room.title}'s shop.`);
 			},
 
@@ -119,6 +123,7 @@ exports.commands = {
 			Db("roomshop").set();
 			if (!fs.existsSync("logs/roomshops")) fs.mkdirSync("logs/roomshops");
 			fs.appendFile(`logs/roomshops/roomshop_${room.id}.txt`, `[${new Date().toUTCString()}] ${user.name} has bought ${target}  from the roomshop.\n`, () => {});
+
 			let msg = `${user.name} has purchased ${target}.`;
 
 			Users.users.forEach(function (user) {

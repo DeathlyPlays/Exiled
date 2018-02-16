@@ -6,7 +6,7 @@
 
 "use strict";
 
-const FS = require("../lib/fs.js");
+const fs = require("fs");
 const MAX_ITEMS = 12;
 
 exports.commands = {
@@ -15,8 +15,6 @@ exports.commands = {
 	rshop: "roomshop",
 	roomshop: {
 		on: "enable",
-		add: "enable",
-		set: "enable",
 		enable: function (target, room, user) {
 			if (!this.can("lock")) return false;
 			if (Db("roomshop").has(room.id)) return this.errorReply("Roomshop is already enabled here.");
@@ -26,8 +24,6 @@ exports.commands = {
 		},
 
 		off: "disable",
-		delete: "disable",
-		remove: "disable",
 		disable: function (target, room, user) {
 			if (!this.can("lock")) return false;
 			if (!Db("roomshop").has(room.id)) return this.errorReply("Roomshop is not enabled here.");
@@ -155,7 +151,7 @@ exports.commands = {
 				display += `</tbody></table>`;
 				return display;
 			}
-			this.sendReplyBox(display(keys));
+			return this.sendReplyBox(display(keys));
 		},
 
 		log: function (target, room, user) {

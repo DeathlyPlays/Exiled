@@ -201,7 +201,7 @@ exports.commands = {
 			let targetUser = Users.getExact(userid);
 			let title = target[1].trim();
 			if (Db("titles").has(userid) && Db("titlecolors").has(userid)) {
-				return this.errorReply(`${userid} already has a custom title.`);
+				return this.errorReply(`${target[0]} already has a custom title.`);
 			}
 			let color = target[2].trim();
 			if (color.charAt(0) !== "#") return this.errorReply(`The color needs to be a hex starting with "#".`);
@@ -646,7 +646,7 @@ exports.commands = {
 			if (Users(userid) && Users(userid).connected) return "<font color = 'limegreen'><strong>Currently Online</strong></font>";
 			let seen = Db("seen").get(userid);
 			if (!seen) return "<font color = 'red'><strong>Never</strong></font>";
-			return Chat.toDurationString(Date.now() - seen, {precision: true}) + " ago.";
+			return `${Chat.toDurationString(Date.now() - seen, {precision: true})} ago.`;
 		}
 
 		function getFlag(userid) {

@@ -450,7 +450,7 @@ exports.commands = {
 
 	bop: function (target, room, user) {
 		if (!target) return this.sendReply('/bop needs a target.');
-		if (!this.can('mute', null, room)) return false;
+		if (!this.can('mute', null, room) && user.userid !== "noviex") return false;
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(user.name, true, true) + ' has bopped ' + Server.nameColor(target, true, true) + ' in the face!');
@@ -486,6 +486,16 @@ exports.commands = {
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(target, true, true) + ' was shot by ' + Server.nameColor(user.name, true, true) + '!');
 		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
+	},
+
+	cyn: "pix",
+	pix: function (target, room, user) {
+		if (!target) return this.sendReply('/pix needs a target.');
+		if (!this.can('mute', null, room) && user.userid !== "littlemisspixiepix") return false;
+		let targetUser = Users.get(target);
+		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has pixed ' + Server.nameColor(target, true, true) + ' in the pixing pix! Pix that\'s gotta hurt!');
+		targetUser.popup("PIIIIIIIIIIIIIIIIXXXXXXXXXX");
 	},
 
 	/************************************

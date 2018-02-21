@@ -372,7 +372,7 @@ exports.commands = {
 						if (room) room.update();
 						return;
 					}
-					let output = `<strong>${Chat.escapeHTML(definitions[0]['word'])}</strong>${Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ')}`;
+					let output = `<strong>${Chat.escapeHTML(definitions[0]['word'])}</strong> ${Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ')}`;
 					if (output.length > 400) output = output.slice(0, 400) + '...';
 					this.sendReplyBox(output);
 					udCache[toId(target)] = output;

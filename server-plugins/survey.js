@@ -9,7 +9,7 @@
 'use strict';
 
 class Survey {
-	constructor(room, question, allowHTML) {
+	constructor(room, question, allowHTML, name) {
 		if (room.surveyNumber) {
 			room.surveyNumber++;
 		} else {
@@ -24,7 +24,7 @@ class Survey {
 			repliers: {},
 			replierIps: {},
 			startTime: Date.now(),
-			startedUser: Server.nameColor(question.username, true, true),
+			startedUser: Server.nameColor(name, true, true),
 			totalReplies: 0,
 			timeout: null,
 			timeoutMins: 0,
@@ -135,7 +135,7 @@ class Survey {
 
 	generateResults(ended, number) {
 		let icon = `<span style="border: 1px solid #${(ended ? '777;color:#555' : '6A6;color:#484')}; border-radius: 4px; padding: 3px"><i class="fa fa-bar-chart"></i> ${(ended ? `Survey-${this.surveyArray[number].surveyNum} ended` : `Survey-${this.surveyArray[number].surveyNum}`)}</span>`;
-		let totalReplies = `<br /><span style="font-style: italic; font-size: 9pt; color: #79330A;">[Total Replies: ${this.surveyArray[number].totalReplies}] (Started by ${this.surveyArray[number].startedUser} ${Chat.toDurationString(Date.now() - this.surveyArray[number].startTime)} ago.)</span></div>`;
+		let totalReplies = `<br /><span style="font-style: italic; font-size: 9pt; color: #79330A;">[Total Replies: ${this.surveyArray[number].totalReplies}] (Started by ${this.surveyArray[number].startedUser} Started on: ${new Date(this.surveyArray[number].startTime)})</span>`;
 		let output = `<div style="infobox"><details open><summary style="margin: 2px 0 5px 0">${icon} <strong style="font-size: 11pt">${(this.surveyArray[number].allowHTML ? this.surveyArray[number].question : Chat.escapeHTML(this.surveyArray[number].question))}</strong><psicon pokemon="darkrai"></summary>`;
 		output += totalReplies;
 		for (let i in this.surveyArray[number].repliers) {
@@ -235,11 +235,12 @@ exports.commands = {
 					repliers: {},
 					replierIps: {},
 					timeout: null,
+					startedUser: WL.nameColor(user.name, true, true),
 					timeoutMins: 0,
 				});
 				room.survey.displaySpecific(room.survey.surveyArray.length - 1);
 			} else {
-				room.survey = new Survey(room, target, supportHTML);
+				room.survey = new Survey(room, target, supportHTML, user.name);
 				room.survey.display();
 			}
 

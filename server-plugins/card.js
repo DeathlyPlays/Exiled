@@ -1,24 +1,44 @@
 /**
  * PSGO Collectable Pokemon Cards for Wavelength
- * Programmed by HoeenHero, and Arrays
+ * Programmed by HoeenHero, and Volco
  */
 
-'use strict';
+"use strict";
 
+const FS = require("../lib/fs");
 const CARDS_PER_PACK = 10;
-const cards = require('../config/cards.json');
+let origCards = require("../config/cards.json");
+let newCards = {};
+
+if (FS("config/extracards.json").readIfExistsSync()) {
+	newCards = require("../config/extracards.json");
+}
+
+function saveCards() {
+	//clone Server.cards
+	let cloned = Object.assign({}, Server.cards);
+	for (let u in cloned) {
+		if (origCards[u]) delete cloned[u];
+	}
+	FS("config/extracards.json").writeUpdate(() => (
+		JSON.stringify(cloned)
+	));
+}
+
+Server.cards = Object.assign(origCards, newCards);
+
 const PACK_MAKING_DATA = {
 	Common: {chance: 50, limits: [4, 7]},
 	Uncommon: {chance: 20, limits: [2, 4]},
 	Rare: {chance: 15, limits: [1, 2]},
-	'Ultra Rare': {chance: 9, limits: [0, 1]},
+	"Ultra Rare": {chance: 9, limits: [0, 1]},
 	Legendary: {chance: 5, limits: [0, 1]},
 	Mythic: {chance: 1, limits: [0, 1]},
 };
 const packs = (function () {
 	let packs2 = [];
-	for (let card in cards) {
-		if (packs2.indexOf(cards[card].pack) === -1) packs2.push(cards[card].pack);
+	for (let card in Server.cards) {
+		if (packs2.indexOf(Server.cards[card].pack) === -1) packs2.push(Server.cards[card].pack);
 	}
 	return packs2;
 })();
@@ -34,7 +54,7 @@ function toPackName(pack) {
 
 function makePack(pack) {
 	let out = [];
-	let choices = {'Common': 0, 'Uncommon': 0, 'Rare': 0, 'Ultra Rare': 0, 'Legendary': 0, 'Mythic': 0};
+	let choices = {"Common": 0, "Uncommon": 0, "Rare": 0, "Ultra Rare": 0, "Legendary": 0, "Mythic": 0};
 	for (let rarity in PACK_MAKING_DATA) {
 		if (PACK_MAKING_DATA[rarity].limits[0] > 0) {
 			for (let i = 0; i < PACK_MAKING_DATA[rarity].limits[0]; i++) {
@@ -55,7 +75,7 @@ function makePack(pack) {
 			}
 		}
 		if (PACK_MAKING_DATA[type].limits[1] <= choices[type]) continue;
-		if (['Ultra Rare', 'Legendary', 'Mythic'].includes(type)) {
+		if (["Ultra Rare", "Legendary", "Mythic"].includes(type)) {
 			if (choices.hasTopThree) continue;
 			choices.hasTopThree = true;
 		}
@@ -71,8 +91,8 @@ function genCard(options) {
 			options[key] = toId(options[key]);
 		}
 	}
-	let validCards = Object.keys(cards).filter(id => {
-		let card = cards[id];
+	let validCards = Object.keys(Server.cards).filter(id => {
+		let card = Server.cards[id];
 		if (options.rarity && toId(card.rarity) !== options.rarity) return false;
 		if (options.pack && toId(card.pack) !== options.pack) return false;
 		if (options.type && toId(card.type) !== options.type) return false;
@@ -81,13 +101,13 @@ function genCard(options) {
 		if (options.artist && toId(card.artist) !== options.artist) return false;
 		return true;
 	});
-	if (!validCards.length) return cards['primalclashshroomish']; // default
-	return cards[validCards[Math.floor(Math.random() * validCards.length)]];
+	if (!validCards.length) return Server.cards["primalclashshroomish"]; // default
+	return Server.cards[validCards[Math.floor(Math.random() * validCards.length)]];
 }
 
 function giveCard(name, card) {
-	if (!cards[card]) return false;
-	let newCard = Object.assign({}, cards[card]);
+	if (!Server.cards[card]) return false;
+	let newCard = Object.assign({}, Server.cards[card]);
 	let userid = toId(name);
 	Db("cards").set(userid, Db("cards").get(userid, []).concat([newCard]));
 }
@@ -120,24 +140,24 @@ function takeCard(userid, cardId) {
 }
 
 exports.commands = {
-	cards: "psgo",
 	card: "psgo",
+	cards: "psgo",
 	psgo: {
-		display: 'card',
+		display: "card",
 		card: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!target) return this.parse(`/help psgo card`);
-			if (!cards[toId(target)]) return this.errorReply(`That card does not exist.`);
-			let card = cards[toId(target)];
-			let display = `<div style="width: 49%; display: inline-block;"><img src="${card.image}" title="${card.id}"></div>`;
+			if (!Server.cards[toId(target)]) return this.errorReply(`That card does not exist.`);
+			let card = Server.cards[toId(target)];
+			let display = `<div style="width: 49%; display: inline-block;"><img src="${card.image}" title="${card.id}" width="254" height="342"></div>`;
 			display += `<div style="width: 49%; display: inline-block; float: right;">`;
-			let colors = {Common: '#0066ff', Uncommon: '#008000', Rare: '#cc0000', "Ultra Rare": '#800080', Legendary: '#c0c0c0', Mythic: '#998200'};
-			display += `<font style="font-size: 3em; font-weight: bold;">${card.name}</font><h5>(ID: ${card.id})</h5><font style="font-size: 2em; font-weight: bold; color: ${colors[card.rarity]};">${card.rarity}</font><br/><strong>Species</strong>: ${card.species}<br/><strong>Type</strong>: ${card.type}<br/>`;
-			display += `<strong>Pack</strong>: ${card.pack}<br/><strong>Card Type</strong>: ${card.cardType}</div>`;
+			let colors = {Common: "#0066ff", Uncommon: "#008000", Rare: "#cc0000", "Ultra Rare": "#800080", Legendary: "#c0c0c0", Mythic: "#998200"};
+			display += `<font style="font-size: 3em; font-weight: bold;">${card.name}</font><h5>(ID: ${card.id})</h5><font style="font-size: 2em; font-weight: bold; color: ${colors[card.rarity]};">${card.rarity}</font><br /><strong>Species</strong>: ${card.species}<br /><strong>Type</strong>: ${card.type}<br />`;
+			display += `<strong>Pack</strong>: ${card.pack}<br /><strong>Card Type</strong>: ${card.cardType}</div>`;
 
 			return this.sendReplyBox(display);
 		},
-		cardhelp: ['/psgo card [card id] - Gives information on the card selected.'],
+		cardhelp: ["/psgo card [card id] - Gives information on the card selected."],
 
 		showcase: function (target, room, user) {
 			if (!this.runBroadcast()) return;
@@ -153,16 +173,17 @@ exports.commands = {
 						cardsShown++;
 						return `<button name="send" value="/psgo showcase ${toId(target)}" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;">Show all cards</button>`;
 					}
-					return '';
+					return "";
 				}
 				cardsShown++;
-				return `<button name="send" value="/psgo card ${card.id}" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;"><img src="${card.image}" width="100" title="${card.id}"></button>`;
+				return `<button name="send" value="/psgo card ${card.id}" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;"><img src="${card.image}" height="120" width="100" title="${card.id}"></button>`;
 			});
-			this.sendReplyBox(`<div style="max-height: 300px; overflow-y: scroll;">${cardsMapping.join('')}</div><br><center><strong>${Server.nameColor(toId(target), true)} has ${cards.length} cards</strong></center>`);
+			this.sendReplyBox(`<div style="max-height: 300px; overflow-y: scroll;">${cardsMapping.join("")}</div><br /><center><b>${Server.nameColor(toId(target), true)} has ${cards.length} cards</b></center>`);
 		},
-		showcasehelp: ['/psgo showcase (user) - Show all of the selected users cards.'],
+		showcasehelp: ["/psgo showcase (user) - Show all of the selected user's cards."],
 
-		confirmtransfercard: 'transfercard',
+		confirmtransfercard: "transfercard",
+		transfercards: "transfercard",
 		transfercard: function (target, room, user, connection, cmd) {
 			if (!target) return this.parse(`/help psgo transfercard`);
 			let targets = target.split(`,`).map(x => {
@@ -175,16 +196,16 @@ exports.commands = {
 			if (!targetUser.named) return this.errorReply(`Guests cannot be given cards.`);
 			if (targetUser.userid === user.userid) return this.errorReply(`You cannot transfer cards to yourself.`);
 			let card = toId(targets[1]);
-			if (!cards[card]) return this.errorReply(`That card does not exist.`);
+			if (!Server.cards[card]) return this.errorReply(`That card does not exist.`);
 
 			let canTransfer = hasCard(user.userid, card);
-			if (!canTransfer) return user.popup(`You do not have that card.`);
+			if (!canTransfer) return user.popup(`You do note have that card.`);
 
-			if (cmd !== 'confirmtransfercard') {
+			if (cmd !== "confirmtransfercard") {
 				return this.popupReply(`|html|<center>` +
 					`<button class = "card-td button" name = "send" value = "/psgo confirmtransfercard ${targetUser.userid}, ${card}"` +
 					`style = "outline: none; width: 200px; font-size: 11pt; padding: 10px; border-radius: 14px ; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4) inset; transition: all 0.2s;">` +
-					`Confirm transfer to <br><strong style = "color:${Server.nameColor(targetUser.userid)}; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">${Chat.escapeHTML(targetUser.name)}</strong></button></center>`
+					`Confirm transfer to <br /><b style = "color:${Server.hashColor(targetUser.userid)}; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">${Chat.escapeHTML(targetUser.name)}</b></button></center>`
 				);
 			}
 
@@ -194,111 +215,149 @@ exports.commands = {
 				// should never happen but just in case...
 				return user.popup(`Transfer Failed, card could not be taken from you.`);
 			}
-			if (targetUser.connected) targetUser.popup(`|html|${Chat.escapeHTML(user.name)} has given you a card. <button class="button" name="send" value="/psgo card ${cards[card].id}">View Card</button>`);
-			user.popup(`You have successfully transfered ${cards[card].id} to ${targetUser.name}.`);
+			if (targetUser.connected) targetUser.popup(`|html|${Chat.escapeHTML(user.name)} has given you a card. <button class="button" name="send" value="/psgo card ${Server.cards[card].id}">View Card</button>`);
+			user.popup(`You have successfully transfered ${Server.cards[card].id} to ${targetUser.name}.`);
 		},
-		transfercardhelp: ['/psgo transfercard [user], [card ID] - Transfer one of your cards to another user.'],
+		transfercardhelp: ["/psgo transfercard [user], [card ID] - Transfer one of your cards to another user."],
 
-		cardsearchdisplay: 'search',
-		cardsearch: 'search',
-		searchchange: 'search',
+		cardsearchdisplay: "search",
+		cardsearch: "search",
+		searchchange: "search",
 		search: function (target, room, user, connection, cmd) {
 			/*
 			/psgo cardsearch Section:value, Section:value
 			/psgo cardsearchdisplay card
 			*/
-			if (cmd !== 'cardsearchdisplay') user.lastPSGOSearch = target;
-			let change = !!target || cmd === 'searchchange';
+			if (cmd !== "cardsearchdisplay") user.lastPSGOSearch = target;
+			let change = !!target || cmd === "searchchange";
 			let choices = {
-				alphabetical: 'abcdefghijklmnopqrstuvwxyz'.split(''),
-				rarity: ['Common', 'Uncommon', 'Rare', 'Ultra Rare', 'Legendary', 'Mythic'],
+				alphabetical: "abcdefghijklmnopqrstuvwxyz".split(""),
+				rarity: ["Common", "Uncommon", "Rare", "Ultra Rare", "Legendary", "Mythic"],
 				pack: packs,
-				type: ['Grass', 'Colorless', 'Fire', 'Water', 'Psychic', 'Darkness', 'Metal', 'Lightning', 'Fairy', 'Fighting', 'Dragon'],
-				cardType: ['Basic', 'Stage 1', 'Stage 2', 'EX', 'MEGA', 'BREAK', 'GX', 'LEGEND', 'Restored', 'Level Up'],
+				type: ["Grass", "Colorless", "Fire", "Water", "Psychic", "Darkness", "Metal", "Lightning", "Fairy", "Fighting", "Dragon"],
+				cardType: ["Basic", "Stage 1", "Stage 2", "EX", "MEGA", "BREAK", "GX", "LEGEND", "Restored", "Level Up"],
 			};
-			let menu = `<div class="infobox"><center><strong>Cardsearch</strong></center><br/>`;
-			if (cmd !== 'cardsearchdisplay') {
-				target = target.split(',').map(x => {
+			let menu = `<div class="infobox"><center><strong>Cardsearch</strong></center><br />`;
+			if (cmd !== "cardsearchdisplay") {
+				target = target.split(",").map(x => {
 					return x.trim();
 				});
 				for (let type in choices) {
 					menu += `<details><summary>${type.substring(0, 1).toUpperCase() + type.substring(1)}</summary>`;
 					for (let i = 0; i < choices[type].length; i++) {
 						let newTarget = false;
-						if (target.indexOf(type + ':' + choices[type][i]) > -1) {
+						if (target.indexOf(type + ":" + choices[type][i]) > -1) {
 							newTarget = target.slice(0);
-							newTarget.splice(newTarget.indexOf(type + ':' + choices[type][i]), 1).join(',');
+							newTarget.splice(newTarget.indexOf(type + ":" + choices[type][i]), 1).join(",");
 						}
-						menu += `<button class="button" name="send" value="${newTarget ? `/psgo searchchange ${newTarget}" style="background: #4286f4"` : `/psgo searchchange ${target.join(',')}${change ? `,` : ``}${type}:${choices[type][i]}"`}>${choices[type][i]}</button>`;
+						menu += `<button class="button" name="send" value="${newTarget ? `/psgo searchchange ${newTarget}" style="background: #4286f4"` : `/psgo searchchange ${target.join(",")}${change ? `,` : ``}${type}:${choices[type][i]}"`}>${choices[type][i]}</button>`;
 					}
 					menu += `</details>`;
 				}
-				if (toId(target.join(''))) {
+				if (toId(target.join(""))) {
 					// Show found cards
-					let reqs = {alphabetical: '', rarity: '', pack: '', type: '', cardType: ''};
+					let reqs = {alphabetical: "", rarity: "", pack: "", type: "", cardType: ""};
 					let invalidSearch = false;
 					target.map(y => {
 						if (invalidSearch) return y;
-						y = y.split(':');
+						y = y.split(":");
 						if (choices[y[0]] && choices[y[0]].includes(y[1])) {
 							if (reqs[y[0]]) {
 								invalidSearch = true;
-								return y.join(':');
+								return y.join(":");
 							}
 							reqs[y[0]] = y[1];
 						}
-						return y.join(':');
+						return y.join(":");
 					});
 					if (invalidSearch) {
 						menu += `No cards were found. (Your search was invalid)</div>`;
 						return user.sendTo(room, `${change ? `|uhtmlchange|cs${user.userid}|` : `|uhtml|cs${user.userid}|`}${menu}`);
 					}
-					menu += `<div style='max-height: 300px; overflow-y: scroll;'>`;
+					menu += `<div style="max-height: 300px; overflow-y: scroll;">`;
 					let foundCard = 0;
-					for (let card in cards) {
+					for (let card in Server.cards) {
 						if ((foundCard + 1) > CARDSEARCH_MAX_VALUE) {
 							menu += `</div><div style="color: red; font-weight: bold;">The maximum value of 500 cards is being shown.`;
 							break;
 						}
-						let letter = cards[card].name.substring(0, 1).toLowerCase();
+						let letter = Server.cards[card].name.substring(0, 1).toLowerCase();
 						if (reqs.alphabetical && reqs.alphabetical !== letter) continue;
-						if (reqs.rarity && reqs.rarity !== cards[card].rarity) continue;
-						if (reqs.pack && reqs.pack !== cards[card].pack) continue;
-						if (reqs.type && reqs.type !== cards[card].type) continue;
-						if (reqs.cardType && reqs.cardType !== cards[card].cardType) continue;
+						if (reqs.rarity && reqs.rarity !== Server.cards[card].rarity) continue;
+						if (reqs.pack && reqs.pack !== Server.cards[card].pack) continue;
+						if (reqs.type && reqs.type !== Server.cards[card].type) continue;
+						if (reqs.cardType && reqs.cardType !== Server.cards[card].cardType) continue;
 						// Valid
 						foundCard++;
-						menu += `<button class="button" name="send" value="/psgo cardsearchdisplay ${cards[card].id}"><img src="${cards[card].image}" title="${cards[card].id}" height="100" width="80"></button> `;
+						menu += `<button class="button" name="send" value="/psgo cardsearchdisplay ${Server.cards[card].id}"><img src="${Server.cards[card].image}" title="${Server.cards[card].id}" height="100" width="80"></button> `;
 					}
 					if (!foundCard) menu += `No cards were found.`;
 					menu += `</div></div>`;
 				}
 			} else {
-				menu += `<button class="button" name="send" value="${user.lastPSGOSearch ? `/psgo search ${user.lastPSGOSearch}` : `/psgo search`}">Back</button><br/>`;
-				let card = cards[toId(target)];
+				menu += `<button class="button" name="send" value="${user.lastPSGOSearch ? `/psgo search ${user.lastPSGOSearch}` : `/psgo search`}">Back</button><br />`;
+				let card = Server.cards[toId(target)];
 				if (!card) {
 					menu += `The card "${toId(target)}" does not exist.</div>`;
 					return user.sendTo(room, `${change ? `|uhtmlchange|cs${user.userid}|` : `|uhtml|cs${user.userid}|`}${menu}`);
 				}
 				menu += `<div style="width: 49%; display: inline-block;">`;
-				menu += `<img src="${card.image}" title="${card.id}">`;
+				menu += `<img src="${card.image}" title="${card.id}" width="254" height="342">`;
 				menu += `</div><div style="width: 49%; display: inline-block; float: right;">`;
-				let colors = {Common: '#0066ff', Uncommon: '#008000', Rare: '#cc0000', "Ultra Rare": '#800080', Legendary: '#c0c0c0', Mythic: '#998200'};
-				menu += `<font style="font-size: 3em; font-weight: bold;">${card.name}</font><h5>(ID: ${card.id})</h5><font style="font-size: 2em; font-weight: bold; ${colors[card.rarity] ? `color: ${colors[card.rarity]};` : ``}">${card.rarity}</font><br/><strong>Species</strong>: ${card.species}<br/><strong>Type</strong>: ${card.type}<br/>`;
-				menu += `<strong>Pack</strong>: ${card.pack}<br/><strong>Card Type</strong>: ${card.cardType}</div></div>`;
+				let colors = {Common: "#0066ff", Uncommon: "#008000", Rare: "#cc0000", "Ultra Rare": "#800080", Legendary: "#c0c0c0", Mythic: "#998200"};
+				menu += `<font style="font-size: 3em; font-weight: bold;">${card.name}</font><h5>(ID: ${card.id})</h5><font style="font-size: 2em; font-weight: bold; ${colors[card.rarity] ? `color: ${colors[card.rarity]};` : ``}">${card.rarity}</font><br /><strong>Species</strong>: ${card.species}<br /><strong>Type</strong>: ${card.type}<br />`;
+				menu += `<strong>Pack</strong>: ${card.pack}<br /><strong>Card Type</strong>: ${card.cardType}</div></div>`;
 			}
 			return user.sendTo(room, `${change ? `|uhtmlchange|cs${user.userid}|` : `|uhtml|cs${user.userid}|`}${menu}`);
 		},
-		cardsearchhelp: ['/psgo cardsearch - sends a display to search for a list of cards'],
+		cardsearchhelp: ["/psgo cardsearch - sends a display to search for a list of cards."],
 
-		/*
-			TODO: Custom cards
-			Will be stored in a separate JSON file
-			Cannot modify or delete normal cards.
-		*/
+		add: function (target, room, user) {
+			if (!this.can("roomowner")) return false;
+			if (!target) return this.parse(`/help psgo add`);
+			let targets = target.split(`,`).map(x => {
+				return x.trim();
+			});
+
+			if (!targets[5]) return this.parse(`/help psgo add`);
+			let pack = targets[0];
+			let rarity = targets[1];
+			let species = targets[2];
+			let type = targets[3];
+			let image = targets[4];
+			let cardType = targets[5];
+			let id = toId(pack) + toId(species);
+			if (Server.cards[id]) return this.errorReply(`The card ${id} already exists in the PSGO database!`);
+			newCards[id] = {
+				id: id,
+				name: species,
+				pack: pack,
+				type: type,
+				image: image,
+				cardType: cardType,
+				species: species,
+				rarity: rarity,
+			};
+			saveCards();
+			Server.cards = Object.assign(newCards, origCards);
+			return this.parse(`/psgo card ${id}`);
+		},
+		addhelp: ["/psgo add [pack], [rarity], [species], [type], [image], [card type] - adds a new card to the PSGO database."],
+
+		remove: "delete",
+		delete: function (target, room, user) {
+			if (!this.can("roomowner")) return false;
+			if (!target) return this.parse(`/help psgo delete`);
+			if (!newCards[toId(target)]) return this.errorReply(`The card "${toId(target)}" is not in PSGO database or cannot be deleted.`);
+			delete newCards[toId(target)];
+			saveCards();
+			Server.cards = Object.assign(newCards, origCards);
+			return this.sendReply(`${toId(target)} has been removed from the card database!`);
+		},
+		deletehelp: ["/psgo delete [card id] - removes a card from the PSGO database."],
 
 		give: function (target, room, user) {
-			if (!this.can('roomowner')) return false;
+			if (!this.can("ban")) return false;
 			if (!target) return this.parse(`/help psgo give`);
 			let targets = target.split(`,`).map(x => {
 				return x.trim();
@@ -306,32 +365,32 @@ exports.commands = {
 			let targetUser = Users(toId(targets[0]));
 			if (!targetUser) return this.errorReply(`The user "${targets[0]}" was not found.`);
 			if (!targetUser.named) return this.errorReply(`Guests cannot be given cards.`);
-			let card = cards[toId(targets[1])];
+			let card = Server.cards[toId(targets[1])];
 			if (!card) return this.errorReply(`The card "${targets[1]}" does not exist.`);
 
 			giveCard(targetUser.userid, card.id);
 			if (targetUser.connected) targetUser.popup(`You have received ${card.name}.`);
 			return this.sendReply(`${targetUser.name} has received the card ${card.id}.`);
 		},
-		givehelp: ['/psgo give [user], [card] - gives the user specified card'],
+		givehelp: ["/psgo give [user], [card] - gives the user the specified card."],
 
-		confirmtakeall: 'take',
-		takeall: 'take',
+		confirmtakeall: "take",
+		takeall: "take",
 		take: function (target, room, user, connection, cmd) {
-			if (!this.can('roomowner')) return false;
+			if (!this.can("ban")) return false;
 			if (!target) return this.parse(`/help psgo take`);
 			let targets = target.split(`,`);
 			for (let u in targets) targets[u] = targets[u].trim();
 			let targetUser = Users(toId(targets[0]));
 			if (!targetUser) targetUser = {name: target[0], userid: toId(target[0]), connected: false};
 			if (!Db("cards").get(targetUser.userid, []).length) return this.errorReply(`${targetUser.name} has no cards.`);
-			if (cmd !== 'take') {
-				if (cmd !== 'confirmtakeall') return this.sendReply(`WARNING: Are you sure you want to take ALL of ${targetUser.name}'s cards? If so use /psgo confirmtakeall ${targetUser.name}`);
+			if (cmd !== "take") {
+				if (cmd !== "confirmtakeall") return this.sendReply(`WARNING: Are you sure you want to take ALL of ${targetUser.name}'s cards? If so use /psgo confirmtakeall ${targetUser.name}`);
 				Db("cards").set(targetUser.userid, []);
 				if (targetUser.connected) targetUser.popup(`You have lost all your cards.`);
 				return this.sendReply(`All of ${targetUser.name}'s cards have been removed.`);
 			}
-			let card = cards[toId(targets[1])];
+			let card = Server.cards[toId(targets[1])];
 			if (!card) return this.errorReply(`The card "${targets[1]}" does not exist.`);
 			let success = takeCard(targetUser.userid, card.id);
 			if (success) {
@@ -341,8 +400,10 @@ exports.commands = {
 				return this.sendReply(`${targetUser.name} does not have that card!`);
 			}
 		},
-		takehelp: ['/psgo take [user], [card] - takes the card from the specified user. Requires: &, ~',
-			'/psgo takeall [user] - takes all cards from the specified user. Requires: &, ~'],
+		takehelp: [
+			`/psgo take [user], [card] - takes the card from the specified user. Requires: &, ~.
+			/psgo takeall [user] - takes all cards from the specified user. Requires: &, ~.`,
+		],
 
 		shop: {
 			buy: function (target, room, user) {
@@ -359,9 +420,10 @@ exports.commands = {
 				Db("userpacks").set(user.userid, Db("userpacks").get(user.userid, []).concat([target]));
 				return this.parse(`/psgo packs pending`);
 			},
-			buyhelp: ['/psgo shop buy [pack] - Cost 5 ' + global.moneyPlural + '  per pack.'],
+			buyhelp: [`/psgo shop buy [pack] - Cost 5 ${moneyPlural} per pack.`],
+
 			// All packs are added by default.
-			'': 'display',
+			"": "display",
 			display: function (target, room, user) {
 				if (!this.runBroadcast()) return;
 				let output = `<div style="max-height:200px; width:100%; overflow: scroll;">`;
@@ -372,15 +434,15 @@ exports.commands = {
 				output += `</table></div>`;
 				return this.sendReplyBox(output);
 			},
-			displayhelp: ['/psgo shop display - Display the PSGO pack shop.'],
+			displayhelp: ["/psgo shop display - Display the PSGO pack shop."],
 		},
 
-		pack: 'packs',
+		pack: "packs",
 		packs: {
 			give: function (target, room, user) {
-				if (!this.can('roomowner')) return false;
+				if (!this.can("ban")) return false;
 				if (!target) return this.parse(`/help psgo packs give`);
-				let targets = target.split(',').map(x => {
+				let targets = target.split(",").map(x => {
 					return x.trim();
 				});
 				let targetUser = Users(toId(targets[0]));
@@ -392,22 +454,22 @@ exports.commands = {
 
 				return this.sendReply(`A ${pack} pack has been given to ${targetUser.name}`);
 			},
-			givehelp: ['/psgo packs give [user], [pack] - Give a user a pack. Requires: &, ~'],
+			givehelp: ["/psgo packs give [user], [pack] - Gives a user a pack. Requires: &, ~."],
 
-			confirmtakeall: 'take',
-			takeall: 'take',
+			confirmtakeall: "take",
+			takeall: "take",
 			take: function (target, room, user, connection, cmd) {
-				if (!this.can('roomowner')) return false;
+				if (!this.can("ban")) return false;
 				if (!target) return this.parse(`/help psgo packs take`);
-				let targets = target.split(',').map(x => {
+				let targets = target.split(",").map(x => {
 					return x.trim();
 				});
 				let targetUser = Users(toId(targets[0]));
 				if (!targetUser) targetUser = {name: target[0], userid: toId(target[0]), connected: false};
 				let pack = toPackName(targets[1]);
 				if (!Db("userpacks").get(targetUser.userid, []).length) return this.errorReply(`${targetUser.name} has no packs.`);
-				if (!toId(pack) && cmd !== 'take') {
-					if (cmd !== 'confirmtakeall') return this.sendReply(`WARNING: Are you sure you want to take ALL of ${targetUser.name}'s packs? If so use /psgo packs confirmtakeall ${targetUser.name}`);
+				if (!toId(pack) && cmd !== "take") {
+					if (cmd !== "confirmtakeall") return this.sendReply(`WARNING: Are you sure you want to take ALL of ${targetUser.name}'s packs? If so use /psgo packs confirmtakeall ${targetUser.name}`);
 					Db("userpacks").set(targetUser.userid, []);
 					if (targetUser.connected) targetUser.popup(`You have lost all of your packs.`);
 					return this.sendReply(`${targetUser.name}'s packs have been removed.`);
@@ -416,7 +478,7 @@ exports.commands = {
 				let index = Db("userpacks").get(targetUser.userid, []).indexOf(pack);
 				if (index === -1) return this.sendReply(`${targetUser.name} does not have any ${pack} packs.`);
 				let array = Db("userpacks").get(targetUser.userid, []);
-				if (cmd === 'takeall') {
+				if (cmd === "takeall") {
 					for (let i = 0; i < array.length; i++) {
 						if (array[i] === pack) {
 							array.splice(i, 1);
@@ -427,11 +489,13 @@ exports.commands = {
 					array.splice(index, 1);
 				}
 				Db("userpacks").set(targetUser.userid, array);
-				if (targetUser.connected) targetUser.popup(`You have lost ${(cmd === 'takeall' ? `all your ${pack} packs.` : `1 ${pack} pack.`)}`);
-				return this.sendReply(`${cmd === 'takeall' ? `All ${pack} packs` : `One ${pack} pack`} has been taken from ${targetUser.userid}.`);
+				if (targetUser.connected) targetUser.popup(`You have lost ${(cmd === "takeall" ? `all your ${pack} packs.` : `1 ${pack} pack.`)}`);
+				return this.sendReply(`${cmd === "takeall" ? `All ${pack} packs` : `One ${pack} pack`} has been taken from ${targetUser.userid}.`);
 			},
-			takehelp: ['/psgo packs take [user], [pack] - Take a pack from a user. Requires &, ~',
-				'/psgo packs takeall [user], (pack) - Take all packs from a user. If the type of pack is not specified, all packs will be removed. Requires: &, ~'],
+			takehelp: [
+				`/psgo packs take [user], [pack] - Takes a pack from a user. Requires &, ~.
+				/psgo packs takeall [user], (pack) - Takes all packs from a user. If the type of pack is not specified, all packs will be removed. Requires: &, ~.`,
+			],
 
 			open: function (target, room, user) {
 				if (!this.runBroadcast()) return;
@@ -449,13 +513,13 @@ exports.commands = {
 					results.push(`<button class="button" name="send" value="/psgo card ${cards[u].id}"><img src="${cards[u].image}" title="${cards[u].id} height="100" width="80"/></button>`);
 				}
 				Db("cards").set(user.userid, Db("cards").get(user.userid, []).concat(cards));
-				return this.sendReplyBox(`You have received the following cards from the ${target} pack:<br/>${results.join('')}`);
+				return this.sendReplyBox(`You have received the following cards from the ${target} pack:<br />${results.join("")}`);
 			},
-			openhelp: ['/psgo packs open [pack name] - Open a pack you own.'],
+			openhelp: ["/psgo packs open [pack name] - Open a pack you own."],
 
-			unopened: 'holding',
-			pending: 'holding',
-			stored: 'holding',
+			unopened: "holding",
+			pending: "holding",
+			stored: "holding",
 			holding: function (target, room, user) {
 				if (!Db("userpacks").get(user.userid, []).length) return this.errorReply(`You do not have any packs!`);
 				let usedPacks = {};
@@ -467,16 +531,16 @@ exports.commands = {
 						usedPacks[userPacks[i]]++;
 					}
 				}
-				return this.sendReplyBox(`<strong>Your unopened packs</strong>:<br/>` + Object.keys(usedPacks).map(pack => {
+				return this.sendReplyBox(`<strong>Your unopened packs</strong>:<br />` + Object.keys(usedPacks).map(pack => {
 					return `<button class="button" name="send" value="/psgo packs open ${pack}">Open ${pack} Pack</button> (${usedPacks[pack]} Remaining.)`;
-				}).join('<br/>'));
+				}).join("<br />"));
 			},
 
 			list: function (target, room, user) {
 				if (!this.runBroadcast()) return;
-				this.sendReplyBox(`<div style="max-height: 300px; overflow-y: scroll;"><strong>PSGO Packs</strong><br/><br/>${packs.join(`<br/>`)}</div>`);
+				this.sendReplyBox(`<div style="max-height: 300px; overflow-y: scroll;"><strong>PSGO Packs</strong><br /><br />${packs.join(`<br />`)}</div>`);
 			},
-			listhelp: ['/psgo packs list - displays all psgo packs'],
+			listhelp: ["/psgo packs list - displays all PSGO packs."],
 		},
 
 		ladder: function (target, room, user) {
@@ -493,13 +557,13 @@ exports.commands = {
 				return {name: name, points: points};
 			});
 			keys = keys.slice(0, 500).sort(function (a, b) { return b.points - a.points; });
-			return this.sendReplyBox(rankLadder('PSGO Card Ladder', 'Points', keys, 'points'));
+			return this.sendReplyBox(rankLadder("PSGO Card Ladder", "Points", keys, "points"));
 		},
-		ladderhelp: ['/psgo ladder - show the PSGO card point ladder.'],
+		ladderhelp: ["/psgo ladder - show the PSGO card point ladder."],
 
-		nuke: 'reset',
+		nuke: "reset",
 		reset: function (target, room, user) {
-			if (!this.can('lockdown')) return;
+			if (!this.can("lockdown")) return;
 			if (!toId(target) || !user.psgoResetCode) {
 				let chars = `abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*`.split(``);
 				let out = ``;
@@ -507,49 +571,50 @@ exports.commands = {
 					out += chars[Math.floor(Math.random() * chars.length)];
 				}
 				user.psgoResetCode = out;
-				return this.sendReplyBox(`<h1 style="color: red">WARNING</h1>You are about to remove <strong>ALL users cards AND PACKS</strong><br/>If you are <strong>100%</strong> sure you want to do this, please use:<br/><br/>/psgo reset ${user.psgoResetCode}<br/><h3 style="color: red">Once done, this is irreversible please be 100% sure!</h3>`);
+				return this.sendReplyBox(`<h1 style="color: red">WARNING</h1>You are about to remove <strong>ALL users cards AND PACKS</strong><br />If you are <strong>100%</strong> sure you want to do this, please use:<br /><br />/psgo reset ${user.psgoResetCode}<br /><h3 style="color: red">Once done, this is irreversible please be 100% sure!</h3>`);
 			}
 			if (user.psgoResetCode !== target.trim()) return this.parse(`/psgo reset`);
 
 			let cardKeys = Db("cards").keys();
 			for (let i = 0; i < cardKeys.length; i++) {
-				Db("cards").remove(cardKeys[i]);
+				Db("cards").delete(cardKeys[i]);
 			}
 			let packKeys = Db("userpacks").keys();
 			for (let i = 0; i < packKeys.length; i++) {
 				Db("userpacks").delete(packKeys[i]);
 			}
 			Rooms.rooms.forEach(r => {
-				r.addRaw(`<div class="broadcast-red"><strong>The PSGO database was reset</strong><br/>You no longer have any cards or packs.`).update();
+				r.addRaw(`<div class="broadcast-red"><strong>The PSGO database was reset</strong><br />You no longer have any cards or packs.`).update();
 			});
 		},
-		resethelp: ['/psgo reset - Wipe the PSGO database (Take ALL user\'s cards AND packs). Requires: ~'],
+		resethelp: [`/psgo reset - Wipe the PSGO database (Take ALL user's cards AND packs). Requires: ~.`],
 
-		'': 'help',
+		"": "help",
 		help: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			return this.parse('/help psgo');
+			return this.parse("/help psgo");
 		},
 	},
-
 	psgohelp: [
-		'/psgo card [card id] - Gives information on the card selected.',
-		'/psgo showcase (user) - Show all of the selected users cards.',
-		'/psgo transfercard [user], [card ID] - Transfer one of your cards to another user.',
-		'/psgo cardsearch - sends a display to search for a list of cards.',
-		'/psgo give [user], [card] - gives the user specified card. Requires &, ~',
-		'/psgo take [user], [card] - takes the card from the specified user. Requires: &, ~',
-		'/psgo takeall [user] - takes all cards from the specified user. Requires: &, ~',
-		'/psgo shop buy [pack] - Cost 5 ' + global.moneyPlural + ' per pack.',
-		'/psgo shop display - shops pack shop.<br />',
-		'/psgo packs give [user], [pack] - gives a user a  pack. Requires &, ~',
-		'/psgo packs take [user], [pack] - Take a pack from a user. Requires &, ~',
-		'/psgo packs takeall [user], (pack) - Take all packs from a user. If the type of pack is not specified, all packs will be removed. Requires: &, ~',
-		'/psgo packs open [pack name] - Open a pack you own.',
-		'/psgo packs holding - displays psgo packs you currently hold.',
-		'/psgo packs list - displays all psgo packs.',
-		'/psgo ladder - show the PSGO card point ladder.',
-		'/psgo reset - Wipe the PSGO database (Take ALL users cards AND packs). Requires: ~',
+		`/psgo card [card id] - Gives information on the card selected.
+		/psgo showcase (user) - Shows all of the selected user's cards.
+		/psgo transfercard [user], [card ID] - Transfers one of your cards to another user.
+		/psgo add [pack], [rarity], [species], [type], [image], [card type] - Adds a new card to the PSGO database.
+		/psgo delete [card id] - Removes a card from the PSGO database.
+		/psgo cardsearch - Sends a display to search for a list of cards.
+		/psgo give [user], [card] - Gives the user specified card. Requires &, ~.
+		/psgo take [user], [card] - Takes the card from the specified user. Requires: &, ~.
+		/psgo takeall [user] - Takes all cards from the specified user. Requires: &, ~.
+		/psgo shop buy [pack] - Cost 5 ${moneyPlural} per pack.
+		/psgo shop display - Shows Pack Shop.
+		/psgo packs give [user], [pack] - Gives a user a  pack. Requires &, ~.
+		/psgo packs take [user], [pack] - Takes a pack from a user. Requires &, ~.
+		/psgo packs takeall [user], (pack) - Takes all packs from a user. If the type of pack is not specified, all packs will be removed. Requires: &, ~.
+		/psgo packs open [pack name] - Open a pack you own.
+		/psgo packs holding - displays PSGO packs you currently hold.
+		/psgo packs list - displays all psgo packs.
+		/psgo ladder - show the PSGO card point ladder.
+		/psgo reset - Wipe the PSGO database (Take ALL user's cards AND packs). Requires: ~.`,
 	],
 
 	// Shortcut commands
@@ -558,27 +623,26 @@ exports.commands = {
 		Chat.commands.psgo.showcase.call(this, ...[target, room, user]);
 	},
 
-	showcasehelp: ['/psgo showcase (user) - Show all of the selected users cards.'],
+	showcasehelp: ["/psgo showcase (user) - Show all of the selected user's cards."],
 	cardsearch: function (target, room, user) {
 		this.parse(`/psgo cardsearch`);
 	},
 
-	cardsearchhelp: ['/psgo cardsearch - sends a display to search for a list of cards'],
+	cardsearchhelp: ["/psgo cardsearch - sends a display to search for a list of cards."],
 	cardladder: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		Chat.commands.psgo.ladder.call(this, ...[target, room, user]);
 	},
 
-	cardladderhelp: ['/psgo ladder - show the PSGO card point ladder.'],
+	cardladderhelp: ["/psgo ladder - show the PSGO card point ladder."],
 	checkpacks: function (target, room, user) {
 		this.parse(`/psgo packs holding`);
 	},
 
-	checkpackshelp: ['/psgo packs holding - displays psgo packs you currently hold.'],
+	checkpackshelp: ["/psgo packs holding - displays PSGO packs you currently hold."],
 	openpack: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		Chat.commands.psgo.packs.open.call(this, ...[target, room, user]);
 	},
-
-	openpackhelp: ['/psgo packs open [pack name] - Open a pack you own.'],
+	openpackhelp: ["/psgo packs open [pack name] - Open a pack you own."],
 };

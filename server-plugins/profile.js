@@ -201,7 +201,7 @@ exports.commands = {
 			let targetUser = Users.getExact(userid);
 			let title = target[1].trim();
 			if (Db("titles").has(userid) && Db("titlecolors").has(userid)) {
-				return this.errorReply(`${userid} already has a custom title.`);
+				return this.errorReply(`${target[0]} already has a custom title.`);
 			}
 			let color = target[2].trim();
 			if (color.charAt(0) !== "#") return this.errorReply(`The color needs to be a hex starting with "#".`);
@@ -609,11 +609,9 @@ exports.commands = {
 		if (!target) target = user.userid;
 		if (target.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 		if (!this.runBroadcast()) return;
-		let targetUser = Users.get(target);
-		if (!Users(targetUser) || !targetUser.connected) return this.errorReply(`${target} is not online. Use /seen to find out how long ago they left.`);
-		if (targetUser.connected) {
-			this.sendReplyBox(`${Server.nameColor(targetUser, true, true)} was last active <strong>${Chat.toDurationString(Date.now() - targetUser.lastMessageTime)}</strong> saying <strong>"${targetUser.lastMessage}"</strong>.`);
-		}
+		let targetUser = Users.get(toId(target));
+		if (!targetUser || !targetUser.connected) return this.errorReply(`${target} is not online. Use /seen to find out how long ago they left.`);
+		return this.sendReplyBox(`${Server.nameColor(targetUser, true, true)} was last active <strong>${Chat.toDurationString(Date.now() - targetUser.lastMessageTime)} ago</strong>.`);
 	},
 	lastactivehelp: ["/lastactive - Shows how long ago it has been since a user has posted a message."],
 
@@ -648,7 +646,7 @@ exports.commands = {
 			if (Users(userid) && Users(userid).connected) return "<font color = 'limegreen'><strong>Currently Online</strong></font>";
 			let seen = Db("seen").get(userid);
 			if (!seen) return "<font color = 'red'><strong>Never</strong></font>";
-			return Chat.toDurationString(Date.now() - seen, {precision: true}) + " ago.";
+			return `${Chat.toDurationString(Date.now() - seen, {precision: true})} ago.`;
 		}
 
 		function getFlag(userid) {

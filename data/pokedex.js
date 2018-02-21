@@ -3903,21 +3903,6 @@ exports.BattlePokedex = {
 		weightkg: 58,
 		color: "White",
 		eggGroups: ["Field"],
-<<<<<<< HEAD
-		otherFormes: ["pokestarsmeargle"],
-	},
-	pokestarsmeargle: {
-		num: 235,
-		species: "Pokestar Smeargle",
-		types: ["Normal"],
-		baseStats: {hp: 55, atk: 20, def: 35, spa: 20, spd: 45, spe: 75},
-		abilities: {0: "Own Tempo", 1: "Technician", H: "Moody"},
-		heightm: 1.5,
-		weightkg: 61,
-		color: "White",
-		eggGroups: ["Field"],
-=======
->>>>>>> e153dd45390e407175127caccf404459a665e2c2
 	},
 	tyrogue: {
 		num: 236,

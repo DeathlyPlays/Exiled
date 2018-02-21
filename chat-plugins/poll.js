@@ -7,7 +7,7 @@
 'use strict';
 
 class Poll {
-	constructor(room, questionData, options) {
+	constructor(room, questionData, options, name) {
 		if (room.pollNumber) {
 			room.pollNumber++;
 		} else {
@@ -25,7 +25,7 @@ class Poll {
 			timeout: null,
 			timeoutMins: 0,
 			startTime: Date.now(),
-			startedUser: Server.nameColor(questionData.username, true, true),
+			startedUser: Server.nameColor(name, true, true),
 			options: new Map(),
 		}];
 		for (const [i, option] of options.entries()) {
@@ -58,7 +58,7 @@ class Poll {
 	}
 
 	generateVotes(num) {
-		let output = `<div class="infobox"><details><summary style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Poll-${this.pollArray[num].pollNum}</span> <strong style="font-size:11pt">${this.getQuestionMarkup(num)}</strong><psicon pokemon="cresselia"></summary>`;
+		let output = `<div class="infobox"><details><summary style="margin: 2px 0 5px 0"><span style="border: 1px solid #6A6; color: #484; border-radius: 4px; padding:0 3px"><i class="fa fa-bar-chart"></i> Poll-${this.pollArray[num].pollNum}</span> <strong style="font-size:11pt">${this.getQuestionMarkup(num)}</strong><psicon pokemon="cresselia"></summary>`;
 		this.pollArray[num].options.forEach((option, number) => {
 			output += `<div style="margin-top: 5px"><button class="button" style="text-align: left" value="/poll vote ${number}, ${this.pollArray[num].pollNum}" name="send" title="Vote for ${number}. ${Chat.escapeHTML(option.name)}">${number}. <strong>${this.getOptionMarkup(option, num)}</strong></button></div>`;
 		});
@@ -69,8 +69,8 @@ class Poll {
 	}
 
 	generateResults(ended, option, num) {
-		let icon = `<span style="border: 1px solid #${(ended ? '777;color:#555' : '6A6;color:#484')}; border-radius: 4px; padding: 3px"><i class="fa fa-bar-chart"></i> ${(ended ? `Poll-${this.pollArray[num].pollNum} ended` : `Poll-${this.pollArray[num].pollNum}`)}</span>`;
-		let totalVotes = `<br /><span style="font-style: italic; font-size: 9pt; color: #79330A;">[Total Votes: ${this.pollArray[num].totalVotes}] (Started by ${this.pollArray[num].startedUser} ${Chat.toDurationString(Date.now() - this.pollArray[num].startTime)} ago.)</span></div>`;
+		let icon = `<span style="border: 1px solid #${(ended ? '777; color:#555' : '6A6; color:#484')}; border-radius: 4px; padding: 3px"><i class="fa fa-bar-chart"></i> ${(ended ? `Poll-${this.pollArray[num].pollNum} ended` : `Poll-${this.pollArray[num].pollNum}`)}</span>`;
+		let totalVotes = `<br /><span style="font-style: italic; font-size: 9pt; color: #79330A;">[Total Votes: ${this.pollArray[num].totalVotes}] (Started by ${this.pollArray[num].startedUser} Started on: ${new Date(this.pollArray[num].startTime)})</span></div>`;
 		let output = `<div style="infobox"><details open><summary style="margin: 2px 0 5px 0">${icon} <strong style="font-size: 11pt">${this.getQuestionMarkup(num)}</strong><psicon pokemon="darkrai"></summary>`;
 		output += totalVotes;
 		output += `<div style="padding: 8px 15px;"><font color="yellow"><small><center>(Options with 0 votes are not shown)</center></small></font>`;
@@ -88,8 +88,8 @@ class Poll {
 			i = iter.next();
 			c++;
 		}
-		if (option === 0 && !ended) output += `<div style="text-align:center; color:yellow;"><small>(You can't vote after viewing results)</small></div>`;
-		output += `</details></table>`;
+		if (option === 0 && !ended) output += `<div style="text-align: center; color: red;"><small>(You can't vote after viewing results)</small></div>`;
+		output += `</table></details></div>`;
 
 		return output;
 	}
@@ -211,8 +211,8 @@ class Poll {
 
 	end(number) {
 		let results = this.generateResults(true, null, number);
-		this.room.send('|uhtmlchange|poll' + this.pollArray[number].pollNum + '|<div><details>(The poll has ended &ndash; scroll down to see the results)</details></div>');
-		this.room.add('|html|' + results);
+		this.room.send(`|uhtmlchange|poll${this.pollArray[number].pollNum}|<div class="infobox">(The poll has ended &ndash; scroll down to see the results)</div>`);
+		this.room.add(`|html|${results}`);
 	}
 
 	obtain(number) {
@@ -272,6 +272,7 @@ exports.commands = {
 					totalVotes: 0,
 					timeout: null,
 					timeoutMins: 0,
+					startedUser: WL.nameColor(user.name, true, true),
 					options: new Map(),
 				});
 				for (let i = 0; i < options.length; i++) {
@@ -279,7 +280,7 @@ exports.commands = {
 				}
 				room.poll.displaySpecific(room.poll.pollArray.length - 1);
 			} else {
-				room.poll = new Poll(room, {source: params[0], supportHTML: supportHTML}, options);
+				room.poll = new Poll(room, {source: params[0], supportHTML: supportHTML}, options, user.name);
 				room.poll.display();
 			}
 

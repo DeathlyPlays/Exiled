@@ -272,7 +272,7 @@ exports.commands = {
 					totalVotes: 0,
 					timeout: null,
 					timeoutMins: 0,
-					startedUser: WL.nameColor(user.name, true, true),
+					startedUser: Server.nameColor(user.name, true, true),
 					options: new Map(),
 				});
 				for (let i = 0; i < options.length; i++) {

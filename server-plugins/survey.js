@@ -235,7 +235,7 @@ exports.commands = {
 					repliers: {},
 					replierIps: {},
 					timeout: null,
-					startedUser: WL.nameColor(user.name, true, true),
+					startedUser: Server.nameColor(user.name, true, true),
 					timeoutMins: 0,
 				});
 				room.survey.displaySpecific(room.survey.surveyArray.length - 1);

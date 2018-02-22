@@ -1773,16 +1773,6 @@ exports.Formats = [
 
 	},
 	{
-		name: "[Gen 7] BL OU",
-		desc: [
-			"&bullet; Created by flufi.",
-			"BL Pokemon are individually brought back to life and fixed of their own deal-breaking flaws.",
-		],
-		mod: 'blou',
-		ruleset: ['[Gen 7] OU'],
-
-	},
-	{
 		name: "[Gen 7] Pokebilities",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3588652/\">Pokebilities</a>: A Pokemon has all of its abilities active at the same time."],
 		mod: 'pokebilities',
@@ -3514,25 +3504,5 @@ exports.Formats = [
 				pokemon.types = ["Steel", "Fairy"];
 			}
 		},
-	},
-	{
-		section: "Pokeditions",
-		column: 6,
-	},
-	{
-		name: "[Gen 7] Pokeditions OU",
-		desc: [],
-
-		mod: 'pokeditions',
-		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
-		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass'],
-	},
-	{
-		name: "[Gen 7] Pokeditions Ubers",
-		desc: [],
-
-		mod: 'pokeditions',
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
-		banlist: ['Baton Pass'],
 	},
 ];

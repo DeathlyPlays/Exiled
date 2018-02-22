@@ -86,6 +86,7 @@ exports.commands = {
 			return this.sendReply(`Your Splatoon 2 weapon has been set to "${target}".`);
 		},
 
+		"!randomweapon": true,
 		randweapon: "randomweapon",
 		randomweapon: function (target, room, user) {
 			if (!this.runBroadcast()) return;
@@ -185,6 +186,18 @@ exports.commands = {
 			return this.sendReply(`Your Level has been set to: Level ${target}.`);
 		},
 
+		prestige: "star",
+		stars: "star",
+		star: function (target, room, user) {
+			target = parseInt(target);
+			if (isNaN(target) || target < 1) return this.errorReply(`Your prestige must be an integer above 0.`);
+			let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+			splatProfile.prestige = target;
+			Db("splatoon").set(user.userid, splatProfile);
+			return this.sendReply(`Your Prestige has been set to: Prestige ${target}.`);
+		},
+
+		"!profile": true,
 		profile: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!target) target = user.userid;
@@ -196,33 +209,18 @@ exports.commands = {
 			let SPLATFEST = Db("splatoon").get("SPLATFEST", {alpha: null, bravo: null, active: false});
 
 			let profile = `<div><strong>Name:</strong> ${Server.nameColor(toId(username), true, true)}`;
-			if (splatProfile.ign) profile += ` <strong>In-Game Name</strong>: ${splatProfile.ign}`;
-			if (splatProfile.level) profile += ` <strong>Level</strong>: ${splatProfile.level}`;
+			if (splatProfile.ign) profile += ` <strong>In-Game Name:</strong> ${splatProfile.ign}`;
+			if (splatProfile.level) profile += ` <strong>Level:</strong> ${splatProfile.level}`;
+			if (splatProfile.prestige) profile += ` <strong>Prestige:</strong> ${splatProfile.prestige}`;
 			profile += `<br />`;
-			if (Db("switchfc").has(toId(username))) {
-				profile += `<strong>Switch Friend Code:</strong> SW-${Db("switchfc").get(toId(username))}<br />`;
-			}
-			if (splatProfile.weapon) {
-				profile += `<strong>Weapon:</strong> ${splatProfile.weapon}<br />`;
-			}
-			if (splatProfile.splatfest && SPLATFEST.active) {
-				profile += `<strong>Splatfest Team:</strong> ${splatProfile.splatfest}<br />`;
-			}
-			if (splatProfile.ranks.cb) {
-				profile += `<strong>Clam Blitz:</strong> ${splatProfile.ranks.cb}<br />`;
-			}
-			if (splatProfile.ranks.rm) {
-				profile += `<strong>Rainmaker:</strong> ${splatProfile.ranks.rm}<br />`;
-			}
-			if (splatProfile.ranks.sz) {
-				profile += `<strong>Splat Zones:</strong> ${splatProfile.ranks.sz}<br />`;
-			}
-			if (splatProfile.ranks.tc) {
-				profile += `<strong>Tower Control:</strong> ${splatProfile.ranks.tc}<br />`;
-			}
-			if (splatProfile.ranks.sr) {
-				profile += `<strong>Salmon Run:</strong> ${splatProfile.ranks.sr}<br />`;
-			}
+			if (Db("switchfc").has(toId(username))) profile += `<strong>Switch Friend Code:</strong> SW-${Db("switchfc").get(toId(username))}<br />`;
+			if (splatProfile.weapon) profile += `<strong>Weapon:</strong> ${splatProfile.weapon}<br />`;
+			if (splatProfile.splatfest && SPLATFEST.active) profile += `<strong>Splatfest Team:</strong> ${splatProfile.splatfest}<br />`;
+			if (splatProfile.ranks.cb) profile += `<strong>Clam Blitz:</strong> ${splatProfile.ranks.cb}<br />`;
+			if (splatProfile.ranks.rm) profile += `<strong>Rainmaker:</strong> ${splatProfile.ranks.rm}<br />`;
+			if (splatProfile.ranks.sz) profile += `<strong>Splat Zones:</strong> ${splatProfile.ranks.sz}<br />`;
+			if (splatProfile.ranks.tc) profile += `<strong>Tower Control:</strong> ${splatProfile.ranks.tc}<br />`;
+			if (splatProfile.ranks.sr)  profile += `<strong>Salmon Run:</strong> ${splatProfile.ranks.sr}<br />`;
 			profile += `</div>`;
 			this.sendReplyBox(profile);
 		},
@@ -238,6 +236,7 @@ exports.commands = {
 		/splatoon weapon [weapon] - Sets your Splatoon 2 Weapon.
 		/splatoon IGN [Splatoon IGN] - Sets your Splatoon 2 IGN.
 		/splatoon level [level] - Sets your Splatoon 2 Level.
+		/splatoon prestige [prestige level] - Sets your Splatoon 2 Prestige.
 		/splatoon splatfest start [1st Splatfest team name], [2nd Splatfest team name] - Initiates a Splatfest of the two teams.  Must have Room Moderator or higher in the Splatoon room. Requires @, &, #, ~.
 		/splatoon splatfest end - Ends the Splatfest. Requires @, &, #, ~.
 		/splatoon splatfest join [Splatfest team name] - Joins the specified Splatfest team.

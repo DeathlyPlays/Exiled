@@ -33,7 +33,7 @@ exports.commands = {
 
 		req: "request",
 		request: function (target, room, user) {
-			target = target.split(", ");
+			target = target.split(',').map(p => p.trim());
 			if (!user.autoconfirmed) return this.errorReply(`Only autoconfirmed users may use this command to prevent spam.`);
 			if (isNaN(target[0])) return this.errorReply(`The reward must be an integer.`);
 			Economy.readMoney(user.userid, money => {

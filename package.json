@@ -4,7 +4,7 @@
   "description": "The server for the Pokémon Showdown battle simulator",
   "version": "0.11.2",
   "dependencies": {
-    "autolinker": "^1.4.4",
+    "autolinker": "^1.6.2",
     "claudia-bot-builder": "^2.15.0",
     "cloud-env": "0.2.2",
     "concat-stream": "^1.6.0",
@@ -44,11 +44,11 @@
   "private": true,
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^8.5.9",
-    "@types/nodemailer": "^4.3.0",
-    "eslint": "^4.16.0",
+    "@types/node": "^8.9.4",
+    "@types/nodemailer": "^4.3.4",
+    "eslint": "^4.18.1",
     "mocha": "^4.1.0",
-    "typescript": "^2.6.2"
+    "typescript": "^2.7.2"
   },
   "bugs": {
     "url": "https://github.com/Zarel/Pokemon-Showdown/issues"

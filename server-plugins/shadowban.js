@@ -161,7 +161,7 @@ exports.commands = {
 		}
 
 		if (!this.targetUser) return this.sendReply("User '" + this.targetUsername + "' not found.");
-		if (!this.can('lock', this.targetUser)) return;
+		if (!this.can("sban", this.targetUser)) return;
 
 		let targets = addUser(this.targetUser);
 		if (targets.length === 0) {
@@ -178,7 +178,7 @@ exports.commands = {
 		if (!target) return this.sendReply("/unshadowban OR /unsban [username] - Undoes /shadowban (except the secondary command).");
 		this.splitTarget(target);
 
-		if (!this.can('lock')) return;
+		if (!this.can("sban")) return;
 
 		let targets = removeUser(this.targetUser || this.targetUsername);
 		if (targets.length === 0) {
@@ -188,9 +188,9 @@ exports.commands = {
 	},
 
 	sbanlist: function (target, room, user) {
-		if (!target && !this.can('lock')) return this.sendReply("The command '/sbanlist' was unrecognized.  To send a message starting with '/sbanlist', type '//sbanlist'.");
+		if (!target && !this.can("sban")) return this.sendReply("The command '/sbanlist' was unrecognized.  To send a message starting with '/sbanlist', type '//sbanlist'.");
 		if (!this.canTalk() && !user.can('bypassall')) return this.sendReply("You cannot do this while unable to talk.");
-		if (!this.can('lock')) return false;
+		if (!this.can("sban")) return false;
 		let result = [];
 		let data = Rooms(toId(ROOM_NAME)).chatRoomData.addedUsers;
 		for (let key in data) {

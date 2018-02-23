@@ -34,7 +34,7 @@ exports.commands = {
 	quotes: "quote",
 	quote: {
 		add: function (target, room, user) {
-			if (!this.can("lock")) return false;
+			if (!this.can("quotes")) return false;
 			let [name, ...quote] = target.split(",").map(p => p.trim());
 			if (!name || !quote) return this.parse("/quotehelp");
 			if (name.length > 18) return this.errorReply("Quote names must be 18 characters or less!");
@@ -49,7 +49,7 @@ exports.commands = {
 		},
 
 		delete: function (target, room, user) {
-			if (!this.can("lock")) return false;
+			if (!this.can("quotes")) return false;
 			if (!target) return this.parse("/quotehelp");
 			let quoteid = toId(target);
 			if (!quotes[quoteid]) return this.errorReply(`${target} is not currently registered as a quote.`);

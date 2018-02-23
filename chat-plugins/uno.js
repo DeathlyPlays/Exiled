@@ -513,9 +513,6 @@ class UNOgame extends Rooms.RoomGame {
 		let targetUserid = toId(player.name);
 		let prize = 2;
 		prize += Math.floor(this.playerCount / 5);
-		if (Db('userBadges').has(targetUserid) && Db('userBadges').get(targetUserid).indexOf('Uno Champion') > -1) prize = Math.ceil(prize * 1.5);
-		if (Users(targetUserid).unoBoost) prize *= 2;
-		if (Users(targetUserid).gameBoost) prize *= 2;
 		for (let i in this.players) {
 			Server.ExpControl.addExp(this.players[i].userid, this.room, 20);
 		}
@@ -526,10 +523,6 @@ class UNOgame extends Rooms.RoomGame {
 				}
 				Economy.logTransaction(player.name + ' has won ' + prize + ' ' + (prize === 1 ? moneyName : moneyPlural) + ' from a game of UNO.');
 			});
-			for (let i = 0; i < this.players.length; i++) {
-				if (Users(this.players[i].unoBoost)) Users(this.players[i]).unoBoost = false;
-				if (Users(this.players[i].gameBoost)) Users(this.players[i]).gameBoost = false;
-			}
 		}
 		this.destroy();
 	}

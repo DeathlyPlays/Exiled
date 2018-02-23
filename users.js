@@ -856,10 +856,10 @@ class User {
 				this.autoconfirmed = userid;
 			} else if (userType === '4') {
 				this.autoconfirmed = userid;
-			} else if (userType === '5' || Db('perma').get(userid) === 5) {
+			} else if (userType === '5' || Db.perma.get(userid) === 5) {
 				this.permalocked = userid;
 				Punishments.lock(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permalocked as ${name}`);
-			} else if (userType === '6' || Db('perma').get(userid) === 6) {
+			} else if (userType === '6' || Db.perma.get(userid) === 6) {
 				Punishments.ban(this, Date.now() + PERMALOCK_CACHE_TIME, userid, `Permabanned as ${name}`);
 			}
 		}
@@ -1186,9 +1186,9 @@ class User {
 	 * @param {Connection} connection
 	 */
 	onDisconnect(connection) {
-		if (this.named) Db("seen").set(this.userid, Date.now());
+		if (this.named) Db.seen.set(this.userid, Date.now());
 		if (Ontime[this.userid]) {
-			Db("ontime").set(this.userid, Db("ontime").get(this.userid, 0) + (Date.now() - Ontime[this.userid]));
+			Db.ontime.set(this.userid, Db.ontime.get(this.userid, 0) + (Date.now() - Ontime[this.userid]));
 			delete Ontime[this.userid];
 		}
 		for (let i = 0; i < this.connections.length; i++) {

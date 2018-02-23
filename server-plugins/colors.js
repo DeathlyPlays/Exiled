@@ -47,7 +47,7 @@ exports.commands = {
 	customcolour: "customcolor",
 	customcolor: {
 		set: function (target, room, user) {
-			if (!this.can("lock")) return false;
+			if (!this.can("profile")) return false;
 			target = target.split(",");
 			for (let u = 0; u < target.length; u++) target[u] = target[u].trim();
 			if (!target[1]) return this.parse("/help customcolor");
@@ -61,7 +61,7 @@ exports.commands = {
 		},
 
 		delete: function (target, room, user) {
-			if (!this.can("lock")) return false;
+			if (!this.can("profile")) return false;
 			if (!target) return this.parse("/help customcolor");
 			if (!customColors[toId(target)]) return this.errorReply(`/customcolor - ${target} does not have a custom color.`);
 			delete customColors[toId(target)];
@@ -83,7 +83,7 @@ exports.commands = {
 		},
 
 		reload: function (target, room, user) {
-			if (!this.can("hotpatch")) return false;
+			if (!this.can("profile")) return false;
 			updateColor();
 			this.privateModAction(`(${user.name} has reloaded custom colours.)`);
 		},

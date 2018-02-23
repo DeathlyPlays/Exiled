@@ -42,7 +42,7 @@ exports.commands = {
 	sc: {
 		give: 'set',
 		set: function (target, room, user) {
-			if (!this.can('ban')) return false;
+			if (!this.can("profile")) return false;
 			target = target.split(',');
 			for (let u in target) target[u] = target[u].trim();
 			if (target.length !== 2) return this.parse('/sc help');
@@ -59,7 +59,7 @@ exports.commands = {
 		take: 'delete',
 		remove: 'delete',
 		delete: function (target, room, user) {
-			if (!this.can('ban')) return false;
+			if (!this.can("profile")) return false;
 			target = toId(target);
 			if (!sc[toId(target)]) return this.errorReply('/sc - ' + target + ' does not have an sc.');
 			delete sc[toId(target)];

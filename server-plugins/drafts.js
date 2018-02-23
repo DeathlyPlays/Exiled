@@ -31,7 +31,7 @@ class Draft {
 		};
 		this.originalOrder.push(teamname);
 		let fileName = this.room + 'draft';
-		Db(fileName).set('draftedteams', this.teams);
+		Db[fileName].set('draftedteams', this.teams);
 		this.room.add('|html|<div style="' + greencss + '">The <strong>' + teamname + '</strong> are now apart of the draft and is managed by <strong>' + manager + '</strong></div>');
 		this.log(teamname + ' is now apart of the draft and is managed by ' + manager);
 	}
@@ -46,7 +46,7 @@ class Draft {
 			continue;
 		}
 		let fileName = this.room + 'draft';
-		Db(fileName).set('draftedteams', this.teams);
+		Db[fileName].set('draftedteams', this.teams);
 		this.log(teamname + ' has been removed from this league.');
 	}
 
@@ -67,7 +67,7 @@ class Draft {
 		if (this.draftedMons.includes(pk)) return self.errorReply('This mon has already been drafted by someone else.');
 		this.teams[this.turn].draftpicks.push(pk);
 		let fileName = this.room + 'draft';
-		Db(fileName).set('draftedteams', this.teams);
+		Db[fileName].set('draftedteams', this.teams);
 		this.draftedMons.push(pk);
 		if (this.order.length === this.order.indexOf(this.turn) + 1) {
 			if (this.teams[this.turn].draftpicks.length === this.maxMons) {
@@ -142,7 +142,7 @@ class Draft {
 		this.draftedMons[oldpickDraftSpot] = mon;
 		this.teams[team].draftpicks[pick - 1] = mon;
 		let fileName = this.room + 'draft';
-		Db(fileName).set('draftedteams', this.teams);
+		Db[fileName].set('draftedteams', this.teams);
 		this.room.add('|html|<div style="' + greencss + '">Change : <strong>' + team + '</strong> has changed their pick : <strong>' + oldpick + '</strong> changed to : <strong>' + this.teams[team].draftpicks[pick - 1] + '</strong>.<br><strong>' + team + '\'s</strong> Line up now looks like: ' + this.iconize(this.teams[team].draftpicks) + '</div>');
 		this.log(team + ' has changed their draft pick : ' + oldpick + ' to : ' + mon);
 	}

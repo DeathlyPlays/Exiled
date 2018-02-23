@@ -19,10 +19,10 @@ exports.commands = {
 			cb: function (target, room, user) {
 				if (!target) return this.parse("/splatoonhelp");
 				target = target.trim().toUpperCase();
-				let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+				let splatProfile = Db.splatoon.get(user.userid, {ranks: {}});
 				if (!["C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "S", "S+"].includes(target)) return this.errorReply(`Invalid Ranking; check your spelling?`);
 				splatProfile.ranks.cb = target;
-				Db("splatoon").set(user.userid, splatProfile);
+				Db.splatoon.set(user.userid, splatProfile);
 				return this.sendReply(`You have successfully set your Clam Blitz ranking to "${target}".`);
 			},
 
@@ -30,10 +30,10 @@ exports.commands = {
 			rm: function (target, room, user) {
 				if (!target) return this.parse("/splatoonhelp");
 				target = target.trim().toUpperCase();
-				let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+				let splatProfile = Db.splatoon.get(user.userid, {ranks: {}});
 				if (!["C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "S", "S+"].includes(target)) return this.errorReply(`Invalid Ranking; check your spelling?`);
 				splatProfile.ranks.rm = target;
-				Db("splatoon").set(user.userid, splatProfile);
+				Db.splatoon.set(user.userid, splatProfile);
 				return this.sendReply(`You have successfully set your Rainmaker ranking to "${target}".`);
 			},
 
@@ -42,10 +42,10 @@ exports.commands = {
 			sz: function (target, room, user) {
 				if (!target) return this.parse("/splatoonhelp");
 				target = target.trim().toUpperCase();
-				let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+				let splatProfile = Db.splatoon.get(user.userid, {ranks: {}});
 				if (!["C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "S", "S+"].includes(target)) return this.errorReply(`Invalid Ranking; check your spelling?`);
 				splatProfile.ranks.sz = target;
-				Db("splatoon").set(user.userid, splatProfile);
+				Db.splatoon.set(user.userid, splatProfile);
 				return this.sendReply(`You have successfully set your Splat Zones ranking to "${target}".`);
 			},
 
@@ -53,10 +53,10 @@ exports.commands = {
 			tc: function (target, room, user) {
 				if (!target) return this.parse("/splatoonhelp");
 				target = target.trim().toUpperCase();
-				let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+				let splatProfile = Db.splatoon.get(user.userid, {ranks: {}});
 				if (!["C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "S", "S+"].includes(target)) return this.errorReply(`Invalid Ranking; check your spelling?`);
 				splatProfile.ranks.tc = target;
-				Db("splatoon").set(user.userid, splatProfile);
+				Db.splatoon.set(user.userid, splatProfile);
 				return this.sendReply(`You have successfully set your Tower Control ranking to "${target}".`);
 			},
 
@@ -64,10 +64,10 @@ exports.commands = {
 			sr: function (target, room, user) {
 				if (!target) return this.parse("/splatoonhelp");
 				target = target.trim().split("-").map(x => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase()).join("-");
-				let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+				let splatProfile = Db.splatoon.get(user.userid, {ranks: {}});
 				if (!["Intern", "Apprentice", "Part-Timer", "Go-Getter", "Overachiever", "Profreshional"].includes(target)) return this.errorReply(`Invalid Ranking; check your spelling?`);
 				splatProfile.ranks.sr = target;
-				Db("splatoon").set(user.userid, splatProfile);
+				Db.splatoon.set(user.userid, splatProfile);
 				return this.sendReply(`You have successfully set your Salmon Run ranking as "${target}".`);
 			},
 
@@ -79,10 +79,10 @@ exports.commands = {
 
 		weapon: function (target, room, user) {
 			if (!target) return this.parse(`/splatoonhelp`);
-			let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+			let splatProfile = Db.splatoon.get(user.userid, {ranks: {}});
 			if (!weapons.includes(target)) return this.errorReply(`Invalid weapon; check your spelling? [case sensitive]`);
 			splatProfile.weapon = target;
-			Db("splatoon").set(user.userid, splatProfile);
+			Db.splatoon.set(user.userid, splatProfile);
 			return this.sendReply(`Your Splatoon 2 weapon has been set to "${target}".`);
 		},
 
@@ -101,7 +101,7 @@ exports.commands = {
 			on: function (target, room, user) {
 				if (!this.can("ban", null, room)) return this.errorReply(`You must be a Room Moderator or higher to use this command.`);
 				if (room.id !== "splatoon") return this.errorReply(`This command only works in the Splatoon room.`);
-				let SPLATFEST = Db("splatoon").get("SPLATFEST", {alpha: null, bravo: null, active: false});
+				let SPLATFEST = Db.splatoon.get("SPLATFEST", {alpha: null, bravo: null, active: false});
 				let [team1, team2] = target.split(",").map(p => p.trim());
 				if (!(team1 && team2)) return this.parse("/splatoonhelp");
 				if (SPLATFEST.active) return this.errorReply(`Splatfest is already active.`);
@@ -110,7 +110,7 @@ exports.commands = {
 					Rooms("splatoon").addRaw(`${Server.nameColor(user.name, true)} has enabled Splatfest. The teams of this Splatfest are: ${team1} and ${team2}.`);
 				}
 				// Set Splatfest Data
-				Db("splatoon").set("SPLATFEST", {alpha: team1, bravo: team2, active: true});
+				Db.splatoon.set("SPLATFEST", {alpha: team1, bravo: team2, active: true});
 			},
 
 			disable: "off",
@@ -120,16 +120,16 @@ exports.commands = {
 			off: function (target, room, user) {
 				if (!this.can("ban", null, room)) return this.errorReply(`You must be a Room Moderator or higher to use this command.`);
 				if (room.id !== "splatoon") return this.errorReply(`This command only works in the Splatoon room.`);
-				let SPLATFEST = Db("splatoon").get("SPLATFEST", {alpha: null, bravo: null, active: false});
+				let SPLATFEST = Db.splatoon.get("SPLATFEST", {alpha: null, bravo: null, active: false});
 				if (!SPLATFEST.active) return this.errorReply(`Splatfest is not currently active.`);
-				let splatfestUsers = Db("splatoon").keys();
+				let splatfestUsers = Db.splatoon.keys();
 				// Clear Splatfest Data & Player's Data
 				for (let u of splatfestUsers) {
-					let splatProfile = Db("splatoon").get(u, {ranks: {}});
-					Db("splatoon").set("SPLATFEST", {alpha: null, bravo: null, active: false});
+					let splatProfile = Db.splatoon.get(u, {ranks: {}});
+					Db.splatoon.set("SPLATFEST", {alpha: null, bravo: null, active: false});
 					if (splatProfile.splatfest) {
 						delete splatProfile.splatfest;
-						Db("splatoon").set(u, splatProfile);
+						Db.splatoon.set(u, splatProfile);
 					}
 				}
 				if (Rooms("splatoon")) {
@@ -142,19 +142,19 @@ exports.commands = {
 			jointeam: "join",
 			join: function (target, room, user) {
 				if (!target) return this.parse(`/splatoonhelp`);
-				let SPLATFEST = Db("splatoon").get("SPLATFEST", {alpha: null, bravo: null, active: false});
+				let SPLATFEST = Db.splatoon.get("SPLATFEST", {alpha: null, bravo: null, active: false});
 				if (!SPLATFEST.active) return this.errorReply(`There is currently not a Splatfest. :(`);
 				if (toId(SPLATFEST.alpha) !== toId(target) && toId(SPLATFEST.bravo) !== toId(target)) return this.errorReply(`This is not a Splatfest team.`);
-				let splatProfile = Db("splatoon").get(user.userid);
+				let splatProfile = Db.splatoon.get(user.userid);
 				splatProfile.splatfest = (toId(target) === toId(SPLATFEST.alpha) ? SPLATFEST.alpha : SPLATFEST.bravo);
-				Db("splatoon").set(user.userid, splatProfile);
+				Db.splatoon.set(user.userid, splatProfile);
 				return this.sendReply(`You have successfully joined Splatfest Team "${target}".`);
 			},
 
 			teams: "team",
 			team: function (target, room, user) {
 				if (!this.runBroadcast()) return;
-				let SPLATFEST = Db("splatoon").get("SPLATFEST", {alpha: null, bravo: null, active: false});
+				let SPLATFEST = Db.splatoon.get("SPLATFEST", {alpha: null, bravo: null, active: false});
 				if (!SPLATFEST.active) return this.errorReply(`There is currently not a Splatfest. :(`);
 				return this.sendReplyBox(`<strong>Splatfest Teams:</strong> ${SPLATFEST.alpha} and ${SPLATFEST.bravo}`);
 			},
@@ -170,9 +170,9 @@ exports.commands = {
 		ign: function (target, room, user) {
 			if (!this.canTalk()) return false;
 			if (!target || !target.trim() || target.length > 10) return this.errorReply(`Your IGN must be between 1-10 characters long.`);
-			let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+			let splatProfile = Db.splatoon.get(user.userid, {ranks: {}});
 			splatProfile.ign = target;
-			Db("splatoon").set(user.userid, splatProfile);
+			Db.splatoon.set(user.userid, splatProfile);
 			return this.sendReply(`Your In-Game Name has been set as: "${target}".`);
 		},
 
@@ -180,9 +180,9 @@ exports.commands = {
 		level: function (target, room, user) {
 			target = parseInt(target);
 			if (isNaN(target) || target > 99 || target < 1) return this.errorReply(`Your level must be a number between 1-99 (no decimals).`);
-			let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+			let splatProfile = Db.splatoon.get(user.userid, {ranks: {}});
 			splatProfile.level = target;
-			Db("splatoon").set(user.userid, splatProfile);
+			Db.splatoon.set(user.userid, splatProfile);
 			return this.sendReply(`Your Level has been set to: Level ${target}.`);
 		},
 
@@ -191,9 +191,9 @@ exports.commands = {
 		star: function (target, room, user) {
 			target = parseInt(target);
 			if (isNaN(target) || target < 1) return this.errorReply(`Your prestige must be an integer above 0.`);
-			let splatProfile = Db("splatoon").get(user.userid, {ranks: {}});
+			let splatProfile = Db.splatoon.get(user.userid, {ranks: {}});
 			splatProfile.prestige = target;
-			Db("splatoon").set(user.userid, splatProfile);
+			Db.splatoon.set(user.userid, splatProfile);
 			return this.sendReply(`Your Prestige has been set to: Prestige ${target}.`);
 		},
 
@@ -205,15 +205,15 @@ exports.commands = {
 			if (target.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 			let targetUser = Users.get(target);
 			let username = (targetUser ? targetUser.name : target);
-			let splatProfile = Db("splatoon").get(toId(username), {ranks: {}});
-			let SPLATFEST = Db("splatoon").get("SPLATFEST", {alpha: null, bravo: null, active: false});
+			let splatProfile = Db.splatoon.get(toId(username), {ranks: {}});
+			let SPLATFEST = Db.splatoon.get("SPLATFEST", {alpha: null, bravo: null, active: false});
 
 			let profile = `<div><strong>Name:</strong> ${Server.nameColor(toId(username), true, true)}`;
 			if (splatProfile.ign) profile += ` <strong>In-Game Name:</strong> ${splatProfile.ign}`;
 			if (splatProfile.level) profile += ` <strong>Level:</strong> ${splatProfile.level}`;
 			if (splatProfile.prestige) profile += ` <strong>Prestige:</strong> ${splatProfile.prestige}`;
 			profile += `<br />`;
-			if (Db("switchfc").has(toId(username))) profile += `<strong>Switch Friend Code:</strong> SW-${Db("switchfc").get(toId(username))}<br />`;
+			if (Db.switchfc.has(toId(username))) profile += `<strong>Switch Friend Code:</strong> SW-${Db.switchfc.get(toId(username))}<br />`;
 			if (splatProfile.weapon) profile += `<strong>Weapon:</strong> ${splatProfile.weapon}<br />`;
 			if (splatProfile.splatfest && SPLATFEST.active) profile += `<strong>Splatfest Team:</strong> ${splatProfile.splatfest}<br />`;
 			if (splatProfile.ranks.cb) profile += `<strong>Clam Blitz:</strong> ${splatProfile.ranks.cb}<br />`;

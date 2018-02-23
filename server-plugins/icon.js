@@ -47,7 +47,7 @@ exports.commands = {
 	customicon: "icon",
 	icon: {
 		set: function (target, room, user) {
-			if (!this.can("lock")) return false;
+			if (!this.can("profile")) return false;
 			target = target.split(",");
 			for (let u in target) target[u] = target[u].trim();
 			if (target.length !== 2) return this.parse("/help icon");
@@ -64,7 +64,7 @@ exports.commands = {
 
 		remove: "delete",
 		delete: function (target, room, user) {
-			if (!this.can("lock")) return false;
+			if (!this.can("profile")) return false;
 			target = toId(target);
 			if (!icons[toId(target)]) return this.errorReply(`/icon - ${target} does not have an icon.`);
 			delete icons[toId(target)];

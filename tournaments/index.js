@@ -534,9 +534,6 @@ class Tournament {
 			return false;
 		}
 
-		user.tourBoost = false;
-		user.gameBoost = false;
-
 		this.disqualifiedUsers.set(player, true);
 		this.generator.setUserBusy(player, false);
 
@@ -933,9 +930,6 @@ class Tournament {
 			let secondMoney = Math.round(firstMoney / 2);
 			if (firstMoney < 2) firstMoney = 2;
 			if (secondMoney < 1) secondMoney = 1;
-			if (Db('userBadges').has(wid) && Db('userBadges').get(wid).indexOf('Tournament Champion') > -1) firstMoney = Math.ceil(firstMoney * 1.5);
-			if (Users(wid).tourBoost) firstMoney *= 2;
-			if (Users(wid).gameBoost) firstMoney *= 2;
 
 			Economy.writeMoney(wid, firstMoney, () => {
 				Economy.readMoney(wid, newAmount => {
@@ -949,17 +943,13 @@ class Tournament {
 			if (Server.getFaction(winner)) {
 				let factionName = Server.getFaction(winner);
 				let factionId = toId(factionName);
-				Db("factionbank").set(factionId, Db("factionbank").get(factionId, 0) + 10);
+				Db.factionbank.set(factionId, Db.factionbank.get(factionId, 0) + 10);
 				this.room.addRaw(`<strong>Congratulations to ${factionName}! Your faction has gained 10 faction money (points)! To view it type /faction bank atm (faction).</strong>`);
 			}
 
 			this.room.addRaw(`${Server.nameColor(winner, true)} <strong>has won <font color='${color}'>${firstMoney}</font> ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} for winning the tournament!</strong>`);
 
-			if (runnerUp) {
-				if (Users(rid).tourBoost) secondMoney *= 2;
-				if (Users(rid).gameBoost) secondMoney *= 2;
-				if (Db('userBadges').has(rid) && Db('userBadges').get(rid).indexOf('Tournament Champion') > -1) secondMoney = Math.ceil(firstMoney * 1.5);
-				Economy.writeMoney(rid, secondMoney, () => {
+			if (runnerUp) {Economy.writeMoney(rid, secondMoney, () => {
 					Economy.readMoney(rid, newAmount => {
 						if (Users(rid) && Users(rid).connected) {
 							Users.get(rid).popup(`|html|You have received ${secondMoney} ${(secondMoney === 1 ? global.moneyName : global.moneyPlural)} from winning the tournament.`);
@@ -974,8 +964,6 @@ class Tournament {
 		delete exports.tournaments[this.room.id];
 		delete this.room.game;
 		for (let i in this.players) {
-			Users(this.players[i].userid).tourBoost = false;
-			Users(this.players[i].userid).gameBoost = false;
 			Server.ExpControl.addExp(this.players[i].userid, this.room, 20);
 			this.players[i].destroy();
 		}

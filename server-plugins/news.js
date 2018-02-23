@@ -20,8 +20,8 @@ if (newsRequests !== "") {
 function generateNews(user) {
 	let newsData, newsDisplay = [];
 	user = toId(user);
-	Db("news").keys().forEach(announcement => {
-		newsData = Db("news").get(announcement);
+	Db.news.keys().forEach(announcement => {
+		newsData = Db.news.get(announcement);
 		newsDisplay.push(`<h4>${announcement}</h4>${newsData[1]}<br /><br />—${Server.nameColor(newsData[0], true)} <small>on ${newsData[2]}</small>`);
 	});
 	return newsDisplay;
@@ -29,7 +29,7 @@ function generateNews(user) {
 
 function hasSubscribed(user) {
 	if (typeof user === "object") user = user.userid;
-	if (Db("NewsSubscribers").has(toId(user))) return true;
+	if (Db.NewsSubscribers.has(toId(user))) return true;
 	return false;
 }
 
@@ -39,6 +39,7 @@ function showSubButton(user) {
 	output = `<hr /><center><button class = "button" name= "send" value= "/news ${(hasSubscribed(user) ? "unsubscribe" : "subscribe")}">${(hasSubscribed(user) ? "Unsubscribe from the news" : "Subscribe to the news")}</button></center>`;
 	return output;
 }
+
 Server.showNews = function (userid, user) {
 	if (!user || !userid) return false;
 	userid = toId(userid);
@@ -72,16 +73,16 @@ exports.commands = {
 
 		remove: "delete",
 		delete: function (target, room, user) {
-			if (!this.can("ban")) return false;
+			if (!this.can("news")) return false;
 			if (!target) return this.parse("/help serverannouncements");
-			if (!Db("news").has(target)) return this.errorReply("News with this title doesn't exist.");
-			Db("news").delete(target);
+			if (!Db.news.has(target)) return this.errorReply("News with this title doesn't exist.");
+			Db.news.remove(target);
 			this.modlog(`NEWS`, null, `deleted announcement titled: ${target}.`);
 			this.privateModAction(`(${user.name} deleted server announcement titled: ${target}.)`);
 		},
 
 		add: function (target, room, user) {
-			if (!this.can("ban")) return false;
+			if (!this.can("news")) return false;
 			if (!target) return this.parse("/help serverannouncements");
 			let parts = target.split(",");
 			if (parts.length < 2) return this.errorReply("Usage: /news add [title], [desc]");
@@ -106,7 +107,7 @@ exports.commands = {
 		subscribe: function (target, room, user) {
 			if (!user.named) return this.errorReply("You must choose a name before subscribing.");
 			if (hasSubscribed(user.userid)) return this.errorReply(`You are already subscribed to the ${Config.serverName} News.`);
-			Db("NewsSubscribers").set(user.userid, true);
+			Db.NewsSubscribers.set(user.userid, true);
 			this.sendReply(`You have subscribed to the ${Config.serverName} News.`);
 			this.popupReply(`|wide||html|You will receive the ${Config.serverName} News automatically once you connect to ${Config.serverName} next time.<br><hr><button class="button" name = "send" value = "/news">Go Back</button>`);
 		},
@@ -114,7 +115,7 @@ exports.commands = {
 		unsubscribe: function (target, room, user) {
 			if (!user.named) return this.errorReply("You must choose a name before unsubscribing.");
 			if (!hasSubscribed(user.userid)) return this.errorReply(`You have not subscribed to ${Config.serverName} News.`);
-			Db("NewsSubscribers").delete(user.userid);
+			Db.NewsSubscribers.remove(user.userid);
 			this.sendReply(`You have unsubscribed to the ${Config.serverName} News.`);
 			this.popupReply(`|wide||html|You will no longer automatically receive the ${Config.serverName} News.<br /><hr /><button class="button" name="send" value="/news">Go Back</button>`);
 		},

@@ -6,6 +6,11 @@
 "use strict";
 
 function alertGenners(message) {
+	let genners = Db.genners.keys();
+	for (let u in genners) {
+		if (!Users(genners[u]) || !Users(genners[u]).connected) continue;
+		Users(genners[u]).send(`|pm|~Genner Alert|~|/raw ${message}`);
+	}
 	if (Rooms(`genrequests`)) {
 		Rooms(`genrequests`).add(`|c|~Genner Alert|/raw ${message}`).update();
 	}
@@ -23,10 +28,10 @@ exports.commands = {
 		approve: "add",
 		give: "add",
 		add: function (target, room, user) {
-			if (!this.can("lock")) return false;
+			if (!this.can("genrequest")) return false;
 			if (!target || target.length > 18) return this.errorReply(`This command requires a target with a maximum of 18 characters.`);
 			let approvedGenner = toId(target);
-			Db("genners").set(approvedGenner, 1);
+			Db.genners.set(approvedGenner, 1);
 			this.sendReply(`|html|${Server.nameColor(approvedGenner, true)} has been successfully been approved as a genner.`);
 			if (Users.get(approvedGenner)) Users(approvedGenner).popup(`|html|You have been approved as a genner by ${Server.nameColor(user.name, true)}.`);
 		},
@@ -53,19 +58,19 @@ exports.commands = {
 		kick: "ban",
 		take: "ban",
 		ban: function (target, room, user) {
-			if (!this.can("lock")) return false;
+			if (!this.can("genrequest")) return false;
 			if (!target || target.length > 18) return this.errorReply("You must specify a username, with at a maximum of 18 characters.");
-			if (!Db("genners").has(toId(target))) return this.errorReply(`${target} is not currently an approved genner.`);
-			Db("genners").delete(toId(target));
+			if (!Db.genners.has(toId(target))) return this.errorReply(`${target} is not currently an approved genner.`);
+			Db.genners.remove(toId(target));
 			this.sendReply(`${target} has been officially removed from being a genner.`);
 			if (Users.get(toId(target))) Users(toId(target)).popup(`|html|You have been approved as a genner by ${Server.nameColor(user.name, true)}.`);
 		},
 
 		users: 'list',
 		list: function (target, room, user) {
-			if (!Db("genners").keys().length) return this.errorReply('There are currently zero approved genners.');
+			if (!Db.genners.keys().length) return this.errorReply('There are currently zero approved genners.');
 			let display = [];
-			Db("genners").keys().forEach(approvedGenners => {
+			Db.genners.keys().forEach(approvedGenners => {
 				display.push(Server.nameColor(approvedGenners, (Users(approvedGenners) && Users(approvedGenners).connected)));
 			});
 			this.popupReply(`|html|<strong><u><font size="3"><center>Approved Genners:</center></font></u></strong>${display.join(',')}`);
@@ -80,8 +85,8 @@ exports.commands = {
 	genrequesthelp: [
 		`Gen Req Commands: [Made by Insist]
 		/genreq request [reward], [request] - Requests [request] to be genned and alerts all active approved genners, and offers [reward] ${moneyPlural} for the reward.
-		/genreq approve [user] - Approves a user as a genner. Requires Lock Access.
-		/genreq ban [user] - Bans the user from being a genner. Requires Lock Access.
+		/genreq approve [user] - Approves a user as a genner. Requires % and up.
+		/genreq ban [user] - Bans the user from being a genner. Requires % and up.
 		/genreq list - Displays all of the server's approved genners.
 		/genrequest help - Displays this command.`,
 	],

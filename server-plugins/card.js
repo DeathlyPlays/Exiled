@@ -109,11 +109,11 @@ function giveCard(name, card) {
 	if (!Server.cards[card]) return false;
 	let newCard = Object.assign({}, Server.cards[card]);
 	let userid = toId(name);
-	Db("cards").set(userid, Db("cards").get(userid, []).concat([newCard]));
+	Db.cards.set(userid, Db.cards.get(userid, []).concat([newCard]));
 }
 
 function hasCard(userid, cardId) {
-	let userCards = Db("cards").get(userid, []);
+	let userCards = Db.cards.get(userid, []);
 	for (let i = 0; i < userCards.length; i++) {
 		let card = userCards[i];
 		if (card.id === cardId) {
@@ -124,7 +124,7 @@ function hasCard(userid, cardId) {
 }
 
 function takeCard(userid, cardId) {
-	let userCards = Db("cards").get(userid, []);
+	let userCards = Db.cards.get(userid, []);
 	let idx = -1;
 	for (let i = 0; i < userCards.length; i++) {
 		let card = userCards[i];
@@ -135,7 +135,7 @@ function takeCard(userid, cardId) {
 	}
 	if (idx === -1) return false;
 	userCards.splice(idx, 1);
-	Db("cards").set(userid, userCards);
+	Db.cards.set(userid, userCards);
 	return true;
 }
 
@@ -162,7 +162,7 @@ exports.commands = {
 		showcase: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!target) target = user.userid;
-			const cards = Db("cards").get(toId(target), []);
+			const cards = Db.cards.get(toId(target), []);
 			if (!cards.length) return this.sendReplyBox(`${toId(target)} has no cards.`);
 			let cardsShown = 0;
 			// done this way because of a glitch
@@ -313,7 +313,7 @@ exports.commands = {
 		cardsearchhelp: ["/psgo cardsearch - sends a display to search for a list of cards."],
 
 		add: function (target, room, user) {
-			if (!this.can("roomowner")) return false;
+			if (!this.can("psgo")) return false;
 			if (!target) return this.parse(`/help psgo add`);
 			let targets = target.split(`,`).map(x => {
 				return x.trim();
@@ -346,7 +346,7 @@ exports.commands = {
 
 		remove: "delete",
 		delete: function (target, room, user) {
-			if (!this.can("roomowner")) return false;
+			if (!this.can("psgo")) return false;
 			if (!target) return this.parse(`/help psgo delete`);
 			if (!newCards[toId(target)]) return this.errorReply(`The card "${toId(target)}" is not in PSGO database or cannot be deleted.`);
 			delete newCards[toId(target)];
@@ -357,7 +357,7 @@ exports.commands = {
 		deletehelp: ["/psgo delete [card id] - removes a card from the PSGO database."],
 
 		give: function (target, room, user) {
-			if (!this.can("ban")) return false;
+			if (!this.can("psgo")) return false;
 			if (!target) return this.parse(`/help psgo give`);
 			let targets = target.split(`,`).map(x => {
 				return x.trim();
@@ -377,16 +377,16 @@ exports.commands = {
 		confirmtakeall: "take",
 		takeall: "take",
 		take: function (target, room, user, connection, cmd) {
-			if (!this.can("ban")) return false;
+			if (!this.can("psgo")) return false;
 			if (!target) return this.parse(`/help psgo take`);
 			let targets = target.split(`,`);
 			for (let u in targets) targets[u] = targets[u].trim();
 			let targetUser = Users(toId(targets[0]));
 			if (!targetUser) targetUser = {name: target[0], userid: toId(target[0]), connected: false};
-			if (!Db("cards").get(targetUser.userid, []).length) return this.errorReply(`${targetUser.name} has no cards.`);
+			if (!Db.cards.get(targetUser.userid, []).length) return this.errorReply(`${targetUser.name} has no cards.`);
 			if (cmd !== "take") {
 				if (cmd !== "confirmtakeall") return this.sendReply(`WARNING: Are you sure you want to take ALL of ${targetUser.name}'s cards? If so use /psgo confirmtakeall ${targetUser.name}`);
-				Db("cards").set(targetUser.userid, []);
+				Db.cards.set(targetUser.userid, []);
 				if (targetUser.connected) targetUser.popup(`You have lost all your cards.`);
 				return this.sendReply(`All of ${targetUser.name}'s cards have been removed.`);
 			}
@@ -417,7 +417,7 @@ exports.commands = {
 						Economy.logTransaction(`${user.name} has purchased a ${target} pack for 5 ${moneyPlural}. They now have ${amount} ${(userMoney === 1 ? moneyName : moneyPlural)}`);
 					});
 				});
-				Db("userpacks").set(user.userid, Db("userpacks").get(user.userid, []).concat([target]));
+				Db.userpacks.set(user.userid, Db.userpacks.get(user.userid, []).concat([target]));
 				return this.parse(`/psgo packs pending`);
 			},
 			buyhelp: [`/psgo shop buy [pack] - Cost 5 ${global.moneyPlural} per pack.`],
@@ -440,7 +440,7 @@ exports.commands = {
 		pack: "packs",
 		packs: {
 			give: function (target, room, user) {
-				if (!this.can("ban")) return false;
+				if (!this.can("psgo")) return false;
 				if (!target) return this.parse(`/help psgo packs give`);
 				let targets = target.split(",").map(x => {
 					return x.trim();
@@ -449,7 +449,7 @@ exports.commands = {
 				if (!targetUser) return this.errorReply(`The user "${targets[0]}" was not found.`);
 				let pack = toPackName(targets[1]);
 				if (!packs.includes(pack)) return this.errorReply(`The pack ${pack} does not exist!`);
-				Db("userpacks").set(targetUser.userid, Db("userpacks").get(targetUser.userid, []).concat([pack]));
+				Db.userpacks.set(targetUser.userid, Db.userpacks.get(targetUser.userid, []).concat([pack]));
 				if (targetUser.connected) targetUser.popup(`You have received a ${pack} pack.`);
 
 				return this.sendReply(`A ${pack} pack has been given to ${targetUser.name}`);
@@ -459,7 +459,7 @@ exports.commands = {
 			confirmtakeall: "take",
 			takeall: "take",
 			take: function (target, room, user, connection, cmd) {
-				if (!this.can("ban")) return false;
+				if (!this.can("psgo")) return false;
 				if (!target) return this.parse(`/help psgo packs take`);
 				let targets = target.split(",").map(x => {
 					return x.trim();
@@ -467,17 +467,17 @@ exports.commands = {
 				let targetUser = Users(toId(targets[0]));
 				if (!targetUser) targetUser = {name: target[0], userid: toId(target[0]), connected: false};
 				let pack = toPackName(targets[1]);
-				if (!Db("userpacks").get(targetUser.userid, []).length) return this.errorReply(`${targetUser.name} has no packs.`);
+				if (!Db.userpacks.get(targetUser.userid, []).length) return this.errorReply(`${targetUser.name} has no packs.`);
 				if (!toId(pack) && cmd !== "take") {
 					if (cmd !== "confirmtakeall") return this.sendReply(`WARNING: Are you sure you want to take ALL of ${targetUser.name}'s packs? If so use /psgo packs confirmtakeall ${targetUser.name}`);
-					Db("userpacks").set(targetUser.userid, []);
+					Db.userpacks.set(targetUser.userid, []);
 					if (targetUser.connected) targetUser.popup(`You have lost all of your packs.`);
 					return this.sendReply(`${targetUser.name}'s packs have been removed.`);
 				}
 				if (!packs[pack]) return this.errorReply(`${pack} is not a valid pack.`);
-				let index = Db("userpacks").get(targetUser.userid, []).indexOf(pack);
+				let index = Db.userpacks.get(targetUser.userid, []).indexOf(pack);
 				if (index === -1) return this.sendReply(`${targetUser.name} does not have any ${pack} packs.`);
-				let array = Db("userpacks").get(targetUser.userid, []);
+				let array = Db.userpacks.get(targetUser.userid, []);
 				if (cmd === "takeall") {
 					for (let i = 0; i < array.length; i++) {
 						if (array[i] === pack) {
@@ -488,7 +488,7 @@ exports.commands = {
 				} else {
 					array.splice(index, 1);
 				}
-				Db("userpacks").set(targetUser.userid, array);
+				Db.userpacks.set(targetUser.userid, array);
 				if (targetUser.connected) targetUser.popup(`You have lost ${(cmd === "takeall" ? `all your ${pack} packs.` : `1 ${pack} pack.`)}`);
 				return this.sendReply(`${cmd === "takeall" ? `All ${pack} packs` : `One ${pack} pack`} has been taken from ${targetUser.userid}.`);
 			},
@@ -501,18 +501,18 @@ exports.commands = {
 				if (!this.runBroadcast()) return;
 				if (!target) return this.parse(`/help psgo packs open`);
 				target = toPackName(target);
-				if (!Db("userpacks").has(user.userid)) return this.errorReply(`You do not have any packs.`);
-				let index = Db("userpacks").get(user.userid, []).indexOf(target);
+				if (!Db.userpacks.has(user.userid)) return this.errorReply(`You do not have any packs.`);
+				let index = Db.userpacks.get(user.userid, []).indexOf(target);
 				if (index === -1) return this.errorReply(`You do not have the pack ${target}.`);
-				let array = Db("userpacks").get(user.userid, []);
+				let array = Db.userpacks.get(user.userid, []);
 				array.splice(index, 1);
-				Db("userpacks").set(user.userid, array);
+				Db.userpacks.set(user.userid, array);
 				let cards = makePack(target);
 				let results = [];
 				for (let u in cards) {
 					results.push(`<button class="button" name="send" value="/psgo card ${cards[u].id}"><img src="${cards[u].image}" title="${cards[u].id} height="100" width="80"/></button>`);
 				}
-				Db("cards").set(user.userid, Db("cards").get(user.userid, []).concat(cards));
+				Db.cards.set(user.userid, Db.cards.get(user.userid, []).concat(cards));
 				return this.sendReplyBox(`You have received the following cards from the ${target} pack:<br />${results.join("")}`);
 			},
 			openhelp: ["/psgo packs open [pack name] - Open a pack you own."],
@@ -521,9 +521,9 @@ exports.commands = {
 			pending: "holding",
 			stored: "holding",
 			holding: function (target, room, user) {
-				if (!Db("userpacks").get(user.userid, []).length) return this.errorReply(`You do not have any packs!`);
+				if (!Db.userpacks.get(user.userid, []).length) return this.errorReply(`You do not have any packs!`);
 				let usedPacks = {};
-				let userPacks = Db("userpacks").get(user.userid, []);
+				let userPacks = Db.userpacks.get(user.userid, []);
 				for (let i = 0; i < userPacks.length; i++) {
 					if (!usedPacks[userPacks[i]]) {
 						usedPacks[userPacks[i]] = 1;
@@ -546,9 +546,9 @@ exports.commands = {
 		ladder: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			let values = {Common: 1, Uncommon: 3, Rare: 6, "Ultra Rare": 10, Legendary: 15, Mythic: 20};
-			let keys = Db("cards").keys().map(name => {
+			let keys = Db.cards.keys().map(name => {
 				let points = 0;
-				let userCards = Db("cards").get(name, []);
+				let userCards = Db.cards.get(name, []);
 				if (userCards.length) {
 					for (let c = 0; c < userCards.length; c++) {
 						points += values[userCards[c].rarity] || 1;
@@ -563,7 +563,7 @@ exports.commands = {
 
 		nuke: "reset",
 		reset: function (target, room, user) {
-			if (!this.can("lockdown")) return;
+			if (!this.can("psgo")) return;
 			if (!toId(target) || !user.psgoResetCode) {
 				let chars = `abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*`.split(``);
 				let out = ``;
@@ -575,13 +575,13 @@ exports.commands = {
 			}
 			if (user.psgoResetCode !== target.trim()) return this.parse(`/psgo reset`);
 
-			let cardKeys = Db("cards").keys();
+			let cardKeys = Db.cards.keys();
 			for (let i = 0; i < cardKeys.length; i++) {
-				Db("cards").delete(cardKeys[i]);
+				Db.cards.remove(cardKeys[i]);
 			}
-			let packKeys = Db("userpacks").keys();
+			let packKeys = Db.userpacks.keys();
 			for (let i = 0; i < packKeys.length; i++) {
-				Db("userpacks").delete(packKeys[i]);
+				Db.userpacks.remove(packKeys[i]);
 			}
 			Rooms.rooms.forEach(r => {
 				r.addRaw(`<div class="broadcast-red"><strong>The PSGO database was reset</strong><br />You no longer have any cards or packs.`).update();

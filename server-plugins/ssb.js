@@ -926,12 +926,12 @@ exports.commands = {
 		},
 
 		log: function (target, room, user, connection, cmd, message) {
-			if (!target) target = (user.can("roomowner") ? `view, all` : `view, ${user.userid}`);
+			if (!target) target = (user.can("ssbffa") ? `view, all` : `view, ${user.userid}`);
 			target = target.split(",");
 			switch (target[0]) {
 			case "view":
-				if (!target[1]) target[1] = (user.can("roomowner") ? "all" : user.userid);
-				if (toId(target[1]) !== user.userid && !user.can("roomowner")) return this.errorReply("You can only view your own SSBFFA purchases.");
+				if (!target[1]) target[1] = (user.can("ssbffa") ? "all" : user.userid);
+				if (toId(target[1]) !== user.userid && !user.can("ssbffa")) return this.errorReply("You can only view your own SSBFFA purchases.");
 				let output = `<div style="max-height: 300px; overflow: scroll; width: 100%"><table><tr><th style="border: 1px solid black">Name</th><th style="border: 1px solid black">Item</th><th style="border: 1px solid black">Status</th>`;
 				if (toId(target[1]) === "all") {
 					output += `<th style="border: 1px solid black">Options</th><tr/>`;
@@ -944,7 +944,7 @@ exports.commands = {
 				} else {
 					target[1] = toId(target[1]);
 					if (!Server.ssb[target[1]]) return this.errorReply(`${target[1]} does not have a SSBFFA Pokemon yet.`);
-					if (user.can("roomowner")) {
+					if (user.can("ssbffa")) {
 						output += `<th style="border: 1px solid black">Options</th><tr/>`;
 						for (let j in Server.ssb[target[1]].bought) {
 							let buttons = `<button class="button" name="send" value="/ssb log mark, ${Server.ssb[target[1]].userid}, ${j}, complete">Mark as Complete</button><button class="button" name="send" value="/ssb log mark, ${Server.ssb[target[1]].userid}, ${j}, pending">Mark as Pending</button><button class="button" name="send" value="/ssb log mark, ${Server.ssb[target[1]].userid}, ${j}, remove"><span style="color:red">Remove this purchase</span</button>`;
@@ -960,7 +960,7 @@ exports.commands = {
 				return this.sendReplyBox(output);
 				//break;
 			case "mark":
-				if (!user.can("roomowner")) return this.errorReply(`/ssb mark - Access Denied.`);
+				if (!user.can("ssbffa")) return this.errorReply(`/ssb mark - Access Denied.`);
 				if (!target[3]) return this.parse("/help ssb log");
 				target[1] = toId(target[1]);
 				target[2] = target[2].trim();
@@ -1004,7 +1004,7 @@ exports.commands = {
 		forceupdate: "validate",
 		validateall: "validate",
 		validate: function (target, room, user, connection, cmd, message) {
-			if (!this.can("hotpatch")) return;
+			if (!this.can("ssbffa")) return;
 			if (!target && toId(cmd) !== "validateall") return this.parse("/help ssb validate");
 			let targetUser = Server.ssb[toId(target)];
 			if (!targetUser && toId(cmd) !== "validateall") return this.errorReply(`${target} does not have a SSBFFA Pokemon yet.`);
@@ -1029,7 +1029,7 @@ exports.commands = {
 		givemove: "setcmove",
 		setmove: "setcmove",
 		setcmove: function (target, room, user, connection, message) {
-			if (!this.can("roomowner")) return false;
+			if (!this.can("ssbffa")) return false;
 			if (!target) return this.parse("/help ssb setcmove");
 			let targets = target.split(",");
 			let userid = toId(targets[0]);
@@ -1048,7 +1048,7 @@ exports.commands = {
 		giveability: "setcability",
 		setability: "setcability",
 		setcability: function (target, room, user, connection, message) {
-			if (!this.can("roomowner")) return false;
+			if (!this.can("ssbffa")) return false;
 			if (!target) return this.parse("/help ssb setcability");
 			let targets = target.split(",");
 			let userid = toId(targets[0]);
@@ -1067,7 +1067,7 @@ exports.commands = {
 		giveitem: "setcitem",
 		setitem: "setcitem",
 		setcitem: function (target, room, user, connection, cmd, message) {
-			if (!this.can("roomowner")) return false;
+			if (!this.can("ssbffa")) return false;
 			if (!target) return this.parse("/help ssb setcitem");
 			let targets = target.split(",");
 			let userid = toId(targets[0]);

@@ -70,7 +70,7 @@ exports.commands = {
 	emotes: 'emoticon',
 	emoticon: {
 		add: function (target, room, user) {
-			if (!this.can(`ban`)) return false;
+			if (!this.can(`emotes`)) return false;
 			if (!target) return this.sendReply("Usage: /emoticons add [name], [url]");
 
 			let targetSplit = target.split(',');
@@ -98,7 +98,7 @@ exports.commands = {
 		remove: "del",
 		rem: "del",
 		del: function (target, room, user) {
-			if (!this.can(`ban`)) return false;
+			if (!this.can(`emotes`)) return false;
 			if (!target) return this.sendReply("Usage: /emoticons remove [name]");
 			if (!emoticons[target]) return this.errorReply("That emoticon does not exist.");
 
@@ -154,7 +154,7 @@ exports.commands = {
 		},
 
 		size: function (target, room, user) {
-			if (room.id === `lobby` && !this.can(`ban`) || room.id !== `lobby` && !this.can(`roommod`, null, room)) return false;
+			if (room.id === `lobby` && !this.can(`emotes`) || room.id !== `lobby` && !this.can(`emotes`, null, room)) return false;
 			if (!target) return this.sendReply(`Usage: /emoticons size [number]`);
 
 			let size = Math.round(Number(target));

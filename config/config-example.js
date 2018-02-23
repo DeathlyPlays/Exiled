@@ -348,6 +348,20 @@ exports.github = {
 //     - minigame: make minigames (hangman, polls, etc.).
 //     - game: make games.
 //     - gamemanagement: enable/disable games and minigames.
+
+// Our Permissions:
+// - exp: Allows to manage exp.
+// - ssbffa: Allows to manage SSBFFA.
+// - news: Allows to create/delete news announcements.
+// - profile: Allows to manage profile setting/deletions, as well as things like avatars/icons.
+// - money: Allows to manage the server's currency.
+// - psgo: Allows to manage/create packs/etc for the card system.
+// - emotes: Allows to manage emoticons.
+// - factions: Allows to manage factions.
+// - quotes - Allows to manage quotes.
+// - genrequest - Allows to approve/disapprove genners
+// - roomshop - Allows the user to manage room shops.
+// - sban - Allows the user to use shadow ban commands
 exports.grouplist = [
 	{
 		symbol: '~',
@@ -447,6 +461,12 @@ exports.grouplist = [
 		alts: '@u',
 		tournaments: true,
 		game: true,
+		psgo: true,
+		ssbffa: true,
+		news: true,
+		exp: true,
+		emotes: true,
+		money: true,
 	},
 	{
 		symbol: '%',
@@ -469,6 +489,10 @@ exports.grouplist = [
 		jeopardy: true,
 		joinbattle: true,
 		minigame: true,
+		profile: true,
+		quotes: true,
+		genrequest: true,
+		sban: true,
 	},
 	{
 		symbol: '+',

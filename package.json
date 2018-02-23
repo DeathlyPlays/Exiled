@@ -11,8 +11,9 @@
     "geoip-lite-country": "1.1.5",
     "githubhook": "^1.9.3",
     "nani": "^1.2.0",
+    "nef": "^1.1.0",
+    "nef-fs": "^1.0.0",
     "node-static": "0.7.10",
-    "origindb": "^2.6.1",
     "request": "^2.83.0",
     "sockjs": "0.3.18"
   },

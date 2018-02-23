@@ -1853,7 +1853,7 @@ exports.Formats = [
 			for (let i = 0, len = allPokemon.length; i < len; i++) {
 				let pokemon = allPokemon[i];
 				let ability = pokemon.ability;
-				let abilities = Dex.getFormat(this.format).getAbilities(ability);
+				let abilities = this.getFormat(this.format).getAbilities(ability);
 				if (this.getAbility(ability).exists || !Array.isArray(abilities)) continue;
 				pokemon.ability = pokemon.baseAbility = abilities[0];
 				pokemon.abilitwo = abilities[1];
@@ -2032,7 +2032,7 @@ exports.Formats = [
 				}];
 				pokemon.moves = ['metronome'];
 				pokemon.moveSlots = pokemon.baseMoveSlots;
-				if (Dex.getFormat('[Gen 7] Metronome Battle').banlist.includes(this.getItem(pokemon.item).name)) {
+				if (this.getFormat('[Gen 7] Metronome Battle').banlist.includes(this.getItem(pokemon.item).name)) {
 					pokemon.item = 'leppaberry';
 				}
 			});

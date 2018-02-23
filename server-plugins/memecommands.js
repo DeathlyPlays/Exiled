@@ -218,7 +218,7 @@ exports.commands = {
 		if (!this.can('mute', null, room)) return false;
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
-		room.addRaw(Server.nameColor(user.name, true, true) + ' has gave the hammer to ' + Server.nameColor(target, true, true) + '!');
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has given the hammer to ' + Server.nameColor(target, true, true) + '!');
 		targetUser.popup("|html|<b><font color='red'><font size='4'>The Hammer has been dropped!</font></b>");
 		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
 		targetUser.leaveRoom(room.id);
@@ -496,6 +496,15 @@ exports.commands = {
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(user.name, true, true) + ' has pixed ' + Server.nameColor(target, true, true) + ' in the pixing pix! Pix that\'s gotta hurt!');
 		targetUser.popup("PIIIIIIIIIIIIIIIIXXXXXXXXXX");
+	},
+
+	randaction: 'action',
+	action: function (target, room, user) {
+		if (!this.can('broadcast')) return false;
+		let actions = ["hugged", "bit", "spanked", "smashed", "punched", "gave food to", "blew away", "fucked", "thumped", "bamboozled", "robbed", "bopped", "took food away from", "kidnapped"];
+		if (!target) return this.sendReply('/action  needs a target.');
+		let actionChoice = actions[Math.floor(Math.random() * actions.length)];
+		room.addRaw(Server.nameColor(user.name, true, true) + ' ' + actionChoice + ' ' + Server.nameColor(target, true, true) + '!');
 	},
 
 	/************************************

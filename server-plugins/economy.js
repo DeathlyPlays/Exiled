@@ -216,15 +216,8 @@ global.rankLadder = function (title, type, array, prop, group) {
 };
 
 exports.commands = {
-<<<<<<< HEAD
-	'!wallet': true,
-	atm: 'wallet',
-	money: 'wallet',
-	balance: 'wallet',
-=======
 	"!wallet": true,
 	atm: "wallet",
->>>>>>> 65d216e280c13efbf786f13c9b852ee38d521979
 	wallet: function (target, room, user) {
 		if (!target) target = user.name;
 		if (!this.runBroadcast()) return;

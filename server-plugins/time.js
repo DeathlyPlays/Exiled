@@ -28,21 +28,20 @@ exports.commands = {
 	userontime: 'ontime',
 	ontime: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-
 		const userid = target ? toId(target) : user.userid;
 		const currentOntime = Ontime[userid] ? Date.now() - Ontime[userid] : 0;
 		const totalOntime = Db('ontime').get(userid, 0) + currentOntime;
 
-		if (!totalOntime) return this.sendReplyBox(Server.nameColor(userid, true) + " has never been online on this server.");
+		if (!totalOntime) return this.sendReplyBox(`${Server.nameColor(userid, true)} has never been online on this server.`);
 		const isConnected = Users.get(userid) && Users.get(userid).connected;
 
 		// happens when a user opens 2 tabs and closes one of them, removing them from the Ontime object
 		if (isConnected && !Ontime[userid]) Ontime[userid] = Date.now();
 
 		if (isConnected) {
-			this.sendReplyBox(Server.nameColor(userid, true) + '\'s total ontime is <strong>' + displayTime(convertTime(totalOntime)) + '</strong>.' + ' Current ontime: <strong>' + displayTime(convertTime((currentOntime))) + '</strong>.');
+			this.sendReplyBox(`${Server.nameColor(userid, true)}'s total ontime is <strong>${displayTime(convertTime(totalOntime))}</strong>. Current ontime: <strong>${displayTime(convertTime((currentOntime)))}</strong>.`);
 		} else {
-			this.sendReplyBox(Server.nameColor(userid, true) + '\'s total ontime is <strong>' + displayTime(convertTime(totalOntime)) + '</strong>.' + ' Currently not online.');
+			this.sendReplyBox(`${Server.nameColor(userid, true)}'s total ontime is <strong>${displayTime(convertTime(totalOntime))}</strong>. Currently not online.`);
 		}
 	},
 	ontimehelp: ["/ontime [target] - Checks a user's online time on the server. [Target is optional; if there is no target, this command is used on yourself.]"],

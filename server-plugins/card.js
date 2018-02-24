@@ -1,5 +1,5 @@
 /**
- * PSGO Collectable Pokemon Cards for Wavelength
+ * PSGO Collectable Pokemon Cards for Pokemon Showdown
  * Programmed by HoeenHero, and Volco
  */
 

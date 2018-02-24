@@ -30,7 +30,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		const userid = target ? toId(target) : user.userid;
 		const currentOntime = Ontime[userid] ? Date.now() - Ontime[userid] : 0;
-		const totalOntime = Db('ontime').get(userid, 0) + currentOntime;
+		const totalOntime = Db.ontime.get(userid, 0) + currentOntime;
 
 		if (!totalOntime) return this.sendReplyBox(`${Server.nameColor(userid, true)} has never been online on this server.`);
 		const isConnected = Users.get(userid) && Users.get(userid).connected;
@@ -50,10 +50,10 @@ exports.commands = {
 	mostonline: 'ontimeladder',
 	ontimeladder: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		let keys = Object.keys(Db('ontime').object()).map(function (name) {
+		let keys = Db.ontime.keys().map(name => {
 			let currentOntime = 0;
 			if (Ontime[name]) currentOntime = Date.now() - Ontime[name];
-			const totalOntime = Db('ontime').get(name, 0) + currentOntime;
+			const totalOntime = Db.ontime.get(name, 0) + currentOntime;
 			return {
 				name: name,
 				time: totalOntime,

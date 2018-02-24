@@ -501,7 +501,7 @@ exports.commands = {
 	randaction: 'action',
 	action: function (target, room, user) {
 		if (!this.can('broadcast')) return false;
-		let actions = ["hugged", "bit", "spanked", "smashed", "punched", "gave food to", "blew away", "fucked", "thumped", "bamboozled", "robbed", "bopped", "took food away from", "kidnapped"];
+		let actions = ["slapped", "punched", "kicked", "humped", "fucked", "hugged", "was murdered by", "took an L from", "got an ass-eating from", "dropkicked", "ban-hammered", "got rejected by"];
 		if (!target) return this.sendReply('/action  needs a target.');
 		let actionChoice = actions[Math.floor(Math.random() * actions.length)];
 		room.addRaw(Server.nameColor(user.name, true, true) + ' ' + actionChoice + ' ' + Server.nameColor(target, true, true) + '!');

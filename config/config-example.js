@@ -467,6 +467,7 @@ exports.grouplist = [
 		exp: true,
 		emotes: true,
 		money: true,
+		roomshop: true,
 	},
 	{
 		symbol: '%',

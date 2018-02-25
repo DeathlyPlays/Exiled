@@ -36,7 +36,7 @@ exports.commands = {
 				let roomshop = Db.roomshop.get(room.id, {items: {}});
 				if (!roomshop) return this.errorReply(`${room.title} does not have a roomshop yet.`);
 				if (roomshop.bank) return this.errorReply(`${room.title} already has a bank.`);
-				roomshop.bank = toId(target);
+				roomshop.bank = target;
 				Db.roomshop.set(room.id, roomshop);
 				this.privateModAction(`${room.title}'s Room Shop Bank has been set as "${target}" by ${user.name}.`);
 			},
@@ -46,7 +46,7 @@ exports.commands = {
 				if (!roomshop) return this.errorReply(`${room.title} does not have a roomshop yet.`);
 				if (!roomshop.bank) return this.errorReply(`${room.title} has no bank set yet.`);
 				delete roomshop.bank;
-				Db.roomshop.set(room.id);
+				Db.roomshop.set(room.id, roomshop);
 				this.privateModAction(`${room.title}'s Room Shop Bank has been removed by ${user.name}.`);
 			},
 
@@ -114,7 +114,7 @@ exports.commands = {
 			if (!Db.roomshop.has(room.id)) return this.errorReply(`${room.title} does not have a roomshop.`);
 			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><table><tr><center><h1>${room.title}'s Shop!</h1></center></tr>`;
 			for (let i in roomshop.items) {
-				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/roomshop buy ${roomshop.items[i].name}">Buy Item: ${roomshop.items[i].name}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Price: ${roomshop.items[i].price} ${moneyName}${Chat.plural(roomshop.items[i].price)}</td></tr>`
+				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/roomshop buy ${roomshop.items[i].name}">Buy Item: ${roomshop.items[i].name}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Price: ${roomshop.items[i].price} ${moneyName}${Chat.plural(roomshop.items[i].price)}</td></tr>`;
 			}
 			display += `</table></div>`;
 			return this.sendReplyBox(display);
@@ -135,7 +135,7 @@ exports.commands = {
 					this.errorReply(`You do not have enough ${moneyName} to purchase ${target}.`);
 					return;
 				}
-				Economy.writeMoney(user.userid, - cost, () => {
+				Economy.writeMoney(user.userid, -cost, () => {
 					Economy.logTransaction(`${user.name} bought ${target} from ${room.title}'s roomshop for ${cost} ${moneyName}${Chat.plural(cost)}.`);
 				});
 				Economy.writeMoney(bank, cost, () => {
@@ -172,7 +172,6 @@ exports.commands = {
 
 			let topMsg = `Displaying the last ${numLines} lines of transactions:\n`;
 			let file = `logs/roomshops/roomshop_${room.id}.txt`;
-			console.log(file);
 			if (!FS(file).readIfExistsSync()) return user.popup(`No transactions.`);
 
 			FS(file).read().then(data => {

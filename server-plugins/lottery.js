@@ -25,6 +25,10 @@ class Lottery {
 		}, 1000 * 60 * 60 * 24);
 	}
 
+	onConnect(user, connection) {
+		user.sendTo(this.room, `|uhtml|lottery-${this.lottoNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new <strong>Lottery drawing</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/lotto join">Join</button><br /><strong>Joining costs ${this.costToJoin} ${moneyPlural}</strong></p></div>`, true);
+	}
+
 	drawWinner() {
 		let winner = this.players[Math.floor(Math.random() * this.players.length)];
 		let lottoPrize = 5 + this.players.length + this.costToJoin;
@@ -60,14 +64,16 @@ class Lottery {
 		});
 	}
 
-	end() {
-		this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="infobox">This Lottery Drawing has ended. All players have had their ${moneyPlural} refunded.</div>`).update();
-		clearTimeout(this.timer);
-		for (let u in this.room.lottery.players) {
-			Economy.writeMoney(this.room.lottery.players[u], this.costToJoin, () => {
-				Economy.logTransaction(`${this.room.lottery.players[u]}'s Lottery drawing ${this.costToJoin} ${moneyPlural} Lottery join-fee was refunded, due to an early ended Lottery drawing.`);
-			});
+	end(user) {
+		if (user) {
+			this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="infobox">This Lottery Drawing has been ended by ${Server.nameColor(user.name, true)}. All players have had their ${moneyPlural} refunded.</div>`).update();
+			for (let u in this.room.lottery.players) {
+				Economy.writeMoney(this.room.lottery.players[u], this.costToJoin, () => {
+					Economy.logTransaction(`${this.room.lottery.players[u]}'s Lottery drawing ${this.costToJoin} ${moneyPlural} Lottery join-fee was refunded, due to an early ended Lottery drawing.`);
+				});
+			}
 		}
+		clearTimeout(this.timer);
 		delete this.room.lottery;
 	}
 }
@@ -127,7 +133,7 @@ exports.commands = {
 			if (!room.lottery) return this.sendReply("There is no Lottery drawing going on right now.");
 			this.modlog(`LOTTERY`, null, `forcefully ended`);
 			this.privateModAction(`(The Lottery drawing was forcefully ended.)`);
-			room.lottery.end();
+			room.lottery.end(user);
 		},
 	},
 

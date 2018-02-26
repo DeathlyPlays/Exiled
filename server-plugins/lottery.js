@@ -56,13 +56,18 @@ class Lottery {
 		Economy.writeMoney(user.userid, this.costToJoin, () => {
 			this.players.splice(this.players.indexOf(user.userid), 1);
 			user.sendTo(this.room, `You have left the lottery and have been refunded ${this.costToJoin} ${moneyPlural}.`);
-			Economy.logTransaction(`${user.userid} has left the Lottery drawing, and has been refunded their ${this.costToJoin} ${moneyPlural}.`);
+			Economy.logTransaction(`${user.name} has left the Lottery drawing, and has been refunded their ${this.costToJoin} ${moneyPlural}.`);
 		});
 	}
 
 	end() {
-		this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="infobox">This Lottery Drawing has ended.</div>`).update();
+		this.room.add(`|uhtmlchange|lottery-${this.lottoNumber}|<div class="infobox">This Lottery Drawing has ended. All players have had their ${moneyPlural} refunded.</div>`).update();
 		clearTimeout(this.timer);
+		for (let u in this.room.lottery.players) {
+			Economy.writeMoney(this.room.lottery.players[u], this.costToJoin, () => {
+				Economy.logTransaction(`${this.room.lottery.players[u]}'s Lottery drawing ${this.costToJoin} ${moneyPlural} Lottery join-fee was refunded, due to an early ended Lottery drawing.`);
+			});
+		}
 		delete this.room.lottery;
 	}
 }

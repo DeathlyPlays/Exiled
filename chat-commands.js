@@ -3078,6 +3078,9 @@ exports.commands = {
 	lockdown: function (target, room, user) {
 		if (!this.can('lockdown')) return false;
 
+		Rooms.rooms.forEach((curRoom, id) => {
+			if (room.lottery) this.room.lottery.end();
+		});
 		Rooms.global.startLockdown();
 
 		const logRoom = Rooms('staff') || room;

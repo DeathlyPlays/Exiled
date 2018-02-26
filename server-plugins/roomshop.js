@@ -147,11 +147,11 @@ exports.commands = {
 
 			let msg = `${user.name} has purchased ${target}.`;
 
-			Users.users.forEach(function (user) {
-				if (room.auth[user] === "#" || room.auth[user] === "&") {
+			for (let u in room.users) {
+				if (room.auth[u] === "#" || room.auth[u] === "&") {
 					user.send(`|pm|~${room.title}'s Shop Alert|${user.getIdentity()}|${msg}`);
 				}
-			});
+			}
 
 			return this.sendReply(`You have bought "${target}" for ${cost} ${moneyName}${Chat.plural(cost)} from ${room.title}'s Room Shop.`);
 		},

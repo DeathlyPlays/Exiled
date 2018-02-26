@@ -3,7 +3,7 @@
  * Pokemon Showdown - http://pokemonshowdown.com/
  *
  * This handles chat and chat commands sent from users to chatrooms
- * and PMs. The main function you're lookoing for is Chat.parse
+ * and PMs. The main function you're looking for is Chat.parse
  * (scroll down to its definition for details)
  *
  * Individual commands are put in:
@@ -24,6 +24,7 @@ To reload chat commands:
 */
 
 'use strict';
+/** @typedef {GlobalRoom | GameRoom | ChatRoom} Room */
 
 const LINK_WHITELIST = ['*.pokemonshowdown.com', 'psim.us', 'smogtours.psim.us', '*.smogon.com', '*.pastebin.com', '*.hastebin.com'];
 
@@ -188,7 +189,7 @@ Chat.hostfilter = function (host, user, connection) {
 Chat.loginfilters = [];
 /**
  * @param {User} user
- * @param {User} oldUser
+ * @param {User?} oldUser
  * @param {string} usertype
  */
 Chat.loginfilter = function (user, oldUser, usertype) {
@@ -465,7 +466,7 @@ class CommandContext {
 	}
 
 	/**
-	 * @param {?Room} room
+	 * @param {BasicChatRoom?} room
 	 * @param {User} user
 	 * @param {string} message
 	 */
@@ -500,7 +501,7 @@ class CommandContext {
 	}
 
 	/**
-	 * @param {?Room} room
+	 * @param {BasicChatRoom?} room
 	 * @param {User} user
 	 */
 	checkSlowchat(room, user) {
@@ -511,7 +512,7 @@ class CommandContext {
 	}
 
 	/**
-	 * @param {?Room} room
+	 * @param {BasicChatRoom?} room
 	 * @param {string} message
 	 */
 	checkBanwords(room, message) {
@@ -717,7 +718,7 @@ class CommandContext {
 	/**
 	 * @param {string} permission
 	 * @param {string | User} target
-	 * @param {Room} room
+	 * @param {BasicChatRoom} room
 	 */
 	can(permission, target, room) {
 		if (!this.user.can(permission, target, room)) {
@@ -811,7 +812,7 @@ class CommandContext {
 	}
 	/**
 	 * @param {string} message
-	 * @param {Room?} [room]
+	 * @param {BasicChatRoom?} [room]
 	 * @param {User?} [targetUser]
 	 */
 	canTalk(message, room, targetUser) {
@@ -1321,7 +1322,7 @@ Chat.stripHTML = function (html) {
 /**
  * Template string tag function for escaping HTML
  *
- * @param  {string[]} strings
+ * @param  {TemplateStringsArray} strings
  * @param  {...any} args
  * @return {string}
  */
@@ -1392,10 +1393,10 @@ Chat.splitFirst = function (str, delimiter, limit = 1) {
  * options.human = true will reports hours human-readable
  *
  * @param  {Date} date
- * @param  {object} options
+ * @param  {AnyObject} options
  * @return {string}
  */
-Chat.toTimestamp = function (date, options) {
+Chat.toTimestamp = function (date, options = {}) {
 	const human = options && options.human;
 	/** @type {any[]} */
 	let parts = [date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()];
@@ -1413,10 +1414,10 @@ Chat.toTimestamp = function (date, options) {
  * options.hhmmss = true will instead report the duration in 00:00:00 format
  *
  * @param  {number} number
- * @param  {object} options
+ * @param  {AnyObject} options
  * @return {string}
  */
-Chat.toDurationString = function (number, options) {
+Chat.toDurationString = function (number, options = {}) {
 	// TODO: replace by Intl.DurationFormat or equivalent when it becomes available (ECMA-402)
 	// https://github.com/tc39/ecma402/issues/47
 	const date = new Date(+number);
@@ -1600,3 +1601,4 @@ Chat.stringify = function (value, depth = 0) {
 
 Chat.formatText = require('./chat-formatter').formatText;
 Chat.linkRegex = require('./chat-formatter').linkRegex;
+Chat.updateServerLock = false;

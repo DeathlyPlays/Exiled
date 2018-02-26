@@ -1223,6 +1223,7 @@ class BasicChatRoom extends BasicRoom {
 				if (this.survey.surveyArray[u]) this.survey.onConnect(user, connection, u);
 			}
 		}
+		if (this.lottery) this.lottery.onConnect(user, connection);
 		if (this.game && this.game.onConnect) this.game.onConnect(user, connection);
 	}
 	/**

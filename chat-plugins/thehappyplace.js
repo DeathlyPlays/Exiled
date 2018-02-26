@@ -43,13 +43,8 @@ exports.commands = {
 		room.chatRoomData.quote = room.quote;
 		Rooms.global.writeChatRoomData();
 		room.addRaw(
-<<<<<<< HEAD
-			"<div class=\"broadcast-blue\"><strong>The Inspirational Quote of the Day has been updated by " + Server.nameColor(user.name, true, true) + ".</strong><br />" +
-			"Quote: " + room.chatRoomData.quote + "</div>"
-=======
-			Chat.html`<div class="broadcast-blue"><strong>The Inspirational Quote of the Day has been updated by ${user.name}.</strong><br />` +
+			Chat.html`<div class="broadcast-blue"><strong>The Inspirational Quote of the Day has been updated by ${Server.nameColor(user.name)}.</strong><br />` +
 			Chat.html`Quote: "${quote}" - ${author}`
->>>>>>> 586861eb795ddf873e0d8105e2ec681a9ba99493
 		);
 		this.modlog('QOTD', null, `to "${quote}" - ${author}`);
 	},

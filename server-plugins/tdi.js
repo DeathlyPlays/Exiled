@@ -158,7 +158,7 @@ exports.commands = {
 			let disqualified = room.tdi.eliminate(toId(target));
 			if (disqualified === false) return this.errorReply(`Unable to disqualify ${target}.`);
 			this.privateModAction(`(${user.name} has disqualified ${target} from this season of Total Drama Island.)`);
-			room.add(`|html|${Server.nameColor(target, true, true)} has been disqualified from the UNO game.`).update();
+			room.add(`|html|${Server.nameColor(target, true, true)} has been disqualified from this season of Total Drama Island.`).update();
 		},
 
 		stop: "end",

@@ -949,7 +949,8 @@ class Tournament {
 
 			this.room.addRaw(`${Server.nameColor(winner, true)} <strong>has won <font color='${color}'>${firstMoney}</font> ${(firstMoney === 1 ? global.moneyName : global.moneyPlural)} for winning the tournament!</strong>`);
 
-			if (runnerUp) {Economy.writeMoney(rid, secondMoney, () => {
+			if (runnerUp) {
+				Economy.writeMoney(rid, secondMoney, () => {
 					Economy.readMoney(rid, newAmount => {
 						if (Users(rid) && Users(rid).connected) {
 							Users.get(rid).popup(`|html|You have received ${secondMoney} ${(secondMoney === 1 ? global.moneyName : global.moneyPlural)} from winning the tournament.`);

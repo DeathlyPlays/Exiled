@@ -1323,10 +1323,10 @@ exports.commands = {
 					return this.errorReply(`/${cmd} - You cant demote yourself from room founder!`);
 				}
 			}
-  			if (nextGroup !== ' ' && !user.can('room' + Config.groups[nextGroup].id, null, room)) {
-  				return this.errorReply(`/${cmd} - Access denied for promoting/demoting to ${Config.groups[nextGroup].name}.`);
- 			}
- 		}
+			if (nextGroup !== ' ' && !user.can('room' + Config.groups[nextGroup].id, null, room)) {
+				return this.errorReply(`/${cmd} - Access denied for promoting/demoting to ${Config.groups[nextGroup].name}.`);
+			}
+		}
 		let nextGroupIndex = Config.groupsranking.indexOf(nextGroup) || 1; // assume voice if not defined (although it should be by now)
 		if (targetUser && targetUser.locked && !room.isPrivate && !room.battle && !room.isPersonal && nextGroupIndex >= 2) {
 			return this.errorReply("Locked users can't be promoted.");

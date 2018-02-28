@@ -449,7 +449,6 @@ exports.commands = {
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(user.name, true, true) + ' has bopped ' + Server.nameColor(target, true, true) + ' in the face!');
-		targetUser.popup("Get bopped boi");
 	},
 
 	burn: 'disintegrate',

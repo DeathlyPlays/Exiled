@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 const assert = require('./../../assert');
 const common = require('./../../common');
@@ -208,4 +208,4 @@ describe('Partial Trapping Moves', function () {
 			assert.strictEqual(battle.p2.active[0].template.speciesid, 'starmie');
 		});
 	}
-});
+});*/

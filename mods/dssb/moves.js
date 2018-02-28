@@ -64,6 +64,30 @@ exports.BattleMovedex = {
 		type: "Water",
 	},
 
+	//flufi
+	"knockoutpunch": {
+		num: 1000,
+		accuracy: 75,
+		basePower: 150,
+		category: "Physical",
+		desc: "Has a 30% chance to confuse the target.",
+		shortDesc: "30% chance to confuse the target.",
+		id: "knockoutpunch",
+		name: "Knockout Punch",
+		pp: 5,
+		priority: 0,
+		flags: {punch: 1, contact: 1, protect: 1},
+		secondary: false,
+		target: "normal",
+		onPrepareHit: function (target, source) {
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Close Combat", target);
+			this.add("-anim", source, "Dizzy Punch", target);
+		},
+		type: "Fighting",
+		contestType: "Tough",
+	},
+
 	//C733937 123
 	"voodoomagic": {
 		id: "voodoomagic",
@@ -225,13 +249,13 @@ exports.BattleMovedex = {
 		type: "Dark",
 	},
 
-	// Basedlord Chandie
+	// Chandie
 	"solareruption": {
 		id: "solareruption",
 		name: "Solar Eruption",
-		basePower: 100,
+		basePower: 130,
 		accuracy: 100,
-		desc: "Fire, Special, 100% Accuracy, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage.",
+		desc: "100% burn chance, very high critical hit ratio. Raises the Speed by 2 stage, and Special Attack by 1 stage.",
 		category: "Special",
 		flags: {
 			protect: 1,
@@ -244,7 +268,7 @@ exports.BattleMovedex = {
 			self: {
 				boosts: {
 					spa: 1,
-					spe: 1,
+					spe: 2,
 				},
 			},
 		},
@@ -263,6 +287,28 @@ exports.BattleMovedex = {
 		contestType: "Cool",
 	},
 
+	// Chandie
+	"conflagration": {
+		id: "conflagration",
+		name: "Conflagration",
+		basePower: 85,
+		accuracy: 100,
+		pp: 15,
+		secondary: false,
+		category: "Special",
+		desc: "Nearly always goes first.",
+		priority: 2,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Searing Shot', target);
+		},
+		flags: {
+			protect: 1,
+			contact: 1,
+		},
+		target: "normal",
+		type: "Fire",
+	},
 	// Renfur
 	"itsmytimenow": {
 		id: "itsmytimenow",

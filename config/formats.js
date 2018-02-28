@@ -1580,6 +1580,30 @@ exports.Formats = [
 		},
 	},
 	{
+		name: "[Gen 7] Trademarked",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/trademarked.3572949/\">Trademarked</a>"],
+		column: 1,
+
+		mod: 'trademarked',
+		ruleset: ['[Gen 7] OU'],
+		banlist: ['Slaking', 'Regigigas', 'Nature Power'],
+		validateSet: function (set, teamHas) {
+			if (!this.validateSet(set, teamHas).length) return [];
+			let ability = Dex.getAbility(set.ability);
+			let template = Dex.getTemplate(set.species);
+			if (!set.moves.includes(ability.id) && !set.moves.includes(ability.name) && !this.checkLearnset(ability.id, template, {
+				set: set,
+			})) {
+				template = Object.assign({}, template);
+				template.abilities = {
+					0: ability.name,
+				};
+			}
+			return this.validateSet(set, teamHas, template);
+		},
+
+	},
+	{
 		name: "[Gen 7] Five Move Frenzy",
 		desc: [
 			"Pokemon can use five moves instead of four! Coded by Lycanium Z",
@@ -1967,7 +1991,7 @@ exports.Formats = [
 
 	},
 	{
-		name: "[Gen 7] OU (Chaos)",
+		name: "[Gen 7] OU Chaos",
 		mod: "ouchaos",
 		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 		desc: [
@@ -1975,7 +1999,7 @@ exports.Formats = [
 			"&bullet; <a href=\"http://chandie.boards.net/thread/2/overused-chaos-viability-rankings\">OU Chaos Viability Ranking</a>",
 			"&bullet; <a href=\"http://chandie.boards.net/thread/4/welcome-usm-chaos-bans-rulesets\">OU Chaos Bans and Unbans</a>",
 		],
-		banlist: ['Uber', 'Power Construct', 'Baton Pass', 'Arena Trap'],
+		banlist: ['Uber', 'Power Construct', 'Baton Pass'],
 	},
 	{
 		name: "[Gen 7] Perfected Pokemon",

@@ -153,4 +153,79 @@ exports.BattleAbilities = {
 		},
 		desc: "Magic Bounce, and Prankster.",
 	},
+
+	//Chandie
+	"magmaoverdrive": {
+		id: "magmaoverdrive",
+		name: "Magma Overdrive",
+		rating: 4.5,
+		desc: "Desolate Land + Adaptability + Tinted Lens; If hit by a Fire Move, it Special Attack raises by 1 stage.",
+		//Adaptability
+		onModifyMove: function (move) {
+			move.stab = 2;
+		},
+		//Tinted Lens
+		onModifyDamage: function (damage, source, target, move) {
+			if (move.typeMod < 0) {
+				this.debug('Magma Overdrive boost');
+				return this.chainModify(2);
+			}
+		},
+		//Flash Fire
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Fire') {
+				move.accuracy = true;
+				if (!target.addVolatile('flashfire')) {
+					this.add('-immune', target, '[msg]', '[from] ability: Magma Overdrive');
+				}
+				return null;
+			}
+		},
+		effect: {
+			noCopy: true, // doesn't get copied by Baton Pass
+			onStart: function (target) {
+				this.add('-start', target, 'ability: Magma Overdrive');
+			},
+			onModifyAtkPriority: 5,
+			onModifyAtk: function (atk, attacker, defender, move) {
+				if (move.type === 'Fire') {
+					this.debug('Magma Overdrive boost');
+					return this.chainModify(1.5);
+				}
+			},
+			onModifySpAPriority: 5,
+			onModifySpA: function (atk, attacker, defender, move) {
+				if (move.type === 'Fire') {
+					this.debug('Magma Overdrive boost');
+					return this.chainModify(1.5);
+				}
+			},
+			onEnd: function (target) {
+				this.add('-end', target, 'ability: Magma Overdrive', '[silent]');
+			},
+		},
+		//Desolate Land
+		onStart: function (source) {
+			this.setWeather('desolateland');
+		},
+		onAnySetWeather: function (target, source, weather) {
+			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
+		},
+		onEnd: function (pokemon) {
+			if (this.weatherData.source !== pokemon) return;
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					let target = this.sides[i].active[j];
+					if (target === pokemon) continue;
+					if (target && target.hp && target.hasAbility('desolateland')) {
+						this.weatherData.source = target;
+						return;
+					}
+				}
+			}
+			this.clearWeather();
+			//Piece of Flash Fire
+			pokemon.removeVolatile('flashfire');
+		},
+	},
 };

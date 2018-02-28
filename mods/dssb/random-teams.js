@@ -68,12 +68,12 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Timid",
 			},
 			//Mods
-			"@Basedlord Chandie": {
+			"☆Chandie": {
 				species: "Chandelure",
 				ability: "Magma Overdrive",
 				item: "Life Orb",
 				gender: "M",
-				moves: ['secretsword', 'moongeistbeam', 'ember'],
+				moves: ['secretsword', 'moongeistbeam', 'conflagration'],
 				signatureMove: "Solar Eruption",
 				evs: {
 					spa: 252,

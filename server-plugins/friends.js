@@ -129,7 +129,7 @@ exports.commands = {
 			if (friends[friendsId].friendsList.length < 1) return this.sendReplyBox(`<center>${Server.nameColor(target, true, true)} currently doesn't have any friends.</center>`);
 			let display = `<center><h2>${Server.nameColor(target, true, true)}'s Friends List (${friends[friendsId].friendsList.length} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2><p style="font-size: 12pt">`;
 			friends[friendsId].friendsList.forEach(friend => {
-				display += Server.nameColor(friend, true, true);
+				display += `${Server.nameColor(friend, true, true)}<br />`;
 			});
 			display += `</p></center>`;
 			return this.sendReplyBox(`<div style="infobox-limited">${display}</div>`);

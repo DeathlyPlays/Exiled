@@ -56,7 +56,7 @@ exports.commands = {
 			// If the user has not initalized their friends list, parse /friends init
 			if (!friends[user.userid]) this.parse(`/friends init`);
 			if (user.userid === toId(target)) return this.errorReply(`Like I can relate and all... but apparently being your own friend is invalid.`);
-			if (user.locked) return this.errorReply(`You must be unlocked to add friends (to avoid spam).`);
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (Db.disabledfriends.has(toId(target))) return this.errorReply(`${targetUser} has disabled adding friends.`);
 			if (Db.disabledfriends.has(user.userid)) return this.errorReply(`You must enable friend requests before attempting to add others.`);
 			if (friends[user.userid].pendingRequests.includes(targetUser.userid)) return this.errorReply(`${targetUser} already has a pending request from you.`);
@@ -82,6 +82,7 @@ exports.commands = {
 
 		approve: "accept",
 		accept: function (target, room, user) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (!target) return this.parse(`/help friends`);
 			let targetId = toId(target);
 			// If the user has not initalized their friends list, parse /friends init
@@ -96,6 +97,7 @@ exports.commands = {
 
 		decline: "deny",
 		deny: function (target, room, user) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (!target) return this.parse(`/help friends`);
 			let targetId = toId(target);
 			// If the user has not initalized their friends list, parse /friends init
@@ -120,6 +122,7 @@ exports.commands = {
 			return this.sendReply(`You have successfully enabled friend requests.`);
 		},
 
+		"!list": true,
 		"": "list",
 		list: function (target, room, user) {
 			if (!this.runBroadcast()) return;

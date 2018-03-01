@@ -149,12 +149,21 @@ class RoomSettings {
 			return `${this.button('Hangman enabled', true)} ${this.button('off', null, 'hangman disable')}`;
 		}
 	}
+<<<<<<< HEAD
 	ambush() {
 		if (!this.user.can('editroom', null, this.room)) return this.button(this.room.ambushDisabled ? 'off' : 'Ambush enabled', true);
 		if (this.room.ambushDisabled) {
 			return `${this.button('Ambush enabled', null, 'ambush enable')} ${this.button('off', true)}`;
 		} else {
 			return `${this.button('Ambush enabled', true)} ${this.button('off', null, 'ambush disable')}`;
+=======
+	mafia() {
+		if (!this.user.can('editroom', null, this.room)) return this.button(this.room.mafiaEnabled ? 'Mafia enabled' : 'off', true);
+		if (this.room.mafiaEnabled) {
+			return `${this.button('Mafia enabled', true)} ${this.button('off', null, 'mafia disable')}`;
+		} else {
+			return `${this.button('Mafia enabled', null, 'mafia enable')} ${this.button('off', true)}`;
+>>>>>>> 4aeec26114ea871bca301c2343d257c3bdacf6e4
 		}
 	}
 	generateDisplay(user, room, connection) {
@@ -168,7 +177,11 @@ class RoomSettings {
 		output += `<strong>Tournaments:</strong> <br />${this.tourStatus()}<br />`;
 		output += `<strong>UNO:</strong> <br />${this.uno()}<br />`;
 		output += `<strong>Hangman:</strong> <br />${this.hangman()}<br />`;
+<<<<<<< HEAD
 		output += `<strong>Ambush:</strong> <br />${this.ambush()}<br />`;
+=======
+		output += `<strong>Mafia:</strong> <br />${this.mafia()}<br />`;
+>>>>>>> 4aeec26114ea871bca301c2343d257c3bdacf6e4
 		output += '</div>';
 
 		this.user.sendTo(this.room, `|uhtml${(this.sameCommand ? '' : 'change')}|roomsettings|${output}`);

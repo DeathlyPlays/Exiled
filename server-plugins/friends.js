@@ -30,6 +30,18 @@ function write() {
 	));
 }
 
+function checkFriends(user, userid) {
+	if (!friends[userid] || !Db.friendnotifications.has(userid)) return false;
+	let onlineUsers = [];
+	friends[userid].friendsList.forEach(online => {
+		if (Users.get(online)) {
+			onlineUsers.push(online);
+		}
+	});
+	if (onlineUsers.length > 0) return user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|Your friends: ${onlineUsers.join(", ")} are online.`);
+}
+Server.checkFriends = checkFriends;
+
 exports.commands = {
 	fren: "friends",
 	frens: "friends",
@@ -122,6 +134,18 @@ exports.commands = {
 			return this.sendReply(`You have successfully enabled friend requests.`);
 		},
 
+		notifications: "notify",
+		notify: function (target, room, user) {
+			if (!friends[user.userid]) this.parse(`/friends init`);
+			if (!Db.friendnotifications.has(user.userid)) {
+				Db.friendnotifications.set(user.userid, 1);
+				this.sendReply(`You have successfully set your friend notifications on.`);
+			} else {
+				Db.friendnotifications.remove(user.userid);
+				this.sendReply(`You have successfully disabled friend notifications.`);
+			}
+		},
+
 		"!list": true,
 		"": "list",
 		list: function (target, room, user) {
@@ -151,6 +175,7 @@ exports.commands = {
 		/friends decline [user] - Declines a user's friend request.
 		/friends disable - Disables the ability for others to send you friend requests.
 		/friends enable - Enables the ability for others to send you friend requests (if you had it disables).
+		/friends notify - If disabled, enables friend notifications. If enabled, disables friend notifications.
 		/friends list [optional target] - Shows the user's friends list if they have initialized their list; defaults to yourself.
 		/friends help - Shows this help command.`,
 	],

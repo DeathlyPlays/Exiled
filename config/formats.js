@@ -1580,24 +1580,19 @@ exports.Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Trademarked",
+		name: "Trademarked",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/trademarked.3572949/\">Trademarked</a>"],
-		column: 1,
 
 		mod: 'trademarked',
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Slaking', 'Regigigas', 'Nature Power'],
+		ruleset: ['[Gen 7] OU', 'trademarkclause'],
+		banlist: ['Slaking', 'Regigigas'],
 		validateSet: function (set, teamHas) {
 			if (!this.validateSet(set, teamHas).length) return [];
-			let ability = Dex.getAbility(set.ability);
-			let template = Dex.getTemplate(set.species);
-			if (!set.moves.includes(ability.id) && !set.moves.includes(ability.name) && !this.checkLearnset(ability.id, template, {
-				set: set,
-			})) {
+			let ability = this.getAbility(set.ability);
+			let template = this.getTemplate(set.species);
+			if (!set.moves.includes(ability.id) && !set.moves.includes(ability.name) && !this.checkLearnset(ability.id, template, {set: set})) {
 				template = Object.assign({}, template);
-				template.abilities = {
-					0: ability.name,
-				};
+				template.abilities = {0: ability.name};
 			}
 			return this.validateSet(set, teamHas, template);
 		},

@@ -6324,7 +6324,7 @@ exports.BattleItems = {
 		onTakeItem: false,
 		zMove: "Crystal Crash Crisis",
 		zMoveFrom: "Diamond Storm",
-		zMoveUser: ["Diancie", "Diancie-Mega"],
+		zMoveUser: ["Diancie"],
 		num: -802,
 		gen: 7,
 		desc: "If held by Diancie with Diamond Storm, it can use Crystal Crash Crisis.",

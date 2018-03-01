@@ -42,6 +42,13 @@ function checkFriends(user, userid) {
 }
 Server.checkFriends = checkFriends;
 
+function getLastSeen(userid) {
+	if (Users(userid) && Users(userid).connected) return `<font color = "limegreen"><strong>Currently Online</strong></font>`;
+	let seen = Db.seen.get(userid);
+	if (!seen) return `<font color = "red"><strong>Never</strong></font>`;
+	return `${Chat.toDurationString(Date.now() - seen, {precision: true})} ago.`;
+}
+
 exports.commands = {
 	fren: "friends",
 	frens: "friends",
@@ -148,18 +155,19 @@ exports.commands = {
 
 		"!list": true,
 		"": "list",
+		menu: "list",
 		list: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!target || target.length > 18) target = user.userid;
 			let friendsId = toId(target);
 			if (!friends[friendsId]) return this.errorReply(`${target} has not initialized their friends list yet.`);
 			if (friends[friendsId].friendsList.length < 1) return this.sendReplyBox(`<center>${Server.nameColor(target, true, true)} currently doesn't have any friends.</center>`);
-			let display = `<center><h2>${Server.nameColor(target, true, true)}'s Friends List (${friends[friendsId].friendsList.length} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2><p style="font-size: 12pt">`;
+			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><table><tr><center><h2>${Server.nameColor(target, true, true)}'s Friends List (${friends[friendsId].friendsList.length} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2></center></tr>`;
 			friends[friendsId].friendsList.forEach(friend => {
-				display += `${Server.nameColor(friend, true, true)}<br />`;
+				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${friend}">${Server.nameColor(friend, true, true)}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Last Seen: ${getLastSeen(friend)}</td><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/friends unfriend ${friend}">Unfriend ${friend}</button></td></tr>`;
 			});
-			display += `</p></center>`;
-			return this.sendReplyBox(`<div style="infobox-limited">${display}</div>`);
+			display += `</div></table>`;
+			return this.sendReplyBox(display);
 		},
 
 		help: function () {

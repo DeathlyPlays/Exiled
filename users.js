@@ -787,6 +787,7 @@ class User {
 		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 		Ontime[userid] = Date.now();
 		Server.showNews(userid, this);
+		Server.checkFriends(this, userid);
 		let tokenDataSplit = tokenData.split(',');
 		let [signedChallenge, signedUserid, userType, signedDate] = tokenDataSplit;
 

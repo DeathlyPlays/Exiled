@@ -167,7 +167,7 @@ exports.commands = {
 			friends[friendsId].friendsList.forEach(friend => {
 				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${friend}">${Server.nameColor(friend, true, true)}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Last Seen: ${getLastSeen(friend)}</td>`;
 				if (!this.broadcasting) {
-					display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/friends unfriend ${friend}">Unfriend ${friend}</button></td>`
+					display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/friends unfriend ${friend}">Unfriend ${friend}</button></td>`;
 				}
 			});
 			display += `</tr></table></div>`;

@@ -8,6 +8,9 @@
 
 const FS = require("../lib/fs.js");
 
+// Cooldown per video (30 minutes)
+const RECORD_COOLDOWN = 30 * 60 * 1000;
+
 let channels = FS("config/channels.json").readIfExistsSync();
 
 if (channels !== "") {
@@ -46,14 +49,18 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "1.0.0 Early Access Alpha",
+	version: "1.0.1 Early Access Alpha",
+	changes: `DewTube Changes Feature, Sub & Views Math changes, Video Cooldown.`,
 };
 
 exports.commands = {
 	dewtube: {
 		info: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			return this.sendReplyBox(`<div style="padding: 20px 20px"><center><font size="5">DewTube</font></center><br /><center><font size="3">v${config.version}</font></center><br /></div>`);
+			let display = `<div style="padding: 20px 20px"><center><font size="5">DewTube</font></center><br /><center><font size="3">v${config.version}</font></center><br />`;
+			if (config.changes) display += config.changes;
+			display += `</div>`;
+			return this.sendReplyBox(display);
 		},
 
 		createchannel: "newchannel",
@@ -78,6 +85,7 @@ exports.commands = {
 				subscribers: 0,
 				owner: user.userid,
 				vidProgress: "notStarted",
+				lastRecorded: null,
 			};
 			write();
 			return this.sendReply(`You successfully created your DewTube channel "${name}"! To view your channel's stats, use /dewtube dashboard.`);
@@ -157,9 +165,12 @@ exports.commands = {
 		rec: "record",
 		record: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
-			let videoProgress = channels[toId(getChannel(user.userid))].vidProgress;
+			let channelId = toId(getChannel(user.userid));
+			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
+			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
-			channels[toId(getChannel(user.userid))].vidProgress = "recorded";
+			channels[channelId].vidProgress = "recorded";
+			channels[channelId].lastRecorded = Date.now();
 			write();
 			return this.sendReplyBox(`You have recorded a video! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button>`);
 		},
@@ -167,9 +178,10 @@ exports.commands = {
 		editvideo: "edit",
 		edit: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
-			let videoProgress = channels[toId(getChannel(user.userid))].vidProgress;
+			let channelId = toId(getChannel(user.userid));
+			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "recorded") return this.errorReply(`You haven't recorded any new footage yet.`);
-			channels[toId(getChannel(user.userid))].vidProgress = "edited";
+			channels[channelId].vidProgress = "edited";
 			write();
 			return this.sendReplyBox(`Almost done! Now its time to upload! <button class="button" name="send" value="/dewtube publish">Publish the Video!</button>`);
 		},
@@ -181,10 +193,10 @@ exports.commands = {
 			let channelId = toId(getChannel(user.userid));
 			let videoProgress = channels[channelId].vidProgress;
 			channels[channelId].videos++;
-			let generateEditedViews = Math.floor(Math.random() * 100);
-			let generateRawViews = Math.floor(Math.random() * 50);
-			let generateEditedSubs = Math.floor(Math.random() * 1000);
-			let generateRawSubs = Math.floor(Math.random() * 100);
+			let generateEditedViews = Math.floor(Math.random() * 1000);
+			let generateRawViews = Math.floor(Math.random() * 100);
+			let generateEditedSubs = Math.floor(Math.random() * 100);
+			let generateRawSubs = Math.floor(Math.random() * 50);
 			if (videoProgress === "edited") {
 				let newSubCount = channels[channelId].subscribers + generateEditedSubs;
 				let newViewCount = channels[channelId].views + generateEditedViews;

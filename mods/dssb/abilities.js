@@ -228,4 +228,46 @@ exports.BattleAbilities = {
 			pokemon.removeVolatile('flashfire');
 		},
 	},
+
+	"theexiledones": {
+		id: "theexiledones",
+		name: "The Exiled Ones",
+		//dazzling
+		onFoeTryMove: function (target, source, effect) {
+			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
+				this.attrLastMove('[still]');
+				this.add('cant', this.effectData.target, 'ability: The Exiled Ones', effect, '[of] ' + target);
+				return false;
+			}
+		},
+		//infiltrator + mold breaker
+		onModifyMove: function (move) {
+			move.infiltrates = true;
+			move.ignoreAbility = true;
+		},
+		//unaware
+		onAnyModifyBoost: function (boosts, target) {
+			let source = this.effectData.target;
+			if (source === target) return;
+			if (source === this.activePokemon && target === this.activeTarget) {
+				boosts['def'] = 0;
+				boosts['spd'] = 0;
+				boosts['evasion'] = 0;
+			}
+			if (target === this.activePokemon && source === this.activeTarget) {
+				boosts['atk'] = 0;
+				boosts['spa'] = 0;
+				boosts['accuracy'] = 0;
+			}
+		},
+		//air lock
+		suppressWeather: true,
+		//This Ability can't be ignored
+		isUnbreakable: true,
+		//uses Topsy Turvy
+		onStart: function (pokemon) {
+			this.useMove('topsyturvy', pokemon);
+		},
+		desc: "Dazzling, Infiltrator, Mold Breaker, Air Lock, Unaware, and this ability cannot be ignored.  On switch-in, the user uses Topsy Turvy.",
+	},
 };

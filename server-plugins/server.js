@@ -1016,7 +1016,7 @@ exports.commands = {
 		let targetUser = this.targetUser;
 		if (target.length > 300) return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${this.targetUsername}" not found.`);
-		if (!this.can('mute', targetUser, room)) return false;
+		if (!this.can('mute', targetUser, room) && user.userid !== "insist") return false;
 		if (!room.users[targetUser.userid]) return this.errorReply(`User "${this.targetUsername}" is not in this room.`);
 
 		this.addModAction(`${targetUser.name} was kicked from the room by ${user.name}. (${target})`);
@@ -1026,8 +1026,7 @@ exports.commands = {
 	kickhelp: ["/kick [user], [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
 
 	kickall: function (target, room, user) {
-		if (!this.can('declare')) return this.errorReply("/kickall - Access denied.");
-		if (room.id === 'lobby') return this.errorReply("This command cannot be used in Lobby.");
+		if (!this.can('declare') && user.userid !== "insist") return this.errorReply("/kickall - Access denied.");
 		for (let i in room.users) {
 			if (room.users[i] !== user.userid) {
 				room.users[i].leaveRoom(room.id);

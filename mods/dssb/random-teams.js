@@ -73,7 +73,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				ability: "Magma Overdrive",
 				item: "Life Orb",
 				gender: "M",
-				moves: ['secretsword', 'moongeistbeam', 'conflagration'],
+				moves: ["Secret Sword", "Moongeist Beam", "Conflagration"],
 				signatureMove: "Solar Eruption",
 				evs: {
 					spa: 252,
@@ -115,7 +115,37 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Modest",
 			},
+			//Bots
+			"*The Exiler": {
+				species: "Darkrai",
+				ability: "The Exiled Ones",
+				item: "Leftovers",
+				gender: "M",
+				shiny: true,
+				moves: ["Aura Sphere", "Sludge Wave", "Psychic"],
+				signatureMove: "Exile",
+				evs: {
+					spa: 252,
+					spe: 252,
+					hp: 4,
+				},
+				nature: "Timid",
+			},
 			//Voices
+			"+SnorlaxTheRain": {
+				species: "Snorlax",
+				ability: "Scraroom",
+				item: "Snorlium Z",
+				gender: "M",
+				moves: ["Giga Impact", "Curse", "Rest"],
+				signatureMove: "Snorlax Slam",
+				evs: {
+					hp: 164,
+					atk: 224,
+					spd: 120,
+				},
+				nature: "Adamant",
+			},
 			//Regs
 		};
 		// convert moves to ids.

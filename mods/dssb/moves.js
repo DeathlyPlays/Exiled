@@ -390,4 +390,101 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Dragon",
 	},
+
+	"exile": {
+		isNonstandard: true,
+		accuracy: 100,
+		category: "Special",
+		id: "exile",
+		desc: "Changes forme to Cresselia (or back to Darkrai) and substitutes moves.",
+		isViable: true,
+		name: "Exile",
+		pp: 10,
+		priority: 0,
+		basePower: 80,
+		self: {
+			onHit: function (pokemon, target, move) {
+				// substitute moves
+				function setMove(oldMove, moveid) {
+					let index = pokemon.moves.indexOf(oldMove);
+					if (index === -1) return;
+					let move = Dex.getMove(moveid);
+					let sketchedMove = {
+						move: move.name,
+						id: move.id,
+						pp: move.pp,
+						maxpp: move.pp,
+						target: move.target,
+						disabled: false,
+						used: false,
+					};
+					pokemon.moveset[index] = sketchedMove;
+					pokemon.moves[index] = toId(move.name);
+				}
+				let subs = [
+					["aurasphere", "recover"],
+					["sludgewave", "storedpower"],
+					["psychic", "cosmicpower"],
+				];
+				if (pokemon.template.speciesid === 'darkrai' && pokemon.formeChange('Cresselia')) {
+					subs.forEach(s => setMove(s[0], s[1]));
+					this.add('-formechange', pokemon, 'Cresselia', '[msg]');
+				} else if (pokemon.formeChange('Cresselia')) {
+					subs.forEach(s => setMove(s[1], s[0]));
+					this.add('-formechange', pokemon, 'Darkrai', '[msg]');
+				}
+				// make changing form available in consecutive turns
+				delete pokemon.volatiles.stall;
+			},
+		},
+		flags: {
+			protect: 1,
+			distance: 1,
+		},
+		target: "any",
+		type: "Dark",
+	},
+
+	//SnorlaxTheRain
+	"snorlaxslam": {
+		accuracy: 95,
+		basePower: 120,
+		category: "Physical",
+		desc: "120BP, 95% Accuracy, and can be used while sleeping.",
+		id: "snorlaxslam",
+		name: "Snorlax Slam",
+		pp: 5,
+		priority: 0,
+		//Stolen from Sleep Talk
+		flags: {protect: 1, mirror: 1},
+		sleepUsable: true,
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Body Slam", target);
+		},
+		onHit: function (target) {
+			this.add('c|+SnorlaxTheRain|Beware of the biggest body slam u will ever seen!');
+		},
+		target: "normal",
+		type: "Normal",
+	},
+
+	//SnorlaxTheRain
+	"scraroom": {
+		id: "scraroom",
+		name: "Scraroom",
+		desc: "Combination of Trick Room & Scrappy",
+		shortDesc: "Trick Room + Scrappy",
+		onStart: function (pokemon) {
+			this.useMove('trickroom', pokemon);
+		},
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Fighting'] = true;
+				move.ignoreImmunity['Normal'] = true;
+			}
+		},
+	},
 };

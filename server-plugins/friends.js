@@ -170,7 +170,11 @@ exports.commands = {
 					display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/friends unfriend ${friend}">Unfriend ${friend}</button></td>`;
 				}
 			});
-			display += `</tr></table></div>`;
+			display += `</tr></table>`;
+			if (!this.broadcasting) {
+				display += `<center><button class="button" name="send" value="/friends notifications">${(Db.friendnotifications.has(user.userid) ? `Disable Friend Notifications` : `Enable Friend Notifications`)}</center>`;
+			}
+			display += `</div>`;
 			return this.sendReplyBox(display);
 		},
 

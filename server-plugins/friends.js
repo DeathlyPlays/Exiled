@@ -78,7 +78,7 @@ exports.commands = {
 			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (Db.disabledfriends.has(toId(target))) return this.errorReply(`${targetUser} has disabled adding friends.`);
 			if (Db.disabledfriends.has(user.userid)) return this.errorReply(`You must enable friend requests before attempting to add others.`);
-			if (friends[targetUser.userid].pendingRequests.includes(user.userid)) return this.parse(`/friends accept ${targetUser}`);
+			if (friends[targetUser.userid] && friends[targetUser.userid].pendingRequests.includes(user.userid)) return this.parse(`/friends accept ${targetUser}`);
 			if (friends[user.userid].pendingRequests.includes(targetUser.userid)) return this.errorReply(`${targetUser} already has a pending request from you.`);
 			if (friends[user.userid].friendsList.includes(targetUser.userid)) return this.errorReply(`${targetUser} is already registered on your friends list.`);
 			friends[user.userid].pendingRequests.push(targetUser.userid);

@@ -1,10 +1,12 @@
 "use strict";
 
-global.TeamValidator = require("../sim/team-validator");
 let fs = require("fs");
+
 let ssbWrite = true; //if false, do not write to JSON
 let noRead = false; //if true, do not read from JSON
+
 const MAX_MOVEPOOL_SIZE = 4;
+
 let customMovepool = ["Stretch", "Flame Tower", "Rain Spear", "Healing Herbs", "Electro Drive", "Hailstorm", "Beat Down", "Nuclear Waste", "Terratremor", "Ventilation", "Psychic Shield", "Swarm Charge", "Rock Cannon", "Spook", "Imperial Rampage", "Shadow Run", "Magnorang", "Majestic Dust"]; //Add default custom move names here.
 let typeList = ["Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy"];
 
@@ -21,7 +23,7 @@ global.writeSSB = function () {
 	fs.writeFile("config/ssb.json", JSON.stringify(Server.ssb), () => {});
 };
 
-//Shamlessly ripped from teambuilder client.
+//Shamelessly ripped from teambuilder client.
 function getStat(stat, set, evOverride, natureOverride) {
 	if (!set) set = this.curSet;
 	if (!set) return 0;
@@ -75,7 +77,7 @@ function buildMenu(userid) {
 		speciesName = `${toId(split[0])}-${speciesName.substring(toId(split[0]).length)}`;
 	}
 	let output = ``;
-	output += `<div class="setchart" style="height: 155px; background-image:url(//play.pokemonshowdown.com/sprites/${(Dex.getTemplate(toId(Server.ssb[userid].species)).gen === 7 ? `bw` : `xydex`)} ${(Server.ssb[userid].shiny ? `-shiny` : ``)}/${speciesName}.png); background-position: -2px -3px; background-repeat: no-repeat;">`;
+	output += `<div class="setchart" style="height: 155px; background-image:url(//play.pokemonshowdown.com/sprites/${(Dex.getTemplate(toId(Server.ssb[userid].species)).gen === 7 ? `bw` : `xydex`)}${(Server.ssb[userid].shiny ? `-shiny` : ``)}/${speciesName}.png); background-position: -2px -3px; background-repeat: no-repeat;">`;
 	output += `<div class="setcol setcol-icon"><div class="setcell-sprite"></div><div class="setcell setcell-pokemon"><label>Pokémon</label><button class="textbox chartinput" style="width: 104px; height: 20px; text-align: left" name="send" value="/ssb edit species">${Server.ssb[userid].species}</button></div></div>`;
 	output += `<div class="setcol setcol-details"><div class="setrow"><div class="setcell setcell-details"><label>Details</label><button class="textbox setdetails" tabindex="-1" name="send" value="/ssb edit details"><span class="detailcell detailcell-first"><label>Level</label>${Server.ssb[userid].level}</span><span class="detailcell"><label>Gender</label>${(Server.ssb[userid].gender === `random` ? `-` : Server.ssb[userid].gender)}</span><span class="detailcell"><label>Happiness</label>${Server.ssb[userid].happiness}</span><span class="detailcell"><label>Shiny</label>${(Server.ssb[userid].shiny ? `Yes` : `No`)}</span></button><span class="itemicon" style="background: none"></span></div></div><div class="setrow"><div class="setcell setcell-item"><label>Item</label><button class="textbox chartinput" style="width:104px; height: 20px; text-align: left" name="send" value="/ssb edit item">${(Server.ssb[userid].item ? Server.ssb[userid].item : ``)}</button></div><div class="setcell setcell-ability"><label>Ability</label><button class="textbox chartinput" style="width:104px; height: 20px; text-align: left" name="send" value="/ssb edit ability">${Server.ssb[userid].ability}</button></div></div></div>`;
 	output += `<div class="setcol setcol-moves"><div class="setcell"><label>Moves</label><button class="textbox chartinput" style="width:129px; height: 20px; text-align: left; overflow: hidden" name="send" value="/ssb edit move">${(Server.ssb[userid].movepool[0] ? Server.ssb[userid].movepool[0] : ``)}</button></div><div class="setcell"><button class="textbox chartinput" style="width:129px; height: 20px; text-align: left; overflow: hidden" name="send" value="/ssb edit move">${(Server.ssb[userid].movepool[1] ? Server.ssb[userid].movepool[1] : ``)}</button></div><div class="setcell"><button class="textbox chartinput" style="width:129px; height: 20px; text-align: left; overflow: hidden" name="send" value="/ssb edit move">${(Server.ssb[userid].movepool[2] ? Server.ssb[userid].movepool[2] : ``)}</button></div><div class="setcell"><button class="textbox chartinput" style="width:129px; height: 20px; text-align: left; overflow: hidden" name="send" value="/ssb edit move">${(Server.ssb[userid].cMove ? Server.ssb[userid].cMove : (Server.ssb[userid].movepool[3] ? Server.ssb[userid].movepool[3] : ``))}</button></div></div>`;

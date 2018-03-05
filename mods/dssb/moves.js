@@ -408,7 +408,7 @@ exports.BattleMovedex = {
 				function setMove(oldMove, moveid) {
 					let index = pokemon.moves.indexOf(oldMove);
 					if (index === -1) return;
-					let move = Dex.getMove(moveid);
+					let move = this.getMove(moveid);
 					let sketchedMove = {
 						move: move.name,
 						id: move.id,
@@ -469,22 +469,11 @@ exports.BattleMovedex = {
 		type: "Normal",
 	},
 
-	//SnorlaxTheRain
-	"scraroom": {
-		id: "scraroom",
-		name: "Scraroom",
-		desc: "Combination of Trick Room & Scrappy",
-		shortDesc: "Trick Room + Scrappy",
-		onStart: function (pokemon) {
-			this.useMove('trickroom', pokemon);
-		},
-		onModifyMovePriority: -5,
-		onModifyMove: function (move) {
-			if (!move.ignoreImmunity) move.ignoreImmunity = {};
-			if (move.ignoreImmunity !== true) {
-				move.ignoreImmunity['Fighting'] = true;
-				move.ignoreImmunity['Normal'] = true;
-			}
+	"moongeistbeam": {
+		inherit: true,
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Never-Ending Nightmare", target);
 		},
 	},
 };

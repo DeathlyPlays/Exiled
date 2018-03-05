@@ -51,6 +51,10 @@ exports.BattleAbilities = {
 			this.useMove("focusenergy", pokemon);
 			this.add("c|~Mewth|LEMME HEAR YOU ROARRRRRRRRRRRR");
 		},
+		onStart: function (pokemon) {
+			this.add("-start", pokemon, "typechange", "Normal/Ghost");
+			pokemon.types = ["Normal", "Ghost"];
+		},
 	},
 
 	// Renfur
@@ -269,5 +273,24 @@ exports.BattleAbilities = {
 			this.useMove('topsyturvy', pokemon);
 		},
 		desc: "Dazzling, Infiltrator, Mold Breaker, Air Lock, Unaware, and this ability cannot be ignored.  On switch-in, the user uses Topsy Turvy.",
+	},
+
+	//SnorlaxTheRain
+	"scraroom": {
+		id: "scraroom",
+		name: "Scraroom",
+		desc: "Combination of Trick Room & Scrappy",
+		shortDesc: "Trick Room + Scrappy",
+		onStart: function (pokemon) {
+			this.useMove('trickroom', pokemon);
+		},
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Fighting'] = true;
+				move.ignoreImmunity['Normal'] = true;
+			}
+		},
 	},
 };

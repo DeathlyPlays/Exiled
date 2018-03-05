@@ -36,7 +36,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Adamant",
 			},
 			"~Mewth": {
-				species: "Furret-Mega",
+				species: "Furret",
 				ability: "Roarplaying",
 				item: "Scope Lens",
 				gender: "F",
@@ -123,7 +123,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				gender: "M",
 				shiny: true,
 				moves: ["Aura Sphere", "Sludge Wave", "Psychic"],
-				signatureMove: "Exile",
+				signatureMove: "Dark Storm",
 				evs: {
 					spa: 252,
 					spe: 252,

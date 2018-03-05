@@ -250,7 +250,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Custom Game",
 
-		mod: 'gen7',
+		mod: 'pmd',
 		searchShow: false,
 		canUseRandomTeam: true,
 		debug: true,
@@ -674,10 +674,23 @@ exports.Formats = [
 		team: 'randomHC',
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod', 'PotD'],
 		onModifyTemplate: function (template, pokemon) {
-			for (let i in template.baseStats) {
-				if (template.baseStats[i] <= 70) template.baseStats[i] *= 2;
+			let tsTemplate = Object.assign({}, template);
+			const boosts = {'UU': 10, 'BL2': 10, 'RU': 20, 'BL3': 20, 'NU': 30, 'BL4': 30, 'PU': 40, 'NFE': 40, 'LC Uber': 40, 'LC': 40};
+			let tier = tsTemplate.tier;
+			if (pokemon.set.item) {
+				let item = this.getItem(pokemon.set.item);
+				if (item.megaEvolves === tsTemplate.species) tier = this.getTemplate(item.megaStone).tier;
 			}
-			return template;
+			if (tier.charAt(0) === '(') tier = tier.slice(1, -1);
+			let boost = (tier in boosts) ? boosts[tier] : 0;
+			if (boost > 0 && (pokemon.set.ability === 'Drizzle' || pokemon.set.item === 'Mewnium Z')) boost = 0;
+			if (boost > 10 && pokemon.set.moves.includes('auroraveil')) boost = 10;
+			if (boost > 20 && pokemon.set.ability === 'Drought') boost = 20;
+			tsTemplate.baseStats = Object.assign({}, tsTemplate.baseStats);
+			for (let statName in tsTemplate.baseStats) {
+				tsTemplate.baseStats[statName] = this.clampIntRange(tsTemplate.baseStats[statName] + boost, 1, 255);
+			}
+			return tsTemplate;
 		},
 	},
 	{
@@ -1550,7 +1563,9 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Rise of PU",
-		desc: ["&bullet; Give PU Pokemon time to shine! Many PU Pokemon will be buffed to fit the OU metagame."],
+		desc: ["&bullet; Give PU Pokemon time to shine! Many PU Pokemon will be buffed to fit the OU metagame.",
+			"&bullet; <a href=\"http://flufi.boards.net/thread/3/usm-rise-pu-viability-rankings\">Rise of PU Viability Rankings</a>",
+		],
 		mod: "riseofpu",
 		ruleset: ['[Gen 7] OU'],
 		banlist: [],
@@ -1752,6 +1767,7 @@ exports.Formats = [
 		desc: [
 			"Legendaries have been banished from the tier, what are we gonna do now?",
 			"&bullet; <a href=\"http://chandie.boards.net/thread/5/welcome-usm-legendless\">Legendless Bans and Unbans</a>",
+			"&bullet; <a href=\"http://chandie.boards.net/thread/6/usm-legendless-viability-rankings\">Legendless Viability Ranking</a>",
 		],
 		mod: 'gen7',
 		ruleset: ['Sleep Clause Mod', 'Pokemon', 'Standard', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],

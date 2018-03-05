@@ -38,4 +38,16 @@ exports.BattleStatuses = {
 			}
 		},
 	},
+	snorlaxtherain: {
+		exists: true,
+		onStart: function () {
+			this.add('c', '+SnorlaxTheRain', 'Fat Snorlax has arrived!');
+		},
+		onSwitchOut: function (pokemon) {
+			this.add('c', '+SnorlaxTheRain', 'Be right back enemies! Snorsnor');
+		},
+		onFaint: function (pokemon) {
+			this.add('c', '+SnorlaxTheRain', 'Even though u have won, I will still sleep and regain my energy in order to fight against u once more!');
+		},
+	},
 };

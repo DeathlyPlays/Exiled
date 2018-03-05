@@ -245,19 +245,19 @@ exports.commands = {
 		this.addModAction(`${target} was exp unbanned by ${user.name}.`);
 		this.sendReply(`${target} is no longer banned from exp.`);
 	},
-	expunbanhelp: ['/expunban target - allows a user to gain exp if they were exp banned'],
+	expunbanhelp: ['/expunban target - allows a user to gain exp, if they were exp banned.'],
 
 	expban: function (target, room, user) {
 		if (!this.can("exp")) return false;
 		if (!target) return this.parse('/help expban');
 		let targetId = toId(target);
-		if (Db.expoff.has(targetId)) return this.errorReply(`${target} is not currently exp banned.`);
+		if (Db.expoff.has(targetId)) return this.errorReply(`${target} is currently exp banned.`);
 		Db.expoff.set(targetId, true);
-		this.globalModlog(`EXPUNBAN`, targetId, ` by ${user.name}`);
-		this.addModAction(`${target} was exp unbanned by ${user.name}.`);
-		this.sendReply(`${target} is no longer banned from exp.`);
+		this.globalModlog(`EXPBAN`, targetId, ` by ${user.name}`);
+		this.addModAction(`${target} was exp banned by ${user.name}.`);
+		this.sendReply(`${target} is now banned from exp.`);
 	},
-	expbanhelp: ['/expban target - bans a user from gaining exp until removed'],
+	expbanhelp: ['/expban target - bans a user from gaining exp until removed.'],
 
 	'!xpladder': true,
 	expladder: 'xpladder',

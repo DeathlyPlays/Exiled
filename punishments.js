@@ -1228,9 +1228,9 @@ Punishments.checkName = function (user, userid, registered) {
 	let id = punishment[0];
 	let punishUserid = punishment[1];
 	let reason = ``;
-	if (punishment[3]) reason = `||||Reason: ${punishment[3]}`;
+	if (punishment[3]) reason = `\n\nReason: ${punishment[3]}`;
 	let appeal = ``;
-	if (Config.appealurl) appeal = `||||Or you can appeal at: ${Config.appealurl}`;
+	if (Config.appealurl) appeal = `\n\nOr you can appeal at: ${Config.appealurl}`;
 	let bannedUnder = ``;
 	if (punishUserid !== userid) bannedUnder = ` because you have the same IP as banned user: ${punishUserid}`;
 
@@ -1244,14 +1244,14 @@ Punishments.checkName = function (user, userid, registered) {
 		return;
 	}
 	if (registered && id === 'BAN') {
-		user.send(`|popup|Your username (${user.name}) is banned${bannedUnder}. Your ban will expire in a few days.${reason}${appeal}`);
+		user.popup(`Your username (${user.name}) is banned${bannedUnder}. Your ban will expire in a few days.${reason}${appeal}`);
 		user.punishmentNotified = true;
 		Punishments.punish(user, punishment);
 		user.disconnectAll();
 		return;
 	}
 	if (id === 'NAMELOCK' || user.namelocked) {
-		user.send(`|popup|You are namelocked and can't have a username${bannedUnder}. Your namelock will expire in a few days.${reason}${appeal}`);
+		user.popup(`You are namelocked and can't have a username${bannedUnder}. Your namelock will expire in a few days.${reason}${appeal}`);
 		if (punishment[2]) Punishments.punish(user, punishment);
 		user.locked = punishUserid;
 		user.namelocked = punishUserid;
@@ -1261,7 +1261,7 @@ Punishments.checkName = function (user, userid, registered) {
 		if (punishUserid === '#hostfilter') {
 			user.popup(`Due to spam, you can't chat using a proxy. (Your IP ${user.latestIp} appears to be a proxy.)`);
 		} else if (!user.lockNotified) {
-			user.send(`|popup|You are locked${bannedUnder}. Your lock will expire in a few days.${reason}${appeal}`);
+			user.popup(`You are locked${bannedUnder}. Your lock will expire in a few days.${reason}${appeal}`);
 		}
 		user.lockNotified = true;
 		Punishments.punish(user, punishment);
@@ -1414,7 +1414,7 @@ Punishments.checkLockExpiration = function (userid) {
 		let expiresDays = Math.round(expiresIn / 1000 / 60 / 60 / 24);
 		let expiresText = '';
 		if (expiresDays >= 1) {
-			expiresText = `in around ${expiresDays} day${Chat.plural(expiresDays)}`;
+			expiresText = `in around ${Chat.count(expiresDays, "days")}`;
 		} else {
 			expiresText = `soon`;
 		}
@@ -1467,10 +1467,10 @@ Punishments.isRoomBanned = function (user, roomid) {
  *
  * @param {User | string} user
  * @param {Object?} options
- * @return {Array | undefined}
+ * @return {Array}
  */
 Punishments.getRoomPunishments = function (user, options) {
-	if (!user) return;
+	if (!user) return [];
 	let userid = toId(user);
 	let checkMutes = typeof user !== 'string';
 

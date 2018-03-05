@@ -85,7 +85,7 @@ exports.commands = {
 			userList.push(Chat.escapeHTML(curUser.getIdentity(room.id)));
 		}
 
-		let output = `There ${Chat.plural(userList.length, 'are', 'is')} <strong style="color:#24678d">${userList.length}</strong> user${Chat.plural(userList.length)} in this room:<br />`;
+		let output = `There ${Chat.plural(userList, "are", "is")} <strong style="color:#24678d">${Chat.count(userList, "</strong> users")} in this room:<br />`;
 		output += userList.join(`, `);
 
 		this.sendReplyBox(output);
@@ -851,7 +851,7 @@ exports.commands = {
 				room.privacySetter.delete(user.userid);
 				if (room.privacySetter.size) {
 					const privacySetters = Array.from(room.privacySetter).join(', ');
-					return this.sendReply(`You are no longer forcing the room to stay private, but ${privacySetters} also need${Chat.plural(room.privacySetter, '', 's')} to use /publicroom to make the room public.`);
+					return this.sendReply(`You are no longer forcing the room to stay private, but ${privacySetters} also need${Chat.plural(room.privacySetter, "", "s")} to use /publicroom to make the room public.`);
 				}
 			}
 			delete room.isPrivate;
@@ -2615,6 +2615,7 @@ exports.commands = {
 
 		const userRank = Config.groupsranking.indexOf(room.getAuth(user));
 		for (const userid of targets) {
+			if (!userid) return this.errorReply(`User '${userid}' is not a valid userid.`);
 			const targetRank = Config.groupsranking.indexOf(room.getAuth({userid}));
 			if (targetRank >= userRank) return this.errorReply(`/blacklistname - Access denied: ${userid} is of equal or higher authority than you.`);
 
@@ -2629,7 +2630,7 @@ exports.commands = {
 			}
 		}
 
-		this.addModAction(`${targets.join(', ')}${(targets.length > 1 ? " were" : " was")} nameblacklisted from ${room.title} by ${user.name}.`);
+		this.addModAction(`${targets.join(', ')}${Chat.plural(targets, " were", " was")} nameblacklisted from ${room.title} by ${user.name}.`);
 		return true;
 	},
 	blacklistnamehelp: [`/blacklistname OR /nameblacklist [username1, username2, etc.] | reason - Blacklists the given username(s) from the room you are in for a year. Requires: # & ~`],
@@ -2723,7 +2724,7 @@ exports.commands = {
 			if (soonExpiring && expireTime > Date.now() + SOON_EXPIRING_TIME) return;
 			const expiresIn = new Date(expireTime).getTime() - Date.now();
 			const expiresDays = Math.round(expiresIn / 1000 / 60 / 60 / 24);
-			buf += `- <strong>${userid}</strong>, for ${expiresDays} day${Chat.plural(expiresDays)}`;
+			buf += `- <strong>${userid}</strong>, for ${Chat.count(expiresDays, "days")}`;
 			if (alts.length) buf += `, alts${ips}: ${alts.join(', ')}`;
 			buf += `<br />`;
 		});

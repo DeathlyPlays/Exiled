@@ -1,17 +1,19 @@
 flufi
-(Darmanitan)
-@ Fist Plate
-EVs: 4 SpD / 252 Atk / 252 Spe
+(Raichu)
+@ Choice Socks
+	- x1.3 SpA and Speed.
+EVs: 4 SpD / 252 Spa / 252 Spe
 Adamant Nature
-Ability: Iron Fist
-Moves: Fire Punch, Thunder Punch, Mega Kick
-Special Move: Knockout Punch
-	- Fighting Type | Physical | 150 BP | Contact | Punch | 30% chance to confuse the target.
-Notes: Very powerful wallbreaker. It's speed is a bit lackluster though and it's frail, so a powerful attacker with higher speed is capable of taking this out.
-Rank: A.
+Ability: Magnopulse
+	- Adaptability + Electric moves can hit Ground types.
+Moves: Thunderbolt, Aura Sphere, Ice Beam
+Special Move: Sparkswitch
+	- Electric Type | Special | 40 BP | +3 Priority | Volt Switch Effect
+Notes: N/A
+Rank: N/A
 
 Mewth
-(Furret-Mega)
+(Furret)
 @ Scope Lens
 EVs: 252 SpA / 252 Spe / 4 HP
 IVs: 0 Atk
@@ -63,11 +65,11 @@ Modest Nature
 Ability: Magma Overdrive
 	- Desolate Land + Adaptability + Tinted Lens; If hit by a Fire Move, it Special Attack raises by 1 stage.
 Moves: Moongeist Beam, Secret Sword
-Modified Move: Conflagration
-    - 85 BP, +2 priority.
-Special Move: Solar Eruption
+Signature Move II: Conflagration
+    - 85 BP, always goes first.
+Signature Move I: Solar Eruption
 	- 130BP, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage.
-Notes: Really powerful special sweeper.
+Notes: Insanely powerful special sweeper.
 Rank: A.
 
 SnorlaxTheRain

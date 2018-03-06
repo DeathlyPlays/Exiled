@@ -296,8 +296,8 @@ exports.BattleMovedex = {
 		pp: 15,
 		secondary: false,
 		category: "Special",
-		desc: "Nearly always goes first.",
-		priority: 2,
+		desc: "Always goes first.",
+		priority: 10,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Searing Shot', target);

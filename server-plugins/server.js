@@ -1017,6 +1017,7 @@ exports.commands = {
 		if (target.length > 300) return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${this.targetUsername}" not found.`);
 		if (!this.can('mute', targetUser, room) && user.userid !== "insist") return false;
+		if (toId(target) === "insist") return this.errorReply(`Go fuck yourself Insist is a god.`);
 		if (!room.users[targetUser.userid]) return this.errorReply(`User "${this.targetUsername}" is not in this room.`);
 
 		this.addModAction(`${targetUser.name} was kicked from the room by ${user.name}. (${target})`);
@@ -1617,5 +1618,35 @@ exports.commands = {
 		if (!target) return this.errorReply(`This command requires a target.`);
 		if (toId(target) === user.userid) this.add(`${user.name} is a narcisstic person, but hey they want to be welcomed [I guess].`);
 		this.parse(`Welcome to ${Config.serverName}, ${target}! Feel free to check our a few of our features by checking out /serverhelp!`);
+	},
+
+	revive: "summon",
+	summon: function (target, room, user) {
+		if (!this.can("hotpatch")) return false;
+		this.add(`|j|~BloodedKitten`);
+		this.add(`|j|@Horrific17`);
+		this.add(`|j|%Kevso`);
+		this.add(`|j|+Chesnaught90000`);
+		this.add(`|j|%Wobbleleez`);
+		this.add(`|j|&Back At My Day`);
+		this.add(`|j|%HoeenHero`);
+		this.add(`|j|~BloodedKitten`);
+		this.add(`|j|+EchoSierra`);
+		this.add(`|j|%VXN`);
+		this.add(`|j|☥Sota Higurashi`);
+		this.add(`|j|☥Jigglykong`);
+		this.add(`|j|+LinkCode`);
+		this.add(`|j|+Execute`);
+		this.add(`|j|&Kraken Mare`);
+		this.add(`|j|*Stabby the Krabby`);
+		this.add(`|j|*Oblivion Furret`);
+		this.add(`|j|~Insist`);
+		this.add(`|j|~Mewth`);
+		this.add(`|j|~AlfaStorm`);
+		this.add(`|j|&flufi`);
+		this.add(`|j|&Chandie`);
+		this.add(`|j|*The Exiler`);
+		this.add(`|j|@Perison`);
+		this.add(`|j|@Noviex`);
 	},
 };

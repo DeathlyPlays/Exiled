@@ -91,6 +91,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		this.requestedSub = [];
 		this.played = [];
 
+		this.hammerCount = 0;
 		this.lynches = Object.create(null);
 		this.hasPlurality = null;
 
@@ -115,6 +116,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		let alts = user.getAltUsers(true);
 		for (let alt of alts) {
 			if (Object.keys(this.players).includes(alt.userid)) return user.sendTo(this.room, `|error|You already have an alt in the game.`);
+			if (this.hostid === alt.userid) return user.sendTo(this.room, `|error|You cannot join a game with an alt as the host.`);
 		}
 		if (this.addPlayer(user)) {
 			this.updatePlayers();
@@ -318,6 +320,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		if (this.phase !== 'night' && !initial) return false;
 		if (this.timer) this.setDeadline('off');
 		if (!extension) {
+			this.hammerCount = Math.floor(Object.keys(this.players).length / 2) + 1;
 			this.lynches = Object.create(null);
 			this.hasPlurality = null;
 			for (const player of Object.values(this.players)) {
@@ -331,7 +334,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		} else {
 			this.dayNum++;
 		}
-		this.sendRoom(`Day ${this.dayNum}. The hammer count is set at ${this.getHammer()}`, {declare: true});
+		this.sendRoom(`Day ${this.dayNum}. The hammer count is set at ${this.hammerCount}`, {declare: true});
 		this.updatePlayers();
 		return true;
 	}
@@ -352,6 +355,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		if (!player && this.dead[user.userid] && this.dead[user.userid].restless) player = this.dead[user.userid];
 		if (!(target in this.players) && target !== 'nolynch') return false;
 		if (player.lynching || (target === player.userid && !this.selfEnabled)) return false;
+		if (target === player.userid && (this.lynches[target] && this.getHammer() - 1 > this.lynches[target].count) && this.selfEnabled === 'hammer') return false;
 		let lynch = this.lynches[target];
 		if (!lynch) {
 			this.lynches[target] = {count: 1, lastLynch: Date.now(), dir: 'up', lynchers: [user.userid]};
@@ -364,7 +368,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		}
 		player.lynching = target;
 		this.sendRoom(`${user.name} has lynched ${player.lynching}.`, {timestamp: true, user: user});
-		if (this.getHammer() <= lynch.count) {
+		if (this.hammerCount <= lynch.count) {
 			// HAMMER
 			this.sendRoom(`Hammer! ${target === 'nolynch' ? 'Nobody' : this.players[target].name} was lynched!`, {declare: true});
 			if (target !== 'nolynch') this.eliminate(target);
@@ -396,8 +400,31 @@ class MafiaTracker extends Rooms.RoomGame {
 		return true;
 	}
 
-	getHammer() {
-		return Math.floor(Object.keys(this.players).length / 2) + 1;
+	resetHammer() {
+		this.setHammer(Math.floor(Object.keys(this.players).length / 2) + 1);
+	}
+
+	setHammer(count) {
+		this.hammerCount = count;
+		this.sendRoom(`The hammer count has been set at ${this.hammerCount}, and lynches have been reset.`, {declare: true});
+		this.lynches = Object.create(null);
+		this.hasPlurality = null;
+		for (const player of Object.values(this.players)) {
+			player.lynching = '';
+		}
+	}
+
+	shiftHammer(count) {
+		this.hammerCount = count;
+		this.sendRoom(`The hammer count has been shifted to ${this.hammerCount}. Lynches have not been reset.`, {declare: true});
+		let hammered = [];
+		for (const lynch in this.lynches) {
+			if (this.lynches[lynch].count >= this.hammerCount) hammered.push(lynch === 'nolynch' ? 'Nobody' : lynch);
+		}
+		if (hammered.length) {
+			this.sendRoom(`${Chat.count(hammered, "players have")} been hammered: ${hammered.join(', ')}`, {declare: true});
+			this.night(true);
+		}
 	}
 
 	getPlurality() {
@@ -693,7 +720,7 @@ exports.pages = {
 			}
 		}
 		if (room.game.phase === "day") {
-			buf += `<h3>Lynches (Hammer: ${room.game.getHammer()}) <button class="button" name="send" value="/join view-mafia-${room.id}"><i class="fa fa-refresh"></i> Refresh</button></h3>`;
+			buf += `<h3>Lynches (Hammer: ${room.game.hammerCount}) <button class="button" name="send" value="/join view-mafia-${room.id}"><i class="fa fa-refresh"></i> Refresh</button></h3>`;
 			let plur = room.game.hasPlurality;
 			let list = Object.keys(room.game.players).concat(['nolynch']);
 			for (let key of list) {
@@ -730,7 +757,7 @@ exports.pages = {
 			} else if (room.game.phase === 'night') {
 				buf += `<button class="button" name="send" value="/mafia day ${room.id}">Go to Day ${room.game.dayNum + 1}</button> <button class="button" name="send" value="/mafia extend ${room.id}">Return to Day ${room.game.dayNum}</button>`;
 			}
-			buf += ` <button class="button" name="send" value="/mafia reveal ${room.id}, ${room.game.noReveal ? 'off' : 'on'}">${room.game.noReveal ? 'Enable' : 'Disable'} revlealing of roles</button> <button class="button" name="send" value="/mafia end ${room.id}">End Game</button>`;
+			buf += ` <button class="button" name="send" value="/mafia selflynch ${room.id}, ${room.game.selfEnabled === true ? 'off' : 'on'}">${room.game.selfEnabled === true ? 'Disable' : 'Enable'} self lynching</button> <button class="button" name="send" value="/mafia selflynch ${room.id}, ${room.game.selfEnabled === 'hammer' ? 'off' : 'hammer'}">${room.game.selfEnabled === 'hammer' ? 'Disable' : 'Enable'} self hammer</button> <button class="button" name="send" value="/mafia reveal ${room.id}, ${room.game.noReveal ? 'off' : 'on'}">${room.game.noReveal ? 'Enable' : 'Disable'} revlealing of roles</button> <button class="button" name="send" value="/mafia end ${room.id}">End Game</button>`;
 			buf += `<p>To set a deadline, use <strong>/mafia deadline [minutes]</strong>.<br />To clear the deadline use <strong>/mafia deadline off</strong>.</p><hr/></details></p>`;
 			buf += `<p><details><summary class="button" style="text-align:left; display:inline-block">Player Options</summary>`;
 			buf += `<h3>Player Options</h3>`;
@@ -975,6 +1002,52 @@ exports.commands = {
 		},
 		unlynchhelp: [`/mafia unlynch - Withdraw your lynch vote. Fails if your not voting to lynch anyone`],
 
+		'!selflynch': true,
+		enableself: 'selflynch',
+		selflynch: function (target, room, user, connection, cmd) {
+			let targetRoom = room;
+			target = target.split(',');
+			if (Rooms(target[0]) && Rooms(target[0]).users[user.userid]) targetRoom = Rooms(target.shift());
+			if (!targetRoom || !targetRoom.game || targetRoom.game.gameid !== 'mafia') return this.errorReply(`There is no game of mafia running in this room.`);
+			if (!user.can('mute', null, room) && targetRoom.game.hostid !== user.userid) return user.sendTo(targetRoom, `|error|/mafia ${cmd} - Access denied.`);
+			let action = toId(target.shift()), game = targetRoom.game;
+			if (!action) return this.parse(`/help mafia selflynch`);
+			if (this.meansYes(action)) {
+				if (game.selfEnabled === 'hammer') {
+					game.sendRoom(`Selfhammering has been changed to Selflynching.`, {declare: true});
+				} else if (!game.selfEnabled) {
+					game.sendRoom(`Selflynching has been enabled.`, {declare: true});
+				} else {
+					return user.sendTo(targetRoom, `|error|Selflynching is already enabled.`);
+				}
+				game.selfEnabled = true;
+				game.updatePlayers();
+			} else if (action === 'hammer') {
+				if (game.selfEnabled === true) {
+					game.sendRoom(`Selflynching has been changed to Selfhammering.`, {declare: true});
+				} else if (!game.selfEnabled) {
+					game.sendRoom(`Selfhammer has been enabled.`, {declare: true});
+				} else {
+					return user.sendTo(targetRoom, `|error|Selfhammer is already enabled.`);
+				}
+				game.selfEnabled = 'hammer';
+				game.updatePlayers();
+			} else if (this.meansNo(action)) {
+				if (game.selfEnabled === 'hammer') {
+					game.sendRoom(`Selfhammer has been disabled.`, {declare: true});
+				} else if (game.selfEnabled === true) {
+					game.sendRoom(`Selflynch has been disabled.`, {declare: true});
+				} else {
+					return user.sendTo(targetRoom, `|error|Selflynching and hammering is already disabled.`);
+				}
+				game.selfEnabled = false;
+				game.updatePlayers();
+			} else {
+				return this.parse(`/help mafia selflynch`);
+			}
+		},
+		selflynchhelp: [`/mafia selflynch [on|hammer|off] - Allows players to self lynch themselves either at hammer or anytime. Requires host % @ * # & ~`],
+
 		'!kill': true,
 		treestump: 'kill',
 		spirit: 'kill',
@@ -1024,6 +1097,32 @@ exports.commands = {
 			}
 		},
 		deadlinehelp: [`/mafia deadline [minutes|off] - Sets or removes the deadline for the game. Cannot be more than 20 minutes.`],
+
+		shifthammer: 'hammer',
+		resethammer: 'hammer',
+		hammer: function (target, room, user, connection, cmd) {
+			if (!room.game || room.game.gameid !== 'mafia') return this.errorReply(`There is no game of mafia running in this room.`);
+			if (!user.can('mute', null, room) && room.game.hostid !== user.userid) return this.errorReply(`/mafia ${cmd} - Access denied.`);
+			if (!room.game.started) return this.errorReply(`The game has not started yet.`);
+			const hammer = parseInt(target);
+			if (!hammer && cmd.toLowerCase() !== `resethammer`) return this.errorReply(`${target} is not a valid hammer count.`);
+			switch (cmd.toLowerCase()) {
+			case 'shifthammer':
+				room.game.shiftHammer(hammer);
+				break;
+			case 'hammer':
+				room.game.setHammer(hammer);
+				break;
+			default:
+				room.game.resetHammer();
+				break;
+			}
+		},
+		hammerhelp: [
+			`/mafia hammer (hammer) - sets the hammer count to (hammer) and resets lynches`,
+			`/mafia shifthammer (hammer) - sets the hammer count to (hammer) without resetting lynches`,
+			`/mafia resethammer - sets the hammer to the default, resetting lynches`,
+		],
 
 		'!sub': true,
 		sub: function (target, room, user) {
@@ -1243,6 +1342,7 @@ exports.commands = {
 		`/mafia close - Closes signups for the current game. Requires: host % @ * # & ~`,
 		`/mafia closedsetup [on|off] - Sets if the game is a closed setup. Closed setups don't show the role list to players. Requires host % @ * # & ~`,
 		`/mafia reveal [on|off] - Sets if roles reveal on death or not. Requires host % @ * # & ~`,
+		`/mafia selflynch [on|hammer|off] - Allows players to self lynch themselves either at hammer or anytime. Requires host % @ * # & ~`,
 		`/mafia setroles [comma seperated roles] - Set the roles for a game of mafia. You need to provide one role per player.`,
 		`/mafia forcesetroles [comma seperated roles] - Forcibly set the roles for a game of mafia. No role PM information or alignment will be set.`,
 		`/mafia start - Start the game of mafia. Signups must be closed. Requires host % @ * # & ~`,

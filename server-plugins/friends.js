@@ -34,11 +34,11 @@ function checkFriends(user, userid) {
 	if (!friends[userid] || !Db.friendnotifications.has(userid)) return false;
 	let onlineUsers = [];
 	friends[userid].friendsList.forEach(online => {
-		if (Users.get(online)) {
+		if (Users.get(online) && Users.get(online).connected) {
 			onlineUsers.push(online);
 		}
 	});
-	if (onlineUsers.length > 0) return user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|Your friends: ${onlineUsers.join(", ")} are online.`);
+	if (onlineUsers.length > 0) return user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|Your friends: ${Chat.toListString(onlineUsers)} are online.`);
 }
 Server.checkFriends = checkFriends;
 

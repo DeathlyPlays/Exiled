@@ -109,8 +109,10 @@ exports.commands = {
 		channel: "dashboard",
 		dashboard: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			let channelId = toId(getChannel(user.userid));
-			if (!channels[channelId]) return this.errorReply(`You do not currently own a DewTube channel.`);
+			target = toId(target);
+			if (!target) target = user.userid;
+			let channelId = toId(getChannel(target));
+			if (!channels[channelId]) return this.errorReply(`This user does not currently own a DewTube channel.`);
 			let display = `<center><h2>${channels[channelId].name}</h2><strong>Creator:</strong> ${Server.nameColor(channels[channelId].owner, true, true)}<br />`;
 			if (channels[channelId].aboutme) display += `<strong>About Me:</strong> ${channels[channelId].aboutme}<br />`;
 			if (channels[channelId].views > 0) display += `<strong>View Counts:</strong> ${channels[channelId].views}<br />`;
@@ -230,7 +232,7 @@ exports.commands = {
 		/dewtube record - Films a DewTube video.
 		/dewtube edit - Edits a DewTube video.
 		/dewtube publish - Publishs a DewTube video.
-		/dewtube dashboard - Shows the channel's dashboard.
+		/dewtube dashboard [user] - Shows the user's channel dashboard; defaults to yourself.
 		/dewtube info - Shows the DewTube version and other information.
 		/dewtube discover - Shows all of the DewTube channels.
 		/dewtube help - Displays this help command.`,

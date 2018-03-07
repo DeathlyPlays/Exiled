@@ -204,13 +204,13 @@ exports.commands = {
 				let newViewCount = channels[channelId].views + generateEditedViews;
 				channels[channelId].subscribers = newSubCount;
 				channels[channelId].views = newViewCount;
-				this.sendReplyBox(`Congratulations your video has received ${generateEditedViews} view(s). ${generateEditedSubs} have subscribed to your channel after seeing this video. Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}.`);
+				this.sendReplyBox(`Congratulations your video has received ${generateEditedViews} view(s). ${generateEditedSubs} people have subscribed to your channel after seeing this video. Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}.`);
 			} else if (videoProgress === "recorded") {
 				let newSubCount = channels[channelId].subscribers + generateRawSubs;
 				let newViewCount = channels[channelId].views + generateRawViews;
 				channels[channelId].subscribers = newSubCount;
 				channels[channelId].views = newViewCount;
-				this.sendReplyBox(`Your un-edited video has received ${generateRawViews} view(s). ${generateRawSubs} have subscribed to your channel after seeing this video. Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}.`);
+				this.sendReplyBox(`Your un-edited video has received ${generateRawViews} view(s). ${generateRawSubs} oeople have subscribed to your channel after seeing this video. Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}.`);
 			} else {
 				this.errorReply(`You must record a video before uploading.`);
 			}

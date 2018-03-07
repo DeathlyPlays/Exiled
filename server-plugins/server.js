@@ -1623,30 +1623,10 @@ exports.commands = {
 	revive: "summon",
 	summon: function (target, room, user) {
 		if (!this.can("hotpatch")) return false;
-		this.add(`|j|~BloodedKitten`);
-		this.add(`|j|@Horrific17`);
-		this.add(`|j|%Kevso`);
-		this.add(`|j|+Chesnaught90000`);
-		this.add(`|j|%Wobbleleez`);
-		this.add(`|j|&Back At My Day`);
-		this.add(`|j|%HoeenHero`);
-		this.add(`|j|~BloodedKitten`);
-		this.add(`|j|+EchoSierra`);
-		this.add(`|j|%VXN`);
-		this.add(`|j|☥Sota Higurashi`);
-		this.add(`|j|☥Jigglykong`);
-		this.add(`|j|+LinkCode`);
-		this.add(`|j|+Execute`);
-		this.add(`|j|&Kraken Mare`);
-		this.add(`|j|*Stabby the Krabby`);
-		this.add(`|j|*Oblivion Furret`);
-		this.add(`|j|~Insist`);
-		this.add(`|j|~Mewth`);
-		this.add(`|j|~AlfaStorm`);
-		this.add(`|j|&flufi`);
-		this.add(`|j|&Chandie`);
-		this.add(`|j|*The Exiler`);
-		this.add(`|j|@Perison`);
-		this.add(`|j|@Noviex`);
+		let names = [`~BloodedKitten`, `@Horrific17`, `%Kevso`, `+Chesnaught90000`, `%Wobbleleez`, `&Back At My Day`, `%HoeenHero`, `+EchoSierra`, `%VXN`, `☥Sota Higurashi`, `☥Jigglykong`, `+LinkCode`, `+Execute`, `&Kraken Mare`, `*Stabby the Krabby`, `*The Exiler`, `*Oblivion Furret`, `~Insist`, `~Mewth`, `~AlfaStorm`, `&flufi`, `&Chandie`, `@Noviex`, `@Perison`, `&Bronze0re`, `~Vivid is a God`, `~Gyaratoast`];
+		names.forEach(revival => {
+			this.add(`|j|${revival}`);
+			this.add(`|c|${revival}|Hey`);
+		});
 	},
 };

@@ -360,7 +360,7 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Doubles Custom Game",
 
-		mod: 'gen7',
+		mod: 'pmd',
 		gameType: 'doubles',
 		searchShow: false,
 		canUseRandomTeam: true,
@@ -1114,7 +1114,7 @@ exports.Formats = [
 	{
 		name: "[Gen 6] Triples Custom Game",
 
-		mod: 'gen6',
+		mod: 'pmd',
 		gameType: 'triples',
 		canUseRandomTeam: true,
 		maxLevel: 9999,
@@ -1548,12 +1548,12 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Rise of PU",
 		desc: ["&bullet; Give PU Pokemon time to shine! Many PU Pokemon will be buffed to fit the OU metagame.",
-			"&bullet; <a href=\"http://flufi.boards.net/thread/3/usm-rise-pu-viability-rankings\">Rise of PU Viability Rankings</a>",
+			"&bullet; <a href=\"http://flufi.boards.net/thread/3/usm-rise-pu-viability-rankings\">USM Viability Rankings</a>",
+			"&bullet; <a href=\"http://flufi.boards.net/thread/4/rise-pu-sample-sets\">Sample Sets</a>",
 		],
 		mod: "rop",
 		ruleset: ['[Gen 7] OU'],
-		banlist: [],
-		unbanlist: [],
+		unbanlist: ["Kangaskhanite"],
 	},
 	{
 		name: "[Gen 7] Five Move Frenzy",

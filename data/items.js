@@ -3580,11 +3580,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 10,
 		},
-		onBasePowerPriority: 6,
-		onBasePower: function (basePower, user, target, move) {
-			if (move.category === 'Physical') {
-				return this.chainModify([0x1199, 0x1000]);
-			}
+		onModifyAtkPriority: 1,
+		onModifyAtk: function (atk) {
+			return this.chainModify(1.5);
 		},
 		num: 266,
 		gen: 4,

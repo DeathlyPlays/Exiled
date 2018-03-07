@@ -460,7 +460,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse("/ropmoveshelp");
 		if (target === "lilligant") {
-			return this.sendReplyBox("Psychic, Psyshock, Earth Power, Defog");
+			return this.sendReplyBox("Psychic, Psyshock, Earth Power, Moonblast, Defog");
 		} else if (target === "togedemaru") {
 			return this.sendReplyBox("Spikes, Stealth Rock, Block, Dragon Tail");
 		} else if (target === "oranguru") {

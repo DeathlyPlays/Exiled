@@ -1620,17 +1620,6 @@ exports.commands = {
 		this.parse(`Welcome to ${Config.serverName}, ${target}! Feel free to check our a few of our features by checking out /serverhelp!`);
 	},
 
-<<<<<<< HEAD
-	revive: "summon",
-	summon: function (target, room, user) {
-		if (!this.can("hotpatch")) return false;
-		let names = [`~BloodedKitten`, `@Horrific17`, `%Kevso`, `+Chesnaught90000`, `%Wobbleleez`, `&Back At My Day`, `%HoeenHero`, `+EchoSierra`, `%VXN`, `☥Sota Higurashi`, `☥Jigglykong`, `+LinkCode`, `+Execute`, `&Kraken Mare`, `*Stabby the Krabby`, `*The Exiler`, `*Oblivion Furret`, `~Insist`, `~Mewth`, `~AlfaStorm`, `&flufi`, `&Chandie`, `@Noviex`, `@Perison`, `&Bronze0re`, `~Vivid is a God`, `~Gyaratoast`];
-		names.forEach(revival => {
-			this.add(`|j|${revival}`);
-			this.add(`|c|${revival}|Hey`);
-		});
-	},
-=======
 	"!ship": true,
 	ship: function (target, room, user) {
 		if (!this.canTalk()) return;
@@ -1641,5 +1630,14 @@ exports.commands = {
 		this.add(`${first} is ${compatibility}% compatible with ${second}.`);
 	},
 	shiphelp: [`/ship [first target], [second target] - Gives the compatibility of the two targets.`],
->>>>>>> de08a610ba28f4b870ad436aca0e9cff8256004b
+
+	revive: "summon",
+	summon: function (target, room, user) {
+		if (!this.can("hotpatch")) return false;
+		let names = [`~BloodedKitten`, `@Horrific17`, `%Kevso`, `+Chesnaught90000`, `%Wobbleleez`, `&Back At My Day`, `%HoeenHero`, `+EchoSierra`, `%VXN`, `☥Sota Higurashi`, `☥Jigglykong`, `+LinkCode`, `+Execute`, `&Kraken Mare`, `*Stabby the Krabby`, `*The Exiler`, `*Oblivion Furret`, `~Insist`, `~Mewth`, `~AlfaStorm`, `&flufi`, `&Chandie`, `@Noviex`, `@Perison`, `&Bronze0re`, `~Vivid is a God`, `~Gyaratoast`];
+		names.forEach(revival => {
+			this.add(`|j|${revival}`);
+			this.add(`|c|${revival}|Hey`);
+		});
+	},
 };

@@ -1620,6 +1620,7 @@ exports.commands = {
 		this.parse(`Welcome to ${Config.serverName}, ${target}! Feel free to check our a few of our features by checking out /serverhelp!`);
 	},
 
+<<<<<<< HEAD
 	revive: "summon",
 	summon: function (target, room, user) {
 		if (!this.can("hotpatch")) return false;
@@ -1629,4 +1630,16 @@ exports.commands = {
 			this.add(`|c|${revival}|Hey`);
 		});
 	},
+=======
+	"!ship": true,
+	ship: function (target, room, user) {
+		if (!this.canTalk()) return;
+		if (!this.runBroadcast()) return;
+		let [first, ...second] = target.split(",").map(p => p.trim());
+		if (!first || !second) return this.parse(`/shiphelp`);
+		let compatibility = Math.floor(Math.random() * 100);
+		this.add(`${first} is ${compatibility}% compatible with ${second}.`);
+	},
+	shiphelp: [`/ship [first target], [second target] - Gives the compatibility of the two targets.`],
+>>>>>>> de08a610ba28f4b870ad436aca0e9cff8256004b
 };

@@ -275,13 +275,16 @@ exports.commands = {
 		display += `<li><button class="button" name="send" value="/rpslshelp">Rock Paper Scissors Lizard Spock</button></li>`;
 		display += `<li><button class="button" name="send" value="/sentencehelp">Sentence Game</button></li>`;
 		display += `<li><button class="button" name="send" value="/slotshelp">Slots</button></li>`;
+		display += `<li><button class="button" name="send" value="/tdihelp">TDI</button></li>`;
 		display += `</ul>`;
 		display += `<h2>Chat Features:</h2><ul>`;
 		display += `<li><button class="button" name="send" value="/advertisehelp">Advertise A Room</button></li>`;
+		display += `<li><button class="button" name="send" value="/aihelp">AI</button></li>`;
 		display += `<li><button class="button" name="send" value="/animehelp">Anime</button></li>`;
 		display += `<li><button class="button" name="send" value="/awayhelp">Away</button></li>`;
 		display += `<li><button class="button" name="send" value="/psgohelp">Cards</button></li>`;
 		display += `<li><button class="button" name="send" value="/definehelp">Define</button></li>`;
+		display += `<li><button class="button" name="send" value="/dewtubehelp">DewTube</button></li>`;
 		display += `<li><button class="button" name="send" value="/digidexhelp">Digidex</button></li>`;
 		display += `<li><button class="button" name="send" value="/atm">Economy</button></li>`;
 		display += `<li><button class="button" name="send" value="/emotes help">Emotes</button></li>`;
@@ -290,7 +293,6 @@ exports.commands = {
 		display += `<li><button class="button" name="send" value="/factionshelp">Factions</button></li>`;
 		display += `<li><button class="button" name="send" value="/genrequesthelp">Gen Requests</button></li>`;
 		display += `<li><button class="button" name="send" value="/hexhelp">Hex Code</button></li>`;
-		display += `<li><button class="button" name="send" value="/jobshelp">Jobs</button></li>`;
 		display += `<li><button class="button" name="send" value="/lastactivehelp">Last Active</button></li>`;
 		display += `<li><button class="button" name="send" value="/mangahelp">Manga</button></li>`;
 		display += `<li><button class="button" name="send" value="/meme">Meme Randomizer</button></li>`;
@@ -303,11 +305,13 @@ exports.commands = {
 		display += `<li><button class="button" name="send" value="/roomlist">Room List</button></li>`;
 		display += `<li><button class="button" name="send" value="/roomshophelp">Room Shop</button></li>`;
 		display += `<li><button class="button" name="send" value="/seenhelp">Seen</button></li>`;
+		display += `<li><button class="button" name="send" value="/shiphelp">Ship</button></li>`;
 		display += `<li><button class="button" name="send" value="/shop">Shop</button></li>`;
 		display += `<li><button class="button" name="send" value="/splatoonhelp">Splatoon</button></li>`;
 		display += `<li><button class="button" name="send" value="/ssbhelp">SSBFFA</button></li>`;
 		display += `<li><button class="button" name="send" value="/suggestionhelp">Suggestions</button></li>`;
 		display += `<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li>`;
+		display += `<li><button class="button" name="send" value="/taskshelp">Tasks</button></li>`;
 		display += `<li><button class="button" name="send" value="/tellhelp">Tells</button></li>`;
 		display += `<li><button class="button" name="send" value="/tsumeta">TsuMeta Committee</button></li>`;
 		display += `<li><button class="button" name="send" value="/urbandefinehelp">Urban Define</button></li>`;
@@ -322,15 +326,21 @@ exports.commands = {
 		if (this.can("lock")) {
 			display += `<h2>Staff Commands:</h2>`;
 			display += `<details><summary>Global Drivers (%) Commands:</summary>`;
+			display += `<button class="button" name="send" value="/customavatarhelp">Custom Avatar</button>`;
+			display += `<button class="button" name="send" value="/customcolorhelp">Custom Color</button>`;
 			display += `<button class="button" name="send" value="/forcejoinhelp">Forcejoin</button>`;
 			display += `<button class="button" name="send" value="/kickhelp">Kick</button>`;
+			display += `<button class="button" name="send" value="/iconhelp">Icons</button>`;
 			display += `<button class="button" name="send" value="/declaremodhelp">Staff Declare</button>`;
+			display += `<button class="button" name="send" value="/symbolcolor help">Symbol Color</button>`;
 			display += `<button class="button" name="send" value="/viewlogs">Viewlogs</button>`;
 			display += `</details>`;
 		}
 		if (this.can("ban")) {
 			display += `<details><summary>Global Moderator (@) Commands:</summary>`;
-			display += `<button class="button" name="send" value="/clearall">Clear All</button></details>`;
+			display += `<button class="button" name="send" value="/clearall">Clear All</button>`;
+			display += `<button class="button" name="send" value="/serverannouncementshelp">News</button>`;
+			display += `</details>`;
 		}
 		if (this.can("hotpatch")) {
 			display += `<details><summary>Global Leader (&) Commands:</summary>`;
@@ -341,12 +351,14 @@ exports.commands = {
 			display += `<button class="button" name="send" value="/pmallstaffhelp">PM Staff</button>`;
 			display += `<button class="button" name="send" value="/pmupperstaffhelp">PM Upper Staff</button>`;
 			display += `<button class="button" name="send" value="/protectroom">Protect Room</button>`;
-			display += `<button class="button" name="send" value="/timedgdeclare">Timed Declare</button></details>`;
+			display += `<button class="button" name="send" value="/timedgdeclare">Timed Declare</button>`;
+			display += `</details>`;
 		}
 		if (this.can("lockdown")) {
 			display += `<details><summary>Global Administrator (~) Commands:</summary>`;
 			display += `<button class="button" name="send" value="/permabanhelp">Permaban</button>`;
-			display += `<button class="button" name="send" value="/permalockhelp">Permalock</button></details>`;
+			display += `<button class="button" name="send" value="/permalockhelp">Permalock</button>`;
+			display += `</details>`;
 		}
 		display += `</div>`;
 		return this.sendReplyBox(display);

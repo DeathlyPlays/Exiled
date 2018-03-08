@@ -1339,7 +1339,7 @@ let commands = {
 				tournament.room.addRaw('<strong>Players have been reminded of their tournament battles by</strong> ' + Server.nameColor(user.name, true) + '.');
 				if (offlineUsers.length > 0 && offlineUsers !== '') tournament.room.addRaw('<strong>The following users are currently offline: ' + offlineUsers + '.</strong>');
 			} else {
-				this.errorReply('The tournament hasen\'t started yet.');
+				this.errorReply('The tournament hasn\'t started yet.');
 			}
 		},
 		scout: 'setscouting',

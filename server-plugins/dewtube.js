@@ -97,12 +97,13 @@ exports.commands = {
 		terminatechannel: "removechannel",
 		terminate: "removechannel",
 		removechannel: function (target, room, user) {
-			if (!this.can("ban") && channels[toId(target)].owner !== user.userid) return this.errorReply(`You must be the channel owner or a Global Moderator (or higher) to delete a channel.`);
-			if (!target || !channels[toId(target)]) return this.errorReply(`The channel "${target}" appears to not exist.`);
-			delete channels[toId(target)];
+			target = toId(target);
+			if (!this.can("ban") && channels[target].owner !== user.userid) return this.errorReply(`You must be the channel owner or a Global Moderator (or higher) to delete a channel.`);
+			if (!target || !channels[target]) return this.errorReply(`The channel "${target}" appears to not exist.`);
+			delete channels[target];
 			write();
-			return this.sendReply(`Channel "${target}" has been deleted.`);
 			this.room.modlog(`${user.name} deleted the channel "${target}".`);
+			return this.sendReply(`Channel "${target}" has been deleted.`);
 		},
 
 		channelpage: "dashboard",

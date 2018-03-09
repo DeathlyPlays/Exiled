@@ -323,7 +323,7 @@ class SSB {
 		item = Dex.getItem(toId(item));
 		if (!item.exists) {
 			//check custom
-			if (this.cItem && this.cItem === item.name && this.bought.cItem) {
+			if (this.cItem && toId(this.cItem) === item.id && this.bought.cItem) {
 				this.item = this.cItem;
 				return true;
 			} else {
@@ -339,7 +339,7 @@ class SSB {
 		ability = Dex.getAbility(toId(ability));
 		if (!ability.exists) {
 			//check custom
-			if (this.cAbility && this.cAbility === ability.name && this.bought.cAbility) {
+			if (this.cAbility && toId(this.cAbility) === ability.id && this.bought.cAbility) {
 				this.ability = this.cAbility;
 				return true;
 			} else {
@@ -347,7 +347,7 @@ class SSB {
 			}
 		} else {
 			for (let i in Dex.getTemplate(this.species).abilities) {
-				if (Dex.getTemplate(this.species).abilities[i] === ability.name) {
+				if (toId(Dex.getTemplate(this.species).abilities[i]) === ability.id) {
 					this.ability = ability.name;
 					return true;
 				}
@@ -397,30 +397,6 @@ class SSB {
 			}
 		}
 		this.cMove = customMovepool[customIds.indexOf(move)];
-		return true;
-	}
-
-	setCustomAbility(ability) {
-		ability = toId(ability);
-		if (this.cAbility && toId(this.cAbility) === ability && this.bought.cAbility) {
-			this.cAbility = ability;
-			return true;
-		} else {
-			return false;
-		}
-		this.cAbility = ability;
-		return true;
-	}
-
-	setCustomItem(item) {
-		item = toId(item);
-		if (this.cItem && toId(this.cItem) === item && this.bought.cItem) {
-			this.cItem = item;
-			return true;
-		} else {
-			return false;
-		}
-		this.cItem = item;
 		return true;
 	}
 
@@ -496,14 +472,15 @@ class SSB {
 		}
 		// Ability
 		let ability = dex.getAbility(this.ability);
-		if (!ability.exists || BANS.abilities.includes(this.ability) || !Dex.getAbility(this.ability).exists && this.cAbility !== ability.name) {
+		if (!ability.exists || BANS.abilities.includes(this.ability) ||
+		(!Dex.getAbility(this.ability).exists && toId(this.cAbility) !== ability.id)) {
 			msg.push((!ability.exists ? `The ability ${ability.id} does not exist.` : (BANS.abilities.includes(this.ability) ? `The ability ${ability.name} is banned.` : `${ability.name} is not your custom ability.`)));
 			this.ability = pokemon.abilities[0];
 		}
 		// Item
 		if (toId(this.item)) {
 			let item = dex.getItem(this.item);
-			if (!item.exists || BANS.items.includes(this.item) || !Dex.getItem(this.item).exists && this.item !== item.name) {
+			if (!item.exists || BANS.items.includes(this.item) || (!Dex.getItem(this.item).exists && toId(this.cItem !== item.id))) {
 				msg.push((!item.exists ? `The item ${item.id} does not exist.` : (BANS.items.includes(this.item) ? `The item ${item.name} is banned.` : `${item.name} is not your custom item.`)));
 				this.item = "";
 			}

@@ -158,7 +158,7 @@ exports.commands = {
 					output += `<td>${curChannel.views}</td>`;
 					output += `<td>${curChannel.subscribers}</td>`;
 					output += `<td><button name="send" value="/dewtube dashboard ${curChannel.owner}">${curChannel.name}</button></td>`;
-					output += `<td>${Server.nameColor(curChannel.owner, true, true)}</td>`
+					output += `<td>${Server.nameColor(curChannel.owner, true, true)}</td>`;
 					output += `</tr>`;
 				}
 			}

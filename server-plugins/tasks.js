@@ -68,7 +68,7 @@ exports.commands = {
 			if (this.broadcasting && room.id !== "development") return this.errorReply(`You may only broadcast this command in Development.`);
 			if (!Db.tasks.keys().length) return this.errorReply(`There are currently no tasks on this server.`);
 			let taskList = Db.tasks.get("development", {issues: {}});
-			let display = `<table><tr><center><h1>Wavelength's Tasks List:</h1></center></tr>`;
+			let display = `<table><tr><center><h1>${Config.serverName}'s Tasks List:</h1></center></tr>`;
 			for (let i in taskList.issues) {
 				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center">Employer: <button class="button" name="parseCommand" value="/user ${taskList.issues[i].employer}">${Server.nameColor(taskList.issues[i].employer, true, true)}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center">Issue Title: ${taskList.issues[i].issue}</td><td style="border: 2px solid #000000; width: 20%; text-align: center">Description: ${taskList.issues[i].description}</td></tr>`;
 			}

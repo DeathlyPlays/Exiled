@@ -323,7 +323,7 @@ class SSB {
 		item = Dex.getItem(toId(item));
 		if (!item.exists) {
 			//check custom
-			if (this.cItem && toId(this.cItem) === item.id && this.bought.cItem) {
+			if (this.cItem && this.cItem === item.name && this.bought.cItem) {
 				this.item = this.cItem;
 				return true;
 			} else {
@@ -339,7 +339,7 @@ class SSB {
 		ability = Dex.getAbility(toId(ability));
 		if (!ability.exists) {
 			//check custom
-			if (this.cAbility && toId(this.cAbility) === ability.id && this.bought.cAbility) {
+			if (this.cAbility && this.cAbility === ability.name && this.bought.cAbility) {
 				this.ability = this.cAbility;
 				return true;
 			} else {
@@ -347,7 +347,7 @@ class SSB {
 			}
 		} else {
 			for (let i in Dex.getTemplate(this.species).abilities) {
-				if (toId(Dex.getTemplate(this.species).abilities[i]) === ability.id) {
+				if (Dex.getTemplate(this.species).abilities[i] === ability.name) {
 					this.ability = ability.name;
 					return true;
 				}
@@ -360,12 +360,12 @@ class SSB {
 		move = Dex.getMove(toId(move));
 		if (!move.exists) return self.errorReply(`The move "${move.name}" does not exist.`); //Only normal moves here.
 		if (this.movepool.length + (this.cMove === false ? 0 : 1) >= MAX_MOVEPOOL_SIZE) return self.errorReply(`You already have ${MAX_MOVEPOOL_SIZE} moves.`);
-		let result = await TeamValidatorAsync("gen7ou").validateTeam(Dex.packTeam([{species: this.species, ability: this.ability, moves: [move]}]));
-		if (result.substring(0, 1) === "0") return self.errorReply(`${this.species} cannot learn ${move.name}.`);
-		if (this.movepool.indexOf(move.name) > -1) return self.errorReply(`${this.species} already knows ${move.name}.`);
+		let result = await TeamValidatorAsync("gen7ou").validateTeam(Dex.packTeam([{species: this.species, moves: [move]}]));
+		if (result.substring(0, 1) === "0") return self.errorReply(`${this.species} cannot learn "${move.name}".`);
+		if (this.movepool.indexOf(move.name) > -1) return self.errorReply(`${this.species} already knows "${move.name}".`);
 		this.movepool.push(move.name);
 		writeSSB();
-		if (self.cmd !== "moveq") self.sendReply(`Added the move ${move.name} to your movepool.`);
+		if (self.cmd !== "moveq") self.sendReply(`Added the move "${move.name}" to your movepool.`);
 		return self.user.sendTo(self.room, `|uhtmlchange|ssb${self.user.userid}${buildMenu(self.user.userid)}`);
 	}
 
@@ -400,13 +400,36 @@ class SSB {
 		return true;
 	}
 
+	setCustomAbility(ability) {
+		ability = toId(ability);
+		if (this.cAbility && toId(this.cAbility) === ability && this.bought.cAbility) {
+			this.cAbility = ability;
+			return true;
+		} else {
+			return false;
+		}
+		this.cAbility = ability;
+		return true;
+	}
+
+	setCustomItem(item) {
+		item = toId(item);
+		if (this.cItem && toId(this.cItem) === item && this.bought.cItem) {
+			this.cItem = item;
+			return true;
+		} else {
+			return false;
+		}
+		this.cItem = item;
+		return true;
+	}
+
 	setEvs(ev, value) {
 		ev = toId(ev);
 		value = parseInt(value);
 		if (isNaN(value)) return false;
 		if (!this.evs[ev] && this.evs[ev] !== 0) return false;
 		let currentVal = 0;
-		//let targetVal = this.evs[ev]; //Unused variable
 		for (let i in this.evs) {
 			if (i === ev) continue;
 			currentVal += this.evs[i];
@@ -458,7 +481,7 @@ class SSB {
 		// Species
 		let pokemon = dex.getTemplate(this.species);
 		if (!pokemon.exists) {
-			msg.push(`The Pokemon ${this.species} does not exist.`);
+			msg.push(`The Pokemon "${this.species}" does not exist.`);
 			this.setSpecies("Unown");
 			this.active = false;
 			writeSSB();
@@ -473,17 +496,15 @@ class SSB {
 		}
 		// Ability
 		let ability = dex.getAbility(this.ability);
-		if (!ability.exists || BANS.abilities.includes(this.ability) ||
-		(!Dex.getAbility(this.ability).exists && toId(this.cAbility) !== ability.id)) {
+		if (!ability.exists || BANS.abilities.includes(this.ability) || !Dex.getAbility(this.ability).exists && this.cAbility !== ability.name) {
 			msg.push((!ability.exists ? `The ability ${ability.id} does not exist.` : (BANS.abilities.includes(this.ability) ? `The ability ${ability.name} is banned.` : `${ability.name} is not your custom ability.`)));
 			this.ability = pokemon.abilities[0];
 		}
 		// Item
 		if (toId(this.item)) {
 			let item = dex.getItem(this.item);
-			if (!item.exists || BANS.items.includes(this.item) ||
-			(!Dex.getItem(this.item).exists && toId(this.cItem !== item.id))) {
-				msg.push((!ability.exists ? `The item ${item.id} does not exist.` : (BANS.items.includes(this.item) ? `The item ${item.name} is banned.` : `${item.name} is not your custom item.`)));
+			if (!item.exists || BANS.items.includes(this.item) || !Dex.getItem(this.item).exists && this.item !== item.name) {
+				msg.push((!item.exists ? `The item ${item.id} does not exist.` : (BANS.items.includes(this.item) ? `The item ${item.name} is banned.` : `${item.name} is not your custom item.`)));
 				this.item = "";
 			}
 			// Mega evolution check
@@ -512,12 +533,12 @@ class SSB {
 			for (let i = 0; i < this.movepool.length; i++) {
 				let move = dex.getMove(this.movepool[i]);
 				if (!move.exists) {
-					msg.push(`The move ${move.id} does not exist.`);
+					msg.push(`The move "${move.id}" does not exist.`);
 					this.movepool.splice(i, 1);
 					i--;
 					continue;
 				}
-				let result = await TeamValidatorAsync("gen7ou").validateTeam(Dex.packTeam([{species: this.species, ability: this.ability, moves: [move]}]));
+				let result = await TeamValidatorAsync("gen7ou").validateTeam(Dex.packTeam([{species: this.species, moves: [move]}]));
 				if (result.startsWith("0")) {
 					result = result.slice(1);
 					msg.push(result.split("\n"));
@@ -526,7 +547,7 @@ class SSB {
 					continue;
 				}
 				if (BANS.moves.includes(move.name) || move.ohko) {
-					msg.push(`The move ${move.name} is banned from SSBFFA.`);
+					msg.push(`The move "${move.name}" is banned from SSBFFA.`);
 					this.movepool.splice(i, 1);
 					i--;
 					continue;
@@ -536,13 +557,13 @@ class SSB {
 		// Custom move
 		if (this.cMove) {
 			let move = dex.getMove(this.cMove);
-			if (!move.exists || Dex.getMove(move.id).exists) {
+			if (!move.exists || Dex.getMove(move.name).exists) {
 				msg.push(`${move.name} is not a custom move.`);
 				this.cMove = "";
 			} else if (!customMovepool.includes(move.name)) {
 				// Purchased custom move
-				if (toId(this.selfCustomMove) !== move.id) {
-					msg.push(`${pokemon.species}'s custom move ${move.name} is not your custom move.`);
+				if (this.selfCustomMove !== move.name) {
+					msg.push(`${pokemon.species}'s custom move "${move.name}" is not your custom move.`);
 					this.cMove = "";
 				}
 			}
@@ -677,7 +698,6 @@ exports.commands = {
 				case "set":
 					//set a normal move
 					return targetUser.addMove(target[1], this);
-					//break;
 				case "remove":
 					//remove a move
 					if (targetUser.removeMove(target[1])) {
@@ -691,7 +711,6 @@ exports.commands = {
 					} else {
 						return this.errorReply(`You do not have the move ${target[1]} in your movepool, or set as your custom move.`);
 					}
-					//break;
 				case "custom":
 					//set the custom move
 					if (targetUser.setCustomMove(target[1])) {
@@ -701,7 +720,6 @@ exports.commands = {
 					} else {
 						return this.errorReply(`${target[1]} is either not a custom move, or not a custom move you can use.`);
 					}
-					//break;
 				default:
 					return this.sendReply("/ssb edit move [set|custom], movename. Or use /ssb edit move to access the move menu.");
 				}
@@ -754,7 +772,6 @@ exports.commands = {
 					} else {
 						return this.errorReply(`Unable to set ${target[1]} EV to ${target[2]}. Check to make sure your EVs don't exceed 510 total.`);
 					}
-					//break;
 				case "iv":
 				case "ivs":
 					if (!target[2]) return this.sendReply(`/ssb edit stats [ev|iv|nature], [stat|nature], (value) - Set your Pokemon's EVs, IVs, or nature.`);
@@ -765,7 +782,6 @@ exports.commands = {
 					} else {
 						return this.errorReply("Make sure your IVs are between 0 and 31 and that you spelled the stat name correctly.");
 					}
-					//break;
 				case "nature":
 					if (targetUser.setNature(target[1])) {
 						writeSSB();
@@ -774,7 +790,6 @@ exports.commands = {
 					} else {
 						return this.errorReply(`${target[1]} is not a valid nature.`);
 					}
-					//break;
 				default:
 					return this.sendReply(`/ssb edit stats [ev|iv|nature], [stat|nature], (value) - Set your Pokemon's EVs, IVs, or nature.`);
 				}
@@ -812,7 +827,7 @@ exports.commands = {
 				}
 				let targetUser = Server.ssb[user.userid];
 				if (toId(target) === "") return user.sendTo(room, `|uhtmlchange|ssb${user.userid}|${itemMenu(user.userid)}`);
-				if (toId(target) === "help") return this.sendReply(`/ssb edit item [item] - Set your Pokemon's item.`);
+				if (toId(target) === "help") return this.sendReply(`/ssb edit item [item] - Sets your Pokemon's item.`);
 				if (toId(target) === "reset") {
 					targetUser.item = false;
 					writeSSB();
@@ -852,7 +867,6 @@ exports.commands = {
 					} else {
 						return this.errorReply("Levels must be greater than or equal to 1, and less than or equal to 100.");
 					}
-					//break;
 				case "gender":
 					if (!target[1]) return this.parse(`/ssb edit details help`);
 					if (targetUser.setGender(target[1])) {
@@ -862,7 +876,6 @@ exports.commands = {
 					} else {
 						return this.errorReply("Valid Pokemon genders are: Male, Female, random, and genderless.");
 					}
-					//break;
 				case "happiness":
 				case "happy":
 					if (!target[1]) return this.parse(`/ssb edit details help`);
@@ -873,7 +886,6 @@ exports.commands = {
 					} else {
 						return this.errorReply("Happiness levels must be greater than or equal to 0, and less than or equal to 255.");
 					}
-					//break;
 				case "shinyness":
 				case "shiny":
 					if (targetUser.setShiny()) {
@@ -883,7 +895,6 @@ exports.commands = {
 					} else {
 						return this.errorReply("You must purchase this from the shop first!");
 					}
-					//break;
 				case "symbol":
 				case "csymbol":
 				case "customsymbol":
@@ -895,7 +906,6 @@ exports.commands = {
 					} else {
 						return this.errorReply("Unable to set your custom symbol. Be sure your not using an illegal staff symbol.");
 					}
-					//break;
 				default:
 					return this.sendReply(`/ssb edit details [level|gender|happiness|shiny], (argument) - edit your Pokemon's details.`);
 				}
@@ -960,7 +970,6 @@ exports.commands = {
 					}
 				}
 				return this.sendReplyBox(output);
-				//break;
 			case "mark":
 				if (!user.can("ssbffa")) return this.errorReply(`/ssb mark - Access Denied.`);
 				if (!target[3]) return this.parse("/help ssb log");
@@ -975,24 +984,20 @@ exports.commands = {
 					Server.ssb[target[1]].bought[target[2]] = "complete";
 					writeSSB();
 					return this.sendReply(`${target[1]}'s ${target[2]} was marked as complete.`);
-					//break;
 				case "pending":
 					if (Server.ssb[target[1]].bought[target[2]] === true) return this.errorReply(`${target[1]}'s ${target[2]} is already ${target[3]}.`);
 					Server.ssb[target[1]].bought[target[2]] = true;
 					writeSSB();
 					return this.sendReply(`${target[1]}'s ${target[2]} was marked as pending.`);
-					//break;
 				case "remove":
 					if (Server.ssb[target[1]].bought[target[2]] === false) return this.errorReply(`${target[1]}'s ${target[2]} is already removed.`);
 					if (!target[4] || toId(target[4]) !== "force") return this.sendReply(`WARNING. If you remove this purchase the user will not be able to use their ${target[2]} and the user will not be refunded (unless you provide it). If you are sure you want to do this, run: /ssb log mark, ${target[1]}, ${target[2]}, ${target[3]}, force`);
 					Server.ssb[target[1]].bought[target[2]] = false;
 					writeSSB();
 					return this.sendReply(`${target[1]}'s ${target[2]} was removed.`);
-					//break;
 				default:
 					return this.parse("/help ssb log");
 				}
-				//break;
 			default:
 				return this.parse("/help ssb log");
 			}
@@ -1000,7 +1005,7 @@ exports.commands = {
 		loghelp: [
 			`/ssb log - Accepts the following commands:
 			/ssb log view, [all|user] - View the purchases of a user or all user's. Requires &, ~ unless viewing your own.
-			/ssb log mark, [user], [cItem|cAbility|cMove], [complete|pending|remove] - Update the status for a user's SSBFFA purchase.`,
+			/ssb log mark, [user], [cItem|cAbility|cMove], [complete|pending|remove] - Update the status for a user's SSBFFA purchase. Requires &, ~.`,
 		],
 
 		forceupdate: "validate",
@@ -1023,10 +1028,6 @@ exports.commands = {
 		},
 		validatehelp: [`/ssb validate [user] - Validate a user's SSBFFA Pokemon and if anything invalid is found, set it to its default value. Requires: &, ~.`],
 
-		"": function (target, room, user, connection, cmd, message) {
-			return this.parse("/help ssb");
-		},
-
 		setcustommove: "setcmove",
 		givemove: "setcmove",
 		setmove: "setcmove",
@@ -1036,11 +1037,11 @@ exports.commands = {
 			let targets = target.split(",");
 			let userid = toId(targets[0]);
 			if (!userid) return this.parse("/help ssb setcmove");
-			let customMove = toId(targets[1]);
+			let customMove = Dex.mod("ssbffa").getMove(targets[1]);
 			if (!customMove) return this.errorReply("Must include a move!");
-			if (!Dex.mod("ssbffa").getMove(customMove).exists) return this.errorReply("Move doesn't exist in the ssbffa mod!");
+			if (!customMove.exists) return this.errorReply("Move doesn't exist in the SSBFFA mod!");
 			if (!Server.ssb[userid].bought.cMove) return this.errorReply("They have not bought a custom move!");
-			Server.ssb[userid].selfCustomMove = customMove;
+			Server.ssb[userid].selfCustomMove = customMove.name;
 			writeSSB();
 			return this.sendReply(`Move set for ${userid}!`);
 		},
@@ -1055,11 +1056,11 @@ exports.commands = {
 			let targets = target.split(",");
 			let userid = toId(targets[0]);
 			if (!userid) return this.errorReply("/help ssb setcability");
-			let customAbility = toId(targets[1]);
+			let customAbility = Dex.mod("ssbffa").getAbility(targets[1]);
 			if (!customAbility) return this.errorReply(`/ssb giveability [target], [ability]`);
-			if (!Dex.mod("ssbffa").getAbility(customAbility).exists) return this.errorReply("Ability doesn't exist in the ssbffa mod!");
+			if (!customAbility.exists) return this.errorReply("Ability doesn't exist in the SSBFFA mod!");
 			if (!Server.ssb[userid].bought.cAbility) return this.errorReply("They have not bought a custom ability!");
-			Server.ssb[userid].cAbility = customAbility;
+			Server.ssb[userid].cAbility = customAbility.name;
 			writeSSB();
 			return this.sendReply(`Ability set for ${userid}!`);
 		},
@@ -1074,15 +1075,19 @@ exports.commands = {
 			let targets = target.split(",");
 			let userid = toId(targets[0]);
 			if (!userid) return this.errorReply("/help ssb givecitem");
-			let item = toId(targets[1]);
+			let item = Dex.mod("ssbffa").getItem(targets[1]);
 			if (!item) return this.errorReply("Must include an item.");
-			if (!Dex.mod("ssbffa").getItem(item).exists) return this.errorReply("Item doesn't exist in the ssbffa mod!");
+			if (!item.exists) return this.errorReply("Item doesn't exist in the SSBFFA mod!");
 			if (!Server.ssb[userid].bought.cItem) return this.errorReply("They have not bought a custom item!");
-			Server.ssb[userid].cItem = item;
+			Server.ssb[userid].cItem = item.name;
 			writeSSB();
 			return this.sendReply(`Item set for ${userid}!`);
 		},
 		setcitemhelp: [`/ssb setcitem [user], [item]`],
+
+		"": function (target, room, user, connection, cmd, message) {
+			return this.parse("/help ssb");
+		},
 	},
 	ssbhelp: [
 		`/ssb - Commands for editing your custom super staff bros Pokemon. Includes the following commands:

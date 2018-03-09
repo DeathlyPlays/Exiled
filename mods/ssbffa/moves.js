@@ -11,7 +11,6 @@ exports.BattleMovedex = {
 		isNonstandard: true,
 		flags: {
 			snatch: 1,
-			mirror: 1,
 		},
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
@@ -100,6 +99,7 @@ exports.BattleMovedex = {
 		flags: {
 			mirror: 1,
 			snatch: 1,
+			heal: 1,
 		},
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
@@ -175,6 +175,7 @@ exports.BattleMovedex = {
 		isNonstandard: true,
 		flags: {
 			protect: 1,
+			mirror: 1,
 		},
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
@@ -235,6 +236,7 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			reflectable: 1,
+			snatch: 1,
 		},
 		status: 'tox',
 		onPrepareHit: function (target, source, move) {
@@ -264,6 +266,7 @@ exports.BattleMovedex = {
 		isNonstandard: true,
 		flags: {
 			protect: 1,
+			mirror: 1,
 		},
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
@@ -293,6 +296,7 @@ exports.BattleMovedex = {
 			reflectable: 1,
 			mirror: 1,
 			authentic: 1,
+			snatch: 1,
 		},
 		priority: 0,
 		pp: 15,
@@ -348,6 +352,9 @@ exports.BattleMovedex = {
 		onHit: function (target, pokemon, move) {
 			this.useMove('Light Screen', pokemon);
 			this.useMove('Reflect', pokemon);
+		},
+		flags: {
+			snatch: 1,
 		},
 		pp: 5,
 		target: "self",
@@ -580,6 +587,7 @@ exports.BattleMovedex = {
 		id: "debugging",
 		name: "Debugging",
 		priority: 1,
+		isNonstandard: true,
 		self: {
 			boosts: {
 				spa: 1,
@@ -609,6 +617,7 @@ exports.BattleMovedex = {
 		zMovePower: 140,
 		contestType: "Cool",
 	},
+
 	//Insist
 	"exiledfromallothers": {
 		id: "exiledfromallothers",
@@ -619,7 +628,7 @@ exports.BattleMovedex = {
 		noPPBoosts: true,
 		secondary: false,
 		category: "Special",
-		isNonStandard: true,
+		isNonstandard: true,
 		isZ: "playniumz",
 		priority: 1,
 		flags: {

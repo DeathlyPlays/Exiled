@@ -4,7 +4,6 @@
  * Created by Insist			*
  ********************************/
 
-
 "use strict";
 
 function isDev(user) {
@@ -13,6 +12,15 @@ function isDev(user) {
 	let dev = Db.devs.get(toId(user));
 	if (dev === 1) return true;
 	return false;
+}
+
+function alertDevs(message) {
+	let developers = Db.devs.keys();
+	for (let u in developers) {
+		if (!Users(developers[u]) || !Users(developers[u]).connected) continue;
+		Users(developers[u]).send(`|pm|~Developer Alert|~|/raw ${message}`);
+	}
+	if (Rooms(`development`)) Rooms(`development`).add(`|c|~Developer Alert|/raw ${message}`).update();
 }
 
 exports.commands = {
@@ -28,11 +36,12 @@ exports.commands = {
 			let [issue, ...description] = target.split(",").map(p => p.trim());
 			let task = Db.tasks.get("development", {issues: {}});
 			if (!issue || !description) return this.parse("/taskshelp");
-			if (Db.tasks.has(issue)) return this.errorReply(`There is already an issue titled "${issue}".`);
+			if (task.issues[toId(issue)]) return this.errorReply(`This issue title already exists.`);
 			if (issue.length < 1 || issue.length > 30) return this.errorReply(`The issue title should not exceed 30 characters long. Feel free to continue in the description.`);
 			if (description.length < 1 || description.length > 100) return this.errorReply(`The description should not exceed 100 characters long.`);
 			task.issues[toId(issue)] = {"id": toId(issue), "issue": issue, "description": description, "employer": user.userid};
 			Db.tasks.set("development", task);
+			alertDevs(`${Server.nameColor(user.name, true, true)} has filed an issue. Issue: ${issue}. Description: ${description}.`);
 			return this.sendReply(`The task "${issue}" has been added to the server task list.`);
 		},
 
@@ -53,13 +62,13 @@ exports.commands = {
 		"": "list",
 		tasks: "list",
 		task: "list",
-		list: function (target, room, user) {
+		list: function (fullCmd, room, user) {
 			if (!isDev(user.userid) && !this.can("bypassall")) return false;
-			if (!this.runBroadcast() && !room.devRoom) return false;
+			if (!this.runBroadcast()) return;
+			if (this.broadcasting && room.id !== "development") return this.errorReply(`You may only broadcast this command in Development.`);
 			if (!Db.tasks.keys().length) return this.errorReply(`There are currently no tasks on this server.`);
-			target = toId(target);
 			let taskList = Db.tasks.get("development", {issues: {}});
-			let display = `<table><tr><center><h1>${Config.serverName}'s Tasks List:</h1></center></tr>`;
+			let display = `<table><tr><center><h1>Wavelength's Tasks List:</h1></center></tr>`;
 			for (let i in taskList.issues) {
 				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center">Employer: <button class="button" name="parseCommand" value="/user ${taskList.issues[i].employer}">${Server.nameColor(taskList.issues[i].employer, true, true)}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center">Issue Title: ${taskList.issues[i].issue}</td><td style="border: 2px solid #000000; width: 20%; text-align: center">Description: ${taskList.issues[i].description}</td></tr>`;
 			}

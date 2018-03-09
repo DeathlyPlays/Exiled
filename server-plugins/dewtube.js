@@ -143,7 +143,7 @@ exports.commands = {
 		discover: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (Object.keys(channels).length < 1) return this.errorReply(`There are currently no DewTube channels in this server.`);
-			let output = `<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Channel Name</td><td>Description</td><td>Views</td><td>Subscribers</td></tr>`;
+			let output = `<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Channel Name</td><td>Description</td><td>Views</td><td>Subscribers</td><td>Dashboard</td><td>Owner</td></tr>`;
 			let sortedChannels = Object.keys(channels).sort(function (a, b) {
 				return channels[b].subscribers - channels[a].subscribers;
 			});
@@ -157,6 +157,8 @@ exports.commands = {
 					output += `<td>${aboutme}</td>`;
 					output += `<td>${curChannel.views}</td>`;
 					output += `<td>${curChannel.subscribers}</td>`;
+					output += `<td><button name="send" value="/dewtube dashboard ${curChannel.owner}">${curChannel.name}</button></td>`;
+					output += `<td>${Server.nameColor(curChannel.owner, true, true)}</td>`
 					output += `</tr>`;
 				}
 			}

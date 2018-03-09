@@ -1719,7 +1719,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Metronome Battle",
-		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is metronome, all healing items/abilities are banned, Ubers (and mega rayquaza) are banned, immunites dont exist in this format (ex normal is not very effective on ghost instead of x0)"],
+		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is Metronome, all healing items/abilities are banned, Ubers (and Mega Rayquaza) are banned, immunites don't exist in this format (ex. Normal is not very effective on Ghost instead of 0x)"],
 		ruleset: ['Pokemon', 'Standard'],
 		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass', 'Aguav Berry', 'Assault Vest', 'Berry Juice', 'Cheek Pouch', 'Dry Skin', 'Ice Body', 'Poison Heal', 'Regenerator', 'Volt Absorb', 'Water Absorb', 'Rain Dish', 'Black Sludge', 'Enigma Berry', 'Figy Berry', 'Iapapa Berry', 'Mago Berry', 'Oran Berry', 'Shell Bell', 'Sitrus Berry', 'Wiki Berry', 'Leftovers'],
 		mod: 'metronome',
@@ -1916,7 +1916,8 @@ exports.Formats = [
 					disabledSource: '',
 					used: false,
 				}];
-				pokemon.moves = ['metronome'];
+				pokemon.moves.splice(0, 4);
+				pokemon.moves.push('metronome');
 				pokemon.moveSlots = pokemon.baseMoveSlots;
 				if (this.getFormat('[Gen 7] Metronome Battle').banlist.includes(this.getItem(pokemon.item).name)) {
 					pokemon.item = 'leppaberry';

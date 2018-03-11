@@ -12,10 +12,12 @@ global.moneyPlural = "Soul Dews";
 let shop = [
 	["Ability", "Purchases a custom ability for your SSBFFA account.", 50],
 	["Avatar", "Buys an custom avatar to be applied to your name [You supply. Images larger than 80x80 may not show correctly].", 5],
-	["Custom Color", "Changes the color of your name [Can be denied]", 25],
+	["Background", "Purchases a profile background. [Can be denied].", 25],
+	["Custom Color", "Changes the color of your name. [Can be denied].", 25],
 	["Custom Emoticon", "You provide an image (50x50 Pixels) to be added as an emote on the server. [Can be denied]", 40],
 	["Custom PM Box", "A Custom Designed Personal Messaging Box. [Can be denied]", 75],
 	["Custom Title", "Buys a title to be added on to your profile. [Can be denied].", 10],
+	["Declare", "Purchases a Global Declare to announce your message.", 15],
 	["FFA Symbol", "Purchases the ability to have a custom symbol for your SSBFFA Pokemon.", 15],
 	["Fix", "Buys the ability to alter your current custom avatar or trainer card.", 5],
 	["Icon", "Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32", 25],
@@ -23,7 +25,7 @@ let shop = [
 	["Kick", "Kick a user from the chatroom.", 5],
 	["League Room", "Purchases a room for league usage.", 5],
 	["Move", "Purchases a custom move for your SSBFFA account.", 50],
-	["Mystery", "Purchases a Mystery Box [no refunds]", 15],
+	["Music", "Purchases profile music.", 25],
 	["POTD", "Allows you to change the Pokemon of the Day that shows up guaranteed in Random Battles [Can be refused, or held off if one is already active]", 25],
 	["Room", "Buys a chatroom for you to own. [Within reason, can be denied].", 30],
 	["Roomshop", "Buys a Roomshop for your League or Room. [Will be removed if abused].", 50],
@@ -149,11 +151,6 @@ function handleBoughtItem(item, user, cost) {
 		this.sendReply("You have purchased a custom symbol. You can use /customsymbol to get your custom symbol.");
 		this.sendReply("You will have this until you log off for more than an hour.");
 		this.sendReply("If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.");
-	} else if (item === "icon") {
-		this.sendReply("You purchased an icon, contact an administrator to obtain the article.");
-	} else if (item === "mystery") {
-		user.canOpenMysteryBox = true;
-		this.sendReply("Good luck! Happy unboxing :)");
 	} else if (item === "ability") {
 		Server.ssb[user.userid].bought.cAbility = true;
 		writeSSB();
@@ -170,13 +167,12 @@ function handleBoughtItem(item, user, cost) {
 		Server.ssb[user.userid].canShiny = true;
 		writeSSB();
 	} else {
-		let msg = `**${user.name} has bought ${item}.**`;
-		Monitor.log(`${msg}`);
-		Users.users.forEach(function (user) {
-			if (user.group === "~" || user.group === "&" || user.group === "@") {
-				user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|${msg}`);
-			}
-		});
+		if (!user.tokens) user.tokens = {};
+		if (item) {
+			user.tokens[item] = true;
+		} else {
+			Server.pmStaff(`${user.name} has purchased a "${item}" from the shop.`);
+		}
 	}
 }
 
@@ -459,4 +455,106 @@ exports.commands = {
 		});
 	},
 	buyhelp: ["/buy [item] - Buys an item from the shop."],
+
+	// Credit to Wavelength
+	usetoken: function (target, room, user) {
+		target = target.split(",");
+		if (target.length < 2) return this.parse("/help usetoken");
+		target[0] = toId(target[0]);
+		let msg = "";
+		if (["avatar", "declare", "icon", "color", "emote", "title", "room", "music", "background", "roomshop"].indexOf(target[0]) === -1) return this.parse("/help usetoken");
+		if (!user.tokens || !user.tokens[target[0]] && !user.can("bypassall")) return this.errorReply("You need to buy this from the shop first.");
+		target[1] = target[1].trim();
+
+		switch (target[0]) {
+		case "avatar":
+			if (![".png", ".gif", ".jpg"].includes(target[1].slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg`);
+			msg = `/html <center>${Server.nameColor(user.name, true)} has redeemed a avatar token.<br /><img src="${target[1]}" alt="avatar"/><br />`;
+			msg += `<button class="button" name="send" value="/customavatar set ${user.userid}, ${target[1]}">Apply Avatar</button></center>`;
+			delete user.tokens[target[0]];
+			return Server.pmStaff(msg);
+		case "declare":
+			target[1] = target[1].replace(/<<[a-zA-z]+>>/g, match => {
+				return `«<a href="/${toId(match)}">${match.replace(/[<<>>]/g, "")}</a>»`;
+			});
+			msg += `/html <center>${Server.nameColor(user.name, true)} has redeemed a global declare token.<br /> Message: ${Chat.escapeHTML(target[1])}<br />`;
+			msg += `<button class="button" name="send" value="/globaldeclare ${target[1]}">Globally Declare the Message</button></center>`;
+			delete user.tokens[target[0]];
+			return Server.messageSeniorStaff(msg);
+		case "color":
+			if (target[1].substring(0, 1) !== "#" || target[1].length !== 7) return this.errorReply(`Colors must be a 6 digit hex code starting with # such as #009900`);
+			msg += `/html <center>${Server.nameColor(user.name, true)} has redeemed a custom color token.<br /> Hex color: ${target[1]}<br />`;
+			msg += `<button class="button" name="send" value="/customcolor set ${user.name}, ${target[1]}">Set color (<b><font color="${target[1]}">${target[1]}</font></b>)</button></center>`;
+			delete user.tokens[target[0]];
+			return Server.pmStaff(msg);
+		case "icon":
+			if (![".png", ".gif", ".jpg"].includes(target[1].slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg`);
+			msg += `/html <center>${Server.nameColor(user.name, true)} has redeemed a icon token.<br /><img src="${target[1]}" alt="icon"/><br />`;
+			msg += `<button class="button" name="send" value="/customicon set ${user.userid}, ${target[1]}">Apply icon</button></center>`;
+			delete user.tokens[target[0]];
+			return Server.pmStaff(msg);
+		case "title":
+			if (!target[2]) return this.errorReply("/usetoken title, [name], [hex code]");
+			target[2] = target[2].trim();
+			if (target[1].substring(0, 1) !== "#" || target[1].length !== 7) return this.errorReply(`Colors must be a 6 digit hex code starting with # such as #009900`);
+			msg += `/html <center>${Server.nameColor(user.name, true)} has redeemed a title token.<br /> Title name: ${target[1]}<br />`;
+			msg += `<button class="button" name="send" value="/customtitle set ${user.userid}, ${target[1]}, ${target[2]}">Set title (<b><font color="${target[2]}">${target[2]}</font></b>)</button></center>`;
+			delete user.tokens[target[0]];
+			return Server.pmStaff(msg);
+		case "emote":
+			if (!target[2]) return this.errorReply("/usetoken emote, [name], [img]");
+			target[2] = target[2].trim();
+			if (![".png", ".gif", ".jpg"].includes(target[2].slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg`);
+			msg += `/html <center>${Server.nameColor(user.name, true)} has redeemed a emote token.<br /><img src="${target[2]}" alt="${target[1]}"/><br />`;
+			msg += `<button class="button" name="send" value="/emote add ${target[1]}, ${target[2]}">Add emote</button></center>`;
+			delete user.tokens[target[0]];
+			return Server.pmStaff(msg);
+		case "room":
+			if (!target[1]) return this.errorReply("/usetoken room, [room name]");
+			let roomid = toId(target[1]);
+			if (Rooms(roomid)) return this.errorReply(`${roomid} is already a room.`);
+			msg += `/html <center>${Server.nameColor(user.name, true)} has redeemed a room token.<br />`;
+			msg += `<button class="button" name="send" value="/makechatroom ${target[1]}">Create Room <strong>"${target[1]}"</strong></button></center>`;
+			delete user.tokens[target[0]];
+			return Server.messageSeniorStaff(msg);
+		case "background":
+			if (!target[1]) return this.errorReply("/usetoken background, [img]");
+			target[1] = target[1].trim();
+			if (![".png", ".gif", ".jpg"].includes(target[1].slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg`);
+			msg += `/html <center>${Server.nameColor(user.name, true)} has redeemed a background token.<br /><img src="${target[1]}/><br />`;
+			msg += `<button class="button" name="send" value="/background set ${user.userid}, ${target[1]}">Set the background</button></center>`;
+			delete user.tokens[target[0]];
+			return Server.messageSeniorStaff(msg);
+		case "music":
+			if (!target[2]) return this.errorReply("/usetoken music, [link], [name]");
+			target[1] = target[1].trim();
+			if (![".mp3", ".mp4", ".m4a"].includes(target[1].slice(-4))) return this.errorReply(`The song needs to end in .mp3, .mp4, or .m4a`);
+			msg += `/html <center>${Server.nameColor(user.name, true)} has redeemed a music token.<br /><audio src="${target[2]}" alt="${target[1]}"></audio><br />`;
+			msg += `<button class="button" name="send" value="/music set ${user.userid}, ${target[1]}, ${target[2]}">Set music</button></center>`;
+			delete user.tokens[target[0]];
+			return Server.pmStaff(msg);
+		case "roomshop":
+			if (!target[1]) return this.errorReply("/usetoken roomshop, [room name]");
+			if (!Rooms(roomid)) return this.errorReply(`${roomid} is not a room.`);
+			if (Db.roomshop.has(roomid)) return this.errorReply(`${roomid} already has a Room Shop.`);
+			msg += `/html <center>${Server.nameColor(user.name, true)} has redeemed a Room Shop token.<br />`;
+			msg += `<button class="button" name="send" value="/roomshop ${target[1]}">Create Room <strong>"${target[1]}"</strong></button></center>`;
+			delete user.tokens[target[0]];
+			return Server.messageSeniorStaff(msg);
+		default:
+			return this.errorReply("An error occured in the command."); // This should never happen.
+		}
+	},
+	usetokenhelp: [
+		`/usetoken avatar [image] - Uses an image token to redeem your avatar.
+		/usetoken declare [message] - Uses a declare token to redeem your Global Declare.
+		/usetoken color [hex code] - Uses a custom color token to redeem your Custom Color.
+		/usetoken icon [image] - Uses an icon token to redeem your Custom Icon.
+		/usetoken title, [name], [hex code] - Uses a title token to redeem your Custom Icon.
+		/usetoken emote, [name], [image] - Uses an emoticon token to redeem your Custom Emoticon.
+		/usetoken room, [room name] - Uses a chatroom token to redeem a Chatroom.
+		/usetoken background, [image] - Uses a profile background token to redeem a Background.
+		/usetoken music, [link], [name] - Uses a profile music token to redeem Profile Music.
+		/usetoken roomshop, [room name] - Uses a Room Shop token to enable a Room Shop in the room.`,
+	],
 };

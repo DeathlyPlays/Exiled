@@ -5,15 +5,15 @@
 *Credits to jd for League file*
 *******************************/
 
-'use strict';
+"use strict";
 
 /****** General Faction Functions Start ******/
 let factions = {};
-const fs = require('fs');
+const fs = require("fs");
 try {
-	factions = JSON.parse(fs.readFileSync('config/factions.json', 'utf8'));
+	factions = JSON.parse(fs.readFileSync("config/factions.json", "utf8"));
 } catch (e) {
-	if (e.code !== 'ENOENT') throw e;
+	if (e.code !== "ENOENT") throw e;
 }
 
 function getFaction(user) {
@@ -30,15 +30,39 @@ function getFaction(user) {
 Server.getFaction = getFaction;
 
 function write() {
-	if (Object.keys(factions).length < 1) return fs.writeFileSync('config/factions.json', JSON.stringify(factions));
+	if (Object.keys(factions).length < 1) return fs.writeFileSync("config/factions.json", JSON.stringify(factions));
 	let data = "{\n";
 	for (let u in factions) {
 		data += '\t"' + u + '": ' + JSON.stringify(factions[u]) + ",\n";
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	fs.writeFileSync('config/factions.json', data);
+	fs.writeFileSync("config/factions.json", data);
 }
+
+for (let u in factions) {
+	if (!factions[u].joinDate) factions[u].joinDate = {};
+	for (let i in factions[u].users) {
+		if (factions[u].joinDate[factions[u].users[i]]) continue;
+		factions[u].joinDate[factions[u].users[i]] = Date.now() - 7100314200;
+	}
+	if (factions[u].bank) delete factions[u].bank;
+	if (factions[u].nowipe) continue;
+	let coins = Db.factionbank.get(factions[u]);
+	factions[u].nowipe = true;
+	if (!coins) continue;
+	let remainder = Db.factionbank.get(factions[u]) % 20;
+	if (remainder !== 0) {
+		coins = coins - remainder;
+		let owner = factions[u].ranks["owner"].users[0];
+		Economy.writeMoney(toId(owner), remainder);
+		Economy.logTransaction(`${owner} has earned ${remainder} ${moneyName}${Chat.plural(moneyPlural)}!`);
+	}
+	Db.factionbank.remove(factions[u].id);
+	Db.factionbank.set(factions[u].id, coins / 20);
+}
+write();
+
 function getFactionRank(user) {
 	user = toId(user);
 	let faction = toId(getFaction(user));
@@ -71,7 +95,7 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 			if ((!room.fvf.factions[0].players.includes(p1) && !room.fvf.factions[1].players.includes(p2)) && (!room.fvf.factions[0].players.includes(p2) && !room.fvf.factions[1].players.includes(p1))) return;
 		}
 
-		if (status === 'start') {
+		if (status === "start") {
 			if (room.fvf.mode === "normal") {
 				if (room.fvf.status[room.fvf.statusNumber] !== 2) return;
 				room.fvf.status[room.fvf.statusNumber] = id;
@@ -81,7 +105,7 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 			}
 			fvfDisplay(room);
 			room.add(`|raw|<a href="/${id}">The Faction vs Faction battle between ${Server.nameColor(p1, true)} (${Chat.escapeHTML(factions[factionId].name)}) and ${Server.nameColor(p2, true)} (${Chat.escapeHTML(factions[targetFactionid].name)}) has begun.</a>`).update();
-		} else if (status === 'types') {
+		} else if (status === "types") {
 			if (room.fvf.mode === "normal") {
 				room.fvf.types[room.fvf.statusNumber] = types;
 			} else {
@@ -89,7 +113,7 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 				room.fvf.types[statusNumber] = types;
 			}
 			fvfDisplay(room);
-		} else if (status.substr(0, 2) === 'p-') {
+		} else if (status.substr(0, 2) === "p-") {
 			status = status.slice(2);
 			if (room.fvf.mode === "normal") {
 				if (room.fvf.status[room.fvf.statusNumber] !== id) return;
@@ -111,13 +135,26 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 					fvfDisplay(room);
 					// end
 					let winner = room.fvf.factions[0].name;
+					let prize1 = 5 * room.fvf.size;
+					let prize2 = 1 * room.fvf.size;
 					if (room.fvf.factions[1].wins > room.fvf.factions[0].wins) {
-						winner = room.fvf.factions[1].name;
+						winner = room.fvf.factions[1].name;prize2 = prize1;
+						prize1 = 1 * room.fvf.size;
 					}
-					room.add(`|raw|<div class="infobox">Congratulations ${Chat.escapeHTML(winner)}. You have won the Faction vs Faction!</div>`);
-					room.update();
+					Db.factionbank.set(room.fvf.factions[0].id, Db.factionbank.get(room.fvf.factions[0].id, 0) + prize1);
+					Db.factionbank.set(room.fvf.factions[1].id, Db.factionbank.get(room.fvf.factions[1].id, 0) + prize2);
+					for (let u in room.fvf.factions[0].players) {
+						if (room.fvf.factions[0].name === winner) Db.factionCoins.set(room.fvf.factions[0].players[u], Db.factionCoins.get(room.fvf.factions[0].players[u], 0) + (prize1 / 3));
+						Server.ExpControl.addExp(room.fvf.factions[0].players[u], room.id, prize1);
+					}
+					for (let u in room.fvf.factions[1].players) {
+						if (room.fvf.factions[1].name === winner) Db.factionCoins.set(room.fvf.factions[1].players[u], Db.factionCoins.get(room.fvf.factions[1].players[u], 0) + (prize2 / 3));
+						Server.ExpControl.addExp(room.fvf.factions[1].players[u], room.id, prize2);
+					}
 					factions[toId(winner)].tourwins += 1;
 					write();
+					room.add(`|raw|<div class="infobox">Congratulations ${Chat.escapeHTML(winner)}. You have won the Faction vs Faction!</div>`);
+					room.update();
 					delete Rooms.global.FvF[toId(room.fvf.factions[0].name)];
 					delete Rooms.global.FvF[toId(room.fvf.factions[1].name)];
 					delete room.fvf;
@@ -142,8 +179,21 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 					fvfDisplay(room);
 					// end
 					let winner = room.fvf.factions[0].name;
+					let prize1 = 5 * room.fvf.size;
+					let prize2 = 1 * room.fvf.size;
 					if (room.fvf.factions[1].wins > room.fvf.factions[0].wins) {
-						winner = room.fvf.factions[1].name;
+						winner = room.fvf.factions[1].name;prize2 = prize1;
+						prize1 = 1 * room.fvf.size;
+					}
+					Db.factionbank.set(room.fvf.factions[0].id, Db.factionbank.get(room.fvf.factions[0].id, 0) + prize1);
+					Db.factionbank.set(room.fvf.factions[1].id, Db.factionbank.get(room.fvf.factions[1].id, 0) + prize2);
+					for (let u in room.fvf.factions[0].players) {
+						if (room.fvf.factions[0].name === winner) Db.factionCoins.set(room.fvf.factions[0].players[u], Db.factionCoins.get(room.fvf.factions[0].players[u], 0) + (prize1 / 3));
+						Server.ExpControl.addExp(room.fvf.factions[0].players[u], room.id, prize1);
+					}
+					for (let u in room.fvf.factions[1].players) {
+						if (room.fvf.factions[1].name === winner) Db.factionCoins.set(room.fvf.factions[1].players[u], Db.factionCoins.get(room.fvf.factions[1].players[u], 0) + (prize2 / 3));
+						Server.ExpControl.addExp(room.fvf.factions[1].players[u], room.id, prize2);
 					}
 					factions[toId(winner)].tourwins += 1;
 					write();
@@ -154,7 +204,7 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 					delete room.fvf;
 				}
 			}
-		} else if (status === 'tie') {
+		} else if (status === "tie") {
 			if (room.fvf.mode === "normal") {
 				room.fvf.status[room.fvf.statusNumber] = 2;
 			} else {
@@ -202,7 +252,7 @@ function fvfDisplay(room) {
 					room.fvf.factions[1].players.splice(room.fvf.factions[1].players.indexOf(notOnline[u]), 1);
 				}
 			}
-			room.add(`The following players have been removed from the Faction vs Faction due to not being online: ${notOnline.join(', ')}`);
+			room.add(`The following players have been removed from the Faction vs Faction due to not being online: ${notOnline.join(", ")}`);
 		} else {
 			room.fvf.started = true;
 			Dex.shuffle(room.fvf.factions[0].players);
@@ -237,7 +287,7 @@ function fvfDisplay(room) {
 			case 3:
 				output += `<td><center>${room.fvf.factions[0].players[u]}</center></td>`;
 				output += `<td>vs</td>`;
-				output += `<td><center>${room.fvf.factions[1].players[u]}'</center></td>`;
+				output += `<td><center>${room.fvf.factions[1].players[u]}</center></td>`;
 				break;
 			default:
 				output += `<td><center><a href="/${Chat.escapeHTML(room.fvf.status[u])}"> ${room.fvf.factions[0].players[u]}</a></center></td>`;
@@ -269,28 +319,29 @@ function factionPM(message, faction) {
 /****** Faction vs Faction Functions End ******/
 
 exports.commands = {
-	faction: 'factions',
+	faction: "factions",
 	factions: {
 		new: "create",
 		make: "create",
 		create: function (target, room, user) {
-			let targets = target.split(',');
+			let targets = target.split(",");
 			for (let u = 0; u < targets.length; u++) targets[u] = targets[u].trim();
-			if (!targets[2]) return this.errorReply('/factions create (name), (description), (tag [4 char])');
+			if (!targets[2]) return this.errorReply("/factions create (name), (description), (tag [4 char])");
 			let name = targets[0];
 			let desc = targets[1];
-			if (desc.length > 100) return this.errorReply('Faction descriptions must be 100 characters or less!');
+			if (desc.length > 100) return this.errorReply("Faction descriptions must be 100 characters or less!");
 			let tag = targets[2];
-			if (tag.length > 4) return this.errorReply('Faction tags must be 4 characters at most!');
-			if (factions[toId(name)]) return this.errorReply('That faction exists already!');
+			if (tag.length > 4) return this.errorReply("Faction tags must be 4 characters at most!");
+			if (factions[toId(name)]) return this.errorReply("That faction exists already!");
 			for (let i = 0; i < factions.length; i++) {
-				if (factions[i].tag === tag) return this.errorReply('That faction tag exists already!');
+				if (factions[i].tag === tag) return this.errorReply("That faction tag exists already!");
 			}
-			if (getFaction(user.userid)) return this.errorReply('You are already in a faction!');
+			let userid = user.userid;
+			if (getFaction(userid)) return this.errorReply("You are already in a faction!");
 
 			let priv = false;
 			let approve = true;
-			if (!user.can('broadcast')) {
+			if (!user.can("broadcast")) {
 				priv = true;
 				approve = false;
 			}
@@ -300,25 +351,25 @@ exports.commands = {
 				id: toId(name),
 				desc: desc,
 				tag: tag,
-				users: [user.userid],
+				users: [userid],
 				userwins: {},
 				tourwins: 0,
-				bank: [],
 				invites: [],
 				bans: [],
 				private: priv,
 				approved: approve,
+				joinDate: {userid: Date.now()},
 				ranks: {
-					'owner': {
-						title: 'Owner',
-						users: [user.userid],
+					"owner": {
+						title: "Owner",
+						users: [userid],
 					},
-					'noble': {
-						title: 'Noble',
+					"noble": {
+						title: "Noble",
 						users: [],
 					},
-					'commoner': {
-						title: 'Commoner',
+					"commoner": {
+						title: "Commoner",
 						users: [],
 					},
 				},
@@ -328,48 +379,61 @@ exports.commands = {
 			return this.sendReply(`Faction ${name} created!`);
 		},
 
+		joindate: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			if (!target) target = user.userid;
+			let factionId = toId(getFaction(user.userid));
+			if (factionId !== toId(getFaction(toId(target)))) return this.errorReply(`You are not in the same faction as the target user!`);
+			let date = new Date(factions[factionId].joinDate[toId(target)]);
+			if (!date) return this.errorReply(`That user doesn't appear to have a join date.`);
+			return this.sendReplyBox(`"${target}" joined ${factionId} on ${date}.`);
+		},
+
+		remove: "delete",
 		delete: function (target, room, user) {
-			if (!target) return this.errorReply('/factions delete (name)');
-			if (!factions[toId(target)]) return this.errorReply('Doesn\'t exist!');
-			if (!this.can("faction") && factions[toId(target)].ranks['owner'].users.indexOf(user.userid) === -1) return false;
+			if (!target) return this.errorReply("/factions delete (name)");
+			if (!factions[toId(target)]) return this.errorReply("Doesn"t exist!");
+			if (!this.can("faction") && factions[toId(target)].ranks["owner"].users.indexOf(user.userid) === -1) return false;
 
 			delete factions[toId(target)];
 			write();
-			this.sendReply(`Faction ${toId(target)} has been deleted.`);
+			this.sendReply(`Faction "${target}"" has been deleted.`);
 		},
 
+		description: "desc",
 		desc: function (target, room, user) {
-			if (!getFaction(user.userid)) return this.errorReply('You are not in a faction.');
-			if (toId(getFactionRank(user.userid) !== 'owner')) return this.errorReply('You do not own this faction.');
-			if (!target) return this.errorReply('Needs a target no more than 100 characters.');
-			if (target.length > 100) return this.errorReply('Faction descriptions must be 100 characters or less!');
-			factions[toId(getFaction(user.userid))].desc = target;
+			if (!getFaction(user.userid)) return this.errorReply("You are not in a faction.");
+			let factionDesc = factions[toId(getFaction(user.user))].desc;
+			if (toId(getFactionRank(user.userid) !== "owner")) return this.errorReply("You do not own this faction.");
+			if (!target) return this.errorReply("Needs a target no more than 100 characters.");
+			if (target.length > 100) return this.errorReply("Faction descriptions must be 100 characters or less!");
+			factionDesc = target;
 			write();
-			return this.sendReplyBox(`Your faction description is now set to: <br /> ${factions[toId(getFaction(user.userid))].desc}.`);
+			return this.sendReplyBox(`Your faction description is now set to: <br /> ${factionDesc}.`);
 		},
 
 		avatar: function (target, room, user) {
 			let factionId = toId(getFaction(user.userid));
-			if (!factionId) return this.errorReply('You are not in a faction!');
-			if (toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply('You are not the faction owner!');
+			if (!factionId) return this.errorReply("You are not in a faction!");
+			if (toId(getFactionRank(user.userid)) !== "owner") return this.errorReply("You are not the faction owner!");
 			if (!target) return false;
-			if (!target.includes['.jpg'] && target.includes['.png'] && target.includes['.gif']) return this.errorReply("Not an image link!");
+			if (!target.includes[".jpg"] && target.includes[".png"] && target.includes[".gif"]) return this.errorReply("Not an image link!");
 			factions[factionId].pendingAVI = target;
 			write();
-			if (Rooms('upperstaff')) Rooms('upperstaff').add(`|html|Faction ${factionId} has requested a faction avatar <br /><img src="${target}" height="80" width="80"><br /><button name="send" value="/faction aa ${factionId}, ${factions[factionId].pendingAVI}">Set it!</button> <button name="send" value="/faction da ${factionId}">Deny it!</button>`).update();
-			return this.sendReply('Upper Staff have been notified of your faction avatar request!');
+			if (Rooms("upperstaff")) Rooms("upperstaff").add(`|html|Faction ${factionId} has requested a faction avatar <br /><img src="${target}" height="80" width="80"><br /><button name="send" value="/faction aa ${factionId}, ${factions[factionId].pendingAVI}">Set it!</button> <button name="send" value="/faction da ${factionId}">Deny it!</button>`).update();
+			return this.sendReply("Upper Staff have been notified of your faction avatar request!");
 		},
 
-		aa: 'approveavatar',
+		aa: "approveavatar",
 		approveavatar: function (target, room, user) {
 			if (!this.can("faction")) return false;
-			let targets = target.split(',');
+			let targets = target.split(",");
 			for (let u in targets) targets[u] = targets[u].trim();
-			if (!targets[1]) return this.errorReply("Usage: '/faction approveavatar factionid, link'");
+			if (!targets[1]) return this.errorReply("Usage: /faction approveavatar factionid, link");
 			let factionId = toId(targets[0]);
-			if (!factions[factionId]) return this.errorReply('Not a faction!');
+			if (!factions[factionId]) return this.errorReply("Not a faction!");
 			let factAvi = targets[1];
-			if (factAvi !== factions[factionId].pendingAVI) return this.errorReply('The image does not match the requested image!');
+			if (factAvi !== factions[factionId].pendingAVI) return this.errorReply("The image does not match the requested image!");
 			factions[factionId].avatar = factAvi;
 			delete factions[factionId].pendingAVI;
 			write();
@@ -377,19 +441,19 @@ exports.commands = {
 			return this.sendReply(`The faction avatar has been set for ${factions[factionId].name}`);
 		},
 
-		da: 'denyavatar',
+		da: "denyavatar",
 		denyavatar: function (target, room, user) {
 			if (!this.can("faction")) return false;
 			let factionId = toId(target);
-			if (!factions[factionId]) return this.errorReply('That faction does not exist!');
-			if (!factions[factionId].pendingAVI) return this.errorReply('That faction has not requested a faction avatar!');
+			if (!factions[factionId]) return this.errorReply("That faction does not exist!");
+			if (!factions[factionId].pendingAVI) return this.errorReply("That faction has not requested a faction avatar!");
 			delete factions[factionId].pendingAVI;
 			write();
 			Monitor.adminlog(`${user.name} has denied a faction avatar for ${factions[factionId].name}`);
 			return this.sendReply(`The faction avatar has been denied for ${factions[factionId].name}`);
 		},
 
-		pa: 'pendingavatars',
+		pa: "pendingavatars",
 		pendingavatars: function (target, room, user) {
 			if (!this.can("faction")) return false;
 			let output = `<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Faction</td><td>Image</td><td>Approve</td><td>Deny</td</tr>`;
@@ -436,38 +500,40 @@ exports.commands = {
 			if (!target && getFaction(user.userid)) target = getFaction(user.userid);
 			let factionId = toId(target);
 			if (!factions[factionId] || factions[factionId] && factions[factionId].private === true) return this.errorReply("There is no faction by that name! If you are not in a faction please specify one!");
-			let output = (factions[factionId].avatar ? `<img src='${factions[factionId].avatar}' height='80' width='80' align='left'>` : ``) + `&nbsp;${Chat.escapeHTML(factions[factionId].name)}</br>`;
+			let output = (factions[factionId].avatar ? `<img src="${factions[factionId].avatar}" height="80" width="80" align="left">` : ``) + `&nbsp;${Chat.escapeHTML(factions[factionId].name)}</br>`;
 			output += `<br />&nbsp;Faction Vs Faction wins: ${factions[factionId].tourwins}<br /> &nbsp;Usercount: ${factions[factionId].users.length}<br />`;
 			output += `&nbsp;Description: ${factions[factionId].desc}<br />`;
-			output += `&nbsp;Owners: ${Server.nameColor(factions[factionId].ranks['owner'].users.join(', '), true)}<br />`;
-			output += `&nbsp;Nobles: ${Server.nameColor(factions[factionId].ranks['noble'].users.join(', '), true)}<br />`;
-			output += `&nbsp;Commoners: ${Server.nameColor(factions[factionId].ranks['commoner'].users.join(', '), true)}<br />`;
+			output += `&nbsp;Owners: ${Server.nameColor(factions[factionId].ranks["owner"].users.join(", "), true)}<br />`;
+			output += `&nbsp;Nobles: ${Server.nameColor(factions[factionId].ranks["noble"].users.join(", "), true)}<br />`;
+			output += `&nbsp;Commoners: ${Server.nameColor(factions[factionId].ranks["commoner"].users.join(", "), true)}<br />`;
 			this.sendReplyBox(output);
 		},
 
-		privatize: function (target, room, user) {
+		private: "privatize",
+		public: "privatize",
+		privatize: function (target, room, user, connection, cmd) {
 			let factionId = toId(getFaction(user.userid));
-			if (!factionId) return this.errorReply('You are not in a faction!');
-			if (toId(getFactionRank(user.userid)) !== 'owner') return false;
+			if (!factionId) return this.errorReply("You are not in a faction!");
+			if (toId(getFactionRank(user.userid)) !== "owner") return false;
 			if (!factions[factionId].approved) return this.errorReply("Your faction is not approved!");
-			if (this.meansYes(target)) {
-				if (factions[factionId].private) return this.errorReply('Faction is already private.');
+			if (this.meansYes(target) || cmd === "privatize") {
+				if (factions[factionId].private) return this.errorReply("Faction is already private.");
 				factions[factionId].private = true;
 				write();
-				return this.sendReply('Faction is now private!');
-			} else if (this.meansNo(target)) {
-				if (!factions[factionId].private) return this.errorReply('Faction is not private.');
+				return this.sendReply("Faction is now private!");
+			} else if (this.meansNo(target) || cmd === "public") {
+				if (!factions[factionId].private) return this.errorReply("Faction is not private.");
 				factions[factionId].private = false;
 				write();
-				return this.sendReply('Faction is now public!');
+				return this.sendReply("Faction is now public!");
 			} else {
-				return this.errorReply('Valid targets are: on, true, off, false.');
+				return this.errorReply("Valid targets are: on, true, off, false, public, privatize, private.");
 			}
 		},
 
 		approve: function (target, room, user) {
 			if (!this.can("faction")) return false;
-			if (!target) return this.errorReply('/factions approve (faction)');
+			if (!target) return this.errorReply("/factions approve (faction)");
 			if (!factions[toId(target)]) return this.errorReply("Not a faction!");
 			if (factions[toId(target)].approved) return this.errorReply("Already approved!");
 			factions[toId(target)].approved = true;
@@ -480,11 +546,12 @@ exports.commands = {
 			return user.popup("Faction approved!");
 		},
 
+		j: "join",
 		join: function (target, room, user) {
-			if (!target) this.errorReply('/faction join (faction)');
+			if (!target) this.errorReply("/faction join (faction)");
 			let factionid = toId(target);
-			if (!factions[factionid] || (factions[factionid] && !factions[factionid].approved) || (factions[factionid] && factions[factionid].private)) return this.errorReply('That faction does not exist.');
-			if (getFaction(user.userid)) return this.errorReply('You\'re already in a faction!');
+			if (!factions[factionid] || (factions[factionid] && !factions[factionid].approved) || (factions[factionid] && factions[factionid].private)) return this.errorReply("That faction does not exist.");
+			if (getFaction(user.userid)) return this.errorReply("You're already in a faction!");
 			if (factions[factionid].bans.indexOf(user.userid) > -1) return this.errorReply("You are banned from this faction!");
 			let sortedRanks = Object.keys(factions[factionid].ranks).sort(function (a, b) { return factions[factionid].ranks[b].rank - factions[factionid].ranks[a].rank; });
 			let rank = sortedRanks.pop();
@@ -495,24 +562,25 @@ exports.commands = {
 			user.popup(`You've joined ${factions[factionid].name}.`);
 		},
 
+		inv: "invite",
 		invite: function (target, room, user) {
-			if (!target) return this.errorReply('/factions invite (user)');
+			if (!target) return this.errorReply("/factions invite (user)");
 			let faction = toId(getFaction(user.userid));
 			let targetUser = Users(target);
 			if (!targetUser) return this.errorReply("Needs a target!");
 			const factionid = toId(faction);
 			if (factions[factionid] && !factions[factionid].approved) return this.errorReply("Your faction is not approved!");
-			if (Db.blockedinvites.get(targetUser.userid)) return this.errorReply('User is currently blocking faction invites!');
-			if (!factions[factionid]) return this.errorReply('You are not in a faction.');
-			if (!targetUser || !targetUser.connected) return this.errorReply('That user isn\'t online!');
+			if (Db.blockedinvites.get(targetUser.userid)) return this.errorReply("User is currently blocking faction invites!");
+			if (!factions[factionid]) return this.errorReply("You are not in a faction.");
+			if (!targetUser || !targetUser.connected) return this.errorReply("That user isn't online!");
 			if (factions[factionid].bans.indexOf(targetUser.userid) > -1) return this.errorReply(`${targetUser.name} is banned from this faction!`);
-			if (factions[factionid].users.includes(targetUser.userid)) return this.errorReply('That user is already in a faction!');
-			if (factions[factionid].invites.includes(targetUser.userid)) return this.errorReply('That user already has a pending invite for this faction!');
+			if (factions[factionid].users.includes(targetUser.userid)) return this.errorReply("That user is already in a faction!");
+			if (factions[factionid].invites.includes(targetUser.userid)) return this.errorReply("That user already has a pending invite for this faction!");
 			for (let faction = 0; faction < factions.length; faction++) {
 				if (factions[faction].id === faction) continue;
 				if (factions[faction].users.includes(targetUser.userid)) return this.errorReply(`That user is a member of ${factions[faction].name}.`);
 			}
-			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply('You can\'t invite people!');
+			if (toId(getFactionRank(user.userid)) !== "noble" && toId(getFactionRank(user.userid)) !== "owner") return this.errorReply("You can't invite people!");
 
 			factions[factionid].invites.push(targetUser.userid);
 			write();
@@ -524,23 +592,23 @@ exports.commands = {
 		},
 
 		blockinvites: function (target, room, user) {
-			if (Db.blockedinvites.get(user.userid)) return this.errorReply('You are already blocking faction invites!');
+			if (Db.blockedinvites.get(user.userid)) return this.errorReply("You are already blocking faction invites!");
 			Db.blockedinvites.set(user.userid, true);
-			return this.sendReply('Faction invites are now blocked!');
+			return this.sendReply("Faction invites are now blocked!");
 		},
 
 		unblockinvites: function (target, room, user) {
-			if (!Db.blockedinvites.get(user.userid)) return this.errorReply('You are currently not blocking faction invites!');
+			if (!Db.blockedinvites.get(user.userid)) return this.errorReply("You are currently not blocking faction invites!");
 			Db.blockedinvites.remove(user.userid);
-			return this.sendReply('Faction invites are now allowed!');
+			return this.sendReply("Faction invites are now allowed!");
 		},
 
 		accept: function (target, room, user) {
-			if (!target) return this.errorReply('/faction accept [faction]');
+			if (!target) return this.errorReply("/faction accept [faction]");
 			let factionid = toId(target);
-			if (!factions[factionid]) return this.errorReply('This faction does not exist.');
-			if (!factions[factionid].invites.includes(user.userid)) return this.errorReply('You have no pending invites!');
-			if (getFaction(user.userid)) return this.errorReply('You\'re already in a faction!');
+			if (!factions[factionid]) return this.errorReply("This faction does not exist.");
+			if (!factions[factionid].invites.includes(user.userid)) return this.errorReply("You have no pending invites!");
+			if (getFaction(user.userid)) return this.errorReply("You're already in a faction!");
 
 			let sortedRanks = Object.keys(factions[factionid].ranks).sort(function (a, b) { return factions[factionid].ranks[b].rank - factions[factionid].ranks[a].rank; });
 			let rank = sortedRanks.pop();
@@ -553,11 +621,11 @@ exports.commands = {
 		},
 
 		decline: function (target, room, user) {
-			if (!target) return this.errorReply('/faction decline [faction]');
+			if (!target) return this.errorReply("/faction decline [faction]");
 			let factionid = toId(target);
-			if (!factions[factionid]) return this.errorReply('This faction does not exist.');
-			if (!factions[factionid].invites.includes(user.userid)) return this.errorReply('You have no pending invites!');
-			if (getFaction(user.userid)) return this.errorReply('You\'re already in a faction!');
+			if (!factions[factionid]) return this.errorReply("This faction does not exist.");
+			if (!factions[factionid].invites.includes(user.userid)) return this.errorReply("You have no pending invites!");
+			if (getFaction(user.userid)) return this.errorReply("You're already in a faction!");
 
 			factions[factionid].invites.splice(factions[factionid].invites.indexOf(user.userid), 1);
 			write();
@@ -568,7 +636,12 @@ exports.commands = {
 		leave: function (target, room, user) {
 			let factionid = toId(getFaction(user.userid));
 			if (!factions[factionid]) return this.errorReply("You're not in a faction.");
-			if (factions[factionid].ranks['owner'].users.includes(user.userid)) return this.errorReply("You can't leave a faction, if you're the owner.");
+			if (factions[factionid].ranks["owner"].users.includes(user.userid)) return this.errorReply("You can't leave a faction, if you're the owner.");
+
+			if (Db.factionCoins.get(user.userid, 0) > 0) {
+				Db.factionbank.set(toId(getFaction(user.userid)), Db.factionbank.get(toId(getFaction(user.userid)), 0) + Db.factionCoins.set(user.userid, 0));
+				Db.factionCoins.set(user.userid, 0);
+			}
 
 			for (let rank in factions[factionid].ranks) {
 				if (!factions[factionid].ranks[rank].users.includes(user.userid)) continue;
@@ -580,16 +653,16 @@ exports.commands = {
 		},
 
 		kick: function (target, room, user) {
-			if (!target) return this.errorReply('/factions kick [user]');
+			if (!target) return this.errorReply("/factions kick [user]");
 			let factionName = getFaction(user.userid);
 			let factionid = toId(factionName);
 			let targetid = toId(target);
-			if (user.userid === targetid) return this.errorReply('You cannot kick yourself!');
-			if (!factions[factionid]) return this.errorReply('You aren\'t in a faction!');
-			if (!factions[factionid].users.includes(targetid)) return this.errorReply('This user is not in a faction!');
+			if (user.userid === targetid) return this.errorReply("You cannot kick yourself!");
+			if (!factions[factionid]) return this.errorReply("You aren't in a faction!");
+			if (!factions[factionid].users.includes(targetid)) return this.errorReply("This user is not in a faction!");
 
-			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply(`You don't have permission to kick users from '${factionName}'.`);
-			if (toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(targetid)) === 'noble' || toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(targetid)) === 'owner' || toId(getFactionRank(user.userid)) === 'owner' && toId(getFactionRank(targetid)) === 'owner') return this.errorReply('You cannot kick them from the faction!');
+			if (toId(getFactionRank(user.userid)) !== "noble" && toId(getFactionRank(user.userid)) !== "owner") return this.errorReply(`You don't have permission to kick users from "${factionName}".`);
+			if (toId(getFactionRank(user.userid)) === "noble" && toId(getFactionRank(targetid)) === "noble" || toId(getFactionRank(user.userid)) === "noble" && toId(getFactionRank(targetid)) === "owner" || toId(getFactionRank(user.userid)) === "owner" && toId(getFactionRank(targetid)) === "owner") return this.errorReply("You cannot kick them from the faction!");
 
 			for (let rank in factions[factionid].ranks) {
 				if (factions[factionid].ranks[rank].users.includes(targetid)) {
@@ -598,53 +671,178 @@ exports.commands = {
 			}
 			factions[factionid].users.splice(factions[factionid].users.indexOf(targetid), 1);
 			write();
-			if (Users(target) && Users(target).connected) Users(target).send(`|popup||html|${Server.nameColor(user.name)} has kicked you from the faction ${Chat.escapeHTML(factions[factionid].name)}.`);
+			if (Db.factionCoins.get(toId(target), 0) > 0) {
+				Db.factionbank.set(toId(getFaction(user.userid)), Db.factionbank.get(toId(getFaction(user.userid)), 0) + Db.factionCoins.set(toId(target), 0));
+				Db.factionCoins.set(toId(target), 0);
+			}
+			if (Users(targetid) && Users(targetid).connected) Users(target).send(`|popup||html|${Server.nameColor(user.name)} has kicked you from the faction ${Chat.escapeHTML(factions[factionid].name)}.`);
 			this.sendReply(`You've kicked ${target} from ${factions[factionid].name}.`);
 		},
 
+		blacklist: "ban",
+		bl: "ban",
 		ban: function (target, room, user) {
 			if (!getFaction(user.userid)) return false;
-			if (!target) return this.errorReply('/faction ban (target)');
-			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return false;
-			if (toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(toId(target))) === 'noble' || toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(toId(target))) === 'owner' || toId(getFactionRank(user.userid)) === 'owner' && toId(getFactionRank(toId(target))) === 'owner') return this.errorReply('You cannot ban them from the faction!');
-			if (factions[toId(getFaction(user.userid))].bans.includes(toId(target))) return this.errorReply("User is already banned!");
+			if (!target) return this.errorReply("/faction ban (target)");
+			if (toId(getFactionRank(user.userid)) !== "noble" && toId(getFactionRank(user.userid)) !== "owner") return false;
+			if (toId(getFactionRank(user.userid)) === "noble" && toId(getFactionRank(toId(target))) === "noble" || toId(getFactionRank(user.userid)) === "noble" && toId(getFactionRank(toId(target))) === "owner" || toId(getFactionRank(user.userid)) === "owner" && toId(getFactionRank(toId(target))) === "owner") return this.errorReply("You cannot ban them from the faction!");
+			if (factions[toId(getFaction(user.userid))].bans.includes(toId(target))) return this.errorReply(`${target} is already banned!`);
 			factions[toId(getFaction(user.userid))].bans.push(toId(target));
 			if (factions[toId(getFaction(user.userid))].users.includes(toId(target))) factions[toId(getFaction(user.userid))].users.splice(factions[toId(getFaction(user.userid))].users.indexOf(toId(target)), 1);
 			for (let rank in factions[toId(getFaction(user.userid))].ranks) {
 				if (factions[toId(getFaction(user.userid))].ranks[rank].users.includes(toId(target))) factions[toId(getFaction(user.userid))].ranks[rank].users.splice(factions[toId(getFaction(user.userid))].ranks[rank].users.indexOf(toId(target)), 1);
 			}
 			write();
-			return this.sendReply(`${toId(target)} is now banned from your faction!`);
+			if (Db.factionCoins.get(toId(target), 0) > 0) {
+				Db.factionbank.set(toId(getFaction(user.userid)), Db.factionbank.get(toId(getFaction(user.userid)), 0) + Db.factionCoins.set(toId(target), 0));
+				Db.factionCoins.set(toId(target), 0);
+			}
+			return this.sendReply(`${target} is now banned from your faction!`);
 		},
 
+		unblacklist: "unban",
+		unbl: "unban",
 		unban: function (target, room, user) {
 			if (!getFaction(user.userid)) return false;
-			if (!target) return this.errorReply('/faction unban (target)');
-			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return false;
+			if (!target) return this.errorReply("/faction unban (target)");
+			if (toId(getFactionRank(user.userid)) !== "noble" && toId(getFactionRank(user.userid)) !== "owner") return false;
 			if (!factions[toId(getFaction(user.userid))].bans.includes(toId(target))) return this.errorReply(`${toId(target)} is not banned from your faction!`);
 			factions[toId(getFaction(user.userid))].bans.splice(factions[toId(getFaction(user.userid))].bans.indexOf(toId(target)), 1);
 			write();
-			return this.sendReply(`${toId(target)} is now unbanned from your faction.`);
+			return this.sendReply(`${target} is now unbanned from your faction.`);
 		},
 
+		shop: function (target, room, user) {
+			if (!getFaction(user.userid)) return false;
+			if (toId(getFactionRank(user.userid)) !== "owner") return false;
+			let userCount = factions[toId(getFaction(user.userid))].users.length;
+			let display = `<div style="max-height:300px; width: 100%; overflow: scroll"><table style="border:2px solid #101ad1; border-radius: 5px; width: 100%;"><tr><th colspan="3" style="border: 2px solid #070e96; border-radius: 5px">Faction Shop</th></tr>`;
+			display += `<tr><td style="border: 2px solid #070e96; width: 20%; text-align: center"><button name="send" value="/factions buy icons">Icons</button></td><td style="border: 2px solid #070e96; width: 70%; text-align: center">Buys Icons for everyone in the faction</td><td style="border: 2px solid #070e96; width: 10%; text-align: center">${(userCount <= 15 ? 10 * userCount : (10 * userCount) + (-2 * userCount))}</td></tr>`;
+			display += `<tr><td style="border: 2px solid #070e96; width: 20%; text-align: center"><button name="send" value="/factions buy backgroundmusic">Background and music tokens</button></td><td style="border: 2px solid #070e96; width: 70%; text-align: center">Buys background and music tokens for everyone in the faction</td><td style="border: 2px solid #070e96; width: 10%; text-align: center">${(userCount <= 15 ? 10 * userCount : (10 * userCount) + (-2 * userCount))}</td></tr>`;
+			display += `<tr><td style="border: 2px solid #070e96; width: 20%; text-align: center"><button name="send" value="/factions buy avatars">Avatars</button></td><td style="border: 2px solid #070e96; width: 70%; text-align: center">Buys Avatars for everyone in the faction</td><td style="border: 2px solid #070e96; width: 10%; text-align: center">${(userCount <= 15 ? 20 * userCount : (20 * userCount) + (-2 * userCount))}</td></tr>`;
+			display += `<tr><td style="border: 2px solid #070e96; width: 20%; text-align: center"><button name="send" value="/factions buy xpbooster2x">XP booster 2x</button></td><td style="border: 2px solid #070e96; width: 70%; text-align: center">Buys 2x XP booster for everyone in the faction</td><td style="border: 2px solid #070e96; width: 10%; text-align: center">${(userCount <= 15 ? 50 * userCount : (50 * userCount) + (-8 * userCount))}</td></tr>`;
+			display += `</table></div>`;
+			return this.sendReplyBox(display);
+		},
+
+		buy: function (target, room, user) {
+			let factionId = toId(getFaction(user.userid));
+			if (!getFaction(user.userid)) return false;
+			if (toId(getFactionRank(user.userid)) !== "owner") return false;
+			let userCount = factions[toId(getFaction(user.userid))].users.length;
+			let items = ["icons", "backgroundmusic", "avatars", "xpbooster2x"];
+			if (items.indexOf(toId(target)) === -1) return this.errorReply(`Shop items are ${items.join(", ")}.`);
+			let price = 1; // place holder price that is changed
+			if (toId(target) === "icons" && userCount < 15) {
+				price = 10 * userCount;
+			} else if (toId(target) === "icons" && userCount > 15) {
+				price = (10 * userCount) + (-2 * userCount);
+			}
+			if (toId(target) === "backgroundmusic" && userCount < 15) {
+				price = 10 * userCount;
+			} else if (toId(target) === "backgroundmusic" && userCount > 15) {
+				price = (10 * userCount) + (-2 * userCount);
+			}
+			if (toId(target) === "avatars" && userCount < 15) {
+				price = 20 * userCount;
+			} else if (toId(target) === "avatars" && userCount > 15) {
+				price = (20 * userCount) + (-2 * userCount);
+			}
+			if (toId(target) === "xpbooster2x" && userCount < 15) {
+				price = 50 * userCount;
+			} else if (toId(target) === "xpbooster2x" && userCount > 15) {
+				price = (50 * userCount) + (-8 * userCount);
+			}
+			if (Db.factionbank.get(factionId, 0) < price) return this.errorReply(`You do not have enough faction coins in the bank!`);
+			if (!factions[factionId].boughtItems) factions[factionId].boughtItems = {};
+			let broke = false;
+			for (let u in factions[factionId].users) {
+				if (!factions[factionId].boughtItems[factions[factionId].users[u]]) factions[factionId].boughtItems[factions[factionId].users[u]] = {};
+				if (factions[factionId].boughtItems[factions[factionId].users[u]][toId(target)] && !user.buyAgain) {
+					broke = true;
+					break;
+				}
+				factions[factionId].boughtItems[factions[factionId].users[u]][toId(target)] = "not claimed";
+			}
+			write();
+			if (broke) {
+				user.buyAgain = true;
+				return this.errorReply(`Someone in your faction still has not claimed the last of ${target}! Please buy again if you wish to overwrite their current one! They will not be able to claim the last one.`);
+			}
+			Db.factionbank.set(factionId, Db.factionbank.get(factionId, 0) - price);
+			if (user.buyAgain) delete user.buyAgain;
+			factionPM(`Your faction has just bought ${target} for the entire faction! Please claim it with /faction claim item. To view your pending claim list use /faction claimlist`, factionId);
+			if (toId(target) === "xpbooster3x") {
+				factions[factionId].xpBoost = Date.now();
+				write();
+				factionPM(`The XP BOOSTER 3x will expire in 3 days! It only applies to FvFs (factions vs factions). Please use it wisely!`, factionId);
+			}
+			return this.sendReplyBox(`${target} was purchased for the faction.`);
+		},
+
+		claimlist: function (target, room, user) {
+			if (!getFaction(user.userid)) return false;
+			let factionId = toId(getFaction(user.userid));
+			if (!factions[factionId].boughtItems) factions[factionId].boughtItems = {}; // safety catch!
+			if (!factions[factionId].boughtItems[user.userid]) return this.errorReply(`You have no items waiting to be claimed.`);
+			let list = Object.keys(factions[factionId].boughtItems[user.userid]);
+			return this.sendReplyBox(`List of unclaimed items: ${list.join(", ")}<br /><br /> Claim the items with /factions claim item.`);
+		},
+
+		claim: function (target, room, user) {
+			if (!getFaction(user.userid)) return false;
+			let factionId = toId(getFaction(user.userid));
+			if (!factions[factionId].boughtItems) factions[factionId].boughtItems = {}; // safety catch!
+			if (!factions[factionId].boughtItems[user.userid]) return this.errorReply(`You have no items to be claimed.`);
+			if (!factions[factionId].boughtItems[user.userid][toId(target)]) return this.errorReply(`That item was never bought or you already claimed it.`);
+			delete factions[factionId].boughtItems[user.userid][toId(target)];
+			write();
+			if (toId(target) !== "xpbooster2x") {
+				Monitor.log(`${user.name} has claimed ${target} from their Faction rewards.`);
+				return this.sendReply(`You have successfully claimed ${target} from your Factions' Rewards, please contact a Global % or higher to redeem your rewards.`);
+			} else {
+				user.doubleExp = true;
+				setTimeout(() => {
+					delete user.doubleExp;
+				}, 60000);
+				return this.sendReply(`You will now have double exp for the next hour!`);
+			}
+		},
+
+		coins: {
+			"": "atm",
+			atm: function (target, room, user) {
+				if (!getFaction(user.userid)) return this.errorReply(`You are not in a faction!`);
+				this.sendReplyBox(Db.factionCoins.get(user.userid, 0));
+			},
+
+			donate: function (target, room, user) {
+				if (!getFaction(user.userid)) return this.errorReply(`You are not in a faction!`);
+				if (Db.factionCoins.get(user.userid, 0) <= 0) return this.errorReply(`You don't have any coins to donate!`);
+				Db.factionbank.set(toId(getFaction(user.userid)), Db.factionbank.get(toId(getFaction(user.userid)), 0) + Db.factionCoins.get(user.userid, 0));
+				return this.sendReply(`Your faction coins are now in the faction bank of ${getFaction(user.userid)}.`);
+			},
+		},
+
+		reserve: "bank",
 		bank: {
-			balance: 'atm',
-			bal: 'atm',
+			balance: "atm",
+			bal: "atm",
 			atm: function (target, room, user) {
 				if (!this.runBroadcast()) return;
-				if (!target) return this.errorReply('/faction bank atm [faction]');
+				if (!target) return this.errorReply("/faction bank atm [faction]");
 				let targetId = toId(target);
 				if (!factions[toId(targetId)]) return this.errorReply(`${target} is not a faction.`);
 				let bank = Db.factionbank.get(targetId, 0);
-				return this.sendReplyBox(`${target} has ${bank} in their faction bank.`);
+				return this.sendReplyBox(`${target} has ${bank} coins in their reserve.`);
 			},
 
 			give: function (target, room, user) {
-				let targets = target.split(',');
-				if (!targets[1]) return this.errorReply('/faction bank give [faction], [amount]');
+				let targets = target.split(",");
+				if (!targets[1]) return this.errorReply("/faction bank give [faction], [amount]");
 				let name = toId(targets[0]);
 				if (!factions[name]) return this.errorReply(`${name} is not a faction.`);
-				if (!this.can("faction")) return this.errorReply('You don\'t have permission to do that.');
+				if (!this.can("faction")) return this.errorReply("You don't have permission to do that.");
 				let amount = parseInt(targets[1]);
 				if (isNaN(amount)) return this.errorReply("That is not a number!");
 				Db.factionbank.set(name, Db.factionbank.get(name, 0) + amount);
@@ -652,11 +850,11 @@ exports.commands = {
 			},
 
 			take: function (target, room, user) {
-				let targets = target.split(',');
-				if (!targets[1]) return this.errorReply('/faction bank take [faction], [amount');
+				let targets = target.split(",");
+				if (!targets[1]) return this.errorReply("/faction bank take [faction], [amount");
 				let name = toId(targets[0]);
-				if (!factions[name]) return this.errorReply(name + ' is not a faction.');
-				if (!this.can("faction")) return this.errorReply('You don\'t have permission to do that.');
+				if (!factions[name]) return this.errorReply(`${name} is not a faction.`);
+				if (!this.can("faction")) return this.errorReply("You don't have permission to do that.");
 				let amount = parseInt(targets[1]);
 				if (isNaN(amount)) return this.errorReply("That is not a number!");
 				Db.factionbank.set(name, Db.factionbank.get(name, 0) - amount);
@@ -669,11 +867,11 @@ exports.commands = {
 				if (isNaN(target)) target = 100;
 				if (!this.runBroadcast()) return;
 				let keys = Db.factionbank.keys().map(name => {
-					return {name: name, atm: Db.factionbank.get(name)};
+					return {name: name, coins: Db.factionbank.get(name)};
 				});
-				if (!keys.length) return this.sendReplyBox("Faction ATM Ladder is empty.");
+				if (!keys.length) return this.sendReplyBox("Faction Bank Ladder is empty.");
 				keys.sort(function (a, b) { return b.atm - a.atm; });
-				this.sendReplyBox(rankLadder('Richest Factions', 'Faction ATM', keys.slice(0, target), 'atm') + '</div>');
+				this.sendReplyBox(rankLadder("Richest Factions", "Faction Coins", keys.slice(0, target), "coins") + "</div>");
 			},
 
 			reset: function (target, room, user) {
@@ -681,13 +879,13 @@ exports.commands = {
 				let factionId = toId(target);
 				if (!factions[factionId]) return this.errorReply(`${factionId} is not a faction!`);
 				Db.factionbank.remove(factionId);
-				return this.sendReply(`You have reset ${factionId}'s bank!`);
+				return this.sendReply(`You have reset ${factionId}'s reserve!`);
 			},
 		},
 
 		promote: function (target, room, user) {
 			if (!target) return this.errorReply("Usage: /faction promote [user], [rank]");
-			let targets = target.split(',');
+			let targets = target.split(",");
 			for (let u = 0; u < targets; u++) targets[u] = targets[u].trim();
 
 			if (!targets[0]) return this.errorReply("Please specify a user to give a rank.");
@@ -703,11 +901,11 @@ exports.commands = {
 			if (!factions[factionid].ranks[toId(rank)]) return this.errorReply("That rank does not exist.");
 			if (factions[factionid].ranks[toId(rank)].users.includes(targetUser.userid)) return this.errorReply("That user already has that rank.");
 
-			if (toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to change user's rank.");
+			if (toId(getFactionRank(user.userid)) !== "owner") return this.errorReply("You don't have permission to change user's rank.");
 
-			if (toId(rank) !== 'owner') {
+			if (toId(rank) !== "owner") {
 				for (let rank in factions[factionid].ranks) {
-					if (rank === 'owner') continue;
+					if (rank === "owner") continue;
 					if (factions[factionid].ranks[rank].users.includes(targetUser.userid)) {
 						factions[factionid].ranks[rank].users.splice(factions[factionid].ranks[rank].users.indexOf(targetUser.userid), 1);
 					}
@@ -723,7 +921,7 @@ exports.commands = {
 
 		demote: function (target, room, user) {
 			if (!target) return this.errorReply("Usage: /faction demote [user], [rank]");
-			let targets = target.split(',');
+			let targets = target.split(",");
 			for (let u = 0; u < targets; u++) targets[u] = targets[u].trim();
 
 			if (!targets[0]) return this.errorReply("Please specify a user to remove a rank.");
@@ -738,9 +936,9 @@ exports.commands = {
 			if (!factions[factionid].users.includes(toId(targetUser))) return this.errorReply("That user is not in your faction.");
 			if (!factions[factionid].ranks[toId(rank)]) return this.errorReply("That rank does not exist.");
 			if (!factions[factionid].ranks[toId(rank)].users.includes(targetUser)) return this.errorReply("That user does not have that rank.");
-			if (toId(rank) === 'owner' && toId(targetUser) === user.userid) return this.errorReply("You can't remove owner from yourself. Give another user owner and have them remove it if you're transfering ownership of the faction.");
+			if (toId(rank) === "owner" && toId(targetUser) === user.userid) return this.errorReply("You can't remove owner from yourself. Give another user owner and have them remove it if you're transfering ownership of the faction.");
 
-			if (toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to change users rank.");
+			if (toId(getFactionRank(user.userid)) !== "owner") return this.errorReply("You don't have permission to change user's ranks.");
 
 			let hasOtherRanks;
 			for (let r in factions[factionid].ranks) {
@@ -749,7 +947,7 @@ exports.commands = {
 					hasOtherRanks = true;
 				}
 			}
-			if (!hasOtherRanks) factions[factionid].ranks['commoner'].users.push(toId(targetUser));
+			if (!hasOtherRanks) factions[factionid].ranks["commoner"].users.push(toId(targetUser));
 			factions[factionid].ranks[toId(rank)].users.splice(factions[factionid].ranks[toId(rank)].users.indexOf(toId(targetUser)), 1);
 			write();
 			if (Users(targetUser) && Users(targetUser).connected) {
@@ -760,7 +958,7 @@ exports.commands = {
 
 		pending: function (target, room, user) {
 			if (!this.can("faction")) return false;
-			let output = '<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Faction</td><td>Description</td><td>Approve</td></tr>';
+			let output = `<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Faction</td><td>Description</td><td>Approve</td></tr>`;
 			for (let faction in factions) {
 				if (!factions[faction].approved) {
 					output += `<tr>`;
@@ -773,7 +971,7 @@ exports.commands = {
 			this.sendReplyBox(output);
 		},
 
-		'': 'help',
+		"": "help",
 		help: function (target, room, user) {
 			this.parse("/help faction");
 		},
@@ -783,6 +981,9 @@ exports.commands = {
 		"/faction create (name), (description), (tag[4 char]) - Creates a faction. <br />" +
 		"/faction delete (name)  - Deletes a faction. <br />" +
 		"/faction list - List all factions on the server. <br />" +
+		"/faction shop - displays the factions shop.<br />" +
+		"/faction claimlist - displays what you still have left to claim from the faction shop.<br />" +
+		"/faction claim [item] - Use /faction claimlist to see what you can claim.<br />" +
 		"/faction privatize - Privatize your faction. <br />" +
 		"/faction profile (faction) - displays a faction's profile. If none specified then defaults to yours. If you are not in one you must specify one. <br />" +
 		"/faction join (name) - Joins a non-private faction. <br />" +
@@ -809,7 +1010,7 @@ exports.commands = {
 	fvf: {
 		challenge: function (target, room, user) {
 			if (!target) return this.errorReply("Usage: /fvf challenge [faction], [mode], [size], [tier]");
-			let targets = target.split(',');
+			let targets = target.split(",");
 			for (let u = 0; u < targets.length; u++) targets[u] = targets[u].trim();
 
 			if (!targets[3]) return this.errorReply("Usage: /fvf challenge [faction], [mode], [size], [tier]");
@@ -821,7 +1022,7 @@ exports.commands = {
 			let mode = "normal";
 			let size = Number(targets[2]);
 			let tier = toId(targets[3]);
-			if (!Dex.getFormat(tier).exists) return this.errorReply('That is not a tier!');
+			if (!Dex.getFormat(tier).exists) return this.errorReply("That is not a tier!");
 			if (targets[1]) mode = toId(targets[1]);
 
 			if (!factions[targetFactionid]) return this.errorReply("That faction does not exist.");
@@ -832,7 +1033,7 @@ exports.commands = {
 			if (Rooms.global.FvF[factionId] && Rooms.global.FvF[factionId].challenging) return this.errorReply(`You're already challenging ${factions[Rooms.global.FvF[factionId].challenging].name}.`);
 			if (Rooms.global.FvF[factionId] && Rooms.global.FvF[factionId].challenger) return this.errorReply(`Your faction is being challenged by ${factions[Rooms.global.FvF[factionId].challenger].name}. Please accept or deny it before challenging a faction.`);
 			if (room.fvf) return this.errorReply("There's currently a faction vs faction running in this room.");
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to start a faction vs faction.");
+			if (toId(getFactionRank(user.userid)) !== "noble" && toId(getFactionRank(user.userid)) !== "owner") return this.errorReply("You don't have permission to start a faction vs faction.");
 			if (!user.can("faction", null, room)) return this.errorReply("You don't have permission to start a faction vs faction in that room.");
 
 			let fvfId = Server.randomString(10);
@@ -876,6 +1077,8 @@ exports.commands = {
 			};
 
 			for (let i = 0; i < size.length; i++) room.fvf.status.push((mode === "normal" ? 3 : 2));
+			if (factions[factionId].xpBoost + 259200000 >= Date.now()) delete factions[factionId].xpBoost;
+			if (factions[targetFactionid].xpBoost + 259200000 >= Date.now()) delete factions[targetFactionid].xpBoost;
 
 			factionPM(
 				`${Server.nameColor(user.name)} (${Chat.escapeHTML(getFaction(user.userid))}) has challenged your faction to a Faction vs Faction (${size} v ${size}) in` +
@@ -891,7 +1094,7 @@ exports.commands = {
 
 		accept: function (target, room, user) {
 			if (!getFaction(user.userid)) return this.errorReply("You're not in a faction.");
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to accept Faction vs Factions.");
+			if (toId(getFactionRank(user.userid)) !== "noble" && toId(getFactionRank(user.userid)) !== "owner") return this.errorReply("You don't have permission to accept Faction vs Factions.");
 			let factionId = toId(getFaction(user.userid));
 			if (!Rooms.global.FvF[factionId] || !Rooms.global.FvF[factionId].challenger) return this.errorReply("Your faction doesn't have any pending challenges.");
 			let targetFactionid = Rooms.global.FvF[factionId].challenger;
@@ -908,7 +1111,7 @@ exports.commands = {
 
 		deny: function (target, room, user) {
 			if (!getFaction(user.userid)) return this.errorReply("You're not in a faction.");
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to deny Faction vs Factions.");
+			if (toId(getFactionRank(user.userid)) !== "noble" && toId(getFactionRank(user.userid)) !== "owner") return this.errorReply("You don't have permission to deny Faction vs Factions.");
 			let factionId = toId(getFaction(user.userid));
 			if (!Rooms.global.FvF[factionId] || !Rooms.global.FvF[factionId].challenger) return this.errorReply("Your faction doesn't have any pending challenges.");
 			let targetFactionid = Rooms.global.FvF[factionId].challenger;
@@ -928,7 +1131,7 @@ exports.commands = {
 		invite: function (target, room, user) {
 			if (!target) return this.errorReply("Usage: /fvf invite [user] - Invites a faction member to the join a Faction vs Faction.");
 			if (!getFaction(user.userid)) return this.errorReply("You're not in a faction.");
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to invite users to join a Faction vs Faction.");
+			if (toId(getFactionRank(user.userid)) !== "noble" && toId(getFactionRank(user.userid)) !== "owner") return this.errorReply("You don't have permission to invite users to join a Faction vs Faction.");
 
 			let factionId = toId(getFaction(user.userid));
 			let targetUser = Users(target);
@@ -966,7 +1169,7 @@ exports.commands = {
 			if (room.fvf.factions[1].id === factionId) faction = room.fvf.factions[1];
 
 			if (!faction.invites.includes(user.userid)) return this.errorReply("You haven't been invited to join this Faction vs Faction.");
-			if (faction.players.length >= room.fvf.size) return this.errorReply("Your factions team is already full.");
+			if (faction.players.length >= room.fvf.size) return this.errorReply("Your faction's team is already full.");
 			if (faction.players.includes(user.userid)) return this.errorReply("You've already joined this Faction vs Faction.");
 
 			faction.players.push(user.userid);
@@ -997,7 +1200,7 @@ exports.commands = {
 			if (!target) return this.errorReply("Usage: /fvf end [room]");
 			if (!getFaction(user.userid)) return this.errorReply("You're not in a faction.");
 
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to end Faction vs Factions.");
+			if (toId(getFactionRank(user.userid)) !== "noble" && toId(getFactionRank(user.userid)) !== "owner") return this.errorReply("You don't have permission to end Faction vs Factions.");
 
 			let targetRoom = Rooms(toId(target));
 			if (!targetRoom) return this.errorReply("That room does not exist.");
@@ -1019,7 +1222,7 @@ exports.commands = {
 			delete targetRoom.fvf;
 		},
 
-		'': 'help',
+		"": "help",
 		help: function (target, room, user) {
 			this.parse("/help fvf");
 		},

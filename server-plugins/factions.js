@@ -392,7 +392,7 @@ exports.commands = {
 		remove: "delete",
 		delete: function (target, room, user) {
 			if (!target) return this.errorReply("/factions delete (name)");
-			if (!factions[toId(target)]) return this.errorReply("Doesn"t exist!");
+			if (!factions[toId(target)]) return this.errorReply("Doesn't exist!");
 			if (!this.can("faction") && factions[toId(target)].ranks["owner"].users.indexOf(user.userid) === -1) return false;
 
 			delete factions[toId(target)];

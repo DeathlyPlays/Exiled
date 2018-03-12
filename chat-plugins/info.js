@@ -1619,6 +1619,7 @@ exports.commands = {
 	analysis: 'smogdex',
 	strategy: 'smogdex',
 	smogdex: function (target, room, user) {
+		if (!target) return this.parse('/help smogdex');
 		if (!this.runBroadcast()) return;
 
 		let targets = target.split(',');

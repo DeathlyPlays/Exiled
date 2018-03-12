@@ -1106,7 +1106,7 @@ exports.BattleAbilities = {
 				}
 			}
 			if (!warnMoves.length) return;
-			const [warnMoveName, warnTarget] = warnMoves[this.random(warnMoves.length)];
+			const [warnMoveName, warnTarget] = this.sample(warnMoves);
 			this.add('-activate', pokemon, 'ability: Forewarn', warnMoveName, '[of] ' + warnTarget);
 		},
 		id: "forewarn",
@@ -1975,7 +1975,7 @@ exports.BattleAbilities = {
 					stats.push(statPlus);
 				}
 			}
-			let randomStat = stats.length ? stats[this.random(stats.length)] : "";
+			let randomStat = stats.length ? this.sample(stats) : "";
 			if (randomStat) boost[randomStat] = 2;
 
 			stats = [];
@@ -1984,7 +1984,7 @@ exports.BattleAbilities = {
 					stats.push(statMinus);
 				}
 			}
-			randomStat = stats.length ? stats[this.random(stats.length)] : "";
+			randomStat = stats.length ? this.sample(stats) : "";
 			if (randomStat) boost[randomStat] = -1;
 
 			this.boost(boost);
@@ -2320,7 +2320,7 @@ exports.BattleAbilities = {
 				}
 			}
 			if (!pickupTargets.length) return;
-			let randomTarget = pickupTargets[this.random(pickupTargets.length)];
+			let randomTarget = this.sample(pickupTargets);
 			pokemon.setItem(randomTarget.lastItem);
 			randomTarget.lastItem = '';
 			let item = pokemon.getItem();

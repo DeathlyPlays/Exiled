@@ -797,15 +797,19 @@ exports.commands = {
 			if (!factions[factionId].boughtItems[user.userid][toId(target)]) return this.errorReply(`That item was never bought or you already claimed it.`);
 			delete factions[factionId].boughtItems[user.userid][toId(target)];
 			write();
-			if (toId(target) !== "xpbooster2x") {
-				Monitor.log(`${user.name} has claimed ${target} from their Faction rewards.`);
-				return this.sendReply(`You have successfully claimed ${target} from your Factions' Rewards, please contact a Global % or higher to redeem your rewards.`);
-			} else {
+			if (toId(target) === "backgroundmusic") {
+				user.tokens["background"] = true;
+				user.tokens["music"] = true;
+				return this.sendReply(`You now have tokens for profile music and background please refer to /help usetoken for more information on how to claim them.`);
+			} else if (toId(target) === "avatars" || toId(target) === "icons") {
+				user.tokens[toId(target)] = true;
+				return this.sendReply(`You now have tokens for ${target} please refer to /help usetoken for more information on how to claim it.`);
+			} else if (toId(target) === "xpbooster2x") {
 				user.doubleExp = true;
 				setTimeout(() => {
 					delete user.doubleExp;
 				}, 60000);
-				return this.sendReply(`You will now have double exp for the next hour!`);
+				return this.sendReply(`You will now have doubleExp for the next hour!`);
 			}
 		},
 

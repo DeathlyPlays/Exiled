@@ -101,27 +101,37 @@ class ExpFunctions {
 					case 10:
 						Economy.logTransaction(`${user.name} received a custom avatar for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Avatar.`);
-						reward = `a Custom Avatar. To claim your avatar, please PM a Global Voice or higher to set your avatar.`;
+						if (!user.tokens) user.tokens = {};
+						user.tokens.avatar = true;
+						reward = `a Custom Avatar. To claim your avatar, use the command /usetoken avatar, [link to the image you want].`;
 						break;
 					case 15:
 						Economy.logTransaction(`${user.name} received a custom title for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Profile Title.`);
-						reward = `a Profile Title. To claim your profile title, please PM a Global Driver or higher to set your Profile Title.`;
+						if (!user.tokens) user.tokens = {};
+						user.tokens.title = true;
+						reward = `a Profile Title. To claim your profile title, use the command /usetoken title, [title], [hex color].`;
 						break;
 					case 20:
 						Economy.logTransaction(`${user.name} received a custom icon for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Icon.`);
-						reward = `a Custom Userlist Icon. To claim your icon, please PM a Global Driver or higher to set your Custom Icon.`;
+						if (!user.tokens) user.tokens = {};
+						user.tokens.icon = true;
+						reward = `a Custom Userlist Icon. To claim your icon, use the command /usetoken icon, [link to the image you want].`;
 						break;
 					case 25:
 						Economy.logTransaction(`${user.name} received a emote for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Emoticon.`);
-						reward = `an Emote. To claim your emote, use the command please PM a Global Driver or higher to set your Custom Emoticon.`;
+						if (!user.tokens) user.tokens = {};
+						user.tokens.emote = true;
+						reward = `an Emote. To claim your emote, use the command /usetoken emote, [name], [image].`;
 						break;
 					case 30:
 						Economy.logTransaction(`${user.name} received a custom color for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Color.`);
-						reward = `a Custom Color. To claim your custom color, use the command please PM a Global Driver or higher to set your Custom Color.`;
+						if (!user.tokens) user.tokens = {};
+						user.tokens.color = true;
+						reward = `a Custom Color. To claim your custom color, use the command /usetoken color, [hex color].`;
 						break;
 					case 35:
 						Economy.writeMoney(user.userid, 50);
@@ -130,6 +140,8 @@ class ExpFunctions {
 					case 40:
 						Economy.logTransaction(`${user.name} received a chatroom for reaching level ${level}.`);
 						Server.messageSeniorStaff(`${user.name} has earned a chatroom for reaching level ${level}!`);
+						if (!user.tokens) user.tokens = {};
+						user.tokens.room = true;
 						reward = `a Chatroom. To claim your chatroom, Contact a Leader (&) or Administrator (~).`;
 						break;
 					default:

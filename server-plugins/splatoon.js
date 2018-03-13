@@ -6,6 +6,8 @@
 
 "use strict";
 
+const fetch = require("node-fetch");
+
 let ranks = ["C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "S", "S+"];
 let weapons = [".52 Gal", ".52 Gal Deco", ".96 Gal", "Aerospray MG", "Aerospray RG", "Bamboozler 14 Mk I", "Bamboozler 14 Mk II", "Blaster", "Carbon Roller", "Clash Blaster", "Clash Blaster Neo", "Classic Squiffer", "Custom Blaster", "Custom E-Liter 4K", "Custom E-Liter 4K Scope", "Custom Goo Tuber", "Custom Hydra Splatling", "Custom Jet Squelcher", "Custom Range Blaster", "Custom Splattershot Jr.", "Dapple Dualies", "Dapple Dualies Nouveau", "Dark Tetra Dualies", "Dualie Squelchers", "Dynamo Roller", "E-Liter 4K", "E-Liter 4K Scope", "Enperry Splat Dualies", "Firefin Splat Charger", "Firefine Splatterscope", "Flingza Roller", "Foil Flingza Roller", "Forge Splattershot Pro", "Foil Squeezer", "Glooga Dualies", "Glooga Dualies Deco", "Gold Dynamo Roller", "Goo Tuber", "H-3 Nozzlenose", "Heavy Splatling", "Heavy Splatling Deco", "Hero Blaster Replica", "Hero Brella Replica", "Hero Charger Replica", "Hero Dualie Replica", "Hero Roller Replica", "Hero Shot Replica", "Hero Slosher Replica", "Hero Splatling Replica", "Herobrush Replica", "Hydra Splatling", "Inkbrush", "Inkbrush Nouveau", "Jet Squelcher", "Krak-On Splat Roller", "L-3 Nozzlenose", "L-3 Nozzlenose D", "Light Tetra Dualies", "Luna Blaster", "Luna Blaster Neo", "Mini Splatling", "Neo Splash-o-matic", "Neo Sploosh-o-matic", "New Squiffer", "N-ZAP '85", "N-ZAP '89", "Octobrush", "Octobrush Nouveau", "Range Blaster", "Rapid Blaster", "Rapid Blaster Deco", "Rapid Blaster Pro", "Slosher", "Slosher Deco", "Sloshing Machine", "Sloshing Machine Neo", "Sorella Brella", "Splash-o-matic", "Splat Brella", "Splat Charger", "Splat Dualies", "Splat Roller", "Splatterscope", "Splattershot", "Splattershot Jr.", "Splattershot Pro", "Sploosh-o-matic", "Squeezer", "Tenta Brella", "Tentatek Splattershot", "Tri-Slosher", "Tri-Slosher Nouveau", "Undercover Brella", "Zink Mini Splatling"];
 let headgears = ["18K Aviators", "Annaki Beret", "Annaki Mask", "Armor Helmet Replica", "Backwards Cap", "Bamboo Hat", "B-ball Headband", "Bike Helmet", "Black Arrowbands", "Blowfish Bell Hat", "Bobble Hat", "Bucket Hat", "Camo Mesh", "Camping Hat", "Classic Straw Boater", "Cycle King Cap", "Cycling Hat", "Designer Headphones", "Double Egg Shades", "Dust Blocker 2000", "Eminence Cuff", "Face Visor", "Fake Contacts", "Firefin Facemask", "FishFry Biscuit Bandana", "FishFry Visor", "Five-Panel Cap", "Forge Mask", "Fugu Bell Hat", "Full Moon Glasses", "Half-Rim Glasses", "Headlamp Helmet", "Hero Headphones Replica", "Hero Headset Replica", "Hickory Work Cap", "Hockey Helmet", "House-Tag Denim Cap", "Jellyvader Cap", "Jet Cap", "Jungle Hat", "King Facemask", "King Flip Mesh", "Knitted Hat", "Lightweight Cap", "Matte Bike Helmet", "Moist Ghillie Helmet", "Motocross Nose Guard", "MTB Helmet", "Noise Cancelers", "Paintball Mask", "Painter's Mask", "Paisley Bandana", "Patched Hat", "Pilot Glasses", "Power Mask", "Power Mask Mark I", "Retro Specs", "Safari Hat", "Samurai Helmet", "Short Beanie", "Skate Helmet", "Skull Bandana", "Sneaky Beanie", "Snorkel Mask", "Soccer Headband", "Special Forces Beret", "Splash Goggles", "Sporty Bobble Hat", "Squash Headband", "Squid Clip-ons", "Squid Facemask", "Squid Hairclip", "Squidfin Hook Cans", "Squidlife Headphones", "Squidvader Cap", "Squinja Mask", "Stealth Goggles", "Straw Boater", "Streetstyle Cap", "Striped Beanie", "Studio Headphones", "Sun Visor", "Takoroka Mesh", "Takoroka Visor", "Tennis Headband", "Tinted Shades", "Treasure Hunter", "Tulip Parasol", "Two-Stripe Mesh", "Urchins Cap", "Visor Skate Helmet", "Welding Mask", "White Headband", "Woolly Urchens Classic", "Yamagiri Beanie"];
@@ -277,6 +279,25 @@ exports.commands = {
 			this.sendReplyBox(profile);
 		},
 
+		map: "rotation",
+		maps: "rotation",
+		rotations: "rotation",
+		rotation: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			const apiData = fetch("https://splatoon2.ink/data/schedules.json").then(res => res.json());
+			let self = this;
+			apiData.then(function (json) {
+				let rotation = `<center><h2>BREAKING NEWS:</h2></center>`;
+				// League Battle
+				rotation += `<strong>League Battle Mode:</strong> ${json.league[0].rule.name} <strong>League Battle Stages:</strong> ${json.league[0].stage_a.name} and ${json.league[0].stage_b.name}. <strong>Started:</strong> ${Date(json.league[0].start_time)}. <strong>Ends:</strong> ${Date(json.league[0].end_time)}.<br />`;
+				// Ranked Battle
+				rotation += `<strong>Ranked Battle Mode:</strong> ${json.gachi[0].rule.name} <strong>Ranked Battle Stages:</strong> ${json.gachi[0].stage_a.name} and ${json.gachi[0].stage_b.name}. <strong>Started:</strong> ${Date(json.gachi[0].start_time)}. <strong>Ends:</strong> ${Date(json.gachi[0].end_time)}.<br />`;
+				// Regular Battle
+				rotation += `<strong>Regular Battle Mode:</strong> ${json.regular[0].rule.name} <strong>Regular Battle Stages:</strong> ${json.regular[0].stage_a.name} and ${json.regular[0].stage_b.name}. <strong>Started:</strong> ${Date(json.regular[0].start_time)}. <strong>Ends:</strong> ${Date(json.regular[0].end_time)}.<br />`;
+				self.sendReplyBox(rotation);
+			});
+		},
+
 		"": "help",
 		help: function (target, room, user) {
 			this.parse("/splatoonhelp");
@@ -297,7 +318,9 @@ exports.commands = {
 		/splatoon gear clothing [clothing] - Sets your Splatoon 2 Clothing.
 		/splatoon gear shoes [shoes] - Sets your Splatoon 2 Shoes.
 		/splatoon randomweapon - Sends a random weapon from Splatoon 2 into chat.
-		/splatoon profile [optional target] - Displays the specified user's Splatoon 2 Profile. Defaults to yourself.`,
+		/splatoon profile [optional target] - Displays the specified user's Splatoon 2 Profile. Defaults to yourself.
+		/splatoon maps - Shows the current map rotations.
+		/splatoon help - Displays this help command.`,
 	],
 
 	splatrankshelp: [

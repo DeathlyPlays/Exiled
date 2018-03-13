@@ -1748,7 +1748,22 @@ exports.Formats = [
 
 	},
 	{
-<<<<<<< HEAD
+		name: "[Gen 7] Metronome Battle",
+		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is Metronome, all healing items/abilities are banned, Ubers (and Mega Rayquaza) are banned, immunites don't exist in this format (ex. Normal is not very effective on Ghost instead of 0x)"],
+		ruleset: ['Pokemon', 'Standard'],
+		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass', 'Aguav Berry', 'Assault Vest', 'Berry Juice', 'Cheek Pouch', 'Dry Skin', 'Ice Body', 'Poison Heal', 'Regenerator', 'Volt Absorb', 'Water Absorb', 'Rain Dish', 'Black Sludge', 'Enigma Berry', 'Figy Berry', 'Iapapa Berry', 'Mago Berry', 'Oran Berry', 'Shell Bell', 'Sitrus Berry', 'Wiki Berry', 'Leftovers'],
+		mod: 'metronome',
+		onValidateSet: function (set) {
+			if (set.moves.length !== 1 || toId(set.moves[0]) !== 'metronome') {
+				return [(set.name || set.species) + " can only have Metronome."];
+			}
+		},
+		onEffectiveness: function (typeMod, target, type, move) {
+			//change no effect to not very effective
+			if (move && !this.getImmunity(move, type)) return 2;
+		},
+	},
+	{
 		name: "[Gen 7] Pokebilities",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3588652/\">Pokebilities</a>: A Pokemon has all of its abilities active at the same time."],
 		mod: 'pokebilities',
@@ -1788,16 +1803,6 @@ exports.Formats = [
 						}
 					}
 				}
-=======
-		name: "[Gen 7] Metronome Battle",
-		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is Metronome, all healing items/abilities are banned, Ubers (and Mega Rayquaza) are banned, immunites don't exist in this format (ex. Normal is not very effective on Ghost instead of 0x)"],
-		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass', 'Aguav Berry', 'Assault Vest', 'Berry Juice', 'Cheek Pouch', 'Dry Skin', 'Ice Body', 'Poison Heal', 'Regenerator', 'Volt Absorb', 'Water Absorb', 'Rain Dish', 'Black Sludge', 'Enigma Berry', 'Figy Berry', 'Iapapa Berry', 'Mago Berry', 'Oran Berry', 'Shell Bell', 'Sitrus Berry', 'Wiki Berry', 'Leftovers'],
-		mod: 'metronome',
-		onValidateSet: function (set) {
-			if (set.moves.length !== 1 || toId(set.moves[0]) !== 'metronome') {
-				return [(set.name || set.species) + " can only have Metronome."];
->>>>>>> cbf3de48b8b63fccf0289df971f5643b0898de90
 			}
 		},
 		onSwitchIn: function (pokemon) {

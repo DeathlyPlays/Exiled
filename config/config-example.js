@@ -359,9 +359,10 @@ exports.github = {
 // - emotes: Allows to manage emoticons.
 // - factions: Allows to manage factions.
 // - quotes - Allows to manage quotes.
-// - genrequest - Allows to approve/disapprove genners
+// - genrequest - Allows to approve/disapprove genners.
 // - roomshop - Allows the user to manage room shops.
-// - sban - Allows the user to use shadow ban commands
+// - sban - Allows the user to use shadow ban commands.
+// - draft - Allows the user to start drafts.
 exports.grouplist = [
 	{
 		symbol: '~',
@@ -468,6 +469,7 @@ exports.grouplist = [
 		emotes: true,
 		money: true,
 		roomshop: true,
+		draft: true,
 	},
 	{
 		symbol: '%',

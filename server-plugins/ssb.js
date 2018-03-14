@@ -603,7 +603,7 @@ try {
 	} else {
 		Server.ssb = JSON.parse(Server.ssb);
 	}
-} catch(e) {
+} catch (e) {
 	if (e.code !== "ENOENT") throw e;
 }
 

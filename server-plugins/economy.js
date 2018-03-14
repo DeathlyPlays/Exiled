@@ -1,6 +1,6 @@
 "use strict";
 
-const fs = require("fs");
+const FS = require("../lib/fs.js");
 
 // This should be the default amount of money users have..
 // Ideally, this should be zero.
@@ -119,12 +119,12 @@ let Economy = global.Economy = {
 
 	logTransaction: function (message) {
 		if (!message) return false;
-		fs.appendFile("logs/transactions.log", "[" + new Date().toUTCString() + "] " + message + "\n", () => {});
+		FS("logs/transactions.log").append(`[${new Date().toUTCString()}] ${message}\n`);
 	},
 
 	logDice: function (message) {
 		if (!message) return false;
-		fs.appendFile("logs/dice.log", "[" + new Date().toUTCString() + "] " + message + "\n", () => {});
+		FS("logs/dice.log").append(`[${new Date().toUTCString()}] ${message}\n`);
 	},
 };
 
@@ -346,7 +346,7 @@ exports.commands = {
 		if (!target) return this.sendReply("Usage: /moneylog [number] to view the last x lines OR /moneylog [text] to search for text.");
 		let word = false;
 		if (isNaN(Number(target))) word = true;
-		let lines = fs.readFileSync("logs/transactions.log", "utf8").split("\n").reverse();
+		let lines = FS("logs/transactions.log").readIfExistsSync().split("\n").reverse();
 		let output = "";
 		let count = 0;
 		let regex = new RegExp(target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), "gi"); // eslint-disable-line no-useless-escape
@@ -446,8 +446,8 @@ exports.commands = {
 			if (cost > money) return this.errorReply(`You do not have enough ${moneyPlural} to purchase this item.`);
 			Economy.writeMoney(user.userid, cost * -1, () => {
 				Economy.readMoney(user.userid, amount => {
-					Economy.logTransaction(`${user.name} has purchased a ${target} for ${cost} ${(cost === 1 ? global.moneyName : global.moneyPlural)}. They now have ${amount} ${(money === 1 ? global.moneyName : global.moneyPlural)}.`);
-					this.sendReply(`You have bought ${target} for ${cost} ${moneyName}${Chat.plural(moneyName)}. You now have ${amount} ${(money === 1 ? global.moneyName : global.moneyPlural)} left.`);
+					Economy.logTransaction(`${user.name} has purchased a ${target} for ${cost} ${(cost === 1 ? moneyName : moneyPlural)}. They now have ${amount} ${(money === 1 ? moneyName : moneyPlural)}.`);
+					this.sendReply(`You have bought ${target} for ${cost} ${moneyName}${Chat.plural(moneyName)}. You now have ${amount} ${(money === 1 ? moneyName : moneyPlural)} left.`);
 					room.addRaw(`${Server.nameColor(user.name, true)} has bought <strong>"${target}"</strong> from the shop.`);
 					handleBoughtItem.call(this, target.toLowerCase(), user, cost);
 				});

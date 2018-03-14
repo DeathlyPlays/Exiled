@@ -612,29 +612,29 @@ exports.commands = {
 				let profile = ``;
 				profile += `${background(toId(username))} ${showBadges(toId(username))}`;
 				profile += `<div style="display: inline-block; width: 6.5em; height: 100%; vertical-align: top"><img src="${avatar}" height="80" width="80" align="left"></div>`;
-				profile += `<div style="display: inline-block">&nbsp;${pColor(toId(username))}<b>Name:</b></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
-				profile += `&nbsp;${pColor(toId(username))}<b>Group:</b> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)} ${tsumetaCheck(username)}<br />`;
-				profile += `&nbsp;${pColor(toId(username))}<b>Registered:</b> ${regdate}</font><br />`;
-				profile += `&nbsp;${pColor(toId(username))}<b>${moneyPlural}:</b> ${money}</font><br />`;
+				profile += `<div style="display: inline-block">&nbsp;${pColor(toId(username))}<strong>Name:</strong></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
+				profile += `&nbsp;${pColor(toId(username))}<strong>Group:</strong> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)} ${tsumetaCheck(username)}<br />`;
+				profile += `&nbsp;${pColor(toId(username))}<strong>Registered:</strong> ${regdate}</font><br />`;
+				profile += `&nbsp;${pColor(toId(username))}<strong>${moneyPlural}:</strong> ${money}</font><br />`;
 				if (Db.pokemon.has(toId(username))) {
-					profile += `&nbsp;${pColor(toId(username))}<b>Favorite Pokemon:</b> ${Db.pokemon.get(toId(username))}</font><br />`;
+					profile += `&nbsp;${pColor(toId(username))}<strong>Favorite Pokemon:</strong> ${Db.pokemon.get(toId(username))}</font><br />`;
 				}
 				if (Db.type.has(toId(username))) {
-					profile += `&nbsp;${pColor(toId(username))}<b>Favorite Type:</b></font> <img src="https://www.serebii.net/pokedex-bw/type/${Db.type.get(toId(username))}.gif"><br />`;
+					profile += `&nbsp;${pColor(toId(username))}<strong>Favorite Type:</strong></font> <img src="https://www.serebii.net/pokedex-bw/type/${Db.type.get(toId(username))}.gif"><br />`;
 				}
 				if (Db.nature.has(toId(username))) {
-					profile += `&nbsp;${pColor(toId(username))}<b>Nature:</b> ${Db.nature.get(toId(username))}</font><br />`;
+					profile += `&nbsp;${pColor(toId(username))}<strong>Nature:</strong> ${Db.nature.get(toId(username))}</font><br />`;
 				}
 				if (Server.getFaction(toId(username))) {
-					profile += `&nbsp;${pColor(toId(username))}<b>Faction:</b> ${Server.getFaction(toId(username))}</font><br />`;
+					profile += `&nbsp;${pColor(toId(username))}<strong>Faction:</strong> ${Server.getFaction(toId(username))}</font><br />`;
 				}
-				profile += `&nbsp;${pColor(toId(username))}<b>EXP Level:</b> ${Server.ExpControl.level(toId(username))}</font><br />`;
+				profile += `&nbsp;${pColor(toId(username))}<strong>EXP Level:</strong> ${Server.ExpControl.level(toId(username))}</font><br />`;
 				if (online && lastActive(toId(username))) {
-					profile += `&nbsp;${pColor(toId(username))}<b>Last Activity:</b> ${lastActive(toId(username))}</font><br />`;
+					profile += `&nbsp;${pColor(toId(username))}<strong>Last Activity:</strong> ${lastActive(toId(username))}</font><br />`;
 				}
-				profile += `&nbsp;${pColor(toId(username))}<b>Last Seen:</b> ${getLastSeen(toId(username))}</font><br />`;
-				if (Db.friendcodes.has(toId(username))) {
-					profile += `&nbsp;${pColor(toId(username))}<b>Friend Code:</b> ${Db.friendcodes.get(toId(username))}</font><br />`;
+				profile += `&nbsp;${pColor(toId(username))}<strong>Last Seen:</strong> ${getLastSeen(toId(username))}</font><br />`;
+				if (Db.friendcode.has(toId(username))) {
+					profile += `&nbsp;${pColor(toId(username))}<strong>Friend Code:</strong> ${Db.friendcode.get(toId(username))}</font><br />`;
 				}
 				if (Db.switchfc.has(toId(username))) {
 					profile += `&nbsp;${pColor(toId(username))}<strong>Switch Friend Code:</strong> SW-${Db.switchfc.get(toId(username))}</font><br />`;

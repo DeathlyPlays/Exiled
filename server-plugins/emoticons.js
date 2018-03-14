@@ -2,20 +2,20 @@
 Emoticon plugin
 This plugin allows you to use emoticons in both chat rooms (as long as they are enabled in the room) and private messages.
 */
-'use strict';
+"use strict";
 
-const fs = require("fs");
+const FS = require("../lib/fs.js");
 
 let emoticons = {"feelsbd": "http://i.imgur.com/TZvJ1lI.png"};
 let emoteRegex = new RegExp("feelsbd", "g");
 Server.ignoreEmotes = {};
 try {
-	Server.ignoreEmotes = JSON.parse(fs.readFileSync(`config/ignoreemotes.json`, `utf8`));
+	Server.ignoreEmotes = JSON.parse(FS(`config/ignoreemotes.json`).readIfExistsSync());
 } catch (e) {}
 
 function loadEmoticons() {
 	try {
-		emoticons = JSON.parse(fs.readFileSync(`config/emoticons.json`, `utf8`));
+		emoticons = JSON.parse(FS(`config/emoticons.json`).readIfExistsSync());
 		emoteRegex = [];
 		for (let emote in emoticons) {
 			emoteRegex.push(escapeRegExp(emote));
@@ -26,7 +26,7 @@ function loadEmoticons() {
 loadEmoticons();
 
 function saveEmoticons() {
-	fs.writeFileSync(`config/emoticons.json`, JSON.stringify(emoticons));
+	FS(`config/emoticons.json`).writeSync(JSON.stringify(emoticons));
 	emoteRegex = [];
 	for (let emote in emoticons) {
 		emoteRegex.push(emote);
@@ -49,31 +49,31 @@ function parseEmoticons(message, room) {
 Server.parseEmoticons = parseEmoticons;
 
 exports.commands = {
-	blockemote: 'ignoreemotes',
-	blockemotes: 'ignoreemotes',
-	blockemoticon: 'ignoreemotes',
-	blockemoticons: 'ignoreemotes',
+	blockemote: "ignoreemotes",
+	blockemotes: "ignoreemotes",
+	blockemoticon: "ignoreemotes",
+	blockemoticons: "ignoreemotes",
 	ignoreemotes: function (target, room, user) {
 		this.parse(`/emoticons ignore`);
 	},
 
-	unblockemote: 'unignoreemotes',
-	unblockemotes: 'unignoreemotes',
-	unblockemoticon: 'unignoreemotes',
-	unblockemoticons: 'unignoreemotes',
+	unblockemote: "unignoreemotes",
+	unblockemotes: "unignoreemotes",
+	unblockemoticon: "unignoreemotes",
+	unblockemoticons: "unignoreemotes",
 	unignoreemotes: function (target, room, user) {
 		this.parse(`/emoticons unignore`);
 	},
 
-	emoticons: 'emoticon',
-	emote: 'emoticon',
-	emotes: 'emoticon',
+	emoticons: "emoticon",
+	emote: "emoticon",
+	emotes: "emoticon",
 	emoticon: {
 		add: function (target, room, user) {
 			if (!this.can(`emotes`)) return false;
 			if (!target) return this.sendReply("Usage: /emoticons add [name], [url]");
 
-			let targetSplit = target.split(',');
+			let targetSplit = target.split(",");
 			for (let u in targetSplit) targetSplit[u] = targetSplit[u].trim();
 
 			if (!targetSplit[1]) return this.sendReply("Usage: /emoticons add [name], [url]");
@@ -90,7 +90,7 @@ exports.commands = {
 			if (room.emoteSize) size = room.emoteSize;
 
 			this.sendReply(`|raw|The emoticon ${Chat.escapeHTML(targetSplit[0])} has been added: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
-			if (Rooms('upperstaff')) Rooms('upperstaff').add(`|raw|${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
+			if (Rooms("upperstaff")) Rooms("upperstaff").add(`|raw|${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
 			Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
 		},
 
@@ -106,12 +106,12 @@ exports.commands = {
 			saveEmoticons();
 
 			this.sendReply("That emoticon has been removed.");
-			if (Rooms('upperstaff')) Rooms("upperstaff").add(`|raw|${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
+			if (Rooms("upperstaff")) Rooms("upperstaff").add(`|raw|${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
 			Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
 		},
 
 		toggle: function (target, room, user) {
-			if (!this.can('roommod', null, room)) return this.sendReply(`Access denied.`);
+			if (!this.can("emotes", null, room)) return this.sendReply(`Access denied.`);
 			if (!room.disableEmoticons) {
 				room.disableEmoticons = true;
 				Rooms.global.writeChatRoomData();
@@ -142,14 +142,14 @@ exports.commands = {
 		ignore: function (target, room, user) {
 			if (Server.ignoreEmotes[user.userid]) return this.errorReply(`You are already ignoring emoticons.`);
 			Server.ignoreEmotes[user.userid] = true;
-			fs.writeFileSync(`config/ignoreemotes.json`, JSON.stringify(Server.ignoreEmotes));
+			FS(`config/ignoreemotes.json`).writeSync(JSON.stringify(Server.ignoreEmotes));
 			this.sendReply(`You are now ignoring emoticons.`);
 		},
 
 		unignore: function (target, room, user) {
 			if (!Server.ignoreEmotes[user.userid]) return this.errorReply(`You aren't ignoring emoticons.`);
 			delete Server.ignoreEmotes[user.userid];
-			fs.writeFileSync(`config/ignoreemotes.json`, JSON.stringify(Server.ignoreEmotes));
+			FS(`config/ignoreemotes.json`).writeSync(JSON.stringify(Server.ignoreEmotes));
 			this.sendReply(`You are no longer ignoring emoticons.`);
 		},
 
@@ -173,7 +173,7 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox(
 				`Emoticon Commands:
-				<small>/emoticon may be substituted with /emoticons, /emotes, or /emote</small>
+				/emoticon may be substituted with /emoticons, /emotes, or /emote
 				/emoticon add [name], [url] - Adds an emoticon.
 				/emoticon del/delete/remove/rem [name] - Removes an emoticon.
 				/emoticon toggle - Enables or disables emoticons in the current room depending on if they are already active.
@@ -182,8 +182,7 @@ exports.commands = {
 				/emoticon unignore - Unignores emoticons in chat messages.
 				/emoticon help - Displays this help command.
 				/emoticon size [size] - Changes the size of emoticons in the current room.
-				/randemote - Randomly sends an emote from the emoticon list.
-				<a href="https://gist.github.com/jd4564/ef66ecc47c58b3bb06ec">Emoticon Plugin by: jd</a>`
+				/randemote - Randomly sends an emote from the emoticon list.`
 			);
 		},
 	},

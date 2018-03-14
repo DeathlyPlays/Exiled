@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const fs = require('fs');
-const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
-const https = require('https');
-const http = require('http');
-const Pokedex = require('../data/pokedex.js').BattlePokedex;
+const FS = require("../lib/fs.js");
+const nani = require("nani").init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
+const https = require("https");
+const http = require("http");
+const Pokedex = require("../data/pokedex.js").BattlePokedex;
 
 const bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
@@ -99,7 +99,7 @@ function postAds() {
 
 let monData;
 try {
-	monData = fs.readFileSync("data/ssb-data.txt").toString().split("\n\n");
+	monData = FS("data/ssb-data.txt").readIfExistsSync().toString().split("\n\n");
 } catch (e) {
 	console.error(e);
 }
@@ -137,7 +137,7 @@ function clearRoom(room) {
 Server.regdate = function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);
-	let req = https.get('https://pokemonshowdown.com/users/' + target + '.json', res => {
+	let req = https.get(`https://pokemonshowdown.com/users/${target}.json`, res => {
 		let data = '';
 		res.on('data', chunk => {
 			data += chunk;
@@ -161,13 +161,13 @@ Server.regdate = function (target, callback) {
 
 function loadRegdateCache() {
 	try {
-		regdateCache = JSON.parse(fs.readFileSync('config/regdate.json', 'utf8'));
+		regdateCache = JSON.parse(FS('config/regdate.json').readIfExistsSync());
 	} catch (e) {}
 }
 loadRegdateCache();
 
 function saveRegdateCache() {
-	fs.writeFileSync('config/regdate.json', JSON.stringify(regdateCache));
+	FS('config/regdate.json').writeSync(JSON.stringify(regdateCache));
 }
 
 exports.commands = {
@@ -270,6 +270,7 @@ exports.commands = {
 		return this.sendReply('Your next bonus is ' + (Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db.DailyBonus.get(user.userid, [1, Date.now()])[0]) + ' ' + (Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural) + ' in ' + Chat.toDurationString(Math.abs(86400000 - nextBonus)));
 	},
 
+	"!sota": true,
 	sota: function () {
 		this.parse('feelssotafeelstinitinitinisotalove');
 	},
@@ -1363,7 +1364,7 @@ exports.commands = {
 	errorlogs: 'crashlogs',
 	crashlogs: function (target, room, user) {
 		if (!this.can("hotpatch")) return false;
-		let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
+		let crashes = FS("logs/errors.txt").readIfExistsSync().split('\n').splice(-100).join('\n');
 		user.send(`|popup|${crashes}`);
 		return;
 	},

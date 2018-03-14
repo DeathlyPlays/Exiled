@@ -1,6 +1,6 @@
 "use strict";
 
-let fs = require("fs");
+const FS = require("../lib/fs.js");
 
 let ssbWrite = true; //if false, do not write to JSON
 let noRead = false; //if true, do not read from JSON
@@ -20,7 +20,7 @@ const BANS = {
 
 global.writeSSB = function () {
 	if (!ssbWrite) return false; //Prevent corruptions
-	fs.writeFile("config/ssb.json", JSON.stringify(Server.ssb), () => {});
+	FS("config/ssb.json").write(JSON.stringify(Server.ssb));
 };
 
 //Shamelessly ripped from teambuilder client.
@@ -580,9 +580,9 @@ class SSB {
 
 //Load JSON
 try {
-	fs.accessSync("config/ssb.json", fs.F_OK);
+	FS("config/ssb.json").readIfExistsSync();
 } catch (e) {
-	fs.writeFile("config/ssb.json", "{}", function (err) {
+	FS("config/ssb.json").write("{}", function (err) {
 		if (err) {
 			console.error(`Error while loading SSBFFA: ${err}`);
 			ssbWrite = false;
@@ -595,23 +595,16 @@ try {
 
 //We need to load data after the SSB class is declared.
 try {
-	if (!noRead) {
-		let raw = JSON.parse(fs.readFileSync("config/ssb.json", "utf8"));
-		Server.ssb = global.ssb = {};
-		//parse JSON back into the SSB class.
-		for (let key in raw) {
-			Server.ssb[key] = new SSB(raw[key].userid, raw[key].name);
-			for (let key2 in Server.ssb[key]) {
-				Server.ssb[key][key2] = raw[key][key2];
-			}
-		}
-	} else {
-		Server.ssb = global.ssb = {};
-	}
-} catch (e) {
-	console.error(`Error loading SSBFFA: ${e.stack}`);
 	Server.ssb = global.ssb = {};
-	ssbWrite = false;
+	Server.ssb = FS("config/ssb.json").readIfExistsSync();
+	if (!Server.ssb) {
+		FS("config/ssb.json").write("{}");
+		Server.ssb = {};
+	} else {
+		Server.ssb = JSON.parse(Server.ssb);
+	}
+} catch(e) {
+	if (e.code !== "ENOENT") throw e;
 }
 
 exports.commands = {

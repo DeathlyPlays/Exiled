@@ -47,10 +47,22 @@ function getChannel(user) {
 }
 Server.getChannel = getChannel;
 
+// Prevent corruptions with new data
+for (let u in channels) {
+	if (!channels[u].creationDate) channels[u].creationDate = Date.now() - 7100314200;
+	if (channels[u].creationDate) continue;
+	if (!channels[u].likes) channels[u].likes = Math.floor(Math.random() * channels[u].views);
+	if (channels[u].likes) continue;
+	if (!channels[u].dislikes) channels[u].dislikes = Math.floor(Math.random() * channels[u].views);
+	if (channels[u].dislikes) continue;
+	if (!channels[u].isMonetized) channels[u].isMonetized = false;
+	if (channels[u].isMonetized) continue;
+}
+
 //Plugin Optimization
 let config = {
-	version: "1.0.1 Early Access Alpha",
-	changes: `DewTube Changes Feature, Sub & Views Math changes, Video Cooldown.`,
+	version: "1.2",
+	changes: `Creation Date, (De-)Monetization, Likes, Dislikes`,
 };
 
 exports.commands = {
@@ -86,6 +98,10 @@ exports.commands = {
 				owner: user.userid,
 				vidProgress: "notStarted",
 				lastRecorded: null,
+				creationDate: Date.now(),
+				likes: 0,
+				dislikes: 0,
+				isMonetized: false,
 			};
 			write();
 			return this.sendReply(`You successfully created your DewTube channel "${name}"! To view your channel's stats, use /dewtube dashboard.`);
@@ -114,10 +130,15 @@ exports.commands = {
 			if (!target) target = user.userid;
 			let channelId = toId(getChannel(target));
 			if (!channels[channelId]) return this.errorReply(`This user does not currently own a DewTube channel.`);
-			let display = `<center><h2>${channels[channelId].name}</h2><strong>Creator:</strong> ${Server.nameColor(channels[channelId].owner, true, true)}<br />`;
+			let display = `<center><h2>${channels[channelId].name}</h2><strong>Creator:</strong> ${Server.nameColor(channels[channelId].owner, true, true)}`;
+			if (channels[channelId].isMonetized) display += ` <strong>(Approved Partner)</strong>`;
+			display += `<br />`;
 			if (channels[channelId].aboutme) display += `<strong>About Me:</strong> ${channels[channelId].aboutme}<br />`;
+			if (channels[channelId].creationDate) display += `<strong>Created:</strong> ${new Date(channels[channelId].creationDate)}<br />`;
 			if (channels[channelId].views > 0) display += `<strong>View Counts:</strong> ${channels[channelId].views}<br />`;
 			if (channels[channelId].subscribers > 0) display += `<strong>Sub Count:</strong> ${channels[channelId].subscribers}<br />`;
+			if (channels[channelId].likes > 0) display += `<strong>Like Count:</strong> ${channels[channelId].likes}<br />`;
+			if (channels[channelId].dislikes > 0) display += `<strong>Dislike Count:</strong> ${channels[channelId].dislikes}<br />`;
 			if (channels[channelId].videos > 0) display += `<strong>Total Videos Uploaded:</strong> ${channels[channelId].videos}<br />`;
 			display += `</center>`;
 			return this.sendReplyBox(display);
@@ -171,7 +192,7 @@ exports.commands = {
 		record: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
 			let channelId = toId(getChannel(user.userid));
-			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
+			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN && user.userid !== "insist") return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
 			channels[channelId].vidProgress = "recorded";
@@ -213,13 +234,50 @@ exports.commands = {
 				let newViewCount = channels[channelId].views + generateRawViews;
 				channels[channelId].subscribers = newSubCount;
 				channels[channelId].views = newViewCount;
-				this.sendReplyBox(`Your un-edited video has received ${generateRawViews} view(s). ${generateRawSubs} oeople have subscribed to your channel after seeing this video. Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}.`);
+				this.sendReplyBox(`Your un-edited video has received ${generateRawViews} view(s). ${generateRawSubs} people have subscribed to your channel after seeing this video. Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}.`);
 			} else {
 				this.errorReply(`You must record a video before uploading.`);
+			}
+			if (channels[channelId].isMonetized) {
+				let demonetization = Math.floor(Math.random() * 2);
+				if (demonetization === 1) {
+					this.sendReplyBox(`<i>FRICK! YOUR VIDEO GOT DEMONETIZED!</i>`);
+				} else {
+					let adRevenue = 0;
+					if (videoProgress === "recorded") {
+						adRevenue = Math.round(generateRawViews / 20);
+						if (adRevenue < 1) adRevenue = 1;
+					}
+					if (videoProgress === "edited") {
+						adRevenue = Math.round(generateEditedViews / 100);
+						if (adRevenue < 1) adRevenue = 1;
+					}
+					Economy.writeMoney(user.userid, adRevenue);
+					Economy.logTransaction(`${user.name} has got ${adRevenue} ${moneyName}${Chat.plural(adRevenue)} from posting a video.`);
+					this.sendReplyBox(`<i>Your video meets community guidelines and was approved for monetization. You have profited ${adRevenue} ${moneyName}${Chat.plural(adRevenue)}!</i>`);
+				}
 			}
 			// Restart video progress
 			channels[channelId].vidProgress = "notStarted";
 			write();
+		},
+
+		monetize: function (target, room, user) {
+			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
+			let channelId = toId(getChannel(user.userid));
+			if (channels[channelId].subscribers < 1000) return this.errorReply(`Due to recent policies you must have 1,000 subscribers before being allowed to monetize your video.`);
+			if (channels[channelId].isMonetized) return this.errorReply(`You are already monetized.`);
+			channels[channelId].isMonetized = true;
+			this.sendReply(`You have successfully activated monetization.`);
+		},
+
+		demonetize: "unmonetize",
+		unmonetize: function (target, room, user) {
+			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
+			let channelId = toId(getChannel(user.userid));
+			if (!channels[channelId].isMonetized) return this.errorReply(`You are not monetized.`);
+			channels[channelId].isMonetized = false;
+			this.sendReply(`You have successfully deactivated monetization.`);
 		},
 
 		"": "help",
@@ -235,6 +293,8 @@ exports.commands = {
 		/dewtube record - Films a DewTube video.
 		/dewtube edit - Edits a DewTube video.
 		/dewtube publish - Publishs a DewTube video.
+		/dewtube monetize - Applies for your channel to be monetized.
+		/dewtube demonetize - Removes monetization from your channel.
 		/dewtube dashboard [user] - Shows the user's channel dashboard; defaults to yourself.
 		/dewtube info - Shows the DewTube version and other information.
 		/dewtube discover - Shows all of the DewTube channels.

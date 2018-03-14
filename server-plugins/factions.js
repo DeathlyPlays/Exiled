@@ -144,7 +144,8 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 					let prize1 = 5 * room.fvf.size;
 					let prize2 = 1 * room.fvf.size;
 					if (room.fvf.factions[1].wins > room.fvf.factions[0].wins) {
-						winner = room.fvf.factions[1].name;prize2 = prize1;
+						winner = room.fvf.factions[1].name;
+						prize2 = prize1;
 						prize1 = 1 * room.fvf.size;
 					}
 					Db.factionbank.set(room.fvf.factions[0].id, Db.factionbank.get(room.fvf.factions[0].id, 0) + prize1);
@@ -188,7 +189,8 @@ function isFvFBattle(p1, p2, id, status, types, score) {
 					let prize1 = 5 * room.fvf.size;
 					let prize2 = 1 * room.fvf.size;
 					if (room.fvf.factions[1].wins > room.fvf.factions[0].wins) {
-						winner = room.fvf.factions[1].name;prize2 = prize1;
+						winner = room.fvf.factions[1].name;
+						prize2 = prize1;
 						prize1 = 1 * room.fvf.size;
 					}
 					Db.factionbank.set(room.fvf.factions[0].id, Db.factionbank.get(room.fvf.factions[0].id, 0) + prize1);

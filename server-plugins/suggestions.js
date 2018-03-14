@@ -33,6 +33,8 @@ function write() {
 exports.commands = {
 	suggestions: "suggestion",
 	suggestion: {
+		suggest: "submit",
+		request: "submit",
 		submit: function (target, room, user) {
 			let sender = user.userid;
 			let targets = target.split(',');
@@ -42,7 +44,7 @@ exports.commands = {
 			if (title.length > 30) return this.errorReply("Please make sure your suggestion title is 30 characters or less.");
 			let suggestion = targets[1];
 			if (suggestion.length > 500) return this.errorReply("Please make your suggestion 500 characters or less.");
-			Monitor.log(`|html|<div style="border: #000000 solid 2px;"><center><br><font size="1"><strong>${sender}</strong> has submitted a suggestion:</font></center><center>"${suggestion}"</center><br></div>`);
+			Monitor.log(`/raw <div style="border: #000000 solid 2px;"><center><br><font size="1"><strong>${sender}</strong> has submitted a suggestion:</font></center><center>"${suggestion}"</center><br /></div>`);
 			suggestions[toId(title)] = {
 				user: sender,
 				title: title,

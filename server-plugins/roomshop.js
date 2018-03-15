@@ -113,7 +113,7 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			let roomshop = Db.roomshop.get(room.id, {items: {}});
 			if (!Db.roomshop.has(room.id)) return this.errorReply(`${room.title} does not have a roomshop.`);
-			let display = `<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Item</td><td>Description</td><td>Cost</td></tr>`;
+			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><center><h1>${room.title}'s Room Shop</h1><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Item</td><td>Description</td><td>Cost</td></tr>`;
 			for (let i in roomshop.items) {
 				display += `<tr>`;
 				display += `<td><button class="button" name="send" value="/roomshop buy ${roomshop.items[i].name}">${roomshop.items[i].name}</button></td>`;
@@ -121,7 +121,7 @@ exports.commands = {
 				display += `<td>${roomshop.items[i].price} ${roomshop.items[i].price > 1 ? moneyPlural : moneyName}</td>`;
 				display += `</tr>`;
 			}
-			display += `</table></center>`;
+			display += `</table></center></div>`;
 			return this.sendReplyBox(display);
 		},
 

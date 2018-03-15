@@ -42,7 +42,7 @@ exports.commands = {
 			if (description.length < 1 || description.length > 100) return this.errorReply(`The description should not exceed 100 characters long.`);
 			task.issues[toId(issue)] = {"id": toId(issue), "issue": issue, "description": description, "employer": user.userid, "priority": priority};
 			Db.tasks.set("development", task);
-			alertDevs(`${Server.nameColor(user.name, true, true)} has filed an issue. Issue: ${issue}. Description: ${description}.`);
+			alertDevs(`${Server.nameColor(user.name, true, true)} has filed an issue. Issue: ${issue}. Description: ${description}. Priority: ${priority}.`);
 			return this.sendReply(`The task "${issue}" has been added to the server task list.`);
 		},
 
@@ -75,7 +75,7 @@ exports.commands = {
 				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${taskList.issues[i].employer}">${Server.nameColor(taskList.issues[i].employer, true, true)}</button></td>`;
 				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[i].issue}</td>`;
 				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[i].description}</td>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[i].priority}</td>`
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[i].priority}</td>`;
 				display += `</tr>`;
 			}
 			display += `</table></center>`;

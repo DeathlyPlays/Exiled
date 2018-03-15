@@ -84,6 +84,7 @@ exports.commands = {
 			let desc = target[2];
 			if (!desc) return this.parse(`/help roomshop`);
 			if (item.length < 1 || item.length > 20) return this.errorReply(`The item name should be between 1-20 characters long.`);
+			if (roomshop.items[toId(item)]) return this.errorReply(`${item} is already an item in the room shop.`);
 			if (isNaN(price)) return this.errorReply(`The price for the item must be an integer.`);
 			if (desc.length < 1 || desc.length > 50) return this.errorReply(`The description for an item must be between 1-50 characters long.`);
 			roomshop.items[toId(item)] = {id: toId(item), name: item, price: price, desc: desc};
@@ -112,11 +113,15 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			let roomshop = Db.roomshop.get(room.id, {items: {}});
 			if (!Db.roomshop.has(room.id)) return this.errorReply(`${room.title} does not have a roomshop.`);
-			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><table><tr><center><h1>${room.title}'s Shop!</h1></center></tr>`;
+			let display = `<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Item</td><td>Description</td><td>Cost</td></tr>`;
 			for (let i in roomshop.items) {
-				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/roomshop buy ${roomshop.items[i].name}">Buy Item: ${roomshop.items[i].name}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Price: ${roomshop.items[i].price} ${moneyName}${Chat.plural(roomshop.items[i].price)}</td></tr>`;
+				display += `<tr>`;
+				display += `<td><button class="button" name="send" value="/roomshop buy ${roomshop.items[i].name}">${roomshop.items[i].name}</button></td>`;
+				display += `<td>${roomshop.items[i].desc}</td>`;
+				display += `<td>${roomshop.items[i].price} ${roomshop.items[i].price > 1 ? moneyPlural : moneyName}</td>`;
+				display += `</tr>`;
 			}
-			display += `</table></div>`;
+			display += `</table></center>`;
 			return this.sendReplyBox(display);
 		},
 
@@ -157,6 +162,7 @@ exports.commands = {
 		},
 
 		logs: "transactions",
+		log: "transactions",
 		transactions: function (target, room, user) {
 			if (!this.can("roomshop", null, room)) return false;
 			if (!Db.roomshop.has(room.id)) return this.errorReply(`Roomshop is not enabled here.`);

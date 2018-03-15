@@ -51,10 +51,6 @@ Server.getChannel = getChannel;
 for (let u in channels) {
 	if (!channels[u].creationDate) channels[u].creationDate = Date.now() - 7100314200;
 	if (channels[u].creationDate) continue;
-	if (!channels[u].likes) channels[u].likes = Math.floor(Math.random() * channels[u].views);
-	if (channels[u].likes) continue;
-	if (!channels[u].dislikes) channels[u].dislikes = Math.floor(Math.random() * channels[u].views);
-	if (channels[u].dislikes) continue;
 	if (!channels[u].isMonetized) channels[u].isMonetized = false;
 	if (channels[u].isMonetized) continue;
 }
@@ -135,8 +131,8 @@ exports.commands = {
 			display += `<br />`;
 			if (channels[channelId].aboutme) display += `<strong>About Me:</strong> ${channels[channelId].aboutme}<br />`;
 			if (channels[channelId].creationDate) display += `<strong>Created:</strong> ${new Date(channels[channelId].creationDate)}<br />`;
-			if (channels[channelId].views > 0) display += `<strong>View Counts:</strong> ${channels[channelId].views}<br />`;
-			if (channels[channelId].subscribers > 0) display += `<strong>Sub Count:</strong> ${channels[channelId].subscribers}<br />`;
+			if (channels[channelId].views > 0) display += `<strong>View Count:</strong> ${channels[channelId].views}<br />`;
+			if (channels[channelId].subscribers > 0) display += `<strong>Subscriber Count:</strong> ${channels[channelId].subscribers}<br />`;
 			if (channels[channelId].likes > 0) display += `<strong>Like Count:</strong> ${channels[channelId].likes}<br />`;
 			if (channels[channelId].dislikes > 0) display += `<strong>Dislike Count:</strong> ${channels[channelId].dislikes}<br />`;
 			if (channels[channelId].videos > 0) display += `<strong>Total Videos Uploaded:</strong> ${channels[channelId].videos}<br />`;
@@ -172,16 +168,14 @@ exports.commands = {
 				let curChannel = channels[sortedChannels[channel]];
 				let aboutme = Chat.escapeHTML(curChannel.aboutme);
 				if (aboutme.length > 100) aboutme = `${aboutme.substr(0, 100)}<br />${aboutme.substr(100)}`;
-				if (!curChannel.private) {
-					output += `<tr>`;
-					output += `<td>${Chat.escapeHTML(curChannel.name)}</td>`;
-					output += `<td>${aboutme}</td>`;
-					output += `<td>${curChannel.views}</td>`;
-					output += `<td>${curChannel.subscribers}</td>`;
-					output += `<td><button name="send" value="/dewtube dashboard ${curChannel.owner}">${curChannel.name}</button></td>`;
-					output += `<td>${Server.nameColor(curChannel.owner, true, true)}</td>`;
-					output += `</tr>`;
-				}
+				output += `<tr>`;
+				output += `<td>${Chat.escapeHTML(curChannel.name)}</td>`;
+				output += `<td>${aboutme}</td>`;
+				output += `<td>${curChannel.views}</td>`;
+				output += `<td>${curChannel.subscribers}</td>`;
+				output += `<td><button name="send" value="/dewtube dashboard ${curChannel.owner}">${curChannel.name}</button></td>`;
+				output += `<td>${Server.nameColor(curChannel.owner, true, true)}</td>`;
+				output += `</tr>`;
 			}
 			output += `</table></center>`;
 			this.sendReplyBox(output);
@@ -192,13 +186,13 @@ exports.commands = {
 		record: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
 			let channelId = toId(getChannel(user.userid));
-			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN && user.userid !== "insist") return this.errorReply(`You are on record cooldown.`);
+			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
 			channels[channelId].vidProgress = "recorded";
 			channels[channelId].lastRecorded = Date.now();
 			write();
-			return this.sendReplyBox(`You have recorded a video! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button>`);
+			return this.sendReplyBox(`You have recorded a video! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button><button class="button" name="send" value="/dewtube publish">Upload as-is!</button>`);
 		},
 
 		editvideo: "edit",
@@ -223,18 +217,30 @@ exports.commands = {
 			let generateRawViews = Math.floor(Math.random() * 100);
 			let generateEditedSubs = Math.floor(Math.random() * 100);
 			let generateRawSubs = Math.floor(Math.random() * 50);
+			let generateEditedLikes = Math.round(Math.random(generateEditedViews));
+			let generateRawLikes = Math.round(Math.random(generateRawViews));
+			let generateEditedDislikes = generateEditedViews - generateEditedLikes;
+			let generateRawDislikes = generateRawViews - generateRawLikes;
 			if (videoProgress === "edited") {
 				let newSubCount = channels[channelId].subscribers + generateEditedSubs;
 				let newViewCount = channels[channelId].views + generateEditedViews;
+				let newLikeCount = channels[channelId].likes + generateEditedLikes;
+				let newDislikeCount = channels[channelId].dislikes + generateEditedDislikes;
 				channels[channelId].subscribers = newSubCount;
 				channels[channelId].views = newViewCount;
-				this.sendReplyBox(`Congratulations your video has received ${generateEditedViews} view(s). ${generateEditedSubs} people have subscribed to your channel after seeing this video. Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}.`);
+				channels[channelId].likes = newLikeCount;
+				channels[channelId].dislikes = newDislikeCount;
+				this.sendReplyBox(`Congratulations your video has received ${generateEditedViews} view(s). ${generateEditedSubs} people have subscribed to your channel after seeing this video. You got ${generateEditedLikes} like(s) and ${generateEditedDislikes} dislike(s).<br /> Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}. Total Likes: ${newLikeCount}. Total Dislikes: ${newDislikeCount}.`);
 			} else if (videoProgress === "recorded") {
 				let newSubCount = channels[channelId].subscribers + generateRawSubs;
 				let newViewCount = channels[channelId].views + generateRawViews;
+				let newLikeCount = channels[channelId].likes + generateRawLikes;
+				let newDislikeCount = channels[channelId].dislikes + generateRawDislikes;
 				channels[channelId].subscribers = newSubCount;
 				channels[channelId].views = newViewCount;
-				this.sendReplyBox(`Your un-edited video has received ${generateRawViews} view(s). ${generateRawSubs} people have subscribed to your channel after seeing this video. Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}.`);
+				channels[channelId].likes = newLikeCount;
+				channels[channelId].dislikes = newDislikeCount;
+				this.sendReplyBox(`Your un-edited video has received ${generateRawViews} view(s). ${generateRawSubs} people have subscribed to your channel after seeing this video. You got ${generateRawLikes} like(s) and ${generateRawDislikes} dislike(s).<br /> Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}. Total Likes: ${newLikeCount}. Total Dislikes: ${newDislikeCount}.`);
 			} else {
 				this.errorReply(`You must record a video before uploading.`);
 			}

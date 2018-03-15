@@ -254,7 +254,7 @@ exports.commands = {
 			if (channels[channelId].isMonetized) {
 				let demonetization = Math.floor(Math.random() * 2);
 				if (demonetization === 1) {
-					this.sendReplyBox(`<i>FRICK! YOUR VIDEO GOT DEMONETIZED!</i>`);
+					this.sendReplyBox(`<i>Due to your video's failure to meet community guidelines it was not approved for monetization, therefore your video has been D E M O N E T I Z E D.</i>`);
 				} else {
 					let adRevenue = 0;
 					if (videoProgress === "recorded") {

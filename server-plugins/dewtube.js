@@ -231,12 +231,12 @@ exports.commands = {
 			let generateEditedDislikes = Math.floor(Math.random() * generateEditedLikes);
 			let generateRawDislikes = Math.floor(Math.random() * generateRawLikes);
 			if (generateEditedLikes + generateEditedDislikes > generateEditedViews) {
-				generateEditedLikes = generateEditedLikes / 2;
-				generateEditedDislikes = generateEditedDislikes / 2;
+				generateEditedLikes = Math.round(generateEditedLikes / 2);
+				generateEditedDislikes = Math.round(generateEditedDislikes / 2);
 			}
 			if (generateRawLikes + generateRawDislikes > generateRawViews) {
-				generateRawLikes = generateRawLikes / 2;
-				generateRawDislikes = generateRawDislikes / 2;
+				generateRawLikes = Math.round(generateRawLikes / 2);
+				generateRawDislikes = Math.round(generateRawDislikes / 2);
 			}
 			if (generateRawLikes + generateRawDislikes > generateRawViews) generateRawLikes / 2 && generateRawDislikes / 2;
 			if (videoProgress === "edited") {

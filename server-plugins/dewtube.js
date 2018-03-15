@@ -231,8 +231,8 @@ exports.commands = {
 			let generateEditedDislikes = Math.floor(Math.random() * generateEditedLikes);
 			let generateRawDislikes = Math.floor(Math.random() * generateRawLikes);
 			if (generateEditedLikes + generateEditedDislikes > generateEditedViews) {
-				generateEditedLikes = generateEditedLikes / 2;
-				generateEditedDislikes = generateEditedDislikes / 2;
+				generateEditedLikes = Math.round(generateEditedLikes / 2);
+				generateEditedDislikes = Math.round(generateEditedDislikes / 2);
 			}
 			if (generateRawLikes + generateRawDislikes > generateRawViews) {
 				generateRawLikes = generateRawLikes / 2;

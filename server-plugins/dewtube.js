@@ -57,8 +57,8 @@ for (let u in channels) {
 
 //Plugin Optimization
 let config = {
-	version: "1.2.1",
-	changes: `Creation Date, (De-)Monetization, Likes, Dislikes, Opt-In Notifications for when you are eligible to upload again`,
+	version: "1.2.1.1",
+	changes: `Creation Date, (De-)Monetization, Likes, Dislikes, Opt-In Notifications for when you are eligible to upload again.`,
 };
 
 exports.commands = {
@@ -230,6 +230,15 @@ exports.commands = {
 			let generateRawLikes = Math.floor(Math.random() * generateRawViews);
 			let generateEditedDislikes = Math.floor(Math.random() * generateEditedLikes);
 			let generateRawDislikes = Math.floor(Math.random() * generateRawLikes);
+			if (generateEditedLikes + generateEditedDislikes > generateEditedViews) {
+				generateEditedLikes = generateEditedLikes / 2;
+				generateEditedDislikes = generateEditedDislikes / 2;
+			}
+			if (generateRawLikes + generateRawDislikes > generateRawViews) {
+				generateRawLikes = generateRawLikes / 2;
+				generateRawDislikes = generateRawDislikes / 2;
+			}
+			if (generateRawLikes + generateRawDislikes > generateRawViews) generateRawLikes / 2 && generateRawDislikes / 2;
 			if (videoProgress === "edited") {
 				let newSubCount = channels[channelId].subscribers + generateEditedSubs;
 				let newViewCount = channels[channelId].views + generateEditedViews;

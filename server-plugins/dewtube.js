@@ -235,8 +235,8 @@ exports.commands = {
 				generateEditedDislikes = Math.round(generateEditedDislikes / 2);
 			}
 			if (generateRawLikes + generateRawDislikes > generateRawViews) {
-				generateRawLikes = generateRawLikes / 2;
-				generateRawDislikes = generateRawDislikes / 2;
+				generateRawLikes = Math.round(generateRawLikes / 2);
+				generateRawDislikes = Math.round(generateRawDislikes / 2);
 			}
 			if (generateRawLikes + generateRawDislikes > generateRawViews) generateRawLikes / 2 && generateRawDislikes / 2;
 			if (videoProgress === "edited") {

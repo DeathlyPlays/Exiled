@@ -57,8 +57,8 @@ for (let u in channels) {
 
 //Plugin Optimization
 let config = {
-	version: "1.2",
-	changes: `Creation Date, (De-)Monetization, Likes, Dislikes`,
+	version: "1.2.1",
+	changes: `Creation Date, (De-)Monetization, Likes, Dislikes, Opt-In Notifications for when you are eligible to upload again`,
 };
 
 exports.commands = {
@@ -192,7 +192,15 @@ exports.commands = {
 			channels[channelId].vidProgress = "recorded";
 			channels[channelId].lastRecorded = Date.now();
 			write();
-			return this.sendReplyBox(`You have recorded a video! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button><button class="button" name="send" value="/dewtube publish">Upload as-is!</button>`);
+			this.sendReplyBox(`You have recorded a video! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button><button class="button" name="send" value="/dewtube publish">Upload as-is!</button>`);
+			if (Db.videonotifications.has(user.userid)) {
+				let notification = Date.now() - channels[channelId].lastRecorded + RECORD_COOLDOWN;
+				setTimeout(() => {
+					if (Users.get(user.userid)) {
+						user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can upload again!`);
+					}
+				}, notification);
+			}
 		},
 
 		editvideo: "edit",
@@ -212,15 +220,16 @@ exports.commands = {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
 			let channelId = toId(getChannel(user.userid));
 			let videoProgress = channels[channelId].vidProgress;
+			if (videoProgress === "notStarted") return this.errorReply(`Please record a video before uploading.`);
 			channels[channelId].videos++;
 			let generateEditedViews = Math.floor(Math.random() * 1000);
 			let generateRawViews = Math.floor(Math.random() * 100);
 			let generateEditedSubs = Math.floor(Math.random() * 100);
 			let generateRawSubs = Math.floor(Math.random() * 50);
-			let generateEditedLikes = Math.round(Math.random(generateEditedViews));
-			let generateRawLikes = Math.round(Math.random(generateRawViews));
-			let generateEditedDislikes = generateEditedViews - generateEditedLikes;
-			let generateRawDislikes = generateRawViews - generateRawLikes;
+			let generateEditedLikes = Math.floor(Math.random() * generateEditedViews);
+			let generateRawLikes = Math.floor(Math.random() * generateRawViews);
+			let generateEditedDislikes = Math.floor(Math.random() * generateEditedLikes);
+			let generateRawDislikes = Math.floor(Math.random() * generateRawLikes);
 			if (videoProgress === "edited") {
 				let newSubCount = channels[channelId].subscribers + generateEditedSubs;
 				let newViewCount = channels[channelId].views + generateEditedViews;
@@ -231,7 +240,7 @@ exports.commands = {
 				channels[channelId].likes = newLikeCount;
 				channels[channelId].dislikes = newDislikeCount;
 				this.sendReplyBox(`Congratulations your video has received ${generateEditedViews} view(s). ${generateEditedSubs} people have subscribed to your channel after seeing this video. You got ${generateEditedLikes} like(s) and ${generateEditedDislikes} dislike(s).<br /> Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}. Total Likes: ${newLikeCount}. Total Dislikes: ${newDislikeCount}.`);
-			} else if (videoProgress === "recorded") {
+			} else {
 				let newSubCount = channels[channelId].subscribers + generateRawSubs;
 				let newViewCount = channels[channelId].views + generateRawViews;
 				let newLikeCount = channels[channelId].likes + generateRawLikes;
@@ -241,8 +250,6 @@ exports.commands = {
 				channels[channelId].likes = newLikeCount;
 				channels[channelId].dislikes = newDislikeCount;
 				this.sendReplyBox(`Your un-edited video has received ${generateRawViews} view(s). ${generateRawSubs} people have subscribed to your channel after seeing this video. You got ${generateRawLikes} like(s) and ${generateRawDislikes} dislike(s).<br /> Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}. Total Likes: ${newLikeCount}. Total Dislikes: ${newDislikeCount}.`);
-			} else {
-				this.errorReply(`You must record a video before uploading.`);
 			}
 			if (channels[channelId].isMonetized) {
 				let demonetization = Math.floor(Math.random() * 2);
@@ -286,6 +293,21 @@ exports.commands = {
 			this.sendReply(`You have successfully deactivated monetization.`);
 		},
 
+		notifications: "notify",
+		videonotifications: "notify",
+		toggle: "notify",
+		togglenotifications: "notify",
+		notify: function (target, room, user) {
+			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTueb channel yet.`);
+			if (Db.videonotifications.has(user.userid)) {
+				Db.videonotifications.remove(user.userid);
+				this.sendReply(`You have successfully deactivated video notifications.`);
+			} else {
+				Db.videonotifications.set(user.userid, 1);
+				this.sendReply(`You have successfully enabled video notifications.`);
+			}
+		},
+
 		"": "help",
 		help: function () {
 			this.parse("/dewtubehelp");
@@ -301,8 +323,9 @@ exports.commands = {
 		/dewtube publish - Publishs a DewTube video.
 		/dewtube monetize - Applies for your channel to be monetized.
 		/dewtube demonetize - Removes monetization from your channel.
+		/dewtube notify - Toggles on/off video notifications alerting you when you can upload next.
 		/dewtube dashboard [user] - Shows the user's channel dashboard; defaults to yourself.
-		/dewtube info - Shows the DewTube version and other information.
+		/dewtube info - Shows the DewTube version and recent changes.
 		/dewtube discover - Shows all of the DewTube channels.
 		/dewtube help - Displays this help command.`,
 	],

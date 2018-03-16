@@ -238,7 +238,6 @@ exports.commands = {
 				generateRawLikes = Math.round(generateRawLikes / 2);
 				generateRawDislikes = Math.round(generateRawDislikes / 2);
 			}
-			if (generateRawLikes + generateRawDislikes > generateRawViews) generateRawLikes / 2 && generateRawDislikes / 2;
 			if (videoProgress === "edited") {
 				let newSubCount = channels[channelId].subscribers + generateEditedSubs;
 				let newViewCount = channels[channelId].views + generateEditedViews;

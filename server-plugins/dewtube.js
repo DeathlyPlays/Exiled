@@ -57,8 +57,8 @@ for (let u in channels) {
 
 //Plugin Optimization
 let config = {
-	version: "1.2.1.1",
-	changes: `Creation Date, (De-)Monetization, Likes, Dislikes, Opt-In Notifications for when you are eligible to upload again.`,
+	version: "1.2.1.2",
+	changes: `Creation Date, (De-)Monetization, Likes, Dislikes, Opt-In Notifications for when you are eligible to upload again, Fix bugs with math.`,
 };
 
 exports.commands = {
@@ -223,9 +223,11 @@ exports.commands = {
 			if (videoProgress === "notStarted") return this.errorReply(`Please record a video before uploading.`);
 			channels[channelId].videos++;
 			let generateEditedViews = Math.floor(Math.random() * 1000);
+			if (generateEditedViews < 1) generateEditedViews = 1;
 			let generateRawViews = Math.floor(Math.random() * 100);
-			let generateEditedSubs = Math.floor(Math.random() * 100);
-			let generateRawSubs = Math.floor(Math.random() * 50);
+			if (generateRawViews < 1) generateRawViews = 1;
+			let generateEditedSubs = Math.floor(Math.random() * generateEditedViews);
+			let generateRawSubs = Math.floor(Math.random() * generateRawViews);
 			let generateEditedLikes = Math.floor(Math.random() * generateEditedViews);
 			let generateRawLikes = Math.floor(Math.random() * generateRawViews);
 			let generateEditedDislikes = Math.floor(Math.random() * generateEditedLikes);

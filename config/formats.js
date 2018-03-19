@@ -124,21 +124,11 @@ exports.Formats = [
 
 		mod: 'gen7',
 		maxLevel: 5,
-		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Little Cup'],
 		banlist: [
-			'Aipom', 'Cutiefly', 'Drifloon', 'Gligar', 'Gothita', 'Meditite', 'Misdreavus', 'Murkrow', 'Porygon', 'Scyther', 'Sneasel', 'Swirlix', 'Tangela', 'Vulpix-Base', 'Yanma',
+			'Aipom', 'Cutiefly', 'Drifloon', 'Gligar', 'Gothita', 'Meditite', 'Misdreavus', 'Murkrow', 'Porygon', 'Scyther', 'Sneasel', 'Swirlix', 'Tangela', 'Torchic', 'Vulpix-Base', 'Yanma',
 			'Eevium Z', 'Dragon Rage', 'Sonic Boom',
 		],
-	},
-	{
-		name: "[Gen 7] LC (suspect test)",
-		desc: [`&bullet; <a href="http://www.smogon.com/forums/threads/3629645/">LC Suspect Test</a>`],
-
-		mod: 'gen7',
-		maxLevel: 5,
-		challengeShow: false,
-		ruleset: ['[Gen 7] LC'],
 	},
 	{
 		name: "[Gen 7] Monotype",
@@ -658,7 +648,7 @@ exports.Formats = [
 		desc: [`Randomized teams of Pok&eacute;mon for a generated Smogon tier with sets that are competitively viable.`],
 
 		mod: 'gen6',
-		team: 'randomGen6Factory',
+		team: 'randomFactory',
 		searchShow: false,
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Mega Rayquaza Clause'],
 	},

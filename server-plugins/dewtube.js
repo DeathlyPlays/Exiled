@@ -11,6 +11,9 @@ const FS = require("../lib/fs.js");
 // Cooldown per video (30 minutes)
 const RECORD_COOLDOWN = 30 * 60 * 1000;
 
+// Drama Cooldown (1 hour)
+const DRAMA_COOLDOWN = 60 * 60 * 1000;
+
 let channels = FS("config/channels.json").readIfExistsSync();
 
 if (channels !== "") {
@@ -57,12 +60,14 @@ for (let u in channels) {
 	if (channels[u].lastTitle) continue;
 	if (!channels[u].allowingDrama) channels[u].allowingDrama = false;
 	if (channels[u].allowingDrama) continue;
+	if (!channels[u].lastDrama) channels[u].lastDrama = channels[u].creationDate;
+	if (channels[u].lastDrama) continue;
 }
 
 //Plugin Optimization
 let config = {
-	version: "1.3",
-	changes: ["Drama", "Performance Updates"],
+	version: "1.3.1",
+	changes: ["Drama", "Performance Updates", "Cooldown for Drama"],
 };
 
 exports.commands = {
@@ -102,6 +107,7 @@ exports.commands = {
 				isMonetized: false,
 				lastTitle: null,
 				allowingDrama: false,
+				lastDrama: null,
 			};
 			write();
 			return this.sendReply(`You successfully created your DewTube channel "${name}"! To view your channel's stats, use /dewtube dashboard.`);
@@ -340,13 +346,18 @@ exports.commands = {
 			if (!channels[targetId].allowingDrama) return this.errorReply(`${target} has disabled drama.`);
 			if (channels[usersChannel].subscribers === 0 || channels[targetId].subscribers === 0) return this.errorReply(`Either yourself or the other DewTuber currently has zero subscribers.`);
 			if (!channels[usersChannel].allowingDrama) return this.errorReply(`You must enable drama before starting drama.`);
+			if (Date.now() - channels[usersChannel].lastDrama < DRAMA_COOLDOWN) return this.errorReply(`You are on drama cooldown.`);
+			if (Date.now() - channels[targetId].lastDrama < DRAMA_COOLDOWN) return this.errorReply(`${target} is on drama cooldown.`);
 			let badOutcomes = [`was exposed by ${target}.`, `was the victim of a Content Cop by ${target}.`, `was humiliated by ${target}.`, `was proven to have lied by ${target}.`, `was proven guilty by ${target}.`, `was caught faking content by ${target}.`];
-			let goodOutcomes = [`won the debate against ${target}.`, `was favored by the community in an argument against ${target}.`, `proved they were innocent of ${target}'s accusations'.`, `exposed ${target}.`];
+			let goodOutcomes = [`won the debate against ${target}.`, `was favored by the community in an argument against ${target}.`, `proved they were innocent of ${target}'s accusations.`, `exposed ${target}.`];
 			let determineOutcome = Math.floor(Math.random() * 2);
 			let audience = channels[usersChannel].subscribers + channels[targetId].subscribers;
-			let communityFeedback = Math.floor(Math.random() * audience);
-			let subChange = Math.round(communityFeedback / 100);
+			let feedback = Math.floor(Math.random() * audience);
+			let communityFeedback = Math.round(feedback / 2);
+			if (communityFeedback < 1) communityFeedback = 1;
+			let subChange = Math.round(communityFeedback / 10);
 			if (subChange < 1) subChange = 1;
+			channels[usersChannel].lastDrama = Date.now();
 
 			if (determineOutcome === 1) {
 				let outcome = goodOutcomes[Math.floor(Math.random() * goodOutcomes.length)];
@@ -374,7 +385,7 @@ exports.commands = {
 					let subscribers = channels[usersChannel].subscribers - subChange;
 					channels[usersChannel].subscribers = subscribers;
 				}
-				let traffic = channels[targetId].views + communityFeedback
+				let traffic = channels[targetId].views + communityFeedback;
 				channels[targetId].views = traffic;
 				let subscriberTraffic = channels[targetId].subscribers + subChange;
 				channels[targetId].subscribers = subscriberTraffic;

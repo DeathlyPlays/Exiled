@@ -53,12 +53,16 @@ for (let u in channels) {
 	if (channels[u].creationDate) continue;
 	if (!channels[u].isMonetized) channels[u].isMonetized = false;
 	if (channels[u].isMonetized) continue;
+	if (!channels[u].lastTitle && channels[u].videos > 0) channels[u].lastTitle = "Untitled Video";
+	if (channels[u].lastTitle) continue;
+	if (!channels[u].allowingDrama) channels[u].allowingDrama = false;
+	if (channels[u].allowingDrama) continue;
 }
 
 //Plugin Optimization
 let config = {
-	version: "1.2.1.2",
-	changes: `Creation Date, (De-)Monetization, Likes, Dislikes, Opt-In Notifications for when you are eligible to upload again, Fix bugs with math.`,
+	version: "1.3",
+	changes: ["Drama", "Performance Updates"],
 };
 
 exports.commands = {
@@ -66,7 +70,7 @@ exports.commands = {
 		info: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			let display = `<div style="padding: 20px 20px"><center><font size="5">DewTube</font></center><br /><center><font size="3">v${config.version}</font></center><br />`;
-			if (config.changes) display += config.changes;
+			if (config.changes) display += Chat.toListString(config.changes);
 			display += `</div>`;
 			return this.sendReplyBox(display);
 		},
@@ -76,12 +80,10 @@ exports.commands = {
 		makechannel: "newchannel",
 		register: "newchannel",
 		newchannel: function (target, room, user) {
-			target = target.split(",").map(p => p.trim());
-			let name = target[0];
-			let desc = target[1];
+			let [name, ...desc] = target.split(",").map(p => p.trim());
+			if (!name || !desc) return this.parse(`/dewtubehelp`);
 			if (name.length < 1 || name.length > 25) return this.errorReply(`Your channel name must be between 1-25 characters.`);
 			if (desc.length < 1 || desc.length > 300) return this.errorReply(`Your channel description must be between 1-300 characters.`);
-			if (!name || !desc) return this.parse(`/dewtubehelp`);
 			if (channels[toId(name)]) return this.errorReply(`${name} already is a DewTube channel.`);
 			if (getChannel(user.userid)) return this.errorReply(`You already have a DewTube channel.`);
 			channels[toId(name)] = {
@@ -98,6 +100,8 @@ exports.commands = {
 				likes: 0,
 				dislikes: 0,
 				isMonetized: false,
+				lastTitle: null,
+				allowingDrama: false,
 			};
 			write();
 			return this.sendReply(`You successfully created your DewTube channel "${name}"! To view your channel's stats, use /dewtube dashboard.`);
@@ -114,7 +118,7 @@ exports.commands = {
 			if (!target || !channels[target]) return this.errorReply(`The channel "${target}" appears to not exist.`);
 			delete channels[target];
 			write();
-			this.room.modlog(`${user.name} deleted the channel "${target}".`);
+			this.room.modlog(`${user.name} terminated the channel "${target}".`);
 			return this.sendReply(`Channel "${target}" has been deleted.`);
 		},
 
@@ -127,7 +131,7 @@ exports.commands = {
 			let channelId = toId(getChannel(target));
 			if (!channels[channelId]) return this.errorReply(`This user does not currently own a DewTube channel.`);
 			let display = `<center><h2>${channels[channelId].name}</h2><strong>Creator:</strong> ${Server.nameColor(channels[channelId].owner, true, true)}`;
-			if (channels[channelId].isMonetized) display += ` <strong>(Approved Partner)</strong>`;
+			if (channels[channelId].isMonetized) display += ` <strong>(Approved Partner [&#9745;])</strong>`;
 			display += `<br />`;
 			if (channels[channelId].aboutme) display += `<strong>About Me:</strong> ${channels[channelId].aboutme}<br />`;
 			if (channels[channelId].creationDate) display += `<strong>Created:</strong> ${new Date(channels[channelId].creationDate)}<br />`;
@@ -135,7 +139,9 @@ exports.commands = {
 			if (channels[channelId].subscribers > 0) display += `<strong>Subscriber Count:</strong> ${channels[channelId].subscribers}<br />`;
 			if (channels[channelId].likes > 0) display += `<strong>Like Count:</strong> ${channels[channelId].likes}<br />`;
 			if (channels[channelId].dislikes > 0) display += `<strong>Dislike Count:</strong> ${channels[channelId].dislikes}<br />`;
+			if (channels[channelId].lastTitle) display += `<strong>Last Video:</strong> ${channels[channelId].lastTitle}<br />`;
 			if (channels[channelId].videos > 0) display += `<strong>Total Videos Uploaded:</strong> ${channels[channelId].videos}<br />`;
+			if (channels[channelId].allowingDrama) display += `<small><strong>(Allowing Drama: [&#9745;])</strong></small>`;
 			display += `</center>`;
 			return this.sendReplyBox(display);
 		},
@@ -160,7 +166,7 @@ exports.commands = {
 		discover: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (Object.keys(channels).length < 1) return this.errorReply(`There are currently no DewTube channels in this server.`);
-			let output = `<center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Channel Name</td><td>Description</td><td>Views</td><td>Subscribers</td><td>Dashboard</td><td>Owner</td></tr>`;
+			let output = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Channel Name</td><td>Description</td><td>Views</td><td>Subscribers</td><td>Likes</td><td>Dislikes</td><td>Dashboard</td><td>Owner</td></tr>`;
 			let sortedChannels = Object.keys(channels).sort(function (a, b) {
 				return channels[b].subscribers - channels[a].subscribers;
 			});
@@ -173,11 +179,13 @@ exports.commands = {
 				output += `<td>${aboutme}</td>`;
 				output += `<td>${curChannel.views}</td>`;
 				output += `<td>${curChannel.subscribers}</td>`;
+				output += `<td>${curChannel.likes}</td>`;
+				output += `<td>${curChannel.dislikes}</td>`;
 				output += `<td><button name="send" value="/dewtube dashboard ${curChannel.owner}">${curChannel.name}</button></td>`;
 				output += `<td>${Server.nameColor(curChannel.owner, true, true)}</td>`;
 				output += `</tr>`;
 			}
-			output += `</table></center>`;
+			output += `</table></center></div>`;
 			this.sendReplyBox(output);
 		},
 
@@ -185,22 +193,15 @@ exports.commands = {
 		rec: "record",
 		record: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
+			if (!target) return this.errorReply(`Please title the video you are filming.`);
 			let channelId = toId(getChannel(user.userid));
 			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
 			channels[channelId].vidProgress = "recorded";
-			channels[channelId].lastRecorded = Date.now();
+			channels[channelId].lastTitle = target;
 			write();
 			this.sendReplyBox(`You have recorded a video! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button><button class="button" name="send" value="/dewtube publish">Upload as-is!</button>`);
-			if (Db.videonotifications.has(user.userid)) {
-				let notification = Date.now() - channels[channelId].lastRecorded + RECORD_COOLDOWN;
-				setTimeout(() => {
-					if (Users.get(user.userid)) {
-						user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can upload again!`);
-					}
-				}, notification);
-			}
 		},
 
 		editvideo: "edit",
@@ -221,6 +222,7 @@ exports.commands = {
 			let channelId = toId(getChannel(user.userid));
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress === "notStarted") return this.errorReply(`Please record a video before uploading.`);
+			channels[channelId].lastRecorded = Date.now();
 			channels[channelId].videos++;
 			let generateEditedViews = Math.floor(Math.random() * 1000);
 			if (generateEditedViews < 1) generateEditedViews = 1;
@@ -283,6 +285,14 @@ exports.commands = {
 			// Restart video progress
 			channels[channelId].vidProgress = "notStarted";
 			write();
+			if (Db.videonotifications.has(user.userid)) {
+				let notification = Date.now() - channels[channelId].lastRecorded + RECORD_COOLDOWN;
+				setTimeout(() => {
+					if (Users.get(user.userid)) {
+						user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can upload again!`);
+					}
+				}, notification);
+			}
 		},
 
 		monetize: function (target, room, user) {
@@ -308,7 +318,7 @@ exports.commands = {
 		toggle: "notify",
 		togglenotifications: "notify",
 		notify: function (target, room, user) {
-			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTueb channel yet.`);
+			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
 			if (Db.videonotifications.has(user.userid)) {
 				Db.videonotifications.remove(user.userid);
 				this.sendReply(`You have successfully deactivated video notifications.`);
@@ -316,6 +326,81 @@ exports.commands = {
 				Db.videonotifications.set(user.userid, 1);
 				this.sendReply(`You have successfully enabled video notifications.`);
 			}
+		},
+
+		dramaalert: "drama",
+		expose: "drama",
+		drama: function (target, room, user) {
+			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
+			if (!target) return this.errorReply(`Pick who you want to start drama with.`);
+			let targetId = toId(target);
+			let usersChannel = toId(getChannel(user.userid));
+			if (!channels[targetId]) return this.errorReply(`"${target}" is not a channel.`);
+			if (channels[targetId] === channels[usersChannel]) return this.errorReply(`You cannot have drama with yourself.`);
+			if (!channels[targetId].allowingDrama) return this.errorReply(`${target} has disabled drama.`);
+			if (channels[usersChannel].subscribers === 0 || channels[targetId].subscribers === 0) return this.errorReply(`Either yourself or the other DewTuber currently has zero subscribers.`);
+			if (!channels[usersChannel].allowingDrama) return this.errorReply(`You must enable drama before starting drama.`);
+			let badOutcomes = [`was exposed by ${target}.`, `was the victim of a Content Cop by ${target}.`, `was humiliated by ${target}.`, `was proven to have lied by ${target}.`, `was proven guilty by ${target}.`, `was caught faking content by ${target}.`];
+			let goodOutcomes = [`won the debate against ${target}.`, `was favored by the community in an argument against ${target}.`, `proved they were innocent of ${target}'s accusations'.`, `exposed ${target}.`];
+			let determineOutcome = Math.floor(Math.random() * 2);
+			let audience = channels[usersChannel].subscribers + channels[targetId].subscribers;
+			let communityFeedback = Math.floor(Math.random() * audience);
+			let subChange = Math.round(communityFeedback / 100);
+			if (subChange < 1) subChange = 1;
+			console.log(subChange);
+
+			if (determineOutcome === 1) {
+				let outcome = goodOutcomes[Math.floor(Math.random() * goodOutcomes.length)];
+				let traffic = channels[usersChannel].views + communityFeedback;
+				channels[usersChannel].views = traffic;
+				let subscriberTraffic = channels[usersChannel].subscribers + subChange;
+				channels[usersChannel].subscribers = subscriberTraffic;
+				if (channels[targetId].subscribers < subChange) {
+					channels[targetId].subscribers = 0;
+				} else {
+					let subscribers = channels[targetId].subscribers - subChange
+					channels[targetId].subscribers = subscribers;
+				}
+				if (Rooms("dewtube")) Rooms("dewtube").add(`|c|$DramaAlert|/raw ${Server.nameColor(user.name, true, true)}, also known as ${getChannel(user.userid)}, ${outcome}`);
+				this.sendReply(`You have won the drama against ${target}. This resulted in you gaining ${subChange} subscribers. This lead to ${communityFeedback} view(s) being trafficked to your channel.`);
+				write();
+				if (Users.get(channels[targetId].owner)) {
+					Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has been favored by the community in DewTube drama. This resulted in you losing ${subChange} subscriber(s).`);
+				}
+			} else {
+				let outcome = badOutcomes[Math.floor(Math.random() * badOutcomes.length)];
+				if (channels[usersChannel].subscribers < subChange) {
+					channels[usersChannel].subscribers = 0;
+				} else {
+					let subscribers = channels[usersChannel].subscribers - subChange;
+					channels[usersChannel].subscribers = subscribers;
+				}
+				let traffic = channels[targetId].views + communityFeedback
+				channels[targetId].views = traffic;
+				let subscriberTraffic = channels[targetId].subscribers + subChange;
+				channels[targetId].subscribers = subscriberTraffic;
+				if (Rooms("dewtube")) Rooms("dewtube").add(`|c|$DramaAlert|/raw ${Server.nameColor(user.name, true, true)}, also known as ${getChannel(user.userid)}, ${outcome}`);
+				this.sendReply(`You have lost the drama against ${target}. This resulted in you losing ${subChange} subscribers.`);
+				write();
+				if (Users.get(channels[targetId].owner)) {
+					Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has lost while trying to start drama with you. This resulted in you gaining ${subChange} subscriber(s). You also trafficked ${communityFeedback} view(s) from this drama.`);
+				}
+			}
+		},
+
+		disabledrama: "toggledrama",
+		enabledrama: "toggledrama",
+		toggledrama: function (target, room, user) {
+			let channelId = toId(getChannel(user.userid));
+			if (!channels[channelId]) return this.errorReply(`You do not currently own a DewTube channel.`);
+			if (!channels[channelId].allowingDrama) {
+				channels[channelId].allowingDrama = true;
+				this.sendReply(`You have enabled having drama. This means you can start or be a target of drama. If you want to disable drama again /toggledrama again.`);
+			} else {
+				channels[channelId].allowingDrama = false;
+				this.sendReply(`You have disabled having drama. This means you cannot start or be a target of drama. If you want to enable drama again /toggledrama again.`);
+			}
+			write();
 		},
 
 		"": "help",
@@ -333,6 +418,8 @@ exports.commands = {
 		/dewtube publish - Publishs a DewTube video.
 		/dewtube monetize - Applies for your channel to be monetized.
 		/dewtube demonetize - Removes monetization from your channel.
+		/dewtube drama [channel name] - Starts drama against the other channel. Both parties must have drama enabled.
+		/dewtube toggledrama - Toggles on/off starting/being a target of drama.
 		/dewtube notify - Toggles on/off video notifications alerting you when you can upload next.
 		/dewtube dashboard [user] - Shows the user's channel dashboard; defaults to yourself.
 		/dewtube info - Shows the DewTube version and recent changes.

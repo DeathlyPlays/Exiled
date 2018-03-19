@@ -423,7 +423,7 @@ exports.commands = {
 		`/dewtube create [name], [description] - Creates a DewTube channel.
 		/dewtube delete [name] - Deletes a DewTube channel. If the channel is not yours, you must have Global Moderator or higher.
 		/dewtube desc [description] - Edits your DewTube channel's about me.
-		/dewtube record - Films a DewTube video.
+		/dewtube record [title] - Films a DewTube video.
 		/dewtube edit - Edits a DewTube video.
 		/dewtube publish - Publishs a DewTube video.
 		/dewtube monetize - Applies for your channel to be monetized.

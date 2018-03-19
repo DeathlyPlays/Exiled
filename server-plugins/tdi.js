@@ -155,8 +155,8 @@ exports.commands = {
 			if (!this.can("ban", null, room)) return false;
 			if (!room.tdi || room.tdi.state === "signups") return this.errorReply("A season of Total Drama Island must be airing to use this command.");
 			if (!target) return this.errorReply("This command requires a target.");
-			let disqualified = room.tdi.eliminate(toId(target));
-			if (disqualified === false) return this.errorReply(`Unable to disqualify ${target}.`);
+			if (!this.room.tdi.players.includes(toId(target))) return this.errorReply(`This player is not in the season of Total Drama Island.`);
+			room.tdi.eliminate(toId(target));
 			this.privateModAction(`(${user.name} has disqualified ${target} from this season of Total Drama Island.)`);
 			room.add(`|html|${Server.nameColor(target, true, true)} has been disqualified from this season of Total Drama Island.`).update();
 		},
@@ -176,7 +176,7 @@ exports.commands = {
 		players: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			if (!room.tdi) return this.errorReply("There is not an ongoing Total Drama Island season currently.");
-			return this.sendReplyBox(`There is currently ${this.room.tdi.players.length} player${this.room.tdi.players.length > 1 ? "s" : ""} in this season of Total Drama Island.<br /> Players: ${this.room.tdi.players}.`);
+			return this.sendReplyBox(`There is currently ${this.room.tdi.players.length} player${this.room.tdi.players.length > 1 ? "s" : ""} in this season of Total Drama Island.<br /> Players: ${Chat.toListString(this.room.tdi.players)}.`);
 		},
 
 		as: "autostart",

@@ -347,7 +347,6 @@ exports.commands = {
 			let communityFeedback = Math.floor(Math.random() * audience);
 			let subChange = Math.round(communityFeedback / 100);
 			if (subChange < 1) subChange = 1;
-			console.log(subChange);
 
 			if (determineOutcome === 1) {
 				let outcome = goodOutcomes[Math.floor(Math.random() * goodOutcomes.length)];
@@ -358,10 +357,10 @@ exports.commands = {
 				if (channels[targetId].subscribers < subChange) {
 					channels[targetId].subscribers = 0;
 				} else {
-					let subscribers = channels[targetId].subscribers - subChange
+					let subscribers = channels[targetId].subscribers - subChange;
 					channels[targetId].subscribers = subscribers;
 				}
-				if (Rooms("dewtube")) Rooms("dewtube").add(`|c|$DramaAlert|/raw ${Server.nameColor(user.name, true, true)}, also known as ${getChannel(user.userid)}, ${outcome}`);
+				if (Rooms("dewtube")) Rooms("dewtube").add(`|c|$DramaAlert|/raw ${Server.nameColor(user.name, true, true)}, also known as ${getChannel(user.userid)}, ${outcome}`).update();
 				this.sendReply(`You have won the drama against ${target}. This resulted in you gaining ${subChange} subscribers. This lead to ${communityFeedback} view(s) being trafficked to your channel.`);
 				write();
 				if (Users.get(channels[targetId].owner)) {
@@ -379,7 +378,7 @@ exports.commands = {
 				channels[targetId].views = traffic;
 				let subscriberTraffic = channels[targetId].subscribers + subChange;
 				channels[targetId].subscribers = subscriberTraffic;
-				if (Rooms("dewtube")) Rooms("dewtube").add(`|c|$DramaAlert|/raw ${Server.nameColor(user.name, true, true)}, also known as ${getChannel(user.userid)}, ${outcome}`);
+				if (Rooms("dewtube")) Rooms("dewtube").add(`|c|$DramaAlert|/raw ${Server.nameColor(user.name, true, true)}, also known as ${getChannel(user.userid)}, ${outcome}`).update();
 				this.sendReply(`You have lost the drama against ${target}. This resulted in you losing ${subChange} subscribers.`);
 				write();
 				if (Users.get(channels[targetId].owner)) {

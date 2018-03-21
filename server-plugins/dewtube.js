@@ -74,19 +74,6 @@ for (let u in channels) {
 	if (channels[u].notifications) continue;
 }
 
-<<<<<<< HEAD
-//Plugin Optimization
-let config = {
-	version: "1.3.2",
-<<<<<<< HEAD
-	changes: ["Added Thumbnails"],
-=======
-	changes: ["Drama", "Performance Updates", "Cooldown for Drama", "Thumbnails"],
->>>>>>> 68c199e399821814535b1d83d9f4d8c368a405d6
-};
-
-=======
->>>>>>> c591f000f09f1ad35258dc575a6230f28b135713
 exports.commands = {
 	dewtube: {
 		info: function (target, room, user) {
@@ -219,31 +206,16 @@ exports.commands = {
 		rec: "record",
 		record: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
-<<<<<<< HEAD
-			let parts = target.split(',').map(param => param.trim());
-			if (!parts[0]) return this.errorReply(`Please title the video you are filming.`);
-=======
 			let [title, ...thumbnail] = target.split(",").map(p => p.trim());
 			if (!title) return this.errorReply(`Please title the video you are filming`);
->>>>>>> 68c199e399821814535b1d83d9f4d8c368a405d6
 			let channelId = toId(getChannel(user.userid));
 			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
 			if (!thumbnail.includes[".jpg"] && thumbnail.includes[".png"] && thumbnail.includes[".gif"]) return this.errorReply("Not an image link!");
 			channels[channelId].vidProgress = "recorded";
-<<<<<<< HEAD
-			channels[channelId].lastTitle = parts[0];
-			channels[channelId].lastThumbnail = parts[1];
-			if (!parts[1]) channels[channelId].lastThumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png?quality=90&resize=620,413";
-=======
 			channels[channelId].lastTitle = title;
 			channels[channelId].lastThumbnail = thumbnail;
-<<<<<<< HEAD
-			if (!thumbnail) channels[channelId].lastThumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png?quality=90&resize=620,413";
->>>>>>> 68c199e399821814535b1d83d9f4d8c368a405d6
-=======
->>>>>>> c591f000f09f1ad35258dc575a6230f28b135713
 			write();
 			this.sendReplyBox(`You have recorded a video titled "${title}"! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button><button class="button" name="send" value="/dewtube publish">Upload as-is!</button>`);
 		},

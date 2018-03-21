@@ -53,7 +53,7 @@ Server.getChannel = getChannel;
 //Plugin Optimization
 let config = {
 	version: "1.3.4.1",
-	changes: ["Views are now dependent on subscriber count", "Various Performance Updates", "Dashboards use channel names", "Thumbnails must end in certain file extensions"],
+	changes: ["Views are now dependent on subscriber count", "Various Performance Updates", "Dashboards use channel names", "Drama Notifications", "Allow Dislikes to be higher than likes"],
 };
 
 // Prevent corruptions with new data
@@ -207,12 +207,11 @@ exports.commands = {
 		record: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
 			let [title, ...thumbnail] = target.split(",").map(p => p.trim());
-			if (!title) return this.errorReply(`Please title the video you are filming`);
+			if (!title) return this.errorReply(`Please title the video you are filming.`);
 			let channelId = toId(getChannel(user.userid));
 			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
-			if (!thumbnail.includes[".jpg"] && thumbnail.includes[".png"] && thumbnail.includes[".gif"]) return this.errorReply("Not an image link!");
 			channels[channelId].vidProgress = "recorded";
 			channels[channelId].lastTitle = title;
 			channels[channelId].lastThumbnail = thumbnail;
@@ -244,7 +243,7 @@ exports.commands = {
 			let generateEditedViews = Math.floor(Math.random() * subCount);
 			if (generateEditedViews < 1) generateEditedViews = 1;
 			if (subCount === 0) {
-				generateEditedViews = 5;
+				generateEditedViews = 10;
 			} else if (generateEditedViews < 1) {
 				generateEditedViews = 1;
 			} else {
@@ -252,7 +251,7 @@ exports.commands = {
 			}
 			let generateRawViews = Math.floor(Math.random() * Math.round(subCount / 100));
 			if (subCount === 0) {
-				generateRawViews = 1;
+				generateRawViews = 5;
 			} else if (generateRawViews < 1) {
 				generateRawViews = 1;
 			} else {
@@ -260,10 +259,24 @@ exports.commands = {
 			}
 			let generateEditedSubs = Math.floor(Math.random() * generateEditedViews);
 			let generateRawSubs = Math.floor(Math.random() * generateRawViews);
-			let generateEditedLikes = Math.floor(Math.random() * generateEditedViews);
-			let generateRawLikes = Math.floor(Math.random() * generateRawViews);
-			let generateEditedDislikes = Math.floor(Math.random() * generateEditedLikes);
-			let generateRawDislikes = Math.floor(Math.random() * generateRawLikes);
+			let likeDislikeRatio = Math.floor(Math.random() * 2);
+			let generateEditedLikes;
+			let generateEditedDislikes;
+			let generateRawLikes;
+			let generateRawDislikes;
+			if (likeDislikeRatio === 1) {
+				// More dislikes than like scenario
+				generateEditedDislikes = Math.floor(Math.random() * generateEditedViews);
+				generateEditedLikes = Math.floor(Math.random() * generateEditedDislikes);
+				generateRawDislikes = Math.floor(Math.random() * generateRawViews);
+				generateRawLikes = Math.floor(Math.random() * generateRawDislikes);
+			} else {
+				// More likes than dislikes scenario
+				generateEditedLikes = Math.floor(Math.random() * generateEditedViews);
+				generateEditedDislikes = Math.floor(Math.random() * generateEditedLikes);
+				generateRawLikes = Math.floor(Math.random() * generateRawViews);
+				generateRawDislikes = Math.floor(Math.random() * generateRawLikes);
+			}
 			if (generateEditedLikes + generateEditedDislikes > generateEditedViews) {
 				generateEditedLikes = Math.round(generateEditedLikes / 2);
 				generateEditedDislikes = Math.round(generateEditedDislikes / 2);
@@ -302,10 +315,12 @@ exports.commands = {
 					if (videoProgress === "recorded") {
 						adRevenue = Math.round(generateRawViews / 20);
 						if (adRevenue < 1) adRevenue = 1;
+						if (adRevenue > 20) adRevenue = 20;
 					}
 					if (videoProgress === "edited") {
 						adRevenue = Math.round(generateEditedViews / 100);
 						if (adRevenue < 1) adRevenue = 1;
+						if (adRevenue > 20) adRevenue = 20;
 					}
 					Economy.writeMoney(user.userid, adRevenue);
 					Economy.logTransaction(`${user.name} has got ${adRevenue} ${moneyName}${Chat.plural(adRevenue)} from posting a video.`);
@@ -419,6 +434,14 @@ exports.commands = {
 					Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has lost while trying to start drama with you. This resulted in you gaining ${subChange} subscriber(s). You also trafficked ${communityFeedback} view(s) from this drama.`);
 				}
 			}
+			if (channels[usersChannel].notifications) {
+				let notification = Date.now() - channels[usersChannel].lastDrama + DRAMA_COOLDOWN;
+				setTimeout(() => {
+					if (Users.get(user.userid)) {
+						user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can start drama again now!`);
+					}
+				}, notification);
+			}
 		},
 
 		disabledrama: "toggledrama",
@@ -452,7 +475,7 @@ exports.commands = {
 		/dewtube monetization - Toggles monetization on your DewTube videos. Must have 1,000 subscribers.
 		/dewtube drama [channel name] - Starts drama against the other channel. Both parties must have drama enabled.
 		/dewtube toggledrama - Toggles on/off starting/being a target of drama.
-		/dewtube notify - Toggles on/off video notifications alerting you when you can upload next.
+		/dewtube notify - Toggles on/off video notifications alerting you when you can upload next and notifications for when your drama cooldown is finished.
 		/dewtube dashboard [channel name] - Shows the channel's dashboard; defaults to yourself.
 		/dewtube info - Shows the DewTube version and recent changes.
 		/dewtube discover - Shows all of the DewTube channels.

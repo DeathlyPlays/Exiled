@@ -91,61 +91,70 @@ class ExpFunctions {
 					let reward = '';
 					switch (level) {
 					case 5:
-						Economy.logTransaction(`${user.name} received a profile background and profile music for reaching level ${level}.`);
-						Monitor.log(`${user.userid} has earned a profile background and profile music for reaching level ${level}!`);
+						Economy.logTransaction(`${user.name} received a Profile Background and Profile Music for reaching level ${level}.`);
+						Monitor.log(`${user.userid} has earned a Profile Background and Profile Music for reaching level ${level}!`);
 						if (!user.tokens) user.tokens = {};
 						user.tokens.bg = true;
 						user.tokens.music = true;
 						reward = `a Profile Background and Profile Music. To claim your profile background and profile music, use the command /usetoken bg, [img] and /usetoken music, [song url], [title of the song] respectively.`;
 						break;
 					case 10:
-						Economy.logTransaction(`${user.name} received a custom avatar for reaching level ${level}.`);
+						Economy.logTransaction(`${user.name} received a Custom Avatar for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Avatar.`);
 						if (!user.tokens) user.tokens = {};
 						user.tokens.avatar = true;
-						reward = `a Custom Avatar. To claim your avatar, use the command /usetoken avatar, [link to the image you want].`;
+						reward = `a Custom Avatar. To claim your Avatar, use the command /usetoken avatar, [link to the image you want].`;
 						break;
 					case 15:
-						Economy.logTransaction(`${user.name} received a custom title for reaching level ${level}.`);
+						Economy.logTransaction(`${user.name} received a Custom Title for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Profile Title.`);
 						if (!user.tokens) user.tokens = {};
 						user.tokens.title = true;
-						reward = `a Profile Title. To claim your profile title, use the command /usetoken title, [title], [hex color].`;
+						reward = `a Profile Title. To claim your Profile Title, use the command /usetoken title, [title], [hex color].`;
 						break;
 					case 20:
-						Economy.logTransaction(`${user.name} received a custom icon for reaching level ${level}.`);
+						Economy.logTransaction(`${user.name} received a Custom Icon for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Icon.`);
 						if (!user.tokens) user.tokens = {};
 						user.tokens.icon = true;
-						reward = `a Custom Userlist Icon. To claim your icon, use the command /usetoken icon, [link to the image you want].`;
+						reward = `a Custom Userlist Icon. To claim your Icon, use the command /usetoken icon, [link to the image you want].`;
 						break;
 					case 25:
-						Economy.logTransaction(`${user.name} received a emote for reaching level ${level}.`);
+						Economy.logTransaction(`${user.name} received an Emote for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Emoticon.`);
 						if (!user.tokens) user.tokens = {};
 						user.tokens.emote = true;
-						reward = `an Emote. To claim your emote, use the command /usetoken emote, [name], [image].`;
+						reward = `an Emote. To claim your Emote, use the command /usetoken emote, [name], [image].`;
 						break;
 					case 30:
-						Economy.logTransaction(`${user.name} received a custom color for reaching level ${level}.`);
+						Economy.logTransaction(`${user.name} received a Custom Color for reaching level ${level}.`);
 						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Color.`);
 						if (!user.tokens) user.tokens = {};
 						user.tokens.color = true;
-						reward = `a Custom Color. To claim your custom color, use the command /usetoken color, [hex color].`;
+						reward = `a Custom Color. To claim your Custom Color, use the command /usetoken color, [hex color].`;
 						break;
 					case 35:
 						Economy.writeMoney(user.userid, 50);
+						Economy.logTransaction(`${user.name} received 50 ${moneyPlural} for leveling up to Level 35.`);
 						reward = `50 ${moneyPlural}.`;
 						break;
 					case 40:
-						Economy.logTransaction(`${user.name} received a chatroom for reaching level ${level}.`);
-						Server.messageSeniorStaff(`${user.name} has earned a chatroom for reaching level ${level}!`);
+						Economy.logTransaction(`${user.name} received a Chatroom for reaching level ${level}.`);
+						Server.messageSeniorStaff(`${user.name} has earned a Chatroom for reaching level ${level}!`);
 						if (!user.tokens) user.tokens = {};
 						user.tokens.room = true;
-						reward = `a Chatroom. To claim your chatroom, Contact a Leader (&) or Administrator (~).`;
+						reward = `a Chatroom. To claim your Chatroom, use the command /usetoken room, [name of the chatroom].`;
+						break;
+					case 45:
+						Economy.logTransaction(`${user.name} received a Roomshop for reaching level ${level}.`);
+						Server.pmStaff(`${user.name} has earned a Roomshop for reaching level ${level}!`);
+						if (!user.tokens) user.tokens = {};
+						user.tokens.roomshop = true;
+						reward = `a Roomshop. To claim your Roomshop, use the command /usetoken roomshop, [room for room shop].`;
 						break;
 					default:
 						Economy.writeMoney(user.userid, Math.ceil(level * 0.5));
+						Economy.logTransaction(`${user.name} has received ${Math.ceil(level * 0.5)} ${(Math.ceil(level * 0.5) === 1 ? moneyName : moneyPlural)} for reaching level ${level}.`);
 						reward = `${Math.ceil(level * 0.5)} ${(Math.ceil(level * 0.5) === 1 ? moneyName : moneyPlural)}.`;
 					}
 					user.sendTo(room, `|html|<center><font size=4><strong><i>Level Up!</i></strong></font><br />You have reached level ${level}, and have earned ${reward}</strong></center>`);
@@ -194,7 +203,8 @@ exports.commands = {
 					"Level 25 unlocks a free Emote. <br /><br />" +
 					"Level 30 unlocks a free Custom Color.  <br /><br />" +
 					"Level 35 unlocks 50 " + moneyPlural + ". <br /><br />" +
-					"Level 40 unlocks a free Chatroom. <br /><br />"
+					"Level 40 unlocks a free Chatroom. <br /><br />" +
+					"Level 45 unlocks a free Room Shop.<br /><br />"
 				);
 			});
 		}

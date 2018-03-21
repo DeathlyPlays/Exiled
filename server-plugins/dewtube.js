@@ -50,6 +50,12 @@ function getChannel(user) {
 }
 Server.getChannel = getChannel;
 
+//Plugin Optimization
+let config = {
+	version: "1.4",
+	changes: ["Views are now dependent on subscriber count", "Various Performance Updates", "Dashboards use channel names"],
+};
+
 // Prevent corruptions with new data
 for (let u in channels) {
 	if (!channels[u].creationDate) channels[u].creationDate = Date.now() - 7100314200;
@@ -58,14 +64,17 @@ for (let u in channels) {
 	if (channels[u].isMonetized) continue;
 	if (!channels[u].lastTitle && channels[u].videos > 0) channels[u].lastTitle = "Untitled Video";
 	if (channels[u].lastTitle) continue;
-	if (!channels[u].lastThumbnail && channels[u].videos > 0) channels[u].lastThumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png?quality=90&resize=620,413";
+	if (!channels[u].lastThumbnail && channels[u].videos > 0) channels[u].lastThumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png";
 	if (channels[u].lastThumbnail) continue;
 	if (!channels[u].allowingDrama) channels[u].allowingDrama = false;
 	if (channels[u].allowingDrama) continue;
 	if (!channels[u].lastDrama) channels[u].lastDrama = channels[u].creationDate;
 	if (channels[u].lastDrama) continue;
+	if (!channels[u].notifications) channels[u].notifications = true;
+	if (channels[u].notifications) continue;
 }
 
+<<<<<<< HEAD
 //Plugin Optimization
 let config = {
 	version: "1.3.2",
@@ -76,6 +85,8 @@ let config = {
 >>>>>>> 68c199e399821814535b1d83d9f4d8c368a405d6
 };
 
+=======
+>>>>>>> c591f000f09f1ad35258dc575a6230f28b135713
 exports.commands = {
 	dewtube: {
 		info: function (target, room, user) {
@@ -110,6 +121,7 @@ exports.commands = {
 				creationDate: Date.now(),
 				likes: 0,
 				dislikes: 0,
+				notifications: true,
 				isMonetized: false,
 				lastTitle: null,
 				lastThumbnail: null,
@@ -140,9 +152,10 @@ exports.commands = {
 		dashboard: function (target, room, user) {
 			if (!this.runBroadcast()) return;
 			target = toId(target);
-			if (!target) target = user.userid;
+			if (!target) target = toId(getChannel(user.userid));
 			let channelId = toId(getChannel(target));
 			if (!channels[channelId]) return this.errorReply(`This user does not currently own a DewTube channel.`);
+			let vidProgress = channels[channelId].vidProgress;
 			let display = `<center><h2>${channels[channelId].name}</h2><strong>Creator:</strong> ${Server.nameColor(channels[channelId].owner, true, true)}`;
 			if (channels[channelId].isMonetized) display += ` <strong>(Approved Partner [&#9745;])</strong>`;
 			display += `<br />`;
@@ -152,8 +165,8 @@ exports.commands = {
 			if (channels[channelId].subscribers > 0) display += `<strong>Subscriber Count:</strong> ${channels[channelId].subscribers}<br />`;
 			if (channels[channelId].likes > 0) display += `<strong>Like Count:</strong> ${channels[channelId].likes}<br />`;
 			if (channels[channelId].dislikes > 0) display += `<strong>Dislike Count:</strong> ${channels[channelId].dislikes}<br />`;
-			if (channels[channelId].lastTitle) display += `<strong>Last Video:</strong> ${channels[channelId].lastTitle}<br />`;
-			if (channels[channelId].lastThumbnail) display += `<strong>Last Video Thumbnail:</strong><br />  <img src="${channels[channelId].lastThumbnail}" width="250" height="140"><br />`;
+			if (channels[channelId].lastTitle && vidProgress === "notStarted") display += `<strong>Last Video:</strong> ${channels[channelId].lastTitle}<br />`;
+			if (channels[channelId].lastThumbnail && vidProgress === "notStarted") display += `<strong>Last Video Thumbnail:</strong><br />  <img src="${channels[channelId].lastThumbnail}" width="250" height="140"><br />`;
 			if (channels[channelId].videos > 0) display += `<strong>Total Videos Uploaded:</strong> ${channels[channelId].videos}<br />`;
 			if (channels[channelId].allowingDrama) display += `<small><strong>(Allowing Drama: [&#9745;])</strong></small>`;
 			display += `</center>`;
@@ -218,6 +231,8 @@ exports.commands = {
 			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
+			if (thumbnail && ![".png", ".jpg", ".gif", ".jpeg"].includes(thumbnail.slice(-4))) return this.errorReply(`Your thumbnail must end with either: .png, .jpg, .gif, .jpeg.`);
+			if (!thumbnail) thumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png";
 			channels[channelId].vidProgress = "recorded";
 <<<<<<< HEAD
 			channels[channelId].lastTitle = parts[0];
@@ -226,8 +241,11 @@ exports.commands = {
 =======
 			channels[channelId].lastTitle = title;
 			channels[channelId].lastThumbnail = thumbnail;
+<<<<<<< HEAD
 			if (!thumbnail) channels[channelId].lastThumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png?quality=90&resize=620,413";
 >>>>>>> 68c199e399821814535b1d83d9f4d8c368a405d6
+=======
+>>>>>>> c591f000f09f1ad35258dc575a6230f28b135713
 			write();
 			this.sendReplyBox(`You have recorded a video titled "${title}"! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button><button class="button" name="send" value="/dewtube publish">Upload as-is!</button>`);
 		},
@@ -240,7 +258,7 @@ exports.commands = {
 			if (videoProgress !== "recorded") return this.errorReply(`You haven't recorded any new footage yet.`);
 			channels[channelId].vidProgress = "edited";
 			write();
-			return this.sendReplyBox(`Almost done! Now its time to upload! <button class="button" name="send" value="/dewtube publish">Publish the Video!</button>`);
+			return this.sendReplyBox(`Almost done! Now its time to upload ${channels[channelId].lastTitle}! <button class="button" name="send" value="/dewtube publish">Publish the Video!</button>`);
 		},
 
 		pub: "publish",
@@ -250,12 +268,26 @@ exports.commands = {
 			let channelId = toId(getChannel(user.userid));
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress === "notStarted") return this.errorReply(`Please record a video before uploading.`);
+			let subCount = channels[channelId].subscribers;
 			channels[channelId].lastRecorded = Date.now();
 			channels[channelId].videos++;
-			let generateEditedViews = Math.floor(Math.random() * 1000);
+			let generateEditedViews = Math.floor(Math.random() * subCount);
 			if (generateEditedViews < 1) generateEditedViews = 1;
-			let generateRawViews = Math.floor(Math.random() * 100);
-			if (generateRawViews < 1) generateRawViews = 1;
+			if (subCount === 0) {
+				generateEditedViews = 5;
+			} else if (generateEditedViews < 1) {
+				generateEditedViews = 1;
+			} else {
+				generateEditedViews = generateEditedViews;
+			}
+			let generateRawViews = Math.floor(Math.random() * Math.round(subCount / 100));
+			if (subCount === 0) {
+				generateRawViews = 1;
+			} else if (generateRawViews < 1) {
+				generateRawViews = 1;
+			} else {
+				generateRawViews = generateRawViews;
+			}
 			let generateEditedSubs = Math.floor(Math.random() * generateEditedViews);
 			let generateRawSubs = Math.floor(Math.random() * generateRawViews);
 			let generateEditedLikes = Math.floor(Math.random() * generateEditedViews);
@@ -313,7 +345,7 @@ exports.commands = {
 			// Restart video progress
 			channels[channelId].vidProgress = "notStarted";
 			write();
-			if (Db.videonotifications.has(user.userid)) {
+			if (channels[channelId].notifications) {
 				let notification = Date.now() - channels[channelId].lastRecorded + RECORD_COOLDOWN;
 				setTimeout(() => {
 					if (Users.get(user.userid)) {
@@ -323,22 +355,20 @@ exports.commands = {
 			}
 		},
 
-		monetize: function (target, room, user) {
-			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
+		togglemonetization: "monetization",
+		unmonetize: "monetization",
+		monetize: "monetization",
+		monetization: function (target, room, user) {
 			let channelId = toId(getChannel(user.userid));
-			if (channels[channelId].subscribers < 1000) return this.errorReply(`Due to recent policies you must have 1,000 subscribers before being allowed to monetize your video.`);
-			if (channels[channelId].isMonetized) return this.errorReply(`You are already monetized.`);
-			channels[channelId].isMonetized = true;
-			this.sendReply(`You have successfully activated monetization.`);
-		},
-
-		demonetize: "unmonetize",
-		unmonetize: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
-			let channelId = toId(getChannel(user.userid));
-			if (!channels[channelId].isMonetized) return this.errorReply(`You are not monetized.`);
-			channels[channelId].isMonetized = false;
-			this.sendReply(`You have successfully deactivated monetization.`);
+			if (channels[channelId].subscribers < 1000) return this.errorReply(`Due to recent DewTube partnership guidelines you must have 1,000 subscribers to apply for monetization.`);
+			if (channels[channelId].isMonetized) {
+				channels[channelId].isMonetized = false;
+				this.sendReply(`You have successfully deactivated monetization.`);
+			} else {
+				channels[channelId].isMonetized = true;
+				this.sendReply(`You have successfully enabled monetization.`);
+			}
 		},
 
 		notifications: "notify",
@@ -347,11 +377,12 @@ exports.commands = {
 		togglenotifications: "notify",
 		notify: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
-			if (Db.videonotifications.has(user.userid)) {
-				Db.videonotifications.remove(user.userid);
+			let channelId = toId(getChannel(user.userid));
+			if (channels[channelId].notifications) {
+				channels[channelId].notifications = false;
 				this.sendReply(`You have successfully deactivated video notifications.`);
 			} else {
-				Db.videonotifications.set(user.userid, 1);
+				channels[channelId].notifications = true;
 				this.sendReply(`You have successfully enabled video notifications.`);
 			}
 		},
@@ -448,8 +479,7 @@ exports.commands = {
 		/dewtube record [title], [thumbnail link] - Films a DewTube video.
 		/dewtube edit - Edits a DewTube video.
 		/dewtube publish - Publishs a DewTube video.
-		/dewtube monetize - Applies for your channel to be monetized.
-		/dewtube demonetize - Removes monetization from your channel.
+		/dewtube monetization - Toggles monetization on your DewTube videos. Must have 1,000 subscribers.
 		/dewtube drama [channel name] - Starts drama against the other channel. Both parties must have drama enabled.
 		/dewtube toggledrama - Toggles on/off starting/being a target of drama.
 		/dewtube notify - Toggles on/off video notifications alerting you when you can upload next.

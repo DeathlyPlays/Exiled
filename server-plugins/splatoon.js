@@ -298,6 +298,26 @@ exports.commands = {
 			});
 		},
 
+		nextrotations: "next",
+		nextrotation: "next",
+		nextmap: "next",
+		nextmaps: "next",
+		next: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			const apiData = fetch("https://splatoon2.ink/data/schedules.json").then(res => res.json());
+			let self = this;
+			apiData.then(function (json) {
+				let rotation = `<center><h2>BREAKING NEWS:</h2></center>`;
+				// League Battle
+				rotation += `<strong>League Battle Mode:</strong> ${json.league[1].rule.name} <strong>League Battle Stages:</strong> ${json.league[1].stage_a.name} and ${json.league[1].stage_b.name}. <strong>Started:</strong> ${Date(json.league[1].start_time)}. <strong>Ends:</strong> ${Date(json.league[1].end_time)}.<br />`;
+				// Ranked Battle
+				rotation += `<strong>Ranked Battle Mode:</strong> ${json.gachi[1].rule.name} <strong>Ranked Battle Stages:</strong> ${json.gachi[1].stage_a.name} and ${json.gachi[1].stage_b.name}. <strong>Started:</strong> ${Date(json.gachi[1].start_time)}. <strong>Ends:</strong> ${Date(json.gachi[1].end_time)}.<br />`;
+				// Regular Battle
+				rotation += `<strong>Regular Battle Mode:</strong> ${json.regular[1].rule.name} <strong>Regular Battle Stages:</strong> ${json.regular[1].stage_a.name} and ${json.regular[1].stage_b.name}. <strong>Started:</strong> ${Date(json.regular[1].start_time)}. <strong>Ends:</strong> ${Date(json.regular[1].end_time)}.<br />`;
+				self.sendReplyBox(rotation);
+			});
+		},
+
 		"": "help",
 		help: function (target, room, user) {
 			this.parse("/splatoonhelp");
@@ -320,6 +340,7 @@ exports.commands = {
 		/splatoon randomweapon - Sends a random weapon from Splatoon 2 into chat.
 		/splatoon profile [optional target] - Displays the specified user's Splatoon 2 Profile. Defaults to yourself.
 		/splatoon maps - Shows the current map rotations.
+		/splatoon next - Shows the next map rotations.
 		/splatoon help - Displays this help command.`,
 	],
 

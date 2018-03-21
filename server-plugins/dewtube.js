@@ -52,8 +52,8 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "1.3.4",
-	changes: ["Views are now dependent on subscriber count", "Various Performance Updates", "Dashboards use channel names"],
+	version: "1.3.4.1",
+	changes: ["Views are now dependent on subscriber count", "Various Performance Updates", "Dashboards use channel names", "Thumbnails must end in certain file extensions"],
 };
 
 // Prevent corruptions with new data
@@ -230,8 +230,7 @@ exports.commands = {
 			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
-			if (!thumbnail) thumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png";
-			if ([".png", ".jpg", ".gif", ".jpeg"].includes(thumbnail.slice(-4))) return this.errorReply(`Your thumbnail must end with either: .png, .jpg, .gif, .jpeg.`);
+			if (!thumbnail.includes[".jpg"] && thumbnail.includes[".png"] && thumbnail.includes[".gif"]) return this.errorReply("Not an image link!");
 			channels[channelId].vidProgress = "recorded";
 <<<<<<< HEAD
 			channels[channelId].lastTitle = parts[0];
@@ -475,14 +474,14 @@ exports.commands = {
 		`/dewtube create [name], [description] - Creates a DewTube channel.
 		/dewtube delete [name] - Deletes a DewTube channel. If the channel is not yours, you must have Global Moderator or higher.
 		/dewtube desc [description] - Edits your DewTube channel's about me.
-		/dewtube record [title], [thumbnail link] - Films a DewTube video.
+		/dewtube record [title], [optional thumbnail link] - Films a DewTube video.
 		/dewtube edit - Edits a DewTube video.
 		/dewtube publish - Publishs a DewTube video.
 		/dewtube monetization - Toggles monetization on your DewTube videos. Must have 1,000 subscribers.
 		/dewtube drama [channel name] - Starts drama against the other channel. Both parties must have drama enabled.
 		/dewtube toggledrama - Toggles on/off starting/being a target of drama.
 		/dewtube notify - Toggles on/off video notifications alerting you when you can upload next.
-		/dewtube dashboard [user] - Shows the user's channel dashboard; defaults to yourself.
+		/dewtube dashboard [channel name] - Shows the channel's dashboard; defaults to yourself.
 		/dewtube info - Shows the DewTube version and recent changes.
 		/dewtube discover - Shows all of the DewTube channels.
 		/dewtube help - Displays this help command.`,

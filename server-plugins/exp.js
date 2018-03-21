@@ -150,7 +150,7 @@ class ExpFunctions {
 						Server.pmStaff(`${user.name} has earned a Roomshop for reaching level ${level}!`);
 						if (!user.tokens) user.tokens = {};
 						user.tokens.roomshop = true;
-						reward = `a Chatroom. To claim your Roomshop, use the command /usetoken roomshop, [room for room shop].`;
+						reward = `a Roomshop. To claim your Roomshop, use the command /usetoken roomshop, [room for room shop].`;
 						break;
 					default:
 						Economy.writeMoney(user.userid, Math.ceil(level * 0.5));

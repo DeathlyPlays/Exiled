@@ -58,6 +58,8 @@ for (let u in channels) {
 	if (channels[u].isMonetized) continue;
 	if (!channels[u].lastTitle && channels[u].videos > 0) channels[u].lastTitle = "Untitled Video";
 	if (channels[u].lastTitle) continue;
+	if (!channels[u].lastThumbnail && channels[u].videos > 0) channels[u].lastThumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png?quality=90&resize=620,413";
+	if (channels[u].lastThumbnail) continue;
 	if (!channels[u].allowingDrama) channels[u].allowingDrama = false;
 	if (channels[u].allowingDrama) continue;
 	if (!channels[u].lastDrama) channels[u].lastDrama = channels[u].creationDate;
@@ -66,8 +68,8 @@ for (let u in channels) {
 
 //Plugin Optimization
 let config = {
-	version: "1.3.1",
-	changes: ["Drama", "Performance Updates", "Cooldown for Drama"],
+	version: "1.3.2",
+	changes: ["Drama", "Performance Updates", "Cooldown for Drama", "Thumbnails"],
 };
 
 exports.commands = {
@@ -106,6 +108,7 @@ exports.commands = {
 				dislikes: 0,
 				isMonetized: false,
 				lastTitle: null,
+				lastThumbnail: null,
 				allowingDrama: false,
 				lastDrama: null,
 			};
@@ -146,6 +149,7 @@ exports.commands = {
 			if (channels[channelId].likes > 0) display += `<strong>Like Count:</strong> ${channels[channelId].likes}<br />`;
 			if (channels[channelId].dislikes > 0) display += `<strong>Dislike Count:</strong> ${channels[channelId].dislikes}<br />`;
 			if (channels[channelId].lastTitle) display += `<strong>Last Video:</strong> ${channels[channelId].lastTitle}<br />`;
+			if (channels[channelId].lastThumbnail) display += `<strong>Last Video Thumbnail:</strong><br />  <img src="${channels[channelId].lastThumbnail}" width="250" height="140"><br />`;
 			if (channels[channelId].videos > 0) display += `<strong>Total Videos Uploaded:</strong> ${channels[channelId].videos}<br />`;
 			if (channels[channelId].allowingDrama) display += `<small><strong>(Allowing Drama: [&#9745;])</strong></small>`;
 			display += `</center>`;
@@ -199,15 +203,18 @@ exports.commands = {
 		rec: "record",
 		record: function (target, room, user) {
 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
-			if (!target) return this.errorReply(`Please title the video you are filming.`);
+			let [title, ...thumbnail] = target.split(",").map(p => p.trim());
+			if (!title) return this.errorReply(`Please title the video you are filming`);
 			let channelId = toId(getChannel(user.userid));
 			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
 			channels[channelId].vidProgress = "recorded";
-			channels[channelId].lastTitle = target;
+			channels[channelId].lastTitle = title;
+			channels[channelId].lastThumbnail = thumbnail;
+			if (!thumbnail) channels[channelId].lastThumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png?quality=90&resize=620,413";
 			write();
-			this.sendReplyBox(`You have recorded a video! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button><button class="button" name="send" value="/dewtube publish">Upload as-is!</button>`);
+			this.sendReplyBox(`You have recorded a video titled "${title}"! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button><button class="button" name="send" value="/dewtube publish">Upload as-is!</button>`);
 		},
 
 		editvideo: "edit",
@@ -257,7 +264,7 @@ exports.commands = {
 				channels[channelId].views = newViewCount;
 				channels[channelId].likes = newLikeCount;
 				channels[channelId].dislikes = newDislikeCount;
-				this.sendReplyBox(`Congratulations your video has received ${generateEditedViews} view(s). ${generateEditedSubs} people have subscribed to your channel after seeing this video. You got ${generateEditedLikes} like(s) and ${generateEditedDislikes} dislike(s).<br /> Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}. Total Likes: ${newLikeCount}. Total Dislikes: ${newDislikeCount}.`);
+				this.sendReplyBox(`Congratulations, your video has received ${generateEditedViews} view(s). ${generateEditedSubs} people have subscribed to your channel after seeing this video. You got ${generateEditedLikes} like(s) and ${generateEditedDislikes} dislike(s).<br /> Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}. Total Likes: ${newLikeCount}. Total Dislikes: ${newDislikeCount}.`);
 			} else {
 				let newSubCount = channels[channelId].subscribers + generateRawSubs;
 				let newViewCount = channels[channelId].views + generateRawViews;
@@ -423,7 +430,7 @@ exports.commands = {
 		`/dewtube create [name], [description] - Creates a DewTube channel.
 		/dewtube delete [name] - Deletes a DewTube channel. If the channel is not yours, you must have Global Moderator or higher.
 		/dewtube desc [description] - Edits your DewTube channel's about me.
-		/dewtube record [title] - Films a DewTube video.
+		/dewtube record [title], [thumbnail link] - Films a DewTube video.
 		/dewtube edit - Edits a DewTube video.
 		/dewtube publish - Publishs a DewTube video.
 		/dewtube monetize - Applies for your channel to be monetized.

@@ -52,7 +52,7 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "1.4",
+	version: "1.3.4",
 	changes: ["Views are now dependent on subscriber count", "Various Performance Updates", "Dashboards use channel names"],
 };
 
@@ -151,9 +151,8 @@ exports.commands = {
 		channel: "dashboard",
 		dashboard: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			target = toId(target);
 			if (!target) target = toId(getChannel(user.userid));
-			let channelId = toId(getChannel(target));
+			let channelId = toId(target);
 			if (!channels[channelId]) return this.errorReply(`This user does not currently own a DewTube channel.`);
 			let vidProgress = channels[channelId].vidProgress;
 			let display = `<center><h2>${channels[channelId].name}</h2><strong>Creator:</strong> ${Server.nameColor(channels[channelId].owner, true, true)}`;
@@ -208,7 +207,7 @@ exports.commands = {
 				output += `<td>${curChannel.subscribers}</td>`;
 				output += `<td>${curChannel.likes}</td>`;
 				output += `<td>${curChannel.dislikes}</td>`;
-				output += `<td><button name="send" value="/dewtube dashboard ${curChannel.owner}">${curChannel.name}</button></td>`;
+				output += `<td><button name="send" value="/dewtube dashboard ${curChannel.name}">${curChannel.name}</button></td>`;
 				output += `<td>${Server.nameColor(curChannel.owner, true, true)}</td>`;
 				output += `</tr>`;
 			}
@@ -231,8 +230,8 @@ exports.commands = {
 			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
-			if (thumbnail && ![".png", ".jpg", ".gif", ".jpeg"].includes(thumbnail.slice(-4))) return this.errorReply(`Your thumbnail must end with either: .png, .jpg, .gif, .jpeg.`);
 			if (!thumbnail) thumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png";
+			if ([".png", ".jpg", ".gif", ".jpeg"].includes(thumbnail.slice(-4))) return this.errorReply(`Your thumbnail must end with either: .png, .jpg, .gif, .jpeg.`);
 			channels[channelId].vidProgress = "recorded";
 <<<<<<< HEAD
 			channels[channelId].lastTitle = parts[0];

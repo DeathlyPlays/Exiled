@@ -14,6 +14,9 @@ const RECORD_COOLDOWN = 30 * 60 * 1000;
 // Drama Cooldown (1 hour)
 const DRAMA_COOLDOWN = 60 * 60 * 1000;
 
+// Collaboration Cooldown (2 hours)
+const COLLAB_COOLDOWN = 120 * 60 * 1000;
+
 let channels = FS("config/channels.json").readIfExistsSync();
 
 if (channels !== "") {
@@ -52,8 +55,8 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "1.3.4.1",
-	changes: ["Views are now dependent on subscriber count", "Various Performance Updates", "Dashboards use channel names", "Drama Notifications", "Allow Dislikes to be higher than likes"],
+	version: "1.3.5",
+	changes: ["Views are now dependent on subscriber count", "Various Performance Updates", "Dashboards use channel names", "Drama Notifications", "Allow Dislikes to be higher than likes", "Collaborations between two channels"],
 };
 
 // Prevent corruptions with new data
@@ -64,7 +67,7 @@ for (let u in channels) {
 	if (channels[u].isMonetized) continue;
 	if (!channels[u].lastTitle && channels[u].videos > 0) channels[u].lastTitle = "Untitled Video";
 	if (channels[u].lastTitle) continue;
-	if (!channels[u].lastThumbnail && channels[u].videos > 0) channels[u].lastThumbnail = "https://media.immediate.co.uk/volatile/sites/3/2017/11/imagenotavailable1-39de324.png";
+	if (!channels[u].lastThumbnail && channels[u].videos > 0) channels[u].lastThumbnail = null;
 	if (channels[u].lastThumbnail) continue;
 	if (!channels[u].allowingDrama) channels[u].allowingDrama = false;
 	if (channels[u].allowingDrama) continue;
@@ -72,6 +75,8 @@ for (let u in channels) {
 	if (channels[u].lastDrama) continue;
 	if (!channels[u].notifications) channels[u].notifications = true;
 	if (channels[u].notifications) continue;
+	if (channels[u].lastCollabed) channels[u].lastCollabed = null;
+	if (channels[u].lastCollabed) continue;
 }
 
 exports.commands = {
@@ -105,6 +110,7 @@ exports.commands = {
 				owner: user.userid,
 				vidProgress: "notStarted",
 				lastRecorded: null,
+				lastCollabed: null,
 				creationDate: Date.now(),
 				likes: 0,
 				dislikes: 0,
@@ -140,7 +146,7 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			if (!target) target = toId(getChannel(user.userid));
 			let channelId = toId(target);
-			if (!channels[channelId]) return this.errorReply(`This user does not currently own a DewTube channel.`);
+			if (!channels[channelId]) return this.errorReply(`This is not a DewTube channel.`);
 			let vidProgress = channels[channelId].vidProgress;
 			let display = `<center><h2>${channels[channelId].name}</h2><strong>Creator:</strong> ${Server.nameColor(channels[channelId].owner, true, true)}`;
 			if (channels[channelId].isMonetized) display += ` <strong>(Approved Partner [&#9745;])</strong>`;
@@ -459,6 +465,50 @@ exports.commands = {
 			write();
 		},
 
+		collaborate: "collab",
+		collab: function (target, room, user) {
+			let usersChannel = toId(getChannel(user.userid));
+			if (!channels[usersChannel]) return this.errorReply(`You do not currently own a DewTube channel.`);
+			if (!target) return this.errorReply("Please specify a channel you would like to collaborate with.");
+			let targetId = toId(target);
+			if (!channels[targetId]) return this.errorReply(`"${target}" is not a channel.`);
+			let combinedSubCount = channels[usersChannel].subscribers + channels[targetId].subscribers;
+			if (Date.now() - channels[usersChannel].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`You are on collaboration cooldown.`);
+			if (Date.now() - channels[targetId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`${target} is on collaboration cooldown.`);
+			if (Date.now() - channels[usersChannel].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
+			if (Date.now() - channels[targetId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`${target} is on record cooldown.`);
+			channels[usersChannel].lastCollabed = Date.now();
+			channels[targetId].lastCollabed = Date.now();
+			channels[usersChannel].lastRecorded = Date.now();
+			channels[targetId].lastRecorded = Date.now();
+			let generatedViewCount = Math.floor(Math.random() * combinedSubCount);
+			let generatedSubCount = Math.floor(Math.random() * generatedViewCount);
+			channels[usersChannel].subscribers = channels[usersChannel].subscribers + generatedSubCount;
+			channels[usersChannel].views = channels[usersChannel].views + generatedViewCount;
+			channels[targetId].subscribers = channels[targetId].subscribers + generatedSubCount;
+			channels[targetId].views = channels[targetId].views + generatedViewCount;
+			this.sendReply(`You have collaborated in a video with ${target}. You both gained ${generatedViewCount} view(s) and ${generatedSubCount} subscriber(s) as a result.`);
+			if (Users.get(channels[targetId].owner)) {
+				Users(channels[targetId].owner).send(`|pm|~DewTube Manager|~|${user.name} has collaborated with you! As a result, you both gained ${generatedViewCount} view(s) and ${generatedSubCount} subscriber(s).`);
+			}
+			if (channels[usersChannel].notifications) {
+				let notification = Date.now() - channels[usersChannel].lastCollabed + COLLAB_COOLDOWN;
+				setTimeout(() => {
+					if (Users.get(user.userid)) {
+						user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can collab again now!`);
+					}
+				}, notification);
+			}
+			if (channels[targetId].notifications) {
+				let notification = Date.now() - channels[targetId].lastCollabed + COLLAB_COOLDOWN;
+				setTimeout(() => {
+					if (Users.get(channels[targetId].owner)) {
+						Users(channels[targetId].owner).send(`|pm|~DewTube Manager|~|Hey ${channels[targetId].owner}, just wanted to let you know you can collab again now!`);
+					}
+				}, notification);
+			}
+		},
+
 		"": "help",
 		help: function () {
 			this.parse("/dewtubehelp");
@@ -475,6 +525,7 @@ exports.commands = {
 		/dewtube monetization - Toggles monetization on your DewTube videos. Must have 1,000 subscribers.
 		/dewtube drama [channel name] - Starts drama against the other channel. Both parties must have drama enabled.
 		/dewtube toggledrama - Toggles on/off starting/being a target of drama.
+		/dewtube collab [channel name] - Record a collaboration video with another channel. Both channels must be off of record cooldown and collab cooldown.
 		/dewtube notify - Toggles on/off video notifications alerting you when you can upload next and notifications for when your drama cooldown is finished.
 		/dewtube dashboard [channel name] - Shows the channel's dashboard; defaults to yourself.
 		/dewtube info - Shows the DewTube version and recent changes.

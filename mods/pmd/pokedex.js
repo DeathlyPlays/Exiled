@@ -17,7 +17,7 @@ exports.BattlePokedex = {
 		num: 403,
 		species: "Shinx",
 		types: ["Electric"],
-		baseStats: {hp: 555, atk: 255, def: 555, spa: 255, spd: 555, spe: 45},
+		baseStats: {hp: 555, atk: 555, def: 555, spa: 255, spd: 555, spe: 45},
 		abilities: {0: "Rivalry", 1: "Intimidate", H: "Guts"},
 		heightm: 0.5,
 		weightkg: 9.5,

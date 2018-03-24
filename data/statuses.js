@@ -338,7 +338,7 @@ exports.BattleStatuses = {
 		onResidualOrder: 3,
 		onResidual: function (side) {
 			let finished = true;
-			for (let i = 0; i < side.active.length; i++) {
+			for (const [i, target] of side.active.entries()) {
 				let posData = this.effectData.positions[i];
 				if (!posData) continue;
 
@@ -350,7 +350,6 @@ exports.BattleStatuses = {
 				}
 
 				// time's up; time to hit! :D
-				let target = side.active[i];
 				const move = this.getMove(posData.move);
 				if (target.fainted) {
 					this.add('-hint', '' + move.name + ' did not hit because the target is fainted.');
@@ -399,12 +398,14 @@ exports.BattleStatuses = {
 		onStart: function () {
 			this.effectData.counter = 3;
 		},
-		onStallMove: function () {
+		onStallMove: function (pokemon) {
 			// this.effectData.counter should never be undefined here.
 			// However, just in case, use 1 if it is undefined.
 			let counter = this.effectData.counter || 1;
 			this.debug("Success chance: " + Math.round(100 / counter) + "%");
-			return this.randomChance(1, counter);
+			let success = this.randomChance(1, counter);
+			if (!success) delete pokemon.volatiles['stall'];
+			return success;
 		},
 		onRestart: function () {
 			if (this.effectData.counter < this.effect.counterMax) {

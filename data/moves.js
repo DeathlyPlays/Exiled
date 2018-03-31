@@ -6743,12 +6743,8 @@ let BattleMovedex = {
 				this.add('-singlemove', pokemon, 'Grudge');
 			},
 			onFaint: function (target, source, effect) {
-<<<<<<< HEAD
-				if (!source || !effect) return;
-=======
 				if (!source || source.fainted || !effect) return;
 				if (!source.lastMove) throw new Error("Pokemon.lastMove is null");
->>>>>>> 9b250fe233a0911e611e9274decfa5436d9871a5
 				if (effect.effectType === 'Move' && !effect.isFutureMove) {
 					for (const moveSlot of source.moveSlots) {
 						if (moveSlot.id === source.lastMove.id) {

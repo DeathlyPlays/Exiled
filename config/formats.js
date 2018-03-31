@@ -127,13 +127,8 @@ let Formats = [
 	},
 	{
 		name: "[Gen 7] LC",
-<<<<<<< HEAD
-		desc: [
-			`&bullet; <a href="http://www.smogon.com/forums/threads/3587196/">LC Metagame Discussion</a>`,
-=======
 		threads: [
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3629645/">LC Metagame Discussion</a>`,
->>>>>>> 9b250fe233a0911e611e9274decfa5436d9871a5
 			`&bullet; <a href="http://www.smogon.com/dex/sm/formats/lc/">LC Banlist</a>`,
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3621440/">LC Viability Rankings</a>`,
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3588679/">LC Sample Teams</a>`,

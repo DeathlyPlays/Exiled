@@ -473,6 +473,8 @@ exports.commands = {
 			return this.sendReplyBox("Earth Power");
 		} else if (target === "crabominable") {
 			return this.sendReplyBox("Icicle Crash, Swords Dance, Fire Punch, Knock Off");
+		} else if (target === "golurk") {
+			return this.sendReplyBox("Shadow Strike, Shadow Sneak");
 		} else {
 			return this.errorReply(target + " is not a buffed Rise of PU Pokemon, or it does not get any new moves.");
 		}
@@ -483,6 +485,6 @@ exports.commands = {
 	'riseofpu': 'rop',
 	rop: function () {
 		if (!this.runBroadcast()) return;
-		return this.sendReplyBox("Lilligant, Togedemaru, Oranguru, Toucannon, Wailord, Drampa, Rotom-Fan, Stantler, Palossand, Crabominable");
+		return this.sendReplyBox("Lilligant, Togedemaru, Oranguru, Toucannon, Wailord, Drampa, Rotom-Fan, Stantler, Palossand, Crabominable, Hariyama, Golurk");
 	},
 };

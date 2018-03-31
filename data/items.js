@@ -3581,7 +3581,7 @@ exports.BattleItems = {
 		},
 		onModifyAtkPriority: 1,
 		onModifyAtk: function (atk) {
-			return this.chainModify(2.5);
+			return this.chainModify(1.5);
 		},
 		num: 266,
 		gen: 4,

@@ -46,24 +46,10 @@
   "private": true,
   "license": "MIT",
   "devDependencies": {
-<<<<<<< HEAD
-    "@types/node": "^8.9.4",
-    "@types/nodemailer": "^4.3.4",
-    "eslint": "^4.18.1",
-    "mocha": "^4.1.0",
-    "typescript": "^2.7.2"
-  },
-  "bugs": {
-    "url": "https://github.com/Zarel/Pokemon-Showdown/issues"
-  },
-  "directories": {
-    "test": "test"
-=======
     "@types/node": "^8.0.32",
     "@types/nodemailer": "^4.3.0",
     "eslint": "^4.16.0",
     "mocha": "^4.0.1",
     "typescript": "^2.7.2"
->>>>>>> 1e4285cbafd3be2b2bd6fbbfa91851aa4718ce3e
   }
 }

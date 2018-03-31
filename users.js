@@ -1179,18 +1179,13 @@ class User {
 	 * @param {Connection} connection
 	 */
 	onDisconnect(connection) {
-<<<<<<< HEAD
 		if (this.named) Db.seen.set(this.userid, Date.now());
 		if (Ontime[this.userid]) {
 			Db.ontime.set(this.userid, Db.ontime.get(this.userid, 0) + (Date.now() - Ontime[this.userid]));
 			delete Ontime[this.userid];
 		}
-		for (let i = 0; i < this.connections.length; i++) {
-			if (this.connections[i] === connection) {
-=======
 		for (const [i, connected] of this.connections.entries()) {
 			if (connected === connection) {
->>>>>>> 1e4285cbafd3be2b2bd6fbbfa91851aa4718ce3e
 				// console.log('DISCONNECT: ' + this.userid);
 				if (this.connections.length <= 1) {
 					this.markInactive();

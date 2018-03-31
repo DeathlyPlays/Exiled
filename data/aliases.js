@@ -1,6 +1,7 @@
 'use strict';
 
-exports.BattleAliases = {
+/**@type {{[k: string]: string}} */
+let BattleAliases = {
 	// formats
 	"randbats": "[Gen 7] Random Battle",
 	"uber": "[Gen 7] Ubers",
@@ -924,3 +925,5 @@ exports.BattleAliases = {
 	"lincoln2": "Gyarados",
 	"lon": "Kyurem",
 };
+
+exports.BattleAliases = BattleAliases;

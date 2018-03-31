@@ -29,8 +29,8 @@ exports.commands = {
 		give: "add",
 		add: function (target, room, user) {
 			if (!this.can("genrequest")) return false;
-			if (!target || target.length > 18) return this.errorReply(`This command requires a target with a maximum of 18 characters.`);
 			let approvedGenner = toId(target);
+			if (!approvedGenner || approvedGenner.length > 18) return this.errorReply(`This command requires a target with a maximum of 18 characters.`);
 			Db.genners.set(approvedGenner, 1);
 			this.sendReply(`|html|${Server.nameColor(approvedGenner, true)} has been successfully been approved as a genner.`);
 			if (Users.get(approvedGenner)) Users(approvedGenner).popup(`|html|You have been approved as a genner by ${Server.nameColor(user.name, true)}.`);
@@ -66,14 +66,16 @@ exports.commands = {
 			if (Users.get(toId(target))) Users(toId(target)).popup(`|html|You have been approved as a genner by ${Server.nameColor(user.name, true)}.`);
 		},
 
-		users: 'list',
+		users: "list",
+		genner: "list",
+		genners: "list",
 		list: function (target, room, user) {
-			if (!Db.genners.keys().length) return this.errorReply('There are currently zero approved genners.');
+			if (!Db.genners.keys().length) return this.errorReply("There are currently zero approved genners.");
 			let display = [];
-			Db.genners.keys().forEach(approvedGenners => {
-				display.push(Server.nameColor(approvedGenners, (Users(approvedGenners) && Users(approvedGenners).connected)));
-			});
-			this.popupReply(`|html|<strong><u><font size="3"><center>Approved Genners:</center></font></u></strong>${display.join(',')}`);
+			for (const approvedGenners of Db.genners.keys()) {
+				 display.push(Server.nameColor(approvedGenners, Users(approvedGenners) && Users(approvedGenners).connected));
+			}
+			this.popupReply(`|html|<strong><u><font size="3"><center>Approved Genners:</center></font></u></strong>${display.join(",")}`);
 		},
 
 		"": "help",

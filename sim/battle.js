@@ -619,15 +619,9 @@ class Battle extends Dex.ModdedDex {
 	 * @param {string} eventid
 	 * @param {?string | Effect} effect
 	 * @param {?AnyObject} effectData
-<<<<<<< HEAD
 	 * @param {string | Pokemon | Side | Battle} target
 	 * @param {Pokemon | Effect} [source]
 	 * @param {?Effect} [sourceEffect]
-=======
-	 * @param {?string | Pokemon | Side | Battle} target
-	 * @param {string | Pokemon | Effect | false?} [source]
-	 * @param {?Effect | string} [sourceEffect]
->>>>>>> 1e4285cbafd3be2b2bd6fbbfa91851aa4718ce3e
 	 * @param {any} [relayVar]
 	 */
 	singleEvent(eventid, effect, effectData, target, source, sourceEffect, relayVar) {
@@ -1857,13 +1851,8 @@ class Battle extends Dex.ModdedDex {
 	/**
 	 * @param {AnyObject} boost
 	 * @param {Pokemon} [target]
-<<<<<<< HEAD
 	 * @param {Pokemon} [source]
 	 * @param {Effect} [effect]
-=======
-	 * @param {Pokemon?} [source]
-	 * @param {Effect | string?} [effect]
->>>>>>> 1e4285cbafd3be2b2bd6fbbfa91851aa4718ce3e
 	 * @param {boolean} [isSecondary]
 	 * @param {boolean} isSelf
 	 */
@@ -1931,13 +1920,8 @@ class Battle extends Dex.ModdedDex {
 	/**
 	 * @param {number} damage
 	 * @param {Pokemon} [target]
-<<<<<<< HEAD
 	 * @param {Pokemon} [source]
 	 * @param {Effect} [effect]
-=======
-	 * @param {Pokemon?} [source]
-	 * @param {Effect | string?} [effect]
->>>>>>> 1e4285cbafd3be2b2bd6fbbfa91851aa4718ce3e
 	 * @param {boolean} [instafaint]
 	 */
 	damage(damage, target, source, effect, instafaint) {

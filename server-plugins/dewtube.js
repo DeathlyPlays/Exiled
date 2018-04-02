@@ -481,6 +481,8 @@ exports.commands = {
 			channels[targetId].lastCollabed = Date.now();
 			channels[usersChannel].lastRecorded = Date.now();
 			channels[targetId].lastRecorded = Date.now();
+			channels[usersChannel].lastTitle = `Collab with ${channels[targetId].name}!`;
+			channels[targetId].lastTitle = `Collab with ${channels[usersChannel].name}!`;
 			let generatedViewCount = Math.floor(Math.random() * combinedSubCount);
 			let generatedSubCount = Math.floor(Math.random() * generatedViewCount);
 			let userSubGain = channels[usersChannel].subscribers + generatedSubCount;
@@ -488,10 +490,11 @@ exports.commands = {
 			let collabSubGain = channels[targetId].subscribers + generatedSubCount;
 			let collabViewGain = channels[targetId].views + generatedViewCount;
 			channels[usersChannel].subscribers = userSubGain;
-			channels[usersChannel].views = userSubGain;
+			channels[usersChannel].views = userViewGain;
 			channels[targetId].subscribers = collabSubGain;
 			channels[targetId].views = collabViewGain;
 			this.sendReply(`You have collaborated in a video with ${target}. You both gained ${generatedViewCount} view(s) and ${generatedSubCount} subscriber(s) as a result.`);
+			write();
 			if (Users.get(channels[targetId].owner)) {
 				Users(channels[targetId].owner).send(`|pm|~DewTube Manager|~|${user.name} has collaborated with you! As a result, you both gained ${generatedViewCount} view(s) and ${generatedSubCount} subscriber(s).`);
 			}

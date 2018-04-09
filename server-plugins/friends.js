@@ -38,7 +38,7 @@ function checkFriends(user, userid) {
 			onlineUsers.push(online);
 		}
 	});
-	if (onlineUsers.length > 0) return user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|Your friends: ${Chat.toListString(onlineUsers)} are online.`);
+	if (onlineUsers.length > 0) return user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.`);
 }
 Server.checkFriends = checkFriends;
 
@@ -166,7 +166,7 @@ exports.commands = {
 			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><table><tr><center><h2>${Server.nameColor(target, true, true)}'s Friends List (${friends[friendsId].friendsList.length} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2></center></tr>`;
 			friends[friendsId].friendsList.forEach(friend => {
 				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${friend}">${Server.nameColor(friend, true, true)}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Last Seen: ${getLastSeen(friend)}</td>`;
-				if (!this.broadcasting) {
+				if (!this.broadcasting && target === user.userid) {
 					display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/friends unfriend ${friend}">Unfriend ${friend}</button></td>`;
 				}
 			});

@@ -570,6 +570,7 @@ class RandomTeams extends Dex.ModdedDex {
 		// Keep track of the available moves
 		for (const moveid of movePool) {
 			let move = this.getMove(moveid);
+			if (!move.basePower) continue;
 			if (move.category === 'Physical') counter['physicalpool']++;
 			if (move.category === 'Special') counter['specialpool']++;
 		}
@@ -1392,9 +1393,6 @@ class RandomTeams extends Dex.ModdedDex {
 		} else if (hasMove['magikarpsrevenge']) {
 			// PoTD Magikarp
 			item = 'Choice Band';
-		} else if (template.species === 'Rotom-Fan') {
-			// This is just to amuse Zarel
-			item = 'Air Balloon';
 
 		// First, the extra high-priority items
 		} else if (template.species === 'Clamperl' && !hasMove['shellsmash']) {
@@ -1567,7 +1565,7 @@ class RandomTeams extends Dex.ModdedDex {
 		}
 
 		let levelScale = {
-			LC: 87,
+			LC: 88,
 			'LC Uber': 86,
 			NFE: 84,
 			PU: 83,
@@ -1603,6 +1601,13 @@ class RandomTeams extends Dex.ModdedDex {
 		if (ability === 'Power Construct') level = 73;
 		if (item === 'Kommonium Z') level = 77;
 		if (hasMove['batonpass'] && counter.setupType && level > 77) level = 77;
+
+		if (template.species === 'Stunfisk') {
+			// This is just to amuse Zarel
+			item = 'Cheri Berry';
+			ability = 'Limber';
+			level = 87;
+		}
 
 		// Prepare optimal HP
 		let srWeakness = this.getEffectiveness('Rock', template);
@@ -1831,7 +1836,7 @@ class RandomTeams extends Dex.ModdedDex {
 	 * @param {TeamDetails} [teamDetails]
 	 * @return {RandomSet}
 	 */
-	randomDoublesSet(template, slot, teamDetails) {
+	randomDoublesSet(template, slot, teamDetails = {}) {
 		let baseTemplate = (template = this.getTemplate(template));
 		let species = template.species;
 
@@ -1841,8 +1846,6 @@ class RandomTeams extends Dex.ModdedDex {
 			let err = new Error('Template incompatible with random battles: ' + species);
 			require('../lib/crashlogger')(err, 'The doubles randbat set generator');
 		}
-
-		if (typeof teamDetails !== 'object') teamDetails = {megaStone: teamDetails};
 
 		if (template.battleOnly) {
 			// Only change the species. The template has custom moves, and may have different typing and requirements.
@@ -2518,7 +2521,7 @@ class RandomTeams extends Dex.ModdedDex {
 			item = 'Icy Rock';
 		} else if (ability === 'Magic Guard' && hasMove['psychoshift']) {
 			item = 'Flame Orb';
-		} else if (ability === 'Sheer Force' || ability === 'Magic Guard') {
+		} else if ((ability === 'Magic Guard' || ability === 'Sheer Force') && counter.damagingMoves.length > 1) {
 			item = 'Life Orb';
 		} else if (ability === 'Unburden') {
 			if (hasMove['fakeout']) {

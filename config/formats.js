@@ -364,32 +364,49 @@ let Formats = [
 		column: 2,
 	},
 	{
-		name: "[Gen 7] 2v2 Doubles",
-		desc: `Double battle where you bring four Pok&eacute;mon to Team Preview and choose only two.`,
+		name: "[Gen 7] Linked",
+		desc: `The first two moves in a Pok&eacute;mon's moveset are used simultaneously.`,
 		threads: [
-			`&bullet; <a href="http://www.smogon.com/forums/threads/3606989/">2v2 Doubles</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3627804/">Linked</a>`,
+		],
+
+		mod: 'linked',
+		ruleset: ['[Gen 7] OU'],
+		banlist: ['Chlorophyll', 'Sand Rush', 'Slush Rush', 'Surge Surfer', 'Swift Swim', 'Unburden', 'King\'s Rock', 'Razor Fang', 'Swampertite'],
+		restrictedMoves: ['Baneful Bunker', 'Bounce', 'Detect', 'Dig', 'Dive', 'Fly', 'Nature\'s Madness', 'Night Shade', 'Phantom Force', 'Protect', 'Seismic Toss', 'Shadow Force', 'Sky Drop', 'Spiky Shield', 'Super Fang'],
+		onValidateSet: function (set, format) {
+			const restrictedMoves = format.restrictedMoves || [];
+			let problems = [];
+			for (const [i, moveid] of set.moves.entries()) {
+				let move = this.getMove(moveid);
+				if ((i === 0 || i === 1) && restrictedMoves.includes(move.name)) {
+					problems.push(`${set.name || set.species}'s move ${move.name} cannot be linked.`);
+				}
+			}
+			return problems;
+		},
+	},
+	{
+		name: "[Gen 7] 350 Cup",
+		desc: `Pok&eacute;mon with a BST of 350 or lower have their stats doubled.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3589641/">350 Cup</a>`,
 		],
 
 		mod: 'gen7',
-		gameType: 'doubles',
-		// searchShow: false,
-		teamLength: {
-			validate: [2, 4],
-			battle: 2,
+		ruleset: ['[Gen 7] Ubers'],
+		banlist: ['Gengar-Mega', 'Shadow Tag', 'Eevium Z', 'Eviolite', 'Deep Sea Tooth', 'Light Ball'],
+		onModifyTemplate: function (template, target, source) {
+			if (source) return;
+			if (Object.values(template.baseStats).reduce((x, y) => x + y) > 350) return;
+			template = Object.assign({}, template);
+			template.baseStats = Object.assign({}, template.baseStats);
+			for (let i in template.baseStats) {
+				// @ts-ignore
+				template.baseStats[i] *= 2;
+			}
+			return template;
 		},
-		ruleset: ['Gen 7] Doubles OU'],
-		banlist: ['Salamence-Mega', 'Tapu Lele', 'Focus Sash', 'Final Gambit', 'Perish Song'],
-	},
-	{
-		name: "[Gen 7] Nature Swap",
-		desc: `Pok&eacute;mon have their base stats swapped depending on their nature.`,
-		threads: [
-			`&bullet; <a href="http://www.smogon.com/forums/threads/3612727/">Nature Swap</a>`,
-		],
-
-		mod: 'natureswap',
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Blissey', 'Chansey', 'Cloyster', 'Hoopa-Unbound', 'Kyurem-Black', 'Stakataka'],
 	},
 	{
 		section: "Other Metagames",
@@ -526,6 +543,7 @@ let Formats = [
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3598418/">Camomons</a>`,
 		],
 		mod: 'gen7',
+		searchShow: false,
 		ruleset: ['[Gen 7] OU'],
 		banlist: ['Kartana', 'Kyurem-Black', 'Shedinja'],
 		onModifyTemplate: function (template, target, source) {
@@ -549,10 +567,60 @@ let Formats = [
 		],
 
 		mod: 'gen7',
-		searchShow: false,
+		// searchShow: false,
 		ruleset: ['[Gen 7] OU', 'STABmons Move Legality'],
-		banlist: ['Blacephalon', 'Kartana', 'Komala', 'Kyurem-Black', 'Porygon-Z', 'Silvally', 'Tapu Koko', 'Tapu Lele', 'Aerodactylite', 'King\'s Rock', 'Metagrossite', 'Razor Fang'],
+		banlist: ['Aerodactyl-Mega', 'Blacephalon', 'Kartana', 'Komala', 'Kyurem-Black', 'Porygon-Z', 'Silvally', 'Tapu Koko', 'Tapu Lele', 'King\'s Rock', 'Razor Fang'],
 		restrictedMoves: ['Acupressure', 'Belly Drum', 'Chatter', 'Geomancy', 'Lovely Kiss', 'Shell Smash', 'Shift Gear', 'Spore', 'Thousand Arrows'],
+	},
+	{
+		name: "[Gen 7] 2v2 Doubles",
+		desc: `Double battle where you bring four Pok&eacute;mon to Team Preview and choose only two.`,
+		threads: [
+			`&bullet; <a href="http://www.smogon.com/forums/threads/3606989/">2v2 Doubles</a>`,
+		],
+
+		mod: 'gen7',
+		gameType: 'doubles',
+		searchShow: false,
+		teamLength: {
+			validate: [2, 4],
+			battle: 2,
+		},
+		ruleset: ['[Gen 7] Doubles OU'],
+		banlist: ['Salamence-Mega', 'Tapu Lele', 'Focus Sash', 'Final Gambit', 'Perish Song'],
+	},
+	{
+		name: '[Gen 7] Metronome Battle',
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3632075/">Metronome Battle</a>`,
+		],
+
+		mod: 'gen7',
+		gameType: 'doubles',
+		teamLength: {
+			validate: [2, 2],
+			battle: 2,
+		},
+		searchShow: false,
+		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
+		banlist: [
+			'Aegislash', 'Aerodactylite', 'Aggronite', 'Aguav Berry', 'Ampharosite', 'Berry', 'Berry Juice', 'Black Sludge', 'Blastoisinite',
+			'Blazikenite', 'Charizardite X', 'Charizardite Y', 'Cheek Pouch', 'Cursed Body', 'Desolate Land', 'Diancite', 'Dry Skin ++ Drizzle',
+			'Doublade', 'Enigma Berry', 'Figy Berry', 'Fur Coat', 'Galladite', 'Garchompite', 'Gardevoirite', 'Gold Berry', 'Grassy Surge', 'Gyaradosite',
+			'Harvest + Rowap Berry', 'Harvest + Jaboca Berry', 'Honedge', 'Huge Power', 'Iapapa Berry', 'Ice Body', 'Iron Barbs', 'Kitsunoh',
+			'Latiasite', 'Latiosite', 'Leftovers', 'Lucarionite', 'Mago Berry', 'Metagrossite', 'Moody', 'Normalium Z', 'Oran Berry',
+			'Parental Bond', 'Poison Heal', 'Power Construct', 'Pressure', 'Primordial Sea', 'Protean', 'Pure Power', 'Rain Dish ++ Drizzle',
+			'Rocky Helmet', 'Rough Skin', 'Salamencite', 'Sand Stream', 'Sceptilite', 'Schooling', 'Shedinja + Sturdy', 'Sitrus Berry',
+			'Snow Warning', 'Stamina', 'Steelixite', 'Swampertite', 'Tyranitarite', 'Venusaurite', 'Water Absorb', 'Volt Absorb', 'Wiki Berry',
+			'Wonder Guard',
+		],
+		onValidateSet: function (set) {
+			let template = this.getTemplate(set.species);
+			if (set.name === template.baseSpecies) return [`${template.species} does not have a nickname set.`, `(Nicknames are required)`];
+			let bst = template.baseStats.hp + template.baseStats.atk + template.baseStats.def + template.baseStats.spa + template.baseStats.spd + template.baseStats.spe;
+			if (bst > 600) return [`${template.species} is illegal.`, `(Pok\u00e9mon with a BST higher than 600 are banned)`];
+			if (set.moves.length !== 1 || this.getMove(set.moves[0]).id !== 'metronome') return [`${template.species} have illegal moves.`, `(You can only have one Metronome in the moveset)`];
+		},
 	},
 	{
 		name: "[Gen 6] Gen-NEXT OU",

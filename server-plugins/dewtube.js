@@ -14,8 +14,8 @@ const RECORD_COOLDOWN = 30 * 60 * 1000;
 // Drama Cooldown (1 hour)
 const DRAMA_COOLDOWN = 60 * 60 * 1000;
 
-// Collaboration Cooldown (2 hours)
-const COLLAB_COOLDOWN = 120 * 60 * 1000;
+// Collaboration Cooldown (6 hours)
+const COLLAB_COOLDOWN = 6 * 60 * 60 * 1000;
 
 let channels = FS("config/channels.json").readIfExistsSync();
 
@@ -55,33 +55,27 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "1.3.5",
-	changes: ["Views are now dependent on subscriber count", "Various Performance Updates", "Dashboards use channel names", "Drama Notifications", "Allow Dislikes to be higher than likes", "Collaborations between two channels"],
+	version: 2.0,
+	changes: ["Math changed for large & small creators", "Nerf Collabs", "Titles now affect your monetization chance", "Likes/Dislikes Ratio Math Re-done", "If dislikes are higher than your likes, DewTube demonetizes your video", "Collab Cooldown is now 6 hours", "Collabs now must be accepted", "Numbers now use commas appropriately"],
+	// Basic Filter for Instant Demonetization
+	filter: ["nsfw", "porn", "sex", "shooting"],
 };
 
-// Prevent corruptions with new data
-for (let u in channels) {
-	if (!channels[u].creationDate) channels[u].creationDate = Date.now() - 7100314200;
-	if (channels[u].creationDate) continue;
-	if (!channels[u].isMonetized) channels[u].isMonetized = false;
-	if (channels[u].isMonetized) continue;
-	if (!channels[u].lastTitle && channels[u].videos > 0) channels[u].lastTitle = "Untitled Video";
-	if (channels[u].lastTitle) continue;
-	if (!channels[u].lastThumbnail && channels[u].videos > 0) channels[u].lastThumbnail = null;
-	if (channels[u].lastThumbnail) continue;
-	if (!channels[u].allowingDrama) channels[u].allowingDrama = false;
-	if (channels[u].allowingDrama) continue;
-	if (!channels[u].lastDrama) channels[u].lastDrama = channels[u].creationDate;
-	if (channels[u].lastDrama) continue;
-	if (!channels[u].notifications) channels[u].notifications = true;
-	if (channels[u].notifications) continue;
-	if (channels[u].lastCollabed) channels[u].lastCollabed = null;
-	if (channels[u].lastCollabed) continue;
+function collab(channel1, channel2) {
+	channel1 = toId(channel1);
+	channel2 = toId(channel2);
+	let combinedSubs = channels[channel1].subscribers + channels[channel2].subscribers;
+	let traffic = Math.floor(Math.random() * combinedSubs);
+	if (traffic > 1000000) {
+		// If the views will be over 1 million, half them so collaborations aren't entirely "broken"
+		traffic = Math.round(traffic / 2);
+	}
+	return traffic;
 }
 
 exports.commands = {
 	dewtube: {
-		info: function (target, room, user) {
+		info: function () {
 			if (!this.runBroadcast()) return;
 			let display = `<div style="padding: 20px 20px"><center><font size="5">DewTube</font></center><br /><center><font size="3">v${config.version}</font></center><br />`;
 			if (config.changes) display += Chat.toListString(config.changes);
@@ -120,6 +114,8 @@ exports.commands = {
 				lastThumbnail: null,
 				allowingDrama: false,
 				lastDrama: null,
+				strikes: 0,
+				pendingCollab: null,
 			};
 			write();
 			return this.sendReply(`You successfully created your DewTube channel "${name}"! To view your channel's stats, use /dewtube dashboard.`);
@@ -153,13 +149,13 @@ exports.commands = {
 			display += `<br />`;
 			if (channels[channelId].aboutme) display += `<strong>About Me:</strong> ${channels[channelId].aboutme}<br />`;
 			if (channels[channelId].creationDate) display += `<strong>Created:</strong> ${new Date(channels[channelId].creationDate)}<br />`;
-			if (channels[channelId].views > 0) display += `<strong>View Count:</strong> ${channels[channelId].views}<br />`;
-			if (channels[channelId].subscribers > 0) display += `<strong>Subscriber Count:</strong> ${channels[channelId].subscribers}<br />`;
-			if (channels[channelId].likes > 0) display += `<strong>Like Count:</strong> ${channels[channelId].likes}<br />`;
-			if (channels[channelId].dislikes > 0) display += `<strong>Dislike Count:</strong> ${channels[channelId].dislikes}<br />`;
+			if (channels[channelId].views > 0) display += `<strong>View Count:</strong> ${channels[channelId].views.toLocaleString()}<br />`;
+			if (channels[channelId].subscribers > 0) display += `<strong>Subscriber Count:</strong> ${channels[channelId].subscribers.toLocaleString()}<br />`;
+			if (channels[channelId].likes > 0) display += `<strong>Like Count:</strong> ${channels[channelId].likes.toLocaleString()}<br />`;
+			if (channels[channelId].dislikes > 0) display += `<strong>Dislike Count:</strong> ${channels[channelId].dislikes.toLocaleString()}<br />`;
 			if (channels[channelId].lastTitle && vidProgress === "notStarted") display += `<strong>Last Video:</strong> ${channels[channelId].lastTitle}<br />`;
 			if (channels[channelId].lastThumbnail && vidProgress === "notStarted") display += `<strong>Last Video Thumbnail:</strong><br />  <img src="${channels[channelId].lastThumbnail}" width="250" height="140"><br />`;
-			if (channels[channelId].videos > 0) display += `<strong>Total Videos Uploaded:</strong> ${channels[channelId].videos}<br />`;
+			if (channels[channelId].videos > 0) display += `<strong>Total Videos Uploaded:</strong> ${channels[channelId].videos.toLocaleString()}<br />`;
 			if (channels[channelId].allowingDrama) display += `<small><strong>(Allowing Drama: [&#9745;])</strong></small>`;
 			display += `</center>`;
 			return this.sendReplyBox(display);
@@ -182,7 +178,7 @@ exports.commands = {
 		channels: "discover",
 		socialblade: "discover",
 		list: "discover",
-		discover: function (target, room, user) {
+		discover: function () {
 			if (!this.runBroadcast()) return;
 			if (Object.keys(channels).length < 1) return this.errorReply(`There are currently no DewTube channels in this server.`);
 			let output = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><center><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Channel Name</td><td>Description</td><td>Views</td><td>Subscribers</td><td>Likes</td><td>Dislikes</td><td>Dashboard</td><td>Owner</td></tr>`;
@@ -196,10 +192,10 @@ exports.commands = {
 				output += `<tr>`;
 				output += `<td>${Chat.escapeHTML(curChannel.name)}</td>`;
 				output += `<td>${aboutme}</td>`;
-				output += `<td>${curChannel.views}</td>`;
-				output += `<td>${curChannel.subscribers}</td>`;
-				output += `<td>${curChannel.likes}</td>`;
-				output += `<td>${curChannel.dislikes}</td>`;
+				output += `<td>${curChannel.views.toLocaleString()}</td>`;
+				output += `<td>${curChannel.subscribers.toLocaleString()}</td>`;
+				output += `<td>${curChannel.likes.toLocaleString()}</td>`;
+				output += `<td>${curChannel.dislikes.toLocaleString()}</td>`;
 				output += `<td><button name="send" value="/dewtube dashboard ${curChannel.name}">${curChannel.name}</button></td>`;
 				output += `<td>${Server.nameColor(curChannel.owner, true, true)}</td>`;
 				output += `</tr>`;
@@ -221,13 +217,20 @@ exports.commands = {
 			channels[channelId].vidProgress = "recorded";
 			channels[channelId].lastTitle = title;
 			channels[channelId].lastThumbnail = thumbnail;
+			// Filter if the title is deemed "inappropriate"
+			for (let badWord of config.filter) {
+				// This is basically so we can standardize and check titles more efficiently as IDs would remove spaces etc
+				let lowercaseTitle = target.toLowerCase();
+				// Go ahead and warn them :^)
+				if (lowercaseTitle.includes(badWord)) this.sendReply(`Your title "${target}" doesn't seem very ad-friendly to our sponsors.`);
+			}
 			write();
 			this.sendReplyBox(`You have recorded a video titled "${title}"! Time to edit it! <button class="button" name="send" value="/dewtube edit">Edit it!</button><button class="button" name="send" value="/dewtube publish">Upload as-is!</button>`);
 		},
 
 		editvideo: "edit",
 		edit: function (target, room, user) {
-			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
+ 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
 			let channelId = toId(getChannel(user.userid));
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "recorded") return this.errorReply(`You haven't recorded any new footage yet.`);
@@ -246,31 +249,41 @@ exports.commands = {
 			let subCount = channels[channelId].subscribers;
 			channels[channelId].lastRecorded = Date.now();
 			channels[channelId].videos++;
+			let title = channels[channelId].lastTitle;
 			let generateEditedViews = Math.floor(Math.random() * subCount);
-			if (generateEditedViews < 1) generateEditedViews = 1;
+			let generateRawViews = Math.floor(Math.random() * Math.round(subCount / 100));
+			// Factor in Sub Count conditions to support starting DewTubers (it's rough starting out)
 			if (subCount === 0) {
 				generateEditedViews = 10;
-			} else if (generateEditedViews < 1) {
-				generateEditedViews = 1;
+				generateRawViews = 5;
+			} else if (subCount > 0 && subCount < 1000) {
+				// Double Views while you are under 1,000 subscribers for Edited Videos
+				generateEditedViews = Math.round(generateEditedViews * 1.5);
+				// 1.5x views while you are under 1,000 subscribers for Raw Videos
+				generateRawViews = Math.round(generateRawViews * 1.5);
 			} else {
 				generateEditedViews = generateEditedViews;
-			}
-			let generateRawViews = Math.floor(Math.random() * Math.round(subCount / 100));
-			if (subCount === 0) {
-				generateRawViews = 5;
-			} else if (generateRawViews < 1) {
-				generateRawViews = 1;
-			} else {
 				generateRawViews = generateRawViews;
+			}
+			if (videoProgress === "edited" && generateEditedViews < 1) {
+				generateEditedViews = 1;
+			} else if (videoProgress === "recorded" && generateRawViews < 1) {
+				generateRawViews = 1;
+			}
+			// Avoid big channels growing too rapidly
+			if (generateEditedViews > 10000000 && videoProgress === "edited" || generateRawViews > 10000000 && videoProgress === "recorded") {
+				generateEditedViews = Math.round(generateEditedViews / 2);
+				generateRawViews = Math.round(generateRawViews / 2);
 			}
 			let generateEditedSubs = Math.floor(Math.random() * generateEditedViews);
 			let generateRawSubs = Math.floor(Math.random() * generateRawViews);
-			let likeDislikeRatio = Math.floor(Math.random() * 2);
+			let likeDislikeRatio = Math.floor(Math.random() * 100);
 			let generateEditedLikes;
 			let generateEditedDislikes;
 			let generateRawLikes;
 			let generateRawDislikes;
-			if (likeDislikeRatio === 1) {
+			// 70% chance to have positive feedback; 30% chance for negative feedback
+			if (likeDislikeRatio >= 70) {
 				// More dislikes than like scenario
 				generateEditedDislikes = Math.floor(Math.random() * generateEditedViews);
 				generateEditedLikes = Math.floor(Math.random() * generateEditedDislikes);
@@ -300,7 +313,7 @@ exports.commands = {
 				channels[channelId].views = newViewCount;
 				channels[channelId].likes = newLikeCount;
 				channels[channelId].dislikes = newDislikeCount;
-				this.sendReplyBox(`Congratulations, your video has received ${generateEditedViews} view(s). ${generateEditedSubs} people have subscribed to your channel after seeing this video. You got ${generateEditedLikes} like(s) and ${generateEditedDislikes} dislike(s).<br /> Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}. Total Likes: ${newLikeCount}. Total Dislikes: ${newDislikeCount}.`);
+				this.sendReplyBox(`Congratulations, your video titled "${title}" has received ${generateEditedViews.toLocaleString()} view${Chat.plural(generateEditedViews)}. ${generateEditedSubs.toLocaleString()} ${generateEditedSubs === 1 ? "people have" : "person has"} subscribed to your channel after seeing this video. You got ${generateEditedLikes.toLocaleString()} like${Chat.plural(generateEditedLikes)} and ${generateEditedDislikes.toLocaleString()} dislike${Chat.plural(generateEditedDislikes)}.<br /> Total Sub Count: ${newSubCount.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
 			} else {
 				let newSubCount = channels[channelId].subscribers + generateRawSubs;
 				let newViewCount = channels[channelId].views + generateRawViews;
@@ -310,11 +323,18 @@ exports.commands = {
 				channels[channelId].views = newViewCount;
 				channels[channelId].likes = newLikeCount;
 				channels[channelId].dislikes = newDislikeCount;
-				this.sendReplyBox(`Your un-edited video has received ${generateRawViews} view(s). ${generateRawSubs} people have subscribed to your channel after seeing this video. You got ${generateRawLikes} like(s) and ${generateRawDislikes} dislike(s).<br /> Total Sub Count: ${newSubCount}. Total View Count: ${newViewCount}. Total Likes: ${newLikeCount}. Total Dislikes: ${newDislikeCount}.`);
+				this.sendReplyBox(`Your un-edited video titled "${title}" has received ${generateRawViews.toLocaleString()} view${Chat.plural(generateRawViews)}. ${generateRawSubs.toLocaleString()} ${generateRawSubs === 1 ? "people have" : "person has"} subscribed to your channel after seeing this video. You got ${generateRawLikes.toLocaleString()} like${Chat.plural(generateRawLikes)} and ${generateRawDislikes.toLocaleString()} dislike${Chat.plural(generateRawDislikes)}.<br /> Total Sub Count: ${newSubCount.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
 			}
 			if (channels[channelId].isMonetized) {
-				let demonetization = Math.floor(Math.random() * 2);
-				if (demonetization === 1) {
+				let demonetization = Math.floor(Math.random() * 100);
+				// Sorry that video seems un-friendly to the advertisers :^)
+				for (let badWords of config.filter) {
+					// This is basically so we can standardize and check titles more efficiently as IDs would remove spaces etc
+					let lowercaseTitle = title.toLowerCase();
+					if (lowercaseTitle.includes(badWords)) demonetization = 70;
+				}
+				// If the demonetization number or more dislikes were given than likes then DewTube demonetizes the user
+				if (demonetization >= 70 || likeDislikeRatio >= 70) {
 					this.sendReplyBox(`<i>Due to your video's failure to meet community guidelines it was not approved for monetization, therefore your video has been D E M O N E T I Z E D.</i>`);
 				} else {
 					let adRevenue = 0;
@@ -347,6 +367,7 @@ exports.commands = {
 		},
 
 		togglemonetization: "monetization",
+		demonetize: "monetization",
 		unmonetize: "monetization",
 		monetize: "monetization",
 		monetization: function (target, room, user) {
@@ -416,10 +437,10 @@ exports.commands = {
 					channels[targetId].subscribers = subscribers;
 				}
 				if (Rooms("dewtube")) Rooms("dewtube").add(`|c|$DramaAlert|/raw ${Server.nameColor(user.name, true, true)}, also known as ${getChannel(user.userid)}, ${outcome}`).update();
-				this.sendReply(`You have won the drama against ${target}. This resulted in you gaining ${subChange} subscribers. This lead to ${communityFeedback} view(s) being trafficked to your channel.`);
+				this.sendReply(`You have won the drama against ${target}. This resulted in you gaining ${subChange.toLocaleString()} subscribers. This lead to ${communityFeedback.toLocaleString()} view${Chat.plural(communityFeedback)} being trafficked to your channel.`);
 				write();
 				if (Users.get(channels[targetId].owner)) {
-					Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has been favored by the community in DewTube drama. This resulted in you losing ${subChange} subscriber(s).`);
+					Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has been favored by the community in DewTube drama. This resulted in you losing ${subChange.toLocaleString()} subscriber${Chat.plural(subChange)}.`);
 				}
 			} else {
 				let outcome = badOutcomes[Math.floor(Math.random() * badOutcomes.length)];
@@ -434,10 +455,10 @@ exports.commands = {
 				let subscriberTraffic = channels[targetId].subscribers + subChange;
 				channels[targetId].subscribers = subscriberTraffic;
 				if (Rooms("dewtube")) Rooms("dewtube").add(`|c|$DramaAlert|/raw ${Server.nameColor(user.name, true, true)}, also known as ${getChannel(user.userid)}, ${outcome}`).update();
-				this.sendReply(`You have lost the drama against ${target}. This resulted in you losing ${subChange} subscribers.`);
+				this.sendReply(`You have lost the drama against ${target}. This resulted in you losing ${subChange.toLocaleString()} subscriber${Chat.plural(subChange)}.`);
 				write();
 				if (Users.get(channels[targetId].owner)) {
-					Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has lost while trying to start drama with you. This resulted in you gaining ${subChange} subscriber(s). You also trafficked ${communityFeedback} view(s) from this drama.`);
+					Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has lost while trying to start drama with you. This resulted in you gaining ${subChange.toLocaleString()} subscriber${Chat.plural(subChange)}. You also trafficked ${communityFeedback.toLocaleString()} view${Chat.plural(communityFeedback)} from this drama.`);
 				}
 			}
 			if (channels[usersChannel].notifications) {
@@ -462,58 +483,236 @@ exports.commands = {
 				channels[channelId].allowingDrama = false;
 				this.sendReply(`You have disabled having drama. This means you cannot start or be a target of drama. If you want to enable drama again /toggledrama again.`);
 			}
-			write();
 		},
 
-		collaborate: "collab",
-		collab: function (target, room, user) {
-			let usersChannel = toId(getChannel(user.userid));
-			if (!channels[usersChannel]) return this.errorReply(`You do not currently own a DewTube channel.`);
-			if (!target) return this.errorReply("Please specify a channel you would like to collaborate with.");
+		collab: "collaborate",
+		collaborate: function (target, room, user) {
+			if (!target) return this.parse(`/dewtubehelp`);
+			let channelId = toId(getChannel(user.userid));
+			if (!channels[channelId]) return this.errorReply(`You do not currently own a DewTube channel.`);
 			let targetId = toId(target);
 			if (!channels[targetId]) return this.errorReply(`"${target}" is not a channel.`);
-			let combinedSubCount = channels[usersChannel].subscribers + channels[targetId].subscribers;
-			if (Date.now() - channels[usersChannel].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`You are on collaboration cooldown.`);
+			if (channels[targetId] === channels[channelId]) return this.errorReply(`You cannot collaborate with yourself (what would be the point?).`);
+			// Check if the channel's owner is online (so the system can PM the user and avoid the chances the collaboration request will not be seen)
+			if (!Users.get(channels[targetId].owner) || !Users.get(channels[targetId].owner).connected) return this.errorReply(`The owner of ${target} is not online.`);
+			// Check if both user's are available to record a video and collab
+			if (Date.now() - channels[channelId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`You are on collaboration cooldown.`);
 			if (Date.now() - channels[targetId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`${target} is on collaboration cooldown.`);
-			if (Date.now() - channels[usersChannel].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
+			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			if (Date.now() - channels[targetId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`${target} is on record cooldown.`);
-			channels[usersChannel].lastCollabed = Date.now();
-			channels[targetId].lastCollabed = Date.now();
-			channels[usersChannel].lastRecorded = Date.now();
-			channels[targetId].lastRecorded = Date.now();
-			channels[usersChannel].lastTitle = `Collab with ${channels[targetId].name}!`;
-			channels[targetId].lastTitle = `Collab with ${channels[usersChannel].name}!`;
-			let generatedViewCount = Math.floor(Math.random() * combinedSubCount);
-			let generatedSubCount = Math.floor(Math.random() * generatedViewCount);
-			let userSubGain = channels[usersChannel].subscribers + generatedSubCount;
-			let userViewGain = channels[usersChannel].views + generatedViewCount;
-			let collabSubGain = channels[targetId].subscribers + generatedSubCount;
-			let collabViewGain = channels[targetId].views + generatedViewCount;
-			channels[usersChannel].subscribers = userSubGain;
-			channels[usersChannel].views = userViewGain;
-			channels[targetId].subscribers = collabSubGain;
-			channels[targetId].views = collabViewGain;
-			this.sendReply(`You have collaborated in a video with ${target}. You both gained ${generatedViewCount} view(s) and ${generatedSubCount} subscriber(s) as a result.`);
-			write();
-			if (Users.get(channels[targetId].owner)) {
-				Users(channels[targetId].owner).send(`|pm|~DewTube Manager|~|${user.name} has collaborated with you! As a result, you both gained ${generatedViewCount} view(s) and ${generatedSubCount} subscriber(s).`);
+			if (channels[channelId].pendingCollab) return this.errorReply(`You already have a pending collaboration request.`);
+			// Add a check to allow the collaboration if the user is the other channel's pending collaboration.
+			if (channels[targetId].pendingCollab) {
+				if (channels[targetId].pendingCollab === channels[channelId]) {
+					let traffic = collab(channelId, targetId);
+					if (traffic < 1) traffic = 1;
+					let likeDislikeRatio = Math.floor(Math.random() * 100);
+					// Default to 1 like since there is always guaranteed at least 1 view (and we want to be nice for a change)
+					let generateLikes = 1;
+					let generateDislikes = 0;
+					// 70% chance to have positive feedback; 30% chance for negative feedback
+					if (likeDislikeRatio >= 70) {
+						// More dislikes than like scenario
+						generateDislikes = Math.floor(Math.random() * traffic);
+						generateLikes = Math.floor(Math.random() * generateDislikes);
+					} else {
+						// More likes than dislikes scenario
+						generateLikes = Math.floor(Math.random() * traffic);
+						generateDislikes = Math.floor(Math.random() * generateLikes);
+					}
+					let subscriberTraffic = Math.floor(Math.random() * traffic);
+					if (subscriberTraffic < 1) subscriberTraffic = 1;
+					// If the subscriber gain is over 5,000 subscribers halve it (so collaborations aren't "broken")
+					if (subscriberTraffic > 5000) Math.round(subscriberTraffic / 2);
+					let userViewTraffic = channels[channelId].views + traffic;
+					let userSubTraffic = channels[channelId].subscribers + subscriberTraffic;
+					let userLikeTraffic = channels[channelId].likes + generateLikes;
+					let userDislikeTraffic = channels[channelId].dislikes + generateDislikes;
+					let collabViewTraffic = channels[targetId].views + traffic;
+					let collabSubTraffic = channels[targetId].subscribers + traffic;
+					let collabLikeTraffic = channels[targetId].likes + generateLikes;
+					let collabDislikeTraffic = channels[targetId].dislikes + generateDislikes;
+					// Now to actually add the calculations
+					channels[channelId].views = userViewTraffic;
+					channels[channelId].subscribers = userSubTraffic;
+					channels[channelId].likes = userLikeTraffic;
+					channels[channelId].dislikes = userDislikeTraffic;
+					channels[targetId].views = collabViewTraffic;
+					channels[targetId].subscribers = collabSubTraffic;
+					channels[targetId].likes = collabLikeTraffic;
+					channels[targetId].dislikes = collabDislikeTraffic;
+					// Update timers and video counters/titles/etc
+					channels[channelId].lastCollabed = Date.now();
+					channels[channelId].lastRecorded = Date.now();
+					channels[channelId].lastTitle = `Collab w/ ${channels[targetId].name}!`;
+					channels[channelId].videos++;
+					channels[targetId].lastCollabed = Date.now();
+					channels[targetId].lastRecorded = Date.now();
+					channels[targetId].lastTitle = `Collab w/ ${channels[channelId].name}!`;
+					channels[targetId].videos++;
+					// Later implement profile pictures and use the other DewTuber's profile picture as the thumbnail
+					channels[channelId].lastThumbnail = null;
+					channels[targetId].lastThumbnail = null;
+					// Since the other channel has proposed the collab reset the request now it is complete
+					channels[targetId].pendingCollab = null;
+					write();
+					// PM the other channel's owner that they accepted and tell them what their channel gained
+					if (Users.get(channels[targetId].owner)) {
+						Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic === 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic === 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes === 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes === 1 ? "dislikes" : "dislike"}.`);
+					}
+					// If the user's have notifications on send collab cooldown alerts
+					if (channels[channelId].notifications) {
+						let notification = Date.now() - channels[channelId].lastCollab + COLLAB_COOLDOWN;
+						setTimeout(() => {
+							if (Users.get(user.userid)) {
+								user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can collaborate with DewTubers again!`);
+							}
+						}, notification);
+					}
+					if (channels[targetId].notifications) {
+						let notification = Date.now() - channels[targetId].lastCollab + COLLAB_COOLDOWN;
+						setTimeout(() => {
+							if (Users.get(channels[targetId].owner)) {
+								user.send(`|pm|~DewTube Manager|~|Hey ${Users.get(channels[targetId].owner)}, just wanted to let you know you can collaborate with DewTubers again!`);
+							}
+						}, notification);
+					}
+					return this.sendReply(`${channels[targetId].name} has already sent a collaboration request to you, so you accepted their request. This resulted in both of you gaining the following: ${traffic} ${traffic === 1 ? "views" : "view"}, ${subscriberTraffic} ${subscriberTraffic === 1 ? "subscribers" : "subscriber"}, ${generateLikes} ${generateLikes === 1 ? "likes" : "like"}, and ${generateDislikes} ${generateDislikes === 1 ? "dislikes" : "dislike"}.`);
+				} else {
+					return this.errorReply(`${target} has already got a pending collaboration request.`);
+				}
 			}
-			if (channels[usersChannel].notifications) {
-				let notification = Date.now() - channels[usersChannel].lastCollabed + COLLAB_COOLDOWN;
+			channels[channelId].pendingCollab = targetId;
+			write();
+			let owner = toId(channels[targetId].owner);
+			owner.send(`|pm|${user.getIdentity()}|${owner.getIdentity()}|/html has sent you a collaboration request.<br /><button name="send" value="/dewtube accept ${channels[channelId].id}">Click to accept</button> | <button name="send" value="/dewtube deny ${user.userid}">Click to decline</button>`);
+			return this.sendReply(`You have sent ${target} a collaboration request.`);
+		},
+
+		accept: "acceptcollab",
+		collabaccept: "acceptcollab",
+		acceptcollab: function (target, room, user) {
+			if (!target) return this.parse(`/dewtubehelp`);
+			let channelId = toId(getChannel(user.userid));
+			if (!channels[channelId]) return this.errorReply(`You do not currently own a DewTube channel.`);
+			let targetId = toId(target);
+			if (!channels[targetId]) return this.errorReply(`"${target}" is not a channel.`);
+			if (channels[targetId].pendingCollab !== channels[channelId]) return this.errorReply(`${target} has not sent you a collaboration request, or it was cancelled.`);
+			// Check if both user's are available to record a video and collab
+			if (Date.now() - channels[channelId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`You are on collaboration cooldown.`);
+			if (Date.now() - channels[targetId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`${target} is on collaboration cooldown.`);
+			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
+			if (Date.now() - channels[targetId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`${target} is on record cooldown.`);
+			let traffic = collab(channelId, targetId);
+			if (traffic < 1) traffic = 1;
+			let likeDislikeRatio = Math.floor(Math.random() * 100);
+			// Default to 1 like since there is always guaranteed at least 1 view (and we want to be nice for a change)
+			let generateLikes = 1;
+			let generateDislikes = 0;
+			// 70% chance to have positive feedback; 30% chance for negative feedback
+			if (likeDislikeRatio >= 70) {
+				// More dislikes than like scenario
+				generateDislikes = Math.floor(Math.random() * traffic);
+				generateLikes = Math.floor(Math.random() * generateDislikes);
+			} else {
+				// More likes than dislikes scenario
+				generateLikes = Math.floor(Math.random() * traffic);
+				generateDislikes = Math.floor(Math.random() * generateLikes);
+			}
+			let subscriberTraffic = Math.floor(Math.random() * traffic);
+			if (subscriberTraffic < 1) subscriberTraffic = 1;
+			// If the subscriber gain is over 5,000 subscribers halve it (so collaborations aren't "broken")
+			if (subscriberTraffic > 5000) Math.round(subscriberTraffic / 2);
+			let userViewTraffic = channels[channelId].views + traffic;
+			let userSubTraffic = channels[channelId].subscribers + subscriberTraffic;
+			let userLikeTraffic = channels[channelId].likes + generateLikes;
+			let userDislikeTraffic = channels[channelId].dislikes + generateDislikes;
+			let collabViewTraffic = channels[targetId].views + traffic;
+			let collabSubTraffic = channels[targetId].subscribers + traffic;
+			let collabLikeTraffic = channels[targetId].likes + generateLikes;
+			let collabDislikeTraffic = channels[targetId].dislikes + generateDislikes;
+			// Now to actually add the calculations
+			channels[channelId].views = userViewTraffic;
+			channels[channelId].subscribers = userSubTraffic;
+			channels[channelId].likes = userLikeTraffic;
+			channels[channelId].dislikes = userDislikeTraffic;
+			channels[targetId].views = collabViewTraffic;
+			channels[targetId].subscribers = collabSubTraffic;
+			channels[targetId].likes = collabLikeTraffic;
+			channels[targetId].dislikes = collabDislikeTraffic;
+			// Update timers and video counters/titles/etc
+			channels[channelId].lastCollabed = Date.now();
+			channels[channelId].lastRecorded = Date.now();
+			channels[channelId].lastTitle = `Collab w/ ${channels[targetId].name}!`;
+			channels[channelId].videos++;
+			channels[targetId].lastCollabed = Date.now();
+			channels[targetId].lastRecorded = Date.now();
+			channels[targetId].lastTitle = `Collab w/ ${channels[channelId].name}!`;
+			channels[targetId].videos++;
+			// Later implement profile pictures and use the other DewTuber's profile picture as the thumbnail
+			channels[channelId].lastThumbnail = null;
+			channels[targetId].lastThumbnail = null;
+			// Since the other channel has proposed the collab reset the request now it is complete
+			channels[targetId].pendingCollab = null;
+			write();
+			// PM the other channel's owner that they accepted and tell them what their channel gained
+			if (Users.get(channels[targetId].owner)) {
+				Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic === 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic === 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes === 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes === 1 ? "dislikes" : "dislike"}.`);
+			}
+			// If the user's have notifications on send collab cooldown alerts
+			if (channels[channelId].notifications) {
+				let notification = Date.now() - channels[channelId].lastCollab + COLLAB_COOLDOWN;
 				setTimeout(() => {
 					if (Users.get(user.userid)) {
-						user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can collab again now!`);
+						user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can collaborate with DewTubers again!`);
 					}
 				}, notification);
 			}
 			if (channels[targetId].notifications) {
-				let notification = Date.now() - channels[targetId].lastCollabed + COLLAB_COOLDOWN;
+				let notification = Date.now() - channels[targetId].lastCollab + COLLAB_COOLDOWN;
 				setTimeout(() => {
 					if (Users.get(channels[targetId].owner)) {
-						Users(channels[targetId].owner).send(`|pm|~DewTube Manager|~|Hey ${channels[targetId].owner}, just wanted to let you know you can collab again now!`);
+						user.send(`|pm|~DewTube Manager|~|Hey ${Users.get(channels[targetId].owner)}, just wanted to let you know you can collaborate with DewTubers again!`);
 					}
 				}, notification);
 			}
+		},
+
+		reject: "denycollab",
+		rejectcollab: "denycollab",
+		declinecollab: "denycollab",
+		decline: "denycollab",
+		deny: "denycollab",
+		denycollab: function (target, room, user) {
+			if (!target) return this.parse(`/dewtubehelp`);
+			let channelId = toId(getChannel(user.userid));
+			if (!channels[channelId]) return this.errorReply(`You do not currently own a DewTube channel.`);
+			let targetId = toId(target);
+			if (!channels[targetId]) return this.errorReply(`"${target}" is not a channel.`);
+			if (channels[targetId].pendingCollab !== channels[channelId]) return this.errorReply(`${target} has not sent you a collaboration request, or it was cancelled.`);
+			// Reset the channel that was declined's pending collab
+			channels[targetId].pendingCollab = null;
+			write();
+			// Let the other channel know their collaboration request was declined
+			if (Users.get(channels[targetId].owner)) {
+				Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)}, owner of ${channels[channelId].name}, has declined your collaboration request. Feel free to try collaborating with another DewTuber.`);
+			}
+			return this.sendReply(`You have rejected the collaboration request from ${channels[targetId].name}.`);
+		},
+
+		endcollab: "cancelcollab",
+		cancel: "cancelcollab",
+		cancelcollab: function (target, room, user) {
+			if (!target) return this.parse(`/dewtubehelp`);
+			let channelId = toId(getChannel(user.userid));
+			if (!channels[channelId]) return this.errorReply(`You do not currently own a DewTube channel.`);
+			let targetId = toId(target);
+			if (!channels[targetId]) return this.errorReply(`"${target}" is not a channel.`);
+			if (channels[channelId].pendingCollab !== targetId) return this.errorReply(`${target} does not have a pending collaboration request from you.`);
+			// Reset pending collab request to nothing
+			channels[channelId].pendingCollab = null;
+			write();
+			return this.sendReply(`You have cancelled your collaboration request with ${channels[targetId].name}.`);
 		},
 
 		"": "help",
@@ -529,11 +728,14 @@ exports.commands = {
 		/dewtube record [title], [optional thumbnail link] - Films a DewTube video.
 		/dewtube edit - Edits a DewTube video.
 		/dewtube publish - Publishs a DewTube video.
+		/dewtube collab [channel] - Requests to collaborate with the specified channel.
+		/dewtube accept [channel] - Accepts a collaboration request from the specified channel.
+		/dewtube deny [channel] - Declines a collaboration request from the specified channel.
+		/dewtube cancel [channel] - Cancels a collaboration request that you sent the specified channel.
 		/dewtube monetization - Toggles monetization on your DewTube videos. Must have 1,000 subscribers.
 		/dewtube drama [channel name] - Starts drama against the other channel. Both parties must have drama enabled.
 		/dewtube toggledrama - Toggles on/off starting/being a target of drama.
-		/dewtube collab [channel name] - Record a collaboration video with another channel. Both channels must be off of record cooldown and collab cooldown.
-		/dewtube notify - Toggles on/off video notifications alerting you when you can upload next and notifications for when your drama cooldown is finished.
+		/dewtube notify - Toggles on/off notifications for when your cooldowns are finished.
 		/dewtube dashboard [channel name] - Shows the channel's dashboard; defaults to yourself.
 		/dewtube info - Shows the DewTube version and recent changes.
 		/dewtube discover - Shows all of the DewTube channels.

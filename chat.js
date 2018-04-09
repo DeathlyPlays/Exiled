@@ -732,6 +732,7 @@ class CommandContext {
 	 */
 	canBroadcast(suppressMessage) {
 		if (!this.broadcasting && this.cmdToken === BROADCAST_TOKEN) {
+			// @ts-ignore
 			if (!this.pmTarget && !this.user.can('broadcast', null, this.room)) {
 				this.errorReply("You need to be voiced to broadcast this command's information.");
 				this.errorReply("To see it for yourself, use: /" + this.message.substr(1));
@@ -810,6 +811,7 @@ class CommandContext {
 	 * @param {User?} [targetUser]
 	 */
 	canTalk(message, room, targetUser) {
+		// @ts-ignore
 		if (!room) room = this.room;
 		if (!targetUser && this.pmTarget) {
 			room = null;
@@ -872,8 +874,8 @@ class CommandContext {
 				if (targetUser.ignorePMs && targetUser.ignorePMs !== user.group && !user.can('lock')) {
 					if (!targetUser.can('lock')) {
 						return this.errorReply(`This user is blocking private messages right now.`);
-					} else if (targetUser.can('roomowner')) {
-						return this.errorReply(`This ` + (targetUser.can('bypassall') ? `admin` : `leader`) + ` is too busy to answer private messages right now. Please contact a different staff member.`);
+					} else if (targetUser.can('declare')) {
+						return this.errorReply(`This ${Config.groups[targetUser.group].name} is too busy to answer private messages right now. Please contact a different staff member.`);
 					}
 				}
 				if (user.ignorePMs && user.ignorePMs !== targetUser.group && !targetUser.can('lock')) {

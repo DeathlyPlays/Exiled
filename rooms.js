@@ -75,6 +75,8 @@ class BasicRoom {
 		this.muteTimer = null;
 
 		this.lastUpdate = 0;
+		this.lastBroadcast = '';
+		this.lastBroadcastTime = 0;
 
 		// room settings
 
@@ -390,6 +392,8 @@ class GlobalRoom extends BasicRoom {
 		this.active = false;
 		/** @type {null} */
 		this.chatRoomData = null;
+		/**@type {boolean | 'pre' | 'ddos'} */
+		this.lockdown = false;
 
 		this.battleCount = 0;
 		this.lastReportedCrash = 0;
@@ -779,7 +783,7 @@ class GlobalRoom extends BasicRoom {
 	}
 	/**
 	 * @param {User} user
-	 * @param {Connection} connection
+	 * @param {Connection} [connection]
 	 */
 	checkAutojoin(user, connection) {
 		if (!user.named) return;
@@ -1510,7 +1514,7 @@ class GameRoom extends BasicChatRoom {
 }
 
 /**
- * @param {string | Room | undefined} roomid
+ * @param {string | Room} [roomid]
  * @return {Room}
  */
 function getRoom(roomid) {
@@ -1626,7 +1630,8 @@ let Rooms = Object.assign(getRoom, {
 	battleModlogStream: FS('logs/modlog/modlog_battle.txt').createAppendStream(),
 	groupchatModlogStream: FS('logs/modlog/modlog_groupchat.txt').createAppendStream(),
 
-	global: (/** @type {any} */ (null)),
+	// @ts-ignore
+	global: (/** @type {GlobalRoom} */ (null)),
 	/** @type {?ChatRoom} */
 	lobby: null,
 

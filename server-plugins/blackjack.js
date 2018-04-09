@@ -1,401 +1,204 @@
-'use strict';
+"use strict";
 
-/**
- * Checks if the money input is actually money.
- *
- * @param {String} money
- * @return {String|Number}
- */
-function isMoney(money) {
-	let numMoney = Number(money);
-	if (isNaN(money)) return "Must be a number.";
-	if (String(money).includes('.')) return "Cannot contain a decimal.";
-	if (numMoney < 1) return "Cannot be less than one buck.";
-	return numMoney;
-}
+const suits = ["Diamonds", "Spades", "Clubs", "Hearts", "Jokers", "Queens", "Kings", "Aces"];
+const values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 
-/**
- * Card Constructor
- *
- * @param {Number|String} rank
- * @param {String} suit
- */
-function Card(rank, suit) {
-	this.rank = rank;
-	this.suit = suit;
-}
+function createDeck() {
+	let basic = [];
 
-/**
- * Get all the ranks!
- *
- * @static
- * @return {Array[Number|String]}
- */
-Card.Ranks = function () {
-	return [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
-};
-
-/**
- * Get suits.
- *
- * @static
- * @return {Array[String]}
- */
-Card.Suits = function () {
-	return ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
-};
-
-/**
- * Get the value of a card.
- *
- * @param {Object} card
- * @return {Number}
- */
-Card.getValue = function (card) {
-	if (typeof card.rank === 'number') {
-		return card.rank;
-	} else if (card.rank === 'A') {
-		return 1;
-	} else {
-		return 10;
+	for (const suit of suits) {
+		basic.push(...values.map(v => {
+			return {value: v, suits: suit, name: suits + " " + v};
+		}));
 	}
-};
-
-/**
- * Get string representation of a card.
- *
- * @return {String}
- */
-Card.prototype.toString = function () {
-	return this.rank + ' ' + this.suit;
-};
-
-/**
- * Deck Constructor
- */
-function Deck() {
-	this.cards = [];
-	Card.Suits().forEach(function (suit) {
-		Card.Ranks().forEach(function (rank) {
-			this.cards.push(new Card(rank, suit));
-		}.bind(this));
-	}.bind(this));
 }
 
-/**
- * Draw a random card from the deck.
- *
- * @return {Card}
- */
-Deck.prototype.drawCard = function () {
-	let randomNumber = Math.floor(Math.random() * this.cards.length);
-	return this.cards.splice(randomNumber, 1)[0];
-};
+function cardValue(value) {
+	if (values.includes["1", "2", "3", "4", "5", "6", "7", "8", "9"]) {
+		value = values;
+	} else if (values.includes["10", "J", "Q", "K"]) {
+		value = 10;
+	} else if (values === "A") {
+		value = 1 || 11;
+	}
+	return value;
+}
 
-/**
- * Get string representation of a deck.
- *
- * @return {String}
- */
-Deck.prototype.toString = function () {
-	return this.cards.join(", ");
-};
+class Blackjack {
+	constructor(room, pot) {
+		this.room = room;
+		this.pot = pot;
+		this.state = "signups";
+		room.bjNumber = room.bjNumber ? room.bjNumber++ : 1;
+		this.bjNumber = room.bjNumber;
+		this.gamblers = [];
+		this.deck = Dex.shuffle(createDeck());
+		this.turn = null;
+		this.room.add(`|uhtml|blackjack-${this.bjNumber}|<div class="broadcast-blue"><p style="font-size: 14pt; text-align: center">A new match of Blackjack is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/bj join">Join</button></p></div>`, true);
+		this.timer = 60 * 1000;
+	}
 
-let BJView = {
-	busted: function (player) {
-		this.addRaw(Server.nameColor(player.name, true, true) + " has <i>busted</i>!");
-	},
-
-	create: function (creator, pot) {
-		let output = "<div class='infobox'><center><h2><strong>Blackjack Game</strong></h2>";
-		output += "<span style='padding:20px'><strong>Created by:</strong> " + Server.nameColor(creator) + "</span>";
-		output += "<span style='padding:20px'>Pot: <span style='color:red'>" + pot + "</span></span>";
-		output += "<br /><button name='send' value='/bj join' style='margin: 5px'>Join</button>";
-		output += "</center></div>";
-		this.addRaw(output);
-	},
-
-	end: function (winner) {
-		let output = "<strong>The blackjack game has ended. The winner is <font color='#24678d'>";
-		output += winner.name + "</font> with " + winner.hand.join(", ") + " in hand!</strong>";
-		this.addRaw(output);
-	},
-
-	hit: function (player, card, hand) {
-		this.addRaw(Server.nameColor(player, true, true) + "<strong> got " + card + ". Now </strong>" + Server.nameColor(player, true, true) + "<strong> has " + hand + " in hand.</strong>");
-	},
-
-	join: function (player) {
-		this.addRaw(Server.nameColor(player, true, true) + " has joined the blackjack game.");
-	},
-
-	noWinner: function () {
-		this.addRaw("<strong>The blackjack game has ended. There is no winner.</strong>");
-	},
-
-	start: function (players, getPlayer) {
-		let output = "<div class='infobox'><center><strong>The blackjack game has started!</strong><br />";
-		output += "<strong>There are " + players.length + " players.</strong><br />";
-		players.forEach(function (player) {
-			output += "<strong>" + player + "'>" + player + ": </font></strong> " + getPlayer[player].hand.join(", ") + "<br />";
+	join(user) {
+		if (this.gamblers.includes(user.userid)) return user.sendTo(this.room, "You have already joined the match of Blackjack in this room.");
+		Economy.readMoney(user.userid, money => {
+			if (money < this.pot) {
+				user.sendTo(this.room, `You do not have enough ${((this.pot === 1) ? `${moneyName}` : `${moneyPlural}`)} to join.`);
+				return;
+			}
+			Economy.writeMoney(user.userid, -this.pot, () => {
+				Economy.readMoney(user.userid, money => {
+					Economy.logTransaction(`${user.name} joined a match of Blackjack for ${this.pot} ${((this.pot === 1) ? `${moneyName}` : `${moneyPlural}`)}.`);
+				});
+			});
+			let hand = [];
+			this.gamblers.push([user.userid, hand]);
+			user.sendTo(this.room, "You have joined the ongoing match of Blackjack in this room.");
 		});
-		output += "</center></div>";
-		this.addRaw(output);
-	},
-
-	turn: function (player) {
-		this.addRaw("<strong>It is </strong>" + Server.nameColor(player, true, true) + "<strong>'s turn.</strong>");
-	},
-};
-
-/**
- * Blackjack Constructor
- *
- * @param {Number} number
- * @param {Object} room
- * @param {String} creator - the user who created the Blackjack game
- */
-function Blackjack(pot, room, creator) {
-	// Create a new deck.
-	this.deck = new Deck();
-
-	// The prize money to be won.
-	this.pot = pot;
-
-	// Boolean to check if a blackjack game has started or not.
-	this.started = false;
-
-	// All players containing their name, hand, and hand total.
-	this.players = {};
-
-	// The order of player's turn.
-	this.turns = [];
-
-	// The current turn of a blackjack game.
-	this.currentTurn = '';
-
-	// The room in which the blackjack game is played in.
-	this.room = room;
-
-	// Display that a new blackjack game has been created.
-	BJView.create.call(this.room, creator, pot);
-}
-
-/**
- * Start a blackjack game.
- */
-Blackjack.prototype.startGame = function () {
-	this.started = true;
-	this.turns = Object.keys(this.players);
-
-	this.turns.forEach(function (player) {
-		this.hit(player, true);
-		this.hit(player, true);
-	}.bind(this));
-
-	BJView.start.call(this.room, this.turns, this.players);
-
-	this.nextTurn();
-};
-
-/**
- * Changes the current turn.
- * Ends the game if the all players have finished their turns.
- */
-Blackjack.prototype.nextTurn = function () {
-	this.currentTurn = this.turns.shift();
-	if (!this.currentTurn) {
-		let winner = this.chooseWinner();
-		this.endGame(winner);
-	} else {
-		BJView.turn.call(this.room, this.currentTurn);
-	}
-};
-
-/**
- * Choose the winner of the blackjack game.
- *
- * @return {Object} winner;
- */
-Blackjack.prototype.chooseWinner = function () {
-	let winner = Object.keys(this.players).reduce(function (acc, cur) {
-		let accP = this.players[acc];
-		let curP = this.players[cur];
-		if (!curP) return accP;
-		if (!accP) return curP;
-		return accP.total > curP.total ? accP : curP;
-	}.bind(this));
-
-	if (typeof winner === 'string') {
-		winner = this.players[winner];
 	}
 
-	return winner;
-};
+	leave(user) {
+		if (!this.gamblers.includes(user.userid)) return user.sendTo(this.room, "You are not in the current match of Blackjack in this room.");
+		this.gamblers.splice(this.gamblers.indexOf(user.userid), 1);
+		if (this.turn === user.userid) this.nextGambler();
+		clearTimeout(this.timer);
+		user.sendTo(this.room, `You have successfully left the ongoing match of Blackjack in this room.`);
+	}
 
-/**
- * End the blackjack game.
- *
- * @param {Object} winner
- */
-Blackjack.prototype.endGame = function (winner) {
-	BJView.end.call(this.room, winner);
-	this.room.bj = null;
-};
+	drawCard(user, amount) {
+		amount = parseInt(amount);
+		if (!amount || amount < 1) amount = 1;
+		let drawnCards = [];
+		drawnCards.push(this.deck.pop());
+		let player = this.players[user.userid];
+		player.hand.push(...drawnCards);
+		player.sendTo(this.room, `You drew ${Chat.toListString(drawnCards)}.`);
+		return drawnCards;
+	}
 
-/**
- * Checks if a player is in the blackjack game.
- *
- * @param {String} player
- * @return {Boolean}
- */
-Blackjack.prototype.isPlayerInGame = function (player) {
-	return this.players.hasOwnProperty(player) === true;
-};
+	hit(user) {
+		if (!this.gamblers.includes(user.userid)) return user.sendTo(this.room, "You are not in the current match of Blackjack in this room.");
+		if (this.turn !== user.userid) return user.sendTo(this.room, "It is not your turn to hit.");
+		clearTimeout(this.timer);
+		this.drawCard(user.userid, 1);
+		this.room.add(`|html|${Server.nameColor(user.name, true)} has hit!`).update();
+	}
 
-/**
- * Checks if it a player's turn.
- *
- * @param {String} player
- * @return {Boolean}
- */
-Blackjack.prototype.isPlayerTurn = function (player) {
-	return this.currentTurn === player;
-};
+	pass(user) {
+		if (!this.gamblers.includes(user.userid)) return user.sendTo(this.room, "You are not in the current match of Blackjack in this room.");
+		if (this.turn !== user.userid) return user.sendTo(this.room, "It is not your turn yet.");
+		clearTimeout(this.timer);
+		this.room.add(`|html|${Server.nameColor(user.name, true)} has passed!`).update();
+		this.nextGambler();
+	}
 
-/**
- * Add a player to the blackjack game.
- *
- * @param {String} player
- */
-Blackjack.prototype.addPlayer = function (player) {
-	this.players[player] = {name: player, hand: [], total: 0};
+	nextGambler() {
+		clearTimeout(this.timer);
+		let next = this.gamblers.indexOf(this.turn);
+		this.turn = next;
+		this.room.add(`|html|${Server.nameColor(next, true)} is the next one up to hit or pass!`);
+	}
 
-	BJView.join.call(this.room, player);
-};
-
-/**
- * Add a card to your hand.
- *
- * @param {String} player
- * @param {Boolean} silence - Don't display to the room
- */
-Blackjack.prototype.hit = function (player, silence) {
-	let card = this.deck.drawCard();
-	this.players[player].hand.push(card);
-	this.players[player].total += Card.getValue(card);
-
-	if (silence) return;
-
-	BJView.hit.call(this.room, player, card.toString(), this.players[player].hand.join(', '));
-};
-
-/**
- * Check to see if a player won or bust.
- *
- * @param {String} player
- */
-Blackjack.prototype.hasPlayerWinOrBust = function (player) {
-	let total = this.players[player].total;
-	if (total === 21) {
-		this.endGame(this.players[player]);
-	} else if (total > 21) {
-		BJView.busted.call(this.room, this.players[player]);
-		delete this.players[player];
-
-		// Special case when all players are busted.
-		if (Object.keys(this.turns).length === 0) {
-			this.room.bj = null;
-			return BJView.noWinner.call(this.room);
+	start() {
+		this.state = "started";
+		let shuffledGamblers = Dex.shuffle(this.gamblers);
+		this.gamblers = shuffledGamblers;
+		let first = this.gamblers[Math.floor(Math.random() * this.gamblers.length)];
+		this.turn = first;
+		// give cards to the players
+		for (let i in this.gamblers) {
+			this.gamblers[i].hand.push(...this.drawCard(this.gamblers[i], 2));
 		}
-
-		this.nextTurn();
+		this.timer = setTimeout(() => {
+			this.room.add(`|html|${Server.nameColor(first, true)} has been eliminated due to inactivity.`);
+			this.leave(first);
+		}, this.timer * 1000);
+		this.room.add(`|html|${Server.nameColor(first, true)} is the first to either hit or pass. Good luck all!`).update();
 	}
-};
+
+	end(user) {
+		this.room.add(`<strong>The match of Blackjack has been ended.</strong>`).update();
+		if (user) {
+			for (let u in this.room.blackjack.gamblers) {
+				Economy.writeMoney(this.room.blackjack.gamblers[u], this.costToJoin, () => {
+					Economy.logTransaction(`${this.room.blackjack.gamblers[u]}'s ${this.pot} join fee was refunded due to an early ended game.`);
+				});
+			}
+		}
+		clearTimeout(this.timer);
+		delete this.room.blackjack;
+	}
+}
 
 exports.commands = {
-	bjhelp: 'blackjackhelp',
-	blackjackhelp: function () {
-		this.sendReplyBox("<center><strong><u>Blackjack Commands</u></strong><br /></center><strong>/bj [new/create] [bucks]</strong> - create game of blackjack for certain amount of bucks.<br /><strong>/bj [end]</strong> - end game of blackjack.<br /><strong>/bj [start]</strong> - start game of blackjack.<br /><strong>/bjhelp</strong> - shows blackjack commands.<br />");
-	},
-
-	bj: 'blackjack',
+	bj: "blackjack",
 	blackjack: {
-		new: 'create',
-		create: function (target, room, user) {
-			if (!this.can('broadcast', null, room)) return false;
-			if (room.id !== 'casino') return this.sendReply('|html|You can only start a game of Blackjack in the <button name = "send" value = "/join casino">Casino</button>');
-
-			if (room.bj) return this.sendReply("A blackjack game has already been created in this room.");
-
-			let amount = isMoney(target);
-			if (typeof amount === 'string') return this.sendReply(amount);
-
-			room.bj = new Blackjack(amount, room, user.name);
+		create: "new",
+		make: "new",
+		host: "new",
+		new: function (target, room, user) {
+			if (room.id !== "casino") return this.errorReply(`This command only works in the Casino.`);
+			if (!this.can("minigame", null, room)) return false;
+			if (!this.canTalk()) return this.errorReply(`You must be able to talk to use this command.`);
+			if (room.blackjack) return this.errorReply(`There is already an ongoing game of Blackjack in this room.`);
+			if (!target) return this.errorReply(`You must specify the pot's worth.`);
+			if (isNaN(target)) return this.errorReply(`The pot amount must be an integer.`);
+			if (target < 1 || target > 500) return this.errorReply(`The pot must be at the most 500 ${moneyPlural}.`);
+			Economy.readMoney(user.userid, money => {
+				if (money < target) return this.sendReply(`You don't have ${target} ${((money === 1) ? moneyName : moneyPlural)}.`);
+				room.blackjack = new Blackjack(room, target);
+				this.parse("/blackjack join");
+			});
 		},
 
-		start: function (room, user) {
-			if (!this.can('broadcast', null, room)) return false;
-			if (!room.bj) return this.sendReply("A blackjack game has not been created.");
-			if (room.bj.started) return this.sendReply("A blackjack game has already started in this room.");
-			if (Object.keys(room.bj.players).length < 2) return this.sendReply("|raw|<strong>There aren't enough users.</strong>");
-
-			room.bj.startGame();
+		j: "join",
+		join: function (target, room, user) {
+			if (!room.blackjack) return this.errorReply(`There is not currently a match of Blackjack in this room.`);
+			if (!this.canTalk()) return this.errorReply(`You must be able to talk to join a match of Blackjack.`);
+			if (!user.registered) return this.errorReply(`You must be a registered account to join a match of Blackjack.`);
+			room.blackjack.join(user);
 		},
 
-		join: function (room, user) {
-			if (!room.bj) return this.sendReply("A blackjack game has not been created.");
-			if (room.bj.started) return this.sendReply("A blackjack game has already started in this room.");
-			if (room.bj.isPlayerInGame(user.userid)) return this.sendReply("You are already in this blackjack game.");
-
-			// check if they have enough money for pot
-
-			room.bj.addPlayer(user.userid);
+		l: "l",
+		quit: "l",
+		leave: function (target, room, user) {
+			if (!room.blackjack) return this.errorReply(`There is not currently a match of Blackjack in this room.`);
+			room.blackjack.leave(user);
 		},
 
-		hit: function (room, user) {
-			if (!room.bj) return this.sendReply("A blackjack game has not been created.");
-			if (!room.bj.started) return this.sendReply("A blackjack game has not started.");
-			if (!room.bj.isPlayerInGame(user.userid)) return this.sendReply("You are not in this blackjack game.");
-			if (!room.bj.isPlayerTurn(user.userid)) return this.sendReply("It is not your turn.");
-
-			room.bj.hit(user.userid);
-			room.bj.hasPlayerWinOrBust(user.userid);
+		hit: function (target, room, user) {
+			if (!room.blackjack || room.blackjack.state !== "started") return this.errorReply(`You cannot pass right now.`);
+			room.blackjack.hit(user);
 		},
 
-		hand: function (room, user) {
-			if (!room.bj) return this.sendReply("A blackjack game has not been created.");
-			if (!room.bj.started) return this.sendReply("A blackjack game has not started.");
-			if (!room.bj.isPlayerInGame(user.userid)) return this.sendReply("You are not in this blackjack game.");
-			if (!room.bj.isPlayerInGame(user.userid)) return this.sendReply("You are not in this blackjack game.");
-
-			this.sendReply("Your hand: " + room.bj.players[user.userid].hand.join(', '));
+		pass: function (target, room, user) {
+			if (!room.blackjack || room.blackjack.state !== "started") return this.errorReply(`You cannot pass right now.`);
+			room.blackjack.pass(user);
 		},
 
-		stand: function (room, user) {
-			if (!room.bj) return this.sendReply("A blackjack game has not been created.");
-			if (!room.bj.started) return this.sendReply("A blackjack game has not started.");
-			if (!room.bj.isPlayerInGame(user.userid)) return this.sendReply("You are not in this blackjack game.");
-			if (!room.bj.isPlayerTurn(user.userid)) return this.sendReply("It is not your turn.");
-
-			room.bj.nextTurn();
+		begin: "start",
+		proceed: "start",
+		start: function (target, room, user) {
+			if (!room.blackjack || room.blackjack.state !== "signups") return this.errorReply(`There is not currently a match of Blackjack in this room that can be started.`);
+			if (!this.can("minigame", null, room)) return false;
+			if (!this.canTalk()) return this.errorReply(`You must be able to talk to use this command.`);
+			if (room.blackjack.gamblers.length < 2) return this.errorReply(`This match needs a minimum of 2 gamblers to begin.`);
+			room.blackjack.start();
 		},
 
-		deck: function (room, user) {
-			if (!this.can('declare', null, room)) return false;
-			if (!room.bj) return this.sendReply("A blackjack game has not been created.");
-			if (room.bj.isPlayerInGame(user.userid)) return this.sendReply("You can't not view the deck if you are in the game.");
-
-			this.sendReply("Current blackjack game deck: " + room.bj.deck.toString());
-		},
-
-		stop: 'end',
+		cancel: "end",
 		end: function (target, room, user) {
-			if (!user.can('broadcast', null, room)) return false;
-			if (!room.bj) return this.sendReply("A blackjack game has not been created.");
+			if (!room.blackjack) return this.errorReply(`There is not currently a match of Blackjack in this room.`);
+			if (!this.can("minigame", null, room)) return false;
+			if (!this.canTalk()) return this.errorReply(`You must be able to talk to use this command.`);
+			room.blackjack.end(user);
+		},
 
-			room.bj = null;
-			room.addRaw(Server.nameColor(user.name, true, true) + "<strong> has ended the dice game.</strong>");
+		"": "help",
+		help: function () {
+			this.parse(`/help blackjack`);
 		},
 	},
+
+	blackjackhelp: [
+	],
 };

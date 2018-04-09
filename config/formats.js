@@ -755,18 +755,8 @@ let Formats = [
 			validate: [1, 3],
 			battle: 1,
 		},
-<<<<<<< HEAD
-		ruleset: ['[Gen 1] OU'],
-		banlist: [
-			'Flash', 'Kinesis', 'Sand Attack', 'Smokescreen',
-			'Bind', 'Clamp', 'Fire Spin', 'Wrap',
-			'Explosion', 'Self-Destruct',
-			'Hypnosis', 'Lovely Kiss', 'Sing', 'Sleep Powder', 'Spore',
-		],
-=======
 		ruleset: ['[Gen 3] OU', 'Team Preview'],
 		banlist: ['Explosion', 'Self-Destruct', 'Swagger'],
->>>>>>> 9cf26057bdb50d3b43c251ce56c346ab30885f4b
 	},
 	{
 		name: "[Gen 5] UU",

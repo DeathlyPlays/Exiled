@@ -464,7 +464,7 @@ exports.commands = {
 			}
 			write();
 		},
-		/*
+
 		collaborate: "collab",
 		collab: function (target, room, user) {
 			let usersChannel = toId(getChannel(user.userid));
@@ -515,7 +515,6 @@ exports.commands = {
 				}, notification);
 			}
 		},
-		*/
 
 		"": "help",
 		help: function () {

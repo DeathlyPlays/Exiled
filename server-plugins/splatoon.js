@@ -287,13 +287,21 @@ exports.commands = {
 			const apiData = fetch("https://splatoon2.ink/data/schedules.json").then(res => res.json());
 			let self = this;
 			apiData.then(function (json) {
+				// Get start times
+				let leagueBattleStart = new Date(Date.now() - json.league[0].start_time);
+				let rankedBattleStart = new Date(Date.now() - json.gachi[0].start_time);
+				let regularBattleStart = new Date(Date.now() - json.regular[0].start_time);
+				// Get end times
+				let leagueBattleEnd = new Date(json.league[0].end_time - Date.now());
+				let rankedBattleEnd = new Date(json.gachi[0].end_time - Date.now());
+				let regularBattleEnd = new Date(json.regular[0].end_time - Date.now());
 				let rotation = `<center><h2>BREAKING NEWS:</h2></center>`;
 				// League Battle
-				rotation += `<strong>League Battle Mode:</strong> ${json.league[0].rule.name} <strong>League Battle Stages:</strong> ${json.league[0].stage_a.name} and ${json.league[0].stage_b.name}. <strong>Started:</strong> ${Date(json.league[0].start_time)}. <strong>Ends:</strong> ${Date(json.league[0].end_time)}.<br />`;
+				rotation += `<strong>League Battle Mode:</strong> ${json.league[0].rule.name} <strong>League Battle Stages:</strong> ${json.league[0].stage_a.name} and ${json.league[0].stage_b.name}. <strong>Started ${leagueBattleStart.getHours()} hours and ${leagueBattleStart.getMinutes()} minutes ago. Ends in ${leagueBattleEnd.getHours()} hours and ${leagueBattleEnd.getMinutes()} minutes.</strong><br />`;
 				// Ranked Battle
-				rotation += `<strong>Ranked Battle Mode:</strong> ${json.gachi[0].rule.name} <strong>Ranked Battle Stages:</strong> ${json.gachi[0].stage_a.name} and ${json.gachi[0].stage_b.name}. <strong>Started:</strong> ${Date(json.gachi[0].start_time)}. <strong>Ends:</strong> ${Date(json.gachi[0].end_time)}.<br />`;
+				rotation += `<strong>Ranked Battle Mode:</strong> ${json.gachi[0].rule.name} <strong>Ranked Battle Stages:</strong> ${json.gachi[0].stage_a.name} and ${json.gachi[0].stage_b.name}. <strong>Started ${rankedBattleStart.getHours()} hours and ${rankedBattleStart.getMinutes()} minutes ago. Ends in ${rankedBattleEnd.getHours()} hours and ${rankedBattleEnd.getMinutes()} minutes.</strong><br />`;
 				// Regular Battle
-				rotation += `<strong>Regular Battle Mode:</strong> ${json.regular[0].rule.name} <strong>Regular Battle Stages:</strong> ${json.regular[0].stage_a.name} and ${json.regular[0].stage_b.name}. <strong>Started:</strong> ${Date(json.regular[0].start_time)}. <strong>Ends:</strong> ${Date(json.regular[0].end_time)}.<br />`;
+				rotation += `<strong>Regular Battle Mode:</strong> ${json.regular[0].rule.name} <strong>Regular Battle Stages:</strong> ${json.regular[0].stage_a.name} and ${json.regular[0].stage_b.name}. <strong>Started ${regularBattleStart.getHours()} hours and ${regularBattleStart.getMinutes()} minutes ago. Ends in ${regularBattleEnd.getHours()} hours and ${regularBattleEnd.getMinutes()} minutes.</strong>.<br />`;
 				self.sendReplyBox(rotation);
 			});
 		},
@@ -307,13 +315,21 @@ exports.commands = {
 			const apiData = fetch("https://splatoon2.ink/data/schedules.json").then(res => res.json());
 			let self = this;
 			apiData.then(function (json) {
+				// Get start times
+				let leagueBattleStart = new Date(json.league[1].start_time - Date.now());
+				let rankedBattleStart = new Date(json.gachi[1].start_time - Date.now());
+				let regularBattleStart = new Date(json.regular[1].start_time - Date.now());
+				// Get end times
+				let leagueBattleEnd = new Date(json.league[1].end_time - Date.now());
+				let rankedBattleEnd = new Date(json.gachi[1].end_time - Date.now());
+				let regularBattleEnd = new Date(json.regular[1].end_time - Date.now());
 				let rotation = `<center><h2>BREAKING NEWS:</h2></center>`;
 				// League Battle
-				rotation += `<strong>League Battle Mode:</strong> ${json.league[1].rule.name} <strong>League Battle Stages:</strong> ${json.league[1].stage_a.name} and ${json.league[1].stage_b.name}. <strong>Started:</strong> ${Date(json.league[1].start_time)}. <strong>Ends:</strong> ${Date(json.league[1].end_time)}.<br />`;
+				rotation += `<strong>League Battle Mode:</strong> ${json.league[1].rule.name} <strong>League Battle Stages:</strong> ${json.league[1].stage_a.name} and ${json.league[1].stage_b.name}. <strong>Starts in: ${leagueBattleStart.getMinutes()} minutes. This rotation will end in ${leagueBattleEnd.getMinutes()} minutes.</strong><br />`;
 				// Ranked Battle
-				rotation += `<strong>Ranked Battle Mode:</strong> ${json.gachi[1].rule.name} <strong>Ranked Battle Stages:</strong> ${json.gachi[1].stage_a.name} and ${json.gachi[1].stage_b.name}. <strong>Started:</strong> ${Date(json.gachi[1].start_time)}. <strong>Ends:</strong> ${Date(json.gachi[1].end_time)}.<br />`;
+				rotation += `<strong>Ranked Battle Mode:</strong> ${json.gachi[1].rule.name} <strong>Ranked Battle Stages:</strong> ${json.gachi[1].stage_a.name} and ${json.gachi[1].stage_b.name}. <strong>Starts in: ${rankedBattleStart.getMinutes()} minutes. This rotation will end in ${rankedBattleEnd.getMinutes()} minutes.</strong><br />`;
 				// Regular Battle
-				rotation += `<strong>Regular Battle Mode:</strong> ${json.regular[1].rule.name} <strong>Regular Battle Stages:</strong> ${json.regular[1].stage_a.name} and ${json.regular[1].stage_b.name}. <strong>Started:</strong> ${Date(json.regular[1].start_time)}. <strong>Ends:</strong> ${Date(json.regular[1].end_time)}.<br />`;
+				rotation += `<strong>Regular Battle Mode:</strong> ${json.regular[1].rule.name} <strong>Regular Battle Stages:</strong> ${json.regular[1].stage_a.name} and ${json.regular[1].stage_b.name}. <strong>Starts in: ${regularBattleStart.getMinutes()} minutes. This rotation will end in ${regularBattleEnd.getMinutes()} minutes.</strong><br />`;
 				self.sendReplyBox(rotation);
 			});
 		},

@@ -251,6 +251,7 @@ exports.commands = {
 			if (!this.can('minigame', null, room)) return false;
 			if (supportHTML && !this.can('declare', null, room)) return false;
 			if (!this.canTalk()) return;
+			if (room.poll && room.poll.pollArray[0] && room.poll.pollArray[1] && room.poll.pollArray[2] && room.poll.pollArray[3] && room.poll.pollArray[4]) return this.errorReply("Only 5 polls at a time!");
 			if (params.length < 3) return this.errorReply("Not enough arguments for /poll new.");
 
 			if (supportHTML) params = params.map(parameter => this.canHTML(parameter));
@@ -272,6 +273,7 @@ exports.commands = {
 					totalVotes: 0,
 					timeout: null,
 					timeoutMins: 0,
+					startTime: Date.now(),
 					startedUser: Server.nameColor(user.name, true, true),
 					options: new Map(),
 				});

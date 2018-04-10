@@ -450,7 +450,7 @@ exports.BattleMovedex = {
 		accuracy: 95,
 		basePower: 120,
 		category: "Physical",
-		desc: "120BP, 95% Accuracy, and can be used while sleeping.",
+		desc: "Can be used while sleeping.",
 		id: "snorlaxslam",
 		name: "Snorlax Slam",
 		pp: 5,
@@ -475,5 +475,57 @@ exports.BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Never-Ending Nightmare", target);
 		},
+	},
+
+	// CielTSnow
+	"pimpslap": {
+		id: "pimpslap",
+		name: "Pimp Slap",
+		basePower: 90,
+		accuracy: 100,
+		priority: 1,
+		self: {
+			boosts: {
+				spa: 1,
+			},
+		},
+		pp: 10,
+		category: "Special",
+		defensiveCategory: "Physical",
+		desc: "Damage is dealt in respect to the target's Physical Defense, and boosts the user's Special Attack by one stage.",
+		shortDesc: "Hits in Physical Defense. +1 user's Sp. Atk.",
+		flags: {protect: 1, mirror: 1},
+		target: "normal",
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Mach Punch", target);
+		},
+		type: "Fighting",
+	},
+
+	// Back At My Day
+	"roleplaying": {
+		id: "roleplaying",
+		name: "Roleplaying",
+		basePower: 120,
+		def: "No additional information.",
+		accuracy: 100,
+		pp: 10,
+		priority: 0,
+		secondary: false,
+		category: "Special",
+		onHit: function (target, source, move) {
+			this.add('c|%Back At My Day|Am I the only one who roleplays?');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Roar of Time", target);
+		},
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		type: "Ground",
+		target: "normal",
 	},
 };

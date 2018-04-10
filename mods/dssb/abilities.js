@@ -293,4 +293,46 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+
+	// Shivay
+	"birdclaws": {
+		id: "birdclaws",
+		name: "Bird Claws",
+		desc: "Tough Claws + Immune to Ground",
+		//Tough Claws
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.flags['contact']) {
+				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+		onTryHit: function (target, source, move) {
+			if (move.type === 'Ground' && !target.activeTurns) {
+				this.add('-immune', target, '[msg]', '[from] ability: Bird Claws');
+				return null;
+			}
+		},
+	},
+
+	// Back At My Day
+	"timetraveler": {
+		id: "timetraveler",
+		name: "Time Traveler",
+		desc: "Sets Trick Room, Pressure, and Rough Skin.",
+		//trickroom
+		onStart: function (pokemon) {
+			this.useMove('trickroom', pokemon);
+		},
+		//pressure
+		onDeductPP: function (target, source) {
+			if (target.side === source.side) return;
+			return 1;
+		},
+		//roughskin
+		onAfterDamageOrder: 1,
+		onAfterDamage: function (damage, target, source, move) {
+			if (source && source !== target && move && move.flags['contact']) {
+				this.damage(source.maxhp / 8, source, target);
+			}
+		},
+	},
 };

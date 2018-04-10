@@ -67,8 +67,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Timid",
 			},
-			//Mods
-			"☆Chandie": {
+			"&Chandie": {
 				species: "Chandelure",
 				ability: "Magma Overdrive",
 				item: "Life Orb",
@@ -82,6 +81,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Modest",
 			},
+			//Mods
 			"@Insist": {
 				species: "Ludicolo",
 				ability: "Crippling Depression",
@@ -100,8 +100,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				},
 				nature: "Timid",
 			},
-			//Drivers
-			"%Renfur": {
+			"@Renfur": {
 				species: "Flygon",
 				ability: "Desert Dragon",
 				item: "Life Orb",
@@ -114,6 +113,35 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 					spd: 4,
 				},
 				nature: "Modest",
+			},
+			//Drivers
+			"%Almighty Judgment": {
+				species: "Arceus",
+				ability: "Almighty Presence",
+				item: "Rainbow Plate",
+				gender: "M",
+				moves: ["Judgment", "Substitute", "Quiver Dance"],
+				signatureMove: "Holy Dance",
+				evs: {
+					spa: 252,
+					spe: 252,
+					def: 4,
+				},
+				nature: "Timid",
+			},
+			"%Back At My Day": {
+				species: "Camerupt-Mega",
+				ability: "Time Traveler",
+				item: "Rocky Helmet",
+				gender: "M",
+				moves: ["Aeroblast", "Steam Eruption", "Freeze-Dry"],
+				signatureMove: "Roleplaying",
+				evs: {
+					def: 148,
+					spa: 252,
+					spd: 108,
+				},
+				nature: "Timid",
 			},
 			//Bots
 			"*The Exiler": {
@@ -143,6 +171,34 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 					hp: 164,
 					atk: 224,
 					spd: 120,
+				},
+				nature: "Adamant",
+			},
+			"+CielTSnow": {
+				species: "Lucario-Mega",
+				ability: "Adaptability",
+				item: "Life Orb",
+				gender: "M",
+				moves: ["Flash Cannon", "Flamethrower", "Ice Beam"],
+				signatureMove: "Pimp Slap",
+				evs: {
+					spa: 252,
+					spe: 252,
+					def: 6,
+				},
+				nature: "Timid",
+			},
+			"+shivay": {
+				species: "Charizard-Mega-X",
+				ability: "Bird Claws",
+				item: "Health Orb",
+				gender: "M",
+				moves: ["Outrage", "Flare Blitz", "Roost"],
+				signatureMove: "Dragonify",
+				evs: {
+					atk: 252,
+					spe: 252,
+					spd: 4,
 				},
 				nature: "Adamant",
 			},

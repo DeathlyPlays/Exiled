@@ -412,11 +412,6 @@ let Formats = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3589641/">350 Cup</a>`,
 		],
 
-<<<<<<< HEAD
-		mod: 'natureswap',
-		ruleset: ['[Gen 7] OU'],
-		banlist: ['Blissey', 'Chansey', 'Cloyster', 'Hoopa-Unbound', 'Kyurem-Black'],
-=======
 		mod: 'gen7',
 		ruleset: ['[Gen 7] Ubers'],
 		banlist: ['Gengar-Mega', 'Shadow Tag', 'Eevium Z', 'Eviolite', 'Deep Sea Tooth', 'Light Ball'],
@@ -431,7 +426,6 @@ let Formats = [
 			}
 			return template;
 		},
->>>>>>> 1f14504556a69394cbb389e2943a7465478df4b6
 	},
 	{
 		section: "Other Metagames",
@@ -1552,23 +1546,14 @@ let Formats = [
 		column: 5,
 	},
 	{
-		name: "[Gen 7] Scalemons",
-		desc: [
-			"All Pok&eacute;mon have their stats, barring HP, scaled to give them a BST of around 600.",
-			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Qg9Q2KC2U7aSfOb25rBxGZ7A-uvYM6xNwjdQsclp56E/edit#gid=1841107233\">Spreadsheet of all stats</a>",
-		],
-
+		name: "[Gen 7] Bad 'n Boosted",
+		desc: ["&bullet; All the stats of a pokemon which are 70 or below get doubled.<br>For example, Growlithe's stats are 55/70/45/70/50/60 in BnB they become 110/140/90/140/100/120<br><b>Banlist:</b>Eviolite, Huge Power, Pure Power"],
 		mod: 'gen7',
-		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview'],
-		banlist: ['Deep Sea Scale', 'Deep Sea Tooth', 'Light Ball', 'Thick Club', 'Baton Pass'],
-		onModifyTemplate: function (template) {
-			let bst = 0;
-			let hp = template.baseStats['hp'];
-			Object.values(template.baseStats).forEach(stat => { bst += stat; });
+		ruleset: ['[Gen 7] Ubers'],
+		banlist: ['Eviolite', 'Huge Power', 'Pure Power', 'Eevium Z'],
+		onModifyTemplate: function (template, pokemon) {
 			for (let i in template.baseStats) {
-				template.baseStats['hp'] = hp;
-				template.baseStats[i] = Math.floor((template.baseStats[i] * (600 - template.baseStats['hp'])) / (bst - template.baseStats['hp']));
-				if (template.baseStats[i] > 255) template.baseStats[i] = 255;
+				if (template.baseStats[i] <= 70) template.baseStats[i] *= 2;
 			}
 			return template;
 		},
@@ -1825,23 +1810,6 @@ let Formats = [
 
 	},
 	{
-<<<<<<< HEAD
-		name: "[Gen 7] Metronome Battle",
-		desc: ["&bullet; Metronome battles format: 6v6 singles, Only move allowed is Metronome, all healing items/abilities are banned, Ubers (and Mega Rayquaza) are banned, immunites don't exist in this format (ex. Normal is not very effective on Ghost instead of 0x)"],
-		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass', 'Aguav Berry', 'Assault Vest', 'Berry Juice', 'Cheek Pouch', 'Dry Skin', 'Ice Body', 'Poison Heal', 'Regenerator', 'Volt Absorb', 'Water Absorb', 'Rain Dish', 'Black Sludge', 'Enigma Berry', 'Figy Berry', 'Iapapa Berry', 'Mago Berry', 'Oran Berry', 'Shell Bell', 'Sitrus Berry', 'Wiki Berry', 'Leftovers'],
-		mod: 'metronome',
-		onValidateSet: function (set) {
-			if (set.moves.length !== 1 || toId(set.moves[0]) !== 'metronome') {
-				return [(set.name || set.species) + " can only have Metronome."];
-			}
-		},
-		onEffectiveness: function (typeMod, target, type, move) {
-			//change no effect to not very effective
-			if (move && !this.getImmunity(move, type)) return 2;
-		},
-	},
-	{
 		name: "[Gen 7] Pokebilities",
 		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3588652/\">Pokebilities</a>: A Pokemon has all of its abilities active at the same time."],
 		mod: 'pokebilities',
@@ -1897,18 +1865,6 @@ let Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Bad 'n Boosted",
-		desc: ["&bullet; All the stats of a pokemon which are 70 or below get doubled.<br>For example, Growlithe's stats are 55/70/45/70/50/60 in BnB they become 110/140/90/140/100/120<br><b>Banlist:</b>Eviolite, Huge Power, Pure Power"],
-		mod: 'gen7',
-		ruleset: ['[Gen 7] Ubers'],
-		banlist: ['Eviolite', 'Huge Power', 'Pure Power', 'Eevium Z'],
-		onModifyTemplate: function (template, pokemon) {
-			for (let i in template.baseStats) {
-				if (template.baseStats[i] <= 70) template.baseStats[i] *= 2;
-			}
-			return template;
-		},
-=======
 		name: "[Gen 7] Monotype Ubers",
 		desc: [
 			"All the Pok&eacute;mon on a team must share a type, but it is in Ubers",
@@ -1918,7 +1874,6 @@ let Formats = [
 		],
 
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Clause', 'Same Type Clause'],
->>>>>>> 1f14504556a69394cbb389e2943a7465478df4b6
 	},
 	{
 		name: "[Gen 7] Multibility 2.0",
@@ -2121,6 +2076,28 @@ let Formats = [
 		onEffectiveness: function (typeMod, target, type, move) {
 			//change no effect to not very effective
 			if (move && !this.getImmunity(move, type)) return 2;
+		},
+	},
+	{
+		name: "[Gen 7] Scalemons",
+		desc: [
+			"All Pok&eacute;mon have their stats, barring HP, scaled to give them a BST of around 600.",
+			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Qg9Q2KC2U7aSfOb25rBxGZ7A-uvYM6xNwjdQsclp56E/edit#gid=1841107233\">Spreadsheet of all stats</a>",
+		],
+
+		mod: 'gen7',
+		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview'],
+		banlist: ['Deep Sea Scale', 'Deep Sea Tooth', 'Light Ball', 'Thick Club', 'Baton Pass'],
+		onModifyTemplate: function (template) {
+			let bst = 0;
+			let hp = template.baseStats['hp'];
+			Object.values(template.baseStats).forEach(stat => { bst += stat; });
+			for (let i in template.baseStats) {
+				template.baseStats['hp'] = hp;
+				template.baseStats[i] = Math.floor((template.baseStats[i] * (600 - template.baseStats['hp'])) / (bst - template.baseStats['hp']));
+				if (template.baseStats[i] > 255) template.baseStats[i] = 255;
+			}
+			return template;
 		},
 	},
 	{

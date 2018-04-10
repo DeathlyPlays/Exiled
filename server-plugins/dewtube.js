@@ -55,8 +55,8 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: 2.0,
-	changes: ["Math changed for large & small creators", "Nerf Collabs", "Titles now affect your monetization chance", "Likes/Dislikes Ratio Math Re-done", "If dislikes are higher than your likes, DewTube demonetizes your video", "Collab Cooldown is now 6 hours", "Collabs now must be accepted", "Numbers now use commas appropriately"],
+	version: "2.0.1",
+	changes: ["Math changed for large & small creators", "Nerf Collabs", "Titles now affect your monetization chance", "Likes/Dislikes Ratio Math Re-done", "If dislikes are higher than your likes, DewTube demonetizes your video", "Collab Cooldown is now 6 hours", "Collabs now must be accepted", "Numbers now use commas appropriately", "Fix Collab Issues"],
 	// Basic Filter for Instant Demonetization
 	filter: ["nsfw", "porn", "sex", "shooting"],
 };
@@ -313,7 +313,7 @@ exports.commands = {
 				channels[channelId].views = newViewCount;
 				channels[channelId].likes = newLikeCount;
 				channels[channelId].dislikes = newDislikeCount;
-				this.sendReplyBox(`Congratulations, your video titled "${title}" has received ${generateEditedViews.toLocaleString()} view${Chat.plural(generateEditedViews)}. ${generateEditedSubs.toLocaleString()} ${generateEditedSubs === 1 ? "people have" : "person has"} subscribed to your channel after seeing this video. You got ${generateEditedLikes.toLocaleString()} like${Chat.plural(generateEditedLikes)} and ${generateEditedDislikes.toLocaleString()} dislike${Chat.plural(generateEditedDislikes)}.<br /> Total Sub Count: ${newSubCount.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
+				this.sendReplyBox(`Congratulations, your video titled "${title}" has received ${generateEditedViews.toLocaleString()} view${Chat.plural(generateEditedViews)}. ${generateEditedSubs.toLocaleString()} ${generateEditedSubs = 1 ? "people have" : "person has"} subscribed to your channel after seeing this video. You got ${generateEditedLikes.toLocaleString()} like${Chat.plural(generateEditedLikes)} and ${generateEditedDislikes.toLocaleString()} dislike${Chat.plural(generateEditedDislikes)}.<br /> Total Sub Count: ${newSubCount.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
 			} else {
 				let newSubCount = channels[channelId].subscribers + generateRawSubs;
 				let newViewCount = channels[channelId].views + generateRawViews;
@@ -323,7 +323,7 @@ exports.commands = {
 				channels[channelId].views = newViewCount;
 				channels[channelId].likes = newLikeCount;
 				channels[channelId].dislikes = newDislikeCount;
-				this.sendReplyBox(`Your un-edited video titled "${title}" has received ${generateRawViews.toLocaleString()} view${Chat.plural(generateRawViews)}. ${generateRawSubs.toLocaleString()} ${generateRawSubs === 1 ? "people have" : "person has"} subscribed to your channel after seeing this video. You got ${generateRawLikes.toLocaleString()} like${Chat.plural(generateRawLikes)} and ${generateRawDislikes.toLocaleString()} dislike${Chat.plural(generateRawDislikes)}.<br /> Total Sub Count: ${newSubCount.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
+				this.sendReplyBox(`Your un-edited video titled "${title}" has received ${generateRawViews.toLocaleString()} view${Chat.plural(generateRawViews)}. ${generateRawSubs.toLocaleString()} ${generateRawSubs = 1 ? "people have" : "person has"} subscribed to your channel after seeing this video. You got ${generateRawLikes.toLocaleString()} like${Chat.plural(generateRawLikes)} and ${generateRawDislikes.toLocaleString()} dislike${Chat.plural(generateRawDislikes)}.<br /> Total Sub Count: ${newSubCount.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
 			}
 			if (channels[channelId].isMonetized) {
 				let demonetization = Math.floor(Math.random() * 100);
@@ -558,11 +558,11 @@ exports.commands = {
 					write();
 					// PM the other channel's owner that they accepted and tell them what their channel gained
 					if (Users.get(channels[targetId].owner)) {
-						Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic === 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic === 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes === 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes === 1 ? "dislikes" : "dislike"}.`);
+						Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
 					}
 					// If the user's have notifications on send collab cooldown alerts
 					if (channels[channelId].notifications) {
-						let notification = Date.now() - channels[channelId].lastCollab + COLLAB_COOLDOWN;
+						let notification = Date.now() - channels[channelId].lastCollabed + COLLAB_COOLDOWN;
 						setTimeout(() => {
 							if (Users.get(user.userid)) {
 								user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can collaborate with DewTubers again!`);
@@ -570,22 +570,21 @@ exports.commands = {
 						}, notification);
 					}
 					if (channels[targetId].notifications) {
-						let notification = Date.now() - channels[targetId].lastCollab + COLLAB_COOLDOWN;
+						let notification = Date.now() - channels[targetId].lastCollabed + COLLAB_COOLDOWN;
 						setTimeout(() => {
 							if (Users.get(channels[targetId].owner)) {
-								user.send(`|pm|~DewTube Manager|~|Hey ${Users.get(channels[targetId].owner)}, just wanted to let you know you can collaborate with DewTubers again!`);
+								Users(channels[targetId].owner).send(`|pm|~DewTube Manager|~|Hey ${Users.get(channels[targetId].owner)}, just wanted to let you know you can collaborate with DewTubers again!`);
 							}
 						}, notification);
 					}
-					return this.sendReply(`${channels[targetId].name} has already sent a collaboration request to you, so you accepted their request. This resulted in both of you gaining the following: ${traffic} ${traffic === 1 ? "views" : "view"}, ${subscriberTraffic} ${subscriberTraffic === 1 ? "subscribers" : "subscriber"}, ${generateLikes} ${generateLikes === 1 ? "likes" : "like"}, and ${generateDislikes} ${generateDislikes === 1 ? "dislikes" : "dislike"}.`);
+					return this.sendReply(`${channels[targetId].name} has already sent a collaboration request to you, so you accepted their request. This resulted in both of you gaining the following: ${traffic} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, ${generateLikes} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
 				} else {
 					return this.errorReply(`${target} has already got a pending collaboration request.`);
 				}
 			}
 			channels[channelId].pendingCollab = targetId;
 			write();
-			let owner = toId(channels[targetId].owner);
-			owner.send(`|pm|${user.getIdentity()}|${owner.getIdentity()}|/html has sent you a collaboration request.<br /><button name="send" value="/dewtube accept ${channels[channelId].id}">Click to accept</button> | <button name="send" value="/dewtube deny ${user.userid}">Click to decline</button>`);
+			Users.get(channels[targetId].owner).send(`|pm|${user.getIdentity()}|~|/html has sent you a collaboration request.<br /><button name="send" value="/dewtube accept ${channels[channelId].id}">Click to accept</button> | <button name="send" value="/dewtube deny ${channels[channelId].id}">Click to decline</button>`);
 			return this.sendReply(`You have sent ${target} a collaboration request.`);
 		},
 
@@ -597,7 +596,7 @@ exports.commands = {
 			if (!channels[channelId]) return this.errorReply(`You do not currently own a DewTube channel.`);
 			let targetId = toId(target);
 			if (!channels[targetId]) return this.errorReply(`"${target}" is not a channel.`);
-			if (channels[targetId].pendingCollab !== channels[channelId]) return this.errorReply(`${target} has not sent you a collaboration request, or it was cancelled.`);
+			if (channels[targetId].pendingCollab !== channels[channelId].id) return this.errorReply(`${target} has not sent you a collaboration request, or it was cancelled.`);
 			// Check if both user's are available to record a video and collab
 			if (Date.now() - channels[channelId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`You are on collaboration cooldown.`);
 			if (Date.now() - channels[targetId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`${target} is on collaboration cooldown.`);
@@ -657,11 +656,11 @@ exports.commands = {
 			write();
 			// PM the other channel's owner that they accepted and tell them what their channel gained
 			if (Users.get(channels[targetId].owner)) {
-				Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic === 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic === 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes === 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes === 1 ? "dislikes" : "dislike"}.`);
+				Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
 			}
 			// If the user's have notifications on send collab cooldown alerts
 			if (channels[channelId].notifications) {
-				let notification = Date.now() - channels[channelId].lastCollab + COLLAB_COOLDOWN;
+				let notification = Date.now() - channels[channelId].lastCollabed + COLLAB_COOLDOWN;
 				setTimeout(() => {
 					if (Users.get(user.userid)) {
 						user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can collaborate with DewTubers again!`);
@@ -669,10 +668,10 @@ exports.commands = {
 				}, notification);
 			}
 			if (channels[targetId].notifications) {
-				let notification = Date.now() - channels[targetId].lastCollab + COLLAB_COOLDOWN;
+				let notification = Date.now() - channels[targetId].lastCollabed + COLLAB_COOLDOWN;
 				setTimeout(() => {
 					if (Users.get(channels[targetId].owner)) {
-						user.send(`|pm|~DewTube Manager|~|Hey ${Users.get(channels[targetId].owner)}, just wanted to let you know you can collaborate with DewTubers again!`);
+						Users.get(channels[targetId].owner).send(`|pm|~DewTube Manager|~|Hey ${Users.get(channels[targetId].owner)}, just wanted to let you know you can collaborate with DewTubers again!`);
 					}
 				}, notification);
 			}

@@ -55,8 +55,8 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "2.0.1",
-	changes: ["Math changed for large & small creators", "Nerf Collabs", "Titles now affect your monetization chance", "Likes/Dislikes Ratio Math Re-done", "If dislikes are higher than your likes, DewTube demonetizes your video", "Collab Cooldown is now 6 hours", "Collabs now must be accepted", "Numbers now use commas appropriately", "Fix Collab Issues"],
+	version: "2.0.2",
+	changes: ["Math changed for large & small creators", "Nerf Collabs", "Titles now affect your monetization chance", "Likes/Dislikes Ratio Math Re-done", "If dislikes are higher than your likes, DewTube demonetizes your video", "Collab Cooldown is now 6 hours", "Collabs now must be accepted", "Numbers now use commas appropriately", "Fix Collab Issues", "Factor in Inactive Subscribers", "People will unsubscribe if they dislike your videos"],
 	// Basic Filter for Instant Demonetization
 	filter: ["nsfw", "porn", "sex", "shooting"],
 };
@@ -262,37 +262,45 @@ exports.commands = {
 				// 1.5x views while you are under 1,000 subscribers for Raw Videos
 				generateRawViews = Math.round(generateRawViews * 1.5);
 			} else {
-				generateEditedViews = generateEditedViews;
-				generateRawViews = generateRawViews;
+				// Factor in the inactive subs to make bigger channels not dominate too much
+				let inactivityPercent = ["2", "3", "4", "5"];
+				let inactiveSubs = inactivityPercent[Math.floor(Math.random() * inactivityPercent)];
+				generateEditedViews = Math.round(generateEditedViews / inactiveSubs);
+				generateRawViews = Math.round(generateRawViews / inactiveSubs);
 			}
 			if (videoProgress === "edited" && generateEditedViews < 1) {
 				generateEditedViews = 1;
 			} else if (videoProgress === "recorded" && generateRawViews < 1) {
 				generateRawViews = 1;
 			}
-			// Avoid big channels growing too rapidly
-			if (generateEditedViews > 10000000 && videoProgress === "edited" || generateRawViews > 10000000 && videoProgress === "recorded") {
-				generateEditedViews = Math.round(generateEditedViews / 2);
-				generateRawViews = Math.round(generateRawViews / 2);
-			}
-			let generateEditedSubs = Math.floor(Math.random() * generateEditedViews);
-			let generateRawSubs = Math.floor(Math.random() * generateRawViews);
-			let likeDislikeRatio = Math.floor(Math.random() * 100);
+			let loveHateRatio = Math.floor(Math.random() * 100);
+			let generateEditedSubs;
+			let generateEditedUnsubs;
 			let generateEditedLikes;
 			let generateEditedDislikes;
+			let generateRawSubs;
+			let generateRawUnsubs;
 			let generateRawLikes;
 			let generateRawDislikes;
 			// 70% chance to have positive feedback; 30% chance for negative feedback
-			if (likeDislikeRatio >= 70) {
+			if (loveHateRatio >= 70) {
 				// More dislikes than like scenario
+				generateEditedUnsubs = Math.floor(Math.random() * generateEditedViews);
+				generateEditedSubs = Math.floor(Math.random() * generateEditedUnsubs);
 				generateEditedDislikes = Math.floor(Math.random() * generateEditedViews);
 				generateEditedLikes = Math.floor(Math.random() * generateEditedDislikes);
+				generateRawUnsubs = Math.floor(Math.random() * generateRawViews);
+				generateRawSubs = Math.floor(Math.random() * generateRawUnsubs);
 				generateRawDislikes = Math.floor(Math.random() * generateRawViews);
 				generateRawLikes = Math.floor(Math.random() * generateRawDislikes);
 			} else {
 				// More likes than dislikes scenario
+				generateEditedSubs = Math.floor(Math.random() * generateEditedViews);
+				generateEditedUnsubs = Math.floor(Math.random() * generateEditedSubs);
 				generateEditedLikes = Math.floor(Math.random() * generateEditedViews);
 				generateEditedDislikes = Math.floor(Math.random() * generateEditedLikes);
+				generateRawSubs = Math.floor(Math.random() * generateRawViews);
+				generateRawUnsubs = Math.floor(Math.random() * generateRawSubs);
 				generateRawLikes = Math.floor(Math.random() * generateRawViews);
 				generateRawDislikes = Math.floor(Math.random() * generateRawLikes);
 			}
@@ -304,8 +312,17 @@ exports.commands = {
 				generateRawLikes = Math.round(generateRawLikes / 2);
 				generateRawDislikes = Math.round(generateRawDislikes / 2);
 			}
+			if (generateEditedSubs + generateEditedUnsubs > generateEditedViews) {
+				generateEditedSubs = Math.round(generateEditedSubs / 2);
+				generateEditedUnsubs = Math.round(generateEditedUnsubs / 2);
+			}
+			if (generateRawSubs + generateRawUnsubs > generateRawViews) {
+				generateRawSubs = Math.round(generateRawSubs / 2);
+				generateRawUnsubs = Math.round(generateRawUnsubs / 2);
+			}
 			if (videoProgress === "edited") {
-				let newSubCount = channels[channelId].subscribers + generateEditedSubs;
+				let subChange = generateEditedSubs + generateEditedUnsubs;
+				let newSubCount = channels[channelId].subscribers + subChange;
 				let newViewCount = channels[channelId].views + generateEditedViews;
 				let newLikeCount = channels[channelId].likes + generateEditedLikes;
 				let newDislikeCount = channels[channelId].dislikes + generateEditedDislikes;
@@ -315,7 +332,8 @@ exports.commands = {
 				channels[channelId].dislikes = newDislikeCount;
 				this.sendReplyBox(`Congratulations, your video titled "${title}" has received ${generateEditedViews.toLocaleString()} view${Chat.plural(generateEditedViews)}. ${generateEditedSubs.toLocaleString()} ${generateEditedSubs = 1 ? "people have" : "person has"} subscribed to your channel after seeing this video. You got ${generateEditedLikes.toLocaleString()} like${Chat.plural(generateEditedLikes)} and ${generateEditedDislikes.toLocaleString()} dislike${Chat.plural(generateEditedDislikes)}.<br /> Total Sub Count: ${newSubCount.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
 			} else {
-				let newSubCount = channels[channelId].subscribers + generateRawSubs;
+				let subChange = generateRawSubs + generateRawUnsubs;
+				let newSubCount = channels[channelId].subscribers + subChange;
 				let newViewCount = channels[channelId].views + generateRawViews;
 				let newLikeCount = channels[channelId].likes + generateRawLikes;
 				let newDislikeCount = channels[channelId].dislikes + generateRawDislikes;
@@ -334,7 +352,7 @@ exports.commands = {
 					if (lowercaseTitle.includes(badWords)) demonetization = 70;
 				}
 				// If the demonetization number or more dislikes were given than likes then DewTube demonetizes the user
-				if (demonetization >= 70 || likeDislikeRatio >= 70) {
+				if (demonetization >= 70 || loveHateRatio >= 70) {
 					this.sendReplyBox(`<i>Due to your video's failure to meet community guidelines it was not approved for monetization, therefore your video has been D E M O N E T I Z E D.</i>`);
 				} else {
 					let adRevenue = 0;
@@ -496,91 +514,16 @@ exports.commands = {
 			// Check if the channel's owner is online (so the system can PM the user and avoid the chances the collaboration request will not be seen)
 			if (!Users.get(channels[targetId].owner) || !Users.get(channels[targetId].owner).connected) return this.errorReply(`The owner of ${target} is not online.`);
 			// Check if both user's are available to record a video and collab
-			if (Date.now() - channels[channelId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`You are on collaboration cooldown.`);
+			if (Date.now() - channels[channelId].lastCollabed < COLLAB_COOLDOWN && user.userid !== "insist") return this.errorReply(`You are on collaboration cooldown.`);
 			if (Date.now() - channels[targetId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`${target} is on collaboration cooldown.`);
 			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			if (Date.now() - channels[targetId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`${target} is on record cooldown.`);
 			if (channels[channelId].pendingCollab) return this.errorReply(`You already have a pending collaboration request.`);
-			// Add a check to allow the collaboration if the user is the other channel's pending collaboration.
-			if (channels[targetId].pendingCollab) {
-				if (channels[targetId].pendingCollab === channels[channelId]) {
-					let traffic = collab(channelId, targetId);
-					if (traffic < 1) traffic = 1;
-					let likeDislikeRatio = Math.floor(Math.random() * 100);
-					// Default to 1 like since there is always guaranteed at least 1 view (and we want to be nice for a change)
-					let generateLikes = 1;
-					let generateDislikes = 0;
-					// 70% chance to have positive feedback; 30% chance for negative feedback
-					if (likeDislikeRatio >= 70) {
-						// More dislikes than like scenario
-						generateDislikes = Math.floor(Math.random() * traffic);
-						generateLikes = Math.floor(Math.random() * generateDislikes);
-					} else {
-						// More likes than dislikes scenario
-						generateLikes = Math.floor(Math.random() * traffic);
-						generateDislikes = Math.floor(Math.random() * generateLikes);
-					}
-					let subscriberTraffic = Math.floor(Math.random() * traffic);
-					if (subscriberTraffic < 1) subscriberTraffic = 1;
-					// If the subscriber gain is over 5,000 subscribers halve it (so collaborations aren't "broken")
-					if (subscriberTraffic > 5000) Math.round(subscriberTraffic / 2);
-					let userViewTraffic = channels[channelId].views + traffic;
-					let userSubTraffic = channels[channelId].subscribers + subscriberTraffic;
-					let userLikeTraffic = channels[channelId].likes + generateLikes;
-					let userDislikeTraffic = channels[channelId].dislikes + generateDislikes;
-					let collabViewTraffic = channels[targetId].views + traffic;
-					let collabSubTraffic = channels[targetId].subscribers + traffic;
-					let collabLikeTraffic = channels[targetId].likes + generateLikes;
-					let collabDislikeTraffic = channels[targetId].dislikes + generateDislikes;
-					// Now to actually add the calculations
-					channels[channelId].views = userViewTraffic;
-					channels[channelId].subscribers = userSubTraffic;
-					channels[channelId].likes = userLikeTraffic;
-					channels[channelId].dislikes = userDislikeTraffic;
-					channels[targetId].views = collabViewTraffic;
-					channels[targetId].subscribers = collabSubTraffic;
-					channels[targetId].likes = collabLikeTraffic;
-					channels[targetId].dislikes = collabDislikeTraffic;
-					// Update timers and video counters/titles/etc
-					channels[channelId].lastCollabed = Date.now();
-					channels[channelId].lastRecorded = Date.now();
-					channels[channelId].lastTitle = `Collab w/ ${channels[targetId].name}!`;
-					channels[channelId].videos++;
-					channels[targetId].lastCollabed = Date.now();
-					channels[targetId].lastRecorded = Date.now();
-					channels[targetId].lastTitle = `Collab w/ ${channels[channelId].name}!`;
-					channels[targetId].videos++;
-					// Later implement profile pictures and use the other DewTuber's profile picture as the thumbnail
-					channels[channelId].lastThumbnail = null;
-					channels[targetId].lastThumbnail = null;
-					// Since the other channel has proposed the collab reset the request now it is complete
-					channels[targetId].pendingCollab = null;
-					write();
-					// PM the other channel's owner that they accepted and tell them what their channel gained
-					if (Users.get(channels[targetId].owner)) {
-						Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
-					}
-					// If the user's have notifications on send collab cooldown alerts
-					if (channels[channelId].notifications) {
-						let notification = Date.now() - channels[channelId].lastCollabed + COLLAB_COOLDOWN;
-						setTimeout(() => {
-							if (Users.get(user.userid)) {
-								user.send(`|pm|~DewTube Manager|~|Hey ${user.name}, just wanted to let you know you can collaborate with DewTubers again!`);
-							}
-						}, notification);
-					}
-					if (channels[targetId].notifications) {
-						let notification = Date.now() - channels[targetId].lastCollabed + COLLAB_COOLDOWN;
-						setTimeout(() => {
-							if (Users.get(channels[targetId].owner)) {
-								Users(channels[targetId].owner).send(`|pm|~DewTube Manager|~|Hey ${Users.get(channels[targetId].owner)}, just wanted to let you know you can collaborate with DewTubers again!`);
-							}
-						}, notification);
-					}
-					return this.sendReply(`${channels[targetId].name} has already sent a collaboration request to you, so you accepted their request. This resulted in both of you gaining the following: ${traffic} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, ${generateLikes} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
-				} else {
-					return this.errorReply(`${target} has already got a pending collaboration request.`);
-				}
+			// Add a check to allow the collaboration if the user is the other channel's pending collaboration just have them accept it
+			if (channels[targetId].pendingCollab === channels[channelId].id) {
+				return this.parse(`/dewtube accept ${channels[targetId].id}`);
+			} else {
+				return this.errorReply(`${target} has already got a pending collaboration request.`);
 			}
 			channels[channelId].pendingCollab = targetId;
 			write();
@@ -604,39 +547,52 @@ exports.commands = {
 			if (Date.now() - channels[targetId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`${target} is on record cooldown.`);
 			let traffic = collab(channelId, targetId);
 			if (traffic < 1) traffic = 1;
-			let likeDislikeRatio = Math.floor(Math.random() * 100);
+			let loveHateRatio = Math.floor(Math.random() * 100);
 			// Default to 1 like since there is always guaranteed at least 1 view (and we want to be nice for a change)
 			let generateLikes = 1;
 			let generateDislikes = 0;
+			let subscriberTraffic;
+			let unsubs;
 			// 70% chance to have positive feedback; 30% chance for negative feedback
-			if (likeDislikeRatio >= 70) {
+			if (loveHateRatio >= 70) {
 				// More dislikes than like scenario
 				generateDislikes = Math.floor(Math.random() * traffic);
 				generateLikes = Math.floor(Math.random() * generateDislikes);
+				unsubs = Math.floor(Math.random() * traffic);
+				subscriberTraffic = Math.floor(Math.random() * generateDislikes);
 			} else {
 				// More likes than dislikes scenario
 				generateLikes = Math.floor(Math.random() * traffic);
 				generateDislikes = Math.floor(Math.random() * generateLikes);
+				subscriberTraffic = Math.floor(Math.random() * traffic);
+				unsubs = Math.floor(Math.random() * subscriberTraffic);
 			}
-			let subscriberTraffic = Math.floor(Math.random() * traffic);
 			if (subscriberTraffic < 1) subscriberTraffic = 1;
 			// If the subscriber gain is over 5,000 subscribers halve it (so collaborations aren't "broken")
 			if (subscriberTraffic > 5000) Math.round(subscriberTraffic / 2);
 			let userViewTraffic = channels[channelId].views + traffic;
 			let userSubTraffic = channels[channelId].subscribers + subscriberTraffic;
+			let userUnsubTraffic = channels[channelId].subscribers - unsubs;
 			let userLikeTraffic = channels[channelId].likes + generateLikes;
 			let userDislikeTraffic = channels[channelId].dislikes + generateDislikes;
 			let collabViewTraffic = channels[targetId].views + traffic;
 			let collabSubTraffic = channels[targetId].subscribers + traffic;
+			let collabUnsubTraffic = channels[targetId].subscribers - unsubs;
 			let collabLikeTraffic = channels[targetId].likes + generateLikes;
 			let collabDislikeTraffic = channels[targetId].dislikes + generateDislikes;
+			// Be nice and just make the video not have any unsubs :P
+			if (userUnsubTraffic > channels[channelId].subscribers || collabUnsubTraffic > channels[targetId].subscribers) unsubs = 0;
+			let userSubChange = userSubTraffic - userUnsubTraffic;
+			let userSubs = channels[channelId].subscribers + userSubChange;
+			let collabSubChange = collabSubTraffic - collabUnsubTraffic;
+			let collabSubs = channels[targetId].subscribers + collabSubChange;
 			// Now to actually add the calculations
 			channels[channelId].views = userViewTraffic;
-			channels[channelId].subscribers = userSubTraffic;
+			channels[channelId].subscribers = userSubs;
 			channels[channelId].likes = userLikeTraffic;
 			channels[channelId].dislikes = userDislikeTraffic;
 			channels[targetId].views = collabViewTraffic;
-			channels[targetId].subscribers = collabSubTraffic;
+			channels[targetId].subscribers = collabSubs;
 			channels[targetId].likes = collabLikeTraffic;
 			channels[targetId].dislikes = collabDislikeTraffic;
 			// Update timers and video counters/titles/etc
@@ -656,7 +612,7 @@ exports.commands = {
 			write();
 			// PM the other channel's owner that they accepted and tell them what their channel gained
 			if (Users.get(channels[targetId].owner)) {
-				Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
+				Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, you lost ${unsubs.toLocaleString()} ${unsubs = 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
 			}
 			// If the user's have notifications on send collab cooldown alerts
 			if (channels[channelId].notifications) {
@@ -675,6 +631,7 @@ exports.commands = {
 					}
 				}, notification);
 			}
+			this.sendReply(`You accepted ${channels[targetId].name}'s collaboration request this resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, you lost ${unsubs.toLocaleString()} ${unsubs = 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
 		},
 
 		reject: "denycollab",

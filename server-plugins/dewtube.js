@@ -55,8 +55,8 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "2.0.2",
-	changes: ["Math changed for large & small creators", "Nerf Collabs", "Titles now affect your monetization chance", "Likes/Dislikes Ratio Math Re-done", "If dislikes are higher than your likes, DewTube demonetizes your video", "Collab Cooldown is now 6 hours", "Collabs now must be accepted", "Numbers now use commas appropriately", "Fix Collab Issues", "Factor in Inactive Subscribers", "People will unsubscribe if they dislike your videos"],
+	version: "2.0.2.1",
+	changes: ["Math changed for large & small creators", "Nerf Collabs", "Titles now affect your monetization chance", "Likes/Dislikes Ratio Math Re-done", "If dislikes are higher than your likes, DewTube demonetizes your video", "Collab Cooldown is now 6 hours", "Collabs now must be accepted", "Numbers now use commas appropriately", "Fix Collab Issues", "People will unsubscribe if they dislike your videos", "Disable Inactive Subscribers for now"],
 	// Basic Filter for Instant Demonetization
 	filter: ["nsfw", "porn", "sex", "shooting"],
 };
@@ -230,7 +230,7 @@ exports.commands = {
 
 		editvideo: "edit",
 		edit: function (target, room, user) {
- 			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
+			if (!getChannel(user.userid)) return this.errorReply(`You do not have a DewTube channel yet.`);
 			let channelId = toId(getChannel(user.userid));
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "recorded") return this.errorReply(`You haven't recorded any new footage yet.`);
@@ -257,21 +257,20 @@ exports.commands = {
 				generateEditedViews = 10;
 				generateRawViews = 5;
 			} else if (subCount > 0 && subCount < 1000) {
-				// Double Views while you are under 1,000 subscribers for Edited Videos
+				// Multiply views by 1.5x if they have less than 1,000 subscribers
 				generateEditedViews = Math.round(generateEditedViews * 1.5);
-				// 1.5x views while you are under 1,000 subscribers for Raw Videos
 				generateRawViews = Math.round(generateRawViews * 1.5);
 			} else {
-				// Factor in the inactive subs to make bigger channels not dominate too much
-				let inactivityPercent = ["2", "3", "4", "5"];
-				let inactiveSubs = inactivityPercent[Math.floor(Math.random() * inactivityPercent)];
-				generateEditedViews = Math.round(generateEditedViews / inactiveSubs);
-				generateRawViews = Math.round(generateRawViews / inactiveSubs);
+				generateEditedViews = generateEditedViews;
+				generateRawViews = generateRawViews;
 			}
 			if (videoProgress === "edited" && generateEditedViews < 1) {
 				generateEditedViews = 1;
 			} else if (videoProgress === "recorded" && generateRawViews < 1) {
 				generateRawViews = 1;
+			} else {
+				generateEditedViews = generateEditedViews;
+				generateRawViews = generateRawViews;
 			}
 			let loveHateRatio = Math.floor(Math.random() * 100);
 			let generateEditedSubs;
@@ -320,28 +319,28 @@ exports.commands = {
 				generateRawSubs = Math.round(generateRawSubs / 2);
 				generateRawUnsubs = Math.round(generateRawUnsubs / 2);
 			}
+			if (generateEditedSubs < 1) generateEditedSubs = 1;
+			if (generateRawSubs < 1) generateRawSubs = 1;
 			if (videoProgress === "edited") {
-				let subChange = generateEditedSubs + generateEditedUnsubs;
-				let newSubCount = channels[channelId].subscribers + subChange;
+				let positiveSubs = generateEditedSubs + channels[channelId].subscribers;
 				let newViewCount = channels[channelId].views + generateEditedViews;
 				let newLikeCount = channels[channelId].likes + generateEditedLikes;
 				let newDislikeCount = channels[channelId].dislikes + generateEditedDislikes;
-				channels[channelId].subscribers = newSubCount;
+				channels[channelId].subscribers = positiveSubs;
 				channels[channelId].views = newViewCount;
 				channels[channelId].likes = newLikeCount;
 				channels[channelId].dislikes = newDislikeCount;
-				this.sendReplyBox(`Congratulations, your video titled "${title}" has received ${generateEditedViews.toLocaleString()} view${Chat.plural(generateEditedViews)}. ${generateEditedSubs.toLocaleString()} ${generateEditedSubs = 1 ? "people have" : "person has"} subscribed to your channel after seeing this video. You got ${generateEditedLikes.toLocaleString()} like${Chat.plural(generateEditedLikes)} and ${generateEditedDislikes.toLocaleString()} dislike${Chat.plural(generateEditedDislikes)}.<br /> Total Sub Count: ${newSubCount.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
+				this.sendReplyBox(`Congratulations, your video titled "${title}" has received ${generateEditedViews.toLocaleString()} view${Chat.plural(generateEditedViews)}. ${generateEditedSubs.toLocaleString()} ${generateEditedSubs === 1 ? "person has" : "people have"} subscribed to your channel after seeing this video. You got ${generateEditedLikes.toLocaleString()} like${Chat.plural(generateEditedLikes)} and ${generateEditedDislikes.toLocaleString()} dislike${Chat.plural(generateEditedDislikes)}.<br /> Total Sub Count: ${positiveSubs.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
 			} else {
-				let subChange = generateRawSubs + generateRawUnsubs;
-				let newSubCount = channels[channelId].subscribers + subChange;
+				let positiveSubs = generateRawSubs + channels[channelId].subscribers;
 				let newViewCount = channels[channelId].views + generateRawViews;
 				let newLikeCount = channels[channelId].likes + generateRawLikes;
 				let newDislikeCount = channels[channelId].dislikes + generateRawDislikes;
-				channels[channelId].subscribers = newSubCount;
+				channels[channelId].subscribers = positiveSubs;
 				channels[channelId].views = newViewCount;
 				channels[channelId].likes = newLikeCount;
 				channels[channelId].dislikes = newDislikeCount;
-				this.sendReplyBox(`Your un-edited video titled "${title}" has received ${generateRawViews.toLocaleString()} view${Chat.plural(generateRawViews)}. ${generateRawSubs.toLocaleString()} ${generateRawSubs = 1 ? "people have" : "person has"} subscribed to your channel after seeing this video. You got ${generateRawLikes.toLocaleString()} like${Chat.plural(generateRawLikes)} and ${generateRawDislikes.toLocaleString()} dislike${Chat.plural(generateRawDislikes)}.<br /> Total Sub Count: ${newSubCount.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
+				this.sendReplyBox(`Your un-edited video titled "${title}" has received ${generateRawViews.toLocaleString()} view${Chat.plural(generateRawViews)}. ${generateRawSubs.toLocaleString()} ${generateRawSubs === 1 ? "person has" : "people have"} subscribed to your channel after seeing this video. You got ${generateRawLikes.toLocaleString()} like${Chat.plural(generateRawLikes)} and ${generateRawDislikes.toLocaleString()} dislike${Chat.plural(generateRawDislikes)}.<br /> Total Sub Count: ${positiveSubs.toLocaleString()}. Total View Count: ${newViewCount.toLocaleString()}. Total Likes: ${newLikeCount.toLocaleString()}. Total Dislikes: ${newDislikeCount.toLocaleString()}.`);
 			}
 			if (channels[channelId].isMonetized) {
 				let demonetization = Math.floor(Math.random() * 100);
@@ -349,7 +348,7 @@ exports.commands = {
 				for (let badWords of config.filter) {
 					// This is basically so we can standardize and check titles more efficiently as IDs would remove spaces etc
 					let lowercaseTitle = title.toLowerCase();
-					if (lowercaseTitle.includes(badWords)) demonetization = 70;
+					if (lowercaseTitle.includes(badWords)) demonetization = 90;
 				}
 				// If the demonetization number or more dislikes were given than likes then DewTube demonetizes the user
 				if (demonetization >= 70 || loveHateRatio >= 70) {
@@ -358,14 +357,12 @@ exports.commands = {
 					let adRevenue = 0;
 					if (videoProgress === "recorded") {
 						adRevenue = Math.round(generateRawViews / 20);
-						if (adRevenue < 1) adRevenue = 1;
-						if (adRevenue > 20) adRevenue = 20;
 					}
 					if (videoProgress === "edited") {
 						adRevenue = Math.round(generateEditedViews / 100);
-						if (adRevenue < 1) adRevenue = 1;
-						if (adRevenue > 20) adRevenue = 20;
 					}
+					if (adRevenue < 1) adRevenue = 1;
+					if (adRevenue > 20) adRevenue = 20;
 					Economy.writeMoney(user.userid, adRevenue);
 					Economy.logTransaction(`${user.name} has got ${adRevenue} ${moneyName}${Chat.plural(adRevenue)} from posting a video.`);
 					this.sendReplyBox(`<i>Your video meets community guidelines and was approved for monetization. You have profited ${adRevenue} ${moneyName}${Chat.plural(adRevenue)}!</i>`);
@@ -514,7 +511,7 @@ exports.commands = {
 			// Check if the channel's owner is online (so the system can PM the user and avoid the chances the collaboration request will not be seen)
 			if (!Users.get(channels[targetId].owner) || !Users.get(channels[targetId].owner).connected) return this.errorReply(`The owner of ${target} is not online.`);
 			// Check if both user's are available to record a video and collab
-			if (Date.now() - channels[channelId].lastCollabed < COLLAB_COOLDOWN && user.userid !== "insist") return this.errorReply(`You are on collaboration cooldown.`);
+			if (Date.now() - channels[channelId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`You are on collaboration cooldown.`);
 			if (Date.now() - channels[targetId].lastCollabed < COLLAB_COOLDOWN) return this.errorReply(`${target} is on collaboration cooldown.`);
 			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			if (Date.now() - channels[targetId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`${target} is on record cooldown.`);
@@ -612,7 +609,7 @@ exports.commands = {
 			write();
 			// PM the other channel's owner that they accepted and tell them what their channel gained
 			if (Users.get(channels[targetId].owner)) {
-				Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, you lost ${unsubs.toLocaleString()} ${unsubs = 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
+				Users(channels[targetId].owner).send(`|pm|${user.getIdentity()}|${channels[targetId].owner}|/raw ${Server.nameColor(user.name, true, true)} has accepted your collaboration request. This resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic === 1 ? "view" : "views"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic === 1 ? "subscriber" : "subscribers"}, you lost ${unsubs.toLocaleString()} ${unsubs === 1 ? "subscriber" : "subscribers"}, ${generateLikes.toLocaleString()} ${generateLikes === 1 ? "like" : "likes"}, and ${generateDislikes.toLocaleString()} ${generateDislikes === 1 ? "dislike" : "dislikes"}.`);
 			}
 			// If the user's have notifications on send collab cooldown alerts
 			if (channels[channelId].notifications) {
@@ -631,7 +628,7 @@ exports.commands = {
 					}
 				}, notification);
 			}
-			this.sendReply(`You accepted ${channels[targetId].name}'s collaboration request this resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic = 1 ? "views" : "view"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic = 1 ? "subscribers" : "subscriber"}, you lost ${unsubs.toLocaleString()} ${unsubs = 1 ? "subscribers" : "subscriber"}, ${generateLikes.toLocaleString()} ${generateLikes = 1 ? "likes" : "like"}, and ${generateDislikes.toLocaleString()} ${generateDislikes = 1 ? "dislikes" : "dislike"}.`);
+			this.sendReply(`You accepted ${channels[targetId].name}'s collaboration request this resulted in both of you gaining the following: ${traffic.toLocaleString()} ${traffic === 1 ? "view" : "views"}, ${subscriberTraffic.toLocaleString()} ${subscriberTraffic === 1 ? "subscriber" : "subscribers"}, you lost ${unsubs.toLocaleString()} ${unsubs === 1 ? "subscriber" : "subscribers"}, ${generateLikes.toLocaleString()} ${generateLikes === 1 ? "like" : "likes"}, and ${generateDislikes.toLocaleString()} ${generateDislikes === 1 ? "dislike" : "dislikes"}.`);
 		},
 
 		reject: "denycollab",

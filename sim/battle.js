@@ -1852,16 +1852,6 @@ class Battle extends Dex.ModdedDex {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * @param {AnyObject} boost
-	 * @param {Pokemon} [target]
-	 * @param {Pokemon} [source]
-	 * @param {Effect} [effect]
-	 * @param {boolean} [isSecondary]
-	 * @param {boolean} isSelf
-	 */
-	boost(boost, target, source, effect, isSecondary, isSelf) {
-=======
 	 * @param {SparseBoostsTable} boost
 	 * @param {Pokemon?} [target]
 	 * @param {Pokemon?} [source]
@@ -1870,7 +1860,6 @@ class Battle extends Dex.ModdedDex {
 	 * @param {boolean} isSelf
 	 */
 	boost(boost, target = null, source = null, effect = null, isSecondary = false, isSelf = false) {
->>>>>>> 77f742d422d55464c5592f849e7b35842b97e6c6
 		if (this.event) {
 			if (!target) target = this.event.target;
 			if (!source) source = this.event.source;

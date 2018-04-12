@@ -181,6 +181,9 @@ class Battle extends Dex.ModdedDex {
 		this.supportCancel = false;
 		this.events = null;
 
+		// old-gens
+		this.lastDamage = 0;
+
 		this.abilityOrder = 0;
 		/** @type {boolean} */
 		this.LEGACY_API_DO_NOT_USE = false;
@@ -1849,6 +1852,7 @@ class Battle extends Dex.ModdedDex {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * @param {AnyObject} boost
 	 * @param {Pokemon} [target]
 	 * @param {Pokemon} [source]
@@ -1857,6 +1861,16 @@ class Battle extends Dex.ModdedDex {
 	 * @param {boolean} isSelf
 	 */
 	boost(boost, target, source, effect, isSecondary, isSelf) {
+=======
+	 * @param {SparseBoostsTable} boost
+	 * @param {Pokemon?} [target]
+	 * @param {Pokemon?} [source]
+	 * @param {Effect | string?} [effect]
+	 * @param {boolean} [isSecondary]
+	 * @param {boolean} isSelf
+	 */
+	boost(boost, target = null, source = null, effect = null, isSecondary = false, isSelf = false) {
+>>>>>>> 77f742d422d55464c5592f849e7b35842b97e6c6
 		if (this.event) {
 			if (!target) target = this.event.target;
 			if (!source) source = this.event.source;
@@ -1871,9 +1885,11 @@ class Battle extends Dex.ModdedDex {
 		let boosted = false;
 		for (let i in boost) {
 			let currentBoost = {};
+			// @ts-ignore
 			currentBoost[i] = boost[i];
 			let boostBy = target.boostBy(currentBoost);
 			let msg = '-boost';
+			// @ts-ignore
 			if (boost[i] < 0) {
 				msg = '-unboost';
 				boostBy = -boostBy;
@@ -2280,7 +2296,7 @@ class Battle extends Dex.ModdedDex {
 	 * @param {Pokemon} pokemon
 	 * @param {Pokemon} target
 	 * @param {Move} move
-	 * @param {boolean} suppressMessages
+	 * @param {boolean} [suppressMessages]
 	 */
 	modifyDamage(baseDamage, pokemon, target, move, suppressMessages) {
 		if (!move.type) move.type = '???';
@@ -3401,8 +3417,8 @@ class Battle extends Dex.ModdedDex {
 	/**
 	 * @param {?Pokemon} target
 	 * @param {Pokemon} pokemon
-	 * @param {Move} move
-	 * @param {MoveData} [moveData]
+	 * @param {string | Move} move
+	 * @param {Move} [moveData]
 	 * @param {boolean} [isSecondary]
 	 * @param {boolean} [isSelf]
 	 * @return {number | false}

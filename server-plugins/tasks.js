@@ -35,16 +35,16 @@ exports.commands = {
 		add: function (target, room, user) {
 			if (!isDev(user.userid) && !this.can("bypassall")) return false;
 			let [issue, priority, ...description] = target.split(",").map(p => p.trim());
-			let task = Db.tasks.get("development");
 			if (!(issue && priority && description)) return this.parse("/taskshelp");
+			let task = Db.tasks.get("development");
 			let id = toId(issue);
-			if (task.issues[id]) return this.errorReply(`This issue title already exists.`);
+			if (task.issues[toId(issue)]) return this.errorReply(`This issue title already exists.`);
 			if (issue.length < 1 || issue.length > 30) return this.errorReply(`The issue title should not exceed 30 characters long. Feel free to continue in the description.`);
 			if (description.length < 1 || description.length > 100) return this.errorReply(`The description should not exceed 100 characters long.`);
 			if (isNaN(priority) || priority > 6 || priority < 1) return this.errorReply(`The priority should be an integer between 1-6; 1 being the highest priority.`);
 			task.issues[id] = {id, issue, description, employer: user.userid, priority};
 			Db.tasks.set("development", task);
-			alertDevs(`${Server.nameColor(user.name, true, true)} has filed an issue. Issue: ${issue}. Description: ${description}. Priority: ${priority}.`);
+			alertDevs(`${Server.nameColor(user.name, true, true)} has filed an issue.<br />Issue: ${issue}.<br />Description: ${description}.<br />Priority: ${priority}.`);
 			return this.sendReply(`The task "${issue}" has been added to the server task list.`);
 		},
 
@@ -91,7 +91,7 @@ exports.commands = {
 
 	taskhelp: "taskshelp",
 	taskshelp: [
-		`/tasks add [issue|TODO], [description of what needs to be done] - Adds an item to the server's tasks list. Must be a Registered Developer on the server.
+		`/tasks add [issue|TODO], [priority (1-6)], [description of what needs to be done] - Adds an item to the server's tasks list with the specified priority (1 being the highest; 6 being the lowest) with a description of the issue/project. Must be a Registered Developer on the server.
 		/tasks delete [issue] - Deletes an item from the server's task list. Must be a Registered Developer.
 		/tasks list - Displays the server's task list. Must be a Registered Developer; may only be broadcasted in Development rooms.
 		/tasks help - Displays this help command.`,

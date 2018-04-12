@@ -55,8 +55,8 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "2.0.2.1",
-	changes: ["Math changed for large & small creators", "Nerf Collabs", "Titles now affect your monetization chance", "Likes/Dislikes Ratio Math Re-done", "If dislikes are higher than your likes, DewTube demonetizes your video", "Collab Cooldown is now 6 hours", "Collabs now must be accepted", "Numbers now use commas appropriately", "Fix Collab Issues", "People will unsubscribe if they dislike your videos", "Disable Inactive Subscribers for now"],
+	version: "2.0.2.2",
+	changes: ["Math changed for large & small creators", "Nerf Collabs", "Titles now affect your monetization chance", "Likes/Dislikes Ratio Math Re-done", "If dislikes are higher than your likes, DewTube demonetizes your video", "Collab Cooldown is now 6 hours", "Collabs now must be accepted", "Numbers now use commas appropriately", "Fix Collab Issues", "People will unsubscribe if they dislike your videos"],
 	// Basic Filter for Instant Demonetization
 	filter: ["nsfw", "porn", "sex", "shooting"],
 };
@@ -211,7 +211,7 @@ exports.commands = {
 			let [title, ...thumbnail] = target.split(",").map(p => p.trim());
 			if (!title) return this.errorReply(`Please title the video you are filming.`);
 			let channelId = toId(getChannel(user.userid));
-			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
+			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN && user.userid !== "insist") return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
 			channels[channelId].vidProgress = "recorded";
@@ -260,6 +260,16 @@ exports.commands = {
 				// Multiply views by 1.5x if they have less than 1,000 subscribers
 				generateEditedViews = Math.round(generateEditedViews * 1.5);
 				generateRawViews = Math.round(generateRawViews * 1.5);
+			} else if (subCount > 1000 && subCount < 100000) {
+				// Factor in inactive subscribers
+				let inactivity = Math.floor(Math.random() * 10);
+				generateEditedViews = Math.round(generateEditedViews / inactivity);
+				generateRawViews = Math.round(generateRawViews / inactivity);
+			} else if (subCount > 100000) {
+				// Factor in inactive subscribers
+				let inactivity = Math.floor(Math.random() * 100);
+				generateEditedViews = Math.round(generateEditedViews / inactivity);
+				generateRawViews = Math.round(generateRawViews / inactivity);
 			} else {
 				generateEditedViews = generateEditedViews;
 				generateRawViews = generateRawViews;

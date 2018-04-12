@@ -211,7 +211,7 @@ exports.commands = {
 			let [title, ...thumbnail] = target.split(",").map(p => p.trim());
 			if (!title) return this.errorReply(`Please title the video you are filming.`);
 			let channelId = toId(getChannel(user.userid));
-			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN && user.userid !== "insist") return this.errorReply(`You are on record cooldown.`);
+			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
 			channels[channelId].vidProgress = "recorded";
@@ -527,10 +527,8 @@ exports.commands = {
 			if (Date.now() - channels[targetId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`${target} is on record cooldown.`);
 			if (channels[channelId].pendingCollab) return this.errorReply(`You already have a pending collaboration request.`);
 			// Add a check to allow the collaboration if the user is the other channel's pending collaboration just have them accept it
-			if (channels[targetId].pendingCollab === channels[channelId].id) {
+			if (channels[targetId].pendingCollab !== "" && channels[targetId].pendingCollab === channels[channelId].id) {
 				return this.parse(`/dewtube accept ${channels[targetId].id}`);
-			} else {
-				return this.errorReply(`${target} has already got a pending collaboration request.`);
 			}
 			channels[channelId].pendingCollab = targetId;
 			write();

@@ -739,11 +739,21 @@ class CommandContext {
 				return false;
 			}
 
+<<<<<<< HEAD
 			let message = this.canTalk(suppressMessage || this.message);
-			if (!message) return false;
-
+=======
 			// broadcast cooldown
-			let broadcastMessage = message.toLowerCase().replace(/[^a-z0-9\s!,]/g, '');
+			const broadcastMessage = (suppressMessage || this.message).toLowerCase().replace(/[^a-z0-9\s!,]/g, '');
+
+			if (this.room && this.room.lastBroadcast === broadcastMessage &&
+					this.room.lastBroadcastTime >= Date.now() - BROADCAST_COOLDOWN) {
+				this.errorReply("You can't broadcast this because it was just broadcasted.");
+				return false;
+			}
+
+			const message = this.canTalk(suppressMessage || this.message);
+>>>>>>> e8a6c7b13ca0546a87034d898efa164f40c4b131
+			if (!message) return false;
 
 			this.message = message;
 			this.broadcastMessage = broadcastMessage;

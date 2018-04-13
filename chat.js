@@ -739,9 +739,6 @@ class CommandContext {
 				return false;
 			}
 
-<<<<<<< HEAD
-			let message = this.canTalk(suppressMessage || this.message);
-=======
 			// broadcast cooldown
 			const broadcastMessage = (suppressMessage || this.message).toLowerCase().replace(/[^a-z0-9\s!,]/g, '');
 
@@ -752,7 +749,6 @@ class CommandContext {
 			}
 
 			const message = this.canTalk(suppressMessage || this.message);
->>>>>>> e8a6c7b13ca0546a87034d898efa164f40c4b131
 			if (!message) return false;
 
 			this.message = message;

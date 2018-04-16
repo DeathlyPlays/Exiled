@@ -89,6 +89,44 @@ This username must be registered. If you do not have a registered account, you c
 
 Once you're an administrator, you can promote/demote others easily with the `/globaladmin`, `/globalleader`, `/globalmod`, etc commands.
 
+<<<<<<< HEAD
+=======
+
+Browser support
+------------------------------------------------------------------------
+
+Pokémon Showdown currently supports, in order of preference:
+
+ - Chrome
+ - Firefox
+ - Opera
+ - Safari 5+
+ - IE11+
+ - Chrome/Firefox/Safari for various mobile devices
+
+Pokémon Showdown is usable, but expect degraded performance and certain features not to work in:
+
+ - Safari 4+
+ - IE9+
+
+Pokémon Showdown is mostly developed on Chrome, and Chrome or the desktop client is required for certain features like dragging-and-dropping teams from PS to your computer. However, bugs reported on any supported browser will usually be fixed pretty quickly.
+
+
+Community
+------------------------------------------------------------------------
+
+PS has a built-in chat service. Join our main server to talk to us!
+
+You can also visit the [Pokémon Showdown forums][8] for discussion and help.
+
+  [8]: https://www.smogon.com/forums/forums/pok%C3%A9mon-showdown.209/
+
+If you'd like to contribute to programming and don't know where to start, feel free to check out [Ideas for New Developers][9].
+
+  [9]: https://github.com/Zarel/Pokemon-Showdown/issues/2444
+
+
+>>>>>>> a1a88999ad51e90731007e1c900f9fde781afde2
 License
 ------------------------------------------------------------------------
 

@@ -89,8 +89,6 @@ This username must be registered. If you do not have a registered account, you c
 
 Once you're an administrator, you can promote/demote others easily with the `/globaladmin`, `/globalleader`, `/globalmod`, etc commands.
 
-<<<<<<< HEAD
-=======
 
 Browser support
 ------------------------------------------------------------------------
@@ -126,7 +124,6 @@ If you'd like to contribute to programming and don't know where to start, feel f
   [9]: https://github.com/Zarel/Pokemon-Showdown/issues/2444
 
 
->>>>>>> a1a88999ad51e90731007e1c900f9fde781afde2
 License
 ------------------------------------------------------------------------
 

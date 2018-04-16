@@ -1236,15 +1236,6 @@ exports.commands = {
 		this.sendReplyBox(`<a href="https://www.smogon.com/sim/staff_list">Pok&eacute;mon Showdown Staff List</a>`);
 	},
 
-<<<<<<< HEAD
-=======
-	'!forums': true,
-	forums: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox(`<a href="https://www.smogon.com/forums/forums/209/">Pok&eacute;mon Showdown Forums</a>`);
-	},
-
->>>>>>> a1a88999ad51e90731007e1c900f9fde781afde2
 	'!privacypolicy': true,
 	privacypolicy: function (target, room, user) {
 		if (!this.runBroadcast()) return;
@@ -1256,30 +1247,6 @@ exports.commands = {
 		);
 	},
 
-<<<<<<< HEAD
-=======
-	'!suggestions': true,
-	suggestions: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox(`<a href="https://www.smogon.com/forums/threads/3534365/">Make a suggestion for Pok&eacute;mon Showdown</a>`);
-	},
-
-	'!bugs': true,
-	bugreport: 'bugs',
-	bugs: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		if (room && room.battle) {
-			this.sendReplyBox(`<center><button name="saveReplay"><i class="fa fa-upload"></i> Save Replay</button> &mdash; <a href="https://www.smogon.com/forums/threads/3520646/">Questions</a> &mdash; <a href="https://www.smogon.com/forums/threads/3469932/">Bug Reports</a></center>`);
-		} else {
-			this.sendReplyBox(
-				`Have a replay showcasing a bug on Pok&eacute;mon Showdown?<br />` +
-				`- <a href="https://www.smogon.com/forums/threads/3520646/">Questions</a><br />` +
-				`- <a href="https://www.smogon.com/forums/threads/3469932/">Bug Reports</a> (ask in <a href="/help">Help</a> before posting in the thread if you're unsure)`
-			);
-		}
-	},
-
->>>>>>> a1a88999ad51e90731007e1c900f9fde781afde2
 	'!avatars': true,
 	avatars: function (target, room, user) {
 		if (!this.runBroadcast()) return;

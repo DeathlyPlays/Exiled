@@ -31,14 +31,10 @@
   "main": "app.js",
   "scripts": {
     "start": "node pokemon-showdown",
-<<<<<<< HEAD
     "test": "eslint --cache . && mocha"
-=======
-    "test": "eslint --cache . && tsc && mocha",
     "lint": "eslint --cache .",
     "precommit": "npm run lint",
     "prepush": "npm test"
->>>>>>> a1a88999ad51e90731007e1c900f9fde781afde2
   },
   "homepage": "http://pokemonshowdown.com",
   "repository": {

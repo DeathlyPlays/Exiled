@@ -11,7 +11,9 @@ class PingPong extends Console.Console {
 	constructor(user, muted, rounds, kickTime) {
 		super(user, `background:url("https://media.giphy.com/media/l41lO5QYsXKGi911C/giphy.gif"); color: black; font-weight: bold;`, null, null, muted, null);
 		this.user = user;
-		this.game = "Ping Pong";
+		this.title = "Ping Pong";
+		this.gameId = "pingpong";
+		this.version = "1.1.2";
 		this.hasBall = "PLAYER";
 		this.score = [0, 0];
 		this.remainingRounds = rounds || 5;
@@ -47,7 +49,7 @@ class PingPong extends Console.Console {
 		if (hit) {
 			this.hasBall = "PLAYER";
 			//send updates
-			this.update(null, `<center><button class="button" name="send" value="/pingpong hit">HIT THE BALL</button></center>`);
+			this.update(null, `<center><button class="button" name="send" value="/pingpong hit">Hit The Ball!</button></center>`);
 			this.runAutoDQ();
 		} else {
 			this.endRound(true, false);
@@ -75,6 +77,7 @@ class PingPong extends Console.Console {
 		this.hasBall = `PLAYER`;
 		return true;
 	}
+
 	runAutoDQ() {
 		this.timer = setTimeout(function () {
 			if (!this || !this.endRound) return;
@@ -85,7 +88,7 @@ class PingPong extends Console.Console {
 	endGame(win) {
 		if (win) {
 			this.update(null, `<center style="background-color: green">Congratulations to ${Server.nameColor(this.user.name, true, true)} for winning the game of Ping Pong!<br /><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I won't play your stupid game again.</button></center>`);
-			Server.ExpControl.addExp(this.user, this.room, 3);
+			Server.ExpControl.addExp(this.user, null, 3);
 		} else {
 			this.update(null, `<center style="background-color: green">The COM won the game of ping pong...<br /><button name="send" class="button" value="/pingpong start">Play again?</button> | <button name="send" class="button" value="/pingpong end">No, I won't play your stupid game again.</button></center>`);
 		}
@@ -112,12 +115,12 @@ exports.commands = {
 		},
 
 		serve: function (target, room, user) {
-			if (!user.console || user.console.game !== "Ping Pong") return;
+			if (!user.console || user.console.gameId !== "pingpong") return;
 			user.console.serve();
 		},
 
 		hit: function (target, room, user) {
-			if (!user.console || user.console.game !== "Ping Pong") return;
+			if (!user.console || user.console.gameId !== "pingpong") return;
 			if (user.console.hasBall !== "PLAYER") return;
 			let hit = user.console.hit();
 			if (hit) {
@@ -131,12 +134,12 @@ exports.commands = {
 		},
 
 		end: function (target, room, user) {
-			if (!user.console || user.console.game !== "Ping Pong") return;
+			if (!user.console || user.console.gameId !== "pingpong") return;
 			this.parse("/console kill");
 		},
 
-		"": function (target, room, user) {
-			return this.parse("/help pingpong");
+		"": function () {
+			this.parse("/help pingpong");
 		},
 	},
 	pingponghelp: [

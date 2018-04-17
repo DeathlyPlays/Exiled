@@ -725,6 +725,12 @@ class User {
 			return false;
 		}
 
+		if (this.console) {
+			// Shutdown on rename
+			this.sendTo(this.console.room, `|uhtmlchange|console${this.userid}${this.consoleId}|`);
+			delete this.console;
+		}
+
 		let challenge = '';
 		if (connection) {
 			challenge = connection.challenge;
@@ -963,6 +969,8 @@ class User {
 			}
 			// @ts-ignore
 			room.game.onRename(this, oldid, joining, isForceRenamed);
+			// @ts-ignore
+			if (this.console) this.console.onRename(this, oldid, joining, isForceRenamed);
 		}
 		for (const roomid of this.inRooms) {
 			Rooms(roomid).onRename(this, oldid, joining);

@@ -1250,12 +1250,13 @@ Chat.loadPlugins = function () {
 	if (Config.loginfilter) Chat.loginfilters.push(Config.loginfilter);
 
 	// Install plug-in commands and chat filters
+	Object.assign(commands, require('./console.js').commands);
+	Object.assign(pages, require('./console.js').pages);
 
 	// info always goes first so other plugins can shadow it
 	let files = FS('chat-plugins/').readdirSync();
 	files = files.filter(file => file !== 'info.js');
 	files.unshift('info.js');
-	Object.assign(commands, require('./console').commands);
 
 	for (const file of files) {
 		if (file.substr(-3) !== '.js') continue;
@@ -1283,19 +1284,15 @@ Chat.loadPlugins = function () {
 		if (serverplugin.hostfilter) Chat.hostfilters.push(serverplugin.hostfilter);
 	}
 
-	let gamecards = FS('game-cards/').readdirSync();
-
 	// Load games for Console
 	Server.gameList = {};
-	for (const gamecard of gamecards) {
-		if (gamecard.substr(-3) !== '.js') continue;
-		const gamecards = require(`./game-cards/${gamecard}`);
-
-		Object.assign(commands, gamecards.commands);
-
-		let obj = require(`./game-cards/${gamecard}`).box;
-		if (obj && obj.name) obj.id = toId(obj.name);
-		Server.gameList[obj.id] = obj;
+	for (let file of FS('game-cards').readdirSync()) {
+		if (file.substr(-3) !== '.js') continue;
+		const gamecard = require(`./game-cards/${file}`);
+		Object.assign(commands, gamecard.commands);
+		Object.assign(pages, gamecard.pages);
+		if (gamecard.box && gamecard.box.name) gamecard.box.id = toId(gamecard.box.name);
+		Server.gameList[gamecard.box.id] = gamecard.box;
 	}
 };
 

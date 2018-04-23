@@ -270,17 +270,11 @@ exports.commands = {
 				let inactivity = Math.floor(Math.random() * 100);
 				generateEditedViews = Math.round(generateEditedViews / inactivity);
 				generateRawViews = Math.round(generateRawViews / inactivity);
-			} else {
-				generateEditedViews = generateEditedViews;
-				generateRawViews = generateRawViews;
 			}
 			if (videoProgress === "edited" && generateEditedViews < 1) {
 				generateEditedViews = 1;
 			} else if (videoProgress === "recorded" && generateRawViews < 1) {
 				generateRawViews = 1;
-			} else {
-				generateEditedViews = generateEditedViews;
-				generateRawViews = generateRawViews;
 			}
 			let loveHateRatio = Math.floor(Math.random() * 100);
 			let generateEditedSubs;

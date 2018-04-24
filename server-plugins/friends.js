@@ -30,7 +30,7 @@ function write() {
 	));
 }
 
-function checkFriends(user, userid) {
+function checkFriends(userid, user) {
 	if (!friends[userid] || !Db.friendnotifications.has(userid)) return false;
 	let onlineUsers = [];
 	friends[userid].friendsList.forEach(online => {
@@ -38,7 +38,10 @@ function checkFriends(user, userid) {
 			onlineUsers.push(online);
 		}
 	});
-	if (onlineUsers.length > 0) return user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.`);
+	if (onlineUsers.length > 0) user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.`);
+	for (let friend of onlineUsers) {
+		if (Db.friendnotifications.has(friend)) Users(friend).send(`|pm|${Config.serverName} Server|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(userid, true, true)} has just came online.`);
+	}
 }
 Server.checkFriends = checkFriends;
 
@@ -166,12 +169,12 @@ exports.commands = {
 			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><table><tr><center><h2>${Server.nameColor(target, true, true)}'s Friends List (${friends[friendsId].friendsList.length} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2></center></tr>`;
 			friends[friendsId].friendsList.forEach(friend => {
 				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${friend}">${Server.nameColor(friend, true, true)}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center"> Last Seen: ${getLastSeen(friend)}</td>`;
-				if (!this.broadcasting && target === user.userid) {
+				if (!this.broadcasting && friendsId === user.userid) {
 					display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/friends unfriend ${friend}">Unfriend ${friend}</button></td>`;
 				}
 			});
 			display += `</tr></table>`;
-			if (!this.broadcasting) {
+			if (!this.broadcasting && friendsId === user.userid) {
 				display += `<center><button class="button" name="send" value="/friends notifications">${(Db.friendnotifications.has(user.userid) ? `Disable Friend Notifications` : `Enable Friend Notifications`)}</center>`;
 			}
 			display += `</div>`;
@@ -185,12 +188,12 @@ exports.commands = {
 
 	friendshelp: [
 		`/friends init - Initializes your friends list.
-		/friends add [user] - Sends a user a friend request. Must be auto-confirmed and unlocked.
+		/friends add [user] - Sends a user a friend request. Must be autoconfirmed and unlocked.
 		/friends remove [user] - Unfriends a user.
 		/friends accept [user] - Accepts a user's friend request.
 		/friends decline [user] - Declines a user's friend request.
-		/friends disable - Disables the ability for others to send you friend requests.
-		/friends enable - Enables the ability for others to send you friend requests (if you had it disables).
+		/friends disable - Disables the ability for others to send you friend requests (if you had it enabled).
+		/friends enable - Enables the ability for others to send you friend requests (if you had it disabled).
 		/friends notify - If disabled, enables friend notifications. If enabled, disables friend notifications.
 		/friends list [optional target] - Shows the user's friends list if they have initialized their list; defaults to yourself.
 		/friends help - Shows this help command.`,

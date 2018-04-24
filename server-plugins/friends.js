@@ -31,14 +31,14 @@ function write() {
 }
 
 function checkFriends(userid, user) {
-	if (!friends[userid] || !Db.friendnotifications.has(userid)) return false;
+	if (!friends[userid]) return false;
 	let onlineUsers = [];
 	friends[userid].friendsList.forEach(online => {
 		if (Users.get(online) && Users.get(online).connected) {
 			onlineUsers.push(online);
 		}
 	});
-	if (onlineUsers.length > 0) user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.`);
+	if (onlineUsers.length > 0 && Db.friendnotifications.has(userid)) user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.`);
 	for (let friend of onlineUsers) {
 		if (Db.friendnotifications.has(friend)) Users(friend).send(`|pm|${Config.serverName} Server|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(userid, true, true)} has just came online.`);
 	}

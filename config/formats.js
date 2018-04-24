@@ -83,23 +83,6 @@ let Formats = [
 		unbanlist: ['Drought'],
 	},
 	{
-		name: "[Gen 7] RU (suspect test)",
-<<<<<<< HEAD
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3625382/\">RU Suspect Test</a>"],
-
-		mod: 'gen7',
-		challengeShow: false,
-		ruleset: ['[Gen 7] RU'],
-=======
-		threads: [`&bullet; <a href="https://www.smogon.com/forums/threads/3633367/">RU Suspect Test</a>`],
-
-		mod: 'gen7',
-		ruleset: ['[Gen 7] UU'],
-		banlist: ['UU', 'BL2', 'Aurora Veil'],
-		unbanlist: ['Entei', 'Drought'],
->>>>>>> f5fa5c7fef3b878b56337724bc88bea601214e8e
-	},
-	{
 		name: "[Gen 7] NU",
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3631363/">NU Metagame Discussion</a>`,

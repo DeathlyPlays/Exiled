@@ -1633,9 +1633,9 @@ exports.commands = {
 	shiphelp: [`/ship [first target], [second target] - Gives the compatibility of the two targets.`],
 
 	revive: "summon",
-	summon: function (target, room, user) {
+	summon: function () {
 		if (!this.can("hotpatch")) return false;
-		let names = [`~BloodedKitten`, `@Horrific17`, `%Kevso`, `+Chesnaught90000`, `%Wobbleleez`, `&Back At My Day`, `%HoeenHero`, `+EchoSierra`, `%VXN`, `☥Sota Higurashi`, `☥Jigglykong`, `+LinkCode`, `+Execute`, `&Kraken Mare`, `*Stabby the Krabby`, `*The Exiler`, `*Oblivion Furret`, `~Insist`, `~Mewth`, `~AlfaStorm`, `&flufi`, `&Chandie`, `@Noviex`, `@Perison`, `&Bronze0re`, `~Vivid is a God`, `~Gyaratoast`];
+		let names = [`~BloodedKitten`, `@Horrific17`, `%Kevso`, `+Chesnaught90000`, `%Wobbleleez`, `&Back At My Day`, `%HoeenHero`, `+EchoSierra`, `%VXN`, `☥Sota Higurashi`, `☥Jigglykong`, `+LinkCode`, `+Execute`, `&Kraken Mare`, `*Stabby the Krabby`, `*The Exiler`, `*Oblivion Furret`, `~Insist`, `~Mewth`, `~AlfaStorm`, `&flufi`, `&Chandie`, `@Noviex`, `@Perison`, `&Bronze0re`, `~Vivid is a God`, `~Gyaratoast`, `~LassNinetales`];
 		names.forEach(revival => {
 			this.add(`|j|${revival}`);
 			this.add(`|c|${revival}|Hey`);

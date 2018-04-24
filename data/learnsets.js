@@ -29,10 +29,7 @@ let BattleLearnsets = {
 		triattack: ["5L1"],
 		watergun: ["5L1"],
 	}},
-<<<<<<< HEAD
 
-=======
->>>>>>> a4276098dddbcfcaac9d48c1e00292de6ba8dd8d
 	bulbasaur: {learnset: {
 		amnesia: ["7E", "6E", "5E", "4E"],
 		attract: ["7M", "7V", "6M", "5M", "4M", "3M"],

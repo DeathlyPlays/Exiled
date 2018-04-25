@@ -4357,7 +4357,7 @@ let BattleItems = {
 	"prismscale": {
 		id: "prismscale",
 		name: "Prism Scale",
-		spritenum: 654,
+		spritenum: 365,
 		fling: {
 			basePower: 30,
 		},
@@ -4415,7 +4415,7 @@ let BattleItems = {
 	"protector": {
 		id: "protector",
 		name: "Protector",
-		spritenum: 656,
+		spritenum: 367,
 		fling: {
 			basePower: 80,
 		},

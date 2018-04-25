@@ -66,7 +66,7 @@ let Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] OU'],
-		banlist: ['OU', 'BL', 'Drizzle', 'Drought', 'Kommonium Z', 'Mewnium Z'],
+		banlist: ['OU', 'UUBL', 'Drizzle', 'Drought', 'Kommonium Z', 'Mewnium Z'],
 	},
 	{
 		name: "[Gen 7] RU",
@@ -79,10 +79,22 @@ let Formats = [
 		mod: 'gen7',
 		searchShow: false,
 		ruleset: ['[Gen 7] UU'],
-		banlist: ['UU', 'BL2', 'Aurora Veil'],
+		banlist: ['UU', 'RUBL', 'Aurora Veil'],
 		unbanlist: ['Drought'],
 	},
 	{
+<<<<<<< HEAD
+=======
+		name: "[Gen 7] RU (suspect test)",
+		threads: [`&bullet; <a href="https://www.smogon.com/forums/threads/3633367/">RU Suspect Test</a>`],
+
+		mod: 'gen7',
+		ruleset: ['[Gen 7] UU'],
+		banlist: ['UU', 'RUBL', 'Aurora Veil'],
+		unbanlist: ['Entei', 'Drought'],
+	},
+	{
+>>>>>>> 6bf35eeb2cd2c22aba226b127d1c7191a9624e6f
 		name: "[Gen 7] NU",
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3631363/">NU Metagame Discussion</a>`,
@@ -92,7 +104,7 @@ let Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] RU'],
-		banlist: ['RU', 'BL3', 'Drought'],
+		banlist: ['RU', 'NUBL', 'Drought'],
 	},
 	{
 		name: "[Gen 7] PU",
@@ -104,7 +116,7 @@ let Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] NU'],
-		banlist: ['NU', 'BL4'],
+		banlist: ['NU', 'PUBL'],
 	},
 	{
 		name: "[Gen 7] LC",
@@ -922,7 +934,7 @@ let Formats = [
 		mod: 'gen5',
 		// searchShow: false,
 		ruleset: ['[Gen 5] OU'],
-		banlist: ['OU', 'BL', 'Drought', 'Sand Stream', 'Snow Warning'],
+		banlist: ['OU', 'UUBL', 'Drought', 'Sand Stream', 'Snow Warning'],
 	},
 	{
 		name: "[Gen 4] PU",
@@ -1039,7 +1051,7 @@ let Formats = [
 		mod: 'gen6',
 		searchShow: false,
 		ruleset: ['[Gen 6] OU'],
-		banlist: ['OU', 'BL', 'Drizzle', 'Drought'],
+		banlist: ['OU', 'UUBL', 'Drizzle', 'Drought'],
 	},
 	{
 		name: "[Gen 6] RU",
@@ -1051,7 +1063,7 @@ let Formats = [
 		mod: 'gen6',
 		searchShow: false,
 		ruleset: ['[Gen 6] UU'],
-		banlist: ['UU', 'BL2'],
+		banlist: ['UU', 'RUBL'],
 	},
 	{
 		name: "[Gen 6] NU",
@@ -1063,7 +1075,7 @@ let Formats = [
 		mod: 'gen6',
 		searchShow: false,
 		ruleset: ['[Gen 6] RU'],
-		banlist: ['RU', 'BL3'],
+		banlist: ['RU', 'NUBL'],
 	},
 	{
 		name: "[Gen 6] PU",
@@ -1075,7 +1087,7 @@ let Formats = [
 		mod: 'gen6',
 		searchShow: false,
 		ruleset: ['[Gen 6] NU'],
-		banlist: ['NU', 'BL4', 'Chatter'],
+		banlist: ['NU', 'PUBL', 'Chatter'],
 	},
 	{
 		name: "[Gen 6] LC",
@@ -1301,7 +1313,7 @@ let Formats = [
 		mod: 'gen5',
 		searchShow: false,
 		ruleset: ['[Gen 5] UU'],
-		banlist: ['UU', 'BL2', 'Shell Smash + Baton Pass', 'Snow Warning'],
+		banlist: ['UU', 'RUBL', 'Shell Smash + Baton Pass', 'Snow Warning'],
 	},
 	{
 		name: "[Gen 5] NU",
@@ -1313,7 +1325,7 @@ let Formats = [
 		mod: 'gen5',
 		searchShow: false,
 		ruleset: ['[Gen 5] RU'],
-		banlist: ['RU', 'BL3', 'Prankster + Assist'],
+		banlist: ['RU', 'NUBL', 'Prankster + Assist'],
 	},
 	{
 		name: "[Gen 5] LC",
@@ -1434,7 +1446,7 @@ let Formats = [
 		mod: 'gen4',
 		searchShow: false,
 		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber', 'OU', 'BL'],
+		banlist: ['Uber', 'OU', 'UUBL'],
 	},
 	{
 		name: "[Gen 4] NU",
@@ -1446,7 +1458,7 @@ let Formats = [
 		mod: 'gen4',
 		searchShow: false,
 		ruleset: ['[Gen 4] UU'],
-		banlist: ['UU', 'BL2'],
+		banlist: ['UU', 'NUBL'],
 	},
 	{
 		name: "[Gen 4] LC",
@@ -1535,7 +1547,7 @@ let Formats = [
 		mod: 'gen3',
 		searchShow: false,
 		ruleset: ['[Gen 3] OU'],
-		banlist: ['OU', 'BL'],
+		banlist: ['OU', 'UUBL'],
 	},
 	{
 		name: "[Gen 3] Custom Game",
@@ -1572,7 +1584,7 @@ let Formats = [
 		mod: 'gen2',
 		searchShow: false,
 		ruleset: ['[Gen 2] OU'],
-		banlist: ['OU', 'BL'],
+		banlist: ['OU', 'UUBL'],
 	},
 	{
 		name: "[Gen 2] Custom Game",

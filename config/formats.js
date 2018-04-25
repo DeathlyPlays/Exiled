@@ -83,8 +83,6 @@ let Formats = [
 		unbanlist: ['Drought'],
 	},
 	{
-<<<<<<< HEAD
-=======
 		name: "[Gen 7] RU (suspect test)",
 		threads: [`&bullet; <a href="https://www.smogon.com/forums/threads/3633367/">RU Suspect Test</a>`],
 
@@ -94,7 +92,6 @@ let Formats = [
 		unbanlist: ['Entei', 'Drought'],
 	},
 	{
->>>>>>> 6bf35eeb2cd2c22aba226b127d1c7191a9624e6f
 		name: "[Gen 7] NU",
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3631363/">NU Metagame Discussion</a>`,

@@ -1,19 +1,22 @@
 flufi
-(Darmanitan)
-@ Fist Plate
-EVs: 4 SpD / 252 Atk / 252 Spe
+(Raichu)
+@ Choice Socks
+	- x1.3 SpA and Speed.
+EVs: 4 SpD / 252 Spa / 252 Spe
 Adamant Nature
-Ability: Iron Fist
-Moves: Fire Punch, Thunder Punch, Mega Kick
-Special Move: Knockout Punch
-	- Fighting Type | Physical | 150 BP | Contact | Punch | 30% chance to confuse the target.
-Notes: Very powerful wallbreaker. It's speed is a bit lackluster though and it's frail, so a powerful attacker with higher speed is capable of taking this out.
-Rank: A
+Ability: Magnopulse
+	- Adaptability + Electric moves can hit Ground types.
+Moves: Thunderbolt, Aura Sphere, Ice Beam
+Special Move: Sparkswitch
+	- Electric Type | Special | 40 BP | +3 Priority | Volt Switch Effect
+Notes: N/A
+Rank: N/A
 
 Mewth
-(Furret-Mega)
+(Furret)
 @ Scope Lens
 EVs: 252 SpA / 252 Spe / 4 HP
+IVs: 0 Atk
 Modest Nature
 Ability: Roarplaying
 	- Uses Roar on its foe and Focus Energy on itself upon entry
@@ -29,6 +32,7 @@ Insist
 	- Allows user to use EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER
 		- EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER: Water type, Special, Z-Move, 150 BP.
 EVs: 4 HP / 252 SpA / 252 Spe
+IVs: 0 Atk
 Timid Nature
 Ability: Crippling Depression
     - Primordial Sea effects + Rain Dish + Swift Swim
@@ -38,3 +42,97 @@ Special Move: npm test
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
 
+Renfur
+(Flygon)
+	- Bug/Dragon typing
+@ Life Orb
+EVs: 252 SpA / 252 Spe / 4 SpD
+IVs: 0 Atk
+Modest Nature
+Ability: DesertDragon
+    - If this Pokemon KO's its target, its Special Attack, and Speed is boosted by two stages.
+Moves: Dragon Pulse, Flamethrower, Earth Power
+Special Move: It's My Time Now!
+    - Essentially a 150 BP Boomburst, just has the bug typing.
+Notes: Fast Special Attacker.
+Rank: A.
+
+Chandie
+(Chandelure)
+@ Life Orb
+EVs: 252 SpA / 252 Spe / 4 HP
+Modest Nature
+Ability: Magma Overdrive
+	- Desolate Land + Adaptability + Tinted Lens; If hit by a Fire Move, it Special Attack raises by 1 stage.
+Moves: Moongeist Beam, Secret Sword
+Signature Move II: Conflagration
+    - 85 BP, always goes first.
+Signature Move I: Solar Eruption
+	- 130BP, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage.
+Notes: Insanely powerful special sweeper.
+Rank: A.
+
+SnorlaxTheRain
+(Snorlax)
+@ Snorlium Z
+EVs: 164 HP / 224 Atk / 120 SpD
+Adamant Nature
+Ability: Scraroom
+    -Scrappy + Trick Room.
+Moves: Giga Impact, Rest, Curse
+Signature Move: Snorlax Slam
+    -120BP, 95% Accuracy, and can be used while sleeping.
+Notes: New
+Rank: N/A
+
+The Exiler
+(Darkrai)
+@ Leftovers
+EVs: 252 SpA / 252 Spe / 4 HP
+Timid Nature
+Ability: The Exiled Ones
+	- Dazzling, Infiltrator, Mold Breaker + uses Topsy Tury, Air Lock and ignores Abilities.
+Moves: Aura Sphere, Sludge Wave, Psychic
+Special Move: Exile
+    - Dark, Distance, 80 BP, 100% accuracy, Transforms into a Cresselia and replaces its moves for: Stored Power, Recover, Cosmic Power, and keeps Exile so it can change back.
+Notes: Fast Special Sweeper that can become bulky. (INSANE ANTIMETA)
+Rank: A.
+
+CielTSnow
+(Lucario-Mega)
+@Life Orb
+EVs: 252 SpA / 252 Spe / 4 Def
+Ability: Adaptability
+Timid Nature
+Moves: Flash Cannon, Flamethrower, Ice Beam
+Special Move: Pimp Slap
+	- Special, Fighting type move, 90 BP, 100% accuracy, raises user's Special Attack by one stage, +1 Priority.
+Notes: Fast Special Sweeper.
+Rank: B.
+
+shivay
+(Charizard-Mega-X)
+@ Health Orb
+	- 1.3x Attacking Moves + Loses 1/32 of maximum health every turn.
+Ability: Bird Claws
+	- Tough Claws and Immune to Ground-type Attacks
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+Moves: Outrage, Flare Blitz, Roost
+Signature Move: Dragonify
+	- 100 BP, Dragon Type, Physical, Boosts user's Attack and Speed one stage, +1 priority, Makes the target's type Dragon type.
+Rank: A.
+
+Back At My Day
+(Camerupt-Mega)
+@ Rocky Helmet
+EVs: 148 Def / 252 SpA / 108 SpD
+IVs: 0 Atk / 0 Spe
+Quiet Nature
+Ability: Time Traveler
+	- Pressure and Rough Skin + Trick Room upon entry and changes type to Ground/Water.
+Moves: Aeroblast, Steam Eruption, Freeze-Dry
+Special Move: Roleplaying
+- Ground Type, Special, 120 BP, 100% Accuracy, 10 PP.
+Notes: Trick Room makes great antimeta in this meta and with the bulk Mega Camerupt has.
+Rank: A.

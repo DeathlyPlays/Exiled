@@ -453,4 +453,38 @@ exports.commands = {
 		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Scalemons: <br /> ${newStats.join('/')}`);
 	},
 	badnboosted2help: ["/scale <pokemon> - Shows the base stats that a Pokemon would have in Scalemons."],
+
+	'!ropmoves': true,
+	'riseofpumoves': 'ropmoves',
+	ropmoves: function (target) {
+		if (!this.runBroadcast()) return;
+		if (!target) return this.parse("/ropmoveshelp");
+		if (target === "lilligant") {
+			return this.sendReplyBox("Psychic, Psyshock, Earth Power, Moonblast, Defog");
+		} else if (target === "togedemaru") {
+			return this.sendReplyBox("Spikes, Stealth Rock, Block, Dragon Tail");
+		} else if (target === "oranguru") {
+			return this.sendReplyBox("Slack Off, Aura Sphere");
+		} else if (target === "toucannon") {
+			return this.sendReplyBox("Drill Run, Spikes");
+		} else if (target === "wailord") {
+			return this.sendReplyBox("Freeze-Dry");
+		} else if (target === "drampa") {
+			return this.sendReplyBox("Earth Power");
+		} else if (target === "crabominable") {
+			return this.sendReplyBox("Icicle Crash, Swords Dance, Fire Punch, Knock Off");
+		} else if (target === "golurk") {
+			return this.sendReplyBox("Shadow Strike, Shadow Sneak");
+		} else {
+			return this.errorReply(target + " is not a buffed Rise of PU Pokemon, or it does not get any new moves.");
+		}
+	},
+	ropmoveshelp: ["/ropmoves <pokemon> - Displays the new moves a Pokemon gets in Rise of PU."],
+
+	'rop': true,
+	'riseofpu': 'rop',
+	rop: function () {
+		if (!this.runBroadcast()) return;
+		return this.sendReplyBox("Lilligant, Togedemaru, Oranguru, Toucannon, Wailord, Drampa, Rotom-Fan, Stantler, Palossand, Crabominable, Hariyama, Golurk");
+	},
 };

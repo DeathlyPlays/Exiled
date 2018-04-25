@@ -209,7 +209,7 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			this.sendReplyBox("Please follow the rules:<br />" +
 				(room && room.rulesLink ? "- <a href=\"" + Chat.escapeHTML(room.rulesLink) + "\">" + Chat.escapeHTML(room.title) + " room rules</a><br />" : "") +
-				"- <a href=\"http://exiledps.boards.net/thread/4/exiled-rules\">" + (room && room.rulesLink ? "Global rules" : "Rules") + "</a>");
+				"- <a href=\"https://pastebin.com/4MtrsP8p\">" + (room && room.rulesLink ? "Global rules" : "Rules") + "</a>");
 			return;
 		}
 		if (!room) {

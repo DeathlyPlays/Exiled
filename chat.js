@@ -762,12 +762,6 @@ class CommandContext {
 				this.parse('/' + this.message.substr(1));
 				return false;
 			}
-
-			if (this.room && this.room.lastBroadcast === this.broadcastMessage &&
-				this.room.lastBroadcastTime >= Date.now() - BROADCAST_COOLDOWN) {
-				this.errorReply("You can't broadcast this because it was just broadcasted.");
-				return false;
-			}
 		}
 		return true;
 	}

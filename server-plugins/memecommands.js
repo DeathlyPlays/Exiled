@@ -218,9 +218,10 @@ exports.commands = {
 		if (!this.can('mute', null, room)) return false;
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
-		if (targetUser.can('root')) return this.sendReply('You cannot ban an Admin - nice try. Chump.');
-		room.addRaw(Server.nameColor(user.name, true, true) + ' has gave the hammer to ' + Server.nameColor(target, true, true) + '.');
-		targetUser.popup("The Hammer has been dropped");
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has given the hammer to ' + Server.nameColor(target, true, true) + '!');
+		targetUser.popup("|html|<b><font color='red'><font size='4'>The Hammer has been dropped!</font></b>");
+		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
+		targetUser.leaveRoom(room.id);
 	},
 
 	"!rekt": true,
@@ -328,6 +329,10 @@ exports.commands = {
 	trump: function () {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<center><img src="http://cdn.buzzlie.com/wp-content/uploads/2015/11/54a07996c8f1c37f77be418079ae352a.jpg" height="300" width="300"><br></center>');
+	},
+
+	lenny: function (target, room, user) {
+		this.parse(`( ͡° ͜ʖ ͡°)`);
 	},
 
 	sans2: function (target, room) {
@@ -445,7 +450,7 @@ exports.commands = {
 
 	bop: function (target, room, user) {
 		if (!target) return this.sendReply('/bop needs a target.');
-		if (!this.can('mute', null, room)) return false;
+		if (!this.can('mute', null, room) && user.userid !== "noviex") return false;
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(user.name, true, true) + ' has bopped ' + Server.nameColor(target, true, true) + ' in the face!');
@@ -459,7 +464,17 @@ exports.commands = {
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(target, true, true) + ' was disintegrated by ' + Server.nameColor(user.name, true, true) + '!');
 		targetUser.popup("Get burned!");
-		if (user.can('hotpatch')) this.parse(`/forcelogout ${targetUser}`);
+		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
+	},
+
+	l: 'loss',
+	loss: function (target, room, user) {
+		if (!target) return this.sendReply('/loss needs a target.');
+		if (!this.can('mute', null, room)) return this.errorReply('/loss - Access Denied.');
+		let targetUser = Users.get(target);
+		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
+		room.addRaw(Server.nameColor(target, true, true) + ' took an L!');
+		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
 	},
 
 	shoot: 'blast',
@@ -469,7 +484,26 @@ exports.commands = {
 		let targetUser = Users.get(target);
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
 		room.addRaw(Server.nameColor(target, true, true) + ' was shot by ' + Server.nameColor(user.name, true, true) + '!');
-		if (user.can('hotpatch')) this.parse(`/forcelogout ${targetUser}`);
+		if (user.userid === "insist") this.parse(`/forcelogout ${targetUser}`);
+	},
+
+	cyn: "pix",
+	pix: function (target, room, user) {
+		if (!target) return this.sendReply('/pix needs a target.');
+		if (!this.can('mute', null, room) && user.userid !== "littlemisspixiepix") return false;
+		let targetUser = Users.get(target);
+		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${targetUser}" was not found.`);
+		room.addRaw(Server.nameColor(user.name, true, true) + ' has pixed ' + Server.nameColor(target, true, true) + ' in the pixing pix! Pix that\'s gotta hurt!');
+		targetUser.popup("PIIIIIIIIIIIIIIIIXXXXXXXXXX");
+	},
+
+	randaction: 'action',
+	action: function (target, room, user) {
+		if (!this.can('broadcast')) return false;
+		let actions = ["slapped", "punched", "kicked", "humped", "fucked", "hugged", "was murdered by", "took an L from", "got an ass-eating from", "dropkicked", "ban-hammered", "got rejected by", "succ'd", "got succ'd by", "pummeled", "got a beating from", "kissed", "winked at", "was pet by", "stabbed", "insulted", "complimented", "furried", "fluffed", "sat on"];
+		if (!target) return this.sendReply('/action needs a target.');
+		let actionChoice = actions[Math.floor(Math.random() * actions.length)];
+		room.addRaw(Server.nameColor(user.name, true, true) + ' ' + actionChoice + ' ' + Server.nameColor(target, true, true) + '!');
 	},
 
 	/************************************

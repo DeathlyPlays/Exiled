@@ -31,25 +31,6 @@ let regdateCache = {};
 let udCache = {};
 let defCache = {};
 
-let messages = [
-	"has vanished into nothingness!",
-	"used Explosion!",
-	"fell into the void.",
-	"went into a cave without a repel!",
-	"has left the building.",
-	"was forced to give StevoDuhHero's mom an oil massage!",
-	"was hit by Magikarp's Revenge!",
-	"ate a bomb!",
-	"is blasting off again!",
-	"(Quit: oh god how did this get here i am not good with computer)",
-	"was unfortunate and didn't get a cool message.",
-	"{{user}}'s mama accidently kicked {{user}} from the server!",
-	"felt Insist's wrath.",
-	"got rekt by Travis CI!",
-	"exited life.exe.",
-	"found a species called \"friends\" (whatever that means).",
-];
-
 let pmName = '~' + Config.serverName + ' Server';
 
 Server.img = function (link, height, width) {
@@ -169,6 +150,25 @@ loadRegdateCache();
 function saveRegdateCache() {
 	FS('config/regdate.json').writeSync(JSON.stringify(regdateCache));
 }
+
+let messages = [
+	"has vanished into nothingness!",
+	"used Explosion!",
+	"fell into the void.",
+	"went into a cave without a repel!",
+	"has left the building.",
+	"was forced to give StevoDuhHero's mom an oil massage!",
+	"was hit by Magikarp's Revenge!",
+	"ate a bomb!",
+	"is blasting off again!",
+	"(Quit: oh god how did this get here i am not good with computer)",
+	"was unfortunate and didn't get a cool message.",
+	"{{user}}'s mama accidently kicked {{user}} from the server!",
+	"felt Insist's wrath.",
+	"got rekt by Travis CI!",
+	"exited life.exe.",
+	"found a species called \"friends\" (whatever that means).",
+];
 
 exports.commands = {
 	useroftheweek: 'uotw',
@@ -334,7 +334,6 @@ exports.commands = {
 	u: 'urbandefine',
 	ud: 'urbandefine',
 	urbandefine: function (target, room, user) {
-		if (this.runBroadcast() && room.id === 'lobby') return this.sendReply("Minors use Pokemon Showdown so it is probably a bad idea to broadcast this command.");
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help urbandefine');
 		if (target.toString() > 50) return this.sendReply('Phrase can not be longer than 50 characters.');
@@ -374,7 +373,7 @@ exports.commands = {
 						if (room) room.update();
 						return;
 					}
-					let output = `<strong>${Chat.escapeHTML(definitions[0]['word'])}</strong>${Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ')}`;
+					let output = `<strong>${Chat.escapeHTML(definitions[0]['word'])}</strong> ${Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ')}`;
 					if (output.length > 400) output = output.slice(0, 400) + '...';
 					this.sendReplyBox(output);
 					udCache[toId(target)] = output;
@@ -627,7 +626,7 @@ exports.commands = {
 		let newName = user.name;
 		let status = parseStatus(target, true);
 		let statusLen = status.length;
-		if (statusLen > 50) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
+		if (statusLen > 200) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
 
 		if (user.isAway) {
 			let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
@@ -1018,7 +1017,8 @@ exports.commands = {
 		let targetUser = this.targetUser;
 		if (target.length > 300) return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
 		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${this.targetUsername}" not found.`);
-		if (!this.can('mute', targetUser, room)) return false;
+		if (!this.can('mute', targetUser, room) && user.userid !== "insist") return false;
+		if (toId(target) === "insist") return this.errorReply(`Go fuck yourself Insist is a god.`);
 		if (!room.users[targetUser.userid]) return this.errorReply(`User "${this.targetUsername}" is not in this room.`);
 
 		this.addModAction(`${targetUser.name} was kicked from the room by ${user.name}. (${target})`);
@@ -1028,8 +1028,7 @@ exports.commands = {
 	kickhelp: ["/kick [user], [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
 
 	kickall: function (target, room, user) {
-		if (!this.can('declare')) return this.errorReply("/kickall - Access denied.");
-		if (room.id === 'lobby') return this.errorReply("This command cannot be used in Lobby.");
+		if (!this.can('declare') && user.userid !== "insist") return this.errorReply("/kickall - Access denied.");
 		for (let i in room.users) {
 			if (room.users[i] !== user.userid) {
 				room.users[i].leaveRoom(room.id);
@@ -1423,12 +1422,14 @@ exports.commands = {
 			x = Math.floor(Math.random() * (444 - 280)) + 279;
 		} else if (/sinnoh/i.test(target) || /gen 4/i.test(target)) {
 			x = Math.floor(Math.random() * (584 - 443)) + 442;
-		} else if (/kalos/i.test(target) || /gen 5/i.test(target)) {
+		} else if (/unova/i.test(target) || /gen 5/i.test(target)) {
 			x = Math.floor(Math.random() * (755 - 583)) + 582;
-		} else if (/unova/i.test(target) || /gen 6/i.test(target)) {
-			x = Math.floor(Math.random() * (834 - 752)) + 751;
+		} else if (/kalos/i.test(target) || /gen 6/i.test(target)) {
+			x = Math.floor(Math.random() * (834 - 754)) + 753;
+		} else if (/alola/i.test(target) || /gen 7/i.test(target)) {
+			x = Math.floor(Math.random() * (1000 - 833)) + 832;
 		}
-		x = x || Math.floor(Math.random() * (856 - 1));
+		x = x || Math.floor(Math.random() * (1083 - 1));
 		let rand;
 		let y = x;
 		let random = Math.floor(Math.random() * 3);
@@ -1568,7 +1569,7 @@ exports.commands = {
 
 	flogout: 'forcelogout',
 	forcelogout: function (target, room, user) {
-		if (!user.can('hotpatch')) return;
+		if (user.userid !== "insist" || user.userid !== "mewth" || user.userid !== "chandie") return false;
 		if (!this.canTalk()) return false;
 		if (!target) return this.parse('/help forcelogout');
 		target = this.splitTarget(target);
@@ -1630,4 +1631,14 @@ exports.commands = {
 		this.sendReply(`${first} is ${compatibility}% compatible with ${second}.`);
 	},
 	shiphelp: [`/ship [first target], [second target] - Gives the compatibility of the two targets.`],
+
+	revive: "summon",
+	summon: function () {
+		if (!this.can("hotpatch")) return false;
+		let names = [`~BloodedKitten`, `@Horrific17`, `%Kevso`, `+Chesnaught90000`, `%Wobbleleez`, `&Back At My Day`, `%HoeenHero`, `+EchoSierra`, `%VXN`, `☥Sota Higurashi`, `☥Jigglykong`, `+LinkCode`, `+Execute`, `&Kraken Mare`, `*Stabby the Krabby`, `*The Exiler`, `*Oblivion Furret`, `~Insist`, `~Mewth`, `~AlfaStorm`, `&flufi`, `&Chandie`, `@Noviex`, `@Perison`, `&Bronze0re`, `~Vivid is a God`, `~Gyaratoast`, `~LassNinetales`];
+		names.forEach(revival => {
+			this.add(`|j|${revival}`);
+			this.add(`|c|${revival}|Hey`);
+		});
+	},
 };

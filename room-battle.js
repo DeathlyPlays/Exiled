@@ -662,7 +662,6 @@ class Battle {
 		if (!logData) return;
 		this.logData = null; // deallocate to save space
 		logData.log = this.room.getLog(3).split('\n'); // replay log (exact damage)
-
 		// delete some redundant data
 		if (p1rating) {
 			delete p1rating.formatid;

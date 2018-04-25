@@ -1691,14 +1691,16 @@ let Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Rise of PU",
-		desc: ["&bullet; Give PU Pokemon time to shine! Many PU Pokemon will be buffed to fit the OU metagame.",
-			"&bullet; <a href=\"http://flufi.boards.net/thread/3/usm-rise-pu-viability-rankings\">USM Viability Rankings</a>",
-			"&bullet; <a href=\"http://flufi.boards.net/thread/4/rise-pu-sample-sets\">Sample Sets</a>",
+		name: "[Gen 7] Digimon Showdown",
+		desc: [
+			"Use Digimon in this battle instead of Pokemon!",
+			`&bullet; <a href="dank memes">Digimon Showdown</a>`,
 		],
-		mod: "rop",
-		ruleset: ['[Gen 7] OU'],
-		unbanlist: ["Kangaskhanite"],
+
+		mod: "digimon",
+		gameType: 'triples',
+		team: "randomDigimon",
+		ruleset: ['Cancel Mod', 'HP Percentage Mod'],
 	},
 	{
 		name: "[Gen 7] Five Move Frenzy",
@@ -1707,17 +1709,6 @@ let Formats = [
 		],
 		mod: 'fivemovefrenzy',
 		ruleset: ['[Gen 7] OU'],
-	},
-	{
-		name: "[Gen 7] Plates and Dinner",
-		mod: "gen7",
-		ruleset: ['[Gen 7] OU'],
-		desc: [
-			"Created by Mewth",
-			"In this OM we will serve you up a nice tray of elemental plates. In this, if you give your pokemon a plate to hold they will gain the type to replace their secondary type and gain all the moves of the plate.",
-		],
-		unbanlist: [],
-		banlist: [""],
 	},
 	{ //Thanks urkerab for the Cross Evolution code :)
 		name: "[Gen 7] Frantic Fusions",
@@ -2123,6 +2114,15 @@ let Formats = [
 		unbanlist: ['Moody', 'Landorus', 'Genesect', 'Aegislash'],
 	},
 	{
+		name: "[Gen 7] Plates and Dinner",
+		mod: "gen7",
+		ruleset: ['[Gen 7] OU'],
+		desc: [
+			"Created by Mewth.",
+			"In this OM we will serve you up a nice tray of elemental plates. In this, if you give your Pokemon a plate to hold they will gain the type to replace their secondary type and gain all the moves of the plate.",
+		],
+	},
+	{
 		name: "[Gen 7] Pokemon Mystery Dungeon",
 
 		mod: 'pmd',
@@ -2172,6 +2172,16 @@ let Formats = [
 			//change no effect to not very effective
 			if (move && !this.getImmunity(move, type)) return 2;
 		},
+	},
+	{
+		name: "[Gen 7] Rise of PU",
+		desc: ["&bullet; Give PU Pokemon time to shine! Many PU Pokemon will be buffed to fit the OU metagame.",
+			"&bullet; <a href=\"http://flufi.boards.net/thread/3/usm-rise-pu-viability-rankings\">USM Viability Rankings</a>",
+			"&bullet; <a href=\"http://flufi.boards.net/thread/4/rise-pu-sample-sets\">Sample Sets</a>",
+		],
+		mod: "rop",
+		ruleset: ['[Gen 7] OU'],
+		unbanlist: ["Kangaskhanite"],
 	},
 	{
 		name: "[Gen 7] Scalemons",

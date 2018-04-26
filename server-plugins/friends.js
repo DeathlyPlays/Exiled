@@ -38,9 +38,9 @@ function checkFriends(userid, user) {
 			onlineUsers.push(online);
 		}
 	});
-	if (onlineUsers.length > 0 && Db.friendnotifications.has(userid)) user.send(`|pm|~${Config.serverName} Server|${user.getIdentity()}|${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.`);
+	if (onlineUsers.length > 0 && friends[userid].notifications) user.send(`|pm|~${Config.serverName} Friend Manager|${user.getIdentity()}|/raw ${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.<hr /><center><button class = "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
 	for (let friend of onlineUsers) {
-		if (Db.friendnotifications.has(friend)) Users(friend).send(`|pm|${Config.serverName} Server|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(userid, true, true)} has just came online.`);
+		if (friends[friend].notifications && !friends[friend].ignoreList.includes(userid)) Users(friend).send(`|pm|~${Config.serverName} Friend Manager|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(userid, true, true)} has just came online.<hr /><center><button class = "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
 	}
 }
 Server.checkFriends = checkFriends;
@@ -51,6 +51,14 @@ function getLastSeen(userid) {
 	if (!seen) return `<font color = "red"><strong>Never</strong></font>`;
 	return `${Chat.toDurationString(Date.now() - seen, {precision: true})} ago.`;
 }
+
+for (let f in friends) {
+	if (!friends[f].private) friends[f].private = false;
+	if (!friends[f].notifications) friends[f].notifications = true;
+	if (!friends[f].disabledFriends) friends[f].disabledFriends = false;
+	if (!friends[f].ignoreList) friends[f].ignoreList = [];
+}
+write();
 
 exports.commands = {
 	fren: "friends",
@@ -63,6 +71,10 @@ exports.commands = {
 			friends[user.userid] = {
 				friendsList: [],
 				pendingRequests: [],
+				notifications: true,
+				disabledFriends: false,
+				ignoreList: [], // Allow users to ignore certain friends from their notifications (helpful when they DC a lot)
+				private: false,
 			};
 			write();
 			return this.sendReply(`You have successfully initialized your friends list.`);
@@ -77,10 +89,10 @@ exports.commands = {
 			if (!targetUser || !targetUser.connected) return this.errorReply(`${target} is not online.`);
 			// If the user has not initalized their friends list, parse /friends init
 			if (!friends[user.userid]) this.parse(`/friends init`);
-			if (user.userid === toId(target)) return this.errorReply(`Like I can relate and all... but apparently being your own friend is invalid.`);
+			if (user.userid === targetUser.userid) return this.errorReply(`Like I can relate and all... but apparently being your own friend is invalid.`);
 			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
-			if (Db.disabledfriends.has(toId(target))) return this.errorReply(`${targetUser} has disabled adding friends.`);
-			if (Db.disabledfriends.has(user.userid)) return this.errorReply(`You must enable friend requests before attempting to add others.`);
+			if (friends[targetUser.userid].disabledFriends) return this.errorReply(`${targetUser} has disabled adding friends.`);
+			if (friends[user.userid].disabledFriends) return this.errorReply(`You must enable friend requests before attempting to add others.`);
 			if (friends[targetUser.userid] && friends[targetUser.userid].pendingRequests.includes(user.userid)) return this.parse(`/friends accept ${targetUser}`);
 			if (friends[user.userid].pendingRequests.includes(targetUser.userid)) return this.errorReply(`${targetUser} already has a pending request from you.`);
 			if (friends[user.userid].friendsList.includes(targetUser.userid)) return this.errorReply(`${targetUser} is already registered on your friends list.`);
@@ -88,7 +100,7 @@ exports.commands = {
 			write();
 			let message = `/html has sent you a friend request. <br /><button name="send" value="/friends accept ${user.userid}">Click to accept</button> | <button name="send" value="/friends decline ${user.userid}">Click to decline</button>`;
 			targetUser.send(`|pm|${user.getIdentity()}|${targetUser.getIdentity()}|${message}`);
-			return this.sendReply(`You have sent ${target} a friend request.`);
+			return this.sendReply(`You have sent ${targetUser.name} a friend request.`);
 		},
 
 		removefriend: "remove",
@@ -99,6 +111,9 @@ exports.commands = {
 			if (!friends[user.userid].friendsList.includes(targetId)) return this.errorReply(`${target} is not registered as your friend.`);
 			friends[user.userid].friendsList.splice(friends[user.userid].friendsList.indexOf(targetId), 1);
 			friends[targetId].friendsList.splice(friends[targetId].friendsList.indexOf(user.userid), 1);
+			// Check if the user or the target has each other on their ignore list and if so remove it
+			if (friends[user.userid].ignoreList.includes(targetId)) friends[user.userid].ignoreList.splice(friends[user.userid].ignoreList.indexOf(targetId), 1);
+			if (friends[targetId].ignoreList.includes(user.userid)) friends[targetId].ignoreList.splice(friends[targetId].ignoreList.indexOf(user.userid), 1);
 			write();
 			return this.sendReply(`You have successfully removed ${target} as a friend.`);
 		},
@@ -115,6 +130,7 @@ exports.commands = {
 			friends[user.userid].friendsList.push(targetId);
 			friends[targetId].pendingRequests.splice(friends[targetId].pendingRequests.indexOf(user.userid), 1);
 			write();
+			if (Users(targetId) && Users(targetId).connected) Users(targetId).send(`|pm|${user.getIdentity}|${Users(targetId).getIdentity()}|/raw ${Server.nameColor(user.name, true, true)} has accepted your friend request.`);
 			return this.sendReply(`You have successfully accepted ${target}'s friend request.`);
 		},
 
@@ -128,32 +144,72 @@ exports.commands = {
 			if (!friends[targetId].pendingRequests.includes(user.userid)) return this.errorReply(`${target} has not sent you a friend request.`);
 			friends[targetId].pendingRequests.splice(friends[targetId].pendingRequests.indexOf(user.userid), 1);
 			write();
+			if (Users(targetId) && Users(targetId).connected) Users(targetId).send(`|pm|${user.getIdentity}|${Users(targetId).getIdentity()}|/raw ${Server.nameColor(user.name, true, true)} has declined your friend request.`);
 			return this.sendReply(`You have successfully denied ${target}'s friend request.`);
 		},
 
-		blockfriends: "disable",
-		disable: function (target, room, user) {
-			if (Db.disabledfriends.has(user.userid)) return this.errorReply(`You have already disabled friend requests.`);
-			Db.disabledfriends.set(user.userid);
-			return this.sendReply(`You have successfully disabled friend requests.`);
+		enablefriends: "togglefriends",
+		disablefriends: "togglefriends",
+		togglefriends: function (target, room, user) {
+			if (!friends[user.userid]) this.parse(`/friends init`);
+			if (friends[user.userid].disabledFriends) {
+				friends[user.userid].disabledFriends = false;
+				write();
+				return this.sendReply(`You have successfully enabled friend requests.`);
+			} else {
+				friends[user.userid].disabledFriends = true;
+				write();
+				return this.sendReply(`You have successfully disabled friend requests.`);
+			}
 		},
 
-		enablefriends: "enable",
-		enable: function (target, room, user) {
-			if (!Db.disabledfriends.has(user.userid)) return this.errorReply(`You haven't disabled friend requests.`);
-			Db.disabledfriends.remove(user.userid);
-			return this.sendReply(`You have successfully enabled friend requests.`);
-		},
-
+		togglenotifications: "notify",
 		notifications: "notify",
 		notify: function (target, room, user) {
 			if (!friends[user.userid]) this.parse(`/friends init`);
-			if (!Db.friendnotifications.has(user.userid)) {
-				Db.friendnotifications.set(user.userid, 1);
-				this.sendReply(`You have successfully set your friend notifications on.`);
+			if (!friends[user.userid].notifications) {
+				friends[user.userid].notifications = true;
+				write();
+				return this.sendReply(`You have successfully set your friend notifications on.`);
 			} else {
-				Db.friendnotifications.remove(user.userid);
-				this.sendReply(`You have successfully disabled friend notifications.`);
+				friends[user.userid].notifications = true;
+				write();
+				return this.sendReply(`You have successfully disabled friend notifications.`);
+			}
+		},
+
+		toggleprivatize: "privatize",
+		unprivatize: "privatize",
+		privatize: function (target, room, user) {
+			if (!friends[user.userid]) this.parse(`/friends init`);
+			if (!friends[user.userid].private) {
+				friends[user.userid].private = true;
+				write();
+				return this.sendReply(`You have successfully made your friends list private.`);
+			} else {
+				friends[user.userid].private = false;
+				write();
+				return this.sendReply(`You have successfully made your friends list publicly visible.`);
+			}
+		},
+
+		unignore: "ignore",
+		ignore: function (target, room, user, connection, cmd) {
+			if (!friends[user.userid]) this.parse(`/friends init`);
+			if (!target) return this.parse(`/friends help`);
+			let targetId = toId(target);
+			if (!friends[user.userid].friendsList.includes(targetId)) return this.errorReply(`${target} is not registered as your friend.`);
+			if (!friends[user.userid].notifications) return this.errorReply(`There is no reason to ignore users when your notifications are off.`);
+			if (friends[user.userid].ignoreList.includes(targetId) && cmd === "ignore") return this.errorReply(`${target} is already ignored.`);
+			if (!friends[user.userid].ignoreList.includes(targetId) && cmd === "unignore") return this.errorReply(`You are not ignoring ${target}.`);
+			if (cmd === "ignore") {
+				friends[user.userid].ignoreList.push(targetId);
+				write();
+				return this.errorReply(`${target} has been successfully added to your ignore list.`);
+			} else {
+				friends[user.userid].ignoreList.splice(friends[user.userid].ignoreList.indexOf(targetId), 1);
+				write();
+				return this.errorReply(`${target} has been successfully removed from your ignore list.`);
 			}
 		},
 
@@ -165,6 +221,7 @@ exports.commands = {
 			if (!target || target.length > 18) target = user.userid;
 			let friendsId = toId(target);
 			if (!friends[friendsId]) return this.errorReply(`${target} has not initialized their friends list yet.`);
+			if (friends[friendsId].private && friendsId !== user.userid) return this.errorReply(`${target} has privatized their friends list.`);
 			if (friends[friendsId].friendsList.length < 1) return this.sendReplyBox(`<center>${Server.nameColor(target, true, true)} currently doesn't have any friends.</center>`);
 			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><table><tr><center><h2>${Server.nameColor(target, true, true)}'s Friends List (${friends[friendsId].friendsList.length} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2></center></tr>`;
 			friends[friendsId].friendsList.forEach(friend => {
@@ -192,10 +249,11 @@ exports.commands = {
 		/friends remove [user] - Unfriends a user.
 		/friends accept [user] - Accepts a user's friend request.
 		/friends decline [user] - Declines a user's friend request.
-		/friends disable - Disables the ability for others to send you friend requests (if you had it enabled).
-		/friends enable - Enables the ability for others to send you friend requests (if you had it disabled).
+		/friends togglefriends - Toggles the ability for people to send you friend requests.
 		/friends notify - If disabled, enables friend notifications. If enabled, disables friend notifications.
-		/friends list [optional target] - Shows the user's friends list if they have initialized their list; defaults to yourself.
+		/friends privatize - If privatized, unprivatizes your friends list. Otherwise, hides your friends list from other users.
+		/friends [ignore | unignore] [user] - (Un-)Hides the specified user from your PM notifications.
+		/friends list [optional target] - Shows the user's friends list if they have initialized their list (and haven't privatized it); defaults to yourself.
 		/friends help - Shows this help command.`,
 	],
 };

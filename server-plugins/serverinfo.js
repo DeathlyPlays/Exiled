@@ -264,7 +264,6 @@ exports.commands = {
 		let display = `<div class="infobox-limited"><strong><h1>Custom Commands on ${Config.serverName}</h1></strong>`;
 		display += `<h2>Game Commands:</h2><ul>`;
 		display += `<li><button class="button" name="send" value="/ambushhelp">Ambush</button></li>`;
-		display += `<li><button class="button" name="send" value="/blackjackhelp">Blackjack</button></li>`;
 		display += `<li><button class="button" name="send" value="/dicegamehelp">Dice Game</button></li>`;
 		display += `<li><button class="button" name="send" value="/draft">Draft</button></li>`;
 		display += `<li><button class="button" name="send" value="/guesswhohelp">Guess Who</button></li>`;
@@ -279,7 +278,6 @@ exports.commands = {
 		display += `</ul>`;
 		display += `<h2>Chat Features:</h2><ul>`;
 		display += `<li><button class="button" name="send" value="/advertisehelp">Advertise A Room</button></li>`;
-		display += `<li><button class="button" name="send" value="/aihelp">AI</button></li>`;
 		display += `<li><button class="button" name="send" value="/animehelp">Anime</button></li>`;
 		display += `<li><button class="button" name="send" value="/awayhelp">Away</button></li>`;
 		display += `<li><button class="button" name="send" value="/psgohelp">Cards</button></li>`;
@@ -291,6 +289,7 @@ exports.commands = {
 		display += `<li><button class="button" name="send" value="/essbhelp">ESSB Data</button></li>`;
 		display += `<li><button class="button" name="send" value="/exphelp">EXP</button></li>`;
 		display += `<li><button class="button" name="send" value="/factionshelp">Factions</button></li>`;
+		display += `<li><button class="button" name="send" value="/friendshelp">Friends</button></li>`;
 		display += `<li><button class="button" name="send" value="/genrequesthelp">Gen Requests</button></li>`;
 		display += `<li><button class="button" name="send" value="/hexhelp">Hex Code</button></li>`;
 		display += `<li><button class="button" name="send" value="/lastactivehelp">Last Active</button></li>`;

@@ -205,11 +205,11 @@ exports.commands = {
 			if (cmd === "ignore") {
 				friends[user.userid].ignoreList.push(targetId);
 				write();
-				return this.errorReply(`${target} has been successfully added to your ignore list.`);
+				return this.sendReply(`${target} has been successfully added to your ignore list.`);
 			} else {
 				friends[user.userid].ignoreList.splice(friends[user.userid].ignoreList.indexOf(targetId), 1);
 				write();
-				return this.errorReply(`${target} has been successfully removed from your ignore list.`);
+				return this.sendReply(`${target} has been successfully removed from your ignore list.`);
 			}
 		},
 

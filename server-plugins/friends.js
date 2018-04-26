@@ -38,9 +38,9 @@ function checkFriends(userid, user) {
 			onlineUsers.push(online);
 		}
 	});
-	if (onlineUsers.length > 0 && friends[userid].notifications) user.send(`|pm|~${Config.serverName} Friend Manager|${user.getIdentity()}|/raw ${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.<hr /><center><button class = "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
+	if (onlineUsers.length > 0 && friends[userid].notifications) user.send(`|pm|~${Config.serverName} Friend Manager|${user.getIdentity()}|/raw ${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.<hr /><center><button class= "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
 	for (let friend of onlineUsers) {
-		if (friends[friend].notifications && !friends[friend].ignoreList.includes(userid)) Users(friend).send(`|pm|~${Config.serverName} Friend Manager|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(userid, true, true)} has just came online.<hr /><center><button class = "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
+		if (friends[friend].notifications && !friends[friend].ignoreList.includes(userid)) Users(friend).send(`|pm|~${Config.serverName} Friend Manager|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(userid, true, true)} has just came online.<hr /><center><button class= "button" name= "send" value="/friend ignore ${userid}">Ignore Notifications from ${userid}</button><button class= "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
 	}
 }
 Server.checkFriends = checkFriends;
@@ -172,7 +172,7 @@ exports.commands = {
 				write();
 				return this.sendReply(`You have successfully set your friend notifications on.`);
 			} else {
-				friends[user.userid].notifications = true;
+				friends[user.userid].notifications = false;
 				write();
 				return this.sendReply(`You have successfully disabled friend notifications.`);
 			}
@@ -213,6 +213,12 @@ exports.commands = {
 			}
 		},
 
+		ignorelist: function (target, room, user) {
+			if (!friends[user.userid]) this.parse(`/friends init`);
+			if (friends[user.userid].ignoreList.length < 1) return this.errorReply(`You currently are not ignoring anyone.`);
+			return this.sendReplyBox(`You are currently ignoring the following: ${Chat.toListString(friends[user.userid].ignoreList)}.`);
+		},
+
 		"!list": true,
 		"": "list",
 		menu: "list",
@@ -232,7 +238,7 @@ exports.commands = {
 			});
 			display += `</tr></table>`;
 			if (!this.broadcasting && friendsId === user.userid) {
-				display += `<center><button class="button" name="send" value="/friends notifications">${(Db.friendnotifications.has(user.userid) ? `Disable Friend Notifications` : `Enable Friend Notifications`)}</center>`;
+				display += `<center><button class="button" name="send" value="/friends notifications">${(friends[user.userid].notifications ? `Disable Friend Notifications` : `Enable Friend Notifications`)}</center>`;
 			}
 			display += `</div>`;
 			return this.sendReplyBox(display);
@@ -253,6 +259,7 @@ exports.commands = {
 		/friends notify - If disabled, enables friend notifications. If enabled, disables friend notifications.
 		/friends privatize - If privatized, unprivatizes your friends list. Otherwise, hides your friends list from other users.
 		/friends [ignore | unignore] [user] - (Un-)Hides the specified user from your PM notifications.
+		/friends ignorelist - Displays the users you are ignoring (if any).
 		/friends list [optional target] - Shows the user's friends list if they have initialized their list (and haven't privatized it); defaults to yourself.
 		/friends help - Shows this help command.`,
 	],

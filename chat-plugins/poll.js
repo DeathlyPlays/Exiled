@@ -215,10 +215,15 @@ class Poll {
 		this.room.add(`|html|${results}`);
 	}
 
+<<<<<<< HEAD
 	obtain(number) {
 		for (let u in this.pollArray) {
 			if (this.pollArray[u].pollNum === number) return u;
 		}
+=======
+		this.room.send('|uhtmlchange|poll' + this.room.pollNumber + '|<div class="infobox">(The poll has ended &ndash; scroll down to see the results)</div>');
+		this.room.add('|html|' + results).update();
+>>>>>>> cd584edfd7ff2ff2f773c7b26159bdfa2c02b4a6
 	}
 }
 

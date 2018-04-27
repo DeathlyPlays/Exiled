@@ -113,9 +113,9 @@ class Poll {
 		for (let i in this.room.users) {
 			let user = this.room.users[i];
 			if (user.userid in this.pollArray[num].voters) {
-				user.sendTo(this.room, '|uhtmlchange|poll' + this.pollArray[num].pollNum + '|' + results[this.pollArray[num].voters[user.userid]]);
+				user.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${results[this.pollArray[num].voters[user.userid]]}`);
 			} else if (user.latestIp in this.pollArray[num].voterIps) {
-				user.sendTo(this.room, '|uhtmlchange|poll' + this.pollArray[num].pollNum + '|' + results[this.pollArray[num].voterIps[user.latestIp]]);
+				user.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${results[this.pollArray[num].voterIps[user.latestIp]]}`);
 			}
 		}
 	}
@@ -123,17 +123,17 @@ class Poll {
 	updateTo(user, num, connection) {
 		if (!connection) connection = user;
 		if (user.userid in this.pollArray[num].voters) {
-			connection.sendTo(this.room, '|uhtmlchange|poll' + this.pollArray[num].pollNum + '|' + this.generateResults(false, this.pollArray[num].voters[user.userid], num));
+			connection.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${this.generateResults(false, this.pollArray[num].voters[user.userid], num)}`);
 		} else if (user.latestIp in this.pollArray[num].voterIps) {
-			connection.sendTo(this.room, '|uhtmlchange|poll' + this.pollArray[num].pollNum + '|' + this.generateResults(false, this.pollArray[num].voterIps[user.latestIp], num));
+			connection.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${this.generateResults(false, this.pollArray[num].voterIps[user.latestIp], num)}`);
 		} else {
-			connection.sendTo(this.room, '|uhtmlchange|poll' + this.pollArray[num].pollNum + '|' + this.generateVotes(num));
+			connection.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${this.generateVotes(num)}`);
 		}
 	}
 
 	updateFor(user) {
 		for (let u in this.pollArray) {
-			if (user.userid in this.pollArray[u].voters) user.sendTo(this.room, '|uhtmlchange|poll' + this.pollArray[u].pollNum + '|' + this.generateResults(false, this.pollArray[u].voters[user.userid], u));
+			if (user.userid in this.pollArray[u].voters) user.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[u].pollNum}|${this.generateResults(false, this.pollArray[u].voters[user.userid], u)}`);
 		}
 	}
 
@@ -150,11 +150,11 @@ class Poll {
 			for (let i in this.room.users) {
 				let thisUser = this.room.users[i];
 				if (thisUser.userid in this.pollArray[u].voters) {
-					thisUser.sendTo(this.room, '|uhtml|poll' + this.pollArray[u].pollNum + '|' + results[this.pollArray[u].voters[thisUser.userid]]);
+					thisUser.sendTo(this.room, `|uhtml|poll${this.pollArray[u].pollNum}|${results[this.pollArray[u].voters[thisUser.userid]]}`);
 				} else if (thisUser.latestIp in this.pollArray[u].voterIps) {
-					thisUser.sendTo(this.room, '|uhtml|poll' + this.pollArray[u].pollNum + '|' + results[this.pollArray[u].voterIps[thisUser.latestIp]]);
+					thisUser.sendTo(this.room, `|uhtml|poll${this.pollArray[u].pollNum}|${results[this.pollArray[u].voterIps[thisUser.latestIp]]}`);
 				} else {
-					thisUser.sendTo(this.room, '|uhtml|poll' + this.pollArray[u].pollNum + '|' + votes);
+					thisUser.sendTo(this.room, `|uhtml|poll${this.pollArray[u].pollNum}|${votes}`);
 				}
 			}
 		}
@@ -164,11 +164,11 @@ class Poll {
 		if (!connection) connection = user;
 		for (let u in this.pollArray) {
 			if (user.userid in this.pollArray[u].voters) {
-				connection.sendTo(this.room, '|uhtml|poll' + this.pollArray[u].pollNum + '|' + this.generateResults(false, this.pollArray[u].voters[user.userid], u));
+				connection.sendTo(this.room, `|uhtml|poll${this.pollArray[u].pollNum}|${this.generateResults(false, this.pollArray[u].voters[user.userid], u)}`);
 			} else if (user.latestIp in this.pollArray[u].voterIps) {
-				connection.sendTo(this.room, '|uhtml|poll' + this.pollArray[u].pollNum + '|' + this.generateResults(false, this.pollArray[u].voterIps[user.latestIp], u));
+				connection.sendTo(this.room, `|uhtml|poll${this.pollArray[u].pollNum}|${this.generateResults(false, this.pollArray[u].voterIps[user.latestIp], u)}`);
 			} else {
-				connection.sendTo(this.room, '|uhtml|poll' + this.pollArray[u].pollNum + '|' + this.generateVotes(u));
+				connection.sendTo(this.room, `|uhtml|poll${this.pollArray[u].pollNum}|${this.generateVotes(u)}`);
 			}
 		}
 	}
@@ -185,11 +185,11 @@ class Poll {
 		for (let i in this.room.users) {
 			let thisUser = this.room.users[i];
 			if (thisUser.userid in this.pollArray[num].voters) {
-				thisUser.sendTo(this.room, '|uhtml|poll' + this.pollArray[num].pollNum + '|' + results[this.pollArray[num].voters[thisUser.userid]]);
+				thisUser.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${results[this.pollArray[num].voters[thisUser.userid]]}`);
 			} else if (thisUser.latestIp in this.pollArray[num].voterIps) {
-				thisUser.sendTo(this.room, '|uhtml|poll' + this.pollArray[num].pollNum + '|' + results[this.pollArray[num].voterIps[thisUser.latestIp]]);
+				thisUser.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${results[this.pollArray[num].voterIps[thisUser.latestIp]]}`);
 			} else {
-				thisUser.sendTo(this.room, '|uhtml|poll' + this.pollArray[num].pollNum + '|' + votes);
+				thisUser.sendTo(this.room, `uhtml|poll${this.pollArray[num].pollNum}|${votes}`);
 			}
 		}
 	}
@@ -197,11 +197,11 @@ class Poll {
 	displaySpecificTo(user, connection, num) {
 		if (!connection) connection = user;
 		if (user.userid in this.pollArray[num].voters) {
-			connection.sendTo(this.room, '|uhtml|poll' + this.pollArray[num].pollNum + '|' + this.generateResults(false, this.pollArray[num].voters[user.userid]), num);
+			connection.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${this.generateResults(false, this.pollArray[num].voters[user.userid])}`, num);
 		} else if (user.latestIp in this.pollArray[num].voterIps) {
-			connection.sendTo(this.room, '|uhtml|poll' + this.pollArray[num].pollNum + '|' + this.generateResults(false, this.pollArray[num].voterIps[user.latestIp]), num);
+			connection.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${this.generateResults(false, this.pollArray[num].voterIps[user.latestIp])}`, num);
 		} else {
-			connection.sendTo(this.room, '|uhtml|poll' + this.pollArray[num].pollNum + '|' + this.generateVotes(num));
+			connection.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${this.generateVotes(num)}`);
 		}
 	}
 
@@ -212,18 +212,13 @@ class Poll {
 	end(number) {
 		let results = this.generateResults(true, null, number);
 		this.room.send(`|uhtmlchange|poll${this.pollArray[number].pollNum}|<div class="infobox">(The poll has ended &ndash; scroll down to see the results)</div>`);
-		this.room.add(`|html|${results}`);
+		this.room.add(`|html|${results}`).update();
 	}
 
-<<<<<<< HEAD
 	obtain(number) {
 		for (let u in this.pollArray) {
 			if (this.pollArray[u].pollNum === number) return u;
 		}
-=======
-		this.room.send('|uhtmlchange|poll' + this.room.pollNumber + '|<div class="infobox">(The poll has ended &ndash; scroll down to see the results)</div>');
-		this.room.add('|html|' + results).update();
->>>>>>> cd584edfd7ff2ff2f773c7b26159bdfa2c02b4a6
 	}
 }
 

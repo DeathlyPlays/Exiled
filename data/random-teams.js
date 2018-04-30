@@ -1371,7 +1371,11 @@ class RandomTeams extends Dex.ModdedDex {
 		} else if (template.species === 'Unown') {
 			item = 'Choice Specs';
 		} else if (template.species === 'Wobbuffet') {
-			item = hasMove['destinybond'] ? 'Custap Berry' : this.sample(['Leftovers', 'Sitrus Berry']);
+			if (hasMove['destinybond']) {
+				item = 'Custap Berry';
+			} else {
+				item = isDoubles || this.randomChance(1, 2) ? 'Sitrus Berry' : 'Leftovers';
+			}
 		} else if (template.species === 'Decidueye' && hasMove['spiritshackle'] && counter.setupType && !teamDetails.zMove) {
 			item = 'Decidium Z';
 		} else if (template.species === 'Raichu-Alola' && hasMove['thunderbolt'] && !teamDetails.zMove && this.randomChance(1, 4)) {
@@ -1464,8 +1468,6 @@ class RandomTeams extends Dex.ModdedDex {
 			item = 'Air Balloon';
 		} else if (hasMove['outrage'] && (counter.setupType || ability === 'Multiscale')) {
 			item = 'Lum Berry';
-		} else if (ability === 'Slow Start' || hasMove['clearsmog'] || hasMove['curse'] || hasMove['detect'] || hasMove['protect'] || hasMove['sleeptalk']) {
-			item = 'Leftovers';
 		} else if (isDoubles && this.getEffectiveness('Ice', template) >= 2) {
 			item = 'Yache Berry';
 		} else if (isDoubles && this.getEffectiveness('Rock', template) >= 2) {
@@ -1474,6 +1476,8 @@ class RandomTeams extends Dex.ModdedDex {
 			item = 'Occa Berry';
 		} else if (isDoubles && this.getImmunity('Fighting', template) && this.getEffectiveness('Fighting', template) >= 2) {
 			item = 'Chople Berry';
+		} else if ((ability === 'Slow Start' || hasMove['clearsmog'] || hasMove['curse'] || hasMove['detect'] || hasMove['protect'] || hasMove['sleeptalk']) && !isDoubles) {
+			item = 'Leftovers';
 		} else if (hasMove['substitute']) {
 			item = counter.damagingMoves.length > 2 && !!counter['drain'] ? 'Life Orb' : 'Leftovers';
 		} else if ((ability === 'Iron Barbs' || ability === 'Rough Skin') && this.randomChance(1, 2)) {
@@ -1955,8 +1959,13 @@ class RandomTeams extends Dex.ModdedDex {
 			let set = this.randomFactorySet(template, pokemon.length, teamData, chosenTier);
 			if (!set) continue;
 
+			let itemData = this.getItem(set.item);
+
+			// Actually limit the number of Megas to one
+			if (teamData.megaCount >= 1 && itemData.megaStone) continue;
+
 			// Limit the number of Z moves to one
-			if (teamData.zCount >= 1 && set.item.length !== 0 && (set.item + '').indexOf("ium Z") !== -1) continue;
+			if (teamData.zCount >= 1 && itemData.zMove) continue;
 
 			let types = template.types;
 			// Enforce Monotype
@@ -1997,7 +2006,6 @@ class RandomTeams extends Dex.ModdedDex {
 
 			teamData.baseFormes[template.baseSpecies] = 1;
 
-			let itemData = this.getItem(set.item + '');
 			if (itemData.megaStone) teamData.megaCount++;
 			if (itemData.zMove) teamData.zCount++;
 			if (itemData.id in teamData.has) {

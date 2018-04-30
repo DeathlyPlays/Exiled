@@ -336,7 +336,7 @@ exports.commands = {
 
 	checkchallenges: function (target, room, user) {
 		if (!this.can('ban', null, room)) return false;
-		if (!this.runBroadcast()) return;
+		if (!this.runBroadcast(true)) return;
 		if (!this.broadcasting) {
 			this.errorReply(`This command must be broadcast:`);
 			return this.parse(`/help checkchallenges`);
@@ -1457,10 +1457,10 @@ exports.commands = {
 
 	'!roomhelp': true,
 	roomhelp: function (target, room, user) {
-		if (!this.canBroadcast('!htmlbox')) return;
+		if (!this.canBroadcast(false, '!htmlbox')) return;
 		if (this.broadcastMessage && !this.can('declare', null, room)) return false;
 
-		if (!this.runBroadcast('!htmlbox')) return;
+		if (!this.runBroadcast(false, '!htmlbox')) return;
 		this.sendReplyBox(
 			`<strong>Room drivers (%)</strong> can use:<br />` +
 			`- /warn OR /k <em>username</em>: warn a user and show the Pok&eacute;mon Showdown rules<br />` +
@@ -1882,7 +1882,7 @@ exports.commands = {
 	roll: 'dice',
 	dice: function (target, room, user) {
 		if (!target || target.match(/[^\d\sdHL+-]/i)) return this.parse('/help dice');
-		if (!this.runBroadcast()) return;
+		if (!this.runBroadcast(true)) return;
 
 		// ~30 is widely regarded as the sample size required for sum to be a Gaussian distribution.
 		// This also sets a computation time constraint for safety.
@@ -1982,7 +1982,7 @@ exports.commands = {
 	pickrandom: function (target, room, user) {
 		let options = target.split(',');
 		if (options.length < 2) return this.parse('/help pick');
-		if (!this.runBroadcast()) return false;
+		if (!this.runBroadcast(true)) return false;
 		const pickedOption = options[Math.floor(Math.random() * options.length)].trim();
 		return this.sendReplyBox(Chat.html`<em>We randomly picked:</em> ${pickedOption}`);
 	},
@@ -2036,10 +2036,10 @@ exports.commands = {
 		target = this.canHTML(target);
 		if (!target) return;
 
-		if (!this.canBroadcast('!htmlbox')) return;
+		if (!this.canBroadcast(true, '!htmlbox')) return;
 		if (this.broadcastMessage && !this.can('declare', null, room)) return false;
 
-		if (!this.runBroadcast('!htmlbox')) return;
+		if (!this.runBroadcast(true, '!htmlbox')) return;
 
 		this.sendReplyBox(target);
 	},

@@ -36,14 +36,8 @@ class Poll {
 	vote(user, option, number) {
 		let ip = user.latestIp;
 		let userid = user.userid;
-<<<<<<< HEAD
 		if (userid in this.pollArray[number].voters || ip in this.pollArray[number].voterIps) {
-			return user.sendTo(this.room, "You have already voted for this poll.");
-=======
-
-		if (userid in this.voters || ip in this.voterIps) {
 			return user.sendTo(this.room, `You have already voted for this poll.`);
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 		}
 		this.pollArray[number].voters[userid] = option;
 		this.pollArray[number].voterIps[ip] = option;
@@ -63,7 +57,6 @@ class Poll {
 		this.updateTo(user, number);
 	}
 
-<<<<<<< HEAD
 	generateVotes(num) {
 		let output = `<div class="infobox"><details><summary style="margin: 2px 0 5px 0"><span style="border: 1px solid #6A6; color: #484; border-radius: 4px; padding:0 3px"><i class="fa fa-bar-chart"></i> Poll-${this.pollArray[num].pollNum}</span> <strong style="font-size:11pt">${this.getQuestionMarkup(num)}</strong><psicon pokemon="masquerain"></summary>`;
 		this.pollArray[num].options.forEach((option, number) => {
@@ -71,20 +64,10 @@ class Poll {
 		});
 		output += `<div style="margin-top: 7px; padding-left: 12px"><button value="/poll results ${this.pollArray[num].pollNum}" name="send" title="View results - you will not be able to vote after viewing results"><small>(View results)</small></button></div>`;
 		output += `</details></div>`;
-=======
-	generateVotes() {
-		let output = `<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Poll</span> <strong style="font-size:11pt">${this.getQuestionMarkup()}</strong></p>`;
-		this.options.forEach((option, number) => {
-			output += `<div style="margin-top: 5px"><button class="button" style="text-align: left" value="/poll vote ${number}" name="send" title="Vote for ${number}. ${Chat.escapeHTML(option.name)}">${number}. <strong>${this.getOptionMarkup(option)}</strong></button></div>`;
-		});
-		output += `<div style="margin-top: 7px; padding-left: 12px"><button value="/poll results" name="send" title="View results - you will not be able to vote after viewing results"><small>(View results)</small></button></div>`;
-		output += `</div>`;
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 
 		return output;
 	}
 
-<<<<<<< HEAD
 	generateResults(ended, option, num) {
 		let icon = `<span style="border: 1px solid #${(ended ? '777; color:#555' : '6A6; color:#484')}; border-radius: 4px; padding: 3px"><i class="fa fa-bar-chart"></i> ${(ended ? `Poll-${this.pollArray[num].pollNum} ended` : `Poll-${this.pollArray[num].pollNum}`)}</span>`;
 		let totalVotes = `<br /><span style="font-style: italic; font-size: 9pt; color: #79330A;">[Total Votes: ${this.pollArray[num].totalVotes}] (Started by ${this.pollArray[num].startedUser} Started on: ${new Date(this.pollArray[num].startTime)})</span>`;
@@ -93,26 +76,15 @@ class Poll {
 		output += `<div style="padding: 8px 15px;"><font color="yellow"><small><center>(Options with 0 votes are not shown)</center></small></font>`;
 		output += `<table cellspacing="0" style="width: 100%; margin-top: 3px;">`;
 		let iter = this.pollArray[num].options.entries();
-=======
-	generateResults(ended, option) {
-		let icon = `<span style="border:1px solid #${ended ? '777;color:#555' : '6A6;color:#484'};border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> ${ended ? "Poll ended" : "Poll"}</span>`;
-		let output = `<div class="infobox"><p style="margin: 2px 0 5px 0">${icon} <strong style="font-size:11pt">${this.getQuestionMarkup()}</strong></p>`;
-		let iter = this.options.entries();
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 
 		let i = iter.next();
 		let c = 0;
 		let colors = ['#00FFFF', '#66CCCC', '#388E8E'];
 		while (!i.done) {
-<<<<<<< HEAD
 			if (i.value[1].votes && i.value[1].votes !== 0) {
 				let percentage = Math.round((i.value[1].votes * 100) / (this.pollArray[num].totalVotes || 1));
 				output += `<tr><td><strong>${(i.value[0] === option ? '<em>' : '')} ${Chat.escapeHTML(i.value[1].name)} ${(i.value[0] === option ? '</em>' : '')}</strong> <small>(${i.value[1].votes} vote${(i.value[1].votes === 1 ? '' : 's')})</small></td><td><span style="font-size: 7pt; background: ${colors[c % 3]}; padding-right: ${(percentage * 3)}px; border-radius: 20px;"></span><small>&nbsp;${percentage}%</small></td></tr>`;
 			}
-=======
-			let percentage = Math.round((i.value[1].votes * 100) / (this.totalVotes || 1));
-			output += `<div style="margin-top: 3px">${i.value[0]}. <strong>${i.value[0] === option ? '<em>' : ''}${this.getOptionMarkup(i.value[1])}${i.value[0] === option ? '</em>' : ''}</strong> <small>(${i.value[1].votes} vote${i.value[1].votes === 1 ? '' : 's'})</small><br /><span style="font-size:7pt;background:${colors[c % 3]};padding-right:${percentage * 3}px"></span><small>&nbsp;${percentage}%</small></div>`;
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 			i = iter.next();
 			c++;
 		}
@@ -140,49 +112,28 @@ class Poll {
 		// Update the poll results for everyone that has voted
 		for (let i in this.room.users) {
 			let user = this.room.users[i];
-<<<<<<< HEAD
 			if (user.userid in this.pollArray[num].voters) {
 				user.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${results[this.pollArray[num].voters[user.userid]]}`);
 			} else if (user.latestIp in this.pollArray[num].voterIps) {
 				user.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${results[this.pollArray[num].voterIps[user.latestIp]]}`);
-=======
-			if (user.userid in this.voters) {
-				user.sendTo(this.room, `|uhtmlchange|poll${this.room.pollNumber}|${results[this.voters[user.userid]]}`);
-			} else if (user.latestIp in this.voterIps) {
-				user.sendTo(this.room, `|uhtmlchange|poll${this.room.pollNumber}|${results[this.voterIps[user.latestIp]]}`);
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 			}
 		}
 	}
 
 	updateTo(user, num, connection) {
 		if (!connection) connection = user;
-<<<<<<< HEAD
 		if (user.userid in this.pollArray[num].voters) {
 			connection.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${this.generateResults(false, this.pollArray[num].voters[user.userid], num)}`);
 		} else if (user.latestIp in this.pollArray[num].voterIps) {
 			connection.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${this.generateResults(false, this.pollArray[num].voterIps[user.latestIp], num)}`);
 		} else {
 			connection.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[num].pollNum}|${this.generateVotes(num)}`);
-=======
-		if (user.userid in this.voters) {
-			connection.sendTo(this.room, `|uhtmlchange|poll${this.room.pollNumber}|${this.generateResults(false, this.voters[user.userid])}`);
-		} else if (user.latestIp in this.voterIps) {
-			connection.sendTo(this.room, `|uhtmlchange|poll${this.room.pollNumber}|${this.generateResults(false, this.voterIps[user.latestIp])}`);
-		} else {
-			connection.sendTo(this.room, `|uhtmlchange|poll${this.room.pollNumber}|${this.generateVotes()}`);
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 		}
 	}
 
 	updateFor(user) {
-<<<<<<< HEAD
 		for (let u in this.pollArray) {
 			if (user.userid in this.pollArray[u].voters) user.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[u].pollNum}|${this.generateResults(false, this.pollArray[u].voters[user.userid], u)}`);
-=======
-		if (user.userid in this.voters) {
-			user.sendTo(this.room, `|uhtmlchange|poll${this.room.pollNumber}|${this.generateResults(false, this.voters[user.userid])}`);
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 		}
 	}
 
@@ -233,42 +184,24 @@ class Poll {
 
 		for (let i in this.room.users) {
 			let thisUser = this.room.users[i];
-<<<<<<< HEAD
 			if (thisUser.userid in this.pollArray[num].voters) {
 				thisUser.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${results[this.pollArray[num].voters[thisUser.userid]]}`);
 			} else if (thisUser.latestIp in this.pollArray[num].voterIps) {
 				thisUser.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${results[this.pollArray[num].voterIps[thisUser.latestIp]]}`);
 			} else {
 				thisUser.sendTo(this.room, `uhtml|poll${this.pollArray[num].pollNum}|${votes}`);
-=======
-			if (thisUser.userid in this.voters) {
-				thisUser.sendTo(this.room, `|uhtml|poll${this.room.pollNumber}|${results[this.voters[thisUser.userid]]}`);
-			} else if (thisUser.latestIp in this.voterIps) {
-				thisUser.sendTo(this.room, `|uhtml|poll${this.room.pollNumber}|${results[this.voterIps[thisUser.latestIp]]}`);
-			} else {
-				thisUser.sendTo(this.room, `|uhtml|poll${this.room.pollNumber}|${votes}`);
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 			}
 		}
 	}
 
 	displaySpecificTo(user, connection, num) {
 		if (!connection) connection = user;
-<<<<<<< HEAD
 		if (user.userid in this.pollArray[num].voters) {
 			connection.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${this.generateResults(false, this.pollArray[num].voters[user.userid])}`, num);
 		} else if (user.latestIp in this.pollArray[num].voterIps) {
 			connection.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${this.generateResults(false, this.pollArray[num].voterIps[user.latestIp])}`, num);
 		} else {
 			connection.sendTo(this.room, `|uhtml|poll${this.pollArray[num].pollNum}|${this.generateVotes(num)}`);
-=======
-		if (user.userid in this.voters) {
-			connection.sendTo(this.room, `|uhtml|poll${this.room.pollNumber}|${this.generateResults(false, this.voters[user.userid])}`);
-		} else if (user.latestIp in this.voterIps) {
-			connection.sendTo(this.room, `|uhtml|poll${this.room.pollNumber}|${this.generateResults(false, this.voterIps[user.latestIp])}`);
-		} else {
-			connection.sendTo(this.room, `|uhtml|poll${this.room.pollNumber}|${this.generateVotes()}`);
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 		}
 	}
 
@@ -282,15 +215,10 @@ class Poll {
 		this.room.add(`|html|${results}`).update();
 	}
 
-<<<<<<< HEAD
 	obtain(number) {
 		for (let u in this.pollArray) {
 			if (this.pollArray[u].pollNum === number) return u;
 		}
-=======
-		this.room.send(`|uhtmlchange|poll${this.room.pollNumber}|<div class="infobox">(The poll has ended &ndash; scroll down to see the results)</div>`);
-		this.room.add(`|html|${results}`).update();
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 	}
 }
 
@@ -358,16 +286,8 @@ exports.commands = {
 				room.poll.display();
 			}
 
-<<<<<<< HEAD
 			this.roomlog(`${user.name} used ${message}`);
 			this.modlog("POLL");
-=======
-			room.poll = new Poll(room, {source: params[0], supportHTML: supportHTML}, options);
-			room.poll.display();
-
-			this.roomlog(`${user.name} used ${message}`);
-			this.modlog('POLL');
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 			return this.privateModAction(`(A poll was started by ${user.name}.)`);
 		},
 		newhelp: ["/poll create [question], [option1], [option2], [...] - Creates a poll. Allows up to 5 polls at once. Requires: % @ * # & ~"],
@@ -417,7 +337,6 @@ exports.commands = {
 					room.poll.end(num);
 					room.poll.pollArray.splice(num, 1);
 				}, (timeout * 60000));
-<<<<<<< HEAD
 				room.add(`The poll timer was turned on: the poll ${room.poll.pollArray[num].pollNum} will end in ${timeout} minute(s).`);
 				this.modlog('POLL TIMER', null, `${timeout} minutes`);
 				return this.privateModAction(`(The poll timer for poll ${room.poll.pollArray[num].pollNum} was set to ${timeout} minute(s) by ${user.name}.)`);
@@ -425,15 +344,6 @@ exports.commands = {
 				if (!this.runBroadcast()) return;
 				if (room.poll.pollArray[num].timeout) {
 					return this.sendReply(`The poll timer for ${room.poll.pollArray[num].pollNum} is on and will end in ${room.poll.pollArray[num].timeoutMins} minute(s).`);
-=======
-				room.add(`The poll timer was turned on: the poll will end in ${timeout} minute(s).`);
-				this.modlog('POLL TIMER', null, `${timeout} minutes`);
-				return this.privateModAction(`(The poll timer was set to ${timeout} minute(s) by ${user.name}.)`);
-			} else {
-				if (!this.runBroadcast()) return;
-				if (room.poll.timeout) {
-					return this.sendReply(`The poll timer is on and will end in ${room.poll.timeoutMins} minute(s).`);
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 				} else {
 					return this.sendReply(`The poll timer for ${room.poll.pollArray[num].pollNum} is off.`);
 				}
@@ -463,11 +373,7 @@ exports.commands = {
 			if (room.poll.pollArray[num].pollNum === parseInt(target)) room.poll.pollArray.splice(num, 1);
 
 			this.modlog('POLL END');
-<<<<<<< HEAD
 			return this.privateModAction(`(A poll was ended by ${user.name}.)`);
-=======
-			return this.privateModAction(`(The poll was ended by ${user.name}.)`);
->>>>>>> 8c668ab0e9ede6de569101e3f57f4bd84bbc0e0d
 		},
 		endhelp: ["/poll end [poll id number] - Ends a poll and displays the results. Requires: % @ * # & ~"],
 

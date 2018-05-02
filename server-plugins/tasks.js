@@ -36,9 +36,9 @@ exports.commands = {
 			if (!isDev(user.userid) && !this.can("bypassall")) return false;
 			let [issue, priority, ...description] = target.split(",").map(p => p.trim());
 			if (!(issue && priority && description)) return this.parse("/taskshelp");
-			let task = Db.tasks.get("development");
+			let task = Db.tasks.get("development", {issues: {}});
 			let id = toId(issue);
-			if (task.issues[toId(issue)]) return this.errorReply(`This issue title already exists.`);
+			if (task.issues[id]) return this.errorReply(`This issue title already exists.`);
 			if (issue.length < 1 || issue.length > 30) return this.errorReply(`The issue title should not exceed 30 characters long. Feel free to continue in the description.`);
 			if (description.length < 1 || description.length > 100) return this.errorReply(`The description should not exceed 100 characters long.`);
 			if (isNaN(priority) || priority > 6 || priority < 1) return this.errorReply(`The priority should be an integer between 1-6; 1 being the highest priority.`);
@@ -54,7 +54,7 @@ exports.commands = {
 		delete: function (target, room, user) {
 			if (!isDev(user.userid) && !this.can("bypassall")) return false;
 			target = toId(target);
-			let task = Db.tasks.get("development");
+			let task = Db.tasks.get("development", {issues: {}});
 			if (!target) return this.parse(`/taskshelp`);
 			if (!task.issues[target]) return this.errorReply(`The issue "${target}" has not been reported.`);
 			delete task.issues[target];
@@ -69,9 +69,9 @@ exports.commands = {
 			if (!isDev(user.userid) && !this.can("bypassall")) return false;
 			if (!this.runBroadcast()) return;
 			if (this.broadcasting && room.id !== "development") return this.errorReply(`You may only broadcast this command in Development.`);
-			if (!Db.tasks.keys().length) return this.errorReply(`There are currently no tasks on this server.`);
-			let taskList = Db.tasks.get("development");
-			let display = `<center><h1>${Config.serverName}'s Tasks List:</h1><table><tr><td>Employer</td><td>Issue Title</td><td>Issue Description</td><td>Issue Priority</td></tr>`;
+			let taskList = Db.tasks.get("development", {issues: {}});
+			if (Object.keys(taskList.issues).length < 1) return this.errorReply(`There are currently no issues on this server.`);
+			let display = `<center><h1>${Config.serverName}'s Tasks List:</h1><table border="1" cellspacing ="0" cellpadding="4"><tr style="font-weight: bold"><td>Employer</td><td>Issue Title</td><td>Issue Description</td><td>Issue Priority</td></tr>`;
 			for (let i in taskList.issues) {
 				display += `<tr>`;
 				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${taskList.issues[i].employer}">${Server.nameColor(taskList.issues[i].employer, true, true)}</button></td>`;

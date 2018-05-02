@@ -2073,16 +2073,6 @@ let Formats = [
 		},
 	},
 	{
-		name: "[Gen 7] Rise of PU",
-		desc: ["&bullet; Give PU Pokemon time to shine! Many PU Pokemon will be buffed to fit the OU metagame.",
-			"&bullet; <a href=\"http://flufi.boards.net/thread/3/usm-rise-pu-viability-rankings\">USM Viability Rankings</a>",
-			"&bullet; <a href=\"http://flufi.boards.net/thread/4/rise-pu-sample-sets\">Sample Sets</a>",
-		],
-		mod: "rop",
-		ruleset: ['[Gen 7] OU'],
-		unbanlist: ["Kangaskhanite"],
-	},
-	{
 		name: "[Gen 7] Scalemons",
 		desc: [
 			"All Pok&eacute;mon have their stats, barring HP, scaled to give them a BST of around 600.",

@@ -31,12 +31,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node pokemon-showdown",
-<<<<<<< HEAD
     "test": "eslint --cache . && mocha",
-=======
-    "test": "eslint --cache . && tsc && mocha",
-    "tsc": "tsc",
->>>>>>> e823fee980a2c59cbcec0b9b6608c3352ebdfedb
     "lint": "eslint --cache .",
     "precommit": "npm run lint",
     "prepush": "npm test"

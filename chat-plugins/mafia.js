@@ -533,6 +533,11 @@ class MafiaTracker extends Rooms.RoomGame {
 		}
 		delete this.lynches[player.userid];
 		delete this.players[player.userid];
+		let subIndex = this.requestedSub.indexOf(player.userid);
+		if (subIndex !== -1) this.requestedSub.splice(subIndex, 1);
+		subIndex = this.hostRequestedSub.indexOf(player.userid);
+		if (subIndex !== -1) this.hostRequestedSub.splice(subIndex, 1);
+
 		this.playerCount--;
 		this.updateRoleString();
 		this.updatePlayers();
@@ -1251,6 +1256,8 @@ exports.commands = {
 							return this.errorReply("You can't broadcast this because it was just broadcasted.");
 						}
 						this.broadcasting = true;
+						this.broadcastMessage = broadcastMessage;
+						this.sendReply('|c|' + this.user.getIdentity(this.room.id) + '|' + this.message);
 						room.lastBroadcastTime = Date.now();
 						room.lastBroadcast = broadcastMessage;
 					}
@@ -1330,6 +1337,8 @@ exports.commands = {
 					return this.errorReply("You can't broadcast this because it was just broadcasted.");
 				}
 				this.broadcasting = true;
+				this.broadcastMessage = broadcastMessage;
+				this.sendReply('|c|' + this.user.getIdentity(this.room.id) + '|' + this.message);
 				room.lastBroadcastTime = Date.now();
 				room.lastBroadcast = broadcastMessage;
 			}
@@ -1348,6 +1357,7 @@ exports.commands = {
 			this.sendReplyBox(buf);
 		},
 
+		pl: 'players',
 		players: function (target, room, user) {
 			if (!room.game || room.game.gameid !== 'mafia') return this.errorReply(`There is no game of mafia running in this room.`);
 			if (room.game.hostid === user.userid && this.cmdToken === "!") {
@@ -1357,6 +1367,8 @@ exports.commands = {
 					return this.errorReply("You can't broadcast this because it was just broadcasted.");
 				}
 				this.broadcasting = true;
+				this.broadcastMessage = broadcastMessage;
+				this.sendReply('|c|' + this.user.getIdentity(this.room.id) + '|' + this.message);
 				room.lastBroadcastTime = Date.now();
 				room.lastBroadcast = broadcastMessage;
 			}
@@ -1420,7 +1432,7 @@ exports.commands = {
 					if (!this.canTalk(null, targetRoom)) return;
 					if (game.subs.includes(user.userid)) return user.sendTo(targetRoom, `|error|You are already on the sub list.`);
 					if (game.played.includes(user.userid)) return user.sendTo(targetRoom, `|error|You cannot sub back into the game.`);
-					const canJoin = room.game.canJoin(user, true);
+					const canJoin = game.canJoin(user, true);
 					if (canJoin) return user.sendTo(targetRoom, `|error|${canJoin}`);
 					game.subs.push(user.userid);
 					game.nextSub();
@@ -1447,9 +1459,9 @@ exports.commands = {
 				let toSub = target.shift();
 				if (!(toId(toSub) in game.players)) return user.sendTo(targetRoom, `|error|${toSub} is not in the game.`);
 				if (!game.subs.length) {
-					if (room.game.hostRequestedSub.indexOf(toId(toSub)) !== -1) return user.sendTo(targetRoom, `|error|${toSub} is already on the list to be subbed out.`);
+					if (game.hostRequestedSub.indexOf(toId(toSub)) !== -1) return user.sendTo(targetRoom, `|error|${toSub} is already on the list to be subbed out.`);
 					user.sendTo(targetRoom, `|error|There are no subs to replace ${toSub}, they will be subbed if a sub is available before they speak next.`);
-					room.game.hostRequestedSub.unshift(toId(toSub));
+					game.hostRequestedSub.unshift(toId(toSub));
 				} else {
 					game.nextSub(toId(toSub));
 				}
@@ -1457,9 +1469,9 @@ exports.commands = {
 			case 'remove':
 				if (!user.can('mute', null, room) && game.hostid !== user.userid) return user.sendTo(targetRoom, `|error|/mafia sub - Access denied for force substituting a player.`);
 				const toRemove = toId(target.shift());
-				const toRemoveIndex = room.game.subs.indexOf(toRemove);
+				const toRemoveIndex = game.subs.indexOf(toRemove);
 				if (toRemoveIndex === -1) return user.sendTo(room, `|error|${toRemove} is not on the sub list.`);
-				room.game.subs.splice(toRemoveIndex, 1);
+				game.subs.splice(toRemoveIndex, 1);
 				user.sendTo(room, `${toRemove} has been removed from the sublist`);
 				break;
 			default:
@@ -1469,11 +1481,11 @@ exports.commands = {
 				if (!(toSubOut in game.players)) return this.errorReply(`${toSubOut} is not in the game.`);
 
 				const targetUser = Users(toSubIn);
-				const canJoin = room.game.canJoin(targetUser, false, cmd === 'forcesub');
+				const canJoin = game.canJoin(targetUser, false, cmd === 'forcesub');
 				if (canJoin) return user.sendTo(targetRoom, `|error|${canJoin}`);
-				if (room.game.subs.includes(targetUser.userid)) room.game.subs.splice(room.game.subs.indexOf(targetUser.userid), 1);
-				if (room.game.hostRequestedSub.includes(toSubOut)) room.game.hostRequestedSub.splice(room.game.hostRequestedSub.indexOf(toSubOut), 1);
-				if (room.game.requestedSub.includes(toSubOut)) room.game.requestedSub.splice(room.game.requestedSub.indexOf(toSubOut), 1);
+				if (game.subs.includes(targetUser.userid)) game.subs.splice(game.subs.indexOf(targetUser.userid), 1);
+				if (game.hostRequestedSub.includes(toSubOut)) game.hostRequestedSub.splice(game.hostRequestedSub.indexOf(toSubOut), 1);
+				if (game.requestedSub.includes(toSubOut)) game.requestedSub.splice(game.requestedSub.indexOf(toSubOut), 1);
 				game.sub(toSubOut, toSubIn);
 			}
 		},
@@ -1623,6 +1635,7 @@ exports.commands = {
 		hostlogs: 'leaderboard',
 		playlogs: 'leaderboard',
 		mvpladder: 'leaderboard',
+		lb: 'leaderboard',
 		leaderboard: function (target, room, user, connection, cmd) {
 			if (!room.mafiaEnabled) return this.errorReply(`Mafia is disabled for this room.`);
 			if (room.id !== 'mafia') return this.errorReply(`This command can only be used in the Mafia room.`);
@@ -1632,6 +1645,7 @@ exports.commands = {
 				// Deny broadcasting host/playlogs
 				if (!this.runBroadcast()) return;
 			}
+			if (cmd === 'lb') cmd = 'leaderboard';
 			if (this.broadcasting) return this.sendReplyBox(`<button name="joinRoom" value="view-mafialadder-${cmd}" class="button"><strong>${cmd}</strong></button>`);
 			return this.parse(`/join view-mafialadder-${cmd}`);
 		},

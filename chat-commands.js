@@ -26,17 +26,11 @@ const HOURMUTE_LENGTH = 60 * 60 * 1000;
 
 const MAX_CHATROOM_ID_LENGTH = 225;
 
-<<<<<<< HEAD
-let owners = ["mewth", "flufi"];
-
-exports.commands = {
-=======
 /** @typedef {(this: Chat.CommandContext, target: string, room: Room, user: User, connection: Connection, cmd: string) => (void)} ChatHandler */
 /** @typedef {{[k: string]: ChatHandler | string | true | string[]}} ChatCommands */
 
 /** @type {ChatCommands} */
 const commands = {
->>>>>>> 40c1dcdb1d30cefb5ef5b8db0e4935423701572a
 
 	'!version': true,
 	version: function (target, room, user) {
@@ -1510,7 +1504,6 @@ const commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
-		if (owners.includes(target)) return this.errorReply("You cannot punish a server owner.");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
@@ -1694,7 +1687,6 @@ const commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
-		if (owners.includes(target)) return this.errorReply("You cannot punish a server owner.");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
@@ -1915,7 +1907,6 @@ const commands = {
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
-		if (owners.includes(target)) return this.errorReply("You cannot punish a server owner.");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");

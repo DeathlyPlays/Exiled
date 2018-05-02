@@ -428,6 +428,9 @@ class Connection {
 			Sockets.channelRemove(this.worker, room.id, this.socketid);
 		}
 	}
+	toString() {
+		return (this.user ? this.user.userid + '[' + this.user.connections.indexOf(this) + ']' : '[disconnected]') + ':' + this.ip + (this.protocol !== 'websocket' ? ':' + this.protocol : '');
+	}
 }
 
 /** @typedef {[string, string, Connection]} ChatQueueEntry */
@@ -1252,7 +1255,7 @@ class User {
 	 * @param {boolean} includeTrusted
 	 * @param {boolean} forPunishment
 	 */
-	getAltUsers(includeTrusted, forPunishment) {
+	getAltUsers(includeTrusted = false, forPunishment = false) {
 		let alts = findUsers([this.getLastId()], Object.keys(this.ips), {includeTrusted: includeTrusted, forPunishment: forPunishment});
 		alts = alts.filter(user => user !== this);
 		if (forPunishment) alts.unshift(this);

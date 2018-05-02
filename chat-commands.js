@@ -26,9 +26,17 @@ const HOURMUTE_LENGTH = 60 * 60 * 1000;
 
 const MAX_CHATROOM_ID_LENGTH = 225;
 
+<<<<<<< HEAD
 let owners = ["mewth", "flufi"];
 
 exports.commands = {
+=======
+/** @typedef {(this: Chat.CommandContext, target: string, room: Room, user: User, connection: Connection, cmd: string) => (void)} ChatHandler */
+/** @typedef {{[k: string]: ChatHandler | string | true | string[]}} ChatCommands */
+
+/** @type {ChatCommands} */
+const commands = {
+>>>>>>> 40c1dcdb1d30cefb5ef5b8db0e4935423701572a
 
 	'!version': true,
 	version: function (target, room, user) {
@@ -4114,6 +4122,8 @@ exports.commands = {
 	},
 
 };
+
+exports.commands = commands;
 
 process.nextTick(() => {
 	// We might want to migrate most of this to a JSON schema of command attributes.

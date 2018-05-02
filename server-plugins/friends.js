@@ -83,7 +83,7 @@ exports.commands = {
 			if (!friends[user.userid]) this.parse(`/friends init`);
 			if (user.userid === targetUser.userid) return this.errorReply(`Like I can relate and all... but apparently being your own friend is invalid.`);
 			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
-			if (friends[targetUser.userid].disabledFriends) return this.errorReply(`${targetUser.name} has disabled adding friends.`);
+			if (friends[targetUser.userid] && friends[targetUser.userid].disabledFriends) return this.errorReply(`${targetUser.name} has disabled adding friends.`);
 			if (friends[user.userid].disabledFriends) return this.errorReply(`You must enable friend requests before attempting to add others.`);
 			if (friends[targetUser.userid] && friends[targetUser.userid].pendingRequests.includes(user.userid)) return this.parse(`/friends accept ${targetUser.userid}`);
 			if (friends[user.userid].pendingRequests.includes(targetUser.userid)) return this.errorReply(`${targetUser.name} already has a pending request from you.`);
@@ -98,7 +98,9 @@ exports.commands = {
 		removefriend: "remove",
 		unfriend: "remove",
 		remove: function (target, room, user) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (!target) return this.parse(`/help friends`);
+			if (!friends[user.userid]) this.parse(`/friends init`);
 			let targetId = toId(target);
 			if (!friends[user.userid].friendsList.includes(targetId)) return this.errorReply(`${target} is not registered as your friend.`);
 			friends[user.userid].friendsList.splice(friends[user.userid].friendsList.indexOf(targetId), 1);
@@ -123,7 +125,7 @@ exports.commands = {
 			friends[user.userid].friendsList.push(targetId);
 			friends[targetId].pendingRequests.splice(friends[targetId].pendingRequests.indexOf(user.userid), 1);
 			write();
-			if (targetUser && targetUser.connected) targetUser.send(`|pm|${user.getIdentity}|${targetUser.getIdentity()}|/raw ${Server.nameColor(user.name, true, true)} has accepted your friend request.`);
+			if (targetUser && targetUser.connected) targetUser.send(`|pm|${user.getIdentity()}|${targetUser.getIdentity()}|/raw ${Server.nameColor(user.name, true, true)} has accepted your friend request.`);
 			return this.sendReply(`You have successfully accepted ${target}'s friend request.`);
 		},
 
@@ -138,13 +140,14 @@ exports.commands = {
 			if (!friends[targetId].pendingRequests.includes(user.userid)) return this.errorReply(`${target} has not sent you a friend request.`);
 			friends[targetId].pendingRequests.splice(friends[targetId].pendingRequests.indexOf(user.userid), 1);
 			write();
-			if (targetUser && targetUser.connected) targetUser.send(`|pm|${user.getIdentity}|${targetUser.getIdentity()}|/raw ${Server.nameColor(user.name, true, true)} has declined your friend request.`);
+			if (targetUser && targetUser.connected) targetUser.send(`|pm|${user.getIdentity()}|${targetUser.getIdentity()}|/raw ${Server.nameColor(user.name, true, true)} has declined your friend request.`);
 			return this.sendReply(`You have successfully denied ${target}'s friend request.`);
 		},
 
 		enablefriends: "togglefriends",
 		disablefriends: "togglefriends",
 		togglefriends: function (target, room, user) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (!friends[user.userid]) this.parse(`/friends init`);
 			if (friends[user.userid].disabledFriends) {
 				friends[user.userid].disabledFriends = false;
@@ -160,6 +163,7 @@ exports.commands = {
 		togglenotifications: "notify",
 		notifications: "notify",
 		notify: function (target, room, user) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (!friends[user.userid]) this.parse(`/friends init`);
 			if (!friends[user.userid].notifications) {
 				friends[user.userid].notifications = true;
@@ -175,6 +179,7 @@ exports.commands = {
 		toggleprivatize: "privatize",
 		unprivatize: "privatize",
 		privatize: function (target, room, user) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (!friends[user.userid]) this.parse(`/friends init`);
 			if (!friends[user.userid].private) {
 				friends[user.userid].private = true;
@@ -189,6 +194,7 @@ exports.commands = {
 
 		unignore: "ignore",
 		ignore: function (target, room, user, connection, cmd) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (!friends[user.userid]) this.parse(`/friends init`);
 			if (!target) return this.parse(`/friends help`);
 			let targetId = toId(target);
@@ -210,9 +216,30 @@ exports.commands = {
 		ignored: "ignorelist",
 		ignoredusers: "ignorelist",
 		ignorelist: function (target, room, user) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (!friends[user.userid]) this.parse(`/friends init`);
 			if (friends[user.userid].ignoreList.length < 1) return this.errorReply(`You currently are not ignoring anyone.`);
 			return this.sendReplyBox(`You are currently ignoring the following: ${Chat.toListString(friends[user.userid].ignoreList)}.`);
+		},
+
+		cancelrequests: "cancel",
+		cancelrequest: "cancel",
+		cancel: function (target, room, user) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
+			if (!friends[user.userid]) this.parse(`/friends init`);
+			target = toId(target);
+			if (friends[user.userid].pendingRequests.length < 1) return this.errorReply(`You currently have no pending requests.`);
+			if (!friends[user.userid].pendingRequests.includes(target)) return this.errorReply(`You do not have a pending request for this user.`);
+			friends[user.userid].pendingRequests.splice(friends[user.userid].pendingRequests.indexOf(target), 1);
+			return this.sendReply(`You have successfully cancelled your friend request for ${target}.`);
+		},
+
+		pendingrequests: "pending",
+		pending: function (target, room, user) {
+			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
+			if (!friends[user.userid]) this.parse(`/friends init`);
+			if (friends[user.userid].pendingRequests.length < 1) return this.errorReply(`You currently have no pending requests.`);
+			return this.sendReplyBox(`The following are your pending requests: ${Chat.toListString(friends[user.userid].pendingRequests)}.`);
 		},
 
 		"!list": true,
@@ -259,11 +286,13 @@ exports.commands = {
 		/friends remove [user] - Unfriends a user.
 		/friends accept [user] - Accepts a user's friend request.
 		/friends decline [user] - Declines a user's friend request.
+		/friends cancel [user] - Cancels a friend request you sent.
 		/friends togglefriends - Toggles the ability for people to send you friend requests.
 		/friends notify - If disabled, enables friend notifications. If enabled, disables friend notifications.
 		/friends privatize - If privatized, unprivatizes your friends list. Otherwise, hides your friends list from other users.
 		/friends [ignore | unignore] [user] - (Un-)Hides the specified user from your PM notifications.
 		/friends ignorelist - Displays the users you are ignoring (if any).
+		/friends pending - Shows all of your pending friend requests.
 		/friends list [optional target] - Shows the user's friends list if they have initialized their list (and haven't privatized it); defaults to yourself.
 		/friends help - Shows this help command.`,
 	],

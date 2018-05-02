@@ -132,7 +132,7 @@ exports.commands = {
 			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (!target) return this.parse(`/help friends`);
 			let targetId = toId(target);
-			let targetUser = User(target);
+			let targetUser = Users(target);
 			// If the user has not initalized their friends list, parse /friends init
 			if (!friends[user.userid]) this.parse(`/friends init`);
 			if (!friends[targetId].pendingRequests.includes(user.userid)) return this.errorReply(`${target} has not sent you a friend request.`);

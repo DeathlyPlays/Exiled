@@ -228,10 +228,10 @@ exports.commands = {
 			if (friends[friendsId].private && friendsId !== user.userid) return this.errorReply(`${target} has privatized their friends list.`);
 			if (friends[friendsId].friendsList.length < 1) return this.sendReplyBox(`<center>${Server.nameColor(target, true, true)} currently doesn't have any friends.</center>`);
 			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><h2 style="text-align: center">${Server.nameColor(target, true, true)}'s Friends List (${friends[friendsId].friendsList.length} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2><table border="1" cellspacing ="0" cellpadding="${this.broadcasting ? 3 : 2}"><tr style="font-weight: bold"><td>Friend:</td><td>Last Seen:</td>`;
-			if (!this.broadcasting) display += `<td>Unfriend:</td>`;
+			if (!this.broadcasting && friendsId === user.userid) display += `<td>Unfriend:</td>`;
 			display += `</tr>`;
 			friends[friendsId].friendsList.forEach(friend => {
-				if (friends[friend].private && this.broadcasting) {
+				if (friends[friend].private && this.broadcasting && friendsId !== user.userid) {
 					return;
 				} else {
 					display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${friend}">${Server.nameColor(friend, true, true)}</button></td><td style="border: 2px solid #000000; width: 20%; text-align: center">${getLastSeen(friend)}</td>`;

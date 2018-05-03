@@ -43,18 +43,17 @@ let shopDisplay = getShopDisplay(shop);
  * @return {String} display
  */
 function getShopDisplay(shop) {
-	let display = "<center><img src=https://play.pokemonshowdown.com/sprites/xyani/masquerain.gif><img src=http://i.imgur.com/7jnZePO.png width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/masquerain.gif></center><br><div' + (!this.isOfficial ? ' class=infobox-limited' : '') + '><table style='background: #2ae10e; border-color: #2e6dd8; border-radius: 8px' border='1' cellspacing='0' cellpadding='5' width='100%'>" +
-		"<tbody><tr><th><font color=#2e6dd8 face=courier>Item</font></th><th><font color=#2e6dd8 face=courier>Description</font></th><th><font color=#2e6dd8 face=courier>Price</font></th></tr>";
+	let display = `<center><img src=https://play.pokemonshowdown.com/sprites/xyani/masquerain.gif><img src=http://i.imgur.com/7jnZePO.png width=300> <img src=https://play.pokemonshowdown.com/sprites/xyani/masquerain.gif></center><br /><div class="infobox-limited"><table style="background: #2ae10e; border-color: #2e6dd8; border-radius: 8px" border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th><font color=#2e6dd8 face=courier>Item</font></th><th><font color=#2e6dd8 face=courier>Description</font></th><th><font color=#2e6dd8 face=courier>Price</font></th></tr>`;
 	let start = 0;
 	while (start < shop.length) {
-		display += "<tr>" +
-			"<td align='center'><button name='send' style='background: #2ae10e; border-radius: 5px; border: solid, 1px, #2e6dd8; font-size: 11px; padding: 5px 10px' value='/buy " + shop[start][0] + "'><font color=#2e6dd8 face=courier><b>" + shop[start][0] + "</b></font></button>" + "</td>" +
-			"<td align='center'><font color=#2e6dd8 face=courier>" + shop[start][1] + "</font></td>" +
-			"<td align='center'><font color=#2e6dd8 face=courier>" + shop[start][2] + "</font></td>" +
-			"</tr>";
+		display += `<tr>`;
+		display += `<td align="center"><button name="send" style="background: #2ae10e; border-radius: 5px; border: solid, 1px, #2e6dd8; font-size: 11px; padding: 5px 10px" value="/buy ${shop[start][0]}"><font color=#2e6dd8 face=courier><strong>${shop[start][0]}</strong></font></button></td>`;
+		display += `<td align="center"><font color=#2e6dd8 face=courier>${shop[start][1]}</font></td>`;
+		display += `<td align="center"><font color=#2e6dd8 face=courier>${shop[start][2]}</font></td>`;
+		display += `</tr>`;
 		start++;
 	}
-	display += "</tbody></table></div><br><center><font color=#2ae10e face=courier>To buy an item from the shop, use /buy <em>Item</em>.</font></center>";
+	display += `</tbody></table></div><br><center><font color=#2ae10e face=courier>To buy an item from the shop, use /buy <em>Item</em>.</font></center>`;
 	return display;
 }
 
@@ -70,10 +69,10 @@ let Economy = global.Economy = {
 	readMoney: function (userid, callback) {
 		// In case someone forgot to turn `userid` into an actual ID...
 		userid = toId(userid);
-		if (userid.substring(0, 5) === 'guest') return 0;
+		if (userid.substring(0, 5) === "guest") return 0;
 
 		let amount = Db.money.get(userid, DEFAULT_AMOUNT);
-		if (callback && typeof callback === 'function') {
+		if (callback && typeof callback === "function") {
 			// If a callback is specified, return `amount` through the callback.
 			return callback(amount);
 		} else {
@@ -177,38 +176,32 @@ function handleBoughtItem(item, user, cost) {
 }
 
 global.rankLadder = function (title, type, array, prop, group) {
-	let groupHeader = group || 'Username';
-	const ladderTitle = '<center><h4><u>' + title + '</u></h4></center>';
-	const thStyle = 'class="rankladder-headers default-td" style="background: -moz-linear-gradient(#576468, #323A3C); background: -webkit-linear-gradient(#576468, #323A3C); background: -o-linear-gradient(#576468, #323A3C); background: linear-gradient(#576468, #323A3C); box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
-	const tableTop = '<div style="max-height: 310px; overflow-y: scroll;">' +
-		'<table style="width: 100%; border-collapse: collapse;">' +
-		'<tr>' +
-			'<th ' + thStyle + '>Rank</th>' +
-			'<th ' + thStyle + '>' + groupHeader + '</th>' +
-			'<th ' + thStyle + '>' + type + '</th>' +
-		'</tr>';
-	const tableBottom = '</table></div>';
-	const tdStyle = 'class="rankladder-tds default-td" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
-	const first = 'class="first default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
-	const second = 'class="second default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
-	const third = 'class="third default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	let groupHeader = group || `Username`;
+	const ladderTitle = `<center><h4><u>${title}</u></h4></center>`;
+	const thStyle = `class="rankladder-headers default-td" style="background: -moz-linear-gradient(#576468, #323A3C); background: -webkit-linear-gradient(#576468, #323A3C); background: -o-linear-gradient(#576468, #323A3C); background: linear-gradient(#576468, #323A3C); box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"`;
+	const tableTop = `<div style="max-height: 310px; overflow-y: scroll;"><table style="width: 100%; border-collapse: collapse;"><tr><th ${thStyle}>Rank</th><th ${thStyle}>${groupHeader}</th><th ${thStyle}>${type}</th></tr>`;
+	const tableBottom = `</table></div>`;
+	const tdStyle = `class="rankladder-tds default-td" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"`;
+	const first = `class="first default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"`;
+	const second = `class="second default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"`;
+	const third = `class="third default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"`;
 	let midColumn;
 
-	let tableRows = '';
+	let tableRows = ``;
 
 	for (let i = 0; i < array.length; i++) {
 		if (i === 0) {
-			midColumn = '</td><td ' + first + '>';
-			tableRows += '<tr><td ' + first + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			midColumn = `</td><td ${first}>`;
+			tableRows += `<tr><td ${first}>${(i + 1)}${midColumn}${Server.nameColor(array[i].name, true)}${midColumn}${array[i][prop]}</td></tr>`;
 		} else if (i === 1) {
-			midColumn = '</td><td ' + second + '>';
-			tableRows += '<tr><td ' + second + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			midColumn = `</td><td ${second}>`;
+			tableRows += `<tr><td ${second}>${(i + 1)}${midColumn}${Server.nameColor(array[i].name, true)}${midColumn}${array[i][prop]}</td></tr>`;
 		} else if (i === 2) {
-			midColumn = '</td><td ' + third + '>';
-			tableRows += '<tr><td ' + third + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			midColumn = `</td><td ${third}>`;
+			tableRows += `<tr><td ${third}>${(i + 1)}${midColumn}${Server.nameColor(array[i].name, true)}${midColumn}${array[i][prop]}</td></tr>`;
 		} else {
-			midColumn = '</td><td ' + tdStyle + '>';
-			tableRows += '<tr><td ' + tdStyle + '>' + (i + 1) + midColumn + Server.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			midColumn = `</td><td ${tdStyle}>`;
+			tableRows += `<tr><td ${tdStyle}>${(i + 1)}${midColumn}${Server.nameColor(array[i].name, true)}${midColumn}${array[i][prop]}</td></tr>`;
 		}
 	}
 	return ladderTitle + tableTop + tableRows + tableBottom;
@@ -225,7 +218,7 @@ exports.commands = {
 		if (userid.length > 19) return this.sendReply("/wallet - [user] can't be longer than 19 characters.");
 
 		Economy.readMoney(userid, money => {
-			this.sendReplyBox(Server.nameColor(target, true) + " has " + money + ((money === 1) ? " " + moneyName + "." : " " + moneyPlural + "."));
+			this.sendReplyBox(`${Server.nameColor(target, true)} has ${money} ${((money === 1) ? moneyName : moneyPlural)}.`);
 			//if (this.broadcasting) room.update();
 		});
 	},
@@ -419,14 +412,14 @@ exports.commands = {
 
 	economy: "economystats",
 	currency: "economystats",
-	stardust: "economystats",
+	bucks: "economystats",
 	economystats: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		const users = Db.money.keys().map(curUser => ({amount: Db.money.get(curUser)}));
 		const total = users.reduce((acc, cur) => acc + cur.amount, 0);
 		let average = Math.floor(total / users.length) || 0;
 		let output = `There ${(total > 1 ? "are" : "is")} ${total} ${(total > 1 ? moneyPlural : moneyName)} circulating in the economy.`;
-		output += `The average user has ${average} ${(average > 1 ? moneyPlural : moneyName)}.`;
+		output += ` The average user has ${average} ${(average > 1 ? moneyPlural : moneyName)}.`;
 		this.sendReplyBox(output);
 	},
 
@@ -435,7 +428,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		return this.sendReply(`|raw|${shopDisplay}`);
 	},
-	shophelp: ["/shop - Display items you can buy with money."],
+	shophelp: [`/shop - Display items you can buy with your ${moneyPlural}.`],
 
 	buy: function (target, room, user) {
 		if (!target) return this.parse("/help buy");
@@ -447,7 +440,7 @@ exports.commands = {
 			Economy.writeMoney(user.userid, cost * -1, () => {
 				Economy.readMoney(user.userid, amount => {
 					Economy.logTransaction(`${user.name} has purchased a ${target} for ${cost} ${(cost === 1 ? moneyName : moneyPlural)}. They now have ${amount} ${(money === 1 ? moneyName : moneyPlural)}.`);
-					this.sendReply(`You have bought ${target} for ${cost} ${moneyName}${Chat.plural(moneyName)}. You now have ${amount} ${(money === 1 ? moneyName : moneyPlural)} left.`);
+					this.sendReply(`You have bought ${target} for ${cost} ${(cost === 1 ? moneyName : moneyPlural)}. You now have ${amount} ${(money === 1 ? moneyName : moneyPlural)} left.`);
 					room.addRaw(`${Server.nameColor(user.name, true)} has bought <strong>"${target}"</strong> from the shop.`);
 					handleBoughtItem.call(this, target.toLowerCase(), user, cost);
 				});
@@ -461,7 +454,7 @@ exports.commands = {
 		target = target.split(",");
 		if (target.length < 2) return this.parse("/help usetoken");
 		target[0] = toId(target[0]);
-		let msg = "";
+		let msg = ``;
 		if (["avatar", "declare", "icon", "color", "emote", "title", "room", "music", "background", "roomshop"].indexOf(target[0]) === -1) return this.parse("/help usetoken");
 		if (!user.tokens || !user.tokens[target[0]] && !user.can("bypassall")) return this.errorReply("You need to buy this from the shop first.");
 		target[1] = target[1].trim();

@@ -1060,7 +1060,7 @@ class BasicChatRoom extends BasicRoom {
 				// @ts-ignore
 				this.modchat = '~';
 				// @ts-ignore
-				Rooms('staff').add("|raw|<font color=red><strong>" + this.title + " has been automatically deleted from the server due to inactivity.</strong></font>").update();
+				Rooms('staff').add(`|raw|<font color=red><strong>${this.title} has been automatically deleted from the server due to inactivity.</strong></font>`).update();
 			}
 		// @ts-ignore
 		}.bind(this), 2 * 24 * 60 * 60 * 1000); //48 hours

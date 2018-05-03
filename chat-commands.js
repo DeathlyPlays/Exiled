@@ -3091,7 +3091,7 @@ const commands = {
 		if (!this.can('lockdown')) return false;
 
 		Rooms.rooms.forEach((curRoom, id) => {
-			if (room.lottery) this.room.lottery.end();
+			if (room.lottery) this.room.lottery.end(true);
 		});
 		Rooms.global.startLockdown();
 

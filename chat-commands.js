@@ -530,7 +530,6 @@ const commands = {
 	ignorepm: 'ignorepms',
 	ignorepms: function (target, room, user) {
 		if (user.ignorePMs === (target || true)) return this.errorReply("You are already blocking private messages! To unblock, use /unblockpms");
-		if (user.can('lock') && !user.can('declare')) return this.errorReply("You are not allowed to block private messages.");
 		user.ignorePMs = true;
 		if (target in Config.groups) {
 			user.ignorePMs = target;

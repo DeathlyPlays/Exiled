@@ -81,6 +81,7 @@ exports.commands = {
 			this.privateModAction(`(${user.name} deleted server announcement titled: ${target}.)`);
 		},
 
+		announce: "add",
 		add: function (target, room, user) {
 			if (!this.can("news")) return false;
 			if (!target) return this.parse("/help serverannouncements");
@@ -100,7 +101,7 @@ exports.commands = {
 				"July", "Aug", "Sep", "Oct", "Nov", "Dec",
 			];
 			let postTime = (`${MonthNames[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`);
-			Db('news').set(title, [postedBy, desc, postTime]);
+			Db.news.set(title, [postedBy, desc, postTime]);
 			this.privateModAction(`(${user.name} added server announcement: ${parts[0]})`);
 		},
 
@@ -142,8 +143,13 @@ exports.commands = {
 			Server.messageSeniorStaff(`A news requested has been submitted by ${user.name}. ID: ${newsId} Request Message: ${target.trim()}`);
 			return this.sendReply(`Your request has been sent to the ${Config.serverName} global authorities.`);
 		},
+
+		help: function () {
+			this.parse(`/help serverannouncements`);
+		},
 	},
 
+	newshelp: "serverannouncementshelp",
 	serverannouncementshelp: [
 		`/news view - Views current ${Config.serverName} News.
 		/news delete [news title] - Deletes announcement with the [title]. Requires @, &, ~.

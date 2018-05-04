@@ -540,20 +540,6 @@ class RandomTMSTeams extends RandomTeams {
 				},
 				nature: 'Adamant',
 			},
-			'Gholam': {
-				species: 'Groudon',
-				ability: 'Drought',
-				gender: 'M',
-				item: 'Red Orb',
-				moves: ['poweruppunch', 'sacredfire', 'petalblizzard'],
-				signatureMove: 'Precipice Blades',
-				evs: {
-					hp: 252,
-					atk: 252,
-					spd: 4,
-				},
-				nature: 'Adamant',
-			},
 			'Darlene': {
 				species: 'Floette-Eternal',
 				ability: 'Rock Head',

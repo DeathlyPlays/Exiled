@@ -238,7 +238,7 @@ let BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({spd:1});
+			this.boost({spd: 1});
 		},
 		num: 205,
 		gen: 3,
@@ -2013,7 +2013,7 @@ let BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({def:1});
+			this.boost({def: 1});
 		},
 		num: 202,
 		gen: 3,
@@ -2999,7 +2999,7 @@ let BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({atk:1});
+			this.boost({atk: 1});
 		},
 		num: 201,
 		gen: 3,
@@ -4034,7 +4034,7 @@ let BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({spa:1});
+			this.boost({spa: 1});
 		},
 		num: 204,
 		gen: 3,
@@ -4989,7 +4989,7 @@ let BattleItems = {
 			}
 		},
 		onEat: function (pokemon) {
-			this.boost({spe:1});
+			this.boost({spe: 1});
 		},
 		num: 203,
 		gen: 3,

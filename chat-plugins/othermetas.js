@@ -426,7 +426,7 @@ exports.commands = {
 	},
 	fusehelp: ["/fuse [Pokemon], [Other Pokemon] - Fuses the two Pokemon together, combining weight, typings, and abilities."],
 
-	'bnb': 'badnboosted',
+	bnb: "badnboosted",
 	badnboosted: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!Dex.data.Pokedex[toId(target)]) {
@@ -436,11 +436,11 @@ exports.commands = {
 		let newStats = Object.values(template.baseStats).map(function (stat) {
 			return (stat <= 70) ? (stat * 2) : stat;
 		});
-		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Bad 'n Boosted: <br /> ${newStats.join('/')}`);
+		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Bad 'n Boosted: <br /> ${newStats.join("/")}`);
 	},
 	badnboostedhelp: ["/bnb <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted."],
 
-	'scalemons': 'scale',
+	scalemons: "scale",
 	scale: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!Dex.data.Pokedex[toId(target)]) {
@@ -450,14 +450,15 @@ exports.commands = {
 		let newStats = Object.values(template.baseStats).map(function (stat) {
 			return (stat <= 90) ? (stat * 2) : stat;
 		});
-		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Scalemons: <br /> ${newStats.join('/')}`);
+		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Scalemons: <br /> ${newStats.join("/")}`);
 	},
 	badnboosted2help: ["/scale <pokemon> - Shows the base stats that a Pokemon would have in Scalemons."],
 
-	'!ropmoves': true,
-	'riseofpumoves': 'ropmoves',
+	"!ropmoves": true,
+	riseofpumoves: "ropmoves",
 	ropmoves: function (target) {
 		if (!this.runBroadcast()) return;
+		target = toId(target);
 		if (!target) return this.parse("/ropmoveshelp");
 		if (target === "lilligant") {
 			return this.sendReplyBox("Psychic, Psyshock, Earth Power, Moonblast, Defog");
@@ -476,13 +477,13 @@ exports.commands = {
 		} else if (target === "golurk") {
 			return this.sendReplyBox("Shadow Strike, Shadow Sneak");
 		} else {
-			return this.errorReply(target + " is not a buffed Rise of PU Pokemon, or it does not get any new moves.");
+			return this.errorReply(`${target} is not a buffed Rise of PU Pokemon, or it does not get any new moves.`);
 		}
 	},
 	ropmoveshelp: ["/ropmoves <pokemon> - Displays the new moves a Pokemon gets in Rise of PU."],
 
-	'rop': true,
-	'riseofpu': 'rop',
+	"!rop": true,
+	"riseofpu": "rop",
 	rop: function () {
 		if (!this.runBroadcast()) return;
 		return this.sendReplyBox("Lilligant, Togedemaru, Oranguru, Toucannon, Wailord, Drampa, Rotom-Fan, Stantler, Palossand, Crabominable, Hariyama, Golurk");

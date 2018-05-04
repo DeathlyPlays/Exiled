@@ -47,13 +47,11 @@ exports.BattleAbilities = {
 		name: "Roarplaying",
 		desc: "Uses Roar then Focus Energy.",
 		onStart: function (pokemon, source) {
+			this.add("-start", pokemon, "typechange", "Normal/Ghost");
+			pokemon.types = ["Normal", "Ghost"];
 			this.useMove("roar", pokemon);
 			this.useMove("focusenergy", pokemon);
 			this.add("c|~Mewth|LEMME HEAR YOU ROARRRRRRRRRRRR");
-		},
-		onStart: function (pokemon) {
-			this.add("-start", pokemon, "typechange", "Normal/Ghost");
-			pokemon.types = ["Normal", "Ghost"];
 		},
 	},
 

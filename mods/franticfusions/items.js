@@ -10,7 +10,7 @@ exports.BattleItems = {
 		},
 		onModifySpDPriority: 2,
 		onModifySpD: function (spd, pokemon) {
-			if(pokemon.fusion) return;
+			if (pokemon.fusion) return;
 			if (pokemon.baseTemplate.species === 'Clamperl') {
 				return this.chainModify(2);
 			}
@@ -28,7 +28,7 @@ exports.BattleItems = {
 		},
 		onModifySpAPriority: 1,
 		onModifySpA: function (spa, pokemon) {
-			if(pokemon.fusion) return;
+			if (pokemon.fusion) return;
 			if (pokemon.baseTemplate.species === 'Clamperl') {
 				return this.chainModify(2);
 			}
@@ -93,7 +93,7 @@ exports.BattleItems = {
 		},
 		onBasePowerPriority: 6,
 		onBasePower: function (basePower, user, target, move) {
-			if(user.template.num !== 380 && user.template.num !== 381) return;
+			if (user.template.num !== 380 && user.template.num !== 381) return;
 			if (move && (this.getTemplate(user.fusion).num === 380 || this.getTemplate(user.fusion).num === 381) && (move.type === 'Psychic' || move.type === 'Dragon')) {
 				return this.chainModify([0x1333, 0x1000]);
 			}
@@ -111,10 +111,7 @@ exports.BattleItems = {
 		},
 		onModifyAtkPriority: 1,
 		onModifyAtk: function (atk, pokemon) {
-			if (pokemon.fusion === 'Cubone' && pokemon.baseTemplate.baseSpecies === 'Marowak') {
-				return this.chainModify(2);
-			}
-			if (pokemon.baseTemplate.baseSpecies === 'Cubone' || pokemon.fusion === 'Marowak') {
+			if (pokemon.fusion === 'Cubone' || pokemon.baseTemplate.baseSpecies === 'Marowak' || pokemon.baseTemplate.baseSpecies === 'Cubone' || pokemon.fusion === 'Marowak') {
 				return this.chainModify(2);
 			}
 		},

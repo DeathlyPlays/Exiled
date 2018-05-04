@@ -1545,12 +1545,12 @@ let Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
-		section: "" + Config.serverName + "'s Custom Gamemodes",
+		section: `${Config.serverName}'s Custom Gamemodes`,
 		column: 5,
 	},
 	{
 		name: "[Gen 7] Bad 'n Boosted",
-		desc: ["&bullet; All the stats of a pokemon which are 70 or below get doubled.<br>For example, Growlithe's stats are 55/70/45/70/50/60 in BnB they become 110/140/90/140/100/120<br><b>Banlist:</b>Eviolite, Huge Power, Pure Power"],
+		desc: ["&bullet; All the stats of a pokemon which are 70 or below get doubled.<br />For example, Growlithe's stats are 55/70/45/70/50/60 in BnB they become 110/140/90/140/100/120<br><b>Banlist:</b>Eviolite, Huge Power, Pure Power"],
 		mod: 'gen7',
 		ruleset: ['[Gen 7] Ubers'],
 		banlist: ['Eviolite', 'Huge Power', 'Pure Power', 'Eevium Z'],
@@ -1604,7 +1604,6 @@ let Formats = [
 			"Use Digimon in this battle instead of Pokemon!",
 			`&bullet; <a href="dank memes">Digimon Showdown</a>`,
 		],
-
 		mod: "digimon",
 		gameType: 'triples',
 		team: "randomDigimon",
@@ -1620,9 +1619,6 @@ let Formats = [
 	},
 	{ //Thanks urkerab for the Cross Evolution code :)
 		name: "[Gen 7] Frantic Fusions",
-		desc: [
-			"No current description.",
-		],
 		mod: 'franticfusions',
 		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 		banlist: ['Uber', 'Unreleased', 'Shadow Tag', "Assist", "Shedinja", "Huge Power", "Pure Power", 'Medichamite', 'Swoobat', 'CAP', 'Kyurem-Black'],
@@ -1755,8 +1751,7 @@ let Formats = [
 				added[template.species] = true;
 				movepool = movepool.concat(Object.keys(template.learnset));
 				movepool = movepool.concat(Object.keys(fusionTemplate.learnset));
-			} while (template && template.species && !added[template.species]);
-			while (prevo) {
+			} while (prevo) {
 				movepool = movepool.concat(Object.keys(this.data.Learnsets[prevo].learnset));
 				prevo = this.getTemplate(prevo).prevo;
 			}
@@ -1802,61 +1797,6 @@ let Formats = [
 		banlist: ["Articuno", "Moltres", "Zapdos", "Mew", "Raikou", "Entei", "Suicune", "Celebi", "Regirock", "Registeel", "Regice", "Latios", "Latias", "Jirachi", "Uxie", "Mesprit", "Azelf", "Heatran", "Regigigas", "Cresselia", "Shaymin", "Manaphy", "Victini", "Cobalion", "Virizion", "Terrakion", "Keldeo", "Keldeo-Resolute", "Tornadus", "Tornadus-Therian", "Thundurus", "Thundurus-Therian", "Landorus-Therian", "Kyurem", "Kyurem-Black", "Meloetta", "Meloetta-Pirouette", "Zygarde", "Diancie", "Hoopa", "Hoopa-Unbound", "Volcanion", "Type:Null", "Silvally", "Tapu Koko", "Tapu Lele", "Tapu Fini", "Tapu Bulu", "Cosmog", "Cosmoem", "Nihilego", "Buzzwole", "Xurkitree", "Celesteela", "Kartana", "Guzzlord", "Magearna", "Necrozma", "Zeraora", "Poipole", "Stakataka", "Blacephalon", "Uber", "Baton Pass"],
 		unbanlist: ["Aegislash", "Lucario-Mega", "Blaziken-Mega", "Metagross-Mega", "Salamence-Mega", "Kangaskhan-Mega", "Gengar-Mega", "Blaziken"],
 
-	},
-	{
-		name: "[Gen 7] Pokebilities",
-		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3588652/\">Pokebilities</a>: A Pokemon has all of its abilities active at the same time."],
-		mod: 'pokebilities',
-		ruleset: ['[Gen 7] OU'],
-		onSwitchInPriority: 1,
-		onBegin: function () {
-			let statusability = {
-				"aerilate": true,
-				"aurabreak": true,
-				"flashfire": true,
-				"parentalbond": true,
-				"pixilate": true,
-				"refrigerate": true,
-				"sheerforce": true,
-				"slowstart": true,
-				"truant": true,
-				"unburden": true,
-				"zenmode": true,
-			};
-			for (let p = 0; p < this.sides.length; p++) {
-				for (let i = 0; i < this.sides[p].pokemon.length; i++) {
-					let pokemon = this.sides[p].pokemon[i];
-					let template = this.getTemplate(pokemon.species);
-					this.sides[p].pokemon[i].innates = [];
-					let bans = this.data.Formats.gen7ou.banlist;
-					bans.push("Battle Bond");
-					for (let a in template.abilities) {
-						for (let k = 0; k < bans.length; k++) {
-							if (toId(bans[k]) === toId(template.abilities[a])) continue;
-						}
-						if (toId(a) === 'h' && template.unreleasedHidden) continue;
-						if (toId(template.abilities[a]) === pokemon.ability) continue;
-						if (statusability[toId(template.abilities[a])]) {
-							this.sides[p].pokemon[i].innates.push("other" + toId(template.abilities[a]));
-						} else {
-							this.sides[p].pokemon[i].innates.push(toId(template.abilities[a]));
-						}
-					}
-				}
-			}
-		},
-		onSwitchIn: function (pokemon) {
-			for (let i = 0; i < pokemon.innates.length; i++) {
-				if (!pokemon.volatiles[pokemon.innates[i]]) {
-					pokemon.addVolatile(pokemon.innates[i]);
-				}
-			}
-		},
-		onAfterMega: function (pokemon) {
-			for (let i = 0; i < pokemon.innates.length; i++) {
-				pokemon.removeVolatile(pokemon.innates[i]);
-			}
-		},
 	},
 	{
 		name: "[Gen 7] Monotype Ubers",
@@ -1983,7 +1923,6 @@ let Formats = [
 			move.basePower = 100;
 			return move;
 		},
-
 	},
 	{
 		name: "[Gen 7] OU Chaos",
@@ -1997,31 +1936,6 @@ let Formats = [
 		banlist: ['Uber', 'Power Construct', 'Baton Pass', 'Arena Trap', 'Shadow Tag'],
 	},
 	{
-		name: "[Gen 7] Perfected Pokemon",
-		mod: "dewdrop",
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Cancel Mod'],
-		desc: [
-			"Coded by Insist",
-			"Lycanium Z and AlfaStorm contributed ideas towards the project.",
-			"Along with buffing Pokemon deemed worthy of needing support.",
-			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Jubk6J4d3CFNtO2stytTuRRiSD_XLhqzx40EuDKOjHs/edit?usp=sharing\">Perfection</a>",
-		],
-		unbanlist: ['Moody', 'Landorus', 'Genesect', 'Aegislash'],
-		banlist: ['Uber'],
-	},
-	{
-		name: "[Gen 7] Perfected Pokemon Monotype",
-		mod: "dewdrop",
-		ruleset: ['[Gen 7] Monotype'],
-		desc: [
-			"Perfected Pokemon Monotype mode",
-			"Mewth contributed the idea towards the project.",
-			"Along with buffing Pokemon deemed worthy of needing support.",
-			"&bullet; <a href=\"https://docs.google.com/spreadsheets/d/1Jubk6J4d3CFNtO2stytTuRRiSD_XLhqzx40EuDKOjHs/edit?usp=sharing\">Perfection</a>",
-		],
-		unbanlist: ['Moody', 'Landorus', 'Genesect', 'Aegislash'],
-	},
-	{
 		name: "[Gen 7] Plates and Dinner",
 		mod: "gen7",
 		ruleset: ['[Gen 7] OU'],
@@ -2029,6 +1943,61 @@ let Formats = [
 			"Created by Mewth.",
 			"In this OM we will serve you up a nice tray of elemental plates. In this, if you give your Pokemon a plate to hold they will gain the type to replace their secondary type and gain all the moves of the plate.",
 		],
+	},
+	{
+		name: "[Gen 7] Pokebilities",
+		desc: ["&bullet; <a href=\"http://www.smogon.com/forums/threads/3588652/\">Pokebilities</a>: A Pokemon has all of its abilities active at the same time."],
+		mod: 'pokebilities',
+		ruleset: ['[Gen 7] OU'],
+		onSwitchInPriority: 1,
+		onBegin: function () {
+			let statusability = {
+				"aerilate": true,
+				"aurabreak": true,
+				"flashfire": true,
+				"parentalbond": true,
+				"pixilate": true,
+				"refrigerate": true,
+				"sheerforce": true,
+				"slowstart": true,
+				"truant": true,
+				"unburden": true,
+				"zenmode": true,
+			};
+			for (let p = 0; p < this.sides.length; p++) {
+				for (let i = 0; i < this.sides[p].pokemon.length; i++) {
+					let pokemon = this.sides[p].pokemon[i];
+					let template = this.getTemplate(pokemon.species);
+					this.sides[p].pokemon[i].innates = [];
+					let bans = this.data.Formats.gen7ou.banlist;
+					bans.push("Battle Bond");
+					for (let a in template.abilities) {
+						for (let k = 0; k < bans.length; k++) {
+							if (toId(bans[k]) === toId(template.abilities[a])) continue;
+						}
+						if (toId(a) === 'h' && template.unreleasedHidden) continue;
+						if (toId(template.abilities[a]) === pokemon.ability) continue;
+						if (statusability[toId(template.abilities[a])]) {
+							this.sides[p].pokemon[i].innates.push("other" + toId(template.abilities[a]));
+						} else {
+							this.sides[p].pokemon[i].innates.push(toId(template.abilities[a]));
+						}
+					}
+				}
+			}
+		},
+		onSwitchIn: function (pokemon) {
+			for (let i = 0; i < pokemon.innates.length; i++) {
+				if (!pokemon.volatiles[pokemon.innates[i]]) {
+					pokemon.addVolatile(pokemon.innates[i]);
+				}
+			}
+		},
+		onAfterMega: function (pokemon) {
+			for (let i = 0; i < pokemon.innates.length; i++) {
+				pokemon.removeVolatile(pokemon.innates[i]);
+			}
+		},
 	},
 	{
 		name: "[Gen 7] Pokemon Mystery Dungeon",

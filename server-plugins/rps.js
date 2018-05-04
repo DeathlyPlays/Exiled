@@ -1,8 +1,11 @@
-/* * * * * * * * * * * *
-*  Rock/Paper/Scissors *
-*  by sparkychild      *
-* * * * * * * * * * * */
-'use strict';
+/************************
+ * Rock Paper Scissors	*
+ * for Pokemon Showdown *
+ * Made by sparkychild	*
+ * Refactored by Insist *
+ ************************/
+
+"use strict";
 
 if (!Rooms.global.RPS) {
 	Rooms.global.RPS = {
@@ -25,7 +28,7 @@ class RPSGame {
 		this.p1choice = null;
 		this.p2choice = null;
 		Rooms.global.RPS.gameId++;
-		this.gameId = "RPS-" + Rooms.global.RPS.gameId;
+		this.gameId = `RPS-${Rooms.global.RPS.gameId}`;
 		this.gameType = gameType;
 		// set inactivity timer
 		this.timer = setTimeout(function () {
@@ -38,27 +41,27 @@ class RPSGame {
 		// set game
 		Rooms.global.RPS.games[this.gameId] = this;
 
-		//delete searches
+		// delete searches
 		delete Rooms.global.RPS.searches[this.p1.userid];
 		delete Rooms.global.RPS.searches[this.p2.userid];
 
-		//change users
+		// change users
 		this.p1.RPSgame = this.gameId;
 		this.p2.RPSgame = this.gameId;
 
-		//send popups
+		// send popups
 		this.sendGameInformation(this.p1, this.p2);
 		this.sendGameInformation(this.p2, this.p1);
 	}
 
 	sendGameInformation(player, opponent) {
-		let pmPost = "/html <div class=\"broadcast-green\"><center> You have been matched up with <span class=\"username\">" + Chat.escapeHTML(opponent.name) + "</span><br>" +
-			"<b>What is your choice?</b><br>" +
-			'<button name="send" value="/rps choose R ' + this.gameId + '">Rock</button>' +
-			'<button name="send" value="/rps choose P ' + this.gameId + '">Paper</button>' +
-			'<button name="send" value="/rps choose S ' + this.gameId + '">Scissors</button></center><br><br>' +
-			"You have 60 seconds to make your choice.</center></div>";
-		player.send("|pm|~Rock/Paper/Scissors Host|" + player.userid + "|" + pmPost);
+		let pmPost = `/html <div class="broadcast-green"><center>You have been matched up with ${Server.nameColor(opponent.name, true)}</span><br />`;
+		pmPost += `<strong>What is your choice?</strong><br />`;
+		pmPost += `<button name="send" value="/rps choose R ${this.gameId}">Rock</button>`;
+		pmPost += `<button name="send" value="/rps choose P ${this.gameId}">Paper</button>`;
+		pmPost += `<button name="send" value="/rps choose S ${this.gameId}">Scissors</button></center><br /><br />`;
+		pmPost += `You have 60 seconds to make your choice.</center></div>`;
+		player.send(`|pm|~Rock/Paper/Scissors Host|${player.userid}|${pmPost}`);
 	}
 
 	updateUsers() {
@@ -71,9 +74,9 @@ class RPSGame {
 		this.updateUsers();
 		if (user.userid !== this.p1.userid && user.userid !== this.p2.userid) return false;
 		let playerChoice = user.userid === this.p1.userid ? "p1choice" : "p2choice";
-		if (this[playerChoice]) return user.send("|pm|~Rock/Paper/Scissors Host|" + user.userid + "|/html You have already chosen your move!");
+		if (this[playerChoice]) return user.send(`|pm|~Rock/Paper/Scissors Host|${user.userid}|/html <p style="color: red">You have already chose your move!</p>`);
 		this[playerChoice] = choice;
-		user.send("|pm|~Rock/Paper/Scissors Host|" + user.userid + "|/html You have chosen: " + choiceNames[choice] + ".");
+		user.send(`|pm|~Rock/Paper/Scissors Host|${user.userid}|/html <strong>You have chose: ${choiceNames[choice]}.</strong>`);
 		if (this.p1choice && this.p2choice) this.onEnd();
 	}
 
@@ -83,14 +86,14 @@ class RPSGame {
 		if (inactivity) {
 			//determine winner
 			if (this.p1choice && !this.p2choice) {
-				this.p2.send("|pm|~Rock/Paper/Scissors Host|" + this.p2.userid + "|/html You have lost due to inactivity.");
+				this.p2.send(`|pm|~Rock/Paper/Scissors Host|${this.p2.userid}|/html You have lost due to inactivity.`);
 				this.parseWin(this.p1, this.p2, true);
 			} else if (!this.p1choice && this.p2choice) {
-				this.p1.send("|pm|~Rock/Paper/Scissors Host|" + this.p1.userid + "|/html You have lost due to inactivity.");
+				this.p1.send(`|pm|~Rock/Paper/Scissors Host|${this.p1.userid}|/html You have lost due to inactivity.`);
 				this.parseWin(this.p2, this.p1, true);
 			} else {
-				this.p1.send("|pm|~Rock/Paper/Scissors Host|" + this.p1.userid + "|/html You have lost due to inactivity.");
-				this.p2.send("|pm|~Rock/Paper/Scissors Host|" + this.p2.userid + "|/html You have lost due to inactivity.");
+				this.p1.send(`|pm|~Rock/Paper/Scissors Host|${this.p1.userid}|/html You have lost due to inactivity.`);
+				this.p2.send(`|pm|~Rock/Paper/Scissors Host|${this.p2.userid}|/html You have lost due to inactivity.`);
 			}
 			this.p1.RPSgame = null;
 			this.p2.RPSgame = null;
@@ -112,12 +115,13 @@ class RPSGame {
 		let gameResult = resultTable[this.p1choice.toLowerCase() + this.p2choice.toLowerCase()];
 		if (gameResult === "pp") {
 			//tie
-			this.p1.send("|pm|~Rock/Paper/Scissors Host|" + this.p1.userid + "|/html The game with " + this.p2.name + " was a tie! " + this.p2.name + " has chosen " + choiceNames[this.p2choice] + ".");
-			this.p2.send("|pm|~Rock/Paper/Scissors Host|" + this.p2.userid + "|/html The game with " + this.p1.name + " was a tie! " + this.p1.name + " has chosen " + choiceNames[this.p1choice] + ".");
+			this.p1.send(`|pm|~Rock/Paper/Scissors Host|${this.p1.userid}|/html The game with ${this.p2.name} was a tie! ${this.p2.name} has chose ${choiceNames[this.p2choice]}.`);
+			this.p2.send(`|pm|~Rock/Paper/Scissors Host|${this.p2.userid}|/html The game with ${this.p1.name} was a tie! ${this.p1.name} has chose ${choiceNames[this.p1choice]}.`);
 			if (this.gameType === "bucks") {
 				//return their 3 bucks each
-				Db.money.set(this.p1.userid, Db.money.get(this.p1.userid, 0) + 3);
-				Db.money.set(this.p2.userid, Db.money.get(this.p2.userid, 0) + 3);
+				Economy.writeMoney(this.p1.userid, 3);
+				Economy.writeMoney(this.p2.userid, 3);
+				Economy.logTransaction(`${this.p1.name} had a tie with ${this.p2.name} resulting in both getting their buy-in fee (of 3 ${moneyPlural}} back.`);
 			}
 		} else if (gameResult === "p1") {
 			winner = this.p1;
@@ -133,13 +137,15 @@ class RPSGame {
 		this.p2.RPSgame = null;
 		delete Rooms.global.RPS.games[this.gameId];
 	}
+
 	parseWin(winner, loser, inactivity) {
-		winner.send("|pm|~Rock/Paper/Scissors Host|" + winner.userid + "|/html You have won the game against " + loser.name + "! " + (!inactivity ? loser.name + " has chosen " + choiceNames[(winner.userid === this.p1.userid ? this.p2choice : this.p1choice)] + "." : ""));
-		loser.send("|pm|~Rock/Paper/Scissors Host|" + loser.userid + "|/html You have lost the game against " + winner.name + "! " + (!inactivity ? winner.name + " has chosen " + choiceNames[(loser.userid === this.p1.userid ? this.p2choice : this.p1choice)] + "." : ""));
+		winner.send(`|pm|~Rock/Paper/Scissors Host|${winner.userid}|/html You have won the game against ${loser.name}! ${(!inactivity ? `${loser.name} has chose ${choiceNames[(winner.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
+		loser.send(`|pm|~Rock/Paper/Scissors Host|${loser.userid}|/html You have lost the game against ${winner.name}! ${(!inactivity ? `${winner.name} has chose ${choiceNames[(loser.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
 		if (this.gameType === "bucks") {
 			//set but bucks
-			Db.money.set(winner.userid, Db.money.get(winner.userid, 0) + 6);
-			winner.send("|pm|~Rock/Paper/Scissors Host|" + winner.userid + "|/html You have also won 6 " + moneyPlural + ".");
+			Economy.writeMoney(winner.userid, 6);
+			Economy.logTransaction(`${winner.name} has won a game of RPS against ${loser.name} and gained 6 ${moneyPlural}.`);
+			winner.send(`|pm|~Rock/Paper/Scissors Host|${winner.userid}|/html You have also won 6 ${moneyPlural}.`);
 		} else {
 			//do rank change
 			let winnerPoints = Db.rpsrank.get(winner.userid, 1000);
@@ -179,8 +185,8 @@ class RPSGame {
 			Db.rpsrank.set(loser.userid, loserFinalPoints);
 
 			//announce the change in rank
-			winner.send("|pm|~Rock/Paper/Scissors Host|" + winner.userid + "|/html " + winner.name + ": " + winnerPoints + " --> " + winnerFinalPoints + "<br>" + loser.name + ": " + loserPoints + " --> " + loserFinalPoints);
-			loser.send("|pm|~Rock/Paper/Scissors Host|" + loser.userid + "|/html " + winner.name + ": " + winnerPoints + " --> " + winnerFinalPoints + "<br>" + loser.name + ": " + loserPoints + " --> " + loserFinalPoints);
+			winner.send(`|pm|~Rock/Paper/Scissors Host|${winner.userid}|/html ${winner.name}: ${winnerPoints} --> ${winnerFinalPoints}<br />${loser.name}: ${loserPoints} --> ${loserFinalPoints}`);
+			loser.send(`|pm|~Rock/Paper/Scissors Host|${loser.userid}|/html ${winner.name}: ${winnerPoints} --> ${winnerFinalPoints}<br />${loser.name}: ${loserPoints} --> ${loserFinalPoints}`);
 		}
 	}
 }
@@ -188,8 +194,8 @@ class RPSGame {
 function newSearch(user, gameTypeId) {
 	for (let search in Rooms.global.RPS.searches) {
 		if (Rooms.global.RPS.searches[search] === gameTypeId) {
-			//same ip check
-			if (Users.get(search).latestIp === user.latestIp && gameTypeId === "ladder") continue;
+			// same IP check
+			//if (Users.get(search).latestIp === user.latestIp && gameTypeId === "ladder") continue;
 			delete Rooms.global.RPS.searches[search];
 			return new RPSGame(user, Users.get(search), gameTypeId);
 		}
@@ -208,7 +214,10 @@ function updateSearches() {
 			updatedSearches[user.userid] = Rooms.global.RPS.searches[userid];
 		} else {
 			//return bucks if it's a search for bucks
-			if (updatedSearches[user.userid] === "bucks") Db.money.set(userid, Db.money.get(userid, 0) + 3);
+			if (updatedSearches[user.userid] === "bucks") {
+				Economy.writeMoney(userid, 3);
+				Economy.logTransaction(`${user.name} was refunded their join fee of 3 ${moneyPlural} from RPS buy-in matches.`);
+			}
 		}
 	}
 	Rooms.global.RPS.searches = updatedSearches;
@@ -216,32 +225,36 @@ function updateSearches() {
 
 exports.commands = {
 	rps: {
+		searchladder: "search",
 		search: function (target, room, user) {
 			if (user.RPSgame) return this.errorReply("You are already have a game/searching for a game of Rock/Paper/Scissors!");
 			updateSearches();
 			let gameType = "ladder";
 			if (target && target === "bucks") {
-				if (Db.money.get(user.userid, 0) >= 3) {
+				Economy.readMoney(user.userid, money => {
+					if (money < 3) return this.errorReply(`You do not have 3 ${moneyPlural} to play a bucks match.`);
 					gameType = "bucks";
-					Db.money.set(user.userid, (Db.money.get(user.userid, 0) - 3));
-				} else {
-					return this.errorReply("You do not have enough " + moneyPlural + " (3) to search for a game of Rock/Paper/Scissors for " + moneyPlural + ".");
-				}
+				});
 			}
 			user.RPSgame = "searching";
 			newSearch(user, gameType);
-			this.sendReply("You are now searching for a game of Rock/Paper/Scissors (" + gameType + ").");
+			this.sendReply(`You are now searching for a game of Rock/Paper/Scissors (${gameType}).`);
 		},
+
+		cancelsearch: "endsearch",
+		stopsearch: "endsearch",
 		endsearch: function (target, room, user) {
 			if (!user.RPSgame || user.RPSgame !== "searching") return this.errorReply("You are not searching for a game of Rock/Paper/Scissors!");
 			updateSearches();
 			if (Rooms.global.RPS.searches[user.userid] === "bucks") {
-				Db.money.set(user.userid, Db.money.get(user.userid, 0) + 3);
+				Economy.writeMoney(user.userid, 3);
+				Economy.logTransaction(`${user.name} has cancelled their search for a Rock/Paper/Scissors match and was refunded their 3 ${moneyPlural} buy-in fee.`);
 			}
 			delete Rooms.global.RPS.searches[user.userid];
 			user.RPSgame = null;
 			this.sendReply("You have cancelled your search for a game of Rock/Paper/Scissors.");
 		},
+
 		choose: function (target, room, user) {
 			if (!target || !user.RPSgame) return false;
 			let parts = target.split(" ");
@@ -254,34 +267,40 @@ exports.commands = {
 				Rooms.global.RPS.games[gameId].onChoose(user, choice);
 			}
 		},
+
+		"!rank": true,
+		ranking: "rank",
 		rank: function (target, room, user) {
 			if (!this.runBroadcast()) return false;
 			target = (toId(target) ? (Users.get(target) ? Users.get(target).name : target) : user.name);
 			let userRank = Db.rpsrank.get(toId(target), 1000);
-			this.sendReplyBox("Rank - <b>" + target + "</b>: " + userRank);
+			this.sendReplyBox(`<strong>Rank - ${Server.nameColor(target, true)}: ${userRank}</strong>`);
 		},
+
+		"!ladder": true,
 		ladder: function (target, room, user) {
 			if (!this.runBroadcast()) return false;
-			let html = '<center><b><font size="2">Rock/Paper/Scissors Ladder</font><b></center><br><div style="max-height: 310px; overflow-y: scroll">';
-			let index = 1;
-			let table = Object.keys(Db.rpsrank.object()).sort(function (a, b) {
-				if (Db.rpsrank.get(a, 1000) > Db.rpsrank.get(b, 1000)) return -1;
-				return 1;
-			}).slice(0, 100).map(function (u) {
-				return '<tr><td>&nbsp;' + index++ + '&nbsp;</td><td>&nbsp;' + u + '&nbsp;</td><td>&nbsp;' + Db.rpsrank.get(u, 1000) + "&nbsp;</td></tr>";
-			}).join("");
-			if (!table.length) return this.sendReplyBox("The ladder is empty!");
-			this.sendReplyBox(html + '<table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>Rank</th><th>Username</th><th>RPS Ladder Points</th></tr>' + table + "</table></div>");
+			if (!target) target = 100;
+			target = Number(target);
+			if (isNaN(target)) target = 100;
+			let keys = Db.rpsrank.keys().map(name => {
+				return {name: name, points: Db.rpsrank.get(name)};
+			});
+			if (!keys.length) return this.errorReply(`There is currently no ranked data for RPS at this moment.`);
+			keys.sort(function (a, b) { return b.points - a.points; });
+			this.sendReplyBox(rankLadder("RPS Ladder", "Points", keys.slice(0, target), "points"));
 		},
+
 		"": "help",
-		"help": function (target, room, user) {
+		help: function () {
 			this.parse("/help rps");
 		},
 	},
+
 	rpshelp: [
-		"/rps search (" + moneyPlural + ") - searches for a game of Rock/Paper/Scissors either for ladder points or for " + moneyPlural + ".",
-		"/rps endsearch - stop searching for a game of Rock/Paper/Scissors.",
-		"/rps rank [user] - shows rank for Rock/Paper/Scissors for either a user or yourself.",
-		"/rps ladder - shows top 100 on the RPS ladder.",
+		`/rps search (${moneyPlural}) - Searches for a game of Rock/Paper/Scissors either for ladder points or for ${moneyPlural}.
+		/rps endsearch - Stop searching for a game of Rock/Paper/Scissors.
+		/rps rank [user] - Shows [user]'s rank for Rock/Paper/Scissors; defaults to yourself.
+		/rps ladder - Shows Top 100 on the RPS ladder.`,
 	],
 };

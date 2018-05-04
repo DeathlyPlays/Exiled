@@ -1751,9 +1751,6 @@ let Formats = [
 				added[template.species] = true;
 				movepool = movepool.concat(Object.keys(template.learnset));
 				movepool = movepool.concat(Object.keys(fusionTemplate.learnset));
-			} while (prevo) {
-				movepool = movepool.concat(Object.keys(this.data.Learnsets[prevo].learnset));
-				prevo = this.getTemplate(prevo).prevo;
 			}
 			prevo = fusionTemplate.isMega ? this.getTemplate(fusionTemplate.species.substring(0, fusionTemplate.species.length - 5)).prevo : fusionTemplate.prevo;
 			while (prevo) {

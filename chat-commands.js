@@ -2780,7 +2780,7 @@ const commands = {
 
 	hotpatch: function (target, room, user) {
 		if (!target) return this.parse('/help hotpatch');
-		if (!this.can('hotpatch')) return;
+		if (!this.can('hotpatch') && !Server.isDev(user.userid)) return;
 
 		const lock = Monitor.hotpatchLock;
 		const hotpatches = ['chat', 'formats', 'loginserver', 'punishments', 'dnsbl'];
@@ -3341,7 +3341,7 @@ const commands = {
 
 	memusage: 'memoryusage',
 	memoryusage: function (target) {
-		if (!this.can('hotpatch')) return false;
+		if (!this.can('hotpatch') && !Server.isDev(user.userid)) return false;
 		let memUsage = process.memoryUsage();
 		let results = [memUsage.rss, memUsage.heapUsed, memUsage.heapTotal];
 		let units = ["B", "KiB", "MiB", "GiB", "TiB"];

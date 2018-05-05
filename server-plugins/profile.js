@@ -21,6 +21,7 @@ function isDev(user) {
 	if (dev === 1) return true;
 	return false;
 }
+Server.isDev = isDev;
 
 function isVIP(user) {
 	if (!user) return;

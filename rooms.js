@@ -949,7 +949,7 @@ class GlobalRoom extends BasicRoom {
 			const stackUS = (err ? Chat.escapeHTML(err.stack).split(`\n`).slice(0, 2).join(`.`) : ``);
 			const crashMessageUS = `**The server has crashed:** ${stackUS}`;
 			// @ts-ignore
-			Server.messageSeniorStaff(crashMessageUS, `~${Config.serverName} Server`);
+			Server.devPM(`~${Config.serverName} Server`, crashMessageUS);
 			return;
 		}
 		this.lastReportedCrash = time;

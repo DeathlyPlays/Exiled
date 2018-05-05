@@ -6,21 +6,8 @@
 
 "use strict";
 
-function isDev(user) {
-	if (!user) return;
-	if (typeof user === "object") user = user.userid;
-	let dev = Db.devs.get(toId(user));
-	if (dev === 1) return true;
-	return false;
-}
-
 function alertDevs(message) {
-	let developers = Db.devs.keys();
-	for (const name of developers) {
-		const u = Users(name);
-		if (!(u && u.connected)) continue;
-		u.send(`|pm|~Developer Alert|~|/raw ${message}`);
-	}
+	Server.devPM("~Developer Chat", `New task: ${message}`);
 	if (Rooms(`development`)) Rooms(`development`).add(`|c|~Developer Alert|/raw ${message}`).update();
 }
 
@@ -33,7 +20,7 @@ exports.commands = {
 		new: "add",
 		issue: "add",
 		add: function (target, room, user) {
-			if (!isDev(user.userid) && !this.can("bypassall")) return false;
+			if (!Server.isDev(user.userid) && !this.can("bypassall")) return false;
 			let [issue, priority, ...description] = target.split(",").map(p => p.trim());
 			if (!(issue && priority && description)) return this.parse("/taskshelp");
 			let task = Db.tasks.get("development", {issues: {}});
@@ -45,14 +32,14 @@ exports.commands = {
 			task.issues[id] = {id, issue, description, employer: user.userid, priority};
 			Db.tasks.set("development", task);
 			alertDevs(`${Server.nameColor(user.name, true, true)} has filed an issue.<br />Issue: ${issue}.<br />Description: ${description}.<br />Priority: ${priority}.`);
-			return this.sendReply(`The task "${issue}" has been added to the server task list.`);
+			return this.sendReply(`The task "${issue}" has been added to the ${Config.serverName} Task List.`);
 		},
 
 		remove: "delete",
 		clear: "delete",
 		fixed: "delete",
 		delete: function (target, room, user) {
-			if (!isDev(user.userid) && !this.can("bypassall")) return false;
+			if (!Server.isDev(user.userid) && !this.can("bypassall")) return false;
 			target = toId(target);
 			let task = Db.tasks.get("development", {issues: {}});
 			if (!target) return this.parse(`/taskshelp`);
@@ -66,11 +53,11 @@ exports.commands = {
 		tasks: "list",
 		task: "list",
 		list: function (target, room, user) {
-			if (!isDev(user.userid) && !this.can("bypassall")) return false;
+			if (!Server.isDev(user.userid) && !this.can("bypassall")) return false;
 			if (!this.runBroadcast()) return;
 			if (this.broadcasting && room.id !== "development") return this.errorReply(`You may only broadcast this command in Development.`);
 			let taskList = Db.tasks.get("development", {issues: {}});
-			if (Object.keys(taskList.issues).length < 1) return this.errorReply(`There are currently no issues on this server.`);
+			if (Object.keys(taskList.issues).length < 1) return this.errorReply(`There are currently no issues on ${Config.serverName}.`);
 			let display = `<center><h1>${Config.serverName}'s Tasks List:</h1><table border="1" cellspacing ="0" cellpadding="4"><tr style="font-weight: bold"><td>Employer</td><td>Issue Title</td><td>Issue Description</td><td>Issue Priority</td></tr>`;
 			for (let i in taskList.issues) {
 				display += `<tr>`;

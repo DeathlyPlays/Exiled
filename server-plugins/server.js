@@ -1362,7 +1362,7 @@ exports.commands = {
 
 	errorlogs: 'crashlogs',
 	crashlogs: function (target, room, user) {
-		if (!this.can("hotpatch")) return false;
+		if (!this.can("hotpatch") && !Server.isDev(user.userid)) return false;
 		let crashes = FS("logs/errors.txt").readIfExistsSync().split('\n').splice(-100).join('\n');
 		user.send(`|popup|${crashes}`);
 		return;
@@ -1640,5 +1640,14 @@ exports.commands = {
 			this.add(`|j|${revival}`);
 			this.add(`|c|${revival}|Hey`);
 		});
+	},
+
+	devmessage: "devpm",
+	devmsg: "devpm",
+	devpm: function (target, room, user) {
+		if (!Server.isDev(user.userid) && !this.can("bypassall")) return false;
+		if (!target) return this.errorReply(`You need to specify the message.`);
+		if (target.length > 500) return this.errorReply(`Dev PM messages can be a maximum of 500 characters long.`);
+		Server.devPM(`~Developer Chat`, `${Server.nameColor(user.name, true, true)} said: "${target}".`);
 	},
 };

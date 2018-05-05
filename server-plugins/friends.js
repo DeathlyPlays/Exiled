@@ -268,7 +268,6 @@ exports.commands = {
 				if (!b) b = 0;
 				return b - a;
 			});
-			console.log(sortedFriends);
 			sortedFriends.forEach(friend => {
 				if (friends[friend].private && this.broadcasting && friendsId !== user.userid) {
 					return;

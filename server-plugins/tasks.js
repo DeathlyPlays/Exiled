@@ -59,14 +59,19 @@ exports.commands = {
 			let taskList = Db.tasks.get("development", {issues: {}});
 			if (Object.keys(taskList.issues).length < 1) return this.errorReply(`There are currently no issues on ${Config.serverName}.`);
 			let display = `<center><h1>${Config.serverName}'s Tasks List:</h1><table border="1" cellspacing ="0" cellpadding="4"><tr style="font-weight: bold"><td>Employer</td><td>Issue Title</td><td>Issue Description</td><td>Issue Priority</td></tr>`;
-			for (let i in taskList.issues) {
+			let sortedIssues = Object.keys(taskList.issues).sort(function (a, b) {
+				a = taskList.issues[a].priority;
+				b = taskList.issues[b].priority;
+				return a - b;
+			});
+			sortedIssues.forEach(task => {
 				display += `<tr>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${taskList.issues[i].employer}">${Server.nameColor(taskList.issues[i].employer, true, true)}</button></td>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[i].issue}</td>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[i].description}</td>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[i].priority}</td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${taskList.issues[task].employer}">${Server.nameColor(taskList.issues[task].employer, true, true)}</button></td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[task].issue}</td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[task].description}</td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${taskList.issues[task].priority}</td>`;
 				display += `</tr>`;
-			}
+			});
 			display += `</table></center>`;
 			return this.sendReplyBox(display);
 		},

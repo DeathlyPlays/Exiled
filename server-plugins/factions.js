@@ -46,28 +46,30 @@ function getFaction(user) {
 }
 Server.getFaction = getFaction;
 
-for (let u in factions) {
-	if (!factions[u].joinDate) factions[u].joinDate = {};
-	for (let i in factions[u].users) {
-		if (factions[u].joinDate[factions[u].users[i]]) continue;
-		factions[u].joinDate[factions[u].users[i]] = Date.now() - 7100314200;
+if (factions !== "") {
+	for (let u in factions) {
+		if (!factions[u].joinDate) factions[u].joinDate = {};
+		for (let i in factions[u].users) {
+			if (factions[u].joinDate[factions[u].users[i]]) continue;
+			factions[u].joinDate[factions[u].users[i]] = Date.now() - 7100314200;
+		}
+		if (factions[u].bank) delete factions[u].bank;
+		if (factions[u].nowipe) continue;
+		let coins = Db.factionbank.get(factions[u]);
+		factions[u].nowipe = true;
+		if (!coins) continue;
+		let remainder = Db.factionbank.get(factions[u]) % 20;
+		if (remainder !== 0) {
+			coins = coins - remainder;
+			let owner = factions[u].ranks["owner"].users[0];
+			Economy.writeMoney(toId(owner), remainder);
+			Economy.logTransaction(`${owner} has earned ${remainder} ${moneyName}${Chat.plural(moneyPlural)}!`);
+		}
+		Db.factionbank.remove(factions[u].id);
+		Db.factionbank.set(factions[u].id, coins / 20);
 	}
-	if (factions[u].bank) delete factions[u].bank;
-	if (factions[u].nowipe) continue;
-	let coins = Db.factionbank.get(factions[u]);
-	factions[u].nowipe = true;
-	if (!coins) continue;
-	let remainder = Db.factionbank.get(factions[u]) % 20;
-	if (remainder !== 0) {
-		coins = coins - remainder;
-		let owner = factions[u].ranks["owner"].users[0];
-		Economy.writeMoney(toId(owner), remainder);
-		Economy.logTransaction(`${owner} has earned ${remainder} ${moneyName}${Chat.plural(moneyPlural)}!`);
-	}
-	Db.factionbank.remove(factions[u].id);
-	Db.factionbank.set(factions[u].id, coins / 20);
+	write();
 }
-write();
 
 function getFactionRank(user) {
 	user = toId(user);

@@ -222,6 +222,7 @@ exports.commands = {
 			return this.sendReplyBox(`You are currently ignoring the following: ${Chat.toListString(friends[user.userid].ignoreList)}.`);
 		},
 
+		cancelreq: "cancel",
 		cancelrequests: "cancel",
 		cancelrequest: "cancel",
 		cancel: function (target, room, user) {
@@ -234,6 +235,7 @@ exports.commands = {
 			return this.sendReply(`You have successfully cancelled your friend request for ${target}.`);
 		},
 
+		pendingreqs: "pending",
 		pendingrequests: "pending",
 		pending: function (target, room, user) {
 			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
@@ -257,7 +259,17 @@ exports.commands = {
 			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><h2 style="text-align: center">${Server.nameColor(target, true, true)}'s Friends List (${friends[friendsId].friendsList.length} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2><table border="1" cellspacing ="0" cellpadding="${this.broadcasting ? 3 : 2}"><tr style="font-weight: bold"><td>Friend:</td><td>Last Seen:</td>`;
 			if (!this.broadcasting && friendsId === user.userid) display += `<td>Unfriend:</td>`;
 			display += `</tr>`;
-			friends[friendsId].friendsList.forEach(friend => {
+			let sortedFriends = friends[friendsId].friendsList.sort(function (a, b) {
+				if (Users(a) && Users(a).connected) Db.seen.set(Users(a).userid, Date.now());
+				if (Users(b) && Users(b).connected) Db.seen.set(Users(b).userid, Date.now());
+				a = Db.seen.get(a);
+				b = Db.seen.get(b);
+				if (!a) a = 0;
+				if (!b) b = 0;
+				return b - a;
+			});
+			console.log(sortedFriends);
+			sortedFriends.forEach(friend => {
 				if (friends[friend].private && this.broadcasting && friendsId !== user.userid) {
 					return;
 				} else {

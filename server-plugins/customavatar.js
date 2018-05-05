@@ -5,30 +5,30 @@
  * See: https://github.com/CreaturePhil/Showdown-Boilerplate/blob/master/chat-plugins/customavatar.js
 */
 
-'use strict';
+"use strict";
 
 /* eslint no-restricted-modules: [0] */
 
-const FS = require('fs');
-const path = require('path');
-const request = require('request');
+const FS = require("fs");
+const path = require("path");
+const request = require("request");
 
 // The path where custom avatars are stored.
-const AVATAR_PATH = path.join(__dirname, '../config/avatars/');
+const AVATAR_PATH = path.join(__dirname, "../config/avatars/");
 
 // The valid file extensions allowed.
-const VALID_EXTENSIONS = ['.jpg', '.png', '.gif'];
+const VALID_EXTENSIONS = [".jpg", ".png", ".gif"];
 
 function downloadImage(image_url, name, extension) {
 	request
 		.get(image_url)
-		.on('error', err => {
+		.on("error", err => {
 			console.error(err);
 		})
-		.on('response', response => {
+		.on("response", response => {
 			if (response.statusCode !== 200) return;
-			let type = response.headers['content-type'].split('/');
-			if (type[0] !== 'image') return;
+			let type = response.headers["content-type"].split("/");
+			if (type[0] !== "image") return;
 
 			response.pipe(FS.createWriteStream(AVATAR_PATH + name + extension));
 		});
@@ -36,7 +36,7 @@ function downloadImage(image_url, name, extension) {
 
 function loadCustomAvatars() {
 	FS.readdir(AVATAR_PATH, (err, files) => {
-		if (err) console.log("Error loading custom avatars: " + err);
+		if (err) console.log(`Error loading custom avatars: ${err}`);
 		if (!files) files = [];
 		files
 			.filter(file => VALID_EXTENSIONS.includes(path.extname(file)))
@@ -50,16 +50,16 @@ function loadCustomAvatars() {
 loadCustomAvatars();
 
 exports.commands = {
-	ca: 'customavatar',
+	ca: "customavatar",
 	customavatar: {
 		set: function (target, room, user) {
 			if (!this.can("profile")) return false;
-			let parts = target.split(',').map(param => param.trim());
-			if (parts.length < 2) return this.parse('/help customavatar');
+			let parts = target.split(",").map(param => param.trim());
+			if (parts.length < 2) return this.parse("/help customavatar");
 
 			let name = toId(parts[0]);
 			let avatarUrl = parts[1];
-			if (!/^https?:\/\//i.test(avatarUrl)) avatarUrl = 'http://' + avatarUrl;
+			if (!/^https?:\/\//i.test(avatarUrl)) avatarUrl = `http://${avatarUrl}`;
 			let ext = path.extname(avatarUrl);
 
 			if (!VALID_EXTENSIONS.includes(ext)) {
@@ -69,41 +69,41 @@ exports.commands = {
 			Config.customavatars[name] = name + ext;
 
 			downloadImage(avatarUrl, name, ext);
-			this.sendReply("|raw|" + name + "'s avatar was successfully set. Avatar:<br /><img src='" + avatarUrl + "' width='80' height='80'>");
-			if (Users(name)) Users(name).popup("|html|" + Server.nameColor(user.name, true) + " set your custom avatar.<br /><center><img src='" + avatarUrl + "' width='80' height='80'></center><br /> Refresh your page if you don't see it.");
+			this.sendReplyBox(`${Server.nameColor(name, true)}'s avatar was successfully set. Avatar:<br /><img src="${avatarUrl}" width="80" height="80">`);
+			if (Users(name) && Users(name).connected) Users(name).popup(`|html|${Server.nameColor(user.name, true)} set your custom avatar.<br /><center><img src="${avatarUrl}" width="80" height="80"></center><br />Refresh your page if you don't see it.`);
 		},
 
-		remove: 'delete',
+		remove: "delete",
 		delete: function (target, room, user) {
 			if (!this.can("profile")) return false;
 
 			let userid = toId(target);
 			let image = Config.customavatars[userid];
 
-			if (!image) return this.errorReply(target + " does not have a custom avatar.");
+			if (!image) return this.errorReply(`${target} does not have a custom avatar.`);
 
 			delete Config.customavatars[userid];
 			FS.unlink(AVATAR_PATH + image, err => {
-				if (err && err.code === 'ENOENT') {
-					this.errorReply(target + "'s avatar does not exist.");
+				if (err && err.code === "ENOENT") {
+					this.errorReply(`${target}'s avatar does not exist.`);
 				} else if (err) {
 					console.error(err);
 				}
 
-				if (Users(userid)) Users(userid).popup("|html|" + Server.nameColor(user.name, true) + " has deleted your custom avatar.");
-				this.sendReply(target + "'s avatar has been successfully removed.");
+				if (Users(userid) && Users(userid).connected) Users(userid).popup(`|html|${Server.nameColor(user.name, true)} has deleted your custom avatar.`);
+				this.sendReply(`${target}'s avatar has been successfully removed.`);
 			});
 		},
 
-		'': 'help',
+		"": "help",
 		help: function (target, room, user) {
-			this.parse('/help customavatar');
+			this.parse("/help customavatar");
 		},
 	},
 
 	customavatarhelp: [
-		"Commands for /customavatar are:",
-		"/customavatar set [username], [image link] - Set a user's avatar.",
-		"/customavatar delete [username] - Delete a user's avatar.",
+		`Commands for /customavatar are:
+		/customavatar set [username], [image link] - Set a user's avatar.
+		/customavatar delete [username] - Delete a user's avatar.`,
 	],
 };

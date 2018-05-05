@@ -194,8 +194,8 @@ exports.commands = {
 	},
 
 	dicegamehelp: [
-		`/startdice or /dicegame [amount] - Starts a game of dice in the room for a given number of ${moneyPlural}, 1 ${moneyName} by default.
-		/joindice - Joins the game of dice. You cannot use this command if you don't have the number of ${moneyPlural} the game is for.
+		`/startdice or /dicegame [amount] - Starts a game of dice in the room for a given number of ${global.moneyPlural}, 1 ${global.moneyName} by default.
+		/joindice - Joins the game of dice. You cannot use this command if you don't have the number of ${global.moneyPlural} the game is for.
 		/leavedice - Leaves the game of dice.
 		/enddice - Ends the game of dice. Requires + or higher to use.
 		/dicelog - Views Dice-related logs. Requires @, &, ~`,

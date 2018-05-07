@@ -53,7 +53,7 @@ exports.commands = {
 	blockemotes: "ignoreemotes",
 	blockemoticon: "ignoreemotes",
 	blockemoticons: "ignoreemotes",
-	ignoreemotes: function (target, room, user) {
+	ignoreemotes: function () {
 		this.parse(`/emoticons ignore`);
 	},
 
@@ -61,7 +61,7 @@ exports.commands = {
 	unblockemotes: "unignoreemotes",
 	unblockemoticon: "unignoreemotes",
 	unblockemoticons: "unignoreemotes",
-	unignoreemotes: function (target, room, user) {
+	unignoreemotes: function () {
 		this.parse(`/emoticons unignore`);
 	},
 
@@ -71,15 +71,14 @@ exports.commands = {
 	emoticon: {
 		add: function (target, room, user) {
 			if (!this.can(`emotes`)) return false;
-			if (!target) return this.sendReply("Usage: /emoticons add [name], [url]");
+			if (!target) return this.parse("/emoticonshelp");
 
 			let targetSplit = target.split(",");
 			for (let u in targetSplit) targetSplit[u] = targetSplit[u].trim();
 
-			if (!targetSplit[1]) return this.sendReply("Usage: /emoticons add [name], [url]");
-
+			if (!targetSplit[1]) return this.parse("/emoticonshelp");
 			if (targetSplit[0].length > 10) return this.errorReply("Emoticons may not be longer than 10 characters.");
-			if (emoticons[targetSplit[0]]) return this.errorReply(targetSplit[0] + " is already an emoticon.");
+			if (emoticons[targetSplit[0]]) return this.errorReply(`${targetSplit[0]} is already an emoticon.`);
 
 			emoticons[targetSplit[0]] = targetSplit[1];
 			saveEmoticons();
@@ -99,7 +98,7 @@ exports.commands = {
 		rem: "del",
 		del: function (target, room, user) {
 			if (!this.can(`emotes`)) return false;
-			if (!target) return this.sendReply("Usage: /emoticons remove [name]");
+			if (!target) return this.parse("/emoticonshelp");
 			if (!emoticons[target]) return this.errorReply("That emoticon does not exist.");
 
 			delete emoticons[target];
@@ -111,7 +110,7 @@ exports.commands = {
 		},
 
 		toggle: function (target, room, user) {
-			if (!this.can("emotes", null, room)) return this.sendReply(`Access denied.`);
+			if (!this.can("emotes", null, room)) return false;
 			if (!room.disableEmoticons) {
 				room.disableEmoticons = true;
 				Rooms.global.writeChatRoomData();
@@ -169,29 +168,33 @@ exports.commands = {
 		},
 
 		"": "help",
-		help: function (target, room, user) {
-			if (!this.runBroadcast()) return;
-			this.sendReplyBox(
-				`Emoticon Commands:
-				/emoticon may be substituted with /emoticons, /emotes, or /emote
-				/emoticon add [name], [url] - Adds an emoticon.
-				/emoticon del/delete/remove/rem [name] - Removes an emoticon.
-				/emoticon toggle - Enables or disables emoticons in the current room depending on if they are already active.
-				/emoticon view/list - Displays the list of emoticons.
-				/emoticon ignore - Ignores emoticons in chat messages.
-				/emoticon unignore - Unignores emoticons in chat messages.
-				/emoticon help - Displays this help command.
-				/emoticon size [size] - Changes the size of emoticons in the current room.
-				/randemote - Randomly sends an emote from the emoticon list.`
-			);
+		help: function () {
+			this.parse(`/emoticonshelp`);
 		},
 	},
 
-	randemote: function (target, room, user, connection) {
+	randomemoticon: "randemote",
+	randemoticon: "randemoticon",
+	randomemote: "randemote",
+	randemote: function () {
 		if (!this.canTalk()) return;
 		let e = Object.keys(emoticons)[Math.floor(Math.random() * Object.keys(emoticons).length)];
 		this.parse(e);
 	},
+
+	emoticonshelp: [
+		`Emoticon Commands:
+		/emoticon may be substituted with /emoticons, /emotes, or /emote
+		/emoticon add [name], [url] - Adds an emoticon. Requires @, &, #, ~
+		/emoticon del/delete/remove/rem [name] - Removes an emoticon. Requires @, &, #, ~
+		/emoticon toggle - Enables or disables emoticons in the current room depending on if they are already active. Requires @, &, #, ~
+		/emoticon view/list - Displays the list of emoticons.
+		/emoticon ignore - Ignores emoticons in chat messages.
+		/emoticon unignore - Unignores emoticons in chat messages.
+		/emoticon size [size] - Changes the size of emoticons in the current room. Requires @, &, #, ~
+		/randemote - Randomly sends an emote from the emoticon list.
+		/emoticon help - Displays this help command.`,
+	],
 };
 
 function escapeRegExp(str) {

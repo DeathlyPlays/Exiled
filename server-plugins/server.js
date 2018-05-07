@@ -217,7 +217,7 @@ exports.commands = {
 	automod: 'autorank',
 	autoowner: 'autorank',
 	autopromote: 'autorank',
-	autorank: function (target, room, user, cmd) {
+	autorank: function (target, room, user, connection, cmd) {
 		switch (cmd) {
 		case 'autovoice':
 			target = '+';
@@ -262,47 +262,46 @@ exports.commands = {
 	},
 	autorankhelp: ["/autorank [rank] - Automatically promotes user to the specified rank when they join the room."],
 
-	bonus: 'dailybonus',
-	checkbonus: 'dailybonus',
+	bonus: "dailybonus",
+	checkbonus: "dailybonus",
 	dailybonus: function (target, room, user) {
 		let nextBonus = Date.now() - Db.DailyBonus.get(user.userid, [1, Date.now()])[1];
 		if ((86400000 - nextBonus) <= 0) return Server.giveDailyReward(user.userid, user);
-		return this.sendReply('Your next bonus is ' + (Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db.DailyBonus.get(user.userid, [1, Date.now()])[0]) + ' ' + (Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural) + ' in ' + Chat.toDurationString(Math.abs(86400000 - nextBonus)));
+		return this.sendReply(`Your next bonus is ${(Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db.DailyBonus.get(user.userid, [1, Date.now()])[0])} ${(Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural)} in ${Chat.toDurationString(Math.abs(86400000 - nextBonus))}`);
 	},
 
 	"!sota": true,
 	sota: function () {
-		this.parse('feelssotafeelstinitinitinisotalove');
+		this.parse("feelssotafeelstinitinitinisotalove");
 	},
 
-	'!define': true,
-	def: 'define',
+	"!define": true,
+	def: "define",
 	define: function (target, room, user) {
-		if (!target) return this.parse('/help define');
+		if (!target) return this.parse("/help define");
 		target = toId(target);
-		if (target > 50) return this.sendReply('/define <word> - word can not be longer than 50 characters.');
+		if (target > 50) return this.sendReply("/define <word> - word can not be longer than 50 characters.");
 		if (!this.runBroadcast()) return;
 
-		if (toId(target) !== 'constructor' && defCache[toId(target)]) {
+		if (toId(target) !== "constructor" && defCache[toId(target)]) {
 			this.sendReplyBox(defCache[toId(target)]);
 			if (room) room.update();
 			return;
 		}
 
 		let options = {
-			host: 'api.wordnik.com',
+			host: "api.wordnik.com",
 			port: 80,
-			path: '/v4/word.json/' + target + '/definitions?limit=3&sourceDictionaries=all' +
-			'&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
-			method: 'GET',
+			path: `/v4/word.json/${target}/definitions?limit=3&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5`,
+			method: "GET",
 		};
 
 		http.get(options, res => {
-			let data = '';
-			res.on('data', chunk => {
+			let data = ``;
+			res.on(`data`, chunk => {
 				data += chunk;
-			}).on('end', () => {
-				if (data.charAt(1) !== '{') {
+			}).on(`end`, () => {
+				if (data.charAt(1) !== `{`) {
 					this.sendReplyBox(`Error retrieving definition for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
 					if (room) room.update();
 					return;
@@ -317,7 +316,7 @@ exports.commands = {
 					let count = 1;
 					for (let u in data) {
 						if (count > 3) break;
-						output += `(<strong>${count}</strong>) ${Chat.escapeHTML(data[u]['text'])}<br />`;
+						output += `(<strong>${count}</strong>) ${Chat.escapeHTML(data[u][`text`])}<br />`;
 						count++;
 					}
 					this.sendReplyBox(output);
@@ -330,51 +329,51 @@ exports.commands = {
 	},
 	definehelp: ["/define [word] - Gives the definition to a word."],
 
-	'!urbandefine': true,
-	u: 'urbandefine',
-	ud: 'urbandefine',
+	"!urbandefine": true,
+	u: "urbandefine",
+	ud: "urbandefine",
 	urbandefine: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		if (!target) return this.parse('/help urbandefine');
-		if (target.toString() > 50) return this.sendReply('Phrase can not be longer than 50 characters.');
+		if (!target) return this.parse("/help urbandefine");
+		if (target.toString() > 50) return this.sendReply("Phrase can not be longer than 50 characters.");
 
-		if (toId(target) !== 'constructor' && udCache[toId(target)]) {
+		if (toId(target) !== "constructor" && udCache[toId(target)]) {
 			this.sendReplyBox(udCache[toId(target)]);
 			if (room) room.update();
 			return;
 		}
 
 		let options = {
-			host: 'api.urbandictionary.com',
+			host: "api.urbandictionary.com",
 			port: 80,
-			path: '/v0/define?term=' + encodeURIComponent(target),
+			path: `/v0/define?term=${encodeURIComponent(target)}`,
 			term: target,
 		};
 
 		http.get(options, res => {
-			let data = '';
-			res.on('data', chunk => {
+			let data = ``;
+			res.on(`data`, chunk => {
 				data += chunk;
-			}).on('end', () => {
-				if (data.charAt(0) !== '{') {
+			}).on(`end`, () => {
+				if (data.charAt(0) !== `{`) {
 					this.sendReplyBox(`Error retrieving definition for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
 					if (room) room.update();
 					return;
 				}
 				data = JSON.parse(data);
-				let definitions = data['list'];
-				if (data['result_type'] === 'no_results' || !data) {
+				let definitions = data[`list`];
+				if (data[`result_type`] === `no_results` || !data) {
 					this.sendReplyBox(`No results for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
 					if (room) room.update();
 					return;
 				} else {
-					if (!definitions[0]['word'] || !definitions[0]['definition']) {
+					if (!definitions[0][`word`] || !definitions[0][`definition`]) {
 						this.sendReplyBox(`No results for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
 						if (room) room.update();
 						return;
 					}
-					let output = `<strong>${Chat.escapeHTML(definitions[0]['word'])}</strong> ${Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ')}`;
-					if (output.length > 400) output = output.slice(0, 400) + '...';
+					let output = `<strong>${Chat.escapeHTML(definitions[0][`word`])}</strong> ${Chat.escapeHTML(definitions[0][`definition`]).replace(/\r\n/g, `<br />`).replace(/\n/g, ` `)}`;
+					if (output.length > 400) output = output.slice(0, 400) + `...`;
 					this.sendReplyBox(output);
 					udCache[toId(target)] = output;
 					if (room) room.update();
@@ -385,26 +384,26 @@ exports.commands = {
 	},
 	urbandefinehelp: ["/u [word] - Gives the Urban Definition for a word."],
 
-	rf: 'roomfounder',
+	rf: "roomfounder",
 	roomfounder: function (target, room, user) {
 		if (!room.chatRoomData) {
 			return this.sendReply("/roomfounder - This room isn't designed for per-room moderation to be added");
 		}
-		if (!target) return this.parse('/help roomfounder');
+		if (!target) return this.parse("/help roomfounder");
 		target = this.splitTarget(target, true);
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;
 		let userid = toId(name);
 
 		if (!Users.isUsernameKnown(userid)) {
-			return this.errorReply(`User '${this.targetUsername}' is offline and unrecognized, and so can't be promoted.`);
+			return this.errorReply(`User "${this.targetUsername}" is offline and unrecognized, and so can't be promoted.`);
 		}
 
-		if (!this.can('makeroom')) return false;
+		if (!this.can("makeroom")) return false;
 
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
 
-		room.auth[userid] = '#';
+		room.auth[userid] = "#";
 		room.chatRoomData.founder = userid;
 		room.founder = userid;
 		this.addModAction(`${name} was appointed Room Founder by ${user.name}.`);
@@ -417,13 +416,13 @@ exports.commands = {
 	},
 	roomfounderhelp: ["/roomfounder [username] - Appoints [username] as a room founder. Requires: & ~"],
 
-	deroomfounder: 'roomdefounder',
+	deroomfounder: "roomdefounder",
 	roomdefounder: function (target, room) {
 		if (!room.chatRoomData) {
 			return this.sendReply("/roomdefounder - This room isn't designed for per-room moderation.");
 		}
-		if (!target) return this.parse('/help roomdefounder');
-		if (!this.can('makeroom')) return false;
+		if (!target) return this.parse("/help roomdefounder");
+		if (!this.can("makeroom")) return false;
 		let targetUser = toId(target);
 		if (room.founder !== targetUser) return this.errorReply(`${target} is not the room founder of ${room.title}.`);
 		room.founder = false;
@@ -432,7 +431,7 @@ exports.commands = {
 	},
 	roomdefounderhelp: ["/roomdefounder [username] - Revoke [username]'s room founder position. Requires: &, ~"],
 
-	roomdeowner: 'deroomowner',
+	roomdeowner: "deroomowner",
 	deroomowner: function (target, room, user) {
 		if (!room.auth) {
 			return this.sendReply("/roomdeowner - This room isn't designed for per-room moderation");
@@ -441,10 +440,10 @@ exports.commands = {
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;
 		let userid = toId(name);
-		if (!userid || userid === '') return this.sendReply(`User "${name}" does not exist.`);
+		if (!userid || userid === "") return this.sendReply(`User "${name}" does not exist.`);
 
-		if (room.auth[userid] !== '#') return this.sendReply(`User "${name}" is not a room owner.`);
-		if (!room.founder || user.userid !== room.founder && !this.can('makeroom', null, room)) return false;
+		if (room.auth[userid] !== "#") return this.sendReply(`User "${name}" is not a room owner.`);
+		if (!room.founder || user.userid !== room.founder && !this.can("makeroom", null, room)) return false;
 
 		delete room.auth[userid];
 		this.sendReply(`(${name} is no longer Room Owner.)`);
@@ -467,8 +466,8 @@ exports.commands = {
 
 		if (!targetUser) return this.sendReply(`User "${this.targetUsername}" is not online.`);
 
-		if (!room.founder) return this.sendReply('The room needs a Room Founder before it can have a Room Leader.');
-		if (room.founder !== user.userid && !this.can('makeroom')) return this.sendReply('/roomleader - Access denied.');
+		if (!room.founder) return this.sendReply("The room needs a Room Founder before it can have a Room Leader.");
+		if (room.founder !== user.userid && !this.can("makeroom")) return this.sendReply("/roomleader - Access denied.");
 
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
 
@@ -478,26 +477,26 @@ exports.commands = {
 			targetUser.popup(`|html|You were appointed Room Leader by ${Server.nameColor(user.name, true, true)} in ${room.title}.`);
 			room.onUpdateIdentity(targetUser);
 		}
-		room.auth[targetUser.userid] = '&';
+		room.auth[targetUser.userid] = "&";
 		this.addModAction(`${name} was appointed Room Leader by ${user.name}.`);
 		room.onUpdateIdentity(targetUser);
 		Rooms.global.writeChatRoomData();
 	},
 	roomleaderhelp: ["/roomleader [username] - Appoints [username] as a Room Leader. Requires: Room Founder, &, ~"],
 
-	roomdeleader: 'deroomowner',
+	roomdeleader: "deroomleader",
 	deroomleader: function (target, room, user) {
 		if (!room.auth) {
-			return this.sendReply("/roomdeowner - This room isn't designed for per-room moderation");
+			return this.sendReply("/roomdeleader - This room isn't designed for per-room moderation");
 		}
 		target = this.splitTarget(target, true);
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;
 		let userid = toId(name);
-		if (!userid || userid === '') return this.sendReply(`User "${name}" does not exist.`);
+		if (!userid || userid === "") return this.sendReply(`User "${name}" does not exist.`);
 
-		if (room.auth[userid] !== '&') return this.sendReply(`User "${name}" is not a room leader.`);
-		if (!room.founder || user.userid !== room.founder && !this.can('makeroom', null, room)) return false;
+		if (room.auth[userid] !== "&") return this.sendReply(`User "${name}" is not a room leader.`);
+		if (!room.founder || user.userid !== room.founder && !this.can("makeroom", null, room)) return false;
 
 		if (targetUser) {
 			targetUser.popup(`|html|You were demoted from Room Leader by ${Server.nameColor(user.name, true)} in ${room.title}.`);
@@ -516,13 +515,13 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.errorReply("No target.");
 		let targetAnime = Chat.escapeHTML(target.trim());
-		let id = targetAnime.toLowerCase().replace(/ /g, '');
+		let id = targetAnime.toLowerCase().replace(/ /g, "");
 		if (amCache.anime[id]) return this.sendReply(`|raw|${amCache.anime[id]}`);
 
 		nani.get(`anime/search/${targetAnime}`)
 			.then(data => {
 				if (data[0].adult) {
-					return this.errorReply('NSFW content is not allowed.');
+					return this.errorReply("NSFW content is not allowed.");
 				}
 				nani.get(`anime/${data[0].id}`)
 					.then(data => {
@@ -549,13 +548,13 @@ exports.commands = {
 				return this.errorReply("Anime not found.");
 			});
 	},
-	animehelp: ['/anime [query] - Searches for an anime series based on the given search query.'],
+	animehelp: ["/anime [query] - Searches for an anime series based on the given search query."],
 
 	manga: function (target, room) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.errorReply("No target.");
 		let targetAnime = Chat.escapeHTML(target.trim());
-		let id = targetAnime.toLowerCase().replace(/ /g, '');
+		let id = targetAnime.toLowerCase().replace(/ /g, "");
 		if (amCache.anime[id]) return this.sendReply(`|raw|${amCache.anime[id]}`);
 
 		nani.get(`manga/search/${targetAnime}`)
@@ -588,41 +587,41 @@ exports.commands = {
 				return this.errorReply("Manga not found.");
 			});
 	},
-	mangahelp: ['/manga [query] - Searches for a manga series based on the given search query.'],
+	mangahelp: ["/manga [query] - Searches for a manga series based on the given search query."],
 
 	hc: function () {
-		return this.parse('/hotpatch chat');
+		return this.parse("/hotpatch chat");
 	},
 
 	hf: function () {
-		return this.parse('/hotpatch formats');
+		return this.parse("/hotpatch formats");
 	},
 
 	hb: function () {
-		return this.parse('/hotpatch battles');
+		return this.parse("/hotpatch battles");
 	},
 
 	hv: function () {
-		return this.parse('/hotpatch validator');
+		return this.parse("/hotpatch validator");
 	},
 
-	afk: 'away',
-	busy: 'away',
-	work: 'away',
-	working: 'away',
-	eating: 'away',
-	sleep: 'away',
-	sleeping: 'away',
-	gaming: 'away',
-	nerd: 'away',
-	nerding: 'away',
-	mimis: 'away',
+	afk: "away",
+	busy: "away",
+	work: "away",
+	working: "away",
+	eating: "away",
+	sleep: "away",
+	sleeping: "away",
+	gaming: "away",
+	nerd: "away",
+	nerding: "away",
+	mimis: "away",
 	away: function (target, room, user, connection, cmd) {
-		if (!user.isAway && user.name.length > 19 && !user.can('lock')) return this.sendReply("Your username is too long for any kind of use of this command.");
+		if (!user.isAway && user.name.length > 19 && !user.can("lock")) return this.sendReply("Your username is too long for any kind of use of this command.");
 		if (!this.canTalk()) return false;
 		target = toId(target);
-		if (/^\s*$/.test(target)) target = 'away';
-		if (cmd !== 'away') target = cmd;
+		if (/^\s*$/.test(target)) target = "away";
+		if (cmd !== "away") target = cmd;
 		let newName = user.name;
 		let status = parseStatus(target, true);
 		let statusLen = status.length;
@@ -634,18 +633,18 @@ exports.commands = {
 			if (user.name.substr(-statusLen) === status) return this.sendReply(`Your away status is already set to "${target}".`);
 		}
 
-		newName += ' - ' + status;
-		if (newName.length > 60 && !user.can('lock')) return this.sendReply(`"${target}" is too long to use as your away status.`);
+		newName += ` - ${status}`;
+		if (newName.length > 60 && !user.can("lock")) return this.sendReply(`"${target}" is too long to use as your away status.`);
 
 		// forcerename any possible impersonators
 		let targetUser = Users.getExact(user.userid + target);
-		if (targetUser && targetUser !== user && targetUser.name === user.name + ' - ' + target) {
+		if (targetUser && targetUser !== user && targetUser.name === `${user.name} - ${target}`) {
 			targetUser.resetName();
 			targetUser.send(`|nametaken||Your name conflicts with ${user.name} ${(user.name.substr(-1) === "s" ? "'" : "'s")} new away status.`);
 		}
 
-		if (user.can('mute', null, room)) this.add(`|raw|-- ${Server.nameColor(user.name, true)} is now ${target.toLowerCase()}.`);
-		if (user.can('lock')) this.parse('/hide');
+		if (user.can("mute", null, room)) this.add(`|raw|-- ${Server.nameColor(user.name, true)} is now ${target.toLowerCase()}.`);
+		if (user.can("lock")) this.parse("/hide");
 		user.forceRename(newName, user.registered);
 		user.updateIdentity();
 		user.isAway = true;
@@ -660,7 +659,7 @@ exports.commands = {
 		let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
 		if (statusIdx < 0) {
 			user.isAway = false;
-			if (user.can('mute', null, room)) this.add(`|raw|-- ${Server.nameColor(user.userid, true)} is no longer away.`);
+			if (user.can("mute", null, room)) this.add(`|raw|-- ${Server.nameColor(user.userid, true)} is no longer away.`);
 			return false;
 		}
 
@@ -669,23 +668,23 @@ exports.commands = {
 		user.forceRename(newName, user.registered);
 		user.updateIdentity();
 		user.isAway = false;
-		if (user.can('mute', null, room)) this.add(`|raw|-- ${Server.nameColor(user.userid, true)} is no longer ${status.toLowerCase()}.`);
-		if (user.can('lock')) this.parse('/show');
+		if (user.can("mute", null, room)) this.add(`|raw|-- ${Server.nameColor(user.userid, true)} is no longer ${status.toLowerCase()}.`);
+		if (user.can("lock")) this.parse("/show");
 	},
 	backhelp: ["/back - Sets a users away status back to normal."],
 
-	'!dssb': true,
+	"!dssb": true,
 	dssb: function (target, room, user) {
 		if (!this.runBroadcast()) return false;
-		if (!target || target === 'help') return this.parse('/help dssb');
-		if (target === 'credits') return this.parse('/dssbcredits');
+		if (!target || target === "help") return this.parse("/help dssb");
+		if (target === "credits") return this.parse("/dssbcredits");
 		let targetData = getMonData(toId(target));
 		if (!targetData) return this.errorReply(`The staffmon "${toId(target)}" could not be found.`);
 		return this.sendReplyBox(targetData);
 	},
 	dssbhelp: [
-		"/dssb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.",
-		"/dssbcredits - Displays the credits of the primary creators of DSSB.",
+		`/dssb [staff member's name] - displays data for a staffmon's movepool, custom move, and custom ability.
+		/dssbcredits - Displays the credits of the primary creators of DSSB.`,
 	],
 
 	dssbcredits: function (target, room, user) {
@@ -693,36 +692,36 @@ exports.commands = {
 		let popup = `<font size=5 color=#000080><u><strong>DSSB Credits</strong></u></font><br />` +
 			`<br />` +
 			`<u><strong>Programmers:</u></strong><br />` +
-			`- ${Server.nameColor('Insist', true)} (Head Developer, Idea, Balancer, Concepts, Entries)<br />` +
-			`- ${Server.nameColor('Lycanium Z', true)} (Assistant Developer)<br />` +
-			`- ${Server.nameColor('Back At My Day', true)} (Entries, Developments)<br />` +
-			`- ${Server.nameColor('flufi', true)} (Development)<br />` +
+			`- ${Server.nameColor("Insist", true)} (Head Developer, Idea, Balancer, Concepts, Entries)<br />` +
+			`- ${Server.nameColor("Lycanium Z", true)} (Assistant Developer)<br />` +
+			`- ${Server.nameColor("Back At My Day", true)} (Entries, Developments)<br />` +
+			`- ${Server.nameColor("flufi", true)} (Development)<br />` +
 			`<u><strong>Special Thanks:</strong></u><br />` +
 			`- Our Staff Members for their cooperation in making this.<br />`;
 		this.sendReplyBox(popup);
 	},
 
-	'!dub': true,
-	dub: 'dubtrack',
-	radio: 'dubtrack',
-	dubtrackfm: 'dubtrack',
+	"!dub": true,
+	dub: "dubtrack",
+	radio: "dubtrack",
+	dubtrackfm: "dubtrack",
 	dubtrack: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let nowPlaying = "";
 		let options = {
-			host: 'api.dubtrack.fm',
+			host: "api.dubtrack.fm",
 			port: 443,
-			path: '/room/exiled_147873230374424',
-			method: 'GET',
+			path: "/room/exiled_147873230374424",
+			method: "GET",
 		};
 		https.get(options, res => {
-			let data = '';
-			res.on('data', chunk => {
+			let data = "";
+			res.on("data", chunk => {
 				data += chunk;
-			}).on('end', () => {
-				if (data.charAt(0) === '{') {
+			}).on("end", () => {
+				if (data.charAt(0) === "{") {
 					data = JSON.parse(data);
-					if (data['data'] && data['data']['currentSong']) nowPlaying = `<br /><strong>Now Playing:</strong> ${Chat.escapeHTML(data['data']['currentSong'].name)}`;
+					if (data["data"] && data["data"]["currentSong"]) nowPlaying = `<br /><strong>Now Playing:</strong> ${Chat.escapeHTML(data["data"]["currentSong"].name)}`;
 				}
 				this.sendReplyBox(`Join our dubtrack.fm room <a href="https://www.dubtrack.fm/join/exiled_147873230374424">here!</a>${nowPlaying}`);
 				room.update();
@@ -730,52 +729,8 @@ exports.commands = {
 		});
 	},
 
-	'!youtube': true,
-	yt: 'youtube',
-	youtube: function (target, room, user) {
-		if (!this.runBroadcast()) return false;
-		if (!target) return this.parse("/youtubehelp");
-		let params_spl = target.split(` `), g = ` `;
-		for (const args in params_spl) {
-			g += `+${args}`;
-		}
-		g = g.substr(1);
-
-		let reqOpts = {
-			hostname: `www.googleapis.com`,
-			method: `GET`,
-			path: `/youtube/v3/search?part=snippet&q=${g}&type=video&key=AIzaSyA4fgl5OuqrgLE1B7v8IWYr3rdpTGkTmns`,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		};
-
-		let self = this;
-		let data = ``;
-		let req = https.request(reqOpts, function (res) {
-			res.on(`data`, function (chunk) {
-				data += chunk;
-			});
-			res.on(`end`, function (chunk) {
-				let d = JSON.parse(data);
-				if (d.pageInfo.totalResults === 0) {
-					room.add(`No videos found`);
-					room.update();
-					return false;
-				}
-				let id = getLinkId(target);
-				const image = `<button style="background: none; border: none;"><img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg?custom=true&w=168&h=94&stc=true&jpg444=true&jpgq=90&sp=68&sigh=tbq7TDTjFXD_0RtlFUMGz-k3JiQ" height="180" width="180"></button>`;
-				self.sendReplyBox(`<center>${image}<br /><a href="https://www.youtube.com/watch?v=${d.items[0].id.videoId}"><strong>${d.items[0].snippet.title}</strong></center>`);
-				room.update();
-			});
-		});
-		req.end();
-	},
-
-	youtubehelp: ["/youtube [link] - Displays a YouTube video into the chat."],
-
 	clearall: function (target, room, user) {
-		if (!this.can('ban')) return false;
+		if (!this.can("ban")) return false;
 		if (room.battle) return this.sendReply("You cannot clearall in battle rooms.");
 
 		clearRoom(room);
@@ -783,21 +738,21 @@ exports.commands = {
 		this.privateModAction(`(${user.name} used /clearall.)`);
 	},
 
-	gclearall: 'globalclearall',
+	gclearall: "globalclearall",
 	globalclearall: function (user) {
-		if (!this.can('hotpatch')) return false;
+		if (!this.can("hotpatch")) return false;
 
 		Rooms.rooms.forEach(room => clearRoom(room));
-		Users.users.forEach(user => user.popup('All rooms have been cleared.'));
+		Users.users.forEach(user => user.popup("All rooms have been cleared."));
 		this.privateModAction(`(${user.name} used /globalclearall.)`);
 	},
 
-	'!regdate': true,
+	"!regdate": true,
 	regdate: function (target, user) {
 		if (!target) target = user.name;
 		target = toId(target);
 		if (target.length < 1 || target.length > 19) {
-			return this.sendReply(`Usernames can not be less than one character or longer than 19 characters. (Current length: ${target.length}.)`);
+			return this.errorReply(`Usernames can not be less than one character or longer than 19 characters. (Current length: ${target.length}.)`);
 		}
 		if (!this.runBroadcast()) return;
 		Server.regdate(target, date => {
@@ -822,23 +777,23 @@ exports.commands = {
 	},
 	regdatehelp: ["/regdate - Gets the regdate (register date) of a username."],
 
-	'!seen': true,
+	"!seen": true,
 	seen: function (target) {
 		if (!this.runBroadcast()) return;
-		if (!target) return this.parse('/help seen');
+		if (!target) return this.parse("/help seen");
 		let targetUser = Users.get(target);
-		if (targetUser && targetUser.connected) return this.sendReplyBox(`${Server.nameColor(targetUser.name, true)} is <strong><font color='limegreen'>Currently Online</strong></font>.`);
+		if (targetUser && targetUser.connected) return this.sendReplyBox(`${Server.nameColor(targetUser.name, true)} is <strong><font color="limegreen">Currently Online</strong></font>.`);
 		target = Chat.escapeHTML(target);
 		let seen = Db.seen.get(toId(target));
-		if (!seen) return this.sendReplyBox(`${Server.nameColor(target, true)} has <strong><font color='red'>never been online</font></strong> on this server.`);
+		if (!seen) return this.sendReplyBox(`${Server.nameColor(target, true)} has <strong><font color="red">never been online</font></strong> on this server.`);
 		this.sendReplyBox(`${Server.nameColor(target, true)} was last seen <strong>${Chat.toDurationString(Date.now() - seen, {precision: true})}</strong> ago.`);
 	},
 	seenhelp: ["/seen - Shows when the user last connected on the server."],
 
-	'!m8b': true,
-	helixfossil: 'm8b',
-	helix: 'm8b',
-	magic8ball: 'm8b',
+	"!m8b": true,
+	helixfossil: "m8b",
+	helix: "m8b",
+	magic8ball: "m8b",
 	m8b: function () {
 		if (!this.runBroadcast()) return;
 		let results = ['Signs point to yes.', 'Yes.', 'Reply hazy, try again.', 'Without a doubt.', 'My sources say no.', 'As I see it, yes.', 'You may rely on it.', 'Concentrate and ask again.', 'Outlook not so good.', 'It is decidedly so.', 'Better not tell you now.', 'Very doubtful.', 'Yes - definitely.', 'It is certain.', 'Cannot predict now.', 'Most likely.', 'Ask again later.', 'My reply is no.', 'Outlook good.', 'Don\'t count on it.'];
@@ -881,12 +836,11 @@ exports.commands = {
 		return this.parse(results[Math.floor(Math.random() * results.length)]);
 	},
 
-	clearroomauth: function (target, room, user, cmd) {
+	clearroomauth: function (target, room, user) {
 		if (!this.can('declare') && room.founder !== user.userid) return this.errorReply("/clearroomauth - Access denied.");
 		if (!room.auth) return this.errorReply("Room does not have roomauth.");
 		let parts = target.split(',');
 		let count;
-		cmd = parts[0].trim().toLowerCase();
 		if (!target) {
 			this.errorReply("You must specify a roomauth group you want to clear.");
 			return;
@@ -1117,7 +1071,7 @@ exports.commands = {
 
 	pus: 'pmupperstaff',
 	pmupperstaff: function (target, room, user) {
-		if (!target) return this.sendReply('/pmupperstaff [message] - Sends a PM to every upper staff');
+		if (!target) return this.errorReply('/pmupperstaff [message] - Sends a PM to every upper staff');
 		if (!this.can('hotpatch')) return false;
 		if (!target) return this.parse('/help pmupperstaff');
 		Server.messageSeniorStaff(target, pmName, user.name);
@@ -1129,7 +1083,7 @@ exports.commands = {
 	roompm: 'rmall',
 	rmall: function (target, room, user) {
 		if (!this.can('declare', null, room)) return this.errorReply("/rmall - Access denied.");
-		if (!target) return this.sendReply("/rmall [message] - Sends a PM to all users in the room.");
+		if (!target) return this.errorReply("/rmall [message] - Sends a PM to all users in the room.");
 		target = target.replace(/<(?:.|\n)*?>/gm, '');
 
 		for (let i in room.users) {
@@ -1298,9 +1252,9 @@ exports.commands = {
 		}
 	},
 	advertisehelp: [
-		"/advertise add, [room], [message] - Adds your room advertisement with a message into the queue [Must be Room Moderator in the room].",
-		"/advertise enable - Enables Advertisements.",
-		"/advertise disable - Disables Advertisements.",
+		`/advertise add, [room], [message] - Adds your room advertisement with a message into the queue [Must be Room Moderator in the room].",
+		/advertise enable - Enables Advertisements. Requires &, ~
+		/advertise disable - Disables Advertisements. Requires &, ~`,
 	],
 
 	transferaccount: 'transferauthority',

@@ -947,7 +947,7 @@ class GlobalRoom extends BasicRoom {
 		const time = Date.now();
 		if (time - this.lastReportedCrash < CRASH_REPORT_THROTTLE) {
 			const stackUS = (err ? Chat.escapeHTML(err.stack).split(`\n`).slice(0, 2).join(`.`) : ``);
-			const crashMessageUS = `**The server has crashed:** ${stackUS}`;
+			const crashMessageUS = `<strong>The server has crashed:</strong> ${stackUS}`;
 			// @ts-ignore
 			Server.devPM(`~${Config.serverName} Server`, crashMessageUS);
 			return;

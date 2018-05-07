@@ -1217,7 +1217,7 @@ class BasicChatRoom extends BasicRoom {
 				Rooms.global.writeChatRoomData();
 			}
 			// @ts-ignore
-			if (!this.auth[user.userid]) this.auth[user.userid] = this.autorank;
+			if (!this.auth[user.userid] && user.registered) this.auth[user.userid] = this.autorank;
 			user.updateIdentity();
 		}
 		// @ts-ignore TODO: strongly-typed surveys

@@ -31,29 +31,17 @@ let regdateCache = {};
 let udCache = {};
 let defCache = {};
 
-let pmName = '~' + Config.serverName + ' Server';
+let pmName = `~${Config.serverName} Server`;
 
 Server.img = function (link, height, width) {
 	if (!link) return '<font color="maroon">ERROR : You must supply a link.</font>';
-	return '<img src="' + link + '"' + (height ? ' height="' + height + '"' : '') + (width ? ' width="' + width + '"' : '') + '/>';
+	return `<img src="${link}" ${(height ? `height="${height}"` : ``)} ${(width ? `width="${width}"` : ``)}/>`;
 };
 
 Server.font = function (text, color, bold) {
 	if (!text) return '<font color="maroon">ERROR : Please provide some text.</font>';
-	return '<font color="' + (color ? color : 'black') + '">' + (bold ? '<strong>' : '') + text + (bold ? '</strong>' : '') + '</font>';
+	return `<font color="${(color ? color : 'black')}">${(bold ? '<strong>' : '')}${text}${(bold ? '</strong>' : '')}</font>`;
 };
-
-function getLinkId(msg) {
-	msg = msg.split(' ');
-	for (let i = 0; i < msg.length; i++) {
-		if ((/youtu\.be/i).test(msg[i])) {
-			let temp = msg[i].split('/');
-			return temp[temp.length - 1];
-		} else if ((/youtube\.com/i).test(msg[i])) {
-			return msg[i].substring(msg[i].indexOf("=") + 1).replace(".", "");
-		}
-	}
-}
 
 function parseStatus(text, encoding) {
 	if (encoding) {
@@ -73,7 +61,7 @@ function parseStatus(text, encoding) {
 function postAds() {
 	if (Rooms.global.ads.length > 0) {
 		let ad = Rooms.global.ads.shift();
-		Rooms('lobby').addRaw('<div class="infobox"><a href="/' + ad["room"] + '" class="ilink"><font color="#04B404"> Advertisement <strong>' + ad["room"] + '</strong>:</font> ' + ad["message"] + '</a>  -' + ad["user"] + '</div>');
+		Rooms('lobby').addRaw(`<div class="infobox"><a href="/${ad["room"]}" class="ilink"><font color="#04B404"> Advertisement <strong>${ad["room"]}</strong>:</font> ${ad["message"]}</a>  -${ad["user"]}</div>`);
 		Rooms('lobby').update();
 	}
 }
@@ -178,11 +166,11 @@ exports.commands = {
 		if (!room.chatRoomData) return;
 		if (!target) {
 			if (!this.runBroadcast()) return;
-			if (!room.chatRoomData.user) return this.sendReplyBox("The User of the Week has not been set.");
-			return this.sendReplyBox(`The current <strong>User of the Week</strong>  is: ${Server.nameColor(room.chatRoomData.user, true)}`);
+			if (!room.chatRoomData.user) return this.errorReply("The User of the Week has not been set.");
+			return this.sendReplyBox(`The current <strong>User of the Week</strong> is: ${Server.nameColor(room.chatRoomData.user, true)}`);
 		}
 		if (this.meansNo(target)) {
-			if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
+			if (!room.chatRoomData.user) return this.errorReply("The User of the Week has already been reset.");
 			delete room.chatRoomData.user;
 			this.sendReply(`The User of the Week was reset by ${Server.nameColor(user.name, true)}.`);
 			this.addModAction(`UOTW Reset: ${user.name} reset the User of the Week.`);
@@ -238,7 +226,7 @@ exports.commands = {
 
 		if (!target) return this.parse("/autorankhelp");
 		if (!this.can('roommod', null, room)) return false;
-		if (room.isPersonal) return this.sendReply('Autorank is not currently a feature in groupchats.');
+		if (room.isPersonal) return this.errorReply('Autorank is not currently a feature in groupchats.');
 		target = target.trim();
 
 		if (this.meansNo(target) && room.autorank) {
@@ -248,17 +236,17 @@ exports.commands = {
 			for (let u in room.users) Users(u).updateIdentity();
 			return this.privateModAction(`(${user.name} has disabled autorank in this room.)`);
 		}
-		if (room.autorank && room.autorank === target) return this.sendReply(`Autorank is already set to "${target}".`);
+		if (room.autorank && room.autorank === target) return this.errorReply(`Autorank is already set to "${target}".`);
 
 		if (Config.groups[target] && !Config.groups[target].globalonly) {
-			if (target === '#' && user.userid !== room.founder) return this.sendReply("You can't set autorank to # unless you're the room founder.");
+			if (target === '#' && user.userid !== room.founder) return this.errorReply("You can't set autorank to # unless you're the room founder.");
 			room.autorank = target;
 			room.chatRoomData.autorank = target;
 			Rooms.global.writeChatRoomData();
 			for (let u in room.users) Users(u).updateIdentity();
 			return this.privateModAction(`(${user.name} has set autorank to "${target}" in this room.)`);
 		}
-		return this.sendReply(`Group "${target}" not found.`);
+		return this.errorReply(`Group "${target}" not found.`);
 	},
 	autorankhelp: ["/autorank [rank] - Automatically promotes user to the specified rank when they join the room."],
 
@@ -267,7 +255,7 @@ exports.commands = {
 	dailybonus: function (target, room, user) {
 		let nextBonus = Date.now() - Db.DailyBonus.get(user.userid, [1, Date.now()])[1];
 		if ((86400000 - nextBonus) <= 0) return Server.giveDailyReward(user.userid, user);
-		return this.sendReply(`Your next bonus is ${(Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db.DailyBonus.get(user.userid, [1, Date.now()])[0])} ${(Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural)} in ${Chat.toDurationString(Math.abs(86400000 - nextBonus))}`);
+		return this.errorReply(`Your next bonus is ${(Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 8 ? 7 : Db.DailyBonus.get(user.userid, [1, Date.now()])[0])} ${(Db.DailyBonus.get(user.userid, [1, Date.now()])[0] === 1 ? moneyName : moneyPlural)} in ${Chat.toDurationString(Math.abs(86400000 - nextBonus))}`);
 	},
 
 	"!sota": true,
@@ -280,7 +268,7 @@ exports.commands = {
 	define: function (target, room, user) {
 		if (!target) return this.parse("/help define");
 		target = toId(target);
-		if (target > 50) return this.sendReply("/define <word> - word can not be longer than 50 characters.");
+		if (target > 50) return this.errorReply("/define <word> - word can not be longer than 50 characters.");
 		if (!this.runBroadcast()) return;
 
 		if (toId(target) !== "constructor" && defCache[toId(target)]) {
@@ -335,7 +323,7 @@ exports.commands = {
 	urbandefine: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse("/help urbandefine");
-		if (target.toString() > 50) return this.sendReply("Phrase can not be longer than 50 characters.");
+		if (target.toString() > 50) return this.errorReply("Phrase can not be longer than 50 characters.");
 
 		if (toId(target) !== "constructor" && udCache[toId(target)]) {
 			this.sendReplyBox(udCache[toId(target)]);
@@ -387,7 +375,7 @@ exports.commands = {
 	rf: "roomfounder",
 	roomfounder: function (target, room, user) {
 		if (!room.chatRoomData) {
-			return this.sendReply("/roomfounder - This room isn't designed for per-room moderation to be added");
+			return this.errorReply("/roomfounder - This room isn't designed for per-room moderation to be added");
 		}
 		if (!target) return this.parse("/help roomfounder");
 		target = this.splitTarget(target, true);
@@ -419,7 +407,7 @@ exports.commands = {
 	deroomfounder: "roomdefounder",
 	roomdefounder: function (target, room) {
 		if (!room.chatRoomData) {
-			return this.sendReply("/roomdefounder - This room isn't designed for per-room moderation.");
+			return this.errorReply("/roomdefounder - This room isn't designed for per-room moderation.");
 		}
 		if (!target) return this.parse("/help roomdefounder");
 		if (!this.can("makeroom")) return false;
@@ -434,15 +422,15 @@ exports.commands = {
 	roomdeowner: "deroomowner",
 	deroomowner: function (target, room, user) {
 		if (!room.auth) {
-			return this.sendReply("/roomdeowner - This room isn't designed for per-room moderation");
+			return this.errorReply("/roomdeowner - This room isn't designed for per-room moderation");
 		}
 		target = this.splitTarget(target, true);
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;
 		let userid = toId(name);
-		if (!userid || userid === "") return this.sendReply(`User "${name}" does not exist.`);
+		if (!userid || userid === "") return this.errorReply(`User "${name}" does not exist.`);
 
-		if (room.auth[userid] !== "#") return this.sendReply(`User "${name}" is not a room owner.`);
+		if (room.auth[userid] !== "#") return this.errorReply(`User "${name}" is not a room owner.`);
 		if (!room.founder || user.userid !== room.founder && !this.can("makeroom", null, room)) return false;
 
 		delete room.auth[userid];
@@ -459,15 +447,15 @@ exports.commands = {
 
 	roomleader: function (target, room, user) {
 		if (!room.chatRoomData) {
-			return this.sendReply("/roomleader - This room isn't designed for per-room moderation to be added");
+			return this.errorReply("/roomleader - This room isn't designed for per-room moderation to be added");
 		}
 		target = this.splitTarget(target, true);
 		let targetUser = this.targetUser;
 
-		if (!targetUser) return this.sendReply(`User "${this.targetUsername}" is not online.`);
+		if (!targetUser) return this.errorReply(`User "${this.targetUsername}" is not online.`);
 
-		if (!room.founder) return this.sendReply("The room needs a Room Founder before it can have a Room Leader.");
-		if (room.founder !== user.userid && !this.can("makeroom")) return this.sendReply("/roomleader - Access denied.");
+		if (!room.founder) return this.errorReply("The room needs a Room Founder before it can have a Room Leader.");
+		if (room.founder !== user.userid && !this.can("makeroom")) return this.errorReply("/roomleader - Access denied.");
 
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
 
@@ -487,15 +475,15 @@ exports.commands = {
 	roomdeleader: "deroomleader",
 	deroomleader: function (target, room, user) {
 		if (!room.auth) {
-			return this.sendReply("/roomdeleader - This room isn't designed for per-room moderation");
+			return this.errorReply("/roomdeleader - This room isn't designed for per-room moderation");
 		}
 		target = this.splitTarget(target, true);
 		let targetUser = this.targetUser;
 		let name = this.targetUsername;
 		let userid = toId(name);
-		if (!userid || userid === "") return this.sendReply(`User "${name}" does not exist.`);
+		if (!userid || userid === "") return this.errorReply(`User "${name}" does not exist.`);
 
-		if (room.auth[userid] !== "&") return this.sendReply(`User "${name}" is not a room leader.`);
+		if (room.auth[userid] !== "&") return this.errorReply(`User "${name}" is not a room leader.`);
 		if (!room.founder || user.userid !== room.founder && !this.can("makeroom", null, room)) return false;
 
 		if (targetUser) {
@@ -617,7 +605,7 @@ exports.commands = {
 	nerding: "away",
 	mimis: "away",
 	away: function (target, room, user, connection, cmd) {
-		if (!user.isAway && user.name.length > 19 && !user.can("lock")) return this.sendReply("Your username is too long for any kind of use of this command.");
+		if (!user.isAway && user.name.length > 19 && !user.can("lock")) return this.errorReply("Your username is too long for any kind of use of this command.");
 		if (!this.canTalk()) return false;
 		target = toId(target);
 		if (/^\s*$/.test(target)) target = "away";
@@ -625,16 +613,16 @@ exports.commands = {
 		let newName = user.name;
 		let status = parseStatus(target, true);
 		let statusLen = status.length;
-		if (statusLen > 200) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
+		if (statusLen > 14) return this.errorReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
 
 		if (user.isAway) {
 			let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
 			if (statusIdx > -1) newName = newName.substr(0, statusIdx);
-			if (user.name.substr(-statusLen) === status) return this.sendReply(`Your away status is already set to "${target}".`);
+			if (user.name.substr(-statusLen) === status) return this.errorReply(`Your away status is already set to "${target}".`);
 		}
 
 		newName += ` - ${status}`;
-		if (newName.length > 60 && !user.can("lock")) return this.sendReply(`"${target}" is too long to use as your away status.`);
+		if (newName.length > 18 && !user.can("lock")) return this.errorReply(`"${target}" is too long to use as your away status.`);
 
 		// forcerename any possible impersonators
 		let targetUser = Users.getExact(user.userid + target);
@@ -652,7 +640,7 @@ exports.commands = {
 	awayhelp: ["/away [message] - Sets a user's away status."],
 
 	back: function (target, room, user) {
-		if (!user.isAway) return this.sendReply("You are not set as away.");
+		if (!user.isAway) return this.errorReply("You are not set as away.");
 		user.isAway = false;
 
 		let newName = user.name;
@@ -731,7 +719,7 @@ exports.commands = {
 
 	clearall: function (target, room, user) {
 		if (!this.can("ban")) return false;
-		if (room.battle) return this.sendReply("You cannot clearall in battle rooms.");
+		if (room.battle) return this.errorReply("You cannot clearall in battle rooms.");
 
 		clearRoom(room);
 
@@ -839,7 +827,6 @@ exports.commands = {
 	clearroomauth: function (target, room, user) {
 		if (!this.can('declare') && room.founder !== user.userid) return this.errorReply("/clearroomauth - Access denied.");
 		if (!room.auth) return this.errorReply("Room does not have roomauth.");
-		let parts = target.split(',');
 		let count;
 		if (!target) {
 			this.errorReply("You must specify a roomauth group you want to clear.");
@@ -855,7 +842,7 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply("(This room has zero roomvoices)");
+			if (!count) return this.errorReply("(This room has zero roomvoices)");
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} roomvoices have been cleared by ${user.name}.`);
 			break;
@@ -868,7 +855,7 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply(`(This room has zero roomplayers)`);
+			if (!count) return this.errorReply(`(This room has zero roomplayers)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} roomplayers have been cleared by ${user.name}.`);
 			break;
@@ -881,7 +868,7 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply(`(This room has zero drivers)`);
+			if (!count) return this.errorReply(`(This room has zero drivers)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} drivers have been cleared by ${user.name}.`);
 			break;
@@ -894,7 +881,7 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply(`(This room has zero mods)`);
+			if (!count) return this.errorReply(`(This room has zero mods)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} mods have been cleared by ${user.name}.`);
 			break;
@@ -907,7 +894,7 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply(`(This room has zero room leaders)`);
+			if (!count) return this.errorReply(`(This room has zero room leaders)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} room leaders have been cleared by ${user.name}.`);
 			break;
@@ -920,7 +907,7 @@ exports.commands = {
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
 				}
 			}
-			if (!count) return this.sendReply(`(This room has zero roomowners)`);
+			if (!count) return this.errorReply(`(This room has zero roomowners)`);
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} roomowners have been cleared by ${user.name}.`);
 			break;
@@ -931,7 +918,7 @@ exports.commands = {
 			this.addModAction(`All roomauth has been cleared by ${user.name}.`);
 			break;
 		default:
-			return this.sendReply(`The group specified does not exist.`);
+			return this.errorReply(`The group specified does not exist.`);
 		}
 	},
 
@@ -953,8 +940,8 @@ exports.commands = {
 		if (!parts[0] || !parts[1]) return this.parse('/help forcejoin');
 		let userid = toId(parts[0]);
 		let roomid = toId(parts[1]);
-		if (!Users.get(userid)) return this.sendReply("User not found.");
-		if (!Rooms.get(roomid)) return this.sendReply("Room not found.");
+		if (!Users.get(userid)) return this.errorReply("User not found.");
+		if (!Rooms.get(roomid)) return this.errorReply("Room not found.");
 		Users.get(userid).joinRoom(roomid);
 	},
 	forcejoinhelp: ["/forcejoin [target], [room] - Forces a user to join a room"],
@@ -964,13 +951,13 @@ exports.commands = {
 	kick: function (target, room, user) {
 		if (!target) return this.parse('/help kick');
 		if (!this.canTalk() && !user.can('bypassall')) {
-			return this.sendReply("You cannot do this while unable to talk.");
+			return this.errorReply("You cannot do this while unable to talk.");
 		}
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (target.length > 300) return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
-		if (!targetUser || !targetUser.connected) return this.sendReply(`User "${this.targetUsername}" not found.`);
+		if (!targetUser || !targetUser.connected) return this.errorReply(`User "${this.targetUsername}" not found.`);
 		if (!this.can('mute', targetUser, room) && user.userid !== "insist") return false;
 		if (toId(target) === "insist") return this.errorReply(`Go fuck yourself Insist is a god.`);
 		if (!room.users[targetUser.userid]) return this.errorReply(`User "${this.targetUsername}" is not in this room.`);
@@ -1451,7 +1438,7 @@ exports.commands = {
 	d: 'poof',
 	cpoof: 'poof',
 	poof: function (target, room, user) {
-		if (Config.poofOff) return this.sendReply("Poof is currently disabled.");
+		if (Config.poofOff) return this.errorReply("Poof is currently disabled.");
 		if (target && !this.can('broadcast')) return false;
 		if (room.id !== 'lobby') return false;
 		let message = target || messages[Math.floor(Math.random() * messages.length)];
@@ -1529,7 +1516,7 @@ exports.commands = {
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) {
-			return this.sendReply(`User ${this.targetUsername} not found.`);
+			return this.errorReply(`User ${this.targetUsername} not found.`);
 		}
 		this.privateModAction(`${targetUser.name} was forcibly logged out by ${user.name}. ${(target ? (target) : ``)}`);
 		targetUser.resetName();

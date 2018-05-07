@@ -1867,21 +1867,12 @@ class Battle extends Dex.ModdedDex {
 
 	/**
 	 * @param {number} damage
-<<<<<<< HEAD
-	 * @param {Pokemon} [target]
-	 * @param {Pokemon} [source]
-	 * @param {Effect} [effect]
-	 * @param {boolean} [instafaint]
-	 */
-	damage(damage, target, source, effect, instafaint) {
-=======
 	 * @param {Pokemon?} [target]
 	 * @param {Pokemon?} [source]
 	 * @param {Effect | string?} [effect]
 	 * @param {boolean} [instafaint]
 	 */
 	damage(damage, target = null, source = null, effect = null, instafaint = false) {
->>>>>>> c690c555b35cf711519d290b73105be561214ad7
 		if (this.event) {
 			if (!target) target = this.event.target;
 			if (!source) source = this.event.source;

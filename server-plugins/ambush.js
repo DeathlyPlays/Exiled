@@ -175,99 +175,128 @@ class Ambush {
 	}
 }
 
-let commands = {
-	make: "new",
-	create: "new",
-	new: function (target, room, user) {
-		if (room.ambush) return this.sendReply("There is already a game of Ambush going on in this room.");
-		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
-		if (!user.can("broadcast", null, room)) return this.sendReply("You must be ranked + or higher in this room to start a game of Ambush.");
-
-		if (!target || !target.trim()) target = "60";
-		if (isNaN(target)) return this.sendReply(`"${target}" is not a valid number.`);
-		if (target.includes(".") || target > 180 || target < 10) return this.sendReply("The number of seconds needs to be a non-decimal number between 10 and 180.");
-
-		room.ambush = new Ambush(room, Number(target));
-	},
-
-	j: "join",
-	join: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
-		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
-
-		room.ambush.join(user, this);
-	},
-
-	l: "leave",
-	part: "leave",
-	leave: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
-
-		room.ambush.leave(user, this);
-	},
-
-	start: "proceed",
-	begin: "proceed",
-	proceed: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
-		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
-		if (!user.can("broadcast", null, room)) return this.sendReply("You must be ranked + or higher in this room to forcibly begin the first round of a game of Ambush.");
-
-		if (room.ambush.round) return this.sendReply("This game of Ambush has already begun!");
-		if (room.ambush.players.size < 3) return this.sendReply("There aren't enough players yet. Wait for more to join!");
-		room.add(`|html|(${Server.nameColor(user.name, true, true)} forcibly started round 1.)`);
-		room.ambush.nextRound();
-	},
-
-	disqualify: "dq",
-	dq: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
-		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
-		if (!user.can("mute", null, room)) return this.sendReply("You must be ranked % or higher in this room to disqualify a user from a game of Ambush.");
-
-		room.ambush.dq(target, this);
-	},
-
-	shoot: "fire",
-	fire: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
-		if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
-
-		room.ambush.fire(user, target, this);
-	},
-
-	cancel: "end",
-	end: function (target, room, user) {
-		if (!room.ambush) return this.sendReply("There is no game of Ambush going on in this room.");
-		if (!user.can("mute", null, room)) return this.sendReply("You must be ranked % or higher in this room to end a game of Ambush.");
-
-		room.ambush.end(user);
-	},
-
-	howtoplay: "rules",
-	guide: "rules",
-	rules: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		this.sendReplyBox(`<h3>Ambush:</h3><br />Basically Ambush is a game where everyone must compete to be the first one to shoot another user, thus eliminating them.<br />To shoot a user you use <code>/fire [${user.name}]</code> for instance.<br />Disclaimer: Keep in mind if you do /fire ${user.name}, it will kill you since you are the target.<br />If you successfully shoot a user before getting shot you get a shield, which protects you from being shot for the remainder of the round.<br />Lastly, if you successfully eliminate all of the other targets you earn 5 EXP as well as 2 ${moneyPlural}!`);
-	},
-
-	"": "help",
-	help: function () {
-		this.parse("/help ambush");
-	},
-};
-
 exports.commands = {
-	ambush: commands,
-	fire: "shoot",
-	shoot: commands.fire,
+	ambush: {
+		make: "new",
+		create: "new",
+		new: function (target, room, user) {
+			if (room.ambush) return this.errorReply("There is already a game of Ambush going on in this room.");
+			if (room.ambushDisabled) return this.errorReply(`Ambush is currently disabled in ${room.title}.`);
+			if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+			if (!user.can("broadcast", null, room)) return false;
+
+			if (!target || !target.trim()) target = "60";
+			if (isNaN(target)) return this.errorReply(`"${target}" is not a valid number.`);
+			if (target.includes(".") || target > 180 || target < 10) return this.errorReply("The number of seconds needs to be a non-decimal number between 10 and 180.");
+
+			room.ambush = new Ambush(room, Number(target));
+		},
+
+		j: "join",
+		join: function (target, room, user) {
+			if (!room.ambush) return this.errorReply("There is no game of Ambush going on in this room.");
+			if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+
+			room.ambush.join(user, this);
+		},
+
+		l: "leave",
+		part: "leave",
+		leave: function (target, room, user) {
+			if (!room.ambush) return this.errorReply("There is no game of Ambush going on in this room.");
+
+			room.ambush.leave(user, this);
+		},
+
+		start: "proceed",
+		begin: "proceed",
+		proceed: function (target, room, user) {
+			if (!room.ambush) return this.errorReply("There is no game of Ambush going on in this room.");
+			if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+			if (!user.can("broadcast", null, room)) return false;
+
+			if (room.ambush.round) return this.errorReply("This game of Ambush has already begun!");
+			if (room.ambush.players.size < 3) return this.errorReply("There aren't enough players yet. Wait for more to join!");
+			room.add(`|html|(${Server.nameColor(user.name, true, true)} forcibly started round 1.)`);
+			room.ambush.nextRound();
+		},
+
+		disqualify: "dq",
+		dq: function (target, room, user) {
+			if (!room.ambush) return this.errorReply("There is no game of Ambush going on in this room.");
+			if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+			if (!user.can("mute", null, room)) return false;
+
+			room.ambush.dq(target, this);
+		},
+
+		shoot: "fire",
+		fire: function (target, room, user) {
+			if (!room.ambush) return this.errorReply("There is no game of Ambush going on in this room.");
+			if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
+
+			room.ambush.fire(user, target, this);
+		},
+
+		cancel: "end",
+		end: function (target, room, user) {
+			if (!room.ambush) return this.errorReply("There is no game of Ambush going on in this room.");
+			if (!user.can("mute", null, room)) return false;
+
+			room.ambush.end(user);
+		},
+
+		off: "disable",
+		disable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (room.ambushDisabled) {
+				return this.errorReply("Ambush is already disabled in this room.");
+			}
+			room.ambushDisabled = true;
+			if (room.chatRoomData) {
+				room.chatRoomData.ambushDisabled = true;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Ambush has been disabled for this room.");
+		},
+
+		on: "enable",
+		enable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (!room.ambushDisabled) {
+				return this.errorReply("Ambush is already enabled in this room.");
+			}
+			delete room.ambushDisabled;
+			if (room.chatRoomData) {
+				delete room.chatRoomData.ambushDisabled;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Ambush has been enabled for this room.");
+		},
+
+		howtoplay: "rules",
+		guide: "rules",
+		rules: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			this.sendReplyBox(`<h3>Ambush:</h3><br />Basically Ambush is a game where everyone must compete to be the first one to shoot another user, thus eliminating them.<br />To shoot a user you use <code>/fire [${user.name}]</code> for instance.<br />Disclaimer: Keep in mind if you do /fire ${user.name}, it will kill you since you are the target.<br />If you successfully shoot a user before getting shot you get a shield, which protects you from being shot for the remainder of the round.<br />Lastly, if you successfully eliminate all of the other targets you earn 5 EXP as well as 2 ${moneyPlural}!`);
+		},
+
+		"": "help",
+		help: function () {
+			this.parse("/help ambush");
+		},
+	},
+
 	ambushhelp: [
-		`/ambush start [seconds] - Starts a game of Ambush in the room. The first round will begin after the mentioned number of seconds (1 minute by default). Requires + or higher to use.
+		`/ambush start [seconds] - Starts a game of Ambush in the room. The first round will begin after the mentioned number of seconds (1 minute by default). Requires +, %, @, &, #, ~.
 		/ambush join/leave - Joins/Leaves a game of Ambush.
-		/ambush proceed - Forcibly starts the first round of the game. Requires + or higher to use.
-		/ambush dq [user] - Disqualifies a player from a game of Ambush. Requires % or higher to use.
+		/ambush proceed - Forcibly starts the first round of the game. Requires +, %, @, &, #, ~
+		/ambush dq [user] - Disqualifies a player from a game of Ambush. Requires %, @, &, #, ~
 		/ambush shoot/fire [user] - Shoots another player (you can shoot yourself too).
 		/ambush end - Forcibly ends a game of Ambush. Requires % or higher to use.
-		/ambush rules - Displays the rules of the game.`,
+		/ambush enable - Enables Ambush in the room, if disabled. Requires &, #, ~
+		/ambush disable - Disables Ambush in the room, if enabled. Requires &, #, ~
+		/ambush rules - Displays the rules of the game.
+		/ambush help - Displays an informational command about the commands.`,
 	],
 };

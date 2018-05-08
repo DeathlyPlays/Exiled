@@ -127,6 +127,7 @@ exports.commands = {
 		if (!user.can("broadcast", null, room) && room.id !== "casino") return this.errorReply("You must be ranked + or higher in this room to start a game of dice outside the Casino.");
 		if (!this.canTalk()) return;
 		if (room.dice) return this.errorReply("There is already a game of dice going on in this room.");
+		if (room.diceDisabled) return this.errorReply(`Dice is currently disabled in ${room.title}.`);
 
 		let amount = Number(target) || 1;
 		if (isNaN(target)) return this.errorReply(`"${target}" isn't a valid number.`);
@@ -193,11 +194,44 @@ exports.commands = {
 		user.popup(`|wide|${output}`);
 	},
 
+	disabledice: "dicedisable",
+	diceoff: "dicedisable",
+	dicedisable: function (target, room, user) {
+		if (!this.can("gamemanagement", null, room)) return;
+		if (room.id === "casino") return this.errorReply(`Casino cannot disable Dice.`);
+		if (room.diceDisabled) {
+			return this.errorReply("Dice is already disabled in this room.");
+		}
+		room.diceDisabled = true;
+		if (room.chatRoomData) {
+			room.chatRoomData.diceDisabled = true;
+			Rooms.global.writeChatRoomData();
+		}
+		return this.sendReply("Dice has been disabled for this room.");
+	},
+
+	enabledice: "diceenable",
+	diceon: "diceenable",
+	diceenable: function (target, room, user) {
+		if (!this.can("gamemanagement", null, room)) return;
+		if (!room.diceDisabled) {
+			return this.errorReply("Dice is already enabled in this room.");
+		}
+		delete room.diceDisabled;
+		if (room.chatRoomData) {
+			delete room.chatRoomData.diceDisabled;
+			Rooms.global.writeChatRoomData();
+		}
+		return this.sendReply("Dice has been enabled for this room.");
+	},
+
 	dicegamehelp: [
 		`/startdice or /dicegame [amount] - Starts a game of dice in the room for a given number of ${global.moneyPlural}, 1 ${global.moneyName} by default.
 		/joindice - Joins the game of dice. You cannot use this command if you don't have the number of ${global.moneyPlural} the game is for.
 		/leavedice - Leaves the game of dice.
 		/enddice - Ends the game of dice. Requires + or higher to use.
-		/dicelog - Views Dice-related logs. Requires @, &, ~`,
+		/dicelog - Views Dice-related logs. Requires @, &, ~
+		/disabledice - Disables Dice Games in the room, if enabled. Requires &, #, ~
+		/enabledice - Enables Dice Games in the room, if disabled. Requires &, #, ~`,
 	],
 };

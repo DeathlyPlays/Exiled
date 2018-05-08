@@ -75,7 +75,7 @@ class PassTheBomb {
 
 	getMsg() {
 		let msg = `bomb${this.room.bombCount}${this.round}|<div class="infobox"><center><strong>Round: ${this.round}</strong><br />`;
-		msg += `Players: ${this.getSurvivors().map(player => Server.nameColor(player[1].name)).join(", ")}<br />`;
+		msg += `Players: ${this.getSurvivors().map(player => Server.nameColor(player[1].name).join(", "))}<br />`;
 		msg += `<small>Use /pb or /passbomb [player] to Pass The Bomb to another player!</small>`;
 		return msg;
 	}
@@ -205,6 +205,7 @@ exports.commands = {
 		make: "create",
 		create: function (target, room) {
 			if (room.passthebomb) return this.errorReply("There is already a game of Pass The Bomb going on in this room.");
+			if (room.passTheBombDisabled) return this.errorReply(`Pass the Bomb is currently disabled in ${room.title}.`);
 			if (!this.canTalk()) return this.errorReply("You cannot use this while unable to speak.");
 			if (!this.can("minigame", null, room)) return false;
 			if (!target || !target.trim()) target = "60";
@@ -259,8 +260,36 @@ exports.commands = {
 		cancel: "end",
 		end: function (target, room, user) {
 			if (!room.passthebomb) return this.errorReply("There is no game of Pass The Bomb going on in this room.");
-			if (!this.can("minigame", null, room)) return this.errorReply("You must be ranked % or higher in this room to end a game of Pass The Bomb.");
+			if (!this.can("minigame", null, room)) return false;
 			room.passthebomb.end(user);
+		},
+
+		off: "disable",
+		disable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (room.passTheBombDisabled) {
+				return this.errorReply("Pass the Bomb is already disabled in this room.");
+			}
+			room.passTheBombDisabled = true;
+			if (room.chatRoomData) {
+				room.chatRoomData.passTheBombDisabled = true;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Pass the Bomb has been disabled for this room.");
+		},
+
+		on: "enable",
+		enable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (!room.passTheBombDisabled) {
+				return this.errorReply("Pass the Bomb is already enabled in this room.");
+			}
+			delete room.passTheBombDisabled;
+			if (room.chatRoomData) {
+				delete room.chatRoomData.passTheBombDisabled;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Pass the Bomb has been enabled for this room.");
 		},
 
 		// Short-Cut Commands
@@ -284,6 +313,7 @@ exports.commands = {
 		/ptb dq [user] - Forcefully disqualifies [user] in the game of Pass The Bomb. Requires %, @, &, #, ~
 		/ptb start - Forcefully begins the game of Pass The Bomb. Requires %, @, &, #, ~
 		/ptb end - Forcefully ends the game of Pass The Bomb. Requires %, @, &, #, ~
+		/ptb enable - Enables games of Pass the Bomb
 		/ptb help - Displays a list of the Pass The Bomb commands.`,
 	],
 };

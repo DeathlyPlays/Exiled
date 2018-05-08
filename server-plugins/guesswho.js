@@ -107,26 +107,27 @@ exports.commands = {
 		new: "create",
 		make: "create",
 		create: function (target, room, user) {
-			if (room.guesswho) return this.sendReply("A session of Guess Who is already active.");
+			if (room.guesswho) return this.errorReply("A session of Guess Who is already active.");
+			if (room.guessWhoDisabled) return this.errorReply(`Guess Who is currently disabled in ${room.title}.`);
 			if (!this.can("minigame", null, room)) return false;
-			if (!room.isOfficial) return this.sendReply("Guess Who can only be created in Official Chatrooms.");
+			if (!room.isOfficial) return this.errorReply("Guess Who can only be created in Official Chatrooms.");
 			this.privateModAction(`(A new Guess Who game has been created.)`);
 			room.guesswho = new GuessWho(room);
 		},
 
 		j: "join",
 		join: function (target, room, user) {
-			if (!room.guesswho) return this.sendReply("There is no ongoing Guess Who game going on right now.");
+			if (!room.guesswho) return this.errorReply("There is no ongoing Guess Who game going on right now.");
 			if (room.guesswho.state !== "signups") return this.errorReply("This session of Guess Who has already been started.");
-			if (!this.canTalk()) return this.sendReply("You must be able to talk to join a game of Guess Who.");
-			if (!user.registered) return this.sendReply("To join a Guess Who game, you must be on a registered account.");
+			if (!this.canTalk()) return this.errorReply("You must be able to talk to join a game of Guess Who.");
+			if (!user.registered) return this.errorReply("To join a Guess Who game, you must be on a registered account.");
 			room.guesswho.joinGuessWho(user);
 		},
 
 		part: "leave",
 		l: "leave",
 		leave: function (target, room, user) {
-			if (!room.guesswho) return this.sendReply("There is no ongoing game of Guess Who in this room.");
+			if (!room.guesswho) return this.errorReply("There is no ongoing game of Guess Who in this room.");
 			room.guesswho.leaveGuessWho(user);
 		},
 
@@ -135,7 +136,7 @@ exports.commands = {
 		viewplayers: "players",
 		players: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			if (!room.guesswho) return this.sendReply("There is no ongoing game of Guess Who in this room.");
+			if (!room.guesswho) return this.errorReply("There is no ongoing game of Guess Who in this room.");
 			return this.sendReplyBox(`<strong>Current Player Count: ${room.guesswho.players.length} ${((room.guesswho.players.length === 1) ? "user is" : "users are")} in this session of Guess Who.<br /> Players: ${room.guesswho.players}.`);
 		},
 
@@ -143,7 +144,7 @@ exports.commands = {
 		begin: "start",
 		start: function (target, room, user) {
 			if (!this.can("mute", null, room)) return;
-			if (!room.guesswho || room.guesswho.players.length < 2 || room.guesswho.state !== "signups") return this.sendReply("There is not any Guess Who session available to be started.");
+			if (!room.guesswho || room.guesswho.players.length < 2 || room.guesswho.state !== "signups") return this.errorReply("There is not any Guess Who session available to be started.");
 			this.privateModAction(`(The session of Guess Who has been started early.)`);
 			room.guesswho.start();
 		},
@@ -158,10 +159,10 @@ exports.commands = {
 			if (!this.canTalk()) return;
 
 			if (!target) return this.parse("/guesswhohelp");
-			if (!Dex.data.Pokedex[toId(target)]) return this.sendReply(`"${target}" is not a valid Pokémon.`);
+			if (!Dex.data.Pokedex[toId(target)]) return this.errorReply(`"${target}" is not a valid Pokémon.`);
 			let guess = Dex.data.Pokedex[toId(target)];
-			if (guess.num < 1 || guess.forme) return this.sendReply(`${guess.species} is either an alternate form or doesn"t exist in the games. They cannot be guessed.`);
-			if (toId(guess.species) in room.guesswho.guessed) return this.sendReply("That Pokémon has already been guessed!");
+			if (guess.num < 1 || guess.forme) return this.errorReply(`${guess.species} is either an alternate form or doesn"t exist in the games. They cannot be guessed.`);
+			if (toId(guess.species) in room.guesswho.guessed) return this.errorReply("That Pokémon has already been guessed!");
 
 			room.guesswho.guess(user, guess);
 		},
@@ -195,7 +196,7 @@ exports.commands = {
 		cancel: "end",
 		end: function (target, room, user) {
 			if (!this.can("mute", null, room)) return;
-			if (!room.guesswho) return this.sendReply("There is no ongoing session of Guess Who going on right now.");
+			if (!room.guesswho) return this.errorReply("There is no ongoing session of Guess Who going on right now.");
 			this.privateModAction(`(The session of Guess Who was forcefully ended.)`);
 			room.guesswho.end();
 		},
@@ -220,6 +221,34 @@ exports.commands = {
 			return this.sendReplyBox(`<strong>Current Hints: ${Chat.toListString(room.guesswho.hints)}</strong>`);
 		},
 
+		off: "disable",
+		disable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (room.guessWhoDisabled) {
+				return this.errorReply("Guess Who is already disabled in this room.");
+			}
+			room.guessWhoDisabled = true;
+			if (room.chatRoomData) {
+				room.chatRoomData.guessWhoDisabled = true;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Guess Who has been disabled for this room.");
+		},
+
+		on: "enable",
+		enable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (!room.guessWhoDisabled) {
+				return this.errorReply("Guess Who is already enabled in this room.");
+			}
+			delete room.guessWhoDisabled;
+			if (room.chatRoomData) {
+				delete room.chatRoomData.guessWhoDisabled;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Guess Who has been enabled for this room.");
+		},
+
 		"": "help",
 		help: function (target, room, user) {
 			this.parse("/guesswhohelp");
@@ -228,10 +257,10 @@ exports.commands = {
 
 	guesswhohelp: [
 		`Another alias for /guesswho is /gw.
-		/guesswho new - Creates a new session of Guess Who. Must be a Room Driver or higher.
+		/guesswho new - Creates a new session of Guess Who. Requires %, @, &, #, ~
 		/guesswho join - Join a session of Guess Who.
 		/guesswho leave - Leaves the ongoing session of Guess Who.
-		/guesswho start - Starts a session of Guess Who. Must be a Room Driver or higher.
+		/guesswho start - Starts a session of Guess Who. Requires %, @, &, #, ~
 		/guesswho guess [Pokemon] - Guesses what the Pokemon is.
 		/guesswho guesses - Shows all the Pokemon players have guessed.
 		/guesswho showanswer - Shows the correct answer. You must be the Questionee to view this.
@@ -239,6 +268,9 @@ exports.commands = {
 		/guesswho hints - Shows all the hints the Questionee has provided.
 		/guesswho remaining - Shows how many remaining guesses there are.
 		/guesswho players - Shows the current amount of players who have joined the ongoing session of Guess Who.
-		/guesswho end - Forcefully ends a session of Guess Who. Must be a Room Driver or higher.`,
+		/guesswho end - Forcefully ends a session of Guess Who. Requires %, @, &, #, ~
+		/guesswho enable - Enables Guess Who in the room, if disabled. Requires &, #, ~
+		/guesswho disable - Disables Guess Who in the room, if enabled. Requires &, %, ~
+		/guesswho help - Displays a command listing all of the Guess Who commands.`,
 	],
 };

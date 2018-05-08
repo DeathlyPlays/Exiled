@@ -165,6 +165,46 @@ class RoomSettings {
 			return `${this.button('Ambush enabled', true)} ${this.button('off', null, 'ambush disable')}`;
 		}
 	}
+	dice() {
+		if (!this.user.can('editroom', null, this.room)) return this.button(this.room.diceDisabled ? 'off' : 'Dice enabled', true);
+		if (this.room.diceDisabled) {
+			return `${this.button('Dice enabled', null, 'enabledice')} ${this.button('off', true)}`;
+		} else {
+			return `${this.button('Dice enabled', true)} ${this.button('off', null, 'disabledice')}`;
+		}
+	}
+	draft() {
+		if (!this.user.can('editroom', null, this.room)) return this.button(this.room.draftsDisabled ? 'off' : 'Draft enabled', true);
+		if (this.room.draftsDisabled) {
+			return `${this.button('Draft enabled', null, 'draft enable')} ${this.button('off', true)}`;
+		} else {
+			return `${this.button('Draft enabled', true)} ${this.button('off', null, 'draft disable')}`;
+		}
+	}
+	guessWho() {
+		if (!this.user.can('editroom', null, this.room)) return this.button(this.room.guessWhoDisabled ? 'off' : 'Guess Who enabled', true);
+		if (this.room.guessWhoDisabled) {
+			return `${this.button('Guess Who enabled', null, 'guesswho enable')} ${this.button('off', true)}`;
+		} else {
+			return `${this.button('Guess Who enabled', true)} ${this.button('off', null, 'guesswho disable')}`;
+		}
+	}
+	passTheBomb() {
+		if (!this.user.can('editroom', null, this.room)) return this.button(this.room.passTheBombDisabled ? 'off' : 'Pass the Bomb enabled', true);
+		if (this.room.passTheBombDisabled) {
+			return `${this.button('Pass the Bomb enabled', null, 'passthebomb enable')} ${this.button('off', true)}`;
+		} else {
+			return `${this.button('Pass the Bomb enabled', true)} ${this.button('off', null, 'passthebomb disable')}`;
+		}
+	}
+	sentence() {
+		if (!this.user.can('editroom', null, this.room)) return this.button(this.room.sentenceDisabled ? 'off' : 'Sentence Game enabled', true);
+		if (this.room.sentenceDisabled) {
+			return `${this.button('Sentence Game enabled', null, 'sentence enable')} ${this.button('off', true)}`;
+		} else {
+			return `${this.button('Sentence Game enabled', true)} ${this.button('off', null, 'sentence disable')}`;
+		}
+	}
 	generateDisplay(user, room, connection) {
 		let output = Chat.html`<div class="infobox">Room Settings for ${this.room.title}<br />`;
 		output += `<strong>Modchat:</strong> <br />${this.modchat()}<br />`;
@@ -178,6 +218,11 @@ class RoomSettings {
 		output += `<strong>Hangman:</strong> <br />${this.hangman()}<br />`;
 		output += `<strong>Mafia:</strong> <br />${this.mafia()}<br />`;
 		output += `<strong>Ambush:</strong> <br />${this.ambush()}<br />`;
+		output += `<strong>Dice:</strong> <br />${this.dice()}<br />`;
+		output += `<strong>Draft:</strong> <br />${this.draft()}<br />`;
+		output += `<strong>Guess Who:</strong> <br />${this.guessWho()}<br />`;
+		output += `<strong>Pass the Bomb:</strong> <br />${this.passTheBomb()}<br />`;
+		output += `<strong>Sentence Game:</strong> <br />${this.sentence()}<br />`;
 		output += '</div>';
 
 		this.user.sendTo(this.room, `|uhtml${(this.sameCommand ? '' : 'change')}|roomsettings|${output}`);

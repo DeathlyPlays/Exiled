@@ -59,6 +59,7 @@ exports.commands = {
 			if (!this.can("minigame", null, room)) return false;
 			if (!this.canTalk()) return;
 			if (room.sentence) return this.errorReply(`There is already a Sentence Game in this room.`);
+			if (room.sentenceDisabled) return this.errorReply(`Sentence Games are currently disabled in ${room.title}.`);
 			if (!target) target = 10;
 			if (isNaN(target)) return this.errorReply(`The word count must be a valid number.`);
 			if (target < 5 || target > 20) return this.errorReply(`The word count must be at least 5 and a maximum of 20.`);
@@ -89,6 +90,34 @@ exports.commands = {
 			if (!this.canTalk()) return;
 			if (!room.sentence) return this.errorReply(`There is no Sentence Game to end in this room.`);
 			room.sentence.endGame(user.name);
+		},
+
+		off: "disable",
+		disable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (room.sentenceDisabled) {
+				return this.errorReply("Sentence Game is already disabled in this room.");
+			}
+			room.sentenceDisabled = true;
+			if (room.chatRoomData) {
+				room.chatRoomData.sentenceDisabled = true;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Sentence Game has been disabled for this room.");
+		},
+
+		on: "enable",
+		enable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (!room.sentenceDisabled) {
+				return this.errorReply("Sentence Game is already enabled in this room.");
+			}
+			delete room.sentenceDisabled;
+			if (room.chatRoomData) {
+				delete room.chatRoomData.sentenceDisabled;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Sentence Game has been enabled for this room.");
 		},
 
 		"": "help",

@@ -158,9 +158,11 @@ exports.commands = {
 		create: function (target, room, user) {
 			if (!this.can("draft", null, room)) return false;
 			if (drafts[room]) return this.errorReply("There is already a draft going on in this room.");
+			if (room.draftsDisabled) return this.errorReply(`Drafts are currently disabled in ${room.title}.`);
 			drafts[room] = new Draft(room);
 			drafts[room].state = "prep";
 			drafts[room].log(`Draft has been created in ${room.title}.`);
+			this.modlog(`DRAFTS`, null, `created`);
 			room.add(`|html|<div style="${greencss}">A Draft has been started!</div>`);
 		},
 
@@ -172,6 +174,7 @@ exports.commands = {
 			if (!drafts[room]) return this.errorReply("This room is not taking part in a draft at the moment.");
 			delete drafts[room];
 			room.add(`|html|<div style="${redcss}">The data for this draft has been reset!</div>`);
+			this.modlog(`DRAFTS`, null, `RESET`);
 		},
 
 		addteam: function (target, room, user) {
@@ -198,6 +201,7 @@ exports.commands = {
 			if (!drafts[room]) return this.errorReply("This room is not drafting at the moment.");
 			if (drafts[room].state === "drafting") return this.errorReply("The draft has already started.");
 			drafts[room].start(this);
+			this.modlog(`DRAFTS`, null, `started`);
 		},
 
 		randomizeteams: "random",
@@ -246,6 +250,7 @@ exports.commands = {
 			drafts[room].log(`The draft has been ended by ${user.name}!`);
 			delete drafts[room];
 			room.add(`|html|<div style="${redcss}">The draft has ended!<br />We hope you are happy with what you came out with :).</div>`);
+			this.modlog(`DRAFTS`, null, `ended`);
 		},
 
 		maxpicks: "max",
@@ -279,6 +284,7 @@ exports.commands = {
 			if (!teamname || !draftpick || !pokemon) return this.parse("/draft help");
 			if (isNaN(draftpick)) return this.errorReply("The draft pick is not a number.");
 			drafts[room].overWrite(this, teamname, draftpick, pokemon);
+			this.modlog(`DRAFTS`, null, `overwrite`);
 		},
 
 		draftlist: "drafted",
@@ -287,6 +293,34 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			if (!drafts[room]) return this.errorReply("This room is not drafting at the moment.");
 			this.sendReply(`|html|<div style="${greencss}"><i><strong>Drafted Pokemon:</strong></i><br />${drafts[room].iconize(drafts[room].draftedMons)}`);
+		},
+
+		off: "disable",
+		disable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (room.draftsDisabled) {
+				return this.errorReply("Drafts is already disabled in this room.");
+			}
+			room.draftsDisabled = true;
+			if (room.chatRoomData) {
+				room.chatRoomData.draftsDisabled = true;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Drafts has been disabled for this room.");
+		},
+
+		on: "enable",
+		enable: function (target, room, user) {
+			if (!this.can("gamemanagement", null, room)) return;
+			if (!room.draftsDisabled) {
+				return this.errorReply("Drafts is already enabled in this room.");
+			}
+			delete room.draftsDisabled;
+			if (room.chatRoomData) {
+				delete room.chatRoomData.draftsDisabled;
+				Rooms.global.writeChatRoomData();
+			}
+			return this.sendReply("Drafts has been enabled for this room.");
 		},
 
 		"": "help",
@@ -306,6 +340,8 @@ exports.commands = {
 			help += `<strong>/draft stats</strong> - Displays every team participating in the draft with their respective manager, and every Pokemon they have drafted up until that point.<br />`;
 			help += `<strong>/draft change (team name), (draft pick), (desired Pokemon)</strong> - Allows the league manager to rewrite draft data. This should be used when a participant makes a mistake. <i>This shouldn't</i> ever be the case seeing as draft script automatically rejects any spelling errors in a Pokemon's name, but this command is here if it is ever needed.<br />`;
 			help += `<strong>/draft drafted</strong> - Displays the pool of Pokemon already drafted. These Pokemon are not able to be claimed by anyone else after they are drafted.<br />`;
+			help += `<strong>/draft enable</strong> - Enables Drafts in the room, if disabled.<br />`;
+			help += `<strong>/draft disable</strong> - Disables Drafts in the room, if enabled.<br />`;
 			help += `<strong>/draftmon (Pokemon Name)</strong> - Allows a draft member to draft a Pokemon onto their team.`;
 			this.sendReplyBox(help);
 		},

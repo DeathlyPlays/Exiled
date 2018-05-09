@@ -24,7 +24,7 @@ class SentenceGame {
 		this.wordCount = wordCount;
 		this.sentence = [];
 		this.lastUser = null;
-		this.room.addRaw(`<div style="broadcast-green"><h2 style="font-weight: bold">A Sentence Game has been created with ${this.wordCount} words!</h2><small style="font-style: italic">You may add words by using /sentence aw [word].</small></div>`);
+		this.room.addRaw(`<div class="broadcast-green"><h2 style="font-weight: bold">A Sentence Game has been created with ${this.wordCount} words!</h2><small style="font-style: italic">You may add words by using /sentence aw [word].</small></div>`);
 	}
 
 	addWord(user, word, self) {
@@ -131,6 +131,8 @@ exports.commands = {
 		/sentence addword [word] - Adds [word] to the sentence.
 		/sentence info - Shows you the current sentence, the progress until completion and who added the last word.
 		/sentence end - Forcefully ends the Sentence Game in the room. Requires %, @, &, #, ~
+		/sentence enable - Enables Sentence Game in the room, if disabled. Requires &, #, ~
+		/sentence disable - Disables Sentence Game in the room, if enabled. Requires &, #, ~
 		/sentence help - Displays a list of Sentence Game commands.`,
 	],
 };

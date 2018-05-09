@@ -1402,13 +1402,8 @@ const commands = {
 			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
 		).map(r => {
 			let roomRankList = rankLists[r].sort();
-<<<<<<< HEAD
 			roomRankList = roomRankList.map(s => s in targetRoom.users ? Server.nameColor(s, true) : Server.nameColor(s));
-			return (Config.groups[r] ? Config.groups[r].name + "s (" + r + ")" : r) + ":\n" + roomRankList.join(", ");
-=======
-			roomRankList = roomRankList.map(s => s in targetRoom.users ? `**${s}**` : s);
 			return `${Config.groups[r] ? `${Config.groups[r].name}s (${r})` : r}:\n${roomRankList.join(", ")}`;
->>>>>>> 01459dbcbbe7b87b1340bf7705fcd424ee7e6e63
 		});
 
 		if (!buffer.length) {
@@ -1431,20 +1426,15 @@ const commands = {
 		} else if (curRoom.isPrivate === 'hidden' || curRoom.isPrivate === 'voice') {
 			buffer.push(`${curRoom.title} is a hidden room, so global auth with no relevant roomauth will have authority in this room.`);
 		}
-<<<<<<< HEAD
 
 		if (targetRoom.founder) {
-			buffer.unshift((targetRoom.founder ? "Room Founder:\n" + ((Users(targetRoom.founder) && Users(targetRoom.founder).connected) ? Server.nameColor(targetRoom.founder, true) : Server.nameColor(targetRoom.founder)) : ''));
+			buffer.unshift(`${(targetRoom.founder ? `Room Founder:\n${Users(targetRoom.founder) && Users(targetRoom.founder).connected ? Server.nameColor(targetRoom.founder, true) : Server.nameColor(targetRoom.founder)}` : ``)}`);
 		}
 
-		if (room.autorank) buffer.unshift("Autorank is currently set to " + Config.groups[room.autorank].name + " (" + room.autorank + ")");
+		if (room.autorank) buffer.unshift(`Autorank is currently set to ${Config.groups[room.autorank].name} (${room.autorank})`);
 
-		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");
-		connection.send("|popup||html|" + buffer.join("\n\n") + userLookup);
-=======
 		if (targetRoom !== room) buffer.unshift(`${targetRoom.title} room auth:`);
 		connection.popup(`${buffer.join("\n\n")}${userLookup}`);
->>>>>>> 01459dbcbbe7b87b1340bf7705fcd424ee7e6e63
 	},
 
 	'!userauth': true,

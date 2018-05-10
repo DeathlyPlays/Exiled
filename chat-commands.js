@@ -404,7 +404,7 @@ const commands = {
 
 		user.avatar = avatar;
 		if (!parts[1]) {
-			this.sendReplyBox(`Avatar changed to:\n<img src="//play.pokemonshowdown.com/sprites/trainers/${(typeof avatar === 'string' ? avatar.substr(1) : avatar)}.png" alt="" width="80" height="80" />`);
+			this.sendReply(`Avatar changed to:\n|raw|<img src="//play.pokemonshowdown.com/sprites/trainers/${(typeof avatar === 'string' ? avatar.substr(1) : avatar)}.png" alt="" width="80" height="80" />`);
 		}
 
 		if (typeof avatar === 'number' && (avatar === 500)) {
@@ -1068,11 +1068,8 @@ const commands = {
 			this.sendReply('|raw|<div class="infobox infobox-limited">' + room.introMessage.replace(/\n/g, '') + '</div>');
 			if (!this.broadcasting && user.can('declare', null, room) && cmd !== 'topic') {
 				this.sendReply('Source:');
-				this.sendReplyBox(
-					'<code>/roomintro ' + Chat.escapeHTML(room.introMessage).split('\n').map(line => {
-						return line.replace(/^(\t+)/, (match, $1) => '&nbsp;'.repeat(4 * $1.length)).replace(/^(\s+)/, (match, $1) => '&nbsp;'.repeat($1.length));
-					}).join('<br />') + '</code>'
-				);
+				const code = Chat.escapeHTML(room.introMessage).replace(/\n/g, '<br />');
+				this.sendReplyBox(`<code style="white-space: pre-wrap">/roomintro ${code}</code>`);
 			}
 			return;
 		}
@@ -1125,7 +1122,8 @@ const commands = {
 			this.sendReply(`|raw|<div class="infobox">${room.staffMessage.replace(/\n/g, ``)}</div>`);
 			if (user.can('ban', null, room) && cmd !== 'stafftopic') {
 				this.sendReply('Source:');
-				this.sendReplyBox(`<code>/staffintro ${room.staffMessage.split('\n').map(line => { return line.replace(/^(\t+)/, (match, $1) => '&nbsp;'.repeat(4 * $1.length)).replace(/^(\s+)/, (match, $1) => '&nbsp;'.repeat($1.length)); }).join('<br />')}</code>`);
+				const code = Chat.escapeHTML(room.staffMessage).replace(/\n/g, '<br />');
+				this.sendReplyBox(`<code style="white-space: pre-wrap">/staffintro ${code}</code>`);
 			}
 			return;
 		}
@@ -3382,7 +3380,8 @@ const commands = {
 			this.sendReply('||<< ' + result);
 			/* eslint-enable no-unused-vars */
 		} catch (e) {
-			this.sendReply(`|| << ${(`${e.stack}`).replace(/\n *at CommandContext\.eval [\s\S]*/m, '').replace(/\n/g, '\n||')}`);
+			const message = ('' + e.stack).replace(/\n *at CommandContext\.eval [\s\S]*/m, '').replace(/\n/g, '\n||');
+			this.sendReply(`|| << ${message}`);
 		}
 	},
 

@@ -19,6 +19,8 @@ let choiceNames = {
 	"R": "Rock",
 	"P": "Paper",
 	"S": "Scissors",
+	"L": "Lizard",
+	"SP": "Spock",
 };
 
 class RPSGame {
@@ -55,14 +57,18 @@ class RPSGame {
 	}
 
 	sendGameInformation(player, opponent) {
-		let pmPost = `/html <div class="broadcast-green"><center>You have been matched up with ${Server.nameColor(opponent.name, true)}</span><br />`;
+		let pmPost = `/html <div class="broadcast-green"><center>You have been matched up with ${Server.nameColor(opponent.name, true)}<br />`;
 		pmPost += `<strong>What is your choice?</strong><br />`;
 		pmPost += `<button name="send" value="/rps choose R ${this.gameId}">Rock</button>`;
 		pmPost += `<button name="send" value="/rps choose P ${this.gameId}">Paper</button>`;
 		pmPost += `<button name="send" value="/rps choose S ${this.gameId}">Scissors</button>`;
+		if (this.gameType === "ladderRPSLS") {
+			pmPost += `<button name="send" value="/rpsls choose L ${this.gameId}">Lizard</button>`;
+			pmPost += `<button name="send" value="/rpsls choose SP ${this.gameId}">Spock</button>`;
+		}
 		pmPost += `</center><br /><br />`;
 		pmPost += `You have 60 seconds to make your choice.</center></div>`;
-		player.send(`|pm|~Rock/Paper/Scissors Host|${player.userid}|${pmPost}`);
+		player.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${player.userid}|${pmPost}`);
 	}
 
 	updateUsers() {
@@ -75,9 +81,9 @@ class RPSGame {
 		this.updateUsers();
 		if (user.userid !== this.p1.userid && user.userid !== this.p2.userid) return false;
 		let playerChoice = user.userid === this.p1.userid ? "p1choice" : "p2choice";
-		if (this[playerChoice]) return user.send(`|pm|~Rock/Paper/Scissors Host|${user.userid}|/html <p style="color: red">You have already chose your move!</p>`);
+		if (this[playerChoice]) return user.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${user.userid}|/html <p style="color: red">You have already chose your move!</p>`);
 		this[playerChoice] = choice;
-		user.send(`|pm|~Rock/Paper/Scissors Host|${user.userid}|/html <strong>You have chose: ${choiceNames[choice]}.</strong>`);
+		user.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${user.userid}|/html <strong>You have chose: ${choiceNames[choice]}.</strong>`);
 		if (this.p1choice && this.p2choice) this.onEnd();
 	}
 
@@ -87,14 +93,14 @@ class RPSGame {
 		if (inactivity) {
 			// determine winner
 			if (this.p1choice && !this.p2choice) {
-				this.p2.send(`|pm|~Rock/Paper/Scissors Host|${this.p2.userid}|/html You have lost due to inactivity.`);
+				this.p2.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p2.userid}|/html You have lost due to inactivity.`);
 				this.parseWin(this.p1, this.p2, true);
 			} else if (!this.p1choice && this.p2choice) {
-				this.p1.send(`|pm|~Rock/Paper/Scissors Host|${this.p1.userid}|/html You have lost due to inactivity.`);
+				this.p1.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p1.userid}|/html You have lost due to inactivity.`);
 				this.parseWin(this.p2, this.p1, true);
 			} else {
-				this.p1.send(`|pm|~Rock/Paper/Scissors Host|${this.p1.userid}|/html You have lost due to inactivity.`);
-				this.p2.send(`|pm|~Rock/Paper/Scissors Host|${this.p2.userid}|/html You have lost due to inactivity.`);
+				this.p1.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p1.userid}|/html You have lost due to inactivity.`);
+				this.p2.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p2.userid}|/html You have lost due to inactivity.`);
 			}
 			this.p1.RPSgame = null;
 			this.p2.RPSgame = null;
@@ -105,19 +111,35 @@ class RPSGame {
 			"rr": "pp",
 			"rp": "p2",
 			"rs": "p1",
+			"rsp": "p1",
+			"rl": "p1",
 			"pp": "pp",
 			"pr": "p1",
 			"ps": "p2",
+			"psp": "p1",
+			"pl": "p2",
 			"ss": "pp",
 			"sp": "p1",
 			"sr": "p2",
+			"ssp": "p2",
+			"sl": "p1",
+			"spsp": "pp",
+			"spr": "p1",
+			"spp": "p2",
+			"sps": "p1",
+			"spl": "p2",
+			"ll": "pp",
+			"lr": "p2",
+			"lp": "p1",
+			"ls": "p2",
+			"lsp": "p1",
 		};
 		let winner, loser;
 		let gameResult = resultTable[this.p1choice.toLowerCase() + this.p2choice.toLowerCase()];
 		if (gameResult === "pp") {
 			// tie
-			this.p1.send(`|pm|~Rock/Paper/Scissors Host|${this.p1.userid}|/html The game with ${this.p2.name} was a tie! ${this.p2.name} has chose ${choiceNames[this.p2choice]}.`);
-			this.p2.send(`|pm|~Rock/Paper/Scissors Host|${this.p2.userid}|/html The game with ${this.p1.name} was a tie! ${this.p1.name} has chose ${choiceNames[this.p1choice]}.`);
+			this.p1.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p1.userid}|/html The game with ${this.p2.name} was a tie! ${this.p2.name} has chose ${choiceNames[this.p2choice]}.`);
+			this.p2.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p2.userid}|/html The game with ${this.p1.name} was a tie! ${this.p1.name} has chose ${choiceNames[this.p1choice]}.`);
 			if (this.gameType === "bucks") {
 				// return their 3 bucks each
 				Economy.writeMoney(this.p1.userid, 3);
@@ -140,17 +162,19 @@ class RPSGame {
 	}
 
 	parseWin(winner, loser, inactivity) {
-		winner.send(`|pm|~Rock/Paper/Scissors Host|${winner.userid}|/html You have won the game against ${loser.name}! ${(!inactivity ? `${loser.name} has chose ${choiceNames[(winner.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
-		loser.send(`|pm|~Rock/Paper/Scissors Host|${loser.userid}|/html You have lost the game against ${winner.name}! ${(!inactivity ? `${winner.name} has chose ${choiceNames[(loser.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
+		winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html You have won the game against ${loser.name}! ${(!inactivity ? `${loser.name} has chose ${choiceNames[(winner.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
+		loser.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${loser.userid}|/html You have lost the game against ${winner.name}! ${(!inactivity ? `${winner.name} has chose ${choiceNames[(loser.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
 		if (this.gameType === "bucks") {
 			// set but bucks
 			Economy.writeMoney(winner.userid, 6);
 			Economy.logTransaction(`${winner.name} has won a game of RPS against ${loser.name} and gained 6 ${moneyPlural}.`);
-			winner.send(`|pm|~Rock/Paper/Scissors Host|${winner.userid}|/html You have also won 6 ${moneyPlural}.`);
+			winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html You have also won 6 ${moneyPlural}.`);
 		} else {
+			let file = Db.rpsrank;
+			if (this.gameType === "ladderRPSLS") file = Db.rpslsrank;
 			// do rank change
-			let winnerPoints = Db.rpsrank.get(winner.userid, 1000);
-			let loserPoints = Db.rpsrank.get(loser.userid, 1000);
+			let winnerPoints = file.get(winner.userid, 1000);
+			let loserPoints = file.get(loser.userid, 1000);
 			let difference = Math.abs(winnerPoints - loserPoints);
 			let winnerPointGain, loserPointGain;
 			let pointGain = ~~(difference / 4) + 8;
@@ -171,7 +195,7 @@ class RPSGame {
 			if (winnerPointGain < 12) winnerPointGain = 12;
 			if (winnerPointGain > 75) winnerPointGain = 75;
 			let winnerFinalPoints = winnerPoints + winnerPointGain;
-			Db.rpsrank.set(winner.userid, winnerFinalPoints);
+			file.set(winner.userid, winnerFinalPoints);
 
 			// deduct points from loser
 			if (winnerPoints > loserPoints) {
@@ -183,11 +207,11 @@ class RPSGame {
 			let loserFinalPoints = loserPoints + loserPointGain;
 			// unable to go below 1000;
 			if (loserFinalPoints < 1000) loserFinalPoints = 1000;
-			Db.rpsrank.set(loser.userid, loserFinalPoints);
+			file.set(loser.userid, loserFinalPoints);
 
 			// announce the change in rank
-			winner.send(`|pm|~Rock/Paper/Scissors Host|${winner.userid}|/html ${winner.name}: ${winnerPoints} --> ${winnerFinalPoints}<br />${loser.name}: ${loserPoints} --> ${loserFinalPoints}`);
-			loser.send(`|pm|~Rock/Paper/Scissors Host|${loser.userid}|/html ${winner.name}: ${winnerPoints} --> ${winnerFinalPoints}<br />${loser.name}: ${loserPoints} --> ${loserFinalPoints}`);
+			winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html ${winner.name}: ${winnerPoints} --> ${winnerFinalPoints}<br />${loser.name}: ${loserPoints} --> ${loserFinalPoints}`);
+			loser.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${loser.userid}|/html ${winner.name}: ${winnerPoints} --> ${winnerFinalPoints}<br />${loser.name}: ${loserPoints} --> ${loserFinalPoints}`);
 		}
 	}
 }
@@ -196,7 +220,7 @@ function newSearch(user, gameTypeId) {
 	for (let search in Rooms.global.RPS.searches) {
 		if (Rooms.global.RPS.searches[search] === gameTypeId) {
 			// same IP check
-			if (Users.get(search).latestIp === user.latestIp && gameTypeId === "ladder") continue;
+			if (Users.get(search).latestIp === user.latestIp && ["ladderRPS", "ladderRPSLS"].includes(gameTypeId)) continue;
 			delete Rooms.global.RPS.searches[search];
 			return new RPSGame(user, Users.get(search), gameTypeId);
 		}
@@ -217,7 +241,7 @@ function updateSearches() {
 			// return bucks if it's a search for bucks
 			if (updatedSearches[user.userid] === "bucks") {
 				Economy.writeMoney(userid, 3);
-				Economy.logTransaction(`${user.name} was refunded their join fee of 3 ${moneyPlural} from RPS buy-in matches.`);
+				Economy.logTransaction(`${user.name} was refunded their join fee of 3 ${moneyPlural} from their RPS buy-in matches.`);
 			}
 		}
 	}
@@ -226,22 +250,30 @@ function updateSearches() {
 
 exports.commands = {
 	rockpaperscissors: "rps",
+	rpsls: "rps",
 	rps: {
 		searchladder: "search",
 		searchgame: "search",
-		search: function (target, room, user) {
+		searchrpsls: "search",
+		search: function (target, room, user, connection, cmd) {
 			if (user.RPSgame) return this.errorReply(`You are already in a game or searching for a game of Rock/Paper/Scissors!`);
 			updateSearches();
-			let gameType = "ladder";
+			let gameType = "ladderRPS";
 			if (target && target === "bucks") {
 				Economy.readMoney(user.userid, money => {
 					if (money < 3) return this.errorReply(`You do not have 3 ${moneyPlural} to play a bucks match.`);
 					gameType = "bucks";
+					Economy.writeMoney(user.userid, -3);
+					Economy.logTransaction(`${user.name} has paid a 3 ${moneyPlural} buy-in fee to play a RPS bucks match.`);
 				});
 			}
-			user.RPSgame = "searching";
+			user.RPSgame = `searching`;
+			if (cmd === "searchrpsls") {
+				gameType = "ladderRPSLS";
+				user.RPSgame = `searchingRPSLS`;
+			}
 			newSearch(user, gameType);
-			this.sendReply(`You are now searching for a game of Rock/Paper/Scissors (${gameType}).`);
+			this.sendReply(`You are now searching for a game of Rock/Paper/Scissors${cmd !== "searchrpsls" ? `` : `/Lizard/Spock`} (${gameType}).`);
 		},
 
 		cancel: "endsearch",
@@ -250,15 +282,15 @@ exports.commands = {
 		stopsearch: "endsearch",
 		end: "endsearch",
 		endsearch: function (target, room, user) {
-			if (!user.RPSgame || user.RPSgame !== "searching") return this.errorReply("You are not searching for a game of Rock/Paper/Scissors${}!");
+			if (!user.RPSgame || !["searching", "searchingRPSLS"].includes(user.RPSgame)) return this.errorReply("You are not searching for a game of Rock/Paper/Scissors!");
 			updateSearches();
 			if (Rooms.global.RPS.searches[user.userid] === "bucks") {
 				Economy.writeMoney(user.userid, 3);
-				Economy.logTransaction(`${user.name} has cancelled their search for a Rock/Paper/Scissors match and was refunded their 3 ${moneyPlural} buy-in fee.`);
+				Economy.logTransaction(`${user.name} has cancelled their search for a Rock/Paper/Scissors${user.RPSgame === "searching" ? `` : `/Lizard/Spock`} match and was refunded their 3 ${moneyPlural} buy-in fee.`);
 			}
 			delete Rooms.global.RPS.searches[user.userid];
 			user.RPSgame = null;
-			this.sendReply("You have cancelled your search for a game of Rock/Paper/Scissors.");
+			this.sendReply(`You have cancelled your search for a game of Rock/Paper/Scissors.`);
 		},
 
 		select: "choose",
@@ -269,9 +301,14 @@ exports.commands = {
 			let choice = parts[0].toUpperCase();
 			let gameId = parts[1];
 			if (gameId !== user.RPSgame) return false;
-			if (["R", "P", "S"].indexOf(choice) === -1) return false;
 			if (Rooms.global.RPS.games[gameId]) {
-				Rooms.global.RPS.games[gameId].onChoose(user, choice);
+				if (Rooms.global.RPS.games[gameId].gameType !== "ladderRPSLS") {
+					if (["R", "P", "S"].indexOf(choice) === -1) return false;
+					Rooms.global.RPS.games[gameId].onChoose(user, choice);
+				} else {
+					if (["R", "P", "S", "L", "SP"].indexOf(choice) === -1) return false;
+					Rooms.global.RPS.games[gameId].onChoose(user, choice);
+				}
 			}
 		},
 
@@ -286,9 +323,20 @@ exports.commands = {
 			this.sendReplyBox(`<strong>Rank - ${Server.nameColor(target, true)}: ${userRank}</strong>`);
 		},
 
+		"!rpslsrank": true,
+		rpslspoints: "rpslsrank",
+		rpslsranking: "rpslsrank",
+		rpslsrank: function (target, room, user) {
+			if (!this.runBroadcast()) return false;
+			if (!target) target = user.userid;
+			target = toId(target);
+			let userRank = Db.rpslsrank.get(toId(target), 1000);
+			this.sendReplyBox(`<strong>Rank - ${Server.nameColor(target, true)}: ${userRank}</strong>`);
+		},
+
 		"!ladder": true,
 		leaderboard: "ladder",
-		ladder: function (target, room, user) {
+		ladder: function (target) {
 			if (!this.runBroadcast()) return false;
 			if (!target) target = 100;
 			target = Number(target);
@@ -301,6 +349,21 @@ exports.commands = {
 			this.sendReplyBox(rankLadder("RPS Ladder", "Points", keys.slice(0, target), "points"));
 		},
 
+		"!rpslsladder": true,
+		rpslsleaderboard: "rpslsladder",
+		rpslsladder: function (target) {
+			if (!this.runBroadcast()) return false;
+			if (!target) target = 100;
+			target = Number(target);
+			if (isNaN(target)) target = 100;
+			let keys = Db.rpslsrank.keys().map(name => {
+				return {name: name, points: Db.rpslsrank.get(name)};
+			});
+			if (!keys.length) return this.errorReply(`There is currently no ranked data for RPSLS at this moment.`);
+			keys.sort(function (a, b) { return b.points - a.points; });
+			this.sendReplyBox(rankLadder("RPSLS Ladder", "Points", keys.slice(0, target), "points"));
+		},
+
 		"": "help",
 		help: function () {
 			this.parse("/help rps");
@@ -309,9 +372,13 @@ exports.commands = {
 
 	rpshelp: [
 		`/rps search [bucks] - Searches for a game of Rock/Paper/Scissors for ladder points or bucks; defaults to ladder points.
+		/rps searchrpsls - Searches a game of Rock/Paper/Scissors/Lizard/Spock for ladder points.
 		/rps endsearch - Stop searching for a game of Rock/Paper/Scissors.
 		/rps choose [choice] - Selects your move in Rock/Paper/Scissors.
 		/rps rank [user] - Shows [user]'s rank for Rock/Paper/Scissors; defaults to yourself.
-		/rps ladder - Shows Top 100 on the RPS ladder.`,
+		/rps rpslsrank [user] - Shows [user]'s rank for Rock/Paper/Scissors/Lizard/Spock; defaults to yourself.
+		/rps ladder - Shows Top 100 on the RPS ladder.
+		/rps rpslsladder - Shows Top 100 on the RPSLS ladder.
+		/rps help - Displays the list of RPS(LS) commands.`,
 	],
 };

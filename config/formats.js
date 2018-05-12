@@ -7,7 +7,7 @@
 let Formats = [
 
 	// US/UM Singles
-	///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////// //////////////////
 	{
 		section: "US/UM Singles",
 	},
@@ -248,7 +248,7 @@ let Formats = [
 	{
 		name: "[Gen 7] Doubles OU",
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3629155/">Doubles OU Metagame Discussion</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3634611/">Doubles OU Metagame Discussion</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3623347/">Doubles OU Viability Rankings</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3590987/">Doubles OU Sample Teams</a>`,
 		],
@@ -261,7 +261,7 @@ let Formats = [
 	},
 	{
 		name: "[Gen 7] Doubles OU (suspect test)",
-		desc: [`&bullet; <a href="http://www.smogon.com/forums/threads/3629155/">Doubles OU Suspect Test</a>`],
+		threads: [`&bullet; <a href="https://www.smogon.com/forums/threads/3634611/">Doubles OU Suspect Test</a>`],
 
 		mod: 'gen7',
 		gameType: 'doubles',
@@ -494,7 +494,7 @@ let Formats = [
 		banlist: [
 			'Illegal', 'Unreleased', 'Arceus', 'Darkrai', 'Deoxys-Base', 'Deoxys-Attack', 'Deoxys-Defense', 'Dialga', 'Giratina', 'Groudon', 'Ho-Oh',
 			'Jirachi', 'Kangaskhan-Mega', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Marshadow', 'Mewtwo', 'Necrozma-Dawn-Wings',
-			'Necrozma-Dusk-Mane', 'Palkia', 'Rayquaza', 'Reshiram', 'Salamence-Mega', 'Shaymin-Sky', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zekrom',
+			'Necrozma-Dusk-Mane', 'Palkia', 'Rayquaza', 'Reshiram', 'Salamence-Mega', 'Shaymin-Sky', 'Solgaleo', 'Tapu Koko', 'Xerneas', 'Yveltal', 'Zekrom',
 			'Focus Sash', 'Flash', 'Kinesis', 'Leaf Tornado', 'Mirror Shot', 'Mud Bomb', 'Mud-Slap', 'Muddy Water', 'Night Daze', 'Octazooka', 'Perish Song', 'Sand Attack', 'Smokescreen',
 			'Chansey + Charm + Seismic Toss', 'Chansey + Charm + Psywave',
 		],

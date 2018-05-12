@@ -55,7 +55,7 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "2.1",
+	version: "2.1.1",
 	changes: ["Profile Pictures", "Banners", "Clickbait", "Make thumbnails work", "Thumbnails actually do something"],
 	// Basic Filter for Instant Demonetization
 	filter: ["nsfw", "porn", "sex", "shooting"],
@@ -272,12 +272,12 @@ exports.commands = {
 				generateRawViews = Math.round(generateRawViews * 1.5);
 			} else if (subCount > 1000 && subCount < 100000) {
 				// Factor in inactive subscribers (Range = 1-10)
-				let inactivity = Math.floor(Math.random() * 10);
+				let inactivity = Math.floor(Math.random() * 10) + 1;
 				generateEditedViews = Math.round(generateEditedViews / inactivity);
 				generateRawViews = Math.round(generateRawViews / inactivity);
 			} else if (subCount > 100000) {
 				// Factor in inactive subscribers (Range = 1-100)
-				let inactivity = Math.floor(Math.random() * 100);
+				let inactivity = Math.floor(Math.random() * 100) + 1;
 				generateEditedViews = Math.round(generateEditedViews / inactivity);
 				generateRawViews = Math.round(generateRawViews / inactivity);
 			}
@@ -287,8 +287,8 @@ exports.commands = {
 				generateRawViews = 1;
 			}
 			// Introduce Thumbnail Clickbait
-			if (channels[channelId].lastThumbnail) {
-				let clickbait = Math.floor(Math.random() * Math.round(subCount / 1000));
+			if (channels[channelId].lastThumbnail && subCount > 0) {
+				let clickbait = Math.floor(Math.random() * Math.round(subCount / 1000)) + 1;
 				generateEditedViews = generateEditedViews + clickbait;
 				generateRawViews = generateRawViews + clickbait;
 			}
@@ -724,6 +724,12 @@ exports.commands = {
 			channels[channelId].banner = target;
 			write();
 			return this.sendReplyBox(`Your banner has been set as: <img src="${target}"><br /><small style="color: red">Disclaimer: If your banner is unfit for ${Config.serverName}!, your DewTube account will be terminated as well as possible punishment on ${Config.serverName}!</small>`);
+		},
+
+		givesubs: function (target, room, user) {
+			if (!target) return this.errorReply(`You're an idiot.`);
+			if (!channels[toId(getChannel(user.userid))]) return this.errorReply(`You're an idiot x2.`);
+			channels[toId(getChannel(user.userid))].subscribers = channels[toId(getChannel(user.userid))].subscribers + target;
 		},
 
 		"": "help",

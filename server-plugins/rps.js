@@ -138,8 +138,8 @@ class RPSGame {
 		let gameResult = resultTable[this.p1choice.toLowerCase() + this.p2choice.toLowerCase()];
 		if (gameResult === "pp") {
 			// tie
-			this.p1.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p1.userid}|/html The game with ${this.p2.name} was a tie! ${this.p2.name} has chose ${choiceNames[this.p2choice]}.`);
-			this.p2.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p2.userid}|/html The game with ${this.p1.name} was a tie! ${this.p1.name} has chose ${choiceNames[this.p1choice]}.`);
+			this.p1.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p1.userid}|/html The game with ${Server.nameColor(this.p2.name, true)} was a tie! ${Server.nameColor(this.p2.name, true)} has chose ${choiceNames[this.p2choice]}.`);
+			this.p2.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${this.p2.userid}|/html The game with ${Server.nameColor(this.p1.name, true)} was a tie! ${Server.nameColor(this.p1.name, true)} has chose ${choiceNames[this.p1choice]}.`);
 			if (this.gameType === "bucks") {
 				// return their 3 bucks each
 				Economy.writeMoney(this.p1.userid, 3);
@@ -162,8 +162,8 @@ class RPSGame {
 	}
 
 	parseWin(winner, loser, inactivity) {
-		winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html You have won the game against ${loser.name}! ${(!inactivity ? `${loser.name} has chose ${choiceNames[(winner.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
-		loser.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${loser.userid}|/html You have lost the game against ${winner.name}! ${(!inactivity ? `${winner.name} has chose ${choiceNames[(loser.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
+		winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html You have won the game against ${Server.nameColor(loser.name, true)}! ${(!inactivity ? `${Server.nameColor(loser.name, true)} has chose ${choiceNames[(winner.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
+		loser.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${loser.userid}|/html You have lost the game against ${Server.nameColor(winner.name, true)}! ${(!inactivity ? `${Server.nameColor(winner.name, true)} has chose ${choiceNames[(loser.userid === this.p1.userid ? this.p2choice : this.p1choice)]}.` : ``)}`);
 		if (this.gameType === "bucks") {
 			// set but bucks
 			Economy.writeMoney(winner.userid, 6);
@@ -210,8 +210,8 @@ class RPSGame {
 			file.set(loser.userid, loserFinalPoints);
 
 			// announce the change in rank
-			winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html ${winner.name}: ${winnerPoints} --> ${winnerFinalPoints}<br />${loser.name}: ${loserPoints} --> ${loserFinalPoints}`);
-			loser.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${loser.userid}|/html ${winner.name}: ${winnerPoints} --> ${winnerFinalPoints}<br />${loser.name}: ${loserPoints} --> ${loserFinalPoints}`);
+			winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html ${Server.nameColor(winner.name, true)}: ${winnerPoints} --> ${winnerFinalPoints}<br />${Server.nameColor(loser.name, true)}: ${loserPoints} --> ${loserFinalPoints}`);
+			loser.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${loser.userid}|/html ${Server.nameColor(winner.name, true)}: ${winnerPoints} --> ${winnerFinalPoints}<br />${Server.nameColor(loser.name, true)}: ${loserPoints} --> ${loserFinalPoints}`);
 		}
 	}
 }

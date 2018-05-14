@@ -138,7 +138,7 @@ exports.commands = {
 	},
 
 	'!bugs': true,
-	bugs: function (room) {
+	bugs: function (target, room) {
 		if (!this.runBroadcast()) return;
 		if (room && room.battle) {
 			this.sendReplyBox(`<center><button name="saveReplay"><i class="fa fa-upload"></i> Save Replay</button> &mdash; <a href="https://www.smogon.com/forums/threads/3520646/">Questions</a> &mdash; <a href="https://www.smogon.com/forums/threads/3469932/">Bug Reports</a></center>`);
@@ -151,7 +151,7 @@ exports.commands = {
 	},
 
 	'!roomhelp': true,
-	roomhelp: function (room) {
+	roomhelp: function (target, room) {
 		if (!this.canBroadcast('!htmlbox')) return;
 		if (this.broadcastMessage && !this.can('declare', null, room)) return false;
 

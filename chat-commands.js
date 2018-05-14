@@ -628,6 +628,7 @@ const commands = {
 	},
 	makechatroomhelp: [`/makechatroom [roomname] - Creates a new room named [roomname]. Requires: & ~`],
 
+	subroomgroupchat: 'makegroupchat',
 	makegroupchat: function (target, room, user, connection, cmd) {
 		if (!user.autoconfirmed) {
 			return this.errorReply("You must be autoconfirmed to make a groupchat.");
@@ -635,12 +636,15 @@ const commands = {
 		if (!user.trusted) {
 			return this.errorReply("You must be global voice or roomdriver+ in some public room to make a groupchat.");
 		}
+		if (cmd === 'subroomgroupchat') {
+			if (!user.can('mute', null, room)) return this.errorReply("You can only create subroom groupchats for rooms you're staff in.");
+			if (room.battle) return this.errorReply("You cannot create a subroom of a battle.");
+		}
+		let parent = cmd === 'subroomgroupchat' ? room.id : null;
 		// if (!this.can('makegroupchat')) return false;
-		if (target.length > 64) return this.errorReply("Title must be under 32 characters long.");
-		let targets = target.split(',', 2);
 
 		// Title defaults to a random 8-digit number.
-		let title = targets[0].trim();
+		let title = target.trim();
 		if (title.length >= 32) {
 			return this.errorReply("Title must be under 32 characters long.");
 		} else if (!title) {
@@ -679,9 +683,6 @@ const commands = {
 			return;
 		}
 
-		// Privacy settings, default to hidden.
-		let privacy = (toId(targets[1]) === 'private') ? true : 'hidden';
-
 		let groupChatLink = '<code>&lt;&lt;' + roomid + '>></code>';
 		let groupChatURL = '';
 		if (Config.serverid) {
@@ -696,14 +697,16 @@ const commands = {
 		}
 		let targetRoom = Rooms.createChatRoom(roomid, `[G] ${title}`, {
 			isPersonal: true,
-			isPrivate: privacy,
+			isPrivate: 'hidden',
+			modjoin: parent ? null : '+',
+			parentid: parent,
 			auth: {},
-			introMessage: `<h2 style="margin-top:0">${titleHTML}</h2><p>There are several ways to invite people:<br />- in this chat: <code>/invite USERNAME</code><br />- anywhere in PS: link to <code>&lt;&lt;${roomid}>></code>${(groupChatURL ? `<br />- outside of PS: link to <a href="${groupChatURL}">${groupChatURL}</a>` : ``)}</p><p>This room will expire after 40 minutes of inactivity or when the server is restarted.</p><p style="margin-bottom:0"><button name="send" value="/roomhelp">Room management</button>`,
+			introMessage: `<h2 style="margin-top:0">${titleHTML}</h2><p>To invite people to this groupchat, use <code>/invite USERNAME</code> in the groupchat.<br /></p><p>This room will expire after 40 minutes of inactivity or when the server is restarted.</p><p style="margin-bottom:0"><button name="send" value="/roomhelp">Room management</button>`,
 			staffMessage: `<p>As creator of this groupchat, <u>you are entirely responsible for what occurs in this chatroom</u>. Global rules apply at all times.</p><p>If you have created this room for someone else, <u>you are still responsible</u> whether or not you choose to actively supervise the room.</p><p style="font-style:italic">For this reason, we strongly recommend that you only create groupchats for users you know and trust.</p><p>If this room is used to break global rules or disrupt other areas of the server, this will be considered irresponsible use of auth privileges on the part of the creator, and <b>you will be globally demoted and barred from public auth.</b></p>`,
 		});
 		if (targetRoom) {
-			// The creator is RO.
-			targetRoom.auth[user.userid] = '#';
+			// The creator is a Host.
+			targetRoom.auth[user.userid] = '\u2605';
 			// Join after creating room. No other response is given.
 			user.joinRoom(targetRoom.id);
 			user.popup(`You've just made a groupchat; it is now your responsibility, regardless of whether or not you actively partake in the room. For more info, read your groupchat's staff intro.`);
@@ -711,7 +714,10 @@ const commands = {
 		}
 		return this.errorReply(`An unknown error occurred while trying to create the room '${title}'.`);
 	},
-	makegroupchathelp: [`/makegroupchat [roomname], [hidden|private] - Creates a group chat named [roomname]. Leave off privacy to default to hidden. Requires global voice or roomdriver+ in a public room to make a groupchat.`],
+	makegroupchathelp: [
+		`/makegroupchat [roomname] - Creates an invite-only group chat named [roomname]. Requires global voice or roomdriver+ in a public room to make a groupchat.`,
+		`/subroomgroupchat [roomname] - Creates a subroom groupchat of the current room. Can only be used in a public room you have staff in.`,
+	],
 
 	deregisterchatroom: function (target, room, user) {
 		if (!this.can('makeroom')) return;
@@ -759,7 +765,7 @@ const commands = {
 		}
 
 		if (room.isPersonal) {
-			if (!this.can('editroom', null, room)) return;
+			if (!this.can('gamemanagement', null, room)) return;
 		} else {
 			if (!this.can('makeroom')) return;
 		}
@@ -1073,7 +1079,7 @@ const commands = {
 			}
 			return;
 		}
-		if (!this.can('declare', null, room)) return false;
+		if (!this.can('editroom', null, room)) return false;
 		if (this.meansNo(target) || target === 'delete') return this.errorReply('Did you mean "/deleteroomintro"?');
 		target = this.canHTML(target);
 		if (!target) return;

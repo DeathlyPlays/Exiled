@@ -36,17 +36,13 @@ exports.commands = {
 		suggest: "submit",
 		request: "submit",
 		submit: function (target, room, user) {
-			let sender = user.userid;
-			let targets = target.split(',');
-			for (let u = 0; u < targets.length; u++) targets[u] = targets[u].trim();
-			if (!targets[1]) return this.errorReply("/suggestion submit [title], [suggestion]");
-			let title = targets[0];
+			let [suggestion, title] = target.split(",").map(p => p.trim());
+			if (!suggestion[1]) return this.errorReply("/suggestion submit [title], [suggestion]");
 			if (title.length > 30) return this.errorReply("Please make sure your suggestion title is 30 characters or less.");
-			let suggestion = targets[1];
 			if (suggestion.length > 500) return this.errorReply("Please make your suggestion 500 characters or less.");
-			Monitor.log(`/raw <div style="border: #000000 solid 2px;"><center><br><font size="1"><strong>${sender}</strong> has submitted a suggestion:</font></center><center>"${suggestion}"</center><br /></div>`);
+			if (Rooms("staff")) Rooms("staff").add(`/raw <div style="border: #000000 solid 2px;"><center><br><font size="1">${Server.nameColor(user.name, true, true)} has submitted a suggestion:</font>"${suggestion}"</center><br /></div>`);
 			suggestions[toId(title)] = {
-				user: sender,
+				user: user.userid,
 				title: title,
 				id: toId(title),
 				desc: suggestion,
@@ -66,14 +62,26 @@ exports.commands = {
 			this.sendReply(`Suggestion "${target}" has been deleted.`);
 		},
 
-		view: "list",
 		viewindex: "list",
 		index: "list",
-		list: function (target, room, user) {
+		suggestions: "list",
+		list: function (target, room) {
 			if (!this.can("ban")) return false;
-			let output = `<b><u>Suggestions (${Object.keys(suggestions).length})</u></b><br />`;
-			for (let suggestion in suggestions) output += `<strong>${suggestion}</strong><br />`;
-			this.sendReplyBox(`${output}`);
+			if (!this.runBroadcast()) return;
+			if (this.broadcasting && room.id !== "staff") return this.errorReply(`You cannot broadcast the suggestions index outside of the Staff room.`);
+			if (Object.keys(suggestions).length < 1) return this.errorReply(`There are no suggestions on ${Config.serverName} yet.`);
+			let output = `<strong><u>Suggestions (${Object.keys(suggestions).length})</u></strong><br />`;
+			for (let suggestion in suggestions) output += `<strong>${suggestion}</strong> <button class="button" name="send" value="/suggestions view ${suggestion}">View ${suggestion}</button><br />`;
+			this.sendReplyBox(output);
+		},
+
+		display: "view",
+		view: function (target, room) {
+			if (!this.can("ban")) return false;
+			if (room && room.id === "staff" && !this.runBroadcast()) return;
+			let suggestion = toId(target);
+			if (!suggestions[suggestion]) return this.errorReply(`The suggestion "${target}" is not currently a suggestion on ${Config.serverName}.`);
+			this.sendReplyBox(`<strong>"${suggestions[suggestion].title}"</strong> was suggested by ${Server.nameColor(suggestions[suggestion].user, true, true)}:<br /> ${suggestions[suggestion].desc}`);
 		},
 
 		"": "help",
@@ -83,9 +91,10 @@ exports.commands = {
 	},
 
 	suggestionhelp: [
-		"/suggestions submit [title], [suggestion] - Submits a suggestion to the index.",
-		"/suggestions remove [suggestion id] - Deletes a suggestion from the index. Requires @ and up.",
-		"/suggestions index - Displays all the suggestions in the index. Requires @ and up.",
-		"/suggestions help - Shows available suggestion commands.",
+		`/suggestions submit [title], [suggestion] - Submits a suggestion to the index.
+		/suggestions remove [suggestion id] - Deletes a suggestion from the index. Requires @ and up.
+		/suggestions index - Displays all the suggestions in the index. Requires @ and up.
+		/suggestions view [suggestion] - Views [suggestion]. Requires @ and up.
+		/suggestions help - Shows available suggestion commands.`,
 	],
 };

@@ -11,8 +11,7 @@ const MAX_LINES = 1000;
 exports.commands = {
 	viewlogs: function (target, room, user) {
 		if (target) {
-			let targets = target.split(",");
-			for (let u in targets) targets[u] = targets[u].trim();
+			let targets = target.split(",").map(p => { return p.trim(); });
 			if (!targets[1]) return this.errorReply("Please use /viewlogs with no target.");
 			switch (toId(targets[0])) {
 			case "month":
@@ -53,15 +52,13 @@ exports.commands = {
 	viewlogspopup: "viewlogs2",
 	viewlogs2: function (target, room, user, connection, cmd) {
 		if (!target) return this.sendReply("Usage: /viewlogs [room], [year-month-day / 2014-12-08] - Provides you with a temporary link to view the target rooms chat logs.");
-		let targetSplit = target.split(",");
-		if (!targetSplit[1]) return this.sendReply("Usage: /viewlogs [room], [year-month-day / 2014-12-08] -Provides you with a temporary link to view the target rooms chat logs.");
-		for (let u in targetSplit) targetSplit[u] = targetSplit[u].trim();
-		let targetRoom = targetSplit[0];
+		let [targetRoom, dateOfLogs] = target.split(",").map(p => { return p.trim(); });
+		if (!dateOfLogs) return this.sendReply("Usage: /viewlogs [room], [year-month-day / 2014-12-08] -Provides you with a temporary link to view the target rooms chat logs.");
 		if (!permissionCheck(user, targetRoom)) return this.errorReply("/viewlogs - Access denied.");
 		let date;
-		if (toId(targetSplit[1]) === "today" || toId(targetSplit[1]) === "yesterday") {
+		if (toId(dateOfLogs) === "today" || toId(dateOfLogs) === "yesterday") {
 			date = new Date();
-			if (toId(targetSplit[1]) === "yesterday") date.setDate(date.getDate() - 1);
+			if (toId(dateOfLogs) === "yesterday") date.setDate(date.getDate() - 1);
 			date = date.toLocaleDateString("en-US", {
 				day: "numeric",
 				month: "numeric",
@@ -69,15 +66,14 @@ exports.commands = {
 			}).split("/").reverse();
 			if (date[1] < 10) date[1] = `0${date[1]}`;
 			if (date[2] < 10) date[2] = `0${date[2]}`;
-			targetSplit[1] = `${date[0]}-${date[2]}-${date[1]}`;
+			dateOfLogs = `${date[0]}-${date[2]}-${date[1]}`;
 		}
-		date = targetSplit[1].replace(/\.txt/, "");
+		date = dateOfLogs.replace(/\.txt/, "");
 		let splitDate = date.split("-");
 		if (splitDate.length < 3) return this.sendReply("Usage: /viewlogs [room], [year-month-day / 2014-12-08] - Provides you with a temporary link to view the target rooms chat logs.");
 
 		FS(`logs/chat/${targetRoom.toLowerCase()}/${splitDate[0]}-${splitDate[1]}/${date}.txt`).read().then(data => {
 			FS("logs/viewlogs.log").append(`[${new Date().toUTCString()}] ${user.name} viewed the logs of ${toId(targetRoom)}. Date: ${date}\n`);
-			let filename = require("crypto").randomBytes(4).toString("hex");
 
 			if (!user.can("warn", null, Rooms(targetRoom))) {
 				let lines = data.split("\n");
@@ -88,7 +84,7 @@ exports.commands = {
 			}
 
 			if (cmd === "viewlogspopup") {
-				let output = `Displaying room logs of room "${Chat.escapeHTML(targetRoom)}" on ${Chat.escapeHTML(date)}<br />`;
+				let output = `Displaying room logs of room "${targetRoom}" on ${date}<br />`;
 				data = data.split("\n");
 				for (let u in data) {
 					if (data[u].length < 1) continue;
@@ -105,17 +101,16 @@ exports.commands = {
 
 	searchlogs: function (target, room, user) {
 		if (!target) return this.parse("/help searchlogs");
-		let targets = target.split(",");
-		for (let u in targets) targets[u] = targets[u].trim();
-		if (!targets[1]) return this.errorReply("Please specify a phrase to search.");
+		let [roomName, phrase] = target.split(",").map(p => { return p.trim(); });
+		if (!phrase) return this.errorReply("Please specify a phrase to search.");
 
-		if (toId(targets[0]) === "all" && !this.can("hotpatch")) return false;
-		if (!permissionCheck(user, toId(targets[0]))) return false;
+		if (toId(roomName) === "all" && !this.can("hotpatch")) return false;
+		if (!permissionCheck(user, toId(roomName))) return false;
 
-		FS("logs/viewlogs.log").append(`[${new Date().toUTCString()}] ${user.name} searched the logs of ${toId(targets[0])}" for "${targets[1]}".\n`);
+		FS("logs/viewlogs.log").append(`[${new Date().toUTCString()}] ${user.name} searched the logs of ${toId(roomName)}" for "${phrase}".\n`);
 
-		let pattern = escapeRegExp(targets[1]).replace(/\\\*/g, ".*");
-		let command = 'grep -Rnw \'./logs/chat/' + (toId(targets[0]) === 'all' ? '' : toId(targets[0])) + '\' -e "' + pattern + '"';
+		let pattern = escapeRegExp(phrase).replace(/\\\*/g, ".*");
+		let command = 'grep -Rnw \'./logs/chat/' + (toId(roomName) === 'all' ? '' : toId(roomName)) + '\' -e "' + pattern + '"';
 
 		require("child_process").exec(command, function (error, stdout, stderr) {
 			if (error && stderr) {
@@ -135,9 +130,9 @@ exports.commands = {
 				line = line.join(":");
 				let message = parseMessage(line, user.userid);
 				if (message.length < 1) continue;
-				output += `<font color="#970097">${Chat.escapeHTML(file)}</font><font color="#00AAAA">:</font><font color="#008700">${lineNumber}</font><font color="#00AAAA">:</font>${message}<br />`;
+				output += `<font color="#970097">${file}</font><font color="#00AAAA">:</font><font color="#008700">${lineNumber}</font><font color="#00AAAA">:</font>${message}<br />`;
 			}
-			user.send(`|popup||wide||html|Displaying last ${MAX_LINES} lines containing "${Chat.escapeHTML(pattern)}" ${(toId(targets[0]) === `all` ? `` : ` in "${Chat.escapeHTML(targets[0])}"`)}:<br /><br />${output}`);
+			user.send(`|popup||wide||html|Displaying last ${MAX_LINES} lines containing "${pattern}" ${(toId(roomName) === `all` ? `` : ` in "${roomName}"`)}:<br /><br />${output}`);
 		});
 	},
 	searchlogshelp: ["/searchlogs [room / all], [phrase] - Phrase may contain * wildcards."],
@@ -166,7 +161,7 @@ function generateTable(array, command) {
 	for (let u in array) {
 		if (array[u] === "today.txt") continue;
 		if (count === 0) output += "<tr>";
-		output += `<td><button style="width: 100%" name="send" value="${command}${Chat.escapeHTML(array[u])}">${(Rooms(array[u]) ? `` : `<font color="red">`)} ${Chat.escapeHTML(array[u])} ${(Rooms(array[u]) ? `` : `</font>`)}</button></td>`;
+		output += `<td><button style="width: 100%" name="send" value="${command}${array[u]}">${(Rooms(array[u]) ? `` : `<font color="red">`)} ${array[u]} ${(Rooms(array[u]) ? `` : `</font>`)}</button></td>`;
 		count++;
 		if (count > 3) {
 			output += `<tr />`;
@@ -192,19 +187,19 @@ function parseMessage(message, user) {
 	case "c":
 		name = lineSplit[2];
 		if (name === "~") break;
-		highlight = new RegExp("\\b" + toId(user) + "\\b", "gi");
-		div = "chat";
-		if (lineSplit.slice(3).join("|").match(highlight)) div = "chat highlighted";
+		highlight = new RegExp(`\\b${toId(user)}\\b`, `gi`);
+		div = `chat`;
+		if (lineSplit.slice(3).join("|").match(highlight)) div = `chat highlighted`;
 		message = `<span class="${div}"><small>[${timestamp}]</small> <small>${name.substr(0, 1)}</small><strong>${Server.nameColor(name.substr(1))}:</font></strong><em>${Server.parseMessage(lineSplit.slice(3).join("|"))}</em></span>`;
 		break;
 	case "c:":
 		name = lineSplit[3];
 		if (name === "~") break;
-		highlight = new RegExp("\\b" + toId(user) + "\\b", "gi");
+		highlight = new RegExp(`\\b${toId(user)}\\b`, `gi`);
 		div = "chat";
-		if (lineSplit.slice(4).join("|").match(highlight)) div = "chat highlighted";
+		if (lineSplit.slice(4).join("|").match(highlight)) div = `chat highlighted`;
 
-		while (lineSplit[2].length < 13) lineSplit[2] = lineSplit[2] + "0";
+		while (lineSplit[2].length < 13) lineSplit[2] = `${lineSplit[2]}0`;
 
 		let date = new Date(Number(lineSplit[2]));
 		let components = [date.getHours(), date.getMinutes(), date.getSeconds()];
@@ -220,13 +215,14 @@ function parseMessage(message, user) {
 		message = `<span class="notice">${lineSplit.slice(2).join("|").trim()}</span>`;
 		break;
 	case "":
-		message = `<span class="notice">${Chat.escapeHTML(lineSplit.slice(1).join("|"))}</span>`;
+		message = `<span class="notice">${lineSplit.slice(1).join("|")}</span>`;
 		break;
 	case "j":
 	case "J":
 	case "l":
 	case "L":
 	case "N":
+	case "n":
 	case "unlink":
 	case "userstats":
 	case "tournament":
@@ -234,7 +230,7 @@ function parseMessage(message, user) {
 		message = "";
 		break;
 	default:
-		message = `<span class="notice">${Chat.escapeHTML(message)}</span>`;
+		message = `<span class="notice">${message}</span>`;
 		break;
 	}
 	return message;

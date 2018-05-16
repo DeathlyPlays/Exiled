@@ -218,7 +218,7 @@ class ScavengerHunt extends Rooms.RoomGame {
 	// alert new users that are joining the room about the current hunt.
 	onConnect(user, connection) {
 		// send the fact that a hunt is currently going on.
-		connection.sendTo(this.room, `|raw|<div class="broadcast-blue"><strong>${(this.gameType === 'official' ? "An official" : this.gameType === 'practice' ? "A practice" : "A")} Scavenger Hunt by <em>${Server.nameColor(Chat.toListString(this.hosts.map(h => h.name)))}</em> has been started${(this.hosts.some(h => h.userid === this.staffHostId) ? '' : ` by <em>${Server.nameColor(this.staffHostName)}</em>`)}.<br />The first hint is: ${Chat.formatText(this.questions[0].hint)}</strong></div>`);
+		connection.sendTo(this.room, `|raw|<div class="broadcast-blue"><strong>${(this.gameType === 'official' ? "An official" : this.gameType === 'practice' ? "A practice" : "A")} Scavenger Hunt by <em>${Chat.toListString(this.hosts.map(h => h.name))}</em> has been started${(this.hosts.some(h => h.userid === this.staffHostId) ? '' : ` by <em>${this.staffHostName}</em>`)}.<br />The first hint is: ${Chat.formatText(this.questions[0].hint)}</strong></div>`);
 	}
 
 	joinGame(user) {
@@ -268,7 +268,7 @@ class ScavengerHunt extends Rooms.RoomGame {
 			this.questions.push({hint: hint, answer: answer});
 		}
 
-		this.announce(`A new${(this.gameType === 'official' ? " official" : this.gameType === 'practice' ? " practice" : '')} Scavenger Hunt by <em>${Server.nameColor(Chat.toListString(this.hosts.map(h => h.name)))}</em> has been started${(this.hosts.some(h => h.userid === Server.nameColor(this.staffHostId)) ? '' : ` by <em>${Server.nameColor(this.staffHostName)}</em>`)}.<br />The first hint is: ${Chat.formatText(this.questions[0].hint)}`);
+		this.announce(`A new${(this.gameType === 'official' ? " official" : this.gameType === 'practice' ? " practice" : '')} Scavenger Hunt by <em>${Chat.toListString(this.hosts.map(h => h.name))}</em> has been started${(this.hosts.some(h => h.userid === this.staffHostId) ? '' : ` by <em>${this.staffHostName}</em>`)}.<br />The first hint is: ${Chat.formatText(this.questions[0].hint)}`);
 	}
 
 	onEditQuestion(number, question_answer, value) {
@@ -370,7 +370,7 @@ class ScavengerHunt extends Rooms.RoomGame {
 		this.completed.push({name: player.name, time: time, blitz: blitz});
 		let place = formatOrder(this.completed.length);
 
-		this.announce(`<em>${Server.nameColor(player.name)}</em> has finished the hunt in ${place} place! (${time}${(blitz ? " - BLITZ" : "")})`);
+		this.announce(`<em>${player.name}</em> has finished the hunt in ${place} place! (${time}${(blitz ? " - BLITZ" : "")})`);
 		if (this.parentGame) this.parentGame.onCompleteEvent(player);
 		player.destroy(); // remove from user.games;
 	}
@@ -398,8 +398,8 @@ class ScavengerHunt extends Rooms.RoomGame {
 			let sliceIndex = this.gameType === 'official' ? 5 : 3;
 
 			this.announce(
-				`The ${this.gameType ? `${this.gameType} ` : ""}scavenger hunt was ended ${(endedBy ? "by " + Server.nameColor(endedBy.name) : "automatically")}.<br />` +
-				`${this.completed.slice(0, sliceIndex).map((p, i) => `${formatOrder(i + 1)} place: <em>${Server.nameColor(p.name)}</em>${this.gameType === 'official' ? ` <span style="color: lightgreen;">[${p.time}]</span>` : ''}.<br />`).join("")}${this.completed.length > sliceIndex ? `Consolation Prize: ${this.completed.slice(sliceIndex).map(e => `<em>${Server.nameColor(e.name)}</em>${this.gameType === 'official' ? ` <span style="color: lightgreen;">[${e.time}]</span>` : ''}`).join(', ')}<br />` : ''}<br />` +
+				`The ${this.gameType ? `${this.gameType} ` : ""}scavenger hunt was ended ${(endedBy ? "by " + endedBy.name : "automatically")}.<br />` +
+				`${this.completed.slice(0, sliceIndex).map((p, i) => `${formatOrder(i + 1)} place: <em>${p.name}</em>${this.gameType === 'official' ? ` <span style="color: lightgreen;">[${p.time}]</span>` : ''}.<br />`).join("")}${this.completed.length > sliceIndex ? `Consolation Prize: ${this.completed.slice(sliceIndex).map(e => `<em>${e.name}</em>${this.gameType === 'official' ? ` <span style="color: lightgreen;">[${e.time}]</span>` : ''}`).join(', ')}<br />` : ''}<br />` +
 				`<details style="cursor: pointer;"><summary>Solution: </summary><br />${this.questions.map((q, i) => `${i + 1}) ${Chat.formatText(q.hint)} <span style="color: lightgreen">[<em>${Chat.escapeHTML(q.answer.join(' / '))}</em>]</span>`).join("<br />")}</details>`
 			);
 
@@ -409,7 +409,7 @@ class ScavengerHunt extends Rooms.RoomGame {
 
 			this.tryRunQueue(this.room.id);
 		} else if (endedBy) {
-			this.announce(`The scavenger hunt has been reset by ${Server.nameColor(endedBy.name)}.`);
+			this.announce(`The scavenger hunt has been reset by ${endedBy.name}.`);
 		} else {
 			this.announce("The hunt has been reset automatically, due to the lack of finishers.");
 			if (this.parentGame) this.parentGame.onEndEvent();
@@ -810,9 +810,9 @@ let commands = {
 
 		const elapsedMsg = Chat.toDurationString(Date.now() - game.startTime, {hhmmss: true});
 		const gameTypeMsg = game.gameType ? `<em>${game.gameType}</em> ` : '';
-		const hostersMsg = Chat.toListString(game.hosts.map(h => h.name));
-		const hostMsg = game.hosts.some(h => h.userid === game.staffHostId) ? '' : Chat.html` (started by - ${game.staffHostName})`;
-		const finishers = Chat.html`${game.completed.map(u => Server.nameColor(u.name)).join(', ')}`;
+		const hostersMsg = Chat.toListString(game.hosts.map(h => Server.nameColor(h.name)));
+		const hostMsg = game.hosts.some(h => h.userid === game.staffHostId) ? '' : ` (started by - ${Server.nameColor(game.staffHostName)})`;
+		const finishers = `${game.completed.map(u => Server.nameColor(u.name)).join(', ')}`;
 		const buffer = `<div class="infobox" style="margin-top: 0px;">The current ${gameTypeMsg}scavenger hunt by <em>${hostersMsg}${hostMsg}</em> has been up for: ${elapsedMsg}<br />Completed (${game.completed.length}): ${finishers}<br /></div>`;
 
 		if (game.hosts.some(h => h.userid === user.userid) || game.staffHostId === user.userid) {
@@ -823,11 +823,11 @@ let commands = {
 				if (!players.length) {
 					str += `<tr><td>${questionNum}</td><td>None</td>`;
 				} else {
-					str += Chat.html`<tr><td>${questionNum}</td><td>${players.map(pl => Server.nameColor(pl.name)).join(", ")}`;
+					str += `<tr><td>${questionNum}</td><td>${players.map(pl => Server.nameColor(pl.name)).join(", ")}`;
 				}
 			}
-			str += Chat.html`<tr><td>Completed</td><td>${game.completed.length ? game.completed.map(pl => Server.nameColor(pl.name)).join(", ") : 'None'}`;
-			return this.sendReply(`|raw|${str}</table></div>${buffer}`);
+			str += `<tr><td>Completed</td><td>${game.completed.length ? game.completed.map(pl => Server.nameColor(pl.name)).join(", ") : 'None'}`;
+			return this.sendReplyBox(`${str}</table></div>${buffer}`);
 		}
 		this.sendReply(`|raw|${buffer}`);
 	},
@@ -1098,7 +1098,7 @@ let commands = {
 			this.sendReply(`|raw|<div class="ladder" style="overflow-y: scroll; max-height: 300px;"><table style="width: 100%"><tr><th>Rank</th><th>Name</th><th>Points</th></tr>${ladder.map(entry => {
 				let isStaff = room.auth && room.auth[toId(entry.name)];
 
-				return `<tr><td>${entry.rank}</td><td>${(isStaff ? `<em>${Server.nameColor(entry.name)}</em>` : (entry.rank <= 5 ? `${Chat.escapeHTML(entry.name, true)}` : Server.nameColor(entry.name)))}</td><td>${entry.points}</td></tr>`;
+				return `<tr><td>${entry.rank}</td><td>${(isStaff ? `<em>${Server.nameColor(entry.name)}</em>` : (entry.rank <= 5 ? `${Server.nameColor(entry.name)}` : Server.nameColor(entry.name)))}</td><td>${entry.points}</td></tr>`;
 			}).join('')}</table></div>`);
 			if (this.broadcasting) setImmediate(() => room.update()); // make sure the room updates for broadcasting since this is async.
 		});

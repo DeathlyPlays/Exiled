@@ -122,7 +122,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		if (!this.addPlayer(user)) return user.sendTo(this.room, `|error|You have already joined the game of ${this.title}.`);
 		if (this.subs.includes(user.userid)) this.subs.splice(this.subs.indexOf(user.userid), 1);
 		this.players[user.userid].updateHtmlRoom();
-		this.sendRoom(`${this.players[user.userid].name} has joined the game.`);
+		this.sendRoom(`${Server.nameColor(this.players[user.userid].name, true)} has joined the game.`);
 	}
 
 	leave(user) {
@@ -135,7 +135,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		if (subIndex !== -1) this.requestedSub.splice(subIndex, 1);
 		subIndex = this.hostRequestedSub.indexOf(user.userid);
 		if (subIndex !== -1) this.hostRequestedSub.splice(subIndex, 1);
-		this.sendRoom(`${user.name} has left the game.`);
+		this.sendRoom(`${Server.nameColor(user.name, true)} has left the game.`);
 		user.send(`>view-mafia-${this.room.id}\n|init|html\n${Chat.pages.mafia([this.room.id], user)}`);
 	}
 
@@ -370,7 +370,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		let host = Users(this.hostid);
 		if (host && host.connected) host.send(`>${this.room.id}\n|notify|It's night in your game of Mafia!`);
 		this.sendRoom(`Night ${this.dayNum}. PM the host your action, or idle.`, {declare: true});
-		if (!early && this.getPlurality()) this.sendRoom(`Plurality is on ${this.players[this.getPlurality()] ? this.players[this.getPlurality()].name : 'No Lynch'}`);
+		if (!early && this.getPlurality()) this.sendRoom(`Plurality is on ${this.players[this.getPlurality()] ? Server.nameColor(this.players[this.getPlurality()].name, true) : 'No Lynch'}`);
 		this.updatePlayers();
 		return true;
 	}
@@ -407,7 +407,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		player.lastLynch = Date.now();
 		if (this.hammerCount <= lynch.count) {
 			// HAMMER
-			this.sendRoom(`Hammer! ${target === 'nolynch' ? 'Nobody' : Chat.escapeHTML(name)} was lynched!`, {declare: true});
+			this.sendRoom(`Hammer! ${target === 'nolynch' ? 'Nobody' : name} was lynched!`, {declare: true});
 			if (target !== 'nolynch') this.eliminate(target, 'kill');
 			return this.night(true);
 		}
@@ -594,7 +594,7 @@ class MafiaTracker extends Rooms.RoomGame {
 			}
 			if (this.subs.includes(targetUser.userid)) this.subs.splice(this.subs.indexOf(targetUser.userid), 1);
 			this.players[targetUser.userid] = player;
-			this.sendRoom(`${Chat.escapeHTML(targetUser.name)} has been added to the game by ${Chat.escapeHTML(user.name)}!`, {declare: true});
+			this.sendRoom(`${targetUser.name} has been added to the game by ${user.name}!`, {declare: true});
 		}
 		this.playerCount++;
 		this.updateRoleString();
@@ -686,7 +686,7 @@ class MafiaTracker extends Rooms.RoomGame {
 	}
 
 	sendPlayerList() {
-		this.room.add(`|c:|${(Math.floor(Date.now() / 1000))}|~|**Players (${this.playerCount})**: ${Object.keys(this.players).map(p => { return this.players[p].name; }).join(', ')}`).update();
+		this.room.add(`|c:|${(Math.floor(Date.now() / 1000))}|~|/raw **Players (${this.playerCount})**: ${Object.keys(this.players).map(p => { return Server.nameColor(this.players[p].name, true); }).join(', ')}`).update();
 	}
 
 	updatePlayers() {
@@ -716,7 +716,7 @@ class MafiaTracker extends Rooms.RoomGame {
 		if (options.uhtml) return this.room.add(`|uhtml|mafia|${message}`).update();
 		if (options.declare) return this.room.add(`|raw|<div class="broadcast-blue">${message}</div>`).update();
 		if (options.timestamp && options.user) return this.room.addByUser(options.user, message);
-		return this.room.add(message).update();
+		return this.room.addRaw(message).update();
 	}
 
 	roomWindow() {
@@ -841,8 +841,8 @@ exports.pages = {
 		const isHost = user.userid === room.game.hostid;
 		let buf = `|title|${room.game.title}\n|pagehtml|<div class="pad broadcast-blue">`;
 		buf += `<button class="button" name="send" value="/join view-mafia-${room.id}" style="float:left"><i class="fa fa-refresh"></i> Refresh</button>`;
-		buf += `<br/><br/><h1 style="text-align:center;">${room.game.title}</h1><h3>Host: ${room.game.host}</h3>`;
-		buf += `<p style="font-weight:bold;">Players (${room.game.playerCount}): ${Object.keys(room.game.players).sort().map(p => { return room.game.players[p].safeName; }).join(', ')}</p><hr/>`;
+		buf += `<br/><br/><h1 style="text-align:center;">${room.game.title}</h1><h3>Host: ${Server.nameColor(room.game.host, true)}</h3>`;
+		buf += `<p style="font-weight:bold;">Players (${room.game.playerCount}): ${Object.keys(room.game.players).sort().map(p => { return Server.nameColor(room.game.players[p].safeName, true); }).join(', ')}</p><hr/>`;
 		if (!room.game.closedSetup) {
 			if (room.game.noReveal) {
 				buf += `<p><span style="font-weight:bold;">Original Rolelist</span>: ${room.game.originalRoleString}</p>`;
@@ -851,7 +851,7 @@ exports.pages = {
 			}
 		}
 		if (isPlayer && room.game.players[user.userid].role) {
-			buf += `<h3>${room.game.players[user.userid].safeName}, you are a ${room.game.players[user.userid].getRole()}</h3>`;
+			buf += `<h3>${Server.nameColor(room.game.players[user.userid].safeName, true)}, you are a ${room.game.players[user.userid].getRole()}</h3>`;
 			buf += `<p><details><summary class="button" style="text-align:left; display:inline-block">Role Details</summary>`;
 			buf += `<table><tr><td style="text-align:center;">${room.game.players[user.userid].role.image || `<img width="75" height="75" src="//play.pokemonshowdown.com/fx/mafia-villager.png"/>`}</td><td style="text-align:left;width:100%"><ul>${room.game.players[user.userid].role.memo.map(m => { return `<li>${m}</li>`; }).join('')}</ul></td></tr></table>`;
 			if (!['town', 'solo'].includes(room.game.players[user.userid].role.alignement)) buf += `<p><span style="font-weight:bold">Partners</span>: ${room.game.getPartners(room.game.players[user.userid].role.alignement, room.game.players[user.userid])}</p>`;
@@ -862,22 +862,22 @@ exports.pages = {
 			let plur = room.game.getPlurality();
 			for (const key of Object.keys(room.game.players).concat((room.game.enableNL ? ['nolynch'] : []))) {
 				if (room.game.lynches[key]) {
-					buf += `<p style="font-weight:bold">${room.game.lynches[key].count}${plur === key ? '*' : ''} ${room.game.players[key] ? room.game.players[key].safeName : 'No Lynch'} (${room.game.lynches[key].lynchers.map(a => { return room.game.players[a] ? room.game.players[a].safeName : a; }).join(', ')}) `;
+					buf += `<p style="font-weight:bold">${room.game.lynches[key].count}${plur === key ? '*' : ''} ${room.game.players[key] ? Server.nameColor(room.game.players[key].safeName, true) : 'No Lynch'} (${room.game.lynches[key].lynchers.map(a => { return room.game.players[a] ? Server.nameColor(room.game.players[a].safeName, true) : Server.nameColor(a, true); }).join(', ')}) `;
 				} else {
-					buf += `<p style="font-weight:bold">0 ${room.game.players[key] ? room.game.players[key].safeName : 'No Lynch'} `;
+					buf += `<p style="font-weight:bold">0 ${room.game.players[key] ? Server.nameColor(room.game.players[key].safeName, true) : 'No Lynch'} `;
 				}
 				const isSpirit = (room.game.dead[user.userid] && room.game.dead[user.userid].restless);
 				if (isPlayer || isSpirit) {
 					if (isPlayer && room.game.players[user.userid].lynching === key || isSpirit && room.game.dead[user.userid].lynching === key) {
-						buf += `<button class="button" name="send" value="/mafia unlynch ${room.id}">Unlynch ${room.game.players[key] ? room.game.players[key].safeName : 'No Lynch'}</button>`;
+						buf += `<button class="button" name="send" value="/mafia unlynch ${room.id}">Unlynch ${room.game.players[key] ? Server.nameColor(room.game.players[key].safeName, true) : 'No Lynch'}</button>`;
 					} else if ((room.game.selfEnabled && !isSpirit) || user.userid !== key) {
-						buf += `<button class="button" name="send" value="/mafia lynch ${room.id}, ${key}">Lynch ${room.game.players[key] ? room.game.players[key].safeName : 'No Lynch'}</button>`;
+						buf += `<button class="button" name="send" value="/mafia lynch ${room.id}, ${key}">Lynch ${room.game.players[key] ? Server.nameColor(room.game.players[key].safeName, true) : 'No Lynch'}</button>`;
 					}
 				}
 				buf += `</p>`;
 			}
 		} else if (room.game.phase === "night" && isPlayer) {
-			buf += `<p style="font-weight:bold;">PM the host (${room.game.host}) the action you want to use tonight, and who you want to use it on. Or PM the host "idle".</p>`;
+			buf += `<p style="font-weight:bold;">PM the host (${Server.nameColor(room.game.host, true)}) the action you want to use tonight, and who you want to use it on. Or PM the host "idle".</p>`;
 		}
 		if (isHost) {
 			buf += `<h3>Host options</h3>`;
@@ -901,11 +901,11 @@ exports.pages = {
 			buf += `<h3>Player Options</h3>`;
 			for (let p in room.game.players) {
 				let player = room.game.players[p];
-				buf += `<p style="font-weight:bold;">${player.safeName} (${player.role ? player.getRole() : ''}): <button class="button" name="send" value="/mafia kill ${room.id}, ${player.userid}">Kill</button> <button class="button" name="send" value="/mafia treestump ${room.id}, ${player.userid}">Make a Treestump (Kill)</button> <button class="button" name="send" value="/mafia spirit ${room.id}, ${player.userid}">Make a Restless Spirit (Kill)</button> <button class="button" name="send" value="/mafia spiritstump ${room.id}, ${player.userid}">Make a Restless Treestump (Kill)</button> <button class="button" name="send" value="/mafia sub ${room.id}, next, ${player.userid}">Force sub</button></p>`;
+				buf += `<p style="font-weight:bold;">${Server.nameColor(player.safeName, true)} (${player.role ? player.getRole() : ''}): <button class="button" name="send" value="/mafia kill ${room.id}, ${player.userid}">Kill</button> <button class="button" name="send" value="/mafia treestump ${room.id}, ${player.userid}">Make a Treestump (Kill)</button> <button class="button" name="send" value="/mafia spirit ${room.id}, ${player.userid}">Make a Restless Spirit (Kill)</button> <button class="button" name="send" value="/mafia spiritstump ${room.id}, ${player.userid}">Make a Restless Treestump (Kill)</button> <button class="button" name="send" value="/mafia sub ${room.id}, next, ${player.userid}">Force sub</button></p>`;
 			}
 			for (let d in room.game.dead) {
 				let dead = room.game.dead[d];
-				buf += `<p style="font-weight:bold;">${dead.safeName} (${dead.role ? dead.getRole() : ''})`;
+				buf += `<p style="font-weight:bold;">${Server.nameColor(dead.safeName, true)} (${dead.role ? dead.getRole() : ''})`;
 				if (dead.treestump) buf += ` (is a Treestump)`;
 				if (dead.restless) buf += ` (is a Restless Spirit)`;
 				buf += `: <button class="button" name="send" value="/mafia revive ${room.id}, ${dead.userid}">Revive</button></p>`;
@@ -969,7 +969,7 @@ exports.pages = {
 		buf += `<table style="margin-left: auto; margin-right: auto"><tbody><tr><th colspan="2"><h2 style="margin: 5px auto">Mafia ${ladder.title} for ${date.toLocaleString("en-us", {month: 'long'})} ${date.getFullYear()}</h1></th></tr>`;
 		buf += `<tr><th>User</th>${canViewPoints ? `<th>${ladder.type}</th></tr>` : ``}`;
 		for (const key of keys) {
-			buf += `<tr><td>${key}</td>${canViewPoints ? `<td>${logs[ladder.section][month][key]}</td></tr>` : ''}`;
+			buf += `<tr><td>${Server.nameColor(key, true)}</td>${canViewPoints ? `<td>${logs[ladder.section][month][key]}</td></tr>` : ''}`;
 		}
 		return buf + `</table></div>`;
 	},

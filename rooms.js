@@ -1138,6 +1138,11 @@ class BasicChatRoom extends BasicRoom {
 		}
 	}
 	expire() {
+		const parent = this.parent;
+		if (parent && parent.subRooms) {
+			parent.subRooms.delete(this.id);
+			if (!parent.subRooms.size) parent.subRooms = null;
+		}
 		this.send('|expire|');
 		this.destroy();
 	}

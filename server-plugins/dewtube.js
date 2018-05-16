@@ -216,10 +216,11 @@ exports.commands = {
 			let [title, thumbnail] = target.split(",").map(p => p.trim());
 			if (!title) return this.errorReply(`Please title the video you are filming.`);
 			let channelId = toId(getChannel(user.userid));
-			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
+			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN && user.userid !== "insist") return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
-			if (channels[channelId].videos[title]) return this.errorReply(`You already have a video titled "${title}".`);
+			if (channels[channelId].uploadedVideos[title]) return this.errorReply(`You already have a video titled "${title}".`);
+			if (thumbnail && ![".png", ".gif", ".jpg"].includes(thumbnail.slice(-4))) return this.errorReply(`Your thumbnail must end in .jpg, .gif, or .png extension.`);
 			channels[channelId].vidProgress = "recorded";
 			channels[channelId].lastTitle = title;
 			if (thumbnail) {
@@ -728,6 +729,7 @@ exports.commands = {
 			let channelId = toId(getChannel(user.userid));
 			if (!channels[channelId]) return this.errorReply(`You do not currently own a DewTube channel.`);
 			if (!target) return this.parse(`/dewtubehelp`);
+			if (![".png", ".gif", ".jpg"].includes(target.slice(-4))) return this.errorReply(`Your profile picture image must end in an extension like .png, .gif, or .jpg.`);
 			channels[channelId].profilepic = target;
 			write();
 			return this.sendReplyBox(`Your profile picture has been set as: <img src="${target}" height="80" width="80"><br /><small style="color: red">Disclaimer: If your profile picture is unfit for ${Config.serverName}, your DewTube account will be terminated as well as possible punishment on ${Config.serverName}!</small>`);
@@ -740,6 +742,7 @@ exports.commands = {
 			let channelId = toId(getChannel(user.userid));
 			if (!channels[channelId]) return this.errorReply(`You do not currently own a DewTube channel.`);
 			if (!target) return this.parse(`/dewtubehelp`);
+			if (![".png", ".gif", ".jpg"].includes(target.slice(-4))) return this.errorReply(`Your banner image must end in an extension like .png, .gif, or .jpg.`);
 			channels[channelId].banner = target;
 			write();
 			return this.sendReplyBox(`Your banner has been set as: <img src="${target}"><br /><small style="color: red">Disclaimer: If your banner is unfit for ${Config.serverName}!, your DewTube account will be terminated as well as possible punishment on ${Config.serverName}!</small>`);

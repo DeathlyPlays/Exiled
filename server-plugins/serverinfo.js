@@ -259,7 +259,7 @@ exports.commands = {
 
 	servercommands: 'customcommands',
 	serverhelp: 'customcommands',
-	customcommands: function (target, room, user) {
+	customcommands: function () {
 		if (!this.runBroadcast()) return;
 		let display = `<div class="infobox-limited"><strong><h1>Custom Commands on ${Config.serverName}</h1></strong>`;
 		display += `<h2>Game Commands:</h2><ul>`;
@@ -270,8 +270,8 @@ exports.commands = {
 		display += `<li><button class="button" name="send" value="/lotteryhelp">Lottery</button></li>`;
 		display += `<li><button class="button" name="send" value="/panagramhelp">Panagrams</button></li>`;
 		display += `<li><button class="button" name="send" value="/passthebombhelp">Pass The Bomb</button></li>`;
-		display += `<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors</button></li>`;
-		display += `<li><button class="button" name="send" value="/rpslshelp">Rock Paper Scissors Lizard Spock</button></li>`;
+		display += `<li><button class="button" name="send" value="/pingponghelp">Ping Pong</button></li>`;
+		display += `<li><button class="button" name="send" value="/rpshelp">Rock Paper Scissors (Lizard Spock)</button></li>`;
 		display += `<li><button class="button" name="send" value="/sentencehelp">Sentence Game</button></li>`;
 		display += `<li><button class="button" name="send" value="/slotshelp">Slots</button></li>`;
 		display += `<li><button class="button" name="send" value="/tdihelp">TDI</button></li>`;
@@ -281,6 +281,7 @@ exports.commands = {
 		display += `<li><button class="button" name="send" value="/animehelp">Anime</button></li>`;
 		display += `<li><button class="button" name="send" value="/awayhelp">Away</button></li>`;
 		display += `<li><button class="button" name="send" value="/psgohelp">Cards</button></li>`;
+		display += `<li><button class="button" name="send" value="/committeehelp">Committee</button></li>`;
 		display += `<li><button class="button" name="send" value="/definehelp">Define</button></li>`;
 		display += `<li><button class="button" name="send" value="/dewtubehelp">DewTube</button></li>`;
 		display += `<li><button class="button" name="send" value="/digidexhelp">Digidex</button></li>`;
@@ -312,9 +313,7 @@ exports.commands = {
 		display += `<li><button class="button" name="send" value="/surveyhelp">Surveys</button></li>`;
 		display += `<li><button class="button" name="send" value="/taskshelp">Tasks</button></li>`;
 		display += `<li><button class="button" name="send" value="/tellhelp">Tells</button></li>`;
-		display += `<li><button class="button" name="send" value="/tsumeta">TsuMeta Committee</button></li>`;
 		display += `<li><button class="button" name="send" value="/urbandefinehelp">Urban Define</button></li>`;
-		display += `<li><button class="button" name="send" value="/voucherhelp">Vouchers</button></li>`;
 		display += `</ul>`;
 		display += `<h2>Social Medias/Links:</h2><ul>`;
 		display += `<li><a href="https://discord.gg/chfz65A" target="_blank"><button style="cursor: url(&quot;&quot;), auto;">Discord</button></a>`;
@@ -327,7 +326,6 @@ exports.commands = {
 			display += `<details><summary>Global Drivers (%) Commands:</summary>`;
 			display += `<button class="button" name="send" value="/customavatarhelp">Custom Avatar</button>`;
 			display += `<button class="button" name="send" value="/customcolorhelp">Custom Color</button>`;
-			display += `<button class="button" name="send" value="/forcejoinhelp">Forcejoin</button>`;
 			display += `<button class="button" name="send" value="/kickhelp">Kick</button>`;
 			display += `<button class="button" name="send" value="/iconhelp">Icons</button>`;
 			display += `<button class="button" name="send" value="/declaremodhelp">Staff Declare</button>`;
@@ -338,7 +336,6 @@ exports.commands = {
 		if (this.can("ban")) {
 			display += `<details><summary>Global Moderator (@) Commands:</summary>`;
 			display += `<button class="button" name="send" value="/clearall">Clear All</button>`;
-			display += `<button class="button" name="send" value="/serverannouncementshelp">News</button>`;
 			display += `</details>`;
 		}
 		if (this.can("hotpatch")) {

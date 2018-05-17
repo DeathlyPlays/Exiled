@@ -31,19 +31,11 @@ function isVIP(user) {
 	return false;
 }
 
-function devCheck(user) {
-	if (isDev(user)) return `<font color="#009320">(<strong>Developer</strong>)</font>`;
-	return ``;
-}
-
-function vipCheck(user) {
-	if (isVIP(user)) return `<font color="#6390F0">(<strong>VIP User</strong>)</font>`;
-	return ``;
-}
-
-function councilCheck(user) {
-	if (Server.isCouncilMember(user)) return `<font color="#B22222">(<strong>Council Member</strong>)</font>`;
-	return ``;
+function getLastSeen(userid) {
+	if (Users(userid) && Users(userid).connected) return `<font color = "limegreen"><strong>Currently Online</strong></font>`;
+	let seen = Db.seen.get(userid);
+	if (!seen) return `<font color = "red"><strong>Never</strong></font>`;
+	return Chat.toDurationString(Date.now() - seen, {precision: true}) + " ago.";
 }
 
 function lastActive(user) {
@@ -52,24 +44,10 @@ function lastActive(user) {
 	return (user && user.lastPublicMessage ? Chat.toDurationString(Date.now() - user.lastPublicMessage, {precision: true}) : "hasn't talked yet");
 }
 
-function showBadges(user) {
-	// Disabled
-	/*if (Db.userBadges.has(toId(user))) {
-		let badges = Db.userBadges.get(toId(user));
-		let css = `border:none; background:none; padding:0;`;
-		if (typeof badges !== "undefined" && badges !== null) {
-			let output = `<td><div style="float: right; background: rgba(69, 76, 80, 0.4); text-align: center; border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset; margin: 0px 3px;">`;
-			output += ` <table style="${css}"> <tr>`;
-			for (let i = 0; i < badges.length; i++) {
-				if (i !== 0 && i % 4 === 0) output += `</tr> <tr>`;
-				output += `<td><button style="${css}" name="send" value="/badges info, ${badges[i]}">` +
-				`<img src="${Db.badgeData.get(badges[i])[1]}" height="16" width="16" alt="${badges[i]}" title="${badges[i]}"></button></td>`;
-			}
-			output += `</tr> </table></div></td>`;
-			return output;
-		}
-	}*/
-	return ``;
+function pColor(user) {
+	let color = Db.profile.get(user, {data: {title: {}, music: {}}}).color;
+	if (!color) return `<font>`;
+	return `<font color="${color}">`;
 }
 
 exports.commands = {
@@ -98,7 +76,7 @@ exports.commands = {
 
 		users: "list",
 		list: function () {
-			if (!Db.devs.keys().length) return this.errorReply("There seems to be no user with DEV status.");
+			if (!Db.devs.keys().length) return this.errorReply("There seems to be no user(s) with DEV status.");
 			let display = [];
 			Db.devs.keys().forEach(devUser => {
 				display.push(Server.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
@@ -312,7 +290,7 @@ exports.commands = {
 			if (!type.exists) return this.errorReply("Not a type. Check your spelling?");
 			profile.type = toId(type);
 			Db.profile.set(user.userid, profile);
-			return this.sendReply(`Your favorite type has been set to "${type}".`);
+			return this.sendReply(`Your favorite type has been set to "${target}".`);
 		},
 
 		del: "delete",
@@ -379,7 +357,7 @@ exports.commands = {
 		setbackground: "setbg",
 		setbg: function (target) {
 			if (!this.can("profile")) return false;
-			let [userid, link] = target.split(",");
+			let [userid, link] = target.split(",").map(p => { return p.trim(); });
 			userid = toId(userid);
 			let profile = Db.profile.get(userid, {data: {title: {}, music: {}}});
 			if (!link) return this.parse(`/help background`);
@@ -417,6 +395,7 @@ exports.commands = {
 		/bg help - Displays the help command for Profile Backgrounds.`,
 	],
 
+	song: "music",
 	music: {
 		add: "set",
 		give: "set",
@@ -563,36 +542,26 @@ exports.commands = {
 			}
 		});
 
-		function getLastSeen(userid) {
-			if (Users(userid) && Users(userid).connected) return `<font color = "limegreen"><strong>Currently Online</strong></font>`;
-			let seen = Db.seen.get(userid);
-			if (!seen) return `<font color = "red"><strong>Never</strong></font>`;
-			return Chat.toDurationString(Date.now() - seen, {precision: true}) + " ago.";
-		}
-
-		function pColor(user) {
-			let color = Db.profile.get(user, {data: {title: {}, music: {}}}).color;
-			if (!color) return `<font>`;
-			return `<font color="${color}">`;
-		}
-
 		let profileData = ``;
 		if (profile.background) {
 			profileData += `<div style="background:url(${profile.background}); background-size: 100% 100%; height: 250px">`;
 		} else {
 			profileData += `<div style="max-height: 250px; overflow-y: scroll">`;
 		}
-		profileData += showBadges(userid);
 		profileData += `<div style="display: inline-block; width: 6.5em; height: 100%; vertical-align: top"><img src="${avatar}" height="80" width="80" align="left"></div>`;
 		profileData += `<div style="display: inline-block">&nbsp;${pColor(userid)}<strong>Name:</strong></font> ${Server.nameColor(username, true)}&nbsp;`;
 		if (Users(userid) && ip && ip !== null) {
 			profileData += ` <img src="http://flags.fmcdn.net/data/flags/normal/${ip.country.toLowerCase()}.png" alt="${ip.country}" title="${ip.country}" width="20" height="10">`;
 		}
-		if (profile.data.title) profileData += ` <font color="${profile.data.title.color}">(<strong>${profile.data.title.title}</strong>)</font>`;
+		if (profile.data.title.title) profileData += ` <font color="${profile.data.title.color}">(<strong>${profile.data.title.title}</strong>)</font>`;
 		profileData += `<br />`;
-		profileData += `&nbsp;${pColor(userid)}<strong>Group:</strong> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)} ${councilCheck(username)}<br />`;
+		profileData += `&nbsp;${pColor(userid)}<strong>Group:</strong> ${userGroup}</font>`;
+		if (isDev(userid)) profileData += ` <font color="#009320">(<strong>Developer</strong>)</font>`;
+		if (isVIP(userid)) profileData += ` <font color="#6390F0">(<strong>VIP User</strong>)</font>`;
+		if (Server.isCouncilMember(userid)) profileData += ` <font color="#B22222">(<strong>Council Member</strong>)</font>`;
+		profileData += `<br />`;
 		profileData += `&nbsp;${pColor(userid)}<strong>Registered:</strong> ${regdate}</font><br />`;
-		profileData += `&nbsp;${pColor(userid)}<strong>${moneyPlural}:</strong> ${Economy.readMoney(userid)}</font><br />`;
+		profileData += `&nbsp;${pColor(userid)}<strong>${moneyPlural}:</strong> ${Economy.readMoney(userid).toLocaleString()}</font><br />`;
 		if (profile.pokemon) profileData += `&nbsp;${pColor(userid)}<strong>Favorite Pokemon:</strong> ${profile.pokemon}</font><br />`;
 		if (profile.type) profileData += `&nbsp;${pColor(userid)}<strong>Favorite Type:</strong></font> <img src="https://www.serebii.net/pokedex-bw/type/${profile.type}.gif"><br />`;
 		if (profile.nature) profileData += `&nbsp;${pColor(userid)}<strong>Nature:</strong> ${profile.nature}</font><br />`;
@@ -603,9 +572,8 @@ exports.commands = {
 		profileData += `&nbsp;${pColor(userid)}<strong>Last Seen:</strong> ${getLastSeen(userid)}</font><br />`;
 		if (Db.friendcode.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>Friend Code:</strong> ${Db.friendcode.get(userid)}</font><br />`;
 		if (Db.switchfc.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>Switch Friend Code:</strong> SW-${Db.switchfc.get(userid)}</font><br />`;
-		if (profile.data.music) profileData += `&nbsp;<acronym title="${profile.data.music.title}"><br /><audio src="${profile.data.music.link}" controls="" style="width:100%;"></audio></acronym><br />`;
-		profileData += `&nbsp;</div>`;
-		profileData += `<br clear="all">`;
+		if (profile.data.music.link) profileData += `&nbsp;<acronym title="${profile.data.music.title}"><br /><audio src="${profile.data.music.link}" controls="" style="width: 100%;"></audio></acronym>`;
+		profileData += `</div>`;
 		this.sendReplyBox(profileData);
 	},
 

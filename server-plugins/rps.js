@@ -59,12 +59,12 @@ class RPSGame {
 	sendGameInformation(player, opponent) {
 		let pmPost = `/html <div class="broadcast-green"><center>You have been matched up with ${Server.nameColor(opponent.name, true)}<br />`;
 		pmPost += `<strong>What is your choice?</strong><br />`;
-		pmPost += `<button name="send" value="/rps choose R ${this.gameId}">Rock</button>`;
-		pmPost += `<button name="send" value="/rps choose P ${this.gameId}">Paper</button>`;
-		pmPost += `<button name="send" value="/rps choose S ${this.gameId}">Scissors</button>`;
+		pmPost += `<button name="send" value="/rps choose R ${this.gameId}"><i class="fa fa-hand-rock-o"></i>Rock</button>`;
+		pmPost += `<button name="send" value="/rps choose P ${this.gameId}"><i class="fa fa-hand-paper-o"></i> Paper</button>`;
+		pmPost += `<button name="send" value="/rps choose S ${this.gameId}"><i class="fa fa-hand-scissors-o"></i>Scissors</button>`;
 		if (this.gameType === "ladderRPSLS") {
-			pmPost += `<button name="send" value="/rpsls choose L ${this.gameId}">Lizard</button>`;
-			pmPost += `<button name="send" value="/rpsls choose SP ${this.gameId}">Spock</button>`;
+			pmPost += `<button name="send" value="/rpsls choose L ${this.gameId}"><i class="fa fa-hand-lizard-o"></i>Lizard</button>`;
+			pmPost += `<button name="send" value="/rpsls choose SP ${this.gameId}"><i class="fa fa-hand-spock-o"></i>Spock</button>`;
 		}
 		pmPost += `</center><br /><br />`;
 		pmPost += `You have 60 seconds to make your choice.</center></div>`;

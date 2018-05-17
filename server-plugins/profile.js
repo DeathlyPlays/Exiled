@@ -31,14 +31,6 @@ function isVIP(user) {
 	return false;
 }
 
-function isTsuMetaCouncil(user) {
-	if (!user) return;
-	if (typeof user === "object") user = user.userid;
-	let council = Db.councilmember.get(toId(user));
-	if (council === 1) return true;
-	return false;
-}
-
 function showTitle(userid) {
 	userid = toId(userid);
 	if (Db.titles.has(userid)) {
@@ -57,8 +49,8 @@ function vipCheck(user) {
 	return ``;
 }
 
-function tsumetaCheck(user) {
-	if (isTsuMetaCouncil(user)) return `<font color="#B22222">(<strong>TsuMeta Member</strong>)</font>`;
+function councilCheck(user) {
+	if (Server.isCouncilMember(user)) return `<font color="#B22222">(<strong>Council Member</strong>)</font>`;
 	return ``;
 }
 
@@ -614,7 +606,7 @@ exports.commands = {
 				profile += `${background(toId(username))} ${showBadges(toId(username))}`;
 				profile += `<div style="display: inline-block; width: 6.5em; height: 100%; vertical-align: top"><img src="${avatar}" height="80" width="80" align="left"></div>`;
 				profile += `<div style="display: inline-block">&nbsp;${pColor(toId(username))}<strong>Name:</strong></font> ${Server.nameColor(username, true)}&nbsp; ${getFlag(toId(username))} ${showTitle(username)}<br />`;
-				profile += `&nbsp;${pColor(toId(username))}<strong>Group:</strong> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)} ${tsumetaCheck(username)}<br />`;
+				profile += `&nbsp;${pColor(toId(username))}<strong>Group:</strong> ${userGroup}</font> ${devCheck(username)} ${vipCheck(username)} ${councilCheck(username)}<br />`;
 				profile += `&nbsp;${pColor(toId(username))}<strong>Registered:</strong> ${regdate}</font><br />`;
 				profile += `&nbsp;${pColor(toId(username))}<strong>${moneyPlural}:</strong> ${money}</font><br />`;
 				if (Db.pokemon.has(toId(username))) {

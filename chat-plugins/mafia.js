@@ -686,7 +686,7 @@ class MafiaTracker extends Rooms.RoomGame {
 	}
 
 	sendPlayerList() {
-		this.room.add(`|c:|${(Math.floor(Date.now() / 1000))}|~|/raw **Players (${this.playerCount})**: ${Object.keys(this.players).map(p => { return Server.nameColor(this.players[p].name, true); }).join(', ')}`).update();
+		this.room.add(`|c:|${(Math.floor(Date.now() / 1000))}|~|/raw <strong>Players (${this.playerCount})</strong>: ${Object.keys(this.players).map(p => { return Server.nameColor(this.players[p].name, true); }).join(', ')}`).update();
 	}
 
 	updatePlayers() {

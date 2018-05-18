@@ -7,7 +7,7 @@
 
 const FS = require("../lib/fs.js");
 
-let quotes = FS("config/quotes.json").readIfExistsSync();
+let quotes = FS("config/chat-plugins/quotes.json").readIfExistsSync();
 
 if (quotes !== "") {
 	quotes = JSON.parse(quotes);
@@ -16,7 +16,7 @@ if (quotes !== "") {
 }
 
 function write() {
-	FS("config/quotes.json").writeUpdate(() => (
+	FS("config/chat-plugins/quotes.json").writeUpdate(() => (
 		JSON.stringify(quotes)
 	));
 	let data = "{\n";
@@ -25,7 +25,7 @@ function write() {
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	FS("config/quotes.json").writeUpdate(() => (
+	FS("config/chat-plugins/quotes.json").writeUpdate(() => (
 		data
 	));
 }
@@ -36,16 +36,16 @@ exports.commands = {
 		add: function (target, room, user) {
 			if (!this.can("quotes")) return false;
 			let [name, ...quote] = target.split(",").map(p => p.trim());
-			if (!name || !quote) return this.parse("/quotehelp");
+			if (!quote) return this.parse("/quotehelp");
 			if (name.length > 18) return this.errorReply("Quote names must be 18 characters or less!");
 			if (quote.length > 300) return this.errorReply("Quotes should remain 300 characters long or less.");
 			quotes[toId(name)] = {
 				name: name,
 				id: toId(name),
-				quote: quote,
+				quote: quote.join(", "),
 			};
 			write();
-			return this.sendReply(`Quote ${name} created! ${name}: ${quote}.`);
+			return this.sendReply(`Quote ${name} created! ${name}: ${quote.join(", ")}.`);
 		},
 
 		delete: function (target, room, user) {
@@ -78,10 +78,10 @@ exports.commands = {
 
 		listquotes: "viewquotes",
 		list: "viewquotes",
-		viewquotes: function (target, room, user) {
+		viewquotes: function () {
 			if (!this.runBroadcast()) return;
 			let reply = `<strong><u>Quotes (${Object.keys(quotes).length})</u></strong><br />`;
-			for (let quote in quotes) reply += `<strong>${quote}</strong><br />`;
+			for (let quote in quotes) reply += `<strong>${quote}</strong> <button class="button" name="send" value="/quotes view ${quote}">View ${quote}</button><br />`;
 			this.sendReplyBox(`<div class="infobox infobox-limited">${reply}</div>`);
 		},
 

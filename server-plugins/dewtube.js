@@ -17,7 +17,7 @@ const DRAMA_COOLDOWN = 60 * 60 * 1000;
 // Collaboration Cooldown (6 hours)
 const COLLAB_COOLDOWN = 6 * 60 * 60 * 1000;
 
-let channels = FS("config/channels.json").readIfExistsSync();
+let channels = FS("config/chat-plugins/channels.json").readIfExistsSync();
 
 if (channels !== "") {
 	channels = JSON.parse(channels);
@@ -26,7 +26,7 @@ if (channels !== "") {
 }
 
 function write() {
-	FS("config/channels.json").writeUpdate(() => (
+	FS("config/chat-plugins/channels.json").writeUpdate(() => (
 		JSON.stringify(channels)
 	));
 	let data = "{\n";
@@ -35,7 +35,7 @@ function write() {
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	FS("config/channels.json").writeUpdate(() => (
+	FS("config/chat-plugins/channels.json").writeUpdate(() => (
 		data
 	));
 }

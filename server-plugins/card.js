@@ -7,11 +7,11 @@
 
 const FS = require("../lib/fs");
 const CARDS_PER_PACK = 10;
-let origCards = require("../config/cards.json");
+let origCards = require("../config/chat-plugins/cards.json");
 let newCards = {};
 
-if (FS("config/extracards.json").readIfExistsSync()) {
-	newCards = require("../config/extracards.json");
+if (FS("config/chat-plugins/extracards.json").readIfExistsSync()) {
+	newCards = require("../config/chat-plugins/extracards.json");
 }
 
 function saveCards() {
@@ -20,7 +20,7 @@ function saveCards() {
 	for (let u in cloned) {
 		if (origCards[u]) delete cloned[u];
 	}
-	FS("config/extracards.json").writeUpdate(() => (
+	FS("config/chat-plugins/extracards.json").writeUpdate(() => (
 		JSON.stringify(cloned)
 	));
 }

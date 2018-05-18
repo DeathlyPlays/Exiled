@@ -10,7 +10,7 @@
 /****** General Faction Functions Start ******/
 const FS = require("../lib/fs.js");
 
-let factions = FS("config/factions.json").readIfExistsSync();
+let factions = FS("config/chat-plugins/factions.json").readIfExistsSync();
 
 if (factions !== "") {
 	factions = JSON.parse(factions);
@@ -19,7 +19,7 @@ if (factions !== "") {
 }
 
 function write() {
-	FS("config/factions.json").writeUpdate(() => (
+	FS("config/chat-plugins/factions.json").writeUpdate(() => (
 		JSON.stringify(factions)
 	));
 	let data = "{\n";
@@ -28,7 +28,7 @@ function write() {
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	FS("config/factions.json").writeUpdate(() => (
+	FS("config/chat-plugins/factions.json").writeUpdate(() => (
 		data
 	));
 }

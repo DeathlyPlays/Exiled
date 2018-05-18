@@ -8,7 +8,7 @@
 
 const FS = require("../lib/fs.js");
 
-let memes = FS("config/memes.json").readIfExistsSync();
+let memes = FS("config/chat-plugins/memes.json").readIfExistsSync();
 
 if (memes !== "") {
 	memes = JSON.parse(memes);
@@ -17,7 +17,7 @@ if (memes !== "") {
 }
 
 function write() {
-	FS("config/memes.json").writeUpdate(() => (
+	FS("config/chat-plugins/memes.json").writeUpdate(() => (
 		JSON.stringify(memes)
 	));
 	let data = "{\n";
@@ -26,7 +26,7 @@ function write() {
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	FS("config/memes.json").writeUpdate(() => (
+	FS("config/chat-plugins/memes.json").writeUpdate(() => (
 		data
 	));
 }

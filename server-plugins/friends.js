@@ -7,7 +7,7 @@
 
 const FS = require("../lib/fs.js");
 
-let friends = FS("config/friends.json").readIfExistsSync();
+let friends = FS("config/chat-plugins/friends.json").readIfExistsSync();
 
 if (friends !== "") {
 	friends = JSON.parse(friends);
@@ -16,7 +16,7 @@ if (friends !== "") {
 }
 
 function write() {
-	FS("config/friends.json").writeUpdate(() => (
+	FS("config/chat-plugins/friends.json").writeUpdate(() => (
 		JSON.stringify(friends)
 	));
 	let data = "{\n";
@@ -25,7 +25,7 @@ function write() {
 	}
 	data = data.substr(0, data.length - 2);
 	data += "\n}";
-	FS("config/friends.json").writeUpdate(() => (
+	FS("config/chat-plugins/friends.json").writeUpdate(() => (
 		data
 	));
 }

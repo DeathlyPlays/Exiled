@@ -20,7 +20,7 @@ const BANS = {
 
 global.writeSSB = function () {
 	if (!ssbWrite) return false; //Prevent corruptions
-	FS("config/ssb.json").write(JSON.stringify(Server.ssb));
+	FS("config/chat-plugins/ssb.json").write(JSON.stringify(Server.ssb));
 };
 
 //Shamelessly ripped from teambuilder client.
@@ -580,14 +580,14 @@ class SSB {
 
 //Load JSON
 try {
-	FS("config/ssb.json").readIfExistsSync();
+	FS("config/chat-plugins/ssb.json").readIfExistsSync();
 } catch (e) {
-	FS("config/ssb.json").write("{}", function (err) {
+	FS("config/chat-plugins/ssb.json").write("{}", function (err) {
 		if (err) {
 			console.error(`Error while loading SSBFFA: ${err}`);
 			ssbWrite = false;
 		} else {
-			console.log("config/ssb.json not found, creating a new one...");
+			console.log("config/chat-plugins/ssb.json not found, creating a new one...");
 		}
 	});
 	noRead = true;
@@ -596,9 +596,9 @@ try {
 //We need to load data after the SSB class is declared.
 try {
 	Server.ssb = global.ssb = {};
-	Server.ssb = FS("config/ssb.json").readIfExistsSync();
+	Server.ssb = FS("config/chat-plugins/ssb.json").readIfExistsSync();
 	if (!Server.ssb) {
-		FS("config/ssb.json").write("{}");
+		FS("config/chat-plugins/ssb.json").write("{}");
 		Server.ssb = {};
 	} else {
 		Server.ssb = JSON.parse(Server.ssb);

@@ -12,7 +12,7 @@ let MAXIMUM_SONGS = 9;
 
 const FS = require("../lib/fs.js");
 
-let playlists = FS("config/playlists.json").readIfExistsSync();
+let playlists = FS("config/chat-plugins/playlists.json").readIfExistsSync();
 
 if (playlists !== "") {
 	playlists = JSON.parse(playlists);
@@ -21,7 +21,7 @@ if (playlists !== "") {
 }
 
 function save() {
-	FS("config/playlist.json").write(JSON.stringify(playlists));
+	FS("config/chat-plugins/playlists.json").write(JSON.stringify(playlists));
 }
 
 function playlistGenerator(user) {

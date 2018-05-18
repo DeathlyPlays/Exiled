@@ -188,7 +188,7 @@ exports.commands = {
 		/genreq approve [user] - Approves [user] as a genner. Requires % and up.
 		/genreq ban [user] - Bans [user] from being a genner. Requires % and up.
 		/genreq list - Displays all of ${Config.serverName}'s approved genners.
-		/genreq update [user] - Updates [user]'s request status.
+		/genreq update [user], [genning | finished] - Updates [user]'s request status.
 		/genreq requests - Views all of the requests on ${Config.serverName}. Must be an Approved Genner.
 		/genrequest help - Displays this command.`,
 	],

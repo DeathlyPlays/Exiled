@@ -556,9 +556,10 @@ exports.commands = {
 		if (profile.data.title.title) profileData += ` <font color="${profile.data.title.color}">(<strong>${profile.data.title.title}</strong>)</font>`;
 		profileData += `<br />`;
 		profileData += `&nbsp;${pColor(userid)}<strong>Group:</strong> ${userGroup}</font>`;
-		if (isDev(userid)) profileData += ` <font color="#009320">(<strong>Developer</strong>)</font>`;
-		if (isVIP(userid)) profileData += ` <font color="#6390F0">(<strong>VIP User</strong>)</font>`;
-		if (Server.isCouncilMember(userid)) profileData += ` <font color="#B22222">(<strong>Council Member</strong>)</font>`;
+		if (isDev(userid)) profileData += ` <font color="#009320"><strong>Developer</strong></font>`;
+		if (isVIP(userid)) profileData += ` <font color="#6390F0"><strong>VIP</strong></font>`;
+		if (Server.isCouncilMember(userid)) profileData += ` <font color="#B22222"><strong>Council Member</strong></font>`;
+		if (Server.isGenner(userid)) profileData += ` <font color="#F48C04"><strong>Genner</strong></font>`;
 		profileData += `<br />`;
 		profileData += `&nbsp;${pColor(userid)}<strong>Registered:</strong> ${regdate}</font><br />`;
 		profileData += `&nbsp;${pColor(userid)}<strong>${moneyPlural}:</strong> ${Economy.readMoney(userid).toLocaleString()}</font><br />`;

@@ -55,8 +55,8 @@ Server.getChannel = getChannel;
 
 //Plugin Optimization
 let config = {
-	version: "2.2",
-	changes: ["Profile Pictures", "Banners", "Clickbait", "Make thumbnails work", "Thumbnails actually do something", "DewTubers can view past videos"],
+	version: "2.2.1",
+	changes: ["Profile Pictures", "Banners", "Clickbait", "Make thumbnails work", "Thumbnails actually do something", "DewTubers can view past videos", "Implement Comments"],
 	// Basic Filter for Instant Demonetization
 	filter: ["nsfw", "porn", "sex", "shooting"],
 };
@@ -71,6 +71,22 @@ function collab(channel1, channel2) {
 		traffic = Math.round(traffic / 2);
 	}
 	return traffic;
+}
+
+function generateComments(favorable, amountOfComments) {
+	let goodComments = [`Nice job!`, `Awesome!`, `Woo!`, `Good on ya, mate!`, `Nice one!`, `Way to go!`, `Best thing since Harambe lol`, `You are God`, `The heavens have blessed us with this masterpiece!!`, `You are the bloody best!`, `You are my favorite DewTuber!`, `This video cheered me up, thanks!`];
+	let badComments = [`Unsubbed!`, `Not cool...`, `This content sucks!`, `What are you 12?`, `God awful!`, `I think I lost braincells on this`, `Delete this!`, `This couldn't even make a good meme!`, `Delete your channel, thx.`, `Quit DewTube`, `You're not funny...`, `This killed my soul...`, `No wonder God distanced himself from us...`, `OOF! This hurt!`, `HELP, THIS VIDEO IS CANCER!!!`];
+	let generatedComments = [];
+	if (favorable) {
+		while (generatedComments.length < amountOfComments) {
+			generatedComments.push(goodComments[Math.floor(Math.random() * goodComments.length)]);
+		}
+	} else {
+		while (generatedComments.length < amountOfComments) {
+			generatedComments.push(badComments[Math.floor(Math.random() * badComments.length)]);
+		}
+	}
+	return generatedComments;
 }
 
 exports.commands = {
@@ -216,7 +232,7 @@ exports.commands = {
 			let [title, thumbnail] = target.split(",").map(p => p.trim());
 			if (!title) return this.errorReply(`Please title the video you are filming.`);
 			let channelId = toId(getChannel(user.userid));
-			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN && user.userid !== "insist") return this.errorReply(`You are on record cooldown.`);
+			if (Date.now() - channels[channelId].lastRecorded < RECORD_COOLDOWN) return this.errorReply(`You are on record cooldown.`);
 			let videoProgress = channels[channelId].vidProgress;
 			if (videoProgress !== "notStarted") return this.errorReply(`You already have a video recorded.`);
 			if (channels[channelId].uploadedVideos[title]) return this.errorReply(`You already have a video titled "${title}".`);
@@ -296,7 +312,12 @@ exports.commands = {
 				generateRawViews = generateRawViews + clickbait;
 			}
 			let loveHateRatio = Math.floor(Math.random() * 100);
-			let generateEditedSubs, generateEditedUnsubs, generateEditedLikes, generateEditedDislikes, generateRawSubs, generateRawUnsubs, generateRawLikes, generateRawDislikes;
+			let generateEditedSubs, generateEditedUnsubs, generateEditedLikes, generateEditedDislikes, generateRawSubs, generateRawUnsubs, generateRawLikes, generateRawDislikes, genComments, commentAmount;
+			if (videoProgress === "edited") {
+				commentAmount = Math.floor(Math.random() * Math.round(generateEditedViews / 4));
+			} else {
+				commentAmount = Math.floor(Math.random() * Math.round(generateEditedViews / 8));
+			}
 			// 70% chance to have positive feedback; 30% chance for negative feedback
 			if (loveHateRatio >= 70) {
 				// More dislikes than like scenario
@@ -308,6 +329,7 @@ exports.commands = {
 				generateRawSubs = Math.floor(Math.random() * generateRawUnsubs);
 				generateRawDislikes = Math.floor(Math.random() * generateRawViews);
 				generateRawLikes = Math.floor(Math.random() * generateRawDislikes);
+				genComments = generateComments(false, commentAmount);
 			} else {
 				// More likes than dislikes scenario
 				generateEditedSubs = Math.floor(Math.random() * generateEditedViews);
@@ -318,6 +340,7 @@ exports.commands = {
 				generateRawUnsubs = Math.floor(Math.random() * generateRawSubs);
 				generateRawLikes = Math.floor(Math.random() * generateRawViews);
 				generateRawDislikes = Math.floor(Math.random() * generateRawLikes);
+				genComments = generateComments(true, commentAmount);
 			}
 			if (generateEditedLikes + generateEditedDislikes > generateEditedViews) {
 				generateEditedLikes = Math.round(generateEditedLikes / 2);
@@ -386,9 +409,9 @@ exports.commands = {
 				if (demonetization >= 70 || loveHateRatio >= 70) {
 					this.sendReplyBox(`<i>Due to your video's failure to meet community guidelines it was not approved for monetization, therefore your video has been D E M O N E T I Z E D.</i>`);
 					if (videoProgress === "edited") {
-						channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: false, adRevenue: 0, thumbnail: channels[channelId].lastThumbnail, views: generateEditedViews, likes: generateEditedLikes, dislikes: generateEditedDislikes, subscribers: generateEditedSubs, unsubs: generateEditedUnsubs, videoProgress: "Edited", recorded: Date.now()});
+						channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: false, adRevenue: 0, thumbnail: channels[channelId].lastThumbnail, views: generateEditedViews, likes: generateEditedLikes, dislikes: generateEditedDislikes, subscribers: generateEditedSubs, unsubs: generateEditedUnsubs, videoProgress: "Edited", recorded: Date.now(), comments: genComments});
 					} else {
-						channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: false, adRevenue: 0, thumbnail: channels[channelId].lastThumbnail, views: generateRawViews, likes: generateRawLikes, dislikes: generateRawDislikes, subscribers: generateRawSubs, unsubs: generateRawUnsubs, videoProgress: "Raw", recorded: Date.now()});
+						channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: false, adRevenue: 0, thumbnail: channels[channelId].lastThumbnail, views: generateRawViews, likes: generateRawLikes, dislikes: generateRawDislikes, subscribers: generateRawSubs, unsubs: generateRawUnsubs, videoProgress: "Raw", recorded: Date.now(), comments: genComments});
 					}
 				} else {
 					let adRevenue = 0;
@@ -396,12 +419,12 @@ exports.commands = {
 						adRevenue = Math.round(generateRawViews / 20);
 						if (adRevenue < 1) adRevenue = 1;
 						if (adRevenue > 20) adRevenue = 20;
-						channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: true, adRevenue: adRevenue, thumbnail: channels[channelId].lastThumbnail, views: generateRawViews, likes: generateRawLikes, dislikes: generateRawDislikes, subscribers: generateRawSubs, unsubs: generateRawUnsubs, videoProgress: "Raw", recorded: Date.now()});
+						channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: true, adRevenue: adRevenue, thumbnail: channels[channelId].lastThumbnail, views: generateRawViews, likes: generateRawLikes, dislikes: generateRawDislikes, subscribers: generateRawSubs, unsubs: generateRawUnsubs, videoProgress: "Raw", recorded: Date.now(), comments: genComments});
 					} else {
 						adRevenue = Math.round(generateEditedViews / 100);
 						if (adRevenue < 1) adRevenue = 1;
 						if (adRevenue > 20) adRevenue = 20;
-						channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: true, adRevenue: adRevenue, thumbnail: channels[channelId].lastThumbnail, views: generateEditedViews, likes: generateEditedLikes, dislikes: generateEditedDislikes, subscribers: generateEditedSubs, unsubs: generateEditedUnsubs, videoProgress: "Edited", recorded: Date.now()});
+						channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: true, adRevenue: adRevenue, thumbnail: channels[channelId].lastThumbnail, views: generateEditedViews, likes: generateEditedLikes, dislikes: generateEditedDislikes, subscribers: generateEditedSubs, unsubs: generateEditedUnsubs, videoProgress: "Edited", recorded: Date.now(), comments: genComments});
 					}
 					Economy.writeMoney(user.userid, adRevenue);
 					Economy.logTransaction(`${user.name} has got ${adRevenue} ${moneyName}${Chat.plural(adRevenue)} from posting a video.`);
@@ -409,9 +432,9 @@ exports.commands = {
 				}
 			} else {
 				if (videoProgress === "edited") {
-					channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: false, adRevenue: 0, thumbnail: channels[channelId].lastThumbnail, views: generateEditedViews, likes: generateEditedLikes, dislikes: generateEditedDislikes, subscribers: generateEditedSubs, unsubs: generateEditedUnsubs, videoProgress: "Edited", recorded: Date.now()});
+					channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: false, adRevenue: 0, thumbnail: channels[channelId].lastThumbnail, views: generateEditedViews, likes: generateEditedLikes, dislikes: generateEditedDislikes, subscribers: generateEditedSubs, unsubs: generateEditedUnsubs, videoProgress: "Edited", recorded: Date.now(), comments: genComments});
 				} else {
-					channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: false, adRevenue: 0, thumbnail: channels[channelId].lastThumbnail, views: generateRawViews, likes: generateRawLikes, dislikes: generateRawDislikes, subscribers: generateRawSubs, unsubs: generateRawUnsubs, videoProgress: "Raw", recorded: Date.now()});
+					channels[channelId].uploadedVideos[title] = Object.assign({name: title, monetized: false, adRevenue: 0, thumbnail: channels[channelId].lastThumbnail, views: generateRawViews, likes: generateRawLikes, dislikes: generateRawDislikes, subscribers: generateRawSubs, unsubs: generateRawUnsubs, videoProgress: "Raw", recorded: Date.now(), comments: genComments});
 				}
 			}
 			// Restart video progress
@@ -595,7 +618,8 @@ exports.commands = {
 			// Default to 1 like since there is always guaranteed at least 1 view (and we want to be nice for a change)
 			let generateLikes = 1;
 			let generateDislikes = 0;
-			let subscriberTraffic, unsubs;
+			let subscriberTraffic, unsubs, genComments;
+			let commentAmount = Math.floor(Math.random() * Math.round(traffic / 3));
 			// 70% chance to have positive feedback; 30% chance for negative feedback
 			if (loveHateRatio >= 70) {
 				// More dislikes than like scenario
@@ -603,12 +627,14 @@ exports.commands = {
 				generateLikes = Math.floor(Math.random() * generateDislikes);
 				unsubs = Math.floor(Math.random() * traffic);
 				subscriberTraffic = Math.floor(Math.random() * generateDislikes);
+				genComments = generateComments(false, commentAmount);
 			} else {
 				// More likes than dislikes scenario
 				generateLikes = Math.floor(Math.random() * traffic);
 				generateDislikes = Math.floor(Math.random() * generateLikes);
 				subscriberTraffic = Math.floor(Math.random() * traffic);
 				unsubs = Math.floor(Math.random() * subscriberTraffic);
+				genComments = generateComments(true, commentAmount);
 			}
 			if (subscriberTraffic < 1) subscriberTraffic = 1;
 			// If the subscriber gain is over 5,000 subscribers halve it (so collaborations aren't "broken")
@@ -641,11 +667,27 @@ exports.commands = {
 			// Update timers and video counters/titles/etc
 			channels[channelId].lastCollabed = Date.now();
 			channels[channelId].lastRecorded = Date.now();
-			channels[channelId].lastTitle = `Collab w/ ${channels[targetId].name}!`;
+			if (!channels[channelId].uploadedVideos[`Collab w/ ${channels[targetId].name}!`]) {
+				channels[channelId].lastTitle = `Collab w/ ${channels[targetId].name}!`;
+			} else {
+				let num = 2;
+				while (channels[channelId].uploadedVideos[`Collab w/ ${channels[targetId].name} #${num}!`]) {
+					num++;
+					channels[channelId].lastTitle = [`Collab w/ ${channels[targetId].name} #${num}!`];
+				}
+			}
 			channels[channelId].videos++;
 			channels[targetId].lastCollabed = Date.now();
 			channels[targetId].lastRecorded = Date.now();
-			channels[targetId].lastTitle = `Collab w/ ${channels[channelId].name}!`;
+			if (!channels[targetId].uploadedVideos[`Collab w/ ${channels[channelId].name}!`]) {
+				channels[targetId].lastTitle = `Collab w/ ${channels[channelId].name}!`;
+			} else {
+				let num = 2;
+				while (channels[targetId].uploadedVideos[`Collab w/ ${channels[channelId].name} #${num}!`]) {
+					num++;
+					channels[targetId].lastTitle = [`Collab w/ ${channels[channelId].name} #${num}!`];
+				}
+			}
 			channels[targetId].videos++;
 			if (channels[targetId].profilepic) {
 				channels[channelId].lastThumbnail = channels[targetId].profilepic;
@@ -657,6 +699,8 @@ exports.commands = {
 			} else {
 				channels[targetId].lastThumbnail = null;
 			}
+			channels[channelId].uploadedVideos[channels[channelId].lastTitle] = Object.assign({name: channels[channelId].lastTitle, monetized: false, adRevenue: 0, thumbnail: channels[channelId].lastThumbnail, views: traffic, likes: generateLikes, dislikes: generateDislikes, subscribers: subscriberTraffic, unsubs: unsubs, videoProgress: "Edited", recorded: Date.now(), comments: genComments});
+			channels[targetId].uploadedVideos[channels[targetId].lastTitle] = Object.assign({name: channels[targetId].lastTitle, monetized: false, adRevenue: 0, thumbnail: channels[targetId].lastThumbnail, views: traffic, likes: generateLikes, dislikes: generateDislikes, subscribers: subscriberTraffic, unsubs: unsubs, videoProgress: "Edited", recorded: Date.now(), comments: genComments});
 			// Since the other channel has proposed the collab reset the request now it is complete
 			channels[targetId].pendingCollab = null;
 			write();
@@ -760,20 +804,44 @@ exports.commands = {
 				return videos[b].recorded - videos[a].recorded;
 			});
 			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;${channels[channelId].banner ? ` background:url(${channels[channelId].banner}); background-size: 100% 100%;` : ``}"><h2 style="font-weight: bold; text-align: center">${channels[channelId].name}'${channels[channelId].name.endsWith("s") ? `` : `s`} Videos:</h2>`;
-			display += `<table border="1" cellspacing ="0" cellpadding="8"><tr style="font-weight: bold"><td>Title:</td><td>Views:</td><td>Likes:</td><td>Dislikes:</td><td>Subscribers:</td><td>Unsubs:</td><td>Monetized:</td><td>Uploaded:</td></tr>`;
+			display += `<table border="1" cellspacing ="0" cellpadding="8"><tr style="font-weight: bold"><td>Title:</td><td>Views:</td><td>Likes:</td><td>Dislikes:</td><td>Subscribers:</td><td>Unsubs:</td><td>Monetized:</td><td>Uploaded:</td><td>View:</td></tr>`;
 			for (let video of sortedVids) {
 				let curVideo = videos[video];
 				display += `<tr><td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.name}</td>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.views}</td>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.likes}</td>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.dislikes}</td>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.subscribers}</td>`;
-				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.unsubs}</td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.views.toLocaleString()}</td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.likes.toLocaleString()}</td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.dislikes.toLocaleString()}</td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.subscribers.toLocaleString()}</td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.unsubs.toLocaleString()}</td>`;
 				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${curVideo.monetized ? `&#9745;` : `&#x2717;`}</td>`;
 				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${new Date(curVideo.recorded)}</td>`;
+				display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/dewtube view ${channels[channelId].id}, ${curVideo.name}">View</button></td>`;
 			}
 			display += `</tr></table></div>`;
 			return this.sendReplyBox(display);
+		},
+
+		viewvideo: "view",
+		videoanalytics: "view",
+		view: function (target) {
+			if (!this.runBroadcast()) return;
+			let [channel, video] = target.split(",").map(p => { return p.trim(); });
+			if (!video) return this.parse("/dewtubehelp");
+			let channelId = toId(channel);
+			if (!channels[channelId]) return this.errorReply(`"${channel}" does not appear to be a channel.`);
+			let vid = channels[channelId].uploadedVideos[video];
+			if (!vid) return this.errorReply(`${channels[channelId].name} appears to not have a video titled "${video}".`);
+			let analytics = `<div style="max-height: 200px; width: 100%; overflow: scroll;${channels[channelId].thumbnail ? ` background:url(${channels[channelId].thumbnail}); background-size: 100% 100%;` : ``}"><h2 style="font-weight: bold; text-align: center">${vid.name}</h2>`;
+			analytics += `This video was${vid.monetized ? `` : `n't`} monetized${vid.monetized ? `, and got ${vid.adRevenue} ${vid.adRevenue === 1 ? moneyName : moneyPlural}` : ``}.<br />`;
+			analytics += `This video got ${vid.views.toLocaleString()} view${Chat.plural(vid.views)}.<br />`;
+			if (vid.subscribers > 0) analytics += `This video got ${channels[channelId].name} ${vid.subscribers.toLocaleString()} subscriber${Chat.plural(vid.subscribers)}.<br />`;
+			if (vid.unsubs > 0) analytics += `This video unfortunately had ${vid.unsubs.toLocaleString()} user${Chat.plural(vid.unsubs)} to unsubscribe.<br />`;
+			if (vid.likes > 0) analytics += `This video got ${vid.likes.toLocaleString()} like${Chat.plural(vid.likes)}.<br />`;
+			if (vid.dislikes > 0) analytics += `Sadly this video got ${vid.dislikes.toLocaleString()} dislike${Chat.plural(vid.likes)}.<br />`;
+			analytics += `Uploaded: ${new Date(vid.recorded)}.<br />`;
+			if (vid.comments && vid.comments.length > 0) analytics += `<details><summary>Comments:</summary> ${Chat.toListString(vid.comments)}</details>`;
+			analytics += `</div>`;
+			return this.sendReplyBox(analytics);
 		},
 
 		"": "help",
@@ -801,6 +869,7 @@ exports.commands = {
 		/dewtube banner [image] - Sets your DewTube channel banner as [image].
 		/dewtube dashboard [channel name] - Shows the channel's dashboard; defaults to yourself.
 		/dewtube videos [channel name] - Shows the channel's uploaded videos; defaults to yourself.
+		/dewtube view [channel name], [video] - Shows [channel]'s video [video]'s analytics.
 		/dewtube info - Shows the DewTube version and recent changes.
 		/dewtube discover - Shows all of the DewTube channels.
 		/dewtube help - Displays this help command.`,

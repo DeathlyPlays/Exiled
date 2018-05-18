@@ -2,7 +2,7 @@
 !/config/formats.js
 /config/custom.css
 /config/config.js
-!/config/cards.json
+!/config/chat-plugins/cards.json
 /logs/*
 /node_modules
 /eslint-cache

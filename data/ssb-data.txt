@@ -136,3 +136,28 @@ Special Move: Roleplaying
 - Ground Type, Special, 120 BP, 100% Accuracy, 10 PP.
 Notes: Trick Room makes great antimeta in this meta and with the bulk Mega Camerupt has.
 Rank: A.
+
+AlfaStorm
+(Hydreigon)
+@ Focus Sash
+EVs: 252 SpA / 252 Spe / 4 SpD
+Timid Nature
+Ability: Attack Shield
+	- Magic Bounce, Overcoat and Adaptability.
+Moves: Flash Cannon, Dark Pulse, Draco Meteor
+Special Move: Dark Storm
+- Dark Type, Special, 60 BP, 100% Accuracy, 15 PP.
+Notes: N/A.
+Rank: N/A.
+
+C733937 123
+(Gengar-Mega)
+@ Aguav Berry
+EVs: 252 SpA / 252 Spe / 4 SpD
+Ability: Chaotic Armor
+	- Magic Bounce and Prankster.
+Moves: Shadow Ball, Pain Split, Dark Pulse
+Special Move: Voodoo Magic
+- ??? Type, Status, 90% Accuracy, 10 PP. Goes through Substitutes, ignores Abilities, doesn't Bounce. Puts a curse on the opponent that does a hideous amount of bad effects. (User takes 1/4 HP damage then Taunts, Torments, Mean Looks, Embargos, Clears Stats, Heal Blocks, removes ability, Spites, Flinches, and removes all shields. Taunt, Embargo, and Heal Block last for 10 turns, Stat Clear, Flinch, and Spite happen on turn move used, rest last till switch. Does not fail if user is less than 1/4 hp.
+Notes: N/A.
+Rank: N/A.

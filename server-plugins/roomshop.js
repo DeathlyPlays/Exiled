@@ -18,7 +18,7 @@ exports.commands = {
 				if (Db.roomshop.has(room.id)) return this.errorReply(`${room.title} already has a Room Shop.`);
 				Db.roomshop.set(room.id);
 				this.privateModAction(`${room.title}'s Room Shop has been enabled.`);
-				this.parse(`/roomshop bank set ${room.founder}`);
+				if (room.founder) this.parse(`/roomshop bank set ${room.founder}`);
 			} else if (this.meansNo(toId(target))) {
 				if (!Db.roomshop.has(room.id)) return this.errorReply(`${room.title} does not have a Room Shop yet.`);
 				Db.roomshop.remove(room.id);
@@ -33,10 +33,10 @@ exports.commands = {
 			set: function (target, room, user) {
 				if (!this.can("roomshop", null, room)) return false;
 				target = toId(target);
-				if (!target && !target.registered) return this.errorReply(`The bank must be a registered user.`);
+				if (!target) return this.parse(`/roomshophelp`);
 				let roomshop = Db.roomshop.get(room.id, {items: {}});
 				if (!roomshop) return this.errorReply(`${room.title} does not have a Room Shop yet.`);
-				if (roomshop.bank) return this.errorReply(`${room.title} already has a bank.`);
+				if (roomshop.bank) return this.errorReply(`${room.title} already has a Bank.`);
 				roomshop.bank = target;
 				Db.roomshop.set(room.id, roomshop);
 				this.privateModAction(`${room.title}'s Room Shop Bank has been set as "${target}" by ${user.name}.`);
@@ -88,7 +88,7 @@ exports.commands = {
 			if (desc.length < 1 || desc.length > 50) return this.errorReply(`The description for an item must be between 1-50 characters long.`);
 			roomshop.items[toId(item)] = {id: toId(item), name: item, price: price, desc: desc.join(", ")};
 			Db.roomshop.set(room.id, roomshop);
-			room.add(`${item} was added to the Room Shop.`);
+			room.addRaw(`"${item}" was added to the Room Shop by ${Server.nameColor(user.name, true, true)}.`);
 			this.privateModAction(`${user.name} has added "${item}" into the Room Shop.`);
 		},
 
@@ -102,7 +102,7 @@ exports.commands = {
 			if (!roomshop.items[toId(target)]) return this.errorReply(`The item "${target}" does not exist.`);
 			delete roomshop.items[toId(target)];
 			Db.roomshop.set(roomshop);
-			room.add(`${target} was removed from the Room Shop.`);
+			room.addRaw(`"${target}" was removed from the Room Shop by ${Server.nameColor(user.name, true, true)}.`);
 			this.privateModAction(`${user.name} has removed "${target}" from the Room Shop.`);
 		},
 
@@ -111,7 +111,8 @@ exports.commands = {
 		display: function (target, room) {
 			if (!this.runBroadcast()) return;
 			let roomshop = Db.roomshop.get(room.id, {items: {}});
-			if (!Db.roomshop.has(room.id)) return this.errorReply(`${room.title} does not have a Room Shop.`);
+			if (!roomshop) return this.errorReply(`${room.title} does not have a Room Shop.`);
+			if (Object.keys(roomshop.items).length < 1) return this.errorReply(`${room.title}'s Room Shop currently has no items.`);
 			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><center><h1>${room.title}'s Room Shop</h1><table border="1" cellspacing ="0" cellpadding="3"><tr><td>Item</td><td>Description</td><td>Cost</td></tr>`;
 			for (let i in roomshop.items) {
 				display += `<tr>`;
@@ -126,7 +127,7 @@ exports.commands = {
 
 		purchase: "buy",
 		buy: function (target, room, user) {
-			if (!Db.roomshop.has(room.id)) return this.errorReply("Roomshop is not enabled here.");
+			if (!Db.roomshop.has(room.id)) return this.errorReply("Room Shop is not enabled here.");
 			let roomshop = Db.roomshop.get(room.id, {items: {}});
 			if (!roomshop.bank) return this.errorReply(`${room.title} hasn't set a bank yet.`);
 			if (!roomshop.items[toId(target)]) return this.errorReply(`The item "${target}" does not exist.`);
@@ -140,24 +141,23 @@ exports.commands = {
 					return;
 				}
 				Economy.writeMoney(user.userid, -cost, () => {
-					Economy.logTransaction(`${user.name} bought ${target} from ${room.title}'s roomshop for ${cost} ${moneyName}${Chat.plural(cost)}.`);
+					Economy.logTransaction(`${user.name} bought "${target}" from ${room.title}'s roomshop for ${cost} ${moneyName}${Chat.plural(cost)}.`);
 				});
 				Economy.writeMoney(bank, cost, () => {
-					Economy.logTransaction(`${user.name} bought ${target} from ${room.title}'s roomshop for ${cost} ${moneyName}${Chat.plural(cost)}.`);
+					Economy.logTransaction(`${user.name} bought "${target}" from ${room.title}'s roomshop for ${cost} ${moneyName}${Chat.plural(cost)}.`);
 				});
-			});
-			if (FS("logs/roomshops").readdirSync()) FS("logs/roomshops").mkdirpSync();
-			FS(`logs/roomshops/roomshop_${room.id}.txt`).append(`[${new Date().toUTCString()}] ${user.name} has bought ${target} from the Room Shop.\n`);
 
-			let msg = `${user.name} has purchased ${target}.`;
+				if (FS("logs/roomshops").readdirSync()) FS("logs/roomshops").mkdirpSync();
+				FS(`logs/roomshops/roomshop_${room.id}.txt`).append(`[${new Date().toUTCString()}] ${user.name} has bought "${target}" from the Room Shop.\n`);
 
-			for (let u in room.users) {
-				if (room.auth[u] === "#") {
-					user.send(`|pm|~${room.title}'s Shop Alert|${user.getIdentity()}|${msg}`);
+				for (let u in room.users) {
+					if (room.auth[u] === "#") {
+						Users(u).send(`|pm|~${room.title}'s Shop Alert|${Users(u).getIdentity()}|/raw ${Server.nameColor(user.name, true, true)} has bought "${target}" from your Room Shop in ${room.title}.`);
+					}
 				}
-			}
 
-			return this.sendReply(`You have bought "${target}" for ${cost} ${moneyName}${Chat.plural(cost)} from ${room.title}'s Room Shop.`);
+				return this.sendReply(`You have bought "${target}" for ${cost} ${moneyName}${Chat.plural(cost)} from ${room.title}'s Room Shop.`);
+			});
 		},
 
 		logs: "transactions",

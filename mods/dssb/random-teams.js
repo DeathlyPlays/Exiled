@@ -130,18 +130,18 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Timid",
 			},
 			"%Back At My Day": {
-				species: "Camerupt-Mega",
-				ability: "Time Traveler",
-				item: "Rocky Helmet",
+				species: "Zapdos",
+				ability: "Cheap Move",
+				item: "Choice Specs",
 				gender: "M",
-				moves: ["Aeroblast", "Steam Eruption", "Freeze-Dry"],
-				signatureMove: "Roleplaying",
+				moves: ["Moongeist Beam", "Earth Power", "Freeze-Dry"],
+				signatureMove: "Fairy Beams",
 				evs: {
-					def: 148,
+					def: 4,
 					spa: 252,
-					spd: 108,
+					spe: 252,
 				},
-				nature: "Timid",
+				nature: "Modest",
 			},
 			//Bots
 			"*The Exiler": {

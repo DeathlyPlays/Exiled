@@ -524,6 +524,31 @@ const commands = {
 	},
 	pminfoboxhelp: [`/pminfobox [user], [html]- PMs an [html] infobox to [user]. Requires * ~`],
 
+	pmuhtmlchange: 'pmuhtml',
+	pmuhtml: function (target, room, user, connection, cmd) {
+		if (!this.canTalk()) return;
+		if (!this.can('addhtml', null, room)) return false;
+		if (!target) return this.parse("/help " + cmd);
+
+		target = this.canHTML(this.splitTarget(target));
+		if (!target) return;
+		let targetUser = this.targetUser;
+
+		if (!targetUser || !targetUser.connected) return this.errorReply(`User ${this.targetUsername} is not currently online.`);
+		if (!(targetUser in room.users) && !user.can('addhtml')) return this.errorReply("You do not have permission to use this command to users who are not in this room.");
+		if (targetUser.ignorePMs && targetUser.ignorePMs !== user.group && !user.can('lock')) return this.errorReply("This user is currently ignoring PMs.");
+		if (targetUser.locked && !user.can('lock')) return this.errorReply("This user is currently locked, so you cannot send them UHTML.");
+
+		let message = `|pm|${user.getIdentity()}|${targetUser.getIdentity()}|/uhtml${(cmd === 'pmuhtmlchange' ? 'change' : '')} ${target}`;
+
+		user.send(message);
+		if (targetUser !== user) targetUser.send(message);
+		targetUser.lastPM = user.userid;
+		user.lastPM = targetUser.userid;
+	},
+	pmuhtmlhelp: [`/pmuhtml [user], [name], [html] - PMs [html] that can change to [user]. Requires * ~`],
+	pmuhtmlchangehelp: [`/pmuhtmlchange [user], [name], [html] - Changes html that was previously PMed to [user] to [html]. Requires * ~`],
+
 	'!ignorepms': true,
 	blockpm: 'ignorepms',
 	blockpms: 'ignorepms',
@@ -673,7 +698,7 @@ const commands = {
 		if (!titleid) {
 			titleid = `${Math.floor(Math.random() * 100000000)}`;
 		}
-		let roomid = `groupchat-${user.userid}-${titleid}`;
+		let roomid = `groupchat-${parent || user.userid}-${titleid}`;
 		// Titles must be unique.
 		if (Rooms.search(roomid)) return this.errorReply(`A group chat named '${title}' already exists.`);
 		// Tab title is prefixed with '[G]' to distinguish groupchats from
@@ -706,11 +731,12 @@ const commands = {
 			staffMessage: `<p>As creator of this groupchat, <u>you are entirely responsible for what occurs in this chatroom</u>. Global rules apply at all times.</p><p>If you have created this room for someone else, <u>you are still responsible</u> whether or not you choose to actively supervise the room.</p><p style="font-style:italic">For this reason, we strongly recommend that you only create groupchats for users you know and trust.</p><p>If this room is used to break global rules or disrupt other areas of the server, this will be considered irresponsible use of auth privileges on the part of the creator, and <b>you will be globally demoted and barred from public auth.</b></p>`,
 		});
 		if (targetRoom) {
-			// The creator is a Host.
-			targetRoom.auth[user.userid] = '\u2605';
+			// The creator is a Room Owner in subroom groupchats and a Host otherwise..
+			targetRoom.auth[user.userid] = parent ? '#' : '\u2605';
 			// Join after creating room. No other response is given.
 			user.joinRoom(targetRoom.id);
 			user.popup(`You've just made a groupchat; it is now your responsibility, regardless of whether or not you actively partake in the room. For more info, read your groupchat's staff intro.`);
+			if (parent) this.modlog('SUBROOMGROUPCHAT', null, title);
 			return;
 		}
 		return this.errorReply(`An unknown error occurred while trying to create the room '${title}'.`);

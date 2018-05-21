@@ -134,7 +134,7 @@ Ability: Cheap Move
 		- Fairy Type, Special, 60 BP, 255% Accuracy, 64 PP.
 Moves: Moongeist Beam, Earth Power, Freeze-Dry
 Special Move: Fairy Beams
-- Fairy Type, Special, 180 BP, 100% Accuracy, 16 PP. Reduces Special Attack by two stages.
+- Fairy Type, Special, 180 BP, 255% Accuracy, 16 PP. Reduces Special Attack by two stages.
 Rank: A.
 
 AlfaStorm

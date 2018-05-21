@@ -343,7 +343,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('c|+Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
+			this.add('c|%Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
 		},
 		flags: {protect: 1, mirror: 1},
 		secondary: false,
@@ -512,7 +512,7 @@ exports.BattleMovedex = {
 		desc: "No additional information.",
 		accuracy: true,
 		pp: 40,
-		priority: 3,
+		priority: 0,
 		secondary: false,
 		category: "Special",
 		onHit: function () {

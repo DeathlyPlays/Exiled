@@ -1543,10 +1543,6 @@ let Formats = [
 				this.add('-start', pokemon, 'typechange', 'Water/Electric');
 				pokemon.types = ["Water", "Electric"];
 			}
-			if (name === 'backatmyday' && !pokemon.illusion) {
-				this.add('-start', pokemon, 'typechange', 'Ground/Water');
-				pokemon.types = ["Ground", "Water"];
-			}
 			if (name === 'playershadowbr' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Dragon/Water');
 				pokemon.types = ["Dragon", "Water"];

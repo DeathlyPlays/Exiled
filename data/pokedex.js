@@ -13520,8 +13520,6 @@ let BattlePokedex = {
 		evoLevel: 2,
 		eggGroups: ["Fairy", "Human-Like"],
 	},
-<<<<<<< HEAD
-=======
 	pajantom: {
 		num: -12,
 		species: "Pajantom",
@@ -13544,7 +13542,6 @@ let BattlePokedex = {
 		color: "Brown",
 		eggGroups: ["Grass"],
 	},
->>>>>>> 240af14325a4f7e901aa6d1a20e7823012e8c2e6
 	syclant: {
 		num: -51,
 		species: "Syclant",

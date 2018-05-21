@@ -333,4 +333,17 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+
+	// Back At My Day
+	"cheapmove": {
+		id: "cheapmove",
+		name: "Cheap Move",
+		desc: "Turns into Fairy/Ghost and uses Cheap Attack.",
+		onStart: function (pokemon) {
+			this.add("-start", pokemon, "typechange", "Fairy/Ghost");
+			pokemon.types = ["Fairy", "Ghost"];
+			//uses Cheap Attack
+			this.useMove('cheapattack', pokemon);
+		},
+	},
 };

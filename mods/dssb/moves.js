@@ -1,7 +1,7 @@
 "use strict";
 
 exports.BattleMovedex = {
-	//Insist
+	// Insist
 	"npmtest": {
 		id: "npmtest",
 		name: "npm test",
@@ -21,7 +21,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		category: "Special",
 		onHit: function () {
-			this.add("c|~Insist|Don't fucking ``npm test`` me.....");
+			this.add("c|@Insist|Don't fucking ``npm test`` me.....");
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove("[still]");
@@ -36,7 +36,7 @@ exports.BattleMovedex = {
 		contestType: "Cool",
 	},
 
-	//Insist
+	// Insist
 	"extremesupermegaultimatealphagigasupremefantasticextraprefixcombobreaker": {
 		id: "extremesupermegaultimatealphagigasupremefantasticextraprefixcombobreaker",
 		name: "EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER",
@@ -54,7 +54,7 @@ exports.BattleMovedex = {
 			protect: 1,
 		},
 		onHit: function () {
-			this.add("c|~Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**");
+			this.add("c|@Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**");
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove("[still]");
@@ -64,7 +64,7 @@ exports.BattleMovedex = {
 		type: "Water",
 	},
 
-	//flufi
+	// flufi
 	"knockoutpunch": {
 		num: 1000,
 		accuracy: 75,
@@ -88,7 +88,7 @@ exports.BattleMovedex = {
 		contestType: "Tough",
 	},
 
-	//C733937 123
+	// C733937 123
 	"voodoomagic": {
 		id: "voodoomagic",
 		name: "Voodoo Magic",
@@ -309,6 +309,7 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
+
 	// Renfur
 	"itsmytimenow": {
 		id: "itsmytimenow",
@@ -504,28 +505,59 @@ exports.BattleMovedex = {
 	},
 
 	// Back At My Day
-	"roleplaying": {
-		id: "roleplaying",
-		name: "Roleplaying",
-		basePower: 120,
-		def: "No additional information.",
-		accuracy: 100,
-		pp: 10,
-		priority: 0,
+	"cheapattack": {
+		id: "cheapattack",
+		name: "Cheap Attack",
+		basePower: 60,
+		desc: "No additional information.",
+		accuracy: true,
+		pp: 40,
+		priority: 3,
 		secondary: false,
 		category: "Special",
-		onHit: function (target, source, move) {
-			this.add('c|%Back At My Day|Am I the only one who roleplays?');
+		onHit: function () {
+			this.add('c|%Back At My Day|1st');
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Roar of Time", target);
+			this.add('-anim', source, "Dazzling Gleam", target);
 		},
 		flags: {
 			protect: 1,
 			mirror: 1,
 		},
-		type: "Ground",
+		type: "Fairy",
+		target: "normal",
+	},
+
+	// Back At My Day
+	"fairybeams": {
+		id: "fairybeams",
+		name: "Fairy Beams",
+		category: "Special",
+		pp: 10,
+		basePower: 180,
+		accuracy: true,
+		desc: "Reduces Special Attack by two stages.",
+		priority: 0,
+		secondary: false,
+		onHit: function () {
+			this.add('c|%Back At My Day|do da wave');
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hyper Beam", target);
+		},
+		self: {
+			boosts: {
+				spa: -2,
+			},
+		},
+		flags: {
+			protect: 1,
+			mirror: 1,
+		},
+		type: "Fairy",
 		target: "normal",
 	},
 };

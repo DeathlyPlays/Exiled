@@ -124,17 +124,17 @@ Signature Move: Dragonify
 Rank: A.
 
 Back At My Day
-(Camerupt-Mega)
-@ Rocky Helmet
-EVs: 148 Def / 252 SpA / 108 SpD
-IVs: 0 Atk / 0 Spe
-Quiet Nature
-Ability: Time Traveler
-	- Pressure and Rough Skin + Trick Room upon entry and changes type to Ground/Water.
-Moves: Aeroblast, Steam Eruption, Freeze-Dry
-Special Move: Roleplaying
-- Ground Type, Special, 120 BP, 100% Accuracy, 10 PP.
-Notes: Trick Room makes great antimeta in this meta and with the bulk Mega Camerupt has.
+(Zapdos)
+@ Choice Specs
+EVs: 4 Def / 252 SpA / 252 Spe
+IVs: 0 Atk
+Modest Nature
+Ability: Cheap Move
+	- Turns into Fairy/Ghost and uses Cheap Attack when switched in.
+		- Fairy Type, Special, 60 BP, 255% Accuracy, 64 PP.
+Moves: Moongeist Beam, Earth Power, Freeze-Dry
+Special Move: Fairy Beams
+- Fairy Type, Special, 180 BP, 100% Accuracy, 16 PP. Reduces Special Attack by two stages.
 Rank: A.
 
 AlfaStorm

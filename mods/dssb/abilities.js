@@ -346,4 +346,30 @@ exports.BattleAbilities = {
 			this.useMove('cheapattack', pokemon);
 		},
 	},
+
+	// Bouns
+	"thisqueengotkicks": {
+		id: "thisqueengotkicks",
+		name: "This queen got kicks",
+		desc: "Turns into Grass/Electric and has Queenly Majesty + Tough Claws.",
+		onStart: function (pokemon) {
+			this.add("-start", pokemon, "typechange", "Grass/Electric");
+			pokemon.types = ["Grass", "Electric"];
+		},
+		//Queenly Majesty
+		onFoeTryMove: function (target, source, effect) {
+			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
+				this.attrLastMove('[still]');
+				this.add('cant', this.effectData.target, 'ability: Queenly Majesty', effect, '[of]' + target);
+				return false;
+			}
+		},
+		//Tough Claws
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.flags['contact']) {
+				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+	},
 };

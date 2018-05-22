@@ -203,6 +203,20 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Adamant",
 			},
 			//Regs
+			" Bouns": {
+				species: "Tsareena",
+				ability: "This queen got kicks",
+				item: "LEGSium Z",
+				gender: "F",
+				moves: ["High Jump Kick", "Horn Leech", "Anchor Shot"],
+				signatureMove: "Storm Kick",
+				evs: {
+					hp: 252,
+					atk: 252,
+					def: 4,
+				},
+				nature: "Adamant",
+			},
 		};
 		// convert moves to ids.
 		for (let k in sets) {

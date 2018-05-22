@@ -14,6 +14,19 @@ exports.BattleItems = {
 		desc: "If holder is a Ludicolo with npm test, it can use EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER.",
 	},
 
+	"legsiumz": {
+		spritenum: 634,
+		onTakeItem: false,
+		id: "legsiumz",
+		name: "LEGSium Z",
+		zMove: "ALIVE AND KICKING",
+		zMoveFrom: "Storm Kick",
+		zMoveUser: ["Tsareena"],
+		num: -3,
+		gen: -1,
+		desc: "If holder is a Tsareena with Storm Kick, it can use ALIVE AND KICKING.",
+	},
+
 	"rainbowplate": {
 		id: "rainbowplate",
 		name: "Rainbow Plate",

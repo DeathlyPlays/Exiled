@@ -3,7 +3,7 @@ flufi
 @ Choice Socks
 	- x1.3 SpA and Speed.
 EVs: 4 SpD / 252 Spa / 252 Spe
-Adamant Nature
+Modest Nature
 Ability: Magnopulse
 	- Adaptability + Electric moves can hit Ground types.
 Moves: Thunderbolt, Aura Sphere, Ice Beam
@@ -135,7 +135,8 @@ Ability: Cheap Move
 Moves: Moongeist Beam, Earth Power, Freeze-Dry
 Special Move: Fairy Beams
 - Fairy Type, Special, 180 BP, 255% Accuracy, 16 PP. Reduces Special Attack by two stages.
-Rank: A.
+Notes: N/A.
+Rank: N/A.
 
 AlfaStorm
 (Hydreigon)
@@ -154,10 +155,26 @@ C733937 123
 (Gengar-Mega)
 @ Aguav Berry
 EVs: 252 SpA / 252 Spe / 4 SpD
+Timid Nature
 Ability: Chaotic Armor
 	- Magic Bounce and Prankster.
 Moves: Shadow Ball, Pain Split, Dark Pulse
 Special Move: Voodoo Magic
-- ??? Type, Status, 90% Accuracy, 10 PP. Goes through Substitutes, ignores Abilities, doesn't Bounce. Puts a curse on the opponent that does a hideous amount of bad effects. (User takes 1/4 HP damage then Taunts, Torments, Mean Looks, Embargos, Clears Stats, Heal Blocks, removes ability, Spites, Flinches, and removes all shields. Taunt, Embargo, and Heal Block last for 10 turns, Stat Clear, Flinch, and Spite happen on turn move used, rest last till switch. Does not fail if user is less than 1/4 hp.
+- ??? Type, Status, 90% Accuracy, 16 PP. Goes through Substitutes, ignores Abilities, doesn't Bounce. Puts a curse on the opponent that does a hideous amount of bad effects. (User takes 1/4 HP damage then Taunts, Torments, Mean Looks, Embargos, Clears Stats, Heal Blocks, removes ability, Spites, Flinches, and removes all shields. Taunt, Embargo, and Heal Block last for 10 turns, Stat Clear, Flinch, and Spite happen on turn move used, rest last till switch. Does not fail if user is less than 1/4 hp.
 Notes: N/A.
+Rank: N/A.
+
+Bouns
+(Tsareena)
+@ LEGSium Z
+	- Allows user to use ALIVE AND KICKING
+		- Electric Type, Physical, Contact, Z-Move, 150 BP.
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+Ability: This queen got kicks
+	- Turns into Grass/Electric and has Queenly Majesty + Tough Claws.
+Moveset: High Jump Kick, Horn Leech, Anchor Shot
+Special Move: Storm Kick
+- Electric Type, Physical, Contact, 50 BP, 90% Accuracy, 16 PP. Hits three times.
+Notes: Bulky Sweeper.
 Rank: N/A.

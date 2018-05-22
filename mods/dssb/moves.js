@@ -41,7 +41,7 @@ exports.BattleMovedex = {
 		id: "extremesupermegaultimatealphagigasupremefantasticextraprefixcombobreaker",
 		name: "EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER",
 		basePower: 150,
-		accuracy: 100,
+		accuracy: true,
 		pp: 1,
 		noPPBoosts: true,
 		desc: "No additional information.",
@@ -457,7 +457,7 @@ exports.BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		//Stolen from Sleep Talk
-		flags: {protect: 1, mirror: 1},
+		flags: {contact: 1, protect: 1, mirror: 1},
 		sleepUsable: true,
 		onPrepareHit: function (target, source, move) {
 			this.attrLastMove('[still]');
@@ -554,10 +554,58 @@ exports.BattleMovedex = {
 			},
 		},
 		flags: {
+			contact: 1,
 			protect: 1,
 			mirror: 1,
 		},
 		type: "Fairy",
+		target: "normal",
+	},
+	// Bouns
+	"stormkick": {
+		id: "stormkick",
+		name: "Storm Kick",
+		category: "Physical",
+		pp: 10,
+		basePower: 50,
+		accuracy: 90,
+		desc: "Hits three times.",
+		priority: 0,
+		secondary: false,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Triple Kick", target);
+		},
+		multihit: 3,
+		flags: {
+			contact: 1,
+			protect: 1,
+		},
+		type: "Electric",
+		target: "normal",
+	},
+	"aliveandkicking": {
+		id: "aliveandkicking",
+		name: "ALIVE AND KICKING",
+		category: "Physical",
+		pp: 1,
+		basePower: 150,
+		accuracy: true,
+		noPPBoosts: true,
+		desc: "No additional information.",
+		secondary: false,
+		isViable: true,
+		isZ: "legsiumz",
+		priority: 0,
+		flags: {
+			protect: 1,
+			contact: 1,
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "High Jump Kick", target);
+		},
+		type: "Electric",
 		target: "normal",
 	},
 };

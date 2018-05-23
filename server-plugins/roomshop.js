@@ -56,7 +56,7 @@ exports.commands = {
 			holder: function (target, room) {
 				if (!this.runBroadcast()) return;
 				let roomshop = Db.roomshop.get(room.id, {items: {}});
-				if (!Db.roomshop.has(room.id)) return this.errorReply(`${room.title} does not have a Room Shop.`);
+				if (!roomshop) return this.errorReply(`${room.title} does not have a Room Shop.`);
 				if (!roomshop.bank) return this.errorReply(`${room.title} hasn't set a bank yet.`);
 				return this.sendReplyBox(`<strong>${room.title}'s Bank:</strong> ${Server.nameColor(roomshop.bank, true)}`);
 			},
@@ -66,6 +66,7 @@ exports.commands = {
 			atm: function (target, room) {
 				if (!this.runBroadcast()) return;
 				let roomshop = Db.roomshop.get(room.id, {items: {}});
+				if (!roomshop) return this.errorReply(`${room.title} does not have a Room Shop.`);
 				if (!roomshop.bank) return this.errorReply(`${room.title} hasn't set a bank yet.`);
 				if (this.broadcasting) {
 					this.parse(`!atm ${roomshop.bank}`);
@@ -118,7 +119,7 @@ exports.commands = {
 				display += `<tr>`;
 				display += `<td><button class="button" name="send" value="/roomshop buy ${roomshop.items[i].name}">${roomshop.items[i].name}</button></td>`;
 				display += `<td>${roomshop.items[i].desc}</td>`;
-				display += `<td>${roomshop.items[i].price} ${roomshop.items[i].price !== 1 ? moneyPlural : moneyName}</td>`;
+				display += `<td>${roomshop.items[i].price.toLocaleString()} ${roomshop.items[i].price !== 1 ? moneyPlural : moneyName}</td>`;
 				display += `</tr>`;
 			}
 			display += `</table></center></div>`;
@@ -141,10 +142,10 @@ exports.commands = {
 					return;
 				}
 				Economy.writeMoney(user.userid, -cost, () => {
-					Economy.logTransaction(`${user.name} bought "${target}" from ${room.title}'s roomshop for ${cost} ${moneyName}${Chat.plural(cost)}.`);
+					Economy.logTransaction(`${user.name} bought "${target}" from ${room.title}'s roomshop for ${cost.toLocaleString()} ${moneyName}${Chat.plural(cost)}.`);
 				});
 				Economy.writeMoney(bank, cost, () => {
-					Economy.logTransaction(`${user.name} bought "${target}" from ${room.title}'s roomshop for ${cost} ${moneyName}${Chat.plural(cost)}.`);
+					Economy.logTransaction(`${user.name} bought "${target}" from ${room.title}'s roomshop for ${cost.toLocaleString()} ${moneyName}${Chat.plural(cost)}.`);
 				});
 
 				if (FS("logs/roomshops").readdirSync()) FS("logs/roomshops").mkdirpSync();
@@ -156,7 +157,7 @@ exports.commands = {
 					}
 				}
 
-				return this.sendReply(`You have bought "${target}" for ${cost} ${moneyName}${Chat.plural(cost)} from ${room.title}'s Room Shop.`);
+				return this.sendReply(`You have bought "${target}" for ${cost.toLocaleString()} ${moneyName}${Chat.plural(cost)} from ${room.title}'s Room Shop.`);
 			});
 		},
 

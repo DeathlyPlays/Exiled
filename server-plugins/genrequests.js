@@ -81,7 +81,7 @@ exports.commands = {
 			if (isNaN(reward)) return this.errorReply(`The reward must be an integer.`);
 			Economy.readMoney(user.userid, money => {
 				if (money < reward) {
-					this.errorReply(`You do not have enough ${moneyPlural} to give ${reward} as a reward.`);
+					this.errorReply(`You do not have enough ${moneyPlural} to give ${reward.toLocaleString()} as a reward.`);
 					return;
 				}
 
@@ -93,7 +93,7 @@ exports.commands = {
 					status: "active",
 				};
 				updateRequests();
-				alertGenners(`${Server.nameColor(user.name, true)} has requested the following: "${description}"${reward > 0 ? `, and has offered ${reward} ${reward === 1 ? moneyName : moneyPlural} for your services` : ``}.`);
+				alertGenners(`${Server.nameColor(user.name, true)} has requested the following: "${description}"${reward > 0 ? `, and has offered ${reward.toLocaleString()} ${reward === 1 ? moneyName : moneyPlural} for your services` : ``}.`);
 				this.sendReply(`Your request has been sent, check /genreq list to contact genners and to verify if they are approved.`);
 			});
 		},
@@ -160,7 +160,7 @@ exports.commands = {
 			if (!isGenner(user)) return this.errorReply(`You must be an approved genner to view requests.`);
 			if (Object.keys(requests).length < 1) return this.errorReply(`There are currently no Gen Requests on ${Config.serverName}.`);
 			let sortedReqs = Object.keys(requests).sort(function (a, b) {
-				return requests[b].lastUpdated - requests[a].lastUpdated;
+				return requests[a].lastUpdated - requests[b].lastUpdated;
 			});
 			let reqList = `<h2 style="text-align: center; font-weight: bold">${Config.serverName} Gen Requests:</h2>`;
 			reqList += `<table border="1" cellspacing ="0" cellpadding="5"><tr style="font-weight: bold"><td>User:</td><td>Description:</td><td>Status:</td><td>Reward:</td><td>Last Updated:</td></tr><tr>`;
@@ -169,7 +169,7 @@ exports.commands = {
 				reqList += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="parseCommand" value="/user ${req.user}">${Server.nameColor(req.user, true, true)}</button></td>`;
 				reqList += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${req.description}</td>`;
 				reqList += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${req.status}</td>`;
-				reqList += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${req.reward}</td>`;
+				reqList += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${req.reward.toLocaleString()}</td>`;
 				reqList += `<td style="border: 2px solid #000000; width: 20%; text-align: center">${new Date(req.lastUpdated)}</td>`;
 			}
 			reqList += `</tr></table>`;

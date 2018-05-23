@@ -49,7 +49,7 @@ function getShopDisplay(shop) {
 		display += `<tr>`;
 		display += `<td align="center"><button name="send" style="background: #2ae10e; border-radius: 5px; border: solid, 1px, #2e6dd8; font-size: 11px; padding: 5px 10px" value="/buy ${shop[start][0]}"><font color=#2e6dd8 face=courier><strong>${shop[start][0]}</strong></font></button></td>`;
 		display += `<td align="center"><font color=#2e6dd8 face=courier>${shop[start][1]}</font></td>`;
-		display += `<td align="center"><font color=#2e6dd8 face=courier>${shop[start][2]}</font></td>`;
+		display += `<td align="center"><font color=#2e6dd8 face=courier>${shop[start][2].toLocaleString()}</font></td>`;
 		display += `</tr>`;
 		start++;
 	}
@@ -136,7 +136,7 @@ function findItem(item, money) {
 		price = shop[len][2];
 		if (price > money) {
 			amount = price - money;
-			this.errorReply(`You don't have you enough money for this. You need ${amount} ${moneyName}${Chat.plural(amount)} more to buy ${item}.`);
+			this.errorReply(`You don't have you enough money for this. You need ${amount.toLocaleString()} ${moneyName}${Chat.plural(amount)} more to buy ${item}.`);
 			return false;
 		}
 		return price;
@@ -214,11 +214,11 @@ exports.commands = {
 		if (!target) target = user.name;
 		if (!this.runBroadcast()) return;
 		let userid = toId(target);
-		if (userid.length < 1) return this.sendReply("/wallet - Please specify a user.");
-		if (userid.length > 19) return this.sendReply("/wallet - [user] can't be longer than 19 characters.");
+		if (userid.length < 1) return this.errorReply("/wallet - Please specify a user.");
+		if (userid.length > 19) return this.errorReply("/wallet - [user] can't be longer than 19 characters.");
 
 		Economy.readMoney(userid, money => {
-			this.sendReplyBox(`${Server.nameColor(target, true)} has ${money} ${((money === 1) ? moneyName : moneyPlural)}.`);
+			this.sendReplyBox(`${Server.nameColor(target, true)} has ${money.toLocaleString()} ${((money === 1) ? moneyName : moneyPlural)}.`);
 			//if (this.broadcasting) room.update();
 		});
 	},
@@ -229,31 +229,27 @@ exports.commands = {
 	gc: "givecurrency",
 	givecurrency: function (target, room, user, connection, cmd) {
 		if (!this.can("money")) return false;
-		if (!target) return this.sendReply(`Usage: /${cmd} [user], [amount], [reason]`);
-		let splitTarget = target.split(",");
-		if (!splitTarget[2]) return this.sendReply(`Usage: /${cmd} [user], [amount], [reason]`);
-		for (let u in splitTarget) splitTarget[u] = splitTarget[u].trim();
+		let [targetUser, amount, reason] = target.split(",").map(p => { return p.trim(); });
+		if (!reason) return this.errorReply(`Usage: /${cmd} [user], [amount], [reason]`);
 
-		let targetUser = splitTarget[0];
-		if (toId(targetUser).length < 1) return this.sendReply(`/${cmd} - [user] may not be blank.`);
-		if (toId(targetUser).length > 19) return this.sendReply(`/${cmd} - [user] can't be longer than 19 characters.`);
+		if (toId(targetUser).length < 1) return this.errorReply(`/${cmd} - [user] may not be blank.`);
+		if (toId(targetUser).length > 19) return this.errorReply(`/${cmd} - [user] can't be longer than 19 characters.`);
 
-		let amount = Math.round(Number(splitTarget[1]));
-		if (isNaN(amount)) return this.sendReply(`/${cmd}- [amount] must be a number.`);
-		if (amount > 1000) return this.sendReply(`/${cmd} - You can't give more than 1,000 ${moneyName} at a time.`);
-		if (amount < 1) return this.sendReply(`/${cmd} - You can't give less than one ${moneyName}.`);
+		amount = Math.round(Number(amount));
+		if (isNaN(amount)) return this.errorReply(`/${cmd}- [amount] must be a number.`);
+		if (amount > 1000) return this.errorReply(`/${cmd} - You can't give more than 1,000 ${moneyName} at a time.`);
+		if (amount < 1) return this.errorReply(`/${cmd} - You can't give less than one ${moneyName}.`);
 
-		let reason = splitTarget[2];
 		if (reason.length > 100) return this.errorReply("Reason may not be longer than 100 characters.");
 		if (toId(reason).length < 1) return this.errorReply(`Please specify a reason to give ${moneyName}.`);
 
 		Economy.writeMoney(targetUser, amount, () => {
 			Economy.readMoney(targetUser, newAmount => {
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users.get(targetUser).popup(`|html|You have received ${amount} ${(amount === 1 ? moneyName : moneyPlural)} from ${Server.nameColor(user.name, true)}.`);
+					Users.get(targetUser).popup(`|html|You have received ${amount.toLocaleString()} ${(amount === 1 ? moneyName : moneyPlural)} from ${Server.nameColor(user.name, true)}.`);
 				}
-				this.sendReply(`${targetUser} has received ${amount} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)}.`);
-				Economy.logTransaction(`${user.name} has given ${amount} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} to ${targetUser}. (Reason: ${reason}) They now have ${newAmount} ${(newAmount === 1 ? `${moneyName}` : `${moneyPlural}`)}.`);
+				this.sendReply(`${targetUser} has received ${amount.toLocaleString()} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)}.`);
+				Economy.logTransaction(`${user.name} has given ${amount.toLocaleString()} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} to ${targetUser}. (Reason: ${reason}) They now have ${newAmount.toLocaleString()} ${(newAmount === 1 ? `${moneyName}` : `${moneyPlural}`)}.`);
 			});
 		});
 	},
@@ -264,31 +260,27 @@ exports.commands = {
 	tc: "takecurrency",
 	takecurrency: function (target, room, user, connection, cmd) {
 		if (!this.can("money")) return false;
-		if (!target) return this.sendReply(`Usage: /${cmd} [user], [amount], [reason]`);
-		let splitTarget = target.split(",");
-		if (!splitTarget[2]) return this.sendReply(`Usage: /${cmd} [user], [amount], [reason]`);
-		for (let u in splitTarget) splitTarget[u] = splitTarget[u].trim();
+		let [targetUser, amount, reason] = target.split(",").map(p => { return p.trim(); });
+		if (!reason) return this.errorReply(`Usage: /${cmd} [user], [amount], [reason]`);
 
-		let targetUser = splitTarget[0];
-		if (toId(targetUser).length < 1) return this.sendReply(`/${cmd} - [user] may not be blank.`);
-		if (toId(targetUser).length > 19) return this.sendReply(`/${cmd} - [user] can't be longer than 19 characters.`);
+		if (toId(targetUser).length < 1) return this.errorReply(`/${cmd} - [user] may not be blank.`);
+		if (toId(targetUser).length > 19) return this.errorReply(`/${cmd} - [user] can't be longer than 19 characters.`);
 
-		let amount = Math.round(Number(splitTarget[1]));
-		if (isNaN(amount)) return this.sendReply(`/${cmd}- [amount] must be a number.`);
-		if (amount > 1000) return this.sendReply(`/${cmd} - You can't take more than 1,000 ${moneyName} at a time.`);
-		if (amount < 1) return this.sendReply(`/${cmd} - You can't take less than one ${moneyName}.`);
+		amount = Math.round(Number(amount));
+		if (isNaN(amount)) return this.errorReply(`/${cmd}- [amount] must be a number.`);
+		if (amount > 1000) return this.errorReply(`/${cmd} - You can't take more than 1,000 ${moneyName} at a time.`);
+		if (amount < 1) return this.errorReply(`/${cmd} - You can't take less than one ${moneyName}.`);
 
-		let reason = splitTarget[2];
 		if (reason.length > 100) return this.errorReply("Reason may not be longer than 100 characters.");
 		if (toId(reason).length < 1) return this.errorReply(`Please specify a reason to give ${moneyName}.`);
 
 		Economy.writeMoney(targetUser, -amount, () => {
 			Economy.readMoney(targetUser, newAmount => {
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users.get(targetUser).popup(`|html|${Server.nameColor(user.name, true)} has removed ${amount} ${(amount === 1 ? moneyName : moneyPlural)} from you.<br />`);
+					Users.get(targetUser).popup(`|html|${Server.nameColor(user.name, true)} has removed ${amount.toLocaleString()} ${(amount === 1 ? moneyName : moneyPlural)} from you.<br />`);
 				}
-				this.sendReply(`You removed ${amount} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} from ${Chat.escapeHTML(targetUser)}.`);
-				Economy.logTransaction(`${user.name} has taken ${amount} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} from ${targetUser}. (Reason: ${reason}) They now have ${newAmount} ${(newAmount === 1 ? `${moneyName}` : `${moneyPlural}`)}.`);
+				this.sendReply(`You removed ${amount.toLocaleString()} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} from ${targetUser}.`);
+				Economy.logTransaction(`${user.name} has taken ${amount.toLocaleString()} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} from ${targetUser}. (Reason: ${reason}) They now have ${newAmount.toLocaleString()} ${(newAmount === 1 ? `${moneyName}` : `${moneyPlural}`)}.`);
 			});
 		});
 	},
@@ -299,33 +291,32 @@ exports.commands = {
 	transfermoney: "transfercurrency",
 	confirmtransfercurrency: "transfercurrency",
 	transfercurrency: function (target, room, user, connection, cmd) {
-		if (!target) return this.sendReply(`Usage: /${cmd} [user], [amount]`);
-		let splitTarget = target.split(",");
-		for (let u in splitTarget) splitTarget[u] = splitTarget[u].trim();
-		if (!splitTarget[1]) return this.sendReply(`Usage: /${cmd} [user], [amount]`);
+		if (!target) return this.errorReply(`Usage: /${cmd} [user], [amount]`);
+		let [targetUser, amount] = target.split(p => { return p.trim(); });
+		if (!amount) return this.errorReply(`Usage: /${cmd} [user], [amount]`);
 
-		let targetUser = (Users.getExact(splitTarget[0]) ? Users.getExact(splitTarget[0]).name : splitTarget[0]);
-		if (toId(targetUser).length < 1) return this.sendReply(`/${cmd} - [user] may not be blank.`);
-		if (toId(targetUser).length > 18) return this.sendReply(`/${cmd} - [user] can't be longer than 18 characters.`);
-		if (targetUser === user.name) return this.sendReply(`You can't transfer ${moneyPlural} to yourself.`);
+		targetUser = Users.getExact(targetUser) ? Users.getExact(targetUser).name : targetUser;
+		if (toId(targetUser).length < 1) return this.errorReply(`/${cmd} - [user] may not be blank.`);
+		if (toId(targetUser).length > 18) return this.errorReply(`/${cmd} - [user] can't be longer than 18 characters.`);
+		if (targetUser === user.name) return this.errorReply(`You can't transfer ${moneyPlural} to yourself.`);
 
-		let amount = Math.round(Number(splitTarget[1]));
-		if (isNaN(amount)) return this.sendReply(`/${cmd} - [amount] must be a number.`);
-		if (amount > 1000) return this.sendReply(`/${cmd} - You can't transfer more than 1,000 ${moneyName} at a time.`);
-		if (amount < 1) return this.sendReply(`/${cmd} - You can't transfer less than one ${moneyName}.`);
+		amount = Math.round(Number(amount));
+		if (isNaN(amount)) return this.errorReply(`/${cmd} - [amount] must be a number.`);
+		if (amount > 1000) return this.errorReply(`/${cmd} - You can't transfer more than 1,000 ${moneyName} at a time.`);
+		if (amount < 1) return this.errorReply(`/${cmd} - You can't transfer less than one ${moneyName}.`);
 		Economy.readMoney(user.userid, money => {
-			if (money < amount) return this.sendReply(`/${cmd} - You can't transfer more ${moneyName} than you have.`);
+			if (money < amount) return this.errorReply(`/${cmd} - You can't transfer more ${moneyName} than you have.`);
 			if (cmd !== "confirmtransfercurrency" && cmd !== "confirmtransferbucks") {
-				return this.popupReply(`|html|<center><button class = "card-td button" name = "send" value = "/confirmtransferbucks ${toId(targetUser)}, ${amount}" style = "outline: none; width: 200px; font-size: 11pt; padding: 10px; border-radius: 14px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4) inset; transition: all 0.2s;">Confirm transfer to <br /><b style = "color:${Server.hashColor(targetUser)}; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">${Chat.escapeHTML(targetUser)}</b></button></center>`);
+				return this.popupReply(`|html|<center><button class = "card-td button" name = "send" value = "/confirmtransferbucks ${toId(targetUser)}, ${amount}" style = "outline: none; width: 200px; font-size: 11pt; padding: 10px; border-radius: 14px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4) inset; transition: all 0.2s;">Confirm transfer to <br />${Server.nameColor(targetUser, true)}</button></center>`);
 			}
 			Economy.writeMoney(user.userid, -amount, () => {
 				Economy.writeMoney(targetUser, amount, () => {
 					Economy.readMoney(targetUser, firstAmount => {
 						Economy.readMoney(user.userid, secondAmount => {
-							this.popupReply(`You sent ${amount} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} to ${targetUser}.`);
-							Economy.logTransaction(`${user.name} has transfered ${amount} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} to ${targetUser}. ${user.name} now has ${secondAmount} ${(secondAmount === 1 ? `${moneyName}` : `${moneyPlural}`)}. ${targetUser} now has ${firstAmount} ${(firstAmount === 1 ? `${moneyName}` : `${moneyPlural}`)}.`);
+							this.popupReply(`You sent ${amount.toLocaleString()} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} to ${targetUser}.`);
+							Economy.logTransaction(`${user.name} has transfered ${amount.toLocaleString()} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)} to ${targetUser}. ${user.name} now has ${secondAmount.toLocaleString()} ${(secondAmount === 1 ? `${moneyName}` : `${moneyPlural}`)}. ${targetUser} now has ${firstAmount.toLocaleString()} ${(firstAmount === 1 ? `${moneyName}` : `${moneyPlural}`)}.`);
 							if (Users.getExact(targetUser) && Users.getExact(targetUser).connected) {
-								Users.getExact(targetUser).send(`|popup||html|${Server.nameColor(user.name, true)} has sent you ${amount} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)}.`);
+								Users.getExact(targetUser).send(`|popup||html|${Server.nameColor(user.name, true)} has sent you ${amount.toLocaleString()} ${((amount === 1) ? `${moneyName}` : `${moneyPlural}`)}.`);
 							}
 						});
 					});
@@ -336,7 +327,7 @@ exports.commands = {
 
 	moneylog: function (target, room, user) {
 		if (!this.can("money")) return false;
-		if (!target) return this.sendReply("Usage: /moneylog [number] to view the last x lines OR /moneylog [text] to search for text.");
+		if (!target) return this.errorReply("Usage: /moneylog [number] to view the last x lines OR /moneylog [text] to search for text.");
 		let word = false;
 		if (isNaN(Number(target))) word = true;
 		let lines = FS("logs/transactions.log").readIfExistsSync().split("\n").reverse();
@@ -363,15 +354,15 @@ exports.commands = {
 
 	"!richestuser": true,
 	richestusers: "richestuser",
-	richestuser: function (target, room, user) {
+	richestuser: function (target) {
 		if (!target) target = 100;
 		target = Number(target);
 		if (isNaN(target)) target = 100;
 		if (!this.runBroadcast()) return;
 		let keys = Db.money.keys().map(name => {
-			return {name: name, money: Db.money.get(name)};
+			return {name: name, money: Db.money.get(name).toLocaleString()};
 		});
-		if (!keys.length) return this.sendReplyBox("Money ladder is empty.");
+		if (!keys.length) return this.errorReplyBox("Money ladder is empty.");
 		keys.sort(function (a, b) { return b.money - a.money; });
 		this.sendReplyBox(rankLadder("Richest Users", moneyPlural, keys.slice(0, target), "money") + "</div>");
 	},
@@ -391,10 +382,10 @@ exports.commands = {
 	customsymbol: function (target, room, user) {
 		let bannedSymbols = ["!", "|", "‽", "\u2030", "\u534D", "\u5350", "\u223C"];
 		for (let u in Config.groups) if (Config.groups[u].symbol) bannedSymbols.push(Config.groups[u].symbol);
-		if (!user.canCustomSymbol && !user.can("profile")) return this.sendReply("You need to buy this item from the shop to use.");
-		if (!target || target.length > 1) return this.sendReply("/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character.");
+		if (!user.canCustomSymbol && !user.can("profile")) return this.errorReply("You need to buy this item from the shop to use.");
+		if (!target || target.length > 1) return this.errorReply("/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character.");
 		if (target.match(/([a-zA-Z 0-9])/g) || bannedSymbols.indexOf(target) >= 0) {
-			return this.sendReply("This symbol is banned.");
+			return this.errorReply("This symbol is banned.");
 		}
 		user.customSymbol = target;
 		user.updateIdentity();
@@ -404,7 +395,7 @@ exports.commands = {
 
 	removesymbol: "resetsymbol",
 	resetsymbol: function (target, room, user) {
-		if (!user.customSymbol) return this.sendReply("You don't have a custom symbol!");
+		if (!user.customSymbol) return this.errorReply("You don't have a custom symbol!");
 		delete user.customSymbol;
 		user.updateIdentity();
 		this.sendReply("Your symbol has been removed.");
@@ -413,20 +404,20 @@ exports.commands = {
 	economy: "economystats",
 	currency: "economystats",
 	bucks: "economystats",
-	economystats: function (target, room, user) {
+	economystats: function () {
 		if (!this.runBroadcast()) return;
 		const users = Db.money.keys().map(curUser => ({amount: Db.money.get(curUser)}));
 		const total = users.reduce((acc, cur) => acc + cur.amount, 0);
 		let average = Math.floor(total / users.length) || 0;
-		let output = `There ${(total > 1 ? "are" : "is")} ${total} ${(total > 1 ? moneyPlural : moneyName)} circulating in the economy.`;
-		output += ` The average user has ${average} ${(average > 1 ? moneyPlural : moneyName)}.`;
+		let output = `There ${(total > 1 ? "are" : "is")} ${total.toLocaleString()} ${(total > 1 ? moneyPlural : moneyName)} circulating in the economy.`;
+		output += ` The average user has ${average.toLocaleString()} ${(average > 1 ? moneyPlural : moneyName)}.`;
 		this.sendReplyBox(output);
 	},
 
 	store: "shop",
-	shop: function (target, room, user) {
+	shop: function () {
 		if (!this.runBroadcast()) return;
-		return this.sendReply(`|raw|${shopDisplay}`);
+		return this.sendReplyBox(shopDisplay);
 	},
 	shophelp: [`/shop - Display items you can buy with your ${moneyPlural}.`],
 
@@ -439,8 +430,8 @@ exports.commands = {
 			if (cost > money) return this.errorReply(`You do not have enough ${moneyPlural} to purchase this item.`);
 			Economy.writeMoney(user.userid, cost * -1, () => {
 				Economy.readMoney(user.userid, amount => {
-					Economy.logTransaction(`${user.name} has purchased a ${target} for ${cost} ${(cost === 1 ? moneyName : moneyPlural)}. They now have ${amount} ${(money === 1 ? moneyName : moneyPlural)}.`);
-					this.sendReply(`You have bought ${target} for ${cost} ${(cost === 1 ? moneyName : moneyPlural)}. You now have ${amount} ${(money === 1 ? moneyName : moneyPlural)} left.`);
+					Economy.logTransaction(`${user.name} has purchased a ${target} for ${cost.toLocaleString()} ${(cost === 1 ? moneyName : moneyPlural)}. They now have ${amount.toLocaleString()} ${(money === 1 ? moneyName : moneyPlural)}.`);
+					this.sendReply(`You have bought ${target} for ${cost.toLocaleString()} ${(cost === 1 ? moneyName : moneyPlural)}. You now have ${amount.toLocaleString()} ${(money === 1 ? moneyName : moneyPlural)} left.`);
 					room.addRaw(`${Server.nameColor(user.name, true)} has bought <strong>"${target}"</strong> from the shop.`);
 					handleBoughtItem.call(this, target.toLowerCase(), user, cost);
 				});

@@ -40,7 +40,7 @@ function checkFriends(userid, user) {
 	});
 	if (onlineUsers.length > 0 && friends[userid].notifications) user.send(`|pm|~${Config.serverName} Friend Manager|${user.getIdentity()}|/raw ${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers.map(p => { return Server.nameColor(Users(p).name, true, true); }))} are online.<hr /><center><button class= "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
 	for (let friend of onlineUsers) {
-		if (friends[friend].notifications && !friends[friend].ignoreList.includes(userid)) Users(friend).send(`|pm|~${Config.serverName} Friend Manager|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(Users(userid).name, true, true)} has just came online.<hr /><center><button class= "button" name= "send" value="/friend ignore ${userid}">Ignore Notifications from ${Users(userid).name}</button><button class= "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
+		if (friends[friend].notifications && !friends[friend].ignoreList.includes(userid)) Users(friend).send(`|pm|~${Config.serverName} Friend Manager|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(userid, true, true)} has just came online.<hr /><center><button class= "button" name= "send" value="/friend ignore ${userid}">Ignore Notifications from ${userid}</button><button class= "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
 	}
 }
 Server.checkFriends = checkFriends;
@@ -257,7 +257,7 @@ exports.commands = {
 			if (!friends[friendsId]) return this.errorReply(`${target} has not initialized their friends list yet.`);
 			if (friends[friendsId].private && friendsId !== user.userid) return this.errorReply(`${target} has privatized their friends list.`);
 			if (friends[friendsId].friendsList.length < 1) return this.sendReplyBox(`<center>${Server.nameColor(target, true, true)} currently doesn't have any friends.</center>`);
-			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><h2 style="text-align: center">${Server.nameColor(target, true, true)}'${friendsId.endsWith("s") ? `` : `s`} Friends List (${friends[friendsId].friendsList.length} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2><table border="1" cellspacing ="0" cellpadding="${this.broadcasting ? 3 : 2}"><tr style="font-weight: bold"><td>Friend:</td><td>Last Seen:</td>`;
+			let display = `<div style="max-height: 200px; width: 100%; overflow: scroll;"><h2 style="text-align: center">${Server.nameColor(target, true, true)}'${friendsId.endsWith("s") ? `` : `s`} Friends List (${friends[friendsId].friendsList.length.toLocaleString()} Friend${friends[friendsId].friendsList.length > 1 ? "s" : ""}):</h2><table border="1" cellspacing ="0" cellpadding="${this.broadcasting ? 3 : 2}"><tr style="font-weight: bold"><td>Friend:</td><td>Last Seen:</td>`;
 			if (!this.broadcasting && friendsId === user.userid) display += `<td>Unfriend:</td>`;
 			display += `</tr>`;
 			let sortedFriends = friends[friendsId].friendsList.sort(function (a, b) {

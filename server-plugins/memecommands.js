@@ -48,19 +48,19 @@ exports.commands = {
 
 	"!slap": true,
 	slap: function (target) {
-		if (!target) return this.sendReply("/slap needs a target.");
+		if (!target) return this.errorReply("/slap needs a target.");
 		this.parse(`/me slaps ${target} in the face with a slipper!`);
 	},
 
 	"!eat": true,
 	eat: function (target) {
-		if (!target) return this.sendReply("/eat needs a target.");
+		if (!target) return this.errorReply("/eat needs a target.");
 		this.parse(`/me eats ${target}!`);
 	},
 
 	"!marry": true,
 	marry: function (target, room, user) {
-		if (!target) return this.sendReply("/marry needs a target.");
+		if (!target) return this.errorReply("/marry needs a target.");
 		this.parse(`/me has proposed to ${target}!`);
 	},
 
@@ -483,18 +483,13 @@ exports.commands = {
 
 	meme: "memes",
 	memes: {
-		add: function (target, room, user) {
+		add: function (target) {
 			if (!this.can("lock")) return;
-			let targets = target.split(",");
-			for (let u = 0; u < targets.length; u++) targets[u] = targets[u].trim();
-			let name = targets[0];
-			let img = targets[1];
-			let height = targets[2];
-			let width = targets[3];
-			if (!target || targets.length < 4) return this.parse(`/memeshelp`);
+			let [name, img, height, width] = target.split(",").map(p => { return p.trim(); });
+			if (!width) return this.parse(`/memeshelp`);
 			if (name.length > 20) return this.errorReply(`Your name should be less than 20 characters long.`);
-			if (name[toId(name)]) return this.errorReply(`${name} is already registered as a meme!`);
-			if (![".png", ".gif", ".jpg"].includes(img.slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg`);
+			if (memes[toId(name)]) return this.errorReply(`${name} is already registered as a meme!`);
+			if (![".png", ".gif", ".jpg"].includes(img.slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg.`);
 			if (height > 500 || height < 100 || width > 500 || width < 100) return this.errorReply(`Your height and width attributes should be less than 500 and more than 100.`);
 			if (isNaN(height) || isNaN(width)) return this.errorReply(`Your height and width attributes must be a number!`);
 			memes[toId(name)] = {
@@ -505,12 +500,12 @@ exports.commands = {
 				width: width,
 			};
 			write();
-			return this.sendReplyBox(`Meme ${name} created! <img src="${img}" alt="${name}" title="${name}" height="${height}" width="${width}">.`);
+			return this.sendReplyBox(`Meme ${name} created!<br /><img src="${img}" alt="${name}" title="${name}" height="${height}" width="${width}">.`);
 		},
 
 		delete: "remove",
 		clear: "remove",
-		remove: function (target, room, user) {
+		remove: function (target) {
 			if (!this.can("lock")) return false;
 			if (!target) return this.errorReply("This command requires a target.");
 			let memeid = toId(target);
@@ -520,17 +515,18 @@ exports.commands = {
 			this.sendReply(`The meme "${target}" has been deleted.`);
 		},
 
-		list: function (target, room, user) {
+		list: function () {
 			if (!this.runBroadcast()) return;
-			let reply = `<strong><u>Memes (${Object.keys(memes).length})</u></strong><br />`;
-			for (let meme in memes) reply += `(<strong>${meme}</strong>)<br />`;
-			this.sendReplyBox(`${reply}`);
+			if (Object.keys(memes).length < 1) return this.errorReply(`There are no memes on ${Config.serverName}.`);
+			let reply = `<strong><u>Memes (${Object.keys(memes).length.toLocaleString()})</u></strong><br />`;
+			for (let meme of memes) reply += `(<strong>${meme}</strong>) <button class="button" name="send" value="/meme show ${meme}">View ${meme}</button><br />`;
+			this.sendReplyBox(reply);
 		},
 
 		show: "display",
 		display: function (target, room, user) {
 			if (!this.runBroadcast()) return;
-			if (Object.keys(memes).length < 1) return this.sendReply("There are no memes on this server.");
+			if (Object.keys(memes).length < 1) return this.errorReply(`There are no memes on ${Config.serverName}.`);
 			if (!target) {
 				let randMeme = Object.keys(memes)[Math.floor(Math.random() * Object.keys(memes).length)];
 				let title = memes[randMeme].name;
@@ -550,7 +546,7 @@ exports.commands = {
 		},
 
 		"": "help",
-		help: function (target, room, user) {
+		help: function () {
 			this.parse(`/memeshelp`);
 		},
 	},

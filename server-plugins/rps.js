@@ -210,8 +210,8 @@ class RPSGame {
 			file.set(loser.userid, loserFinalPoints);
 
 			// announce the change in rank
-			winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html ${Server.nameColor(winner.name, true)}: ${winnerPoints} --> ${winnerFinalPoints}<br />${Server.nameColor(loser.name, true)}: ${loserPoints} --> ${loserFinalPoints}`);
-			loser.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${loser.userid}|/html ${Server.nameColor(winner.name, true)}: ${winnerPoints} --> ${winnerFinalPoints}<br />${Server.nameColor(loser.name, true)}: ${loserPoints} --> ${loserFinalPoints}`);
+			winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html ${Server.nameColor(winner.name, true)}: ${winnerPoints.toLocaleString()} --> ${winnerFinalPoints.toLocaleString()}<br />${Server.nameColor(loser.name, true)}: ${loserPoints.toLocaleString()} --> ${loserFinalPoints.toLocaleString()}`);
+			loser.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${loser.userid}|/html ${Server.nameColor(winner.name, true)}: ${winnerPoints.toLocaleString()} --> ${winnerFinalPoints.toLocaleString()}<br />${Server.nameColor(loser.name, true)}: ${loserPoints.toLocaleString()} --> ${loserFinalPoints.toLocaleString()}`);
 		}
 	}
 }
@@ -325,7 +325,7 @@ exports.commands = {
 			let rpslsCommands = ["rpslsrank", "rpslsranking", "rpslspoints"];
 			let file = Db.rpsrank;
 			if (rpslsCommands.includes(cmd)) file = Db.rpslsrank;
-			let userRank = file.get(toId(target), 1000);
+			let userRank = file.get(toId(target), 1000).toLocaleString();
 			this.sendReplyBox(`<strong>Rank - ${Server.nameColor(target, true)}: ${userRank}</strong>`);
 		},
 
@@ -344,7 +344,7 @@ exports.commands = {
 			target = Number(target);
 			if (isNaN(target)) target = 100;
 			let keys = file.keys().map(name => {
-				return {name: name, points: file.get(name)};
+				return {name: name, points: file.get(name).toLocaleString()};
 			});
 			if (!keys.length) return this.errorReply(`There is currently no ranked data for RPS${!rpslsCommands.includes(cmd) ? `` : `LS`} at this moment.`);
 			keys.sort(function (a, b) { return b.points - a.points; });

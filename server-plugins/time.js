@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 /********************
  * Time Commands
  * This file contains commands that keep track of user's activity.
@@ -19,13 +19,13 @@ function convertTime(time) {
 }
 
 function displayTime(t) {
-	return t.h + (t.h === 1 ? " hour " : " hours ") + t.m + (t.m === 1 ? " minute " : " minutes ") + t.s + (t.s === 1 ? " second" : " seconds");
+	return `${t.h.toLocaleString()} ${(t.h === 1 ? "hour" : "hours")} ${t.m.toLocaleString()} ${(t.m === 1 ? "minute" : "minutes")} ${t.s.toLocaleString()} ${(t.s === 1 ? "second" : "seconds")}`;
 }
 
 exports.commands = {
-	'!ontime': true,
-	nolife: 'ontime',
-	userontime: 'ontime',
+	"!ontime": true,
+	nolife: "ontime",
+	userontime: "ontime",
 	ontime: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		const userid = target ? toId(target) : user.userid;
@@ -46,9 +46,9 @@ exports.commands = {
 	},
 	ontimehelp: ["/ontime [target] - Checks a user's online time on the server. [Target is optional; if there is no target, this command is used on yourself.]"],
 
-	nolifeladder: 'ontimeladder',
-	mostonline: 'ontimeladder',
-	ontimeladder: function (target, room, user) {
+	nolifeladder: "ontimeladder",
+	mostonline: "ontimeladder",
+	ontimeladder: function () {
 		if (!this.runBroadcast()) return;
 		let keys = Db.ontime.keys().map(name => {
 			let currentOntime = 0;
@@ -69,6 +69,6 @@ exports.commands = {
 				time: displayTime(convertTime(user.time)),
 			};
 		});
-		this.sendReplyBox(rankLadder('Ontime Ladder', 'Total Ontime', keys, 'time'));
+		this.sendReplyBox(rankLadder("Ontime Ladder", "Total Ontime", keys, "time"));
 	},
 };

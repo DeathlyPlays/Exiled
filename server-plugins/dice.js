@@ -35,7 +35,7 @@ class Dice {
 		}, INACTIVE_END_TIME);
 
 		let buck = (this.bet === 1 ? moneyName : moneyPlural);
-		this.startMessage = `<div class="infobox"><strong style="font-size: 14pt; color: #24678d"><center>${Server.nameColor(starter, true)} has started a game of dice for <span style = "color: green">${amount}</span> ${buck}!</center></strong><br /><center><img style="margin-right: 30px;" src = "http://i.imgur.com/eywnpqX.png" width="80" height="80"><img style="transform:rotateY(180deg); margin-left: 30px;" src="http://i.imgur.com/eywnpqX.png" width="80" height="80"><br /><button name="send" value="/joindice">Click to join!</button></center>`;
+		this.startMessage = `<div class="infobox"><strong style="font-size: 14pt; color: #24678d"><center>${Server.nameColor(starter, true)} has started a game of dice for <span style = "color: green">${amount.toLocaleString()}</span> ${buck}!</center></strong><br /><center><img style="margin-right: 30px;" src = "http://i.imgur.com/eywnpqX.png" width="80" height="80"><img style="transform:rotateY(180deg); margin-left: 30px;" src="http://i.imgur.com/eywnpqX.png" width="80" height="80"><br /><button name="send" value="/joindice">Click to join!</button></center>`;
 		this.room.add(`|uhtml|${(++this.room.diceCount)}|${this.startMessage}</div>`).update();
 	}
 
@@ -94,15 +94,15 @@ class Dice {
 					msg += `<img src = "${diceImg(roll2)}" align = "right" title = "${Server.nameColor(p2.name, true)}'s roll"><br />`;
 					msg += `${Server.nameColor(p1.name, true)} rolled ${(roll1 + 1)}!<br />`;
 					msg += `${Server.nameColor(p2.name, true)} rolled ${(roll2 + 1)}!<br />`;
-					msg += `${Server.nameColor(winner.name, true)} has won <strong style="color: green">${(this.bet - taxedAmt)}</strong> ${buck}!<br />`;
+					msg += `${Server.nameColor(winner.name, true)} has won <strong style="color: green">${(this.bet - taxedAmt).toLocaleString()}</strong> ${buck}!<br />`;
 					msg += `Better luck next time, ${Server.nameColor(loser.name, true)}!`;
 					this.room.add(`|uhtmlchange|${this.room.diceCount}|${msg}`).update();
 					Economy.writeMoney(winner.userid, (this.bet - taxedAmt), () => {
 						Economy.writeMoney(loser.userid, -this.bet, () => {
 							Economy.readMoney(winner.userid, winnerMoney => {
 								Economy.readMoney(loser.userid, loserMoney => {
-									Economy.logDice(`${winner.userid} has won a dice against ${loser.userid}. They now have ${winnerMoney} ${(winnerMoney === 1 ? moneyName : moneyPlural)}.`);
-									Economy.logDice(`${loser.userid} has lost a dice against ${winner.userid}. They now have ${loserMoney} ${(loserMoney === 1 ? moneyName : moneyPlural)}.`);
+									Economy.logDice(`${winner.userid} has won a dice against ${loser.userid}. They now have ${winnerMoney.toLocaleString()} ${(winnerMoney === 1 ? moneyName : moneyPlural)}.`);
+									Economy.logDice(`${loser.userid} has lost a dice against ${winner.userid}. They now have ${loserMoney.toLocaleString()} ${(loserMoney === 1 ? moneyName : moneyPlural)}.`);
 									this.end();
 								});
 							});
@@ -133,7 +133,7 @@ exports.commands = {
 		if (isNaN(target)) return this.errorReply(`"${target}" isn't a valid number.`);
 		if (target.includes(".") || amount < 1 || amount > 5000) return this.errorReply(`The number of ${moneyPlural} must be between 1 and 5,000 and cannot contain a decimal.`);
 		Economy.readMoney(user.userid, money => {
-			if (money < amount) return this.errorReply(`You don't have ${amount} ${money === 1 ? moneyName : moneyPlural}.`);
+			if (money < amount) return this.errorReply(`You don't have ${amount.toLocaleString()} ${money === 1 ? moneyName : moneyPlural}.`);
 			room.dice = new Dice(room, amount, user.name);
 			this.parse("/joindice");
 		});

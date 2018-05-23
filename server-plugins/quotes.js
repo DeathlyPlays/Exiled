@@ -33,7 +33,7 @@ function write() {
 exports.commands = {
 	quotes: "quote",
 	quote: {
-		add: function (target, room, user) {
+		add: function (target) {
 			if (!this.can("quotes")) return false;
 			let [name, ...quote] = target.split(",").map(p => p.trim());
 			if (!quote) return this.parse("/quotehelp");
@@ -45,10 +45,10 @@ exports.commands = {
 				quote: quote.join(", "),
 			};
 			write();
-			return this.sendReply(`Quote ${name} created! ${name}: ${quote.join(", ")}.`);
+			return this.sendReply(`Quote ${name} created!\n${name}: ${quote.join(", ")}.`);
 		},
 
-		delete: function (target, room, user) {
+		delete: function (target) {
 			if (!this.can("quotes")) return false;
 			if (!target) return this.parse("/quotehelp");
 			let quoteid = toId(target);
@@ -61,9 +61,9 @@ exports.commands = {
 		view: "show",
 		display: "show",
 		search: "show",
-		show: function (target, room, user) {
+		show: function (target) {
 			if (!this.runBroadcast()) return;
-			if (Object.keys(quotes).length < 1) return this.sendReply("There are no quotes on this server.");
+			if (Object.keys(quotes).length < 1) return this.errorReply(`There are no quotes on ${Config.serverName}.`);
 			if (!target) {
 				let randQuote = Object.keys(quotes)[Math.floor(Math.random() * Object.keys(quotes).length)];
 				let title = quotes[randQuote].name;
@@ -80,7 +80,8 @@ exports.commands = {
 		list: "viewquotes",
 		viewquotes: function () {
 			if (!this.runBroadcast()) return;
-			let reply = `<strong><u>Quotes (${Object.keys(quotes).length})</u></strong><br />`;
+			if (Object.keys(quotes).length < 1) return this.errorReply(`There are no quotes on ${Config.serverName}.`);
+			let reply = `<strong><u>Quotes (${Object.keys(quotes).length.toLocaleString()})</u></strong><br />`;
 			for (let quote in quotes) reply += `<strong>${quote}</strong> <button class="button" name="send" value="/quotes view ${quote}">View ${quote}</button><br />`;
 			this.sendReplyBox(`<div class="infobox infobox-limited">${reply}</div>`);
 		},

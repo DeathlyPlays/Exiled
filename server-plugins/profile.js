@@ -167,7 +167,7 @@ exports.commands = {
 			if (!target) return this.parse("/help", true);
 			let userid = toId(target);
 			let profile = Db.profile.get(userid, {data: {title: {}, music: {}}});
-			if (!profile.data.title.title && !profile.data.title.color) return this.errorReply(`${target} doesn't have a custom title yet.`);
+			if (!(profile.data.title.title || profile.data.title.color)) return this.errorReply(`${target} doesn't have a custom title yet.`);
 			delete profile.data.title.title;
 			delete profile.data.title.color;
 			Db.profile.set(userid, profile);
@@ -419,7 +419,7 @@ exports.commands = {
 			target = toId(target);
 			let profile = Db.profile.get(target, {data: {title: {}, music: {}}});
 			if (!target) return this.parse("/musichelp");
-			if (!profile.data.music.link && !profile.data.music.title) return this.errorReply(`${target} does not have any profile music.`);
+			if (!(profile.data.music.link || profile.data.music.title)) return this.errorReply(`${target} does not have any profile music.`);
 			delete profile.data.music.link;
 			delete profile.data.music.title;
 			Db.profile.set(target, profile);
@@ -475,7 +475,7 @@ exports.commands = {
 		add: "set",
 		set: function (target, room, user) {
 			let profile = Db.profile.get(user.userid, {data: {title: {}, music: {}}});
-			if (!target) this.parse("/naturehelp");
+			if (!target) return this.parse("/naturehelp");
 			let nature = Dex.getNature(target);
 			if (!nature.exists) return this.errorReply("This is not a nature. Check your spelling?");
 			profile.nature = nature.name;
@@ -488,7 +488,7 @@ exports.commands = {
 		remove: "delete",
 		delete: function (target, room, user) {
 			let profile = Db.profile.get(user.userid, {data: {title: {}, music: {}}});
-			if (!Db.nature.has(user.userid)) return this.errorReply("Your nature has not been set.");
+			if (!profile.nature) return this.errorReply("Your nature has not been set.");
 			delete profile.nature;
 			Db.profile.set(user.userid, profile);
 			return this.sendReply("Your nature has been deleted from your profile.");

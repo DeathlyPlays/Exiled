@@ -232,6 +232,7 @@ exports.commands = {
 			if (friends[user.userid].pendingRequests.length < 1) return this.errorReply(`You currently have no pending requests.`);
 			if (!friends[user.userid].pendingRequests.includes(target)) return this.errorReply(`You do not have a pending request for this user.`);
 			friends[user.userid].pendingRequests.splice(friends[user.userid].pendingRequests.indexOf(target), 1);
+			write();
 			return this.sendReply(`You have successfully cancelled your friend request for ${target}.`);
 		},
 

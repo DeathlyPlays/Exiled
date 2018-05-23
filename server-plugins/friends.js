@@ -38,9 +38,9 @@ function checkFriends(userid, user) {
 			onlineUsers.push(online);
 		}
 	});
-	if (onlineUsers.length > 0 && friends[userid].notifications) user.send(`|pm|~${Config.serverName} Friend Manager|${user.getIdentity()}|/raw ${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers)} are online.<hr /><center><button class= "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
+	if (onlineUsers.length > 0 && friends[userid].notifications) user.send(`|pm|~${Config.serverName} Friend Manager|${user.getIdentity()}|/raw ${onlineUsers.length} of your friends are online: ${Chat.toListString(onlineUsers.map(p => { return Server.nameColor(Users(p).name, true, true); }))} are online.<hr /><center><button class= "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
 	for (let friend of onlineUsers) {
-		if (friends[friend].notifications && !friends[friend].ignoreList.includes(userid)) Users(friend).send(`|pm|~${Config.serverName} Friend Manager|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(userid, true, true)} has just came online.<hr /><center><button class= "button" name= "send" value="/friend ignore ${userid}">Ignore Notifications from ${userid}</button><button class= "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
+		if (friends[friend].notifications && !friends[friend].ignoreList.includes(userid)) Users(friend).send(`|pm|~${Config.serverName} Friend Manager|${Users(friend).getIdentity()}|/raw Your friend ${Server.nameColor(Users(userid).name, true, true)} has just came online.<hr /><center><button class= "button" name= "send" value="/friend ignore ${userid}">Ignore Notifications from ${Users(userid).name}</button><button class= "button" name= "send" value= "/friend togglenotifications">${(friends[userid].notifications ? "Remove Notifications" : "Turn On Notifications")}</button></center><hr />`);
 	}
 }
 Server.checkFriends = checkFriends;

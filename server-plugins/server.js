@@ -666,6 +666,13 @@ exports.commands = {
 		if (!this.runBroadcast()) return false;
 		if (!target || target === "help") return this.parse("/help dssb");
 		if (target === "credits") return this.parse("/dssbcredits");
+		if (told(target) === "bamd") target = "backatmyday";
+		if (told(target) === "c7") target = "c733937123";
+		if (told(target) === "as") target = "alfastorm";
+		if (told(target) === "aj") target = "almightyjudgment";
+		if (told(target) === "ciel") target = "cieltsnow";
+		if (told(target) === "exiler") target = "theexiler";
+		if (told(target) === "str") target = "snorlaxtherain";
 		let targetData = getMonData(toId(target));
 		if (!targetData) return this.errorReply(`The staffmon "${toId(target)}" could not be found.`);
 		return this.sendReplyBox(targetData);

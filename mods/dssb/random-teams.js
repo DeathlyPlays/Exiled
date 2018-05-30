@@ -134,7 +134,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				ability: "Cheap Move",
 				item: "Choice Specs",
 				gender: "M",
-				moves: ["Moongeist Beam", "Earth Power", "Freeze-Dry"],
+				moves: ["Moongeist Beam", "Earth Power", "Fleur Cannon"],
 				signatureMove: "Fairy Beams",
 				evs: {
 					def: 4,

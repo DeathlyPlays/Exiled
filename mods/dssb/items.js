@@ -60,11 +60,11 @@ exports.BattleItems = {
 		},
 		onAfterMoveSecondarySelf: function (source, target, move) {
 			if (source && source !== target && move && move.category !== "Status" && !move.ohko) {
-				this.damage(source.maxhp / 32, source, source, this.getItem("healthorb"));
+				this.damage(source.maxhp / 20, source, source, this.getItem("healthorb"));
 			}
 		},
 		num: -4,
 		gen: -1,
-		desc: "Holder's attacks do 1.3x damage, and it loses 1/32 its max HP after the attack.",
+		desc: "Holder's attacks do 1.3x damage, and it loses 1/20th of its max HP after the attack.",
 	},
 };

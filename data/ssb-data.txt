@@ -1,16 +1,15 @@
 flufi
-(Raichu)
-@ Choice Socks
-	- x1.3 SpA and Speed.
-EVs: 4 SpD / 252 Spa / 252 Spe
-Modest Nature
-Ability: Magnopulse
-	- Adaptability + Electric moves can hit Ground types.
-Moves: Thunderbolt, Aura Sphere, Ice Beam
-Special Move: Sparkswitch
-	- Electric Type | Special | 40 BP | +3 Priority | Volt Switch Effect
-Notes: N/A
-Rank: N/A
+(Pikachu-Libre)
+@ Light Ball
+EVs: 4 SpD / 252 Atk / 252 Spe
+Adamant Nature
+Ability: Fighting Spirit
+	- Boosts Speed by +2, uses Focus Energy and changes type to Electric/Fighting upon entry.
+Moves: Thunder Punch, High Jump Kick, Fake Out
+Special Move: Cranberry Cutter
+	- Psychic Type, Physical, 120 BP, 95% Accuracy, and has a high crit ratio.
+Notes: Fast Physical Sweeper.
+Rank: A.
 
 Mewth
 (Furret)
@@ -35,25 +34,24 @@ EVs: 4 HP / 252 SpA / 252 Spe
 IVs: 0 Atk
 Timid Nature
 Ability: Crippling Depression
-    - Primordial Sea effects + Rain Dish + Swift Swim
+	- Primordial Sea effects + Rain Dish + Swift Swim
 Moves: Giga Drain, Freeze-Dry, Focus Blast
 Special Move: npm test
-	- Water Type, Special, 90 BP, 100% Accuracy, 15 PP, raises its SpA & Spe by 1 stage, +1 priority.
+	- Water Type, Special, 90 BP, 100% Accuracy, 15 PP, raises its Special Attack & Speed by 1 stage, +1 priority.
 Notes: Priority usage allows to be very viable against many fast sweepers, and then after boosting this will ruin your team's day!
 Rank: A.
 
 Renfur
 (Flygon)
-	- Bug/Dragon typing
 @ Life Orb
 EVs: 252 SpA / 252 Spe / 4 SpD
 IVs: 0 Atk
 Modest Nature
 Ability: DesertDragon
-    - If this Pokemon KO's its target, its Special Attack, and Speed is boosted by two stages.
+	- If this Pokemon KO's its target, its Special Attack, and Speed is boosted by two stages. On switch-in, this Pokemon's typing becomes Bug/Dragon. Normal type moves become Bug type and get a 1.2x boost.
 Moves: Dragon Pulse, Flamethrower, Earth Power
 Special Move: It's My Time Now!
-    - Essentially a 150 BP Boomburst, just has the bug typing.
+	- 150 BP, Normal type (Bug type after modifiers), Special, Sound move, Ignores Substitutes.
 Notes: Fast Special Attacker.
 Rank: A.
 
@@ -63,14 +61,14 @@ Chandie
 EVs: 252 SpA / 252 Spe / 4 HP
 Modest Nature
 Ability: Magma Overdrive
-	- Desolate Land + Adaptability + Tinted Lens; If hit by a Fire Move, it Special Attack raises by 1 stage.
+	- Desolate Land + Adaptability + Flash Fire.
 Moves: Moongeist Beam, Secret Sword
-Signature Move II: Conflagration
-    - 85 BP, always goes first.
-Signature Move I: Solar Eruption
-	- 130BP, 100% burn chance, very high critical hit ratio. Raises the Speed by 2 stages, and Special Attack by 1 stage.
+Signature Move I: Conflagration
+	- 70 BP, +1 priority, Special, Fire type, Contact, 15 PP.
+Signature Move II: Solar Eruption
+	- 100 BP, 100% burn chance. Raises the user's Speed by 2 stages, and Special Attack by 1 stage, Special, Fire type, 10 PP.
 Notes: Insanely powerful special sweeper.
-Rank: A.
+Rank: A+.
 
 SnorlaxTheRain
 (Snorlax)
@@ -78,12 +76,12 @@ SnorlaxTheRain
 EVs: 164 HP / 224 Atk / 120 SpD
 Adamant Nature
 Ability: Scraroom
-    -Scrappy + Trick Room.
+	- Scrappy + Trick Room.
 Moves: Giga Impact, Rest, Curse
 Signature Move: Snorlax Slam
-    -120BP, 95% Accuracy, and can be used while sleeping.
-Notes: New
-Rank: N/A
+	- 120 BP, 95% Accuracy, and can be used while sleeping, 5 PP, Normal type, Physical, Contact.
+Notes: Semi-bulky, slow attacker.
+Rank: B.
 
 The Exiler
 (Darkrai)
@@ -94,33 +92,34 @@ Ability: The Exiled Ones
 	- Dazzling, Infiltrator, Mold Breaker + uses Topsy Tury, Air Lock and ignores Abilities.
 Moves: Aura Sphere, Sludge Wave, Psychic
 Special Move: Exile
-    - Dark, Distance, 80 BP, 100% accuracy, Transforms into a Cresselia and replaces its moves for: Stored Power, Recover, Cosmic Power, and keeps Exile so it can change back.
+	- Dark, Distance, 80 BP, 100% Accuracy, Transforms into a Cresselia and replaces its moves for: Stored Power, Recover, Cosmic Power, and keeps Exile so it can change back, 10 PP.
 Notes: Fast Special Sweeper that can become bulky. (INSANE ANTIMETA)
 Rank: A.
 
 CielTSnow
 (Lucario-Mega)
-@Life Orb
+@ Life Orb
 EVs: 252 SpA / 252 Spe / 4 Def
 Ability: Adaptability
 Timid Nature
 Moves: Flash Cannon, Flamethrower, Ice Beam
 Special Move: Pimp Slap
-	- Special, Fighting type move, 90 BP, 100% accuracy, raises user's Special Attack by one stage, +1 Priority.
+	- Special, Fighting type move, 90 BP, 100% Accuracy, raises the user's Special Attack by one stage, +1 Priority, 15 PP.
 Notes: Fast Special Sweeper.
 Rank: B.
 
 shivay
 (Charizard-Mega-X)
 @ Health Orb
-	- 1.3x Attacking Moves + Loses 1/32 of maximum health every turn.
+	- 1.3x Attacking Moves + Loses 1/20th of its maximum health every turn.
 Ability: Bird Claws
-	- Tough Claws and Immune to Ground-type Attacks
+	- Tough Claws and the user is immune to Ground-type Attacks
 EVs: 252 Atk / 4 SpD / 252 Spe
 Adamant Nature
 Moves: Outrage, Flare Blitz, Roost
 Signature Move: Dragonify
-	- 100 BP, Dragon Type, Physical, Boosts user's Attack and Speed one stage, +1 priority, Makes the target's type Dragon type.
+	- 100 BP, Dragon Type, Physical, Boosts user's Attack and Speed one stage, +1 priority, Makes the target's type Dragon type, 5 PP.
+Notes: Fast Physical Sweeper that can always hit supereffective.
 Rank: A.
 
 Back At My Day
@@ -131,12 +130,13 @@ IVs: 0 Atk
 Modest Nature
 Ability: Cheap Move
 	- Turns into Fairy/Ghost and uses Cheap Attack when switched in.
-		- Fairy Type, Special, 60 BP, 255% Accuracy, 64 PP.
+		- Cheap Attack
+			- Fairy Type, Special, 60 BP, Never misses, 40 PP.
 Moves: Moongeist Beam, Earth Power, Freeze-Dry
 Special Move: Fairy Beams
-- Fairy Type, Special, 180 BP, 255% Accuracy, 16 PP. Reduces Special Attack by two stages.
-Notes: N/A.
-Rank: N/A.
+	- Fairy Type, Special, 180 BP, Never misses, 10 PP. Reduces Special Attack by two stages.
+Notes: Powerful Revenge Killer who can utilize switching in as a decent attack tactic.
+Rank: A.
 
 AlfaStorm
 (Hydreigon)
@@ -147,9 +147,9 @@ Ability: Attack Shield
 	- Magic Bounce, Overcoat and Adaptability.
 Moves: Flash Cannon, Dark Pulse, Draco Meteor
 Special Move: Dark Storm
-- Dark Type, Special, 60 BP, 100% Accuracy, 15 PP.
-Notes: N/A.
-Rank: N/A.
+	- Dark Type, Special, 60 BP, 100% Accuracy, 15 PP, raises the user's Special Attack, Special Defense and Speed by one stage.
+Notes: Strong Special Revenge Killer.
+Rank: A.
 
 C733937 123
 (Gengar-Mega)
@@ -160,9 +160,9 @@ Ability: Chaotic Armor
 	- Magic Bounce and Prankster.
 Moves: Shadow Ball, Pain Split, Dark Pulse
 Special Move: Voodoo Magic
-- ??? Type, Status, 90% Accuracy, 16 PP. Goes through Substitutes, ignores Abilities, doesn't Bounce. Puts a curse on the opponent that does a hideous amount of bad effects. (User takes 1/4 HP damage then Taunts, Torments, Mean Looks, Embargos, Clears Stats, Heal Blocks, removes ability, Spites, Flinches, and removes all shields. Taunt, Embargo, and Heal Block last for 10 turns, Stat Clear, Flinch, and Spite happen on turn move used, rest last till switch. Does not fail if user is less than 1/4 hp.
-Notes: N/A.
-Rank: N/A.
+	- Typeless, Status, 90% Accuracy, 10 PP. Goes through Substitutes, ignores Abilities, doesn't Bounce. Puts a curse on the opponent that does a hideous amount of bad effects. (User takes 1/4 HP damage then Taunts, Torments, Mean Looks, Embargos, Clears Stats, Heal Blocks, removes ability, Spites, Flinches, and removes all shields. Taunt, Embargo, and Heal Block last for 10 turns, Stat Clear, Flinch, and Spite happen on turn move used, rest last till switch. Does not fail if user is less than 1/4 HP.
+Notes: Obnoxious status inflicter that can ruin multiple sweeper's chances.
+Rank: B.
 
 Bouns
 (Tsareena)
@@ -175,6 +175,6 @@ Ability: This queen got kicks
 	- Turns into Grass/Electric and has Queenly Majesty + Tough Claws.
 Moveset: High Jump Kick, Horn Leech, Anchor Shot
 Special Move: Storm Kick
-- Electric Type, Physical, Contact, 50 BP, 90% Accuracy, 16 PP. Hits three times.
+	- Electric Type, Physical, Contact, 50 BP, 90% Accuracy, 16 PP. Hits three times.
 Notes: Bulky Sweeper.
-Rank: N/A.
+Rank: B+.

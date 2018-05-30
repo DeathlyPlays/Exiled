@@ -422,4 +422,18 @@ exports.BattleAbilities = {
 		id: "almightypresence",
 		name: "Almighty Presence",
 	},
+
+	// flufi
+	"fightingspirit": {
+		id: "fightingspirit",
+		name: "Fighting Spirit",
+		desc: "On switch-in, this Pokemon gets +2 Speed, uses Focus Energy, and changes types to Electric/Fighting.",
+		shortDesc: "+2 Spe, uses Focus Energy, type = Electric/Fighting.",
+		onStart: function (pokemon) {
+			this.add("-start", pokemon, "typechange", "Electric/Fighting");
+			pokemon.types = ["Electric", "Fighting"];
+			this.boost({spe: 2}, pokemon, pokemon);
+			this.useMove("focusenergy", pokemon);
+		},
+	},
 };

@@ -20,12 +20,10 @@ exports.BattleMovedex = {
 		},
 		secondary: false,
 		category: "Special",
-		onHit: function () {
-			this.add("c|@Insist|Don't fucking ``npm test`` me.....");
-		},
-		onPrepareHit: function (target, source) {
+		onHit: function (target, source) {
 			this.attrLastMove("[still]");
 			this.add("-anim", source, "Hydro Pump", target);
+			this.add("c|@Insist|Don't fucking ``npm test`` me.....");
 		},
 		basePower: 90,
 		pp: 15,
@@ -50,59 +48,53 @@ exports.BattleMovedex = {
 		isViable: true,
 		isZ: "playniumz",
 		priority: 0,
-		flags: {
-			protect: 1,
-		},
-		onHit: function () {
-			this.add("c|@Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**");
-		},
-		onPrepareHit: function (target, source) {
+		flags: {protect: 1},
+		onHit: function (target, source) {
 			this.attrLastMove("[still]");
 			this.add("-anim", source, "Hydro Pump", target);
+			this.add("c|@Insist|**EXTREME SUPER MEGA ULTIMATE ALPHA GIGA SUPREME FANTASTIC EXTRA PREFIX COMBO BREAKER**");
 		},
 		target: "normal",
 		type: "Water",
 	},
 
 	// flufi
-	"knockoutpunch": {
+	"cranberrycutter": {
 		num: 1000,
-		accuracy: 75,
-		basePower: 150,
+		accuracy: 95,
+		basePower: 120,
 		category: "Physical",
-		desc: "Has a 30% chance to confuse the target.",
-		shortDesc: "30% chance to confuse the target.",
-		id: "knockoutpunch",
-		name: "Knockout Punch",
-		pp: 5,
+		desc: "High critical hit ratio.",
+		shortDesc: "High crit ratio.",
+		id: "cranberrycutter",
+		name: "Cranberry Cutter",
+		pp: 10,
 		priority: 0,
-		flags: {punch: 1, contact: 1, protect: 1},
+		flags: {contact: 1, protect: 1},
 		secondary: false,
+		critRatio: 2,
 		target: "normal",
 		onPrepareHit: function (target, source) {
 			this.attrLastMove("[still]");
-			this.add("-anim", source, "Close Combat", target);
-			this.add("-anim", source, "Dizzy Punch", target);
+			this.add("-anim", source, "Topsy-Turvy", target);
+			this.add("-anim", source, "Sky Drop", target);
 		},
-		type: "Fighting",
-		contestType: "Tough",
+		type: "Psychic",
+		contestType: "Clever",
 	},
 
 	// C733937 123
 	"voodoomagic": {
 		id: "voodoomagic",
 		name: "Voodoo Magic",
-		//added the description mainly so I can see what all he wanted since this is quite a lot
-		desc: "Voodoo Magic: ??? type, Priority 0(1), Status, 90% Acc, Goes through Substitutes, Ignores Abilities, Doesn't Bounce. Puts a curse on the opponent that does a hideous amount of bad effects. (User takes 1/4 HP damage then Taunts, Torments, Mean Looks, Embargos, Clears Stats, Heal Blocks, Removes ability, Spites, Flinches, and removes all shields. Taunt, Embargo, and Heal Block last for 10 turns, Stat Clear, Flinch, and Spite happen on turn move used, rest last till switch (haha lol no switching for you) Does not fail if user is less than 1/4 hp)",
+		desc: "Typeless, ignores substitutes, ignores abilities, taunts, torments, mean looks, embargo'es, clears the target's stat changes, heal blocks, removes the target's ability, spites, flinches, and removes all screens from the target for the cost of 1/4 of the user's max HP. (Taunt, Embargo, and Heal Block last for 10 turns)",
+		shortDesc: "Inflicts the target w/ many conditions.",
 		basePower: 0,
 		category: "Status",
 		priority: 0,
 		accuracy: 90,
 		pp: 10,
-		flags: {
-			authentic: 1,
-			reflectable: 1,
-		},
+		flags: {authentic: 1},
 		ignoresAbility: true,
 		self: {
 			onHit: function (target, source) {
@@ -210,11 +202,12 @@ exports.BattleMovedex = {
 				volatileStatus: "gastroacid",
 			},
 		],
-		onModifyMove: function (move, pokemon) {
-			move.type = "???";
-			this.add("-activate", pokemon, "move: Voodoo Magic");
+		onPrepareHit: function (target, source) {
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Taunt", target);
+			this.add("-anim", source, "Curse", target);
 		},
-		type: "Normal",
+		type: "Bird",
 		target: "normal",
 	},
 
@@ -234,7 +227,7 @@ exports.BattleMovedex = {
 				spd: 1,
 			},
 		},
-		desc: "Boosts the user's SpA, SpD, and Spe by one stage.",
+		desc: "Boosts the user's Special Attack, Special Defense, and Speed by one stage.",
 		shortDesc: "+1 SpA, SpD & Spe.",
 		priority: 1,
 		onHit: function (target, source) {
@@ -253,16 +246,16 @@ exports.BattleMovedex = {
 	"solareruption": {
 		id: "solareruption",
 		name: "Solar Eruption",
-		basePower: 130,
+		basePower: 100,
 		accuracy: 100,
-		desc: "100% burn chance, very high critical hit ratio. Raises the Speed by 2 stage, and Special Attack by 1 stage.",
+		shortDesc: "Burns the target, +2 Spe, +1 SpA.",
+		desc: "100% burn chance, raises the user's Speed by 2 stages, and Special Attack by 1 stage.",
 		category: "Special",
 		flags: {
 			protect: 1,
 			mirror: 1,
 			defrost: 1,
 		},
-		critRatio: 3,
 		secondary: {
 			chance: 100,
 			self: {
@@ -291,13 +284,13 @@ exports.BattleMovedex = {
 	"conflagration": {
 		id: "conflagration",
 		name: "Conflagration",
-		basePower: 85,
+		basePower: 60,
 		accuracy: 100,
 		pp: 15,
 		secondary: false,
 		category: "Special",
-		desc: "Always goes first.",
-		priority: 10,
+		desc: "No additional effects.",
+		priority: 1,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove("[still]");
 			this.add("-anim", source, "Searing Shot", target);
@@ -305,6 +298,7 @@ exports.BattleMovedex = {
 		flags: {
 			protect: 1,
 			contact: 1,
+			mirror: 1,
 		},
 		target: "normal",
 		type: "Fire",
@@ -346,7 +340,7 @@ exports.BattleMovedex = {
 		secondary: false,
 		pp: 15,
 		target: "normal",
-		type: "???",
+		type: "Bird",
 	},
 
 	"judgment": {
@@ -385,12 +379,10 @@ exports.BattleMovedex = {
 		desc: "Raises user's Attack and Speed by 1 stage, and makes foe Dragon type.",
 		shortDesc: "+1 Atk & Spe + Foe becomes Dragon type.",
 		priority: 1,
-		onHit: function (target) {
+		onHit: function (target, source) {
+			this.attrLastMove("[still]");
 			if (!target.setType("Dragon")) return false;
 			this.add("-start", target, "typechange", "Dragon");
-		},
-		onPrepareHit: function (target, source) {
-			this.attrLastMove("[still]");
 			this.add("-anim", source, "Roar of Time", target);
 		},
 		secondary: false,
@@ -510,12 +502,10 @@ exports.BattleMovedex = {
 		priority: 0,
 		secondary: false,
 		category: "Special",
-		onHit: function () {
-			this.add("c|%Back At My Day|1st");
-		},
-		onPrepareHit: function (target, source) {
+		onHit: function (target, source) {
 			this.attrLastMove("[still]");
 			this.add("-anim", source, "Dazzling Gleam", target);
+			this.add("c|%Back At My Day|1st");
 		},
 		flags: {
 			protect: 1,
@@ -533,15 +523,14 @@ exports.BattleMovedex = {
 		pp: 10,
 		basePower: 180,
 		accuracy: true,
-		desc: "Reduces Special Attack by two stages.",
+		desc: "Reduces the user's Special Attack by two stages.",
+		shortDesc: "Lowers the user's SpA by 2.",
 		priority: 0,
 		secondary: false,
-		onHit: function () {
-			this.add("c|%Back At My Day|do da wave");
-		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove("[still]");
 			this.add("-anim", source, "Hyper Beam", target);
+			this.add("c|%Back At My Day|do da wave");
 		},
 		self: {
 			boosts: {

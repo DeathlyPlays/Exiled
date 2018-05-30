@@ -22,18 +22,18 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Timid",
 			},
 			"~flufi": {
-				species: "Raichu",
-				ability: "Magnopulse",
-				item: "Choice Socks",
+				species: "Pikachu-Libre",
+				ability: "Fighting Spirit",
+				item: "Light Ball",
 				gender: "M",
-				moves: ["Thunderbolt", "Aura Sphere", "Ice Beam"],
-				signatureMove: "Sparkswitch",
+				moves: ["Thunder Punch", "High Jump Kick", "Fake Out"],
+				signatureMove: "Cranberry Cutter",
 				evs: {
 					spe: 252,
-					spa: 252,
+					atk: 252,
 					spd: 4,
 				},
-				nature: "Modest",
+				nature: "Adamant",
 			},
 			"~Mewth": {
 				species: "Furret",
@@ -178,8 +178,8 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				species: "Lucario-Mega",
 				ability: "Adaptability",
 				item: "Life Orb",
-				gender: "M",
 				moves: ["Flash Cannon", "Flamethrower", "Ice Beam"],
+				gender: "M",
 				signatureMove: "Pimp Slap",
 				evs: {
 					spa: 252,
@@ -218,7 +218,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				nature: "Adamant",
 			},
 		};
-		// convert moves to ids.
+		// convert moves to IDs.
 		for (let k in sets) {
 			sets[k].moves = sets[k].moves.map(toId);
 			sets[k].baseSignatureMove = toId(sets[k].baseSignatureMove);

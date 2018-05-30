@@ -199,7 +199,24 @@ let BattleMovedex = {
 	},
 	conversion: {
 		inherit: true,
+		desc: "The user's type changes to match the original type of one of its known moves besides this move and Curse, at random, but not either of its current types. Fails if the user cannot change its type, or if this move would only be able to select one of the user's current types.",
 		flags: {},
+		onHit: function (target) {
+			let possibleTypes = target.moveSlots.map(moveSlot => {
+				let move = this.getMove(moveSlot.id);
+				if (move.id !== 'conversion' && move.id !== 'curse' && !target.hasType(move.type)) {
+					return move.type;
+				}
+				return '';
+			}).filter(type => type);
+			if (!possibleTypes.length) {
+				return false;
+			}
+			let type = this.sample(possibleTypes);
+
+			if (!target.setType(type)) return false;
+			this.add('-start', target, 'typechange', type);
+		},
 	},
 	copycat: {
 		inherit: true,
@@ -606,6 +623,7 @@ let BattleMovedex = {
 			duration: 5,
 			durationCallback: function (target, source, effect) {
 				if (source && source.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', effect);
 					return 7;
 				}
 				return 5;
@@ -1156,7 +1174,8 @@ let BattleMovedex = {
 		effect: {
 			duration: 3,
 			durationCallback: function (target, source, effect) {
-				if (source && source.ability === 'persistent') {
+				if (source && source.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', effect);
 					return 5;
 				}
 				return 3;

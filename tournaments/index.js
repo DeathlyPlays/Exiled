@@ -557,7 +557,8 @@ class Tournament {
 		if (matchFrom) {
 			this.generator.setUserBusy(matchFrom.to, false);
 			this.inProgressMatches.set(player, null);
-			delete matchFrom.room.tour;
+			matchFrom.room.tour = null;
+			matchFrom.room.parent = null;
 			if (matchFrom.room.battle) matchFrom.room.battle.forfeit(player.userid);
 		}
 
@@ -568,7 +569,8 @@ class Tournament {
 		if (matchTo) {
 			this.generator.setUserBusy(matchTo, false);
 			let matchRoom = this.inProgressMatches.get(matchTo).room;
-			delete matchRoom.tour;
+			matchRoom.tour = null;
+			matchRoom.parent = null;
 			if (matchRoom.battle) matchRoom.battle.forfeit(player.userid);
 			this.inProgressMatches.set(matchTo, null);
 		}
@@ -1458,7 +1460,7 @@ let commands = {
 
 			Punishments.roomUnpunish(this.room, targetUser, 'TOURBAN');
 			tournament.removeBannedUser(targetUser);
-			this.privateModAction(`${targetUser.name || targetUserid} was unbanned from joining tournaments by ${user.name}.`, `TOURUNBAN: [${targetUser ? targetUser.getLastId() : targetUserid}] by ${user.userid}`);
+			this.privateModAction(`${targetUser.name || targetUserid} was unbanned from joining tournaments by ${user.name}.`);
 			this.modlog('TOUR UNBAN', targetUser, null, {noip: 1, noalts: 1});
 		},
 	},

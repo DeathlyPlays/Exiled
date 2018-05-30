@@ -1764,7 +1764,7 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		onBasePowerPriority: 4,
 		onBasePower: function (basePower, pokemon, target) {
-			if (target.hp * 2 < target.maxhp) {
+			if (target.hp * 2 <= target.maxhp) {
 				return this.chainModify(2);
 			}
 		},
@@ -6617,6 +6617,7 @@ let BattleMovedex = {
 			duration: 5,
 			durationCallback: function (source, effect) {
 				if (source && source.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', effect);
 					return 7;
 				}
 				return 5;
@@ -7153,6 +7154,7 @@ let BattleMovedex = {
 			duration: 5,
 			durationCallback: function (target, source, effect) {
 				if (source && source.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', effect);
 					return 7;
 				}
 				return 5;
@@ -9681,6 +9683,7 @@ let BattleMovedex = {
 			duration: 5,
 			durationCallback: function (source, effect) {
 				if (source && source.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', effect);
 					return 7;
 				}
 				return 5;
@@ -12586,12 +12589,14 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		onHit: function (target, pokemon) {
-			if (pokemon.status && !target.status && target.trySetStatus(pokemon.status)) {
+		onPrepareHit: function (target, source, move) {
+			if (!source.status) return false;
+			move.status = source.status;
+		},
+		self: {
+			onHit: function (pokemon) {
 				pokemon.cureStatus();
-			} else {
-				return false;
-			}
+			},
 		},
 		secondary: false,
 		target: "normal",
@@ -13295,9 +13300,7 @@ let BattleMovedex = {
 		},
 		onAfterMoveSecondarySelf: function (pokemon, target, move) {
 			if (move.willChangeForme) {
-				if (pokemon.formeChange(pokemon.template.speciesid === 'meloettapirouette' ? 'Meloetta' : 'Meloetta-Pirouette')) {
-					this.add('-formechange', pokemon, pokemon.illusion ? pokemon.illusion.template.species : pokemon.template.species, '[msg]');
-				}
+				pokemon.formeChange(pokemon.template.speciesid === 'meloettapirouette' ? 'Meloetta' : 'Meloetta-Pirouette', this.effect, false, '[msg]');
 			}
 		},
 		target: "allAdjacentFoes",
@@ -13318,8 +13321,12 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {snatch: 1, heal: 1},
+		onTryMove: function (pokemon) {
+			if (pokemon.hp < pokemon.maxhp && pokemon.status !== 'slp' && !pokemon.hasAbility('comatose')) return;
+			this.add('-fail', pokemon);
+			return null;
+		},
 		onHit: function (target) {
-			if (target.hp >= target.maxhp) return false;
 			if (!target.setStatus('slp')) return false;
 			target.statusData.time = 3;
 			target.statusData.startTime = 3;
@@ -13801,6 +13808,7 @@ let BattleMovedex = {
 			onResidualOrder: 20,
 			onTypePriority: -1,
 			onType: function (types, pokemon) {
+				this.effectData.typeWas = types;
 				return types.filter(type => type !== 'Flying');
 			},
 		},
@@ -13946,6 +13954,7 @@ let BattleMovedex = {
 			duration: 5,
 			durationCallback: function (target, source, effect) {
 				if (source && source.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', effect);
 					return 7;
 				}
 				return 5;
@@ -17091,6 +17100,7 @@ let BattleMovedex = {
 			duration: 4,
 			durationCallback: function (target, source, effect) {
 				if (source && source.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', effect);
 					return 6;
 				}
 				return 4;
@@ -17948,6 +17958,7 @@ let BattleMovedex = {
 			duration: 5,
 			durationCallback: function (source, effect) {
 				if (source && source.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', effect);
 					return 7;
 				}
 				return 5;
@@ -18889,6 +18900,7 @@ let BattleMovedex = {
 			duration: 5,
 			durationCallback: function (source, effect) {
 				if (source && source.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', effect);
 					return 7;
 				}
 				return 5;

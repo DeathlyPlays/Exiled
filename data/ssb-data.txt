@@ -178,3 +178,17 @@ Special Move: Storm Kick
 	- Electric Type, Physical, Contact, 50 BP, 90% Accuracy, 16 PP. Hits three times.
 Notes: Bulky Sweeper.
 Rank: B+.
+
+Almighty Judgment
+(Arceus)
+@ Rainbow Plate
+	- Every turn, the user's HP restores 1/8th of their max HP. STAB moves get boosted by 1.3x. This item cannot be knocked off.
+EVs: 4 Def / 252 SpA / 252 Spe
+Timid Nature
+Ability: Almighty Presence
+	- Adaptability + Dazzling and changes type every turn.
+Moveset: Judgment, Substitute, Quiver Dance
+Special Move: Holy Dance
+	- Bird Type, Special, 80 BP, 100% Accuracy, 24 PP.
+Notes: N/A.
+Rank: N/A.

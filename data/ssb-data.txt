@@ -131,11 +131,11 @@ Modest Nature
 Ability: Cheap Move
 	- Turns into Fairy/Ghost and uses Cheap Attack when switched in.
 		- Cheap Attack
-			- Fairy Type, Special, 60 BP, Never misses, 40 PP.
-Moves: Moongeist Beam, Earth Power, Freeze-Dry
+			- Fairy Type, Special, 50 BP, Never misses, 64 PP.
+Moves: Moongeist Beam, Earth Power, Fleur Cannon
 Special Move: Fairy Beams
-	- Fairy Type, Special, 180 BP, Never misses, 10 PP. Reduces Special Attack by two stages.
-Notes: Powerful Revenge Killer who can utilize switching in as a decent attack tactic.
+	- Fairy Type, Special, 50 BP, Never misses, 16 PP. User switches out after damaging the target.
+Notes: Powerful Revenge Killer who can utilize switching in and out as a decent attack tactic.
 Rank: A.
 
 AlfaStorm

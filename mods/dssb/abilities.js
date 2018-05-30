@@ -5,8 +5,8 @@ exports.BattleAbilities = {
 	"cripplingdepression": {
 		id: "cripplingdepression",
 		name: "Crippling Depression",
-		//primordialseas
-		onStart: function (source) {
+		// Primordial Sea
+		onStart: function () {
 			this.setWeather("primordialsea");
 		},
 		onAnySetWeather: function (target, source, weather) {
@@ -33,7 +33,7 @@ exports.BattleAbilities = {
 			}
 		},
 		//swiftswim
-		onModifySpe: function (spe, pokemon) {
+		onModifySpe: function () {
 			if (this.isWeather(["raindance", "primordialsea"])) {
 				return this.chainModify(2);
 			}
@@ -46,7 +46,7 @@ exports.BattleAbilities = {
 		id: "roarplaying",
 		name: "Roarplaying",
 		desc: "Uses Roar then Focus Energy.",
-		onStart: function (pokemon, source) {
+		onStart: function (pokemon) {
 			this.add("-start", pokemon, "typechange", "Normal/Ghost");
 			pokemon.types = ["Normal", "Ghost"];
 			this.useMove("roar", pokemon);
@@ -76,7 +76,7 @@ exports.BattleAbilities = {
 		effect: {
 			duration: 1,
 			onBasePowerPriority: 8,
-			onBasePower: function (basePower, pokemon, target, move) {
+			onBasePower: function () {
 				return this.chainModify([0x1333, 0x1000]);
 			},
 		},
@@ -90,7 +90,7 @@ exports.BattleAbilities = {
 	"attackshield": {
 		id: "attackshield",
 		name: "Attack Shield",
-		//Magic Bounce
+		// Magic Bounce
 		onTryHitPriority: 1,
 		onTryHit: function (target, source, move) {
 			if (target === source || move.hasBounced || !move.flags["reflectable"]) {
@@ -102,11 +102,11 @@ exports.BattleAbilities = {
 			this.useMove(newMove, target, source);
 			return null;
 		},
-		//overcoat
-		onImmunity: function (type, pokemon) {
+		// Overcoat
+		onImmunity: function (type) {
 			if (type === "sandstorm" || type === "hail" || type === "powder") return false;
 		},
-		//Adaptability
+		// Adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
 		},
@@ -114,10 +114,10 @@ exports.BattleAbilities = {
 	},
 
 	// C733937 123
-	"chatoicarmor": {
+	"chaoticarmor": {
 		id: "chaoticarmor",
 		name: "Chaotic Armor",
-		//Prankster
+		// Prankster
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === "Status") {
 				return priority + 1;
@@ -128,7 +128,7 @@ exports.BattleAbilities = {
 				move.pranksterBoosted = true;
 			}
 		},
-		//Magic Bounce
+		// Magic Bounce
 		onTryHitPriority: 1,
 		onTryHit: function (target, source, move) {
 			if (target === source || move.hasBounced || !move.flags["reflectable"]) {
@@ -153,32 +153,25 @@ exports.BattleAbilities = {
 		effect: {
 			duration: 1,
 		},
-		desc: "Magic Bounce, and Prankster.",
+		desc: "Magic Bounce & Prankster.",
 	},
 
-	//Chandie
+	// Chandie
 	"magmaoverdrive": {
 		id: "magmaoverdrive",
 		name: "Magma Overdrive",
 		rating: 4.5,
-		desc: "Desolate Land + Adaptability + Tinted Lens; If hit by a Fire Move, it Special Attack raises by 1 stage.",
-		//Adaptability
+		desc: "Desolate Land, Adaptability & Flash Fire.",
+		// Adaptability
 		onModifyMove: function (move) {
 			move.stab = 2;
 		},
-		//Tinted Lens
-		onModifyDamage: function (damage, source, target, move) {
-			if (move.typeMod < 0) {
-				this.debug('Magma Overdrive boost');
-				return this.chainModify(2);
-			}
-		},
-		//Flash Fire
+		// Flash Fire
 		onTryHit: function (target, source, move) {
-			if (target !== source && move.type === 'Fire') {
+			if (target !== source && move.type === "Fire") {
 				move.accuracy = true;
-				if (!target.addVolatile('flashfire')) {
-					this.add('-immune', target, '[msg]', '[from] ability: Magma Overdrive');
+				if (!target.addVolatile("flashfire")) {
+					this.add("-immune", target, "[msg]", "[from] ability: Magma Overdrive");
 				}
 				return null;
 			}
@@ -186,32 +179,32 @@ exports.BattleAbilities = {
 		effect: {
 			noCopy: true, // doesn't get copied by Baton Pass
 			onStart: function (target) {
-				this.add('-start', target, 'ability: Magma Overdrive');
+				this.add("-start", target, "ability: Magma Overdrive");
 			},
 			onModifyAtkPriority: 5,
 			onModifyAtk: function (atk, attacker, defender, move) {
-				if (move.type === 'Fire') {
-					this.debug('Magma Overdrive boost');
+				if (move.type === "Fire") {
+					this.debug("Magma Overdrive boost");
 					return this.chainModify(1.5);
 				}
 			},
 			onModifySpAPriority: 5,
 			onModifySpA: function (atk, attacker, defender, move) {
-				if (move.type === 'Fire') {
-					this.debug('Magma Overdrive boost');
+				if (move.type === "Fire") {
+					this.debug("Magma Overdrive boost");
 					return this.chainModify(1.5);
 				}
 			},
 			onEnd: function (target) {
-				this.add('-end', target, 'ability: Magma Overdrive', '[silent]');
+				this.add("-end", target, "ability: Magma Overdrive", "[silent]");
 			},
 		},
-		//Desolate Land
-		onStart: function (source) {
-			this.setWeather('desolateland');
+		// Desolate Land
+		onStart: function () {
+			this.setWeather("desolateland");
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
+			if (this.getWeather().id === "desolateland" && !["desolateland", "primordialsea", "deltastream"].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -219,7 +212,7 @@ exports.BattleAbilities = {
 				for (let j = 0; j < this.sides[i].active.length; j++) {
 					let target = this.sides[i].active[j];
 					if (target === pokemon) continue;
-					if (target && target.hp && target.hasAbility('desolateland')) {
+					if (target && target.hp && target.hasAbility("desolateland")) {
 						this.weatherData.source = target;
 						return;
 					}
@@ -227,7 +220,7 @@ exports.BattleAbilities = {
 			}
 			this.clearWeather();
 			//Piece of Flash Fire
-			pokemon.removeVolatile('flashfire');
+			pokemon.removeVolatile("flashfire");
 		},
 	},
 
@@ -236,58 +229,59 @@ exports.BattleAbilities = {
 		name: "The Exiled Ones",
 		//dazzling
 		onFoeTryMove: function (target, source, effect) {
-			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
-				this.attrLastMove('[still]');
-				this.add('cant', this.effectData.target, 'ability: The Exiled Ones', effect, '[of] ' + target);
+			if ((source.side === this.effectData.target.side || effect.id === "perishsong") && effect.priority > 0.1 && effect.target !== "foeSide") {
+				this.attrLastMove("[still]");
+				this.add("cant", this.effectData.target, "ability: The Exiled Ones", effect, "[of] " + target);
 				return false;
 			}
 		},
-		//infiltrator + mold breaker
+		// Infiltrator & Mold Breaker
 		onModifyMove: function (move) {
 			move.infiltrates = true;
 			move.ignoreAbility = true;
 		},
-		//unaware
+		// Unaware
 		onAnyModifyBoost: function (boosts, target) {
 			let source = this.effectData.target;
 			if (source === target) return;
 			if (source === this.activePokemon && target === this.activeTarget) {
-				boosts['def'] = 0;
-				boosts['spd'] = 0;
-				boosts['evasion'] = 0;
+				boosts["def"] = 0;
+				boosts["spd"] = 0;
+				boosts["evasion"] = 0;
 			}
 			if (target === this.activePokemon && source === this.activeTarget) {
-				boosts['atk'] = 0;
-				boosts['spa'] = 0;
-				boosts['accuracy'] = 0;
+				boosts["atk"] = 0;
+				boosts["spa"] = 0;
+				boosts["accuracy"] = 0;
 			}
 		},
-		//air lock
+		// Air Lock
 		suppressWeather: true,
-		//This Ability can't be ignored
+		// Cannot be ignored
 		isUnbreakable: true,
-		//uses Topsy Turvy
+		// uses Topsy Turvy
 		onStart: function (pokemon) {
-			this.useMove('topsyturvy', pokemon);
+			this.useMove("topsyturvy", pokemon);
 		},
 		desc: "Dazzling, Infiltrator, Mold Breaker, Air Lock, Unaware, and this ability cannot be ignored.  On switch-in, the user uses Topsy Turvy.",
+		shortDesc: "Immune to being ignored, and priority. Ignores opponent's abilities, priority, stat changes, and substitutes. Uses Topsy-Turvy on switch-in.",
 	},
 
-	//SnorlaxTheRain
+	// SnorlaxTheRain
 	"scraroom": {
 		id: "scraroom",
 		name: "Scraroom",
 		desc: "Combination of Trick Room & Scrappy",
 		shortDesc: "Trick Room + Scrappy",
 		onStart: function (pokemon) {
-			this.useMove('trickroom', pokemon);
+			this.useMove("trickroom", pokemon);
 		},
 		onModifyMovePriority: -5,
 		onModifyMove: function (move) {
 			if (!move.ignoreImmunity) move.ignoreImmunity = {};
 			if (move.ignoreImmunity !== true) {
-				move.ignoreImmunity['Fighting'] = true;
-				move.ignoreImmunity['Normal'] = true;
+				move.ignoreImmunity["Fighting"] = true;
+				move.ignoreImmunity["Normal"] = true;
 			}
 		},
 	},
@@ -296,40 +290,17 @@ exports.BattleAbilities = {
 	"birdclaws": {
 		id: "birdclaws",
 		name: "Bird Claws",
-		desc: "Tough Claws + Immune to Ground",
+		desc: "Tough Claws, and immune to Ground",
 		//Tough Claws
 		onBasePower: function (basePower, attacker, defender, move) {
-			if (move.flags['contact']) {
+			if (move.flags["contact"]) {
 				return this.chainModify([0x14CD, 0x1000]);
 			}
 		},
 		onTryHit: function (target, source, move) {
-			if (move.type === 'Ground' && !target.activeTurns) {
-				this.add('-immune', target, '[msg]', '[from] ability: Bird Claws');
+			if (move.type === "Ground" && !target.activeTurns) {
+				this.add("-immune", target, "[msg]", "[from] ability: Bird Claws");
 				return null;
-			}
-		},
-	},
-
-	// Back At My Day
-	"timetraveler": {
-		id: "timetraveler",
-		name: "Time Traveler",
-		desc: "Sets Trick Room, Pressure, and Rough Skin.",
-		//trickroom
-		onStart: function (pokemon) {
-			this.useMove('trickroom', pokemon);
-		},
-		//pressure
-		onDeductPP: function (target, source) {
-			if (target.side === source.side) return;
-			return 1;
-		},
-		//roughskin
-		onAfterDamageOrder: 1,
-		onAfterDamage: function (damage, target, source, move) {
-			if (source && source !== target && move && move.flags['contact']) {
-				this.damage(source.maxhp / 8, source, target);
 			}
 		},
 	},
@@ -343,7 +314,7 @@ exports.BattleAbilities = {
 			this.add("-start", pokemon, "typechange", "Fairy/Ghost");
 			pokemon.types = ["Fairy", "Ghost"];
 			//uses Cheap Attack
-			this.useMove('cheapattack', pokemon);
+			this.useMove("cheapattack", pokemon);
 		},
 	},
 
@@ -356,20 +327,99 @@ exports.BattleAbilities = {
 			this.add("-start", pokemon, "typechange", "Grass/Electric");
 			pokemon.types = ["Grass", "Electric"];
 		},
-		//Queenly Majesty
+		// Queenly Majesty
 		onFoeTryMove: function (target, source, effect) {
-			if ((source.side === this.effectData.target.side || effect.id === 'perishsong') && effect.priority > 0.1 && effect.target !== 'foeSide') {
-				this.attrLastMove('[still]');
-				this.add('cant', this.effectData.target, 'ability: Queenly Majesty', effect, '[of]' + target);
+			if ((source.side === this.effectData.target.side || effect.id === "perishsong") && effect.priority > 0.1 && effect.target !== "foeSide") {
+				this.attrLastMove("[still]");
+				this.add("cant", this.effectData.target, "ability: This Queen Got Kicks", effect, "[of]" + target);
 				return false;
 			}
 		},
-		//Tough Claws
+		// Tough Claws
 		onBasePowerPriority: 8,
 		onBasePower: function (basePower, attacker, defender, move) {
-			if (move.flags['contact']) {
+			if (move.flags["contact"]) {
 				return this.chainModify([0x14CD, 0x1000]);
 			}
 		},
+	},
+
+	// Almighty Judgment
+	"almightypresence": {
+		desc: "Adaptability, changes type every turn, and Dazzling.",
+		onModifyMove: function (move) {
+			move.stab = 2;
+		},
+		onFoeTryMove: function (target, source, effect) {
+			if ((source.side === this.effectData.target.side || effect.id === "perishsong") && effect.priority > 0.1 && effect.target !== "foeSide") {
+				this.attrLastMove("[still]");
+				this.add("cant", this.effectData.target, "ability: Almighty Presence", effect, "[of] " + target);
+				return false;
+			}
+		},
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual: function (pokemon) {
+			if (pokemon.activeTurns) {
+				let r = this.random(17);
+				if (r === 1) {
+					this.add("-start", pokemon, "typechange", "Normal");
+					pokemon.types = ["Normal"];
+				} else if (r === 2) {
+					this.add("-start", pokemon, "typechange", "Fighting");
+					pokemon.types = ["Fighting"];
+				} else if (r === 3) {
+					this.add("-start", pokemon, "typechange", "Psychic");
+					pokemon.types = ["Psychic"];
+				} else if (r === 4) {
+					this.add("-start", pokemon, "typechange", "Ice");
+					pokemon.types = ["Ice"];
+				} else if (r === 5) {
+					this.add("-start", pokemon, "typechange", "Grass");
+					pokemon.types = ["Grass"];
+				} else if (r === 6) {
+					this.add("-start", pokemon, "typechange", "Fairy");
+					pokemon.types = ["Fairy"];
+				} else if (r === 7) {
+					this.add("-start", pokemon, "typechange", "Dark");
+					pokemon.types = ["Dark"];
+				} else if (r === 8) {
+					this.add("-start", pokemon, "typechange", "Water");
+					pokemon.types = ["Water"];
+				} else if (r === 9) {
+					this.add("-start", pokemon, "typechange", "Steel");
+					pokemon.types = ["Steel"];
+				} else if (r === 10) {
+					this.add("-start", pokemon, "typechange", "Fire");
+					pokemon.types = ["Fire"];
+				} else if (r === 11) {
+					this.add("-start", pokemon, "typechange", "Bug");
+					pokemon.types = ["Bug"];
+				} else if (r === 12) {
+					this.add("-start", pokemon, "typechange", "Electric");
+					pokemon.types = ["Electric"];
+				} else if (r === 13) {
+					this.add("-start", pokemon, "typechange", "Poison");
+					pokemon.types = ["Poison"];
+				} else if (r === 14) {
+					this.add("-start", pokemon, "typechange", "Ghost");
+					pokemon.types = ["Ghost"];
+				} else if (r === 15) {
+					this.add("-start", pokemon, "typechange", "Rock");
+					pokemon.types = ["Rock"];
+				} else if (r === 16) {
+					this.add("-start", pokemon, "typechange", "Ground");
+					pokemon.types = ["Ground"];
+				} else if (r === 17) {
+					this.add("-start", pokemon, "typechange", "Flying");
+					pokemon.types = ["Flying"];
+				} else {
+					this.add("-start", pokemon, "typechange", "Dragon");
+					pokemon.types = ["Dragon"];
+				}
+			}
+		},
+		id: "almightypresence",
+		name: "Almighty Presence",
 	},
 };

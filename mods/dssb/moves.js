@@ -111,7 +111,7 @@ exports.BattleMovedex = {
 			effect: {
 				duration: 10,
 				onStart: function (pokemon, source) {
-					this.add('-start', pokemon, 'Voodoo Magic', '[of] ' + source);
+					this.add("-start", pokemon, "Voodoo Magic", "[of] " + source);
 				},
 				onResidualOrder: 10,
 				onResidual: function (pokemon) {
@@ -119,21 +119,21 @@ exports.BattleMovedex = {
 				},
 			},
 		},
-		onStart: function (pokemon, source) {
-			this.add('-start', pokemon, 'Voodoo Magic');
+		onStart: function (pokemon) {
+			this.add("-start", pokemon, "Voodoo Magic");
 		},
 		// Item suppression implemented in BattlePokemon.ignoringItem() within battle-engine.js
 		onResidualOrder: 18,
 		onEnd: function (pokemon) {
-			this.add('-end', pokemon, 'Voodoo Magic');
+			this.add("-end", pokemon, "Voodoo Magic");
 		},
 		onHit: function (target, source, move) {
-			if (!target.addVolatile('trapped', source, move, 'trapper')) {
-				this.add('-fail', target);
+			if (!target.addVolatile("trapped", source, move, "trapper")) {
+				this.add("-fail", target);
 			}
 		},
 		onHitField: function () {
-			this.add('-clearallboost');
+			this.add("-clearallboost");
 			for (let i = 0; i < this.sides.length; i++) {
 				for (let j = 0; j < this.sides[i].active.length; j++) {
 					if (this.sides[i].active[j] && this.sides[i].active[j].isActive) this.sides[i].active[j].clearBoosts();
@@ -142,34 +142,34 @@ exports.BattleMovedex = {
 		},
 		effect: {
 			duration: 10,
-			durationCallback: function (target, source, effect) {
-				if (source && source.hasAbility('persistent')) {
+			durationCallback: function (target, source) {
+				if (source && source.hasAbility("persistent")) {
 					return 15;
 				}
 				return 10;
 			},
 			onStart: function (pokemon) {
-				this.add('-start', pokemon, 'move: Voodoo Magic');
-				this.add('-endability', pokemon);
-				this.singleEvent('End', this.getAbility(pokemon.ability), pokemon.abilityData, pokemon, pokemon, 'gastroacid');
+				this.add("-start", pokemon, "move: Voodoo Magic");
+				this.add("-endability", pokemon);
+				this.singleEvent("End", this.getAbility(pokemon.ability), pokemon.abilityData, pokemon, pokemon, "gastroacid");
 			},
 			onDisableMove: function (pokemon) {
 				for (let i = 0; i < pokemon.moveset.length; i++) {
-					if (this.getMove(pokemon.moveset[i].id).flags['heal']) {
+					if (this.getMove(pokemon.moveset[i].id).flags["heal"]) {
 						pokemon.disableMove(pokemon.moveset[i].id);
 					}
 				}
 			},
 			onBeforeMovePriority: 6,
 			onBeforeMove: function (pokemon, target, move) {
-				if (move.flags['heal']) {
-					this.add('cant', pokemon, 'move: Voodoo Magic', move);
+				if (move.flags["heal"]) {
+					this.add("cant", pokemon, "move: Voodoo Magic", move);
 					return false;
 				}
 			},
 			onResidualOrder: 17,
 			onEnd: function (pokemon) {
-				this.add('-end', pokemon, 'move: Voodoo Magic');
+				this.add("-end", pokemon, "move: Voodoo Magic");
 			},
 			onTryHeal: false,
 			onAccuracyPriority: 6,
@@ -183,10 +183,10 @@ exports.BattleMovedex = {
 				return false;
 			}
 			// will shatter screens through sub, before you hit
-			if (pokemon.runImmunity('Normal')) {
-				pokemon.side.removeSideCondition('reflect');
-				pokemon.side.removeSideCondition('lightscreen');
-				pokemon.side.removeSideCondition('auroraveil');
+			if (pokemon.runImmunity("Normal")) {
+				pokemon.side.removeSideCondition("reflect");
+				pokemon.side.removeSideCondition("lightscreen");
+				pokemon.side.removeSideCondition("auroraveil");
 			}
 		},
 		secondaries: [
@@ -210,9 +210,9 @@ exports.BattleMovedex = {
 				volatileStatus: "gastroacid",
 			},
 		],
-		onModifyMove: function (move, pokemon, target) {
-			move.type = '???';
-			this.add('-activate', pokemon, 'move: Voodoo Magic');
+		onModifyMove: function (move, pokemon) {
+			move.type = "???";
+			this.add("-activate", pokemon, "move: Voodoo Magic");
 		},
 		type: "Normal",
 		target: "normal",
@@ -238,8 +238,8 @@ exports.BattleMovedex = {
 		shortDesc: "+1 SpA, SpD & Spe.",
 		priority: 1,
 		onHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, 'Dark Pulse', target);
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Dark Pulse", target);
 		},
 		flags: {
 			protect: 1,
@@ -274,11 +274,11 @@ exports.BattleMovedex = {
 		},
 		onTryHitPriority: 8,
 		onTryHit: function (target, source) {
-			target.trySetStatus('brn', source);
+			target.trySetStatus("brn", source);
 		},
-		onPrepareHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Inferno Overdrive", source);
+		onPrepareHit: function (target, source) {
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Inferno Overdrive", source);
 		},
 		pp: 10,
 		target: "normal",
@@ -299,8 +299,8 @@ exports.BattleMovedex = {
 		desc: "Always goes first.",
 		priority: 10,
 		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, 'Searing Shot', target);
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Searing Shot", target);
 		},
 		flags: {
 			protect: 1,
@@ -337,13 +337,10 @@ exports.BattleMovedex = {
 		category: "Special",
 		accuracy: 100,
 		priority: 0,
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Hidden Power", target);
-		},
-		onHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('c|%Almighty Judgment|/me /me\'s /me /me\'s /me /me\'s, let that sink in.');
+		onHit: function (source, target) {
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Hidden Power", target);
+			this.add("c|%Almighty Judgment|/me /me's /me /me's /me /me's, let that sink in.");
 		},
 		flags: {protect: 1, mirror: 1},
 		secondary: false,
@@ -354,10 +351,19 @@ exports.BattleMovedex = {
 
 	"judgment": {
 		inherit: true,
+		desc: "This move's type depends on the user's held Plate. However if this Pokemon is named Almighty Judgment, this move deals typeless damage.",
+		shortDesc: "Type varies based on the held Plate. If the Pokemon is AJ, this is typeless.",
 		onModifyMove: function (move, pokemon) {
-			let type = pokemon.types[0];
-			if (type === "Bird") type = "???";
-			move.type = type;
+			if (toId(pokemon.name) === "almightyjudgment") {
+				let type = pokemon.types[0];
+				if (type === "Bird") type = "???";
+				move.type = type;
+			} else {
+				const item = pokemon.getItem();
+				if (item.id && item.onPlate && !item.zMove) {
+					move.type = item.onPlate;
+				}
+			}
 		},
 	},
 
@@ -380,12 +386,12 @@ exports.BattleMovedex = {
 		shortDesc: "+1 Atk & Spe + Foe becomes Dragon type.",
 		priority: 1,
 		onHit: function (target) {
-			if (!target.setType('Dragon')) return false;
-			this.add('-start', target, 'typechange', 'Dragon');
+			if (!target.setType("Dragon")) return false;
+			this.add("-start", target, "typechange", "Dragon");
 		},
 		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Roar of Time", target);
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Roar of Time", target);
 		},
 		secondary: false,
 		target: "normal",
@@ -404,7 +410,7 @@ exports.BattleMovedex = {
 		priority: 0,
 		basePower: 80,
 		self: {
-			onHit: function (pokemon, target, move) {
+			onHit: function (pokemon) {
 				// substitute moves
 				function setMove(oldMove, moveid) {
 					let index = pokemon.moves.indexOf(oldMove);
@@ -427,12 +433,12 @@ exports.BattleMovedex = {
 					["sludgewave", "storedpower"],
 					["psychic", "cosmicpower"],
 				];
-				if (pokemon.template.speciesid === 'darkrai' && pokemon.formeChange('Cresselia')) {
+				if (pokemon.template.speciesid === "darkrai" && pokemon.formeChange("Cresselia")) {
 					subs.forEach(s => setMove(s[0], s[1]));
-					this.add('-formechange', pokemon, 'Cresselia', '[msg]');
-				} else if (pokemon.formeChange('Cresselia')) {
+					this.add("-formechange", pokemon, "Cresselia", "[msg]");
+				} else if (pokemon.formeChange("Cresselia")) {
 					subs.forEach(s => setMove(s[1], s[0]));
-					this.add('-formechange', pokemon, 'Darkrai', '[msg]');
+					this.add("-formechange", pokemon, "Darkrai", "[msg]");
 				}
 				// make changing form available in consecutive turns
 				delete pokemon.volatiles.stall;
@@ -456,26 +462,15 @@ exports.BattleMovedex = {
 		name: "Snorlax Slam",
 		pp: 5,
 		priority: 0,
-		//Stolen from Sleep Talk
 		flags: {contact: 1, protect: 1, mirror: 1},
 		sleepUsable: true,
-		onPrepareHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Body Slam", target);
-		},
-		onHit: function (target) {
-			this.add('c|+SnorlaxTheRain|Beware of the biggest body slam u will ever seen!');
+		onHit: function (target, source) {
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Body Slam", target);
+			this.add("c|+SnorlaxTheRain|Beware of the biggest body slam u will ever seen!");
 		},
 		target: "normal",
 		type: "Normal",
-	},
-
-	"moongeistbeam": {
-		inherit: true,
-		onPrepareHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Never-Ending Nightmare", target);
-		},
 	},
 
 	// CielTSnow
@@ -497,9 +492,9 @@ exports.BattleMovedex = {
 		shortDesc: "Hits in Physical Defense. +1 user's Sp. Atk.",
 		flags: {protect: 1, mirror: 1},
 		target: "normal",
-		onPrepareHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Mach Punch", target);
+		onPrepareHit: function (target, source) {
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Mach Punch", target);
 		},
 		type: "Fighting",
 	},
@@ -516,11 +511,11 @@ exports.BattleMovedex = {
 		secondary: false,
 		category: "Special",
 		onHit: function () {
-			this.add('c|%Back At My Day|1st');
+			this.add("c|%Back At My Day|1st");
 		},
 		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Dazzling Gleam", target);
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Dazzling Gleam", target);
 		},
 		flags: {
 			protect: 1,
@@ -542,11 +537,11 @@ exports.BattleMovedex = {
 		priority: 0,
 		secondary: false,
 		onHit: function () {
-			this.add('c|%Back At My Day|do da wave');
+			this.add("c|%Back At My Day|do da wave");
 		},
 		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Hyper Beam", target);
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Hyper Beam", target);
 		},
 		self: {
 			boosts: {
@@ -573,8 +568,8 @@ exports.BattleMovedex = {
 		priority: 0,
 		secondary: false,
 		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Triple Kick", target);
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "Triple Kick", target);
 		},
 		multihit: 3,
 		flags: {
@@ -602,8 +597,8 @@ exports.BattleMovedex = {
 			contact: 1,
 		},
 		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "High Jump Kick", target);
+			this.attrLastMove("[still]");
+			this.add("-anim", source, "High Jump Kick", target);
 		},
 		type: "Electric",
 		target: "normal",

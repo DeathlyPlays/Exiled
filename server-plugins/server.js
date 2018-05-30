@@ -7,19 +7,19 @@ const http = require("http");
 const Pokedex = require("../data/pokedex.js").BattlePokedex;
 
 const bubbleLetterMap = new Map([
-	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
-	['n', '\u24DD'], ['o', '\u24DE'], ['p', '\u24DF'], ['q', '\u24E0'], ['r', '\u24E1'], ['s', '\u24E2'], ['t', '\u24E3'], ['u', '\u24E4'], ['v', '\u24E5'], ['w', '\u24E6'], ['x', '\u24E7'], ['y', '\u24E8'], ['z', '\u24E9'],
-	['A', '\u24B6'], ['B', '\u24B7'], ['C', '\u24B8'], ['D', '\u24B9'], ['E', '\u24BA'], ['F', '\u24BB'], ['G', '\u24BC'], ['H', '\u24BD'], ['I', '\u24BE'], ['J', '\u24BF'], ['K', '\u24C0'], ['L', '\u24C1'], ['M', '\u24C2'],
-	['N', '\u24C3'], ['O', '\u24C4'], ['P', '\u24C5'], ['Q', '\u24C6'], ['R', '\u24C7'], ['S', '\u24C8'], ['T', '\u24C9'], ['U', '\u24CA'], ['V', '\u24CB'], ['W', '\u24CC'], ['X', '\u24CD'], ['Y', '\u24CE'], ['Z', '\u24CF'],
-	['1', '\u2460'], ['2', '\u2461'], ['3', '\u2462'], ['4', '\u2463'], ['5', '\u2464'], ['6', '\u2465'], ['7', '\u2466'], ['8', '\u2467'], ['9', '\u2468'], ['0', '\u24EA'],
+	["a", "\u24D0"], ["b", "\u24D1"], ["c", "\u24D2"], ["d", "\u24D3"], ["e", "\u24D4"], ["f", "\u24D5"], ["g", "\u24D6"], ["h", "\u24D7"], ["i", "\u24D8"], ["j", "\u24D9"], ["k", "\u24DA"], ["l", "\u24DB"], ["m", "\u24DC"],
+	["n", "\u24DD"], ["o", "\u24DE"], ["p", "\u24DF"], ["q", "\u24E0"], ["r", "\u24E1"], ["s", "\u24E2"], ["t", "\u24E3"], ["u", "\u24E4"], ["v", "\u24E5"], ["w", "\u24E6"], ["x", "\u24E7"], ["y", "\u24E8"], ["z", "\u24E9"],
+	["A", "\u24B6"], ["B", "\u24B7"], ["C", "\u24B8"], ["D", "\u24B9"], ["E", "\u24BA"], ["F", "\u24BB"], ["G", "\u24BC"], ["H", "\u24BD"], ["I", "\u24BE"], ["J", "\u24BF"], ["K", "\u24C0"], ["L", "\u24C1"], ["M", "\u24C2"],
+	["N", "\u24C3"], ["O", "\u24C4"], ["P", "\u24C5"], ["Q", "\u24C6"], ["R", "\u24C7"], ["S", "\u24C8"], ["T", "\u24C9"], ["U", "\u24CA"], ["V", "\u24CB"], ["W", "\u24CC"], ["X", "\u24CD"], ["Y", "\u24CE"], ["Z", "\u24CF"],
+	["1", "\u2460"], ["2", "\u2461"], ["3", "\u2462"], ["4", "\u2463"], ["5", "\u2464"], ["6", "\u2465"], ["7", "\u2466"], ["8", "\u2467"], ["9", "\u2468"], ["0", "\u24EA"],
 ]);
 
 const asciiMap = new Map([
-	['\u24D0', 'a'], ['\u24D1', 'b'], ['\u24D2', 'c'], ['\u24D3', 'd'], ['\u24D4', 'e'], ['\u24D5', 'f'], ['\u24D6', 'g'], ['\u24D7', 'h'], ['\u24D8', 'i'], ['\u24D9', 'j'], ['\u24DA', 'k'], ['\u24DB', 'l'], ['\u24DC', 'm'],
-	['\u24DD', 'n'], ['\u24DE', 'o'], ['\u24DF', 'p'], ['\u24E0', 'q'], ['\u24E1', 'r'], ['\u24E2', 's'], ['\u24E3', 't'], ['\u24E4', 'u'], ['\u24E5', 'v'], ['\u24E6', 'w'], ['\u24E7', 'x'], ['\u24E8', 'y'], ['\u24E9', 'z'],
-	['\u24B6', 'A'], ['\u24B7', 'B'], ['\u24B8', 'C'], ['\u24B9', 'D'], ['\u24BA', 'E'], ['\u24BB', 'F'], ['\u24BC', 'G'], ['\u24BD', 'H'], ['\u24BE', 'I'], ['\u24BF', 'J'], ['\u24C0', 'K'], ['\u24C1', 'L'], ['\u24C2', 'M'],
-	['\u24C3', 'N'], ['\u24C4', 'O'], ['\u24C5', 'P'], ['\u24C6', 'Q'], ['\u24C7', 'R'], ['\u24C8', 'S'], ['\u24C9', 'T'], ['\u24CA', 'U'], ['\u24CB', 'V'], ['\u24CC', 'W'], ['\u24CD', 'X'], ['\u24CE', 'Y'], ['\u24CF', 'Z'],
-	['\u2460', '1'], ['\u2461', '2'], ['\u2462', '3'], ['\u2463', '4'], ['\u2464', '5'], ['\u2465', '6'], ['\u2466', '7'], ['\u2467', '8'], ['\u2468', '9'], ['\u24EA', '0'],
+	["\u24D0", "a"], ["\u24D1", "b"], ["\u24D2", "c"], ["\u24D3", "d"], ["\u24D4", "e"], ["\u24D5", "f"], ["\u24D6", "g"], ["\u24D7", "h"], ["\u24D8", "i"], ["\u24D9", "j"], ["\u24DA", "k"], ["\u24DB", "l"], ["\u24DC", "m"],
+	["\u24DD", "n"], ["\u24DE", "o"], ["\u24DF", "p"], ["\u24E0", "q"], ["\u24E1", "r"], ["\u24E2", "s"], ["\u24E3", "t"], ["\u24E4", "u"], ["\u24E5", "v"], ["\u24E6", "w"], ["\u24E7", "x"], ["\u24E8", "y"], ["\u24E9", "z"],
+	["\u24B6", "A"], ["\u24B7", "B"], ["\u24B8", "C"], ["\u24B9", "D"], ["\u24BA", "E"], ["\u24BB", "F"], ["\u24BC", "G"], ["\u24BD", "H"], ["\u24BE", "I"], ["\u24BF", "J"], ["\u24C0", "K"], ["\u24C1", "L"], ["\u24C2", "M"],
+	["\u24C3", "N"], ["\u24C4", "O"], ["\u24C5", "P"], ["\u24C6", "Q"], ["\u24C7", "R"], ["\u24C8", "S"], ["\u24C9", "T"], ["\u24CA", "U"], ["\u24CB", "V"], ["\u24CC", "W"], ["\u24CD", "X"], ["\u24CE", "Y"], ["\u24CF", "Z"],
+	["\u2460", "1"], ["\u2461", "2"], ["\u2462", "3"], ["\u2463", "4"], ["\u2464", "5"], ["\u2465", "6"], ["\u2466", "7"], ["\u2467", "8"], ["\u2468", "9"], ["\u24EA", "0"],
 ]);
 
 let amCache = {
@@ -34,26 +34,26 @@ let defCache = {};
 let pmName = `~${Config.serverName} Server`;
 
 Server.img = function (link, height, width) {
-	if (!link) return '<font color="maroon">ERROR : You must supply a link.</font>';
+	if (!link) return `<font color="maroon">ERROR : You must supply a link.</font>`;
 	return `<img src="${link}" ${(height ? `height="${height}"` : ``)} ${(width ? `width="${width}"` : ``)}/>`;
 };
 
 Server.font = function (text, color, bold) {
-	if (!text) return '<font color="maroon">ERROR : Please provide some text.</font>';
-	return `<font color="${(color ? color : 'black')}">${(bold ? '<strong>' : '')}${text}${(bold ? '</strong>' : '')}</font>`;
+	if (!text) return `<font color="maroon">ERROR : Please provide some text.</font>`;
+	return `<font color="${(color ? color : "black")}">${(bold ? "<strong>" : "")}${text}${(bold ? "</strong>" : "")}</font>`;
 };
 
 function parseStatus(text, encoding) {
 	if (encoding) {
 		text = text
-			.split('')
+			.split("")
 			.map(char => bubbleLetterMap.get(char))
-			.join('');
+			.join("");
 	} else {
 		text = text
-			.split('')
+			.split("")
 			.map(char => asciiMap.get(char))
-			.join('');
+			.join("");
 	}
 	return text;
 }
@@ -61,8 +61,8 @@ function parseStatus(text, encoding) {
 function postAds() {
 	if (Rooms.global.ads.length > 0) {
 		let ad = Rooms.global.ads.shift();
-		Rooms('lobby').addRaw(`<div class="infobox"><a href="/${ad["room"]}" class="ilink"><font color="#04B404"> Advertisement <strong>${ad["room"]}</strong>:</font> ${ad["message"]}</a>  -${ad["user"]}</div>`);
-		Rooms('lobby').update();
+		Rooms("lobby").addRaw(`<div class="infobox"><a href="/${ad["room"]}" class="ilink"><font color="#04B404"> Advertisement <strong>${ad["room"]}</strong>:</font> ${ad["message"]}</a>  -${ad["user"]}</div>`);
+		Rooms("lobby").update();
 	}
 }
 
@@ -89,7 +89,7 @@ function clearRoom(room) {
 	let len = (room.log.log && room.log.log.length) || 0;
 	let users = [];
 	while (len--) {
-		room.log.log[len] = '';
+		room.log.log[len] = "";
 	}
 	for (let u in room.users) {
 		users.push(u);
@@ -107,15 +107,15 @@ Server.regdate = function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);
 	let req = https.get(`https://pokemonshowdown.com/users/${target}.json`, res => {
-		let data = '';
-		res.on('data', chunk => {
+		let data = "";
+		res.on("data", chunk => {
 			data += chunk;
-		}).on('end', () => {
+		}).on("end", () => {
 			data = JSON.parse(data);
-			let date = data['registertime'];
+			let date = data["registertime"];
 			if (date !== 0 && date.toString().length < 13) {
 				while (date.toString().length < 13) {
-					date = Number(date.toString() + '0');
+					date = Number(date.toString() + "0");
 				}
 			}
 			if (date !== 0) {
@@ -130,39 +130,39 @@ Server.regdate = function (target, callback) {
 
 function loadRegdateCache() {
 	try {
-		regdateCache = JSON.parse(FS('config/regdate.json').readIfExistsSync());
+		regdateCache = JSON.parse(FS("config/regdate.json").readIfExistsSync());
 	} catch (e) {}
 }
 loadRegdateCache();
 
 function saveRegdateCache() {
-	FS('config/regdate.json').writeSync(JSON.stringify(regdateCache));
+	FS("config/regdate.json").writeSync(JSON.stringify(regdateCache));
 }
 
 let messages = [
-	"has vanished into nothingness!",
-	"used Explosion!",
-	"fell into the void.",
-	"went into a cave without a repel!",
-	"has left the building.",
-	"was forced to give StevoDuhHero's mom an oil massage!",
-	"was hit by Magikarp's Revenge!",
-	"ate a bomb!",
-	"is blasting off again!",
-	"(Quit: oh god how did this get here i am not good with computer)",
-	"was unfortunate and didn't get a cool message.",
-	"{{user}}'s mama accidently kicked {{user}} from the server!",
-	"felt Insist's wrath.",
-	"got rekt by Travis CI!",
-	"exited life.exe.",
-	"found a species called \"friends\" (whatever that means).",
+	`has vanished into nothingness!`,
+	`used Explosion!`,
+	`fell into the void.`,
+	`went into a cave without a repel!`,
+	`has left the building.`,
+	`was forced to give StevoDuhHero's mom an oil massage!`,
+	`was hit by Magikarp's Revenge!`,
+	`ate a bomb!`,
+	`is blasting off again!`,
+	`(Quit: oh god how did this get here i am not good with computer)`,
+	`was unfortunate and didn't get a cool message.`,
+	`{{user}}'s mama accidently kicked {{user}} from the server!`,
+	`felt Insist's wrath.`,
+	`got rekt by Travis CI!`,
+	`exited life.exe.`,
+	`found a species called "friends" (whatever that means).`,
 ];
 
 exports.commands = {
-	useroftheweek: 'uotw',
+	useroftheweek: "uotw",
 	uotw: function (target, room, user) {
 		if (toId(target.length) >= 19) return this.errorReply("Usernames have to be 18 characters or less");
-		if (!this.can('mute', null, room)) return false;
+		if (!this.can("mute", null, room)) return false;
 		if (!room.chatRoomData) return;
 		if (!target) {
 			if (!this.runBroadcast()) return;
@@ -180,12 +180,12 @@ exports.commands = {
 		room.chatRoomData.user = Chat.escapeHTML(target);
 		Rooms.global.writeChatRoomData();
 		room.addRaw(`<div class="broadcast-green"><strong>The User of the Week is: ${Server.nameColor(room.chatRoomData.user, true)}.</strong></div>`);
-		this.addModAction(`${Chat.escapeHTML(user.name)} updated the User of the Week to "${room.chatRoomData.user}".`);
+		this.addModAction(`${user.name} updated the User of the Week to "${room.chatRoomData.user}".`);
 	},
-	useroftheweekhelp: 'uotwhelp',
+	useroftheweekhelp: "uotwhelp",
 	uotwhelp: [
-		"/uotw - View the current User of the Week.",
-		"/uotw [user] - Set the User of the Week. Requires: % or higher.",
+		`/uotw - View the current User of the Week.
+		/uotw [user] - Set the User of the Week. Requires: % or higher.`,
 	],
 
 	etour: function (target) {
@@ -200,33 +200,33 @@ exports.commands = {
 	},
 	rtourhelp: ["/rtour [format] - Creates a round robin tournament."],
 
-	autovoice: 'autorank',
-	autodriver: 'autorank',
-	automod: 'autorank',
-	autoowner: 'autorank',
-	autopromote: 'autorank',
+	autovoice: "autorank",
+	autodriver: "autorank",
+	automod: "autorank",
+	autoowner: "autorank",
+	autopromote: "autorank",
 	autorank: function (target, room, user, connection, cmd) {
 		switch (cmd) {
-		case 'autovoice':
-			target = '+';
+		case "autovoice":
+			target = "+";
 			break;
-		case 'autodriver':
-			target = '%';
+		case "autodriver":
+			target = "%";
 			break;
-		case 'automod':
-			target = '@';
+		case "automod":
+			target = "@";
 			break;
-		case 'autoleader':
-			target = '&';
+		case "autoleader":
+			target = "&";
 			break;
-		case 'autoowner':
-			target = '#';
+		case "autoowner":
+			target = "#";
 			break;
 		}
 
 		if (!target) return this.parse("/autorankhelp");
-		if (!this.can('roommod', null, room)) return false;
-		if (room.isPersonal) return this.errorReply('Autorank is not currently a feature in groupchats.');
+		if (!this.can("roommod", null, room)) return false;
+		if (room.isPersonal) return this.errorReply("Autorank is not currently a feature in groupchats.");
 		target = target.trim();
 
 		if (this.meansNo(target) && room.autorank) {
@@ -239,7 +239,7 @@ exports.commands = {
 		if (room.autorank && room.autorank === target) return this.errorReply(`Autorank is already set to "${target}".`);
 
 		if (Config.groups[target] && !Config.groups[target].globalonly) {
-			if (target === '#' && user.userid !== room.founder) return this.errorReply("You can't set autorank to # unless you're the room founder.");
+			if (target === "#" && user.userid !== room.founder) return this.errorReply("You can't set autorank to # unless you're the room founder.");
 			room.autorank = target;
 			room.chatRoomData.autorank = target;
 			Rooms.global.writeChatRoomData();
@@ -290,7 +290,7 @@ exports.commands = {
 				data += chunk;
 			}).on(`end`, () => {
 				if (data.charAt(1) !== `{`) {
-					this.sendReplyBox(`Error retrieving definition for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
+					this.sendReplyBox(`Error retrieving definition for <strong>"${target}"</strong>.`);
 					if (room) room.update();
 					return;
 				}
@@ -304,7 +304,7 @@ exports.commands = {
 					let count = 1;
 					for (let u in data) {
 						if (count > 3) break;
-						output += `(<strong>${count}</strong>) ${Chat.escapeHTML(data[u][`text`])}<br />`;
+						output += `(<strong>${count}</strong>) ${data[u][`text`]}<br />`;
 						count++;
 					}
 					this.sendReplyBox(output);
@@ -320,7 +320,7 @@ exports.commands = {
 	"!urbandefine": true,
 	u: "urbandefine",
 	ud: "urbandefine",
-	urbandefine: function (target, room, user) {
+	urbandefine: function (target, room) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse("/help urbandefine");
 		if (target.toString() > 50) return this.errorReply("Phrase can not be longer than 50 characters.");
@@ -344,23 +344,23 @@ exports.commands = {
 				data += chunk;
 			}).on(`end`, () => {
 				if (data.charAt(0) !== `{`) {
-					this.sendReplyBox(`Error retrieving definition for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
+					this.sendReplyBox(`Error retrieving definition for <strong>"${target}"</strong>.`);
 					if (room) room.update();
 					return;
 				}
 				data = JSON.parse(data);
 				let definitions = data[`list`];
 				if (data[`result_type`] === `no_results` || !data) {
-					this.sendReplyBox(`No results for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
+					this.sendReplyBox(`No results for <strong>"${target}"</strong>.`);
 					if (room) room.update();
 					return;
 				} else {
 					if (!definitions[0][`word`] || !definitions[0][`definition`]) {
-						this.sendReplyBox(`No results for <strong>"${Chat.escapeHTML(target)}"</strong>.`);
+						this.sendReplyBox(`No results for <strong>"${target}"</strong>.`);
 						if (room) room.update();
 						return;
 					}
-					let output = `<strong>${Chat.escapeHTML(definitions[0][`word`])}</strong> ${Chat.escapeHTML(definitions[0][`definition`]).replace(/\r\n/g, `<br />`).replace(/\n/g, ` `)}`;
+					let output = `<strong>${definitions[0][`word`]}</strong> ${definitions[0][`definition`].replace(/\r\n/g, `<br />`).replace(/\n/g, ` `)}`;
 					if (output.length > 400) output = output.slice(0, 400) + `...`;
 					this.sendReplyBox(output);
 					udCache[toId(target)] = output;
@@ -628,7 +628,7 @@ exports.commands = {
 		let targetUser = Users.getExact(user.userid + target);
 		if (targetUser && targetUser !== user && targetUser.name === `${user.name} - ${target}`) {
 			targetUser.resetName();
-			targetUser.send(`|nametaken||Your name conflicts with ${user.name} ${(user.name.substr(-1) === "s" ? "'" : "'s")} new away status.`);
+			targetUser.send(`|nametaken||Your name conflicts with ${user.name}'${(user.name.substr(-1).endsWith("s") ? `` : `s`)} new away status.`);
 		}
 
 		if (user.can("mute", null, room)) this.add(`|raw|-- ${Server.nameColor(user.name, true)} is now ${target.toLowerCase()}.`);
@@ -662,19 +662,19 @@ exports.commands = {
 	backhelp: ["/back - Sets a users away status back to normal."],
 
 	"!dssb": true,
-	dssb: function (target, room, user) {
+	dssb: function (target) {
 		if (!this.runBroadcast()) return false;
 		if (!target || target === "help") return this.parse("/help dssb");
 		if (target === "credits") return this.parse("/dssbcredits");
-		if (told(target) === "bamd") target = "backatmyday";
-		if (told(target) === "c7") target = "c733937123";
-		if (told(target) === "as") target = "alfastorm";
-		if (told(target) === "aj") target = "almightyjudgment";
-		if (told(target) === "ciel") target = "cieltsnow";
-		if (told(target) === "exiler") target = "theexiler";
-		if (told(target) === "str") target = "snorlaxtherain";
+		if (toId(target) === "bamd") target = "backatmyday";
+		if (toId(target) === "c7") target = "c733937123";
+		if (toId(target) === "as") target = "alfastorm";
+		if (toId(target) === "aj") target = "almightyjudgment";
+		if (toId(target) === "ciel") target = "cieltsnow";
+		if (toId(target) === "exiler") target = "theexiler";
+		if (toId(target) === "str") target = "snorlaxtherain";
 		let targetData = getMonData(toId(target));
-		if (!targetData) return this.errorReply(`The staffmon "${toId(target)}" could not be found.`);
+		if (!targetData) return this.errorReply(`The staffmon "${target}" could not be found.`);
 		return this.sendReplyBox(targetData);
 	},
 	dssbhelp: [
@@ -682,13 +682,14 @@ exports.commands = {
 		/dssbcredits - Displays the credits of the primary creators of DSSB.`,
 	],
 
-	dssbcredits: function (target, room, user) {
+	"!dssbcredits": true,
+	dssbdevelopers: "dssbcredits",
+	dssbcredits: function () {
 		if (!this.runBroadcast()) return;
 		let popup = `<font size=5 color=#000080><u><strong>DSSB Credits</strong></u></font><br />` +
 			`<br />` +
 			`<u><strong>Programmers:</u></strong><br />` +
 			`- ${Server.nameColor("Insist", true)} (Head Developer, Idea, Balancer, Concepts, Entries)<br />` +
-			`- ${Server.nameColor("Lycanium Z", true)} (Assistant Developer)<br />` +
 			`- ${Server.nameColor("Back At My Day", true)} (Entries, Developments)<br />` +
 			`- ${Server.nameColor("flufi", true)} (Development)<br />` +
 			`<u><strong>Special Thanks:</strong></u><br />` +
@@ -700,7 +701,7 @@ exports.commands = {
 	dub: "dubtrack",
 	radio: "dubtrack",
 	dubtrackfm: "dubtrack",
-	dubtrack: function (target, room, user) {
+	dubtrack: function (target, room) {
 		if (!this.runBroadcast()) return;
 		let nowPlaying = "";
 		let options = {
@@ -716,7 +717,7 @@ exports.commands = {
 			}).on("end", () => {
 				if (data.charAt(0) === "{") {
 					data = JSON.parse(data);
-					if (data["data"] && data["data"]["currentSong"]) nowPlaying = `<br /><strong>Now Playing:</strong> ${Chat.escapeHTML(data["data"]["currentSong"].name)}`;
+					if (data["data"] && data["data"]["currentSong"]) nowPlaying = `<br /><strong>Now Playing:</strong> ${data["data"]["currentSong"].name}`;
 				}
 				this.sendReplyBox(`Join our dubtrack.fm room <a href="https://www.dubtrack.fm/join/exiled_147873230374424">here!</a>${nowPlaying}`);
 				room.update();
@@ -758,7 +759,7 @@ exports.commands = {
 
 		function regdateReply(date) {
 			if (date === 0) {
-				return `${Server.nameColor(target, true)} <strong><font color='red'>is not registered.</font></strong>`;
+				return `${Server.nameColor(target, true)} <strong><font color="red">is not registered.</font></strong>`;
 			} else {
 				let d = new Date(date);
 				let MonthNames = ["January", "February", "March", "April", "May", "June",
@@ -791,13 +792,13 @@ exports.commands = {
 	magic8ball: "m8b",
 	m8b: function () {
 		if (!this.runBroadcast()) return;
-		let results = ['Signs point to yes.', 'Yes.', 'Reply hazy, try again.', 'Without a doubt.', 'My sources say no.', 'As I see it, yes.', 'You may rely on it.', 'Concentrate and ask again.', 'Outlook not so good.', 'It is decidedly so.', 'Better not tell you now.', 'Very doubtful.', 'Yes - definitely.', 'It is certain.', 'Cannot predict now.', 'Most likely.', 'Ask again later.', 'My reply is no.', 'Outlook good.', 'Don\'t count on it.'];
+		let results = ["Signs point to yes.", "Yes.", "Reply hazy, try again.", "Without a doubt.", "My sources say no.", "As I see it, yes.", "You may rely on it.", "Concentrate and ask again.", "Outlook not so good.", "It is decidedly so.", "Better not tell you now.", "Very doubtful.", "Yes - definitely.", "It is certain.", "Cannot predict now.", "Most likely.", "Ask again later.", "My reply is no.", "Outlook good.", "Don't count on it."];
 		return this.sendReplyBox(results[Math.floor(Math.random() * results.length)]);
 	},
 
-	'!digidex': true,
-	dd: 'digidex',
-	dg: 'digidex',
+	"!digidex": true,
+	dd: "digidex",
+	dg: "digidex",
 	digidex: function (target) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse("/help digidex");
@@ -809,7 +810,7 @@ exports.commands = {
 	},
 	digidexhelp: ["/digidex [Digimon] - Checks for a Digimon's data from Digimon Showdown."],
 
-	randomsurvey: 'randsurvey',
+	randomsurvey: "randsurvey",
 	randsurvey: function () {
 		let results = [
 			`/survey create What do you want to see added or updated in ${Config.serverName}?`,
@@ -832,7 +833,7 @@ exports.commands = {
 	},
 
 	clearroomauth: function (target, room, user) {
-		if (!this.can('declare') && room.founder !== user.userid) return this.errorReply("/clearroomauth - Access denied.");
+		if (!this.can("declare") && room.founder !== user.userid) return this.errorReply("/clearroomauth - Access denied.");
 		if (!room.auth) return this.errorReply("Room does not have roomauth.");
 		let count;
 		if (!target) {
@@ -840,10 +841,10 @@ exports.commands = {
 			return;
 		}
 		switch (target) {
-		case 'voice':
+		case "voice":
 			count = 0;
 			for (let userid in room.auth) {
-				if (room.auth[userid] === '+') {
+				if (room.auth[userid] === "+") {
 					delete room.auth[userid];
 					count++;
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
@@ -853,10 +854,10 @@ exports.commands = {
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} roomvoices have been cleared by ${user.name}.`);
 			break;
-		case 'roomplayer':
+		case "roomplayer":
 			count = 0;
 			for (let userid in room.auth) {
-				if (room.auth[userid] === '\u2605') {
+				if (room.auth[userid] === "\u2605") {
 					delete room.auth[userid];
 					count++;
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
@@ -866,10 +867,10 @@ exports.commands = {
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} roomplayers have been cleared by ${user.name}.`);
 			break;
-		case 'driver':
+		case "driver":
 			count = 0;
 			for (let userid in room.auth) {
-				if (room.auth[userid] === '%') {
+				if (room.auth[userid] === "%") {
 					delete room.auth[userid];
 					count++;
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
@@ -879,10 +880,10 @@ exports.commands = {
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} drivers have been cleared by ${user.name}.`);
 			break;
-		case 'mod':
+		case "mod":
 			count = 0;
 			for (let userid in room.auth) {
-				if (room.auth[userid] === '@') {
+				if (room.auth[userid] === "@") {
 					delete room.auth[userid];
 					count++;
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
@@ -892,10 +893,10 @@ exports.commands = {
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} mods have been cleared by ${user.name}.`);
 			break;
-		case 'roomleader':
+		case "roomleader":
 			count = 0;
 			for (let userid in room.auth) {
-				if (room.auth[userid] === '&') {
+				if (room.auth[userid] === "&") {
 					delete room.auth[userid];
 					count++;
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
@@ -905,10 +906,10 @@ exports.commands = {
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} room leaders have been cleared by ${user.name}.`);
 			break;
-		case 'roomowner':
+		case "roomowner":
 			count = 0;
 			for (let userid in room.auth) {
-				if (room.auth[userid] === '#') {
+				if (room.auth[userid] === "#") {
 					delete room.auth[userid];
 					count++;
 					if (userid in room.users) room.users[userid].updateIdentity(room.id);
@@ -918,7 +919,7 @@ exports.commands = {
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
 			this.addModAction(`All ${count} roomowners have been cleared by ${user.name}.`);
 			break;
-		case 'all':
+		case "all":
 			if (!room.auth) return this.errorReply(`This room has no auth.`);
 			delete room.auth;
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
@@ -929,22 +930,22 @@ exports.commands = {
 		}
 	},
 
-	declaregreen: 'declarered',
+	declaregreen: "declarered",
 	declarered: function (target, room, user, connection, cmd) {
-		if (!target) return this.parse('/help declare');
-		if (!this.can('declare', null, room)) return false;
-		if (!this.canTalk() && !user.can('bypassall')) return this.errorReply("You cannot do this while unable to talk.");
+		if (!target) return this.parse("/help declare");
+		if (!this.can("declare", null, room)) return false;
+		if (!this.canTalk() && !user.can("bypassall")) return this.errorReply("You cannot do this while unable to talk.");
 		room.addRaw(`<div class="broadcast-${cmd.substr(7)}"><strong>${target}</strong></div>`);
 		room.update();
 		this.room.modlog(`${user.name} declared ${target}`);
 	},
 
-	fj: 'forcejoin',
+	fj: "forcejoin",
 	forcejoin: function (target, room, user) {
-		if (!user.can('lock')) return false;
-		if (!target) return this.parse('/help forcejoin');
-		let parts = target.split(',');
-		if (!parts[0] || !parts[1]) return this.parse('/help forcejoin');
+		if (!user.can("lock")) return false;
+		if (!target) return this.parse("/help forcejoin");
+		let parts = target.split(",");
+		if (!parts[0] || !parts[1]) return this.parse("/help forcejoin");
 		let userid = toId(parts[0]);
 		let roomid = toId(parts[1]);
 		if (!Users.get(userid)) return this.errorReply("User not found.");
@@ -953,11 +954,11 @@ exports.commands = {
 	},
 	forcejoinhelp: ["/forcejoin [target], [room] - Forces a user to join a room"],
 
-	rk: 'kick',
-	roomkick: 'kick',
+	rk: "kick",
+	roomkick: "kick",
 	kick: function (target, room, user) {
-		if (!target) return this.parse('/help kick');
-		if (!this.canTalk() && !user.can('bypassall')) {
+		if (!target) return this.parse("/help kick");
+		if (!this.canTalk() && !user.can("bypassall")) {
 			return this.errorReply("You cannot do this while unable to talk.");
 		}
 
@@ -965,7 +966,7 @@ exports.commands = {
 		let targetUser = this.targetUser;
 		if (target.length > 300) return this.errorReply("The reason is too long. It cannot exceed 300 characters.");
 		if (!targetUser || !targetUser.connected) return this.errorReply(`User "${this.targetUsername}" not found.`);
-		if (!this.can('mute', targetUser, room) && user.userid !== "insist") return false;
+		if (!this.can("mute", targetUser, room) && user.userid !== "insist") return false;
 		if (toId(target) === "insist") return this.errorReply(`Go fuck yourself Insist is a god.`);
 		if (!room.users[targetUser.userid]) return this.errorReply(`User "${this.targetUsername}" is not in this room.`);
 
@@ -976,29 +977,29 @@ exports.commands = {
 	kickhelp: ["/kick [user], [reason] - Kick a user out of a room [reasons are optional]. Requires: % @ # & ~"],
 
 	kickall: function (target, room, user) {
-		if (!this.can('declare') && user.userid !== "insist") return this.errorReply("/kickall - Access denied.");
+		if (!this.can("declare") && user.userid !== "insist") return this.errorReply("/kickall - Access denied.");
 		for (let i in room.users) {
 			if (room.users[i] !== user.userid) {
 				room.users[i].leaveRoom(room.id);
 			}
 		}
-		this.privateModAction(`(${Chat.escapeHTML(user.name)} kicked everyone from the room.`);
+		this.privateModAction(`(${user.name} kicked everyone from the room.)`);
 	},
 
-	sd: 'declaremod',
-	staffdeclare: 'declaremod',
-	modmsg: 'declaremod',
-	moddeclare: 'declaremod',
-	declaremod: function (target, room, user, connection) {
-		if (!target) return this.parse('/help declaremod');
+	sd: "declaremod",
+	staffdeclare: "declaremod",
+	modmsg: "declaremod",
+	moddeclare: "declaremod",
+	declaremod: function (target, room, user) {
+		if (!target) return this.parse("/help declaremod");
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
-		if (!this.can('receiveauthmessages', null, room)) return false;
-		return this.privateModAction(`|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ${Server.nameColor(user.name)}<br /></i></font size>${target}</strong></div>`);
+		if (!this.can("receiveauthmessages", null, room)) return false;
+		return this.privateModAction(`|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ${Server.nameColor(user.name, true)}<br /></i></font size>${target}</strong></div>`);
 	},
-	declaremodhelp: ["/declaremod [note] - Adds a staff readable declare. Requires: % @ # & ~"],
+	declaremodhelp: ["/declaremod [note] - Adds a staff read-able declare. Requires: % @ # & ~"],
 
-	glogs: 'globallogs',
-	globallogs: function (target, room, user) {
+	glogs: "globallogs",
+	globallogs: function (target) {
 		return this.parse(`/modlog all, ${target}`);
 	},
 
@@ -1013,78 +1014,78 @@ exports.commands = {
 		let rooms = [];
 
 		Rooms.rooms.forEach(curRoom => {
-			if (curRoom.id !== 'global') rooms.push(curRoom.id);
+			if (curRoom.id !== "global") rooms.push(curRoom.id);
 		});
 
 		rooms.sort();
 
 		for (let u in rooms) {
 			let curRoom = Rooms(rooms[u]);
-			if (curRoom.type === 'battle') {
-				battleRooms.push(`<a href="/${curRoom.id}" class="ilink">${Chat.escapeHTML(curRoom.title)}</a> (${curRoom.userCount})`);
+			if (curRoom.type === "battle") {
+				battleRooms.push(`<a href="/${curRoom.id}" class="ilink">${curRoom.title}</a> (${curRoom.userCount})`);
 			}
-			if (curRoom.type === 'chat') {
+			if (curRoom.type === "chat") {
 				if (curRoom.isPersonal) {
 					groupChats.push(`<a href="/${curRoom.id}" class="ilink">${curRoom.id}</a> (${curRoom.userCount})`);
 					continue;
 				}
 				if (curRoom.isOfficial) {
-					official.push(`<a href="/${toId(curRoom.title)}" class="ilink">${Chat.escapeHTML(curRoom.title)}</a> (${curRoom.userCount})`);
+					official.push(`<a href="/${toId(curRoom.title)}" class="ilink">${curRoom.title}</a> (${curRoom.userCount})`);
 					continue;
 				}
 				if (curRoom.isPrivate) {
-					privateRoom.push(`<a href="/${toId(curRoom.title)}" class="ilink">${Chat.escapeHTML(curRoom.title)}</a> (${curRoom.userCount})`);
+					privateRoom.push(`<a href="/${toId(curRoom.title)}" class="ilink">${curRoom.title}</a> (${curRoom.userCount})`);
 					continue;
 				}
 			}
-			if (curRoom.type !== 'battle') nonOfficial.push(`<a href="/${toId(curRoom.title)}" class="ilink">${curRoom.title}</a> ${curRoom.userCount})`);
+			if (curRoom.type !== "battle") nonOfficial.push(`<a href="/${toId(curRoom.title)}" class="ilink">${curRoom.title}</a> (${curRoom.userCount})`);
 		}
 
-		if (!user.can('roomowner')) return this.sendReplyBox(header + official.join(' ') + nonOfficial.join(' '));
-		this.sendReplyBox(header + official.join(' ') + nonOfficial.join(' ') + privateRoom.join(' ') + (groupChats.length > 1 ? groupChats.join(' ') : '') + (battleRooms.length > 1 ? battleRooms.join(' ') : ''));
+		if (!user.can("roomowner")) return this.sendReplyBox(header + official.join(" ") + nonOfficial.join(" "));
+		this.sendReplyBox(header + official.join(" ") + nonOfficial.join(" ") + privateRoom.join(" ") + (groupChats.length > 1 ? groupChats.join(" ") : "") + (battleRooms.length > 1 ? battleRooms.join(" ") : ""));
 	},
 
-	masspm: 'pmall',
+	masspm: "pmall",
 	pmall: function (target, room, user) {
-		if (!this.can('hotpatch')) return false;
-		if (!target) return this.parse('/help pmall');
+		if (!this.can("hotpatch")) return false;
+		if (!target) return this.parse("/help pmall");
 		Server.pmAll(target, pmName, user.name);
 		Monitor.adminlog(`${user.name} has PM'ed all users: ${target}.`);
 	},
 	pmallhelp: ["/pmall [message] - PM all users in the server."],
 
-	staffpm: 'pmallstaff',
-	pmstaff: 'pmallstaff',
+	staffpm: "pmallstaff",
+	pmstaff: "pmallstaff",
 	pmallstaff: function (target, room, user) {
-		if (!this.can('hotpatch')) return false;
-		if (!target) return this.parse('/help pmallstaff');
+		if (!this.can("hotpatch")) return false;
+		if (!target) return this.parse("/help pmallstaff");
 		Server.pmStaff(target, pmName, user.name);
 		Monitor.adminlog(`${user.name} has PM'ed all Staff: ${target}.`);
 	},
 	pmallstaffhelp: ["/pmallstaff [message] - Sends a PM to every staff member online."],
 
-	pus: 'pmupperstaff',
+	pus: "pmupperstaff",
 	pmupperstaff: function (target, room, user) {
-		if (!target) return this.errorReply('/pmupperstaff [message] - Sends a PM to every upper staff');
-		if (!this.can('hotpatch')) return false;
-		if (!target) return this.parse('/help pmupperstaff');
+		if (!target) return this.errorReply("/pmupperstaff [message] - Sends a PM to every upper staff");
+		if (!this.can("hotpatch")) return false;
+		if (!target) return this.parse("/help pmupperstaff");
 		Server.messageSeniorStaff(target, pmName, user.name);
 		Monitor.adminlog(`${user.name} has PM'ed all Upper Staff: ${target}.`);
 	},
 	pmupperstaffhelp: ["/pmupperstaff [message] - Sends a PM to every Upper Staff member online."],
 
-	pmroom: 'rmall',
-	roompm: 'rmall',
+	pmroom: "rmall",
+	roompm: "rmall",
 	rmall: function (target, room, user) {
-		if (!this.can('declare', null, room)) return this.errorReply("/rmall - Access denied.");
+		if (!this.can("declare", null, room)) return this.errorReply("/rmall - Access denied.");
 		if (!target) return this.errorReply("/rmall [message] - Sends a PM to all users in the room.");
-		target = target.replace(/<(?:.|\n)*?>/gm, '');
+		target = target.replace(/<(?:.|\n)*?>/gm, "");
 
 		for (let i in room.users) {
 			let message = `|pm|${pmName}|${room.users[i].getIdentity()}|${target}`;
 			room.users[i].send(message);
 		}
-		this.privateModAction(`(${Chat.escapeHTML(user.name)} mass PMd: ${target})`);
+		this.privateModAction(`(${user.name} mass (room) PM'ed: ${target})`);
 	},
 
 	/*************************
@@ -1093,45 +1094,45 @@ exports.commands = {
 	* coded by HoeenHero
 	**************************/
 
-	forceofflinepermalock: 'permalock',
-	offlinepermalock: 'permalock',
-	forcepermalock: 'permalock',
+	forceofflinepermalock: "permalock",
+	offlinepermalock: "permalock",
+	forcepermalock: "permalock",
 	permalock: function (target, room, user, connection, cmd) {
-		if (!this.can('lockdown')) return;
-		if (!toId(target)) return this.parse('/help permalock');
+		if (!this.can("lockdown")) return;
+		if (!toId(target)) return this.parse("/help permalock");
 		let tarUser = Users(target);
-		if (!tarUser && (cmd !== 'offlinepermalock' && cmd !== 'forceofflinepermalock')) return this.errorReply(`User ${target} was not found. If you're sure you want to permalock them, use /offlinepermalock.`);
-		if (tarUser && (cmd === 'offlinepermalock' || cmd === 'forceofflinepermalock')) return this.parse(`/permalock ${target}`);
-		if (cmd === 'offlinepermalock' || cmd === 'forceofflinepermalock') {
+		if (!tarUser && (cmd !== "offlinepermalock" && cmd !== "forceofflinepermalock")) return this.errorReply(`User ${target} was not found. If you're sure you want to permalock them, use /offlinepermalock.`);
+		if (tarUser && (cmd === "offlinepermalock" || cmd === "forceofflinepermalock")) return this.parse(`/permalock ${target}`);
+		if (cmd === "offlinepermalock" || cmd === "forceofflinepermalock") {
 			target = toId(target);
 			if (Db.perma.get(target, 0) === 5) return this.errorReply(`${target} is already permalocked.`);
-			if (Users.usergroups[target] && cmd !== 'forceofflinepermalock') return this.errorReply(`${target} is a trusted user. If you're sure you want to permalock them, please use /forceofflinepermalock`);
+			if (Users.usergroups[target] && cmd !== "forceofflinepermalock") return this.errorReply(`${target} is a trusted user. If you're sure you want to permalock them, please use /forceofflinepermalock`);
 			Db.perma.set(target, 5);
 			if (Users.usergroups[target]) {
-				Users.setOfflineGroup(target, ' ');
+				Users.setOfflineGroup(target, " ");
 				Monitor.log(`[CrisisMonitor] Trusted user ${target} was permalocked by ${user.name} and was automatically demoted from ${Users.usergroups[target].substr(0, 1)}.`);
 			}
 			Monitor.adminlog(`[Perma Monitor] ${user.name} has (offline) permalocked ${target}.`);
 			return this.addModAction(`${target} was permalocked by ${user.name}.`);
 		}
-		if (!tarUser.registered) return this.errorReply('Only registered users can be permalocked.');
+		if (!tarUser.registered) return this.errorReply("Only registered users can be permalocked.");
 		if (Db.perma.get(tarUser.userid, 0) >= 5) {
 			if (Db.perma.get(tarUser.userid, 0) === 5) return this.errorReply(`${tarUser.name} is already permalocked.`);
-			if (cmd !== 'forcepermalock') return this.errorReply(`${tarUser.name} is permabanned and cannot be permalocked. If you want to change their permaban to a permalock, please use /forcepermalock.`);
+			if (cmd !== "forcepermalock") return this.errorReply(`${tarUser.name} is permabanned and cannot be permalocked. If you want to change their permaban to a permalock, please use /forcepermalock.`);
 		}
-		if (tarUser.trusted && cmd !== 'forcepermalock') return this.errorReply(`${tarUser.name} is a trusted user. If you're sure you want to permalock them, please use /forcepermalock.`);
+		if (tarUser.trusted && cmd !== "forcepermalock") return this.errorReply(`${tarUser.name} is a trusted user. If you're sure you want to permalock them, please use /forcepermalock.`);
 		Db.perma.set(tarUser.userid, 5);
-		if (!Punishments.userids.get(tarUser.userid) || Punishments.userids.get(tarUser.userid)[0] !== 'BAN') Punishments.lock(tarUser, Date.now() + (1000 * 60 * 60 * 24 * 30), tarUser.userid, `Permalocked as ${tarUser.userid}`);
+		if (!Punishments.userids.get(tarUser.userid) || Punishments.userids.get(tarUser.userid)[0] !== "BAN") Punishments.lock(tarUser, Date.now() + (1000 * 60 * 60 * 24 * 30), tarUser.userid, `Permalocked as ${tarUser.userid}`);
 		tarUser.popup(`You have been permalocked by ${user.name}.\nUnlike permalocks issued by the main server, this permalock only effects this server.`);
 		if (tarUser.trusted) Monitor.log(`[CrisisMonitor] Trusted user ${tarUser.userid} was permalocked by ${user.name} and was automatically demoted from ${tarUser.distrust()}.`);
 		Monitor.adminlog(`[Perma Monitor] ${user.name} has permalocked ${tarUser.name}.`);
 		return this.addModAction(`${tarUser.name} was permalocked by ${user.name}.`);
 	},
-	permalockhelp: ['/permalock user - Permalock a user. Requires: ~'],
+	permalockhelp: ["/permalock user - Permalock a user. Requires: ~"],
 
-	unpermalock: function (target, room, user, connection, cmd) {
-		if (!this.can('lockdown')) return;
-		if (!toId(target)) return this.parse('/help unpermalock');
+	unpermalock: function (target, room, user) {
+		if (!this.can("lockdown")) return;
+		if (!toId(target)) return this.parse("/help unpermalock");
 		target = toId(target);
 		if (Db.perma.get(target, 0) < 5) return this.errorReply(`${target} is not permalocked.`);
 		if (Db.perma.get(target, 0) === 6) return this.errorReply(`${target} is permabanned. If you want to unpermaban them, use /unpermaban.`);
@@ -1141,24 +1142,24 @@ exports.commands = {
 		Monitor.adminlog(`[Perma Monitor] ${user.name} has unpermalocked ${target}.`);
 		return this.addModAction(`${target} was unpermalocked by ${user.name}.`);
 	},
-	unpermalockhelp: ['/unpermalock user - Unpermalock a user. Requires: ~'],
+	unpermalockhelp: ["/unpermalock user - Unpermalock a user. Requires: ~"],
 
-	forceofflinepermaban: 'permaban',
-	offlinepermaban: 'permaban',
-	forcepermaban: 'permaban',
+	forceofflinepermaban: "permaban",
+	offlinepermaban: "permaban",
+	forcepermaban: "permaban",
 	permaban: function (target, room, user, connection, cmd) {
-		if (!this.can('lockdown')) return;
-		if (!toId(target)) return this.parse('/help permaban');
+		if (!this.can("lockdown")) return;
+		if (!toId(target)) return this.parse("/help permaban");
 		let tarUser = Users(target);
-		if (!tarUser && (cmd !== 'offlinepermaban' && cmd !== 'forceofflinepermaban')) return this.errorReply(`User ${target} not found. If you're sure you want to permaban them, use /offlinepermaban.`);
-		if (tarUser && (cmd === 'offlinepermaban' || cmd === 'forceofflinepermaban')) return this.parse(`/permaban ${target}`);
-		if (cmd === 'offlinepermaban' || cmd === 'forceofflinepermaban') {
+		if (!tarUser && (cmd !== "offlinepermaban" && cmd !== "forceofflinepermaban")) return this.errorReply(`User ${target} not found. If you're sure you want to permaban them, use /offlinepermaban.`);
+		if (tarUser && (cmd === "offlinepermaban" || cmd === "forceofflinepermaban")) return this.parse(`/permaban ${target}`);
+		if (cmd === "offlinepermaban" || cmd === "forceofflinepermaban") {
 			target = toId(target);
 			if (Db.perma.get(target, 0) === 6) return this.errorReply(`${target} is already permabanned.`);
-			if (Users.usergroups[target] && cmd !== 'forceofflinepermaban') return this.errorReply(`${target} is a trusted user. If you're sure you want to permaban them, please use /forceofflinepermaban.`);
+			if (Users.usergroups[target] && cmd !== "forceofflinepermaban") return this.errorReply(`${target} is a trusted user. If you're sure you want to permaban them, please use /forceofflinepermaban.`);
 			Db.perma.set(target, 6);
 			if (Users.usergroups[target]) {
-				Users.setOfflineGroup(target, ' ');
+				Users.setOfflineGroup(target, " ");
 				Monitor.log(`[CrisisMonitor] Trusted user ${target} was permabanned by ${user.name} and was automatically demoted from ${Users.usergroups[target].substr(0, 1)}.`);
 			}
 			Monitor.adminlog(`[Perma Monitor] ${user.name} has (offline) permabanned ${target}.`);
@@ -1166,7 +1167,7 @@ exports.commands = {
 		}
 		if (!tarUser.registered) return this.errorReply(`Only registered users can be permalocked.`);
 		if (Db.perma.get(tarUser.userid, 0) === 6) return this.errorReply(`${tarUser.name} is already permabanned.`);
-		if (tarUser.trusted && cmd !== 'forcepermaban') return this.errorReply(`${tarUser.name} is a trusted user. If you're sure you want to permaban them, please use /forcepermaban.`);
+		if (tarUser.trusted && cmd !== "forcepermaban") return this.errorReply(`${tarUser.name} is a trusted user. If you're sure you want to permaban them, please use /forcepermaban.`);
 		Db.perma.set(tarUser.userid, 6);
 		tarUser.popup(`You have been permabanned by ${user.name}.\nUnlike permabans issued by the main server, this permaban only effects this server.`);
 		Punishments.ban(tarUser, Date.now() + (1000 * 60 * 60 * 24 * 30), tarUser.userid, `Permabanned as ${tarUser.userid}`);
@@ -1174,11 +1175,11 @@ exports.commands = {
 		Monitor.adminlog(`[Perma Monitor] ${user.name} has permabanned ${tarUser.name}.`);
 		return this.addModAction(`${tarUser.name} was permabanned by ${user.name}.`);
 	},
-	permabanhelp: ['/permaban user - Permaban a user. Requires: ~'],
+	permabanhelp: ["/permaban user - Permaban a user. Requires: ~"],
 
-	unpermaban: function (target, room, user, connection, cmd) {
-		if (!this.can('lockdown')) return;
-		if (!toId(target)) return this.parse('/help unpermaban');
+	unpermaban: function (target, room, user) {
+		if (!this.can("lockdown")) return;
+		if (!toId(target)) return this.parse("/help unpermaban");
 		target = toId(target);
 		if (Db.perma.get(target, 0) !== 6) return this.errorReply(`${target} is not permabanned.`);
 		Db.perma.set(target, 0);
@@ -1186,44 +1187,44 @@ exports.commands = {
 		Monitor.adminlog(`[Perma Monitor] ${user.name} has unpermabanned ${target}.`);
 		return this.addModAction(`${target} was unpermabanned by ${user.name}.`);
 	},
-	unpermabanhelp: ['/unpermaban user - Unpermaban a user. Requires: ~'],
+	unpermabanhelp: ["/unpermaban user - Unpermaban a user. Requires: ~"],
 
 	timedgdeclare: function (target, room, user) {
-		if (!target || !this.can('declare')) return this.errorReply("/help timedgdeclare");
-		let parts = target.split(',');
-		if (parts.length !== 2) return this.errorReply('/help timedgdeclare');
+		if (!target || !this.can("declare")) return this.errorReply("/help timedgdeclare");
+		let parts = target.split(",");
+		if (parts.length !== 2) return this.errorReply("/help timedgdeclare");
 		let delayInMins = Chat.escapeHTML(parts[0].trim());
-		if (isNaN(delayInMins)) return this.errorReply('Please give a delay in in minutes, /help timedgdeclare');
+		if (isNaN(delayInMins)) return this.errorReply("Please give a delay in in minutes, /help timedgdeclare");
 		delayInMins = delayInMins * 1000 * 60;
 		let declare = this.canHTML(parts.slice(1).join(","));
 		if (!declare) return;
 		setTimeout(f => {
 			for (let id in Rooms.rooms) {
-				if (id !== 'global' && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw(`<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><strong>${declare}</strong></div>`);
+				if (id !== "global" && Rooms.rooms[id].userCount > 3) Rooms.rooms[id].addRaw(`<div class="broadcast-blue" style="border-radius: 5px; max-height: 300px; overflow-y: scroll;"><strong>${declare}</strong></div>`);
 			}
 		}, delayInMins);
-		this.room.modlog(`${toId(user)} scheduled a timed declare: ${declare}`);
-		return this.sendReply('Your declare has been scheduled.');
+		this.room.modlog(`${user.name} scheduled a timed declare: ${declare}`);
+		return this.sendReply("Your declare has been scheduled.");
 	},
 	timedgdeclarehelp: ["/timedgdclare [delay in minutes], [declare] - Will declare something after a given delay. Requires: & ~"],
 
-	ad: 'advertise',
-	ads: 'advertise',
+	ad: "advertise",
+	ads: "advertise",
 	advertise: function (target, room, user) {
-		let parts = target.split(',');
+		let parts = target.split(",");
 		let cmd = parts[0].trim().toLowerCase();
 		switch (cmd) {
-		case 'enable':
-			if (!this.can('declare')) return false;
+		case "enable":
+			if (!this.can("declare")) return false;
 			Rooms.global.adInterval = setInterval(postAds, 300000); //5 minutes
 			this.sendReply("Ads have been enabled.");
 			break;
-		case 'disable':
-			if (!this.can('declare')) return false;
+		case "disable":
+			if (!this.can("declare")) return false;
 			clearInterval(Rooms.global.adInterval);
 			this.sendReply("Ads have been disabled.");
 			break;
-		case 'add':
+		case "add":
 			if (parts.length < 3) return this.errorReply("Invalid command. `/ads add, room, message`.");
 			if (!Rooms.global.ads) Rooms.global.ads = [];
 			let adIps = Rooms.global.ads.map(ad => ad.ip);
@@ -1233,11 +1234,11 @@ exports.commands = {
 			let inputRoom = Chat.escapeHTML(parts[1]);
 			let targetRoom = Rooms.search(inputRoom);
 			if (!targetRoom || targetRoom === Rooms.global) return this.errorReply(`The room "${inputRoom}" does not exist.`);
-			if (!this.can('ban', null, targetRoom)) return this.errorReply(`You cannot advertise the room "${targetRoom}" because you are not staff in ${targetRoom}.`);
+			if (!this.can("ban", null, targetRoom)) return this.errorReply(`You cannot advertise the room "${targetRoom}" because you are not staff in ${targetRoom}.`);
 			let message = Chat.escapeHTML(parts.slice(2).join(","));
 			Rooms.global.ads.push({ip: user.latestIp, user: toId(user), room: targetRoom, message: message});
 			if (!Rooms.global.adInterval) {
-				Rooms.global.adInterval = setInterval(postAds, 300000); //5 minutes
+				Rooms.global.adInterval = setInterval(postAds, 300000); // 5 minutes
 			}
 			this.sendReply(`Your message has been added to the advertisement queue. You're #${Rooms.global.ads.length}.`);
 			break;
@@ -1251,8 +1252,8 @@ exports.commands = {
 		/advertise disable - Disables Advertisements. Requires &, ~`,
 	],
 
-	transferaccount: 'transferauthority',
-	transferauth: 'transferauthority',
+	transferaccount: "transferauthority",
+	transferauth: "transferauthority",
 	transferauthority: (function () {
 		function transferAuth(user1, user2, transfereeAuth) { // bits and pieces taken from /userauth
 			let buff = [];
@@ -1290,33 +1291,33 @@ exports.commands = {
 			return buff;
 		}
 		return function (target, room, user) {
-			if (!this.can('declare')) return false;
-			if (!target || !target.includes(',')) return this.parse(`/help transferauthority`);
-			target = target.split(',');
+			if (!this.can("declare")) return false;
+			if (!target || !target.includes(",")) return this.parse(`/help transferauthority`);
+			target = target.split(",");
 			let user1 = target[0].trim(), user2 = target[1].trim(), user1ID = toId(user1), user2ID = toId(user2);
 			if (user1ID.length < 1 || user2ID.length < 1) return this.errorReply(`One or more of the given usernames are too short to be a valid username (min 1 character).`);
 			if (user1ID.length > 17 || user2ID.length > 17) return this.errorReply(`One or more of the given usernames are too long to be a valid username (max 17 characters).`);
 			if (user1ID === user2ID) return this.errorReply(`You provided the same accounts for the alt change.`);
 			let transferSuccess = transferAuth(user1ID, user2ID, user.group);
 			if (transferSuccess.length >= 1) {
-				this.addModAction(`${user1} has had their account (${transferSuccess.join(', ')}) transfered onto new name: ${user2} - by ${user.name}.`);
+				this.addModAction(`${user1} has had their account (${transferSuccess.join(", ")}) transfered onto new name: ${user2} - by ${user.name}.`);
 				this.sendReply(`Note: avatars do not transfer automatically with this command.`);
 			} else {
-				return this.errorReply(`User '${user1}' has no global or room authority, or they have higher global authority than you.`);
+				return this.errorReply(`User "${user1}" has no global or room authority, or they have higher global authority than you.`);
 			}
 		};
 	})(),
 	transferauthorityhelp: ["/transferauthority [old alt], [new alt] - Transfers a user's global/room authority onto their new alt. Requires & ~"],
 
-	errorlogs: 'crashlogs',
+	errorlogs: "crashlogs",
 	crashlogs: function (target, room, user) {
 		if (!this.can("hotpatch") && !Server.isDev(user.userid)) return false;
-		let crashes = FS("logs/errors.txt").readIfExistsSync().split('\n').splice(-100).join('\n');
+		let crashes = FS("logs/errors.txt").readIfExistsSync().split("\n").splice(-100).join("\n");
 		user.send(`|popup|${crashes}`);
 		return;
 	},
 
-	'!uptime': true,
+	"!uptime": true,
 	uptime: (function () {
 		function formatUptime(uptime) {
 			if (uptime > 24 * 60 * 60) {
@@ -1340,8 +1341,8 @@ exports.commands = {
 	})(),
 
 	protectroom: function (target, room, user) {
-		if (!this.can('hotpatch')) return false;
-		if (room.type !== 'chat' || room.isOfficial) return this.errorReply("This room does not need to be protected.");
+		if (!this.can("hotpatch")) return false;
+		if (room.type !== "chat" || room.isOfficial) return this.errorReply("This room does not need to be protected.");
 		if (this.meansNo(target)) {
 			if (!room.protect) return this.errorReply("This room is already unprotected.");
 			room.protect = false;
@@ -1407,11 +1408,11 @@ exports.commands = {
 		this.sendReplyBox(`<div style="background-color: rgba(207, 247, 160, 0.4); border: #000000 solid 3px; border-radius: 10%; color: #0a024a; padding: 30px 30px"><center><table><td><img src="${spriteLocation}"</td><td>&nbsp;&nbsp;<strong>Name: </strong>${pokeData.species}<br/>&nbsp;&nbsp;<strong>Type(s): </strong>${getTypeFormatting(pokeData.types)}<br/>&nbsp;&nbsp;<strong>${(Object.values(pokeData.abilities).length > 1 ? "Abilities" : "Ability")}: </strong>${Object.values(pokeData.abilities).join(" / ")}<br/>&nbsp;&nbsp;<strong>Stats: </strong>${Object.values(pokeData.baseStats).join(" / ")}<br/>&nbsp;&nbsp;<strong>Colour: </strong><font color="${pokeData.color}">${pokeData.color}</font><br/>&nbsp;&nbsp;<strong>Egg Group(s): </strong>${pokeData.eggGroups.join(", ")}</td></table></center></div>`);
 	},
 
-	'!authority': true,
-	auth: 'authority',
-	stafflist: 'authority',
-	globalauth: 'authority',
-	authlist: 'authority',
+	"!authority": true,
+	auth: "authority",
+	stafflist: "authority",
+	globalauth: "authority",
+	authlist: "authority",
 	authority: function (target, room, user, connection) {
 		if (target) {
 			let targetRoom = Rooms.search(target);
@@ -1423,7 +1424,7 @@ exports.commands = {
 		let ranks = Object.keys(Config.groups);
 		for (let u in Users.usergroups) {
 			let rank = Users.usergroups[u].charAt(0);
-			if (rank === ' ') continue;
+			if (rank === " ") continue;
 			// In case the usergroups.csv file is not proper, we check for the server ranks.
 			if (ranks.includes(rank)) {
 				let name = Users.usergroups[u].substr(1);
@@ -1442,21 +1443,21 @@ exports.commands = {
 		connection.send(`|popup||html|${buffer.join("\n\n")}`);
 	},
 
-	d: 'poof',
-	cpoof: 'poof',
+	d: "poof",
+	cpoof: "poof",
 	poof: function (target, room, user) {
 		if (Config.poofOff) return this.errorReply("Poof is currently disabled.");
-		if (target && !this.can('broadcast')) return false;
-		if (room.id !== 'lobby') return false;
+		if (target && !this.can("broadcast")) return false;
+		if (room.id !== "lobby") return false;
 		let message = target || messages[Math.floor(Math.random() * messages.length)];
 		if (message.indexOf(`{{user}}`) < 0) message = `{{user}} ${message}`;
 		message = message.replace(/{{user}}/g, user.name);
 		if (!this.canTalk(message)) return false;
 
-		let colour = '#' + [1, 1, 1].map(function () {
+		let colour = "#" + [1, 1, 1].map(function () {
 			let part = Math.floor(Math.random() * 0xaa);
-			return (part < 0x10 ? '0' : '') + part.toString(16);
-		}).join('');
+			return (part < 0x10 ? "0" : "") + part.toString(16);
+		}).join("");
 
 		room.addRaw(`<strong><font color="${colour}">~~ ${message} ~~</font></strong>`);
 		user.disconnectAll();
@@ -1464,27 +1465,27 @@ exports.commands = {
 	poofhelp: ["/poof - Disconnects the user and leaves a message in the room."],
 
 	poofon: function () {
-		if (!this.can('hotpatch')) return false;
+		if (!this.can("hotpatch")) return false;
 		Config.poofOff = false;
 		return this.sendReply("Poof is now enabled.");
 	},
 	poofonhelp: ["/poofon - Enable the use /poof command."],
 
-	nopoof: 'poofoff',
+	nopoof: "poofoff",
 	poofoff: function () {
-		if (!this.can('hotpatch')) return false;
+		if (!this.can("hotpatch")) return false;
 		Config.poofOff = true;
 		return this.sendReply("Poof is now disabled.");
 	},
 	poofoffhelp: ["/poofoff - Disable the use of the /poof command."],
 
 	tell: function (target, room, user, connection) {
-		if (!target) return this.parse('/help tell');
+		if (!target) return this.parse("/help tell");
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!target) {
 			this.sendReply("You forgot the comma.");
-			return this.parse('/help tell');
+			return this.parse("/help tell");
 		}
 
 		if (targetUser && targetUser.connected) {
@@ -1494,7 +1495,7 @@ exports.commands = {
 		if (user.locked) return this.popupReply("You may not send offline messages when locked.");
 		if (target.length > 255) return this.popupReply("Your message is too long to be sent as an offline message (>255 characters).");
 
-		if (Config.tellrank === 'autoconfirmed' && !user.autoconfirmed) {
+		if (Config.tellrank === "autoconfirmed" && !user.autoconfirmed) {
 			return this.popupReply("You must be autoconfirmed to send an offline message.");
 		} else if (!Config.tellrank || Config.groupsranking.indexOf(user.group) < Config.groupsranking.indexOf(Config.tellrank)) {
 			return this.popupReply(`You cannot send an offline message because offline messaging is ${(!Config.tellrank ? `disabled` : `only available to users of rank ${Config.tellrank} and above`)}.`);
@@ -1515,28 +1516,29 @@ exports.commands = {
 	},
 	tellhelp: ["/tell [username], [message] - Send a message to an offline user that will be received when they log in."],
 
-	flogout: 'forcelogout',
+	flogout: "forcelogout",
 	forcelogout: function (target, room, user) {
-		if (user.userid !== "insist" || user.userid !== "mewth" || user.userid !== "chandie") return false;
+		if (user.userid !== "insist" && user.userid !== "mewth" && user.userid !== "chandie") return false;
 		if (!this.canTalk()) return false;
-		if (!target) return this.parse('/help forcelogout');
+		if (!target) return this.parse("/help forcelogout");
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.errorReply(`User ${this.targetUsername} not found.`);
 		}
+		this.sendReply(`You have successfully forcefully logged out ${targetUser.name}.`);
 		this.privateModAction(`${targetUser.name} was forcibly logged out by ${user.name}. ${(target ? (target) : ``)}`);
 		targetUser.resetName();
 	},
-	forcelogouthelp: ["/forcelogout [user] - Forcefully logs out the target user."],
+	forcelogouthelp: ["/forcelogout [user] - Forcefully logs out [user]."],
 
-	hide: 'hideauth',
+	hide: "hideauth",
 	hideauth: function (target, room, user) {
-		if (!this.can('lock')) return false;
-		let tar = ' ';
+		if (!this.can("lock")) return false;
+		let tar = " ";
 		if (target) {
 			target = target.trim();
-			if (Config.groupsranking.indexOf(target) > -1 && target !== '#') {
+			if (Config.groupsranking.indexOf(target) > -1 && target !== "#") {
 				if (Config.groupsranking.indexOf(target) <= Config.groupsranking.indexOf(user.group)) {
 					tar = target;
 				} else {
@@ -1553,9 +1555,9 @@ exports.commands = {
 		return this.sendReply(`You are now hiding your auth as "${tar}".`);
 	},
 
-	show: 'showauth',
+	show: "showauth",
 	showauth: function (target, room, user) {
-		if (!this.can('lock')) return false;
+		if (!this.can("lock")) return false;
 		delete user.getIdentity;
 		user.updateIdentity();
 		return this.sendReply("You are now showing your authority!");

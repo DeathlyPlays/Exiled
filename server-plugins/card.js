@@ -144,7 +144,7 @@ exports.commands = {
 	cards: "psgo",
 	psgo: {
 		display: "card",
-		card: function (target, room, user) {
+		card: function (target) {
 			if (!this.runBroadcast()) return;
 			if (!target) return this.parse(`/help psgo card`);
 			if (!Server.cards[toId(target)]) return this.errorReply(`That card does not exist.`);
@@ -163,7 +163,7 @@ exports.commands = {
 			if (!this.runBroadcast()) return;
 			if (!target) target = user.userid;
 			const cards = Db.cards.get(toId(target), []);
-			if (!cards.length) return this.sendReplyBox(`${toId(target)} has no cards.`);
+			if (!cards.length) return this.errorReply(`${target} has no cards.`);
 			let cardsShown = 0;
 			// done this way because of a glitch
 			let broadcasting = this.broadcasting;
@@ -186,26 +186,24 @@ exports.commands = {
 		transfercards: "transfercard",
 		transfercard: function (target, room, user, connection, cmd) {
 			if (!target) return this.parse(`/help psgo transfercard`);
-			let targets = target.split(`,`).map(x => {
-				return x.trim();
-			});
+			let targets = target.split(`,`).map(x => { return x.trim(); });
 			if (targets.length < 2) return this.parse(`/help psgo transfercard`);
 
 			let targetUser = Users(toId(targets[0]));
 			if (!targetUser) return this.errorReply(`The user "${targets[0]}" was not found.`);
-			if (!targetUser.named) return this.errorReply(`Guests cannot be given cards.`);
+			if (!targetUser.registered) return this.errorReply(`Guests cannot be given cards.`);
 			if (targetUser.userid === user.userid) return this.errorReply(`You cannot transfer cards to yourself.`);
 			let card = toId(targets[1]);
 			if (!Server.cards[card]) return this.errorReply(`That card does not exist.`);
 
 			let canTransfer = hasCard(user.userid, card);
-			if (!canTransfer) return user.popup(`You do note have that card.`);
+			if (!canTransfer) return user.popup(`You do not have that card.`);
 
 			if (cmd !== "confirmtransfercard") {
 				return this.popupReply(`|html|<center>` +
 					`<button class = "card-td button" name = "send" value = "/psgo confirmtransfercard ${targetUser.userid}, ${card}"` +
 					`style = "outline: none; width: 200px; font-size: 11pt; padding: 10px; border-radius: 14px ; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4) inset; transition: all 0.2s;">` +
-					`Confirm transfer to <br /><b style = "color:${Server.hashColor(targetUser.userid)}; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">${Chat.escapeHTML(targetUser.name)}</b></button></center>`
+					`Confirm transfer to <br />${Server.nameColor(targetUser.name, true)}</button></center>`
 				);
 			}
 
@@ -215,8 +213,8 @@ exports.commands = {
 				// should never happen but just in case...
 				return user.popup(`Transfer Failed, card could not be taken from you.`);
 			}
-			if (targetUser.connected) targetUser.popup(`|html|${Chat.escapeHTML(user.name)} has given you a card. <button class="button" name="send" value="/psgo card ${Server.cards[card].id}">View Card</button>`);
-			user.popup(`You have successfully transfered ${Server.cards[card].id} to ${targetUser.name}.`);
+			if (targetUser.connected) targetUser.popup(`|html|${Server.nameColor(user.name, true)} has given you a card. <button class="button" name="send" value="/psgo card ${Server.cards[card].id}">View Card</button>`);
+			user.popup(`|html|You have successfully transfered ${Server.cards[card].id} to ${Server.nameColor(targetUser.name, true)}.`);
 		},
 		transfercardhelp: ["/psgo transfercard [user], [card ID] - Transfer one of your cards to another user."],
 
@@ -312,20 +310,11 @@ exports.commands = {
 		},
 		cardsearchhelp: ["/psgo cardsearch - sends a display to search for a list of cards."],
 
-		add: function (target, room, user) {
+		add: function (target) {
 			if (!this.can("psgo")) return false;
-			if (!target) return this.parse(`/help psgo add`);
-			let targets = target.split(`,`).map(x => {
-				return x.trim();
-			});
+			let [pack, rarity, species, type, image, cardType] = target.split(`,`).map(x => { return x.trim(); });
 
-			if (!targets[5]) return this.parse(`/help psgo add`);
-			let pack = targets[0];
-			let rarity = targets[1];
-			let species = targets[2];
-			let type = targets[3];
-			let image = targets[4];
-			let cardType = targets[5];
+			if (!cardType) return this.parse(`/help psgo add`);
 			let id = toId(pack) + toId(species);
 			if (Server.cards[id]) return this.errorReply(`The card ${id} already exists in the PSGO database!`);
 			newCards[id] = {
@@ -345,7 +334,7 @@ exports.commands = {
 		addhelp: ["/psgo add [pack], [rarity], [species], [type], [image], [card type] - adds a new card to the PSGO database."],
 
 		remove: "delete",
-		delete: function (target, room, user) {
+		delete: function (target) {
 			if (!this.can("psgo")) return false;
 			if (!target) return this.parse(`/help psgo delete`);
 			if (!newCards[toId(target)]) return this.errorReply(`The card "${toId(target)}" is not in PSGO database or cannot be deleted.`);
@@ -356,7 +345,7 @@ exports.commands = {
 		},
 		deletehelp: ["/psgo delete [card id] - removes a card from the PSGO database."],
 
-		give: function (target, room, user) {
+		give: function (target) {
 			if (!this.can("psgo")) return false;
 			if (!target) return this.parse(`/help psgo give`);
 			let targets = target.split(`,`).map(x => {
@@ -424,7 +413,7 @@ exports.commands = {
 
 			// All packs are added by default.
 			"": "display",
-			display: function (target, room, user) {
+			display: function () {
 				if (!this.runBroadcast()) return;
 				let output = `<div style="max-height:200px; width:100%; overflow: scroll;">`;
 				output += `<table><tr><center>Pack Shop</center></tr>`;
@@ -439,7 +428,7 @@ exports.commands = {
 
 		pack: "packs",
 		packs: {
-			give: function (target, room, user) {
+			give: function (target) {
 				if (!this.can("psgo")) return false;
 				if (!target) return this.parse(`/help psgo packs give`);
 				let targets = target.split(",").map(x => {
@@ -543,7 +532,7 @@ exports.commands = {
 			listhelp: ["/psgo packs list - displays all PSGO packs."],
 		},
 
-		ladder: function (target, room, user) {
+		ladder: function () {
 			if (!this.runBroadcast()) return;
 			let values = {Common: 1, Uncommon: 3, Rare: 6, "Ultra Rare": 10, Legendary: 15, Mythic: 20};
 			let keys = Db.cards.keys().map(name => {
@@ -554,12 +543,13 @@ exports.commands = {
 						points += values[userCards[c].rarity] || 1;
 					}
 				}
-				return {name: name, points: points};
+				return {name: name, points: points.toLocaleString()};
 			});
-			keys = keys.slice(0, 500).sort(function (a, b) { return b.points - a.points; });
+			if (!keys.length) return this.errorReply(`There is currently no PSGO points on ${Config.serverName}.`);
+			keys = keys.slice(0, 500).sort(function (a, b) { return toId(b.points) - toId(a.points); });
 			return this.sendReplyBox(rankLadder("PSGO Card Ladder", "Points", keys, "points"));
 		},
-		ladderhelp: ["/psgo ladder - show the PSGO card point ladder."],
+		ladderhelp: ["/psgo ladder - shows the PSGO card point ladder."],
 
 		nuke: "reset",
 		reset: function (target, room, user) {
@@ -571,7 +561,7 @@ exports.commands = {
 					out += chars[Math.floor(Math.random() * chars.length)];
 				}
 				user.psgoResetCode = out;
-				return this.sendReplyBox(`<h1 style="color: red">WARNING</h1>You are about to remove <strong>ALL users cards AND PACKS</strong><br />If you are <strong>100%</strong> sure you want to do this, please use:<br /><br />/psgo reset ${user.psgoResetCode}<br /><h3 style="color: red">Once done, this is irreversible please be 100% sure!</h3>`);
+				return this.sendReplyBox(`<h1 style="color: red">WARNING</h1>You are about to remove <strong>ALL user's cards AND PACKS!</strong><br />If you are <strong>100%</strong> sure you want to do this, please use:<br /><br />/psgo reset ${user.psgoResetCode}<br /><h3 style="color: red">Once done, this is irreversible please be 100% sure!</h3>`);
 			}
 			if (user.psgoResetCode !== target.trim()) return this.parse(`/psgo reset`);
 
@@ -584,13 +574,13 @@ exports.commands = {
 				Db.userpacks.remove(packKeys[i]);
 			}
 			Rooms.rooms.forEach(r => {
-				r.addRaw(`<div class="broadcast-red"><strong>The PSGO database was reset</strong><br />You no longer have any cards or packs.`).update();
+				r.addRaw(`<div class="broadcast-red"><strong>The PSGO database was reset!</strong><br />You no longer have any cards or packs.`).update();
 			});
 		},
-		resethelp: [`/psgo reset - Wipe the PSGO database (Take ALL user's cards AND packs). Requires: ~.`],
+		resethelp: [`/psgo reset - Wipes the PSGO database (Takes ALL user's cards AND packs). Requires: ~.`],
 
 		"": "help",
-		help: function (target, room, user) {
+		help: function () {
 			if (!this.runBroadcast()) return;
 			return this.parse("/help psgo");
 		},

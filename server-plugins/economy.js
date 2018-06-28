@@ -237,7 +237,6 @@ exports.commands = {
 
 		amount = Math.round(Number(amount));
 		if (isNaN(amount)) return this.errorReply(`/${cmd}- [amount] must be a number.`);
-		if (amount > 1000) return this.errorReply(`/${cmd} - You can't give more than 1,000 ${moneyName} at a time.`);
 		if (amount < 1) return this.errorReply(`/${cmd} - You can't give less than one ${moneyName}.`);
 
 		if (reason.length > 100) return this.errorReply("Reason may not be longer than 100 characters.");
@@ -263,16 +262,12 @@ exports.commands = {
 		let [targetUser, amount, reason] = target.split(",").map(p => { return p.trim(); });
 		if (!reason) return this.errorReply(`Usage: /${cmd} [user], [amount], [reason]`);
 
-		if (toId(targetUser).length < 1) return this.errorReply(`/${cmd} - [user] may not be blank.`);
-		if (toId(targetUser).length > 19) return this.errorReply(`/${cmd} - [user] can't be longer than 19 characters.`);
+		if (toId(targetUser).length < 1 || toId(targetUser).length > 18) return this.errorReply(`/${cmd} - [user] must be between 1-18 characters long.`);
 
 		amount = Math.round(Number(amount));
-		if (isNaN(amount)) return this.errorReply(`/${cmd}- [amount] must be a number.`);
-		if (amount > 1000) return this.errorReply(`/${cmd} - You can't take more than 1,000 ${moneyName} at a time.`);
-		if (amount < 1) return this.errorReply(`/${cmd} - You can't take less than one ${moneyName}.`);
+		if (amount < 1 || amount > 1000 || isNaN(amount)) return this.errorReply(`/${cmd} - The [amount] of ${moneyPlural} you are taking away must be a number between 1-1,000.`);
 
-		if (reason.length > 100) return this.errorReply("Reason may not be longer than 100 characters.");
-		if (toId(reason).length < 1) return this.errorReply(`Please specify a reason to give ${moneyName}.`);
+		if (toId(reason).length > 100 || toId(reason).length < 1) return this.errorReply(`Reasons must be between 1-100 characters long.`);
 
 		Economy.writeMoney(targetUser, -amount, () => {
 			Economy.readMoney(targetUser, newAmount => {
@@ -291,19 +286,15 @@ exports.commands = {
 	transfermoney: "transfercurrency",
 	confirmtransfercurrency: "transfercurrency",
 	transfercurrency: function (target, room, user, connection, cmd) {
-		if (!target) return this.errorReply(`Usage: /${cmd} [user], [amount]`);
-		let [targetUser, amount] = target.split(p => { return p.trim(); });
+		let [targetUser, amount] = target.split(",").map(p => { return p.trim(); });
 		if (!amount) return this.errorReply(`Usage: /${cmd} [user], [amount]`);
 
 		targetUser = Users.getExact(targetUser) ? Users.getExact(targetUser).name : targetUser;
-		if (toId(targetUser).length < 1) return this.errorReply(`/${cmd} - [user] may not be blank.`);
-		if (toId(targetUser).length > 18) return this.errorReply(`/${cmd} - [user] can't be longer than 18 characters.`);
+		if (toId(targetUser).length < 1 || toId(targetUser).length > 18) return this.errorReply(`/${cmd} - [user] must be 1-18 characters long.`);
 		if (targetUser === user.name) return this.errorReply(`You can't transfer ${moneyPlural} to yourself.`);
 
 		amount = Math.round(Number(amount));
-		if (isNaN(amount)) return this.errorReply(`/${cmd} - [amount] must be a number.`);
-		if (amount > 1000) return this.errorReply(`/${cmd} - You can't transfer more than 1,000 ${moneyName} at a time.`);
-		if (amount < 1) return this.errorReply(`/${cmd} - You can't transfer less than one ${moneyName}.`);
+		if (amount < 1 || amount > 1000 || isNaN(amount)) return this.errorReply(`/${cmd} - You can't transfer more than 1-1,000 ${moneyPlural} at a time.`);
 		Economy.readMoney(user.userid, money => {
 			if (money < amount) return this.errorReply(`/${cmd} - You can't transfer more ${moneyName} than you have.`);
 			if (cmd !== "confirmtransfercurrency" && cmd !== "confirmtransferbucks") {
@@ -363,7 +354,7 @@ exports.commands = {
 			return {name: name, money: Db.money.get(name).toLocaleString()};
 		});
 		if (!keys.length) return this.errorReplyBox("Money ladder is empty.");
-		keys.sort(function (a, b) { return b.money - a.money; });
+		keys.sort(function (a, b) { return toId(b.money) - toId(a.money); });
 		this.sendReplyBox(rankLadder("Richest Users", moneyPlural, keys.slice(0, target), "money") + "</div>");
 	},
 
@@ -541,4 +532,20 @@ exports.commands = {
 		/usetoken music, [link], [name] - Uses a profile music token to redeem Profile Music.
 		/usetoken roomshop, [room name] - Uses a Room Shop token to enable a Room Shop in the room.`,
 	],
+
+	purgeeconomy: function (target, room, user) {
+		if (!this.can("money")) return false;
+		let economy = Db.money.keys();
+		if (!economy) return this.errorReply(`The Economy on ${Config.serverName} appears to be empty.`);
+		for (let u of economy) {
+			let portfolio = Db.money.get(u);
+			if (portfolio <= 0) {
+				Db.money.remove(u);
+				Economy.logTransaction(`${u}'${u.endsWith("s") ? `` : `s`} ATM was removed since it had 0 ${moneyPlural}.`);
+				if (Users(u) && Users(u).connected) Users(u).popup(`|html|Your ATM was removed since you did not have any ${moneyPlural} in it.`);
+			}
+		}
+		this.sendReply(`You have purged all of the user's who don't have any ${moneyPlural} from the server database.`);
+		this.globalModlog(`PURGEECONOMY`, null, ` by ${user.name}`);
+	},
 };

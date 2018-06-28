@@ -3,7 +3,8 @@
 const RandomTeams = require("../../data/random-teams");
 
 class RandomSeasonalMeleeTeams extends RandomTeams {
-	randomSeasonalMeleeTeam() {
+	randomSeasonalMeleeTeam(side) {
+		let userid = toId(side.name);
 		let team = [];
 		let sets = {
 			//Admins
@@ -151,7 +152,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 				gender: "M",
 				shiny: true,
 				moves: ["Aura Sphere", "Sludge Wave", "Psychic"],
-				signatureMove: "Dark Storm",
+				signatureMove: "Exile",
 				evs: {
 					spa: 252,
 					spe: 252,
@@ -227,7 +228,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 		// Generate the team randomly.
 		let pool = this.shuffle(Object.keys(sets));
 		for (let i = 0; i < 6; i++) {
-			/*if (i === 1) {
+			if (i === 1) {
 				let monIds = pool.slice(0, 6).map(function (p) {
 					return toId(p);
 				});
@@ -237,7 +238,7 @@ class RandomSeasonalMeleeTeams extends RandomTeams {
 						break;
 					}
 				}
-			}*/
+			}
 			let set = sets[pool[i]];
 			set.level = 100;
 			set.name = pool[i];

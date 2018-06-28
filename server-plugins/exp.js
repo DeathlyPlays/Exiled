@@ -287,7 +287,7 @@ exports.commands = {
 			return {name: name, exp: Db.exp.get(name).toLocaleString()};
 		});
 		if (!keys.length) return this.sendReplyBox("EXP ladder is empty.");
-		keys.sort(function (a, b) { return b.exp - a.exp; });
+		keys.sort(function (a, b) { return toId(b.exp) - toId(a.exp); });
 		this.sendReplyBox(rankLadder("Exp Ladder", "EXP", keys.slice(0, target), "exp") + "</div>");
 	},
 };

@@ -396,20 +396,6 @@ exports.commands = {
 	},
 	badnboostedhelp: ["/bnb <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted."],
 
-	scalemons: "scale",
-	scale: function (target) {
-		if (!this.runBroadcast()) return;
-		if (!Dex.data.Pokedex[toId(target)]) {
-			return this.errorReply("Error: Pokemon not found.");
-		}
-		let template = Object.assign({}, Dex.getTemplate(target));
-		let newStats = Object.values(template.baseStats).map(function (stat) {
-			return (stat <= 90) ? (stat * 2) : stat;
-		});
-		this.sendReplyBox(`${Dex.data.Pokedex[toId(target)].species} in Scalemons: <br /> ${newStats.join("/")}`);
-	},
-	badnboosted2help: ["/scale <pokemon> - Shows the base stats that a Pokemon would have in Scalemons."],
-
 	"!ropmoves": true,
 	riseofpumoves: "ropmoves",
 	ropmoves: function (target) {

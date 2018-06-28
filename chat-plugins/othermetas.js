@@ -4,7 +4,7 @@
 exports.commands = {
 	'!othermetas': true,
 	om: 'othermetas',
-	othermetas: function (target, room, user) {
+	othermetas: function (target) {
 		if (!this.runBroadcast()) return;
 		target = toId(target);
 		let buffer = ``;
@@ -41,7 +41,7 @@ exports.commands = {
 
 	'!mixandmega': true,
 	mnm: 'mixandmega',
-	mixandmega: function (target, room, user) {
+	mixandmega: function (target) {
 		if (!this.runBroadcast()) return;
 		if (!toId(target) || !target.includes('@')) return this.parse('/help mixandmega');
 		let sep = target.split('@');
@@ -263,7 +263,7 @@ exports.commands = {
 
 	'!350cup': true,
 	'350': '350cup',
-	'350cup': function (target, room, user) {
+	'350cup': function (target) {
 		if (!this.runBroadcast()) return;
 		if (!toId(target)) return this.parse('/help 350cup');
 		let template = Object.assign({}, Dex.getTemplate(target));
@@ -283,7 +283,7 @@ exports.commands = {
 
 	'!tiershift': true,
 	ts: 'tiershift',
-	tiershift: function (target, room, user) {
+	tiershift: function (target) {
 		if (!this.runBroadcast()) return;
 		if (!toId(target)) return this.parse('/help tiershift');
 		let template = Object.assign({}, Dex.getTemplate(target));
@@ -311,73 +311,29 @@ exports.commands = {
 	},
 	'tiershifthelp': ["/ts OR /tiershift <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift."],
 
-	'!tiershift2': true,
-	ts2: 'tiershift2',
-	tiershift2: function (target, room, user) {
+	'!scalemons': true,
+	scale: 'scalemons',
+	scalemons: function (target) {
 		if (!this.runBroadcast()) return;
-		if (!toId(target)) return this.parse('/help tiershift2');
+		if (!toId(target)) return this.parse(`/help scalemons`);
 		let template = Object.assign({}, Dex.getTemplate(target));
-		if (!template.exists) return this.errorReply("Error: Pokemon not found.");
-		let boosts = {
-			'OU': 5,
-			'BL': 5,
-			'UU': 15,
-			'BL2': 15,
-			'RU': 30,
-			'BL3': 30,
-			'NU': 45,
-			'BL4': 45,
-			'PU': 60,
-			'NFE': 60,
-			'LC Uber': 60,
-			'LC': 60,
-		};
-		if (!(template.tier in boosts)) return this.sendReply(`|html|${Chat.getDataPokemonHTML(template)}`);
-		let boost = boosts[template.tier];
+		if (!template.exists) return this.errorReply(`Error: Pokemon ${target} not found.`);
 		let newStats = Object.assign({}, template.baseStats);
-		for (let statName in template.baseStats) {
-			newStats[statName] = Dex.clampIntRange(newStats[statName] + boost, 1, 255);
+		let stats = ['atk', 'def', 'spa', 'spd', 'spe'];
+		// @ts-ignore
+		let pst = stats.map(stat => template.baseStats[stat]).reduce((x, y) => x + y);
+		let scale = 600 - template.baseStats['hp'];
+		for (const stat of stats) {
+			// @ts-ignore
+			newStats[stat] = Dex.clampIntRange(template.baseStats[stat] * scale / pst, 1, 255);
 		}
 		template.baseStats = Object.assign({}, newStats);
 		this.sendReply(`|raw|${Chat.getDataPokemonHTML(template)}`);
 	},
-	'tiershift2help': ["/ts2 OR /tiershift2 <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift 2.0."],
-
-	'!tiershift3': true,
-	ts3: 'tiershift3',
-	tiershift3: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		if (!toId(target)) return this.parse('/help tiershift3');
-		let template = Object.assign({}, Dex.getTemplate(target));
-		if (!template.exists) return this.errorReply("Error: Pokemon not found.");
-		let boosts = {
-			'Uber': 5,
-			'OU': 20,
-			'BL': 20,
-			'UU': 25,
-			'BL2': 25,
-			'RU': 40,
-			'BL3': 40,
-			'NU': 60,
-			'BL4': 60,
-			'PU': 80,
-			'NFE': 90,
-			'LC Uber': 100,
-			'LC': 100,
-		};
-		if (!(template.tier in boosts)) return this.sendReply(`|html|${Chat.getDataPokemonHTML(template)}`);
-		let boost = boosts[template.tier];
-		let newStats = Object.assign({}, template.baseStats);
-		for (let statName in template.baseStats) {
-			newStats[statName] = Dex.clampIntRange(newStats[statName] + boost, 1, 255);
-		}
-		template.baseStats = Object.assign({}, newStats);
-		this.sendReply(`|raw|${Chat.getDataPokemonHTML(template)}`);
-	},
-	'tiershift3help': ["/ts3 OR /tiershift3 <pokemon> - Shows the base stats that a Pokemon would have in Tier Shift 3.0."],
+	scalemonshelp: [`/scale OR /scalemons <pokemon> - Shows the base stats that a Pokemon would have in Scalemons.`],
 
 	'!fuse': true,
-	fuse: function (target, room, user) {
+	fuse: function (target) {
 		if (!this.runBroadcast()) return;
 		if (!target || target === ' ' || !target.includes(',')) return this.errorReply('Error: Invalid Argument(s).');
 		let separated = target.split(",");
@@ -427,7 +383,7 @@ exports.commands = {
 	fusehelp: ["/fuse [Pokemon], [Other Pokemon] - Fuses the two Pokemon together, combining weight, typings, and abilities."],
 
 	bnb: "badnboosted",
-	badnboosted: function (target, room, user) {
+	badnboosted: function (target) {
 		if (!this.runBroadcast()) return;
 		if (!Dex.data.Pokedex[toId(target)]) {
 			return this.errorReply("Error: Pokemon not found.");
@@ -441,7 +397,7 @@ exports.commands = {
 	badnboostedhelp: ["/bnb <pokemon> - Shows the base stats that a Pokemon would have in Bad 'n Boosted."],
 
 	scalemons: "scale",
-	scale: function (target, room, user) {
+	scale: function (target) {
 		if (!this.runBroadcast()) return;
 		if (!Dex.data.Pokedex[toId(target)]) {
 			return this.errorReply("Error: Pokemon not found.");

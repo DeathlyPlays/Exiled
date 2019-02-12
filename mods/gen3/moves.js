@@ -100,6 +100,7 @@ let BattleMovedex = {
 	blizzard: {
 		inherit: true,
 		desc: "Has a 10% chance to freeze the target.",
+		shortDesc: "10% chance to freeze foe(s).",
 		onModifyMove: function () { },
 	},
 	charge: {
@@ -568,13 +569,13 @@ let BattleMovedex = {
 		inherit: true,
 		desc: "If the target lost HP, the user takes recoil damage equal to 1/3 the HP lost by the target, rounded down, but not less than 1 HP.",
 		shortDesc: "Has 1/3 recoil.",
-		secondary: false,
+		secondary: null,
 	},
 	waterfall: {
 		inherit: true,
 		desc: "No additional effect.",
 		shortDesc: "No additional effect.",
-		secondary: false,
+		secondary: null,
 	},
 	weatherball: {
 		inherit: true,

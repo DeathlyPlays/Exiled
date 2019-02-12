@@ -6,6 +6,9 @@
 
 'use strict';
 
+/** @typedef {{source: string, supportHTML: boolean}} QuestionData */
+/** @typedef {{name: string, votes: number}} Option */
+
 class Poll {
 	constructor(room, questionData, options, name) {
 		if (room.pollNumber) {
@@ -131,6 +134,9 @@ class Poll {
 		}
 	}
 
+	/**
+	 * @param {User} user
+	 */
 	updateFor(user) {
 		for (let u in this.pollArray) {
 			if (user.userid in this.pollArray[u].voters) user.sendTo(this.room, `|uhtmlchange|poll${this.pollArray[u].pollNum}|${this.generateResults(false, this.pollArray[u].voters[user.userid], u)}`);
@@ -205,7 +211,11 @@ class Poll {
 		}
 	}
 
-	onConnect(user, connection) {
+	/**
+	 * @param {User} user
+	 * @param {Connection?} [connection]
+	 */
+	onConnect(user, connection = null) {
 		this.displayTo(user, connection);
 	}
 
@@ -224,7 +234,11 @@ class Poll {
 
 exports.Poll = Poll;
 
-exports.commands = {
+/** @typedef {(this: CommandContext, target: string, room: ChatRoom, user: User, connection: Connection, cmd: string, message: string) => (void)} ChatHandler */
+/** @typedef {{[k: string]: ChatHandler | string | true | string[] | ChatCommands}} ChatCommands */
+
+/** @type {ChatCommands} */
+const commands = {
 	poll: {
 		htmlcreate: 'new',
 		create: 'new',
@@ -254,6 +268,7 @@ exports.commands = {
 			if (room.poll && room.poll.pollArray[0] && room.poll.pollArray[1] && room.poll.pollArray[2] && room.poll.pollArray[3] && room.poll.pollArray[4]) return this.errorReply("Only 5 polls at a time!");
 			if (params.length < 3) return this.errorReply("Not enough arguments for /poll new.");
 
+			// @ts-ignore In the case that any of these are null, the function is terminated, and the result never used.
 			if (supportHTML) params = params.map(parameter => this.canHTML(parameter));
 			if (params.some(parameter => !parameter)) return;
 
@@ -441,6 +456,7 @@ exports.commands = {
 		"/poll end [poll id number] - Ends a poll and displays the results. The poll id number is optional for this command and ends only the poll with the matching id number. and Requires: % @ * # & ~",
 	],
 };
+
 process.nextTick(() => {
 	Chat.multiLinePattern.register('/poll (new|create|htmlcreate) ');
 });

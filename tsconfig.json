@@ -11,8 +11,7 @@
     },
     "types": ["node"],
     "exclude": [
-        "./mods/gen1/pokedex.js",
-        "./mods/suicidecup/scripts.js"
+        "./mods/gen1/pokedex.js"
     ],
     "include": [
         "./config/formats.js",
@@ -39,9 +38,15 @@
         "./verifier.js",
         "./chat.js",
         "./users.js",
+        "./chat-plugins/hangman.js",
         "./chat-plugins/helptickets.js",
         "./chat-plugins/mafia.js",
         "./chat-plugins/mafia-data.js",
-        "./punishments.js"
+        "./chat-plugins/poll.js",
+        "./chat-plugins/room-faqs.js",
+        "./chat-plugins/thing-of-the-day.js",
+        "./chat-plugins/wifi.js",
+        "./punishments.js",
+        "./tournaments/generator-round-robin.js"
     ]
 }

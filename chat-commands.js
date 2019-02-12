@@ -167,7 +167,7 @@ const commands = {
 
 	'!avatar': true,
 	avatar: function (target, room, user) {
-		if (!target) return this.parse('/avatars');
+		if (!target) return this.parse(`${this.cmdToken}avatars`);
 		let parts = target.split(',');
 		let avatarid = toId(parts[0]);
 		let avatar = 0;
@@ -819,7 +819,7 @@ const commands = {
 		}
 
 		if (room.subRooms) {
-			for (const subRoom of room.subRooms) subRoom.parent = null;
+			for (const subRoom of room.subRooms.values()) subRoom.parent = null;
 		}
 
 		room.add(`|raw|<div class="broadcast-red"><b>This room has been deleted.</b></div>`);
@@ -1533,6 +1533,8 @@ const commands = {
 			return this.errorReply(`The reason is too long. It cannot exceed ${MAX_REASON_LENGTH} characters.`);
 		}
 		if (!this.can('ban', targetUser, room)) return false;
+		if (targetUser.can('makeroom')) return this.errorReply("You are not allowed to ban upper staff members.");
+		if (Punishments.getRoomPunishType(room, this.targetUsername) === 'BLACKLIST') return this.errorReply(`This user is already blacklisted from ${room.id}.`);
 		let name = targetUser.getLastName();
 		let userid = targetUser.getLastId();
 
@@ -3639,7 +3641,7 @@ const commands = {
 		// retrieve spectator log (0) if there are privacy concerns
 		const format = Dex.getFormat(room.format, true);
 		let hideDetails = !format.id.includes('customgame');
-		if (format.team && room.game.ended) hideDetails = false;
+		if (format.team && room.battle.ended) hideDetails = false;
 		const data = room.getLog(hideDetails ? 0 : 3);
 		const datahash = crypto.createHash('md5').update(data.replace(/[^(\x20-\x7F)]+/g, '')).digest('hex');
 		let players = room.battle.playerNames;
@@ -3653,6 +3655,7 @@ const commands = {
 			format: format.id,
 			rating: rating,
 			hidden: room.isPrivate ? '1' : '',
+			inputlog: room.battle.inputLog ? room.battle.inputLog.join('\n') : null,
 		});
 		if (success && success.errorip) {
 			connection.popup(`This server's request IP ${success.errorip} is not a registered server.`);

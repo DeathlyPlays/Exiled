@@ -495,7 +495,7 @@ exports.BattleMovedex = {
 	"cheapattack": {
 		id: "cheapattack",
 		name: "Cheap Attack",
-		basePower: 60,
+		basePower: 50,
 		desc: "No additional information.",
 		accuracy: true,
 		pp: 40,
@@ -505,7 +505,7 @@ exports.BattleMovedex = {
 		onHit: function (target, source) {
 			this.attrLastMove("[still]");
 			this.add("-anim", source, "Dazzling Gleam", target);
-			this.add("c|%Back At My Day|1st");
+			this.add("c|%Back At My Day|back");
 		},
 		flags: {
 			protect: 1,
@@ -521,21 +521,15 @@ exports.BattleMovedex = {
 		name: "Fairy Beams",
 		category: "Special",
 		pp: 10,
-		basePower: 180,
+		basePower: 50,
 		accuracy: true,
-		desc: "Reduces the user's Special Attack by two stages.",
-		shortDesc: "Lowers the user's SpA by 2.",
-		priority: 0,
+		desc: "User switches out after damaging the target.",
+		priority: 3,
 		secondary: false,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove("[still]");
-			this.add("-anim", source, "Hyper Beam", target);
-			this.add("c|%Back At My Day|do da wave");
-		},
-		self: {
-			boosts: {
-				spa: -2,
-			},
+			this.add("-anim", source, "Dazzling Gleam", target);
+			this.add("c|%Back At My Day|brb");
 		},
 		flags: {
 			contact: 1,
@@ -545,6 +539,7 @@ exports.BattleMovedex = {
 		type: "Fairy",
 		target: "normal",
 	},
+
 	// Bouns
 	"stormkick": {
 		id: "stormkick",
